@@ -1,0 +1,11 @@
+{
+  "name": "searchkit",
+  "version": "1.0.0",
+  "description": "A suite of react components to help create a UI quickly for elasticsearch ",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "",
+  "license": "ISC"
+}
