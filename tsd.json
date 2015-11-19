@@ -1,0 +1,33 @@
+{
+  "version": "v4",
+  "repo": "joemcelroy/DefinitelyTyped",
+  "ref": "master",
+  "path": "typings",
+  "bundle": "typings/tsd.d.ts",
+  "installed": {
+    "react/react.d.ts": {
+      "commit": "0d64ea1b82ad1d804892ceec14d98a9be85f64fb"
+    },
+    "typescript/typescript.d.ts": {
+      "commit": "68548c2daab053869f323d475419c693478bbb73"
+    },
+    "requirejs/require.d.ts": {
+      "commit": "70470ce4755f29bb8a55b549c6724f35269814fb"
+    },
+    "react-dom/react-dom.d.ts": {
+      "commit": "98a9440752f3f2ad7786aba1bf9bdefec818919e"
+    },
+    "react/react-global.d.ts": {
+      "commit": "0d64ea1b82ad1d804892ceec14d98a9be85f64fb"
+    },
+    "jasmine/jasmine.d.ts": {
+      "commit": "0d64ea1b82ad1d804892ceec14d98a9be85f64fb"
+    },
+    "angular-protractor/angular-protractor.d.ts": {
+      "commit": "0d64ea1b82ad1d804892ceec14d98a9be85f64fb"
+    },
+    "selenium-webdriver/selenium-webdriver.d.ts": {
+      "commit": "0d64ea1b82ad1d804892ceec14d98a9be85f64fb"
+    }
+  }
+}
