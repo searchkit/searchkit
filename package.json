@@ -8,14 +8,16 @@
     "start": "node start.js",
     "test": "karma start --single-run",
     "build": "rm -rf dist && NODE_ENV=production node ./node_modules/webpack/bin/webpack -p --config ./webpack.prod.config.js --progress --profile --colors",
-    "test-e2e":"rm -rf test/e2e/generated; tsc -p test/e2e; protractor test/e2e/config/protractor.conf.js"
+    "test-e2e": "rm -rf test/e2e/generated; tsc -p test/e2e; protractor test/e2e/config/protractor.conf.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "^6.0.3",
+    "bluebird": "^3.0.5",
     "css-loader": "^0.20.2",
     "ejs": "^2.3.4",
+    "elasticsearch": "^9.0.1",
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
@@ -24,6 +26,8 @@
     "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-webpack": "^1.7.0",
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6",
     "node-sass": "^3.3.3",
     "normalize.css": "^3.0.3",
     "null-loader": "^0.1.1",
