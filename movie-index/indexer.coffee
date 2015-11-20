@@ -6,7 +6,7 @@ _             = require "lodash"
 
 client = new elasticsearch.Client({
   # host:"localhost:9200"
-  host:"http://site:33ea8b2ed941dc6b96c1ca3434b7a9ba@eu-west-1.searchbox.io"
+  host:"https://site:5fa209ed4893e240155e4df9931f8550@kili-eu-west-1.searchly.com"
 })
 
 
