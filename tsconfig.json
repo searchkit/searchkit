@@ -9,6 +9,7 @@
     "./src/components/App/src/App.tsx",
     "./src/components/App/test/unit/AppSpec.tsx",
     "./src/index.tsx",
+    "./src/domain/ESClient.ts",
     "./typings/tsd.d.ts"
   ],
   "filesGlob": [
