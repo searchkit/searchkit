@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as axios from "axios";
 
 require("./../styles/index.scss");
 
@@ -7,6 +8,14 @@ export interface IAppProps {
 }
 
 export default class App extends React.Component<IAppProps, any> {
+
+	componentDidMount() {
+		axios.get("/test").then((response) => {
+	    console.log(response);
+	  })
+	}
+
+
 	render() {
 		return (
 			<div data-qa="test">

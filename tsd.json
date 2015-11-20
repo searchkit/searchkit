@@ -28,6 +28,12 @@
     },
     "selenium-webdriver/selenium-webdriver.d.ts": {
       "commit": "0d64ea1b82ad1d804892ceec14d98a9be85f64fb"
+    },
+    "axios/axios.d.ts": {
+      "commit": "0d64ea1b82ad1d804892ceec14d98a9be85f64fb"
+    },
+    "es6-promise/es6-promise.d.ts": {
+      "commit": "0d64ea1b82ad1d804892ceec14d98a9be85f64fb"
     }
   }
 }
