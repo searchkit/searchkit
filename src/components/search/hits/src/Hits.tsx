@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as _ from "lodash";
 
 require("./../styles/index.scss");
 
@@ -7,18 +8,25 @@ interface IHits {
 }
 
 export default class Hits extends React.Component<IHits, any> {
+	results:Array<{}>;
+
+	constructor(props:IHits) {
+		super(props);
+		this.results = [{id:"x", x:"x"}, {id:"y", x:"y"}]
+	}
+
+	renderResult(result:any) {
+		return (
+			<div className="hit" key={result.id}>
+				{JSON.stringify(result)}
+			</div>
+		)
+	}
 
 	render() {
 		return (
 			<div className="hits">
-        <div className="hits__item hit">
-          <div className="hit__title">jkhjkh</div>
-          <div className="hit__description">jkhhjhkjh</div>
-        </div>
-				<div className="hits__item hit">
-          <div className="hit__title">jkhjkh</div>
-          <div className="hit__description">jkhhjhkjh</div>
-        </div>
+				{_.map(this.results, this.renderResult)}
       </div>
 		);
 	}

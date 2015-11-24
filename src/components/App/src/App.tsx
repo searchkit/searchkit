@@ -19,7 +19,7 @@ export default class App extends React.Component<any, any> {
 	}
 
 	runSearch() {
-		this.search.search();
+		this.search.search()
 	}
 
 	render() {
