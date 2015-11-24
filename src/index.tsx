@@ -1,5 +1,5 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import App from "./components/App/src/App.tsx";
+import App from "components/app/src/App.tsx";
 
-ReactDOM.render(<App name="hgh"/>, document.getElementById('root'));
+ReactDOM.render(<App/>, document.getElementById('root'));

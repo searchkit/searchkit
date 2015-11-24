@@ -5,8 +5,8 @@ moment        = require "moment"
 _             = require "lodash"
 
 client = new elasticsearch.Client({
-  # host:"localhost:9200"
-  host:"https://site:5fa209ed4893e240155e4df9931f8550@kili-eu-west-1.searchly.com"
+  host:"localhost:9200"
+  # host:"https://site:5fa209ed4893e240155e4df9931f8550@kili-eu-west-1.searchly.com"
 })
 
 

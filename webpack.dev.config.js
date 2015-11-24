@@ -17,6 +17,11 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
+  resolve: {
+    alias:{
+      components: path.join(__dirname,"/src/components")
+    }
+  },
   module: {
     loaders: [
       {

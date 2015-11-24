@@ -1,26 +1,34 @@
 import * as React from "react";
-import * as axios from "axios";
+import SearchBox from "../../search/search-box/src/SearchBox.tsx";
+import Hits from "../../search/hits/src/Hits.tsx";
+import RefinementListFilter from "../../search/filters/refinement-list-filter/src/RefinementListFilter.tsx";
+import MenuFilter from "../../search/filters/menu-filter/src/MenuFilter.tsx";
+import HitsStats from "../../search/hits-stats/src/HitsStats.tsx";
 
 require("./../styles/index.scss");
 
-export interface IAppProps {
-	name: string;
-}
-
-export default class App extends React.Component<IAppProps, any> {
-
-	componentDidMount() {
-		axios.get("/test").then((response) => {
-	    console.log(response);
-	  })
-	}
-
+export default class App extends React.Component<any, any> {
 
 	render() {
 		return (
-			<div data-qa="test">
-				<h1>testing fvdf, {this.props.name}!</h1>
-				<div className="test">testing this backgjhkround</div>
+			<div className="layout">
+				<div className="layout--search-box">
+					<SearchBox/>
+				</div>
+
+				<div className="layout--filters">
+					<RefinementListFilter/>
+					<MenuFilter name="f"/>
+				</div>
+
+				<div className="layout--results-info">
+					<HitsStats/>
+				</div>
+
+				<div className="layout--results">
+					<Hits/>
+				</div>
+
 			</div>
 		);
 	}

@@ -6,9 +6,15 @@
     "jsx": "react"
   },
   "files": [
-    "./src/components/App/src/App.tsx",
-    "./src/components/App/test/unit/AppSpec.tsx",
+    "./src/components/app/src/App.tsx",
+    "./src/components/app/test/unit/AppSpec.tsx",
+    "./src/components/search/filters/menu-filter/src/MenuFilter.tsx",
+    "./src/components/search/filters/refinement-list-filter/src/RefinementListFilter.tsx",
+    "./src/components/search/hits-stats/src/HitsStats.tsx",
+    "./src/components/search/hits/src/Hits.tsx",
+    "./src/components/search/search-box/src/SearchBox.tsx",
     "./src/index.tsx",
+    "./src/components/utils/BEMHelper.ts",
     "./src/domain/ESClient.ts",
     "./typings/tsd.d.ts"
   ],
