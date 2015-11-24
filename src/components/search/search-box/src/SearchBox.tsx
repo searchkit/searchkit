@@ -19,9 +19,21 @@ export default class SearchBox extends React.Component<ISearchBox, any> {
 		this.onChange = this.onChange.bind(this)
 	}
 
+	getQueryObject() {
+		return {
+			"query": {
+				"simple_query_string": {
+					"query":this.state.query,
+					// "analyzer":"snowball",
+					"default_operator":"and"
+				}
+			}
+		}
+	}
+
 	onSubmit(event) {
 		event.preventDefault()
-		this.props.search.setQuery(this.state.query);
+		this.props.search.setQuery(this.getQueryObject());
 		this.props.search.search().then((results:any) => {
 			console.log(results.data.hits);
 		})

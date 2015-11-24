@@ -18,7 +18,7 @@ export default class ESClient {
 	}
 
 	search(){
-		return axios.get(this.searchUrl(), this.query)
+		return axios.post(this.searchUrl(), this.query)
 	}
 
 }
