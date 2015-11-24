@@ -10,23 +10,30 @@ require("./../styles/index.scss");
 
 export default class App extends React.Component<any, any> {
 
-	private search: ESClient;
-
+	private searcher: ESClient;
+	results:any
 	constructor(props) {
 		super(props);
-		this.search = new ESClient("http://localhost:9200", "movies")
+		this.searcher = props.searcher 
 		setTimeout(this.runSearch.bind(this), 100);
 	}
 
 	runSearch() {
-		this.search.search()
+		this.searcher.search()
+	}
+	
+	
+	hits(){		
+		if(this.searcher.results.hits) {			
+			return <Hits results={this.searcher.results.hits.hits}/>
+		} 
 	}
 
-	render() {
+	render() {		
 		return (
 			<div className="layout">
 				<div className="layout--search-box">
-					<SearchBox search={this.search}/>
+					<SearchBox searcher={this.searcher}/>
 				</div>
 
 				<div className="layout--filters">
@@ -36,7 +43,7 @@ export default class App extends React.Component<any, any> {
 				</div>
 
 				<div className="layout--results">
-					<Hits/>
+					{this.hits()}					
 				</div>
 
 			</div>

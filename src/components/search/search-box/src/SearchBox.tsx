@@ -5,7 +5,7 @@ import ESClient from "../../../../domain/ESClient.ts";
 require("./../styles/index.scss");
 
 interface ISearchBox {
-	search:ESClient
+	searcher:ESClient
 }
 
 export default class SearchBox extends React.Component<ISearchBox, any> {
@@ -21,10 +21,8 @@ export default class SearchBox extends React.Component<ISearchBox, any> {
 
 	onSubmit(event) {
 		event.preventDefault()
-		this.props.search.setQuery(this.state.query);
-		this.props.search.search().then((results:any) => {
-			console.log(results.data.hits);
-		})
+		this.props.searcher.setQuery(this.state.query);
+		this.props.searcher.search()
 	}
 
 	onChange(event) {
