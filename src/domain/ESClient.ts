@@ -1,11 +1,11 @@
 import * as axios from "axios"
+import * as _ from "lodash"
 
 export default class ESClient {
 	
 	query:any
 	
-	constructor(public host:string, public index:string){
-		
+	constructor(public host:string, public index:string){			
 	}
 	
 	searchUrl(){
