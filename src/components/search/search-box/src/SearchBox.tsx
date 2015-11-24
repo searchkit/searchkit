@@ -21,15 +21,12 @@ export default class SearchBox extends React.Component<ISearchBox, any> {
 
 	getQueryObject():Object {
 		if (this.state.query === "") {
-			return {};
+			return null;
 		} else {
 			return {
-				"query": {
-					"simple_query_string": {
-						"query":this.state.query,
-						// "analyzer":"snowball",
-						"default_operator":"and"
-					}
+				"simple_query_string": {
+					"query":this.state.query,
+					"default_operator":"and"
 				}
 			}
 		}

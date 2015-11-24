@@ -11,14 +11,43 @@ export default class ESClient {
 	constructor(public host:string, public index:string){
 		this.results = {}
 		this.resultsListener = new rx.ReplaySubject(1)
+		this.query = {
+			aggs:{}
+		}
 	}
 
 	searchUrl(){
 		return [this.host, this.index, "_search"].join("/")
 	}
 
-	setQuery(query){
-		this.query = query
+	setQuery(query:Object){
+		if (query === null) {
+			delete this.query.query;
+		} else {
+			this.query.query = query;
+		}
+	}
+
+	addFilter(name:string, value:string) {
+		if (this.query.query == null) {
+			this.query.query = {}
+		}
+		if (!_.has(this.query.query, "bool.filter")) {
+			this.query.query.bool = {
+				filter:[]
+			}
+		}
+
+		let x = {}
+		x[name] = value;
+
+		this.query.query.bool.filter.push({
+			"term": x
+		})
+	}
+
+	setAggs(name:string, aggs:Object) {
+		this.query.aggs[name] = aggs
 	}
 
 	search(){
