@@ -5,7 +5,7 @@ import ESClient from "../../../../domain/ESClient.ts";
 require("./../styles/index.scss");
 
 interface ISearchBox {
-	search:ESClient
+	searcher:ESClient
 }
 
 export default class SearchBox extends React.Component<ISearchBox, any> {
@@ -19,13 +19,17 @@ export default class SearchBox extends React.Component<ISearchBox, any> {
 		this.onChange = this.onChange.bind(this)
 	}
 
-	getQueryObject() {
-		return {
-			"query": {
-				"simple_query_string": {
-					"query":this.state.query,
-					// "analyzer":"snowball",
-					"default_operator":"and"
+	getQueryObject():Object {
+		if (this.state.query === "") {
+			return {};
+		} else {
+			return {
+				"query": {
+					"simple_query_string": {
+						"query":this.state.query,
+						// "analyzer":"snowball",
+						"default_operator":"and"
+					}
 				}
 			}
 		}
@@ -33,10 +37,8 @@ export default class SearchBox extends React.Component<ISearchBox, any> {
 
 	onSubmit(event) {
 		event.preventDefault()
-		this.props.search.setQuery(this.getQueryObject());
-		this.props.search.search().then((results:any) => {
-			console.log(results.data.hits);
-		})
+		this.props.searcher.setQuery(this.getQueryObject());
+		this.props.searcher.search()
 	}
 
 	onChange(event) {

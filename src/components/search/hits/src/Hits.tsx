@@ -4,30 +4,25 @@ import * as _ from "lodash";
 require("./../styles/index.scss");
 
 interface IHits {
-
+	results:any
 }
 
 export default class Hits extends React.Component<IHits, any> {
-	results:Array<{}>;
-
-	constructor(props:IHits) {
-		super(props);
-		this.results = [{id:"x", x:"x"}, {id:"y", x:"y"}]
-	}
 
 	renderResult(result:any) {
 		return (
-			<div className="hit" key={result.id}>
-				{JSON.stringify(result)}
+			<div className="hit" key={result._id}>
+				{result._source.title}
 			</div>
 		)
 	}
 
 	render() {
+		console.log(this.props.results)
 		return (
 			<div className="hits">
-				{_.map(this.results, this.renderResult)}
-      </div>
+				{_.map(this.props.results, this.renderResult)}
+      		</div>
 		);
 	}
 }

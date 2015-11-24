@@ -5,8 +5,12 @@ import * as rx from "rx";
 export default class ESClient {
 
 	query:any
+	results:any
+	resultsListener: rx.ReplaySubject<any>
 
 	constructor(public host:string, public index:string){
+		this.results = {}
+		this.resultsListener = new rx.ReplaySubject(1)
 	}
 
 	searchUrl(){
@@ -19,6 +23,11 @@ export default class ESClient {
 
 	search(){
 		return axios.post(this.searchUrl(), this.query)
+			.then((response)=>{
+				this.results = response.data
+				this.resultsListener.onNext(this.results)
+				return this.results
+			})
 	}
 
 }
