@@ -32,7 +32,7 @@ export default class App extends React.Component<any, any> {
 				</div>
 
 				<div className="layout__filters">
-					<RefinementListFilter searcher={this.searcher}/>
+					<RefinementListFilter searcher={this.searcher} field="genres"/>
 				</div>
 
 				<div className="layout__results-info">

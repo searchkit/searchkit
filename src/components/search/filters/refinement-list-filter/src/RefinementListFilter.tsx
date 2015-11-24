@@ -6,6 +6,7 @@ require("./../styles/index.scss");
 
 interface IRefinementListFilter {
 	searcher:ESClient;
+	field:string
 }
 
 export default class RefinementListFilter extends React.Component<IRefinementListFilter, any> {
@@ -16,13 +17,13 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 	}
 
 	setAggs() {
-		this.props.searcher.setAggs("genres", {
-			"terms":{"field":"genres"}
+		this.props.searcher.setAggs(this.props.field, {
+			"terms":{"field":this.props.field}
 		})
 	}
 
 	addFilter(option, event) {
-		this.props.searcher.addFilter("genres", option.key);
+		this.props.searcher.addFilter(this.props.field, option.key);
 		this.props.searcher.search();
 	}
 
@@ -38,8 +39,9 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 		return (
 			<div className="refinement-list-filter">
 			{(() => {
-				// if (_.has(this.props.searcher.results, "aggregations.genres.buckets")) {
-        return _.map(this.props.searcher.results.aggregations.genres.buckets, this.renderOption.bind(this))
+				if (_.has(this.props.searcher.results, "aggregations.genres.buckets")) {
+	        return _.map(this.props.searcher.results.aggregations.genres.buckets, this.renderOption.bind(this))
+				}
 			})()}
       </div>
 		);
