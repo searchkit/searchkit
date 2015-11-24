@@ -57,7 +57,7 @@ export default class SearchBox extends React.Component<ISearchBox, any> {
 						onChange={this.onChange}
 						placeholder="search"
 						className="query-input__text"/>
-          <input type="submit" className="query-input__action"/>
+          <input type="submit" value="search" className="query-input__action"/>
         </form>
       </div>
 		);

@@ -12,7 +12,8 @@ export default class Hits extends React.Component<IHits, any> {
 	renderResult(result:any) {
 		return (
 			<div className="hit" key={result._id}>
-				{result._source.title}
+				<img className="hit__poster" src={result._source.poster}/>
+				<div className="hit__title">{result._source.title}</div>
 			</div>
 		)
 	}

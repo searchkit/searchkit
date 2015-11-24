@@ -1,4 +1,9 @@
 .query-input {
+  width:400px;
+
+  form {
+    display:flex;
+  }
 
   &__icon {
 
@@ -7,10 +12,16 @@
   &__text {
     border:1px solid #000;
     padding:10px 20px;
+    width:100%;
+    flex:3;
   }
 
   &__action {
-    padding:10px 20px;
+    height:40px;
+
+    &:active {
+      background:#000;
+    }
   }
 
 }

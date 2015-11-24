@@ -14,11 +14,11 @@ export default class App extends React.Component<any, any> {
 	results:any
 	constructor(props) {
 		super(props);
-		this.searcher = props.searcher		
+		this.searcher = props.searcher
 	}
 
 
-	hits(){		
+	hits(){
 		if(this.searcher.results.hits) {
 			return <Hits results={this.searcher.results.hits.hits}/>
 		}
@@ -27,17 +27,17 @@ export default class App extends React.Component<any, any> {
 	render() {
 		return (
 			<div className="layout">
-				<div className="layout--search-box">
+				<div className="layout__search-box">
 					<SearchBox searcher={this.searcher}/>
 				</div>
 
-				<div className="layout--filters">
+				<div className="layout__filters">
 				</div>
 
-				<div className="layout--results-info">
+				<div className="layout__results-info">
 				</div>
 
-				<div className="layout--results">
+				<div className="layout__results">
 					{this.hits()}
 				</div>
 

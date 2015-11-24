@@ -1,7 +1,14 @@
 .hits {
-
+  display:flex;
+  flex-flow: row wrap;
 }
 
 .hit {
-  
+  margin-bottom:20px;
+  flex:1 0 200px;
+  padding:10px;
+
+  &__poster {
+    width:180px;
+  }
 }
