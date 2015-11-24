@@ -38,11 +38,13 @@ export default class ESClient {
 			}
 		}
 
-		let x = {}
-		x[name] = value;
+		// let x = {}
+		// x[name] = value;
 
 		this.query.query.bool.filter.push({
-			"term": x
+			"term": {
+				[name]:value
+			}
 		})
 	}
 
@@ -51,6 +53,7 @@ export default class ESClient {
 	}
 
 	search(){
+		console.log(this.query)
 		return axios.post(this.searchUrl(), this.query)
 			.then((response)=>{
 				this.results = response.data

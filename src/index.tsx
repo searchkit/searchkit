@@ -2,7 +2,8 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import App from "./components/app/src/App.tsx";
 import ESClient from "./domain/ESClient.ts"
-
+import StateAccessors from "./domain/StateAccessors"
+var update = require("react-addons-update")
 
 const searcher = new ESClient("http://localhost:9200", "movies")		
 
@@ -14,3 +15,4 @@ searcher.resultsListener.subscribe(render)
 
 searcher.search()
 render()
+console.log(update)

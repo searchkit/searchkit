@@ -1,5 +1,6 @@
 import * as _ from "lodash"
-
+var update = require("react-addons-update")
+ 
 export default class StateAcessors {
 
 	state:Object
@@ -21,7 +22,7 @@ export default class StateAcessors {
 	getData(){
 		var data = {}
 		_.forIn(this.stateAccessors, (accessor, key)=> {
-			accessor.apply(accessor, [data].concat(this.state[key]))
+			data = accessor.apply(accessor, [data].concat(this.state[key])) || data
 		});
 		return data
 	}
