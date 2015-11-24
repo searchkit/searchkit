@@ -28,7 +28,11 @@ export default class ESClient {
 		}
 	}
 
-	addFilter(name:string, value:string) {		
+	hasFilter(name:string, value:string):boolean {
+		return !!_.find(this.query.query.bool.filter, {[name]:value})
+	}
+
+	addFilter(name:string, value:string) {
 		this.query = _.defaults({
 			query:{bool:{filter:[]}}
 		}, this.query)

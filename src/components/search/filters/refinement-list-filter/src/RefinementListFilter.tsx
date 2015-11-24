@@ -22,15 +22,19 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 		})
 	}
 
-	addFilter(option, event) {
+	addFilter(option) {
 		this.props.searcher.addFilter(this.props.field, option.key);
 		this.props.searcher.search();
 	}
 
 	renderOption(option) {
+
+		let isChecked:boolean = this.props.searcher.hasFilter(this.props.field, option.key)
+
 		return (
 			<div className="option" key={option.key} ref={option.key} onClick={this.addFilter.bind(this, option)}>
-				{option.key}
+				<input type="checkbox" checked={isChecked}></input>
+				<div className="option__text">{option.key}</div>
 			</div>
 		)
 	}
