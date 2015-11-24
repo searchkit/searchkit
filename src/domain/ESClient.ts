@@ -25,6 +25,7 @@ export default class ESClient {
 		return axios.post(this.searchUrl(), this.query)
 			.then((response)=>{
 				this.results = response.data
+				console.log(this.results)
 				this.resultsListener.onNext(this.results)
 				return this.results
 			})

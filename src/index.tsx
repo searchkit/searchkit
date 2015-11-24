@@ -11,4 +11,6 @@ const render = function(){
 }
 
 searcher.resultsListener.subscribe(render)
+
+searcher.search()
 render()

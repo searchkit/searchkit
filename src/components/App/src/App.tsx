@@ -14,12 +14,7 @@ export default class App extends React.Component<any, any> {
 	results:any
 	constructor(props) {
 		super(props);
-		this.searcher = props.searcher
-		setTimeout(this.runSearch.bind(this), 100);
-	}
-
-	runSearch() {
-		this.searcher.search()
+		this.searcher = props.searcher		
 	}
 
 
