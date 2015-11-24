@@ -8,12 +8,14 @@ fdescribe("Accessors", ()=>{
   })
 
   it("test", ()=>{
-    this.stateAccessors.registerAccessor("q", (data, state)=>{
+    this.stateAccessors.registerAccessor("q", (key, data, state)=>{      
       data.query = {
         query:state
       }
+      
+      return data
     })
-    this.stateAccessors.registerAccessor("f", (data, a1, a2)=>{
+    this.stateAccessors.registerAccessor("f", (key, data, a1, a2)=>{
       data.facets = {
         f1:a1,
         f2:a2
@@ -31,15 +33,17 @@ fdescribe("Accessors", ()=>{
 
 
   it("test", ()=>{    
-    this.stateAccessors.registerAccessor("f_genres", (data, state)=>{
-      data.filters = data.filters || []
-      return update(data, {
-        filters:{
-          $push:[{term:{
-            [data]:state  
-          }}]
-        }
-      })  
+    var FILTER = /^f_(\w+)$/
+    this.stateAccessors.registerAccessor(FILTER, (key, data, state)=>{
+      var term = FILTER.exec(key)[1]
+      data = _.defaults(data, {
+        query:{query:{bool:{filters:[]}}}
+      })
+      data.query.query.bool.filters.push({
+        term:{[term]:state}
+      })
+      return data
+      
     })
     // this.stateAccessors.registerAccessor("f_actors", (data, a1, a2)=>{
     //   data.facets = {
@@ -48,7 +52,8 @@ fdescribe("Accessors", ()=>{
     //   }
     // })
     this.stateAccessors.setState("f_genres", "bar")
-    console.log(this.stateAccessors.getData())
+    this.stateAccessors.setState("f_color", "red")
+    console.log(JSON.stringify(this.stateAccessors.getData(), null, 2))
   
   })
 
