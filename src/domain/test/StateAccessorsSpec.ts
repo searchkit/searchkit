@@ -39,8 +39,7 @@ fdescribe("Accessors", ()=>{
             [data]:state  
           }}]
         }
-      })
-      
+      })  
     })
     // this.stateAccessors.registerAccessor("f_actors", (data, a1, a2)=>{
     //   data.facets = {

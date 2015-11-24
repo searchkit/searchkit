@@ -28,18 +28,10 @@ export default class ESClient {
 		}
 	}
 
-	addFilter(name:string, value:string) {
-		if (this.query.query == null) {
-			this.query.query = {}
-		}
-		if (!_.has(this.query.query, "bool.filter")) {
-			this.query.query.bool = {
-				filter:[]
-			}
-		}
-
-		// let x = {}
-		// x[name] = value;
+	addFilter(name:string, value:string) {		
+		this.query = _.defaults({
+			query:{bool:{filter:[]}}
+		}, this.query)
 
 		this.query.query.bool.filter.push({
 			"term": {
