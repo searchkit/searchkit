@@ -25,12 +25,9 @@ export default class App extends React.Component<any, any> {
 				</div>
 
 				<div className="layout--filters">
-					<RefinementListFilter/>
-					<MenuFilter name="f"/>
 				</div>
 
 				<div className="layout--results-info">
-					<HitsStats/>
 				</div>
 
 				<div className="layout--results">
