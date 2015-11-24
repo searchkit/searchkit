@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "html-webpack-plugin": "^1.6.2",
+    "webpack-config": "^2.3.0",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-dev-server": "^1.12.1",
     "webpack-hot-middleware": "^2.5.0",

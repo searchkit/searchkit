@@ -32,18 +32,20 @@ fdescribe("Accessors", ()=>{
   })
 
 
-  it("test", ()=>{    
-    var FILTER = /^f_(\w+)$/
-    this.stateAccessors.registerAccessor(FILTER, (key, data, state)=>{
-      var term = FILTER.exec(key)[1]
+  it("test", ()=>{        
+    this.stateAccessors.registerAccessor(/^f_(\w+)$/, (key, data, state)=>{      
       data = _.defaults(data, {
-        query:{query:{bool:{filters:[]}}}
+        query:{bool:{filters:[]}}
       })
-      data.query.query.bool.filters.push({
-        term:{[term]:state}
+      data.query.bool.filters.push({
+        term:{[key]:state}
       })
-      return data
-      
+      return data      
+    })
+    
+    this.stateAccessors.registerAccessor("foo", (key, data, state)=>{
+      data.bar = state
+      return data 
     })
     // this.stateAccessors.registerAccessor("f_actors", (data, a1, a2)=>{
     //   data.facets = {
@@ -52,9 +54,10 @@ fdescribe("Accessors", ()=>{
     //   }
     // })
     this.stateAccessors.setState("f_genres", "bar")
-    this.stateAccessors.setState("f_color", "red")
+    this.stateAccessors.setState("f_color", "red")    
+    console.log(this.stateAccessors.toQueryString())  
+    this.stateAccessors.fromQueryString("f_author=cameron&f_type=action&foo=weee")
     console.log(JSON.stringify(this.stateAccessors.getData(), null, 2))
-  
   })
 
 
