@@ -16,6 +16,8 @@
     "./src/index.tsx",
     "./src/components/utils/BEMHelper.ts",
     "./src/domain/ESClient.ts",
+    "./src/domain/StateAccessors.ts",
+    "./src/domain/test/StateAccessorsSpec.ts",
     "./typings/tsd.d.ts"
   ],
   "filesGlob": [
