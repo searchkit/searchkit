@@ -15,6 +15,11 @@ export default class App extends React.Component<any, any> {
 	constructor(props) {
 		super(props);
 		this.search = new ESClient("http://localhost:9200", "movies")
+		setTimeout(this.runSearch.bind(this), 100);
+	}
+
+	runSearch() {
+		this.search.search();
 	}
 
 	render() {
