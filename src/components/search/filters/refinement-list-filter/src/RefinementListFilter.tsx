@@ -38,11 +38,14 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 	render() {
 		return (
 			<div className="refinement-list-filter">
+				<div className="refinement-list-filter__header">{this.props.field}</div>
+				<div className="refinement-list-filter__options">
 			{(() => {
-				if (_.has(this.props.searcher.results, "aggregations.genres.buckets")) {
-	        return _.map(this.props.searcher.results.aggregations.genres.buckets, this.renderOption.bind(this))
+				if (_.has(this.props.searcher.results, `aggregations.${this.props.field}.buckets`)) {
+	        return _.map(this.props.searcher.results.aggregations[this.props.field].buckets, this.renderOption.bind(this))
 				}
 			})()}
+				</div>
       </div>
 		);
 	}
