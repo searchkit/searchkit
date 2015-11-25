@@ -8,11 +8,13 @@ require("./../styles/index.scss");
 interface IRefinementListFilter {
 	searcher:ESClient;
 	field:string
+	operator?:string
 }
 
 export default class RefinementListFilter extends React.Component<IRefinementListFilter, any> {
 
 	constructor(props:IRefinementListFilter) {
+		if (props.operator == null) props.operator = "AND";
 		super(props)
 		this.setAggs();
 	}
