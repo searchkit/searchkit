@@ -18,7 +18,7 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 	accessor:StateAccessorRef
 
 	constructor(props:IRefinementListFilter) {
-		super(props)		
+		super(props)
 		this.setAggs();
 		let accessorMethod = props.operator == "OR" ? ElasticAccessors.facetOrFilter : ElasticAccessors.facetFilter;
 		this.accessor = this.props.searcher.accessors.registerAccessor(
@@ -52,7 +52,7 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 		})
 
 		return (
-			<div className="option" key={option.key} ref={option.key} onClick={this.addFilter.bind(this, option)}>
+			<div className="option" key={option.key} onClick={this.addFilter.bind(this, option)}>
 				<div className={className}></div>
 				<div className="option__text">{option.key}</div>
 				<div className="option__count">{option.doc_count}</div>

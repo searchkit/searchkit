@@ -46,7 +46,7 @@ export default class ESClient {
 	}
 
 	hasFilter(name:string, value:string):boolean {
-		if (_.has(this.query, "query.bool.filter")) {
+		if (_.has(this.query, "filter.bool.filter")) {
 			return !!_.find(this.query.filter.bool.filter, this.filterMatch.bind(this, name, value))
 		} else {
 			return false;

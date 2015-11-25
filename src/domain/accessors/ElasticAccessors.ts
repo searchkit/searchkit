@@ -7,7 +7,7 @@ export default class ElasticAccessors {
 		if(!filters){
 			return data
 		}
-		data = _.defaultsDeep(data, {
+		_.defaultsDeep(data, {
 			filter:{bool:{must:[]}}
 		})
 		_.each(filters, (f)=> {
@@ -22,7 +22,7 @@ export default class ElasticAccessors {
 		if(!filters){
 			return data
 		}
-		data = _.defaultsDeep(data, {
+		_.defaultsDeep(data, {
 			filter:{bool:{should:[]}}
 		})
 		_.each(filters, (f)=> {
