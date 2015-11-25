@@ -10,7 +10,8 @@ export default class ESClient {
 	results:any
 	resultsListener: rx.ReplaySubject<any>
   accessors:StateAccessors
-
+	private registrationCompleted:Promise<any>
+	completeRegistration:Function
 	constructor(public host:string, public index:string){
 		this.results = {}
 		this.resultsListener = new rx.ReplaySubject(1)  
@@ -19,6 +20,9 @@ export default class ESClient {
 		this.query = {
 			aggs:{}
 		}
+		this.registrationCompleted = new Promise((resolve)=>{
+			this.completeRegistration = resolve
+		})
 	}
 
   setStateQuery(stateQuery){
@@ -75,15 +79,18 @@ export default class ESClient {
 		return _.extend({}, this.query, this.accessors.getData())
 	}
 	search(){
-		const query = this.getQuery()
-		console.log(query)
-		return axios.post(this.searchUrl(), query)
-			.then((response)=>{
-				this.results = response.data
-				console.log(this.results)
-				this.resultsListener.onNext(this.results)
-				return this.results
-			})
+		this.registrationCompleted.then(()=> {
+			const query = this.getQuery()
+			console.log(query)
+			return axios.post(this.searchUrl(), query)
+				.then((response)=>{
+					this.results = response.data
+					console.log(this.results)
+					this.resultsListener.onNext(this.results)
+					return this.results
+				})	
+		})
+		
 	}
 
 }

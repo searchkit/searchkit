@@ -17,13 +17,16 @@ export default class App extends React.Component<any, any> {
 	constructor(props) {
 		super(props);
 		console.log(props)
-		this.searcher = props.searcher
-		this.searcher.search()
+		this.searcher = props.searcher		
 	}
 	componentWillMount(){
 		this.searcherUnsubscribe = this.searcher.resultsListener.subscribe(
 			()=> this.forceUpdate()
 		)
+	}
+	componentDidMount(){
+		console.log("mounted")
+		this.searcher.completeRegistration()
 	}
 
 	componentWillUnmount(){
