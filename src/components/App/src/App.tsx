@@ -17,7 +17,7 @@ export default class App extends React.Component<any, any> {
 	constructor(props) {
 		super(props);
 		console.log(props)
-		this.searcher = props.searcher		
+		this.searcher = props.searcher
 	}
 	componentWillMount(){
 		this.searcherUnsubscribe = this.searcher.resultsListener.subscribe(
@@ -48,11 +48,12 @@ export default class App extends React.Component<any, any> {
 				</div>
 
 				<div className="layout__filters">
-					<RefinementListFilter searcher={this.searcher} field="genres"/>
+					<RefinementListFilter searcher={this.searcher} field="genres" operator="OR"/>
 					<RefinementListFilter searcher={this.searcher} field="actors"/>
 				</div>
 
 				<div className="layout__results-info">
+					<HitsStats searcher={this.searcher}/>
 				</div>
 
 				<div className="layout__results">

@@ -18,10 +18,19 @@
     padding:20px;
   }
 
+  &__results-info {
+    position:absolute;
+    top:100px;
+    height:50px;
+    left:200px;
+    padding:20px;
+  }
+
+
   &__results {
     position:absolute;
     left:200px;
-    top:100px;
+    top:150px;
     bottom:0;
   }
 }
