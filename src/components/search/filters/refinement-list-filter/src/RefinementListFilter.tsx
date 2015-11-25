@@ -11,6 +11,7 @@ interface IRefinementListFilter {
 	searcher:ESClient;
 	field:string
 	operator?:string
+	size?:string
 }
 
 export default class RefinementListFilter extends React.Component<IRefinementListFilter, any> {
@@ -33,7 +34,8 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 				"aggs":{
 					[this.props.field]:{
 						"terms":{
-							"field":this.props.field
+							"field":this.props.field,
+							size:this.props.size || 50
 						}
 					}
 				}
