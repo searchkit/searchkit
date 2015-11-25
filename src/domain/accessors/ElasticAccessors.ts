@@ -1,14 +1,14 @@
 import * as _ from "lodash"
 
-export class ElasticAccessors {
+export default class ElasticAccessors {
 
 
 	static facetFilter(key, data, ...filters){
 		data = _.defaults(data, {
-			query:{bool:{filters:[]}}
+			query:{bool:{filter:[]}}
 		})
 		_.each(filters, (f)=> {
-			data.query.bool.filters.push({
+			data.query.bool.filter.push({
 				term:{[key]:f}
 			})
 		})

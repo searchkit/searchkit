@@ -1,6 +1,7 @@
 import * as _ from "lodash"
 var update = require("react-addons-update")
 var querystring = require("querystring")
+import history from "./history.ts"
 
 export default class StateAcessors {
 
@@ -20,7 +21,11 @@ export default class StateAcessors {
 		})
 
 	}
-
+	
+	overwriteState(state){
+		this.state = state
+	}
+	
 	setState(key, ...args){
 		this.state[key] = args
 	}
@@ -68,6 +73,10 @@ export default class StateAcessors {
 		return querystring.stringify(this.state)
 	}
 
+	updateHistory(){
+		history.pushState(null, "/", this.state)
+	}
+	
 	fromQueryString(str){
 		this.state = querystring.parse(str)
 	}

@@ -1,20 +1,29 @@
 import * as axios from "axios"
 import * as _ from "lodash"
 import * as rx from "rx";
+import StateAccessors from "./StateAccessors.ts"
+import ElasticAccessors from "./accessors/ElasticAccessors.ts"
 
 export default class ESClient {
 
 	query:any
 	results:any
 	resultsListener: rx.ReplaySubject<any>
+  accessors:StateAccessors
 
 	constructor(public host:string, public index:string){
 		this.results = {}
-		this.resultsListener = new rx.ReplaySubject(1)
+		this.resultsListener = new rx.ReplaySubject(1)  
+    this.accessors = new StateAccessors()
+		this.accessors.registerAccessor(/^f_(\w+)$/, ElasticAccessors.facetFilter)
 		this.query = {
 			aggs:{}
 		}
 	}
+
+  setStateQuery(stateQuery){
+    this.accessors.overwriteState(stateQuery)
+  }
 
 	searchUrl(){
 		return [this.host, this.index, "_search"].join("/")
@@ -61,10 +70,14 @@ export default class ESClient {
 	setAggs(name:string, aggs:Object) {
 		this.query.aggs[name] = aggs
 	}
-
+	
+	getQuery(){
+		return _.extend({}, this.query, this.accessors.getData())
+	}
 	search(){
-		console.log(this.query)
-		return axios.post(this.searchUrl(), this.query)
+		const query = this.getQuery()
+		console.log(query)
+		return axios.post(this.searchUrl(), query)
 			.then((response)=>{
 				this.results = response.data
 				console.log(this.results)

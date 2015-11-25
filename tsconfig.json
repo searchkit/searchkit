@@ -17,6 +17,7 @@
     "./src/components/utils/BEMHelper.ts",
     "./src/domain/accessors/ElasticAccessors.ts",
     "./src/domain/ESClient.ts",
+    "./src/domain/history.ts",
     "./src/domain/StateAccessors.ts",
     "./src/domain/test/StateAccessorsSpec.ts",
     "./typings/tsd.d.ts"

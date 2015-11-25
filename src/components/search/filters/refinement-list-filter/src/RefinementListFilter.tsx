@@ -1,5 +1,6 @@
 import * as React from "react";
 import ESClient from "../../../../../domain/ESClient.ts";
+import ElasticAccessors from "../../../../../domain/accessors/ElasticAccessors.ts"
 import * as _ from "lodash";
 import * as classNames from 'classnames';
 
@@ -26,15 +27,19 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 	}
 
 	addFilter(option) {
-		this.props.searcher.toggleFilter(this.props.field, option.key);
-		this.props.searcher.search();
+		// this.props.searcher.toggleFilter(this.props.field, option.key);
+		// this.props.searcher.search();
+		this.props.searcher.accessors.toggleState(
+			"f_" + this.props.field,
+			option.key
+		)
+		this.props.searcher.accessors.updateHistory()
 	}
 
-	renderOption(option) {
-
+	renderOption(option) {		
 		let className = classNames({
 			"option__checkbox":true,
-			"option__checkbox--checked":this.props.searcher.hasFilter(this.props.field, option.key)
+			"option__checkbox--checked":this.props.searcher.accessors.inState("f_" + this.props.field, option.key)
 		})
 
 		return (

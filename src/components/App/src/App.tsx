@@ -13,18 +13,19 @@ export default class App extends React.Component<any, any> {
 	private searcher: ESClient;
 	results:any
 	searcherUnsubscribe:Rx.IDisposable
-	
+
 	constructor(props) {
-		super(props);		
-		this.searcher = new ESClient("http://localhost:9200", "movies")		
+		super(props);
+		console.log(props)
+		this.searcher = props.searcher
 		this.searcher.search()
 	}
 	componentWillMount(){
 		this.searcherUnsubscribe = this.searcher.resultsListener.subscribe(
 			()=> this.forceUpdate()
-		)		
+		)
 	}
-	
+
 	componentWillUnmount(){
 		this.searcherUnsubscribe.dispose()
 	}
