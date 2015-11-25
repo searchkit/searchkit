@@ -19,7 +19,6 @@ export default class Hits extends React.Component<IHits, any> {
 	}
 
 	render() {
-		console.log(this.props.results)
 		return (
 			<div className="hits">
 				{_.map(this.props.results, this.renderResult)}

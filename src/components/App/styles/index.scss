@@ -1,36 +1,57 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,600);
+@import "~normalize.css/normalize.css";
+
+html {
+  font-family:"Open Sans";
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 .layout {
 
   &__search-box {
     position:absolute;
     top:0;
-    left:0;
+    left:230px;
     right:0;
-    height:100px;
-    padding:20px;
+    padding:10px;
+    border-bottom:1px solid darken(#fafafa, 10);
   }
 
   &__filters {
     position:absolute;
-    top:100px;
+    top:0px;
     left:0;
     bottom:0;
-    width:200px;
-    padding:20px;
+    width:230px;
+    padding:20px 20px 0 20px;
+    background:#fafafa;
+    border-right:1px solid darken(#fafafa,10);
   }
 
   &__results-info {
     position:absolute;
-    top:100px;
-    height:50px;
-    left:200px;
-    padding:20px;
+    top:60px;
+    height:60px;
+    left:230px;
+    right:0;
+    line-height:60px;
+    padding:0 20px;
   }
 
 
   &__results {
     position:absolute;
-    left:200px;
-    top:150px;
+    left:230px;
+    top:110px;
     bottom:0;
+    padding:0 20px;
   }
+}
+
+.layout__filters__heading {
+  margin-bottom:30px;
+  margin-top:10px;
 }

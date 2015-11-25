@@ -48,8 +48,9 @@ export default class App extends React.Component<any, any> {
 				</div>
 
 				<div className="layout__filters">
-					<RefinementListFilter searcher={this.searcher} field="genres.raw" operator="OR"/>
-					<RefinementListFilter searcher={this.searcher} field="actors.raw"/>
+					<div className="layout__filters__heading">Refine Results By</div>
+					<RefinementListFilter title="Genres" searcher={this.searcher} field="genres.raw" operator="OR"/>
+					<RefinementListFilter title="Actors" searcher={this.searcher} field="actors.raw" operator="OR"/>
 				</div>
 
 				<div className="layout__results-info">

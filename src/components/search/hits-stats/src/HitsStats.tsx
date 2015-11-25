@@ -17,7 +17,7 @@ export default class HitsStats extends React.Component<IHitsStats, any> {
 	render() {
 		return (
 			<div className="hits-stats">
-				{this.getHitCount()} results
+				<div className="hits-stats__info">{this.getHitCount()} results found</div>
       </div>
 		);
 	}

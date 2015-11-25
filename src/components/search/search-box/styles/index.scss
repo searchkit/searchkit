@@ -3,21 +3,36 @@
 
   form {
     display:flex;
+    margin:0;
+    position:relative;
   }
 
   &__icon {
-
+    position:absolute;
+    height:20px;
+    width:20px;
+    background:url(../images/search.svg) no-repeat top left;
+    background-size: contain;
+    top:10px;
+    left:10px;
+    opacity:0.3;
   }
 
   &__text {
-    border:1px solid #000;
     padding:10px 20px;
     width:100%;
     flex:3;
+    margin-left:20px;
+    font-size:18px;
+    border:none;
+    &:focus {
+      outline:0;
+    }
   }
 
   &__action {
     height:40px;
+    visibility: hidden;
 
     &:active {
       background:#000;

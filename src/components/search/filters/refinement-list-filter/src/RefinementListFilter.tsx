@@ -12,6 +12,7 @@ interface IRefinementListFilter {
 	field:string
 	operator?:string
 	size?:string
+	title:string
 }
 
 export default class RefinementListFilter extends React.Component<IRefinementListFilter, any> {
@@ -46,14 +47,19 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 	}
 
 	renderOption(option) {
-		let className = classNames({
+		let checkedClassName = classNames({
 			"option__checkbox":true,
 			"option__checkbox--checked":this.accessor.contains(option.key)
 		})
 
+		let optionClassName = classNames({
+			"option":true,
+			"option--checked":this.accessor.contains(option.key)
+		})
+
 		return (
-			<div className="option" key={option.key} onClick={this.addFilter.bind(this, option)}>
-				<div className={className}></div>
+			<div className={optionClassName} key={option.key} onClick={this.addFilter.bind(this, option)}>
+				<div className={checkedClassName}></div>
 				<div className="option__text">{option.key}</div>
 				<div className="option__count">{option.doc_count}</div>
 			</div>
@@ -63,7 +69,7 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 	render() {
 		return (
 			<div className="refinement-list-filter">
-				<div className="refinement-list-filter__header">{this.props.field}</div>
+				<div className="refinement-list-filter__header">{this.props.title}</div>
 				<div className="refinement-list-filter__options">
 			{(() => {
 				if (_.has(this.props.searcher.results, ['aggregations',this.props.field,this.props.field,'buckets']) ) {
