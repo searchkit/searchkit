@@ -50,6 +50,7 @@ export default class SearchBox extends React.Component<ISearchBox, any> {
 		// this.props.searcher.setQuery(this.getQueryObject());
 		// this.props.searcher.search()
 		event.preventDefault()
+		this.accessor.clearAll()
 		this.accessor.set(this.refs["queryField"]["value"])
 	}
 
