@@ -1,3 +1,10 @@
 import { createHistory, useQueries } from 'history'
-
-export default useQueries(createHistory)()
+const qs = require('qs')
+export default useQueries(createHistory)({
+  parseQueryString: function (queryString) {
+    return qs.parse(queryString, {allowDots:false})
+  },
+  stringifyQuery: function (query) {
+    return qs.stringify(query)
+  }
+})
