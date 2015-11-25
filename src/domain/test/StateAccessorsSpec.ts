@@ -22,7 +22,8 @@ fdescribe("Accessors", ()=>{
       }
     })
     this.stateAccessors.setState("q", "terminator")
-    this.stateAccessors.setState("f", "foo", "bar")
+    this.stateAccessors.setState("f", "foo", "bar")    
+    this.stateAccessors.fromQueryString(this.stateAccessors.toQueryString())
     expect(this.stateAccessors.getData()).toEqual({
       query:{
         query:"terminator"
@@ -33,13 +34,16 @@ fdescribe("Accessors", ()=>{
 
 
   it("test", ()=>{        
-    this.stateAccessors.registerAccessor(/^f_(\w+)$/, (key, data, state)=>{      
+    this.stateAccessors.registerAccessor(/^f_(\w+)$/, (key, data, ...filters)=>{      
       data = _.defaults(data, {
         query:{bool:{filters:[]}}
       })
-      data.query.bool.filters.push({
-        term:{[key]:state}
+      _.each(filters, (f)=> {
+        data.query.bool.filters.push({
+          term:{[key]:f}
+        })  
       })
+      
       return data      
     })
     
@@ -56,8 +60,15 @@ fdescribe("Accessors", ()=>{
     this.stateAccessors.setState("f_genres", "bar")
     this.stateAccessors.setState("f_color", "red")    
     console.log(this.stateAccessors.toQueryString())  
-    this.stateAccessors.fromQueryString("f_author=cameron&f_type=action&foo=weee")
-    console.log(JSON.stringify(this.stateAccessors.getData(), null, 2))
+    this.stateAccessors.fromQueryString("f_author=cameron&f_type=action&f_type=scifi&foo=weee")
+    console.log(this.stateAccessors.toQueryString())
+    this.stateAccessors.removeFromState("f_type", "scifi")
+    console.log(this.stateAccessors.toQueryString())
+    this.stateAccessors.addToState("f_type", "musical")
+    this.stateAccessors.addToState("f_type", "musical")
+    console.log(this.stateAccessors.toQueryString())
+    console.log(this.stateAccessors.inState("f_type", "musical"))
+    console.log(this.stateAccessors.inState("f_type", "documentary"))
   })
 
 

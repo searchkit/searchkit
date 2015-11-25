@@ -21,9 +21,21 @@ export default class StateAcessors {
 
 	}
 	
-
 	setState(key, ...args){
 		this.state[key] = args
+	}
+	
+	removeFromState(key, val){
+		if(this.state[key]){
+			this.state[key] = _.without(this.state[key], val)
+		}
+	}
+	inState(key, val){
+		return this.state[key] && _.contains(this.state[key], val)
+	}
+	addToState(key, val){
+		this.state[key] = this.state[key] || []
+		this.state[key] = _.uniq(this.state[key].concat([val]))
 	}
 	
 	findAccessor(key){
