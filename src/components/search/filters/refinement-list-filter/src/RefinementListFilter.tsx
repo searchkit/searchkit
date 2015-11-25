@@ -3,6 +3,7 @@ import ESClient from "../../../../../domain/ESClient.ts";
 import ElasticAccessors from "../../../../../domain/accessors/ElasticAccessors.ts"
 import * as _ from "lodash";
 import * as classNames from 'classnames';
+import {StateAccessorRef} from "../../../../../domain/StateAccessors.ts"
 
 require("./../styles/index.scss");
 
@@ -13,11 +14,16 @@ interface IRefinementListFilter {
 }
 
 export default class RefinementListFilter extends React.Component<IRefinementListFilter, any> {
-
+	accessor:StateAccessorRef
+	
 	constructor(props:IRefinementListFilter) {
 		if (props.operator == null) props.operator = "AND";
 		super(props)
 		this.setAggs();
+		// this.accessor = this.props.searcher.accessors.registerAccessor(
+		// 	this.props.field,
+		// 	ElasticAccessors.facetFilter
+		// )
 	}
 
 	setAggs() {

@@ -3,6 +3,14 @@ var update = require("react-addons-update")
 var querystring = require("querystring")
 import history from "./history.ts"
 
+export interface StateAccessorRef {
+	set(val:string)
+	add(val:string)
+	remove(val:string)
+	toggle(val:string)
+	clear(val:string)
+}
+
 export default class StateAcessors {
 
 	state:Object
@@ -13,13 +21,28 @@ export default class StateAcessors {
 		this.stateMatchers = []
 	}
 
-	registerAccessor(key:string | RegExp, accessor:Function){
+	registerAccessor(key:string | RegExp, accessor:Function):StateAccessorRef{
 		this.stateMatchers.push({
 			test:(str)=> key["test"] ? key["test"](str) : key === str,
 			getKey:(str)=> key["exec"] ? _.last(key["exec"](str)) : key,
 			run:accessor
 		})
 
+		return {
+			set:this.setState.bind(this, key),
+			add:this.addToState.bind(this, key),
+			remove:this.removeFromState.bind(this,key),
+			toggle:this.toggleState.bind(this,key),
+			clear:this.clearState.bind(this, key)
+		}
+	}
+	
+	clearAll(){
+		this.state = {}
+	}
+	
+	clearState(key){
+		delete this.state[key]
 	}
 	
 	overwriteState(state){
