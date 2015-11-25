@@ -15,8 +15,7 @@ export default class ESClient {
 	constructor(public host:string, public index:string){
 		this.results = {}
 		this.resultsListener = new rx.ReplaySubject(1)  
-    this.accessors = new StateAccessors()
-		this.accessors.registerAccessor(/^f_(\w+)$/, ElasticAccessors.facetFilter)
+    this.accessors = new StateAccessors()		
 		this.query = {
 			aggs:{}
 		}

@@ -15,20 +15,15 @@ export interface StateAccessorRef {
 export default class StateAcessors {
 
 	state:Object
-	stateMatchers:Array<any>
+	stateAccessors:Object
 
 	constructor(){
 		this.state = {}
-		this.stateMatchers = []
+		this.stateAccessors = {}
 	}
 
-	registerAccessor(key:string | RegExp, accessor:Function):StateAccessorRef{
-		this.stateMatchers.push({
-			test:(str)=> key["test"] ? key["test"](str) : key === str,
-			getKey:(str)=> key["exec"] ? _.last(key["exec"](str)) : key,
-			run:accessor
-		})
-
+	registerAccessor(key:string, accessor:Function):StateAccessorRef{
+		this.stateAccessors[key] = accessor			
 		return {
 			set:this.setState.bind(this, key),
 			add:this.addToState.bind(this, key),
@@ -78,21 +73,11 @@ export default class StateAcessors {
 		this.updateHistory()
 	}
 
-	findAccessor(key){
-		return _.find(
-			this.stateMatchers,
-			(matcher)=> matcher.test(key)
-		)
-	}
-
 	getData(){
 		var data = {}
-		_.forIn(this.state, (value, key)=> {
-			var accessor = this.findAccessor(key)
-			if(accessor) {
-				var formattedKey = accessor.getKey(key)
-				data = accessor.run.apply(accessor, [formattedKey, data].concat(this.state[key])) || data
-			}
+		_.forIn(this.stateAccessors, (accessor, key)=> {
+			var stateArgs = this.state[key]
+			data = accessor.apply(accessor, [key, data].concat(stateArgs || [])) || data			
 		});
 		return data
 	}
