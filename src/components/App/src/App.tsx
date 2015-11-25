@@ -5,16 +5,28 @@ import RefinementListFilter from "../../search/filters/refinement-list-filter/sr
 import MenuFilter from "../../search/filters/menu-filter/src/MenuFilter.tsx";
 import HitsStats from "../../search/hits-stats/src/HitsStats.tsx";
 import ESClient from "../../../domain/ESClient.ts";
-
+import * as Rx from "rx"
 require("./../styles/index.scss");
 
 export default class App extends React.Component<any, any> {
 
 	private searcher: ESClient;
 	results:any
+	searcherUnsubscribe:Rx.IDisposable
+	
 	constructor(props) {
-		super(props);
-		this.searcher = props.searcher
+		super(props);		
+		this.searcher = new ESClient("http://localhost:9200", "movies")		
+		this.searcher.search()
+	}
+	componentWillMount(){
+		this.searcherUnsubscribe = this.searcher.resultsListener.subscribe(
+			()=> this.forceUpdate()
+		)		
+	}
+	
+	componentWillUnmount(){
+		this.searcherUnsubscribe.dispose()
 	}
 
 
