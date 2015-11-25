@@ -18,10 +18,9 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 	accessor:StateAccessorRef
 
 	constructor(props:IRefinementListFilter) {
-		if (props.operator == null) props.operator = "AND";
-		super(props)
+		super(props)		
 		this.setAggs();
-		let accessorMethod = props.operator == "AND" ? ElasticAccessors.facetFilter : ElasticAccessors.facetOrFilter;
+		let accessorMethod = props.operator == "OR" ? ElasticAccessors.facetOrFilter : ElasticAccessors.facetFilter;
 		this.accessor = this.props.searcher.accessors.registerAccessor(
 			this.props.field,
 			accessorMethod
