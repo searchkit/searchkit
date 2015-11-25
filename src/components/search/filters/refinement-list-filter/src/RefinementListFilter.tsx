@@ -29,7 +29,7 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 
 	setAggs() {
 		this.props.searcher.setAggs(this.props.field, {
-				"filter": {"match_all": {}},
+				"filter": this.props.searcher.getFilters(this.props.field),
 				"aggs":{
 					[this.props.field]:{
 						"terms":{

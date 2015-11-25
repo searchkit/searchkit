@@ -53,6 +53,23 @@ export default class ESClient {
 		}
 	}
 
+	getFilters(excludeFilterName:string=""):any {
+		let filters:any = this.accessors.getData()
+
+		if (!_.has(filters, "filter.bool")) {
+			return {}
+		}
+
+		let excludeFilterNameFn = (terms) => {
+			return _.filter(terms, (term:any) => {
+				return !_.findKey(term.term, excludeFilterName);
+			})
+		}
+		filters.filter.bool.must = excludeFilterNameFn(filters.filter.bool.must);
+		filters.filter.bool.should = excludeFilterNameFn(filters.filter.bool.should);
+		return filters.filter;
+	}
+
 	toggleFilter(name:string, value:string):void {
 		_.defaultsDeep(this.query, {
 			filter:{bool:{filter:[]}}
@@ -78,6 +95,7 @@ export default class ESClient {
 	getQuery(){
 		return _.extend({}, this.query, this.accessors.getData())
 	}
+
 	search(){
 		this.registrationCompleted.then(()=> {
 			const query = this.getQuery()
