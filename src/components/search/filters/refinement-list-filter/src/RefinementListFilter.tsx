@@ -39,7 +39,6 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 			"f_" + this.props.field,
 			option.key
 		)
-		this.props.searcher.accessors.updateHistory()
 	}
 
 	renderOption(option) {		

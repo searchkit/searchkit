@@ -4,11 +4,12 @@ var querystring = require("querystring")
 import history from "./history.ts"
 
 export interface StateAccessorRef {
-	set(val:string)
-	add(val:string)
-	remove(val:string)
-	toggle(val:string)
-	clear(val:string)
+	set(val:string):void
+	add(val:string):void
+	remove(val:string):void
+	toggle(val:string):void
+	clear(val:string):void
+	contains(val:string):boolean
 }
 
 export default class StateAcessors {
@@ -33,7 +34,8 @@ export default class StateAcessors {
 			add:this.addToState.bind(this, key),
 			remove:this.removeFromState.bind(this,key),
 			toggle:this.toggleState.bind(this,key),
-			clear:this.clearState.bind(this, key)
+			clear:this.clearState.bind(this, key),
+			contains:this.inState.bind(this, key)
 		}
 	}
 	
@@ -43,6 +45,7 @@ export default class StateAcessors {
 	
 	clearState(key){
 		delete this.state[key]
+		this.updateHistory()
 	}
 	
 	overwriteState(state){
@@ -58,11 +61,12 @@ export default class StateAcessors {
 			this.removeFromState(key,val)
 		} else {
 			this.addToState(key, val)
-		}
+		}	
 	}
 	removeFromState(key, val){
 		if(this.state[key]){
 			this.state[key] = _.without(this.state[key], val)
+			this.updateHistory()
 		}
 	}
 	inState(key, val){
@@ -71,6 +75,7 @@ export default class StateAcessors {
 	addToState(key, val){
 		this.state[key] = this.state[key] || []
 		this.state[key] = _.uniq(this.state[key].concat([val]))
+		this.updateHistory()
 	}
 
 	findAccessor(key){
