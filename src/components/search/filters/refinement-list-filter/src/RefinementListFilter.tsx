@@ -1,6 +1,7 @@
 import * as React from "react";
 import ESClient from "../../../../../domain/ESClient.ts";
 import * as _ from "lodash";
+import * as classNames from 'classnames';
 
 require("./../styles/index.scss");
 
@@ -29,12 +30,16 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 
 	renderOption(option) {
 
-		let isChecked:boolean = this.props.searcher.hasFilter(this.props.field, option.key)
+		let className = classNames({
+			"option__checkbox":true,
+			"option__checkbox--checked":this.props.searcher.hasFilter(this.props.field, option.key)
+		})
 
 		return (
 			<div className="option" key={option.key} ref={option.key} onClick={this.addFilter.bind(this, option)}>
-				<input type="checkbox" checked={isChecked}></input>
+				<div className={className}></div>
 				<div className="option__text">{option.key}</div>
+				<div className="option__count">{option.doc_count}</div>
 			</div>
 		)
 	}

@@ -16,6 +16,7 @@
     "autoprefixer": "^6.0.3",
     "axios": "^0.7.0",
     "bluebird": "^3.0.5",
+    "classnames": "^2.2.0",
     "css-loader": "^0.20.2",
     "ejs": "^2.3.4",
     "elasticsearch": "^9.0.1",
