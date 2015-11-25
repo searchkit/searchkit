@@ -7,37 +7,35 @@ import {StateAccessorRef} from "../../../../../domain/StateAccessors.ts"
 
 require("./../styles/index.scss");
 
-interface IRefinementListFilter {
+interface IMultiSelectFilter {
 	searcher:ESClient;
 	field:string
 	operator?:string
 }
 
-export default class RefinementListFilter extends React.Component<IRefinementListFilter, any> {
+export default class MultiSelectFilter extends React.Component<IMultiSelectFilter, any> {
 	accessor:StateAccessorRef
 
-	constructor(props:IRefinementListFilter) {
-		if (props.operator == null) props.operator = "AND";
+	constructor(props:IMultiSelectFilter) {
 		super(props)
 		this.setAggs();
-		let accessorMethod = props.operator == "AND" ? ElasticAccessors.facetFilter : ElasticAccessors.facetOrFilter;
 		this.accessor = this.props.searcher.accessors.registerAccessor(
 			this.props.field,
-			accessorMethod
+			ElasticAccessors.facetFilter
 		)
 	}
 
 	setAggs() {
-		this.props.searcher.setAggs(this.props.field, {
-				"filter": {"match_all": {}},
-				"aggs":{
-					[this.props.field]:{
-						"terms":{
-							"field":this.props.field
-						}
-					}
-				}
-			})
+		// this.props.searcher.setAggs(this.props.field, {
+    //   "filter":{
+    //     "match_all": {}
+    //   },
+		// 	"aggs": {
+    //     [this.props.field]:{
+    //       "terms":{"field":this.props.field}
+    //     }
+    //   }
+		// })
 	}
 
 	addFilter(option) {
@@ -65,8 +63,8 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 				<div className="refinement-list-filter__header">{this.props.field}</div>
 				<div className="refinement-list-filter__options">
 			{(() => {
-				if (_.has(this.props.searcher.results, `aggregations.${this.props.field}.${this.props.field}.buckets`)) {
-	        return _.map(this.props.searcher.results.aggregations[this.props.field][this.props.field].buckets, this.renderOption.bind(this))
+				if (_.has(this.props.searcher.results, `aggregations.${this.props.field}.buckets`)) {
+	        return _.map(this.props.searcher.results.aggregations[this.props.field].buckets, this.renderOption.bind(this))
 				}
 			})()}
 				</div>
