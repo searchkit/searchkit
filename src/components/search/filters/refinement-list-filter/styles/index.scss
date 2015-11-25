@@ -7,3 +7,31 @@
   }
 
 }
+
+.option {
+  display:flex;
+  position:relative;
+  cursor:pointer;
+  margin-bottom:5px;
+
+  &__text {
+    margin-left:20px;
+    flex:2;
+  }
+  &__count {
+    flex:1;
+  }
+  &__checkbox {
+    position:absolute;
+    top:3px;
+    width:8px;
+    height:8px;
+    border:1px solid #000;
+    padding:2px;
+    border-radius: 3px;
+
+    &--checked {
+      background:black;
+    }
+  }
+}
