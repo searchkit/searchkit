@@ -28,20 +28,35 @@ export default class ESClient {
 		}
 	}
 
-	hasFilter(name:string, value:string):boolean {
-		return !!_.find(this.query.query.bool.filter, {[name]:value})
+	filterMatch(name:string, value:string, filter:any):boolean {
+		return filter.term[name] === value;
 	}
 
-	addFilter(name:string, value:string) {
-		this.query = _.defaults({
-			query:{bool:{filter:[]}}
-		}, this.query)
+	hasFilter(name:string, value:string):boolean {
+		if (_.has(this.query, "query.bool.filter")) {
+			console.log(name, value, this.query.query.bool.filter);
+			return !!_.find(this.query.query.bool.filter, this.filterMatch.bind(this, name, value))
+		} else {
+			return false;
+		}
+	}
 
-		this.query.query.bool.filter.push({
-			"term": {
-				[name]:value
-			}
+	toggleFilter(name:string, value:string):void {
+		_.defaultsDeep(this.query, {
+			query:{bool:{filter:[]}}
 		})
+
+		if (!this.hasFilter(name,value)) {
+
+			this.query.query.bool.filter.push({
+				"term": {
+					[name]:value
+				}
+			})
+
+		} else {
+			_.remove(this.query.query.bool.filter, this.filterMatch.bind(this, name, value));
+		}
 	}
 
 	setAggs(name:string, aggs:Object) {

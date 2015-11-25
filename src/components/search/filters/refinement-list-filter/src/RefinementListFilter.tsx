@@ -23,7 +23,7 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 	}
 
 	addFilter(option) {
-		this.props.searcher.addFilter(this.props.field, option.key);
+		this.props.searcher.toggleFilter(this.props.field, option.key);
 		this.props.searcher.search();
 	}
 
