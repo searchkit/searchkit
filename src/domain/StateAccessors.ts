@@ -10,6 +10,7 @@ export interface StateAccessorRef {
 	remove(val:string):void
 	toggle(val:string):void
 	clear(val:string):void
+	clearAll():void
 	contains(val:string):boolean
 }
 
@@ -32,7 +33,8 @@ export default class StateAcessors {
 			toggle:this.toggleState.bind(this,key),
 			clear:this.clearState.bind(this, key),
 			contains:this.inState.bind(this, key),
-			get:this.getState.bind(this,key)
+			get:this.getState.bind(this,key),
+			clearAll:this.clearAll.bind(this)
 		}
 	}
 	
