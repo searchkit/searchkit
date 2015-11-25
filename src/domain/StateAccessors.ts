@@ -5,6 +5,7 @@ import history from "./history.ts"
 
 export interface StateAccessorRef {
 	set(val:string):void
+	get():Array<any>
 	add(val:string):void
 	remove(val:string):void
 	toggle(val:string):void
@@ -30,8 +31,13 @@ export default class StateAcessors {
 			remove:this.removeFromState.bind(this,key),
 			toggle:this.toggleState.bind(this,key),
 			clear:this.clearState.bind(this, key),
-			contains:this.inState.bind(this, key)
+			contains:this.inState.bind(this, key),
+			get:this.getState.bind(this,key)
 		}
+	}
+	
+	getState(key){
+		return this.state[key]
 	}
 	
 	clearAll(){
@@ -49,6 +55,7 @@ export default class StateAcessors {
 	
 	setState(key, ...args){
 		this.state[key] = args
+		this.updateHistory()
 	}
 
 	toggleState(key, val){
