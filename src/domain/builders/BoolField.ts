@@ -1,6 +1,6 @@
 export default class BoolField {
   bool:Object = {}
-  
+
   must(field){
     this.setArrayField("must", field)
   }
