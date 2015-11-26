@@ -7,7 +7,7 @@ abstract class Accessor {
   searcher:ESClient
   state:BoundStateMap
 
-  constructor(public key:string){
+  constructor(public key:string, public options:any = {}){
 
   }
 

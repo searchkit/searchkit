@@ -4,10 +4,6 @@ import * as _ from "lodash"
 import BoolField from "../builders/BoolField.ts"
 
 export default class FacetAccessor extends Accessor{
-
-  constructor(key, public options:any = {}){
-    super(key)
-  }
   
   getBuckets(){
     const results = this.getResults()

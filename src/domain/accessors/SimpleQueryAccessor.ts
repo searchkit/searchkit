@@ -4,10 +4,6 @@ import SimpleQueryField from "../builders/SimpleQueryField.ts"
 
 export default class SimpleQueryAccessor extends Accessor {
 
-  constructor(key, public options:any = {}){
-    super(key)
-  }
-
   buildQuery(builder:RootBuilder, query){
     if(query){
       let simpleQueryField = new SimpleQueryField()
