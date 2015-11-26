@@ -1,9 +1,11 @@
 
 import RootBuilder from "../builders/RootBuilder.ts";
 import ESClient from "../ESClient.ts";
+import {BoundStateMap} from "../state/StateMap.ts"
 
 abstract class Accessor {
   searcher:ESClient
+  state:BoundStateMap
 
   constructor(public key:string){
 
@@ -19,6 +21,10 @@ abstract class Accessor {
 
   setSearcher(searcher:ESClient){
     this.searcher = searcher
+  }
+  
+  setState(state:BoundStateMap){
+    this.state = state
   }
 
   getResults(){

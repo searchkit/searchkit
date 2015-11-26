@@ -11,12 +11,16 @@ fdescribe("StateManager", ()=>{
   })
 
   it("FacetAccessor", ()=> {
-    this.stateAccessors.registerAccessor(new FacetAccessor("genres"))
-    this.stateAccessors.registerAccessor(new FacetAccessor("authors", {operator:"OR"}))
+    const genreAccessor = this.stateAccessors.registerAccessor(
+      new FacetAccessor("genres"))
+    const authorAccessor = this.stateAccessors.registerAccessor(
+      new FacetAccessor("authors", {operator:"OR"}))
     this.stateAccessors.state.add("genres", "action")
-    this.stateAccessors.state.add("genres", "comedy")
+    genreAccessor.state.add("action")
+    
     this.stateAccessors.state.add("authors", "joe")
-    this.stateAccessors.state.add("authors", "ash")
+    authorAccessor.state.add('ash')    
+    
     this.printJson(this.stateAccessors.getData().getJSON())    
   })
 })

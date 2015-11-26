@@ -19,7 +19,9 @@ export default class StateAcessors {
 
 	registerAccessor(accessor:Accessor){
 		accessor.setSearcher(this.searcher)
+		accessor.setState(this.state.boundStateMap(accessor.key))
 		this.stateAccessors.push(accessor)
+		return accessor
 	}
 
 	invokeAccessors(method, ...args){

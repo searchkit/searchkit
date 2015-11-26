@@ -1,8 +1,38 @@
 import * as _ from "lodash"
 
+export interface BoundStateMap{
+  get():Array<any>
+  getState(val):void
+  setState(val):void
+  add(val):void
+  set(val):void
+  toggle(val):void
+  contains(val):boolean
+  hasKey():boolean
+  clear():void
+  clearAll():void
+  remove(val):void
+}
+
 export default class StateMap {
   private state:{
     [key:string]:Array<any>
+  }
+  
+  boundStateMap(key):BoundStateMap{
+    return {
+      get:this.get.bind(this, key),
+      getState:this.getState.bind(this),
+      setState:this.setState.bind(this),
+      add:this.add.bind(this, key),
+      set:this.set.bind(this, key),
+      toggle:this.toggle.bind(this, key),
+      contains:this.contains.bind(this, key),
+      hasKey:this.hasKey.bind(this, key),
+      clear:this.clear.bind(this, key),
+      clearAll:this.clearAll.bind(this),
+      remove:this.remove.bind(this)
+    }
   }
 
   constructor(){
