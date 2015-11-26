@@ -31,7 +31,7 @@ export default class StateMap {
       hasKey:this.hasKey.bind(this, key),
       clear:this.clear.bind(this, key),
       clearAll:this.clearAll.bind(this),
-      remove:this.remove.bind(this)
+      remove:this.remove.bind(this, key)
     }
   }
 
@@ -72,7 +72,7 @@ export default class StateMap {
   }
 
   hasKey(key){
-    !!this.state[key]
+    return !!this.state[key]
   }
 
   clear(key){

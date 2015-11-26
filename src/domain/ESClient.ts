@@ -1,7 +1,7 @@
 import * as axios from "axios"
 import * as _ from "lodash"
 import * as rx from "rx";
-import StateAccessors from "./StateAccessors.ts"
+import StateManager from "./state/StateManager.ts";
 import ElasticAccessors from "./accessors/ElasticAccessors.ts"
 
 export default class ESClient {
@@ -9,92 +9,28 @@ export default class ESClient {
 	query:any
 	results:any
 	resultsListener: rx.ReplaySubject<any>
-  accessors:StateAccessors
+  stateManager:StateManager
 	private registrationCompleted:Promise<any>
 	completeRegistration:Function
 	constructor(public host:string, public index:string){
 		this.results = {}
 		this.resultsListener = new rx.ReplaySubject(1)
-    this.accessors = new StateAccessors()
-		this.query = {
-			filter:{
-				bool:{
-					must:[]
-				}
-			},
-			aggs:{}
-		}
+    this.stateManager = new StateManager(this)
 		this.registrationCompleted = new Promise((resolve)=>{
 			this.completeRegistration = resolve
 		})
 	}
 
   setStateQuery(stateQuery){
-    this.accessors.overwriteState(stateQuery)
+    this.stateManager.state.setState(stateQuery)
   }
 
 	searchUrl(){
 		return [this.host, this.index, "_search"].join("/")
 	}
 
-	setQuery(query:Object){
-		if (query === null) {
-			delete this.query.query;
-		} else {
-			this.query.query = query;
-		}
-	}
-
-	filterMatch(name:string, value:string, filter:any):boolean {
-		return filter.term[name] === value;
-	}
-
-	hasFilter(name:string, value:string):boolean {
-		if (_.has(this.query, "filter.bool.filter")) {
-			return !!_.find(this.query.filter.bool.filter, this.filterMatch.bind(this, name, value))
-		} else {
-			return false;
-		}
-	}
-
-	getFilters(excludeFilterName:string=""):any {
-		let filters:any = this.accessors.getData()
-
-		if (!_.has(filters, "filter.bool")) {
-			return {}
-		}
-
-		let excludeFilterNameFn = (terms) => {
-			return _.filter(terms, (term:any) => {
-				return !_.findKey(term.term, excludeFilterName);
-			})
-		}
-		filters.filter.bool.must = excludeFilterNameFn(filters.filter.bool.must);
-		filters.filter.bool.should = excludeFilterNameFn(filters.filter.bool.should);
-		return filters.filter;
-	}
-
-	toggleFilter(name:string, value:string):void {
-
-		if (!this.hasFilter(name,value)) {
-
-			this.query.filter.bool.filter.push({
-				"term": {
-					[name]:value
-				}
-			})
-
-		} else {
-			_.remove(this.query.filter.bool.filter, this.filterMatch.bind(this, name, value));
-		}
-	}
-
-	setAggs(name:string, aggs:Object) {
-		this.query.aggs[name] = aggs
-	}
-
 	getQuery(){
-		return _.extend({}, this.query, this.accessors.getData())
+		return this.stateManager.getData().getJSON()
 	}
 
 	search(){

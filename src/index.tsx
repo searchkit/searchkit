@@ -15,8 +15,8 @@ history.listen((location)=>{
 	console.log("location", location)
 	searcher.setStateQuery(location.query)
 	console.log(location.query)
-	console.log(searcher.accessors.state)
-	searcher.search()	
+	console.log(searcher.stateManager.state)
+	searcher.search()
 })
 
 class Root extends React.Component<any, any> {

@@ -10,7 +10,7 @@ interface ISearchBox {
 
 export default class SearchBox extends React.Component<ISearchBox, any> {
 	accessor:StateAccessorRef
-	
+
 	constructor (props:ISearchBox) {
 		super(props);
 		this.state = {
@@ -18,18 +18,18 @@ export default class SearchBox extends React.Component<ISearchBox, any> {
 		}
 		this.onSubmit = this.onSubmit.bind(this)
 		// this.onChange = this.onChange.bind(this)
-		this.accessor = this.props.searcher.accessors.registerAccessor("q", (key, data, queryStr)=>{
-			if(queryStr){
-				_.defaultsDeep(data, {
-					query:{
-						"simple_query_string": {
-							"query":queryStr,
-							"default_operator":"and"
-						}
-					}
-				})
-			}
-		})
+		// this.accessor = this.props.searcher.accessors.registerAccessor("q", (key, data, queryStr)=>{
+		// 	if(queryStr){
+		// 		_.defaultsDeep(data, {
+		// 			query:{
+		// 				"simple_query_string": {
+		// 					"query":queryStr,
+		// 					"default_operator":"and"
+		// 				}
+		// 			}
+		// 		})
+		// 	}
+		// })
 	}
 
 	getQueryObject():Object {
@@ -57,12 +57,13 @@ export default class SearchBox extends React.Component<ISearchBox, any> {
 	// onChange(event) {
 	// 	this.setState({query: event.target.value});
 	// }
-	
-	getDefaultValue(){		
-		console.log(this.accessor.get())
-		return (this.accessor.get() || [])[0]
+
+	getDefaultValue(){
+		// console.log(this.accessor.get())
+		// return (this.accessor.get() || [])[0]
+		return ""
 	}
-	
+
 	render() {
 		return (
 			<div className="query-input">

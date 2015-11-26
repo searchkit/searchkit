@@ -13,7 +13,7 @@ export default class FacetAccessor extends Accessor{
     const boolField = new BoolField()
 
     const makeTerm = (value) => {
-      return {term:{[this.key]:value}};      
+      return {term:{[this.key]:value}};
     }
 
     const terms = _.map(stateValues, makeTerm)
@@ -23,22 +23,22 @@ export default class FacetAccessor extends Accessor{
       } else {
         boolField.must(terms)
       }
-  
-      builder.addFilter(this.key, boolField)  
-    }     
+
+      builder.addFilter(this.key, boolField)
+    }
   }
-  
+
   isOrOperator(){
     return this.options["operator"] === "OR"
   }
-  
-  buildPostQuery(builder:RootBuilder, ...stateValues:Array<any>){    
+
+  buildPostQuery(builder:RootBuilder, ...stateValues:Array<any>){
     let excludedKey = undefined
     if(this.isOrOperator()){
       excludedKey = this.key
     }
     builder.setAggs(this.key, {
-      filter:builder.getFilters(excludedKey),
+      filter:builder.getFilters(excludedKey),      
       aggs:{
         [this.key]:{
           terms:{

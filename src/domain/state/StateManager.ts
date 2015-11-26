@@ -17,7 +17,7 @@ export default class StateAcessors {
 		this.stateAccessors = []
 	}
 
-	registerAccessor(accessor:Accessor){
+	registerAccessor<T extends Accessor>(accessor:T): T{
 		accessor.setSearcher(this.searcher)
 		accessor.setState(this.state.boundStateMap(accessor.key))
 		this.stateAccessors.push(accessor)

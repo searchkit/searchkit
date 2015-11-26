@@ -1,9 +1,8 @@
 import * as React from "react";
 import ESClient from "../../../../../domain/ESClient.ts";
-import ElasticAccessors from "../../../../../domain/accessors/ElasticAccessors.ts"
 import * as _ from "lodash";
 import * as classNames from 'classnames';
-import {StateAccessorRef} from "../../../../../domain/StateAccessors.ts"
+import FacetAccessor from "../../../../../domain/accessors/FacetAccessor.ts";
 
 require("./../styles/index.scss");
 
@@ -16,45 +15,29 @@ interface IRefinementListFilter {
 }
 
 export default class RefinementListFilter extends React.Component<IRefinementListFilter, any> {
-	accessor:StateAccessorRef
+	accessor:FacetAccessor
 
 	constructor(props:IRefinementListFilter) {
 		super(props)
-		this.setAggs();
-		let accessorMethod = props.operator == "OR" ? ElasticAccessors.facetOrFilter : ElasticAccessors.facetFilter;
-		this.accessor = this.props.searcher.accessors.registerAccessor(
-			this.props.field,
-			accessorMethod
+		this.accessor = this.props.searcher.stateManager.registerAccessor(
+			new FacetAccessor(this.props.field, {operator:props.operator})
 		)
 	}
 
-	setAggs() {
-		this.props.searcher.setAggs(this.props.field, {
-				"filter": this.props.searcher.getFilters(this.props.field),
-				"aggs":{
-					[this.props.field]:{
-						"terms":{
-							"field":this.props.field,
-							size:this.props.size || 50
-						}
-					}
-				}
-			})
-	}
-
 	addFilter(option) {
-		this.accessor.toggle(option.key)
+		this.accessor.state.toggle(option.key)
+		this.accessor.search()
 	}
 
 	renderOption(option) {
 		let checkedClassName = classNames({
 			"option__checkbox":true,
-			"option__checkbox--checked":this.accessor.contains(option.key)
+			"option__checkbox--checked":this.accessor.state.contains(option.key)
 		})
 
 		let optionClassName = classNames({
 			"option":true,
-			"option--checked":this.accessor.contains(option.key)
+			"option--checked":this.accessor.state.contains(option.key)
 		})
 
 		return (

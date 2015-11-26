@@ -22,7 +22,8 @@ export default class RootBuilder {
 	}
 
 	getFilters(key=undefined){
-		return _.values(_.omit(this.$$filters, [key]))
+		const filters =  _.values(_.omit(this.$$filters, [key]))
+		return {bool:{must:filters}}
 	}
 
 

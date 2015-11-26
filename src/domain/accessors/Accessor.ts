@@ -27,6 +27,10 @@ abstract class Accessor {
     this.state = state
   }
 
+  search(){
+    this.searcher.stateManager.updateHistory()
+  }
+
   getResults(){
     return this.searcher.results
   }

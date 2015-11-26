@@ -19,12 +19,12 @@ export default class ResetFilters extends React.Component<IResetFilters, any> {
 	}
 
   hasFilters():boolean {
-    return !!this.props.searcher.accessors.getData()
+    return !!this.props.searcher.stateManager.getData()
   }
 
 	resetFilters() {
-		this.props.searcher.accessors.clearAll()
-		this.props.searcher.search()
+		this.props.searcher.stateManager.state.clearAll()
+		this.props.searcher.stateManager.updateHistory()
 	}
 
 	renderResetButton() {

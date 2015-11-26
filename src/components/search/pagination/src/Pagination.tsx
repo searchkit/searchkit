@@ -19,7 +19,7 @@ export default class Pagination extends React.Component<IPagination, any> {
 	}
 
   hasPagination():boolean {
-    return !!this.props.searcher.accessors.getData()
+    return !!this.props.searcher.stateManager.getData()
   }
 
   paginationPrevious() {
