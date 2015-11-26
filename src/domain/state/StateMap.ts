@@ -1,7 +1,7 @@
 import * as _ from "lodash"
 
 export interface BoundStateMap{
-  get():Array<any>
+  get():Array<any> | any
   getState(val):void
   setState(val):void
   add(val):void
@@ -42,7 +42,7 @@ export default class StateMap {
   get(key){
     return this.state[key]
   }
-
+  
   getState(){
     return this.state
   }

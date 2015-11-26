@@ -14,6 +14,7 @@ export default class SearchBox extends React.Component<ISearchBox, any> {
 	constructor (props:ISearchBox) {
 		super(props);
 		this.onSubmit = this.onSubmit.bind(this)
+		this.onChange = this.onChange.bind(this)
 		this.accessor = this.props.searcher.stateManager.registerAccessor(
 			new SimpleQueryAccessor("q")
 		)
@@ -21,14 +22,19 @@ export default class SearchBox extends React.Component<ISearchBox, any> {
 
 	onSubmit(event) {		
 		event.preventDefault()
+		const val = this.getValue()
 		this.accessor.state.clearAll()
-		this.accessor.state.set(this.refs["queryField"]["value"])
+		this.accessor.state.set(val)
 		this.accessor.search()
 	}
 
-	getDefaultValue(){
-		const state = this.accessor.state.get()
-		return (state && state[0]) || ""
+	getValue(){		
+		return this.accessor.state.get()
+	}
+	
+	onChange(event){
+		this.accessor.state.set(event.target.value)		
+		this.forceUpdate()
 	}
 
 	render() {
@@ -38,8 +44,9 @@ export default class SearchBox extends React.Component<ISearchBox, any> {
           <div className="query-input__icon"></div>
           <input
 						ref="queryField"
-						type="text"
-						defaultValue={this.getDefaultValue()}
+						type="text"	
+						value={this.getValue()}
+						onChange={this.onChange}
 						placeholder="search"
 						className="query-input__text"/>
           <input type="submit" value="search" className="query-input__action"/>

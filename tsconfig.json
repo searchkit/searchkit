@@ -18,7 +18,6 @@
     "./src/index.tsx",
     "./src/components/utils/BEMHelper.ts",
     "./src/domain/accessors/Accessor.ts",
-    "./src/domain/accessors/ElasticAccessors.ts",
     "./src/domain/accessors/FacetAccessor.ts",
     "./src/domain/accessors/PaginationAccessor.ts",
     "./src/domain/accessors/SimpleQueryAccessor.ts",
@@ -29,9 +28,7 @@
     "./src/domain/history.ts",
     "./src/domain/state/StateManager.ts",
     "./src/domain/state/StateMap.ts",
-    "./src/domain/StateAccessors.ts",
     "./src/domain/test/NewAccessorsSpec.ts",
-    "./src/domain/test/StateAccessorsSpec.ts",
     "./typings/tsd.d.ts"
   ],
   "filesGlob": [
