@@ -1,18 +1,18 @@
 import StateAccessors from "../StateAccessors.ts";
 var update = require("react-addons-update")
 
-fdescribe("Accessors", ()=>{
+describe("Accessors", ()=>{
 
   beforeEach(()=>{
     this.stateAccessors = new StateAccessors()
   })
 
   it("test", ()=>{
-    this.stateAccessors.registerAccessor("q", (key, data, state)=>{      
+    this.stateAccessors.registerAccessor("q", (key, data, state)=>{
       data.query = {
         query:state
       }
-      
+
       return data
     })
     this.stateAccessors.registerAccessor("f", (key, data, a1, a2)=>{
@@ -22,7 +22,7 @@ fdescribe("Accessors", ()=>{
       }
     })
     this.stateAccessors.setState("q", "terminator")
-    this.stateAccessors.setState("f", "foo", "bar")    
+    this.stateAccessors.setState("f", "foo", "bar")
     this.stateAccessors.fromQueryString(this.stateAccessors.toQueryString())
     expect(this.stateAccessors.getData()).toEqual({
       query:{
@@ -33,6 +33,6 @@ fdescribe("Accessors", ()=>{
   })
 
 
-  
+
 
 })
