@@ -18,7 +18,7 @@ export default class FacetAccessor extends Accessor{
 
     const terms = _.map(stateValues, makeTerm)
     if(terms.length > 0) {
-      if(this.options["operator"] === "OR") {
+      if(this.isOrOperator()) {
         boolField.should(terms)
       } else {
         boolField.must(terms)
@@ -27,10 +27,18 @@ export default class FacetAccessor extends Accessor{
       builder.addFilter(this.key, boolField)  
     }     
   }
-
+  
+  isOrOperator(){
+    return this.options["operator"] === "OR"
+  }
+  
   buildPostQuery(builder:RootBuilder, ...stateValues:Array<any>){    
+    let excludedKey = undefined
+    if(this.isOrOperator()){
+      excludedKey = this.key
+    }
     builder.setAggs(this.key, {
-      filter:builder.getFilters(),
+      filter:builder.getFilters(excludedKey),
       aggs:{
         [this.key]:{
           terms:{
