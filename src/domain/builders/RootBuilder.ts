@@ -7,9 +7,23 @@ export default class RootBuilder {
 	filter:any
 	aggs:any
 	query:any
+	size:number
+	from:number
+
+	constructor() {
+		this.setSize(10);
+	}
 
 	setQuery(query) {
-		_.defaultsDeep(this, query); 
+		_.defaultsDeep(this, query);
+	}
+
+	setSize(size:number) {
+		this.size = size;
+	}
+
+	setFrom(from:number) {
+		this.from = from;
 	}
 
 	addFilter(key, bool){

@@ -20,6 +20,7 @@
     "./src/domain/accessors/Accessor.ts",
     "./src/domain/accessors/ElasticAccessors.ts",
     "./src/domain/accessors/FacetAccessor.ts",
+    "./src/domain/accessors/PaginationAccessor.ts",
     "./src/domain/accessors/SimpleQueryAccessor.ts",
     "./src/domain/builders/BoolField.ts",
     "./src/domain/builders/RootBuilder.ts",
