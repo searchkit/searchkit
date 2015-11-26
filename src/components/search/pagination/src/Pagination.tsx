@@ -25,7 +25,7 @@ export default class Pagination extends React.Component<IPagination, any> {
   paginationPrevious() {
     return (
       <div className="pagination-navigation__previous pagination-nav-item pagination-nav-item--disabled">
-        <div className="pagination-nav-item__text">← Previous</div>
+        <div className="pagination-nav-item__text"> Previous</div>
       </div>
     )
   }
@@ -33,7 +33,7 @@ export default class Pagination extends React.Component<IPagination, any> {
 	paginationNext() {
     return (
       <div className="pagination-navigation__next pagination-nav-item">
-        <div className="pagination-nav-item__text">Next →</div>
+        <div className="pagination-nav-item__text">Next </div>
       </div>    )
 	}
 

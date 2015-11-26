@@ -22,7 +22,7 @@ abstract class Accessor {
   setSearcher(searcher:ESClient){
     this.searcher = searcher
   }
-  
+
   setState(state:BoundStateMap){
     this.state = state
   }

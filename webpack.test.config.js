@@ -19,7 +19,7 @@ module.exports = {
         include: path.join(__dirname, 'src')
       },
       {
-        test: /\.(jpg|png)$/,
+        test: /\.(jpg|png|svg)$/,
         loaders: ['null-loader'],
         include: path.join(__dirname, 'src')
       }
