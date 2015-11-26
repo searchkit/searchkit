@@ -1,9 +1,10 @@
 import * as React from "react";
 import ESClient from "../../../../domain/ESClient.ts";
-import ElasticAccessors from "../../../../domain/accessors/ElasticAccessors.ts"
 import * as _ from "lodash";
 import * as classNames from 'classnames';
-import {StateAccessorRef} from "../../../../domain/StateAccessors.ts"
+
+import PaginationAccessor from "../../../../domain/accessors/FacetAccessor.ts";
+
 
 require("./../styles/index.scss");
 
@@ -12,10 +13,13 @@ interface IPagination {
 }
 
 export default class Pagination extends React.Component<IPagination, any> {
-	accessor:StateAccessorRef
+	accessor:PaginationAccessor
 
 	constructor(props:IPagination) {
 		super(props)
+    this.accessor = this.props.searcher.stateManager.registerAccessor(
+      new PaginationAccessor("p")
+    )
 	}
 
   hasPagination():boolean {
