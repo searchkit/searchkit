@@ -5,7 +5,8 @@ export default class RootBuilder {
 
 	$$filters = {}
 	filter:any
-
+	aggs:any
+	
 	addFilter(key, bool){
 		this.$$filters[key] = bool
 		_.defaultsDeep(this, {
@@ -13,6 +14,16 @@ export default class RootBuilder {
 		})
 		this.filter.bool.must.push(bool)
 		return this
+	}
+	
+	getFilters(key=undefined){
+		return _.values(_.omit(this.$$filters, [key]))
+	}
+	
+	
+	setAggs(key, aggs){
+		this.aggs = this.aggs || {}
+		this.aggs[key] = aggs
 	}
 
 	getJSON(){

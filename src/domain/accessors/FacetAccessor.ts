@@ -25,11 +25,21 @@ export default class FacetAccessor extends Accessor{
       }
   
       builder.addFilter(this.key, boolField)  
-    }
-    
+    }     
   }
 
-  buildPostQuery(builder:RootBuilder, ...stateValues:Array<any>){
+  buildPostQuery(builder:RootBuilder, ...stateValues:Array<any>){    
+    builder.setAggs(this.key, {
+      filter:builder.getFilters(),
+      aggs:{
+        [this.key]:{
+          terms:{
+            field:this.key,
+            size:50
+          }
+        }
+      }
+    })
 
   }
 
