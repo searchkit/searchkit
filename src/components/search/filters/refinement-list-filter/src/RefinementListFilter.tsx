@@ -54,11 +54,7 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 			<div className="refinement-list-filter">
 				<div className="refinement-list-filter__header">{this.props.title}</div>
 				<div className="refinement-list-filter__options">
-			{(() => {
-				if (_.has(this.props.searcher.results, ['aggregations',this.props.field,this.props.field,'buckets']) ) {
-	        return _.map(this.props.searcher.results.aggregations[this.props.field][this.props.field].buckets, this.renderOption.bind(this))
-				}
-			})()}
+				{_.map(this.accessor.getBuckets(), this.renderOption.bind(this))}			
 				</div>
       </div>
 		);

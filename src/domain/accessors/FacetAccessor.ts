@@ -8,6 +8,12 @@ export default class FacetAccessor extends Accessor{
   constructor(key, public options:any = {}){
     super(key)
   }
+  
+  getBuckets(){
+    const results = this.getResults()
+    const path = ['aggregations',this.key, this.key,'buckets']
+    return _.get(results, path, [])
+  }
 
   buildQuery(builder:RootBuilder, ...stateValues:Array<any>){
     const boolField = new BoolField()
