@@ -17,7 +17,11 @@ export default class ESClient {
 		this.resultsListener = new rx.ReplaySubject(1)
     this.accessors = new StateAccessors()
 		this.query = {
-			filter:{},
+			filter:{
+				bool:{
+					must:[]
+				}
+			},
 			aggs:{}
 		}
 		this.registrationCompleted = new Promise((resolve)=>{
@@ -71,9 +75,6 @@ export default class ESClient {
 	}
 
 	toggleFilter(name:string, value:string):void {
-		_.defaultsDeep(this.query, {
-			filter:{bool:{filter:[]}}
-		})
 
 		if (!this.hasFilter(name,value)) {
 

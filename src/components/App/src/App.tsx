@@ -5,6 +5,8 @@ import RefinementListFilter from "../../search/filters/refinement-list-filter/sr
 import MenuFilter from "../../search/filters/menu-filter/src/MenuFilter.tsx";
 import HitsStats from "../../search/hits-stats/src/HitsStats.tsx";
 import ESClient from "../../../domain/ESClient.ts";
+import ResetFilters from "../../search/filters/reset-filters/src/ResetFilters.tsx";
+import Pagination from "../../search/pagination/src/Pagination.tsx";
 import * as Rx from "rx"
 require("./../styles/index.scss");
 
@@ -36,7 +38,7 @@ export default class App extends React.Component<any, any> {
 
 	hits(){
 		if(this.searcher.results.hits) {
-			return <Hits results={this.searcher.results.hits.hits}/>
+			return <Hits searcher={this.searcher} hitsPerPage={50}/>
 		}
 	}
 
@@ -48,6 +50,7 @@ export default class App extends React.Component<any, any> {
 				</div>
 
 				<div className="layout__filters">
+					<ResetFilters searcher={this.searcher}/>
 					<div className="layout__filters__heading">Refine Results By</div>
 					<RefinementListFilter title="Genres" searcher={this.searcher} field="genres.raw" operator="OR"/>
 					<RefinementListFilter title="Actors" searcher={this.searcher} field="actors.raw" operator="OR"/>
@@ -59,6 +62,7 @@ export default class App extends React.Component<any, any> {
 
 				<div className="layout__results">
 					{this.hits()}
+					<Pagination searcher={this.searcher}/>
 				</div>
 
 			</div>

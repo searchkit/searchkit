@@ -4,10 +4,15 @@ import * as _ from "lodash";
 require("./../styles/index.scss");
 
 interface IHits {
-	results:any
+	searcher:any
+	hitsPerPage: number
 }
 
 export default class Hits extends React.Component<IHits, any> {
+
+	constructor(props:IHits) {
+		super(props);
+	}
 
 	renderResult(result:any) {
 		return (
@@ -21,8 +26,8 @@ export default class Hits extends React.Component<IHits, any> {
 	render() {
 		return (
 			<div className="hits">
-				{_.map(this.props.results, this.renderResult)}
-      		</div>
+				{_.map(this.props.searcher.results.hits.hits, this.renderResult)}
+      </div>
 		);
 	}
 }

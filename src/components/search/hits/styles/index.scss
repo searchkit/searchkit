@@ -1,12 +1,14 @@
 .hits {
   display:flex;
   flex-flow: row wrap;
+  align-items: flex-start;
 }
 
 .hit {
   margin-bottom:20px;
-  flex:1 0 200px;
+  flex:1 1 250px;
   padding:10px;
+  max-width:250px;
   // border:1px solid red;
   display:flex;
   flex-flow: column nowrap;
@@ -14,8 +16,8 @@
   align-items: center;
 
   &__poster {
-    width:180px;
-
+    max-width:180px;
+    max-height:280px;
     margin-bottom:10px;
 
   }
