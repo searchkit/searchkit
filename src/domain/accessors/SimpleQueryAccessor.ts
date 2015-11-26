@@ -9,9 +9,11 @@ export default class SimpleQueryAccessor extends Accessor {
   }
 
   buildQuery(builder:RootBuilder, query){
-    let simpleQueryField = new SimpleQueryField()
-    simpleQueryField.set(query);
-    builder.setQuery(simpleQueryField);
+    if(query){
+      let simpleQueryField = new SimpleQueryField()
+      simpleQueryField.set(query);
+      builder.setQuery(simpleQueryField);
+    }    
   }
 
 }

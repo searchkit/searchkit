@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as rx from "rx";
 import ESClient from "../../../../domain/ESClient.ts";
-import {StateAccessorRef} from "../../../../domain/StateAccessors.ts"
+import SimpleQueryAccessor from "../../../../domain/accessors/SimpleQueryAccessor.ts";
 require("./../styles/index.scss");
 
 interface ISearchBox {
@@ -9,40 +9,14 @@ interface ISearchBox {
 }
 
 export default class SearchBox extends React.Component<ISearchBox, any> {
-	accessor:StateAccessorRef
+	accessor:SimpleQueryAccessor
 
 	constructor (props:ISearchBox) {
 		super(props);
-		this.state = {
-			query:""
-		}
 		this.onSubmit = this.onSubmit.bind(this)
-		// this.onChange = this.onChange.bind(this)
-		// this.accessor = this.props.searcher.accessors.registerAccessor("q", (key, data, queryStr)=>{
-		// 	if(queryStr){
-		// 		_.defaultsDeep(data, {
-		// 			query:{
-		// 				"simple_query_string": {
-		// 					"query":queryStr,
-		// 					"default_operator":"and"
-		// 				}
-		// 			}
-		// 		})
-		// 	}
-		// })
-	}
-
-	getQueryObject():Object {
-		if (this.state.query === "") {
-			return null;
-		} else {
-			return {
-				"simple_query_string": {
-					"query":this.state.query,
-					"default_operator":"and"
-				}
-			}
-		}
+		this.accessor = this.props.searcher.stateManager.registerAccessor(
+			new SimpleQueryAccessor("q")
+		)
 	}
 
 	onSubmit(event) {
@@ -50,18 +24,14 @@ export default class SearchBox extends React.Component<ISearchBox, any> {
 		// this.props.searcher.setQuery(this.getQueryObject());
 		// this.props.searcher.search()
 		event.preventDefault()
-		this.accessor.clearAll()
-		this.accessor.set(this.refs["queryField"]["value"])
+		this.accessor.state.clearAll()
+		this.accessor.state.set(this.refs["queryField"]["value"])
+		this.accessor.search()
 	}
 
-	// onChange(event) {
-	// 	this.setState({query: event.target.value});
-	// }
-
 	getDefaultValue(){
-		// console.log(this.accessor.get())
-		// return (this.accessor.get() || [])[0]
-		return ""
+		const state = this.accessor.state.get()
+		return (state && state[0]) || ""
 	}
 
 	render() {
