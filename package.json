@@ -37,6 +37,7 @@
     "null-loader": "^0.1.1",
     "phantomjs": "^1.9.18",
     "phantomjs-polyfill": "0.0.1",
+    "qs": "^4.0.0",
     "react": "^0.14.0",
     "react-addons-update": "^0.14.3",
     "react-dom": "^0.14.0",
