@@ -3,8 +3,9 @@ import RootBuilder from "../builders/RootBuilder.ts";
 
 export default class PaginationAccessor extends Accessor{
   
-  constructor(){
-    super("p")
+  setSearcher(searcher){
+    super.setSearcher(searcher)
+    this.searcher.stateManager.state.addAutoExpiryKey(this.key)
   }
   
   searchReset(){

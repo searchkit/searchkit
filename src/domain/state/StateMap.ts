@@ -19,6 +19,8 @@ export default class StateMap {
     [key:string]:Array<any>
   }
   
+  private autoExpiryKeys = []
+  
   boundStateMap(key):BoundStateMap{
     return {
       get:this.get.bind(this, key),
@@ -50,12 +52,19 @@ export default class StateMap {
   setState(state){
     this.state = state 
   }
-
+  
+  addAutoExpiryKey(key){
+    this.autoExpiryKeys.push(key)
+  }
+  
   keyChanged(key){
-    if(key !== "p") {
-      delete this.state["p"]
+    if(!_.contains(this.autoExpiryKeys, key)) {
+      _.each(this.autoExpiryKeys, (key)=> {
+        delete this.state[key]
+      })
     }
   }
+  
   add(key, val){
     this.keyChanged(key)    
     this.lazyInitKey(key).push(val)
