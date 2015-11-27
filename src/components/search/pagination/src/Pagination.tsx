@@ -43,6 +43,7 @@ export default class Pagination extends React.Component<IPagination, any> {
 			this.accessor.state.set(currentPage+1);
 		}
 		this.accessor.search();
+		window.scrollTo(0,0);
 	}
 
 	isDisabled(direction:DIRECTION):boolean {
