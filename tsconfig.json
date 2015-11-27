@@ -19,6 +19,7 @@
     "./src/components/utils/BEMHelper.ts",
     "./src/domain/accessors/Accessor.ts",
     "./src/domain/accessors/FacetAccessor.ts",
+    "./src/domain/accessors/PageSizeAccessor.ts",
     "./src/domain/accessors/PaginationAccessor.ts",
     "./src/domain/accessors/SimpleQueryAccessor.ts",
     "./src/domain/builders/BoolField.ts",

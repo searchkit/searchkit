@@ -2,6 +2,7 @@ import StateManager from "../state/StateManager.ts";
 import FacetAccessor from "../accessors/FacetAccessor.ts";
 import SimpleQueryAccessor from "../accessors/SimpleQueryAccessor.ts";
 import PaginationAccessor from "../accessors/PaginationAccessor.ts";
+import PageSizeAccessor from "../accessors/PageSizeAccessor.ts";
 
 fdescribe("StateManager", ()=>{
 
@@ -44,5 +45,11 @@ fdescribe("StateManager", ()=>{
     this.stateAccessors.state.set("page",2)
     expect(this.stateAccessors.getData().getJSON()).toEqual({size:10, from:10})
 
+  })
+
+  it("pageSizeAccessor", () => {
+    const pageSizeAccessor = this.stateAccessors.registerAccessor(new PageSizeAccessor("size"))
+    this.stateAccessors.state.set("size", 100)
+    expect(this.stateAccessors.getData().getJSON()).toEqual({size:100})
   })
 })
