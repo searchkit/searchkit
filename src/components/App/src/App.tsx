@@ -35,13 +35,6 @@ export default class App extends React.Component<any, any> {
 		this.searcherUnsubscribe.dispose()
 	}
 
-
-	hits(){
-		if(this.searcher.results.hits) {
-			return <Hits searcher={this.searcher} hitsPerPage={50}/>
-		}
-	}
-
 	render() {
 		return (
 			<div className="layout">
@@ -61,7 +54,7 @@ export default class App extends React.Component<any, any> {
 				</div>
 
 				<div className="layout__results">
-					{this.hits()}
+					<Hits searcher={this.searcher} hitsPerPage={50}/>
 					<Pagination searcher={this.searcher}/>
 				</div>
 

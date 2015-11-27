@@ -26,7 +26,7 @@ export default class Hits extends React.Component<IHits, any> {
 	render() {
 		return (
 			<div className="hits">
-				{_.map(this.props.searcher.results.hits.hits, this.renderResult)}
+				{_.map(_.get(this.props.searcher,"results.hits.hits", {}), this.renderResult)}
       </div>
 		);
 	}
