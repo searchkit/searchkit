@@ -2,6 +2,7 @@ import * as React from "react";
 import * as rx from "rx";
 import ESClient from "../../../../domain/ESClient.ts";
 import SimpleQueryAccessor from "../../../../domain/accessors/SimpleQueryAccessor.ts";
+
 require("./../styles/index.scss");
 
 interface ISearchBox {
@@ -38,7 +39,7 @@ export default class SearchBox extends React.Component<ISearchBox, any> {
 	}
 
 	renderAutocomplete() {
-		if (this.getValue().length > 2) {
+		if (_.get(this.getValue(),"length",0) > 2) {
 			return (
 				<div className="suggestions-autocomplete">
 					<div className="suggestions-section">
