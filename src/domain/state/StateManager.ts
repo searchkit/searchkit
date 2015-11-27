@@ -30,11 +30,15 @@ export default class StateAcessors {
 			accessor[method].apply(accessor, args.concat(stateArgs))
 		});
 	}
-
+	
+	searchReset(){
+		_.invoke(this.stateAccessors, "searchReset")
+	}
+	
 	getData(){
 		var data = new RootBuilder()
 		this.invokeAccessors("buildQuery", data)
-		this.invokeAccessors("buildPostQuery", data)
+		this.invokeAccessors("buildPostQuery", data)		
 		return data
 	}
 

@@ -10,6 +10,9 @@ abstract class Accessor {
   constructor(public key:string, public options:any = {}){
 
   }
+  
+  searchReset(){
+  }
 
   buildQuery(builder:RootBuilder, ...stateValues:Array<any>){
 
@@ -29,6 +32,10 @@ abstract class Accessor {
 
   search(){
     this.searcher.stateManager.updateHistory()
+  }
+
+  triggerSearchReset(){
+    this.searcher.stateManager.searchReset()
   }
 
   getResults(){

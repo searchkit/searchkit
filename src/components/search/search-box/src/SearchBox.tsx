@@ -23,7 +23,7 @@ export default class SearchBox extends React.Component<ISearchBox, any> {
 	onSubmit(event) {		
 		event.preventDefault()
 		const val = this.getValue()
-		this.accessor.state.clearAll()
+		this.accessor.triggerSearchReset()
 		this.accessor.state.set(val)
 		this.accessor.search()
 	}

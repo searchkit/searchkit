@@ -10,7 +10,11 @@ export default class FacetAccessor extends Accessor{
     const path = ['aggregations',this.key, this.key,'buckets']
     return _.get(results, path, [])
   }
-
+  
+  searchReset(){
+    this.state.clear()
+  }
+  
   buildQuery(builder:RootBuilder, ...stateValues:Array<any>){
     const boolField = new BoolField()
 
