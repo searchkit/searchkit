@@ -2,15 +2,17 @@
 import RootBuilder from "../builders/RootBuilder.ts";
 import ESClient from "../ESClient.ts";
 import {BoundStateMap} from "../state/StateMap.ts"
+import Newable from "../../common/Newable.ts";
 
 abstract class Accessor {
   searcher:ESClient
   state:BoundStateMap
 
+
   constructor(public key:string, public options:any = {}){
 
   }
-  
+
   searchReset(){
   }
 
@@ -38,6 +40,9 @@ abstract class Accessor {
     this.searcher.stateManager.searchReset()
   }
 
+  findAccessorsByClass(accessorClass:Newable<Accessor>){
+    return this.searcher.stateManager.findAccessorsByClass(accessorClass)
+  }
   getResults(){
     return this.searcher.results
   }

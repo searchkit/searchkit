@@ -6,6 +6,7 @@ import Accessor from "../accessors/Accessor.ts";
 import StateMap from "./StateMap.ts";
 import RootBuilder from "../builders/RootBuilder.ts";
 import ESClient from "../ESClient.ts";
+import Newable from "../../common/Newable.ts";
 
 export default class StateAcessors {
 
@@ -24,21 +25,27 @@ export default class StateAcessors {
 		return accessor
 	}
 
+	findAccessorsByClass<T extends Accessor>(accessorClass:Newable<T>):Array<T> {
+		return _.filter(this.stateAccessors, (accessor)=>{
+			return accessor instanceof accessorClass
+		}) as Array<T>
+	}
+
 	invokeAccessors(method, ...args){
 		_.each(this.stateAccessors, (accessor)=>{
 			const stateArgs = this.state.get(accessor.key) || []
 			accessor[method].apply(accessor, args.concat(stateArgs))
 		});
 	}
-	
+
 	searchReset(){
 		_.invoke(this.stateAccessors, "searchReset")
 	}
-	
+
 	getData(){
 		var data = new RootBuilder()
 		this.invokeAccessors("buildQuery", data)
-		this.invokeAccessors("buildPostQuery", data)		
+		this.invokeAccessors("buildPostQuery", data)
 		return data
 	}
 

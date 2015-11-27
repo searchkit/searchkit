@@ -16,6 +16,7 @@
     "./src/components/search/pagination/src/Pagination.tsx",
     "./src/components/search/search-box/src/SearchBox.tsx",
     "./src/index.tsx",
+    "./src/common/Newable.ts",
     "./src/components/utils/BEMHelper.ts",
     "./src/domain/accessors/Accessor.ts",
     "./src/domain/accessors/FacetAccessor.ts",

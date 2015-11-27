@@ -4,18 +4,20 @@ import * as _ from "lodash"
 import BoolField from "../builders/BoolField.ts"
 
 export default class FacetAccessor extends Accessor{
-  
+
   getBuckets(){
     const results = this.getResults()
     const path = ['aggregations',this.key, this.key,'buckets']
     return _.get(results, path, [])
   }
-  
+
   searchReset(){
     this.state.clear()
   }
-  
+
   buildQuery(builder:RootBuilder, ...stateValues:Array<any>){
+    console.log(this.findAccessorsByClass(FacetAccessor))
+        
     const boolField = new BoolField()
 
     const makeTerm = (value) => {
@@ -44,7 +46,7 @@ export default class FacetAccessor extends Accessor{
       excludedKey = this.key
     }
     builder.setAggs(this.key, {
-      filter:builder.getFilters(excludedKey),      
+      filter:builder.getFilters(excludedKey),
       aggs:{
         [this.key]:{
           terms:{
