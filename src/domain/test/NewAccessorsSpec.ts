@@ -31,8 +31,6 @@ fdescribe("StateManager", ()=>{
     const queryAccessor = this.stateAccessors.registerAccessor(new SimpleQueryAccessor("q"))
     this.stateAccessors.state.set("q", "test")
 
-    // this.printJson(this.stateAccessors.getData().getJSON());
-
     let result = this.stateAccessors.getData().getJSON()
     expect(result.query.simple_query_string.query).toBe("test")
   })
