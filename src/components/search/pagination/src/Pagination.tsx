@@ -22,7 +22,7 @@ export default class Pagination extends React.Component<IPagination, any> {
 	constructor(props:IPagination) {
 		super(props)
     this.accessor = this.props.searcher.stateManager.registerAccessor(
-      new PaginationAccessor("p")
+      new PaginationAccessor()
     )
 	}
 

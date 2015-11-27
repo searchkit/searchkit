@@ -51,11 +51,18 @@ export default class StateMap {
     this.state = state 
   }
 
+  keyChanged(key){
+    if(key !== "p") {
+      delete this.state["p"]
+    }
+  }
   add(key, val){
+    this.keyChanged(key)    
     this.lazyInitKey(key).push(val)
   }
 
   set(key, val){
+    this.keyChanged(key)    
     this.state[key] = val
   }
 
@@ -76,6 +83,7 @@ export default class StateMap {
   }
 
   clear(key){
+    this.keyChanged(key)    
     delete this.state[key]
   }
 
@@ -85,6 +93,7 @@ export default class StateMap {
 
   remove(key, val){
     if(this.hasKey(key)){
+      this.keyChanged(key)    
       this.state[key] = _.without(this.state[key], val)
     }
   }
