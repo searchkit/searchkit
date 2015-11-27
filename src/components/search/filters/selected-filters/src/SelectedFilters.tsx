@@ -35,7 +35,7 @@ export default class SelectedFilters extends React.Component<ISelectedFilters, a
 
 	renderFilter(filter) {
 		return (
-			<div className="selected-filters__item selected-filter">
+			<div className="selected-filters__item selected-filter" key={filter.name+":"+filter.value}>
 				<div className="selected-filter__name">{filter.name}: {filter.value}</div>
 				<div className="selected-filter__remove-action" onClick={this.removeFilter.bind(this, filter.value, filter.accessor)}>x</div>
 			</div>
