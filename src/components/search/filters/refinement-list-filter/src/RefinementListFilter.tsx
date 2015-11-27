@@ -31,20 +31,21 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 
 	renderOption(option) {
 		let checkedClassName = classNames({
-			"option__checkbox":true,
-			"option__checkbox--checked":this.accessor.state.contains(option.key)
+			"refinement-option__checkbox":true,
+			"refinement-option__checkbox--checked":this.accessor.state.contains(option.key)
 		})
 
 		let optionClassName = classNames({
-			"option":true,
-			"option--checked":this.accessor.state.contains(option.key)
+			"refinement-list-filter__item":true,
+			"refinement-option":true,
+			"refinement-option--checked":this.accessor.state.contains(option.key)
 		})
 
 		return (
 			<div className={optionClassName} key={option.key} onClick={this.addFilter.bind(this, option)}>
 				<div className={checkedClassName}></div>
-				<div className="option__text">{option.key}</div>
-				<div className="option__count">{option.doc_count}</div>
+				<div className="refinement-option__text">{option.key}</div>
+				<div className="refinement-option__count">{option.doc_count}</div>
 			</div>
 		)
 	}
