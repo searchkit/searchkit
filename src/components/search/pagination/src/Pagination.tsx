@@ -35,6 +35,7 @@ export default class Pagination extends React.Component<IPagination, any> {
 	}
 
 	setPage(direction:DIRECTION) {
+		if (this.isDisabled(direction)) { return };
 		let currentPage:number = this.getCurrentPage();
 
 		if (direction == DIRECTION.PREVIOUS) {
