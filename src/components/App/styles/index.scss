@@ -38,6 +38,7 @@ html {
     padding:20px 20px 0 20px;
     background:#fafafa;
     border-right:1px solid darken(#fafafa,10);
+    overflow:auto;
   }
 
   &__results-info {
