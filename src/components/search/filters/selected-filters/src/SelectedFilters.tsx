@@ -19,10 +19,10 @@ export default class SelectedFilters extends React.Component<ISelectedFilters, a
 	getFilters():Array<any> {
 		let filterAccessors = this.props.searcher.stateManager.findAccessorsByClass(FacetAccessor);
 
-		let filters = _.flatten(_.map(filterAccessors, (filterAccessor:FacetAccessor) => {
-			let filters = filterAccessor.state.get() || [];
+		let filters = _.flatten(_.map(filterAccessors, (facetAccessor:FacetAccessor) => {
+			let filters = facetAccessor.state.get() || [];
 			return _.map(filters, (filter) => {
-				return {name:filterAccessor.options.title, value:filter}
+				return {name:facetAccessor.options.title, value:filter, accessor:facetAccessor}
 			})
 		}))
 
@@ -37,9 +37,14 @@ export default class SelectedFilters extends React.Component<ISelectedFilters, a
 		return (
 			<div className="selected-filters__item selected-filter">
 				<div className="selected-filter__name">{filter.name}: {filter.value}</div>
-				<div className="selected-filter__remove-action">x</div>
+				<div className="selected-filter__remove-action" onClick={this.removeFilter.bind(this, filter.value, filter.accessor)}>x</div>
 			</div>
 		)
+	}
+
+	removeFilter(value, facetAccessor:FacetAccessor) {
+		facetAccessor.state.remove(value);
+		facetAccessor.search()
 	}
 
   render() {
