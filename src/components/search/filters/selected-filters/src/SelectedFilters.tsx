@@ -2,6 +2,7 @@ import * as React from "react";
 import ESClient from "../../../../../domain/ESClient.ts";
 import * as _ from "lodash";
 import * as classNames from 'classnames';
+import FacetAccessor from "../../../../../domain/accessors/FacetAccessor.ts";
 
 require("./../styles/index.scss");
 
@@ -15,12 +16,21 @@ export default class SelectedFilters extends React.Component<ISelectedFilters, a
 		super(props)
 	}
 
-	getFilters() {
-		return [
-			{name:"Genres",
-			value:"Drama"},
-			{name:"Actors", value:"News"}
-		]
+	getFilters():Array<any> {
+		let filterAccessors = this.props.searcher.stateManager.findAccessorsByClass(FacetAccessor);
+
+		let filters = _.flatten(_.map(filterAccessors, (filterAccessor:FacetAccessor) => {
+			let filters = filterAccessor.state.get() || [];
+			return _.map(filters, (filter) => {
+				return {name:filterAccessor.options.title, value:filter}
+			})
+		}))
+
+		return filters || [];
+	}
+
+	hasFilters():boolean {
+		return _.size(this.getFilters()) != 0;
 	}
 
 	renderFilter(filter) {
@@ -33,6 +43,9 @@ export default class SelectedFilters extends React.Component<ISelectedFilters, a
 	}
 
   render() {
+		if (!this.hasFilters()) {
+			return (<div></div>)
+		}
     return (
       <div className="selected-filters">
 				{_.map(this.getFilters(), this.renderFilter.bind(this))}

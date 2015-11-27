@@ -20,7 +20,7 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 	constructor(props:IRefinementListFilter) {
 		super(props)
 		this.accessor = this.props.searcher.stateManager.registerAccessor(
-			new FacetAccessor(this.props.field, {operator:props.operator})
+			new FacetAccessor(this.props.field, {operator:props.operator, title:this.props.title})
 		)
 	}
 
@@ -54,7 +54,7 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 			<div className="refinement-list-filter">
 				<div className="refinement-list-filter__header">{this.props.title}</div>
 				<div className="refinement-list-filter__options">
-				{_.map(this.accessor.getBuckets(), this.renderOption.bind(this))}			
+				{_.map(this.accessor.getBuckets(), this.renderOption.bind(this))}
 				</div>
       </div>
 		);

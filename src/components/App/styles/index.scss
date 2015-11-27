@@ -21,11 +21,11 @@ html {
     display:flex;
 
     .selected-filters {
+      border-right:1px solid darken(#fafafa, 10);
 
     }
 
     .search-box {
-      border-left:1px solid darken(#fafafa, 10);
     }
   }
 
