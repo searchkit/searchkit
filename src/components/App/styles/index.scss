@@ -18,6 +18,15 @@ html {
     right:0;
     padding:10px;
     border-bottom:1px solid darken(#fafafa, 10);
+    display:flex;
+
+    .selected-filters {
+
+    }
+
+    .search-box {
+      border-left:1px solid darken(#fafafa, 10);
+    }
   }
 
   &__filters {

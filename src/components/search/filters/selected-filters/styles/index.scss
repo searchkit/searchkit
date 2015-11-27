@@ -1,0 +1,33 @@
+.selected-filters {
+  display:flex;
+  flex-flow: row nowrap;
+  &__item {
+    flex:auto;
+    margin-right:10px;
+  }
+}
+
+.selected-filter {
+  background:darken(#fafafa,5);
+  border:1px solid #e1e1e1;
+  display:flex;
+  padding:10px 0 10px 10px;
+  font-size:12px;
+  line-height:20px;
+  border-radius:3px;
+
+  &__name {
+    flex:auto;
+    color:#666;
+  }
+
+  &__remove-action {
+    flex:auto;
+    padding:0 10px;
+    cursor:pointer;
+    font-size:20px;
+    line-height:18px;
+    color:#aaa;
+  }
+
+}

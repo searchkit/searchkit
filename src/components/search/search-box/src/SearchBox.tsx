@@ -20,7 +20,7 @@ export default class SearchBox extends React.Component<ISearchBox, any> {
 		)
 	}
 
-	onSubmit(event) {		
+	onSubmit(event) {
 		event.preventDefault()
 		const val = this.getValue()
 		this.accessor.triggerSearchReset()
@@ -28,28 +28,28 @@ export default class SearchBox extends React.Component<ISearchBox, any> {
 		this.accessor.search()
 	}
 
-	getValue(){		
+	getValue(){
 		return this.accessor.state.get()
 	}
-	
+
 	onChange(event){
-		this.accessor.state.set(event.target.value)		
+		this.accessor.state.set(event.target.value)
 		this.forceUpdate()
 	}
 
 	render() {
 		return (
-			<div className="query-input">
+			<div className="search-box">
         <form onSubmit={this.onSubmit}>
-          <div className="query-input__icon"></div>
+          <div className="search-box__icon"></div>
           <input
 						ref="queryField"
-						type="text"	
+						type="text"
 						value={this.getValue()}
 						onChange={this.onChange}
 						placeholder="search"
-						className="query-input__text"/>
-          <input type="submit" value="search" className="query-input__action"/>
+						className="search-box__text"/>
+          <input type="submit" value="search" className="search-box__action"/>
         </form>
       </div>
 		);

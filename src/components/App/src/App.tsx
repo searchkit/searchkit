@@ -1,12 +1,16 @@
 import * as React from "react";
-import SearchBox from "../../search/search-box/src/SearchBox.tsx";
-import Hits from "../../search/hits/src/Hits.tsx";
-import RefinementListFilter from "../../search/filters/refinement-list-filter/src/RefinementListFilter.tsx";
-import MenuFilter from "../../search/filters/menu-filter/src/MenuFilter.tsx";
-import HitsStats from "../../search/hits-stats/src/HitsStats.tsx";
+import {
+	SearchBox,
+	Hits,
+	RefinementListFilter,
+	MenuFilter,
+	HitsStats,
+	ResetFilters,
+	Pagination,
+	SelectedFilters
+} from "../../search/index.ts";
 import ESClient from "../../../domain/ESClient.ts";
-import ResetFilters from "../../search/filters/reset-filters/src/ResetFilters.tsx";
-import Pagination from "../../search/pagination/src/Pagination.tsx";
+
 import * as Rx from "rx"
 require("./../styles/index.scss");
 
@@ -39,6 +43,7 @@ export default class App extends React.Component<any, any> {
 		return (
 			<div className="layout">
 				<div className="layout__search-box">
+					<SelectedFilters searcher={this.searcher}/>
 					<SearchBox searcher={this.searcher}/>
 				</div>
 
