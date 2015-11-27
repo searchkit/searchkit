@@ -1,9 +1,7 @@
 import * as React from "react";
 import ESClient from "../../../../../domain/ESClient.ts";
-import ElasticAccessors from "../../../../../domain/accessors/ElasticAccessors.ts"
 import * as _ from "lodash";
 import * as classNames from 'classnames';
-import {StateAccessorRef} from "../../../../../domain/StateAccessors.ts"
 
 require("./../styles/index.scss");
 
@@ -11,8 +9,7 @@ interface IResetFilters {
 	searcher:ESClient;
 }
 
-export default class ResetFilters extends React.Component<IResetFilters, any> {
-	accessor:StateAccessorRef
+export default class ResetFilters extends React.Component<IResetFilters, any> {	
 
 	constructor(props:IResetFilters) {
 		super(props)

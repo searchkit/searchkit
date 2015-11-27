@@ -2,7 +2,6 @@ import * as axios from "axios"
 import * as _ from "lodash"
 import * as rx from "rx";
 import StateManager from "./state/StateManager.ts";
-import ElasticAccessors from "./accessors/ElasticAccessors.ts"
 
 export default class ESClient {
 
