@@ -19,6 +19,8 @@
     "./src/index.tsx",
     "./src/common/Newable.ts",
     "./src/components/search/index.ts",
+    "./src/components/SearchkitComponent.ts",
+    "./src/components/SearchkitProvider.ts",
     "./src/components/utils/BEMHelper.ts",
     "./src/domain/accessors/Accessor.ts",
     "./src/domain/accessors/FacetAccessor.ts",
