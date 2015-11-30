@@ -8,7 +8,8 @@ import {
 	HitsStats,
 	ResetFilters,
 	Pagination,
-	SelectedFilters
+	SelectedFilters,
+	HierarchicalMenuFilter
 } from "../../search/index.ts";
 import ESClient from "../../../domain/ESClient.ts";
 
@@ -50,9 +51,7 @@ export default class App extends React.Component<any, any> {
 
 				<div className="layout__filters">
 					<ResetFilters searcher={this.searcher}/>
-					<MenuFilter searcher={this.searcher} field="type.raw" title="Type"/>
-					<div className="layout__filters__heading">Refine Results By</div>
-					<RefinementListFilter title="Genres" searcher={this.searcher} field="genres.raw" operator="OR"/>
+					<HierarchicalMenuFilter searcher={this.searcher} fields={["type.raw", "genres.raw"]} title="Categories"/>
 					<RefinementListFilter title="Actors" searcher={this.searcher} field="actors.raw" operator="AND"/>
 				</div>
 

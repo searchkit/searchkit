@@ -3,7 +3,7 @@ import RootBuilder from "../builders/RootBuilder.ts";
 import * as _ from "lodash"
 import BoolField from "../builders/BoolField.ts"
 
-export default class FacetAccessor extends Accessor{
+export default class HierarchicalFacetAccessor extends Accessor{
 
   getBuckets(){
     const results = this.getResults()
@@ -25,32 +25,21 @@ export default class FacetAccessor extends Accessor{
 
     const terms = _.map(stateValues, makeTerm)
     if(terms.length > 0) {
-      if(this.isOrOperator()) {
-        boolField.should(terms)
-      } else {
-        boolField.must(terms)
-      }
-
+      boolField.must(terms)
       builder.addFilter(this.key, boolField)
     }
   }
 
-  isOrOperator(){
-    return this.options["operator"] === "OR"
-  }
-
   buildPostQuery(builder:RootBuilder, ...stateValues:Array<any>){
     let excludedKey = undefined
-    if(this.isOrOperator()){
-      excludedKey = this.key
-    }
+
     builder.setAggs(this.key, {
-      filter:builder.getFilters(excludedKey),
+      filter:builder.getFilters(this.options.fields),
       aggs:{
         [this.key]:{
           terms:{
             field:this.key,
-            size:100
+            size:50
           }
         }
       }

@@ -8,6 +8,7 @@
   "files": [
     "./src/components/app/src/App.tsx",
     "./src/components/app/test/unit/AppSpec.tsx",
+    "./src/components/search/filters/hierarchical-menu-filter/src/HierarchicalMenuFilter.tsx",
     "./src/components/search/filters/menu-filter/src/MenuFilter.tsx",
     "./src/components/search/filters/refinement-list-filter/src/RefinementListFilter.tsx",
     "./src/components/search/filters/reset-filters/src/ResetFilters.tsx",
@@ -22,6 +23,7 @@
     "./src/components/utils/BEMHelper.ts",
     "./src/domain/accessors/Accessor.ts",
     "./src/domain/accessors/FacetAccessor.ts",
+    "./src/domain/accessors/HierarchicalFacetAccessor.ts",
     "./src/domain/accessors/PageSizeAccessor.ts",
     "./src/domain/accessors/PaginationAccessor.ts",
     "./src/domain/accessors/SimpleQueryAccessor.ts",
