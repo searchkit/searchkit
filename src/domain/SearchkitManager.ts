@@ -4,8 +4,20 @@ class Searcher {
   key:string
   query:Object
   searchkit:SearchkitManager
+  accessors:Array<Accessor>
+  results:Object
+  
   constructor(searchkit:SearchkitManager){
     this.searchkit = searchkit
+  }
+
+  invokeAccessor(builder, method){
+
+  }
+
+  buildQuery(builder, ...stateValues){
+    this.invokeAccessor(builder, "buildQuery")
+    this.invokeAccessor(builder, "buildPostQuery")
   }
 }
 
@@ -34,10 +46,12 @@ export default class SearchkitManager {
     this.host = host
     this.searchers = []
   }
+  invokeAccessor(builder){
 
+  }
   search(){
-    const rootBuilder = new RootBuilder()
-
+    const builder = new RootBuilder()
+    this.invokeAccessor(builder)
   }
 
 }
