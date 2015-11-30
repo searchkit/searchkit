@@ -53,7 +53,7 @@ export default class App extends React.Component<any, any> {
 					<MenuFilter searcher={this.searcher} field="type.raw" title="Type"/>
 					<div className="layout__filters__heading">Refine Results By</div>
 					<RefinementListFilter title="Genres" searcher={this.searcher} field="genres.raw" operator="OR"/>
-					<RefinementListFilter title="Actors" searcher={this.searcher} field="actors.raw" operator="OR"/>
+					<RefinementListFilter title="Actors" searcher={this.searcher} field="actors.raw" operator="AND"/>
 				</div>
 
 				<div className="layout__results-info">

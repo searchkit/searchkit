@@ -23,7 +23,7 @@ export default class MenuFilter extends React.Component<IMenuFilter, any> {
 	}
 
 	addFilter(option) {
-		this.accessor.state.clearAll();
+		this.accessor.state.clear();
 		if (option != "all") {
 			this.accessor.state.add(option.key);
 		}
