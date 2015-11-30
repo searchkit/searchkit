@@ -2,13 +2,13 @@ import * as React from "react";
 import ESClient from "../../../../domain/ESClient.ts";
 import * as _ from "lodash";
 import * as classNames from 'classnames';
+import SearchkitComponent from "../../../SearchkitComponent.ts";
 
 import PaginationAccessor from "../../../../domain/accessors/PaginationAccessor.ts";
 
 require("./../styles/index.scss");
 
 interface IPagination {
-	searcher:ESClient;
 }
 
 enum DIRECTION {
@@ -16,18 +16,15 @@ enum DIRECTION {
 	PREVIOUS
 }
 
-export default class Pagination extends React.Component<IPagination, any> {
+export default class Pagination extends SearchkitComponent<IPagination, any> {
 	accessor:PaginationAccessor
 
-	constructor(props:IPagination) {
-		super(props)
-    this.accessor = this.props.searcher.stateManager.registerAccessor(
-      new PaginationAccessor("p")
-    )
+	defineAccessor(){
+    return new PaginationAccessor("p")
 	}
 
   hasPagination():boolean {
-    return !!this.props.searcher.stateManager.getData()
+    return !!this.searcher.stateManager.getData()
   }
 
 	getCurrentPage():number {
@@ -50,9 +47,9 @@ export default class Pagination extends React.Component<IPagination, any> {
 	isDisabled(direction:DIRECTION):boolean {
 		let currentPage:number = this.getCurrentPage();
 		let totalPages:number = Math.ceil(
-			_.get(this.props.searcher,"results.hits.total",1)
+			_.get(this.searcher,"results.hits.total",1)
 			/
-			_.get(this.props.searcher, "query.size", 10)
+			_.get(this.searcher, "query.size", 10)
 		)
 
 		if (direction == DIRECTION.PREVIOUS && currentPage == 1) { return true; }

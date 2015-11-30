@@ -44,25 +44,25 @@ export default class App extends React.Component<any, any> {
 		return (
 			<div className="layout">
 				<div className="layout__search-box">
-					<SelectedFilters searcher={this.searcher}/>
-					<SearchBox searcher={this.searcher}/>
+					<SelectedFilters/>
+					<SearchBox/>
 				</div>
 
 				<div className="layout__filters">
-					<ResetFilters searcher={this.searcher}/>
-					<MenuFilter searcher={this.searcher} field="type.raw" title="Type"/>
+					<ResetFilters/>
+					<MenuFilter field="type.raw" title="Type"/>
 					<div className="layout__filters__heading">Refine Results By</div>
 					<RefinementListFilter title="Genres" field="genres.raw" operator="OR"/>
 					<RefinementListFilter title="Actors" field="actors.raw" operator="AND"/>
 				</div>
 
 				<div className="layout__results-info">
-					<HitsStats searcher={this.searcher}/>
+					<HitsStats/>
 				</div>
 
 				<div className="layout__results">
-					<Hits searcher={this.searcher} hitsPerPage={50}/>
-					<Pagination searcher={this.searcher}/>
+					<Hits hitsPerPage={50}/>
+					<Pagination/>
 				</div>
 
 			</div>

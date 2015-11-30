@@ -3,21 +3,15 @@ import ESClient from "../../../../../domain/ESClient.ts";
 import * as _ from "lodash";
 import * as classNames from 'classnames';
 import FacetAccessor from "../../../../../domain/accessors/FacetAccessor.ts";
+import SearchkitComponent from "../../../../SearchkitComponent.ts";
 
 require("./../styles/index.scss");
 
-interface ISelectedFilters {
-	searcher:ESClient;
-}
 
-export default class SelectedFilters extends React.Component<ISelectedFilters, any> {
-
-	constructor(props:ISelectedFilters) {
-		super(props)
-	}
+export default class SelectedFilters extends SearchkitComponent<any, any> {
 
 	getFilters():Array<any> {
-		let filterAccessors = this.props.searcher.stateManager.findAccessorsByClass(FacetAccessor);
+		let filterAccessors = this.searcher.stateManager.findAccessorsByClass(FacetAccessor);
 
 		let filters = _.flatten(_.map(filterAccessors, (facetAccessor:FacetAccessor) => {
 			let filters = facetAccessor.state.get() || [];

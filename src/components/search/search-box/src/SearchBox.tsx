@@ -2,23 +2,24 @@ import * as React from "react";
 import * as rx from "rx";
 import ESClient from "../../../../domain/ESClient.ts";
 import SimpleQueryAccessor from "../../../../domain/accessors/SimpleQueryAccessor.ts";
+import SearchkitComponent from "../../../SearchkitComponent.ts";
 
 require("./../styles/index.scss");
 
 interface ISearchBox {
-	searcher:ESClient
 }
 
-export default class SearchBox extends React.Component<ISearchBox, any> {
+export default class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	accessor:SimpleQueryAccessor
 
 	constructor (props:ISearchBox) {
 		super(props);
 		this.onSubmit = this.onSubmit.bind(this)
 		this.onChange = this.onChange.bind(this)
-		this.accessor = this.props.searcher.stateManager.registerAccessor(
-			new SimpleQueryAccessor("q")
-		)
+	}
+	
+	defineAccessor(){
+		return new SimpleQueryAccessor("q")
 	}
 
 	onSubmit(event) {

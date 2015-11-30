@@ -2,26 +2,20 @@ import * as React from "react";
 import ESClient from "../../../../../domain/ESClient.ts";
 import * as _ from "lodash";
 import * as classNames from 'classnames';
+import SearchkitComponent from "../../../../SearchkitComponent.ts";
 
 require("./../styles/index.scss");
 
-interface IResetFilters {
-	searcher:ESClient;
-}
 
-export default class ResetFilters extends React.Component<IResetFilters, any> {	
-
-	constructor(props:IResetFilters) {
-		super(props)
-	}
+export default class ResetFilters extends SearchkitComponent<any, any> {
 
   hasFilters():boolean {
-    return !!this.props.searcher.stateManager.getData()
+    return !!this.searcher.stateManager.getData()
   }
 
 	resetFilters() {
-		this.props.searcher.stateManager.state.clearAll()
-		this.props.searcher.stateManager.updateHistory()
+		this.searcher.stateManager.state.clearAll()
+		this.searcher.stateManager.updateHistory()
 	}
 
 	renderResetButton() {
