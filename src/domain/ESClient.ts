@@ -31,6 +31,13 @@ export default class ESClient {
 	getQuery(){
 		return this.stateManager.getData().getJSON()
 	}
+	
+	listenToHistory(history){
+		history.listen((location)=>{	
+			this.setStateQuery(location.query)			
+			this.search()
+		})
+	}
 
 	search(){
 		this.registrationCompleted.then(()=> {
