@@ -31,6 +31,8 @@ export default class App extends React.Component<any, any> {
 					<HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories"/>
 					<div className="layout__filters__heading">Refine Results By</div>
 					<RefinementListFilter title="Actors" field="actors.raw" operator="AND"/>
+					<RefinementListFilter title="Languages" field="languages.raw" operator="OR"/>
+					<RefinementListFilter title="Countries" field="countries.raw" operator="OR"/>
 				</div>
 
 				<div className="layout__results-info">
