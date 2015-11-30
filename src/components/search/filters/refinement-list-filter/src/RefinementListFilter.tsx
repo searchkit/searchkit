@@ -3,24 +3,24 @@ import ESClient from "../../../../../domain/ESClient.ts";
 import * as _ from "lodash";
 import * as classNames from 'classnames';
 import FacetAccessor from "../../../../../domain/accessors/FacetAccessor.ts";
+import SearchkitComponent from "../../../../SearchkitComponent.ts";
 
 require("./../styles/index.scss");
 
 interface IRefinementListFilter {
-	searcher:ESClient;
 	field:string
 	operator?:string
 	size?:string
 	title:string
 }
 
-export default class RefinementListFilter extends React.Component<IRefinementListFilter, any> {
+export default class RefinementListFilter extends SearchkitComponent<IRefinementListFilter, any> {
 	accessor:FacetAccessor
-
-	constructor(props:IRefinementListFilter) {
-		super(props)
-		this.accessor = this.props.searcher.stateManager.registerAccessor(
-			new FacetAccessor(this.props.field, {operator:props.operator, title:this.props.title})
+		
+	defineAccessor() {
+		return new FacetAccessor(
+			this.props.field,
+			{operator:this.props.operator, title:this.props.title}
 		)
 	}
 
@@ -51,6 +51,7 @@ export default class RefinementListFilter extends React.Component<IRefinementLis
 	}
 
 	render() {
+
 		return (
 			<div className="refinement-list-filter">
 				<div className="refinement-list-filter__header">{this.props.title}</div>

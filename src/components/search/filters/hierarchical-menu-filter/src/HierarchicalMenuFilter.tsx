@@ -1,30 +1,34 @@
 import * as React from "react";
-import ESClient from "../../../../../domain/ESClient.ts";
 import HierarchicalFacetAccessor from "../../../../../domain/accessors/HierarchicalFacetAccessor.ts";
 import * as _ from "lodash";
 import * as classNames from 'classnames';
+import SearchkitComponent from "../../../../SearchkitComponent.ts";
+
 
 require("./../styles/index.scss");
 
 interface IHierarchicalMenuFilter {
 	fields:Array<string>
-	searcher:ESClient
 	title:string
 }
 
-export default class HierarchicalMenuFilter extends React.Component<IHierarchicalMenuFilter, any> {
+export default class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenuFilter, any> {
 	public accessors:Array<HierarchicalFacetAccessor>
 
 	constructor(props:IHierarchicalMenuFilter) {
 		super(props)
-		this.createAccessors()
+	}
+
+	componentWillMount() {
+		super.componentWillMount();
+		this.createAccessors();
 	}
 
   createAccessors() {
 		this.accessors = this.props.fields.map((field,i) => {
 			let ignoreKeys = _.slice(this.props.fields,i)
-			return this.props.searcher.stateManager.registerAccessor(
-	      new HierarchicalFacetAccessor(field, {title:this.props.title, operator:"OR", size:100, fields:ignoreKeys})
+			return this.searcher.stateManager.registerAccessor(
+	      new HierarchicalFacetAccessor(field, {title:this.props.title, size:100, fields:ignoreKeys})
 	    )
 		});
   }

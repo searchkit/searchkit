@@ -3,22 +3,22 @@ import ESClient from "../../../../../domain/ESClient.ts";
 import FacetAccessor from "../../../../../domain/accessors/FacetAccessor.ts";
 import * as _ from "lodash";
 import * as classNames from 'classnames';
+import SearchkitComponent from "../../../../SearchkitComponent.ts";
+
 
 require("./../styles/index.scss");
 
 interface IMenuFilter {
 	field:string
-	searcher:ESClient
 	title:string
 }
 
-export default class MenuFilter extends React.Component<IMenuFilter, any> {
+export default class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 	accessor:FacetAccessor
 
-	constructor(props:IMenuFilter) {
-		super(props)
-		this.accessor = this.props.searcher.stateManager.registerAccessor(
-			new FacetAccessor(this.props.field, {operator:"OR", title:this.props.title})
+	defineAccessor() {
+		return new FacetAccessor(
+			this.props.field, {operator:"OR", title:this.props.title}
 		)
 	}
 

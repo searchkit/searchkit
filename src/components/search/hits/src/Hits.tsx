@@ -1,18 +1,14 @@
 import * as React from "react";
 import * as _ from "lodash";
+import SearchkitComponent from "../../../SearchkitComponent.ts";
 
 require("./../styles/index.scss");
 
 interface IHits {
-	searcher:any
 	hitsPerPage: number
 }
 
-export default class Hits extends React.Component<IHits, any> {
-
-	constructor(props:IHits) {
-		super(props);
-	}
+export default class Hits extends SearchkitComponent<IHits, any> {
 
 	renderResult(result:any) {
 		return (
@@ -26,7 +22,7 @@ export default class Hits extends React.Component<IHits, any> {
 	render() {
 		return (
 			<div className="hits">
-				{_.map(_.get(this.props.searcher,"results.hits.hits", {}), this.renderResult)}
+				{_.map(_.get(this.searcher,"results.hits.hits", {}), this.renderResult)}
       </div>
 		);
 	}

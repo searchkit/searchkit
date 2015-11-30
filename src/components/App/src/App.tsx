@@ -13,55 +13,33 @@ import {
 } from "../../search/index.ts";
 import ESClient from "../../../domain/ESClient.ts";
 
-import * as Rx from "rx"
+
 require("./../styles/index.scss");
 
 export default class App extends React.Component<any, any> {
-
-	private searcher: ESClient;
-	results:any
-	searcherUnsubscribe:Rx.IDisposable
-
-	constructor(props) {
-		super(props);
-		console.log(props)
-		this.searcher = props.searcher
-	}
-	componentWillMount(){
-		this.searcherUnsubscribe = this.searcher.resultsListener.subscribe(
-			()=> this.forceUpdate()
-		)
-	}
-	componentDidMount(){
-		console.log("mounted")
-		this.searcher.completeRegistration()
-	}
-
-	componentWillUnmount(){
-		this.searcherUnsubscribe.dispose()
-	}
 
 	render() {
 		return (
 			<div className="layout">
 				<div className="layout__search-box">
-					<SelectedFilters searcher={this.searcher}/>
-					<SearchBox searcher={this.searcher}/>
+					<SelectedFilters/>
+					<SearchBox/>
 				</div>
 
 				<div className="layout__filters">
-					<ResetFilters searcher={this.searcher}/>
-					<HierarchicalMenuFilter searcher={this.searcher} fields={["type.raw", "genres.raw"]} title="Categories"/>
-					<RefinementListFilter title="Actors" searcher={this.searcher} field="actors.raw" operator="AND"/>
+					<ResetFilters />
+					<HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories"/>
+					<div className="layout__filters__heading">Refine Results By</div>
+					<RefinementListFilter title="Actors" field="actors.raw" operator="AND"/>
 				</div>
 
 				<div className="layout__results-info">
-					<HitsStats searcher={this.searcher}/>
+					<HitsStats/>
 				</div>
 
 				<div className="layout__results">
-					<Hits searcher={this.searcher} hitsPerPage={50}/>
-					<Pagination searcher={this.searcher}/>
+					<Hits hitsPerPage={50}/>
+					<Pagination/>
 				</div>
 
 			</div>
