@@ -12,33 +12,10 @@ import {
 } from "../../search/index.ts";
 import ESClient from "../../../domain/ESClient.ts";
 
-import * as Rx from "rx"
+
 require("./../styles/index.scss");
 
 export default class App extends React.Component<any, any> {
-
-	private searcher: ESClient;
-	results:any
-	searcherUnsubscribe:Rx.IDisposable
-
-	constructor(props) {
-		super(props);
-		console.log(props)
-		this.searcher = props.searcher
-	}
-	componentWillMount(){
-		this.searcherUnsubscribe = this.searcher.resultsListener.subscribe(
-			()=> this.forceUpdate()
-		)
-	}
-	componentDidMount(){
-		console.log("mounted")
-		this.searcher.completeRegistration()
-	}
-
-	componentWillUnmount(){
-		this.searcherUnsubscribe.dispose()
-	}
 
 	render() {
 		return (
