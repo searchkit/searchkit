@@ -7,7 +7,7 @@ var config = require("./webpack.dev.config.js");
 var elasticsearch = require("elasticsearch")
 var bodyParser = require("body-parser")
 var methodOverride = require("method-override")
-  
+
 
 module.exports = {
   start: function(prodMode) {
@@ -23,7 +23,7 @@ module.exports = {
     app.use(bodyParser.urlencoded({ extended: false }))
     app.use(bodyParser.json())
     app.use(methodOverride())
-    
+
     var port = Number(process.env.PORT || 3000);
 
     if (!env.production) {
@@ -43,6 +43,8 @@ module.exports = {
       }));
 
       app.use(webpackHotMiddleware(compiler));
+      app.use("/assets", express.static(__dirname + '/brand-index/assets'));
+
 
     } else {
       app.use("/static", express.static(__dirname + '/../dist'));
@@ -56,13 +58,13 @@ module.exports = {
 
     app.post("/api/search/:index", function(req, res){
       client.search({
-        index: req.params.index,        
+        index: req.params.index,
         body:req.body || {}
       }).then(function(resp){
         res.send(resp)
       })
     });
-    
+
     app.get('*', function(req, res) {
       res.render('index');
     });

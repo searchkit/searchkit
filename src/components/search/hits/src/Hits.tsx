@@ -13,7 +13,7 @@ export default class Hits extends SearchkitComponent<IHits, any> {
 	renderResult(result:any) {
 		return (
 			<div className="hit" key={result._id}>
-				<img className="hit__poster" src={result._source.poster}/>
+				<img className="hit__poster" src={"/assets/"+result._source.imagePath}/>
 				<div className="hit__title">{result._source.title}</div>
 			</div>
 		)

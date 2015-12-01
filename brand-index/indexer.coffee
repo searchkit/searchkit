@@ -69,7 +69,7 @@ processedAssets = _.map(assets,(asset)->
     created: asset.datecreated
     modified: asset.datemodified
     assetExpiry: asset.assetExpiryDate
-    imagePath: "#{asset.pathFolderNames.join('/')}/#{asset.originalFilename}"
+    imagePath: "#{asset.pathFolderNames.join('/')}/#{asset.title}.#{asset.filetype}"
     resolution: asset.resolution
   }
 
