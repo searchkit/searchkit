@@ -37,6 +37,6 @@ class AssetsRoot extends React.Component<any, any> {
 ReactDOM.render((
 	<Router history={history}>
 		<Route path="/" component={Root}/>
-		<Route path="/brand-app" component={AssetsRoot}/>
+		<Route path="/assets-app" component={AssetsRoot}/>
 	</Router>
 ), document.getElementById('root'))

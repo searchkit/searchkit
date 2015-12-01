@@ -14,9 +14,9 @@ import {
 import ESClient from "../../../domain/ESClient.ts";
 
 
-require("./../styles/index.scss");
+// require("./../styles/index.scss");
 
-export default class App extends React.Component<any, any> {
+export default class AssetsApp extends React.Component<any, any> {
 
 	render() {
 		return (
