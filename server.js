@@ -58,17 +58,21 @@ module.exports = {
       log: 'debug'
     });
     
-    var currentGroupId = null
+    var currentGroupId = "20"
     app.get("/api/setgroup/:groupId", function(req, res){
       currentGroupId = req.params.groupId
       console.log("currentGroupId is "+ currentGroupId)
+      res.end()
     })
     
     app.post("/api/search/:index", function(req, res){
-      var permissionsQuery = PermissionsService.makeQuery(currentGroupId)
+      var permissionsQuery = PermissionsService.makeQuery(currentGroupId)      
+      var queryBody = req.body || {}
+      queryBody.query = permissionsQuery
+      console.log(JSON.stringify(queryBody, null, 2))
       client.search({
         index: req.params.index,
-        body:req.body || {}
+        body:queryBody
       }).then(function(resp){
         res.send(resp)
       })

@@ -18,7 +18,21 @@ module.exports = new class PermissionService
 		console.log(@permissionsIndex)
 		
 	makeQuery:(groupId)->
+		folders = @permissionsIndex[groupId]
+		unless folders 
+			return undefined
 		
+		return {
+			"bool" : {
+				"filter" : {
+						"terms" : { 
+							"pathFolderIds" :folders 							
+							"execution":"or"
+						}
+				}
+			}
+		}
+	
 			
 		
 
