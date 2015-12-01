@@ -84,6 +84,7 @@ export default class HierarchicalMenuFilter extends SearchkitComponent<IHierarch
 	render() {
 		return (
 			<div className="hierarchical-menu-list">
+				<div className="hierarchical-menu-list--header">{this.props.title}</div>
 				{this.renderOptions(1)}
 			</div>
 		);
