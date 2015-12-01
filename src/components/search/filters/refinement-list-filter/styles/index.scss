@@ -6,8 +6,8 @@
     font-weight:bold;
   }
 
-  .refinement-list-filter__item {
-    
+  &--disabled &__header {
+    color:#999;
   }
 
 }

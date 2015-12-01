@@ -16,6 +16,11 @@
   cursor:pointer;
   position:relative;
 
+  &--disabled &__text {
+    color:#999;
+  }
+
+
 
   &:before {
     content:"";
@@ -27,6 +32,10 @@
     position:absolute;
     left:-5px;
     top:5px;
+  }
+
+  &--disabled &:before {
+    display:none;
   }
 
   &__text {

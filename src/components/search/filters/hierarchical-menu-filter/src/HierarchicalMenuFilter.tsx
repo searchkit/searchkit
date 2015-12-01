@@ -58,7 +58,7 @@ export default class HierarchicalMenuFilter extends SearchkitComponent<IHierarch
 		return (
 			<div className="hierarchical-menu-list-options__item" key={level+"_"+option.key}>
         <div className={optionClassName} onClick={this.addFilter.bind(this, accessor, option)}>
-  				<div className="hierarchical-menu-list-option__text">{option.key}</div>
+  				<div className="hierarchical-menu-list-option__text">{option.key} ({option.doc_count})</div>
         </div>
         {(()=> {
           if (isSelected) {
@@ -67,6 +67,10 @@ export default class HierarchicalMenuFilter extends SearchkitComponent<IHierarch
         })()}
 			</div>
 		)
+	}
+
+	hasOptions():boolean {
+		return this.accessors[0].getBuckets().length != 0
 	}
 
   renderOptions(level) {
@@ -82,9 +86,14 @@ export default class HierarchicalMenuFilter extends SearchkitComponent<IHierarch
   }
 
 	render() {
+		let className = classNames({
+			"hierarchical-menu-list-option":true,
+			"hierarchical-menu-list-option--disabled":!this.hasOptions()
+		})
+
 		return (
 			<div className="hierarchical-menu-list">
-				<div className="hierarchical-menu-list-option">
+				<div className={className}>
 					<div className="hierarchical-menu-list-option__text">{this.props.title}</div>
 				</div>
 				{this.renderOptions(1)}

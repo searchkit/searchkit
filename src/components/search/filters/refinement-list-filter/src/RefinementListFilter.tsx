@@ -16,7 +16,7 @@ interface IRefinementListFilter {
 
 export default class RefinementListFilter extends SearchkitComponent<IRefinementListFilter, any> {
 	accessor:FacetAccessor
-		
+
 	defineAccessor() {
 		return new FacetAccessor(
 			this.props.field,
@@ -50,10 +50,19 @@ export default class RefinementListFilter extends SearchkitComponent<IRefinement
 		)
 	}
 
+	hasOptions():boolean {
+		return this.accessor.getBuckets().length != 0
+	}
+
 	render() {
 
+		let className = classNames({
+			"refinement-list-filter":true,
+			"refinement-list-filter--disabled":!this.hasOptions()
+		})
+
 		return (
-			<div className="refinement-list-filter">
+			<div className={className}>
 				<div className="refinement-list-filter__header">{this.props.title}</div>
 				<div className="refinement-list-filter__options">
 				{_.map(this.accessor.getBuckets(), this.renderOption.bind(this))}
