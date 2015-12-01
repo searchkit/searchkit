@@ -40,6 +40,7 @@ export default class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	}
 
 	renderAutocomplete() {
+		return
 		if (_.get(this.getValue(),"length",0) > 2) {
 			return (
 				<div className="suggestions-autocomplete">

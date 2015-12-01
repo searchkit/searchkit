@@ -23,13 +23,13 @@ module.exports = new class PermissionService
 			return undefined
 		
 		return {
-			"bool" : {
-				"filter" : {
-						"terms" : { 
-							"pathFolderIds" :folders 							
-							"execution":"or"
-						}
-				}
+			"bool" : {				
+				"filter":{
+					"terms" : { 
+						"pathFolderIds" :folders 							
+						"execution":"or"
+					}
+				}							
 			}
 		}
 	

@@ -3,3 +3,4 @@ test/e2e/generated
 typings/**
 !typings/tsd.d.ts
 dist
+npm-debug.log

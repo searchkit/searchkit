@@ -3,11 +3,13 @@ export default class SimpleQueryField {
 
   set(query:string) {
     this.query = {
-      "simple_query_string": {
-        "query":query,
-        "default_operator":"and"
-      },
-      size:50
+      bool:{must:[{
+        "simple_query_string": {
+          "query":query,
+          "default_operator":"and"
+        }          
+      }]}
+      
     }
   }
 }

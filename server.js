@@ -67,7 +67,7 @@ module.exports = {
     
     app.post("/api/search/:index", function(req, res){
       var permissionsQuery = PermissionsService.makeQuery(currentGroupId)      
-      var queryBody = req.body || {}
+      var queryBody = req.body || {}      
       queryBody.query = _.merge(queryBody.query || {}, permissionsQuery)
       console.log(JSON.stringify(queryBody, null, 2))
       client.search({
@@ -76,7 +76,7 @@ module.exports = {
       }).then(function(resp){
         res.send(resp)
       })
-    });
+    }); 
 
     app.get('*', function(req, res) {
       res.render('index');
