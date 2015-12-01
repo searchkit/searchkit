@@ -12,7 +12,7 @@ module.exports = new class PermissionService
 			.map(_.partialRight(_.pick, ["group_id", "pathFolderIDs"]))
 			.groupBy("group_id")
 			.mapValues (values)=>
-				_.flatten(_.pluck(values, "pathFolderIDs"))				
+				_.uniq(_.flatten(_.pluck(values, "pathFolderIDs")))				
 			.value()
 			
 		console.log(@permissionsIndex)
