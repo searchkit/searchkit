@@ -1,0 +1,18 @@
+{
+  "B": {
+    "I": [
+      {
+        "-id": "04bb0676-7c8c-486e-8895-e327804b5e38",
+        "-optionsCurrentLang": "Male",
+        "-defaultOnOff": "0",
+        "-currentSorting": "1"
+      },
+      {
+        "-id": "3d7e6138-018f-43c1-882a-f8cd0430acb2",
+        "-optionsCurrentLang": "Female",
+        "-defaultOnOff": "0",
+        "-currentSorting": "2"
+      }
+    ]
+  }
+}

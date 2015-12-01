@@ -1,0 +1,30 @@
+{
+  "B": {
+    "I": [
+      {
+        "-id": "36fa6089-526b-4f1e-b57f-2b2cac36287d",
+        "-optionsCurrentLang": "Child",
+        "-defaultOnOff": "0",
+        "-currentSorting": "1"
+      },
+      {
+        "-id": "24bcd4a7-ca21-4e60-aa9e-28b93ed9a781",
+        "-optionsCurrentLang": "Youth",
+        "-defaultOnOff": "0",
+        "-currentSorting": "2"
+      },
+      {
+        "-id": "61381a7f-eca3-4e29-96a0-63f430c54075",
+        "-optionsCurrentLang": "Adult",
+        "-defaultOnOff": "0",
+        "-currentSorting": "3"
+      },
+      {
+        "-id": "dada67d9-6114-41d7-b073-87bf24d32d8e",
+        "-optionsCurrentLang": "Mature adult",
+        "-defaultOnOff": "0",
+        "-currentSorting": "4"
+      }
+    ]
+  }
+}
