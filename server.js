@@ -1,3 +1,4 @@
+require("coffee-script/register")
 var path = require("path");
 var express = require("express");
 var webpack = require("webpack");
@@ -7,6 +8,7 @@ var config = require("./webpack.dev.config.js");
 var elasticsearch = require("elasticsearch")
 var bodyParser = require("body-parser")
 var methodOverride = require("method-override")
+var PermissionsService = require("./brand-index/PermissionsService")
 
 
 module.exports = {
@@ -55,8 +57,15 @@ module.exports = {
       host: 'localhost:9200',
       log: 'debug'
     });
-
+    
+    var currentGroupId = null
+    app.get("/api/setgroup/:groupId", function(req, res){
+      currentGroupId = req.params.groupId
+      console.log("currentGroupId is "+ currentGroupId)
+    })
+    
     app.post("/api/search/:index", function(req, res){
+      var permissionsQuery = PermissionsService.makeQuery(currentGroupId)
       client.search({
         index: req.params.index,
         body:req.body || {}
