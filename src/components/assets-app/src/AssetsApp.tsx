@@ -32,6 +32,7 @@ export default class AssetsApp extends React.Component<any, any> {
 					<HierarchicalMenuFilter fields={["ethnicityCountry_lvl1", "ethnicityCountry_lvl2"]} title="Ethnicity"/>
           <RefinementListFilter field="animalsAge_lvl1" title="Age" operator="OR"/>
           <RefinementListFilter field="peopleGender_lvl1" title="Gender" operator="OR"/>
+					<RefinementListFilter field="filetype" title="Filetype" operator="OR"/>
 				</div>
 
 				<div className="layout__results-info">

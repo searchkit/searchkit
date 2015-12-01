@@ -17,7 +17,7 @@ export default class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		this.onSubmit = this.onSubmit.bind(this)
 		this.onChange = this.onChange.bind(this)
 	}
-	
+
 	defineAccessor(){
 		return new SimpleQueryAccessor("q")
 	}
@@ -90,7 +90,6 @@ export default class SearchBox extends SearchkitComponent<ISearchBox, any> {
 						className="search-box__text"/>
           <input type="submit" value="search" className="search-box__action"/>
         </form>
-				{this.renderAutocomplete()}
       </div>
 		);
 	}

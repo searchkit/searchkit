@@ -11,7 +11,7 @@ export default class RootBuilder {
 	from:number
 
 	constructor() {
-		this.setSize(10);
+		this.setSize(20);
 	}
 
 	setQuery(query) {
