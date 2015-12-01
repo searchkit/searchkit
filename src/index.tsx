@@ -10,7 +10,7 @@ import SearchkitProvider from "./components/SearchkitProvider.ts"
 
 
 
-const searcher = new ESClient("http://localhost:9200", "movies")
+const searcher = new ESClient("http://localhost:9200", "assets")
 searcher.listenToHistory(history)
 
 
