@@ -2,6 +2,7 @@ elasticsearch = require "elasticsearch"
 promise       = require "bluebird"
 moment        = require "moment"
 _             = require "lodash"
+assets        = require "./assets"
 
 client = new elasticsearch.Client({
   host:"localhost:9200"
@@ -15,9 +16,8 @@ getMultiFieldDef = (name) ->
     }
   }
 
-processedMovies = movies.map (asset)->
-  years = getYears(movie.Year)
-  return compact({
+processedAssets = assets.map (asset)->
+  return _.compact({
     title:asset.title
     pixelWidth:asset.pixelWidth
     pixelHeight: asset.pixelHeight
@@ -41,6 +41,7 @@ mapping = {
         pixelHeight: {type:"integer"}
 
 }
+commands = []
 
 for m in processedAssets
   commands.push {index:{_index:"assets", _type:"asset", _id:m.artwork_id}}
@@ -56,6 +57,6 @@ client.indices.delete {index:"assets"}, (err, res)->
         if err
           return console.log err
         if res.errors
-          return console.log(errors)
+          return console.log(res.errors)
 
         console.log "indexed #{res.items.length} items in #{res.took}ms"
