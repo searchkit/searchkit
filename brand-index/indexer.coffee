@@ -16,19 +16,22 @@ getMultiFieldDef = (name) ->
     }
   }
 
-processedAssets = assets.map (asset)->
-  return _.compact({
+processedAssets = _.map(assets,(asset)->
+  return {
     title:asset.title
-    pixelWidth:asset.pixelWidth
-    pixelHeight: asset.pixelHeight
+    pixelWidth:asset.pixelwidth
+    pixelHeight: asset.pixelheight
     orientation: asset.orientation
     originalFilename: asset.originalFilename
     filetype: asset.filetype
     fileCategory: asset.fileCategory
-    created: moment(asset.datecreated, "MM/DD/YY").format("YYYY-MM-DD")
-    modified: moment(asset.datemodified, "MM/DD/YY").format("YYYY-MM-DD")
-    assetExpiry: moment(asset.assetExpiryDate, "MM/DD/YY").format("YYYY-MM-DD")
-  })
+    created: asset.datecreated
+    modified: asset.datemodified
+    assetExpiry: asset.assetExpiryDate
+    imagePath: "#{asset.pathFolderNames.join('/')}/#{asset.originalFilename}"
+    resolution: asset.resolution
+  }
+)
 
 mapping = {
   index:"assets"
