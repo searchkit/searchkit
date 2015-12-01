@@ -54,10 +54,9 @@ module.exports = {
       log: 'debug'
     });
 
-    app.post("/api/search", function(req, res){
+    app.post("/api/search/:index", function(req, res){
       client.search({
-        index: 'movies',
-        type: 'movie',
+        index: req.params.index,        
         body:req.body || {}
       }).then(function(resp){
         res.send(resp)

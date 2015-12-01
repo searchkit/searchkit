@@ -26,7 +26,7 @@ export default class ESClient {
 
 	searchUrl(){
 		// return [this.host, this.index, "_search"].join("/")
-		return "/api/search"
+		return "/api/search/"+this.index
 	}
 
 	getQuery(){
