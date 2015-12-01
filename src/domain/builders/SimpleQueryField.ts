@@ -6,7 +6,8 @@ export default class SimpleQueryField {
       "simple_query_string": {
         "query":query,
         "default_operator":"and"
-      }
+      },
+      size:50
     }
   }
 }

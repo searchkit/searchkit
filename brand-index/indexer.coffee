@@ -71,6 +71,7 @@ processedAssets = _.map(assets,(asset)->
     assetExpiry: asset.assetExpiryDate
     imagePath: "#{asset.pathFolderNames.join('/')}/#{asset.title}.#{asset.filetype}"
     resolution: asset.resolution
+    pathFolderIds:asset.pathFolderIDs
   }
 
   setHierarchicalValue("animalsAge", asset["BMS_META|MAMMALS|AGE"], animalsAge, doc)
