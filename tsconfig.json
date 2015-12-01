@@ -8,6 +8,7 @@
   "files": [
     "./src/components/app/src/App.tsx",
     "./src/components/app/test/unit/AppSpec.tsx",
+    "./src/components/assets-app/src/AssetsApp.tsx",
     "./src/components/search/filters/hierarchical-menu-filter/src/HierarchicalMenuFilter.tsx",
     "./src/components/search/filters/menu-filter/src/MenuFilter.tsx",
     "./src/components/search/filters/refinement-list-filter/src/RefinementListFilter.tsx",
