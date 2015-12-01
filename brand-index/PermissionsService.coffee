@@ -16,6 +16,9 @@ module.exports = new class PermissionService
 			.value()
 			
 		console.log(@permissionsIndex)
+		
+	makeQuery:(groupId)->
+		
 			
 		
 
