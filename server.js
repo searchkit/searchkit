@@ -9,7 +9,7 @@ var elasticsearch = require("elasticsearch")
 var bodyParser = require("body-parser")
 var methodOverride = require("method-override")
 var PermissionsService = require("./brand-index/PermissionsService")
-
+var _ = require("lodash")
 
 module.exports = {
   start: function(prodMode) {
@@ -68,7 +68,7 @@ module.exports = {
     app.post("/api/search/:index", function(req, res){
       var permissionsQuery = PermissionsService.makeQuery(currentGroupId)      
       var queryBody = req.body || {}
-      queryBody.query = permissionsQuery
+      queryBody.query = _.merge(queryBody.query || {}, permissionsQuery)
       console.log(JSON.stringify(queryBody, null, 2))
       client.search({
         index: req.params.index,
