@@ -49,7 +49,7 @@ export default class StateAcessors {
 		return data
 	}
 
-	updateHistory(){
-		history.pushState(null, "/", this.state.getState())
+	updateHistory(){		
+		history.pushState(null, window.location.pathname, this.state.getState())
 	}
 }
