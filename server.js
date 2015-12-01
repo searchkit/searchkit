@@ -4,7 +4,10 @@ var webpack = require("webpack");
 var webpackMiddleware = require("webpack-dev-middleware");
 var webpackHotMiddleware = require('webpack-hot-middleware');
 var config = require("./webpack.dev.config.js");
-
+var elasticsearch = require("elasticsearch")
+var bodyParser = require("body-parser")
+var methodOverride = require("method-override")
+  
 
 module.exports = {
   start: function(prodMode) {
@@ -17,7 +20,10 @@ module.exports = {
     var app = express();
     app.set('view engine', 'ejs');
     app.set('views', __dirname + '/server/views');
-
+    app.use(bodyParser.urlencoded({ extended: false }))
+    app.use(bodyParser.json())
+    app.use(methodOverride())
+    
     var port = Number(process.env.PORT || 3000);
 
     if (!env.production) {
@@ -42,6 +48,22 @@ module.exports = {
       app.use("/static", express.static(__dirname + '/../dist'));
     }
 
+
+    var client = new elasticsearch.Client({
+      host: 'localhost:9200',
+      log: 'debug'
+    });
+
+    app.post("/api/search", function(req, res){
+      client.search({
+        index: 'movies',
+        type: 'movie',
+        body:req.body || {}
+      }).then(function(resp){
+        res.send(resp)
+      })
+    });
+    
     app.get('*', function(req, res) {
       res.render('index');
     });
