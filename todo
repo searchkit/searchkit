@@ -1,0 +1,58 @@
+queries
+url state
+accessor key->values
+components
+
+searcher.addFilter({key:"gender", value:"female", {
+  bool: [
+
+  ]
+}})
+
+searcher.addFilter({key:"created by", value:"before end of year", removeFn:}, {created:""}, {
+
+
+
+})
+
+filter(.., removeFn, icon:.)
+
+chart extends uidef
+   props ...
+aggsDef = aggs:
+  somefield
+    terms:....
+    ui_type:"pie"
+    aggs:
+      metric
+
+
+cleverComponent(aggsDef)
+
+<getComponent(ui_type)
+
+
+Accessor key
+  buildCommonQuery()
+    builder.addFilters(filter + meta/uidata+ownerKey)
+  buildQuery(commonBuilder)
+    builder.aggs, addFilters, sort
+
+
+
+
+SearchManager
+  Accessors[] -> common query
+  Searchers[]
+    Acccessors[]
+      buildExtraEquery(builder, commonQuery)
+        builder = builder.addSpecialStuff()
+        previousBuilder != builder
+
+finalSearchers = [s1, s2, s3...]
+
+[
+ {..commonfilter, p=4}
+ {..commonfilter, facetPage=2}
+
+]
