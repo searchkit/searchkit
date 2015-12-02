@@ -34,10 +34,10 @@ export default class HierarchicalMenuFilter extends SearchkitComponent<IHierarch
   }
 
   addFilter(accessor, option) {
+		let isSelected = accessor.state.contains(option.key)
 		let childAccessors = _.slice(this.accessors,_.indexOf(this.accessors,accessor))
 		_.each(childAccessors, (accessor:HierarchicalFacetAccessor) => accessor.state.clear());
-		accessor.state.clear()
-		accessor.state.add(option.key)
+		if (!isSelected) accessor.state.add(option.key)
 		accessor.search()
 	}
 

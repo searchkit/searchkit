@@ -40,7 +40,7 @@ export default class App extends React.Component<any, any> {
 				</div>
 
 				<div className="layout__results">
-					<Hits hitsPerPage={50}/>
+					<Hits hitsPerPage={50} render="movies"/>
 					<Pagination/>
 				</div>
 

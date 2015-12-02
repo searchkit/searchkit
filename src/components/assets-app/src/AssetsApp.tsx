@@ -30,8 +30,9 @@ export default class AssetsApp extends React.Component<any, any> {
 					<ResetFilters />
           <HierarchicalMenuFilter fields={["animalsClassification_lvl1", "animalsClassification_lvl2", "animalsClassification_lvl3"]} title="Classification"/>
 					<HierarchicalMenuFilter fields={["ethnicityCountry_lvl1", "ethnicityCountry_lvl2"]} title="Ethnicity"/>
-          <RefinementListFilter field="animalsAge_lvl1" title="Age" operator="OR"/>
-          <RefinementListFilter field="peopleGender_lvl1" title="Gender" operator="OR"/>
+					<HierarchicalMenuFilter fields={["animalsAge_lvl1"]} title="Age"/>
+					<HierarchicalMenuFilter fields={["peopleGender_lvl1"]} title="Gender"/>
+					<div className="layout__filters__heading">Refine results by</div>
 					<RefinementListFilter field="filetype" title="Filetype" operator="OR"/>
 				</div>
 
@@ -40,7 +41,7 @@ export default class AssetsApp extends React.Component<any, any> {
 				</div>
 
 				<div className="layout__results">
-					<Hits hitsPerPage={50}/>
+					<Hits hitsPerPage={50} render="assets"/>
 					<Pagination/>
 				</div>
 

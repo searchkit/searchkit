@@ -10,7 +10,9 @@ import SearchkitProvider from "./components/SearchkitProvider.ts"
 
 
 
+// const searcher = new ESClient("http://localhost:9200", "movies")
 const searcher = new ESClient("http://localhost:9200", "assets")
+
 searcher.listenToHistory(history)
 
 
@@ -36,7 +38,7 @@ class AssetsRoot extends React.Component<any, any> {
 
 ReactDOM.render((
 	<Router history={history}>
-		<Route path="/" component={Root}/>
+		<Route path="/movies-app" component={Root}/>
 		<Route path="/assets-app" component={AssetsRoot}/>
 	</Router>
 ), document.getElementById('root'))
