@@ -48,6 +48,7 @@
     "./src/domain/new/State.ts",
     "./src/domain/new/test/ApiSpec.ts",
     "./src/domain/new/test/ImmutableQuerySpec.ts",
+    "./src/domain/new/test/SearcherSpec.ts",
     "./src/domain/new/test/StateSpec.ts",
     "./src/domain/state/StateManager.ts",
     "./src/domain/state/StateMap.ts",

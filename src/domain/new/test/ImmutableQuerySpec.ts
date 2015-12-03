@@ -13,7 +13,7 @@ fdescribe("ImmutableQuery Test", ()=>{
   })
 
   it("update lib check", ()=>{
-    console.log(update)
+    // console.log(update)
   })
 
   it("size", ()=>{
@@ -25,7 +25,7 @@ fdescribe("ImmutableQuery Test", ()=>{
   it("addFilter", ()=>{
     var filter = {term:{genre:"action"}}
     var newQuery = this.immutableQuery.addFilter("genre", filter)
-    this.printJSON(newQuery.query)
+    // this.printJSON(newQuery.query)
     expect(newQuery.query).toEqual({
       "filter": BoolMust([filter]),
       "query":BoolMust()
@@ -49,8 +49,6 @@ fdescribe("ImmutableQuery Test", ()=>{
     var query = SimpleQueryString("hi", {
       default_operator:"and"
     })
-
-    console.log(query)
     var newQuery = this.immutableQuery.addQuery(query)
     expect(newQuery.query.query).toEqual(BoolMust([query]))
     expect(newQuery.query.query.bool.must[0]).toEqual({

@@ -14,9 +14,12 @@ export class ImmutableQuery {
   }
 
   addQuery(query){
-    return this.update({
-      query:BoolMust({$merge:[query]})
-    })
+    if(query){
+      return this.update({
+        query:BoolMust({$merge:[query]})
+      })
+    }
+    return this
   }
 
   addFilter(key, bool){

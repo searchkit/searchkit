@@ -1,6 +1,6 @@
 export class State<T> {
   value:T
-  constructor(defaultValue:T){
+  constructor(defaultValue:T=null){
     this.value = defaultValue
   }
   setValue(value:T){

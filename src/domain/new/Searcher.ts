@@ -1,18 +1,18 @@
 import {State,ArrayState,ObjectState,ValueState} from "./State.ts"
 import {ImmutableQuery} from "./ImmutableQuery.ts";
 
-class Accessor<T extends State<any>> {
+export class Accessor<T extends State<any>> {
   key:string
   state:T
   buildSharedQuery(query:ImmutableQuery){
-    return null
+    return query
   }
   buildOwnQuery(query:ImmutableQuery){
-    return null
+    return query
   }
 }
 
-class Searcher {
+export class Searcher {
   accessors:Array<Accessor<any>>
   query:ImmutableQuery
   queryHasChanged:boolean
@@ -32,10 +32,13 @@ class Searcher {
   }
 }
 
-class SearchkitManager {
+export class SearchkitManager {
   searchers:Array<Searcher>
   constructor(){
     this.searchers = []
+  }
+  addSearcher(searcher){
+    this.searchers.push(searcher)
   }
   getAccessors(){
     return _.chain(this.searchers)
@@ -57,9 +60,10 @@ class SearchkitManager {
     _.each(this.searchers, (searcher)=>{
       searcher.buildQuery(query)
       if(searcher.queryHasChanged){
-        queries.push(searcher.query)
+        queries.push(searcher.query.getJSON())
       }
     })
+    return queries
   }
 
 }
