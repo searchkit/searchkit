@@ -31,7 +31,6 @@ export default class Hits extends SearchkitComponent<IHits, any> {
 
 	render() {
 		let hits:{}[] = _.get(this.searcher, "results.hits.hits", null)
-		console.log(hits)
 		return (
 			<div className="hits">
 				{_.map(hits, this.renderResult.bind(this))}
