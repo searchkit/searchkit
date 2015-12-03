@@ -1,11 +1,11 @@
 import * as _ from "lodash"
 
 export class State<T> {
-  value:T
-  constructor(defaultValue:T=null){
+  value: T
+  constructor(defaultValue: T = null) {
     this.value = defaultValue
   }
-  setValue(value:T){
+  setValue(value: T) {
     this.value = value
   }
   getValue() {
@@ -14,24 +14,24 @@ export class State<T> {
 }
 
 export class ArrayState extends State<Array<string>> {
-  lazyInit(){
+  lazyInit() {
     this.value = this.value || []
     return this.value
   }
-  toggle(val){
-    if(this.contains(val)){
+  toggle(val) {
+    if (this.contains(val)) {
       this.remove(val)
     } else {
       this.add(val)
     }
-  }  
-  remove(val){
+  }
+  remove(val) {
     this.value = _.without(this.lazyInit(), val)
   }
-  add(val){
+  add(val) {
     this.lazyInit().push(val)
   }
-  contains(val){
+  contains(val) {
     return _.contains(this.value, val)
   }
 }
