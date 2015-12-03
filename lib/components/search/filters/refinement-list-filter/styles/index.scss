@@ -1,0 +1,49 @@
+.refinement-list-filter {
+  margin-bottom:20px;
+
+  &__header {
+    margin-bottom:5px;
+    font-weight:bold;
+  }
+
+  &--disabled &__header {
+    color:#999;
+  }
+
+}
+
+.refinement-option {
+  display:flex;
+  position:relative;
+  cursor:pointer;
+  padding:2px 0;
+  line-height:18px;
+
+  &--checked &__text {
+    font-weight:700;
+  }
+
+  &__text {
+    margin-left:20px;
+    flex:2;
+    font-size:14px;
+  }
+  &__count {
+    flex:1;
+    font-size:12px;
+    text-align:right;
+    color:lighten(#999,20);
+  }
+  &__checkbox {
+    position:absolute;
+    top:5px;
+    width:12px;
+    height:12px;
+    border:1px solid #000;
+    border-radius: 3px;
+
+    &--checked {
+      background:black;
+    }
+  }
+}

@@ -8,7 +8,6 @@ var config = require("./webpack.dev.config.js");
 var elasticsearch = require("elasticsearch")
 var bodyParser = require("body-parser")
 var methodOverride = require("method-override")
-var PermissionsService = require("./brand-index/PermissionsService")
 var _ = require("lodash")
 
 module.exports = {
@@ -57,26 +56,17 @@ module.exports = {
       host: 'localhost:9200',
       log: 'debug'
     });
-    
-    var currentGroupId = "20"
-    app.get("/api/setgroup/:groupId", function(req, res){
-      currentGroupId = req.params.groupId
-      console.log("currentGroupId is "+ currentGroupId)
-      res.end()
-    })
-    
+
+
     app.post("/api/search/:index", function(req, res){
-      var permissionsQuery = PermissionsService.makeQuery(currentGroupId)      
-      var queryBody = req.body || {}      
-      queryBody.query = _.merge(queryBody.query || {}, permissionsQuery)
-      console.log(JSON.stringify(queryBody, null, 2))
+      var queryBody = req.body || {}
       client.search({
         index: req.params.index,
         body:queryBody
       }).then(function(resp){
         res.send(resp)
       })
-    }); 
+    });
 
     app.get('*', function(req, res) {
       res.render('index');

@@ -1,0 +1,29 @@
+.menu-list {
+  margin-bottom:20px;
+
+  &__options {
+
+  }
+
+  &__items {
+
+  }
+
+  &-option {
+    position:relative;
+    cursor:pointer;
+    padding:0px 0;
+    line-height:22px;
+
+    &--checked &__text {
+      font-weight:700;
+    }
+
+    &__text {
+      flex:2;
+      font-size:16px;
+    }
+
+  }
+
+}

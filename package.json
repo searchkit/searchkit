@@ -1,16 +1,16 @@
 {
   "name": "searchkit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A suite of react components to help create a UI quickly for elasticsearch ",
-  "main": "lib/src/index.js",
-  "typings": "lib/src/index.d.ts",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "scripts": {
-    "postinstall": "tsd reinstall --overwrite --save; npm run-script build",
     "start": "node start.js",
     "test": "karma start --single-run",
     "karma-watch": "./node_modules/.bin/karma start karma.conf.js --auto-watch",
-    "build": "make tsc",
-    "test-e2e": "rm -rf test/e2e/generated; tsc -p test/e2e; protractor test/e2e/config/protractor.conf.js"
+    "build": "tsc",
+    "test-e2e": "rm -rf test/e2e/generated; tsc -p test/e2e; protractor test/e2e/config/protractor.conf.js",
+    "build:css": "node scripts/copycss.js"
   },
   "authors": [
     {
@@ -66,6 +66,8 @@
     "webpack": "^1.12.2"
   },
   "devDependencies": {
+    "glob-copy": "^0.1.0",
+    "gulp": "^3.9.0",
     "html-webpack-plugin": "^1.6.2",
     "webpack-config": "^2.3.0",
     "webpack-dev-middleware": "^1.2.0",
