@@ -1,5 +1,6 @@
 import * as _ from "lodash"
 
+
 export function BoolMust(val:any=[]){
   return {bool:{must:val}}
 }
