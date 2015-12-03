@@ -24,6 +24,7 @@ export default class SearchkitManager {
   }
   addSearcher(searcher){
     this.searchers.push(searcher)
+    searcher.setSearchkitManager(this)
   }
 
   createSearcher(){
@@ -70,7 +71,9 @@ export default class SearchkitManager {
     _.each(this.searchers, (searcher)=>{
       searcher.buildQuery(query)
       if(searcher.queryHasChanged){
-        queryDef.queries.push(searcher.query.getJSON())
+        queryDef.queries = queryDef.queries.concat(
+          searcher.getCommandAndQuery()
+        )
         queryDef.searchers.push(searcher)
       }
     })
