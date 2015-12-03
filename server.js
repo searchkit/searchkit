@@ -8,6 +8,7 @@ var config = require("./webpack.dev.config.js");
 var elasticsearch = require("elasticsearch")
 var bodyParser = require("body-parser")
 var methodOverride = require("method-override")
+
 var _ = require("lodash")
 
 module.exports = {
@@ -44,7 +45,6 @@ module.exports = {
       }));
 
       app.use(webpackHotMiddleware(compiler));
-      app.use("/assets", express.static(__dirname + '/brand-index/assets'));
 
 
     } else {
@@ -66,6 +66,19 @@ module.exports = {
       }).then(function(resp){
         res.send(resp)
       })
+    });
+
+    app.post("/api/multisearch/:index", function(req, res){
+      var declareIndexCommand = {index:req.params.index}
+      var mSearchPayload = _.chain(req.body)
+        .map(function(query){
+          return [declareIndexCommand, query]
+        })
+        .flatten().value()
+      client.msearch({body:mSearchPayload})
+        .then(function(resp){
+          res.send(resp)
+        })
     });
 
     app.get('*', function(req, res) {

@@ -1,5 +1,5 @@
 const update = require("react-addons-update")
-import {BoolMust} from "./Builders.ts"
+import {BoolMust} from "./QueryBuilders.ts"
 
 export class ImmutableQuery {
   index:any
@@ -14,9 +14,12 @@ export class ImmutableQuery {
   }
 
   addQuery(query){
-    return this.update({
-      query:BoolMust({$merge:[query]})
-    })
+    if(query){
+      return this.update({
+        query:BoolMust({$merge:[query]})
+      })
+    }
+    return this
   }
 
   addFilter(key, bool){

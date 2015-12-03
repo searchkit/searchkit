@@ -1,6 +1,8 @@
+import * as _ from "lodash"
+
 export class State<T> {
   value:T
-  constructor(defaultValue:T){
+  constructor(defaultValue:T=null){
     this.value = defaultValue
   }
   setValue(value:T){
@@ -12,6 +14,26 @@ export class State<T> {
 }
 
 export class ArrayState extends State<Array<string>> {
+  lazyInit(){
+    this.value = this.value || []
+    return this.value
+  }
+  toggle(val){
+    if(this.contains(val)){
+      this.remove(val)
+    } else {
+      this.add(val)
+    }
+  }  
+  remove(val){
+    this.value = _.without(this.lazyInit(), val)
+  }
+  add(val){
+    this.lazyInit().push(val)
+  }
+  contains(val){
+    return _.contains(this.value, val)
+  }
 }
 
 export class ObjectState extends State<Object>{
