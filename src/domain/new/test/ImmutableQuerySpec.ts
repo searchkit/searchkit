@@ -1,5 +1,5 @@
 import {ImmutableQuery} from "../ImmutableQuery.ts";
-import {BoolMust, SimpleQueryString} from "../Builders.ts";
+import {BoolMust, SimpleQueryString} from "../QueryBuilders.ts";
 
 const update = require("react-addons-update")
 

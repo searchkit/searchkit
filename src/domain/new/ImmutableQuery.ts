@@ -1,5 +1,5 @@
 const update = require("react-addons-update")
-import {BoolMust} from "./Builders.ts"
+import {BoolMust} from "./QueryBuilders.ts"
 
 export class ImmutableQuery {
   index:any

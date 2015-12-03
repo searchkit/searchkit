@@ -1,26 +1,19 @@
 import {State,ArrayState,ObjectState,ValueState} from "./State.ts"
 import {ImmutableQuery} from "./ImmutableQuery.ts";
+import Accessor from "./accessors/Accessor.ts"
 
-export class Accessor<T extends State<any>> {
-  key:string
-  state:T
-  buildSharedQuery(query:ImmutableQuery){
-    return query
-  }
-  buildOwnQuery(query:ImmutableQuery){
-    return query
-  }
-}
-
-export class Searcher {
+export default class Searcher {
   accessors:Array<Accessor<any>>
   query:ImmutableQuery
   queryHasChanged:boolean
+  results:any
+
   constructor(){
     this.accessors = []
   }
   addAccessor(accessor:Accessor<any>){
     this.accessors.push(accessor)
+    accessor.setSearcher(this)
   }
   buildQuery(query){
     _.each(this.accessors, (accessor)=>{
@@ -30,40 +23,7 @@ export class Searcher {
       this.query, query)
     this.query = query
   }
-}
-
-export class SearchkitManager {
-  searchers:Array<Searcher>
-  constructor(){
-    this.searchers = []
+  getResults(){
+    return this.results
   }
-  addSearcher(searcher){
-    this.searchers.push(searcher)
-  }
-  getAccessors(){
-    return _.chain(this.searchers)
-      .pluck("accessors")
-      .flatten()
-      .value()
-  }
-  buildSharedQuery(){
-    var query = new ImmutableQuery()
-    var accessors = this.getAccessors()
-    _.each(accessors, (accessor)=>{
-      query = accessor.buildSharedQuery(query)
-    })
-    return query
-  }
-  search(){
-    var query = this.buildSharedQuery()
-    var queries = []
-    _.each(this.searchers, (searcher)=>{
-      searcher.buildQuery(query)
-      if(searcher.queryHasChanged){
-        queries.push(searcher.query.getJSON())
-      }
-    })
-    return queries
-  }
-
 }

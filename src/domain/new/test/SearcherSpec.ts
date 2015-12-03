@@ -1,23 +1,17 @@
-import {Searcher, SearchkitManager, Accessor} from "../Searcher.ts"
+import Searcher from "../Searcher.ts"
+import SearchkitManager from "../SearchkitManager.ts"
+import Accessor from "../accessors/Accessor.ts";
 import {ValueState} from "../State.ts"
-import {SimpleQueryString} from "../Builders.ts";
+import {SimpleQueryString} from "../QueryBuilders.ts";
+import SearchAccessor from "../accessors/SearchAccessor.ts"
+
 fdescribe("Searcher Test", ()=>{
 
   beforeEach(()=>{
     this.searchkit = new SearchkitManager()
 
-    class SearchAccessor extends Accessor<ValueState> {
-      state = new ValueState()
-      buildSharedQuery(query){
-        return query.addQuery(SimpleQueryString(this.state.getValue()))
-      }
-      buildOwnQuery(query){
-        return query
-      }
-    }
-
     this.searcher = new Searcher()
-    this.accessor = new SearchAccessor()
+    this.accessor = new SearchAccessor("q")
     this.searcher.addAccessor(this.accessor)
     this.searchkit.addSearcher(this.searcher)
     this.accessor.state.setValue("hello")
