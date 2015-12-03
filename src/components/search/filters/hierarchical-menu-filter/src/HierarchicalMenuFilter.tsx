@@ -7,7 +7,7 @@ import SearchkitComponent from "../../../../SearchkitComponent.ts";
 
 require("./../styles/index.scss");
 
-interface IHierarchicalMenuFilter {
+export interface IHierarchicalMenuFilter {
 	fields:Array<string>
 	title:string
 }

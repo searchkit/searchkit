@@ -6,7 +6,7 @@ import SearchkitComponent from "../../../SearchkitComponent.ts";
 
 require("./../styles/index.scss");
 
-interface ISearchBox {
+export interface ISearchBox {
 }
 
 export default class SearchBox extends SearchkitComponent<ISearchBox, any> {
@@ -40,8 +40,7 @@ export default class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	}
 
 	renderAutocomplete() {
-		return
-		if (_.get(this.getValue(),"length",0) > 2) {
+		if ("d" == "s") {
 			return (
 				<div className="suggestions-autocomplete">
 					<div className="suggestions-section">

@@ -8,10 +8,10 @@ import PaginationAccessor from "../../../../domain/accessors/PaginationAccessor.
 
 require("./../styles/index.scss");
 
-interface IPagination {
+export interface IPagination {
 }
 
-enum DIRECTION {
+export enum DIRECTION {
 	NEXT,
 	PREVIOUS
 }

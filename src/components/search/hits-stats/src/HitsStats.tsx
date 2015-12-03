@@ -5,7 +5,7 @@ import SearchkitComponent from "../../../SearchkitComponent.ts";
 
 require("./../styles/index.scss");
 
-interface IHitsStats {
+export interface IHitsStats {
 }
 
 export default class HitsStats extends SearchkitComponent<IHitsStats, any> {

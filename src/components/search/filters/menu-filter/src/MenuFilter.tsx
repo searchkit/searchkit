@@ -8,7 +8,7 @@ import SearchkitComponent from "../../../../SearchkitComponent.ts";
 
 require("./../styles/index.scss");
 
-interface IMenuFilter {
+export interface IMenuFilter {
 	field:string
 	title:string
 }

@@ -4,7 +4,7 @@ import SearchkitComponent from "../../../SearchkitComponent.ts";
 
 require("./../styles/index.scss");
 
-interface IHits {
+export interface IHits {
 	hitsPerPage: number
 	render:string
 }

@@ -2,7 +2,7 @@ import * as React from "react";
 import ESClient from "../domain/ESClient.ts"
 import * as Rx from "rx"
 
-interface ISearcherProvider {
+export interface ISearcherProvider {
 	searcher:ESClient
 	children?:any
 }
@@ -11,16 +11,16 @@ export default class SearchkitProvider extends React.Component<ISearcherProvider
 	static childContextTypes = {
 		searcher:React.PropTypes.instanceOf(ESClient)
 	}
-	
+
 	private searcher: ESClient;
 	results:any
 	searcherUnsubscribe:Rx.IDisposable
-	
+
 	constructor(props:ISearcherProvider){
 		super(props)
-		this.searcher = props.searcher		
+		this.searcher = props.searcher
 	}
-	
+
 	componentWillMount(){
 		this.searcherUnsubscribe = this.searcher.resultsListener.subscribe(
 			()=> this.forceUpdate()
@@ -33,7 +33,7 @@ export default class SearchkitProvider extends React.Component<ISearcherProvider
 	componentWillUnmount(){
 		this.searcherUnsubscribe.dispose()
 	}
-	
+
 	getChildContext(){
 		return {searcher:this.props.searcher}
 	}

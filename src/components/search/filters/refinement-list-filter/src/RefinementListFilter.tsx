@@ -7,7 +7,7 @@ import SearchkitComponent from "../../../../SearchkitComponent.ts";
 
 require("./../styles/index.scss");
 
-interface IRefinementListFilter {
+export interface IRefinementListFilter {
 	field:string
 	operator?:string
 	size?:string

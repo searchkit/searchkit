@@ -10,7 +10,7 @@ import {
 	Pagination,
 	SelectedFilters,
 	HierarchicalMenuFilter
-} from "../../search/index.ts";
+} from "../../index.ts";
 import ESClient from "../../../domain/ESClient.ts";
 
 
