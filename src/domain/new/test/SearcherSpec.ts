@@ -8,7 +8,7 @@ import SearchAccessor from "../accessors/SearchAccessor.ts"
 fdescribe("Searcher Test", ()=>{
 
   beforeEach(()=>{
-    this.searchkit = new SearchkitManager()
+    this.searchkit = new SearchkitManager("assets")
 
     this.searcher = new Searcher()
     this.accessor = new SearchAccessor("q")
@@ -26,9 +26,9 @@ fdescribe("Searcher Test", ()=>{
   })
 
   it("search", ()=>{
-    this.printJSON(this.searchkit.search())
-    this.printJSON(this.searchkit.search())
+    this.printJSON(this.searchkit.makeQueryDef().queries)
+    this.printJSON(this.searchkit.makeQueryDef().queries)
     this.accessor.state.setValue("hello2")
-    this.printJSON(this.searchkit.search())
+    this.printJSON(this.searchkit.makeQueryDef().queries)
   })
 });

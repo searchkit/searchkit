@@ -18,7 +18,6 @@ export default class FacetAccessor extends Accessor<ArrayState> {
     return _.get(results, path, [])
   }
 
-
   isOrOperator(){
     return this.options["operator"] === "OR"
   }
@@ -32,7 +31,7 @@ export default class FacetAccessor extends Accessor<ArrayState> {
     var filterTerms = _.map(filters, Term.bind(Term, this.key))
     var boolBuilder = this.getBoolBuilder()
     if(filterTerms.length > 0){
-      query = query.addFilter(boolBuilder(filterTerms))
+      query = query.addFilter(this.key, boolBuilder(filterTerms))
     }
     return query
   }
@@ -43,7 +42,7 @@ export default class FacetAccessor extends Accessor<ArrayState> {
       [this.key]:{
         filter:query.getFilters(excludedKey),
         aggs:{
-          [this.key]:Terms(this.key, {size:100})
+          [this.key]:Terms(this.key, {size:20})
         }
       }
     })

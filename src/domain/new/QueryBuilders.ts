@@ -30,10 +30,8 @@ export function Term(key, value){
 
 export function Terms(key, options){
   return {
-    terms:{
-      [key]:_.extend({
-        field:key
-      }, options)
-    }
+    terms:_.extend({
+      field:key
+    }, options)
   }
 }

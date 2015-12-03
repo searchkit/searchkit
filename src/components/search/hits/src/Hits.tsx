@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as _ from "lodash";
-import SearchkitComponent from "../../../SearchkitComponent.ts";
-
+import SearchkitComponent from "../../../../domain/new/SearchkitComponent.ts";
+import Searcher from "../../../../domain/new/Searcher.ts"
 require("./../styles/index.scss");
 
 export interface IHits {

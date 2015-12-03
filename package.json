@@ -33,6 +33,7 @@
     "css-loader": "^0.20.2",
     "ejs": "^2.3.4",
     "elasticsearch": "^9.0.2",
+    "es6-promise": "^3.0.2",
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",

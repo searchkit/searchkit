@@ -17,7 +17,7 @@ export default class Accessor<T extends State<any>> {
   }
 
   getResults(){
-    this.searcher.results
+    return this.searcher.results
   }
 
   buildSharedQuery(query:ImmutableQuery){

@@ -26,4 +26,7 @@ export default class Searcher {
   getResults(){
     return this.results
   }
+  setResults(results) {
+    this.results = results
+  }
 }
