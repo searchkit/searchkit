@@ -1,14 +1,20 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "target": "ES5",
+    "declaration": true,
     "module": "commonjs",
+    "target": "es5",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "outDir": "lib",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "noEmitOnError": true,
     "jsx": "react"
   },
   "files": [
     "./src/components/app/src/App.tsx",
     "./src/components/app/test/unit/AppSpec.tsx",
-    "./src/components/assets-app/src/AssetsApp.tsx",
     "./src/components/search/filters/hierarchical-menu-filter/src/HierarchicalMenuFilter.tsx",
     "./src/components/search/filters/menu-filter/src/MenuFilter.tsx",
     "./src/components/search/filters/refinement-list-filter/src/RefinementListFilter.tsx",
@@ -20,7 +26,7 @@
     "./src/components/search/search-box/src/SearchBox.tsx",
     "./src/index.tsx",
     "./src/common/Newable.ts",
-    "./src/components/search/index.ts",
+    "./src/components/index.ts",
     "./src/components/SearchkitComponent.ts",
     "./src/components/SearchkitProvider.ts",
     "./src/components/utils/BEMHelper.ts",
@@ -35,12 +41,14 @@
     "./src/domain/builders/SimpleQueryField.ts",
     "./src/domain/ESClient.ts",
     "./src/domain/history.ts",
+    "./src/domain/index.ts",
     "./src/domain/new/ImmutableQuery.ts",
     "./src/domain/new/Searcher.ts",
     "./src/domain/new/State.ts",
     "./src/domain/state/StateManager.ts",
     "./src/domain/state/StateMap.ts",
     "./src/domain/test/NewAccessorsSpec.ts",
+    "./src/index.ts",
     "./typings/tsd.d.ts"
   ],
   "filesGlob": [

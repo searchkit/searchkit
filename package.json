@@ -2,16 +2,26 @@
   "name": "searchkit",
   "version": "1.0.0",
   "description": "A suite of react components to help create a UI quickly for elasticsearch ",
-  "main": "index.js",
+  "main": "lib/src/index.js",
+  "typings": "lib/src/index.d.ts",
   "scripts": {
     "postinstall": "tsd reinstall --overwrite --save; npm run-script build",
     "start": "node start.js",
     "test": "karma start --single-run",
     "karma-watch": "./node_modules/.bin/karma start karma.conf.js --auto-watch",
-    "build": "rm -rf dist && NODE_ENV=production node ./node_modules/webpack/bin/webpack -p --config ./webpack.prod.config.js --progress --profile --colors",
+    "build": "make tsc",
     "test-e2e": "rm -rf test/e2e/generated; tsc -p test/e2e; protractor test/e2e/config/protractor.conf.js"
   },
-  "author": "",
+  "authors": [
+    {
+      "name": "Joseph McElroy",
+      "email": "phoey1@gmail.com"
+    },
+    {
+      "name": "Siavash Etemadieh",
+      "email": "ssetem@gmail.com"
+    }
+  ],
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "^6.0.3",
