@@ -4,7 +4,7 @@ import SimpleQueryAccessor from "../accessors/SimpleQueryAccessor.ts";
 import PaginationAccessor from "../accessors/PaginationAccessor.ts";
 import PageSizeAccessor from "../accessors/PageSizeAccessor.ts";
 
-fdescribe("StateManager", ()=>{
+describe("StateManager", ()=>{
 
   beforeEach(()=>{
     this.stateAccessors = new StateManager(null)
