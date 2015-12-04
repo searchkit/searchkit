@@ -7,8 +7,8 @@ import {
 require("./../styles/index.scss");
 
 export interface IHits {
-	hitsPerPage: number
-	render:string
+	hitsPerPage: number,
+	render?:string
 }
 
 export class Hits extends SearchkitComponent<IHits, any> {
@@ -37,6 +37,6 @@ export class Hits extends SearchkitComponent<IHits, any> {
 			<div className="hits">
 				{_.map(hits, this.renderResult.bind(this))}
       </div>
-		);
+		);				
 	}
 }
