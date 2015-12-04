@@ -1,8 +1,8 @@
 
-import RootBuilder from "../builders/RootBuilder.ts";
-import ESClient from "../ESClient.ts";
-import {BoundStateMap} from "../state/StateMap.ts"
-import Newable from "../../common/Newable.ts";
+import RootBuilder from "../builders/RootBuilder";
+import ESClient from "../ESClient";
+import {BoundStateMap} from "../state/StateMap"
+import Newable from "../../common/Newable";
 
 abstract class Accessor {
   searcher:ESClient

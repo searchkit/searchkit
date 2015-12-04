@@ -1,6 +1,6 @@
-import Accessor from "./Accessor.ts";
-import RootBuilder from "../builders/RootBuilder.ts";
-import SimpleQueryField from "../builders/SimpleQueryField.ts"
+import Accessor from "./Accessor";
+import RootBuilder from "../builders/RootBuilder";
+import SimpleQueryField from "../builders/SimpleQueryField"
 
 export default class SimpleQueryAccessor extends Accessor {
 

@@ -1,6 +1,6 @@
-import {ValueState} from "../State.ts"
-import Accessor from "./Accessor.ts"
-import {SimpleQueryString} from "../QueryBuilders.ts";
+import {ValueState} from "../State"
+import Accessor from "./Accessor"
+import {SimpleQueryString} from "../QueryBuilders";
 
 export default class SearchAccessor extends Accessor<ValueState> {
   state = new ValueState()

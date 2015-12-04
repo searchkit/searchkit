@@ -1,5 +1,5 @@
-import FacetAccessor from "../../../../../domain/accessors/FacetAccessor.ts";
-import SearchkitComponent from "../../../../SearchkitComponent.ts";
+import FacetAccessor from "../../../../../domain/new/accessors/FacetAccessor";
+import SearchkitComponent from "../../../../../domain/new/SearchkitComponent";
 export interface IRefinementListFilter {
     field: string;
     operator?: string;
@@ -8,6 +8,7 @@ export interface IRefinementListFilter {
 }
 export default class RefinementListFilter extends SearchkitComponent<IRefinementListFilter, any> {
     accessor: FacetAccessor;
+    shouldCreateNewSearcher(): boolean;
     defineAccessor(): FacetAccessor;
     addFilter(option: any): void;
     renderOption(option: any): JSX.Element;

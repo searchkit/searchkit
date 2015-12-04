@@ -1,12 +1,12 @@
 import * as _ from "lodash"
 var update = require("react-addons-update")
 var querystring = require("querystring")
-import history from "../history.ts"
-import Accessor from "../accessors/Accessor.ts";
-import StateMap from "./StateMap.ts";
-import RootBuilder from "../builders/RootBuilder.ts";
-import ESClient from "../ESClient.ts";
-import Newable from "../../common/Newable.ts";
+import history from "../history"
+import Accessor from "../accessors/Accessor";
+import StateMap from "./StateMap";
+import RootBuilder from "../builders/RootBuilder";
+import ESClient from "../ESClient";
+import Newable from "../../common/Newable";
 
 export default class StateAcessors {
 

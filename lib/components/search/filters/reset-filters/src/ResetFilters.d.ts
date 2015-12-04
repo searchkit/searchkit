@@ -1,4 +1,4 @@
-import SearchkitComponent from "../../../../SearchkitComponent.ts";
+import SearchkitComponent from "../../../../SearchkitComponent";
 export default class ResetFilters extends SearchkitComponent<any, any> {
     hasFilters(): boolean;
     resetFilters(): void;

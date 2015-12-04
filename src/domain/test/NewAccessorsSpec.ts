@@ -1,8 +1,8 @@
-import StateManager from "../state/StateManager.ts";
-import FacetAccessor from "../accessors/FacetAccessor.ts";
-import SimpleQueryAccessor from "../accessors/SimpleQueryAccessor.ts";
-import PaginationAccessor from "../accessors/PaginationAccessor.ts";
-import PageSizeAccessor from "../accessors/PageSizeAccessor.ts";
+import StateManager from "../state/StateManager";
+import FacetAccessor from "../accessors/FacetAccessor";
+import SimpleQueryAccessor from "../accessors/SimpleQueryAccessor";
+import PaginationAccessor from "../accessors/PaginationAccessor";
+import PageSizeAccessor from "../accessors/PageSizeAccessor";
 
 describe("StateManager", ()=>{
 

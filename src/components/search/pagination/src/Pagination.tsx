@@ -1,10 +1,8 @@
-import * as React from "react";
-import ESClient from "../../../../domain/ESClient.ts";
 import * as _ from "lodash";
 import * as classNames from 'classnames';
-import SearchkitComponent from "../../../SearchkitComponent.ts";
+import SearchkitComponent from "../../../SearchkitComponent";
 
-import PaginationAccessor from "../../../../domain/accessors/PaginationAccessor.ts";
+import PaginationAccessor from "../../../../domain/accessors/PaginationAccessor";
 
 require("./../styles/index.scss");
 

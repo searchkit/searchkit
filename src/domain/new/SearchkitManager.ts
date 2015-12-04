@@ -1,11 +1,11 @@
-import {State,ArrayState,ObjectState,ValueState} from "./State.ts"
-import {ImmutableQuery} from "./ImmutableQuery.ts";
-import Accessor from "./accessors/Accessor.ts"
-import Searcher from "./Searcher.ts"
-import ESRequest from "./ESRequest.ts";
+import {State,ArrayState,ObjectState,ValueState} from "./State"
+import {ImmutableQuery} from "./ImmutableQuery";
+import Accessor from "./accessors/Accessor"
+import Searcher from "./Searcher"
+import ESRequest from "./ESRequest";
 import * as rx from "rx";
 var Promise = require('es6-promise').Promise
-import history from "../history.ts";
+import history from "../history";
 
 export default class SearchkitManager {
   searchers:Array<Searcher>

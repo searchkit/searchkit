@@ -1,5 +1,5 @@
-import SearchkitComponent from "../../../SearchkitComponent.ts";
-import PaginationAccessor from "../../../../domain/accessors/PaginationAccessor.ts";
+import SearchkitComponent from "../../../SearchkitComponent";
+import PaginationAccessor from "../../../../domain/accessors/PaginationAccessor";
 export interface IPagination {
 }
 export declare enum DIRECTION {

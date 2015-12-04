@@ -1,5 +1,5 @@
-import * as React from "react";
-import ESClient from "../domain/ESClient.ts"
+import {Component} from "react";
+import ESClient from "../domain/ESClient"
 import * as Rx from "rx"
 
 export interface ISearcherProvider {
@@ -7,7 +7,7 @@ export interface ISearcherProvider {
 	children?:any
 }
 
-export default class SearchkitProvider extends React.Component<ISearcherProvider,any> {
+export default class SearchkitProvider extends Component<ISearcherProvider,any> {
 	static childContextTypes = {
 		searcher:React.PropTypes.instanceOf(ESClient)
 	}

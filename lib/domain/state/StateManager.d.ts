@@ -1,8 +1,8 @@
-import Accessor from "../accessors/Accessor.ts";
-import StateMap from "./StateMap.ts";
-import RootBuilder from "../builders/RootBuilder.ts";
-import ESClient from "../ESClient.ts";
-import Newable from "../../common/Newable.ts";
+import Accessor from "../accessors/Accessor";
+import StateMap from "./StateMap";
+import RootBuilder from "../builders/RootBuilder";
+import ESClient from "../ESClient";
+import Newable from "../../common/Newable";
 export default class StateAcessors {
     searcher: ESClient;
     state: StateMap;

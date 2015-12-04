@@ -24,7 +24,6 @@
     "./src/components/search/hits/src/Hits.tsx",
     "./src/components/search/pagination/src/Pagination.tsx",
     "./src/components/search/search-box/src/SearchBox.tsx",
-    "./src/index_old.tsx",
     "./src/index.tsx",
     "./src/common/Newable.ts",
     "./src/components/index.ts",

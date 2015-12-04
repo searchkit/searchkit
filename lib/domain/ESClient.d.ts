@@ -1,5 +1,5 @@
 import * as rx from "rx";
-import StateManager from "./state/StateManager.ts";
+import StateManager from "./state/StateManager";
 export default class ESClient {
     host: string;
     index: string;

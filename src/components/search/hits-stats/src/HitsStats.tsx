@@ -1,7 +1,7 @@
-import * as React from "react";
-import ESClient from "../../../../domain/ESClient.ts";
 import * as _ from "lodash";
-import SearchkitComponent from "../../../../domain/new/SearchkitComponent.ts";
+import * as React from "react";
+
+import SearchkitComponent from "../../../../domain/new/SearchkitComponent";
 
 require("./../styles/index.scss");
 

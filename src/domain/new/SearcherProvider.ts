@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as Rx from "rx"
-import Searcher from "./Searcher.ts"
+import Searcher from "./Searcher"
 
 export interface ISearcherProvider {
 	searcher:Searcher

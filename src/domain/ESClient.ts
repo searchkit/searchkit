@@ -1,7 +1,7 @@
 import * as axios from "axios"
 import * as _ from "lodash"
 import * as rx from "rx";
-import StateManager from "./state/StateManager.ts";
+import StateManager from "./state/StateManager";
 
 export default class ESClient {
 

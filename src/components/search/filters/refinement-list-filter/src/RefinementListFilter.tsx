@@ -1,9 +1,9 @@
 import * as React from "react";
-import ESClient from "../../../../../domain/ESClient.ts";
+import ESClient from "../../../../../domain/ESClient";
 import * as _ from "lodash";
 import * as classNames from 'classnames';
-import FacetAccessor from "../../../../../domain/new/accessors/FacetAccessor.ts";
-import SearchkitComponent from "../../../../../domain/new/SearchkitComponent.ts";
+import FacetAccessor from "../../../../../domain/new/accessors/FacetAccessor";
+import SearchkitComponent from "../../../../../domain/new/SearchkitComponent";
 
 require("./../styles/index.scss");
 

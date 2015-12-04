@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as Rx from "rx"
-import SearchkitManager from "./SearchkitManager.ts"
+import SearchkitManager from "./SearchkitManager"
 
 export interface ISearcherProvider {
 	searchkit:SearchkitManager

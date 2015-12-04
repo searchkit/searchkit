@@ -1,5 +1,5 @@
-import FacetAccessor from "../../../../../domain/accessors/FacetAccessor.ts";
-import SearchkitComponent from "../../../../SearchkitComponent.ts";
+import FacetAccessor from "../../../../../domain/accessors/FacetAccessor";
+import SearchkitComponent from "../../../../SearchkitComponent";
 export interface IMenuFilter {
     field: string;
     title: string;

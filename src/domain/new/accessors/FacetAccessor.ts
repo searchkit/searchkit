@@ -1,6 +1,6 @@
-import {ArrayState} from "../State.ts"
-import Accessor from "./Accessor.ts"
-import {Term, Terms, BoolShould, BoolMust} from "../QueryBuilders.ts";
+import {ArrayState} from "../State"
+import Accessor from "./Accessor"
+import {Term, Terms, BoolShould, BoolMust} from "../QueryBuilders";
 import * as _ from "lodash";
 
 

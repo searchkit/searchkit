@@ -1,6 +1,6 @@
-import {State,ArrayState,ObjectState,ValueState} from "./State.ts"
-import {ImmutableQuery} from "./ImmutableQuery.ts";
-import Accessor from "./accessors/Accessor.ts"
+import {State,ArrayState,ObjectState,ValueState} from "./State"
+import {ImmutableQuery} from "./ImmutableQuery";
+import Accessor from "./accessors/Accessor"
 
 export default class Searcher {
   accessors:Array<Accessor<any>>

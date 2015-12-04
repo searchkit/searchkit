@@ -1,8 +1,8 @@
 import * as React from "react";
-import HierarchicalFacetAccessor from "../../../../../domain/accessors/HierarchicalFacetAccessor.ts";
+import HierarchicalFacetAccessor from "../../../../../domain/accessors/HierarchicalFacetAccessor";
 import * as _ from "lodash";
 import * as classNames from 'classnames';
-import SearchkitComponent from "../../../../SearchkitComponent.ts";
+import SearchkitComponent from "../../../../SearchkitComponent";
 
 
 require("./../styles/index.scss");

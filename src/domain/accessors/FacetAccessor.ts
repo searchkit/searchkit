@@ -1,7 +1,7 @@
-import Accessor from "./Accessor.ts";
-import RootBuilder from "../builders/RootBuilder.ts";
+import Accessor from "./Accessor";
+import RootBuilder from "../builders/RootBuilder";
 import * as _ from "lodash"
-import BoolField from "../builders/BoolField.ts"
+import BoolField from "../builders/BoolField"
 
 export default class FacetAccessor extends Accessor{
 

@@ -1,5 +1,5 @@
-import {State} from "../State.ts"
-import {ImmutableQuery} from "../ImmutableQuery.ts";
+import {State} from "../State"
+import {ImmutableQuery} from "../ImmutableQuery";
 import Searcher from "../Searcher"
 
 export default class Accessor<T extends State<any>> {

@@ -1,7 +1,7 @@
 import * as React from "react"
-import SearchkitManager from "./SearchkitManager.ts";
-import Accessor from "./accessors/Accessor.ts"
-import Searcher from "./Searcher.ts"
+import SearchkitManager from "./SearchkitManager";
+import Accessor from "./accessors/Accessor"
+import Searcher from "./Searcher"
 
 export default class SearchkitComponent<P,S> extends React.Component<P,S> {
   searchkit:SearchkitManager

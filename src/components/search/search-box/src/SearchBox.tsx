@@ -1,9 +1,9 @@
 import * as React from "react";
 import * as rx from "rx";
-import ESClient from "../../../../domain/ESClient.ts";
-import SimpleQueryAccessor from "../../../../domain/new/accessors/SearchAccessor.ts";
-import SearchkitComponent from "../../../../domain/new/SearchkitComponent.ts";
-import Searcher from "../../../../domain/new/Searcher.ts"
+import ESClient from "../../../../domain/ESClient";
+import SimpleQueryAccessor from "../../../../domain/new/accessors/SearchAccessor";
+import SearchkitComponent from "../../../../domain/new/SearchkitComponent";
+import Searcher from "../../../../domain/new/Searcher"
 require("./../styles/index.scss");
 
 export interface ISearchBox {

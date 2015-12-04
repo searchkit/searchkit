@@ -1,5 +1,5 @@
-import HierarchicalFacetAccessor from "../../../../../domain/accessors/HierarchicalFacetAccessor.ts";
-import SearchkitComponent from "../../../../SearchkitComponent.ts";
+import HierarchicalFacetAccessor from "../../../../../domain/accessors/HierarchicalFacetAccessor";
+import SearchkitComponent from "../../../../SearchkitComponent";
 export interface IHierarchicalMenuFilter {
     fields: Array<string>;
     title: string;

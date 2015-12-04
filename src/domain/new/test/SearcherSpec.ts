@@ -1,9 +1,9 @@
-import Searcher from "../Searcher.ts"
-import SearchkitManager from "../SearchkitManager.ts"
-import Accessor from "../accessors/Accessor.ts";
-import {ValueState} from "../State.ts"
-import {SimpleQueryString} from "../QueryBuilders.ts";
-import SearchAccessor from "../accessors/SearchAccessor.ts"
+import Searcher from "../Searcher"
+import SearchkitManager from "../SearchkitManager"
+import Accessor from "../accessors/Accessor";
+import {ValueState} from "../State"
+import {SimpleQueryString} from "../QueryBuilders";
+import SearchAccessor from "../accessors/SearchAccessor"
 
 fdescribe("Searcher Test", ()=>{
 

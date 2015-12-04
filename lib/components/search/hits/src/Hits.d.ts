@@ -1,4 +1,4 @@
-import SearchkitComponent from "../../../SearchkitComponent.ts";
+import SearchkitComponent from "../../../../domain/new/SearchkitComponent";
 export interface IHits {
     hitsPerPage: number;
     render: string;

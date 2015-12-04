@@ -1,7 +1,8 @@
-import * as React from "react";
 import * as _ from "lodash";
-import SearchkitComponent from "../../../../domain/new/SearchkitComponent.ts";
-import Searcher from "../../../../domain/new/Searcher.ts"
+import * as React from "react";
+
+import SearchkitComponent from "../../../../domain/new/SearchkitComponent";
+import Searcher from "../../../../domain/new/Searcher"
 require("./../styles/index.scss");
 
 export interface IHits {

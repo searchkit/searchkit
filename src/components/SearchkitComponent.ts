@@ -1,13 +1,13 @@
 import * as React from "react"
-import ESClient from "../domain/ESClient.ts";
-import Accessor from "../domain/accessors/Accessor.ts";
+import ESClient from "../domain/ESClient";
+import Accessor from "../domain/accessors/Accessor";
 
 export default class SearchkitComponent<P,S> extends React.Component<P,S> {
   searcher:ESClient
   accessor:Accessor
 
 	static contextTypes = {
-		searcher:React.PropTypes.instanceOf(ESClient)    
+		searcher:React.PropTypes.instanceOf(ESClient)
 	}
   defineAccessor():Accessor{
     return null

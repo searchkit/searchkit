@@ -1,5 +1,5 @@
-import SimpleQueryAccessor from "../../../../domain/accessors/SimpleQueryAccessor.ts";
-import SearchkitComponent from "../../../SearchkitComponent.ts";
+import SimpleQueryAccessor from "../../../../domain/new/accessors/SearchAccessor";
+import SearchkitComponent from "../../../../domain/new/SearchkitComponent";
 export interface ISearchBox {
 }
 export default class SearchBox extends SearchkitComponent<ISearchBox, any> {
@@ -7,8 +7,7 @@ export default class SearchBox extends SearchkitComponent<ISearchBox, any> {
     constructor(props: ISearchBox);
     defineAccessor(): SimpleQueryAccessor;
     onSubmit(event: any): void;
-    getValue(): any;
+    getValue(): string;
     onChange(event: any): void;
-    renderAutocomplete(): JSX.Element;
     render(): JSX.Element;
 }
