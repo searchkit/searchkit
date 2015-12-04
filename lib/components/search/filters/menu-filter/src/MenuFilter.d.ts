@@ -1,10 +1,9 @@
-import FacetAccessor from "../../../../../domain/accessors/FacetAccessor";
-import SearchkitComponent from "../../../../SearchkitComponent";
+import { SearchkitComponent, FacetAccessor } from "../../../../../core";
 export interface IMenuFilter {
     field: string;
     title: string;
 }
-export default class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
+export declare class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
     accessor: FacetAccessor;
     defineAccessor(): FacetAccessor;
     addFilter(option: any): void;

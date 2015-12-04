@@ -1,11 +1,10 @@
-import SimpleQueryAccessor from "../../../../domain/new/accessors/SearchAccessor";
-import SearchkitComponent from "../../../../domain/new/SearchkitComponent";
+import { SearchAccessor, SearchkitComponent } from "../../../../core";
 export interface ISearchBox {
 }
-export default class SearchBox extends SearchkitComponent<ISearchBox, any> {
-    accessor: SimpleQueryAccessor;
+export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
+    accessor: SearchAccessor;
     constructor(props: ISearchBox);
-    defineAccessor(): SimpleQueryAccessor;
+    defineAccessor(): SearchAccessor;
     onSubmit(event: any): void;
     getValue(): string;
     onChange(event: any): void;

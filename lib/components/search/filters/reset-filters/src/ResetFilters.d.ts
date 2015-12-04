@@ -1,5 +1,5 @@
-import SearchkitComponent from "../../../../SearchkitComponent";
-export default class ResetFilters extends SearchkitComponent<any, any> {
+import { SearchkitComponent } from "../../../../../core";
+export declare class ResetFilters extends SearchkitComponent<any, any> {
     hasFilters(): boolean;
     resetFilters(): void;
     renderResetButton(): JSX.Element;

@@ -1,12 +1,11 @@
-import FacetAccessor from "../../../../../domain/new/accessors/FacetAccessor";
-import SearchkitComponent from "../../../../../domain/new/SearchkitComponent";
+import { SearchkitComponent, FacetAccessor } from "../../../../../core";
 export interface IRefinementListFilter {
     field: string;
     operator?: string;
     size?: string;
     title: string;
 }
-export default class RefinementListFilter extends SearchkitComponent<IRefinementListFilter, any> {
+export declare class RefinementListFilter extends SearchkitComponent<IRefinementListFilter, any> {
     accessor: FacetAccessor;
     shouldCreateNewSearcher(): boolean;
     defineAccessor(): FacetAccessor;

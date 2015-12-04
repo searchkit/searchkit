@@ -1,12 +1,11 @@
-import SearchkitComponent from "../../../SearchkitComponent";
-import PaginationAccessor from "../../../../domain/accessors/PaginationAccessor";
+import { SearchkitComponent, PaginationAccessor } from "../../../../core";
 export interface IPagination {
 }
 export declare enum DIRECTION {
     NEXT = 0,
     PREVIOUS = 1,
 }
-export default class Pagination extends SearchkitComponent<IPagination, any> {
+export declare class Pagination extends SearchkitComponent<IPagination, any> {
     accessor: PaginationAccessor;
     defineAccessor(): PaginationAccessor;
     hasPagination(): boolean;

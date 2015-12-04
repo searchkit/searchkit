@@ -1,7 +1,7 @@
-import SearchkitComponent from "../../../../domain/new/SearchkitComponent";
+import { SearchkitComponent } from "../../../../core";
 export interface IHitsStats {
 }
-export default class HitsStats extends SearchkitComponent<IHitsStats, any> {
+export declare class HitsStats extends SearchkitComponent<IHitsStats, any> {
     getHitCount(): number;
     render(): JSX.Element;
 }
