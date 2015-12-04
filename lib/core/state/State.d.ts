@@ -1,7 +1,9 @@
 export declare class State<T> {
     value: T;
+    defaultValue: T;
     constructor(defaultValue?: T);
-    setValue(value: T): void;
+    setValue(value: T): State<T>;
+    clear(): void;
     getValue(): T;
 }
 export declare class ArrayState extends State<Array<string | number>> {

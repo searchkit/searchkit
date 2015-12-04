@@ -4,7 +4,9 @@ import {
 	SearchBox,
 	Hits,
 	HitsStats,
-	RefinementListFilter
+	RefinementListFilter,
+	Pagination,
+	ResetFilters
 } from "../../components"
 
 import {
@@ -33,14 +35,17 @@ export class App extends SearchkitComponent<any, any> {
 					</div>
 
 					<div className="layout__filters">
+						<ResetFilters />
 						<RefinementListFilter title="Actors" field="actors.raw" operator="AND"/>
 						<RefinementListFilter title="Languages" field="languages.raw" operator="OR"/>
+						<RefinementListFilter title="Countries" field="countries.raw" operator="OR"/>
 					</div>
 					<div className="layout__results-info">
 						<HitsStats/>
 					</div>
 					<div className="layout__results">
 						<Hits hitsPerPage={50} render="movies"/>
+						<Pagination/>
 					</div>
 				</div>
 			</SearcherProvider>

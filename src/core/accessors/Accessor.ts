@@ -20,6 +20,10 @@ export class Accessor<T extends State<any>> {
     return this.searcher.results
   }
 
+  resetState(){
+    this.state.clear()
+  }
+
   buildSharedQuery(query:ImmutableQuery){
     return query
   }

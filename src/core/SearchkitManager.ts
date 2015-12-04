@@ -46,6 +46,12 @@ export class SearchkitManager {
 
   }
 
+  resetState(){
+    this.iterateAccessors((accessor)=>{
+      accessor.resetState()
+    })
+  }
+
   getState(){
     var state = {}
     this.iterateAccessors((accessor)=>{
@@ -103,7 +109,7 @@ export class SearchkitManager {
     history.pushState(null, window.location.pathname, state)
   }
 
-  search(){
+  protected search(){
     var queryDef = this.makeQueryDef()
     console.log("multiqueries", queryDef.queries)
     if(queryDef.queries.length > 0) {

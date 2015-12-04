@@ -29,7 +29,7 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 		if (option != "all") {
 			this.accessor.state.add(option.key);
 		}
-		this.searchkit.search()
+		this.searchkit.performSearch()
 	}
 
 	renderOption(option) {

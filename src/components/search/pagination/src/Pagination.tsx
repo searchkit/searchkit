@@ -1,3 +1,4 @@
+import * as React from "react";
 import * as _ from "lodash";
 import * as classNames from 'classnames';
 
@@ -35,13 +36,12 @@ export class Pagination extends SearchkitComponent<IPagination, any> {
 	setPage(direction:DIRECTION) {
 		if (this.isDisabled(direction)) { return };
 		let currentPage:number = this.getCurrentPage();
-
 		if (direction == DIRECTION.PREVIOUS) {
 			this.accessor.state.setValue(currentPage-1);
 		} else if (direction == DIRECTION.NEXT) {
 			this.accessor.state.setValue(currentPage+1);
 		}
-		this.searchkit.search();
+		this.searchkit.performSearch();
 		window.scrollTo(0,0);
 	}
 

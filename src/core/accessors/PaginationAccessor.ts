@@ -6,7 +6,7 @@ export class PaginationAccessor extends Accessor<ValueState> {
   state = new ValueState()
 
   buildOwnQuery(query){
-    let from = query.size * Number(this.state.getValue()) - 1
+    let from = (query.query.size || 20) * Number(this.state.getValue()) - 1
     return query.setFrom(from)
   }
 }
