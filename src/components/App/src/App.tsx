@@ -16,6 +16,7 @@ export default class App extends SearchkitComponent<any, any> {
 	componentWillMount(){
 		super.componentWillMount()
 		this.primarySearcher = this.searchkit.createSearcher()
+		this.primarySearcher.search_type="query_then_fetch"
 	}
 
 	render(){

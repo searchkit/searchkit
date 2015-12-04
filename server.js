@@ -69,13 +69,7 @@ module.exports = {
     });
 
     app.post("/api/multisearch/:index", function(req, res){
-      var declareIndexCommand = {index:req.params.index}
-      var mSearchPayload = _.chain(req.body)
-        .map(function(query){
-          return [declareIndexCommand, query]
-        })
-        .flatten().value()
-      client.msearch({body:mSearchPayload})
+      client.msearch({body:req.body})
         .then(function(resp){
           res.send(resp)
         })

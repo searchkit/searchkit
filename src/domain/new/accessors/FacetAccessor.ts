@@ -46,7 +46,6 @@ export default class FacetAccessor extends Accessor<ArrayState> {
         }
       }
     })
-    query = query.setSize(0)
     return query
   }
 }
