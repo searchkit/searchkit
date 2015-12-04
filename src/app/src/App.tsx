@@ -18,6 +18,17 @@ import {
 
 require("./../styles/index.scss");
 
+class MovieHits extends Hits {
+	renderResult(result:any) {
+		return (
+			<div className="hit" key={result._id}>
+				<img className="hit__poster" src={result._source.poster}/>
+				<div className="hit__title">{result._source.title}</div>
+			</div>
+		)
+	}
+}
+
 export class App extends SearchkitComponent<any, any> {
 	primarySearcher:Searcher
 
@@ -46,7 +57,7 @@ export class App extends SearchkitComponent<any, any> {
 						<HitsStats/>
 					</div>
 					<div className="layout__results">
-						<Hits hitsPerPage={50}/>
+						<MovieHits hitsPerPage={50}/>
 						<Pagination/>
 					</div>
 				</div>
