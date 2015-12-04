@@ -28,9 +28,8 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	onSubmit(event) {
 		event.preventDefault()
 		const val = this.getValue()
-		// this.accessor.triggerSearchReset()
+		this.searchkit.resetState()
 		this.accessor.state.setValue(val)
-		// this.accessor.search()
 		this.searchkit.performSearch()
 	}
 	//

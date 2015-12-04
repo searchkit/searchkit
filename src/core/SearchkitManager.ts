@@ -13,6 +13,7 @@ export class SearchkitManager {
   resultsListener: rx.ReplaySubject<any>
   private registrationCompleted:Promise<any>
   completeRegistration:Function
+  state:any
 
   constructor(index:string){
     this.index = index
@@ -47,6 +48,7 @@ export class SearchkitManager {
   }
 
   resetState(){
+
     this.iterateAccessors((accessor)=>{
       accessor.resetState()
     })
@@ -97,7 +99,7 @@ export class SearchkitManager {
     history.listen((location)=>{
       this.registrationCompleted.then(()=>{
         this.setAccessorStates(location.query)
-        this.search()
+        this._search()
       })
 
     })
@@ -110,13 +112,23 @@ export class SearchkitManager {
     })
   }
 
-  performSearch(){
-    var state = this.getState()
-    console.log("state", state, this.getAccessors())
-    history.pushState(null, window.location.pathname, state)
+  notifyStateChange(oldState){
+    this.iterateAccessors((accessor)=>{
+      accessor.onStateChange(oldState)
+    })
   }
 
-  protected search(){
+  performSearch(){
+    this.notifyStateChange(this.state)
+    this.state = this.getState()
+    history.pushState(null, window.location.pathname, this.state)
+  }
+  search(){
+    this.performSearch()
+  }
+
+  _search(){
+    this.state = this.getState()
     var queryDef = this.makeQueryDef()
     console.log("multiqueries", queryDef.queries)
     if(queryDef.queries.length > 0) {

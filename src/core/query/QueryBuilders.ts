@@ -21,7 +21,7 @@ export function SimpleQueryString(query, options={}){
 }
 export interface TermOptions {
   $name?:string,
-  $value?:string,
+  $value?:string|number,
   $remove?:Function
 }
 export function Term(key, value, options:TermOptions={}){

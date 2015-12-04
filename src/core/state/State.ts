@@ -38,7 +38,7 @@ export class ArrayState extends State<Array<string|number>> {
     this.value = _.without(this.lazyInit(), val)
   }
   add(val) {
-    this.lazyInit().push(val)
+    this.value = this.lazyInit().concat([val])
   }
   contains(val) {
     return _.contains(this.value, val)

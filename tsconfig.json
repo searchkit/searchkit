@@ -30,6 +30,7 @@
     "./src/components/utils/BEMHelper.ts",
     "./src/core/accessors/Accessor.ts",
     "./src/core/accessors/FacetAccessor.ts",
+    "./src/core/accessors/HierarchicalFacetAccessor.ts",
     "./src/core/accessors/index.ts",
     "./src/core/accessors/PageSizeAccessor.ts",
     "./src/core/accessors/PaginationAccessor.ts",

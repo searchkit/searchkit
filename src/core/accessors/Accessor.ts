@@ -16,6 +16,10 @@ export class Accessor<T extends State<any>> {
     this.searcher = searcher
   }
 
+  onStateChange(oldState){
+
+  }
+
   getResults(){
     return this.searcher.results
   }
