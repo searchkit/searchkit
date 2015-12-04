@@ -41,7 +41,7 @@ export class ImmutableQuery {
         $push:bool.bool.must || bool.bool.should
       }
     })
-        
+
     return this.update({
       filter: BoolMust({ $merge: [bool] })
     }, newIndex)
@@ -61,7 +61,7 @@ export class ImmutableQuery {
       key = [key];
     }
     const filters = _.values(_.omit(this.index.filters || {}, key))
-    return { bool: { must: filters } }
+    return BoolMust(filters)
   }
 
   setSize(size: number) {
