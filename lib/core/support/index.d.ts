@@ -1,2 +1,2 @@
-export * from "./Newable.ts";
-export * from "./Utils.ts";
+export * from "./Newable";
+export * from "./Utils";
