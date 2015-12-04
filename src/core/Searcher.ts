@@ -3,16 +3,22 @@ import {ImmutableQuery} from "./query/ImmutableQuery";
 import {Accessor} from "./accessors/Accessor"
 import {SearchkitManager} from "./SearchkitManager"
 
+export enum SearchType {
+  count,
+  query_then_fetch,
+  scan
+}
+
 export class Searcher {
   accessors: Array<Accessor<any>>
   query: ImmutableQuery
   queryHasChanged: boolean
   results: any
   searchkitManager:SearchkitManager
-  search_type:string
+  search_type:SearchType
   constructor() {
     this.accessors = []
-    this.search_type = "count"
+    this.search_type = SearchType.count
     this.query = new ImmutableQuery()
   }
 
@@ -38,7 +44,7 @@ export class Searcher {
   }
   getCommandAndQuery(){
     return [
-      {index:this.searchkitManager.index, search_type:this.search_type},
+      {index:this.searchkitManager.index, search_type:SearchType[this.search_type]},
       this.query.getJSON()
     ]
   }

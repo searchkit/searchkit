@@ -2,10 +2,12 @@ export declare class ImmutableQuery {
     index: any;
     query: any;
     static defaultQuery: any;
-    constructor(query?: any, index?: {});
+    static defaultIndex: any;
+    constructor(query?: any, index?: any);
     hasFilters(): boolean;
     addQuery(query: any): ImmutableQuery;
     addFilter(key: any, bool: any): ImmutableQuery;
+    getFiltersArray(): any;
     setAggs(aggs: any): ImmutableQuery;
     getFilters(key?: any): {
         bool: {

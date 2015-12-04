@@ -15,6 +15,7 @@ import {
 import {
 	SearchkitComponent,
 	Searcher,
+	SearchType,
 	SearcherProvider
 } from "../../core"
 
@@ -37,7 +38,7 @@ export class App extends SearchkitComponent<any, any> {
 	componentWillMount(){
 		super.componentWillMount()
 		this.primarySearcher = this.searchkit.createSearcher()
-		this.primarySearcher.search_type="query_then_fetch"
+		this.primarySearcher.search_type=SearchType.query_then_fetch
 	}
 
 	render(){

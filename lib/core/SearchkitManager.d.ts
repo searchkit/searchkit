@@ -7,6 +7,7 @@ export declare class SearchkitManager {
     resultsListener: rx.ReplaySubject<any>;
     private registrationCompleted;
     completeRegistration: Function;
+    state: any;
     constructor(index: string);
     addSearcher(searcher: any): void;
     createSearcher(): Searcher;
@@ -14,6 +15,7 @@ export declare class SearchkitManager {
     iterateAccessors(fn: any): void;
     resetState(): void;
     getState(): {};
+    hasState(): boolean;
     buildSharedQuery(): ImmutableQuery;
     makeQueryDef(): {
         queries: any[];
@@ -21,6 +23,8 @@ export declare class SearchkitManager {
     };
     listenToHistory(history: any): void;
     setAccessorStates(query: any): void;
+    notifyStateChange(oldState: any): void;
     performSearch(): void;
-    protected search(): void;
+    search(): void;
+    _search(): void;
 }

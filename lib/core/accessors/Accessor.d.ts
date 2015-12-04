@@ -8,6 +8,7 @@ export declare class Accessor<T extends State<any>> {
     searcher: Searcher;
     constructor(key: any, urlString?: any);
     setSearcher(searcher: any): void;
+    onStateChange(oldState: any): void;
     getResults(): any;
     resetState(): void;
     buildSharedQuery(query: ImmutableQuery): ImmutableQuery;

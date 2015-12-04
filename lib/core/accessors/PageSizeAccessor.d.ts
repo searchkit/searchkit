@@ -1,7 +1,8 @@
 import { ValueState } from "../state/State";
 import { Accessor } from "./Accessor";
-export declare class PaginationAccessor extends Accessor<ValueState> {
+export declare class PageSizeAccessor extends Accessor<ValueState> {
+    size: number;
     state: ValueState;
-    onStateChange(oldState: any): void;
+    constructor(key: any, size: any);
     buildOwnQuery(query: any): any;
 }
