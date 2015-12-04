@@ -55,7 +55,10 @@ export class SearchkitManager {
   getState(){
     var state = {}
     this.iterateAccessors((accessor)=>{
-      state[accessor.urlKey] = accessor.state.getValue()
+      var val = accessor.state.getValue()
+      if(val){
+        state[accessor.urlKey] = val        
+      }
     })
     return state
   }

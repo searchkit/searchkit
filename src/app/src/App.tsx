@@ -6,7 +6,8 @@ import {
 	HitsStats,
 	RefinementListFilter,
 	Pagination,
-	ResetFilters
+	ResetFilters,
+	MenuFilter
 } from "../../components"
 
 import {
@@ -36,6 +37,7 @@ export class App extends SearchkitComponent<any, any> {
 
 					<div className="layout__filters">
 						<ResetFilters />
+						<MenuFilter title="Type" field="type.raw"/>
 						<RefinementListFilter title="Actors" field="actors.raw" operator="AND"/>
 						<RefinementListFilter title="Languages" field="languages.raw" operator="OR"/>
 						<RefinementListFilter title="Countries" field="countries.raw" operator="OR"/>
