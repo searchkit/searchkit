@@ -10,7 +10,7 @@
     "karma-watch": "./node_modules/.bin/karma start karma.conf.js --auto-watch",
     "build": "tsc",
     "test-e2e": "rm -rf test/e2e/generated; tsc -p test/e2e; protractor test/e2e/config/protractor.conf.js",
-    "build:css": "node scripts/copycss.js"
+    "build:css": "gulp copy-css"
   },
   "authors": [
     {
