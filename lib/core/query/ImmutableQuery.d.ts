@@ -11,7 +11,7 @@ export declare class ImmutableQuery {
     setAggs(aggs: any): ImmutableQuery;
     getFilters(key?: any): {
         bool: {
-            must: {}[];
+            must: any;
         };
     };
     setSize(size: number): ImmutableQuery;

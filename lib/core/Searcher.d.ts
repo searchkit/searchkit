@@ -4,6 +4,7 @@ import { SearchkitManager } from "./SearchkitManager";
 export declare enum SearchType {
     count = 0,
     query_then_fetch = 1,
+    scan = 2,
 }
 export declare class Searcher {
     accessors: Array<Accessor<any>>;
