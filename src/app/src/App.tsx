@@ -40,7 +40,7 @@ export class App extends SearchkitComponent<any, any> {
 						<HitsStats/>
 					</div>
 					<div className="layout__results">
-						<Hits hitsPerPage={50} render="movies"/>
+						<Hits hitsPerPage={50}/>
 					</div>
 				</div>
 			</SearcherProvider>
