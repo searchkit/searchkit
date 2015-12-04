@@ -1,8 +1,9 @@
 import * as _ from "lodash";
 import * as React from "react";
+import {
+	SearchkitComponent,
+} from "../../../../core"
 
-import SearchkitComponent from "../../../../domain/new/SearchkitComponent";
-import Searcher from "../../../../domain/new/Searcher"
 require("./../styles/index.scss");
 
 export interface IHits {
@@ -10,7 +11,7 @@ export interface IHits {
 	render:string
 }
 
-export default class Hits extends SearchkitComponent<IHits, any> {
+export class Hits extends SearchkitComponent<IHits, any> {
 
 	renderResult(result:any) {
 		if (_.get(this.props, "render") == "movies") {

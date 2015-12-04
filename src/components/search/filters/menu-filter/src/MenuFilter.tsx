@@ -1,10 +1,12 @@
 import * as React from "react";
-import ESClient from "../../../../../domain/ESClient";
-import FacetAccessor from "../../../../../domain/accessors/FacetAccessor";
 import * as _ from "lodash";
 import * as classNames from 'classnames';
-import SearchkitComponent from "../../../../SearchkitComponent";
-
+import {
+	Searcher,
+	SearchkitManager,
+	SearchkitComponent,
+	FacetAccessor
+} from "../../../../../core"
 
 require("./../styles/index.scss");
 
@@ -13,7 +15,7 @@ export interface IMenuFilter {
 	title:string
 }
 
-export default class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
+export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 	accessor:FacetAccessor
 
 	defineAccessor() {
@@ -27,7 +29,7 @@ export default class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 		if (option != "all") {
 			this.accessor.state.add(option.key);
 		}
-		this.accessor.search()
+		this.searchkit.search()
 	}
 
 	renderOption(option) {
@@ -49,7 +51,7 @@ export default class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 		let optionClassName = classNames({
 			"menu-list-options__item":true,
 			"menu-list-option":true,
-			"menu-list-option--checked":!this.accessor.state.get()
+			"menu-list-option--checked":!this.accessor.state.getValue()
 		})
 
 		return (

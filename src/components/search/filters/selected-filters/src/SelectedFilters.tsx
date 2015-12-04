@@ -1,26 +1,31 @@
 import * as React from "react";
-import ESClient from "../../../../../domain/ESClient";
 import * as _ from "lodash";
 import * as classNames from 'classnames';
-import FacetAccessor from "../../../../../domain/accessors/FacetAccessor";
-import SearchkitComponent from "../../../../SearchkitComponent";
+
+import {
+	Searcher,
+	SearchkitManager,
+	SearchkitComponent,
+	FacetAccessor
+} from "../../../../../core"
 
 require("./../styles/index.scss");
 
 
-export default class SelectedFilters extends SearchkitComponent<any, any> {
+export class SelectedFilters extends SearchkitComponent<any, any> {
 
 	getFilters():Array<any> {
-		let filterAccessors = this.searcher.stateManager.findAccessorsByClass(FacetAccessor);
-
-		let filters = _.flatten(_.map(filterAccessors, (facetAccessor:FacetAccessor) => {
-			let filters = facetAccessor.state.get() || [];
-			return _.map(filters, (filter) => {
-				return {name:facetAccessor.options.title, value:filter, accessor:facetAccessor}
-			})
-		}))
-
-		return filters || [];
+		// let filterAccessors = this.searcher.stateManager.findAccessorsByClass(FacetAccessor);
+		//
+		// let filters = _.flatten(_.map(filterAccessors, (facetAccessor:FacetAccessor) => {
+		// 	let filters = facetAccessor.state.get() || [];
+		// 	return _.map(filters, (filter) => {
+		// 		return {name:facetAccessor.options.title, value:filter, accessor:facetAccessor}
+		// 	})
+		// }))
+		//
+		// return filters || [];
+		return []
 	}
 
 	hasFilters():boolean {
@@ -38,7 +43,7 @@ export default class SelectedFilters extends SearchkitComponent<any, any> {
 
 	removeFilter(value, facetAccessor:FacetAccessor) {
 		facetAccessor.state.remove(value);
-		facetAccessor.search()
+		// facetAccessor.search()
 	}
 
   render() {

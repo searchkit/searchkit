@@ -1,9 +1,12 @@
 import * as React from "react";
-import ESClient from "../../../../../domain/ESClient";
 import * as _ from "lodash";
 import * as classNames from 'classnames';
-import FacetAccessor from "../../../../../domain/new/accessors/FacetAccessor";
-import SearchkitComponent from "../../../../../domain/new/SearchkitComponent";
+import {
+	Searcher,
+	SearchkitManager,
+	SearchkitComponent,
+	FacetAccessor
+} from "../../../../../core"
 
 require("./../styles/index.scss");
 
@@ -14,7 +17,7 @@ export interface IRefinementListFilter {
 	title:string
 }
 
-export default class RefinementListFilter extends SearchkitComponent<IRefinementListFilter, any> {
+export class RefinementListFilter extends SearchkitComponent<IRefinementListFilter, any> {
 	accessor:FacetAccessor
 	shouldCreateNewSearcher(){
 		return true

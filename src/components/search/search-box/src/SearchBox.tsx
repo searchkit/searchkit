@@ -1,16 +1,19 @@
 import * as React from "react";
 import * as rx from "rx";
-import ESClient from "../../../../domain/ESClient";
-import SimpleQueryAccessor from "../../../../domain/new/accessors/SearchAccessor";
-import SearchkitComponent from "../../../../domain/new/SearchkitComponent";
-import Searcher from "../../../../domain/new/Searcher"
+import {
+	Searcher,
+	SearchkitManager,
+	SearchAccessor,
+	SearchkitComponent
+} from "../../../../core"
+
 require("./../styles/index.scss");
 
 export interface ISearchBox {
 }
 
-export default class SearchBox extends SearchkitComponent<ISearchBox, any> {
-	accessor:SimpleQueryAccessor
+export class SearchBox extends SearchkitComponent<ISearchBox, any> {
+	accessor:SearchAccessor
 
 	constructor (props:ISearchBox) {
 		super(props);
@@ -19,7 +22,7 @@ export default class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	}
 
 	defineAccessor(){
-		return new SimpleQueryAccessor("q")
+		return new SearchAccessor("q")
 	}
 
 	onSubmit(event) {
@@ -32,7 +35,7 @@ export default class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	}
 	//
 	getValue(){
-		return this.accessor.state.getValue()
+		return (this.accessor.state.getValue() || "") + ""
 	}
 
 	onChange(event){

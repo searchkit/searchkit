@@ -1,11 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import App from "./components/app/src/App";
+import {App} from "./App";
 
-import SearchkitManager from "./domain/new/SearchkitManager";
+import {
+	SearchkitManager,
+	history,
+	SearchkitProvider
+} from "./core";
 import { Router, Route, Link, Redirect } from 'react-router'
-import history from "./domain/history"
-import SearchkitProvider from "./domain/new/SearchkitProvider"
 
 const searchkit = new SearchkitManager("movies")
 searchkit.listenToHistory(history)

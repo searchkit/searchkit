@@ -1,8 +1,10 @@
 import * as _ from "lodash";
 import * as classNames from 'classnames';
-import SearchkitComponent from "../../../SearchkitComponent";
 
-import PaginationAccessor from "../../../../domain/accessors/PaginationAccessor";
+import {
+	SearchkitComponent,
+	PaginationAccessor
+} from "../../../../core"
 
 require("./../styles/index.scss");
 
@@ -14,7 +16,7 @@ export enum DIRECTION {
 	PREVIOUS
 }
 
-export default class Pagination extends SearchkitComponent<IPagination, any> {
+export class Pagination extends SearchkitComponent<IPagination, any> {
 	accessor:PaginationAccessor
 
 	defineAccessor(){
@@ -22,11 +24,12 @@ export default class Pagination extends SearchkitComponent<IPagination, any> {
 	}
 
   hasPagination():boolean {
-    return !!this.searcher.stateManager.getData()
+    // return !!this.searcher.stateManager.getData()
+		return true
   }
 
 	getCurrentPage():number {
-		return Number(this.accessor.state.get()) || 1;
+		return Number(this.accessor.state.getValue()) || 1;
 	}
 
 	setPage(direction:DIRECTION) {
@@ -34,11 +37,11 @@ export default class Pagination extends SearchkitComponent<IPagination, any> {
 		let currentPage:number = this.getCurrentPage();
 
 		if (direction == DIRECTION.PREVIOUS) {
-			this.accessor.state.set(currentPage-1);
+			this.accessor.state.setValue(currentPage-1);
 		} else if (direction == DIRECTION.NEXT) {
-			this.accessor.state.set(currentPage+1);
+			this.accessor.state.setValue(currentPage+1);
 		}
-		this.accessor.search();
+		this.searchkit.search();
 		window.scrollTo(0,0);
 	}
 

@@ -1,21 +1,25 @@
 import * as React from "react";
-import ESClient from "../../../../../domain/ESClient";
 import * as _ from "lodash";
 import * as classNames from 'classnames';
-import SearchkitComponent from "../../../../SearchkitComponent";
-
 require("./../styles/index.scss");
 
+import {
+	Searcher,
+	SearchkitManager,
+	SearchkitComponent,
+	FacetAccessor
+} from "../../../../../core"
 
-export default class ResetFilters extends SearchkitComponent<any, any> {
+export class ResetFilters extends SearchkitComponent<any, any> {
 
   hasFilters():boolean {
-    return !!this.searcher.stateManager.getData()
+    return !!this.searcher.query.hasFilters()
   }
 
 	resetFilters() {
-		this.searcher.stateManager.state.clearAll()
-		this.searcher.stateManager.updateHistory()
+    //TODO
+		// this.searcher.stateManager.state.clearAll()
+		// this.searcher.stateManager.updateHistory()
 	}
 
 	renderResetButton() {
