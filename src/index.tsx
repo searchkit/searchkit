@@ -1,4 +1,4 @@
-import {Component} from "react";
+import * as React from "react";
 import * as ReactDOM from "react-dom";
 import App from "./components/app/src/App";
 
@@ -11,7 +11,7 @@ const searchkit = new SearchkitManager("movies")
 searchkit.listenToHistory(history)
 
 
-class Root extends Component<any, any> {
+class Root extends React.Component<any, any> {
 	render(){
 		return (
 			<SearchkitProvider searchkit={searchkit}>

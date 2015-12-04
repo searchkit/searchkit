@@ -18,9 +18,7 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
   resolve: {
-    alias:{
-      components: path.join(__dirname,"/src/components")
-    }
+    extensions:[".js", ".ts", ".tsx","", ".webpack.js", ".web.js",]
   },
   module: {
     loaders: [

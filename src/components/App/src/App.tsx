@@ -1,3 +1,4 @@
+import * as React from "react";
 
 import SearchBox from "../../search/search-box/src/SearchBox";
 import Hits from "../../search/hits/src/Hits";
