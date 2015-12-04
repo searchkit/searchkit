@@ -13,6 +13,7 @@ export class Searcher {
   constructor() {
     this.accessors = []
     this.search_type = "count"
+    this.query = new ImmutableQuery()
   }
 
   setSearchkitManager(searchkitManager){

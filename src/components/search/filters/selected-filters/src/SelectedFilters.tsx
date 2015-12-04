@@ -14,40 +14,30 @@ require("./../styles/index.scss");
 
 export class SelectedFilters extends SearchkitComponent<any, any> {
 
-	getFilters():Array<any> {
-		// let filterAccessors = this.searcher.stateManager.findAccessorsByClass(FacetAccessor);
-		//
-		// let filters = _.flatten(_.map(filterAccessors, (facetAccessor:FacetAccessor) => {
-		// 	let filters = facetAccessor.state.get() || [];
-		// 	return _.map(filters, (filter) => {
-		// 		return {name:facetAccessor.options.title, value:filter, accessor:facetAccessor}
-		// 	})
-		// }))
-		//
-		// return filters || [];
-		return []
+	getFilters():Array<any> {		
+		return this.searcher.query.getFiltersArray()
 	}
 
 	hasFilters():boolean {
-		return _.size(this.getFilters()) != 0;
+		return _.size(this.getFilters()) > 0;
 	}
 
 	renderFilter(filter) {
 		return (
-			<div className="selected-filters__item selected-filter" key={filter.name+":"+filter.value}>
-				<div className="selected-filter__name">{filter.name}: {filter.value}</div>
-				<div className="selected-filter__remove-action" onClick={this.removeFilter.bind(this, filter.value, filter.accessor)}>x</div>
+			<div className="selected-filters__item selected-filter" key={filter.$name+":"+filter.$value}>
+				<div className="selected-filter__name">{filter.$name}: {filter.$value}</div>
+				<div className="selected-filter__remove-action" onClick={this.removeFilter.bind(this, filter)}>x</div>
 			</div>
 		)
 	}
 
-	removeFilter(value, facetAccessor:FacetAccessor) {
-		facetAccessor.state.remove(value);
-		// facetAccessor.search()
+	removeFilter(filter) {
+		filter.$remove()
+		this.searchkit.performSearch()
 	}
 
   render() {
-		if (!this.hasFilters()) {
+		if (!this.hasFilters() || false) {
 			return (<div></div>)
 		}
     return (

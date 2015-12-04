@@ -4,10 +4,17 @@ import {Term, Terms, BoolShould, BoolMust} from "../query/QueryBuilders";
 import * as _ from "lodash";
 
 
+export interface FacetAccessorOptions {
+  operator?:string,
+  title?:string
+}
+
 export class FacetAccessor extends Accessor<ArrayState> {
+
+
   state = new ArrayState()
   options:any
-  constructor(key, options){
+  constructor(key, options:FacetAccessorOptions){
     super(key)
     this.options = options
   }
@@ -19,7 +26,7 @@ export class FacetAccessor extends Accessor<ArrayState> {
   }
 
   isOrOperator(){
-    return this.options["operator"] === "OR"
+    return this.options.operator === "OR"
   }
 
   getBoolBuilder(){
@@ -28,7 +35,15 @@ export class FacetAccessor extends Accessor<ArrayState> {
 
   buildSharedQuery(query){
     var filters = this.state.getValue()
-    var filterTerms = _.map(filters, Term.bind(Term, this.key))
+    var filterTerms = _.map(filters, (filter)=> {
+      return Term(this.key, filter, {
+        $name:this.options.title || this.key,
+        $value:filter,
+        $remove:()=> {
+          this.state.remove(filter)
+        }
+      })
+    } );
     var boolBuilder = this.getBoolBuilder()
     if(filterTerms.length > 0){
       query = query.addFilter(this.key, boolBuilder(filterTerms))

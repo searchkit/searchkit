@@ -7,7 +7,8 @@ import {
 	RefinementListFilter,
 	Pagination,
 	ResetFilters,
-	MenuFilter
+	MenuFilter,
+	SelectedFilters
 } from "../../components"
 
 import {
@@ -43,6 +44,7 @@ export class App extends SearchkitComponent<any, any> {
 			<SearcherProvider searcher={this.primarySearcher}>
 				<div className="layout">
 					<div className="layout__search-box">
+						<SelectedFilters/>
 						<SearchBox/>
 					</div>
 

@@ -9,7 +9,11 @@ export class ImmutableQuery {
 	  filter: BoolMust([]),
     query: BoolMust([])
   }
-  constructor(query = ImmutableQuery.defaultQuery, index = {}) {
+  static defaultIndex:any = {
+    filters:{},
+    filtersArray:[]
+  }
+  constructor(query = ImmutableQuery.defaultQuery, index = ImmutableQuery.defaultIndex) {
     this.index = index
     this.query = query
   }
@@ -28,13 +32,24 @@ export class ImmutableQuery {
   }
 
   addFilter(key, bool) {
-    var addedIndex = { filters: { [key]: bool } }
-    var newIndex = _.extend({}, addedIndex)
 
+    var newIndex = update(this.index,{
+      filters:{
+        $merge:{[key]:bool}
+      },
+      filtersArray:{
+        $push:bool.bool.must || bool.bool.should
+      }
+    })
+        
     return this.update({
       filter: BoolMust({ $merge: [bool] })
     }, newIndex)
 
+  }
+
+  getFiltersArray(){
+    return this.index.filtersArray || []
   }
 
   setAggs(aggs) {
@@ -73,7 +88,7 @@ export class ImmutableQuery {
 
   getJSON() {
     const replacer = (key, value) => {
-      if (/^\$\$/.test(key)) {
+      if (/^\$/.test(key)) {
         return undefined
       } else {
         return value

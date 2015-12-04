@@ -19,13 +19,17 @@ export function SimpleQueryString(query, options={}){
     })
   }
 }
-
-export function Term(key, value){
-  return {
+export interface TermOptions {
+  $name?:string,
+  $value?:string,
+  $remove?:Function
+}
+export function Term(key, value, options:TermOptions={}){
+  return _.extend({
     term:{
       [key]:value
     }
-  }
+  }, options)
 }
 
 export function Terms(key, options){
