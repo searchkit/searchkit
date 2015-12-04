@@ -57,10 +57,14 @@ export class SearchkitManager {
     this.iterateAccessors((accessor)=>{
       var val = accessor.state.getValue()
       if(val){
-        state[accessor.urlKey] = val        
+        state[accessor.urlKey] = val
       }
     })
     return state
+  }
+
+  hasState(){
+    return !_.isEmpty(this.getState())
   }
 
   buildSharedQuery(){

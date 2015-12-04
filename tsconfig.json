@@ -31,6 +31,7 @@
     "./src/core/accessors/Accessor.ts",
     "./src/core/accessors/FacetAccessor.ts",
     "./src/core/accessors/index.ts",
+    "./src/core/accessors/PageSizeAccessor.ts",
     "./src/core/accessors/PaginationAccessor.ts",
     "./src/core/accessors/SearchAccessor.ts",
     "./src/core/ESRequest.ts",

@@ -13,16 +13,12 @@ import {
 export class ResetFilters extends SearchkitComponent<any, any> {
 
   hasFilters():boolean {
-		console.log(this.searcher.hasFilters())
-    return !!this.searcher.hasFilters()
+    return this.searchkit.hasState()
   }
 
 	resetFilters() {
 		this.searchkit.resetState()
-		this.searchkit.performSearch()
-    //TODO
-		// this.searcher.stateManager.state.clearAll()
-		// this.searcher.stateManager.updateHistory()
+		this.searchkit.performSearch()    
 	}
 
 	renderResetButton() {
