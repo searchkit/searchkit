@@ -2,11 +2,17 @@ import * as _ from "lodash"
 
 export class State<T> {
   value: T
+  defaultValue:T
   constructor(defaultValue: T = null) {
-    this.value = defaultValue
+    this.defaultValue = defaultValue
+    this.value = this.defaultValue
   }
   setValue(value: T) {
     this.value = value
+    return this
+  }
+  clear(){
+    this.value = this.defaultValue
   }
   getValue() {
     return this.value

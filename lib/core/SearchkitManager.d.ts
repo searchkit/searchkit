@@ -12,6 +12,7 @@ export declare class SearchkitManager {
     createSearcher(): Searcher;
     getAccessors(): any[];
     iterateAccessors(fn: any): void;
+    resetState(): void;
     getState(): {};
     buildSharedQuery(): ImmutableQuery;
     makeQueryDef(): {
@@ -21,5 +22,5 @@ export declare class SearchkitManager {
     listenToHistory(history: any): void;
     setAccessorStates(query: any): void;
     performSearch(): void;
-    search(): void;
+    protected search(): void;
 }
