@@ -6,7 +6,7 @@ export function BoolMust(val:any=[]){
 }
 
 export function BoolShould(val:any=[]){
-  return {bool:{must:val}}
+  return {bool:{should:val}}
 }
 
 export function SimpleQueryString(query, options={}){

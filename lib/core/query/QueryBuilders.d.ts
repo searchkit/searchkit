@@ -5,7 +5,7 @@ export declare function BoolMust(val?: any): {
 };
 export declare function BoolShould(val?: any): {
     bool: {
-        must: any;
+        should: any;
     };
 };
 export declare function SimpleQueryString(query: any, options?: {}): {

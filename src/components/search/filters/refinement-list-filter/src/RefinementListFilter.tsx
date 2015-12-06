@@ -19,9 +19,11 @@ export interface IRefinementListFilter {
 
 export class RefinementListFilter extends SearchkitComponent<IRefinementListFilter, any> {
 	accessor:FacetAccessor
-	shouldCreateNewSearcher(){
-		return true
+
+	shouldCreateNewSearcher() {
+		return true;
 	}
+
 	defineAccessor() {
 		return new FacetAccessor(
 			this.props.field,
