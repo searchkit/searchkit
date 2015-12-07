@@ -13,15 +13,11 @@ const searchkit = new SearchkitManager("movies")
 searchkit.listenToHistory(history)
 
 
-class Root extends React.Component<any, any> {
-	render(){
-		return (
-			<SearchkitProvider searchkit={searchkit}>
-				<App/>
-			</SearchkitProvider>
-		)
-	}
-}
+const Root = ()=> (
+	<SearchkitProvider searchkit={searchkit}>
+		<App/>
+	</SearchkitProvider>
+)
 
 
 ReactDOM.render((

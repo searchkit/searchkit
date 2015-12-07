@@ -1,5 +1,5 @@
-import * as React from "react/addons";
-const testUtils:any = React.addons.TestUtils;
+import * as testUtils from "react-addons-test-utils";
+// const testUtils:any = React.addons.TestUtils;
 import {App} from "./../../src/App";
 
 // Check here what's avaiable in TestUtils: https://facebook.github.io/react/docs/test-utils.html
