@@ -10,7 +10,7 @@ import {
 
 require("./../styles/index.scss");
 
-export interface IRefinementListFilter {
+export interface IRefinementListFilter extends React.Props<any> {
 	field:string
 	operator?:string
 	size?:string
@@ -24,7 +24,7 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 		return true;
 	}
 
-	defineAccessor() {
+	defineAccessor() {		
 		return new FacetAccessor(
 			this.props.field,
 			{operator:this.props.operator, title:this.props.title}
