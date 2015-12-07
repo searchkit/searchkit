@@ -32,7 +32,6 @@ export class ImmutableQuery {
   }
 
   addFilter(key, bool) {
-
     var newIndex = update(this.index,{
       filters:{
         $merge:{[key]:bool}
@@ -43,7 +42,7 @@ export class ImmutableQuery {
     })
 
     return this.update({
-      filter: BoolMust({ $merge: [bool] })
+      filter: BoolMust({ $push: [bool] })
     }, newIndex)
 
   }
