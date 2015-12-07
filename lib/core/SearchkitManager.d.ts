@@ -5,6 +5,8 @@ export declare class SearchkitManager {
     searchers: Array<Searcher>;
     index: string;
     resultsListener: rx.ReplaySubject<any>;
+    loadingListener: rx.ReplaySubject<any>;
+    loading: boolean;
     private registrationCompleted;
     completeRegistration: Function;
     state: any;

@@ -10,7 +10,7 @@ import {
 
 require("./../styles/index.scss");
 
-export interface IMenuFilter extends React.Props<any> {
+export interface IMenuFilter {
 	field:string
 	title:string
 }
