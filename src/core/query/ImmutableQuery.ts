@@ -25,7 +25,7 @@ export class ImmutableQuery {
   addQuery(query) {
     if (query) {
       return this.update({
-        query: BoolMust({ $merge: [query] })
+        query: BoolMust({ $push: [query] })
       })
     }
     return this
