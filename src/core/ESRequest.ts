@@ -1,7 +1,7 @@
 import * as axios from "axios"
 
 export class ESRequest {
-  
+
   constructor(public index:string){
   }
 
