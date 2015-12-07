@@ -19,5 +19,6 @@ export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
     suggestionRenderer(suggestion: any, input: any): JSX.Element;
     getValue(): string;
     onChange(value: any): void;
+    onSuggestionSelected(value: any): void;
     render(): JSX.Element;
 }
