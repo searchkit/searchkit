@@ -47,7 +47,6 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 
 		return [
 			{
-				sectionName:"Suggestions",
 				suggestions: suggestOptions
 			},
 			{
