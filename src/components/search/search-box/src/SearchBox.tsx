@@ -114,7 +114,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 						id="autosuggest"
 						suggestions={this.querySuggestions.bind(this)}
 						suggestionRenderer={this.suggestionRenderer.bind(this)}
-						defaultValue={this.getValue()}
+						value={this.getValue()}
 						inputAttributes={inputAttributes}/>
           <input type="submit" value="search" className="search-box__action"/>
         </form>
