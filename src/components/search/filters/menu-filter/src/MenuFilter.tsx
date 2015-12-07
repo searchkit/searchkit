@@ -10,7 +10,7 @@ import {
 
 require("./../styles/index.scss");
 
-export interface IMenuFilter {
+export interface IMenuFilter extends React.Props<any> {
 	field:string
 	title:string
 }
@@ -18,9 +18,14 @@ export interface IMenuFilter {
 export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 	accessor:FacetAccessor
 
+	shouldCreateNewSearcher() {
+		return true;
+	}
+
 	defineAccessor() {
 		return new FacetAccessor(
-			this.props.field, {operator:"OR", title:this.props.title}
+			this.props.field,
+			{operator:"OR", title:this.props.title}
 		)
 	}
 
