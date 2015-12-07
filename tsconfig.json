@@ -35,6 +35,7 @@
     "./src/core/accessors/PageSizeAccessor.ts",
     "./src/core/accessors/PaginationAccessor.ts",
     "./src/core/accessors/SearchAccessor.ts",
+    "./src/core/ESMultiRequest.ts",
     "./src/core/ESRequest.ts",
     "./src/core/history.ts",
     "./src/core/index.ts",

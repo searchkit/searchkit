@@ -68,7 +68,7 @@ module.exports = {
       })
     });
 
-    app.post("/api/multisearch/:index", function(req, res){
+    app.post("/api/multisearch", function(req, res){
       client.msearch({body:req.body})
         .then(function(resp){
           res.send(resp)

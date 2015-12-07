@@ -1,18 +1,16 @@
 import * as axios from "axios"
 
 export class ESRequest {
-
-
+  
   constructor(public index:string){
-
   }
 
   searchUrl(){
-    return "/api/multisearch/"+this.index
+    return `/api/search/${this.index}`
   }
 
-  search(queries){
-    return axios.post(this.searchUrl(), queries)
+  search(query){
+    return axios.post(this.searchUrl(), query)
       .then((response)=>{
         return response.data
       })

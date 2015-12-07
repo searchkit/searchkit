@@ -2,7 +2,7 @@ import {State,ArrayState,ObjectState,ValueState} from "./state/State"
 import {ImmutableQuery} from "./query/ImmutableQuery";
 import {Accessor} from "./accessors/Accessor"
 import {Searcher} from "./Searcher"
-import {ESRequest} from "./ESRequest";
+import {ESMultiRequest} from "./ESMultiRequest";
 import * as rx from "rx";
 var Promise = require('es6-promise').Promise
 import {history} from "./history";
@@ -132,7 +132,7 @@ export class SearchkitManager {
     var queryDef = this.makeQueryDef()
     console.log("multiqueries", queryDef.queries)
     if(queryDef.queries.length > 0) {
-      var request = new ESRequest(this.index)
+      var request = new ESMultiRequest()
       request.search(queryDef.queries).then((response)=> {
         _.each(response["responses"], (results, index)=>{
           queryDef.searchers[index].setResults(results)
