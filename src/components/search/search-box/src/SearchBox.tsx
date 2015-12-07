@@ -42,7 +42,20 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	}
 
 	processSuggestions(results) {
-		return _.pluck(results.suggest.suggestions[0].options, "text")
+		let suggestOptions = _.map(_.get(results.suggest, "suggestions[0].options",[]),option => option.text)
+		let quickJumpOptions = _.map(_.get(results.suggest, "completion[0].options",[]),option => option.text)
+
+		return [
+			{
+				sectionName:"Suggestions",
+				suggestions: suggestOptions
+			},
+			{
+				sectionName:"Images",
+				suggestions:quickJumpOptions
+			}
+		]
+
 	}
 
 	querySuggestions(query, callback) {
@@ -66,9 +79,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 			this.suggestSearcher
 				.search(queryObject)
 				.then((results:any) => {
-					console.log(results);
-					let suggestions = this.processSuggestions(results);
-					callback(null, suggestions);
+					callback(null, this.processSuggestions(results));
 				})
 		} else {
 			callback(null, [])
@@ -76,7 +87,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	}
 
 	suggestionRenderer(suggestion, input) {
-		return (<div>{suggestion}</div>)
+		return (<div ref={suggestion}>{suggestion}</div>)
 	}
 
 	getValue(){
@@ -85,10 +96,6 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 
 	onChange(value){
 		this.accessor.state.setValue(value)
-	}
-
-	getSuggestionValue(suggestion) {
-		return suggestion.text;
 	}
 
 	render() {
@@ -105,9 +112,9 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
         <form onSubmit={this.onSubmit.bind(this)}>
           <div className="search-box__icon"></div>
           <Autosuggest
+						id="autosuggest"
 						suggestions={this.querySuggestions.bind(this)}
 						suggestionRenderer={this.suggestionRenderer.bind(this)}
-						suggestionValue={this.getSuggestionValue.bind(this)}
 						defaultValue={this.getValue()}
 						inputAttributes={inputAttributes}/>
           <input type="submit" value="search" className="search-box__action"/>
