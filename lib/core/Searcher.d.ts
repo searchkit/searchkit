@@ -13,8 +13,11 @@ export declare class Searcher {
     results: any;
     searchkitManager: SearchkitManager;
     search_type: SearchType;
+    index: string;
     constructor();
     setSearchkitManager(searchkitManager: any): void;
+    setIndex(index: any): void;
+    getIndex(): void;
     hasFilters(): boolean;
     addAccessor(accessor: Accessor<any>): void;
     buildQuery(query: any): void;

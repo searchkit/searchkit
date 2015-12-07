@@ -1,5 +1,6 @@
+import * as React from "react";
 import { SearchkitComponent, FacetAccessor } from "../../../../../core";
-export interface IRefinementListFilter {
+export interface IRefinementListFilter extends React.Props<any> {
     field: string;
     operator?: string;
     size?: string;
