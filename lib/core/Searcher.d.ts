@@ -17,7 +17,7 @@ export declare class Searcher {
     constructor();
     setSearchkitManager(searchkitManager: any): void;
     setIndex(index: any): void;
-    getIndex(): void;
+    getIndex(): string;
     hasFilters(): boolean;
     addAccessor(accessor: Accessor<any>): void;
     buildQuery(query: any): void;

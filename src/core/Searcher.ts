@@ -31,7 +31,7 @@ export class Searcher {
     this.index = index
   }
   getIndex(){
-    this.index || this.searchkitManager.index
+    return this.index || this.searchkitManager.index
   }
 
   hasFilters(){
