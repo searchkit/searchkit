@@ -16,6 +16,7 @@ export class Searcher {
   results: any
   searchkitManager:SearchkitManager
   search_type:SearchType
+  index:string
   constructor() {
     this.accessors = []
     this.search_type = SearchType.count
@@ -24,6 +25,13 @@ export class Searcher {
 
   setSearchkitManager(searchkitManager){
     this.searchkitManager = searchkitManager
+  }
+
+  setIndex(index){
+    this.index = index
+  }
+  getIndex(){
+    this.index || this.searchkitManager.index
   }
 
   hasFilters(){
@@ -44,7 +52,7 @@ export class Searcher {
   }
   getCommandAndQuery(){
     return [
-      {index:this.searchkitManager.index, search_type:SearchType[this.search_type]},
+      {index:this.getIndex(), search_type:SearchType[this.search_type]},
       this.query.getJSON()
     ]
   }
