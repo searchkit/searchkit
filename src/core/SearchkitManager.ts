@@ -11,6 +11,8 @@ export class SearchkitManager {
   searchers:Array<Searcher>
   index:string
   resultsListener: rx.ReplaySubject<any>
+  loadingListener: rx.ReplaySubject<any>
+  loading:boolean
   private registrationCompleted:Promise<any>
   completeRegistration:Function
   state:any
@@ -19,6 +21,8 @@ export class SearchkitManager {
     this.index = index
     this.searchers = []
     this.resultsListener = new rx.ReplaySubject(1)
+    this.loadingListener = new rx.ReplaySubject(1)
+    this.loading = false
 		this.registrationCompleted = new Promise((resolve)=>{
 			this.completeRegistration = resolve
 		})
@@ -131,6 +135,8 @@ export class SearchkitManager {
     this.state = this.getState()
     var queryDef = this.makeQueryDef()
     console.log("multiqueries", queryDef.queries)
+    this.loading = true
+    this.loadingListener.onNext(true)
     if(queryDef.queries.length > 0) {
       var request = new ESMultiRequest()
       request.search(queryDef.queries).then((response)=> {
@@ -138,6 +144,8 @@ export class SearchkitManager {
           queryDef.searchers[index].setResults(results)
         })
         this.resultsListener.onNext(response)
+        this.loading = false
+        this.loadingListener.onNext(false)
       })
     }
   }
