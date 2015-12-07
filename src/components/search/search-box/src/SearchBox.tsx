@@ -55,12 +55,18 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 						term: {
 							field:"_all"
 						}
+					},
+					"completion": {
+						completion: {
+							field:"suggest"
+						}
 					}
 				}
 			}
 			this.suggestSearcher
 				.search(queryObject)
 				.then((results:any) => {
+					console.log(results);
 					let suggestions = this.processSuggestions(results);
 					callback(null, suggestions);
 				})
@@ -77,9 +83,8 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		return (this.accessor.state.getValue() || "") + ""
 	}
 
-	onChange(event){
-		this.accessor.state.setValue(event.target.value)
-		this.forceUpdate()
+	onChange(value){
+		this.accessor.state.setValue(value)
 	}
 
 	getSuggestionValue(suggestion) {
@@ -91,9 +96,9 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 			className:"search-box__text",
 			placeholder:"search",
 			type:"text",
-			ref:"queryField"
+			ref:"queryField",
+			onChange: this.onChange.bind(this)
 		}
-
 
 		return (
 			<div className="search-box">
@@ -103,7 +108,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 						suggestions={this.querySuggestions.bind(this)}
 						suggestionRenderer={this.suggestionRenderer.bind(this)}
 						suggestionValue={this.getSuggestionValue.bind(this)}
-						value={this.value}
+						defaultValue={this.getValue()}
 						inputAttributes={inputAttributes}/>
           <input type="submit" value="search" className="search-box__action"/>
         </form>

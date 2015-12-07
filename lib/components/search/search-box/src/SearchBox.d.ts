@@ -13,7 +13,7 @@ export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
     querySuggestions(query: any, callback: any): void;
     suggestionRenderer(suggestion: any, input: any): JSX.Element;
     getValue(): string;
-    onChange(event: any): void;
+    onChange(value: any): void;
     getSuggestionValue(suggestion: any): any;
     render(): JSX.Element;
 }
