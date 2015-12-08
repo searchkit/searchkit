@@ -18,7 +18,7 @@ export interface ISearchBox {
 export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	accessor:SearchAccessor
 	suggestSearcher: ESRequest
-	value:string
+	showAutoSuggest:boolean
 
 	constructor (props:ISearchBox) {
 		super(props);
@@ -38,6 +38,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		const val = this.getValue()
 		this.searchkit.resetState()
 		this.accessor.state.setValue(val)
+		this.showAutoSuggest = false;
 		this.searchkit.performSearch()
 	}
 
@@ -59,6 +60,8 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 
 	querySuggestions(query, callback) {
 		if (query.length > 0) {
+			this.showAutoSuggest = true;
+
 			let queryObject = {
 				size:0,
 				suggest: {
@@ -82,6 +85,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 				})
 		} else {
 			callback(null, [])
+			this.showAutoSuggest = false;
 		}
 	}
 
@@ -114,6 +118,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 						id="autosuggest"
 						suggestions={this.querySuggestions.bind(this)}
 						suggestionRenderer={this.suggestionRenderer.bind(this)}
+						showWhen={this.showAutoSuggest}
 						value={this.getValue()}
 						inputAttributes={inputAttributes}/>
           <input type="submit" value="search" className="search-box__action"/>

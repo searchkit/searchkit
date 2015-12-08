@@ -6,8 +6,8 @@
     font-weight:bold;
   }
 
-  &--disabled &__header {
-    color:#999;
+  &--disabled  {
+    display:none;
   }
 
 }
