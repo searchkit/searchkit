@@ -18,7 +18,6 @@ export interface ISearchBox {
 export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	accessor:SearchAccessor
 	suggestSearcher: ESRequest
-	showAutoSuggest:boolean
 
 	constructor (props:ISearchBox) {
 		super(props);
@@ -38,13 +37,12 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		const val = this.getValue()
 		this.searchkit.resetState()
 		this.accessor.state.setValue(val)
-		this.showAutoSuggest = false;
 		this.searchkit.performSearch()
 	}
 
 	processSuggestions(results) {
-		let suggestOptions = _.map(_.get(results.suggest, "suggestions[0].options",[]),option => option.text)
-		let quickJumpOptions = _.map(_.get(results.suggest, "completion[0].options",[]),option => option.text)
+		let suggestOptions = _.map(_.get(results.suggest, "suggestions[0].options",[]),option => option)
+		let quickJumpOptions = _.map(_.get(results.suggest, "completion[0].options",[]),option => option)
 
 		return [
 			{
@@ -60,15 +58,26 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 
 	querySuggestions(query, callback) {
 		if (query.length > 0) {
-			this.showAutoSuggest = true;
 
 			let queryObject = {
 				size:0,
 				suggest: {
 					text:query,
 					"suggestions":{
-						term: {
-							field:"_all"
+						"phrase": {
+							field:"_all",
+							"real_word_error_likelihood" : 0.95,
+			        "max_errors" : 0.5,
+			        "gram_size" : 2,
+							"direct_generator" : [ {
+			          "field" : "_all",
+			          "suggest_mode" : "always",
+			          "min_word_length" : 1
+			        } ],
+			        "highlight": {
+			          "pre_tag": "<em>",
+			          "post_tag": "</em>"
+			        }
 						}
 					},
 					"completion": {
@@ -85,12 +94,11 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 				})
 		} else {
 			callback(null, [])
-			this.showAutoSuggest = false;
 		}
 	}
 
 	suggestionRenderer(suggestion, input) {
-		return (<div ref={suggestion}>{suggestion}</div>)
+		return (<div ref={suggestion.text} dangerouslySetInnerHTML={{__html: suggestion.highlighted || suggestion.text}}></div>)
 	}
 
 	getValue(){
@@ -101,8 +109,13 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		this.accessor.state.setValue(value)
 	}
 
+	suggestionValue(suggestion) {
+		return suggestion.text;
+	}
+
 	onSuggestionSelected(value){
-		this.accessor.state.setValue(value)
+
+		this.accessor.state.setValue(value.text || value)
 		this.searchkit.search()
 	}
 
@@ -123,8 +136,8 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 						id="autosuggest"
 						suggestions={this.querySuggestions.bind(this)}
 						suggestionRenderer={this.suggestionRenderer.bind(this)}
-						showWhen={this.showAutoSuggest}
 						onSuggestionSelected={this.onSuggestionSelected.bind(this)}
+						suggestionValue={this.suggestionValue}
 						value={this.getValue()}
 						inputAttributes={inputAttributes}/>
           <input type="submit" value="search" className="search-box__action"/>

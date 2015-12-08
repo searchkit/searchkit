@@ -4,7 +4,6 @@ export interface ISearchBox {
 export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
     accessor: SearchAccessor;
     suggestSearcher: ESRequest;
-    showAutoSuggest: boolean;
     constructor(props: ISearchBox);
     createSuggestSearcher(): void;
     defineAccessor(): SearchAccessor;
@@ -19,6 +18,7 @@ export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
     suggestionRenderer(suggestion: any, input: any): JSX.Element;
     getValue(): string;
     onChange(value: any): void;
+    suggestionValue(suggestion: any): any;
     onSuggestionSelected(value: any): void;
     render(): JSX.Element;
 }
