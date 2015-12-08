@@ -101,6 +101,11 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		this.accessor.state.setValue(value)
 	}
 
+	onSuggestionSelected(value){
+		this.accessor.state.setValue(value)
+		this.searchkit.search()
+	}
+
 	render() {
 		var inputAttributes = {
 			className:"search-box__text",
@@ -119,6 +124,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 						suggestions={this.querySuggestions.bind(this)}
 						suggestionRenderer={this.suggestionRenderer.bind(this)}
 						showWhen={this.showAutoSuggest}
+						onSuggestionSelected={this.onSuggestionSelected.bind(this)}
 						value={this.getValue()}
 						inputAttributes={inputAttributes}/>
           <input type="submit" value="search" className="search-box__action"/>
