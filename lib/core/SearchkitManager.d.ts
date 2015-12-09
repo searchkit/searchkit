@@ -1,12 +1,8 @@
 import { ImmutableQuery } from "./query/ImmutableQuery";
 import { Searcher } from "./Searcher";
-import * as rx from "rx";
 export declare class SearchkitManager {
     searchers: Array<Searcher>;
     index: string;
-    resultsListener: rx.ReplaySubject<any>;
-    loadingListener: rx.ReplaySubject<any>;
-    loading: boolean;
     private registrationCompleted;
     completeRegistration: Function;
     state: any;

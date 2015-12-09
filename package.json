@@ -9,6 +9,7 @@
     "test": "karma start --single-run",
     "karma-watch": "./node_modules/.bin/karma start karma.conf.js --auto-watch",
     "build": "tsc",
+    "build-promo": "rm -rf dist && NODE_ENV=production node ./node_modules/webpack/bin/webpack -p --config ./webpack.prod.config.js --progress --profile --colors",
     "test-e2e": "rm -rf test/e2e/generated; tsc -p test/e2e; protractor test/e2e/config/protractor.conf.js",
     "build:css": "gulp copy-css"
   },

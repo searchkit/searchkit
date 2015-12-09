@@ -1,13 +1,10 @@
 require("coffee-script/register")
 var path = require("path");
 var express = require("express");
-var webpack = require("webpack");
-var webpackMiddleware = require("webpack-dev-middleware");
-var webpackHotMiddleware = require('webpack-hot-middleware');
-var config = require("./webpack.dev.config.js");
 var elasticsearch = require("elasticsearch")
 var bodyParser = require("body-parser")
 var methodOverride = require("method-override")
+var compression = require("compression")
 
 var _ = require("lodash")
 
@@ -20,6 +17,7 @@ module.exports = {
 
     var express = require('express');
     var app = express();
+    app.use(compression())
     app.set('view engine', 'ejs');
     app.set('views', __dirname + '/server/views');
     app.use(bodyParser.urlencoded({ extended: false }))
@@ -29,6 +27,10 @@ module.exports = {
     var port = Number(process.env.PORT || 3000);
 
     if (!env.production) {
+      var webpack = require("webpack");
+      var webpackMiddleware = require("webpack-dev-middleware");
+      var webpackHotMiddleware = require('webpack-hot-middleware');
+      var config = require("./webpack.dev.config.js");
       var compiler = webpack(config);
 
       app.use(webpackMiddleware(compiler, {
@@ -48,12 +50,11 @@ module.exports = {
 
 
     } else {
-      app.use("/static", express.static(__dirname + '/../dist'));
+      app.use("/static", express.static(__dirname + '/dist'));
     }
 
-
     var client = new elasticsearch.Client({
-      host: 'localhost:9200',
+      host: 'https://site:8d411d03dd4663f1a2600d72305f7744@kili-eu-west-1.searchly.com',
       log: 'debug'
     });
 
