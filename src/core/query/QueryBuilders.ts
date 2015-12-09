@@ -22,7 +22,8 @@ export function SimpleQueryString(query, options={}){
 export interface TermOptions {
   $name?:string,
   $value?:string|number,
-  $remove?:Function
+  $remove?:Function,
+  $disabled?:boolean
 }
 export function Term(key, value, options:TermOptions={}){
   return _.extend({

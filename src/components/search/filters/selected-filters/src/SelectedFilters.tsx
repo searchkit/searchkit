@@ -14,7 +14,7 @@ require("./../styles/index.scss");
 
 export class SelectedFilters extends SearchkitComponent<any, any> {
 
-	getFilters():Array<any> {		
+	getFilters():Array<any> {
 		return this.searcher.query.getFiltersArray()
 	}
 
@@ -42,7 +42,7 @@ export class SelectedFilters extends SearchkitComponent<any, any> {
 		}
     return (
       <div className="selected-filters">
-				{_.map(this.getFilters(), this.renderFilter.bind(this))}
+				{_.map(_.filter(this.getFilters(),{$disabled:false}), this.renderFilter.bind(this))}
       </div>
     )
   }

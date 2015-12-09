@@ -78,8 +78,8 @@ export class HierarchicalFacetAccessor extends Accessor<HierarchicalState> {
         return Term(field, filter, {
           $name:this.options.title || field,
           $value:filter,
-          $remove:this.state.remove.bind(this.state, i, filter)
-
+          $remove:this.state.remove.bind(this.state, i, filter),
+          $disabled: this.state.levelHasFilters(i+1)
         })
       } );
       var boolBuilder = BoolShould;
