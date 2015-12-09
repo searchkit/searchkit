@@ -26,11 +26,14 @@ export interface TermOptions {
   $disabled?:boolean
 }
 export function Term(key, value, options:TermOptions={}){
+  const defaultOptions = {
+    $disabled:false
+  }
   return _.extend({
     term:{
       [key]:value
     }
-  }, options)
+  }, defaultOptions, options)
 }
 
 export function Terms(key, options){
