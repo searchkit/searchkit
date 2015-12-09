@@ -1,5 +1,6 @@
 import * as _ from "lodash";
 import * as React from "react";
+import * as classNames from 'classnames';
 import {
 	SearchkitComponent,
 	PageSizeAccessor
@@ -26,10 +27,14 @@ export class Hits extends SearchkitComponent<IHits, any> {
 
 	render() {
 		let hits:{}[] = _.get(this.searcher, "results.hits.hits", null)
+		let className = classNames({
+			"hits":true,
+			"hits--is-loading":this.isLoading()
+		})
 		return (
-			<div className="hits">
+			<div className={className}>
 				{_.map(hits, this.renderResult.bind(this))}
       </div>
-		);		
+		);
 	}
 }
