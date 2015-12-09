@@ -1,6 +1,7 @@
 import { ImmutableQuery } from "./query/ImmutableQuery";
 import { Accessor } from "./accessors/Accessor";
 import { SearchkitManager } from "./SearchkitManager";
+import * as rx from "rx";
 export declare enum SearchType {
     count = 0,
     query_then_fetch = 1,
@@ -14,6 +15,8 @@ export declare class Searcher {
     searchkitManager: SearchkitManager;
     search_type: SearchType;
     index: string;
+    loading: boolean;
+    stateListener: rx.Subject<any>;
     constructor();
     setSearchkitManager(searchkitManager: any): void;
     setIndex(index: any): void;

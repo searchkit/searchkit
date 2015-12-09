@@ -41,7 +41,8 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 	renderOption(level, option) {
 
 		var className = classNames({
-			"selected":this.accessor.state.contains(level, option.key)
+			"hierarchical-menu-option--selected":this.accessor.state.contains(level, option.key),
+			"hierarchical-menu-option":true
 		})
 
 		return (
@@ -60,7 +61,7 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 
 	renderOptions(level) {
 		return (
-			<div className="hierarchical-options">
+			<div className="hierarchical-menu-list__hierarchical-options">
 			{_.map(this.accessor.getBuckets(level), this.renderOption.bind(this,level))}
 			</div>
 		)
@@ -68,8 +69,8 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 
   render(){
     return (
-			<div>
-				<div className="title">{this.props.title}</div>
+			<div className="hierarchical-menu-list">
+				<div className="hierarchical-menu-list__header">{this.props.title}</div>
 				{this.renderOptions(0)}
 			</div>
 		)

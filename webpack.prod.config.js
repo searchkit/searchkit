@@ -12,6 +12,9 @@ module.exports = {
     publicPath: '/static/',
     css: 'styles.css'
   },
+  resolve: {
+    extensions:[".js", ".ts", ".tsx","", ".webpack.js", ".web.js",]
+  },
   plugins: [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
