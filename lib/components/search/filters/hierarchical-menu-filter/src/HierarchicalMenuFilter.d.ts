@@ -1,18 +1,16 @@
 import { SearchkitComponent, HierarchicalFacetAccessor } from "../../../../../core";
 export interface IHierarchicalMenuFilter {
+    id: string;
     fields: Array<string>;
     title: string;
 }
 export declare class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenuFilter, any> {
-    accessors: HierarchicalFacetAccessor;
+    accessor: HierarchicalFacetAccessor;
     constructor(props: IHierarchicalMenuFilter);
-    componentWillMount(): void;
-    createAccessors(): void;
-    addFilter(accessor: any, option: any): void;
-    private getLevelAccessor(level);
+    shouldCreateNewSearcher(): boolean;
+    defineAccessor(): HierarchicalFacetAccessor;
+    addFilter(option: any, level: any): void;
     renderOption(level: any, option: any): JSX.Element;
-    hasOptions(): boolean;
     renderOptions(level: any): JSX.Element;
     render(): JSX.Element;
-    render2(): JSX.Element;
 }
