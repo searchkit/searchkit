@@ -23,11 +23,12 @@ export class HierarchicalState extends ObjectState {
   }
 
   clear(level?:number):void {
-    if (level) {
-      let val = this.lazyInit()[level]
-      val = []
-    } else {
-      this.value = []
+    if (!level) {
+      this.value = [];
+      return;
+    }
+    if (level && this.value && this.value[level]) {
+      this.value[level] = []
     }
   }
 

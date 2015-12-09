@@ -40,9 +40,13 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 
 	renderOption(level, option) {
 
+		var className = classNames({
+			"selected":this.accessor.state.contains(level, option.key)
+		})
+
 		return (
 			<div>
-				<div key={option.key} onClick={this.addFilter.bind(this, option,level)}>{option.key} ({option.doc_count})</div>
+				<div className={className} key={option.key} onClick={this.addFilter.bind(this, option,level)}>{option.key} ({option.doc_count})</div>
 				<div>
 					{(() => {
 						if(this.accessor.state.contains(level,option.key)) {
