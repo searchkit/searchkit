@@ -135,9 +135,10 @@ export class SearchkitManager {
     this.state = this.getState()
     var queryDef = this.makeQueryDef()
     console.log("multiqueries", queryDef.queries)
-    this.loading = true
-    this.loadingListener.onNext(true)
+
     if(queryDef.queries.length > 0) {
+      this.loading = true
+      this.loadingListener.onNext(true)
       var request = new ESMultiRequest()
       request.search(queryDef.queries).then((response)=> {
         _.each(response["responses"], (results, index)=>{

@@ -70,6 +70,7 @@ export class HierarchicalFacetAccessor extends Accessor<HierarchicalState> {
   }
 
   buildSharedQuery(query) {
+    console.log(this.state.getValue())
     var filters = this.state.getLevel(0)
     var filterTerms = _.map(filters, (filter:any)=> {
       return Term(this.options.fields[0], filter, {
