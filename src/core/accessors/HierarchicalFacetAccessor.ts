@@ -13,9 +13,9 @@ export class HierarchicalState extends ObjectState {
   }
 
   add(level:number, val) {
-    var value = this.lazyInit()
-    if (!_.isArray(value[level])) value[level] = [];
-    value[level].push(val);
+    this.lazyInit()
+    if (!_.isArray(this.value[level])) this.value[level] = [];
+    this.value[level].push(val);
   }
 
   contains(level:number, val) {
@@ -33,7 +33,8 @@ export class HierarchicalState extends ObjectState {
   }
 
   remove(level:number, val) {
-    this.value = _.without(this.lazyInit()[level], val)
+    this.lazyInit()
+    this.value[level] = _.without(this.value[level], val)
   }
 
   toggle(level:number, val) {
