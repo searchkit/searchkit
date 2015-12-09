@@ -16,10 +16,11 @@ export class SearchkitManager {
 
   constructor(index:string){
     this.index = index
-    this.searchers = []    
+    this.searchers = []
 		this.registrationCompleted = new Promise((resolve)=>{
 			this.completeRegistration = resolve
 		})
+    this.listenToHistory(history)
   }
   addSearcher(searcher){
     this.searchers.push(searcher)

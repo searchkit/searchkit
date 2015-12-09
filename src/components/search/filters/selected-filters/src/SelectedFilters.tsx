@@ -37,7 +37,7 @@ export class SelectedFilters extends SearchkitComponent<any, any> {
 	}
 
   render() {
-		if (!this.hasFilters() || false) {
+		if (!this.hasFilters()) {
 			return (<div></div>)
 		}
     return (
