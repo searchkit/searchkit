@@ -46,6 +46,10 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
 
   }
 
+  isLoading(){
+    return this.searcher && this.searcher.loading
+  }
+
   componentWillUnmount(){
     if(this.stateListenerUnsubscribe){
 		  this.stateListenerUnsubscribe.dispose()
