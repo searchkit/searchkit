@@ -5,10 +5,6 @@ var elasticsearch = require("elasticsearch")
 var bodyParser = require("body-parser")
 var methodOverride = require("method-override")
 var compression = require("compression")
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/brandassets
 
 var _ = require("lodash")
 
