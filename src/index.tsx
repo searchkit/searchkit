@@ -10,7 +10,6 @@ import {
 import { Router, Route, Link, Redirect } from 'react-router'
 
 const searchkit = new SearchkitManager("movies")
-searchkit.listenToHistory(history)
 
 
 const Root = ()=> (
@@ -18,6 +17,7 @@ const Root = ()=> (
 		<App/>
 	</SearchkitProvider>
 )
+
 
 
 ReactDOM.render((

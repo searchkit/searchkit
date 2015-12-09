@@ -8,6 +8,8 @@ var config = require("./webpack.dev.config.js");
 var elasticsearch = require("elasticsearch")
 var bodyParser = require("body-parser")
 var methodOverride = require("method-override")
+var compression = require("compression")
+
 
 var _ = require("lodash")
 
@@ -20,6 +22,7 @@ module.exports = {
 
     var express = require('express');
     var app = express();
+    app.use(compression())
     app.set('view engine', 'ejs');
     app.set('views', __dirname + '/server/views');
     app.use(bodyParser.urlencoded({ extended: false }))

@@ -30,6 +30,7 @@
     "body-parser": "^1.14.1",
     "classnames": "^2.2.0",
     "coffee-script": "^1.10.0",
+    "compression": "^1.6.0",
     "css-loader": "^0.20.2",
     "ejs": "^2.3.4",
     "elasticsearch": "^9.0.2",
