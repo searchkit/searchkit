@@ -8,7 +8,7 @@ export interface LoadingProps {
 export class LoadingComponent extends SearchkitComponent<LoadingProps, any> {
 
 	render(){
-    if(this.searcher.loading) {
+    if(this.isLoading()) {
       return this.props.children
     }
     return <div/>

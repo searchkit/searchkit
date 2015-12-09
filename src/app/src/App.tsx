@@ -47,9 +47,6 @@ export class App extends SearchkitComponent<any, any> {
 			<SearcherProvider searcher={this.primarySearcher}>
 				<div className="layout">
 					<div className="layout__search-box">
-						<LoadingComponent>
-							<p>loading...</p>
-						</LoadingComponent>
 						<SelectedFilters/>
 						<SearchBox/>
 					</div>
