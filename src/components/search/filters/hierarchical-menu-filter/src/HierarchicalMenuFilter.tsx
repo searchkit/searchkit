@@ -9,98 +9,65 @@ import {
 require("./../styles/index.scss");
 
 export interface IHierarchicalMenuFilter {
+	id:string
 	fields:Array<string>
 	title:string
 }
 
 export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenuFilter, any> {
-	public accessors:HierarchicalFacetAccessor
+	public accessor:HierarchicalFacetAccessor
 
 	constructor(props:IHierarchicalMenuFilter) {
 		super(props)
 	}
 
-	componentWillMount() {
-		super.componentWillMount();
-		this.createAccessors();
+	shouldCreateNewSearcher() {
+		return true;
 	}
 
-  createAccessors() {
-		// this.accessors = this.props.fields.map((field,i) => {
-		// 	let ignoreKeys = _.slice(this.props.fields,i)
-		// 	return this.searcher.stateManager.registerAccessor(
-	  //     new HierarchicalFacetAccessor(field, {title:this.props.title, size:100, fields:ignoreKeys})
-	  //   )
-		// });
-  }
-
-  addFilter(accessor, option) {
-		// let isSelected = accessor.state.contains(option.key)
-		// let childAccessors = _.slice(this.accessors,_.indexOf(this.accessors,accessor))
-		// _.each(childAccessors, (accessor:HierarchicalFacetAccessor) => accessor.state.clear());
-		// if (!isSelected) accessor.state.add(option.key)
-		// accessor.search()
+	defineAccessor() {
+		return new HierarchicalFacetAccessor(
+			this.props.id,
+			{title:this.props.title, fields:this.props.fields}
+		)
 	}
 
-  private getLevelAccessor(level):HierarchicalFacetAccessor {
-    return this.accessors[level - 1];
-  }
+	addFilter(option, level) {
+		this.accessor.state.clear(level);
+		this.accessor.state.add(level, option.key);
+		this.searchkit.performSearch()
+	}
 
 	renderOption(level, option) {
 
-    let accessor = this.getLevelAccessor(level);
-    // let isSelected:boolean = accessor.state.contains(option.key)
-    let isSelected = true
-		let optionClassName = classNames({
-			"hierarchical-menu-list-option":true,
-			"hierarchical-menu-list-option--checked":isSelected
-		})
-
 		return (
-			<div className="hierarchical-menu-list-options__item" key={level+"_"+option.key}>
-        <div className={optionClassName} onClick={this.addFilter.bind(this, accessor, option)}>
-  				<div className="hierarchical-menu-list-option__text">{option.key} ({option.doc_count})</div>
-        </div>
-        {(()=> {
-          if (isSelected) {
-            return this.renderOptions(level+1);
-          }
-        })()}
+			<div>
+				<div key={option.key} onClick={this.addFilter.bind(this, option,level)}>{option.key} ({option.doc_count})</div>
+				<div>
+					{(() => {
+						if(this.accessor.state.contains(level,option.key)) {
+							return this.renderOptions(level+1);
+						}
+					})()}
+				</div>
 			</div>
 		)
 	}
 
-	hasOptions():boolean {
-		return this.accessors[0].getBuckets().length != 0
-	}
-
-  renderOptions(level) {
-    let accessor = this.accessors[level-1];
-    if (!accessor) {
-      return null;
-    }
-    return (
-			<div className="hierarchical-menu-list-options">
-  			{_.map(accessor.getBuckets(), this.renderOption.bind(this, level))}
-			</div>
-		);
-  }
-  render(){
-    return <div/>
-  }
-	render2() {
-		let className = classNames({
-			"hierarchical-menu-list-option":true,
-			"hierarchical-menu-list-option--disabled":!this.hasOptions()
-		})
-
+	renderOptions(level) {
 		return (
-			<div className="hierarchical-menu-list">
-				<div className={className}>
-					<div className="hierarchical-menu-list-option__text">{this.props.title}</div>
-				</div>
-				{this.renderOptions(1)}
+			<div className="hierarchical-options">
+			{_.map(this.accessor.getBuckets(level), this.renderOption.bind(this,level))}
 			</div>
-		);
+		)
 	}
+
+  render(){
+    return (
+			<div>
+				{this.renderOptions(0)}
+			</div>
+		)
+	}
+
 }

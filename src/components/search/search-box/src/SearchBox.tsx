@@ -25,7 +25,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	}
 
 	createSuggestSearcher() {
-		this.suggestSearcher = new ESRequest("aetna");
+		this.suggestSearcher = new ESRequest("movies");
 	}
 
 	defineAccessor(){
@@ -46,6 +46,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 
 		return [
 			{
+				sectionName:"Search for",
 				suggestions: suggestOptions
 			},
 			{

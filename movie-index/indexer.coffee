@@ -61,6 +61,11 @@ processedMovies = movies.map (movie)->
     imdbVotes:toNumber(movie.imdbVotes)
     imdbId:movie.imdbID
     type:movie.Type
+    suggest:{
+      input:movie.Title?.split?(" ") or []
+      output: movie.Title
+      payload: {id:movie.imdbID}
+    }
   })
 
 getMultiFieldDef = (name) ->
@@ -96,6 +101,10 @@ mapping = {
         directors: getMultiFieldDef("directors")
         actors: getMultiFieldDef("actors")
         type: getMultiFieldDef("type")
+        suggest: {
+          type:"completion",
+          payloads:true
+        }
 }
 commands = []
 

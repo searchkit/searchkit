@@ -50,6 +50,7 @@ export class FacetAccessor extends Accessor<ArrayState> {
     }
     return query
   }
+
   buildOwnQuery(query){
     var filters = this.state.getValue()
     let excludedKey = (this.isOrOperator()) ? this.key : undefined

@@ -1,4 +1,5 @@
 .search-box {
+  flex:auto;
 
   form {
     display:flex;
@@ -38,4 +39,48 @@
     }
   }
 
+}
+
+.react-autosuggest {
+  width:100%;
+  background:white;
+  z-index:1000;
+
+
+  ul, li {
+    margin:0;
+    padding:0;
+  }
+}
+
+.react-autosuggest__suggestions {
+  padding:10px 0 5px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  border-radius:3px;
+  z-index:1000;
+}
+
+.react-autosuggest__suggestions-section {
+  margin-bottom:20px;
+  padding:0 10px;
+}
+
+.react-autosuggest__suggestions-section-name {
+  text-transform:uppercase;
+  font-size:12px;
+  margin-bottom:10px;
+  color:#999;
+}
+
+.react-autosuggest__suggestions-section-suggestions {
+  list-style: none;
+  list-style-position:inside;
+  margin:0;
+}
+.react-autosuggest__suggestion {
+  padding:5px 0;
+  em {
+    font-style: normal;
+    font-weight:700;
+  }
 }

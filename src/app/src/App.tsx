@@ -56,8 +56,7 @@ export class App extends SearchkitComponent<any, any> {
 
 					<div className="layout__filters">
 						<ResetFilters />
-						<MenuFilter title="Type" field="type.raw"/>
-						<HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories"/>
+						<HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
 						<RefinementListFilter title="Actors" field="actors.raw" operator="AND"/>
 						<RefinementListFilter title="Languages" field="languages.raw" operator="OR"/>
 						<RefinementListFilter title="Countries" field="countries.raw" operator="OR"/>
