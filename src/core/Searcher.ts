@@ -2,6 +2,7 @@ import {State, ArrayState, ObjectState, ValueState} from "./state/State"
 import {ImmutableQuery} from "./query/ImmutableQuery";
 import {Accessor} from "./accessors/Accessor"
 import {SearchkitManager} from "./SearchkitManager"
+import * as rx from "rx";
 
 export enum SearchType {
   count,
@@ -17,9 +18,12 @@ export class Searcher {
   searchkitManager:SearchkitManager
   search_type:SearchType
   index:string
+  loading:boolean
+  stateListener: rx.Subject<any>
   constructor() {
     this.accessors = []
     this.search_type = SearchType.count
+    this.stateListener = new rx.Subject()
     this.query = new ImmutableQuery()
   }
 
@@ -49,6 +53,10 @@ export class Searcher {
     this.queryHasChanged = ImmutableQuery.areQueriesDifferent(
       this.query, query)
     this.query = query
+    if (this.queryHasChanged){
+      this.loading = true
+      this.stateListener.onNext(true)
+    }
   }
   getCommandAndQuery(){
     return [
@@ -61,5 +69,7 @@ export class Searcher {
   }
   setResults(results) {
     this.results = results
+    this.loading = false
+    this.stateListener.onNext(true)
   }
 }

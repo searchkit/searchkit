@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as Rx from "rx"
 import {SearchkitManager} from "../SearchkitManager"
 
 export interface ISearcherProvider {
@@ -12,19 +11,9 @@ export class SearchkitProvider extends React.Component<ISearcherProvider,any> {
 		searchkit:React.PropTypes.instanceOf(SearchkitManager)
 	}
 	results:any
-	searcherUnsubscribe:Rx.IDisposable
 
-	componentWillMount(){
-		this.searcherUnsubscribe = this.props.searchkit.resultsListener.subscribe(
-			()=> this.forceUpdate()
-		)
-	}
 	componentDidMount(){
 		this.props.searchkit.completeRegistration()
-	}
-
-	componentWillUnmount(){
-		this.searcherUnsubscribe.dispose()
 	}
 
 	getChildContext(){

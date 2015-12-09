@@ -10,19 +10,13 @@ import {history} from "./history";
 export class SearchkitManager {
   searchers:Array<Searcher>
   index:string
-  resultsListener: rx.ReplaySubject<any>
-  loadingListener: rx.ReplaySubject<any>
-  loading:boolean
   private registrationCompleted:Promise<any>
   completeRegistration:Function
   state:any
 
   constructor(index:string){
     this.index = index
-    this.searchers = []
-    this.resultsListener = new rx.ReplaySubject(1)
-    this.loadingListener = new rx.ReplaySubject(1)
-    this.loading = false
+    this.searchers = []    
 		this.registrationCompleted = new Promise((resolve)=>{
 			this.completeRegistration = resolve
 		})
@@ -137,16 +131,11 @@ export class SearchkitManager {
     console.log("multiqueries", queryDef.queries)
 
     if(queryDef.queries.length > 0) {
-      this.loading = true
-      this.loadingListener.onNext(true)
       var request = new ESMultiRequest()
       request.search(queryDef.queries).then((response)=> {
         _.each(response["responses"], (results, index)=>{
           queryDef.searchers[index].setResults(results)
         })
-        this.resultsListener.onNext(response)
-        this.loading = false
-        this.loadingListener.onNext(false)
       })
     }
   }

@@ -2,11 +2,14 @@ import * as React from "react"
 import {SearchkitManager} from "../SearchkitManager";
 import {Accessor} from "../accessors/Accessor"
 import {Searcher} from "../Searcher"
+import * as Rx from "rx"
+
 
 export class SearchkitComponent<P,S> extends React.Component<P,S> {
   searchkit:SearchkitManager
   accessor:Accessor<any>
   searcher:Searcher
+  stateListenerUnsubscribe:Rx.IDisposable
 
 	static contextTypes = {
 		searchkit:React.PropTypes.instanceOf(SearchkitManager),
@@ -35,5 +38,17 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
       }
       this.searcher.addAccessor(this.accessor)
     }
+    if(this.searcher){
+      this.stateListenerUnsubscribe = this.searcher.stateListener.subscribe(()=> {
+        this.forceUpdate()
+      })
+    }
+
   }
+
+  componentWillUnmount(){
+    if(this.stateListenerUnsubscribe){
+		  this.stateListenerUnsubscribe.dispose()
+    }
+	}
 }
