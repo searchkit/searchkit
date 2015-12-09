@@ -70,20 +70,23 @@ export class HierarchicalFacetAccessor extends Accessor<HierarchicalState> {
   }
 
   buildSharedQuery(query) {
-    var filters = this.state.getLevel(0)
-    var filterTerms = _.map(filters, (filter:any)=> {
-      return Term(this.options.fields[0], filter, {
-        $name:this.options.title || this.options.fields[0],
-        $value:filter,
-        $remove:()=> {
-          this.state.remove(0, filter)
-        }
-      })
-    } );
-    var boolBuilder = BoolShould;
-    if(filterTerms.length > 0){
-      query = query.addFilter(this.options.fields[0], boolBuilder(filterTerms))
-    }
+
+    _.each(this.options.fields, (field:string, i:number) => {
+      var filters = this.state.getLevel(i)
+      var filterTerms = _.map(filters, (filter:any)=> {
+        return Term(field, filter, {
+          $name:this.options.title || field,
+          $value:filter,
+          $remove:this.state.remove.bind(this.state, i, filter)
+
+        })
+      } );
+      var boolBuilder = BoolShould;
+      if(filterTerms.length > 0){
+        query = query.addFilter(field, boolBuilder(filterTerms))
+      }
+    })
+
     return query
   }
 
