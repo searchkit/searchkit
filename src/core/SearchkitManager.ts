@@ -1,10 +1,11 @@
+
 import {State,ArrayState,ObjectState,ValueState} from "./state/State"
 import {ImmutableQuery} from "./query/ImmutableQuery";
 import {Accessor} from "./accessors/Accessor"
 import {Searcher} from "./Searcher"
 import {ESMultiRequest} from "./ESMultiRequest";
-var Promise = require('es6-promise').Promise
 import {history} from "./history";
+require('es6-promise').polyfill()
 
 export class SearchkitManager {
   searchers:Array<Searcher>
