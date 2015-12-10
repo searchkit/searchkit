@@ -40,7 +40,7 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 	renderOption(option) {
 		let checkedClassName = classNames({
 			"refinement-option__checkbox":true,
-			"refinement-option__checkbox--checked":this.accessor.resultsState.contains(option.key)
+			"refinement-option__checkbox--checked":this.accessor.state.contains(option.key)
 		})
 
 		let optionClassName = classNames({
