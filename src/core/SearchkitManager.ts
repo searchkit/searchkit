@@ -3,7 +3,6 @@ import {ImmutableQuery} from "./query/ImmutableQuery";
 import {Accessor} from "./accessors/Accessor"
 import {Searcher} from "./Searcher"
 import {ESMultiRequest} from "./ESMultiRequest";
-import * as rx from "rx";
 var Promise = require('es6-promise').Promise
 import {history} from "./history";
 

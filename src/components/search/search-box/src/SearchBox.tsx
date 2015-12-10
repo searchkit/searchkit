@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as rx from "rx";
 var Autosuggest = require('react-autosuggest');
 
 import {

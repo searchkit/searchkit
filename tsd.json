@@ -44,60 +44,6 @@
     "classnames/classnames.d.ts": {
       "commit": "0d64ea1b82ad1d804892ceec14d98a9be85f64fb"
     },
-    "rx/rx.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
-    "rx/rx-lite.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
-    "rx/rx.all.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
-    "rx/rx.time.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
-    "rx/rx.aggregates.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
-    "rx/rx.time-lite.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
-    "rx/rx.async-lite.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
-    "rx/rx.binding-lite.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
-    "rx/rx.async.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
-    "rx/rx.coincidence-lite.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
-    "rx/rx.coincidence.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
-    "rx/rx.binding.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
-    "rx/rx.experimental.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
-    "rx/rx.joinpatterns.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
-    "rx/rx.testing.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
-    "rx/rx.virtualtime.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
-    "rx/rx.backpressure.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
-    "rx/rx.backpressure-lite.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
-    },
     "react/react-dom.d.ts": {
       "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
     },
