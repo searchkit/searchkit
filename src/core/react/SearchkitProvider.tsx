@@ -10,7 +10,18 @@ export class SearchkitProvider extends React.Component<ISearcherProvider,any> {
 	static childContextTypes = {
 		searchkit:React.PropTypes.instanceOf(SearchkitManager)
 	}
-	results:any
+
+	static wrap(app:any, searchkit) {
+		return React.createClass({
+			render(){
+				return (
+					<SearchkitProvider searchkit={searchkit}>
+						{React.createElement(app)}
+					</SearchkitProvider>
+				)
+			}
+		})
+	}
 
 	componentDidMount(){
 		this.props.searchkit.completeRegistration()
