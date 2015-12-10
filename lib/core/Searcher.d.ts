@@ -23,6 +23,7 @@ export declare class Searcher {
     setIndex(index: any): void;
     getIndex(): string;
     hasFilters(): boolean;
+    hasFiltersOrQuery(): boolean;
     addAccessor(accessor: Accessor<any>): void;
     buildQuery(query: any): void;
     getCommandAndQuery(): any[];

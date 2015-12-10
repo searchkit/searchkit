@@ -5,6 +5,7 @@ export declare class ImmutableQuery {
     static defaultIndex: any;
     constructor(query?: any, index?: any);
     hasFilters(): boolean;
+    hasFiltersOrQuery(): boolean;
     addQuery(query: any): ImmutableQuery;
     addFilter(key: any, bool: any): ImmutableQuery;
     getFiltersArray(): any;

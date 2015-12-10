@@ -51,6 +51,10 @@ export class Searcher {
     return this.query && this.query.hasFilters()
   }
 
+  hasFiltersOrQuery(){
+    return this.query && this.query.hasFiltersOrQuery()
+  }
+
   addAccessor(accessor: Accessor<any>) {
     this.accessors.push(accessor)
     accessor.setSearcher(this)

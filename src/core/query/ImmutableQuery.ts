@@ -22,6 +22,11 @@ export class ImmutableQuery {
     return !_.isEmpty(this.index.filters)
   }
 
+  hasFiltersOrQuery(){
+    return (this.query.query.bool.must.length +
+      this.query.filter.bool.must.length) > 0
+  }
+
   addQuery(query) {
     if (query) {
       return this.update({
