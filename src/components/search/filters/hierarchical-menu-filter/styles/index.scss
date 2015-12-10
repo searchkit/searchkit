@@ -9,6 +9,10 @@
       font-weight:bold;
     }
 
+    &__root {
+      margin-left:-10px;
+    }
+
     &--disabled  {
       display:none;
     }
