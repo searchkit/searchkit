@@ -64,7 +64,7 @@ export class Pagination extends SearchkitComponent<IPagination, any> {
 			"pagination-nav-item--disabled": this.isDisabled(direction)
 		})
     return (
-      <div onClick={this.setPage.bind(this,direction)} className={className}>
+      <div onMouseDown={this.leftMouseDown(this.setPage.bind(this,direction))} className={className}>
         <div className="pagination-nav-item__text">{displayText}</div>
       </div>    )
 	}

@@ -23,7 +23,7 @@ export class ResetFilters extends SearchkitComponent<any, any> {
 
 	renderResetButton() {
 		return (
-			<div className="reset-filters" onClick={this.resetFilters.bind(this)}>
+			<div className="reset-filters" onMouseDown={this.leftMouseDown(this.resetFilters.bind(this))}>
 				<div className="reset-filters__text">clear all filters</div>
 			</div>
 		)

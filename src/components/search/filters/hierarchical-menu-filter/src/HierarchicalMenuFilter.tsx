@@ -52,7 +52,7 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 
 		return (
 			<div key={option.key}>
-				<div className={className} onClick={this.addFilter.bind(this, option,level)}>
+				<div className={className} onMouseDown={this.leftMouseDown(this.addFilter.bind(this, option,level))}>
 					<div className="hierarchical-menu-option__text">{option.key}</div>
 					<div className="hierarchical-menu-option__count">{option.doc_count}</div>
 				</div>

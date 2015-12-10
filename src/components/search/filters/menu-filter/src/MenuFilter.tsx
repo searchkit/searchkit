@@ -47,7 +47,7 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 		})
 
 		return (
-			<div className={optionClassName} key={option.key} onClick={this.addFilter.bind(this, option)}>
+			<div className={optionClassName} key={option.key} onMouseDown={this.leftMouseDown(this.addFilter.bind(this, option))}>
 				<div className="menu-list-option__text">{option.key}</div>
 			</div>
 		)
@@ -61,7 +61,7 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 		})
 
 		return (
-			<div className={optionClassName} key="all" onClick={this.addFilter.bind(this, "all")}>
+			<div className={optionClassName} key="all" onMouseDown={this.leftMouseDown(this.addFilter.bind(this, "all"))}>
 				<div className="menu-list-option__text">All</div>
 			</div>
 		)

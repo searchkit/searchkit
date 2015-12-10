@@ -50,7 +50,7 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 		})
 
 		return (
-			<div className={optionClassName} key={option.key} onClick={this.addFilter.bind(this, option)}>
+			<div className={optionClassName} key={option.key} onMouseDown={this.leftMouseDown(this.addFilter.bind(this, option))}>
 				<div className={checkedClassName}></div>
 				<div className="refinement-option__text">{option.key}</div>
 				<div className="refinement-option__count">{option.doc_count}</div>
