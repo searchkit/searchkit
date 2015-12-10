@@ -5,8 +5,6 @@ import {
 	SearchkitComponent,
 } from "../../../../core"
 
-require("./../styles/index.scss");
-
 export interface IHitsStats {
 }
 

@@ -7,10 +7,8 @@ import {
 	SearchkitManager,
 	SearchkitComponent,
 	FacetAccessor,
-	FastClick	
+	FastClick
 } from "../../../../../core"
-
-require("./../styles/index.scss");
 
 
 export class SelectedFilters extends SearchkitComponent<any, any> {

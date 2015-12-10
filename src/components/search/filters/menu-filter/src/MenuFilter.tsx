@@ -9,8 +9,6 @@ import {
 	FastClick
 } from "../../../../../core"
 
-require("./../styles/index.scss");
-
 export interface IMenuFilter {
 	field:string
 	title:string

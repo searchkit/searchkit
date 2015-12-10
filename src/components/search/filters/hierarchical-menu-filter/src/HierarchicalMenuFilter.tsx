@@ -7,8 +7,6 @@ import {
 	FastClick
 } from "../../../../../core"
 
-require("./../styles/index.scss");
-
 export interface IHierarchicalMenuFilter {
 	id:string
 	fields:Array<string>

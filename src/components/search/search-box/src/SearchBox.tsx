@@ -9,8 +9,6 @@ import {
 	ESRequest
 } from "../../../../core"
 
-require("./../styles/index.scss");
-
 export interface ISearchBox {
 }
 

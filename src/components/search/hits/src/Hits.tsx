@@ -6,8 +6,6 @@ import {
 	PageSizeAccessor
 } from "../../../../core"
 
-require("./../styles/index.scss");
-
 export interface IHits {
 	hitsPerPage: number
 }

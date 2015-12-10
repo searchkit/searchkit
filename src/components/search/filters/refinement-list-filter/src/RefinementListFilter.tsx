@@ -9,7 +9,7 @@ import {
 	FastClick
 } from "../../../../../core"
 
-require("./../styles/index.scss");
+
 
 export interface IRefinementListFilter {
 	field:string

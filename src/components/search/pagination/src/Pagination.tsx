@@ -5,10 +5,8 @@ import * as classNames from 'classnames';
 import {
 	SearchkitComponent,
 	PaginationAccessor,
-	FastClick	
+	FastClick
 } from "../../../../core"
-
-require("./../styles/index.scss");
 
 export interface IPagination {
 }
