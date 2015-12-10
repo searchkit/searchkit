@@ -2,46 +2,52 @@ import {ObjectState, ArrayState} from "../state/State"
 import {Accessor} from "./Accessor"
 import {Term, Terms, BoolShould, BoolMust} from "../query/QueryBuilders";
 import * as _ from "lodash";
+const update = require("react-addons-update")
+
 
 export class HierarchicalState extends ObjectState {
   value:Object
   defaultValue:Object
 
-  lazyInit() {
-    this.value = this.value || {}
-    return this.value
-  }
 
   add(level:number, val) {
-    this.lazyInit()
-    if (!_.isArray(this.value[level])) this.value[level] = [];
-    this.value[level].push(val);
+    var ob = this.lazyInit()
+    if (!_.isArray(ob[level])) {
+      ob = update(ob, {
+        [level]:{$set:[]}
+      })
+    }
+    ob = update(ob, {
+      [level]:{$push:[val]}
+    })
+    return this.create(ob)
   }
 
   contains(level:number, val) {
-    return _.contains(this.value[level], val)
+    return _.contains(this.lazyInit()[level], val)
   }
 
-  clear(level?:number):void {
+  clear(level?:number) {
     if (!level) {
-      this.value = [];
-      return;
-    }
-    if (level) {
-      this.value[level] = [] 
+      return this.create([])
+    } else if(level) {
+      return this.create(update(this.lazyInit(), {
+        [level]:{$set:[]}
+      }))
     }
   }
 
   remove(level:number, val) {
-    this.lazyInit()
-    this.value[level] = _.without(this.value[level], val)
+    return this.create(update(this.lazyInit(), {
+      [level]:{$set:_.without(this.lazyInit()[level], val)}
+    }))
   }
 
   toggle(level:number, val) {
     if(this.contains(level, val)) {
-      this.add(level, val);
+      return this.add(level, val);
     } else {
-      this.remove(level, val);
+      return this.remove(level, val);
     }
   }
 
@@ -82,7 +88,9 @@ export class HierarchicalFacetAccessor extends Accessor<HierarchicalState> {
           $name:parentFilter[0] || this.options.title || field,
           $value:filter,
           $id:this.options.id,
-          $remove:this.state.remove.bind(this.state, i, filter),
+          $remove:()=> {
+            this.state = this.state.remove(i, filter)
+          },
           $disabled: this.state.levelHasFilters(i+1)
         })
       });

@@ -35,7 +35,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		event.preventDefault()
 		const val = this.getValue()
 		this.searchkit.resetState()
-		this.accessor.state.setValue(val)
+		this.accessor.state = this.accessor.state.setValue(val)
 		this.searchkit.performSearch()
 	}
 
@@ -106,7 +106,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	}
 
 	onChange(value){
-		this.accessor.state.setValue(value)
+		this.accessor.state = this.accessor.state.setValue(value)
 	}
 
 	suggestionValue(suggestion) {
@@ -115,7 +115,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 
 	onSuggestionSelected(value){
 
-		this.accessor.state.setValue(value.text || value)
+		this.accessor.state = this.accessor.state.setValue(value.text || value)
 		this.searchkit.search()
 	}
 

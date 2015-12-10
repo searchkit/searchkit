@@ -37,9 +37,9 @@ export class Pagination extends SearchkitComponent<IPagination, any> {
 		if (this.isDisabled(direction)) { return };
 		let currentPage:number = this.getCurrentPage();
 		if (direction == DIRECTION.PREVIOUS) {
-			this.accessor.state.setValue(currentPage-1);
+			this.accessor.state = this.accessor.state.setValue(currentPage-1);
 		} else if (direction == DIRECTION.NEXT) {
-			this.accessor.state.setValue(currentPage+1);
+			this.accessor.state = this.accessor.state.setValue(currentPage+1);
 		}
 		this.searchkit.performSearch();
 		window.scrollTo(0,0);

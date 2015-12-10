@@ -6,10 +6,12 @@ export class Accessor<T extends State<any>> {
   key:string
   urlKey:string
   state:T
+  resultsState:T
   searcher:Searcher
   constructor(key, urlString?){
     this.key = key
     this.urlKey = urlString || key && key.replace(/\./g, "_")
+    this.resultsState = this.state
   }
 
   setSearcher(searcher){
@@ -24,8 +26,12 @@ export class Accessor<T extends State<any>> {
     return this.searcher.results
   }
 
+  setResultsState(){
+    this.resultsState = this.state
+  }
+
   resetState(){
-    this.state.clear()
+    this.state = this.state.clear()
   }
 
   buildSharedQuery(query:ImmutableQuery){

@@ -31,9 +31,9 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 	}
 
 	addFilter(option) {
-		this.accessor.state.clear();
+		this.accessor.state = this.accessor.state.clear();
 		if (option != "all") {
-			this.accessor.state.add(option.key);
+			this.accessor.state = this.accessor.state.add(option.key);
 		}
 		this.searchkit.performSearch()
 	}
@@ -57,7 +57,7 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 		let optionClassName = classNames({
 			"menu-list-options__item":true,
 			"menu-list-option":true,
-			"menu-list-option--checked":!this.accessor.state.getValue()
+			"menu-list-option--checked":!this.accessor.resultsState.getValue()
 		})
 
 		return (

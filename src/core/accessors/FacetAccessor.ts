@@ -42,7 +42,7 @@ export class FacetAccessor extends Accessor<ArrayState> {
         $value:filter,
         $id:this.options.id,
         $remove:()=> {
-          this.state.remove(filter)
+          this.state = this.state.remove(filter)
         }
       })
     } );

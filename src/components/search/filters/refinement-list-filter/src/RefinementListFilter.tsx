@@ -33,20 +33,20 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 	}
 
 	addFilter(option) {
-		this.accessor.state.toggle(option.key)
+		this.accessor.state = this.accessor.state.toggle(option.key)
 		this.searchkit.performSearch()
 	}
 
 	renderOption(option) {
 		let checkedClassName = classNames({
 			"refinement-option__checkbox":true,
-			"refinement-option__checkbox--checked":this.accessor.state.contains(option.key)
+			"refinement-option__checkbox--checked":this.accessor.resultsState.contains(option.key)
 		})
 
 		let optionClassName = classNames({
 			"refinement-list-filter__item":true,
 			"refinement-option":true,
-			"refinement-option--checked":this.accessor.state.contains(option.key)
+			"refinement-option--checked":this.accessor.resultsState.contains(option.key)
 		})
 
 		return (
@@ -69,7 +69,6 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 			"refinement-list-filter--disabled":!this.hasOptions(),
 			[`filter--${this.props.id}`]:true
 		})
-
 		return (
 			<div className={className}>
 				<div className="refinement-list-filter__header">{this.props.title}</div>

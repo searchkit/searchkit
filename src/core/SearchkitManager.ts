@@ -107,7 +107,7 @@ export class SearchkitManager {
   setAccessorStates(query){
     this.iterateAccessors((accessor)=>{
       var value = query[accessor.urlKey]
-      accessor.state.setValue(value)
+      accessor.state = accessor.state.setValue(value)
     })
   }
 
