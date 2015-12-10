@@ -79,6 +79,7 @@ export class HierarchicalFacetAccessor extends Accessor<HierarchicalState> {
         return Term(field, filter, {
           $name:this.options.title || field,
           $value:filter,
+          $id:this.options.id,
           $remove:this.state.remove.bind(this.state, i, filter),
           $disabled: this.state.levelHasFilters(i+1)
         })

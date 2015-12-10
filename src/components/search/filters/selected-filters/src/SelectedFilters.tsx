@@ -23,8 +23,13 @@ export class SelectedFilters extends SearchkitComponent<any, any> {
 	}
 
 	renderFilter(filter) {
+		var className = classNames({
+			"selected-filters__item":true,
+			"selected-filter":true,
+			[filter.$id]:true
+		})
 		return (
-			<div className="selected-filters__item selected-filter" key={filter.$name+":"+filter.$value}>
+			<div className={className} key={filter.$name+":"+filter.$value}>
 				<div className="selected-filter__name">{filter.$name}: {filter.$value}</div>
 				<div className="selected-filter__remove-action" onClick={this.removeFilter.bind(this, filter)}>x</div>
 			</div>

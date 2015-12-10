@@ -15,6 +15,7 @@ export interface IRefinementListFilter {
 	operator?:string
 	size?:string
 	title:string
+	id:string
 }
 
 export class RefinementListFilter extends SearchkitComponent<IRefinementListFilter, any> {
@@ -27,7 +28,7 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 	defineAccessor() {
 		return new FacetAccessor(
 			this.props.field,
-			{operator:this.props.operator, title:this.props.title}
+			{id:this.props.id, operator:this.props.operator, title:this.props.title}
 		)
 	}
 
@@ -65,7 +66,8 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 
 		let className = classNames({
 			"refinement-list-filter":true,
-			"refinement-list-filter--disabled":!this.hasOptions()
+			"refinement-list-filter--disabled":!this.hasOptions(),
+			[this.props.id]:true
 		})
 
 		return (

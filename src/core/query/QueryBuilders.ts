@@ -23,9 +23,11 @@ export interface TermOptions {
   $name?:string,
   $value?:string|number,
   $remove?:Function,
-  $disabled?:boolean
+  $disabled?:boolean,
+  $id:string,
+  [prop:string]:any
 }
-export function Term(key, value, options:TermOptions={}){
+export function Term(key, value, options:TermOptions){
   const defaultOptions = {
     $disabled:false
   }

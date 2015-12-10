@@ -16,8 +16,10 @@ export interface TermOptions {
     $value?: string | number;
     $remove?: Function;
     $disabled?: boolean;
+    $id: string;
+    [prop: string]: any;
 }
-export declare function Term(key: any, value: any, options?: TermOptions): {};
+export declare function Term(key: any, value: any, options: TermOptions): {};
 export declare function Terms(key: any, options: any): {
     terms: {};
 };

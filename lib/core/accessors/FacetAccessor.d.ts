@@ -3,6 +3,7 @@ import { Accessor } from "./Accessor";
 export interface FacetAccessorOptions {
     operator?: string;
     title?: string;
+    id?: string;
 }
 export declare class FacetAccessor extends Accessor<ArrayState> {
     state: ArrayState;

@@ -2,6 +2,7 @@ import { SearchkitComponent, FacetAccessor } from "../../../../../core";
 export interface IMenuFilter {
     field: string;
     title: string;
+    id: string;
 }
 export declare class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
     accessor: FacetAccessor;

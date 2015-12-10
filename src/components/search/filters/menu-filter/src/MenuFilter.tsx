@@ -13,6 +13,7 @@ require("./../styles/index.scss");
 export interface IMenuFilter {
 	field:string
 	title:string
+	id:string
 }
 
 export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
@@ -25,7 +26,7 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 	defineAccessor() {
 		return new FacetAccessor(
 			this.props.field,
-			{operator:"OR", title:this.props.title}
+			{id:this.props.id, operator:"OR", title:this.props.title}
 		)
 	}
 
@@ -67,8 +68,12 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 	}
 
 	render() {
+		var className = classNames({
+			"menu-list":true,
+			[this.props.id]:true
+		})
 		return (
-			<div className="menu-list">
+			<div className={className}>
 				<div className="menu-list-options">
 				{this.renderAllOption()}
 				{_.map(this.accessor.getBuckets(), this.renderOption.bind(this))}

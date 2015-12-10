@@ -4,6 +4,7 @@ export interface IRefinementListFilter {
     operator?: string;
     size?: string;
     title: string;
+    id: string;
 }
 export declare class RefinementListFilter extends SearchkitComponent<IRefinementListFilter, any> {
     accessor: FacetAccessor;

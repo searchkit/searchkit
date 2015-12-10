@@ -7,6 +7,7 @@ import * as _ from "lodash";
 export interface FacetAccessorOptions {
   operator?:string,
   title?:string
+  id?:string
 }
 
 export class FacetAccessor extends Accessor<ArrayState> {
@@ -15,7 +16,7 @@ export class FacetAccessor extends Accessor<ArrayState> {
   state = new ArrayState()
   options:any
   constructor(key, options:FacetAccessorOptions){
-    super(key)
+    super(key, options.id)
     this.options = options
   }
 
@@ -39,6 +40,7 @@ export class FacetAccessor extends Accessor<ArrayState> {
       return Term(this.key, filter, {
         $name:this.options.title || this.key,
         $value:filter,
+        $id:this.options.id,
         $remove:()=> {
           this.state.remove(filter)
         }

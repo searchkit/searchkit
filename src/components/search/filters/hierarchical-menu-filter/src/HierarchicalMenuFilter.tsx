@@ -28,7 +28,7 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 	defineAccessor() {
 		return new HierarchicalFacetAccessor(
 			this.props.id,
-			{title:this.props.title, fields:this.props.fields}
+			{id:this.props.id, title:this.props.title, fields:this.props.fields}
 		)
 	}
 
@@ -68,8 +68,12 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 	}
 
   render(){
+		var className = classNames({
+			"hierarchical-menu-list":true,
+			[this.props.id]:true
+		})
     return (
-			<div className="hierarchical-menu-list">
+			<div className={className}>
 				<div className="hierarchical-menu-list__header">{this.props.title}</div>
 				{this.renderOptions(0)}
 			</div>
