@@ -7,5 +7,3 @@ export * from "./search/hits/src/Hits";
 export * from "./search/hits-stats/src/HitsStats";
 export * from "./search/pagination/src/Pagination";
 export * from "./search/search-box/src/SearchBox";
-// export {default as SearchkitComponent} from "./SearchkitComponent";
-// export {default as SearchkitProvider} from "./SearchkitProvider";

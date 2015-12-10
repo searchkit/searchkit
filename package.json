@@ -8,8 +8,8 @@
     "test": "karma start --single-run",
     "test:watch": "./node_modules/.bin/karma start karma.conf.js --auto-watch",
     "build": "tsc",
-    "build:css": "gulp copy-css",
-    "prepublish": "tsc"
+    "build:watch": "tsc -w",
+    "prepublish": "rm -rf lib; tsc"
   },
   "authors": [
     {
@@ -38,14 +38,16 @@
     "react-router": "^1.0.0"
   },
   "devDependencies": {
+    "bluebird": "^3.0.5",
     "gulp": "^3.9.0",
+    "gulp-sass": "^2.1.1",
+    "gulp-typescript": "^2.10.0",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.14",
     "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^0.2.1",
     "phantomjs": "^1.9.18",
     "phantomjs-polyfill": "0.0.1",
-    "bluebird": "^3.0.5",
     "tsd": "^0.6.5",
     "typescript": "^1.7.0"
   }

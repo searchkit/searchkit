@@ -25,7 +25,6 @@
     "./src/core/react/LoadingComponent.tsx",
     "./src/core/react/SearchkitProvider.tsx",
     "./src/components/index.ts",
-    "./src/components/utils/BEMHelper.ts",
     "./src/core/accessors/Accessor.ts",
     "./src/core/accessors/FacetAccessor.ts",
     "./src/core/accessors/HierarchicalFacetAccessor.ts",
