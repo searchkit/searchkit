@@ -68,7 +68,7 @@ export class Searcher {
     this.query = query
     if (this.queryHasChanged){
       this.loading = true
-      // this.triggerListeners()
+      this.triggerListeners()
     }
   }
   getCommandAndQuery(){
