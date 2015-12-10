@@ -57,7 +57,7 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 		let optionClassName = classNames({
 			"menu-list-options__item":true,
 			"menu-list-option":true,
-			"menu-list-option--checked":!this.accessor.resultsState.getValue()
+			"menu-list-option--checked":!this.accessor.state.getValue()
 		})
 
 		return (

@@ -46,7 +46,7 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 	renderOption(level, option) {
 
 		var className = classNames({
-			"hierarchical-menu-option--selected":this.accessor.resultsState.contains(level, option.key),
+			"hierarchical-menu-option--selected":this.accessor.state.contains(level, option.key),
 			"hierarchical-menu-option":true
 		})
 
