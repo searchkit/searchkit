@@ -75,9 +75,10 @@ export class HierarchicalFacetAccessor extends Accessor<HierarchicalState> {
 
     _.each(this.options.fields, (field:string, i:number) => {
       var filters = this.state.getLevel(i)
-      var filterTerms = _.map(filters, (filter:any)=> {
+      var parentFilter = this.state.getLevel(i-1)
+      var filterTerms = _.map(filters, (filter:any, idx)=> {
         return Term(field, filter, {
-          $name:this.options.title || field,
+          $name:parentFilter[0] || this.options.title || field,
           $value:filter,
           $remove:this.state.remove.bind(this.state, i, filter),
           $disabled: this.state.levelHasFilters(i+1)
