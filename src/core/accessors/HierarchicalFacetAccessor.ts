@@ -19,7 +19,7 @@ export class HierarchicalState extends ObjectState {
   }
 
   contains(level:number, val) {
-    return _.contains(this.lazyInit()[level], val)
+    return _.contains(this.value[level], val)
   }
 
   clear(level?:number):void {
@@ -27,8 +27,8 @@ export class HierarchicalState extends ObjectState {
       this.value = [];
       return;
     }
-    if (level && this.value && this.value[level]) {
-      this.value[level] = []
+    if (level) {
+      this.value[level] = [] 
     }
   }
 
@@ -74,19 +74,21 @@ export class HierarchicalFacetAccessor extends Accessor<HierarchicalState> {
   buildSharedQuery(query) {
 
     _.each(this.options.fields, (field:string, i:number) => {
-      var filters = this.state.getLevel(i)
-      var filterTerms = _.map(filters, (filter:any)=> {
+      var filters = this.state.getLevel(i);
+      var parentFilter = this.state.getLevel(i-1);
+
+      var filterTerms = _.map(filters, (filter:any, idx)=> {
         return Term(field, filter, {
-          $name:this.options.title || field,
+          $name:parentFilter[0] || this.options.title || field,
           $value:filter,
           $id:this.options.id,
           $remove:this.state.remove.bind(this.state, i, filter),
           $disabled: this.state.levelHasFilters(i+1)
         })
-      } );
-      var boolBuilder = BoolShould;
+      });
+
       if(filterTerms.length > 0){
-        query = query.addFilter(field, boolBuilder(filterTerms))
+        query = query.addFilter(field, BoolShould(filterTerms))
       }
     })
 

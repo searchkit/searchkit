@@ -33,8 +33,13 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 	}
 
 	addFilter(option, level) {
-		this.accessor.state.clear(level);
-		this.accessor.state.add(level, option.key);
+		if (this.accessor.state.contains(level, option.key)) {
+			this.accessor.state.clear(level);
+		} else {
+			this.accessor.state.clear(level);
+			this.accessor.state.add(level, option.key);
+		}
+
 		this.searchkit.performSearch()
 	}
 
@@ -47,14 +52,15 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 
 		return (
 			<div key={option.key}>
-				<div className={className} onClick={this.addFilter.bind(this, option,level)}>{option.key} ({option.doc_count})</div>
-				<div>
+				<div className={className} onClick={this.addFilter.bind(this, option,level)}>
+					<div className="hierarchical-menu-option__text">{option.key}</div>
+					<div className="hierarchical-menu-option__count">{option.doc_count}</div>
+				</div>
 					{(() => {
 						if(this.accessor.state.contains(level,option.key)) {
 							return this.renderOptions(level+1);
 						}
 					})()}
-				</div>
 			</div>
 		)
 	}
@@ -75,7 +81,9 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
     return (
 			<div className={className}>
 				<div className="hierarchical-menu-list__header">{this.props.title}</div>
-				{this.renderOptions(0)}
+				<div className="hierarchical-menu-list__root">
+					{this.renderOptions(0)}
+				</div>
 			</div>
 		)
 	}

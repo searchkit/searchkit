@@ -9,6 +9,10 @@
       font-weight:bold;
     }
 
+    &__root {
+      margin-left:-10px;
+    }
+
     &--disabled  {
       display:none;
     }
@@ -23,9 +27,20 @@
     cursor:pointer;
     position:relative;
     font-size:14px;
+    display:flex;
 
     &--selected {
       font-weight:700;
+    }
+
+    &__text {
+      flex:auto;
+    }
+
+    &__count {
+      font-size: 12px;
+      text-align: right;
+      color: #cccccc;
     }
   }
 
