@@ -12,7 +12,6 @@ export declare class SearchkitComponent<P, S> extends React.Component<P, S> {
         searcher: React.Requireable<any>;
     };
     defineAccessor(): Accessor<any>;
-    leftMouseDown(fn: any): (event: any) => void;
     shouldCreateNewSearcher(): boolean;
     componentWillMount(): void;
     isLoading(): boolean;

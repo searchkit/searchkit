@@ -5,7 +5,8 @@ import {
 	Searcher,
 	SearchkitManager,
 	SearchkitComponent,
-	FacetAccessor
+	FacetAccessor,
+	FastClick
 } from "../../../../../core"
 
 require("./../styles/index.scss");
@@ -50,11 +51,13 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 		})
 
 		return (
-			<div className={optionClassName} key={option.key} onMouseDown={this.leftMouseDown(this.addFilter.bind(this, option))}>
-				<div className={checkedClassName}></div>
-				<div className="refinement-option__text">{option.key}</div>
-				<div className="refinement-option__count">{option.doc_count}</div>
-			</div>
+			<FastClick handler={this.addFilter.bind(this, option)}>
+				<div className={optionClassName} key={option.key}>
+					<div className={checkedClassName}></div>
+					<div className="refinement-option__text">{option.key}</div>
+					<div className="refinement-option__count">{option.doc_count}</div>
+				</div>
+			</FastClick>
 		)
 	}
 

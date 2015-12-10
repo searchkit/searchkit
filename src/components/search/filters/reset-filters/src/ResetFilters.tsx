@@ -7,7 +7,8 @@ import {
 	Searcher,
 	SearchkitManager,
 	SearchkitComponent,
-	FacetAccessor
+	FacetAccessor,
+	FastClick
 } from "../../../../../core"
 
 export class ResetFilters extends SearchkitComponent<any, any> {
@@ -23,9 +24,11 @@ export class ResetFilters extends SearchkitComponent<any, any> {
 
 	renderResetButton() {
 		return (
-			<div className="reset-filters" onMouseDown={this.leftMouseDown(this.resetFilters.bind(this))}>
-				<div className="reset-filters__text">clear all filters</div>
-			</div>
+			<FastClick handler={this.resetFilters.bind(this)}>
+				<div className="reset-filters">
+					<div className="reset-filters__text">clear all filters</div>
+				</div>
+			</FastClick>
 		)
 	}
 

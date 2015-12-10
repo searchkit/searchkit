@@ -3,7 +3,8 @@ import * as _ from "lodash";
 import * as classNames from 'classnames';
 import {
 	SearchkitComponent,
-  HierarchicalFacetAccessor
+  HierarchicalFacetAccessor,
+	FastClick
 } from "../../../../../core"
 
 require("./../styles/index.scss");
@@ -52,10 +53,12 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 
 		return (
 			<div key={option.key}>
-				<div className={className} onMouseDown={this.leftMouseDown(this.addFilter.bind(this, option,level))}>
-					<div className="hierarchical-menu-option__text">{option.key}</div>
-					<div className="hierarchical-menu-option__count">{option.doc_count}</div>
-				</div>
+				<FastClick handler={this.addFilter.bind(this, option,level)}>
+					<div className={className}>
+						<div className="hierarchical-menu-option__text">{option.key}</div>
+						<div className="hierarchical-menu-option__count">{option.doc_count}</div>
+					</div>
+				</FastClick>
 					{(() => {
 						if(this.accessor.resultsState.contains(level,option.key)) {
 							return this.renderOptions(level+1);

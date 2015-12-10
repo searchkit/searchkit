@@ -18,15 +18,6 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
     return null
   }
 
-  leftMouseDown(fn){
-     return (event)=> {
-       if(event.button === 0){
-         fn()
-       }
-     }
-   }
-
-
   shouldCreateNewSearcher(){
     return false
   }

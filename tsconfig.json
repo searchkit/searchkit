@@ -40,6 +40,7 @@
     "./src/core/query/ImmutableQuery.ts",
     "./src/core/query/index.ts",
     "./src/core/query/QueryBuilders.ts",
+    "./src/core/react/FastClick.ts",
     "./src/core/react/index.ts",
     "./src/core/react/SearcherProvider.ts",
     "./src/core/react/SearchkitComponent.ts",

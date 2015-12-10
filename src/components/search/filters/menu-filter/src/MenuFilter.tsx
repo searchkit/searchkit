@@ -5,7 +5,8 @@ import {
 	Searcher,
 	SearchkitManager,
 	SearchkitComponent,
-	FacetAccessor
+	FacetAccessor,
+	FastClick
 } from "../../../../../core"
 
 require("./../styles/index.scss");
@@ -47,9 +48,11 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 		})
 
 		return (
-			<div className={optionClassName} key={option.key} onMouseDown={this.leftMouseDown(this.addFilter.bind(this, option))}>
-				<div className="menu-list-option__text">{option.key}</div>
-			</div>
+			<FastClick handler={this.addFilter.bind(this, option)}>
+				<div className={optionClassName} key={option.key}>
+					<div className="menu-list-option__text">{option.key}</div>
+				</div>
+			</FastClick>
 		)
 	}
 
@@ -61,9 +64,12 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 		})
 
 		return (
-			<div className={optionClassName} key="all" onMouseDown={this.leftMouseDown(this.addFilter.bind(this, "all"))}>
-				<div className="menu-list-option__text">All</div>
-			</div>
+			<FastClick handler={this.addFilter.bind(this, "all")}>
+				<div className={optionClassName} key="all">
+					<div className="menu-list-option__text">All</div>
+				</div>
+			</FastClick>
+
 		)
 	}
 

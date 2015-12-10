@@ -6,7 +6,8 @@ import {
 	Searcher,
 	SearchkitManager,
 	SearchkitComponent,
-	FacetAccessor
+	FacetAccessor,
+	FastClick	
 } from "../../../../../core"
 
 require("./../styles/index.scss");
@@ -31,7 +32,9 @@ export class SelectedFilters extends SearchkitComponent<any, any> {
 		return (
 			<div className={className} key={filter.$name+":"+filter.$value}>
 				<div className="selected-filter__name">{filter.$name}: {filter.$value}</div>
-				<div className="selected-filter__remove-action" onMouseDown={this.leftMouseDown(this.removeFilter.bind(this, filter))}>x</div>
+				<FastClick handler={this.removeFilter.bind(this, filter)}>
+					<div className="selected-filter__remove-action">x</div>
+				</FastClick>
 			</div>
 		)
 	}
