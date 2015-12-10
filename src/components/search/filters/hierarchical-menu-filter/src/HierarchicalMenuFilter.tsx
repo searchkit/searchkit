@@ -76,7 +76,7 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
   render(){
 		var className = classNames({
 			"hierarchical-menu-list":true,
-			[this.props.id]:true
+			[`filter--${this.props.id}`]:true
 		})
     return (
 			<div className={className}>

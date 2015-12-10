@@ -70,7 +70,7 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 	render() {
 		var className = classNames({
 			"menu-list":true,
-			[this.props.id]:true
+			[`filter--${this.props.id}`]:true
 		})
 		return (
 			<div className={className}>

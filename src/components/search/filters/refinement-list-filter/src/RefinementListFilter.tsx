@@ -67,7 +67,7 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 		let className = classNames({
 			"refinement-list-filter":true,
 			"refinement-list-filter--disabled":!this.hasOptions(),
-			[this.props.id]:true
+			[`filter--${this.props.id}`]:true
 		})
 
 		return (

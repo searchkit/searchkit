@@ -26,7 +26,7 @@ export class SelectedFilters extends SearchkitComponent<any, any> {
 		var className = classNames({
 			"selected-filters__item":true,
 			"selected-filter":true,
-			[filter.$id]:true
+			[`selected-filter--${filter.$id}`]:true
 		})
 		return (
 			<div className={className} key={filter.$name+":"+filter.$value}>
