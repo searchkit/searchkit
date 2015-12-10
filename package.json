@@ -1,17 +1,15 @@
 {
   "name": "searchkit",
-  "version": "1.0.1",
+  "version": "0.1.1",
   "description": "A suite of react components to help create a UI quickly for elasticsearch ",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "start": "node start.js",
     "test": "karma start --single-run",
-    "karma-watch": "./node_modules/.bin/karma start karma.conf.js --auto-watch",
+    "test:watch": "./node_modules/.bin/karma start karma.conf.js --auto-watch",
     "build": "tsc",
-    "build-promo": "rm -rf dist && NODE_ENV=production node ./node_modules/webpack/bin/webpack -p --config ./webpack.prod.config.js --progress --profile --colors",
-    "test-e2e": "rm -rf test/e2e/generated; tsc -p test/e2e; protractor test/e2e/config/protractor.conf.js",
-    "build:css": "gulp copy-css"
+    "build:css": "gulp copy-css",
+    "prepublish": "tsc"
   },
   "authors": [
     {
@@ -26,31 +24,29 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.7.0",
-    "bluebird": "^3.0.5",
     "classnames": "^2.2.0",
     "es6-promise": "^3.0.2",
-    "history": "^1.13.1",
-    "jasmine-core": "^2.3.4",
-    "karma": "^0.13.14",
-    "karma-jasmine": "^0.3.6",
-    "karma-phantomjs-launcher": "^0.2.1",
+    "history": "1.13.0",
     "lodash": "^3.10.1",
-    "method-override": "^2.3.5",
-    "moment": "^2.10.6",
     "normalize.css": "^3.0.3",
-    "phantomjs": "^1.9.18",
-    "phantomjs-polyfill": "0.0.1",
     "qs": "ssetem/qs",
     "react": "^0.14.0",
     "react-addons-update": "^0.14.3",
     "react-autosuggest": "^2.2.0",
     "react-dom": "^0.14.0",
     "react-router": "^1.0.0",
-    "rx": "^4.0.7",
-    "tsd": "^0.6.5",
-    "typescript": "1.6.2"
+    "rx": "^4.0.7"
   },
   "devDependencies": {
-    "gulp": "^3.9.0"
+    "gulp": "^3.9.0",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.14",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "phantomjs": "^1.9.18",
+    "phantomjs-polyfill": "0.0.1",
+    "bluebird": "^3.0.5",
+    "tsd": "^0.6.5",
+    "typescript": "^1.7.0"
   }
 }

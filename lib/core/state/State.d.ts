@@ -2,7 +2,7 @@ export declare class State<T> {
     value: T;
     defaultValue: T;
     constructor(defaultValue?: T);
-    setValue(value: T): State<T>;
+    setValue(value: T): this;
     clear(): void;
     getValue(): T;
 }
