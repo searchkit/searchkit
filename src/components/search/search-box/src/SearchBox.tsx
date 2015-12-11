@@ -1,5 +1,6 @@
 import * as React from "react";
 var Autosuggest = require('react-autosuggest');
+import "../styles/index.scss";
 
 import {
 	Searcher,
