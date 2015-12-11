@@ -15,6 +15,7 @@ export class SearchkitManager {
   completeRegistration:Function
   state:any
   translateFunction:Function
+  defaultQueries:Array<Function>
 
   constructor(index:string){
     this.index = index
@@ -23,13 +24,17 @@ export class SearchkitManager {
 			this.completeRegistration = resolve
 		})
     this.listenToHistory(history)
+    this.defaultQueries = []
     this.translateFunction = _.identity
   }
   addSearcher(searcher){
     this.searchers.push(searcher)
     searcher.setSearchkitManager(this)
   }
-
+  
+  addDefaultQuery(fn:Function){
+    this.defaultQueries.push(fn)
+  }
   translate(key){
     return this.translateFunction(key)
   }
@@ -77,6 +82,9 @@ export class SearchkitManager {
 
   buildSharedQuery(){
     var query = new ImmutableQuery()
+    query = _.reduce(this.defaultQueries, (currentQuery, fn)=>{
+      return fn(currentQuery)
+    }, query)
     this.iterateAccessors((accessor)=>{
       query = accessor.buildSharedQuery(query)
     })

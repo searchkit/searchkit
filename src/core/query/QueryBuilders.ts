@@ -2,11 +2,15 @@ import * as _ from "lodash"
 
 
 export function BoolMust(val:any=[]){
-  return {bool:{must:val}}
+  return {bool:{must:val}, $array:val}
+}
+
+export function BoolMustNot(val:any=[]){
+  return {bool:{must_not:val}, $array:val}
 }
 
 export function BoolShould(val:any=[]){
-  return {bool:{should:val}}
+  return {bool:{should:val}, $array:val}
 }
 
 export function SimpleQueryString(query, options={}){
@@ -24,12 +28,12 @@ export interface TermOptions {
   $value?:string|number,
   $remove?:Function,
   $disabled?:boolean,
-  $id:string,
+  $id?:string,
   [prop:string]:any
 }
-export function Term(key, value, options:TermOptions){
+export function Term(key, value, options:TermOptions={}){
   const defaultOptions = {
-    $disabled:false
+    $disabled:true
   }
   return _.extend({
     term:{

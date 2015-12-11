@@ -7,6 +7,7 @@ export declare class ImmutableQuery {
     hasFilters(): boolean;
     hasFiltersOrQuery(): boolean;
     addQuery(query: any): ImmutableQuery;
+    addHiddenFilter(bool: any): ImmutableQuery;
     addFilter(key: any, bool: any): ImmutableQuery;
     getFiltersArray(): any;
     setAggs(aggs: any): ImmutableQuery;
@@ -14,6 +15,7 @@ export declare class ImmutableQuery {
         bool: {
             must: any;
         };
+        $array: any;
     };
     setSize(size: number): ImmutableQuery;
     setFrom(from: number): ImmutableQuery;

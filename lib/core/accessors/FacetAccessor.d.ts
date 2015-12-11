@@ -15,10 +15,12 @@ export declare class FacetAccessor extends Accessor<ArrayState> {
         bool: {
             should: any;
         };
+        $array: any;
     }) | ((val?: any) => {
         bool: {
             must: any;
         };
+        $array: any;
     });
     buildSharedQuery(query: any): any;
     buildOwnQuery(query: any): any;

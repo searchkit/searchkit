@@ -7,8 +7,10 @@ export declare class SearchkitManager {
     completeRegistration: Function;
     state: any;
     translateFunction: Function;
+    defaultQueries: Array<Function>;
     constructor(index: string);
     addSearcher(searcher: any): void;
+    addDefaultQuery(fn: Function): void;
     translate(key: any): any;
     createSearcher(): Searcher;
     getAccessors(): any[];

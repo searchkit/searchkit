@@ -1,6 +1,7 @@
 const update = require("react-addons-update")
 import {BoolMust} from "./QueryBuilders"
 import * as _ from "lodash"
+import {Utils} from "../support/Utils"
 
 export class ImmutableQuery {
   index: any
@@ -36,13 +37,17 @@ export class ImmutableQuery {
     return this
   }
 
+  addHiddenFilter(bool){
+    return this.addFilter(Utils.guid(), bool)    
+  }
+
   addFilter(key, bool) {
     var newIndex = update(this.index,{
       filters:{
         $merge:{[key]:bool}
       },
       filtersArray:{
-        $push:bool.bool.must || bool.bool.should
+        $push:bool.$array
       }
     })
 
