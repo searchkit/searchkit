@@ -28,7 +28,6 @@ export class HierarchicalState extends ObjectState {
   }
 
   clear(level?:number) {
-    console.log(level)
     if (!level) {
       return this.create([])
     } else if(level) {
@@ -61,11 +60,11 @@ export class HierarchicalState extends ObjectState {
   }
 
   removeChilds(level:number) {
-    debugger
-    var c = _.map(_.range(level+1,this.getLeafLevel()),(level) => {
-      this.clear(level)
-    })
-    return this.create(_.last(c));
+    var range = _.range(level+1,this.getLeafLevel()+1)
+    return _.reduce(range,(state, level) => {
+      return state.clear(level)
+    }, this)
+
   }
 
   getLeafLevel() {

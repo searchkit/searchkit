@@ -10,7 +10,7 @@ export declare class HierarchicalState extends ObjectState {
     toggle(level: number, val: any): any;
     getLevel(level: number): Array<string>;
     levelHasFilters(level: number): boolean;
-    removeChilds(level: number): any;
+    removeChilds(level: number): HierarchicalState;
     getLeafLevel(): number;
     isLeafLevel(level: number): boolean;
 }

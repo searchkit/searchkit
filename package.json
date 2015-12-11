@@ -31,7 +31,6 @@
     "normalize.css": "^3.0.3",
     "qs": "ssetem/qs",
     "react": "^0.14.0",
-    "react-addons-clone-with-props": "^0.14.3",
     "react-addons-update": "^0.14.3",
     "react-autosuggest": "^2.2.0",
     "react-dom": "^0.14.0",

@@ -4,5 +4,7 @@ export interface FastClickProps {
     children?: any;
 }
 export declare class FastClick extends React.Component<FastClickProps, any> {
-    render(): any;
+    render(): React.DOMElement<{
+        onMouseDown: (event: any) => void;
+    }>;
 }
