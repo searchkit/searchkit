@@ -75,7 +75,7 @@ export class HierarchicalState extends ObjectState {
     return level === this.getLeafLevel()
   }
 
-  toggleLevel(level, key){
+  toggleLevel(level, key):HierarchicalState{
     if (this.contains(level, key)) {
       // if clicked on leaf then toggle off the option
       // else remove all child options
