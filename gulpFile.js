@@ -1,6 +1,12 @@
 var gulp = require("gulp");
 
+var assetsGlob = "./src/**/*.{scss,svg,jpg,png}"
+
 gulp.task("copy-assets", function() {
-  gulp.src("./src/**/*.{scss,svg,jpg,png}")
+  gulp.src(assetsGlob)
     .pipe(gulp.dest("./lib"))
+})
+
+gulp.task("default", function() {
+  gulp.watch(assetsGlob, ["copy-assets"])
 })
