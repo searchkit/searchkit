@@ -9,6 +9,7 @@ export declare class Accessor<T extends State<any>> {
     searcher: Searcher;
     constructor(key: any, urlString?: any);
     setSearcher(searcher: any): void;
+    translate(key: any): any;
     onStateChange(oldState: any): void;
     getResults(): any;
     setResultsState(): void;

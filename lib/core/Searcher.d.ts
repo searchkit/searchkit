@@ -18,6 +18,7 @@ export declare class Searcher {
     private listeners;
     constructor();
     setSearchkitManager(searchkitManager: any): void;
+    translate(key: any): any;
     addListener(fn: any): () => void;
     triggerListeners(): void;
     setIndex(index: any): void;

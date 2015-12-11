@@ -38,8 +38,8 @@ export class FacetAccessor extends Accessor<ArrayState> {
     var filters = this.state.getValue()
     var filterTerms = _.map(filters, (filter)=> {
       return Term(this.key, filter, {
-        $name:this.options.title || this.key,
-        $value:filter,
+        $name:this.options.title || this.translate(this.key),
+        $value:this.translate(filter),
         $id:this.options.id,
         $remove:()=> {
           this.state = this.state.remove(filter)

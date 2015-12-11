@@ -56,7 +56,7 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 			<FastClick handler={this.addFilter.bind(this, option)}>
 				<div className={optionClassName} key={option.key}>
 					<div className={checkedClassName}></div>
-					<div className="refinement-option__text">{option.key}</div>
+					<div className="refinement-option__text">{this.translate(option.key)}</div>
 					<div className="refinement-option__count">{option.doc_count}</div>
 				</div>
 			</FastClick>

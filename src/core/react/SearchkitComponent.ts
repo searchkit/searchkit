@@ -22,6 +22,10 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
     return false
   }
 
+  translate(key){
+    return this.searchkit.translate(key)
+  }
+
   componentWillMount(){
     this.searchkit = this.context["searchkit"]
     this.accessor  = this.defineAccessor()

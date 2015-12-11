@@ -13,6 +13,7 @@ export declare class SearchkitComponent<P, S> extends React.Component<P, S> {
     };
     defineAccessor(): Accessor<any>;
     shouldCreateNewSearcher(): boolean;
+    translate(key: any): any;
     componentWillMount(): void;
     isLoading(): boolean;
     componentWillUnmount(): void;

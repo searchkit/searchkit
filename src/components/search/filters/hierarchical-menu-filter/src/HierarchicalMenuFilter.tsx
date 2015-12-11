@@ -61,7 +61,7 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 			<div key={option.key}>
 				<FastClick handler={this.addFilter.bind(this, option,level)}>
 					<div className={className}>
-						<div className="hierarchical-menu-option__text">{option.key}</div>
+						<div className="hierarchical-menu-option__text">{this.translate(option.key)}</div>
 						<div className="hierarchical-menu-option__count">{option.doc_count}</div>
 					</div>
 				</FastClick>
