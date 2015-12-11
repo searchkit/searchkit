@@ -28,6 +28,7 @@ export class HierarchicalState extends ObjectState {
   }
 
   clear(level?:number) {
+    console.log(level)
     if (!level) {
       return this.create([])
     } else if(level) {
@@ -57,6 +58,22 @@ export class HierarchicalState extends ObjectState {
 
   levelHasFilters(level:number):boolean {
     return this.getLevel(level).length > 0;
+  }
+
+  removeChilds(level:number) {
+    debugger
+    var c = _.map(_.range(level+1,this.getLeafLevel()),(level) => {
+      this.clear(level)
+    })
+    return this.create(_.last(c));
+  }
+
+  getLeafLevel() {
+    return _.size(this.value) -1;
+  }
+
+  isLeafLevel(level:number):boolean {
+    return level === this.getLeafLevel()
   }
 
 }
