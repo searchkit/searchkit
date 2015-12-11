@@ -1,15 +1,17 @@
-import {ObjectState, ArrayState} from "../state/State"
+import {State} from "../state/State"
 import {Accessor} from "./Accessor"
 import {Term, Terms, BoolShould, BoolMust} from "../query/QueryBuilders";
 import * as _ from "lodash";
 const update = require("react-addons-update")
 
 
-export class HierarchicalState extends ObjectState {
-  value:Object
-  defaultValue:Object
+export class HierarchicalState extends State<Array<any>> {
+  value:Array<any>
+  defaultValue:Array<any>
 
-
+  lazyInit() {
+    return this.value || []
+  }
   add(level:number, val) {
     var ob = this.lazyInit()
     if (!_.isArray(ob[level])) {
@@ -27,14 +29,8 @@ export class HierarchicalState extends ObjectState {
     return _.contains(this.lazyInit()[level], val)
   }
 
-  clear(level?:number) {
-    if (!level) {
-      return this.create([])
-    } else if(level) {
-      return this.create(update(this.lazyInit(), {
-        [level]:{$set:[]}
-      }))
-    }
+  clear(level:number=0) {
+    return this.create(_.take(this.lazyInit(), level))
   }
 
   remove(level:number, val) {
@@ -59,14 +55,6 @@ export class HierarchicalState extends ObjectState {
     return this.getLevel(level).length > 0;
   }
 
-  removeChilds(level:number) {
-    var range = _.range(level+1,this.getLeafLevel()+1)
-    return _.reduce(range,(state, level) => {
-      return state.clear(level)
-    }, this)
-
-  }
-
   getLeafLevel() {
     return _.size(this.value) -1;
   }
@@ -76,13 +64,12 @@ export class HierarchicalState extends ObjectState {
   }
 
   toggleLevel(level, key):HierarchicalState{
+
     if (this.contains(level, key)) {
-      // if clicked on leaf then toggle off the option
-      // else remove all child options
       if (this.isLeafLevel(level)) {
         return this.clear(level);
       } else {
-        return this.removeChilds(level);
+        return this.clear(level+1);
       }
     } else {
       return this.clear(level)

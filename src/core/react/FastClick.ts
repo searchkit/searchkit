@@ -1,11 +1,6 @@
 import * as React from "react";
 
-export interface FastClickProps {
-	handler:Function
-	children?:any
-}
-
-export class FastClick extends React.Component<FastClickProps, any>{
+export class FastClick extends React.Component<any, any>{
 
   render(){
     return React.cloneElement(this.props.children, {

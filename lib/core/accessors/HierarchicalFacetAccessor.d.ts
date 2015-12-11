@@ -1,8 +1,9 @@
-import { ObjectState } from "../state/State";
+import { State } from "../state/State";
 import { Accessor } from "./Accessor";
-export declare class HierarchicalState extends ObjectState {
-    value: Object;
-    defaultValue: Object;
+export declare class HierarchicalState extends State<Array<any>> {
+    value: Array<any>;
+    defaultValue: Array<any>;
+    lazyInit(): any[];
     add(level: number, val: any): any;
     contains(level: number, val: any): boolean;
     clear(level?: number): any;
@@ -10,7 +11,6 @@ export declare class HierarchicalState extends ObjectState {
     toggle(level: number, val: any): any;
     getLevel(level: number): Array<string>;
     levelHasFilters(level: number): boolean;
-    removeChilds(level: number): HierarchicalState;
     getLeafLevel(): number;
     isLeafLevel(level: number): boolean;
     toggleLevel(level: any, key: any): HierarchicalState;
