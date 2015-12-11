@@ -50,7 +50,7 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 		return (
 			<FastClick handler={this.addFilter.bind(this, option)}>
 				<div className={optionClassName} key={option.key}>
-					<div className="menu-list-option__text">{option.key}</div>
+					<div className="menu-list-option__text">{this.translate(option.key)}</div>
 				</div>
 			</FastClick>
 		)

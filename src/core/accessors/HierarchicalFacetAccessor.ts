@@ -85,8 +85,8 @@ export class HierarchicalFacetAccessor extends Accessor<HierarchicalState> {
 
       var filterTerms = _.map(filters, (filter:any, idx)=> {
         return Term(field, filter, {
-          $name:parentFilter[0] || this.options.title || field,
-          $value:filter,
+          $name:this.translate(parentFilter[0]) || this.options.title || this.translate(field),
+          $value:this.translate(filter),
           $id:this.options.id,
           $remove:()=> {
             this.state = this.state.remove(i, filter)

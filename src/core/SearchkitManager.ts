@@ -13,6 +13,7 @@ export class SearchkitManager {
   private registrationCompleted:Promise<any>
   completeRegistration:Function
   state:any
+  translateFunction:Function
 
   constructor(index:string){
     this.index = index
@@ -21,10 +22,15 @@ export class SearchkitManager {
 			this.completeRegistration = resolve
 		})
     this.listenToHistory(history)
+    this.translateFunction = _.identity
   }
   addSearcher(searcher){
     this.searchers.push(searcher)
     searcher.setSearchkitManager(this)
+  }
+
+  translate(key){
+    return this.translateFunction(key)
   }
 
   createSearcher(){

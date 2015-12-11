@@ -29,6 +29,10 @@ export class Searcher {
     this.searchkitManager = searchkitManager
   }
 
+  translate(key){
+    return this.searchkitManager.translate(key)
+  }
+
   addListener(fn){
     this.listeners.push(fn)
     return ()=>{

@@ -18,6 +18,10 @@ export class Accessor<T extends State<any>> {
     this.searcher = searcher
   }
 
+  translate(key){
+    return this.searcher.translate(key)
+  }
+
   onStateChange(oldState){
 
   }
