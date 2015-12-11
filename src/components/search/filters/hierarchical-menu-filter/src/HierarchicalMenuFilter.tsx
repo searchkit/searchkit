@@ -34,18 +34,8 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 	}
 
 	addFilter(option, level) {
-		if (this.accessor.state.contains(level, option.key)) {
-			// if clicked on leaf then toggle off the option
-			// else remove all child options
-			if (this.accessor.state.isLeafLevel(level)) {
-				this.accessor.state = this.accessor.state.clear(level);
-			} else {
-				this.accessor.state = this.accessor.state.removeChilds(level);
-			}
-		} else {
-			this.accessor.state = this.accessor.state.clear(level);
-			this.accessor.state = this.accessor.state.add(level, option.key);
-		}
+		this.accessor.state = this.accessor.state.toggleLevel(
+			level,option.key)		
 
 		this.searchkit.performSearch()
 	}

@@ -75,6 +75,22 @@ export class HierarchicalState extends ObjectState {
     return level === this.getLeafLevel()
   }
 
+  toggleLevel(level, key){
+    if (this.contains(level, key)) {
+      // if clicked on leaf then toggle off the option
+      // else remove all child options
+      if (this.isLeafLevel(level)) {
+        return this.clear(level);
+      } else {
+        return this.removeChilds(level);
+      }
+    } else {
+      return this.clear(level)
+        .add(level, key)
+    }
+
+  }
+
 }
 
 export class HierarchicalFacetAccessor extends Accessor<HierarchicalState> {

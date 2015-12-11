@@ -13,6 +13,7 @@ export declare class HierarchicalState extends ObjectState {
     removeChilds(level: number): HierarchicalState;
     getLeafLevel(): number;
     isLeafLevel(level: number): boolean;
+    toggleLevel(level: any, key: any): any;
 }
 export declare class HierarchicalFacetAccessor extends Accessor<HierarchicalState> {
     state: HierarchicalState;
