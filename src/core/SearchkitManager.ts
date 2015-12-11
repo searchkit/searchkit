@@ -5,6 +5,7 @@ import {Accessor} from "./accessors/Accessor"
 import {Searcher} from "./Searcher"
 import {ESMultiRequest} from "./ESMultiRequest";
 import {history} from "./history";
+
 require('es6-promise').polyfill()
 
 export class SearchkitManager {
@@ -102,11 +103,13 @@ export class SearchkitManager {
 
   listenToHistory(history){
     history.listen((location)=>{
-      this.registrationCompleted.then(()=>{
-        this.setAccessorStates(location.query)
-        this._search()
-      })
-
+      //action is POP when the browser modified
+      if(location.action === "POP") {
+        this.registrationCompleted.then(()=>{
+          this.setAccessorStates(location.query)
+          this._search()
+        })
+      }
     })
   }
 
@@ -127,6 +130,7 @@ export class SearchkitManager {
     this.notifyStateChange(this.state)
     this.state = this.getState()
     history.pushState(null, window.location.pathname, this.state)
+    this._search()
   }
   search(){
     this.performSearch()
