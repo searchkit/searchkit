@@ -1,4 +1,4 @@
-import {ArrayState} from "../state/State"
+import {ArrayState} from "../state"
 import {Accessor} from "./Accessor"
 import {Term, Terms, BoolShould, BoolMust} from "../query/QueryBuilders";
 import * as _ from "lodash";

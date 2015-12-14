@@ -1,4 +1,4 @@
-import {ValueState} from "../state/State"
+import {ValueState} from "../state"
 import {Accessor} from "./Accessor"
 import {SimpleQueryString} from "../query/QueryBuilders";
 
