@@ -38,9 +38,9 @@ export class LevelState extends State<Array<any>> {
 
   toggle(level:number, val) {
     if(this.contains(level, val)) {
-      return this.add(level, val);
-    } else {
       return this.remove(level, val);
+    } else {
+      return this.add(level, val);
     }
   }
 
