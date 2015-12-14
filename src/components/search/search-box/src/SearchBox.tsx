@@ -18,12 +18,12 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	suggestSearcher: ESRequest
 
 	constructor (props:ISearchBox) {
-		super(props);
-		this.createSuggestSearcher();
+		super(props);		
 	}
 
-	createSuggestSearcher() {
-		this.suggestSearcher = new ESRequest("movies");
+	componentWillMount() {
+		super.componentWillMount()
+		this.suggestSearcher = new ESRequest(this.searchkit.index);
 	}
 
 	defineAccessor(){
