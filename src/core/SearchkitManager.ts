@@ -31,7 +31,7 @@ export class SearchkitManager {
     this.searchers.push(searcher)
     searcher.setSearchkitManager(this)
   }
-  
+
   addDefaultQuery(fn:Function){
     this.defaultQueries.push(fn)
   }
@@ -135,10 +135,9 @@ export class SearchkitManager {
   }
 
   performSearch(){
-    this.notifyStateChange(this.state)
-    this.state = this.getState()
-    history.pushState(null, window.location.pathname, this.state)
+    this.notifyStateChange(this.state)    
     this._search()
+    history.pushState(null, window.location.pathname, this.state)
   }
   search(){
     this.performSearch()

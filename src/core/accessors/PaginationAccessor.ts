@@ -7,7 +7,7 @@ export class PaginationAccessor extends Accessor<ValueState> {
 
   onStateChange(oldState){
     if(oldState[this.urlKey] == this.state.getValue()){
-      this.state.clear()
+      this.state = this.state.clear()
     }
   }
 
