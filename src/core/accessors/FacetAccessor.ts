@@ -41,6 +41,7 @@ export class FacetAccessor extends Accessor<ArrayState> {
         $name:this.options.title || this.translate(this.key),
         $value:this.translate(filter),
         $id:this.options.id,
+        $disabled: false,
         $remove:()=> {
           this.state = this.state.remove(filter)
         }

@@ -48,8 +48,8 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 		})
 
 		return (
-			<FastClick handler={this.addFilter.bind(this, option)}>
-				<div className={optionClassName} key={option.key}>
+			<FastClick handler={this.addFilter.bind(this, option)} key={option.key}>
+				<div className={optionClassName}>
 					<div className="menu-list-option__text">{this.translate(option.key)}</div>
 				</div>
 			</FastClick>
@@ -57,11 +57,17 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 	}
 
 	renderAllOption() {
+		let isChecked = () => {
+			return !this.accessor.state.getValue() || this.accessor.state.getValue().length == 0
+		}
+
 		let optionClassName = classNames({
 			"menu-list-options__item":true,
 			"menu-list-option":true,
-			"menu-list-option--checked":!this.accessor.state.getValue()
+			"menu-list-option--checked":isChecked()
 		})
+
+		console.log(_.get(this.accessor.state,"getValue()",[]))
 
 		return (
 			<FastClick handler={this.addFilter.bind(this, "all")}>

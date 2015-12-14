@@ -7,9 +7,9 @@
   "scripts": {
     "test": "karma start --single-run",
     "test:watch": "./node_modules/.bin/karma start karma.conf.js --auto-watch",
-    "build": "tsc; webpack;",
+    "build": "tsc; gulp copy-assets;",
     "build:watch": "tsc -w",
-    "prepublish": "rm -rf lib; rm -rf release; npm run-script build; gulp copy-assets"
+    "prepublish": "rm -rf lib; rm -rf release; npm run-script build;"
   },
   "authors": [
     {
@@ -37,9 +37,6 @@
     "react-router": "^1.0.0"
   },
   "devDependencies": {
-    "css-loader": "^0.23.0",
-    "extract-text-webpack-plugin": "^0.9.1",
-    "file-loader": "^0.8.5",
     "gulp": "^3.9.0",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.14",
