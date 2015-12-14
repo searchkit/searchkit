@@ -1,6 +1,6 @@
 {
   "name": "searchkit",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "A suite of react components to help create a UI quickly for elasticsearch ",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -9,7 +9,7 @@
     "test:watch": "./node_modules/.bin/karma start karma.conf.js --auto-watch",
     "build": "tsc; webpack;",
     "build:watch": "tsc -w",
-    "prepublish": "rm -rf lib; rm -rf release; npm run-script build"
+    "prepublish": "rm -rf lib; rm -rf release; npm run-script build; gulp copy-assets"
   },
   "authors": [
     {
