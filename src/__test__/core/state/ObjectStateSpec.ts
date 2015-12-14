@@ -1,4 +1,4 @@
-import {ObjectState} from "../../../index";
+import {ObjectState} from "../../../";
 
 describe("ObjectState", ()=> {
   beforeEach(()=> {

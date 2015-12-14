@@ -1,4 +1,4 @@
-import {ArrayState} from "../../../index";
+import {ArrayState} from "../../../";
 
 describe("ArrayState", ()=> {
   beforeEach(()=> {

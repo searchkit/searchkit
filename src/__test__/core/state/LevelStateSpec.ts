@@ -1,4 +1,4 @@
-import {LevelState} from "../../../index";
+import {LevelState} from "../../../";
 
 describe("LevelState", ()=> {
   beforeEach(()=> {
