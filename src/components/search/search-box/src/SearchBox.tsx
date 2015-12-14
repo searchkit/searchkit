@@ -55,39 +55,42 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 
 	}
 
-	querySuggestions(query, callback) {
-		if (query.length > 0) {
-
-			let queryObject = {
-				size:0,
-				suggest: {
-					text:query,
-					"suggestions":{
-						"phrase": {
-							field:"_all",
-							"real_word_error_likelihood" : 0.95,
-			        "max_errors" : 0.5,
-			        "gram_size" : 2,
-							"direct_generator" : [ {
-			          "field" : "_all",
-			          "suggest_mode" : "always",
-			          "min_word_length" : 1
-			        } ],
-			        "highlight": {
-			          "pre_tag": "<em>",
-			          "post_tag": "</em>"
-			        }
+	getSuggestionQueryObject(query) {
+		return {
+			size:0,
+			suggest: {
+				text:query,
+				"suggestions":{
+					"phrase": {
+						field:"_all",
+						"real_word_error_likelihood" : 0.95,
+						"max_errors" : 1,
+						"gram_size" : 4,
+						"direct_generator" : [ {
+							"field" : "_all",
+							"suggest_mode" : "always",
+							"min_word_length" : 1
+						} ],
+						"highlight": {
+							"pre_tag": "<em>",
+							"post_tag": "</em>"
 						}
-					},
-					"completion": {
-						completion: {
-							field:"suggest"
-						}
+					}
+				},
+				"completion": {
+					completion: {
+						field:"suggest"
 					}
 				}
 			}
+		}
+	}
+
+	querySuggestions(query, callback) {
+		if (query.length > 0) {
+
 			this.suggestSearcher
-				.search(queryObject)
+				.search(this.getSuggestionQueryObject(query))
 				.then((results:any) => {
 					callback(null, this.processSuggestions(results));
 				})

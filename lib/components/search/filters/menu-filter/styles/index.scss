@@ -1,6 +1,11 @@
 .menu-list {
   margin-bottom:20px;
 
+  &__header {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
   &__options {
 
   }
@@ -14,14 +19,20 @@
     cursor:pointer;
     padding:0px 0;
     line-height:22px;
+    display:flex;
 
     &--checked &__text {
       font-weight:700;
     }
 
     &__text {
-      flex:2;
-      font-size:14px;
+      flex:auto;
+    }
+
+    &__count {
+      font-size: 12px;
+      text-align: right;
+      color: #cccccc;
     }
 
   }
