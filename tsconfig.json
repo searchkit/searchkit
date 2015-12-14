@@ -24,6 +24,7 @@
     "./src/components/search/search-box/src/SearchBox.tsx",
     "./src/core/react/LoadingComponent.tsx",
     "./src/core/react/SearchkitProvider.tsx",
+    "./src/__test__/core/support/UtilsSpec.ts",
     "./src/components/index.ts",
     "./src/core/accessors/Accessor.ts",
     "./src/core/accessors/FacetAccessor.ts",

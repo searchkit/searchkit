@@ -1,4 +1,4 @@
-import {Utils} from "../../../../src/index.ts"
+import {Utils} from "../../../../src"
 
 describe("Utils", ()=> {
 

@@ -17,11 +17,6 @@ module.exports = {
         include: path.join(__dirname, "src")
       },
       {
-        test: /\.tsx?$/,
-        loader: 'ts-loader?instance=jsx',
-        include: path.join(__dirname, "test")
-      },
-      {
         test: /\.scss$/,
         loaders: ['null-loader'],
         include: path.join(__dirname, 'src')
