@@ -24,8 +24,8 @@ export class ImmutableQuery {
   }
 
   hasFiltersOrQuery(){
-    return (this.query.query.bool.must.length +
-      this.query.filter.bool.must.length) > 0
+    return (this.query.query.$array.length +
+      this.query.filter.$array.length) > 0
   }
 
   addQuery(query) {
@@ -38,7 +38,7 @@ export class ImmutableQuery {
   }
 
   addHiddenFilter(bool){
-    return this.addFilter(Utils.guid(), bool)    
+    return this.addFilter(Utils.guid(), bool)
   }
 
   addFilter(key, bool) {

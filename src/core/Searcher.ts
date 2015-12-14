@@ -1,4 +1,4 @@
-import {State, ArrayState, ObjectState, ValueState} from "./state/State"
+import {State, ArrayState, ObjectState, ValueState} from "./state"
 import {ImmutableQuery} from "./query/ImmutableQuery";
 import {Accessor} from "./accessors/Accessor"
 import {SearchkitManager} from "./SearchkitManager"

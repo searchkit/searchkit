@@ -13,7 +13,7 @@ module.exports = function (config) {
       'webpack.tests.js' //test files
     ],
     preprocessors: {
-      'webpack.tests.js': ['webpack']
+      'webpack.tests.js': ['webpack', 'sourcemap']
     },
     reporters: ['progress'], //report results in this format
     webpack: new WebpackConfig().extend("webpack.test.config")

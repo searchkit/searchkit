@@ -1,4 +1,4 @@
-import { State } from "../state/State";
+import { State } from "../state";
 import { ImmutableQuery } from "../query/ImmutableQuery";
 import { Searcher } from "../Searcher";
 export declare class Accessor<T extends State<any>> {

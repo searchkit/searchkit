@@ -1,88 +1,12 @@
-import {State} from "../state/State"
+import {State, LevelState} from "../state"
 import {Accessor} from "./Accessor"
 import {Term, Terms, BoolShould, BoolMust} from "../query/QueryBuilders";
 import * as _ from "lodash";
-const update = require("react-addons-update")
 
 
-export class HierarchicalState extends State<Array<any>> {
-  value:Array<any>
-  defaultValue:Array<any>
+export class HierarchicalFacetAccessor extends Accessor<LevelState> {
 
-  lazyInit() {
-    return this.value || []
-  }
-  add(level:number, val) {
-    var ob = this.lazyInit()
-    if (!_.isArray(ob[level])) {
-      ob = update(ob, {
-        [level]:{$set:[]}
-      })
-    }
-    ob = update(ob, {
-      [level]:{$push:[val]}
-    })
-    return this.create(ob)
-  }
-
-  contains(level:number, val) {
-    return _.contains(this.lazyInit()[level], val)
-  }
-
-  clear(level:number=0) {
-    return this.create(_.take(this.lazyInit(), level))
-  }
-
-  remove(level:number, val) {
-    return this.create(update(this.lazyInit(), {
-      [level]:{$set:_.without(this.lazyInit()[level], val)}
-    }))
-  }
-
-  toggle(level:number, val) {
-    if(this.contains(level, val)) {
-      return this.add(level, val);
-    } else {
-      return this.remove(level, val);
-    }
-  }
-
-  getLevel(level:number):Array<string> {
-    return this.lazyInit()[level] || [];
-  }
-
-  levelHasFilters(level:number):boolean {
-    return this.getLevel(level).length > 0;
-  }
-
-  getLeafLevel() {
-    return _.size(this.value) -1;
-  }
-
-  isLeafLevel(level:number):boolean {
-    return level === this.getLeafLevel()
-  }
-
-  toggleLevel(level, key):HierarchicalState{
-
-    if (this.contains(level, key)) {
-      if (this.isLeafLevel(level)) {
-        return this.clear(level);
-      } else {
-        return this.clear(level+1);
-      }
-    } else {
-      return this.clear(level)
-        .add(level, key)
-    }
-
-  }
-
-}
-
-export class HierarchicalFacetAccessor extends Accessor<HierarchicalState> {
-
-  state = new HierarchicalState()
+  state = new LevelState()
   options:any
   constructor(key, options:any){
     super(key)

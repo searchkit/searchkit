@@ -5,7 +5,7 @@ export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
     accessor: SearchAccessor;
     suggestSearcher: ESRequest;
     constructor(props: ISearchBox);
-    createSuggestSearcher(): void;
+    componentWillMount(): void;
     defineAccessor(): SearchAccessor;
     onSubmit(event: any): void;
     processSuggestions(results: any): {
