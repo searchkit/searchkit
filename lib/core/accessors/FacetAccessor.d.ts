@@ -1,4 +1,4 @@
-import { ArrayState } from "../state/State";
+import { ArrayState } from "../state";
 import { Accessor } from "./Accessor";
 export interface FacetAccessorOptions {
     operator?: string;
