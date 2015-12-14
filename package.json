@@ -45,7 +45,10 @@
     "karma": "^0.13.14",
     "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^0.2.1",
+    "karma-sourcemap-loader": "^0.3.6",
+    "karma-webpack": "^1.7.0",
     "node-sass": "^3.4.2",
+    "null-loader": "^0.1.1",
     "phantomjs": "^1.9.18",
     "phantomjs-polyfill": "0.0.1",
     "sass-loader": "^3.1.2",
@@ -53,6 +56,7 @@
     "ts-loader": "^0.7.2",
     "tsd": "^0.6.5",
     "typescript": "^1.7.0",
-    "webpack": "^1.12.9"
+    "webpack": "^1.12.9",
+    "webpack-config": "^3.0.0"
   }
 }
