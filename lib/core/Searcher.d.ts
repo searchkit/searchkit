@@ -1,18 +1,12 @@
 import { ImmutableQuery } from "./query/ImmutableQuery";
 import { Accessor } from "./accessors/Accessor";
 import { SearchkitManager } from "./SearchkitManager";
-export declare enum SearchType {
-    count = 0,
-    query_then_fetch = 1,
-    scan = 2,
-}
 export declare class Searcher {
     accessors: Array<Accessor<any>>;
     query: ImmutableQuery;
     queryHasChanged: boolean;
     results: any;
     searchkitManager: SearchkitManager;
-    search_type: SearchType;
     index: string;
     loading: boolean;
     private listeners;

@@ -8,7 +8,8 @@ export class ImmutableQuery {
   query: any
   static defaultQuery: any = {
 	  filter: BoolMust([]),
-    query: BoolMust([])
+    query: BoolMust([]),
+    size:0
   }
   static defaultIndex:any = {
     filters:{},
