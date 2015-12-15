@@ -18,7 +18,9 @@ export declare class ImmutableQuery {
         $array: any;
     };
     setSize(size: number): ImmutableQuery;
+    getSize(): any;
     setFrom(from: number): ImmutableQuery;
+    getFrom(): any;
     update(updateDef: any, newIndex?: any): ImmutableQuery;
     static areQueriesDifferent(queryA: ImmutableQuery, queryB: ImmutableQuery): boolean;
     getJSON(): any;

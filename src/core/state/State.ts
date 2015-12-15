@@ -17,4 +17,7 @@ export class State<T> {
   getValue() {
     return this.value
   }
+  hasValue() {
+    return !_.isEmpty(this.value)
+  }
 }

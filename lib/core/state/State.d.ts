@@ -5,4 +5,5 @@ export declare class State<T> {
     setValue(value: T): any;
     clear(): any;
     getValue(): T;
+    hasValue(): boolean;
 }
