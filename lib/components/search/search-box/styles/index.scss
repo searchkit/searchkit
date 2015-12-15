@@ -65,7 +65,7 @@
 
 .react-autosuggest__suggestions-section {
   margin-bottom:20px;
-  padding:0 10px;
+  padding:0;
 }
 
 .react-autosuggest__suggestions-section-name {
@@ -81,9 +81,15 @@
   margin:0;
 }
 .react-autosuggest__suggestion {
-  padding:5px 0;
+  padding:7px 10px;
+  line-height:22px;
+  font-size:14px;
   em {
     font-style: normal;
     font-weight:700;
+  }
+
+  &--focused {
+    background:#f6f6f6;
   }
 }

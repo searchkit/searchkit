@@ -77,6 +77,10 @@ export class ImmutableQuery {
     return this.update({ $merge: { size } })
   }
 
+  setSort(sort: string) {
+    return this.update({ $merge: {sort:sort}})
+  }
+
   getSize(){
     return this.query.size
   }

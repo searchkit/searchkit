@@ -18,6 +18,7 @@ export declare class ImmutableQuery {
         $array: any;
     };
     setSize(size: number): ImmutableQuery;
+    setSort(sort: string): ImmutableQuery;
     getSize(): any;
     setFrom(from: number): ImmutableQuery;
     getFrom(): any;

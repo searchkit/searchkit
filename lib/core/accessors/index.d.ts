@@ -5,3 +5,4 @@ export * from "./PaginationAccessor";
 export * from "./PageSizeAccessor";
 export * from "./HierarchicalFacetAccessor";
 export * from "./NumericOptionsAccessor";
+export * from "./SortingAccessor";
