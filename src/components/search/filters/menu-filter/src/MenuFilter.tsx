@@ -32,9 +32,10 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 	}
 
 	addFilter(option) {
-		this.accessor.state = this.accessor.state.clear();
-		if (option != "all") {
-			this.accessor.state = this.accessor.state.toggle(option.key);
+		if (option === "all" || this.accessor.state.contains(option)) {
+			this.accessor.state = this.accessor.state.clear();
+		} else {
+			this.accessor.state = this.accessor.state.setValue([option]);
 		}
 		this.searchkit.performSearch()
 	}
@@ -48,7 +49,7 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 		})
 
 		return (
-			<FastClick handler={this.addFilter.bind(this, option)} key={option.key}>
+			<FastClick handler={this.addFilter.bind(this, option.key)} key={option.key}>
 				<div className={optionClassName}>
 					<div className="menu-list-option__text">{this.translate(option.key)}</div>
 					<div className="menu-list-option__count">{option.doc_count}</div>
