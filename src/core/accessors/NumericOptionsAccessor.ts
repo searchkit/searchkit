@@ -32,7 +32,7 @@ export class NumericOptionsAccessor extends Accessor<ObjectState> {
         $disabled: false
       })
 
-      query = query.addFilter(this.options.field, BoolMust([rangeFilter]))
+      query = query.addFilter(this.key, BoolMust([rangeFilter]))
     }
 
     return query
@@ -49,10 +49,9 @@ export class NumericOptionsAccessor extends Accessor<ObjectState> {
   }
 
   buildOwnQuery(query) {
-
     query = query.setAggs({
       [this.key]:{
-        filter:query.getFilters(this.options.key),
+        filter:query.getFilters(this.key),
         aggs:{
           [this.key]:{
             "range": {
