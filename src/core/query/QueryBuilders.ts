@@ -57,8 +57,8 @@ export function Range(key, from, to, options:TermOptions={}) {
   return _.extend({
     range: {
       [key]:{
-        from:from,
-        to:to
+        gte:from,
+        lt:to
       }
     }
   }, defaultOptions, options)
