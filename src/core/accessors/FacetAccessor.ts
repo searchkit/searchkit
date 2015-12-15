@@ -12,7 +12,6 @@ export interface FacetAccessorOptions {
 
 export class FacetAccessor extends Accessor<ArrayState> {
 
-
   state = new ArrayState()
   options:any
   constructor(key, options:FacetAccessorOptions){
