@@ -28,7 +28,8 @@ describe("ImmutableQuery", ()=> {
     //check immutability
     expect(this.query.query).toEqual({
       filter:BoolMust([]),
-      query:BoolMust([])
+      query:BoolMust([]),
+      size:0
     })
     expect(this.query.index).toEqual({
       filters:{}, filtersArray:[]
@@ -178,7 +179,8 @@ describe("ImmutableQuery", ()=> {
             }
           }]
         }
-      }
+      },
+      "size":0
     })
   })
 
