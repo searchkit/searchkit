@@ -1,7 +1,7 @@
-import { ObjectState } from "../state";
+import { ValueState } from "../state";
 import { Accessor } from "./Accessor";
-export declare class NumericOptionsAccessor extends Accessor<ObjectState> {
-    state: ObjectState;
+export declare class NumericOptionsAccessor extends Accessor<ValueState> {
+    state: ValueState;
     options: any;
     constructor(key: any, options: any);
     getBuckets(): any[];

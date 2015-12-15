@@ -33,28 +33,31 @@ export class NumericRefinementListFilter extends SearchkitComponent<INumericRefi
 	}
 
 	addFilter(option) {
-		this.accessor.state = this.accessor.state.setValue(option);
+		if (this.isSelected(option)) {
+			this.accessor.state = this.accessor.state.clear();
+		} else {
+			this.accessor.state = this.accessor.state.setValue(option.key);
+		}
 		this.searchkit.performSearch()
 	}
 
 	isSelected(option) {
-		let val:any = this.accessor.state.getValue()
-		return val && val.key == option.key;
+		return this.accessor.state.getValue() == option.key;
 	}
 
 	renderOption(option) {
 
 		let optionClassName = classNames({
-			"menu-list-options__item":true,
-			"menu-list-option":true,
-			"menu-list-option--checked":this.isSelected(option)
+			"numeric-refinement-list-options__item":true,
+			"numeric-refinement-list-option":true,
+			"numeric-refinement-list-option--checked":this.isSelected(option)
 		})
 
 		return (
 			<FastClick handler={this.addFilter.bind(this, option)} key={option.key}>
 				<div className={optionClassName}>
-					<div className="menu-list-option__text">{this.translate(option.key)}</div>
-					<div className="menu-list-option__count">{option.doc_count}</div>
+					<div className="numeric-refinement-list-option__text">{this.translate(option.key)}</div>
+					<div className="numeric-refinement-list-option__count">{option.doc_count}</div>
 				</div>
 			</FastClick>
 		)
@@ -62,13 +65,13 @@ export class NumericRefinementListFilter extends SearchkitComponent<INumericRefi
 
 	render() {
 		var className = classNames({
-			"menu-list":true,
+			"numeric-refinement-list":true,
 			[`filter--${this.props.id}`]:true
 		})
 		return (
 			<div className={className}>
-				<div className="menu-list__header">{this.props.title}</div>
-				<div className="menu-list-options">
+				<div className="numeric-refinement-list__header">{this.props.title}</div>
+				<div className="numeric-refinement-list-options">
 				{_.map(this.accessor.getBuckets(), this.renderOption.bind(this))}
 				</div>
 			</div>

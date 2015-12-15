@@ -1,11 +1,11 @@
-import {State, ObjectState} from "../state"
+import {State, ValueState} from "../state"
 import {Accessor} from "./Accessor"
 import {Range, BoolMust} from "../query/QueryBuilders";
 import * as _ from "lodash";
 
-export class NumericOptionsAccessor extends Accessor<ObjectState> {
+export class NumericOptionsAccessor extends Accessor<ValueState> {
 
-  state = new ObjectState()
+  state = new ValueState()
   options:any
   constructor(key, options:any){
     super(key)
@@ -20,7 +20,7 @@ export class NumericOptionsAccessor extends Accessor<ObjectState> {
 
   buildSharedQuery(query) {
     if (this.state.hasValue()) {
-      let val:any = this.state.getValue()
+      let val:any = _.findWhere(this.options.options, {title:this.state.getValue()})
 
       let rangeFilter = Range(this.options.field, val.from, val.to, {
         $name:this.translate(this.options.title),
