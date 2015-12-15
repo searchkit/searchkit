@@ -24,7 +24,7 @@ export class NumericOptionsAccessor extends Accessor<ValueState> {
 
       let rangeFilter = Range(this.options.field, val.from, val.to, {
         $name:this.translate(this.options.title),
-        $value:this.translate(val.key),
+        $value:this.translate(val.title),
         $id:this.options.id,
         $remove:()=> {
           this.state = this.state.clear()
