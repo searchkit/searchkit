@@ -7,11 +7,17 @@
   cursor:pointer;
   color:#08c;
 
+  &--disabled {
+    cursor:default;
+    border-color:#ddd;
+    color:#ddd;
+  }
+
   &__text {
     font-size:12px;
   }
 
-  &:hover {
+  &:not(&--disabled)&:hover {
     border-color:#000;
     color:darken(#ddd,50);
   }

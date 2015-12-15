@@ -23,9 +23,14 @@ export class ResetFilters extends SearchkitComponent<any, any> {
 	}
 
 	renderResetButton() {
+		let className = classNames({
+			"reset-filters":true,
+			"reset-filters--disabled":!this.hasFilters()
+		})
+
 		return (
 			<FastClick handler={this.resetFilters.bind(this)}>
-				<div className="reset-filters">
+				<div className={className}>
 					<div className="reset-filters__text">clear all filters</div>
 				</div>
 			</FastClick>
@@ -35,11 +40,7 @@ export class ResetFilters extends SearchkitComponent<any, any> {
   render() {
     return (
       <div>
-					{(() => {
-						if (this.hasFilters()) {
-							return this.renderResetButton()
-						}
-					})()}
+				{this.renderResetButton()}
       </div>
     )
   }
