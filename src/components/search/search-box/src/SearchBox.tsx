@@ -18,7 +18,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	suggestSearcher: ESRequest
 
 	constructor (props:ISearchBox) {
-		super(props);		
+		super(props);
 	}
 
 	componentWillMount() {

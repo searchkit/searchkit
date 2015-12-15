@@ -15,6 +15,7 @@
   "files": [
     "./src/components/search/filters/hierarchical-menu-filter/src/HierarchicalMenuFilter.tsx",
     "./src/components/search/filters/menu-filter/src/MenuFilter.tsx",
+    "./src/components/search/filters/numeric-refinement-list-filter/src/NumericRefinementListFilter.tsx",
     "./src/components/search/filters/refinement-list-filter/src/RefinementListFilter.tsx",
     "./src/components/search/filters/reset-filters/src/ResetFilters.tsx",
     "./src/components/search/filters/selected-filters/src/SelectedFilters.tsx",
@@ -40,6 +41,7 @@
     "./src/core/accessors/FacetAccessor.ts",
     "./src/core/accessors/HierarchicalFacetAccessor.ts",
     "./src/core/accessors/index.ts",
+    "./src/core/accessors/NumericOptionsAccessor.ts",
     "./src/core/accessors/PageSizeAccessor.ts",
     "./src/core/accessors/PaginationAccessor.ts",
     "./src/core/accessors/SearchAccessor.ts",

@@ -31,3 +31,4 @@ export declare function Term(key: any, value: any, options?: TermOptions): {};
 export declare function Terms(key: any, options: any): {
     terms: {};
 };
+export declare function Range(key: any, from: any, to: any, options?: TermOptions): {};

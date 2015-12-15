@@ -3,6 +3,7 @@ export * from "./search/filters/refinement-list-filter/src/RefinementListFilter"
 export * from "./search/filters/reset-filters/src/ResetFilters";
 export * from "./search/filters/selected-filters/src/SelectedFilters";
 export * from "./search/filters/hierarchical-menu-filter/src/HierarchicalMenuFilter";
+export * from "./search/filters/numeric-refinement-list-filter/src/NumericRefinementListFilter";
 export * from "./search/hits/src/Hits";
 export * from "./search/hits-stats/src/HitsStats";
 export * from "./search/pagination/src/Pagination";

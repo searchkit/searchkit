@@ -49,3 +49,17 @@ export function Terms(key, options){
     }, options)
   }
 }
+
+export function Range(key, from, to, options:TermOptions={}) {
+  const defaultOptions = {
+    $disabled:true
+  }
+  return _.extend({
+    range: {
+      [key]:{
+        from:from,
+        to:to
+      }
+    }
+  }, defaultOptions, options)
+}
