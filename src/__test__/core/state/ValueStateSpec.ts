@@ -17,4 +17,12 @@ describe("ValueState", ()=> {
     expect(this.state.clear().value).toEqual(null)
   })
 
+  it("toggle()", ()=> {
+    let state = this.state.toggle("bar")
+    expect(state.getValue()).toBe("bar")
+    state = state.toggle("bar")
+    expect(state.getValue()).toBe(null)
+
+  })
+
 })

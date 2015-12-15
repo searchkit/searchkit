@@ -33,11 +33,7 @@ export class NumericRefinementListFilter extends SearchkitComponent<INumericRefi
 	}
 
 	addFilter(option) {
-		if (this.isSelected(option)) {
-			this.accessor.state = this.accessor.state.clear();
-		} else {
-			this.accessor.state = this.accessor.state.setValue(option.key);
-		}
+		this.accessor.state = this.accessor.state.toggle(option.key)
 		this.searchkit.performSearch()
 	}
 

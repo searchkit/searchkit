@@ -18,6 +18,6 @@ export class State<T> {
     return this.value
   }
   hasValue() {
-    return !_.isEmpty(this.value)
+    return !!(this.value)
   }
 }

@@ -15,4 +15,10 @@ describe("ObjectState", ()=> {
     expect(this.state.clear().getValue()).toEqual({})
   })
 
+  it("hasValue()", ()=> {
+    expect(this.state.hasValue()).toBe(true)
+    let state = this.state.clear()
+    expect(state.hasValue()).toBe(false)
+
+  })
 })

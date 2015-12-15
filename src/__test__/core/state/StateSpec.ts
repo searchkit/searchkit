@@ -26,6 +26,12 @@ describe("State", ()=> {
     expect(this.state.setValue(2).value).toEqual(2)
   })
 
+  it("hasValue()", ()=> {
+    expect(this.state.hasValue()).toBe(true)
+    let state = this.state.clear()
+    expect(state.hasValue()).toBe(false)
+  })
+
   it("clear()", ()=> {
     expect(this.state.clear().value).toEqual(null)
   })
