@@ -11,11 +11,11 @@ export class Accessor<T extends State<any>> {
   constructor(key, urlString?){
     this.key = key
     this.urlKey = urlString || key && key.replace(/\./g, "_")
-    this.resultsState = this.state
   }
 
   setSearcher(searcher){
     this.searcher = searcher
+    this.setResultsState()
   }
 
   translate(key){

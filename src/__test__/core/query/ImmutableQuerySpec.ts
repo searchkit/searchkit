@@ -129,12 +129,12 @@ describe("ImmutableQuery", ()=> {
 
   it("setSize()", ()=> {
     let query = this.query.setSize(10)
-    expect(query.query.size).toEqual(10)
+    expect(query.getSize()).toEqual(10)
   })
 
   it("setFrom()", ()=> {
     let query = this.query.setFrom(10)
-    expect(query.query.from).toEqual(10)
+    expect(query.getFrom()).toEqual(10)
   })
 
   it("areQueriesDifferent()", ()=> {

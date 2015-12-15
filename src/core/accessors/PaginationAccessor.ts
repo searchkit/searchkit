@@ -12,7 +12,7 @@ export class PaginationAccessor extends Accessor<ValueState> {
   }
 
   buildOwnQuery(query){
-    let from = (query.query.size || 20) * (Number(this.state.getValue()) -1 )
+    let from = (query.getSize() || 20) * (Number(this.state.getValue()) -1 )
     if(from > 0){
       return query.setFrom(from)
     }

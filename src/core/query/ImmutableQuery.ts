@@ -76,8 +76,17 @@ export class ImmutableQuery {
   setSize(size: number) {
     return this.update({ $merge: { size } })
   }
+
+  getSize(){
+    return this.query.size
+  }
+
   setFrom(from: number) {
     return this.update({ $merge: { from } })
+  }
+
+  getFrom(){
+    return this.query.from
   }
 
   update(updateDef, newIndex = this.index) {
