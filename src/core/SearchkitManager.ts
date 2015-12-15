@@ -3,22 +3,23 @@ import {State,ArrayState,ObjectState,ValueState} from "./state"
 import {ImmutableQuery} from "./query/ImmutableQuery";
 import {Accessor} from "./accessors/Accessor"
 import {Searcher} from "./Searcher"
-import {ESMultiRequest} from "./ESMultiRequest";
 import {history} from "./history";
+import {ESTransport} from "./ESTransport";
 
 require('es6-promise').polyfill()
 
 export class SearchkitManager {
   searchers:Array<Searcher>
-  index:string
+  host:string
   private registrationCompleted:Promise<any>
   completeRegistration:Function
   state:any
   translateFunction:Function
   defaultQueries:Array<Function>
+  transport:ESTransport
 
-  constructor(index:string){
-    this.index = index
+  constructor(host:string){
+    this.host = host
     this.searchers = []
 		this.registrationCompleted = new Promise((resolve)=>{
 			this.completeRegistration = resolve
@@ -26,6 +27,7 @@ export class SearchkitManager {
     this.listenToHistory(history)
     this.defaultQueries = []
     this.translateFunction = _.identity
+    this.transport = new ESTransport(this.host)
   }
   addSearcher(searcher){
     this.searchers.push(searcher)
@@ -150,8 +152,7 @@ export class SearchkitManager {
     console.log("multiqueries", queryDef.queries)
 
     if(queryDef.queries.length > 0) {
-      var request = new ESMultiRequest()
-      request.search(queryDef.queries).then((response)=> {
+      this.transport.msearch(queryDef.queries).then((response)=> {
         _.each(response["responses"], (results, index)=>{
           queryDef.searchers[index].setResults(results)
         })

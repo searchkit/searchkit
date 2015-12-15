@@ -1,14 +1,16 @@
 import { ImmutableQuery } from "./query/ImmutableQuery";
 import { Searcher } from "./Searcher";
+import { ESTransport } from "./ESTransport";
 export declare class SearchkitManager {
     searchers: Array<Searcher>;
-    index: string;
+    host: string;
     private registrationCompleted;
     completeRegistration: Function;
     state: any;
     translateFunction: Function;
     defaultQueries: Array<Function>;
-    constructor(index: string);
+    transport: ESTransport;
+    constructor(host: string);
     addSearcher(searcher: any): void;
     addDefaultQuery(fn: Function): void;
     translate(key: any): any;

@@ -7,7 +7,7 @@ import {
 	SearchkitManager,
 	SearchAccessor,
 	SearchkitComponent,
-	ESRequest
+	ESTransport
 } from "../../../../core"
 
 export interface ISearchBox {
@@ -15,7 +15,7 @@ export interface ISearchBox {
 
 export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	accessor:SearchAccessor
-	suggestSearcher: ESRequest
+	suggestSearcher: ESTransport
 
 	constructor (props:ISearchBox) {
 		super(props);
@@ -23,7 +23,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 
 	componentWillMount() {
 		super.componentWillMount()
-		this.suggestSearcher = new ESRequest(this.searchkit.index);
+		this.suggestSearcher = this.searchkit.transport
 	}
 
 	defineAccessor(){

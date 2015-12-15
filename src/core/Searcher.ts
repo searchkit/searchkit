@@ -36,12 +36,6 @@ export class Searcher {
     _.each(this.listeners, (fn)=> fn())
   }
 
-  setIndex(index){
-    this.index = index
-  }
-  getIndex(){
-    return this.index || this.searchkitManager.index
-  }
 
   hasFilters(){
     return this.query && this.query.hasFilters()
@@ -69,7 +63,7 @@ export class Searcher {
   }
   getCommandAndQuery(){
     return [
-      {index:this.getIndex()},
+      // {index:this.getIndex()},
       this.query.getJSON()
     ]
   }

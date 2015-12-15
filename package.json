@@ -23,7 +23,7 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.7.0",
+    "axios": "^0.8.1",
     "classnames": "^2.2.0",
     "es6-promise": "^3.0.2",
     "history": "1.13.0",

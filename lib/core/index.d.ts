@@ -6,5 +6,4 @@ export * from "./support";
 export * from "./Searcher";
 export * from "./SearchkitManager";
 export * from "./history";
-export * from "./ESRequest";
-export * from "./ESMultiRequest";
+export * from "./ESTransport";

@@ -1,9 +1,9 @@
-import { SearchAccessor, SearchkitComponent, ESRequest } from "../../../../core";
+import { SearchAccessor, SearchkitComponent, ESTransport } from "../../../../core";
 export interface ISearchBox {
 }
 export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
     accessor: SearchAccessor;
-    suggestSearcher: ESRequest;
+    suggestSearcher: ESTransport;
     constructor(props: ISearchBox);
     componentWillMount(): void;
     defineAccessor(): SearchAccessor;

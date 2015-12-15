@@ -15,8 +15,6 @@ export declare class Searcher {
     translate(key: any): any;
     addListener(fn: any): () => void;
     triggerListeners(): void;
-    setIndex(index: any): void;
-    getIndex(): string;
     hasFilters(): boolean;
     hasFiltersOrQuery(): boolean;
     addAccessor(accessor: Accessor<any>): void;

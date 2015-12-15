@@ -68,9 +68,7 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 			"menu-list-option":true,
 			"menu-list-option--checked":isChecked()
 		})
-
-		console.log(_.get(this.accessor.state,"getValue()",[]))
-
+		
 		return (
 			<FastClick handler={this.addFilter.bind(this, "all")}>
 				<div className={optionClassName} key="all">

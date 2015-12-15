@@ -1,6 +1,7 @@
+import * as axios from "axios";
 export declare class ESRequest {
-    index: string;
-    constructor(index: string);
+    host: string;
+    constructor(host: string);
     searchUrl(): string;
-    search(query: any): Promise<{}>;
+    search(query: any): axios.Promise;
 }
