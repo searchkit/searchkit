@@ -3,11 +3,18 @@ import {Accessor} from "./Accessor"
 import {Range, BoolMust} from "../query/QueryBuilders";
 import * as _ from "lodash";
 
+export interface NumericOptions {
+  field:string
+  title:string
+  options:[{title:string, from?:number, to?:number}]
+  id:string
+}
+
 export class NumericOptionsAccessor extends Accessor<ValueState> {
 
   state = new ValueState()
-  options:any
-  constructor(key, options:any){
+  options:NumericOptions
+  constructor(key, options:NumericOptions){
     super(key)
     this.options = options
   }

@@ -29,6 +29,7 @@
     "./src/__test__/core/accessors/AccessorSpec.ts",
     "./src/__test__/core/accessors/FacetAccessorSpec.ts",
     "./src/__test__/core/accessors/HierarchicalFacetAccessorSpec.ts",
+    "./src/__test__/core/accessors/NumericalOptionsAccessorSpec.ts",
     "./src/__test__/core/accessors/PageSizeAccessorSpec.ts",
     "./src/__test__/core/accessors/PaginationAccessorSpec.ts",
     "./src/__test__/core/accessors/SearchAccessorSpec.ts",
