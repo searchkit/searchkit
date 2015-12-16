@@ -20,9 +20,7 @@ export declare function MatchPhrasePrefix(query: any, str: any): {
     "match_phrase_prefix": {};
 };
 export declare function SimpleQueryString(query: any, options?: {}): {
-    "simple_query_string": {
-        query: any;
-    };
+    "simple_query_string": {};
 };
 export interface TermOptions {
     $name?: string;

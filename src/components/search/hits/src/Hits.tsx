@@ -28,8 +28,8 @@ export class Hits extends SearchkitComponent<IHits, any> {
 	render() {
 		let hits:{}[] = _.get(this.searcher, "results.hits.hits", null)
 		let className = classNames({
-			"hits":true,
-			"hits--is-loading":this.isLoading()
+			"hits":true
+			// "hits--is-loading":this.isLoading()
 		})
 		return (
 			<div className={className}>
