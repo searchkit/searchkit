@@ -26,7 +26,6 @@ export class SearchAccessor extends Accessor<ValueState> {
       let prefixQueries = _.map(this.options.prefixQueryFields,
         MatchPhrasePrefix.bind(null, queryStr))
       let queries = [].concat(prefixQueries).concat(simpleQuery)
-      console.log("SearchQueries", queries)
       return query.addQuery(BoolShould(queries))
     }
     return query
