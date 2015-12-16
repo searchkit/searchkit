@@ -54,7 +54,6 @@ export class HierarchicalFacetAccessor extends Accessor<LevelState> {
     _.each(this.options.fields, (field:string, i:number) => {
 
       if (this.state.levelHasFilters(i-1) || i == 0) {
-
         aggs[field] = {
           filter:query.getFilters(_.slice(this.options.fields,i)),
           aggs:{

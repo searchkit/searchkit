@@ -22,7 +22,11 @@ export class Searcher {
   }
 
   translate(key){
-    return this.searchkitManager.translate(key)
+    if(this.searchkitManager){
+      return this.searchkitManager.translate(key)
+    } else {
+      return key
+    }
   }
 
   addListener(fn){
