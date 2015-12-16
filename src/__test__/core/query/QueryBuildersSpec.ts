@@ -1,6 +1,6 @@
 import {
   BoolMust, BoolMustNot,BoolShould,
-  SimpleQueryString,
+  SimpleQueryString,MatchPhrasePrefix,
   Term, Terms
 } from "../../../"
 
@@ -24,6 +24,25 @@ describe("QueryBuilders", ()=> {
     expect(BoolShould([1,2])).toEqual({
       bool:{should:[1,2]},
       $array:[1,2]
+    })
+  })
+
+  it("MatchPhrasePrefix", ()=> {
+    expect(MatchPhrasePrefix("foo", "bar^2")).toEqual({
+        match_phrase_prefix:{
+          bar:{
+            query:"foo",
+            boost:2
+          }
+        }
+    })
+    expect(MatchPhrasePrefix("foo", "bar")).toEqual({
+        match_phrase_prefix:{
+          bar:{
+            query:"foo",
+            boost:1
+          }
+        }
     })
   })
 

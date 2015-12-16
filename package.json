@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "test": "karma start --single-run",
+    "test": "./node_modules/.bin/karma start --single-run",
     "test:watch": "./node_modules/.bin/karma start karma.conf.js --auto-watch",
     "build": "tsc; gulp copy-assets;",
     "build:watch": "tsc -w",
