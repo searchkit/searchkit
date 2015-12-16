@@ -13,6 +13,7 @@ import {
 export interface ISearchBox {
 	searchOnChange?:boolean
 	autocomplete?:boolean
+	prefixQueryFields?:Array<string>
 }
 
 export class SearchBox extends SearchkitComponent<ISearchBox, any> {
@@ -29,7 +30,9 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	}
 
 	defineAccessor(){
-		return new SearchAccessor("q")
+		return new SearchAccessor("q", {
+			prefixQueryFields:this.props.prefixQueryFields
+		})
 	}
 
 	onSubmit(event) {

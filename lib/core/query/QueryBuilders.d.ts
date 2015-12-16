@@ -16,11 +16,13 @@ export declare function BoolShould(val?: any): {
     };
     $array: any;
 };
+export declare function MatchPhrasePrefix(query: any, str: any): {
+    "match_phrase_prefix": {};
+};
 export declare function SimpleQueryString(query: any, options?: {}): {
-    bool: {
-        should: any;
+    "simple_query_string": {
+        query: any;
     };
-    $array: any;
 };
 export interface TermOptions {
     $name?: string;

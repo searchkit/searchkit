@@ -13,26 +13,27 @@ export function BoolShould(val:any=[]){
   return {bool:{should:val}, $array:val}
 }
 
+export function MatchPhrasePrefix(query, str){
+
+  let tokens = str.split("^")
+  let field = tokens[0]
+  let boost = Number(tokens[1] || 1)
+  return {
+    "match_phrase_prefix":{
+      [field]:{query, boost}
+    }
+  }
+}
+
 export function SimpleQueryString(query, options={}){
   if(!query){
     return undefined
   }
-  let matchPhrase = {
-    "match_phrase_prefix": _.extend(options,{      
-      "title":{
-        query:query,
-        boost:10
-      }
-    })
-  }
-  let simpleQuery = {
+  return {
     "simple_query_string":{
       query:query
     }
   }
-  return BoolShould([
-    simpleQuery, matchPhrase
-  ])
 }
 export interface TermOptions {
   $name?:string,
