@@ -18,8 +18,11 @@ export function SimpleQueryString(query, options={}){
     return undefined
   }
   let matchPhrase = {
-    "match_phrase_prefix": _.extend(options,{
-      "_all":query      
+    "match_phrase_prefix": _.extend(options,{      
+      "title":{
+        query:query,
+        boost:10
+      }
     })
   }
   let simpleQuery = {
