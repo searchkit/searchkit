@@ -106,7 +106,7 @@ export class ImmutableQuery {
       return true
     }
 
-    return !_.isEqual(queryA.getJSON(), queryB.getJSON())
+    return !_.isEqual(queryA, queryB)
   }
 
   getJSON() {
