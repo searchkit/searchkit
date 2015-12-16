@@ -11,6 +11,8 @@ import {
 } from "../../../../core"
 
 export interface ISearchBox {
+	searchOnChange?:boolean
+	autocomplete?:boolean
 }
 
 export class SearchBox extends SearchkitComponent<ISearchBox, any> {
@@ -32,9 +34,12 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 
 	onSubmit(event) {
 		event.preventDefault()
-		const val = this.getValue()
+		this.searchQuery(this.getValue())
+	}
+
+	searchQuery(query) {
 		this.searchkit.resetState()
-		this.accessor.state = this.accessor.state.setValue(val)
+		this.accessor.state = this.accessor.state.setValue(query)
 		this.searchkit.performSearch()
 	}
 
@@ -87,7 +92,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	}
 
 	querySuggestions(query, callback) {
-		if (query.length > 0) {
+		if (query.length > 0 && this.props.autocomplete) {
 
 			this.suggestSearcher
 				.search(this.getSuggestionQueryObject(query))
@@ -97,6 +102,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		} else {
 			callback(null, [])
 		}
+
 	}
 
 	suggestionRenderer(suggestion, input) {
@@ -107,8 +113,12 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		return (this.accessor.state.getValue() || "") + ""
 	}
 
-	onChange(value){
+	onChange(e){
+		const value = e.target.value;
 		this.accessor.state = this.accessor.state.setValue(value)
+		if (this.props.searchOnChange) {
+			this.searchQuery(this.getValue())
+		}
 	}
 
 	suggestionValue(suggestion) {
@@ -121,13 +131,17 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		this.searchkit.search()
 	}
 
+	onKeyDown(target) {
+		console.log(target.target.value, target);
+	}
+
 	render() {
 		var inputAttributes = {
 			className:"search-box__text",
 			placeholder:"search",
 			type:"text",
 			ref:"queryField",
-			onChange: this.onChange.bind(this)
+			onInput: this.onChange.bind(this)
 		}
 
 		return (
@@ -146,5 +160,6 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
         </form>
       </div>
 		);
+
 	}
 }

@@ -1,5 +1,7 @@
 import { SearchAccessor, SearchkitComponent, ESTransport } from "../../../../core";
 export interface ISearchBox {
+    searchOnChange?: boolean;
+    autocomplete?: boolean;
 }
 export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
     accessor: SearchAccessor;
@@ -8,6 +10,7 @@ export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
     componentWillMount(): void;
     defineAccessor(): SearchAccessor;
     onSubmit(event: any): void;
+    searchQuery(query: any): void;
     processSuggestions(results: any): {
         sectionName: string;
         suggestions: any[];
@@ -43,8 +46,9 @@ export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
     querySuggestions(query: any, callback: any): void;
     suggestionRenderer(suggestion: any, input: any): JSX.Element;
     getValue(): string;
-    onChange(value: any): void;
+    onChange(e: any): void;
     suggestionValue(suggestion: any): any;
     onSuggestionSelected(value: any): void;
+    onKeyDown(target: any): void;
     render(): JSX.Element;
 }
