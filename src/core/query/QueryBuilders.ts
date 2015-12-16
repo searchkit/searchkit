@@ -30,9 +30,9 @@ export function SimpleQueryString(query, options={}){
     return undefined
   }
   return {
-    "simple_query_string":{
+    "simple_query_string":_.extend({}, options,{
       query:query
-    }
+    })
   }
 }
 export interface TermOptions {

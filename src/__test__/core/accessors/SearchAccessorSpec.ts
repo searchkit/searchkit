@@ -1,6 +1,6 @@
 import {
   SearchAccessor, ImmutableQuery,
-  SimpleQueryString, ValueState
+  SimpleQueryString, ValueState, BoolShould
 } from "../../../"
 
 describe("SearchAccessor", ()=> {
@@ -14,7 +14,7 @@ describe("SearchAccessor", ()=> {
     this.accessor.state = new ValueState("some query")
     query = this.accessor.buildSharedQuery(query)
     expect(query.query.query.$array).toEqual([
-      SimpleQueryString("some query")
+      BoolShould([SimpleQueryString("some query")])
     ])
   })
 
