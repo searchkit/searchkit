@@ -10,6 +10,7 @@ export declare class SearchkitManager {
     translateFunction: Function;
     defaultQueries: Array<Function>;
     transport: ESTransport;
+    performSearch: Function;
     constructor(host: string);
     addSearcher(searcher: any): void;
     addDefaultQuery(fn: Function): void;
@@ -28,7 +29,7 @@ export declare class SearchkitManager {
     listenToHistory(history: any): void;
     setAccessorStates(query: any): void;
     notifyStateChange(oldState: any): void;
-    performSearch(): void;
+    _performSearch(): void;
     search(): void;
     _search(): void;
 }

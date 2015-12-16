@@ -5,6 +5,7 @@ import {Accessor} from "./accessors/Accessor"
 import {Searcher} from "./Searcher"
 import {history} from "./history";
 import {ESTransport} from "./ESTransport";
+import * as _ from "lodash"
 
 require('es6-promise').polyfill()
 
@@ -17,6 +18,7 @@ export class SearchkitManager {
   translateFunction:Function
   defaultQueries:Array<Function>
   transport:ESTransport
+  performSearch:Function
 
   constructor(host:string){
     this.host = host
@@ -28,6 +30,11 @@ export class SearchkitManager {
     this.defaultQueries = []
     this.translateFunction = _.identity
     this.transport = new ESTransport(this.host)
+    this.performSearch = _.throttle(
+      this._performSearch.bind(this),
+      300,
+      {trailing:true}
+    )
   }
   addSearcher(searcher){
     this.searchers.push(searcher)
@@ -136,7 +143,7 @@ export class SearchkitManager {
     })
   }
 
-  performSearch(){
+  _performSearch(){
     this.notifyStateChange(this.state)
     this._search()
     console.log(this.state)
