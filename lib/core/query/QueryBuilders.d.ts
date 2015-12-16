@@ -17,7 +17,10 @@ export declare function BoolShould(val?: any): {
     $array: any;
 };
 export declare function SimpleQueryString(query: any, options?: {}): {
-    "simple_query_string": {};
+    bool: {
+        should: any;
+    };
+    $array: any;
 };
 export interface TermOptions {
     $name?: string;

@@ -17,11 +17,19 @@ export function SimpleQueryString(query, options={}){
   if(!query){
     return undefined
   }
-  return {
-    "simple_query_string": _.extend(options,{
-      "query":query,
+  let matchPhrase = {
+    "match_phrase_prefix": _.extend(options,{
+      "_all":query      
     })
   }
+  let simpleQuery = {
+    "simple_query_string":{
+      query:query
+    }
+  }
+  return BoolShould([
+    simpleQuery, matchPhrase
+  ])
 }
 export interface TermOptions {
   $name?:string,

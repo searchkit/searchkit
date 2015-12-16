@@ -1,15 +1,5 @@
-import { SearchkitComponent, NumericOptionsAccessor } from "../../../../../core";
-export interface INumericRefinementListFilter {
-    field: string;
-    title: string;
-    options: [{
-        title: string;
-        from?: number;
-        to?: number;
-    }];
-    id: string;
-}
-export declare class NumericRefinementListFilter extends SearchkitComponent<INumericRefinementListFilter, any> {
+import { SearchkitComponent, NumericOptionsAccessor, NumericOptions } from "../../../../../core";
+export declare class NumericRefinementListFilter extends SearchkitComponent<NumericOptions, any> {
     accessor: NumericOptionsAccessor;
     shouldCreateNewSearcher(): boolean;
     defineAccessor(): NumericOptionsAccessor;
