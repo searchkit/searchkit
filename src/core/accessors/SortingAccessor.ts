@@ -2,12 +2,15 @@ import {ValueState} from "../state"
 import {Accessor} from "./Accessor"
 import * as _ from "lodash"
 
+export interface SortingOptions {
+  options:[{label:string, field:string, order:string}]
+}
 export class SortingAccessor extends Accessor<ValueState> {
 
   state = new ValueState()
-  options:any
+  options:SortingOptions
 
-  constructor(key, options){
+  constructor(key, options:SortingOptions){
     super(key)
     this.options = options;
   }

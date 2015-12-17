@@ -1,8 +1,15 @@
 import { ValueState } from "../state";
 import { Accessor } from "./Accessor";
+export interface SortingOptions {
+    options: [{
+        label: string;
+        field: string;
+        order: string;
+    }];
+}
 export declare class SortingAccessor extends Accessor<ValueState> {
     state: ValueState;
-    options: any;
-    constructor(key: any, options: any);
+    options: SortingOptions;
+    constructor(key: any, options: SortingOptions);
     buildOwnQuery(query: any): any;
 }

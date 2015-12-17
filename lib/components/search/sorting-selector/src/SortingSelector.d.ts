@@ -1,12 +1,5 @@
-import { SearchkitComponent, SortingAccessor } from "../../../../core";
-export interface ISortingSelector {
-    options: [{
-        label: string;
-        field: string;
-        order: string;
-    }];
-}
-export declare class SortingSelector extends SearchkitComponent<ISortingSelector, any> {
+import { SearchkitComponent, SortingAccessor, SortingOptions } from "../../../../core";
+export declare class SortingSelector extends SearchkitComponent<SortingOptions, any> {
     accessor: SortingAccessor;
     defineAccessor(): SortingAccessor;
     renderOption(option: any): JSX.Element;

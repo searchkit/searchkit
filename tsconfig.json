@@ -33,6 +33,7 @@
     "./src/__test__/core/accessors/PageSizeAccessorSpec.ts",
     "./src/__test__/core/accessors/PaginationAccessorSpec.ts",
     "./src/__test__/core/accessors/SearchAccessorSpec.ts",
+    "./src/__test__/core/accessors/SortingAccessorSpec.ts",
     "./src/__test__/core/query/ImmutableQuerySpec.ts",
     "./src/__test__/core/query/QueryBuildersSpec.ts",
     "./src/__test__/core/state/ArrayStateSpec.ts",

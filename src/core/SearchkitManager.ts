@@ -146,7 +146,6 @@ export class SearchkitManager {
   _performSearch(){
     this.notifyStateChange(this.state)
     this._search()
-    console.log(this.state)
     history.pushState(null, window.location.pathname, this.state)
   }
   search(){

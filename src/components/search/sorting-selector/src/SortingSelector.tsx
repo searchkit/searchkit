@@ -6,14 +6,13 @@ import "../styles/index.scss";
 import {
 	SearchkitComponent,
 	SortingAccessor,
-	FastClick
+	FastClick,
+	SortingOptions
 } from "../../../../core"
 
-export interface ISortingSelector {
-  options:[{label:string, field:string, order:string}]
-}
 
-export class SortingSelector extends SearchkitComponent<ISortingSelector, any> {
+
+export class SortingSelector extends SearchkitComponent<SortingOptions, any> {
 	accessor:SortingAccessor
 
 	defineAccessor(){
