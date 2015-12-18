@@ -49,13 +49,12 @@ The search box component is where your users type their search queries.
 ```js
 
 import {
-	SearchBox,
+  SearchBox,
   SearchkitComponent
 } from "searchkit";
 
 class App extends SearchkitComponent<any, any> {
-
-	render(){
+  render(){
     <div>
       <SearchBox searchOnChange={true} prefixQueryFields={["languages","title^10"]}/>
     </div>
@@ -304,20 +303,20 @@ This component lets you reorder your results. Each option requires a sortable El
 
   ##### Example
 
-    ```js
-    import {
-      HitsStats,
-      SearchkitComponent
-    } from "searchkit";
+  ```js
+  import {
+    HitsStats,
+    SearchkitComponent
+  } from "searchkit";
 
-    class App extends SearchkitComponent<any, any> {
+  class App extends SearchkitComponent<any, any> {
 
-     render(){
-        <div>
-            <HitsStats/>
-        </div>
-      }
+    render(){
+      <div>
+          <HitsStats/>
+      </div>
     }
-    ```
+  }
+  ```
 
 ## Extending Components
