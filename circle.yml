@@ -4,5 +4,4 @@ machine:
 
 dependencies:
   pre:
-   - npm install -g karma-cli tsd
-   - tsd install
+   - npm install -g karma-cli
