@@ -3,8 +3,6 @@ var Autosuggest = require('react-autosuggest');
 import "../styles/index.scss";
 
 import {
-	Searcher,
-	SearchkitManager,
 	SearchAccessor,
 	SearchkitComponent,
 	ESTransport
@@ -14,6 +12,7 @@ export interface ISearchBox {
 	searchOnChange?:boolean
 	autocomplete?:boolean
 	prefixQueryFields?:Array<string>
+	queryFields?:Array<string>
 }
 
 export class SearchBox extends SearchkitComponent<ISearchBox, any> {
@@ -31,7 +30,8 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 
 	defineAccessor(){
 		return new SearchAccessor("q", {
-			prefixQueryFields:this.props.prefixQueryFields
+			prefixQueryFields:this.props.prefixQueryFields,
+			queryFields:this.props.queryFields
 		})
 	}
 

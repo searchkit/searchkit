@@ -8,6 +8,7 @@ import {
 
 export interface SearchOptions {
   prefixQueryFields?:Array<string>
+  queryFields?:Array<string>
 }
 export class SearchAccessor extends Accessor<ValueState> {
   state = new ValueState()
@@ -17,12 +18,13 @@ export class SearchAccessor extends Accessor<ValueState> {
     super(key)
     this.options = options
     this.options.prefixQueryFields = this.options.prefixQueryFields || []
+    this.options.queryFields = this.options.queryFields || ["_all"]
   }
 
   buildSharedQuery(query){
     let queryStr = this.state.getValue()
     if(queryStr){
-      let simpleQuery = SimpleQueryString(queryStr)
+      let simpleQuery = SimpleQueryString(queryStr, {fields:this.options.queryFields})
       let prefixQueries = _.map(this.options.prefixQueryFields,
         MatchPhrasePrefix.bind(null, queryStr))
       let queries = [].concat(prefixQueries).concat(simpleQuery)

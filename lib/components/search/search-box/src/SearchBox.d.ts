@@ -3,6 +3,7 @@ export interface ISearchBox {
     searchOnChange?: boolean;
     autocomplete?: boolean;
     prefixQueryFields?: Array<string>;
+    queryFields?: Array<string>;
 }
 export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
     accessor: SearchAccessor;
