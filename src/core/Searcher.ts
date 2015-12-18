@@ -11,6 +11,7 @@ export class Searcher {
   searchkitManager:SearchkitManager
   index:string
   loading:boolean
+  error:any
   private listeners = []
   constructor() {
     this.accessors = []
@@ -53,6 +54,11 @@ export class Searcher {
     this.accessors.push(accessor)
     accessor.setSearcher(this)
   }
+
+  clearQuery() {
+    delete this.query
+  }
+
   buildQuery(query) {
     _.each(this.accessors, (accessor) => {
       query = accessor.buildOwnQuery(query)
@@ -61,6 +67,7 @@ export class Searcher {
       this.query, query)
     this.query = query
     if (this.queryHasChanged){
+      this.error = null
       this.loading = true
       this.triggerListeners()
     }
@@ -82,4 +89,11 @@ export class Searcher {
     })
     this.triggerListeners()
   }
+
+  setError(error){
+    this.error = error
+    this.loading = false
+    this.triggerListeners()
+  }
+
 }

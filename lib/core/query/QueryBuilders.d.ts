@@ -31,7 +31,14 @@ export interface TermOptions {
     [prop: string]: any;
 }
 export declare function Term(key: any, value: any, options?: TermOptions): {};
-export declare function Terms(key: any, options: any): {
+export declare function Terms(key: any, options?: {}): {
     terms: {};
 };
 export declare function Range(key: any, from: any, to: any, options?: TermOptions): {};
+export declare function AggsRange(field: any, ranges: any): {
+    "range": {
+        field: any;
+        ranges: any;
+    };
+};
+export declare function Aggs(key: any, filters: any, aggregation: any): {};

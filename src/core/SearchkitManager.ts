@@ -100,6 +100,12 @@ export class SearchkitManager {
     return query
   }
 
+  clearSearcherQueries(){
+    _.each(this.searchers, (searcher)=>{
+      searcher.clearQuery()
+    })
+  }
+
   makeQueryDef(){
     var queryDef = {
       queries:[],
@@ -161,6 +167,11 @@ export class SearchkitManager {
       this.transport.msearch(queryDef.queries).then((response)=> {
         _.each(response["responses"], (results, index)=>{
           queryDef.searchers[index].setResults(results)
+        })
+      }).catch((error)=> {
+        this.clearSearcherQueries()
+        _.each(queryDef.searchers, (searcher)=> {
+          searcher.setError(error)
         })
       })
     }

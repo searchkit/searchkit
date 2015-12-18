@@ -9,6 +9,7 @@ export declare class Searcher {
     searchkitManager: SearchkitManager;
     index: string;
     loading: boolean;
+    error: any;
     private listeners;
     constructor();
     setSearchkitManager(searchkitManager: any): void;
@@ -18,8 +19,10 @@ export declare class Searcher {
     hasFilters(): boolean;
     hasFiltersOrQuery(): boolean;
     addAccessor(accessor: Accessor<any>): void;
+    clearQuery(): void;
     buildQuery(query: any): void;
     getCommandAndQuery(): any[];
     getResults(): any;
     setResults(results: any): void;
+    setError(error: any): void;
 }

@@ -22,6 +22,7 @@ export declare class SearchkitManager {
     getState(): {};
     hasState(): boolean;
     buildSharedQuery(): ImmutableQuery;
+    clearSearcherQueries(): void;
     makeQueryDef(): {
         queries: any[];
         searchers: any[];
