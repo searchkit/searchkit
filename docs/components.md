@@ -41,7 +41,7 @@ import {
 
 ### Basics
 
-#### search-box
+#### SearchBox
 The search box component is where your users type their search queries.
 
 ##### Example
@@ -56,7 +56,10 @@ import {
 class App extends SearchkitComponent<any, any> {
   render(){
     <div>
-      <SearchBox searchOnChange={true} prefixQueryFields={["languages","title^10"]}/>
+      <SearchBox 
+        searchOnChange={true} 
+        prefixQueryFields={["languages","title^10"]}
+        queryFields={["title^5"]}/>
     </div>
   }
 }
@@ -75,24 +78,24 @@ Hits component displays results from ElasticSearch. To customise each result, yo
 ```js
 
 import {
-	Hits,
+  Hits,
   SearchkitComponent
 } from "searchkit";
 
 class MovieHits extends Hits {
-	renderResult(result:any) {
-		return (
-			<div className="hit" key={result._id}>
-				<img className="hit__poster" src={result._source.poster}/>
-				<div className="hit__title">{result._source.title}</div>
-			</div>
-		)
-	}
+  renderResult(result:any) {
+    return (
+      <div className="hit" key={result._id}>
+        <img className="hit__poster" src={result._source.poster}/>
+        <div className="hit__title">{result._source.title}</div>
+      </div>
+    )
+  }
 }
 
 class App extends SearchkitComponent<any, any> {
 
-	render(){
+  render(){
     <div>
       <MovieHits hitsPerPage={50}/>
     </div>
@@ -113,13 +116,13 @@ The pagination component provides ability to go to next and previous page.
 ```js
 
 import {
-	Pagination,
+  Pagination,
   SearchkitComponent
 } from "searchkit";
 
 class App extends SearchkitComponent<any, any> {
 
-	render(){
+  render(){
     <div>
       <Pagination/>
     </div>
@@ -135,16 +138,18 @@ Provides a way to navigate through results for a single attribute. Only one valu
 ```js
 
 import {
-	Pagination,
+  Pagination,
   Hits,
   SearchkitComponent
 } from "searchkit";
 
 class App extends SearchkitComponent<any, any> {
 
-	render(){
+  render(){
     <div>
-      <MenuFilter field="languages.raw" title="Languages" id="languages"/>
+      <MenuFilter 
+        field="languages.raw" 
+        title="Languages" id="languages"/>
     </div>
   }
 }
@@ -224,16 +229,16 @@ import {
 
 class App extends SearchkitComponent<any, any> {
 
- render(){
+  render(){
     <div>
-        <NumericRefinementListFilter id="metascore" title="Meta score" field="metaScore" options={[
-          {title:"All"},
-          {title:"up to 20", from:0, to:21},
-          {title:"21 to 40", from:21, to:41},
-          {title:"41 to 60", from:41, to:61},
-          {title:"61 to 80", from:61, to:81},
-          {title:"81 to 100", from:81, to:101}
-        ]} />
+      <NumericRefinementListFilter id="metascore" title="Meta score" field="metaScore" options={[
+        {title:"All"},
+        {title:"up to 20", from:0, to:21},
+        {title:"21 to 40", from:21, to:41},
+        {title:"41 to 60", from:41, to:61},
+        {title:"61 to 80", from:61, to:81},
+        {title:"81 to 100", from:81, to:101}
+      ]}/>
     </div>
   }
 }
@@ -258,7 +263,7 @@ import {
 
 class App extends SearchkitComponent<any, any> {
 
- render(){
+  render(){
     <div>
       <ResetFilters/>
     </div>
@@ -273,28 +278,28 @@ This component lets you reorder your results. Each option requires a sortable El
 
 ##### Example
 
-  ```js
-  import {
-    SortingSelector,
-    SearchkitComponent
-  } from "searchkit";
+```js
+import {
+  SortingSelector,
+  SearchkitComponent
+} from "searchkit";
 
-  class App extends SearchkitComponent<any, any> {
-
-   render(){
-      <div>
-          <SortingSelector options={[
-            {label:"Relevance", field:"_score", order:"desc"},
-            {label:"Latest Releases", field:"released", order:"desc"},
-            {label:"Earliest Releases", field:"released", order:"asc"}
-          ]}/>
-        </div>
-      }
-    }
-  ```
+class App extends SearchkitComponent<any, any> {
+  
+  render(){
+    <div>
+      <SortingSelector options={[
+        {label:"Relevance", field:"_score", order:"desc"},
+        {label:"Latest Releases", field:"released", order:"desc"},
+        {label:"Earliest Releases", field:"released", order:"asc"}
+      ]}/>
+    </div>
+  }
+}
+```
 
   ##### Props
-    - `options` *([{label:string, field?:<ESAttribute>, order?:(desc|asc)}])*: Options displayed for the user to order results with.
+   - `options` *([{label:string, field?:<ESAttribute>, order?:(desc|asc)}])*: Options displayed for the user to order results with.
 
   ### Metadata
 
@@ -303,20 +308,20 @@ This component lets you reorder your results. Each option requires a sortable El
 
   ##### Example
 
-  ```js
-  import {
-    HitsStats,
-    SearchkitComponent
-  } from "searchkit";
+```js
+import {
+  HitsStats,
+  SearchkitComponent
+} from "searchkit";
 
-  class App extends SearchkitComponent<any, any> {
+class App extends SearchkitComponent<any, any> {
 
-    render(){
-      <div>
-          <HitsStats/>
-      </div>
-    }
+  render(){
+    <div>
+        <HitsStats/>
+    </div>
   }
-  ```
+}
+```
 
 ## Extending Components
