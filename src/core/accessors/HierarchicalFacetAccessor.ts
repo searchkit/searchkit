@@ -1,6 +1,9 @@
 import {State, LevelState} from "../state"
 import {Accessor} from "./Accessor"
-import {Term, Terms, BoolShould, BoolMust} from "../query/QueryBuilders";
+import {
+  Term, Terms, Aggs,
+  BoolShould, BoolMust
+} from "../query/QueryBuilders";
 import * as _ from "lodash";
 
 
@@ -54,20 +57,15 @@ export class HierarchicalFacetAccessor extends Accessor<LevelState> {
     _.each(this.options.fields, (field:string, i:number) => {
 
       if (this.state.levelHasFilters(i-1) || i == 0) {
-        aggs[field] = {
-          filter:query.getFilters(_.slice(this.options.fields,i)),
-          aggs:{
-            [field]:Terms(field, {size:20})
-          }
-        }
-
+        _.extend(aggs, Aggs(
+          field,
+          query.getFilters(_.slice(this.options.fields,i)),
+          Terms(field, {size:20})
+        ))
       }
-
     });
 
-    query = query.setAggs(aggs)
-
-    return query
+    return query.setAggs(aggs)
   }
 
 }

@@ -1,7 +1,7 @@
 import {
   BoolMust, BoolMustNot,BoolShould,
   SimpleQueryString,MatchPhrasePrefix,
-  Term, Terms
+  Term, Terms, AggsRange, Aggs
 } from "../../../"
 
 describe("QueryBuilders", ()=> {
@@ -79,6 +79,36 @@ describe("QueryBuilders", ()=> {
     expect(Terms("games", {size:50})).toEqual({
       terms:{field:'games', size:50}
     })
+  })
+
+  it("AggsRange()", ()=> {
+    expect(AggsRange("price", [1,2,3])).toEqual({
+      range:{
+        field:"price",
+        ranges:[1,2,3]
+      }
+    })
+  })
+
+  it("Aggs()", ()=> {
+    let aggs = Aggs(
+      "genre",
+      ["filter1", "filter2"],
+      Terms("genre")
+    )
+    expect(aggs).toEqual({
+      genre:{
+        filter:["filter1", "filter2"],
+        aggs:{
+          genre:{
+            terms:{
+              field:"genre"
+            }
+          }
+        }
+      }
+    })
+
   })
 
 })

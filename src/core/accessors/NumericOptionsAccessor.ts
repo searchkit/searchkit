@@ -1,6 +1,6 @@
 import {State, ValueState} from "../state"
 import {Accessor} from "./Accessor"
-import {Range, BoolMust} from "../query/QueryBuilders";
+import {Range, BoolMust, Aggs, AggsRange} from "../query/QueryBuilders";
 import * as _ from "lodash";
 
 export interface NumericOptions {
@@ -56,22 +56,14 @@ export class NumericOptionsAccessor extends Accessor<ValueState> {
   }
 
   buildOwnQuery(query) {
-    query = query.setAggs({
-      [this.key]:{
-        filter:query.getFilters(this.key),
-        aggs:{
-          [this.key]:{
-            "range": {
-              "field":this.options.field,
-              "ranges": this.getRanges()
-            }
-          }
-
-        }
-      }
-    })
-
-    return query;
+    return query.setAggs(Aggs(
+      this.key,
+      query.getFilters(this.key),
+      AggsRange(
+        this.options.field,
+        this.getRanges()
+      )
+    ))
   }
 
 }

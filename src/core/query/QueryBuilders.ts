@@ -54,7 +54,7 @@ export function Term(key, value, options:TermOptions={}){
   }, defaultOptions, options)
 }
 
-export function Terms(key, options){
+export function Terms(key, options={}){
   return {
     terms:_.extend({
       field:key
@@ -74,4 +74,24 @@ export function Range(key, from, to, options:TermOptions={}) {
       }
     }
   }, defaultOptions, options)
+}
+
+
+export function AggsRange(field, ranges){
+  return {
+    "range":{
+      field, ranges
+    }
+  }
+}
+
+export function Aggs(key, filters, aggregation){
+  return {
+    [key]:{
+      filter:filters,
+      aggs:{
+        [key]:aggregation
+      }
+    }
+  }
 }

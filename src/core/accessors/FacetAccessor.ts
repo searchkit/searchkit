@@ -1,6 +1,9 @@
 import {ArrayState} from "../state"
 import {Accessor} from "./Accessor"
-import {Term, Terms, BoolShould, BoolMust} from "../query/QueryBuilders";
+import {
+  Term, Terms, Aggs,
+  BoolShould, BoolMust
+} from "../query/QueryBuilders";
 import * as _ from "lodash";
 
 
@@ -56,14 +59,10 @@ export class FacetAccessor extends Accessor<ArrayState> {
   buildOwnQuery(query){
     var filters = this.state.getValue()
     let excludedKey = (this.isOrOperator()) ? this.key : undefined
-    query = query.setAggs({
-      [this.key]:{
-        filter:query.getFilters(excludedKey),
-        aggs:{
-          [this.key]:Terms(this.key, {size:20})
-        }
-      }
-    })
-    return query
+    return query.setAggs(Aggs(
+      this.key,
+      query.getFilters(excludedKey),
+      Terms(this.key, {size:20})
+    ))
   }
 }
