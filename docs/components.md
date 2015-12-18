@@ -64,8 +64,9 @@ class App extends SearchkitComponent<any, any> {
 ```
 
 ##### Props
-- `searchOnChange` *(Boolean)*: Updates search results as you type.
-- `prefixQueryFields` *([string])*: An array of fields which uses the prefix field search
+- `searchOnChange` *(Boolean)*: Optional. Updates search results as you type. Will be false by default.
+- `prefixQueryFields` *([string])*: Optional. An array of fields which uses the prefix field search
+- `queryFields` *(Array<string>)*: Optional. An array of elasticsearch fields to search within. Can specify boosting on particular fields. Will search _all by default.
 
 #### Hits
 Hits component displays results from ElasticSearch. To customise each result, you need to override the
