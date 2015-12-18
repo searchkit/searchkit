@@ -298,15 +298,15 @@ class App extends SearchkitComponent<any, any> {
 }
 ```
 
-  ##### Props
-   - `options` *([{label:string, field?:<ESAttribute>, order?:(desc|asc)}])*: Options displayed for the user to order results with.
+##### Props
+  - `options` *([{label:string, field?:<ESAttribute>, order?:(desc|asc)}])*: Options displayed for the user to order results with.
 
-  ### Metadata
+### Metadata
 
-  #### Stats
-  This component lets you display how many results matched the query and other metrics on the results such as how fast the search was.
+#### Stats
+This component lets you display how many results matched the query and other metrics on the results such as how fast the search was.
 
-  ##### Example
+##### Example
 
 ```js
 import {
