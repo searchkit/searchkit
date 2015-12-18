@@ -1,6 +1,4 @@
 node_modules
 test/e2e/generated
-typings/**
-!typings/tsd.d.ts
 npm-debug.log
 lib/__test__
