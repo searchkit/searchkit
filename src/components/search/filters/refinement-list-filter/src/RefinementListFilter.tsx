@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as _ from "lodash";
-import * as classNames from 'classnames';
 import "../styles/index.scss";
 
 import {
@@ -19,6 +18,7 @@ export interface IRefinementListFilter {
 	size?:string
 	title:string
 	id:string
+	mod?:string
 }
 
 export class RefinementListFilter extends SearchkitComponent<IRefinementListFilter, any> {
@@ -35,28 +35,33 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 		)
 	}
 
+	defineBEMBlocks() {
+		var blockName = this.props.mod || "refinement-list"
+		return {
+			container: blockName,
+			option: `${blockName}-option`
+		}
+	}
+
 	addFilter(option) {
 		this.accessor.state = this.accessor.state.toggle(option.key)
 		this.searchkit.performSearch()
 	}
 
 	renderOption(option) {
-		let checkedClassName = classNames({
-			"refinement-option__checkbox":true,
-			"refinement-option__checkbox--checked":this.accessor.state.contains(option.key)
-		})
+		let block = this.bemBlocks.option
+		let isSelected = this.accessor.state.contains(option.key)
 
-		let optionClassName = classNames({
-			"refinement-list-filter__item":true,
-			"refinement-option":true,
-			"refinement-option--checked":this.accessor.state.contains(option.key)
-		})
+		let optionClassName = block()
+			.mix(this.bemBlocks.container("item"))
+			.state({selected:isSelected})
+
 		return (
 			<FastClick handler={this.addFilter.bind(this, option)} key={option.key}>
 				<div className={optionClassName}>
-					<div className={checkedClassName}></div>
-					<div className="refinement-option__text">{this.translate(option.key)}</div>
-					<div className="refinement-option__count">{option.doc_count}</div>
+					<div className={block("checkbox").state({selected:isSelected})}></div>
+					<div className={block("text")}>{this.translate(option.key)}</div>
+					<div className={block("count")}>{option.doc_count}</div>
 				</div>
 			</FastClick>
 		)
@@ -68,15 +73,15 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 
 	render() {
 
-		let className = classNames({
-			"refinement-list-filter":true,
-			"refinement-list-filter--disabled":!this.hasOptions(),
-			[`filter--${this.props.id}`]:true
+		let block = this.bemBlocks.container
+		let className = block().mix(`filter--${this.props.id}`).state({
+			disabled: !this.hasOptions()
 		})
+
 		return (
 			<div className={className}>
-				<div className="refinement-list-filter__header">{this.props.title}</div>
-				<div className="refinement-list-filter__options">
+				<div className={block("header")}>{this.props.title}</div>
+				<div className={block("options")}>
 				{_.map(this.accessor.getBuckets(), this.renderOption.bind(this))}
 				</div>
       </div>
