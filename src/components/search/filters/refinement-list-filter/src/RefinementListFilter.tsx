@@ -74,9 +74,11 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 	render() {
 
 		let block = this.bemBlocks.container
-		let className = block().mix(`filter--${this.props.id}`).state({
-			disabled: !this.hasOptions()
-		})
+		let className = block()
+			.mix(`filter--${this.props.id}`)
+			.state({
+				disabled: !this.hasOptions()
+			})
 
 		return (
 			<div className={className}>

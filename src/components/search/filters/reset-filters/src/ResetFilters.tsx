@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as _ from "lodash";
-import * as classNames from 'classnames';
 import "../styles/index.scss";
 
 import {
@@ -13,6 +12,12 @@ import {
 
 export class ResetFilters extends SearchkitComponent<any, any> {
 
+	defineBEMBlocks() {
+		return {
+			container: (this.props.mod || "reset-filters")
+		}
+	}
+
   hasFilters():boolean {
     return this.searcher.hasFiltersOrQuery()
   }
@@ -23,15 +28,13 @@ export class ResetFilters extends SearchkitComponent<any, any> {
 	}
 
 	renderResetButton() {
-		let className = classNames({
-			"reset-filters":true,
-			"reset-filters--disabled":!this.hasFilters()
-		})
+
+		var block = this.bemBlocks.container
 
 		return (
 			<FastClick handler={this.resetFilters.bind(this)}>
-				<div className={className}>
-					<div className="reset-filters__text">clear all filters</div>
+				<div className={block().state({disabled:!this.hasFilters()})}>
+					<div className={block("reset")}>clear all filters</div>
 				</div>
 			</FastClick>
 		)
