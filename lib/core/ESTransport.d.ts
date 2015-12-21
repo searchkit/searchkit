@@ -4,7 +4,8 @@ export declare class ESTransport {
     static timeout: number;
     axios: axios.AxiosInstance;
     constructor(host: string);
-    search(query: any): axios.Promise;
-    msearch(queries: any): axios.Promise;
+    _search(query: any): axios.Promise;
+    _msearch(queries: any): axios.Promise;
+    search(queries: any): axios.Promise;
     getData(response: any): any;
 }

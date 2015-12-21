@@ -2,7 +2,7 @@ import { ImmutableQuery } from "./query/ImmutableQuery";
 import { Searcher } from "./Searcher";
 import { ESTransport } from "./ESTransport";
 export interface SearchkitOptions {
-    searchMode?: string;
+    multipleSearchers?: boolean;
 }
 export declare class SearchkitManager {
     searchers: Array<Searcher>;
@@ -14,7 +14,7 @@ export declare class SearchkitManager {
     defaultQueries: Array<Function>;
     transport: ESTransport;
     performSearch: Function;
-    searchMode: string;
+    multipleSearchers: boolean;
     primarySearcher: Searcher;
     constructor(host: string, options?: SearchkitOptions);
     addSearcher(searcher: any): void;

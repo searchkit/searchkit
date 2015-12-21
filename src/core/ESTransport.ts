@@ -13,15 +13,28 @@ export class ESTransport {
     })
   }
 
-  search(query){
+  _search(query){
     return this.axios.post("_search", query)
       .then(this.getData)
   }
 
-  msearch(queries){
+  _msearch(queries){
     return this.axios.post("_msearch", queries)
       .then(this.getData)
+      .then(response => response["responses"])
   }
+
+  search(queries){
+    if(queries.length === 1){
+      return this._search(queries[0])
+        .then(response=>[response])
+    } else {
+      return this._msearch(queries)
+    }
+
+  }
+
+
 
   getData(response){
     return response.data
