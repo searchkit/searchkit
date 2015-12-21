@@ -26,7 +26,7 @@ export class ImmutableQuery {
 
   hasFiltersOrQuery(){
     return (this.query.query.$array.length +
-      this.query.filter.$array.length) > 0
+      this.query.filter.$array.length) > 0 || !!this.query.sort
   }
 
   addQuery(query) {

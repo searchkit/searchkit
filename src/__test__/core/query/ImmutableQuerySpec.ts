@@ -50,6 +50,8 @@ describe("ImmutableQuery", ()=> {
     expect(query.hasFiltersOrQuery()).toBe(true)
     let query2 = this.addQuery()
     expect(query2.hasFiltersOrQuery()).toBe(true)
+    expect(this.query.setSort(1).hasFiltersOrQuery())
+      .toBe(true)
   })
 
   it("addQuery()", ()=> {

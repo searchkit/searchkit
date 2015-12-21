@@ -40,12 +40,7 @@ export class Searcher {
   triggerListeners(){
     _.each(this.listeners, (fn)=> fn())
   }
-
-
-  hasFilters(){
-    return this.query && this.query.hasFilters()
-  }
-
+  
   hasFiltersOrQuery(){
     return this.query && this.query.hasFiltersOrQuery()
   }
