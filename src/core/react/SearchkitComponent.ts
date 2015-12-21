@@ -22,7 +22,7 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
     super(props)
   }
 
-  getBlockCSSClass() {
+  defineBEMBlocks() {
     return null;
   }
 
@@ -41,7 +41,7 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
   componentWillMount(){
     this.searchkit = this.context["searchkit"]
     this.accessor  = this.defineAccessor()
-    this.bemBlocks = _.transform(this.getBlockCSSClass(), (result:any, cssClass, name) => {
+    this.bemBlocks = _.transform(this.defineBEMBlocks(), (result:any, cssClass, name) => {
       result[name] = block(cssClass);
     })
     if(!this.shouldCreateNewSearcher()){

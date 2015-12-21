@@ -8,7 +8,7 @@ export interface IHierarchicalMenuFilter {
 export declare class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenuFilter, any> {
     accessor: HierarchicalFacetAccessor;
     constructor(props: IHierarchicalMenuFilter);
-    getBlockCSSClass(): {
+    defineBEMBlocks(): {
         container: string;
         option: string;
     };

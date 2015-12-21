@@ -25,7 +25,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		super(props);
 	}
 
-	getBlockCSSClass() {
+	defineBEMBlocks() {
 		return {container:(this.props.mod || "search-box")};
 	}
 

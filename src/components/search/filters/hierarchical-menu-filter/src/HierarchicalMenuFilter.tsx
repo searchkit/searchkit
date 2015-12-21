@@ -22,7 +22,7 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 		super(props)
 	}
 
-	getBlockCSSClass() {
+	defineBEMBlocks() {
 		var blockClass = this.props.mod || "hierarchical-menu";
 		return {
 			container:`${blockClass}-list`,

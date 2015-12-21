@@ -10,7 +10,7 @@ export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
     accessor: SearchAccessor;
     suggestSearcher: ESTransport;
     constructor(props: ISearchBox);
-    getBlockCSSClass(): {
+    defineBEMBlocks(): {
         container: string;
     };
     componentWillMount(): void;
