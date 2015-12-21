@@ -7,7 +7,7 @@
   cursor:pointer;
   color:#08c;
 
-  &--disabled {
+  &.is-disabled {
     cursor:default;
     border-color:#ddd;
     color:#ddd;
@@ -17,7 +17,7 @@
     font-size:12px;
   }
 
-  &:not(&--disabled)&:hover {
+  &:not(&.is-disabled)&:hover {
     border-color:#000;
     color:darken(#ddd,50);
   }
