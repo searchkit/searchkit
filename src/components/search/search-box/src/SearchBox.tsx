@@ -1,5 +1,6 @@
 import * as React from "react";
 var Autosuggest = require('react-autosuggest');
+
 import "../styles/index.scss";
 
 import {
@@ -13,6 +14,7 @@ export interface ISearchBox {
 	autocomplete?:boolean
 	prefixQueryFields?:Array<string>
 	queryFields?:Array<string>
+	mod?:string
 }
 
 export class SearchBox extends SearchkitComponent<ISearchBox, any> {
@@ -21,6 +23,10 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 
 	constructor (props:ISearchBox) {
 		super(props);
+	}
+
+	getBlockCSSClass() {
+		return {container:(this.props.mod || "search-box")};
 	}
 
 	componentWillMount() {
@@ -120,7 +126,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		const value = e.target.value;
 		this.accessor.state = this.accessor.state.setValue(value)
 		if (this.props.searchOnChange) {
-			this.searchQuery(this.getValue())
+			this.searchQuery(value)
 		}
 	}
 
@@ -134,13 +140,10 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		this.searchkit.search()
 	}
 
-	onKeyDown(target) {
-		console.log(target.target.value, target);
-	}
-
 	render() {
+		let block = this.bemBlocks.container
 		var inputAttributes = {
-			className:"search-box__text",
+			className:block("text"),
 			placeholder:"search",
 			type:"text",
 			ref:"queryField",
@@ -148,18 +151,17 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		}
 
 		return (
-			<div className="search-box">
+			<div className={block()}>
         <form onSubmit={this.onSubmit.bind(this)}>
-          <div className="search-box__icon"></div>
+          <div className={block("icon")}></div>
           <Autosuggest
-						id="autosuggest"
 						suggestions={this.querySuggestions.bind(this)}
 						suggestionRenderer={this.suggestionRenderer.bind(this)}
 						onSuggestionSelected={this.onSuggestionSelected.bind(this)}
 						suggestionValue={this.suggestionValue}
 						value={this.getValue()}
 						inputAttributes={inputAttributes}/>
-          <input type="submit" value="search" className="search-box__action"/>
+          <input type="submit" value="search" className={block("action")}/>
         </form>
       </div>
 		);

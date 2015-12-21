@@ -2,6 +2,7 @@ import * as React from "react"
 import {SearchkitManager} from "../SearchkitManager";
 import {Accessor} from "../accessors/Accessor"
 import {Searcher} from "../Searcher"
+var block = require('bem-cn');
 
 
 export class SearchkitComponent<P,S> extends React.Component<P,S> {
@@ -9,11 +10,22 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
   accessor:Accessor<any>
   searcher:Searcher
   stateListenerUnsubscribe:Function
+  bemBlocks:any
+  blockClass:string
 
 	static contextTypes = {
 		searchkit:React.PropTypes.instanceOf(SearchkitManager),
     searcher:React.PropTypes.instanceOf(Searcher)
 	}
+
+  constructor(props) {
+    super(props)
+  }
+
+  getBlockCSSClass() {
+    return null;
+  }
+
   defineAccessor():Accessor<any>{
     return null
   }
@@ -29,6 +41,9 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
   componentWillMount(){
     this.searchkit = this.context["searchkit"]
     this.accessor  = this.defineAccessor()
+    this.bemBlocks = _.transform(this.getBlockCSSClass(), (result:any, cssClass, name) => {
+      result[name] = block(cssClass);
+    })
     if(!this.shouldCreateNewSearcher()){
       this.searcher = this.searcher || this.props["searcher"] || this.context["searcher"]
     }

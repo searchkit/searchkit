@@ -3,10 +3,15 @@ export interface IHierarchicalMenuFilter {
     id: string;
     fields: Array<string>;
     title: string;
+    mod?: string;
 }
 export declare class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenuFilter, any> {
     accessor: HierarchicalFacetAccessor;
     constructor(props: IHierarchicalMenuFilter);
+    getBlockCSSClass(): {
+        container: string;
+        option: string;
+    };
     shouldCreateNewSearcher(): boolean;
     defineAccessor(): HierarchicalFacetAccessor;
     addFilter(option: any, level: any): void;

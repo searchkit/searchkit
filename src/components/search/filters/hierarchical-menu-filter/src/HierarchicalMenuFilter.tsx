@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as _ from "lodash";
-import * as classNames from 'classnames';
 import "../styles/index.scss";
 
 import {
@@ -13,6 +12,7 @@ export interface IHierarchicalMenuFilter {
 	id:string
 	fields:Array<string>
 	title:string
+	mod?:string
 }
 
 export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenuFilter, any> {
@@ -20,6 +20,14 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 
 	constructor(props:IHierarchicalMenuFilter) {
 		super(props)
+	}
+
+	getBlockCSSClass() {
+		var blockClass = this.props.mod || "hierarchical-menu";
+		return {
+			container:`${blockClass}-list`,
+			option:`${blockClass}-option`
+		};
 	}
 
 	shouldCreateNewSearcher() {
@@ -35,24 +43,25 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 
 	addFilter(option, level) {
 		this.accessor.state = this.accessor.state.toggleLevel(
-			level,option.key)		
+			level,option.key)
 
 		this.searchkit.performSearch()
 	}
 
 	renderOption(level, option) {
 
-		var className = classNames({
-			"hierarchical-menu-option--selected":this.accessor.state.contains(level, option.key),
-			"hierarchical-menu-option":true
+		var block = this.bemBlocks.option
+
+		var className = block().state({
+			selected:this.accessor.state.contains(level, option.key)
 		})
 
 		return (
 			<div key={option.key}>
 				<FastClick handler={this.addFilter.bind(this, option,level)}>
 					<div className={className}>
-						<div className="hierarchical-menu-option__text">{this.translate(option.key)}</div>
-						<div className="hierarchical-menu-option__count">{option.doc_count}</div>
+						<div className={block("text")}>{this.translate(option.key)}</div>
+						<div className={block("count")}>{option.doc_count}</div>
 					</div>
 				</FastClick>
 					{(() => {
@@ -65,22 +74,20 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 	}
 
 	renderOptions(level) {
+		let block = this.bemBlocks.container;
 		return (
-			<div className="hierarchical-menu-list__hierarchical-options">
+			<div className={block("hierarchical-options")}>
 			{_.map(this.accessor.getBuckets(level), this.renderOption.bind(this,level))}
 			</div>
 		)
 	}
 
   render(){
-		var className = classNames({
-			"hierarchical-menu-list":true,
-			[`filter--${this.props.id}`]:true
-		})
+		let block = this.bemBlocks.container;
     return (
-			<div className={className}>
-				<div className="hierarchical-menu-list__header">{this.props.title}</div>
-				<div className="hierarchical-menu-list__root">
+			<div className={block().mix(`filter--${this.props.id}`)}>
+				<div className={block("header")}>{this.props.title}</div>
+				<div className={block("root")}>
 					{this.renderOptions(0)}
 				</div>
 			</div>

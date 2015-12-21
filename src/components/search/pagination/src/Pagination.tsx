@@ -25,7 +25,6 @@ export class Pagination extends SearchkitComponent<IPagination, any> {
 	}
 
   hasPagination():boolean {
-    // return !!this.searcher.stateManager.getData()
 		return true
   }
 

@@ -4,11 +4,15 @@ export interface ISearchBox {
     autocomplete?: boolean;
     prefixQueryFields?: Array<string>;
     queryFields?: Array<string>;
+    mod?: string;
 }
 export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
     accessor: SearchAccessor;
     suggestSearcher: ESTransport;
     constructor(props: ISearchBox);
+    getBlockCSSClass(): {
+        container: string;
+    };
     componentWillMount(): void;
     defineAccessor(): SearchAccessor;
     onSubmit(event: any): void;
@@ -51,6 +55,5 @@ export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
     onChange(e: any): void;
     suggestionValue(suggestion: any): any;
     onSuggestionSelected(value: any): void;
-    onKeyDown(target: any): void;
     render(): JSX.Element;
 }

@@ -14,10 +14,6 @@
       margin-left:-10px;
     }
 
-    &--disabled  {
-      display:none;
-    }
-
     &__hierarchical-options {
       margin-left:10px;
     }
@@ -31,7 +27,7 @@
     display:flex;
     line-height:18px;
 
-    &--selected {
+    &.is-selected {
       font-weight:700;
     }
 

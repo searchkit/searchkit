@@ -24,7 +24,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.8.1",
-    "classnames": "^2.2.0",
+    "bem-cn": "^1.2.1",
     "es6-promise": "^3.0.2",
     "history": "1.13.0",
     "lodash": "^3.10.1",
