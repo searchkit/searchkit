@@ -11,8 +11,19 @@ import {
 	FastClick
 } from "../../../../../core"
 
+export interface ISelectedFilters {
+	mod?:string
+}
 
-export class SelectedFilters extends SearchkitComponent<any, any> {
+export class SelectedFilters extends SearchkitComponent<ISelectedFilters, any> {
+
+	defineBEMBlocks() {
+		var blockName = (this.props.mod || "selected-filters")
+		return {
+			container: blockName,
+			option:`${blockName}-option`
+		}
+	}
 
 	getFilters():Array<any> {
 		return this.searcher.query.getFiltersArray()
@@ -23,16 +34,17 @@ export class SelectedFilters extends SearchkitComponent<any, any> {
 	}
 
 	renderFilter(filter) {
-		var className = classNames({
-			"selected-filters__item":true,
-			"selected-filter":true,
-			[`selected-filter--${filter.$id}`]:true
-		})
+
+		let block = this.bemBlocks.option
+		let className = block()
+			.mix(this.bemBlocks.container("item"))
+			.mix(`selected-filter--${filter.$id}`)
+
 		return (
 			<div className={className} key={filter.$name+":"+filter.$value}>
-				<div className="selected-filter__name">{filter.$name}: {filter.$value}</div>
+				<div className={block("name")}>{filter.$name}: {filter.$value}</div>
 				<FastClick handler={this.removeFilter.bind(this, filter)}>
-					<div className="selected-filter__remove-action">x</div>
+					<div className={block("remove-action")}>x</div>
 				</FastClick>
 			</div>
 		)
@@ -48,7 +60,7 @@ export class SelectedFilters extends SearchkitComponent<any, any> {
 			return (<div></div>)
 		}
     return (
-      <div className="selected-filters">
+      <div className={this.bemBlocks.container()}>
 				{_.map(_.filter(this.getFilters(),{$disabled:false}), this.renderFilter.bind(this))}
       </div>
     )

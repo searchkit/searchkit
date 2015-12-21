@@ -10,7 +10,11 @@ import {
 	FastClick
 } from "../../../../../core"
 
-export class ResetFilters extends SearchkitComponent<any, any> {
+export interface IResetFilters {
+	mod?:string
+}
+
+export class ResetFilters extends SearchkitComponent<IResetFilters, any> {
 
 	defineBEMBlocks() {
 		return {
