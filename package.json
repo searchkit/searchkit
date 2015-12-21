@@ -21,7 +21,7 @@
       "email": "ssetem@gmail.com"
     }
   ],
-  "license": "ISC",
+  "license": "GPLv3",
   "dependencies": {
     "axios": "^0.8.1",
     "bem-cn": "^1.2.1",
