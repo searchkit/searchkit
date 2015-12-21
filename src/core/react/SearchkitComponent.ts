@@ -45,7 +45,7 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
       result[name] = block(cssClass);
     })
     if(!this.shouldCreateNewSearcher() || this.searchkit.searchMode === "single"){
-      this.searcher = this.searcher || this.props["searcher"] || this.context["searcher"]
+      this.searcher = this.searcher || this.props["searcher"] || this.context["searcher"] || this.searchkit.primarySearcher
     }
 
     if(this.accessor){

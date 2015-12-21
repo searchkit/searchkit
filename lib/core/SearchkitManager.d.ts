@@ -15,6 +15,7 @@ export declare class SearchkitManager {
     transport: ESTransport;
     performSearch: Function;
     searchMode: string;
+    primarySearcher: Searcher;
     constructor(host: string, options?: SearchkitOptions);
     addSearcher(searcher: any): void;
     addDefaultQuery(fn: Function): void;

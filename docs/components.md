@@ -30,7 +30,9 @@ import {
 * * *
 
 ### Initialization
-To use searchkit, we need to instantiate a `SearchkitManager`
+To use searchkit, we need to instantiate a `SearchkitManager` with a elastic like host url.
+We then wrap a searchkit app and render to the page. We will define `<App/>` which contains
+react jsx of the various searchkit components a bit later.
 ```js
 import * as React from "react";
 import * as ReactDOM from "react-dom";
@@ -49,8 +51,8 @@ ReactDOM.render((
 
 ```
 
-#### Host
-Searchkit will by default connect to an elasticsearch like endpoint
+#### Which searchkit host to provide? 
+Searchkit connect to an elasticsearch like endpoint `/_search` 
 this can be either a proxy or for quick development a direct local elastic instance
 
 ```js
@@ -60,7 +62,7 @@ new SearchkitManager("http://localhost:9200/movies");
 new SearchkitManager("<public read only elastic url>");
 ```
 
-#### Localhost cors
+#### If your using elastic locally
 If you are are getting a cors related error, you will need to add the following to you 
 `config/elasticsearch.yml' file
 ```yaml
@@ -70,6 +72,7 @@ http.cors.allow-methods : OPTIONS, HEAD, GET, POST, PUT, DELETE
 http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Length
 ```
 
+#### Elastic search Proxy
 Often we will not want to connect to a direct instance of elastic, but a proxy
 which secures the elasticsearch server and hides index + permissions filtering information from the frontend
 
@@ -87,8 +90,11 @@ ElasticExpressProxy({
   host:process.env.ELASTIC_URL || "http://localhost:9200",
   log: 'debug',
   index:'movies'
-}, app)
+}, app
 ```
+
+#### Other serverside technologies
+TODO:
 
 #### Url synchronization
 

@@ -24,7 +24,7 @@ export class SearchkitManager {
   transport:ESTransport
   performSearch:Function
   searchMode:string
-
+  primarySearcher:Searcher
   constructor(host:string, options:SearchkitOptions = {}){
     this.host = host
     this.searchers = []
@@ -41,6 +41,9 @@ export class SearchkitManager {
       {trailing:true}
     )
     this.searchMode = options.searchMode || "single"
+    if(this.searchMode == "single"){
+      this.primarySearcher = this.createSearcher()
+    }    
   }
   addSearcher(searcher){
     this.searchers.push(searcher)
