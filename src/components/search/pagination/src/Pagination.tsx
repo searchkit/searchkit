@@ -10,6 +10,7 @@ import {
 } from "../../../../core"
 
 export interface IPagination {
+	mod?:string
 }
 
 export enum DIRECTION {
@@ -20,8 +21,16 @@ export enum DIRECTION {
 export class Pagination extends SearchkitComponent<IPagination, any> {
 	accessor:PaginationAccessor
 
-	defineAccessor(){
+	defineAccessor() {
     return new PaginationAccessor("p")
+	}
+
+	defineBEMBlocks() {
+		let block = (this.props.mod || "pagination-navigation")
+		return {
+			container: block,
+			option: `${block}-item`
+		}
 	}
 
   hasPagination():boolean {
@@ -57,15 +66,15 @@ export class Pagination extends SearchkitComponent<IPagination, any> {
 	}
 
 	paginationElement(direction:DIRECTION, cssClass:string, displayText:string ) {
-		let className = classNames({
-			["pagination-navigation__"+cssClass]:true,
-			"pagination-nav-item": true,
-			"pagination-nav-item--disabled": this.isDisabled(direction)
-		})
+		let className = this.bemBlocks.option()
+			.mix(this.bemBlocks.container("item"))
+			.state({
+				disabled:this.isDisabled(direction)
+			})
     return (
 			<FastClick handler={this.setPage.bind(this,direction)}>
 	      <div className={className}>
-	        <div className="pagination-nav-item__text">{displayText}</div>
+	        <div className={this.bemBlocks.option("text")}>{displayText}</div>
 	      </div>
 			</FastClick>
 		)
@@ -73,7 +82,7 @@ export class Pagination extends SearchkitComponent<IPagination, any> {
 
   render() {
     return (
-      <div className="pagination-navigation">
+      <div className={this.bemBlocks.container()}>
 					{this.paginationElement(DIRECTION.PREVIOUS, "prev", "Previous")}
 					{this.paginationElement(DIRECTION.NEXT, "next", "Next")}
       </div>

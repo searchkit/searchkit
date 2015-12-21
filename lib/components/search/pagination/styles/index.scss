@@ -13,7 +13,7 @@
 
 }
 
-.pagination-nav-item {
+.pagination-navigation-item {
   border:1px solid #08c;
   border-radius:20px;
   flex:1 1 200px;
@@ -26,11 +26,11 @@
     color:#08c;
   }
 
-  &--disabled {
+  &.is-disabled {
     border-color: #ddd;
   }
 
-  &--disabled &__text {
+  &.is-disabled &__text {
     color:#ddd;
   }
 }

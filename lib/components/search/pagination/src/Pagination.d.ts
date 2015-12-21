@@ -1,5 +1,6 @@
 import { SearchkitComponent, PaginationAccessor } from "../../../../core";
 export interface IPagination {
+    mod?: string;
 }
 export declare enum DIRECTION {
     NEXT = 0,
@@ -8,6 +9,10 @@ export declare enum DIRECTION {
 export declare class Pagination extends SearchkitComponent<IPagination, any> {
     accessor: PaginationAccessor;
     defineAccessor(): PaginationAccessor;
+    defineBEMBlocks(): {
+        container: string;
+        option: string;
+    };
     hasPagination(): boolean;
     getCurrentPage(): number;
     setPage(direction: DIRECTION): void;
