@@ -3,6 +3,10 @@ export declare class NumericRefinementListFilter extends SearchkitComponent<Nume
     accessor: NumericOptionsAccessor;
     shouldCreateNewSearcher(): boolean;
     defineAccessor(): NumericOptionsAccessor;
+    defineBEMBlocks(): {
+        container: string;
+        option: string;
+    };
     addFilter(option: any): void;
     isSelected(option: any): boolean;
     renderOption(option: any): JSX.Element;

@@ -9,6 +9,7 @@ export interface NumericOptions {
         to?: number;
     }];
     id: string;
+    mod?: string;
 }
 export declare class NumericOptionsAccessor extends Accessor<ValueState> {
     state: ValueState;

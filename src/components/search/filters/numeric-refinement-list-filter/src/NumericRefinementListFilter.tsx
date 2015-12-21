@@ -27,6 +27,14 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericOptio
 		)
 	}
 
+	defineBEMBlocks() {
+		var blockName = this.props.mod || "numeric-refinement-list"
+		return {
+			container: blockName,
+			option: `${blockName}-option`
+		}
+	}
+
 	addFilter(option) {
 		this.accessor.state = this.accessor.state.toggle(option.key)
 		this.searchkit.performSearch()
@@ -38,31 +46,31 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericOptio
 
 	renderOption(option) {
 
-		let optionClassName = classNames({
-			"numeric-refinement-list-options__item":true,
-			"numeric-refinement-list-option":true,
-			"numeric-refinement-list-option--checked":this.isSelected(option)
-		})
+		let block = this.bemBlocks.option
+		let className = block()
+			.mix(this.bemBlocks.container("item"))
+			.state({
+				selected:this.isSelected(option)
+			})
 
 		return (
 			<FastClick handler={this.addFilter.bind(this, option)} key={option.key}>
-				<div className={optionClassName}>
-					<div className="numeric-refinement-list-option__text">{this.translate(option.key)}</div>
-					<div className="numeric-refinement-list-option__count">{option.doc_count}</div>
+				<div className={className}>
+					<div className={block("text")}>{this.translate(option.key)}</div>
+					<div className={block("count")}>{option.doc_count}</div>
 				</div>
 			</FastClick>
 		)
 	}
 
 	render() {
-		var className = classNames({
-			"numeric-refinement-list":true,
-			[`filter--${this.props.id}`]:true
-		})
+		var block = this.bemBlocks.container
+		var className = block().mix(`filter--${this.props.id}`)
+
 		return (
 			<div className={className}>
-				<div className="numeric-refinement-list__header">{this.props.title}</div>
-				<div className="numeric-refinement-list-options">
+				<div className={block("header")}>{this.props.title}</div>
+				<div className={block("options")}>
 				{_.map(this.accessor.getBuckets(), this.renderOption.bind(this))}
 				</div>
 			</div>

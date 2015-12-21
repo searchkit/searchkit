@@ -8,6 +8,7 @@ export interface NumericOptions {
   title:string
   options:[{title:string, from?:number, to?:number}]
   id:string
+  mod?:string
 }
 
 export class NumericOptionsAccessor extends Accessor<ValueState> {
