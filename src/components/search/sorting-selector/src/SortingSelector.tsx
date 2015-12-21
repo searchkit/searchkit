@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as _ from "lodash";
-import * as classNames from 'classnames';
 import "../styles/index.scss";
 
 import {
@@ -15,8 +14,14 @@ import {
 export class SortingSelector extends SearchkitComponent<SortingOptions, any> {
 	accessor:SortingAccessor
 
-	defineAccessor(){
+	defineAccessor() {
     return new SortingAccessor("sort", this.props)
+	}
+
+	defineBEMBlocks() {
+		return {
+			container: (this.props.mod || "sorting-selector")
+		}
 	}
 
 	renderOption(option) {
@@ -37,7 +42,7 @@ export class SortingSelector extends SearchkitComponent<SortingOptions, any> {
 
   render() {
     return (
-      <div className="sorting-selector">
+      <div className={this.bemBlocks.container()}>
       	<select onChange={this.updateSorting.bind(this)} value={this.getSelectedValue()}>
 					{_.map(this.props.options, this.renderOption.bind(this))}
 				</select>

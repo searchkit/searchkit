@@ -4,6 +4,7 @@ import * as _ from "lodash"
 
 export interface SortingOptions {
   options:[{label:string, field:string, order:string}]
+  mod?:string
 }
 export class SortingAccessor extends Accessor<ValueState> {
 

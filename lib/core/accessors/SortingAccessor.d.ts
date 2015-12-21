@@ -6,6 +6,7 @@ export interface SortingOptions {
         field: string;
         order: string;
     }];
+    mod?: string;
 }
 export declare class SortingAccessor extends Accessor<ValueState> {
     state: ValueState;

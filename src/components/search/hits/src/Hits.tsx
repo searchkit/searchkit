@@ -1,6 +1,5 @@
 import * as _ from "lodash";
 import * as React from "react";
-import * as classNames from 'classnames';
 import "../styles/index.scss";
 
 import {
@@ -10,6 +9,7 @@ import {
 
 export interface IHits {
 	hitsPerPage: number
+	mod?:string
 }
 
 export class Hits extends SearchkitComponent<IHits, any> {
@@ -18,21 +18,26 @@ export class Hits extends SearchkitComponent<IHits, any> {
 		return new PageSizeAccessor("s", this.props.hitsPerPage)
 	}
 
+	defineBEMBlocks() {
+		let block = (this.props.mod || "hits")
+		return {
+			container: block,
+			item: `${block}-hit`
+		}
+	}
+
 	renderResult(result:any) {
 		return (
-			<div className="hit" key={result._id}>
+			<div className={this.bemBlocks.item().mix(this.bemBlocks.container("item"))} key={result._id}>
 			</div>
 		)
 	}
 
 	render() {
 		let hits:{}[] = _.get(this.searcher, "results.hits.hits", null)
-		let className = classNames({
-			"hits":true
-			// "hits--is-loading":this.isLoading()
-		})
+
 		return (
-			<div className={className}>
+			<div className={this.bemBlocks.container()}>
 				{_.map(hits, this.renderResult.bind(this))}
       </div>
 		);
