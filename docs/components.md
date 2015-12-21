@@ -60,6 +60,16 @@ new SearchkitManager("http://localhost:9200/movies");
 new SearchkitManager("<public read only elastic url>");
 ```
 
+#### Localhost cors
+If you are are getting a cors related error, you will need to add the following to you 
+`config/elasticsearch.yml' file
+```yaml
+http.cors.enabled : true  
+http.cors.allow-origin : "*"
+http.cors.allow-methods : OPTIONS, HEAD, GET, POST, PUT, DELETE
+http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Length
+```
+
 Often we will not want to connect to a direct instance of elastic, but a proxy
 which secures the elasticsearch server and hides index + permissions filtering information from the frontend
 
