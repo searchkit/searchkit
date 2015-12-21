@@ -75,7 +75,6 @@ export class SearchkitManager {
   }
 
   resetState(){
-
     this.iterateAccessors((accessor)=>{
       accessor.resetState()
     })
@@ -90,10 +89,6 @@ export class SearchkitManager {
       }
     })
     return state
-  }
-
-  hasState(){
-    return !_.isEmpty(this.getState())
   }
 
   buildSharedQuery(){

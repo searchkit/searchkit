@@ -18,10 +18,6 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
     searcher:React.PropTypes.instanceOf(Searcher)
 	}
 
-  constructor(props) {
-    super(props)
-  }
-
   defineBEMBlocks() {
     return null;
   }

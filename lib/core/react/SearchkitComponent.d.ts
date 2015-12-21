@@ -13,7 +13,6 @@ export declare class SearchkitComponent<P, S> extends React.Component<P, S> {
         searchkit: React.Requireable<any>;
         searcher: React.Requireable<any>;
     };
-    constructor(props: any);
     defineBEMBlocks(): any;
     defineAccessor(): Accessor<any>;
     shouldCreateNewSearcher(): boolean;
