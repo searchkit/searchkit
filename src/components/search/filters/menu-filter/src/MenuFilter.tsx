@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as _ from "lodash";
-import * as classNames from 'classnames';
 import "../styles/index.scss";
 
 import {
@@ -15,6 +14,7 @@ export interface IMenuFilter {
 	field:string
 	title:string
 	id:string
+	mod?:string
 }
 
 export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
@@ -22,6 +22,14 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 
 	shouldCreateNewSearcher() {
 		return true;
+	}
+
+	defineBEMBlocks() {
+		var blockName = this.props.mod || "menu-list"
+		return {
+			container: blockName,
+			option: `${blockName}-option`
+		}
 	}
 
 	defineAccessor() {
@@ -32,7 +40,7 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 	}
 
 	addFilter(option) {
-		if (option === "all" || this.accessor.state.contains(option)) {
+		if (option === "All" || this.accessor.state.contains(option)) {
 			this.accessor.state = this.accessor.state.clear();
 		} else {
 			this.accessor.state = this.accessor.state.setValue([option]);
@@ -40,56 +48,42 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 		this.searchkit.performSearch()
 	}
 
-	renderOption(option) {
+	renderOption(label, count, isChecked) {
 
-		let optionClassName = classNames({
-			"menu-list-options__item":true,
-			"menu-list-option":true,
-			"menu-list-option--checked":this.accessor.state.contains(option.key)
-		})
+		var className = this.bemBlocks.option()
+											.state({selected: isChecked})
+											.mix(this.bemBlocks.container("item"))
 
 		return (
-			<FastClick handler={this.addFilter.bind(this, option.key)} key={option.key}>
-				<div className={optionClassName}>
-					<div className="menu-list-option__text">{this.translate(option.key)}</div>
-					<div className="menu-list-option__count">{option.doc_count}</div>
+			<FastClick handler={this.addFilter.bind(this, label)} key={label}>
+				<div className={className}>
+					<div className={this.bemBlocks.option("text")}>{label}</div>
+					<div className={this.bemBlocks.option("count")}>{count}</div>
 				</div>
 			</FastClick>
 		)
 	}
 
-	renderAllOption() {
-		let isChecked = () => {
-			return !this.accessor.state.getValue() || this.accessor.state.getValue().length == 0
-		}
-
-		let optionClassName = classNames({
-			"menu-list-options__item":true,
-			"menu-list-option":true,
-			"menu-list-option--checked":isChecked()
-		})
-		
-		return (
-			<FastClick handler={this.addFilter.bind(this, "all")}>
-				<div className={optionClassName} key="all">
-					<div className="menu-list-option__text">All</div>
-				</div>
-			</FastClick>
-
-		)
+	createOption(option) {
+		var isChecked = this.accessor.state.contains(option.key)
+		var count = option.doc_count
+		var label = this.translate(option.key)
+		return this.renderOption(label, count, isChecked);
 	}
 
 	render() {
-		var className = classNames({
-			"menu-list":true,
-			[`filter--${this.props.id}`]:true
-		})
+		var block = this.bemBlocks.container
+		var className = block().mix(`filter--${this.props.id}`)
+		let isAllChecked = () => {
+			return !this.accessor.state.getValue() || this.accessor.state.getValue().length == 0
+		}
+
 		return (
 			<div className={className}>
-				<div className="menu-list__header">{this.props.title}</div>
-				<div className="menu-list-options">
-				{this.renderAllOption()}
-				{_.map(this.accessor.getBuckets(), this.renderOption.bind(this))}
+				<div className={block("header")}>{this.props.title}</div>
+				<div className={block("options")}>
+				{this.renderOption("All", null, isAllChecked())}
+				{_.map(this.accessor.getBuckets(), this.createOption.bind(this))}
 				</div>
 			</div>
 		);

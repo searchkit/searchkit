@@ -21,7 +21,7 @@
     line-height:22px;
     display:flex;
 
-    &--checked &__text {
+    &.is-selected &__text {
       font-weight:700;
     }
 
