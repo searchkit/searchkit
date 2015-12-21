@@ -44,7 +44,7 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
     this.bemBlocks = _.transform(this.defineBEMBlocks(), (result:any, cssClass, name) => {
       result[name] = block(cssClass);
     })
-    if(!this.shouldCreateNewSearcher()){
+    if(!this.shouldCreateNewSearcher() || this.searchkit.searchMode === "single"){
       this.searcher = this.searcher || this.props["searcher"] || this.context["searcher"]
     }
 

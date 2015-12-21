@@ -96,7 +96,7 @@ describe("ImmutableQuery", ()=> {
   })
 
   it("setAggs()", ()=> {
-    let aggs = {
+    let genreAggs = {
       "genre":{
         filter:{},
         aggs:{
@@ -104,8 +104,17 @@ describe("ImmutableQuery", ()=> {
         }
       }
     }
-    let query = this.query.setAggs(aggs)
-    expect(query.query.aggs).toEqual(aggs)
+    let authorAggs = {
+      "author":{
+        filter:{},
+          aggs:{
+          "author":Terms("author", {})
+        }
+      }
+    }
+    let query = this.query.setAggs(genreAggs).setAggs(authorAggs)
+    expect(query.query.aggs).toEqual(_.extend({}, genreAggs, authorAggs))
+    expect(query.query.filter).toBeDefined()
 
   })
 

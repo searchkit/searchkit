@@ -9,6 +9,10 @@ import * as _ from "lodash"
 
 require('es6-promise').polyfill()
 
+export interface SearchkitOptions {
+  searchMode?:string  
+}
+
 export class SearchkitManager {
   searchers:Array<Searcher>
   host:string
@@ -19,8 +23,9 @@ export class SearchkitManager {
   defaultQueries:Array<Function>
   transport:ESTransport
   performSearch:Function
+  searchMode:string
 
-  constructor(host:string){
+  constructor(host:string, options:SearchkitOptions = {}){
     this.host = host
     this.searchers = []
 		this.registrationCompleted = new Promise((resolve)=>{
@@ -32,9 +37,10 @@ export class SearchkitManager {
     this.transport = new ESTransport(this.host)
     this.performSearch = _.throttle(
       this._performSearch.bind(this),
-      300,
+      100,
       {trailing:true}
     )
+    this.searchMode = options.searchMode || "single"
   }
   addSearcher(searcher){
     this.searchers.push(searcher)
@@ -157,23 +163,34 @@ export class SearchkitManager {
   search(){
     this.performSearch()
   }
-
+  
+  //TODO: refactor single, multiple 
   _search(){
     this.state = this.getState()
     var queryDef = this.makeQueryDef()
-    console.log("multiqueries", queryDef.queries)
-
+    console.log("multiqueries", queryDef.queries)    
     if(queryDef.queries.length > 0) {
-      this.transport.msearch(queryDef.queries).then((response)=> {
-        _.each(response["responses"], (results, index)=>{
-          queryDef.searchers[index].setResults(results)
+      if(this.searchMode === "single"){
+        this.transport.search(queryDef.queries[0]).then((response)=> {
+          queryDef.searchers[0].setResults(response)
+        }).catch((error)=> {
+          this.clearSearcherQueries()
+          _.each(queryDef.searchers, (searcher)=> {
+            searcher.setError(error)
+          })
         })
-      }).catch((error)=> {
-        this.clearSearcherQueries()
-        _.each(queryDef.searchers, (searcher)=> {
-          searcher.setError(error)
-        })
-      })
+      } else if (this.searchMode === "multiple") {
+        this.transport.msearch(queryDef.queries).then((response)=> {
+          _.each(response["responses"], (results, index)=>{
+            queryDef.searchers[index].setResults(results)
+          })
+        }).catch((error)=> {
+          this.clearSearcherQueries()
+          _.each(queryDef.searchers, (searcher)=> {
+            searcher.setError(error)
+          })
+        })  
+      }            
     }
   }
 

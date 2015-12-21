@@ -30,7 +30,55 @@ import {
 * * *
 
 ### Initialization
+To use searchkit, we need to instantiate a `SearchkitManager`
+```js
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 
+import {
+  SearchkitManager, SearchkitProvider
+} from "searchkit";
+
+const searchkit = new SearchkitManager("http://localhost:9200/movies");
+
+ReactDOM.render((
+	<SearchkitProvider searchkit={searchkit}>
+		<App/>
+	</SearchkitProvider>
+),  document.getElementById('root'))
+
+```
+
+#### Host
+Searchkit will by default connect to an elasticsearch like endpoint
+this can be either a proxy or for quick development a direct local elastic instance
+
+```js
+//direct local elastic search instance
+new SearchkitManager("http://localhost:9200/movies");
+//or a read only elasticsearch url
+new SearchkitManager("<public read only elastic url>");
+```
+
+Often we will not want to connect to a direct instance of elastic, but a proxy
+which secures the elasticsearch server and hides index + permissions filtering information from the frontend
+
+A proxy is expected to proxy the `/_search` and `/_msearch` urls depending on which search mode is used.
+```js
+//a proxy on the same server as the served app
+new SearchkitManager("/");
+```
+
+#### Express Proxy
+Searchkit will ship with a simple elastic proxy if you are using express.js on node.
+TODO: installation, config, permissions filter etc
+```js
+ElasticExpressProxy({
+  host:process.env.ELASTIC_URL || "http://localhost:9200",
+  log: 'debug',
+  index:'movies'
+}, app)
+```
 
 #### Url synchronization
 

@@ -63,7 +63,10 @@ export class ImmutableQuery {
   }
 
   setAggs(aggs) {
-    return this.update({ $merge: { aggs } })
+    // console.log(aggs)
+    let existingAggs = this.query.aggs || {}
+    let newAggs = _.extend({}, existingAggs, aggs)
+    return this.update({ $merge:{aggs:newAggs} })
   }
 
   getFilters(key = undefined) {
