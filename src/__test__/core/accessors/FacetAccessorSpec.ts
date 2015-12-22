@@ -143,8 +143,7 @@ describe("FacetAccessor", ()=> {
           "aggs": {
             "genre": {
               "terms": {
-                "field": "genre",
-                "size": 20
+                "field": "genre"
               }
             }
           }
@@ -174,8 +173,7 @@ describe("FacetAccessor", ()=> {
           "aggs": {
             "genre": {
               "terms": {
-                "field": "genre",
-                "size": 20
+                "field": "genre"
               }
             }
           }
