@@ -18,7 +18,8 @@ export declare class Searcher {
     hasFiltersOrQuery(): boolean;
     addAccessor(accessor: Accessor<any>): void;
     clearQuery(): void;
-    buildQuery(query: any): void;
+    buildQuery(query: any): any;
+    beginNewSearch(): void;
     getResults(): any;
     setResults(results: any): void;
     setError(error: any): void;

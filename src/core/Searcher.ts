@@ -54,10 +54,15 @@ export class Searcher {
       this.query, query)
     this.query = query
     if (this.queryHasChanged){
-      this.error = null
-      this.loading = true
-      this.emitter.trigger()
+      this.beginNewSearch()
     }
+    return query
+  }
+
+  beginNewSearch(){
+    this.error = null
+    this.loading = true
+    this.emitter.trigger()
   }
 
   getResults() {

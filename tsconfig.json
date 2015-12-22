@@ -36,6 +36,7 @@
     "./src/__test__/core/accessors/SortingAccessorSpec.ts",
     "./src/__test__/core/query/ImmutableQuerySpec.ts",
     "./src/__test__/core/query/QueryBuildersSpec.ts",
+    "./src/__test__/core/SearcherSpec.ts",
     "./src/__test__/core/state/ArrayStateSpec.ts",
     "./src/__test__/core/state/LevelStateSpec.ts",
     "./src/__test__/core/state/ObjectStateSpec.ts",
