@@ -22,7 +22,6 @@ export class SearchkitManager {
   translateFunction:Function
   defaultQueries:Array<Function>
   transport:ESTransport
-  performSearch:Function
   multipleSearchers:boolean
   primarySearcher:Searcher
   constructor(host:string, options:SearchkitOptions = {}){
@@ -35,11 +34,6 @@ export class SearchkitManager {
     this.defaultQueries = []
     this.translateFunction = _.identity
     this.transport = new ESTransport(this.host)
-    this.performSearch = _.throttle(
-      this._performSearch.bind(this),
-      100,
-      {trailing:true}
-    )
     this.multipleSearchers = options.multipleSearchers || false
     this.primarySearcher = this.createSearcher()
   }
@@ -68,27 +62,14 @@ export class SearchkitManager {
       .value()
   }
 
-  iterateAccessors(fn){
-    var accessors = this.getAccessors()
-    _.each(accessors, fn)
-
-  }
-
   resetState(){
-    this.iterateAccessors((accessor)=>{
-      accessor.resetState()
-    })
+    _.invoke(this.searchers, "resetState")
   }
 
   getState(){
-    var state = {}
-    this.iterateAccessors((accessor)=>{
-      var val = accessor.state.getValue()
-      if(val){
-        state[accessor.urlKey] = val
-      }
-    })
-    return state
+    return _.reduce(this.getAccessors(), (state, accessor)=> {
+      return _.extend(state, accessor.getQueryObject())
+    }, {})
   }
 
   buildSharedQuery(){
@@ -96,16 +77,14 @@ export class SearchkitManager {
     query = _.reduce(this.defaultQueries, (currentQuery, fn)=>{
       return fn(currentQuery)
     }, query)
-    this.iterateAccessors((accessor)=>{
-      query = accessor.buildSharedQuery(query)
-    })
-    return query
+
+    return _.reduce(this.getAccessors(), (query, accessor)=>{
+      return accessor.buildSharedQuery(query)
+    }, query)
   }
 
   clearSearcherQueries(){
-    _.each(this.searchers, (searcher)=>{
-      searcher.clearQuery()
-    })
+    _.invoke(this.searchers, "clearQuery")
   }
 
   listenToHistory(history){
@@ -121,19 +100,14 @@ export class SearchkitManager {
   }
 
   setAccessorStates(query){
-    this.iterateAccessors((accessor)=>{
-      var value = query[accessor.urlKey]
-      accessor.state = accessor.state.setValue(value)
-    })
+    _.invoke(this.getAccessors(), "fromQueryObject", query)
   }
 
   notifyStateChange(oldState){
-    this.iterateAccessors((accessor)=>{
-      accessor.onStateChange(oldState)
-    })
+    _.invoke(this.getAccessors(), "onStateChange", oldState)
   }
 
-  _performSearch(){
+  performSearch(){
     this.notifyStateChange(this.state)
     this._search()
     history.pushState(null, window.location.pathname, this.state)
@@ -146,9 +120,7 @@ export class SearchkitManager {
   _search(){
     this.state = this.getState()
     var query = this.buildSharedQuery()
-    _.each(this.searchers, (searcher)=>{
-      searcher.buildQuery(query)
-    })
+    _.invoke(this.searchers, "buildQuery", query)
     let changedSearchers = _.filter(this.searchers, {queryHasChanged:true})
     let queries = _.map(changedSearchers, (searcher)=> {
       return searcher.query.getJSON()
@@ -161,9 +133,7 @@ export class SearchkitManager {
           changedSearchers[index].setResults(results)
         })
       }).catch((error)=> {
-        _.each(changedSearchers, (searcher)=> {
-          searcher.setError(error)
-        })
+        _.invoke(changedSearchers, "setError", error)
       })
     }
   }

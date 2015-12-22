@@ -46,10 +46,15 @@ export class Searcher {
     delete this.query
   }
 
+  resetState(){
+    _.invoke(this.accessors, "resetState")
+  }
+
+
   buildQuery(query) {
-    _.each(this.accessors, (accessor) => {
-      query = accessor.buildOwnQuery(query)
-    })
+    query = _.reduce(this.accessors, (query, accessor) => {
+      return accessor.buildOwnQuery(query)
+    }, query)
     this.queryHasChanged = ImmutableQuery.areQueriesDifferent(
       this.query, query)
     this.query = query

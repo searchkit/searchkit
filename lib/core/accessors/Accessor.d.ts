@@ -11,6 +11,8 @@ export declare class Accessor<T extends State<any>> {
     setSearcher(searcher: any): void;
     translate(key: any): any;
     onStateChange(oldState: any): void;
+    fromQueryObject(ob: any): void;
+    getQueryObject(): {};
     getResults(): any;
     setResultsState(): void;
     resetState(): void;

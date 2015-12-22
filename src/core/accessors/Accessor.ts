@@ -26,6 +26,17 @@ export class Accessor<T extends State<any>> {
 
   }
 
+  fromQueryObject(ob){
+    let value = ob[this.urlKey]
+    this.state = this.state.setValue(value)
+  }
+
+  getQueryObject(){
+    return {
+      [this.urlKey]:this.state.getValue()
+    }
+  }
+
   getResults(){
     return this.searcher.results
   }

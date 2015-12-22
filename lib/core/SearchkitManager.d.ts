@@ -13,7 +13,6 @@ export declare class SearchkitManager {
     translateFunction: Function;
     defaultQueries: Array<Function>;
     transport: ESTransport;
-    performSearch: Function;
     multipleSearchers: boolean;
     primarySearcher: Searcher;
     constructor(host: string, options?: SearchkitOptions);
@@ -22,7 +21,6 @@ export declare class SearchkitManager {
     translate(key: any): any;
     createSearcher(): Searcher;
     getAccessors(): any[];
-    iterateAccessors(fn: any): void;
     resetState(): void;
     getState(): {};
     buildSharedQuery(): ImmutableQuery;
@@ -30,7 +28,7 @@ export declare class SearchkitManager {
     listenToHistory(history: any): void;
     setAccessorStates(query: any): void;
     notifyStateChange(oldState: any): void;
-    _performSearch(): void;
+    performSearch(): void;
     search(): void;
     _search(): void;
 }

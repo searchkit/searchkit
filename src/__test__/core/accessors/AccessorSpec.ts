@@ -38,6 +38,22 @@ describe("Accessor", ()=> {
       .not.toThrow()
   })
 
+  it("fromQueryObject", ()=> {
+    let queryObject = {
+      genres_raw:[1,2],
+      authors_raw:[3,4]
+    }
+    this.accessor.fromQueryObject(queryObject)
+    expect(this.accessor.state.getValue())
+      .toEqual([1,2])
+  })
+
+  it("getQueryObject()", ()=> {
+    this.accessor.state = new ValueState([1,2])
+    expect(this.accessor.getQueryObject())
+      .toEqual({genres_raw:[1,2]})
+  })
+
   it("getResults()", ()=> {
     this.searcher.results = [1,2]
     expect(this.accessor.getResults()).toEqual([1,2])
