@@ -27,10 +27,6 @@ export declare class SearchkitManager {
     getState(): {};
     buildSharedQuery(): ImmutableQuery;
     clearSearcherQueries(): void;
-    makeQueryDef(): {
-        queries: any[];
-        searchers: any[];
-    };
     listenToHistory(history: any): void;
     setAccessorStates(query: any): void;
     notifyStateChange(oldState: any): void;

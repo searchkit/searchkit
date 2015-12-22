@@ -108,24 +108,6 @@ export class SearchkitManager {
     })
   }
 
-  makeQueryDef(){
-    var queryDef = {
-      queries:[],
-      searchers:[]
-    }
-    var query = this.buildSharedQuery()
-    _.each(this.searchers, (searcher)=>{
-      searcher.buildQuery(query)
-      if(searcher.queryHasChanged){
-        queryDef.queries = queryDef.queries.concat(
-          searcher.getCommandAndQuery()
-        )
-        queryDef.searchers.push(searcher)
-      }
-    })
-    return queryDef
-  }
-
   listenToHistory(history){
     history.listen((location)=>{
       //action is POP when the browser modified
@@ -163,16 +145,23 @@ export class SearchkitManager {
   //TODO: refactor single, multiple
   _search(){
     this.state = this.getState()
-    var queryDef = this.makeQueryDef()
-    console.log("multiqueries", queryDef.queries)
-    if(queryDef.queries.length > 0) {
-      this.transport.search(queryDef.queries).then((responses)=> {
+    var query = this.buildSharedQuery()
+    _.each(this.searchers, (searcher)=>{
+      searcher.buildQuery(query)
+    })
+    let changedSearchers = _.filter(this.searchers, {queryHasChanged:true})
+    let queries = _.map(changedSearchers, (searcher)=> {
+      return searcher.query.getJSON()
+    })
+
+    console.log("multiqueries", queries)
+    if(queries.length > 0) {
+      this.transport.search(queries).then((responses)=> {
         _.each(responses, (results, index)=>{
-          queryDef.searchers[index].setResults(results)
+          changedSearchers[index].setResults(results)
         })
       }).catch((error)=> {
-        this.clearSearcherQueries()
-        _.each(queryDef.searchers, (searcher)=> {
+        _.each(changedSearchers, (searcher)=> {
           searcher.setError(error)
         })
       })

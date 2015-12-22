@@ -1,6 +1,7 @@
 import { ImmutableQuery } from "./query/ImmutableQuery";
 import { Accessor } from "./accessors/Accessor";
 import { SearchkitManager } from "./SearchkitManager";
+import { EventEmitter } from "./support/EventEmitter";
 export declare class Searcher {
     accessors: Array<Accessor<any>>;
     query: ImmutableQuery;
@@ -10,17 +11,14 @@ export declare class Searcher {
     index: string;
     loading: boolean;
     error: any;
-    private listeners;
+    emitter: EventEmitter;
     constructor();
     setSearchkitManager(searchkitManager: any): void;
     translate(key: any): any;
-    addListener(fn: any): () => void;
-    triggerListeners(): void;
     hasFiltersOrQuery(): boolean;
     addAccessor(accessor: Accessor<any>): void;
     clearQuery(): void;
     buildQuery(query: any): void;
-    getCommandAndQuery(): any[];
     getResults(): any;
     setResults(results: any): void;
     setError(error: any): void;

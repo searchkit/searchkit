@@ -53,7 +53,7 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
       this.searcher.addAccessor(this.accessor)
     }
     if(this.searcher){
-      this.stateListenerUnsubscribe = this.searcher.addListener(()=> {
+      this.stateListenerUnsubscribe = this.searcher.emitter.addListener(()=> {
         this.forceUpdate()
       })
     }

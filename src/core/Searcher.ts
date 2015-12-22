@@ -2,6 +2,7 @@ import {State, ArrayState, ObjectState, ValueState} from "./state"
 import {ImmutableQuery} from "./query/ImmutableQuery";
 import {Accessor} from "./accessors/Accessor"
 import {SearchkitManager} from "./SearchkitManager"
+import {EventEmitter} from "./support/EventEmitter";
 
 export class Searcher {
   accessors: Array<Accessor<any>>
@@ -12,10 +13,12 @@ export class Searcher {
   index:string
   loading:boolean
   error:any
-  private listeners = []
+  emitter:EventEmitter
+
   constructor() {
     this.accessors = []
     this.query = new ImmutableQuery()
+    this.emitter = new EventEmitter()
   }
 
   setSearchkitManager(searchkitManager){
@@ -30,17 +33,6 @@ export class Searcher {
     }
   }
 
-  addListener(fn){
-    this.listeners.push(fn)
-    return ()=>{
-      this.listeners = _.without(this.listeners, fn)
-    }
-  }
-
-  triggerListeners(){
-    _.each(this.listeners, (fn)=> fn())
-  }
-  
   hasFiltersOrQuery(){
     return this.query && this.query.hasFiltersOrQuery()
   }
@@ -64,15 +56,10 @@ export class Searcher {
     if (this.queryHasChanged){
       this.error = null
       this.loading = true
-      this.triggerListeners()
+      this.emitter.trigger()
     }
   }
-  getCommandAndQuery(){
-    return [
-      // {index:this.getIndex()},
-      this.query.getJSON()
-    ]
-  }
+
   getResults() {
     return this.results
   }
@@ -82,13 +69,14 @@ export class Searcher {
     _.each(this.accessors, (accessor)=> {
       accessor.setResultsState()
     })
-    this.triggerListeners()
+    this.emitter.trigger()
   }
 
   setError(error){
+    this.clearQuery()
     this.error = error
     this.loading = false
-    this.triggerListeners()
+    this.emitter.trigger()
   }
 
 }
