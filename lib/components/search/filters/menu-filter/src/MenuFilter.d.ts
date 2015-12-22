@@ -4,6 +4,7 @@ export interface IMenuFilter {
     title: string;
     id: string;
     mod?: string;
+    size?: number;
 }
 export declare class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
     accessor: FacetAccessor;

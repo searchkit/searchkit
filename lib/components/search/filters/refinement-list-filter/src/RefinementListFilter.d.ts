@@ -2,7 +2,7 @@ import { SearchkitComponent, FacetAccessor } from "../../../../../core";
 export interface IRefinementListFilter {
     field: string;
     operator?: string;
-    size?: string;
+    size?: number;
     title: string;
     id: string;
     mod?: string;

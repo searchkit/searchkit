@@ -15,6 +15,7 @@ export interface IMenuFilter {
 	title:string
 	id:string
 	mod?:string
+	size?:number
 }
 
 export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
@@ -35,7 +36,7 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 	defineAccessor() {
 		return new FacetAccessor(
 			this.props.field,
-			{id:this.props.id, operator:"OR", title:this.props.title}
+			{id:this.props.id, operator:"OR", title:this.props.title, size:this.props.size || 20}
 		)
 	}
 

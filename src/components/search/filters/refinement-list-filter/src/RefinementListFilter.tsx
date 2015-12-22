@@ -15,7 +15,7 @@ import {
 export interface IRefinementListFilter {
 	field:string
 	operator?:string
-	size?:string
+	size?:number
 	title:string
 	id:string
 	mod?:string
@@ -31,7 +31,7 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 	defineAccessor() {
 		return new FacetAccessor(
 			this.props.field,
-			{id:this.props.id, operator:this.props.operator, title:this.props.title}
+			{id:this.props.id, operator:this.props.operator, title:this.props.title, size:(this.props.size || 50)}
 		)
 	}
 

@@ -4,6 +4,7 @@ export interface FacetAccessorOptions {
     operator?: string;
     title?: string;
     id?: string;
+    size: number;
 }
 export declare class FacetAccessor extends Accessor<ArrayState> {
     state: ArrayState;

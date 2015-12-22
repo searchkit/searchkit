@@ -11,6 +11,7 @@ export interface FacetAccessorOptions {
   operator?:string,
   title?:string
   id?:string
+  size:number
 }
 
 export class FacetAccessor extends Accessor<ArrayState> {
@@ -62,7 +63,7 @@ export class FacetAccessor extends Accessor<ArrayState> {
     return query.setAggs(Aggs(
       this.key,
       query.getFilters(excludedKey),
-      Terms(this.key, {size:20})
+      Terms(this.key, {size:this.options.size})
     ))
   }
 }
