@@ -10,5 +10,6 @@ export declare class Hits extends SearchkitComponent<IHits, any> {
         item: string;
     };
     renderResult(result: any): JSX.Element;
+    renderNoResults(): JSX.Element;
     render(): JSX.Element;
 }

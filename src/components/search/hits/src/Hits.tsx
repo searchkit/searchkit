@@ -33,12 +33,20 @@ export class Hits extends SearchkitComponent<IHits, any> {
 		)
 	}
 
+	renderNoResults() {
+		return (
+			<div className={this.bemBlocks.container("no-results")}>No results</div>
+		)
+	}
+
 	render() {
-		let hits:{}[] = _.get(this.searcher, "results.hits.hits", null)
+		let hits:{}[] = _.get(this.searcher, "results.hits.hits", [])
+
+		let results = (_.size(hits)) ? _.map(hits, this.renderResult.bind(this)) : this.renderNoResults()
 
 		return (
 			<div className={this.bemBlocks.container()}>
-				{_.map(hits, this.renderResult.bind(this))}
+				{results}
       </div>
 		);
 	}

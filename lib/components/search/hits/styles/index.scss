@@ -3,6 +3,11 @@
   flex-flow: row wrap;
   align-items: flex-start;
 
+  &__no-results {
+    text-align:center;
+    margin-top:60px;
+  }
+
   &__item {
     flex:1 1 250px;
     display:flex;
