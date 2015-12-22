@@ -39,7 +39,7 @@ export class SearchkitManager {
   }
   addSearcher(searcher){
     this.searchers.push(searcher)
-    searcher.setSearchkitManager(this)
+    return searcher
   }
 
   addDefaultQuery(fn:Function){
@@ -50,9 +50,7 @@ export class SearchkitManager {
   }
 
   createSearcher(){
-    var searcher = new Searcher()
-    this.addSearcher(searcher)
-    return searcher
+    return this.addSearcher(new Searcher(this))
   }
 
   getAccessors(){

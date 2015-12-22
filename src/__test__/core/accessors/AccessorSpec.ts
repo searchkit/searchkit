@@ -1,5 +1,6 @@
 import {
-  Accessor, ValueState, Searcher, ImmutableQuery
+  Accessor, ValueState, Searcher, ImmutableQuery,
+  SearchkitManager
 } from "../../../"
 
 describe("Accessor", ()=> {
@@ -12,7 +13,8 @@ describe("Accessor", ()=> {
     this.accessor = new SomeAccessor(
       "genres.raw"
     )
-    this.searcher = new Searcher()
+    this.searchkit = new SearchkitManager("/")
+    this.searcher = new Searcher(this.searchkit)
     this.accessor.setSearcher(this.searcher)
   })
 

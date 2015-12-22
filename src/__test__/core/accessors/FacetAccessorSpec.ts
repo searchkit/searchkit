@@ -12,7 +12,7 @@ describe("FacetAccessor", ()=> {
       title:"Genres",
       id:"GenreId"
     }
-    this.searcher = new Searcher()
+    this.searcher = new Searcher(null)
     this.accessor = new FacetAccessor("genre", this.options)
     this.accessor.setSearcher(this.searcher)
   })

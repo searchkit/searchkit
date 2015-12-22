@@ -7,12 +7,10 @@ describe("Searcher", ()=> {
 
   beforeEach(()=> {
     this.searchkit = new SearchkitManager("/")
-    this.searcher = new Searcher()
+    this.searcher = new Searcher(this.searchkit)
     this.emitterSpy = jasmine.createSpy("emitter")
     this.searcher.emitter.addListener(
       this.emitterSpy)
-    this.searcher.setSearchkitManager(
-      this.searchkit)
     this.accessor = new PageSizeAccessor("p", 10)
   })
 
@@ -23,9 +21,6 @@ describe("Searcher", ()=> {
       .toEqual(jasmine.any(ImmutableQuery))
     expect(this.searcher.emitter)
       .toEqual(jasmine.any(EventEmitter))
-  })
-
-  it("setSearchkitManager()", ()=> {
     expect(this.searcher.searchkitManager)
       .toBe(this.searchkit)
   })

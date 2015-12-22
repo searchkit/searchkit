@@ -1,5 +1,5 @@
 import {
-  FacetAccessor, ImmutableQuery, Searcher,
+  FacetAccessor, ImmutableQuery, Searcher,SearchkitManager,
   BoolMust, BoolShould, ArrayState, HierarchicalFacetAccessor
 } from "../../../"
 import * as _ from "lodash"
@@ -7,7 +7,7 @@ import * as _ from "lodash"
 describe("HierarchicalFacetAccessor", ()=> {
 
   beforeEach(()=> {
-    this.searcher = new Searcher()
+    this.searcher = new Searcher(new SearchkitManager('/'))
     this.accessor = new HierarchicalFacetAccessor("categories", {
       fields:["lvl1", "lvl2", "lvl3"],
       id:"categories_id",

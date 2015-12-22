@@ -65,6 +65,7 @@
     "./src/core/react/SearcherProvider.ts",
     "./src/core/react/SearchkitComponent.ts",
     "./src/core/Searcher.ts",
+    "./src/core/SearcherManager.ts",
     "./src/core/SearchkitManager.ts",
     "./src/core/state/ArrayState.ts",
     "./src/core/state/index.ts",

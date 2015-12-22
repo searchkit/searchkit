@@ -16,10 +16,10 @@ export declare class SearchkitManager {
     multipleSearchers: boolean;
     primarySearcher: Searcher;
     constructor(host: string, options?: SearchkitOptions);
-    addSearcher(searcher: any): void;
+    addSearcher(searcher: any): any;
     addDefaultQuery(fn: Function): void;
     translate(key: any): any;
-    createSearcher(): Searcher;
+    createSearcher(): any;
     getAccessors(): any[];
     resetState(): void;
     getState(): {};

@@ -12,8 +12,7 @@ export declare class Searcher {
     loading: boolean;
     error: any;
     emitter: EventEmitter;
-    constructor();
-    setSearchkitManager(searchkitManager: any): void;
+    constructor(searchkitManager: any);
     translate(key: any): any;
     hasFiltersOrQuery(): boolean;
     addAccessor(accessor: Accessor<any>): void;

@@ -15,22 +15,18 @@ export class Searcher {
   error:any
   emitter:EventEmitter
 
-  constructor() {
+  constructor(searchkitManager) {
+    this.searchkitManager = searchkitManager
     this.accessors = []
     this.query = new ImmutableQuery()
     this.emitter = new EventEmitter()
   }
 
-  setSearchkitManager(searchkitManager){
-    this.searchkitManager = searchkitManager
-  }
-
   translate(key){
-    if(this.searchkitManager){
-      return this.searchkitManager.translate(key)
-    } else {
-      return key
-    }
+    return (
+      this.searchkitManager && this.searchkitManager.translate(key)
+      || key
+    )
   }
 
   hasFiltersOrQuery(){
@@ -49,7 +45,6 @@ export class Searcher {
   resetState(){
     _.invoke(this.accessors, "resetState")
   }
-
 
   buildQuery(query) {
     query = _.reduce(this.accessors, (query, accessor) => {

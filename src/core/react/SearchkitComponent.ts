@@ -47,8 +47,7 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
     if(this.accessor){
       // this.searcher.stateManager.registerAccessor(this.accessor)
       if(!this.searcher){
-        this.searcher = new Searcher()
-        this.searchkit.addSearcher(this.searcher)
+        this.searcher = this.searchkit.createSearcher()        
       }
       this.searcher.addAccessor(this.accessor)
     }

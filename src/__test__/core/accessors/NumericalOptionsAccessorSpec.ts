@@ -7,7 +7,7 @@ import * as _ from "lodash"
 describe("NumericOptionsAccessor", ()=> {
 
   beforeEach(()=> {
-    this.searcher = new Searcher()
+    this.searcher = new Searcher(null)
     this.options = {
       field:"price",
       id:"price_id",
