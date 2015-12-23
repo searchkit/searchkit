@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "test": "./node_modules/.bin/karma start --single-run",
+    "test": "./node_modules/.bin/karma start --single-run --reporters junit,dots",
     "test:watch": "./node_modules/.bin/karma start karma.conf.js --auto-watch",
     "build": "tsc; gulp copy-assets;",
     "build:watch": "tsc -w",
@@ -41,6 +41,7 @@
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.14",
     "karma-jasmine": "^0.3.6",
+    "karma-junit-reporter": "^0.3.8",
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-sourcemap-loader": "^0.3.6",
     "karma-webpack": "^1.7.0",
