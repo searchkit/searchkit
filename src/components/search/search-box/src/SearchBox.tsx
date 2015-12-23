@@ -1,4 +1,6 @@
 import * as React from "react";
+import * as _ from "lodash"
+
 var Autosuggest = require('react-autosuggest');
 
 import "../styles/index.scss";
@@ -17,6 +19,8 @@ export interface ISearchBox {
 	mod?:string
 }
 
+
+
 export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	accessor:SearchAccessor
 	suggestSearcher: ESTransport
@@ -31,7 +35,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 
 	componentWillMount() {
 		super.componentWillMount()
-		this.suggestSearcher = this.searchkit.transport
+		this.suggestSearcher = new ESTransport(this.searchkit.host)
 	}
 
 	defineAccessor(){
@@ -126,7 +130,9 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		const value = e.target.value;
 		this.accessor.state = this.accessor.state.setValue(value)
 		if (this.props.searchOnChange) {
-			this.searchQuery(value)
+			_.debounce(()=> {
+				this.searchQuery(this.accessor.state.getValue())
+			}, 500)()
 		}
 	}
 

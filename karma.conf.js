@@ -16,6 +16,12 @@ module.exports = function (config) {
       'webpack.tests.js': ['webpack', 'sourcemap']
     },
     reporters: ['progress'], //report results in this format
+
+    junitReporter: {
+      outputDir: path.join(process.env.CIRCLE_TEST_REPORTS || '$CIRCLE_TEST_REPORTS', "karma", "junit.xml"),
+      useBrowserName: false // add browser name to report and classes names
+    },
+
     webpack: new WebpackConfig().extend("webpack.test.config")
   });
 };

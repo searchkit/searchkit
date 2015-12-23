@@ -32,9 +32,10 @@ export class Accessor<T extends State<any>> {
   }
 
   getQueryObject(){
-    return {
+    let val = this.state.getValue()    
+    return (val) ? {
       [this.urlKey]:this.state.getValue()
-    }
+    } : {}
   }
 
   getResults(){

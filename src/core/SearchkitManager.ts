@@ -5,6 +5,9 @@ import {Accessor} from "./accessors/Accessor"
 import {Searcher} from "./Searcher"
 import {history} from "./history";
 import {ESTransport} from "./ESTransport";
+import {SearcherCollection} from "./SearcherCollection"
+import {SearchRequest} from "./SearchRequest"
+import {Utils} from "./support"
 import * as _ from "lodash"
 
 require('es6-promise').polyfill()
@@ -14,32 +17,31 @@ export interface SearchkitOptions {
 }
 
 export class SearchkitManager {
-  searchers:Array<Searcher>
+  searchers:SearcherCollection
   host:string
   private registrationCompleted:Promise<any>
   completeRegistration:Function
   state:any
   translateFunction:Function
   defaultQueries:Array<Function>
-  transport:ESTransport
   multipleSearchers:boolean
   primarySearcher:Searcher
+  currentSearchRequest:SearchRequest
+
   constructor(host:string, options:SearchkitOptions = {}){
     this.host = host
-    this.searchers = []
+    this.searchers = new SearcherCollection()
 		this.registrationCompleted = new Promise((resolve)=>{
 			this.completeRegistration = resolve
 		})
     this.listenToHistory(history)
     this.defaultQueries = []
     this.translateFunction = _.identity
-    this.transport = new ESTransport(this.host)
     this.multipleSearchers = options.multipleSearchers || false
     this.primarySearcher = this.createSearcher()
   }
   addSearcher(searcher){
-    this.searchers.push(searcher)
-    return searcher
+    return this.searchers.add(searcher)
   }
 
   addDefaultQuery(fn:Function){
@@ -52,37 +54,19 @@ export class SearchkitManager {
   createSearcher(){
     return this.addSearcher(new Searcher(this))
   }
+  buildSharedQuery(){
+    var sharedQuery = Utils.collapse(
+      this.defaultQueries, new ImmutableQuery())
+    return this.searchers.buildSharedQuery(sharedQuery)
+  }
 
-  getAccessors(){
-    return _.chain(this.searchers)
-      .pluck("accessors")
-      .flatten()
-      .value()
+  buildQuery(){
+    let sharedQuery = this.buildSharedQuery()
+    this.searchers.buildQuery(sharedQuery)
   }
 
   resetState(){
-    _.invoke(this.searchers, "resetState")
-  }
-
-  getState(){
-    return _.reduce(this.getAccessors(), (state, accessor)=> {
-      return _.extend(state, accessor.getQueryObject())
-    }, {})
-  }
-
-  buildSharedQuery(){
-    var query = new ImmutableQuery()
-    query = _.reduce(this.defaultQueries, (currentQuery, fn)=>{
-      return fn(currentQuery)
-    }, query)
-
-    return _.reduce(this.getAccessors(), (query, accessor)=>{
-      return accessor.buildSharedQuery(query)
-    }, query)
-  }
-
-  clearSearcherQueries(){
-    _.invoke(this.searchers, "clearQuery")
+    this.searchers.resetState()
   }
 
   listenToHistory(history){
@@ -90,23 +74,17 @@ export class SearchkitManager {
       //action is POP when the browser modified
       if(location.action === "POP") {
         this.registrationCompleted.then(()=>{
-          this.setAccessorStates(location.query)
+          this.searchers.setAccessorStates(location.query)
           this._search()
+        }).catch((e)=> {
+          console.log(e.stack)
         })
       }
     })
   }
 
-  setAccessorStates(query){
-    _.invoke(this.getAccessors(), "fromQueryObject", query)
-  }
-
-  notifyStateChange(oldState){
-    _.invoke(this.getAccessors(), "onStateChange", oldState)
-  }
-
   performSearch(){
-    this.notifyStateChange(this.state)
+    this.searchers.notifyStateChange(this.state)
     this._search()
     history.pushState(null, window.location.pathname, this.state)
   }
@@ -114,25 +92,15 @@ export class SearchkitManager {
     this.performSearch()
   }
 
-  //TODO: refactor single, multiple
   _search(){
-    this.state = this.getState()
-    var query = this.buildSharedQuery()
-    _.invoke(this.searchers, "buildQuery", query)
-    let changedSearchers = _.filter(this.searchers, {queryHasChanged:true})
-    let queries = _.map(changedSearchers, (searcher)=> {
-      return searcher.query.getJSON()
-    })
-
-    console.log("multiqueries", queries)
-    if(queries.length > 0) {
-      this.transport.search(queries).then((responses)=> {
-        _.each(responses, (results, index)=>{
-          changedSearchers[index].setResults(results)
-        })
-      }).catch((error)=> {
-        _.invoke(changedSearchers, "setError", error)
-      })
+    this.state = this.searchers.getState()
+    this.buildQuery()
+    let changedSearchers = this.searchers.getChangedSearchers()
+    if(changedSearchers.size() > 0){
+      this.currentSearchRequest && this.currentSearchRequest.deactivate()
+      this.currentSearchRequest = new SearchRequest(
+        this.host, this.searchers.getChangedSearchers())
+        this.currentSearchRequest.run()
     }
   }
 
