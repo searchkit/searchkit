@@ -33,11 +33,17 @@ export class SearcherCollection {
   }
 
   setAccessorStates(query){
-    _.invoke(this.getAccessors(), "fromQueryObject", query)
+    _.each(
+      this.getAccessors(),
+      accessor=>accessor.fromQueryObject(query)
+    )
   }
 
   notifyStateChange(oldState){
-    _.invoke(this.getAccessors(), "onStateChange", oldState)
+    _.each(
+      this.getAccessors(),
+      accessor => accessor.onStateChange(oldState)
+    )
   }
 
   getChangedSearchers(){
