@@ -7,6 +7,7 @@ import {history} from "./history";
 import {ESTransport} from "./ESTransport";
 import {SearcherCollection} from "./SearcherCollection"
 import {SearchRequest} from "./SearchRequest"
+import {Utils} from "./support"
 import * as _ from "lodash"
 
 require('es6-promise').polyfill()
@@ -16,7 +17,7 @@ export interface SearchkitOptions {
 }
 
 export class SearchkitManager {
-  searchers:Array<Searcher>
+  searchers:SearcherCollection
   host:string
   private registrationCompleted:Promise<any>
   completeRegistration:Function
@@ -29,7 +30,7 @@ export class SearchkitManager {
 
   constructor(host:string, options:SearchkitOptions = {}){
     this.host = host
-    this.searchers = []
+    this.searchers = new SearcherCollection()
 		this.registrationCompleted = new Promise((resolve)=>{
 			this.completeRegistration = resolve
 		})
@@ -40,8 +41,7 @@ export class SearchkitManager {
     this.primarySearcher = this.createSearcher()
   }
   addSearcher(searcher){
-    this.searchers.push(searcher)
-    return searcher
+    return this.searchers.add(searcher)
   }
 
   addDefaultQuery(fn:Function){
@@ -54,33 +54,19 @@ export class SearchkitManager {
   createSearcher(){
     return this.addSearcher(new Searcher(this))
   }
+  buildSharedQuery(){
+    var sharedQuery = Utils.collapse(
+      this.defaultQueries, new ImmutableQuery())
+    return this.searchers.buildSharedQuery(sharedQuery)
+  }
 
-  getAccessors(){
-    return _.chain(this.searchers)
-      .pluck("accessors")
-      .flatten()
-      .value()
+  buildQuery(){
+    let sharedQuery = this.buildSharedQuery()
+    this.searchers.buildQuery(sharedQuery)
   }
 
   resetState(){
-    _.invoke(this.searchers, "resetState")
-  }
-
-  getState(){
-    return _.reduce(this.getAccessors(), (state, accessor)=> {
-      return _.extend(state, accessor.getQueryObject())
-    }, {})
-  }
-
-  buildSharedQuery(){
-    var query = new ImmutableQuery()
-    query = _.reduce(this.defaultQueries, (currentQuery, fn)=>{
-      return fn(currentQuery)
-    }, query)
-
-    return _.reduce(this.getAccessors(), (query, accessor)=>{
-      return accessor.buildSharedQuery(query)
-    }, query)
+    this.searchers.resetState()
   }
 
   listenToHistory(history){
@@ -88,23 +74,17 @@ export class SearchkitManager {
       //action is POP when the browser modified
       if(location.action === "POP") {
         this.registrationCompleted.then(()=>{
-          this.setAccessorStates(location.query)
+          this.searchers.setAccessorStates(location.query)
           this._search()
+        }).catch((e)=> {
+          console.log(e.stack)
         })
       }
     })
   }
 
-  setAccessorStates(query){
-    _.invoke(this.getAccessors(), "fromQueryObject", query)
-  }
-
-  notifyStateChange(oldState){
-    _.invoke(this.getAccessors(), "onStateChange", oldState)
-  }
-
   performSearch(){
-    this.notifyStateChange(this.state)
+    this.searchers.notifyStateChange(this.state)
     this._search()
     history.pushState(null, window.location.pathname, this.state)
   }
@@ -113,12 +93,10 @@ export class SearchkitManager {
   }
 
   _search(){
-    this.state = this.getState()
-    var query = this.buildSharedQuery()
-    _.invoke(this.searchers, "buildQuery", query)
-    let changedSearchers = _.filter(this.searchers, {queryHasChanged:true})
-    let searchers = new SearcherCollection(changedSearchers)
-    this.currentSearchRequest = new SearchRequest(this.host, searchers)
+    this.state = this.searchers.getState()
+    this.buildQuery()
+    this.currentSearchRequest = new SearchRequest(
+      this.host, this.searchers.getChangedSearchers())
     this.currentSearchRequest.run()
   }
 

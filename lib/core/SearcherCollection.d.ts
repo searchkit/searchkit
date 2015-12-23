@@ -1,8 +1,17 @@
 import { Searcher } from "./Searcher";
 export declare class SearcherCollection {
     searchers: Array<Searcher>;
-    constructor(searchers: Array<Searcher>);
+    constructor(searchers?: Array<Searcher>);
+    getAccessors(): any[];
+    add(searcher: any): any;
+    getState(): {};
+    setAccessorStates(query: any): void;
+    notifyStateChange(oldState: any): void;
+    getChangedSearchers(): SearcherCollection;
+    buildSharedQuery(query: any): any;
+    buildQuery(query: any): void;
     getQueries(): any[];
     setResponses(responses: any): void;
     setError(error: any): void;
+    resetState(): void;
 }

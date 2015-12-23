@@ -1,11 +1,11 @@
-import { ImmutableQuery } from "./query/ImmutableQuery";
 import { Searcher } from "./Searcher";
+import { SearcherCollection } from "./SearcherCollection";
 import { SearchRequest } from "./SearchRequest";
 export interface SearchkitOptions {
     multipleSearchers?: boolean;
 }
 export declare class SearchkitManager {
-    searchers: Array<Searcher>;
+    searchers: SearcherCollection;
     host: string;
     private registrationCompleted;
     completeRegistration: Function;
@@ -20,13 +20,10 @@ export declare class SearchkitManager {
     addDefaultQuery(fn: Function): void;
     translate(key: any): any;
     createSearcher(): any;
-    getAccessors(): any[];
+    buildSharedQuery(): any;
+    buildQuery(): void;
     resetState(): void;
-    getState(): {};
-    buildSharedQuery(): ImmutableQuery;
     listenToHistory(history: any): void;
-    setAccessorStates(query: any): void;
-    notifyStateChange(oldState: any): void;
     performSearch(): void;
     search(): void;
     _search(): void;
