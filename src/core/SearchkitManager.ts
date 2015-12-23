@@ -5,6 +5,8 @@ import {Accessor} from "./accessors/Accessor"
 import {Searcher} from "./Searcher"
 import {history} from "./history";
 import {ESTransport} from "./ESTransport";
+import {SearcherCollection} from "./SearcherCollection"
+import {SearchRequest} from "./SearchRequest"
 import * as _ from "lodash"
 
 require('es6-promise').polyfill()
@@ -21,9 +23,10 @@ export class SearchkitManager {
   state:any
   translateFunction:Function
   defaultQueries:Array<Function>
-  transport:ESTransport
   multipleSearchers:boolean
   primarySearcher:Searcher
+  currentSearchRequest:SearchRequest
+
   constructor(host:string, options:SearchkitOptions = {}){
     this.host = host
     this.searchers = []
@@ -33,7 +36,6 @@ export class SearchkitManager {
     this.listenToHistory(history)
     this.defaultQueries = []
     this.translateFunction = _.identity
-    this.transport = new ESTransport(this.host)
     this.multipleSearchers = options.multipleSearchers || false
     this.primarySearcher = this.createSearcher()
   }
@@ -81,10 +83,6 @@ export class SearchkitManager {
     }, query)
   }
 
-  clearSearcherQueries(){
-    _.invoke(this.searchers, "clearQuery")
-  }
-
   listenToHistory(history){
     history.listen((location)=>{
       //action is POP when the browser modified
@@ -114,26 +112,14 @@ export class SearchkitManager {
     this.performSearch()
   }
 
-  //TODO: refactor single, multiple
   _search(){
     this.state = this.getState()
     var query = this.buildSharedQuery()
     _.invoke(this.searchers, "buildQuery", query)
     let changedSearchers = _.filter(this.searchers, {queryHasChanged:true})
-    let queries = _.map(changedSearchers, (searcher)=> {
-      return searcher.query.getJSON()
-    })
-
-    console.log("multiqueries", queries)
-    if(queries.length > 0) {
-      this.transport.search(queries).then((responses)=> {
-        _.each(responses, (results, index)=>{
-          changedSearchers[index].setResults(results)
-        })
-      }).catch((error)=> {
-        _.invoke(changedSearchers, "setError", error)
-      })
-    }
+    let searchers = new SearcherCollection(changedSearchers)
+    this.currentSearchRequest = new SearchRequest(this.host, searchers)
+    this.currentSearchRequest.run()
   }
 
 }

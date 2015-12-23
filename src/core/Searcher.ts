@@ -71,9 +71,7 @@ export class Searcher {
   setResults(results) {
     this.results = results
     this.loading = false
-    _.each(this.accessors, (accessor)=> {
-      accessor.setResultsState()
-    })
+    _.invoke(this.accessors, "setResultsState")
     this.emitter.trigger()
   }
 

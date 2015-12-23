@@ -31,7 +31,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 
 	componentWillMount() {
 		super.componentWillMount()
-		this.suggestSearcher = this.searchkit.transport
+		this.suggestSearcher = new ESTransport(this.searchkit.host)
 	}
 
 	defineAccessor(){

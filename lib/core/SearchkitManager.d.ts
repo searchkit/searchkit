@@ -1,6 +1,6 @@
 import { ImmutableQuery } from "./query/ImmutableQuery";
 import { Searcher } from "./Searcher";
-import { ESTransport } from "./ESTransport";
+import { SearchRequest } from "./SearchRequest";
 export interface SearchkitOptions {
     multipleSearchers?: boolean;
 }
@@ -12,9 +12,9 @@ export declare class SearchkitManager {
     state: any;
     translateFunction: Function;
     defaultQueries: Array<Function>;
-    transport: ESTransport;
     multipleSearchers: boolean;
     primarySearcher: Searcher;
+    currentSearchRequest: SearchRequest;
     constructor(host: string, options?: SearchkitOptions);
     addSearcher(searcher: any): any;
     addDefaultQuery(fn: Function): void;
@@ -24,7 +24,6 @@ export declare class SearchkitManager {
     resetState(): void;
     getState(): {};
     buildSharedQuery(): ImmutableQuery;
-    clearSearcherQueries(): void;
     listenToHistory(history: any): void;
     setAccessorStates(query: any): void;
     notifyStateChange(oldState: any): void;
