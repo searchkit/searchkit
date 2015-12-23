@@ -162,6 +162,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 						value={this.getValue()}
 						inputAttributes={inputAttributes}/>
           <input type="submit" value="search" className={block("action")}/>
+					<div className={block("loader").mix("sk-spinning-loader").state({hidden:!this.isLoading()})}></div>
         </form>
       </div>
 		);
