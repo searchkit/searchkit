@@ -95,9 +95,13 @@ export class SearchkitManager {
   _search(){
     this.state = this.searchers.getState()
     this.buildQuery()
-    this.currentSearchRequest = new SearchRequest(
-      this.host, this.searchers.getChangedSearchers())
-    this.currentSearchRequest.run()
+    let changedSearchers = this.searchers.getChangedSearchers()
+    if(changedSearchers.size() > 0){
+      this.currentSearchRequest && this.currentSearchRequest.deactivate()
+      this.currentSearchRequest = new SearchRequest(
+        this.host, this.searchers.getChangedSearchers())
+        this.currentSearchRequest.run()
+    }
   }
 
 }

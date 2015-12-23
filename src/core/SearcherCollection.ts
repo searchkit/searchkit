@@ -22,6 +22,10 @@ export class SearcherCollection {
     return searcher
   }
 
+  size(){
+    return this.searchers.length
+  }
+
   getState(){
     return _.reduce(this.getAccessors(), (state, accessor)=> {
       return _.extend(state, accessor.getQueryObject())

@@ -4,6 +4,7 @@ export declare class SearcherCollection {
     constructor(searchers?: Array<Searcher>);
     getAccessors(): any[];
     add(searcher: any): any;
+    size(): number;
     getState(): {};
     setAccessorStates(query: any): void;
     notifyStateChange(oldState: any): void;
