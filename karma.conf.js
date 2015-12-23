@@ -18,7 +18,7 @@ module.exports = function (config) {
     reporters: ['progress'], //report results in this format
 
     junitReporter: {
-      outputDir: '$CIRCLE_TEST_REPORTS', // results will be saved as $outputDir/$browserName.xml
+      outputDir: '$CIRCLE_TEST_REPORTS/junit', // results will be saved as $outputDir/$browserName.xml
       outputFile: undefined, // if included, results will be saved as $outputDir/$browserName/$outputFile
       suite: '', // suite will become the package name attribute in xml testsuite element
       useBrowserName: true // add browser name to report and classes names
