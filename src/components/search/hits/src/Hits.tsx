@@ -55,6 +55,7 @@ export class Hits extends SearchkitComponent<IHits, any> {
 		let hits:{}[] = _.get(this.searcher, "results.hits.hits", [])
 		let hasHits = _.size(hits) > 0
 		let results = null
+		
 		if (this.initialLoad && !hasHits) {
 			results = this.renderInitialView()
 		} else if (!hasHits) {
