@@ -13,9 +13,15 @@ export interface IHits {
 }
 
 export class Hits extends SearchkitComponent<IHits, any> {
+	initialLoad:boolean
 
 	defineAccessor(){
 		return new PageSizeAccessor("s", this.props.hitsPerPage)
+	}
+
+	componentWillMount() {
+		super.componentWillMount()
+		this.initialLoad = true
 	}
 
 	defineBEMBlocks() {
@@ -33,6 +39,12 @@ export class Hits extends SearchkitComponent<IHits, any> {
 		)
 	}
 
+	renderInitialView() {
+		return (
+			<div className={this.bemBlocks.container("initial-loading")}></div>
+		)
+	}
+
 	renderNoResults() {
 		return (
 			<div className={this.bemBlocks.container("no-results")}>No results</div>
@@ -41,8 +53,16 @@ export class Hits extends SearchkitComponent<IHits, any> {
 
 	render() {
 		let hits:{}[] = _.get(this.searcher, "results.hits.hits", [])
-
-		let results = (_.size(hits)) ? _.map(hits, this.renderResult.bind(this)) : this.renderNoResults()
+		let hasHits = _.size(hits) > 0
+		let results = null
+		if (this.initialLoad && !hasHits) {
+			results = this.renderInitialView()
+		} else if (!hasHits) {
+			results = this.renderNoResults()
+		} else {
+			results = _.map(hits, this.renderResult.bind(this))
+			this.initialLoad = false
+		}
 
 		return (
 			<div className={this.bemBlocks.container()}>
