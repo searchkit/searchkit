@@ -3,7 +3,7 @@
   "version": "0.1.5",
   "description": "A suite of react components to help create a UI quickly for elasticsearch ",
   "main": "lib/index.js",
-  "keywords":["elasticsearch", "react", "ui components", "search", "library", "client-side"],
+  "keywords":["elasticsearch", "elastic search", "react", "ui components", "search", "library", "client-side", "widgets", "react components"],
   "homepage":"http://www.searchkit.co",
   "bugs":{ "url" : "https://github.com/searchkit/searchkit/issues" },
   "repository" : { "type" : "git"
