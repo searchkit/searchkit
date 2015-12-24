@@ -132,7 +132,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		if (this.props.searchOnChange) {
 			_.debounce(()=> {
 				this.searchQuery(this.accessor.state.getValue())
-			}, 500)()
+			}, 300)()
 		}
 	}
 

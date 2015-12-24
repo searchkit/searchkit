@@ -26,5 +26,5 @@ export declare class SearchkitManager {
     listenToHistory(history: any): void;
     performSearch(): void;
     search(): void;
-    _search(): void;
+    _search(): boolean;
 }

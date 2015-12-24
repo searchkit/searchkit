@@ -85,8 +85,10 @@ export class SearchkitManager {
 
   performSearch(){
     this.searchers.notifyStateChange(this.state)
-    this._search()
-    history.pushState(null, window.location.pathname, this.state)
+    let hasSearched = this._search()
+    if(hasSearched){
+      history.pushState(null, window.location.pathname, this.state)
+    }
   }
   search(){
     this.performSearch()
@@ -96,12 +98,14 @@ export class SearchkitManager {
     this.state = this.searchers.getState()
     this.buildQuery()
     let changedSearchers = this.searchers.getChangedSearchers()
-    if(changedSearchers.size() > 0){
+    let hasChanged = changedSearchers.size() > 0
+    if(hasChanged){
       this.currentSearchRequest && this.currentSearchRequest.deactivate()
       this.currentSearchRequest = new SearchRequest(
         this.host, this.searchers.getChangedSearchers())
         this.currentSearchRequest.run()
     }
+    return hasChanged
   }
 
 }
