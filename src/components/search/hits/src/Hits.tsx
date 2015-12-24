@@ -13,15 +13,9 @@ export interface IHits {
 }
 
 export class Hits extends SearchkitComponent<IHits, any> {
-	initialLoad:boolean
 
 	defineAccessor(){
 		return new PageSizeAccessor("s", this.props.hitsPerPage)
-	}
-
-	componentWillMount() {
-		super.componentWillMount()
-		this.initialLoad = true
 	}
 
 	defineBEMBlocks() {
@@ -55,14 +49,13 @@ export class Hits extends SearchkitComponent<IHits, any> {
 		let hits:{}[] = _.get(this.searcher, "results.hits.hits", [])
 		let hasHits = _.size(hits) > 0
 		let results = null
-		
-		if (this.initialLoad && !hasHits) {
+
+		if (this.isInitialLoading()) {			
 			results = this.renderInitialView()
 		} else if (!hasHits) {
 			results = this.renderNoResults()
 		} else {
 			results = _.map(hits, this.renderResult.bind(this))
-			this.initialLoad = false
 		}
 
 		return (

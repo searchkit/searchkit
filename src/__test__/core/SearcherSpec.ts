@@ -23,6 +23,8 @@ describe("Searcher", ()=> {
       .toEqual(jasmine.any(EventEmitter))
     expect(this.searcher.searchkitManager)
       .toBe(this.searchkit)
+    expect(this.searcher.initialLoading)
+      .toBe(true)
   })
 
   it("translate()", ()=> {
@@ -104,6 +106,7 @@ describe("Searcher", ()=> {
     this.searcher.setResults([1,2,3])
     expect(this.searcher.results).toEqual([1,2,3])
     expect(this.searcher.loading).toBe(false)
+    expect(this.searcher.initialLoading).toBe(false)
     expect(this.accessor.setResultsState)
       .toHaveBeenCalled()
     expect(this.emitterSpy).toHaveBeenCalled()
@@ -115,6 +118,7 @@ describe("Searcher", ()=> {
     this.searcher.setError(error)
     expect(this.searcher.error).toBe(error)
     expect(this.searcher.loading).toBe(false)
+    expect(this.searcher.initialLoading).toBe(false)
     expect(this.emitterSpy).toHaveBeenCalled()
   })
 })

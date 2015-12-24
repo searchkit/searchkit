@@ -12,6 +12,7 @@ export declare class Searcher {
     loading: boolean;
     error: any;
     emitter: EventEmitter;
+    initialLoading: boolean;
     constructor(searchkitManager: any);
     translate(key: any): any;
     hasFiltersOrQuery(): boolean;
@@ -23,4 +24,5 @@ export declare class Searcher {
     getResults(): any;
     setResults(results: any): void;
     setError(error: any): void;
+    onResponseChange(): void;
 }

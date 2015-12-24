@@ -4,9 +4,7 @@ export interface IHits {
     mod?: string;
 }
 export declare class Hits extends SearchkitComponent<IHits, any> {
-    initialLoad: boolean;
     defineAccessor(): PageSizeAccessor;
-    componentWillMount(): void;
     defineBEMBlocks(): {
         container: string;
         item: string;

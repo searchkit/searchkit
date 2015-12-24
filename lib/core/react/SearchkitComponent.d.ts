@@ -18,6 +18,7 @@ export declare class SearchkitComponent<P, S> extends React.Component<P, S> {
     shouldCreateNewSearcher(): boolean;
     translate(key: any): any;
     componentWillMount(): void;
+    isInitialLoading(): boolean;
     isLoading(): boolean;
     getError(): any;
     componentWillUnmount(): void;

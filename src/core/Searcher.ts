@@ -14,12 +14,14 @@ export class Searcher {
   loading:boolean
   error:any
   emitter:EventEmitter
+  initialLoading:boolean
 
   constructor(searchkitManager) {
     this.searchkitManager = searchkitManager
     this.accessors = []
     this.query = new ImmutableQuery()
     this.emitter = new EventEmitter()
+    this.initialLoading = true
   }
 
   translate(key){
@@ -70,15 +72,19 @@ export class Searcher {
   }
   setResults(results) {
     this.results = results
-    this.loading = false
     _.invoke(this.accessors, "setResultsState")
-    this.emitter.trigger()
+    this.onResponseChange()
   }
 
   setError(error){
     this.clearQuery()
     this.error = error
+    this.onResponseChange()
+  }
+
+  onResponseChange(){
     this.loading = false
+    this.initialLoading = false
     this.emitter.trigger()
   }
 
