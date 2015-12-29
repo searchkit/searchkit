@@ -3,11 +3,24 @@
   "version": "0.1.6",
   "description": "A suite of react components to help create a UI quickly for elasticsearch ",
   "main": "lib/index.js",
-  "keywords":["elasticsearch", "elastic search", "react", "ui components", "search", "library", "client-side", "widgets", "react components"],
-  "homepage":"http://www.searchkit.co",
-  "bugs":{ "url" : "https://github.com/searchkit/searchkit/issues" },
-  "repository" : { "type" : "git"
-    , "url" : "https://github.com/searchkit/searchkit.git"
+  "keywords": [
+    "elasticsearch",
+    "elastic search",
+    "react",
+    "ui components",
+    "search",
+    "library",
+    "client-side",
+    "widgets",
+    "react components"
+  ],
+  "homepage": "http://www.searchkit.co",
+  "bugs": {
+    "url": "https://github.com/searchkit/searchkit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/searchkit/searchkit.git"
   },
   "typings": "lib/index.d.ts",
   "scripts": {
@@ -44,6 +57,7 @@
   },
   "devDependencies": {
     "gulp": "^3.9.0",
+    "jasmine-ajax": "^3.2.0",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.14",
     "karma-jasmine": "^0.3.6",

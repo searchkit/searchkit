@@ -67,6 +67,9 @@
     },
     "react/react-addons-test-utils.d.ts": {
       "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
+    },
+    "jasmine-ajax/jasmine-ajax.d.ts": {
+      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
     }
   }
 }

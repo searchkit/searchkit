@@ -34,6 +34,7 @@
     "./src/__test__/core/accessors/PaginationAccessorSpec.ts",
     "./src/__test__/core/accessors/SearchAccessorSpec.ts",
     "./src/__test__/core/accessors/SortingAccessorSpec.ts",
+    "./src/__test__/core/ESTransportSpec.ts",
     "./src/__test__/core/query/ImmutableQuerySpec.ts",
     "./src/__test__/core/query/QueryBuildersSpec.ts",
     "./src/__test__/core/SearcherCollectionSpec.ts",
