@@ -74,7 +74,7 @@ describe("ESTransport", ()=> {
       })
   })
 
-  it("test timeout", (done)=> {
+  it("test timeout", ()=> {
     ESTransport.timeout = 10
     this.transport = new ESTransport(this.host)
     expect(this.transport.axios.defaultConfig.timeout)
