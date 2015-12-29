@@ -51,8 +51,8 @@ ReactDOM.render((
 
 ```
 
-#### Which searchkit host to provide? 
-Searchkit connect to an elasticsearch like endpoint `/_search` 
+#### Which searchkit host to provide?
+Searchkit connect to an elasticsearch like endpoint `/_search`
 this can be either a proxy or for quick development a direct local elastic instance
 
 ```js
@@ -63,7 +63,7 @@ new SearchkitManager("<public read only elastic url>");
 ```
 
 #### If your using elastic locally
-If you are are getting a cors related error, you will need to add the following to you 
+If you are are getting a cors related error, you will need to add the following to you
 `config/elasticsearch.yml' file
 ```yaml
 http.cors.enabled : true  
@@ -120,8 +120,8 @@ import {
 class App extends SearchkitComponent<any, any> {
   render(){
     <div>
-      <SearchBox 
-        searchOnChange={true} 
+      <SearchBox
+        searchOnChange={true}
         prefixQueryFields={["languages","title^10"]}
         queryFields={["title^5"]}/>
     </div>
@@ -133,6 +133,7 @@ class App extends SearchkitComponent<any, any> {
 - `searchOnChange` *(Boolean)*: Optional. Updates search results as you type. Will be false by default.
 - `prefixQueryFields` *([string])*: Optional. An array of fields which uses the prefix field search
 - `queryFields` *(Array<string>)*: Optional. An array of elasticsearch fields to search within. Can specify boosting on particular fields. Will search `_all` by default.
+- `mod` *(string)*: Optional. A custom BEM container class.  
 
 #### Hits
 Hits component displays results from ElasticSearch. To customise each result, you need to override the
@@ -211,8 +212,8 @@ class App extends SearchkitComponent<any, any> {
 
   render(){
     <div>
-      <MenuFilter 
-        field="languages.raw" 
+      <MenuFilter
+        field="languages.raw"
         title="Languages" id="languages"/>
     </div>
   }
@@ -349,7 +350,7 @@ import {
 } from "searchkit";
 
 class App extends SearchkitComponent<any, any> {
-  
+
   render(){
     <div>
       <SortingSelector options={[

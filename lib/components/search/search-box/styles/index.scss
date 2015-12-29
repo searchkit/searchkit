@@ -43,7 +43,9 @@
   }
 
   &__loader {
-
+    flex:0 20px 20px;
+    align-self: flex-end;
+    
   }
 
 }
