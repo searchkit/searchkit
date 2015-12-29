@@ -15,12 +15,13 @@ export class SearchRequest {
     let queries = this.searchers.getQueries()
     console.log("queries", queries)
     if(queries.length > 0) {
-      this.transport.search(queries).then(
+      return this.transport.search(queries).then(
         this.setResponses.bind(this)
       ).catch(
         this.setError.bind(this)
       )
     }
+    return Promise.resolve()
   }
 
   deactivate(){

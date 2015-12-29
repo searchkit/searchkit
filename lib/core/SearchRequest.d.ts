@@ -6,7 +6,7 @@ export declare class SearchRequest {
     active: boolean;
     transport: ESTransport;
     constructor(host: string, searchers: SearcherCollection);
-    run(): void;
+    run(): axios.Promise;
     deactivate(): void;
     setResponses(responses: any): void;
     setError(error: any): void;

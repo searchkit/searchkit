@@ -39,6 +39,7 @@
     "./src/__test__/core/query/QueryBuildersSpec.ts",
     "./src/__test__/core/SearcherCollectionSpec.ts",
     "./src/__test__/core/SearcherSpec.ts",
+    "./src/__test__/core/SearchRequestSpec.ts",
     "./src/__test__/core/state/ArrayStateSpec.ts",
     "./src/__test__/core/state/LevelStateSpec.ts",
     "./src/__test__/core/state/ObjectStateSpec.ts",
