@@ -3,7 +3,7 @@ import {State,ArrayState,ObjectState,ValueState} from "./state"
 import {ImmutableQuery} from "./query/ImmutableQuery";
 import {Accessor} from "./accessors/Accessor"
 import {Searcher} from "./Searcher"
-import {history} from "./history";
+import {createHistory} from "./history";
 import {ESTransport} from "./ESTransport";
 import {SearcherCollection} from "./SearcherCollection"
 import {SearchRequest} from "./SearchRequest"
@@ -13,7 +13,8 @@ import * as _ from "lodash"
 require('es6-promise').polyfill()
 
 export interface SearchkitOptions {
-  multipleSearchers?:boolean
+  multipleSearchers?:boolean,
+  useHistory?:boolean
 }
 
 export class SearchkitManager {
@@ -23,22 +24,32 @@ export class SearchkitManager {
   completeRegistration:Function
   state:any
   translateFunction:Function
-  defaultQueries:Array<Function>
   multipleSearchers:boolean
+  defaultQueries:Array<Function>
   primarySearcher:Searcher
   currentSearchRequest:SearchRequest
+  history
+  _unlistenHistory:Function
+  options:SearchkitOptions
 
   constructor(host:string, options:SearchkitOptions = {}){
+    this.options = _.defaults(options, {
+      multipleSearchers:false,
+      useHistory:true
+    })
     this.host = host
     this.searchers = new SearcherCollection()
 		this.registrationCompleted = new Promise((resolve)=>{
 			this.completeRegistration = resolve
 		})
-    this.listenToHistory(history)
     this.defaultQueries = []
     this.translateFunction = _.identity
-    this.multipleSearchers = options.multipleSearchers || false
+    this.multipleSearchers = this.options.multipleSearchers
     this.primarySearcher = this.createSearcher()
+    if(this.options.useHistory) {
+      this.history = createHistory()
+      this.listenToHistory()
+    }
   }
   addSearcher(searcher){
     return this.searchers.add(searcher)
@@ -47,6 +58,7 @@ export class SearchkitManager {
   addDefaultQuery(fn:Function){
     this.defaultQueries.push(fn)
   }
+
   translate(key){
     return this.translateFunction(key)
   }
@@ -69,8 +81,13 @@ export class SearchkitManager {
     this.searchers.resetState()
   }
 
-  listenToHistory(history){
-    history.listen((location)=>{
+  unlistenHistory(){
+    if(this.options.useHistory && this._unlistenHistory){
+      this._unlistenHistory()
+    }
+  }
+  listenToHistory(){
+    this._unlistenHistory = this.history.listen((location)=>{
       //action is POP when the browser modified
       if(location.action === "POP") {
         this.registrationCompleted.then(()=>{
@@ -86,8 +103,8 @@ export class SearchkitManager {
   performSearch(){
     this.searchers.notifyStateChange(this.state)
     let hasSearched = this._search()
-    if(hasSearched){
-      history.pushState(null, window.location.pathname, this.state)
+    if(hasSearched && this.options.useHistory){
+      this.history.pushState(null, window.location.pathname, this.state)
     }
   }
   search(){

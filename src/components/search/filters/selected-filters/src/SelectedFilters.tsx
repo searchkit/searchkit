@@ -34,7 +34,7 @@ export class SelectedFilters extends SearchkitComponent<ISelectedFilters, any> {
 
 	renderFilter(filter) {
 
-		let block = this.bemBlocks.option
+		let block = this.bemBlocks.option		
 		let className = block()
 			.mix(this.bemBlocks.container("item"))
 			.mix(`selected-filter--${filter.$id}`)

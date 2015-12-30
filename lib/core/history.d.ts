@@ -1,1 +1,1 @@
-export declare const history: HistoryModule.History & HistoryModule.HistoryQueries;
+export declare const createHistory: () => HistoryModule.History & HistoryModule.HistoryQueries;

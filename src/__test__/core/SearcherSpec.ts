@@ -6,7 +6,7 @@ import {
 describe("Searcher", ()=> {
 
   beforeEach(()=> {
-    this.searchkit = new SearchkitManager("/")
+    this.searchkit = new SearchkitManager("/", {useHistory:false})
     this.searcher = new Searcher(this.searchkit)
     this.emitterSpy = jasmine.createSpy("emitter")
     this.searcher.emitter.addListener(

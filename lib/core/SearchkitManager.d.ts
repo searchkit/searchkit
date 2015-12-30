@@ -3,6 +3,7 @@ import { SearcherCollection } from "./SearcherCollection";
 import { SearchRequest } from "./SearchRequest";
 export interface SearchkitOptions {
     multipleSearchers?: boolean;
+    useHistory?: boolean;
 }
 export declare class SearchkitManager {
     searchers: SearcherCollection;
@@ -11,10 +12,13 @@ export declare class SearchkitManager {
     completeRegistration: Function;
     state: any;
     translateFunction: Function;
-    defaultQueries: Array<Function>;
     multipleSearchers: boolean;
+    defaultQueries: Array<Function>;
     primarySearcher: Searcher;
     currentSearchRequest: SearchRequest;
+    history: any;
+    _unlistenHistory: Function;
+    options: SearchkitOptions;
     constructor(host: string, options?: SearchkitOptions);
     addSearcher(searcher: any): any;
     addDefaultQuery(fn: Function): void;
@@ -23,7 +27,8 @@ export declare class SearchkitManager {
     buildSharedQuery(): any;
     buildQuery(): void;
     resetState(): void;
-    listenToHistory(history: any): void;
+    unlistenHistory(): void;
+    listenToHistory(): void;
     performSearch(): void;
     search(): void;
     _search(): boolean;
