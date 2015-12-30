@@ -11,6 +11,7 @@ export declare class FacetAccessor extends Accessor<ArrayState> {
     options: any;
     constructor(key: any, options: FacetAccessorOptions);
     getBuckets(): any[];
+    getCount(): number;
     isOrOperator(): boolean;
     getBoolBuilder(): ((val?: any) => {
         bool: {

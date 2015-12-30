@@ -23,6 +23,7 @@ export interface IRefinementListFilter {
 
 export class RefinementListFilter extends SearchkitComponent<IRefinementListFilter, any> {
 	accessor:FacetAccessor
+	defaultSize:number
 
 	shouldCreateNewSearcher() {
 		return true;
@@ -30,15 +31,16 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 
 	constructor(props) {
 		super(props);
+		this.defaultSize = (this.props.size || 50)
 		this.state = {
-			showMore: false
+			size: this.defaultSize
 		}
 	}
 
 	defineAccessor() {
 		return new FacetAccessor(
 			this.props.field,
-			{id:this.props.id, operator:this.props.operator, title:this.props.title, size:(this.props.size || 50)}
+			{id:this.props.id, operator:this.props.operator, title:this.props.title, size:this.state.size}
 		)
 	}
 
@@ -78,21 +80,34 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 		return this.accessor.getBuckets().length != 0
 	}
 
-	toggleViewMore() {
-		let showMore = !this.state.showMore
-		this.setState({showMore:showMore})
-		if (showMore) {
-			this.accessor.setSize(200);
-		} else {
-			this.accessor.setSize(this.props.size || 50);
-		}
+	toggleViewMore(size) {
+		this.setState({size:size})
+		this.accessor.setSize(size)
 		this.searchkit.performSearch()
 	}
 
 	renderShowMore() {
-		let label = this.state.showMore ? "view less" : "view more"
+		let total = this.accessor.getCount()
+		let label = ""
+		let size = 0
+
+		if (total < this.state.size && this.state.size == this.defaultSize) {
+			return null
+		}
+
+		if (this.state.size >= total) {
+			size = this.defaultSize
+			label = "view less"
+		} else if ((this.state.size + 50) >= total) {
+			size = this.state.size + 50
+			label = "view all"
+		} else {
+			size = this.state.size + 50
+			label = "view more"
+		}
+
 		return (
-			<FastClick handler={this.toggleViewMore.bind(this)}>
+			<FastClick handler={this.toggleViewMore.bind(this, size)}>
 				<div className={this.bemBlocks.container("view-more-action")}>
 					{label}
 				</div>

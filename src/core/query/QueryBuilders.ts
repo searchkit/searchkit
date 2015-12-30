@@ -62,6 +62,14 @@ export function Terms(key, options={}){
   }
 }
 
+export function Cardinality(key) {
+  return {
+    cardinality: {
+      field: key
+    }
+  }
+}
+
 export function Range(key, from, to, options:TermOptions={}) {
   const defaultOptions = {
     $disabled:true

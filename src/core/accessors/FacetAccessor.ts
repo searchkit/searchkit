@@ -1,7 +1,7 @@
 import {ArrayState} from "../state"
 import {Accessor} from "./Accessor"
 import {
-  Term, Terms, Aggs,
+  Term, Terms, Aggs, Cardinality,
   BoolShould, BoolMust
 } from "../query/QueryBuilders";
 import * as _ from "lodash";
@@ -27,6 +27,13 @@ export class FacetAccessor extends Accessor<ArrayState> {
     const results = this.getResults()
     const path = ['aggregations',this.key, this.key,'buckets']
     return _.get(results, path, [])
+  }
+
+  getCount():number {
+    let key = this.key+"_count";
+    const results = this.getResults()
+    const path = ['aggregations',key, key,'value']
+    return _.get(results, path, 0)
   }
 
   isOrOperator(){
@@ -64,10 +71,17 @@ export class FacetAccessor extends Accessor<ArrayState> {
   buildOwnQuery(query){
     var filters = this.state.getValue()
     let excludedKey = (this.isOrOperator()) ? this.key : undefined
-    return query.setAggs(Aggs(
-      this.key,
-      query.getFilters(excludedKey),
-      Terms(this.key, {size:this.options.size})
-    ))
+    return query
+      .setAggs(Aggs(
+        this.key,
+        query.getFilters(excludedKey),
+        Terms(this.key, {size:this.options.size})
+      ))
+      .setAggs(Aggs(
+        this.key+"_count",
+        query.getFilters(excludedKey),
+        Cardinality(this.key)
+      ))
+
   }
 }

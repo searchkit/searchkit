@@ -34,6 +34,11 @@ export declare function Term(key: any, value: any, options?: TermOptions): {};
 export declare function Terms(key: any, options?: {}): {
     terms: {};
 };
+export declare function Cardinality(key: any): {
+    cardinality: {
+        field: any;
+    };
+};
 export declare function Range(key: any, from: any, to: any, options?: TermOptions): {};
 export declare function AggsRange(field: any, ranges: any): {
     "range": {

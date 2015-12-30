@@ -9,6 +9,7 @@ export interface IRefinementListFilter {
 }
 export declare class RefinementListFilter extends SearchkitComponent<IRefinementListFilter, any> {
     accessor: FacetAccessor;
+    defaultSize: number;
     shouldCreateNewSearcher(): boolean;
     constructor(props: any);
     defineAccessor(): FacetAccessor;
@@ -19,7 +20,7 @@ export declare class RefinementListFilter extends SearchkitComponent<IRefinement
     addFilter(option: any): void;
     renderOption(option: any): JSX.Element;
     hasOptions(): boolean;
-    toggleViewMore(): void;
+    toggleViewMore(size: any): void;
     renderShowMore(): JSX.Element;
     render(): JSX.Element;
 }
