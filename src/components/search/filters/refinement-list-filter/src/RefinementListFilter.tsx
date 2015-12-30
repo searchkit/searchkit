@@ -88,12 +88,13 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 
 	renderShowMore() {
 		let total = this.accessor.getCount()
-		let label = ""
-		let size = 0
 
 		if (total < this.state.size && this.state.size == this.defaultSize) {
 			return null
 		}
+
+		let label = ""
+		let size = 0
 
 		if (this.state.size >= total) {
 			size = this.defaultSize
