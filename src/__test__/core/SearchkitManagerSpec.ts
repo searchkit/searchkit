@@ -1,6 +1,6 @@
 import {
   SearchkitManager, SearcherCollection, Searcher,
-  ImmutableQuery, createHistory
+  ImmutableQuery, createHistory, PageSizeAccessor, SearchRequest
 } from "../../"
 
 describe("SearchkitManager", ()=> {
@@ -133,9 +133,24 @@ describe("SearchkitManager", ()=> {
     expect(this.searchkit.performSearch)
       .toHaveBeenCalled()
   })
-  //
-  // it("_search()", ()=> {
-  //
-  // })
+
+  it("_search()", ()=> {
+    spyOn(SearchRequest.prototype, "run")
+    this.accessor = new PageSizeAccessor("s", 10)
+    let initialSearchRequest  =
+      this.searchkit.currentSearchRequest = new SearchRequest(this.host, null)
+    this.searchkit.primarySearcher.addAccessor(
+      this.accessor)
+
+    expect(this.searchkit._search())
+      .toBe(true)
+    expect(initialSearchRequest.active).toBe(false)
+    expect(this.searchkit.currentSearchRequest.host)
+      .toBe(this.host)
+    expect(this.searchkit.currentSearchRequest.searchers)
+      .toEqual(this.searchers)
+    expect(this.searchkit.currentSearchRequest.run)
+      .toHaveBeenCalled()
+  })
 
 })
