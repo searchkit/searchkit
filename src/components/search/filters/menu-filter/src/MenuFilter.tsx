@@ -36,7 +36,7 @@ export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 	defineAccessor() {
 		return new FacetAccessor(
 			this.props.field,
-			{id:this.props.id, operator:"OR", title:this.props.title, size:this.props.size || 20}
+			{id:this.props.id, operator:"OR", title:this.props.title, size:this.props.size || 50}
 		)
 	}
 

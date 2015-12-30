@@ -6,11 +6,19 @@ export interface FacetAccessorOptions {
     id?: string;
     size: number;
 }
+export interface ISizeOption {
+    label: string;
+    size: number;
+}
 export declare class FacetAccessor extends Accessor<ArrayState> {
     state: ArrayState;
     options: any;
+    defaultSize: number;
+    size: number;
     constructor(key: any, options: FacetAccessorOptions);
     getBuckets(): any[];
+    setViewMoreOption(option: ISizeOption): void;
+    getMoreSizeOption(): ISizeOption;
     getCount(): number;
     isOrOperator(): boolean;
     getBoolBuilder(): ((val?: any) => {
@@ -24,7 +32,6 @@ export declare class FacetAccessor extends Accessor<ArrayState> {
         };
         $array: any;
     });
-    setSize(size: number): void;
     buildSharedQuery(query: any): any;
     buildOwnQuery(query: any): any;
 }

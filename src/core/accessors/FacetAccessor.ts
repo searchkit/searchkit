@@ -14,19 +14,54 @@ export interface FacetAccessorOptions {
   size:number
 }
 
+export interface ISizeOption {
+  label:string
+  size:number
+}
+
 export class FacetAccessor extends Accessor<ArrayState> {
 
   state = new ArrayState()
   options:any
+  defaultSize:number
+  size:number
   constructor(key, options:FacetAccessorOptions){
     super(key, options.id)
     this.options = options
+    this.defaultSize = options.size
+    this.size = this.defaultSize;
   }
 
   getBuckets(){
     const results = this.getResults()
     const path = ['aggregations',this.key, this.key,'buckets']
     return _.get(results, path, [])
+  }
+
+  setViewMoreOption(option:ISizeOption) {
+    this.size = option.size;
+  }
+
+  getMoreSizeOption():ISizeOption {
+    var option = {
+      size:0,
+      label:""
+    }
+    var total = this.getCount()
+
+    if (total <= this.defaultSize) return null;
+
+    if (total <= this.size) {
+      option = {size:this.defaultSize, label:"view less"}
+    } else if ((this.size + 50) > total) {
+      option = {size:total, label:"view all"}
+    } else if ((this.size + 50) < total) {
+      option = {size:this.size + 50, label:"view more"}
+    } else if (total ){
+      option = null
+    }
+
+    return option;
   }
 
   getCount():number {
@@ -42,10 +77,6 @@ export class FacetAccessor extends Accessor<ArrayState> {
 
   getBoolBuilder(){
     return this.isOrOperator() ? BoolShould : BoolMust
-  }
-
-  setSize(size:number) {
-    this.options.size = size;
   }
 
   buildSharedQuery(query){
@@ -75,7 +106,7 @@ export class FacetAccessor extends Accessor<ArrayState> {
       .setAggs(Aggs(
         this.key,
         query.getFilters(excludedKey),
-        Terms(this.key, {size:this.options.size})
+        Terms(this.key, {size:this.size})
       ))
       .setAggs(Aggs(
         this.key+"_count",

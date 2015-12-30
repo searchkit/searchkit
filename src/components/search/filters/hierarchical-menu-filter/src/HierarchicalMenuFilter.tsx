@@ -37,7 +37,7 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 	defineAccessor() {
 		return new HierarchicalFacetAccessor(
 			this.props.id,
-			{id:this.props.id, title:this.props.title, fields:this.props.fields}
+			{id:this.props.id, title:this.props.title, fields:this.props.fields, size:0}
 		)
 	}
 

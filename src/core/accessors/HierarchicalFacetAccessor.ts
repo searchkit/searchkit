@@ -60,7 +60,7 @@ export class HierarchicalFacetAccessor extends Accessor<LevelState> {
         _.extend(aggs, Aggs(
           field,
           query.getFilters(_.slice(this.options.fields,i)),
-          Terms(field, {size:20})
+          Terms(field, {size:this.options.size})
         ))
       }
     });

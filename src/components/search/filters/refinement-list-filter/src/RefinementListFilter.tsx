@@ -7,6 +7,7 @@ import {
 	SearchkitManager,
 	SearchkitComponent,
 	FacetAccessor,
+	ISizeOption,
 	FastClick
 } from "../../../../../core"
 
@@ -23,7 +24,6 @@ export interface IRefinementListFilter {
 
 export class RefinementListFilter extends SearchkitComponent<IRefinementListFilter, any> {
 	accessor:FacetAccessor
-	defaultSize:number
 
 	shouldCreateNewSearcher() {
 		return true;
@@ -31,16 +31,12 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 
 	constructor(props) {
 		super(props);
-		this.defaultSize = (this.props.size || 50)
-		this.state = {
-			size: this.defaultSize
-		}
 	}
 
 	defineAccessor() {
 		return new FacetAccessor(
 			this.props.field,
-			{id:this.props.id, operator:this.props.operator, title:this.props.title, size:this.state.size}
+			{id:this.props.id, operator:this.props.operator, title:this.props.title, size:(this.props.size || 50)}
 		)
 	}
 
@@ -80,37 +76,23 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 		return this.accessor.getBuckets().length != 0
 	}
 
-	toggleViewMore(size) {
-		this.setState({size:size})
-		this.accessor.setSize(size)
+	toggleViewMoreOption(option:ISizeOption) {
+		this.accessor.setViewMoreOption(option);
 		this.searchkit.performSearch()
 	}
 
 	renderShowMore() {
-		let total = this.accessor.getCount()
 
-		if (total < this.state.size && this.state.size == this.defaultSize) {
-			return null
-		}
+		let option = this.accessor.getMoreSizeOption()
 
-		let label = ""
-		let size = 0
-
-		if (this.state.size >= total) {
-			size = this.defaultSize
-			label = "view less"
-		} else if ((this.state.size + 50) >= total) {
-			size = this.state.size + 50
-			label = "view all"
-		} else {
-			size = this.state.size + 50
-			label = "view more"
+		if (!option) {
+			return null;
 		}
 
 		return (
-			<FastClick handler={this.toggleViewMore.bind(this, size)}>
+			<FastClick handler={this.toggleViewMoreOption.bind(this, option)}>
 				<div className={this.bemBlocks.container("view-more-action")}>
-					{label}
+					{option.label}
 				</div>
 			</FastClick>
 		)
