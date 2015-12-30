@@ -130,6 +130,24 @@ describe("FacetAccessor", ()=> {
     it("build own query - or", ()=> {
       let query = this.accessor.buildOwnQuery(this.query)
       expect(query.getJSON().aggs).toEqual({
+        "genre_count": {
+          "filter": {
+            "bool": {
+              "must": [{
+                "bool": {
+                  "should": ["PG"]
+                }
+              }]
+            }
+          },
+          "aggs": {
+            "genre_count": {
+              "cardinality": {
+                "field": "genre"
+              }
+            }
+          }
+        },
         "genre": {
           "filter": {
             "bool": {
@@ -155,6 +173,29 @@ describe("FacetAccessor", ()=> {
       this.options.operator = "AND"
       let query = this.accessor.buildOwnQuery(this.query)
       expect(query.getJSON().aggs).toEqual({
+        "genre_count": {
+          "filter": {
+            "bool": {
+              "must": [{
+                "bool": {
+                  "should": ["PG"]
+                }
+              },
+              {
+                "bool":{
+                  "should":["1", "2"]
+                }
+              }]
+            }
+          },
+          "aggs": {
+            "genre_count": {
+              "cardinality": {
+                "field": "genre"
+              }
+            }
+          }
+        },
         "genre": {
           "filter": {
             "bool": {
