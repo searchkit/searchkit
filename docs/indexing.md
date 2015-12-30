@@ -54,7 +54,7 @@ Some applications may already have the concept of a `tree`. e.g. `Pages` or `Tax
 We suggest the following `mapping` + `indexing` strategy for this.
 
 #### Hierarchical Mapping example
-given a field named `color` with a max of `10` levels, the tree would look like the following.
+given a field named `color` with a max of `10` levels, the field mapping definition for `color` would be defined as;
 
 ##### Mapping example
 ```js
@@ -84,9 +84,11 @@ given a field named `color` with a max of `10` levels, the tree would look like 
   "color.lvl2":["Ruby Red", "Emerald", "Lime"]
 }
 ```
+**Note** how the various colors are placed in their correct corresponding level in the tree.
+This logic will need to be implemented by your application during indexing of documents.
 
 #### Component example
-e would then configuring using the tree levels we wish to render
+We would then configuring using the tree levels we wish to render
 ```html
 <HierarchicalMenuFilter fields={["color.lvl1", "color.lvl2", "color.lvl3"]} title="Colors" id="colors"/>
 ```
