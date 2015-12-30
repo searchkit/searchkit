@@ -1,6 +1,6 @@
 {
   "name": "searchkit",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A suite of react components to help create a UI quickly for elasticsearch ",
   "main": "lib/index.js",
   "keywords": [
