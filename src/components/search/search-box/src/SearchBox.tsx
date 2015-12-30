@@ -61,10 +61,11 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		const query = e.target.value;
 		this.accessor.state = this.accessor.state.setValue(query)
 		if (this.props.searchOnChange) {
-			_.debounce(()=> {
+			_.throttle(()=> {
 				this.searchQuery(this.accessor.state.getValue())
-			}, 200)()
+			}, 400)()
 		}
+		this.forceUpdate()
 	}
 
 	setFocusState(focused:boolean) {
@@ -81,7 +82,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
           <input type="text"
 					className={block("text")}
 					placeholder="search"
-					defaultValue={this.getValue()}
+					value={this.getValue()}
 					onFocus={this.setFocusState.bind(this, true)}
 					onBlur={this.setFocusState.bind(this, false)}
 					ref="queryField"
