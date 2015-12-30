@@ -11,7 +11,8 @@ describe("HierarchicalFacetAccessor", ()=> {
     this.accessor = new HierarchicalFacetAccessor("categories", {
       fields:["lvl1", "lvl2", "lvl3"],
       id:"categories_id",
-      title:"Categories"
+      title:"Categories",
+      size:20
     })
     this.accessor.setSearcher(this.searcher)
     this.query = new ImmutableQuery()
