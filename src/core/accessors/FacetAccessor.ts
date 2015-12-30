@@ -37,6 +37,10 @@ export class FacetAccessor extends Accessor<ArrayState> {
     return this.isOrOperator() ? BoolShould : BoolMust
   }
 
+  setSize(size:number) {
+    this.options.size = size;
+  }
+
   buildSharedQuery(query){
     var filters = this.state.getValue()
     var filterTerms = _.map(filters, (filter)=> {

@@ -23,6 +23,7 @@ export declare class FacetAccessor extends Accessor<ArrayState> {
         };
         $array: any;
     });
+    setSize(size: number): void;
     buildSharedQuery(query: any): any;
     buildOwnQuery(query: any): any;
 }

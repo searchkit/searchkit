@@ -28,6 +28,13 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 		return true;
 	}
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			showMore: false
+		}
+	}
+
 	defineAccessor() {
 		return new FacetAccessor(
 			this.props.field,
@@ -71,6 +78,28 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 		return this.accessor.getBuckets().length != 0
 	}
 
+	toggleViewMore() {
+		let showMore = !this.state.showMore
+		this.setState({showMore:showMore})
+		if (showMore) {
+			this.accessor.setSize(200);
+		} else {
+			this.accessor.setSize(this.props.size || 50);
+		}
+		this.searchkit.performSearch()
+	}
+
+	renderShowMore() {
+		let label = this.state.showMore ? "view less" : "view more"
+		return (
+			<FastClick handler={this.toggleViewMore.bind(this)}>
+				<div className={this.bemBlocks.container("view-more-action")}>
+					{label}
+				</div>
+			</FastClick>
+		)
+	}
+
 	render() {
 
 		let block = this.bemBlocks.container
@@ -86,6 +115,7 @@ export class RefinementListFilter extends SearchkitComponent<IRefinementListFilt
 				<div className={block("options")}>
 				{_.map(this.accessor.getBuckets(), this.renderOption.bind(this))}
 				</div>
+				{this.renderShowMore()}
       </div>
 		);
 	}
