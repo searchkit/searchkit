@@ -1,4 +1,4 @@
 # Serverside Guide
 
-* [Using Express](docs/server/searchkit_express.md) 
-* [Indexing & Mapping Guide](docs/server/indexing.md) 
+* [Using Express](searchkit_express.md)
+* [Indexing & Mapping Guide](indexing.md) 
