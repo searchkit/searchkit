@@ -9,4 +9,5 @@
 * [Examples](docs/examples/README.md)
 * [Server](docs/server/README.md)
     * [Using Express](docs/server/searchkit_express.md) 
-    * [Indexing & Mapping Guide](docs/server/indexing.md)    
+    * [Indexing & Mapping Guide](docs/server/indexing.md) 
+* [Developer Guide](docs/development/README.md)
