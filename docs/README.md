@@ -2,4 +2,5 @@
 
 * [Introduction](docs/introduction/README.md)
 * [Components](docs/components/components.md)    
-* [Indexing](docs/server/indexing.md)    
+* [Server](docs/server/README.md)
+    * [Indexing](docs/server/indexing.md)    
