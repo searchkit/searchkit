@@ -27,4 +27,8 @@ SearchkitExpress({
  }, app)
  ```
  
+ This will add the following endpoints to your root url
+ * POST /_search
+ * POST /_msearch
+ 
  
