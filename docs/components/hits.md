@@ -41,6 +41,7 @@ Often the hits component will display the appropriate blank states, `renderIniti
 
 ```js
 class MovieHits extends Hits {
+  //...
   renderInitialView() {
     return (
 	  <div className={this.bemBlocks.container("initial-loading")}></div>
