@@ -28,8 +28,8 @@ SearchkitExpress({
  ```
  
  This will add the following endpoints to your root url which will route to the `movies` index on your elasticsearch instance
- * POST /_search
- * POST /_msearch
+ * `POST /_search`
+ * `POST /_msearch`
  
 
 ### Custom router
@@ -53,6 +53,6 @@ app.use("/movie-search", searchkitRouter)
 ```
 This will result in the following api endpoints 
 
- * POST /movie-search/_search
- * POST /movie-search/_msearch
+ * `POST /movie-search/_search`
+ * `POST /movie-search/_msearch`
  
