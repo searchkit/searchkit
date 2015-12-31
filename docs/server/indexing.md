@@ -1,4 +1,4 @@
-# Indexing Guide
+# Indexing & Mapping Guide
 
 `Elasticsearch` querying is very sophisticated, and many of the features rely on an appropriate `mapping` configured
 
@@ -30,11 +30,11 @@ The `genres.raw` path will be left untouched by `Elasticsearch`, `Searchkit` wou
 
 ### Component examples
 Using the `genres.raw` field
-```html
+```jsx
 <RefinementListFilter id="genres" title="Genres" field="genres.raw" operator="AND"/>
 ```
-Using the `genres` field for searching using prefix
-```html
+Using the field for searching using prefix
+```jsx
 <SearchBox prefixQueryFields={["genres^1", "name^10"]}/>
 ```
 
@@ -44,7 +44,7 @@ Using the `genres` field for searching using prefix
 ### Dynamic tree of multiple fields
 One example use of this component is composing several fields and dynamically constructed a tree to suit the UI.
 e.g. show a Hierarchical menu based on **movie type** and then a sub menu containing **movie genres**, `Searchkit` will construct the appropriate `aggregation` queries automatically behind the scenes
-```html
+```jsx
 <HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
 ```
 
@@ -84,11 +84,13 @@ given a field named `color` with a max of `10` levels, the field mapping definit
   "color.lvl2":["Ruby Red", "Emerald", "Lime"]
 }
 ```
-**Note** how the various colors are placed in their correct corresponding level in the tree.
+> **Note** how the various colors are placed in their correct corresponding level in the tree.
 This logic will need to be implemented by your application during indexing of documents.
 
 #### Component example
 We would then configuring using the tree levels we wish to render
-```html
-<HierarchicalMenuFilter fields={["color.lvl1", "color.lvl2", "color.lvl3"]} title="Colors" id="colors"/>
+```jsx
+<HierarchicalMenuFilter
+  title="Colors" id="colors"
+  fields={["color.lvl1", "color.lvl2", "color.lvl3"]/>  
 ```

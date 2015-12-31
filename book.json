@@ -4,7 +4,7 @@
     "summary": "docs/README.md",
     "glossary":"docs/GLOSSARY.md"
   },
-  "plugins": [],
+  "plugins": ["prism", "-highlight"],
   "pluginsConfig": {
   }
 }
