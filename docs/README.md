@@ -1,5 +1,5 @@
 # Table of Contents
 
 * [Introduction](docs/introduction/README.md)
-* [Components](docs/components.md)    
+* [Components](docs/components/components.md)    
 * [Indexing](docs/indexing.md)    
