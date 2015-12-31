@@ -1,7 +1,7 @@
-# <a href="https://searchkit.co/">Searchkit</a> <span>v0.1.4</span>
+# [Searchkit](https://searchkit.co/ "Searchkit") v0.1.7
 
-## Introduction
-Searchkit is a suite of UI components built in react. Each component is a react class which you can extend to fit your requirements.
+## What is Searchkit?
+Searchkit is a suite of UI components built in react. The aim is rapidly create beautiful search applications using declarative components, and without being an ElasticSearch expert.
 # searchkit
 A suite of react components to help create a UI quickly for elasticsearch
 
