@@ -26,7 +26,7 @@
   "scripts": {
     "test": "./node_modules/.bin/karma start --single-run --reporters junit,dots",
     "test:watch": "./node_modules/.bin/karma start karma.conf.js --auto-watch",
-    "build": "tsc; gulp copy-assets;",
+    "build": "tsc; gulp copy-assets; webpack;",
     "build:watch": "tsc -w",
     "prepublish": "rm -rf lib; rm -rf release; npm run-script build;"
   },
