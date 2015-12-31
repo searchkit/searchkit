@@ -43,10 +43,7 @@ export class FacetAccessor extends Accessor<ArrayState> {
   }
 
   getMoreSizeOption():ISizeOption {
-    var option = {
-      size:0,
-      label:""
-    }
+    var option = {size:0, label:""}
     var total = this.getCount()
 
     if (total <= this.defaultSize) return null;
