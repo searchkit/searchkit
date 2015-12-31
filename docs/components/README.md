@@ -1,4 +1,4 @@
 #Components
 
 * [Full Overview](components.md)
-* [Hits](hits.md)
+* [Hits Component](hits.md)
