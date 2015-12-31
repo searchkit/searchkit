@@ -1,6 +1,8 @@
 # Using Express
 `Searchkit` ships with an express plugin to proxy api calls to ElasticSearch
 
+## Installation
+
 ```sh
 npm install searchkit-express --save
 ```
@@ -24,3 +26,5 @@ SearchkitExpress({
   }
  }, app)
  ```
+ 
+ 
