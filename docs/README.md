@@ -7,5 +7,5 @@
     * [Using script](docs/setup/using_script.md)
 * [Components](docs/components/components.md)    
 * [Server](docs/server/README.md)
-    * [Using Express] (docs/server/searchkit_express.md) 
+    * [Using Express](docs/server/searchkit_express.md) 
     * [Indexing](docs/server/indexing.md)    
