@@ -27,8 +27,10 @@ SearchkitExpress({
  }, app)
  ```
  
- This will add the following endpoints to your root url
+ This will add the following endpoints to your root url which will route to the `movies` index on your elasticsearch instance
  * POST /_search
  * POST /_msearch
+ 
+
  
  
