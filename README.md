@@ -10,6 +10,9 @@ Searchkit is a suite of UI components built in react. The aim is rapidly create 
 npm install searchkit
 ```
 
+## [Documentation](/docs/README.md)
+
+
 ## Developing 
 
 ```sh
