@@ -14,7 +14,9 @@ require('es6-promise').polyfill()
 
 export interface SearchkitOptions {
   multipleSearchers?:boolean,
-  useHistory?:boolean
+  useHistory?:boolean,
+  httpHeaders?:Object,
+  basicAuth?:string
 }
 
 export class SearchkitManager {
@@ -31,13 +33,19 @@ export class SearchkitManager {
   history
   _unlistenHistory:Function
   options:SearchkitOptions
+  transport:ESTransport
 
   constructor(host:string, options:SearchkitOptions = {}){
     this.options = _.defaults(options, {
       multipleSearchers:false,
-      useHistory:true
+      useHistory:true,
+      httpHeaders:{}
     })
     this.host = host
+    this.transport = new ESTransport(host, {
+      headers:this.options.httpHeaders,
+      basicAuth:this.options.basicAuth
+    })
     this.searchers = new SearcherCollection()
 		this.registrationCompleted = new Promise((resolve)=>{
 			this.completeRegistration = resolve
@@ -119,7 +127,7 @@ export class SearchkitManager {
     if(hasChanged){
       this.currentSearchRequest && this.currentSearchRequest.deactivate()
       this.currentSearchRequest = new SearchRequest(
-        this.host, this.searchers.getChangedSearchers())
+        this.transport, this.searchers.getChangedSearchers())
         this.currentSearchRequest.run()
     }
     return hasChanged

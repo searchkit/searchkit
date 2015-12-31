@@ -145,7 +145,7 @@ describe("SearchkitManager", ()=> {
     expect(this.searchkit._search())
       .toBe(true)
     expect(initialSearchRequest.active).toBe(false)
-    expect(this.searchkit.currentSearchRequest.host)
+    expect(this.searchkit.currentSearchRequest.transport.host)
       .toBe(this.host)
     expect(this.searchkit.currentSearchRequest.searchers)
       .toEqual(this.searchers)

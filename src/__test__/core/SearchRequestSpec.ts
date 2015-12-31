@@ -8,10 +8,11 @@ describe("SearchRequest", ()=> {
 
   beforeEach(()=> {
     this.searchers = new SearcherCollection([])
-    this.host = "http://localhost:9200"
+    this.transport = new ESTransport("http://localhost:9200")
+
 
     this.request = new SearchRequest(
-      this.host, this.searchers)
+      this.transport, this.searchers)
     this.searchers.getQueries = ()=> {
       return [1,2,3]
     }
@@ -27,10 +28,7 @@ describe("SearchRequest", ()=> {
     expect(this.request.active)
       .toBe(true)
     expect(this.request.transport)
-      .toEqual(jasmine.any(ESTransport))
-    expect(this.request.transport.host)
-      .toBe(this.host)
-    expect(this.request.host).toBe(this.host)
+      .toBe(this.transport)
     expect(this.request.searchers).toBe(
       this.searchers)
   })

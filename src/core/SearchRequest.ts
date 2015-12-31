@@ -4,11 +4,9 @@ import {ESTransport} from "./ESTransport"
 export class SearchRequest {
 
   active:boolean
-  transport:ESTransport
 
-  constructor(public host:string, public searchers:SearcherCollection){
+  constructor(public transport, public searchers:SearcherCollection){
     this.active = true
-    this.transport = new ESTransport(host)
   }
 
   run(){

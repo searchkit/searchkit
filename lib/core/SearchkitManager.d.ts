@@ -1,9 +1,12 @@
 import { Searcher } from "./Searcher";
+import { ESTransport } from "./ESTransport";
 import { SearcherCollection } from "./SearcherCollection";
 import { SearchRequest } from "./SearchRequest";
 export interface SearchkitOptions {
     multipleSearchers?: boolean;
     useHistory?: boolean;
+    httpHeaders?: Object;
+    basicAuth?: string;
 }
 export declare class SearchkitManager {
     searchers: SearcherCollection;
@@ -19,6 +22,7 @@ export declare class SearchkitManager {
     history: any;
     _unlistenHistory: Function;
     options: SearchkitOptions;
+    transport: ESTransport;
     constructor(host: string, options?: SearchkitOptions);
     addSearcher(searcher: any): any;
     addDefaultQuery(fn: Function): void;

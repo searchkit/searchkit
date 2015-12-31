@@ -1,15 +1,27 @@
 import * as axios from "axios"
 import * as _ from "lodash"
 
+export interface ESTransportOptions {
+  headers?:Object,
+  basicAuth?:string
+}
 export class ESTransport {
   static timeout = 5000
   axios:axios.AxiosInstance
+  options:ESTransportOptions
 
-  constructor(public host:string){
+  constructor(public host:string, options:ESTransportOptions={}){
+    this.options = _.defaults(options, {
+      headers:{}
+    })
+    if(this.options.basicAuth){
+      this.options.headers["Authorization"] = (
+        "Basic " + btoa(this.options.basicAuth))
+    }
     this.axios = axios.create({
       baseURL:this.host,
       timeout:ESTransport.timeout,
-      headers:{}
+      headers:this.options.headers
     })
   }
 
