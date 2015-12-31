@@ -1,7 +1,8 @@
 {
   "gitbook": "2.x.x",
   "structure": {
-    "summary": "docs/README.md"
+    "summary": "docs/README.md",
+    "glossary":"docs/GLOSSARY.md"
   },
   "plugins": [],
   "pluginsConfig": {
