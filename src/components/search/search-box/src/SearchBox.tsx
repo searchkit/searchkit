@@ -15,6 +15,7 @@ export interface ISearchBox {
 	prefixQueryFields?:Array<string>
 	queryFields?:Array<string>
 	mod?:string
+	autofocus?:boolean
 }
 
 export class SearchBox extends SearchkitComponent<ISearchBox, any> {
@@ -86,6 +87,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 					onFocus={this.setFocusState.bind(this, true)}
 					onBlur={this.setFocusState.bind(this, false)}
 					ref="queryField"
+					autoFocus={this.props.autofocus}
 					onInput={this.onChange.bind(this)}/>
           <input type="submit" value="search" className={block("action")}/>
 					<div className={block("loader").mix("sk-spinning-loader").state({hidden:!this.isLoading()})}></div>
