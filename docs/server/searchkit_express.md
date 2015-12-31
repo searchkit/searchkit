@@ -32,5 +32,25 @@ SearchkitExpress({
  * POST /_msearch
  
 
- 
+### Custom router
+If you wish to prefix the url or control the middleware for these particular routes `SearchkitExpress` allows manual creation of an `express.Router`
+
+```js
+var app = express()
+
+//...
+
+var searchkitRouter = SearchkitExpress.createRouter({
+  host:process.env.ELASTIC_URL || "http://localhost:9200",
+  log: 'debug',
+  index:'movies',
+  queryProcessor:function(query, req, res){
+    console.log(query)    
+    return query
+  }
+ })
+app.use("/movie-search", searchkitRouter)
+```
+ * POST /movie-search/_search
+ * POST /movie-search/_msearch
  
