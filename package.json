@@ -51,12 +51,13 @@
     "qs": "ssetem/qs",
     "react": "^0.14.0",
     "react-addons-update": "^0.14.3",
-    "react-autosuggest": "^2.2.0",
-    "react-dom": "^0.14.0",
-    "react-router": "^1.0.0"
+    "react-autosuggest": "^2.2.0"
   },
   "devDependencies": {
     "chalk": "^1.1.1",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^0.9.1",
+    "file-loader": "^0.8.5",
     "gulp": "^3.9.0",
     "jasmine-ajax": "^3.2.0",
     "jasmine-core": "^2.3.4",

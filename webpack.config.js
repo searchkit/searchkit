@@ -9,6 +9,8 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'release'),
     filename: 'bundle.js',
+    library:["Searchkit"],
+    libraryTarget:"umd",
     publicPath: '',
     css: 'styles.css'
   },
@@ -36,6 +38,9 @@ module.exports = {
       }
     })
   ],
+  externals: {
+    react: "React"
+  },
   module: {
     loaders: [
       {
