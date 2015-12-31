@@ -51,6 +51,8 @@ var searchkitRouter = SearchkitExpress.createRouter({
  })
 app.use("/movie-search", searchkitRouter)
 ```
+This will result in the following api endpoints 
+
  * POST /movie-search/_search
  * POST /movie-search/_msearch
  
