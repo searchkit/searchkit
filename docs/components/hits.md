@@ -4,7 +4,7 @@ The method will receive a single `hit` object from the search results, which wil
 
 ##Example Usage
 
-```js
+```jsx
 
 import {
   Hits,
@@ -39,7 +39,7 @@ class App extends SearchkitComponent<any, any> {
 
 Often the hits component will display the appropriate blank states, `renderInitialView` and `renderNoResults` can be overriden to provide custom behaviour, below is the default implementation
 
-```js
+```jsx
 class MovieHits extends Hits {
   //...
   renderInitialView() {

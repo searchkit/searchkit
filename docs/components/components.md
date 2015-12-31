@@ -110,7 +110,7 @@ The search box component is where your users type their search queries.
 
 ##### Example
 
-```js
+```jsx
 
 import {
   SearchBox,
@@ -140,7 +140,7 @@ Hits component displays results from ElasticSearch. To customise each result, yo
 
 ##### Example
 
-```js
+```jsx
 
 import {
   Hits,
@@ -178,7 +178,7 @@ The pagination component provides ability to go to next and previous page.
 
 ##### Example
 
-```js
+```jsx
 
 import {
   Pagination,
@@ -200,7 +200,7 @@ Provides a way to navigate through results for a single attribute. Only one valu
 
 ##### Example
 
-```js
+```jsx
 
 import {
   Pagination,
@@ -229,7 +229,7 @@ Component which renders a tree like structure. Used for items which have multipl
 
 ##### Example
 
-```js
+```jsx
 
 import {
   HierarchicalMenuFilter,
@@ -257,7 +257,7 @@ Lets the user refine the search results. You can specify if you want filters to 
 
 ##### Example
 
-```js
+```jsx
 
 import {
   RefinementListFilter,
@@ -285,7 +285,7 @@ Allows the user to refine results based on a numerical elasticsearch attribute. 
 
 ##### Example
 
-```js
+```jsx
 
 import {
   RefinementListFilter,
@@ -319,7 +319,7 @@ This component clears all the refinements that are currently applied (query and 
 
 ##### Example
 
-```js
+```jsx
 
 import {
   ResetFilters,
@@ -343,7 +343,7 @@ This component lets you reorder your results. Each option requires a sortable El
 
 ##### Example
 
-```js
+```jsx
 import {
   SortingSelector,
   SearchkitComponent
@@ -373,7 +373,7 @@ This component lets you display how many results matched the query and other met
 
 ##### Example
 
-```js
+```jsx
 import {
   HitsStats,
   SearchkitComponent
