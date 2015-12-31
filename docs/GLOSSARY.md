@@ -1,4 +1,4 @@
 # Searchkit
-A suite of react UI components which 
+A suite of Search UI Components build in React
 
 
