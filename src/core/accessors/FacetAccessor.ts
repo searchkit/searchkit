@@ -52,11 +52,11 @@ export class FacetAccessor extends Accessor<ArrayState> {
     if (total <= this.defaultSize) return null;
 
     if (total <= this.size) {
-      option = {size:this.defaultSize, label:"view less"}
+      option = {size:this.defaultSize, label:this.translate("view less")}
     } else if ((this.size + 50) > total) {
-      option = {size:total, label:"view all"}
+      option = {size:total, label:this.translate("view all")}
     } else if ((this.size + 50) < total) {
-      option = {size:this.size + 50, label:"view more"}
+      option = {size:this.size + 50, label:this.translate("view more")}
     } else if (total ){
       option = null
     }

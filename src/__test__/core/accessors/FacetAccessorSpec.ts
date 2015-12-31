@@ -10,7 +10,8 @@ describe("FacetAccessor", ()=> {
     this.options = {
       operator:"OR",
       title:"Genres",
-      id:"GenreId"
+      id:"GenreId",
+      size:20
     }
     this.searcher = new Searcher(null)
     this.accessor = new FacetAccessor("genre", this.options)
@@ -50,6 +51,52 @@ describe("FacetAccessor", ()=> {
     this.options.operator = "AND"
     expect(this.accessor.getBoolBuilder())
       .toBe(BoolMust)
+  })
+
+  describe("view more options", () => {
+    beforeEach(()=> {
+      this.searcher.translate = (key)=> {
+        return {
+          "view more":"View more", "view less":"View less",
+          "view all":"View all"
+        }[key]
+      }
+    })
+
+    it("setViewMoreOption", () => {
+      this.accessor.setViewMoreOption({size:30})
+      expect(this.accessor.size).toBe(30)
+    })
+
+    it("getMoreSizeOption - view more", () => {
+      this.accessor.getCount = () => {
+        return 100
+      }
+      expect(this.accessor.getMoreSizeOption()).toEqual({size:70, label:"View more"})
+    })
+
+    it("getMoreSizeOption - view all", () => {
+      this.accessor.getCount = () => {
+        return 30
+      }
+      expect(this.accessor.getMoreSizeOption()).toEqual({size:30, label:"View all"})
+    })
+
+    it("getMoreSizeOption - view less", () => {
+      this.accessor.getCount = () => {
+        return 30
+      }
+      this.accessor.size = 30
+      expect(this.accessor.getMoreSizeOption()).toEqual({size:20, label:"View less"})
+    })
+
+    it("getMoreSizeOption - no option", () => {
+      this.accessor.getCount = () => {
+        return 15
+      }
+      this.accessor.size = 20
+      expect(this.accessor.getMoreSizeOption()).toEqual(null)
+    })
   })
 
   describe("buildSharedQuery", ()=> {
@@ -161,7 +208,8 @@ describe("FacetAccessor", ()=> {
           "aggs": {
             "genre": {
               "terms": {
-                "field": "genre"
+                "field": "genre",
+                "size": 20
               }
             }
           }
@@ -214,7 +262,8 @@ describe("FacetAccessor", ()=> {
           "aggs": {
             "genre": {
               "terms": {
-                "field": "genre"
+                "field": "genre",
+                "size": 20
               }
             }
           }
