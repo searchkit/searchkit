@@ -35,7 +35,7 @@ class App extends SearchkitComponent<any, any> {
 ### Props
 - `hitsPerPage` *(Number)*: Number of results displayed per page
 
-## Blank States
+## Customising Blank States
 
 Often the hits component will display the appropriate blank states, `renderInitialView` and `renderNoResults` can be overriden to provide custom behaviour, below is the default implementation
 
