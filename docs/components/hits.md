@@ -40,17 +40,16 @@ class App extends SearchkitComponent<any, any> {
 Often the hits component will display the appropriate blank states, `renderInitialView` and `renderNoResults` can be overriden to provide custom behaviour, below is the default implementation
 
 ```js
-	renderInitialView() {
-		return (
-			<div className={this.bemBlocks.container("initial-loading")}></div>
-		)
-	}
-
-	renderNoResults() {
-		return (
-			<div className={this.bemBlocks.container("no-results")}>No results</div>
-		)
-	}
-
-
+class MovieHits extends Hits {
+  renderInitialView() {
+    return (
+	  <div className={this.bemBlocks.container("initial-loading")}></div>
+	)
+  }
+  renderNoResults() {
+    return (
+	  <div className={this.bemBlocks.container("no-results")}>No results</div>
+	)
+  }
+}
 ```
