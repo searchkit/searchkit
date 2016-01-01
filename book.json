@@ -5,7 +5,7 @@
     "summary": "docs/README.md",
     "glossary":"docs/GLOSSARY.md"
   },
-  "plugins": ["prism", "-highlight"],
+  "plugins": ["prism", "-highlight", "codepen"],
   "pluginsConfig": {
   }
 }
