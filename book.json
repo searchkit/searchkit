@@ -5,7 +5,10 @@
     "summary": "docs/README.md",
     "glossary":"docs/GLOSSARY.md"
   },
-  "plugins": ["prism", "-highlight", "codepen"],
+  "plugins": ["prism", "-highlight", "codepen", "versions"],
   "pluginsConfig": {
+    "versions": {
+      "type": "tags"
+    }
   }
 }
