@@ -16,8 +16,7 @@ var app = express()
 //...
 
 SearchkitExpress({
-  host:process.env.ELASTIC_URL || "http://localhost:9200",
-  log: 'debug',
+  host:process.env.ELASTIC_URL || "http://localhost:9200",  
   index:'movies',
   queryProcessor:function(query, req, res){
     //do neccessery permissions, prefilters to query object
@@ -26,11 +25,11 @@ SearchkitExpress({
   }
  }, app)
  ```
- 
+
  This will add the following endpoints to your root url which will route to the `movies` index on your elasticsearch instance
  * `POST /_search`
  * `POST /_msearch`
- 
+
 
 ### Custom router
 If you wish to prefix the url or control the middleware for these particular routes `SearchkitExpress` allows manual creation of an `express.Router`
@@ -41,8 +40,7 @@ var app = express()
 //...
 
 var searchkitRouter = SearchkitExpress.createRouter({
-  host:process.env.ELASTIC_URL || "http://localhost:9200",
-  log: 'debug',
+  host:process.env.ELASTIC_URL || "http://localhost:9200",  
   index:'movies',
   queryProcessor:function(query, req, res){
     console.log(query)    
@@ -51,8 +49,7 @@ var searchkitRouter = SearchkitExpress.createRouter({
  })
 app.use("/movie-search", searchkitRouter)
 ```
-This will result in the following api endpoints 
+This will result in the following api endpoints
 
  * `POST /movie-search/_search`
  * `POST /movie-search/_msearch`
- 

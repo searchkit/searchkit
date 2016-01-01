@@ -13,6 +13,28 @@ describe("ESTransport", ()=> {
     jasmine.Ajax.uninstall()
   })
 
+  it("constructor()", ()=> {
+    expect(this.transport.host).toBe(this.host)
+    expect(this.transport.options.headers).toEqual({})
+    let axiosConfig = this.transport.axios.defaultConfig
+    expect(axiosConfig.baseURL).toBe(this.host)
+    expect(axiosConfig.timeout).toBe(ESTransport.timeout)
+    expect(axiosConfig.headers).toBe(this.transport.options.headers)
+  })
+
+  it("constructor() - headers", ()=> {
+    const transport = new ESTransport(this.host, {
+      headers:{
+        "Content-Type":"application/json",
+      },
+      basicAuth:"key:val"
+    })
+    expect(transport.options.headers).toEqual({
+      "Content-Type":"application/json",
+      "Authorization":"Basic " + btoa("key:val")
+    })
+  })
+
   it("_search()", (done)=> {
     let mockResults = {hits:[1,2,3]}
     jasmine.Ajax.stubRequest(this.host + "_search").andReturn({

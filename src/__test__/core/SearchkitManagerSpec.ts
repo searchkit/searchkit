@@ -1,5 +1,5 @@
 import {
-  SearchkitManager, SearcherCollection, Searcher,
+  SearchkitManager, SearcherCollection, Searcher, ESTransport,
   ImmutableQuery, createHistory, PageSizeAccessor, SearchRequest
 } from "../../"
 
@@ -9,7 +9,11 @@ describe("SearchkitManager", ()=> {
     this.host = "http://localhost:9200"
     this.searchkit = new SearchkitManager(this.host, {
       multipleSearchers:true,
-      useHistory:false
+      useHistory:false,
+      httpHeaders:{
+        "Content-Type":"application/json"
+      },
+      basicAuth:"key:val"
     })
     this.searchers = this.searchkit.searchers
   })
@@ -29,6 +33,14 @@ describe("SearchkitManager", ()=> {
     expect(this.searchkit.multipleSearchers).toBe(true)
     expect(this.searchkit.primarySearcher)
       .toEqual(jasmine.any(Searcher))
+    expect(this.searchkit.transport)
+      .toEqual(jasmine.any(ESTransport))
+    expect(this.searchkit.transport.options.headers).toEqual(
+      jasmine.objectContaining({
+        "Content-Type":"application/json",
+        "Authorization":jasmine.any(String)
+      })
+    )
   })
 
   it("addSearcher()", ()=> {
