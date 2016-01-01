@@ -29,4 +29,5 @@ class App extends SearchkitComponent<any, any> {
 - `mod` *(string)*: Optional. A custom BEM container class.
 
 ## Demo
+[Codepen](http://codepen.io/ssetem/pen/RrKPJL)
 [](codepen://ssetem/RrKPJL?height=800&theme=0)
