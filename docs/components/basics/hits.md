@@ -2,7 +2,7 @@
 Hits component displays results from ElasticSearch. To customise each result, you need to override the `renderResult` method.
 The method will receive a single `hit` object from the search results, which will include `result._source` which contains the untouched stored fields which were indexed.
 
-##Example Usage
+## Example Usage
 
 ```jsx
 
@@ -32,7 +32,7 @@ class App extends SearchkitComponent<any, any> {
 }
 ```
 
-### Props
+## Props
 - `hitsPerPage` *(Number)*: Number of results displayed per page
 
 ## Customising Blank States
