@@ -18,3 +18,5 @@ class App extends SearchkitComponent<any, any> {
   }
 }
 ```
+## Demo
+[](codepen://searchkit/PZWZbP?height=800&theme=0)

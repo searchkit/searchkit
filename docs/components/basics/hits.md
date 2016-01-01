@@ -54,3 +54,6 @@ class MovieHits extends Hits {
   }
 }
 ```
+
+## Live Demo
+[](codepen://searchkit/vLgLOw?height=800&theme=0)

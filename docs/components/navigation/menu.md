@@ -26,3 +26,6 @@ class App extends SearchkitComponent<any, any> {
 - `field` *(ESAttribute)*: Non-analysed elastic search field to create aggs for the menu
 - `title` *(string)*: Title of the menu. Shown as a header and within selected filters
 - `id` *(string)*: id of component. Must be unique. Used as key for url serialisation
+
+## Demo
+[](codepen://searchkit/YwNwVm?height=800&theme=0)
