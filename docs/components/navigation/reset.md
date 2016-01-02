@@ -19,3 +19,30 @@ class App extends SearchkitComponent<any, any> {
   }
 }
 ```
+
+## Extending Component
+
+```jsx
+
+import {
+  ResetFilters,
+  SearchkitComponent
+} from "searchkit";
+
+class ExampleResetFilters extends ResetFilters {
+  renderResetButton() {
+    return (
+      <div className={this.bemBlocks.container("reset")}>clear</div>
+    )
+  }
+}
+
+class App extends SearchkitComponent<any, any> {
+
+  render(){
+    <div>
+      <ResetFilters/>
+    </div>
+  }
+}
+```

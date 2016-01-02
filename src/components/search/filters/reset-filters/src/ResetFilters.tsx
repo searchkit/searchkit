@@ -36,19 +36,21 @@ export class ResetFilters extends SearchkitComponent<IResetFilters, any> {
 		var block = this.bemBlocks.container
 
 		return (
-			<FastClick handler={this.resetFilters.bind(this)}>
-				<div className={block().state({disabled:!this.hasFilters()})}>
-					<div className={block("reset")}>clear all filters</div>
-				</div>
-			</FastClick>
+			<div className={block("reset")}>clear all filters</div>
 		)
 	}
 
   render() {
+		var block = this.bemBlocks.container
+
     return (
-      <div>
-				{this.renderResetButton()}
-      </div>
+    <div>
+			<FastClick handler={this.resetFilters.bind(this)}>
+				<div className={block().state({disabled:!this.hasFilters()})}>
+					{this.renderResetButton()}
+				</div>
+			</FastClick>
+		</div>
     )
   }
 }

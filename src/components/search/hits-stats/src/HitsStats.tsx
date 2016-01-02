@@ -18,12 +18,16 @@ export class HitsStats extends SearchkitComponent<IHitsStats, any> {
 		}
 	}
 
-	getHits() {
-		return _.get(this.searcher, "results.hits", {})
+	getResults() {
+		return _.get(this.searcher, "results", {})
 	}
 
 	getHitCount():number {
-		return _.get(this.getHits(), "total", 0)
+		return _.get(this.getResults(), "hits.total", 0)
+	}
+
+	getTime():number {
+		return _.get(this.getResults(),"took", 0)
 	}
 
 	renderText() {
