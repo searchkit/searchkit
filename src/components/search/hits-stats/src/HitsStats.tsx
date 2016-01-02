@@ -18,14 +18,26 @@ export class HitsStats extends SearchkitComponent<IHitsStats, any> {
 		}
 	}
 
+	getHits() {
+		return _.get(this.searcher, "results.hits", {})
+	}
+
 	getHitCount():number {
-		return _.get(this.searcher, "results.hits.total", 0)
+		return _.get(this.getHits(), "total", 0)
+	}
+
+	renderText() {
+		return (
+			<div className={this.bemBlocks.container("info")}>
+				{this.getHitCount()} results found
+			</div>
+		)
 	}
 
 	render() {
 		return (
 			<div className={this.bemBlocks.container()}>
-				<div className={this.bemBlocks.container("info")}>{this.getHitCount()} results found</div>
+				{this.renderText()}
       </div>
 		);
 	}
