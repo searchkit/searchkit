@@ -1,6 +1,10 @@
 # Hierarchical Menu
 Component which renders a tree like structure. Used for items which have multiple levels of categorization. For example product categories & folders.
 
+## Indexing
+
+Hierarchical Menu needs an array of level fields. Levels is derived from the order of the array. If an item had /Appliances/Air Conditioners/Window Air Conditioners category, the values would be as follows: {categories_lvl1:["Appliances"], categories_lvl2:["Air Conditioners"], categories_lvl3:["Window Air Conditioners"]}  
+
 ## Example
 
 ```jsx
@@ -21,7 +25,7 @@ class App extends SearchkitComponent<any, any> {
 ```
 
 ## Props
-- `fields` *([ESAttribute])*: An array of non-analysed elastic search fields to create aggs. Levels is derived from the order of the array. If an item had /Appliances/Air Conditioners/Window Air Conditioners category, the values would be as follows: {categories_lvl1:["Appliances"], categories_lvl2:["Air Conditioners"], categories_lvl3:["Window Air Conditioners"]}  
+- `fields` *([ESAttribute])*: An array of non-analysed elastic search fields to create aggs.
 - `title` *(string)*: Title of the menu. Shown as a header and within selected filters
 - `id` *(string)*: id of component. Must be unique. Used as key for url serialisation
 
