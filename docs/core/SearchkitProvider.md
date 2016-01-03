@@ -19,4 +19,4 @@ ReactDOM.render(<App/>, document.getElementById("app"))
 
 ```
 
->**Note** 'SearchkitProvider' will add the 'SearchkitManager' to the context and is automatically read by components extending [SearchkitComponent](SearchkitComponent.md)
+>**Note** `SearchkitProvider` will add the `SearchkitManager` to the context and is automatically read by components extending [SearchkitComponent](SearchkitComponent.md)
