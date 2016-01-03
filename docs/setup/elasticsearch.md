@@ -2,7 +2,7 @@
 There are many ways to connect searchkit to an elasticsearch instance. We officially support ES 2.0+ but also works on 1.7.2 +. If connecting directly to elasticsearch (not using the searchkit-express), multipleSearchers cannot be true.
 
 ## Using a cloud hosted elasticsearch instance
-Searchkit can use a cloud based elasticsearch instance. If using in production, make sure the url is a read only url.
+Searchkit can use a cloud based elasticsearch instance. If using in production, make sure the url is read only.
 
 ### Hosting providers
 
