@@ -33,7 +33,7 @@ import {
 ```
 
 ## Using library script
-Searchkit library script is available from bower or from jsdelivr CDN.
+Searchkit library script is available from bower or from [jsdelivr CDN](https://www.jsdelivr.com/?query=searchkit).
 
 ### Installing via bower
 Requires React, ReactDOM to be included before searchkit. Within the release folder, the src `bundle.js`, the css `styles.css` and static file assets.

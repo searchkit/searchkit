@@ -3,7 +3,7 @@ Searchkit is a suite of UI components built in react. The aim is rapidly create 
 
 <img src="./docs/assets/codepreview.png"/>
 
-See [Getting Started](/docs/setup/README.md)
+See full [Documentation](https://ssetem.gitbooks.io/searchkit/content/) or [Getting Started](https://ssetem.gitbooks.io/searchkit/content/docs/setup/index.html) 
 
 ## Quick Intro
 [Live demo](http://demo.searchkit.co)
