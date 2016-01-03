@@ -1,0 +1,47 @@
+{
+  "name": "searchkit",
+  "description": "A suite of react components to help create a UI quickly for elasticsearch",
+  "main": [
+    "release/bundle.js",
+    "release/styles.css"
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "elasticsearch",
+    "elastic search",
+    "react",
+    "ui components",
+    "search",
+    "library",
+    "client-side",
+    "widgets",
+    "react components"
+  ],
+  "authors": [
+    {
+      "name": "Joseph McElroy",
+      "email": "phoey1@gmail.com"
+    },
+    {
+      "name": "Siavash Etemadieh",
+      "email": "ssetem@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "private": true
+}

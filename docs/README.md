@@ -2,9 +2,6 @@
 
 * [Getting Started](/docs/setup/README.md)
   * [Project Setup](/docs/setup/project-setup.md)
-    * [Using typescript](/docs/setup/using_typescript.md)
-    * [Using es6](/docs/setup/using_es6.md)
-    * [Using script](/docs/setup/using_script.md)
   * [Connecting Elasticsearch](/docs/setup/elasticsearch.md)
   * [Indexing](/docs/setup/indexing.md)
   * [Using components](/docs/setup/using-components.md)
