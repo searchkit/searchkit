@@ -1,7 +1,7 @@
 {
   "gitbook": "2.5.2",
   "structure": {
-    "introduction":"docs/README.md",
+    "introduction":"docs/introduction.md",
     "summary": "docs/README.md",
     "glossary":"docs/GLOSSARY.md"
   },

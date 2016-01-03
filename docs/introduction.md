@@ -6,7 +6,6 @@ Searchkit is a suite of UI components built in react. The aim is rapidly create 
 See [Getting Started](/docs/setup/README.md)
 
 ## Quick Intro
-[Live demo](http://demo.searchkit.co)
 
 ```jsx
 
@@ -21,30 +20,19 @@ class App extends React.Component {
   <SearchkitProvider searchkit={sk}>
     <div>
       <div className="example-search-site__query">
-        <SearchBox
-         autofocus={true}
-         searchOnChange={true}
-         prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
+        <SearchBox autofocus={true} mod="example-search-box" searchOnChange={true} prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
       </div>
       <div className="example-search-site__applied-filters">
-        <SelectedFilters/>
-        <ResetFilters/>
+        <SelectedFilters mod="example-applied-filters"/>
+        <ResetFilters mod="example-reset-filters"/>
         <HitsStats/>
       </div>
       <div className="example-search-site__filters">
-        <HierarchicalMenuFilter
-          fields={["type.raw", "genres.raw"]}
-          title="Categories"
-          id="categories"/>
-        <RefinementListFilter
-          id="actors"
-          title="Actors"
-          field="actors.raw"
-          operator="AND"
-          size={10}/>
+        <HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
+        <RefinementListFilter id="actors" title="Actors" field="actors.raw" operator="AND" size={10}/>
       </div>
       <div className="example-search-site__results">
-        <Hits hitsPerPage={10}/>
+        <MovieHits hitsPerPage={10} mod="example-hits"/>
       </div>
     </div>
   </SearchkitProvider>
@@ -55,3 +43,5 @@ ReactDOM.render((
 ),  document.getElementById('root'))
 
 ```
+
+[Live demo](http://demo.searchkit.co)
