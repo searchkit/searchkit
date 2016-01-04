@@ -20,12 +20,13 @@ export interface ISearchBox {
 
 export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	accessor:SearchAccessor
-
+	lastSearchMs:number
 	constructor (props:ISearchBox) {
 		super(props);
 		this.state = {
 			focused:false
 		}
+		this.lastSearchMs = 0
 	}
 
 	componentWillMount() {
@@ -51,7 +52,10 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	searchQuery(query) {
 		this.searchkit.resetState()
 		this.accessor.state = this.accessor.state.setValue(query)
-		this.searchkit.performSearch()
+		let now = +new Date
+		let newSearch = now - this.lastSearchMs <= 2000
+		this.lastSearchMs = now
+		this.searchkit.performSearch(newSearch)
 	}
 
 	getValue(){

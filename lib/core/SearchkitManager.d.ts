@@ -33,7 +33,7 @@ export declare class SearchkitManager {
     resetState(): void;
     unlistenHistory(): void;
     listenToHistory(): void;
-    performSearch(): void;
-    search(): void;
+    performSearch(replaceState?: boolean): void;
+    search(replaceState: any): void;
     _search(): boolean;
 }

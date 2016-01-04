@@ -8,6 +8,7 @@ export interface ISearchBox {
 }
 export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
     accessor: SearchAccessor;
+    lastSearchMs: number;
     constructor(props: ISearchBox);
     componentWillMount(): void;
     defineBEMBlocks(): {

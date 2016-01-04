@@ -108,15 +108,17 @@ export class SearchkitManager {
     })
   }
 
-  performSearch(){
+  performSearch(replaceState=false){
     this.searchers.notifyStateChange(this.state)
     let hasSearched = this._search()
     if(hasSearched && this.options.useHistory){
-      this.history.pushState(null, window.location.pathname, this.state)
+      const historyMethod = (replaceState) ?
+        this.history.replaceState : this.history.pushState
+      historyMethod(null, window.location.pathname, this.state)
     }
   }
-  search(){
-    this.performSearch()
+  search(replaceState){
+    this.performSearch(replaceState)
   }
 
   _search(){
