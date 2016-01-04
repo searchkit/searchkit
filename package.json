@@ -40,7 +40,7 @@
       "email": "ssetem@gmail.com"
     }
   ],
-  "license": "GPLv3",
+  "license": "Apache-2.0",
   "dependencies": {
     "axios": "^0.8.1",
     "bem-cn": "^1.2.1",
