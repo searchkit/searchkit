@@ -108,7 +108,7 @@ export class SearchkitManager {
   }
 
   searchFromUrlQuery(query){
-    this.searchers.setAccessorStates(location.query)
+    this.searchers.setAccessorStates(query)
     this._search()
   }
 

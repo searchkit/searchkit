@@ -26,8 +26,7 @@ describe("PaginationAccessor", ()=> {
 
     const expectStateFrom = (state, from)=> {
       this.accessor.state = this.accessor.state.setValue(state)
-      query = this.accessor.buildOwnQuery(query)
-      console.log(JSON.stringify(query.getJSON()))
+      query = this.accessor.buildOwnQuery(query)      
       expect(query.getFrom()).toBe(from)
     }
     expectStateFrom(null, undefined)
