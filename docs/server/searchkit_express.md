@@ -1,5 +1,6 @@
 # Using Express
 `Searchkit` ships with an express plugin to proxy api calls to ElasticSearch
+> **Note** The use of a proxy is optional, you can configure the `Searchkit` client to connect directly to an `ElasticSearch` server
 
 ## Installation
 

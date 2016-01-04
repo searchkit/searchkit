@@ -22,11 +22,12 @@ describe("PaginationAccessor", ()=> {
   })
 
   it("buildOwnQuery", ()=> {
-    let query = new ImmutableQuery()
+    let query = new ImmutableQuery().setSize(20)
 
     const expectStateFrom = (state, from)=> {
       this.accessor.state = this.accessor.state.setValue(state)
       query = this.accessor.buildOwnQuery(query)
+      console.log(JSON.stringify(query.getJSON()))
       expect(query.getFrom()).toBe(from)
     }
     expectStateFrom(null, undefined)

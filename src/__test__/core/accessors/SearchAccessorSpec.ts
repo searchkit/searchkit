@@ -24,6 +24,7 @@ describe("SearchAccessor", ()=> {
           SimpleQueryString("some query", {fields:["_all"]})
         ])
       ])
+      console.log(JSON.stringify(query.getJSON(), null, 2))
     })
 
     it("buildSharedQuery() - empty query", ()=> {

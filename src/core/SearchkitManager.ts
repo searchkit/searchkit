@@ -99,13 +99,17 @@ export class SearchkitManager {
       //action is POP when the browser modified
       if(location.action === "POP") {
         this.registrationCompleted.then(()=>{
-          this.searchers.setAccessorStates(location.query)
-          this._search()
+          this.searchFromUrlQuery(location.query)
         }).catch((e)=> {
           console.log(e.stack)
         })
       }
     })
+  }
+
+  searchFromUrlQuery(query){
+    this.searchers.setAccessorStates(location.query)
+    this._search()
   }
 
   performSearch(replaceState=false){

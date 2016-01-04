@@ -5,7 +5,7 @@
     "summary": "docs/README.md",
     "glossary":"docs/GLOSSARY.md"
   },
-  "plugins": ["prism", "-highlight", "codepen", "versions"],
+  "plugins": ["mermaid-2", "prism", "-highlight", "codepen", "versions"],
   "pluginsConfig": {
     "versions": {
       "type": "tags"

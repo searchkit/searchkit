@@ -10,14 +10,12 @@ See [Getting Started](/docs/setup/README.md)
 ```jsx
 
 const host = "https://kili-eu-west-1.searchly.com/movies/"
-const sk = new SearchkitManager(host, {
-  multipleSearchers:false,
+const searchkit = new SearchkitManager(host, {  
   basicAuth:"read:teetndhjnrspbzxxyfxmf5fb24suqxuj"
 })
 
-class App extends React.Component {
-
-  <SearchkitProvider searchkit={sk}>
+const App = ()=> (
+  <SearchkitProvider searchkit={searchkit}>
     <div>
       <div className="example-search-site__query">
         <SearchBox autofocus={true} mod="example-search-box" searchOnChange={true} prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
@@ -36,11 +34,9 @@ class App extends React.Component {
       </div>
     </div>
   </SearchkitProvider>
-}
+)
 
-ReactDOM.render((
-  <App/>
-),  document.getElementById('root'))
+ReactDOM.render(<App/>, document.getElementById('root'))
 
 ```
 
