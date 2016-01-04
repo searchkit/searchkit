@@ -14,14 +14,13 @@ See full [Documentation](https://ssetem.gitbooks.io/searchkit/content/) or [Gett
 ```jsx
 
 const host = "https://kili-eu-west-1.searchly.com/movies/"
-const sk = new SearchkitManager(host, {
+const searchkit = new SearchkitManager(host, {
   multipleSearchers:false,
   basicAuth:"read:teetndhjnrspbzxxyfxmf5fb24suqxuj"
 })
 
-class App extends React.Component {
-
-  <SearchkitProvider searchkit={sk}>
+const App = ()=> (
+  <SearchkitProvider searchkit={searchkit}>
     <div>
       <div className="example-search-site__query">
         <SearchBox
@@ -51,10 +50,8 @@ class App extends React.Component {
       </div>
     </div>
   </SearchkitProvider>
-}
+)
 
-ReactDOM.render((
-  <App/>
-),  document.getElementById('root'))
+ReactDOM.render(<App/>, document.getElementById('root'))
 
 ```
