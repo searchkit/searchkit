@@ -3,7 +3,7 @@ Searchkit is a suite of UI components built in react. The aim is rapidly create 
 
 <img src="./docs/assets/codepreview.png"/>
 
-<img src="https://circleci.com/gh/searchkit/searchkit.png"/>
+[<img src="https://circleci.com/gh/searchkit/searchkit.png?style=shield"/>](https://circleci.com/gh/searchkit/searchkit)
 [![npm version](https://badge.fury.io/js/searchkit.svg)](https://badge.fury.io/js/searchkit)
 
 See full [Documentation](https://ssetem.gitbooks.io/searchkit/content/) or [Getting Started](https://ssetem.gitbooks.io/searchkit/content/docs/setup/index.html)
