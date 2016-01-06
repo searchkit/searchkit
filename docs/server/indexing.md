@@ -12,8 +12,7 @@ Often you will want a field to be both `searchable` and appear as `facets`. A fi
     "properties" : {
       "genres" : {
         "type" : "string",
-        "fields" : {
-          "genres" : {"type" : "string"},
+        "fields" : {          
           "raw" : {
             "type" : "string",
             "index" : "not_analyzed"
