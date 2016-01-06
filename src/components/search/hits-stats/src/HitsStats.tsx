@@ -32,7 +32,7 @@ export class HitsStats extends SearchkitComponent<IHitsStats, any> {
 
 	renderText() {
 		return (
-			<div className={this.bemBlocks.container("info")}>
+			<div className={this.bemBlocks.container("info")} data-qa="info">
 				{this.getHitCount()} results found
 			</div>
 		)
@@ -40,7 +40,7 @@ export class HitsStats extends SearchkitComponent<IHitsStats, any> {
 
 	render() {
 		return (
-			<div className={this.bemBlocks.container()}>
+			<div className={this.bemBlocks.container()} data-qa="hits-stats">
 				{this.renderText()}
       </div>
 		);

@@ -72,7 +72,7 @@ export class Pagination extends SearchkitComponent<IPagination, any> {
 			})
     return (
 			<FastClick handler={this.setPage.bind(this,direction)}>
-	      <div className={className}>
+	      <div className={className} data-qa={direction}>
 	        <div className={this.bemBlocks.option("text")}>{displayText}</div>
 	      </div>
 			</FastClick>
@@ -81,7 +81,7 @@ export class Pagination extends SearchkitComponent<IPagination, any> {
 
   render() {
     return (
-      <div className={this.bemBlocks.container()}>
+      <div className={this.bemBlocks.container()} data-qa="pagination">
 					{this.paginationElement(DIRECTION.PREVIOUS, "prev", "Previous")}
 					{this.paginationElement(DIRECTION.NEXT, "next", "Next")}
       </div>

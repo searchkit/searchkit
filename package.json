@@ -47,7 +47,6 @@
     "es6-promise": "^3.0.2",
     "history": "1.13.0",
     "lodash": "^3.10.1",
-    "normalize.css": "^3.0.3",
     "qs": "ssetem/qs",
     "react": "^0.14.0",
     "react-addons-update": "^0.14.3",
@@ -77,6 +76,7 @@
     "tsd": "^0.6.5",
     "typescript": "^1.7.0",
     "webpack": "^1.12.9",
-    "webpack-config": "^3.0.0"
+    "webpack-config": "^3.0.0",
+    "xenon":"latest"
   }
 }

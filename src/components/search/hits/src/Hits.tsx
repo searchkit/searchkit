@@ -28,20 +28,20 @@ export class Hits extends SearchkitComponent<IHits, any> {
 
 	renderResult(result:any) {
 		return (
-			<div className={this.bemBlocks.item().mix(this.bemBlocks.container("item"))} key={result._id}>
+			<div data-qa="hit" className={this.bemBlocks.item().mix(this.bemBlocks.container("item"))} key={result._id}>
 			</div>
 		)
 	}
 
 	renderInitialView() {
 		return (
-			<div className={this.bemBlocks.container("initial-loading")}></div>
+			<div data-qa="initial-loading" className={this.bemBlocks.container("initial-loading")}></div>
 		)
 	}
 
 	renderNoResults() {
 		return (
-			<div className={this.bemBlocks.container("no-results")}>No results</div>
+			<div data-qa="no-results" className={this.bemBlocks.container("no-results")}>No results</div>
 		)
 	}
 
@@ -50,7 +50,7 @@ export class Hits extends SearchkitComponent<IHits, any> {
 		let hasHits = _.size(hits) > 0
 		let results = null
 
-		if (this.isInitialLoading()) {			
+		if (this.isInitialLoading()) {
 			results = this.renderInitialView()
 		} else if (!hasHits) {
 			results = this.renderNoResults()
@@ -59,7 +59,7 @@ export class Hits extends SearchkitComponent<IHits, any> {
 		}
 
 		return (
-			<div className={this.bemBlocks.container()}>
+			<div data-qa="hits" className={this.bemBlocks.container()}>
 				{results}
       </div>
 		);
