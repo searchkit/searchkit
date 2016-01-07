@@ -43,12 +43,13 @@ export class PathFacetAccessor extends Accessor<LevelState> {
 		var filterTerms = _.map(levelFilters, (filter,i) => {
 
 			let value = filter[0]
-			let subField = (i === lastIndex) ? ".value" : ".ancestors"
+			let isLeaf = i === lastIndex
+			let subField = isLeaf ? ".value" : ".ancestors"
 			return Term(this.options.field + subField, value, {
 				$name:this.options.title || this.translate(this.key),
 				$value:this.translate(value),
 				$id:this.options.id,
-				$disabled: this.state.levelHasFilters(i+1),
+				$disabled: !isLeaf,
 				$remove:()=> {
 					this.state = this.state.clear(i)
 		    }
@@ -162,7 +163,7 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<IHierarchic
 	renderOption(level, option) {
 
 		var block = this.bemBlocks.option
-		var isSelected = this.accessor.state.contains(level, option.key)
+		var isSelected = this.accessor.resultsState.contains(level, option.key)
 
 		var className = block().state({
 			selected:isSelected
