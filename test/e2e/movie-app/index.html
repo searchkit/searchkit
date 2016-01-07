@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React Tutorial</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../release/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="../../../release/bundle.js"></script>
+
+
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      const {
+      	SearchkitManager,SearchkitProvider,
+      	SearchBox, Hits, RefinementListFilter,
+      	HierarchicalMenuFilter, HitsStats,
+      	SelectedFilters, ResetFilters
+      } = Searchkit
+      const host = "https://kili-eu-west-1.searchly.com/movies/"
+      const searchkit = new SearchkitManager(host, {
+        basicAuth:"read:teetndhjnrspbzxxyfxmf5fb24suqxuj"
+      })
+
+      class MovieHits extends Hits {
+      	renderResult(result:any) {
+      		return (
+      			<div className={this.bemBlocks.item().mix(this.bemBlocks.container("item"))} key={result._id}>
+      				<div className={this.bemBlocks.item("title")}>{result._source.title}</div>
+      			</div>
+      		)
+      	}
+      }
+
+      const App = ()=> (
+        <SearchkitProvider searchkit={searchkit}>
+          <div>
+            <div className="example-search-site__query">
+              <SearchBox autofocus={true} mod="example-search-box" searchOnChange={true} prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
+            </div>
+            <div className="example-search-site__applied-filters">
+              <SelectedFilters mod="example-applied-filters"/>
+              <ResetFilters mod="example-reset-filters"/>
+              <HitsStats/>
+            </div>
+            <div className="example-search-site__filters">
+              <HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
+              <RefinementListFilter id="actors" title="Actors" field="actors.raw" operator="AND" size={10}/>
+            </div>
+            <div className="example-search-site__results">
+              <MovieHits hitsPerPage={10} mod="example-hits"/>
+            </div>
+          </div>
+        </SearchkitProvider>
+      )
+
+      ReactDOM.render(<App/>, document.getElementById("app"))
+    </script>
+  </body>
+</html>

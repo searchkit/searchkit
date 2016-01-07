@@ -20,14 +20,14 @@
   }
 
   &-option {
-    padding:2px 0px 2px 5px;
+    padding:2px 0px 2px 0px;
     cursor:pointer;
     position:relative;
     font-size:14px;
     display:flex;
     line-height:18px;
 
-    &.is-selected {
+    &.is-selected &__text {
       font-weight:700;
     }
 
