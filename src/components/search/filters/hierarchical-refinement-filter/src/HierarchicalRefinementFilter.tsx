@@ -36,11 +36,14 @@ export class PathFacetAccessor extends Accessor<LevelState> {
 
 	buildSharedQuery(query) {
 
-		var filterTerms = _.map(this.state.getValue(), (level, i) => {
+		let levelFilters = this.state.getValue()
+
+		var filterTerms = _.map(levelFilters, (level, i) => {
 			let filter = level[0]
+			let value = filter.slice(_.get(levelFilters,[i-1,0],"/").length)
 			return Term(this.options.field, filter, {
 				$name:this.options.title || this.translate(this.key),
-				$value:this.translate(filter),
+				$value:this.translate(value),
 				$id:this.options.id,
 				$disabled: false,
 				$remove:()=> {
