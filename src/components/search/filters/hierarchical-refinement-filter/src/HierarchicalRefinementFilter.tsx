@@ -48,7 +48,7 @@ export class PathFacetAccessor extends Accessor<LevelState> {
 				$name:this.options.title || this.translate(this.key),
 				$value:this.translate(value),
 				$id:this.options.id,
-				$disabled: false,
+				$disabled: this.state.levelHasFilters(i+1),
 				$remove:()=> {
 					this.state = this.state.clear(i)
 		    }
