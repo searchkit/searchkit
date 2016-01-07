@@ -1,5 +1,6 @@
-
-var Server = require("../../../Server")
+var static = require('node-static');
+var path = require("path")
+require("ts-node/register")
 
 exports.config = {
 
@@ -8,7 +9,7 @@ exports.config = {
   baseUrl: "http://localhost:3000/",
   framework: 'jasmine',
   specs: [
-    '../generated/**/*Spec.js'
+    '../specs/**/*Spec.ts'
   ],
 
   jasmineNodeOpts: {
@@ -20,7 +21,13 @@ exports.config = {
 
   onPrepare: function() {
     browser.ignoreSynchronization = true;
-    Server.start(false)
+    var fileServer = new static.Server(path.resolve(__dirname, "../../../"))
+    require('http').createServer(function (request, response) {
+        request.addListener('end', function () {
+            fileServer.serve(request, response);
+        }).resume();
+    }).listen(8080);
+
   }
 
 };

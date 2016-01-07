@@ -29,7 +29,7 @@
       class MovieHits extends Hits {
       	renderResult(result:any) {
       		return (
-      			<div className={this.bemBlocks.item().mix(this.bemBlocks.container("item"))} key={result._id}>
+      			<div data-qa="hit" className={this.bemBlocks.item().mix(this.bemBlocks.container("item"))} key={result._id}>
       				<div className={this.bemBlocks.item("title")}>{result._source.title}</div>
       			</div>
       		)

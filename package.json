@@ -67,16 +67,18 @@
     "karma-sourcemap-loader": "^0.3.6",
     "karma-webpack": "^1.7.0",
     "node-sass": "^3.4.2",
+    "node-static": "^0.7.7",
     "null-loader": "^0.1.1",
     "phantomjs": "^1.9.18",
     "phantomjs-polyfill": "0.0.1",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
     "ts-loader": "^0.7.2",
+    "ts-node": "^0.5.5",
     "tsd": "^0.6.5",
     "typescript": "^1.7.0",
     "webpack": "^1.12.9",
     "webpack-config": "^3.0.0",
-    "xenon":"latest"
+    "xenon": "latest"
   }
 }
