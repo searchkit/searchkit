@@ -93,6 +93,15 @@ export function AggsRange(field, ranges){
   }
 }
 
+export function AggsList(key, filters, aggregations){
+  return {
+    [key]:{
+      filter:filters,
+      aggs:aggregations
+    }
+  }
+}
+
 export function Aggs(key, filters, aggregation){
   return {
     [key]:{

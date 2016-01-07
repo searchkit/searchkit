@@ -46,4 +46,5 @@ export declare function AggsRange(field: any, ranges: any): {
         ranges: any;
     };
 };
+export declare function AggsList(key: any, filters: any, aggregations: any): {};
 export declare function Aggs(key: any, filters: any, aggregation: any): {};
