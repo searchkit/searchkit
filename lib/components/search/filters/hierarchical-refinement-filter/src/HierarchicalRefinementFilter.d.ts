@@ -8,7 +8,7 @@ export declare class PathFacetAccessor extends Accessor<LevelState> {
     state: LevelState;
     options: any;
     constructor(key: any, options: PathFacetAccessorOptions);
-    getBuckets(path: any): any[];
+    getBuckets(level: any): any[];
     buildSharedQuery(query: any): any;
     buildOwnQuery(query: any): any;
 }
@@ -28,7 +28,7 @@ export declare class HierarchicalRefinementFilter extends SearchkitComponent<IHi
     shouldCreateNewSearcher(): boolean;
     defineAccessor(): PathFacetAccessor;
     addFilter(level: any, option: any): void;
-    renderOption(path: any, level: any, option: any): JSX.Element;
-    renderOptions(path: any, level: any): JSX.Element;
+    renderOption(level: any, option: any): JSX.Element;
+    renderOptions(level: any): JSX.Element;
     render(): JSX.Element;
 }

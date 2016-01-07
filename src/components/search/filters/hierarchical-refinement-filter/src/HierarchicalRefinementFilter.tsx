@@ -28,9 +28,10 @@ export class PathFacetAccessor extends Accessor<LevelState> {
 		this.options = options
 	}
 
-	getBuckets(path) {
+	getBuckets(level) {
 		const results = this.getResults()
-    const rpath = ['aggregations',this.key, path,'buckets']
+		console.log(results, ['aggregations',this.key, "lvl"+level,"parents",'buckets'])
+    const rpath = ['aggregations',this.key, "lvl"+level,"parents",'buckets']
     return _.get(results, rpath, [])
 	}
 
@@ -38,10 +39,11 @@ export class PathFacetAccessor extends Accessor<LevelState> {
 
 		let levelFilters = this.state.getValue()
 
-		var filterTerms = _.map(levelFilters, (level, i) => {
-			let filter = level[0]
-			let value = filter.slice(_.get(levelFilters,[i-1,0],"/").length)
-			return Term(this.options.field, filter, {
+		var filterTerms = _.map(levelFilters, (filter,i) => {
+
+			let value = filter[0]
+
+			return Term(this.options.field+".value", value, {
 				$name:this.options.title || this.translate(this.key),
 				$value:this.translate(value),
 				$id:this.options.id,
@@ -62,26 +64,33 @@ export class PathFacetAccessor extends Accessor<LevelState> {
   buildOwnQuery(query){
 
 		let aggs = {
-			["/"]: Terms(this.options.field, {
-					size:0,
-					include:"/(.|\\/)+",
-					exclude:"/(.|\\/)+/(.|\\/)+"
-				})
+			"lvl0":{
+				filter: {
+					bool:{
+						must:[
+							Term("taxonomy.level", 1)
+						]
+					}
+				},
+				"aggs":{
+					"parents":{
+						 "terms":{
+									"field":"taxonomy.value",
+									"size":0
+							}
+					}
+				}
+			}
 		}
 
-		_.forEach(this.state.getValue(), (value) => {
-			aggs[value] = Terms(this.options.field, {
-				size:0,
-				include:value+"/(.|\\/)+",
-				exclude:value+"/(.|\\/)+/(.|\\/)+"
-			})
-		});
-
-		query = query.setAggs(AggsList(
-			this.key,
-			query.getFilters(this.options.field),
-			aggs
-		))
+		query = query.setAggs({
+			taxonomy: {
+				nested: {
+					path: "taxonomy"
+				},
+				aggs: aggs
+			}
+		})
 
     return query
   }
@@ -127,7 +136,7 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<IHierarchic
 		this.searchkit.performSearch()
 	}
 
-	renderOption(path, level, option) {
+	renderOption(level, option) {
 
 		var block = this.bemBlocks.option
 		var isSelected = this.accessor.state.contains(level, option.key)
@@ -140,25 +149,25 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<IHierarchic
 			<div key={option.key}>
 				<FastClick handler={this.addFilter.bind(this, level, option)}>
 					<div className={className}>
-						<div className={block("text")}>{this.translate(option.key.slice(path.length))}</div>
+						<div className={block("text")}>{this.translate(option.key)}</div>
 						<div className={block("count")}>{option.doc_count}</div>
 					</div>
 				</FastClick>
 					{(() => {
 						if(isSelected) {
-							return this.renderOptions(option.key, level+1);
+							return this.renderOptions(level+1);
 						}
 					})()}
 			</div>
 		)
 	}
 
-	renderOptions(path, level) {
+	renderOptions(level) {
 		let block = this.bemBlocks.container;
 		return (
 			<div className={block("hierarchical-options")}>
 			{
-        _.map(this.accessor.getBuckets(path), this.renderOption.bind(this,path, level))
+        _.map(this.accessor.getBuckets(level), this.renderOption.bind(this, level))
       }
 			</div>
 		)
@@ -170,7 +179,7 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<IHierarchic
 			<div className={block().mix(`filter--${this.props.id}`)}>
 				<div className={block("header")}>{this.props.title}</div>
 				<div className={block("root")}>
-					{this.renderOptions("/", 0)}
+					{this.renderOptions(0)}
 				</div>
 			</div>
 		)
