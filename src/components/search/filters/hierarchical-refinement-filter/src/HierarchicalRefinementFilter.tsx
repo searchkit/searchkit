@@ -64,16 +64,16 @@ export class PathFacetAccessor extends Accessor<LevelState> {
 		let aggs = {
 			["/"]: Terms(this.options.field, {
 					size:0,
-					include:"/.+",
-					exclude:"/.+/.+"
+					include:"/(.|\\/)+",
+					exclude:"/(.|\\/)+/(.|\\/)+"
 				})
 		}
 
 		_.forEach(this.state.getValue(), (value) => {
 			aggs[value] = Terms(this.options.field, {
 				size:0,
-				include:value+"/.+",
-				exclude:value+"/.+/.+"
+				include:value+"/(.|\\/)+",
+				exclude:value+"/(.|\\/)+/(.|\\/)+"
 			})
 		});
 
