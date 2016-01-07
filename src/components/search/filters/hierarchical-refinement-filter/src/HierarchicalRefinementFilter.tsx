@@ -83,6 +83,27 @@ export class PathFacetAccessor extends Accessor<LevelState> {
 			}
 		}
 
+		_.each(this.state.getValue(), (level,i) => {
+			aggs["lvl"+(i+1)] = {
+				filter: {
+					bool:{
+						must:[
+							Term("taxonomy.level", i+2),
+							Term("taxonomy.ancestors", level[0])
+						]
+					}
+				},
+				"aggs":{
+					"parents":{
+						 "terms":{
+									"field":"taxonomy.value",
+									"size":0
+							}
+					}
+				}
+			}
+		})
+
 		query = query.setAggs({
 			taxonomy: {
 				nested: {
