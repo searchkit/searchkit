@@ -44,7 +44,7 @@ export class PathFacetAccessor extends Accessor<LevelState> {
 				$id:this.options.id,
 				$disabled: false,
 				$remove:()=> {
-					this.state = this.state.clear(level)
+					this.state = this.state.clear(i)
 		    }
 			})
 		})
