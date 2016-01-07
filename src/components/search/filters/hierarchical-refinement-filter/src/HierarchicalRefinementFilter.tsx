@@ -10,7 +10,8 @@ import {
 	AggsList,
 	Terms,
 	BoolMust,
-	Term
+	Term,
+	NestedFilter
 } from "../../../../../core"
 
 export interface PathFacetAccessorOptions {
@@ -55,7 +56,8 @@ export class PathFacetAccessor extends Accessor<LevelState> {
 		})
 
 		if(filterTerms.length > 0){
-      query = query.addFilter(this.options.field, BoolMust(filterTerms))
+      query = query.addFilter(this.options.field,
+				NestedFilter(this.options.field, BoolMust(filterTerms)))
     }
 
     return query
