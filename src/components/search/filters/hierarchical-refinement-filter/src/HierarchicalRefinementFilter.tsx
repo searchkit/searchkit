@@ -39,12 +39,12 @@ export class PathFacetAccessor extends Accessor<LevelState> {
 	buildSharedQuery(query) {
 
 		let levelFilters = this.state.getValue()
-
+		let lastIndex = levelFilters.length - 1
 		var filterTerms = _.map(levelFilters, (filter,i) => {
 
 			let value = filter[0]
-
-			return Term(this.options.field+".value", value, {
+			let subField = (i === lastIndex) ? ".value" : ".ancestors"
+			return Term(this.options.field + subField, value, {
 				$name:this.options.title || this.translate(this.key),
 				$value:this.translate(value),
 				$id:this.options.id,
