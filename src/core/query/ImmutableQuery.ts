@@ -43,6 +43,7 @@ export class ImmutableQuery {
   }
 
   addFilter(key, bool) {
+    console.log(arguments)
     var newIndex = update(this.index,{
       filters:{
         $merge:{[key]:bool}

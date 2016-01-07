@@ -31,6 +31,13 @@ export interface TermOptions {
     [prop: string]: any;
 }
 export declare function Term(key: any, value: any, options?: TermOptions): {};
+export declare function NestedFilter(path: any, bool: any): {
+    "nested": {
+        path: any;
+        filter: any;
+    };
+    $array: any;
+};
 export declare function Terms(key: any, options?: {}): {
     terms: {};
 };

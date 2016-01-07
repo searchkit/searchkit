@@ -54,6 +54,16 @@ export function Term(key, value, options:TermOptions={}){
   }, defaultOptions, options)
 }
 
+export function NestedFilter(path, bool){
+  return {
+    "nested":{
+      path,
+      filter:bool
+    },
+    $array:bool.$array
+  }
+}
+
 export function Terms(key, options={}){
   return {
     terms:_.extend({
