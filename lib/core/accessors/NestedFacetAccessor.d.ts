@@ -6,6 +6,7 @@ export interface NestedFacetAccessorOptions {
     title: string;
     orderKey?: string;
     orderDirection?: string;
+    startLevel?: number;
 }
 export declare class NestedFacetAccessor extends Accessor<LevelState> {
     state: LevelState;

@@ -35,10 +35,7 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<IHierarchic
 	defineAccessor() {
 		return new NestedFacetAccessor(
 			this.props.id,
-			{
-				id:this.props.id, title:this.props.title,
-				field:this.props.field,
-				orderKey:this.props.orderKey, orderDirection:this.props.orderDirection}
+			_.omit(this.props, ["mod"]) as any
 		)
 	}
 

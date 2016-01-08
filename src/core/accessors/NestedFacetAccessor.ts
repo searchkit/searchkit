@@ -12,6 +12,7 @@ export interface NestedFacetAccessorOptions {
 	title:string
   orderKey?:string
   orderDirection?:string
+  startLevel?:number
 }
 
 export class NestedFacetAccessor extends Accessor<LevelState> {
@@ -94,13 +95,13 @@ export class NestedFacetAccessor extends Accessor<LevelState> {
     let aggs = {}
     let levelField = this.options.field+".level"
     let ancestorsField = this.options.field+".ancestors"
-
+    let startLevel = this.options.startLevel || 1
     let termAggs = this.getTermAggs()
     var addLevel = (level, ancestors=[]) => {
       _.extend(aggs,
         AggsList(
           "lvl"+level,
-          BoolMust([Term(levelField, level+1), ...ancestors]),
+          BoolMust([Term(levelField, level+startLevel), ...ancestors]),
           termAggs
         )
       )
