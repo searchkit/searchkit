@@ -86,13 +86,17 @@ export class PathFacetAccessor extends Accessor<LevelState> {
 			}
 		}
 
-		_.each(this.state.getValue(), (level,i) => {
+		let levels = this.state.getValue()
+		_.each(levels, (level,i) => {
+			let ancestors = _.map(_.take(levels, i+1), (level)=>{
+				return Term("taxonomy.ancestors", level[0])
+			})
 			aggs["lvl"+(i+1)] = {
 				filter: {
 					bool:{
 						must:[
 							Term("taxonomy.level", i+2),
-							Term("taxonomy.ancestors", level[0])
+							...ancestors
 						]
 					}
 				},
