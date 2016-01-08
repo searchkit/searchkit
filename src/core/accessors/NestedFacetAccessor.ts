@@ -51,7 +51,7 @@ export class NestedFacetAccessor extends Accessor<LevelState> {
 		})
 
 		if(filterTerms.length > 0){
-      query = query.addFilter(this.options.field,
+      query = query.addFilter(this.options.id,
 				NestedFilter(this.options.field, BoolMust(filterTerms)))
     }
 
