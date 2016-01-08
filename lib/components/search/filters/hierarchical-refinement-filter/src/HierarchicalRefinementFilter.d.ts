@@ -1,8 +1,5 @@
-import { SearchkitComponent, NestedFacetAccessor } from "../../../../../core";
-export interface IHierarchicalRefinementFilter {
-    id: string;
-    field: string;
-    title: string;
+import { SearchkitComponent, NestedFacetAccessor, NestedFacetAccessorOptions } from "../../../../../core";
+export interface IHierarchicalRefinementFilter extends NestedFacetAccessorOptions {
     mod?: string;
 }
 export declare class HierarchicalRefinementFilter extends SearchkitComponent<IHierarchicalRefinementFilter, any> {

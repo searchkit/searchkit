@@ -6,17 +6,19 @@ import {
   NestedFilter, AggsList
 } from "../query/QueryBuilders";
 
-export interface PathFacetAccessorOptions {
+export interface NestedFacetAccessorOptions {
 	field:string
 	id:string
 	title:string
+  orderKey?:string
+  orderDirection?:string
 }
 
 export class NestedFacetAccessor extends Accessor<LevelState> {
 	state = new LevelState()
 	options:any
 
-	constructor(key, options:PathFacetAccessorOptions){
+	constructor(key, options:NestedFacetAccessorOptions){
 		super(key, options.id)
 		this.options = options
 	}
@@ -55,19 +57,51 @@ export class NestedFacetAccessor extends Accessor<LevelState> {
     return query
   }
 
+  getTermAggs(){
+    let subAggs = undefined
+    let orderMetric = undefined
+    if(this.options.orderKey){
+      let orderDirection = this.options.orderDirection || "asc"
+      let orderKey = this.options.orderKey
+      if(_.includes(["_count", "_term"], orderKey)) {
+        orderMetric = {[orderKey]:orderDirection}
+      } else {
+        if(_.startsWith(orderKey, this.options.field + ".")){
+          const subAggName = this.options.field + "_order"
+          orderMetric = {
+            [subAggName]:orderDirection
+          }
+          subAggs = {
+            [subAggName]:{
+              "min":{field:orderKey}
+            }
+          }
+        }
+      }
+    }
+    let valueField = this.options.field+".value"
+
+    return {
+      parents:_.extend(
+        Terms(valueField, {size:0, order:orderMetric}),
+        {aggs:subAggs}
+      )
+    }
+  }
+
   buildOwnQuery(query){
 
     let aggs = {}
     let levelField = this.options.field+".level"
     let ancestorsField = this.options.field+".ancestors"
-    let valueField = this.options.field+".value"
 
+    let termAggs = this.getTermAggs()
     var addLevel = (level, ancestors=[]) => {
       _.extend(aggs,
         AggsList(
           "lvl"+level,
           BoolMust([Term(levelField, level+1), ...ancestors]),
-          {parents:Terms(valueField, {size:0})}
+          termAggs
         )
       )
     }
