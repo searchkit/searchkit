@@ -62,13 +62,17 @@ export class NestedFacetAccessor extends Accessor<LevelState> {
     let ancestorsField = this.options.field+".ancestors"
     let valueField = this.options.field+".value"
 
-		_.extend(aggs,
-      AggsList(
-        "lvl0",
-        BoolMust([Term(levelField, 1)]),
-        {parents:Terms(valueField, {size:0})}
+    var addLevel = (level, ancestors=[]) => {
+      _.extend(aggs,
+        AggsList(
+          "lvl"+level,
+          BoolMust([Term(levelField, level+1), ...ancestors]),
+          {parents:Terms(valueField, {size:0})}
+        )
       )
-    )
+    }
+
+    addLevel(0)
 
 		let levels = this.state.getValue()
 
@@ -78,13 +82,7 @@ export class NestedFacetAccessor extends Accessor<LevelState> {
 				return Term(ancestorsField, level[0])
 			})
 
-      _.extend(aggs,
-        AggsList(
-          "lvl"+(i+1),
-          BoolMust([Term(levelField, i+2), ...ancestors]),
-          {parents:Terms(valueField, {size:0})}
-        )
-      )
+      addLevel(i+1, ancestors)
 
     })
 
