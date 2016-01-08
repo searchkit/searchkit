@@ -1,7 +1,8 @@
 import {
   BoolMust, BoolMustNot,BoolShould,
   SimpleQueryString,MatchPhrasePrefix,
-  Term, Terms, AggsRange, Aggs
+  Term, Terms, AggsRange, Aggs, AggsList,
+  NestedFilter
 } from "../../../"
 
 describe("QueryBuilders", ()=> {
@@ -109,6 +110,43 @@ describe("QueryBuilders", ()=> {
       }
     })
 
+  })
+
+  it("AggsList()", () => {
+    let aggsList = AggsList(
+      "genre",
+      ["filter1", "filter2"],
+      {test:Terms("genre")}
+    )
+    expect(aggsList).toEqual({
+      "genre":{
+        filter:["filter1", "filter2"],
+        aggs: {
+          test:{
+            terms:{
+              field:"genre"
+            }
+          }
+        }
+      }
+    })
+  })
+
+  it("NestedFilter()", () => {
+    let nestedFilter = NestedFilter("taxonomy", BoolMust(["filter1", "filter2"]));
+    expect(nestedFilter).toEqual(
+      {
+        nested: {
+          path:"taxonomy",
+          filter: {
+            bool:{
+              must:["filter1","filter2"]
+            },
+            $array:["filter1","filter2"],
+          },
+        },
+        $array:["filter1","filter2"]
+      })
   })
 
 })
