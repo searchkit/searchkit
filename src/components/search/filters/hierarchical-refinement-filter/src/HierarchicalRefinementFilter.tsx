@@ -31,7 +31,6 @@ export class PathFacetAccessor extends Accessor<LevelState> {
 
 	getBuckets(level) {
 		const results = this.getResults()
-		console.log(results, ['aggregations',this.key, "lvl"+level,"parents",'buckets'])
     const rpath = ['aggregations',this.key, "lvl"+level,"parents",'buckets']
     return _.get(results, rpath, [])
 	}
@@ -140,7 +139,7 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<IHierarchic
 	}
 
 	defineBEMBlocks() {
-		var blockClass = this.props.mod || "hierarchical-menu";
+		var blockClass = this.props.mod || "hierarchical-refinement";
 		return {
 			container:`${blockClass}-list`,
 			option:`${blockClass}-option`
