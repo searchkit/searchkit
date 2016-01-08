@@ -1,17 +1,4 @@
-import { SearchkitComponent, Accessor, LevelState } from "../../../../../core";
-export interface PathFacetAccessorOptions {
-    field: string;
-    id: string;
-    title: string;
-}
-export declare class PathFacetAccessor extends Accessor<LevelState> {
-    state: LevelState;
-    options: any;
-    constructor(key: any, options: PathFacetAccessorOptions);
-    getBuckets(level: any): any[];
-    buildSharedQuery(query: any): any;
-    buildOwnQuery(query: any): any;
-}
+import { SearchkitComponent, NestedFacetAccessor } from "../../../../../core";
 export interface IHierarchicalRefinementFilter {
     id: string;
     field: string;
@@ -19,14 +6,14 @@ export interface IHierarchicalRefinementFilter {
     mod?: string;
 }
 export declare class HierarchicalRefinementFilter extends SearchkitComponent<IHierarchicalRefinementFilter, any> {
-    accessor: PathFacetAccessor;
+    accessor: NestedFacetAccessor;
     constructor(props: IHierarchicalRefinementFilter);
     defineBEMBlocks(): {
         container: string;
         option: string;
     };
     shouldCreateNewSearcher(): boolean;
-    defineAccessor(): PathFacetAccessor;
+    defineAccessor(): NestedFacetAccessor;
     addFilter(level: any, option: any): void;
     renderOption(level: any, option: any): JSX.Element;
     renderOptions(level: any): JSX.Element;
