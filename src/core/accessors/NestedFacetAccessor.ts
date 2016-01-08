@@ -26,7 +26,7 @@ export class NestedFacetAccessor extends Accessor<LevelState> {
 
 	getBuckets(level) {
 		const results = this.getResults()
-    const rpath = ['aggregations',this.key, "lvl"+level,"parents",'buckets']
+    const rpath = ['aggregations',this.key, "parents", "lvl"+level,"parents",'buckets']
     return _.get(results, rpath, [])
 	}
 
@@ -123,11 +123,16 @@ export class NestedFacetAccessor extends Accessor<LevelState> {
 
 		query = query.setAggs({
 			[this.options.id]: {
-				nested: {
-					path: this.options.field
-				},
-				aggs: aggs
-			}
+        filter:query.getFilters(this.options.field),
+        aggs:{
+          parents:{
+            nested: {
+              path: this.options.field
+            },
+            aggs: aggs
+          }
+        }
+      }
 		})
 
     return query
