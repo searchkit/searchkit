@@ -158,8 +158,7 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<IHierarchic
 	}
 
 	addFilter(level, option) {
-		this.accessor.state = this.accessor.state.clear(level);
-		this.accessor.state = this.accessor.state.add(level, option.key)
+		this.accessor.state = this.accessor.state.toggleLevel(level,option.key)
 		this.searchkit.performSearch()
 	}
 
