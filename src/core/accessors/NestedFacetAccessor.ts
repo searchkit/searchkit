@@ -123,7 +123,7 @@ export class NestedFacetAccessor extends Accessor<LevelState> {
 
 		query = query.setAggs({
 			[this.options.id]: {
-        filter:query.getFilters(this.options.field),
+        filter:query.getFilters(this.options.id),
         aggs:{
           parents:{
             nested: {
