@@ -9,6 +9,7 @@ import {
 export interface SearchOptions {
   queryFields?:Array<string>
   prefixSearch?:boolean
+  queryOptions?:any
 }
 export class SearchAccessor extends Accessor<ValueState> {
   state = new ValueState()
@@ -24,18 +25,15 @@ export class SearchAccessor extends Accessor<ValueState> {
     let queryStr = this.state.getValue()
     if(queryStr){
 
-      let simpleQuery = QueryString(queryStr, {
+      let simpleQuery = QueryString(queryStr, _.extend({}, this.options.queryOptions, {
         "query":                queryStr,
-        "type":                 "best_fields",
-        "fields":               this.options.queryFields,
-        "tie_breaker":          0.3,
-        "minimum_should_match": "70%"
-      })
+        "fields":               this.options.queryFields
+      }))
 
-      let prefixQueries = this.options.prefixSearch ? _.map(this.options.queryFields,
-        MatchPhrasePrefix.bind(null, queryStr)) : []
+      let prefixQueries = this.options.prefixSearch ? BoolShould(_.map(this.options.queryFields,
+        MatchPhrasePrefix.bind(null, queryStr))) : []
 
-      let queries = [].concat(BoolShould(prefixQueries)).concat(simpleQuery)
+      let queries = [].concat(prefixQueries).concat(simpleQuery)
       return query.addQuery(BoolShould(queries))
     }
     return query

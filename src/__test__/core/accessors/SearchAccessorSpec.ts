@@ -1,6 +1,6 @@
 import {
   SearchAccessor, ImmutableQuery, MatchPhrasePrefix,
-  SimpleQueryString, ValueState, BoolShould
+  QueryString, ValueState, BoolShould
 } from "../../../"
 
 describe("SearchAccessor", ()=> {
@@ -9,7 +9,8 @@ describe("SearchAccessor", ()=> {
 
     beforeEach(()=> {
       this.accessor = new SearchAccessor("q", {
-        prefixQueryFields:["title^10", "keywords"]
+        queryFields:["title^10", "keywords"],
+        prefixSearch:true
       })
     })
 
@@ -18,10 +19,13 @@ describe("SearchAccessor", ()=> {
       this.accessor.state = new ValueState("some query")
       query = this.accessor.buildSharedQuery(query)
       expect(query.query.query.$array).toEqual([
-        BoolShould([
-          MatchPhrasePrefix("some query", "title^10"),
-          MatchPhrasePrefix("some query", "keywords"),
-          SimpleQueryString("some query", {fields:["_all"]})
+          BoolShould([
+            BoolShould([
+              MatchPhrasePrefix("some query", "title^10"),
+              MatchPhrasePrefix("some query", "keywords")
+            ]
+          ),
+          QueryString("some query", {fields:["title^10", "keywords"]})
         ])
       ])
     })
@@ -33,6 +37,27 @@ describe("SearchAccessor", ()=> {
       expect(newQuery).toBe(query)
     })
 
+  })
+
+  describe("queryOptions", () => {
+    it("extend options", () => {
+      this.accessor = new SearchAccessor("q", {
+        queryFields:["_all"],
+        queryOptions: {
+          type:"best_fields",
+          x:"y"
+        }
+      })
+
+      let query = new ImmutableQuery()
+      this.accessor.state = new ValueState("some query")
+      query = this.accessor.buildSharedQuery(query)
+      expect(query.query.query.$array).toEqual([
+        BoolShould([
+          QueryString("some query", {fields:["_all"], type:"best_fields", x:"y"})
+        ])
+      ])
+    })
   })
 
   describe("queryFields", () => {
@@ -54,7 +79,7 @@ describe("SearchAccessor", ()=> {
       query = this.accessor.buildSharedQuery(query)
       expect(query.query.query.$array).toEqual([
         BoolShould([
-          SimpleQueryString("some query", {fields:["title^10", "_all"]})
+          QueryString("some query", {fields:["title^10", "_all"]})
         ])
       ])
 
@@ -69,7 +94,7 @@ describe("SearchAccessor", ()=> {
       query = this.accessor.buildSharedQuery(query)
       expect(query.query.query.$array).toEqual([
         BoolShould([
-          SimpleQueryString("some query", {fields:["_all"]})
+          QueryString("some query", {fields:["_all"]})
         ])
       ])
 

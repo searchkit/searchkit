@@ -15,6 +15,7 @@ export interface ISearchBox {
 	queryFields?:Array<string>
 	mod?:string
 	autofocus?:boolean
+	queryOptions?:any
 }
 
 export class SearchBox extends SearchkitComponent<ISearchBox, any> {
@@ -39,7 +40,8 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	defineAccessor(){
 		return new SearchAccessor("q", {
 			prefixSearch:this.props.searchOnChange,
-			queryFields:this.props.queryFields
+			queryFields:this.props.queryFields,
+			queryOptions:_.extend({}, {type:"best_fields"}, this.props.queryOptions)
 		})
 	}
 
