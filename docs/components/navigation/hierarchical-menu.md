@@ -1,5 +1,5 @@
 # Hierarchical Menu
-Component which renders a tree like structure. Used for items which have multiple levels of categorization. For example product categories & folders.
+Component which renders a tree like structure. Used for items which have multiple levels of categorization. Used for when documents have only one hierarchical category. For documents with more than one categories, see hierarchical Refinement filter. 
 
 ## Indexing
 
