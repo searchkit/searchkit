@@ -2,7 +2,7 @@
 Our recommended project setup is using webpack and typescript. We also support using searchkit with ES6 / Webpack and using normal library script file. Installing via NPM is recommended.
 
 ## Using Module
-We recommend using webpack for module dependency management of Searchkit's src, css and static assets. requires scss, file loaders to properly resolve searchkit dependencies. See [searchkit webpack boilerplate](www.github.com/searchkit/searchkit-webpack-boilerplate).
+We recommend using webpack for module dependency management of Searchkit's src, css and static assets. requires scss, file loaders to properly resolve searchkit dependencies. See [searchkit boilerplate](www.github.com/searchkit/searchkit-boilerplate).
 
 ### Installing via NPM
 Searchkit is available on [npm](http://npmjs.com/package/searchkit). Searchkit is written with typescript therefore typescript definition files are available.
