@@ -3,7 +3,7 @@ import {Accessor} from "./Accessor"
 import {
   MatchPhrasePrefix,
   BoolShould,
-  QueryString
+  SimpleQueryString
 } from "../query/QueryBuilders";
 
 export interface SearchOptions {
@@ -25,7 +25,7 @@ export class SearchAccessor extends Accessor<ValueState> {
     let queryStr = this.state.getValue()
     if(queryStr){
 
-      let simpleQuery = QueryString(queryStr, _.extend({}, this.options.queryOptions, {
+      let simpleQuery = SimpleQueryString(queryStr, _.extend({}, this.options.queryOptions, {
         "query":                queryStr,
         "fields":               this.options.queryFields
       }))

@@ -36,17 +36,6 @@ export function SimpleQueryString(query, options={}){
   }
 }
 
-export function QueryString(query, options={}) {
-  if (!query) {
-    return undefined
-  }
-  return {
-    "multi_match": _.extend({}, options, {
-      "query":query
-    }
-  )}
-}
-
 export interface TermOptions {
   $name?:string,
   $value?:string|number,

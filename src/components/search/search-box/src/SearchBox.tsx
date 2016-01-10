@@ -41,7 +41,8 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		return new SearchAccessor("q", {
 			prefixSearch:this.props.searchOnChange,
 			queryFields:this.props.queryFields,
-			queryOptions:_.extend({}, {type:"best_fields"}, this.props.queryOptions)
+			queryOptions:_.extend({
+			}, this.props.queryOptions)
 		})
 	}
 

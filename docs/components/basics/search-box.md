@@ -15,8 +15,8 @@ class App extends SearchkitComponent<any, any> {
     <div>
       <SearchBox
         searchOnChange={true}
-        prefixQueryFields={["languages","title^10"]}
-        queryFields={["title^5"]}/>
+        queryOptions={{analyzer:"standard"}}
+        queryFields={["title^5", "languages", "text"]}/>
     </div>
   }
 }
