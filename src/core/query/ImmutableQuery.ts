@@ -29,7 +29,7 @@ export class ImmutableQuery {
       this.query.filter.$array.length) > 0 || !!this.query.sort
   }
 
-  addQuery(query) {
+  addQuery(query:any) {
     if (query) {
       return this.update({
         query: BoolMust({ $push: [query] })

@@ -1,7 +1,6 @@
 import { SearchAccessor, SearchkitComponent } from "../../../../core";
 export interface ISearchBox {
     searchOnChange?: boolean;
-    prefixQueryFields?: Array<string>;
     queryFields?: Array<string>;
     mod?: string;
     autofocus?: boolean;

@@ -1,14 +1,14 @@
 import {ValueState} from "../state"
 import {Accessor} from "./Accessor"
 import {
-  SimpleQueryString,
   MatchPhrasePrefix,
-  BoolShould
+  BoolShould,
+  QueryString
 } from "../query/QueryBuilders";
 
 export interface SearchOptions {
-  prefixQueryFields?:Array<string>
   queryFields?:Array<string>
+  prefixSearch?:boolean
 }
 export class SearchAccessor extends Accessor<ValueState> {
   state = new ValueState()
@@ -17,17 +17,25 @@ export class SearchAccessor extends Accessor<ValueState> {
   constructor(key, options={}){
     super(key)
     this.options = options
-    this.options.prefixQueryFields = this.options.prefixQueryFields || []
     this.options.queryFields = this.options.queryFields || ["_all"]
   }
 
   buildSharedQuery(query){
     let queryStr = this.state.getValue()
     if(queryStr){
-      let simpleQuery = SimpleQueryString(queryStr, {fields:this.options.queryFields})
-      let prefixQueries = _.map(this.options.prefixQueryFields,
-        MatchPhrasePrefix.bind(null, queryStr))
-      let queries = [].concat(prefixQueries).concat(simpleQuery)
+
+      let simpleQuery = QueryString(queryStr, {
+        "query":                queryStr,
+        "type":                 "best_fields",
+        "fields":               this.options.queryFields,
+        "tie_breaker":          0.3,
+        "minimum_should_match": "70%"
+      })
+
+      let prefixQueries = this.options.prefixSearch ? _.map(this.options.queryFields,
+        MatchPhrasePrefix.bind(null, queryStr)) : []
+
+      let queries = [].concat(BoolShould(prefixQueries)).concat(simpleQuery)
       return query.addQuery(BoolShould(queries))
     }
     return query

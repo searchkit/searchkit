@@ -22,6 +22,9 @@ export declare function MatchPhrasePrefix(query: any, str: any): {
 export declare function SimpleQueryString(query: any, options?: {}): {
     "simple_query_string": {};
 };
+export declare function QueryString(query: any, options?: {}): {
+    "multi_match": {};
+};
 export interface TermOptions {
     $name?: string;
     $value?: string | number;
