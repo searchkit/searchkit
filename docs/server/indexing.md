@@ -4,7 +4,7 @@
 ## Updating index
 Straightforward to update the index. See [Updating indices](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html).
 
-### analyzer extensions
+### Analyzer extensions
 Out the box, elasticsearch uses the default [standard analyzer](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-standard-analyzer.html). We extend the default analyzer to offer [word delimiter](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-word-delimiter-tokenfilter.html), [html strip](https://www.elastic.co/guide/en/elasticsearch/reference/1.4/analysis-htmlstrip-charfilter.html) and [char mapping](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-mapping-charfilter.html).
 
 ```json
