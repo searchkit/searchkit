@@ -42,7 +42,7 @@ export class NestedFacetAccessor extends Accessor<LevelState> {
 			return Term(this.options.field + subField, value, {
 				$name:this.options.title || this.translate(this.key),
 				$value:this.translate(value),
-				$id:this.options.id,
+				$id:this.key,
 				$disabled: !isLeaf,
 				$remove:()=> {
 					this.state = this.state.clear(i)
@@ -51,7 +51,7 @@ export class NestedFacetAccessor extends Accessor<LevelState> {
 		})
 
 		if(filterTerms.length > 0){
-      query = query.addFilter(this.options.id,
+      query = query.addFilter(this.key,
 				NestedFilter(this.options.field, BoolMust(filterTerms)))
     }
 
@@ -122,8 +122,8 @@ export class NestedFacetAccessor extends Accessor<LevelState> {
     })
 
 		query = query.setAggs({
-			[this.options.id]: {
-        filter:query.getFilters(this.options.id),
+			[this.key]: {
+        filter:query.getFilters(this.key),
         aggs:{
           parents:{
             nested: {
