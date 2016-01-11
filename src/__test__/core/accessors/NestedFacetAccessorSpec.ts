@@ -118,7 +118,7 @@ describe("NestedFacetAccessor", ()=> {
     ])
   })
 
-  fit("buildOwnQuery()", ()=> {
+  it("buildOwnQuery()", ()=> {
     const getFilters = (aggs)=> {
       let filters = _.map(aggs.filter.$array, (f:any) => { return {term:f.term} })
       return filters

@@ -10,7 +10,7 @@ describe("SearchAccessor", ()=> {
     beforeEach(()=> {
       this.accessor = new SearchAccessor("q", {
         queryFields:["title^10", "keywords"],
-        prefixSearch:true
+        prefixQueryFields:["title^10", "keywords"]
       })
     })
 

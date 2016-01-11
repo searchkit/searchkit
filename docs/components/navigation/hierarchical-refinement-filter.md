@@ -3,8 +3,6 @@ Component which renders a tree like structure. Used for items which have multipl
 
 ## Indexing
 
-
-
 ### Field definition
 
 ```js

@@ -2,7 +2,7 @@ import { ValueState } from "../state";
 import { Accessor } from "./Accessor";
 export interface SearchOptions {
     queryFields?: Array<string>;
-    prefixSearch?: boolean;
+    prefixQueryFields?: Array<string>;
     queryOptions?: any;
 }
 export declare class SearchAccessor extends Accessor<ValueState> {

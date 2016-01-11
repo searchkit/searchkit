@@ -8,7 +8,7 @@ import {
 
 export interface SearchOptions {
   queryFields?:Array<string>
-  prefixSearch?:boolean
+  prefixQueryFields?:Array<string>
   queryOptions?:any
 }
 export class SearchAccessor extends Accessor<ValueState> {
@@ -30,7 +30,7 @@ export class SearchAccessor extends Accessor<ValueState> {
         "fields":               this.options.queryFields
       }))
 
-      let prefixQueries = this.options.prefixSearch ? BoolShould(_.map(this.options.queryFields,
+      let prefixQueries = this.options.prefixQueryFields ? BoolShould(_.map(this.options.prefixQueryFields,
         MatchPhrasePrefix.bind(null, queryStr))) : []
 
       let queries = [].concat(prefixQueries).concat(simpleQuery)

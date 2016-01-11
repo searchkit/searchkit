@@ -16,6 +16,7 @@ export interface ISearchBox {
 	mod?:string
 	autofocus?:boolean
 	queryOptions?:any
+	prefixQueryFields?:Array<string>
 }
 
 export class SearchBox extends SearchkitComponent<ISearchBox, any> {
@@ -39,7 +40,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 
 	defineAccessor(){
 		return new SearchAccessor("q", {
-			prefixSearch:this.props.searchOnChange,
+			prefixQueryFields:this.props.prefixQueryFields || (this.props.searchOnChange && this.props.queryFields),
 			queryFields:this.props.queryFields,
 			queryOptions:_.extend({
 			}, this.props.queryOptions)

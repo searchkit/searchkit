@@ -5,6 +5,7 @@ export interface ISearchBox {
     mod?: string;
     autofocus?: boolean;
     queryOptions?: any;
+    prefixQueryFields?: Array<string>;
 }
 export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
     accessor: SearchAccessor;
