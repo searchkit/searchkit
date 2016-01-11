@@ -3,10 +3,16 @@ Component which renders a tree like structure. Used for items which have multipl
 
 ## Indexing
 
+If a document has the following paths for the field taxonomy:
+  /Color/Red/Firebrick
+  /Color/Red/Orange Red
+  /Color/Green/Sea Green
+  /Color/Green/Lime Green
+
 ### Field definition
 
 ```js
-taxonomy:{
+color:{
   type:"nested",
   properties:{
     level:{type:"integer"},
@@ -19,17 +25,11 @@ taxonomy:{
 
 ### data indexed
 
-If a document has the following paths for the field taxonomy:
-  /Color/Red/Firebrick
-  /Color/Red/Orange Red
-  /Color/Green/Sea Green
-  /Color/Green/Lime Green
-
 the document field for taxonomy would be:
 
 ```js
 
-taxonomy:[
+color:[
   {level:1, value:"Color", ancestors:[]},
   {level:2, value:"Red", ancestors:["Color"]},
   {level:3, value:"Firebrick", ancestors:["Color", "Red"]},
@@ -70,4 +70,4 @@ class App extends SearchkitComponent<any, any> {
 - `startLevel` *(number)*: Optional. Can specify the root level to start from.
 
 ## Demo
-todo
+[](codepen://searchkit/OMgmwR?height=800&theme=0)
