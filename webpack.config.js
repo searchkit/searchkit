@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var copyrightBanner = require("fs").readFileSync("./COPYRIGHT", "utf-8");
 
 module.exports = {
   entry: [
@@ -18,6 +19,7 @@ module.exports = {
     extensions:[".js", ".ts", ".tsx","", ".webpack.js", ".web.js"]
   },
   plugins: [
+    new webpack.BannerPlugin(copyrightBanner, {entryOnly:true}),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new ExtractTextPlugin("styles.css", {allChunks:true}),
