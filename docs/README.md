@@ -14,6 +14,7 @@
       * [Pagination](/docs/components/navigation/pagination.md)
       * [Menu](/docs/components/navigation/menu.md)
       * [Hierarchical Menu](/docs/components/navigation/hierarchical-menu.md)
+      * [Hierarchical Refinement](/docs/components/navigation/hierarchical-refinement-filter.md)
       * [Refinement List](/docs/components/navigation/refinement-list.md)
       * [Numeric Refinement List](/docs/components/navigation/numeric-refinement-list.md)
       * [Reset](/docs/components/navigation/reset.md)
