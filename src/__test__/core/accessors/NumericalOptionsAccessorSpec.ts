@@ -1,6 +1,7 @@
 import {
   NumericOptionsAccessor, ImmutableQuery, Searcher,
-  BoolMust, BoolShould, ValueState
+  BoolMust, BoolShould, ValueState, RangeQuery,
+  RangeBucket, FilterBucket
 } from "../../../"
 import * as _ from "lodash"
 
@@ -19,6 +20,7 @@ describe("NumericOptionsAccessor", ()=> {
       ]
     }
     this.accessor = new NumericOptionsAccessor("categories", this.options)
+    this.accessor.uuid = "9999"
     this.accessor.setSearcher(this.searcher)
     this.query = new ImmutableQuery()
     this.toPlainObject = (ob)=> {
@@ -44,7 +46,6 @@ describe("NumericOptionsAccessor", ()=> {
     expect(this.accessor.getBuckets())
       .toEqual([1,2,3,4])
   })
-
   it("getRanges()", ()=> {
     expect(this.accessor.getRanges()).toEqual([
       {key: 'Cheap', from: 1, to: 11},
@@ -56,63 +57,57 @@ describe("NumericOptionsAccessor", ()=> {
   it("buildSharedQuery()", ()=> {
     this.accessor.state = new ValueState("Affordable")
     let query = this.accessor.buildSharedQuery(this.query)
-    let filters = query.query.filter.$array[0].$array
-    expect(this.toPlainObject(filters)).toEqual([{
-      "range": {
-        "price": {
-          "gte": 11,
-          "lt": 21
-        }
-      },
-      "$disabled": false,
-      "$name": "”Price",
-      "$value": "Affordable",
-      "$id": "price_id"
-    }])
-    filters[0].$remove()
-    expect(this.accessor.state.getValue()).toEqual(null)
+    let expected = BoolMust([
+      BoolMust([
+        RangeQuery("price", 11, 21)
+      ])
+    ])
+    expect(query.query.filter).toEqual(expected)
+    expect(_.keys(query.index.filters))
+      .toEqual(["9999"])
 
-    //test empty state yields same query
-    let newQuery = this.accessor.buildSharedQuery(query)
-    expect(newQuery).toBe(query)
+    let selectedFilters = query.getSelectedFilters()
+    expect(selectedFilters.length).toEqual(1)
+    expect(this.toPlainObject(selectedFilters[0])).toEqual({
+      name: '”Price', value: 'Affordable', id: 'price_id',
+    })
+    expect(this.accessor.state.getValue()).toEqual("Affordable")
+    selectedFilters[0].remove()
+    expect(this.accessor.state.getValue()).toEqual(null)
   })
 
 
   it("buildOwnQuery()", ()=> {
-    let query = this.accessor.buildOwnQuery(this.query)
-    expect(query.getJSON().aggs).toEqual({
-      "categories": {
-        "filter": {
-          "bool": {
-            "must": []
-          }
-        },
-        "aggs": {
-          "categories": {
-            "range": {
-              "field": "price",
-              "ranges": [
-                {
-                  "key": "Cheap",
-                  "from": 1,
-                  "to": 11
-                },
-                {
-                  "key": "Affordable",
-                  "from": 11,
-                  "to": 21
-                },
-                {
-                  "key": "Pricey",
-                  "from": 21,
-                  "to": 101
-                }
-              ]
+    this.query = this.query.addFilter("other", BoolShould(["foo"]))
+    let query = this.accessor.buildSharedQuery(this.query)
+    query = this.accessor.buildOwnQuery(query)
+    expect(query.query.aggs).toEqual(
+      FilterBucket(
+        "categories",
+        BoolMust([BoolShould(["foo"])]),
+        RangeBucket(
+          "categories",
+          "price",
+          [
+            {
+              "key": "Cheap",
+              "from": 1,
+              "to": 11
+            },
+            {
+              "key": "Affordable",
+              "from": 11,
+              "to": 21
+            },
+            {
+              "key": "Pricey",
+              "from": 21,
+              "to": 101
             }
-          }
-        }
-      }
-    })
+          ]
+        )
+      )
+    )
 
   })
 

@@ -2,7 +2,7 @@ import {
   AggsContainer,
   TermsBucket, RangeBucket,
   ChildrenBucket, FilterBucket,
-  NestedBucket
+  NestedBucket,SignificantTermsBucket
 } from "../../../../"
 
 describe("BucketAggregations", ()=> {
@@ -57,6 +57,15 @@ describe("BucketAggregations", ()=> {
       this.childBucket
     )
     this.expectAggs({nested:{path:"tags"}})
+  })
+
+  it("SignificantTermsBucket", ()=> {
+    this.aggs = SignificantTermsBucket(
+      this.aggsKey, "crime_type",
+      this.childBucket
+    )
+    this.expectAggs({
+      significant_terms:{field:"crime_type"}})
   })
 
 })

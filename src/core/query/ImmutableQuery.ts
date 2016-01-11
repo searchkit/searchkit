@@ -1,7 +1,8 @@
 const update = require("react-addons-update")
-import {BoolMust} from "./QueryBuilders"
+import {BoolMust} from "./query_dsl"
 import * as _ from "lodash"
 import {Utils} from "../support/Utils"
+import {SelectedFilter} from "./SelectedFilter"
 
 export class ImmutableQuery {
   index: any
@@ -13,11 +14,11 @@ export class ImmutableQuery {
   }
   static defaultIndex:any = {
     filters:{},
-    filtersArray:[]
+    selectedFilters:[]
   }
   constructor(query = ImmutableQuery.defaultQuery, index = ImmutableQuery.defaultIndex) {
-    this.index = index
     this.query = query
+    this.index = index
   }
 
   hasFilters(){
@@ -25,8 +26,8 @@ export class ImmutableQuery {
   }
 
   hasFiltersOrQuery(){
-    return (this.query.query.$array.length +
-      this.query.filter.$array.length) > 0 || !!this.query.sort
+    return (this.query.query.bool.must.length +
+      this.query.filter.bool.must.length) > 0 || !!this.query.sort
   }
 
   addQuery(query:any) {
@@ -38,7 +39,19 @@ export class ImmutableQuery {
     return this
   }
 
-  addHiddenFilter(bool){
+  addSelectedFilter(selectedFilter:SelectedFilter){
+    return this.addSelectedFilters([selectedFilter])
+  }
+  addSelectedFilters(selectedFilters:Array<SelectedFilter>){
+    return new ImmutableQuery(this.query, update(this.index, {
+      selectedFilters:{$push:selectedFilters}
+    }))
+  }
+
+  getSelectedFilters(){
+    return this.index.selectedFilters
+  }
+  addAnonymousFilter(bool){
     return this.addFilter(Utils.guid(), bool)
   }
 
@@ -46,35 +59,34 @@ export class ImmutableQuery {
     var newIndex = update(this.index,{
       filters:{
         $merge:{[key]:bool}
-      },
-      filtersArray:{
-        $push:bool.$array
       }
     })
-
     return this.update({
       filter: BoolMust({ $push: [bool] })
     }, newIndex)
 
   }
 
-  getFiltersArray(){
-    return this.index.filtersArray || []
-  }
-
   setAggs(aggs) {
-    // console.log(aggs)
     let existingAggs = this.query.aggs || {}
     let newAggs = _.extend({}, existingAggs, aggs)
     return this.update({ $merge:{aggs:newAggs} })
   }
 
-  getFilters(key = undefined) {
-    if (!_.isArray(key)) {
-      key = [key];
-    }
-    const filters = _.values(_.omit(this.index.filters || {}, key))
+  getFilters(keys) {
+    return this.getFiltersWithoutKeys(keys)
+  }
+
+  _getFilters(keys, method){
+    keys = [].concat(keys)
+    const filters = _.values(method(this.index.filters || {}, keys))
     return BoolMust(filters)
+  }
+  getFiltersWithKeys(keys){
+    return this._getFilters(keys, _.pick)
+  }
+  getFiltersWithoutKeys(keys){
+    return this._getFilters(keys, _.omit)
   }
 
   setSize(size: number) {
@@ -104,22 +116,7 @@ export class ImmutableQuery {
     )
   }
 
-  static areQueriesDifferent(queryA: ImmutableQuery, queryB: ImmutableQuery) {
-    if (!queryA || !queryB) {
-      return true
-    }
-
-    return !_.isEqual(queryA, queryB)
-  }
-
   getJSON() {
-    const replacer = (key, value) => {
-      if (/^\$/.test(key)) {
-        return undefined
-      } else {
-        return value
-      }
-    }
-    return JSON.parse(JSON.stringify(this.query, replacer))
+    return this.query
   }
 }

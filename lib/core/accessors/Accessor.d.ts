@@ -7,6 +7,7 @@ export declare class Accessor<T extends State<any>> {
     state: T;
     resultsState: T;
     searcher: Searcher;
+    uuid: string;
     constructor(key: any, urlString?: any);
     setSearcher(searcher: any): void;
     translate(key: any): any;
@@ -14,6 +15,7 @@ export declare class Accessor<T extends State<any>> {
     fromQueryObject(ob: any): void;
     getQueryObject(): {};
     getResults(): any;
+    getAggregations(path: any, defaultValue: any): any;
     setResultsState(): void;
     resetState(): void;
     buildSharedQuery(query: ImmutableQuery): ImmutableQuery;

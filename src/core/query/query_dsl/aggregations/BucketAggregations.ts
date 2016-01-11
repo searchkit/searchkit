@@ -3,7 +3,8 @@ import * as _ from "lodash"
 import {AggsContainer} from "./AggsContainer"
 
 export interface TermsBucketOptions {
-  size?:number
+  size?:number,
+  order?:any
 }
 export function TermsBucket(key, field, options:TermsBucketOptions={}, ...childAggs){
   return AggsContainer(key, {
@@ -29,4 +30,8 @@ export function FilterBucket(key, filter, ...childAggs){
 
 export function NestedBucket(key, path, ...childAggs){
   return AggsContainer(key, {nested:{path}}, childAggs)
+}
+
+export function SignificantTermsBucket(key, field, ...childAggs){
+  return AggsContainer(key, {significant_terms:{field}}, childAggs)
 }

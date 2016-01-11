@@ -61,6 +61,18 @@ describe("Accessor", ()=> {
     expect(this.accessor.getResults()).toEqual([1,2])
   })
 
+  it("getAggregations()", ()=> {
+    expect(this.accessor.getAggregations(["foo"], 10))
+      .toEqual(10)
+    this.searcher.results = {
+      aggregations:{
+        some_count:{value:11}
+      }
+    }
+    expect(this.accessor.getAggregations(["some_count", "value"], 10))
+      .toEqual(11)
+  })
+
   it("setResultsState()", ()=> {
     delete this.accessor.resultsState
     expect(this.accessor.state)

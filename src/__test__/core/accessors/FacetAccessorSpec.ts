@@ -1,6 +1,7 @@
 import {
   FacetAccessor, ImmutableQuery, Searcher,
-  BoolMust, BoolShould, ArrayState
+  BoolMust, BoolShould, ArrayState, TermQuery,
+  FilterBucket, TermsBucket, CardinalityMetric
 } from "../../../"
 import * as _ from "lodash"
 
@@ -35,6 +36,21 @@ describe("FacetAccessor", ()=> {
     }
     expect(this.accessor.getBuckets())
       .toEqual([1,2])
+  })
+
+  it("getCount()", ()=> {
+    expect(this.accessor.getCount()).toEqual(0)
+    this.searcher.results = {
+      aggregations:{
+        genre:{
+          genre_count:{
+            value:99
+          }
+        }
+      }
+    }
+    expect(this.accessor.getCount())
+      .toEqual(99)
   })
 
   it("isOrOperator()", ()=> {
@@ -118,40 +134,34 @@ describe("FacetAccessor", ()=> {
 
     it("filter test", ()=> {
       this.query = this.accessor.buildSharedQuery(this.query)
-      let filters = this.query.getFilters().$array[0].$array
+      let filters = this.query.getFilters().bool.must[0].bool.should
       expect(this.toPlainObject(filters)).toEqual([
         {
           "term": {
             "genre": "1"
-          },
-          "$disabled": false,
-          "$name": "Genres",
-          "$value": "Games",
-          "$id": "GenreId"
+          }
         },
         {
           "term": {
             "genre": "2"
-          },
-          "$disabled": false,
-          "$name": "Genres",
-          "$value": "Action",
-          "$id": "GenreId"
+          }
         }
       ])
-
-      filters[0].$remove()
+      let selectedFilters = this.query.getSelectedFilters()
+      expect(selectedFilters.length).toEqual(2)
+      //
+      expect(this.accessor.state.getValue()).toEqual(["1","2"])
+      selectedFilters[0].remove()
       expect(this.accessor.state.getValue()).toEqual(["2"])
-      filters[1].$remove()
+      selectedFilters[1].remove()
       expect(this.accessor.state.getValue()).toEqual([])
-      expect(this.query.getFilters().$array[0].bool.should).toBeTruthy()
     })
 
     it("AND filter", ()=> {
       this.options.operator = "AND"
       this.query = this.accessor.buildSharedQuery(this.query)
-      expect(this.query.getFilters().$array[0].bool.should).toBeFalsy()
-      expect(this.query.getFilters().$array[0].bool.must).toBeTruthy()
+      expect(this.query.getFilters().bool.must[0].bool.should).toBeFalsy()
+      expect(this.query.getFilters().bool.must[0].bool.must).toBeTruthy()
     })
 
     it("Empty state", ()=> {
@@ -170,105 +180,39 @@ describe("FacetAccessor", ()=> {
         "1", "2"
       ])
       this.query = new ImmutableQuery()
-        .addFilter("rating", BoolShould(["PG"]))
-        .addFilter("genre", BoolShould(["1", "2"]))
+        .addFilter("rating_uuid", BoolShould(["PG"]))
+      this.query = this.accessor.buildSharedQuery(this.query)
     })
 
     it("build own query - or", ()=> {
       let query = this.accessor.buildOwnQuery(this.query)
-      expect(query.getJSON().aggs).toEqual({
-        "genre_count": {
-          "filter": {
-            "bool": {
-              "must": [{
-                "bool": {
-                  "should": ["PG"]
-                }
-              }]
-            }
-          },
-          "aggs": {
-            "genre_count": {
-              "cardinality": {
-                "field": "genre"
-              }
-            }
-          }
-        },
-        "genre": {
-          "filter": {
-            "bool": {
-              "must": [{
-                "bool": {
-                  "should": ["PG"]
-                }
-              }]
-            }
-          },
-          "aggs": {
-            "genre": {
-              "terms": {
-                "field": "genre",
-                "size": 20
-              }
-            }
-          }
-        }
-      })
+      expect(query.query.aggs).toEqual(
+        FilterBucket("genre",
+          BoolMust([
+            BoolShould(["PG"])
+          ]),
+          TermsBucket("genre", "genre", {size:20}),
+          CardinalityMetric("genre_count", "genre")
+        )
+      )
     })
 
     it("build own query - and", ()=> {
       this.options.operator = "AND"
       let query = this.accessor.buildOwnQuery(this.query)
-      expect(query.getJSON().aggs).toEqual({
-        "genre_count": {
-          "filter": {
-            "bool": {
-              "must": [{
-                "bool": {
-                  "should": ["PG"]
-                }
-              },
-              {
-                "bool":{
-                  "should":["1", "2"]
-                }
-              }]
-            }
-          },
-          "aggs": {
-            "genre_count": {
-              "cardinality": {
-                "field": "genre"
-              }
-            }
-          }
-        },
-        "genre": {
-          "filter": {
-            "bool": {
-              "must": [{
-                "bool": {
-                  "should": ["PG"]
-                }
-              },
-              {
-                "bool":{
-                  "should":["1", "2"]
-                }
-              }]
-            }
-          },
-          "aggs": {
-            "genre": {
-              "terms": {
-                "field": "genre",
-                "size": 20
-              }
-            }
-          }
-        }
-      })
+      expect(query.query.aggs).toEqual(
+        FilterBucket("genre",
+          BoolMust([
+            BoolShould(["PG"]),
+            BoolShould([
+              TermQuery("genre", "1"),
+              TermQuery("genre", "2")
+            ])
+          ]),
+          TermsBucket("genre", "genre", {size:20}),
+          CardinalityMetric("genre_count", "genre")
+        )
+      )
     })
 
 

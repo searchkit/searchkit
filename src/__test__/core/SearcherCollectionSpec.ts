@@ -97,9 +97,7 @@ describe("SearcherCollection", ()=> {
     let query = new ImmutableQuery()
     this.searchers.buildQuery(query)
     expect(this.searcher1.query.getSize()).toBe(20)
-    expect(this.searcher1.queryHasChanged).toBe(true)
     expect(this.searcher2.query.getSize()).toBe(40)
-    expect(this.searcher2.queryHasChanged).toBe(true)
   })
 
   it("getQueries()", ()=> {

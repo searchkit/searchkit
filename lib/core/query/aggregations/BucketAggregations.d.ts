@@ -6,3 +6,4 @@ export declare function RangeBucket(key: any, field: any, ranges: any, ...childA
 export declare function ChildrenBucket(key: any, type: any, ...childAggs: any[]): {};
 export declare function FilterBucket(key: any, filter: any, ...childAggs: any[]): {};
 export declare function NestedBucket(key: any, path: any, ...childAggs: any[]): {};
+export declare function SignificantTermsBucket(key: any, field: any, ...childAggs: any[]): {};

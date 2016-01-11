@@ -1,6 +1,7 @@
 import {State} from "../state"
 import {ImmutableQuery} from "../query/ImmutableQuery";
 import {Searcher} from "../Searcher"
+import {Utils} from "../support"
 
 export class Accessor<T extends State<any>> {
   key:string
@@ -8,9 +9,12 @@ export class Accessor<T extends State<any>> {
   state:T
   resultsState:T
   searcher:Searcher
+  uuid:string
+
   constructor(key, urlString?){
     this.key = key
     this.urlKey = urlString || key && key.replace(/\./g, "_")
+    this.uuid = Utils.guid()
   }
 
   setSearcher(searcher){
@@ -32,7 +36,7 @@ export class Accessor<T extends State<any>> {
   }
 
   getQueryObject(){
-    let val = this.state.getValue()    
+    let val = this.state.getValue()
     return (val) ? {
       [this.urlKey]:this.state.getValue()
     } : {}
@@ -40,6 +44,12 @@ export class Accessor<T extends State<any>> {
 
   getResults(){
     return this.searcher.results
+  }
+
+  getAggregations(path, defaultValue){
+    const results = this.getResults()
+    const getPath = ['aggregations',...path]
+    return _.get(results, getPath, defaultValue)
   }
 
   setResultsState(){

@@ -154,8 +154,7 @@ describe("SearchkitManager", ()=> {
     this.searchkit.primarySearcher.addAccessor(
       this.accessor)
 
-    expect(this.searchkit._search())
-      .toBe(true)
+    this.searchkit._search()
     expect(initialSearchRequest.active).toBe(false)
     expect(this.searchkit.currentSearchRequest.transport.host)
       .toBe(this.host)

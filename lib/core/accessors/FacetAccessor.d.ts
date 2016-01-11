@@ -5,6 +5,7 @@ export interface FacetAccessorOptions {
     title?: string;
     id?: string;
     size: number;
+    facetsPerPage?: number;
 }
 export interface ISizeOption {
     label: string;
@@ -15,22 +16,21 @@ export declare class FacetAccessor extends Accessor<ArrayState> {
     options: any;
     defaultSize: number;
     size: number;
+    uuid: string;
     constructor(key: any, options: FacetAccessorOptions);
-    getBuckets(): any[];
+    getBuckets(): any;
     setViewMoreOption(option: ISizeOption): void;
     getMoreSizeOption(): ISizeOption;
     getCount(): number;
     isOrOperator(): boolean;
-    getBoolBuilder(): ((val?: any) => {
+    getBoolBuilder(): ((val: any) => {
         bool: {
             should: any;
         };
-        $array: any;
-    }) | ((val?: any) => {
+    }) | ((val: any) => {
         bool: {
             must: any;
         };
-        $array: any;
     });
     buildSharedQuery(query: any): any;
     buildOwnQuery(query: any): any;

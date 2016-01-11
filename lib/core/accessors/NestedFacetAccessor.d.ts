@@ -12,10 +12,8 @@ export declare class NestedFacetAccessor extends Accessor<LevelState> {
     state: LevelState;
     options: any;
     constructor(key: any, options: NestedFacetAccessorOptions);
-    getBuckets(level: any): any[];
+    getBuckets(level: any): any;
     buildSharedQuery(query: any): any;
-    getTermAggs(): {
-        parents: {};
-    };
+    getTermAggs(): {};
     buildOwnQuery(query: any): any;
 }

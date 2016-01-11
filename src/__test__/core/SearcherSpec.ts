@@ -66,19 +66,9 @@ describe("Searcher", ()=> {
       this.searcher.query = this.sharedQuery
     })
 
-    it("query not changed", ()=> {
-      let newQuery = this.searcher.buildQuery(this.sharedQuery)
-      expect(this.searcher.queryHasChanged)
-        .toBe(false)
-      expect(this.searcher.beginNewSearch)
-        .not.toHaveBeenCalled()
-      expect(newQuery).toBe(this.searcher.query)
-    })
-
     it("query changed", ()=> {
       this.accessor.size = 20
       let newQuery = this.searcher.buildQuery(this.sharedQuery)
-      expect(this.searcher.queryHasChanged).toBe(true)
       expect(this.searcher.beginNewSearch).toHaveBeenCalled()
       expect(this.searcher.query.getSize()).toBe(20)
     })

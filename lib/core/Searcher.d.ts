@@ -19,7 +19,7 @@ export declare class Searcher {
     addAccessor(accessor: Accessor<any>): void;
     clearQuery(): void;
     resetState(): void;
-    buildQuery(query: any): any;
+    buildQuery(query: any): ImmutableQuery;
     beginNewSearch(): void;
     getResults(): any;
     setResults(results: any): void;

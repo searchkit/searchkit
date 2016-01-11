@@ -1,3 +1,4 @@
+import { SelectedFilter } from "./SelectedFilter";
 export declare class ImmutableQuery {
     index: any;
     query: any;
@@ -7,15 +8,31 @@ export declare class ImmutableQuery {
     hasFilters(): boolean;
     hasFiltersOrQuery(): boolean;
     addQuery(query: any): ImmutableQuery;
-    addHiddenFilter(bool: any): ImmutableQuery;
+    addSelectedFilter(selectedFilter: SelectedFilter): ImmutableQuery;
+    addSelectedFilters(selectedFilters: Array<SelectedFilter>): ImmutableQuery;
+    getSelectedFilters(): any;
+    addAnonymousFilter(bool: any): ImmutableQuery;
     addFilter(key: any, bool: any): ImmutableQuery;
-    getFiltersArray(): any;
     setAggs(aggs: any): ImmutableQuery;
-    getFilters(key?: any): {
+    getFilters(keys: any): {
         bool: {
             must: any;
         };
-        $array: any;
+    };
+    _getFilters(keys: any, method: any): {
+        bool: {
+            must: any;
+        };
+    };
+    getFiltersWithKeys(keys: any): {
+        bool: {
+            must: any;
+        };
+    };
+    getFiltersWithoutKeys(keys: any): {
+        bool: {
+            must: any;
+        };
     };
     setSize(size: number): ImmutableQuery;
     setSort(sort: string): ImmutableQuery;
@@ -23,6 +40,5 @@ export declare class ImmutableQuery {
     setFrom(from: number): ImmutableQuery;
     getFrom(): any;
     update(updateDef: any, newIndex?: any): ImmutableQuery;
-    static areQueriesDifferent(queryA: ImmutableQuery, queryB: ImmutableQuery): boolean;
     getJSON(): any;
 }

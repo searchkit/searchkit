@@ -4,7 +4,7 @@ import {
   MatchPhrasePrefix,
   BoolShould,
   SimpleQueryString
-} from "../query/QueryBuilders";
+} from "../query";
 
 export interface SearchOptions {
   queryFields?:Array<string>

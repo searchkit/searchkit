@@ -36,5 +36,5 @@ export declare class SearchkitManager {
     searchFromUrlQuery(query: any): void;
     performSearch(replaceState?: boolean): void;
     search(replaceState: any): void;
-    _search(): boolean;
+    _search(): void;
 }

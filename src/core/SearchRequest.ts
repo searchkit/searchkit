@@ -11,7 +11,6 @@ export class SearchRequest {
 
   run(){
     let queries = this.searchers.getQueries()
-    console.log("queries", queries)
     if(queries.length > 0) {
       return this.transport.search(queries).then(
         this.setResponses.bind(this)

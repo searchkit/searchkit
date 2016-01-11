@@ -49,16 +49,11 @@ export class Searcher {
   }
 
   buildQuery(query) {
-    query = _.reduce(this.accessors, (query, accessor) => {
+    this.query = _.reduce(this.accessors, (query, accessor) => {
       return accessor.buildOwnQuery(query)
     }, query)
-    this.queryHasChanged = ImmutableQuery.areQueriesDifferent(
-      this.query, query)
-    this.query = query
-    if (this.queryHasChanged){
-      this.beginNewSearch()
-    }
-    return query
+    this.beginNewSearch()
+    return this.query
   }
 
   beginNewSearch(){

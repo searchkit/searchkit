@@ -1,6 +1,6 @@
 import {
   SearchAccessor, ImmutableQuery, MatchPhrasePrefix,
-  SimpleQueryString, ValueState, BoolShould
+  SimpleQueryString, ValueState, BoolShould, BoolMust
 } from "../../../"
 
 describe("SearchAccessor", ()=> {
@@ -18,16 +18,17 @@ describe("SearchAccessor", ()=> {
       let query = new ImmutableQuery()
       this.accessor.state = new ValueState("some query")
       query = this.accessor.buildSharedQuery(query)
-      expect(query.query.query.$array).toEqual([
+      expect(query.query.query).toEqual(
+        BoolMust([
           BoolShould([
             BoolShould([
               MatchPhrasePrefix("some query", "title^10"),
               MatchPhrasePrefix("some query", "keywords")
-            ]
-          ),
-          SimpleQueryString("some query", {fields:["title^10", "keywords"]})
+            ]),
+            SimpleQueryString("some query", {fields:["title^10", "keywords"]})
+          ])
         ])
-      ])
+      )
     })
 
     it("buildSharedQuery() - empty query", ()=> {
@@ -52,11 +53,13 @@ describe("SearchAccessor", ()=> {
       let query = new ImmutableQuery()
       this.accessor.state = new ValueState("some query")
       query = this.accessor.buildSharedQuery(query)
-      expect(query.query.query.$array).toEqual([
-        BoolShould([
-          SimpleQueryString("some query", {fields:["_all"], type:"best_fields", x:"y"})
+      expect(query.query.query).toEqual(
+        BoolMust([
+          BoolShould([
+            SimpleQueryString("some query", {fields:["_all"], type:"best_fields", x:"y"})
+          ])
         ])
-      ])
+      )
     })
   })
 
@@ -77,11 +80,11 @@ describe("SearchAccessor", ()=> {
       let query = new ImmutableQuery()
       this.accessor.state = new ValueState("some query")
       query = this.accessor.buildSharedQuery(query)
-      expect(query.query.query.$array).toEqual([
+      expect(query.query.query).toEqual(BoolMust([
         BoolShould([
           SimpleQueryString("some query", {fields:["title^10", "_all"]})
         ])
-      ])
+      ]))
 
     })
 
@@ -92,11 +95,11 @@ describe("SearchAccessor", ()=> {
       let query = new ImmutableQuery()
       this.accessor.state = new ValueState("some query")
       query = this.accessor.buildSharedQuery(query)
-      expect(query.query.query.$array).toEqual([
+      expect(query.query.query).toEqual(BoolMust([
         BoolShould([
           SimpleQueryString("some query", {fields:["_all"]})
         ])
-      ])
+      ]))
 
     })
 

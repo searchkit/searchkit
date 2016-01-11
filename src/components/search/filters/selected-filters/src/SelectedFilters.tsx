@@ -25,7 +25,7 @@ export class SelectedFilters extends SearchkitComponent<ISelectedFilters, any> {
 	}
 
 	getFilters():Array<any> {
-		return this.searcher.query.getFiltersArray()
+		return this.searcher.query.getSelectedFilters()
 	}
 
 	hasFilters():boolean {
@@ -34,14 +34,14 @@ export class SelectedFilters extends SearchkitComponent<ISelectedFilters, any> {
 
 	renderFilter(filter) {
 
-		let block = this.bemBlocks.option		
+		let block = this.bemBlocks.option
 		let className = block()
 			.mix(this.bemBlocks.container("item"))
 			.mix(`selected-filter--${filter.$id}`)
 
 		return (
-			<div className={className} key={filter.$name+":"+filter.$value}>
-				<div className={block("name")}>{filter.$name}: {filter.$value}</div>
+			<div className={className} key={filter.name+":"+filter.value}>
+				<div className={block("name")}>{filter.name}: {filter.value}</div>
 				<FastClick handler={this.removeFilter.bind(this, filter)}>
 					<div className={block("remove-action")}>x</div>
 				</FastClick>
@@ -50,7 +50,7 @@ export class SelectedFilters extends SearchkitComponent<ISelectedFilters, any> {
 	}
 
 	removeFilter(filter) {
-		filter.$remove()
+		filter.remove()
 		this.searchkit.performSearch()
 	}
 
@@ -60,7 +60,7 @@ export class SelectedFilters extends SearchkitComponent<ISelectedFilters, any> {
 		}
     return (
       <div className={this.bemBlocks.container()}>
-				{_.map(_.filter(this.getFilters(),{$disabled:false}), this.renderFilter.bind(this))}
+				{_.map(this.getFilters(), this.renderFilter.bind(this))}
       </div>
     )
   }
