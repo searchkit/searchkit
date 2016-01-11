@@ -1,6 +1,6 @@
 import {AggsContainer} from "./AggsContainer"
 
-export function Cardinality(key, field) {
+export function CardinalityMetric(key, field) {
   return AggsContainer(key, {
     cardinality: {field}
   })

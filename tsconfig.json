@@ -40,6 +40,8 @@
     "./src/__test__/core/ESTransportSpec.ts",
     "./src/__test__/core/query/aggregations/AggsContainerSpec.ts",
     "./src/__test__/core/query/aggregations/BucketAggregationsSpec.ts",
+    "./src/__test__/core/query/aggregations/MetricAggregationsSpec.ts",
+    "./src/__test__/core/query/aggregations/PipelineAggregationsSpec.ts",
     "./src/__test__/core/query/ImmutableQuerySpec.ts",
     "./src/__test__/core/query/QueryBuildersSpec.ts",
     "./src/__test__/core/SearcherCollectionSpec.ts",
