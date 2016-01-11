@@ -43,7 +43,6 @@
     "./src/__test__/core/query/aggregations/MetricAggregationsSpec.ts",
     "./src/__test__/core/query/aggregations/PipelineAggregationsSpec.ts",
     "./src/__test__/core/query/ImmutableQuerySpec.ts",
-    "./src/__test__/core/query/QueryBuildersSpec.ts",
     "./src/__test__/core/SearcherCollectionSpec.ts",
     "./src/__test__/core/SearcherSpec.ts",
     "./src/__test__/core/SearchkitManagerSpec.ts",
