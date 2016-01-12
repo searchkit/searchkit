@@ -7,45 +7,58 @@ import {SelectedFilter} from "./SelectedFilter"
 export class ImmutableQuery {
   index: any
   query: any
-  static defaultQuery: any = {
-	  filter: BoolMust([]),
-    query: BoolMust([]),
+  static defaultIndex:any = {
+    filtersMap:{},
+    selectedFilters:[],
+    queries:[],
+    filters:[],
     size:0
   }
-  static defaultIndex:any = {
-    filters:{},
-    selectedFilters:[]
-  }
-  constructor(query = ImmutableQuery.defaultQuery, index = ImmutableQuery.defaultIndex) {
-    this.query = query
+  constructor(index = ImmutableQuery.defaultIndex) {
     this.index = index
+    this.buildQuery()
+  }
+
+  buildQuery(){
+    let query:any = {}
+    if(this.index.queries.length > 0) {
+      query.query = BoolMust(this.index.queries)
+    }
+    if(this.index.filters.length > 0) {
+      query.filter = BoolMust(this.index.filters)
+    }
+    query.aggs = this.index.aggs
+    query.size = this.index.size
+    query.from = this.index.from
+    query.sort = this.index.sort
+    this.query = _.omit(query, v => v === undefined)
   }
 
   hasFilters(){
-    return !_.isEmpty(this.index.filters)
+    return this.index.filters.length > 0
   }
 
   hasFiltersOrQuery(){
-    return (this.query.query.bool.must.length +
-      this.query.filter.bool.must.length) > 0 || !!this.query.sort
+    return (this.index.queries.length +
+      this.index.filters.length) > 0 || !!this.index.sort
   }
 
   addQuery(query:any) {
-    if (query) {
-      return this.update({
-        query: BoolMust({ $push: [query] })
-      })
+    if(!query){
+      return this
     }
-    return this
+    return this.update({
+      queries:{ $push: [query] }
+    })
   }
 
   addSelectedFilter(selectedFilter:SelectedFilter){
     return this.addSelectedFilters([selectedFilter])
   }
   addSelectedFilters(selectedFilters:Array<SelectedFilter>){
-    return new ImmutableQuery(this.query, update(this.index, {
+    return this.update({
       selectedFilters:{$push:selectedFilters}
-    }))
+    })
   }
 
   getSelectedFilters(){
@@ -55,20 +68,15 @@ export class ImmutableQuery {
     return this.addFilter(Utils.guid(), bool)
   }
 
-  addFilter(key, bool) {
-    var newIndex = update(this.index,{
-      filters:{
-        $merge:{[key]:bool}
-      }
-    })
+  addFilter(key, filter) {
     return this.update({
-      filter: BoolMust({ $push: [bool] })
-    }, newIndex)
-
+      filters: { $push: [filter] },
+      filtersMap:{ $merge:{ [key]:filter } }
+    })
   }
 
   setAggs(aggs) {
-    let existingAggs = this.query.aggs || {}
+    let existingAggs = this.index.aggs || {}
     let newAggs = _.extend({}, existingAggs, aggs)
     return this.update({ $merge:{aggs:newAggs} })
   }
@@ -79,7 +87,7 @@ export class ImmutableQuery {
 
   _getFilters(keys, method){
     keys = [].concat(keys)
-    const filters = _.values(method(this.index.filters || {}, keys))
+    const filters = _.values(method(this.index.filtersMap || {}, keys))
     return BoolMust(filters)
   }
   getFiltersWithKeys(keys){
@@ -109,10 +117,9 @@ export class ImmutableQuery {
     return this.query.from
   }
 
-  update(updateDef, newIndex = this.index) {
+  update(updateDef) {
     return new ImmutableQuery(
-      update(this.query, updateDef),
-      newIndex
+      update(this.index, updateDef)
     )
   }
 

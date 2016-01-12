@@ -1,5 +1,6 @@
 import { ArrayState } from "../state";
 import { Accessor } from "./Accessor";
+import { BoolShould } from "../query";
 export interface FacetAccessorOptions {
     operator?: string;
     title?: string;
@@ -23,15 +24,7 @@ export declare class FacetAccessor extends Accessor<ArrayState> {
     getMoreSizeOption(): ISizeOption;
     getCount(): number;
     isOrOperator(): boolean;
-    getBoolBuilder(): ((val: any) => {
-        bool: {
-            should: any;
-        };
-    }) | ((val: any) => {
-        bool: {
-            must: any;
-        };
-    });
+    getBoolBuilder(): typeof BoolShould;
     buildSharedQuery(query: any): any;
     buildOwnQuery(query: any): any;
 }

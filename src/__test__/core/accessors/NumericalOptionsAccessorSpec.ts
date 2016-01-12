@@ -63,7 +63,7 @@ describe("NumericOptionsAccessor", ()=> {
       ])
     ])
     expect(query.query.filter).toEqual(expected)
-    expect(_.keys(query.index.filters))
+    expect(_.keys(query.index.filtersMap))
       .toEqual(["9999"])
 
     let selectedFilters = query.getSelectedFilters()

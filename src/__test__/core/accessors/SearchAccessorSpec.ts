@@ -1,6 +1,7 @@
 import {
   SearchAccessor, ImmutableQuery, MatchPhrasePrefix,
   SimpleQueryString, ValueState, BoolShould, BoolMust
+
 } from "../../../"
 
 describe("SearchAccessor", ()=> {

@@ -134,7 +134,7 @@ describe("FacetAccessor", ()=> {
 
     it("filter test", ()=> {
       this.query = this.accessor.buildSharedQuery(this.query)
-      let filters = this.query.getFilters().bool.must[0].bool.should
+      let filters = this.query.getFilters().bool.should
       expect(this.toPlainObject(filters)).toEqual([
         {
           "term": {
@@ -160,8 +160,8 @@ describe("FacetAccessor", ()=> {
     it("AND filter", ()=> {
       this.options.operator = "AND"
       this.query = this.accessor.buildSharedQuery(this.query)
-      expect(this.query.getFilters().bool.must[0].bool.should).toBeFalsy()
-      expect(this.query.getFilters().bool.must[0].bool.must).toBeTruthy()
+      expect(this.query.getFilters().bool.should).toBeFalsy()
+      expect(this.query.getFilters().bool.must).toBeTruthy()
     })
 
     it("Empty state", ()=> {

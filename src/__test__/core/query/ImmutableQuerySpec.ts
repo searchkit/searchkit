@@ -31,12 +31,14 @@ describe("ImmutableQuery", ()=> {
   afterEach(()=> {
     //check immutability
     expect(this.query.query).toEqual({
-      filter:BoolMust([]),
-      query:BoolMust([]),
       size:0
     })
     expect(this.query.index).toEqual({
-      filters:{}, selectedFilters:[]
+      filtersMap:{},
+      filters:[],
+      selectedFilters:[],
+      queries:[],
+      size:0
     })
   })
 
@@ -60,9 +62,9 @@ describe("ImmutableQuery", ()=> {
 
   it("addQuery()", ()=> {
     let query = this.addQuery()
-    expect(query.query.query.bool.must).toEqual([
+    expect(query.query.query).toEqual(
       SimpleQueryString("foo")
-    ])
+    )
   })
 
   it("addAnonymousFilter()", ()=> {
@@ -71,9 +73,8 @@ describe("ImmutableQuery", ()=> {
     let filter = BoolShould([1])
     let query = this.query.addAnonymousFilter(filter)
 
-    expect(query.query.filter.bool.must)
-      .toEqual([filter])
-    expect(query.index.filters).toEqual({
+    expect(query.query.filter).toEqual(filter)
+    expect(query.index.filtersMap).toEqual({
       [mockId]:filter
     })
   })
@@ -82,9 +83,9 @@ describe("ImmutableQuery", ()=> {
     let filter = BoolShould([1])
     let query = this.query.addFilter("someKey", filter)
 
-    expect(query.query.filter.bool.must)
-      .toEqual([filter])
-    expect(query.index.filters).toEqual({
+    expect(query.query.filter)
+      .toEqual(filter)
+    expect(query.index.filtersMap).toEqual({
       someKey:filter
     })
 
@@ -191,29 +192,17 @@ describe("ImmutableQuery", ()=> {
     let query = this.addFilter()
       .addQuery(SimpleQueryString("Hi"))
     expect(query.getJSON()).toEqual({
-      "filter": {
-        "bool": {
-          "must": [{
-            "bool": {
-              "should": [{
-                "term": {
-                  "genres": "comedy"
-                }
-              }]
-            }
-          }]
-        }
-      },
       "query": {
-        "bool": {
-          "must": [{
-            "simple_query_string": {
-              "query": "Hi"
-            }
-          }]
+        "simple_query_string": {
+          "query": "Hi"
         }
       },
-      "size":0
+      "filter": {
+        "term": {
+          "genres": "comedy"
+        }
+      },
+      "size": 0
     })
   })
 

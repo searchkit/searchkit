@@ -125,7 +125,7 @@ describe("NestedFacetAccessor", ()=> {
     this.query = this.query.addFilter("other", BoolShould(["foo"]))
     let query = this.accessor.buildSharedQuery(this.query)
     query = this.accessor.buildOwnQuery(query)
-    expect(_.keys(query.index.filters)).toEqual(['other', '999'])
+    expect(_.keys(query.index.filtersMap)).toEqual(['other', '999'])
     let termsBucket = TermsBucket(
       "children",
       "taxonomy.value",

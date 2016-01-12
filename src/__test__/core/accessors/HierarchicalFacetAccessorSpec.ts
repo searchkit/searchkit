@@ -107,7 +107,7 @@ describe("HierarchicalFacetAccessor", ()=> {
     this.query = this.query.addFilter("other", BoolShould(["foo"]))
     let query = this.accessor.buildSharedQuery(this.query)
     query = this.accessor.buildOwnQuery(query)
-    expect(_.keys(query.index.filters)).toEqual([
+    expect(_.keys(query.index.filtersMap)).toEqual([
       'other', '999lvl1', '999lvl2', '999lvl3'
     ])
 
