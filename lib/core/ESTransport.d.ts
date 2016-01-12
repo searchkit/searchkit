@@ -9,8 +9,6 @@ export declare class ESTransport {
     axios: axios.AxiosInstance;
     options: ESTransportOptions;
     constructor(host: string, options?: ESTransportOptions);
-    _search(query: any): axios.Promise;
-    _msearch(queries: any): axios.Promise;
-    search(queries: any): axios.Promise;
+    search(query: any): axios.Promise;
     getData(response: any): any;
 }

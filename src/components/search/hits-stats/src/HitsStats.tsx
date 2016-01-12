@@ -16,11 +16,7 @@ export class HitsStats extends SearchkitComponent<IHitsStats, any> {
 		return {
 			container: (this.props.mod || "hits-stats")
 		}
-	}
-
-	getResults() {
-		return _.get(this.searcher, "results", {})
-	}
+	}	
 
 	getHitCount():number {
 		return _.get(this.getResults(), "hits.total", 0)

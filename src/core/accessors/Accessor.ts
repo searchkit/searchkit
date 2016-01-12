@@ -1,29 +1,29 @@
 import {ImmutableQuery} from "../query/ImmutableQuery";
-import {Searcher} from "../Searcher"
+import {SearchkitManager} from "../SearchkitManager";
 import {Utils} from "../support"
 
 export class Accessor {
-  searcher:Searcher
+  searchkit:SearchkitManager
   uuid:string
-
+  results:any
   constructor(){
     this.uuid = Utils.guid()
   }
 
-  setSearcher(searcher){
-    this.searcher = searcher
+  setSearchkitManager(searchkit){
+    this.searchkit = searchkit
   }
 
   translate(key){
-    return this.searcher.translate(key)
+    return this.searchkit && this.searchkit.translate(key) || key
   }
 
   getResults(){
-    return this.searcher.results
+    return this.results
   }
 
-  onNewResults(){
-
+  setResults(results){
+    this.results = results
   }
 
   getAggregations(path, defaultValue){

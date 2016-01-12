@@ -1,5 +1,5 @@
 import {
-  StatefulAccessor, ValueState, Searcher, ImmutableQuery,
+  StatefulAccessor, ValueState, ImmutableQuery,
   SearchkitManager
 } from "../../../"
 
@@ -14,8 +14,7 @@ describe("StatefulAccessor", ()=> {
       "genres.raw"
     )
     this.searchkit = new SearchkitManager("/")
-    this.searcher = new Searcher(this.searchkit)
-    this.accessor.setSearcher(this.searcher)
+    this.searchkit.addAccessor(this.accessor)
   })
 
   it("constructor()", ()=> {
@@ -23,13 +22,13 @@ describe("StatefulAccessor", ()=> {
     expect(this.accessor.urlKey).toEqual("genres_raw")
   })
 
-  it("setSearcher()", ()=> {
-    expect(this.accessor.searcher).toBe(this.searcher)
+  it("setSearchkitManager()", ()=> {
+    expect(this.accessor.searchkit).toBe(this.searchkit)
     expect(this.accessor.state).toBe(this.accessor.resultsState)
   })
 
   it("translate()", ()=> {
-    this.searcher.translate = (key)=> {
+    this.searchkit.translate = (key)=> {
       return {a:'b'}[key]
     }
     expect(this.accessor.translate("a")).toBe("b")
@@ -57,14 +56,14 @@ describe("StatefulAccessor", ()=> {
   })
 
   it("getResults()", ()=> {
-    this.searcher.results = [1,2]
+    this.accessor.results = [1,2]
     expect(this.accessor.getResults()).toEqual([1,2])
   })
 
   it("getAggregations()", ()=> {
     expect(this.accessor.getAggregations(["foo"], 10))
       .toEqual(10)
-    this.searcher.results = {
+    this.accessor.results = {
       aggregations:{
         some_count:{value:11}
       }

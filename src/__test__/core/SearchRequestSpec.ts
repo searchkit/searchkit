@@ -1,27 +1,20 @@
 import {
   SearchRequest,
-  SearcherCollection,
-  ESTransport
+  SearchkitManager,
+  AxiosESTransport,
+  ImmutableQuery
 } from "../../"
 
 describe("SearchRequest", ()=> {
 
   beforeEach(()=> {
-    this.searchers = new SearcherCollection([])
-    this.transport = new ESTransport("http://localhost:9200")
+    this.searchkit = new SearchkitManager("/", {useHistory:false})
+    this.transport = new AxiosESTransport("http://localhost:9200")
 
+    this.query = new ImmutableQuery().setSize(10)
 
     this.request = new SearchRequest(
-      this.transport, this.searchers)
-    this.searchers.getQueries = ()=> {
-      return [1,2,3]
-    }
-    this.searchers.setResponses = (responses)=> {
-      this.responses = responses
-    }
-    this.searchers.setError = (error)=> {
-      this.error = error
-    }
+      this.transport, this.query, this.searchkit)
   })
 
   it("constructor()", ()=> {
@@ -29,8 +22,10 @@ describe("SearchRequest", ()=> {
       .toBe(true)
     expect(this.request.transport)
       .toBe(this.transport)
-    expect(this.request.searchers).toBe(
-      this.searchers)
+    expect(this.request.searchkit).toBe(
+      this.searchkit)
+    expect(this.request.query).toBe(
+      this.query)
   })
 
 
@@ -40,18 +35,19 @@ describe("SearchRequest", ()=> {
         "r1", "r2", "r2"
       ]))
     this.request.run().then(()=> {
-      expect(this.responses)
+      expect(this.searchkit.results)
         .toEqual(["r1", "r2", "r2"])
       done()
     })
   })
 
-  it("run() - error", ()=> {
+  it("run() - error", (done)=> {
     let error = new Error("oh no")
     spyOn(this.request.transport, "search")
       .and.returnValue(Promise.reject(error))
     this.request.run().then(()=> {
-      expect(this.error).toBe(error)
+      expect(this.searchkit.error).toBe(error)
+      done()
     })
   })
 
@@ -61,22 +57,22 @@ describe("SearchRequest", ()=> {
   })
 
   it("setResponses()", ()=> {
-    this.request.setResponses("responses")
-    expect(this.responses).toBe("responses")
-    delete this.responses
+    this.request.setResults("results")
+    expect(this.searchkit.results).toBe("results")
+    delete this.searchkit.results
     this.request.deactivate()
-    this.request.setResponses("responses")
-    expect(this.responses).toBe(undefined)
+    this.request.setResults("results")
+    expect(this.searchkit.results).toBe(undefined)
   })
 
   it("setError()", ()=> {
     let error = new Error("oh no")
     this.request.setError(error)
-    expect(this.error).toBe(error)
-    delete this.error
+    expect(this.searchkit.error).toBe(error)
+    delete this.searchkit.error
     this.request.deactivate()
     this.request.setError(error)
-    expect(this.error).toBe(undefined)
+    expect(this.searchkit.error).toBe(undefined)
   })
 
 })

@@ -3,7 +3,6 @@ import * as _ from "lodash";
 import "../styles/index.scss";
 
 import {
-	Searcher,
 	SearchkitManager,
 	SearchkitComponent,
 	FacetAccessor,
@@ -25,7 +24,7 @@ export class SelectedFilters extends SearchkitComponent<ISelectedFilters, any> {
 	}
 
 	getFilters():Array<any> {
-		return this.searcher.query.getSelectedFilters()
+		return this.getQuery().getSelectedFilters()
 	}
 
 	hasFilters():boolean {

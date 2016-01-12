@@ -68,6 +68,8 @@ class App extends SearchkitComponent<any, any> {
 - `title` *(string)*: Title of the menu. Shown as a header and within selected filters
 - `id` *(string)*: id of component. Must be unique. Used as key for url serialisation
 - `startLevel` *(number)*: Optional. Can specify the root level to start from.
+- `orderKey` *(string)*: Order key either using default sortable keys `_count` `_term` or using the `order` field e.g. `taxonomy.order`
+- `orderDirection` *(string)*: `asc` or `desc`
 
 ## Demo
 [](codepen://searchkit/OMgmwR?height=800&theme=0)

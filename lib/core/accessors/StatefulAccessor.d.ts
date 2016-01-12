@@ -9,8 +9,8 @@ export declare class StatefulAccessor<T extends State<any>> extends Accessor {
     onStateChange(oldState: any): void;
     fromQueryObject(ob: any): void;
     getQueryObject(): {};
-    setSearcher(searcher: any): void;
-    onNewResults(): void;
+    setSearchkitManager(searchkit: any): void;
+    setResults(results: any): void;
     setResultsState(): void;
     resetState(): void;
 }

@@ -1,6 +1,6 @@
 import {
   SortingAccessor, ImmutableQuery, ValueState,
-  Searcher, SortingOptions
+  SortingOptions
 } from "../../../"
 
 describe("SortingAccessor", ()=> {

@@ -11,4 +11,8 @@ export class Utils {
     const reducer = (current, fn)=> fn(current)
     return _.reduce(collection, reducer, seed)
   }
+
+  static instanceOf(klass){
+    return (val)=> val instanceof klass
+  }
 }

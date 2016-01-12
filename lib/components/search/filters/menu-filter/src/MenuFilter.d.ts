@@ -8,7 +8,6 @@ export interface IMenuFilter {
 }
 export declare class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
     accessor: FacetAccessor;
-    shouldCreateNewSearcher(): boolean;
     defineBEMBlocks(): {
         container: string;
         option: string;

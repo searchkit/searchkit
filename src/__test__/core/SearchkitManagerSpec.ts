@@ -1,6 +1,7 @@
 import {
-  SearchkitManager, SearcherCollection, Searcher, ESTransport,
-  ImmutableQuery, createHistory, PageSizeAccessor, SearchRequest
+  SearchkitManager, AccessorManager, ESTransport, AxiosESTransport,
+  ImmutableQuery, createHistory, PageSizeAccessor, SearchRequest,
+  EventEmitter
 } from "../../"
 
 describe("SearchkitManager", ()=> {
@@ -8,46 +9,47 @@ describe("SearchkitManager", ()=> {
   beforeEach(()=> {
     this.host = "http://localhost:9200"
     this.searchkit = new SearchkitManager(this.host, {
-      multipleSearchers:true,
       useHistory:false,
       httpHeaders:{
         "Content-Type":"application/json"
       },
       basicAuth:"key:val"
     })
-    this.searchers = this.searchkit.searchers
+    this.emitterSpy = jasmine.createSpy("emitter")
+    this.searchkit.emitter.addListener(this.emitterSpy)
+    this.accessors = this.searchkit.accessors
   })
-  afterEach(()=> {
-    this.searchkit.unlistenHistory()
-  })
+
 
   it("constructor()", ()=> {
     expect(this.searchkit.host).toBe(this.host)
-    expect(this.searchkit.searchers)
-      .toEqual(jasmine.any(SearcherCollection))
+    expect(this.searchkit.accessors)
+      .toEqual(jasmine.any(AccessorManager))
     expect(this.searchkit.registrationCompleted).toEqual(
       jasmine.any(Promise))
     expect(this.searchkit.defaultQueries).toEqual([])
     expect(this.searchkit.translateFunction)
       .toEqual(jasmine.any(Function))
-    expect(this.searchkit.multipleSearchers).toBe(true)
-    expect(this.searchkit.primarySearcher)
-      .toEqual(jasmine.any(Searcher))
     expect(this.searchkit.transport)
-      .toEqual(jasmine.any(ESTransport))
+      .toEqual(jasmine.any(AxiosESTransport))
     expect(this.searchkit.transport.options.headers).toEqual(
       jasmine.objectContaining({
         "Content-Type":"application/json",
         "Authorization":jasmine.any(String)
       })
     )
+    expect(this.searchkit.query).toEqual(new ImmutableQuery())
+    expect(this.searchkit.emitter).toEqual(
+      jasmine.any(EventEmitter)
+    )
+    expect(this.searchkit.initialLoading).toBe(true)
   })
 
-  it("addSearcher()", ()=> {
-    const searcher = new Searcher(this.searchkit)
-    this.searchkit.addSearcher(searcher)
-    expect(this.searchkit.searchers.searchers).toEqual([
-      this.searchkit.primarySearcher, searcher
+  it("addAccessor()", ()=> {
+    const accessor = new PageSizeAccessor(10)
+    this.searchkit.addAccessor(accessor)
+    expect(this.searchkit.accessors.accessors).toEqual([
+      accessor
     ])
   })
 
@@ -66,41 +68,21 @@ describe("SearchkitManager", ()=> {
       .toHaveBeenCalledWith("foo")
   })
 
-  it("createSearcher()", ()=> {
-    this.searchers.searchers = []
-    const searcher = this.searchkit.createSearcher()
-    expect(this.searchers.searchers)
-      .toEqual([searcher])
-    expect(searcher.searchkitManager)
-      .toBe(this.searchkit)
-  })
-
-  it("buildSharedQuery()", ()=> {
+  it("buildQuery()", ()=> {
     const defaultQueryFn = (query)=> {
-      return query.setSize(10)
+      return query.setFrom(20)
     }
     this.searchkit.addDefaultQuery(defaultQueryFn)
-    this.searchers.buildSharedQuery = (query)=> {
-      return query.setFrom(5)
-    }
-    let sharedQuery = this.searchkit.buildSharedQuery()
-    expect(sharedQuery.getSize()).toBe(10)
-    expect(sharedQuery.getFrom()).toBe(5)
-  })
-
-  it("buildQuery()", ()=> {
-    spyOn(this.searchers, "buildQuery")
-    const query = new ImmutableQuery()
-    this.searchkit.buildSharedQuery = ()=> query
-    this.searchkit.buildQuery()
-    expect(this.searchers.buildQuery)
-      .toHaveBeenCalledWith(query)
+    this.searchkit.addAccessor(new PageSizeAccessor(10))
+    let query = this.searchkit.buildQuery()
+    expect(query.getSize()).toBe(10)
+    expect(query.getFrom()).toBe(20)
   })
 
   it("resetState()", ()=> {
-    spyOn(this.searchers, "resetState")
+    spyOn(this.accessors, "resetState")
     this.searchkit.resetState()
-    expect(this.searchers.resetState)
+    expect(this.accessors.resetState)
       .toHaveBeenCalled()
   })
 
@@ -112,12 +94,12 @@ describe("SearchkitManager", ()=> {
     const searchkit = new SearchkitManager("/", {
       useHistory:true
     })
-    spyOn(searchkit.searchers, "setAccessorStates")
+    spyOn(searchkit.accessors, "setState")
     spyOn(searchkit, "_search")
     searchkit.completeRegistration()
     setTimeout(()=> {
       expect(searchkit._search).toHaveBeenCalled()
-      expect(searchkit.searchers.setAccessorStates)
+      expect(searchkit.accessors.setState)
         .toHaveBeenCalledWith({q:"foo"})
       done()
     }, 0)
@@ -130,7 +112,7 @@ describe("SearchkitManager", ()=> {
     searchkit.state = {
       q:"foo"
     }
-    spyOn(searchkit.searchers, "notifyStateChange")
+    spyOn(searchkit.accessors, "notifyStateChange")
     spyOn(searchkit, "_search").and.returnValue(true)
     spyOn(searchkit.history, "pushState")
     searchkit.performSearch()
@@ -150,8 +132,8 @@ describe("SearchkitManager", ()=> {
     spyOn(SearchRequest.prototype, "run")
     this.accessor = new PageSizeAccessor(10)
     let initialSearchRequest  =
-      this.searchkit.currentSearchRequest = new SearchRequest(this.host, null)
-    this.searchkit.primarySearcher.addAccessor(
+      this.searchkit.currentSearchRequest = new SearchRequest(this.host, null, this.searchkit)
+    this.searchkit.addAccessor(
       this.accessor)
 
     this.searchkit._search()
@@ -162,6 +144,38 @@ describe("SearchkitManager", ()=> {
       .toEqual(this.searchers)
     expect(this.searchkit.currentSearchRequest.run)
       .toHaveBeenCalled()
+    expect(this.searchkit.loading).toBe(true)
   })
 
+  it("setResults()", ()=> {
+    spyOn(this.accessors, "setResults")
+    spyOn(this.searchkit, "onResponseChange")
+    expect(this.searchkit.results).toBe(undefined)
+    this.searchkit.setResults("foo")
+    expect(this.searchkit.results).toBe("foo")
+    expect(this.accessors.setResults)
+      .toHaveBeenCalledWith("foo")
+    expect(this.searchkit.onResponseChange)
+      .toHaveBeenCalled()
+  })
+
+  it("setResults()", ()=> {
+    spyOn(this.searchkit, "onResponseChange")
+    expect(this.searchkit.results).toBe(undefined)
+    let error = new Error("oh no")
+    this.searchkit.setError(error)
+    expect(this.searchkit.error).toBe(error)
+    expect(this.searchkit.onResponseChange)
+      .toHaveBeenCalled()
+  })
+
+  it("onResponseChange()", ()=> {
+    this.searchkit.loading = true
+    this.searchkit.initialLoading = true
+    this.searchkit.onResponseChange()
+    expect(this.searchkit.loading).toBe(false)
+    expect(this.searchkit.initialLoading).toBe(false)
+    expect(this.emitterSpy).toHaveBeenCalled()
+
+  })
 })

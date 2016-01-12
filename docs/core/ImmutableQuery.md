@@ -37,6 +37,6 @@ new ImmutableQuery().addQuery(BoolMust([
 //filter on either color of red or yellow
 new ImmutableQuery().addFilter("color", BoolShould([
     Term("color", "red"),
-    Term("color", "yellow"),
+    Term("color", "yellow")
 ]))
 ```

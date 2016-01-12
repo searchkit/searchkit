@@ -14,7 +14,6 @@ Searchkit can use a cloud based elasticsearch instance. If using in production, 
 
 ```js
 const sk = new SearchkitManager("https://kili-eu-west-1.searchly.com/movies/", {
-  multipleSearchers:false,
   basicAuth:"read:teetndhjnrspbzxxyfxmf5fb24suqxuj"
 })
 
@@ -35,11 +34,10 @@ http.cors.allow-headers : X-Requested-With,X-Auth-Token,Content-Type, Content-Le
 
 ### Configuration
 ```js
-const sk = new SearchkitManager("http://localhost:9200/", {
-  multipleSearchers:false
-})
+const searchkit = new SearchkitManager("http://localhost:9200/")
 
-<SearchkitProvider searchkit={sk}>
+
+<SearchkitProvider searchkit={searchkit}>
 ...
 </SearchkitProvider>
 ```
@@ -49,14 +47,9 @@ We built a plugin for node express called [searchkit-express](www.github.com/sea
 
 ### Configuration
 ```js
-const sk = new SearchkitManager("/", {
-  multipleSearchers:true
-})
+const searchkit = new SearchkitManager("/")
 
-<SearchkitProvider searchkit={sk}>
+<SearchkitProvider searchkit={searchkit}>
 ...
 </SearchkitProvider>
 ```
-
-### multipleSearchers
-Elasticsearch provides an endpoint [_msearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html) for multiple searches to be performed within one request. When multipleSearchers is true, it will take advantage of this option to split each component's search into individual searches.

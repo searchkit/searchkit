@@ -19,8 +19,10 @@ export class Hits extends SearchkitComponent<IHits, any> {
 
 	componentWillMount() {
 		super.componentWillMount()
-		this.searcher.addAccessor(
-			new HighlightAccessor(this.props.highlightFields))
+		if(this.props.highlightFields) {			
+			this.searchkit.addAccessor(
+				new HighlightAccessor(this.props.highlightFields))
+		}
 	}
 
 	defineAccessor(){
@@ -55,7 +57,7 @@ export class Hits extends SearchkitComponent<IHits, any> {
 	}
 
 	render() {
-		let hits:{}[] = _.get(this.searcher, "results.hits.hits", [])
+		let hits:{}[] = _.get(this.getResults(), "hits.hits", [])
 		let hasHits = _.size(hits) > 0
 		let results = null
 

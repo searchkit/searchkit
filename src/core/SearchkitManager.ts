@@ -1,13 +1,10 @@
-
-import {State,ArrayState,ObjectState,ValueState} from "./state"
-import {ImmutableQuery} from "./query/ImmutableQuery";
+import {ImmutableQuery} from "./query";
 import {Accessor} from "./accessors/Accessor"
-import {Searcher} from "./Searcher"
+import {AccessorManager} from "./AccessorManager"
 import {createHistory} from "./history";
-import {ESTransport} from "./ESTransport";
-import {SearcherCollection} from "./SearcherCollection"
+import {ESTransport, AxiosESTransport} from "./transport";
 import {SearchRequest} from "./SearchRequest"
-import {Utils} from "./support"
+import {Utils, EventEmitter} from "./support"
 import * as _ from "lodash"
 
 require('es6-promise').polyfill()
@@ -16,51 +13,62 @@ export interface SearchkitOptions {
   multipleSearchers?:boolean,
   useHistory?:boolean,
   httpHeaders?:Object,
-  basicAuth?:string
+  basicAuth?:string,
+  transport?:ESTransport
 }
 
 export class SearchkitManager {
-  searchers:SearcherCollection
+  // searchers:SearcherCollection
   host:string
   private registrationCompleted:Promise<any>
   completeRegistration:Function
   state:any
   translateFunction:Function
-  multipleSearchers:boolean
   defaultQueries:Array<Function>
-  primarySearcher:Searcher
+  // primarySearcher:Searcher
   currentSearchRequest:SearchRequest
   history
   _unlistenHistory:Function
   options:SearchkitOptions
   transport:ESTransport
+  emitter:EventEmitter
+  accessors:AccessorManager
+
+  query:ImmutableQuery
+  loading:boolean
+  initialLoading:boolean
+  error:any
+  results:any
 
   constructor(host:string, options:SearchkitOptions = {}){
     this.options = _.defaults(options, {
-      multipleSearchers:false,
       useHistory:true,
       httpHeaders:{}
     })
     this.host = host
-    this.transport = new ESTransport(host, {
+
+    this.transport = this.options.transport || new AxiosESTransport(host, {
       headers:this.options.httpHeaders,
       basicAuth:this.options.basicAuth
     })
-    this.searchers = new SearcherCollection()
+    this.accessors = new AccessorManager()
 		this.registrationCompleted = new Promise((resolve)=>{
 			this.completeRegistration = resolve
 		})
     this.defaultQueries = []
     this.translateFunction = _.identity
-    this.multipleSearchers = this.options.multipleSearchers
-    this.primarySearcher = this.createSearcher()
+    // this.primarySearcher = this.createSearcher()
+    this.query = new ImmutableQuery()
+    this.emitter = new EventEmitter()
+    this.initialLoading = true
     if(this.options.useHistory) {
       this.history = createHistory()
       this.listenToHistory()
     }
   }
-  addSearcher(searcher){
-    return this.searchers.add(searcher)
+  addAccessor(accessor){
+    accessor.setSearchkitManager(this)
+    return this.accessors.add(accessor)
   }
 
   addDefaultQuery(fn:Function){
@@ -71,22 +79,14 @@ export class SearchkitManager {
     return this.translateFunction(key)
   }
 
-  createSearcher(){
-    return this.addSearcher(new Searcher(this))
-  }
-  buildSharedQuery(){
-    var sharedQuery = Utils.collapse(
-      this.defaultQueries, new ImmutableQuery())
-    return this.searchers.buildSharedQuery(sharedQuery)
-  }
-
   buildQuery(){
-    let sharedQuery = this.buildSharedQuery()
-    this.searchers.buildQuery(sharedQuery)
+    var query = Utils.collapse(
+      this.defaultQueries, new ImmutableQuery())
+    return this.accessors.buildQuery(query)
   }
 
   resetState(){
-    this.searchers.resetState()
+    this.accessors.resetState()
   }
 
   unlistenHistory(){
@@ -108,12 +108,12 @@ export class SearchkitManager {
   }
 
   searchFromUrlQuery(query){
-    this.searchers.setAccessorStates(query)
+    this.accessors.setState(query)
     this._search()
   }
 
   performSearch(replaceState=false){
-    this.searchers.notifyStateChange(this.state)
+    this.accessors.notifyStateChange(this.state)
     this._search()
     if(this.options.useHistory){
       const historyMethod = (replaceState) ?
@@ -121,17 +121,38 @@ export class SearchkitManager {
       historyMethod(null, window.location.pathname, this.state)
     }
   }
+
   search(replaceState){
     this.performSearch(replaceState)
   }
 
   _search(){
-    this.state = this.searchers.getState()
-    this.buildQuery()
+    this.state = this.accessors.getState()
+    this.query = this.buildQuery()
+    this.loading = true
+    this.emitter.trigger()
     this.currentSearchRequest && this.currentSearchRequest.deactivate()
     this.currentSearchRequest = new SearchRequest(
-      this.transport, this.searchers)
+      this.transport, this.query.getJSON(), this)
     this.currentSearchRequest.run()
+  }
+
+  setResults(results){
+    this.results = results
+    this.error = null
+    this.accessors.setResults(results)
+    this.onResponseChange()
+  }
+
+  setError(error){
+    this.error = error
+    this.onResponseChange()
+  }
+
+  onResponseChange(){
+    this.loading = false
+    this.initialLoading = false
+    this.emitter.trigger()
   }
 
 }

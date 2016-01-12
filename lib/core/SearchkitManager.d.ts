@@ -1,35 +1,39 @@
-import { Searcher } from "./Searcher";
-import { ESTransport } from "./ESTransport";
-import { SearcherCollection } from "./SearcherCollection";
+import { ImmutableQuery } from "./query";
+import { AccessorManager } from "./AccessorManager";
+import { ESTransport } from "./transport";
 import { SearchRequest } from "./SearchRequest";
+import { EventEmitter } from "./support";
 export interface SearchkitOptions {
     multipleSearchers?: boolean;
     useHistory?: boolean;
     httpHeaders?: Object;
     basicAuth?: string;
+    transport?: ESTransport;
 }
 export declare class SearchkitManager {
-    searchers: SearcherCollection;
     host: string;
     private registrationCompleted;
     completeRegistration: Function;
     state: any;
     translateFunction: Function;
-    multipleSearchers: boolean;
     defaultQueries: Array<Function>;
-    primarySearcher: Searcher;
     currentSearchRequest: SearchRequest;
     history: any;
     _unlistenHistory: Function;
     options: SearchkitOptions;
     transport: ESTransport;
+    emitter: EventEmitter;
+    accessors: AccessorManager;
+    query: ImmutableQuery;
+    loading: boolean;
+    initialLoading: boolean;
+    error: any;
+    results: any;
     constructor(host: string, options?: SearchkitOptions);
-    addSearcher(searcher: any): any;
+    addAccessor(accessor: any): any;
     addDefaultQuery(fn: Function): void;
     translate(key: any): any;
-    createSearcher(): any;
-    buildSharedQuery(): any;
-    buildQuery(): void;
+    buildQuery(): any;
     resetState(): void;
     unlistenHistory(): void;
     listenToHistory(): void;
@@ -37,4 +41,7 @@ export declare class SearchkitManager {
     performSearch(replaceState?: boolean): void;
     search(replaceState: any): void;
     _search(): void;
+    setResults(results: any): void;
+    setError(error: any): void;
+    onResponseChange(): void;
 }

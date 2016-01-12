@@ -1,5 +1,5 @@
 import {
-  FacetAccessor, ImmutableQuery, Searcher,SearchkitManager,
+  FacetAccessor, ImmutableQuery,
   BoolMust, BoolShould, ArrayState, NestedFacetAccessor,
   NestedQuery, TermQuery, FilterBucket, NestedBucket, MinMetric,
   TermsBucket
@@ -9,7 +9,6 @@ import * as _ from "lodash"
 describe("NestedFacetAccessor", ()=> {
 
   beforeEach(()=> {
-    this.searcher = new Searcher(new SearchkitManager('/'))
     this.options = {
       field:"taxonomy",
       id:"categories",
@@ -18,7 +17,6 @@ describe("NestedFacetAccessor", ()=> {
       orderDirection:"desc"
     }
     this.accessor = new NestedFacetAccessor("categories", this.options)
-    this.accessor.setSearcher(this.searcher)
     this.accessor.uuid = "999"
     this.query = new ImmutableQuery()
     this.toPlainObject = (ob)=> {
@@ -28,7 +26,7 @@ describe("NestedFacetAccessor", ()=> {
 
 
   it("getBuckets()", ()=> {
-    this.searcher.results = {
+    this.accessor.results = {
       aggregations:{
         "categories": {
           "children": {

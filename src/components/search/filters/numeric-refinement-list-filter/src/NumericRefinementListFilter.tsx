@@ -3,7 +3,6 @@ import * as _ from "lodash";
 import "../styles/index.scss";
 
 import {
-	Searcher,
 	SearchkitManager,
 	SearchkitComponent,
 	NumericOptionsAccessor,

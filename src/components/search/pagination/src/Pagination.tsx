@@ -55,9 +55,9 @@ export class Pagination extends SearchkitComponent<IPagination, any> {
 	isDisabled(direction:DIRECTION):boolean {
 		let currentPage:number = this.getCurrentPage();
 		let totalPages:number = Math.ceil(
-			_.get(this.searcher,"results.hits.total",1)
+			_.get(this.getResults(),".hits.total",1)
 			/
-			_.get(this.searcher, "query.query.size", 10)
+			_.get(this.getQuery(), "query.size", 10)
 		)
 		if (direction == DIRECTION.PREVIOUS && currentPage == 1) { return true; }
 		if (direction == DIRECTION.NEXT && currentPage == totalPages ) { return true; }

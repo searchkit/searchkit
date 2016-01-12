@@ -1,5 +1,5 @@
 import {
-  FacetAccessor, ImmutableQuery, Searcher,SearchkitManager,
+  FacetAccessor, ImmutableQuery,
   BoolMust, BoolShould, ArrayState, HierarchicalFacetAccessor,
   TermQuery, FilterBucket, TermsBucket
 } from "../../../"
@@ -8,14 +8,12 @@ import * as _ from "lodash"
 describe("HierarchicalFacetAccessor", ()=> {
 
   beforeEach(()=> {
-    this.searcher = new Searcher(new SearchkitManager('/'))
     this.accessor = new HierarchicalFacetAccessor("categories", {
       fields:["lvl1", "lvl2", "lvl3"],
       id:"categories_id",
       title:"Categories",
       size:20
     })
-    this.accessor.setSearcher(this.searcher)
     this.accessor.uuid = "999"
     this.accessor.computeUuids()
     this.query = new ImmutableQuery()
@@ -28,7 +26,7 @@ describe("HierarchicalFacetAccessor", ()=> {
 
 
   it("getBuckets()", ()=> {
-    this.searcher.results = {
+    this.accessor.results = {
       aggregations:{
         categories_id:{
           lvl2:{

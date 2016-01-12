@@ -1,6 +1,5 @@
 import {State} from "../state"
 import {ImmutableQuery} from "../query/ImmutableQuery";
-import {Searcher} from "../Searcher"
 import {Accessor} from "./Accessor"
 
 export class StatefulAccessor<T extends State<any>> extends Accessor {
@@ -31,12 +30,13 @@ export class StatefulAccessor<T extends State<any>> extends Accessor {
     } : {}
   }
 
-  setSearcher(searcher){
-    super.setSearcher(searcher)
+  setSearchkitManager(searchkit){
+    super.setSearchkitManager(searchkit)
     this.setResultsState()
   }
 
-  onNewResults(){
+  setResults(results){
+    super.setResults(results)
     this.setResultsState()
   }
 

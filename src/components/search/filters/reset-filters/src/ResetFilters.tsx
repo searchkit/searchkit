@@ -3,7 +3,6 @@ import * as _ from "lodash";
 import "../styles/index.scss";
 
 import {
-	Searcher,
 	SearchkitManager,
 	SearchkitComponent,
 	FacetAccessor,
@@ -23,7 +22,7 @@ export class ResetFilters extends SearchkitComponent<IResetFilters, any> {
 	}
 
   hasFilters():boolean {
-    return this.searcher.hasFiltersOrQuery()
+    return this.getQuery().hasFiltersOrQuery()
   }
 
 	resetFilters() {

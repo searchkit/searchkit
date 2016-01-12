@@ -8,7 +8,7 @@ import "../styles/index.scss";
 import {
 	SearchAccessor,
 	SearchkitComponent,
-	ESTransport
+	ESTransport, AxiosESTransport
 } from "../../../../core"
 
 
@@ -23,7 +23,7 @@ export class Autocomplete extends SearchkitComponent<any, any> {
 
 	componentWillMount() {
 		super.componentWillMount()
-		this.suggestSearcher = new ESTransport(this.searchkit.host)
+		this.suggestSearcher = new AxiosESTransport(this.searchkit.host)
 	}
 
 	processSuggestions(results) {

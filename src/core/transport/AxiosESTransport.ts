@@ -1,16 +1,20 @@
 import * as axios from "axios"
 import * as _ from "lodash"
+import {ImmutableQuery} from "../query"
+import {ESTransport} from "./ESTransport";
 
 export interface ESTransportOptions {
   headers?:Object,
   basicAuth?:string
 }
-export class ESTransport {
+
+export class AxiosESTransport extends ESTransport{
   static timeout = 5000
   axios:axios.AxiosInstance
   options:ESTransportOptions
 
   constructor(public host:string, options:ESTransportOptions={}){
+    super()
     this.options = _.defaults(options, {
       headers:{}
     })
@@ -20,33 +24,15 @@ export class ESTransport {
     }
     this.axios = axios.create({
       baseURL:this.host,
-      timeout:ESTransport.timeout,
+      timeout:AxiosESTransport.timeout,
       headers:this.options.headers
     })
   }
 
-  _search(query){
-    return this.axios.post("_search", query)
+  search(query:Object){
+    return this.axios.post("/_search", query)
       .then(this.getData)
   }
-
-  _msearch(queries){
-    return this.axios.post("_msearch", queries)
-      .then(this.getData)
-      .then(response => response["responses"])
-  }
-
-  search(queries){
-    if(queries.length === 1){
-      return this._search(queries[0])
-        .then(response=>[response])
-    } else {
-      return this._msearch(queries)
-    }
-
-  }
-
-
 
   getData(response){
     return response.data

@@ -1,21 +1,19 @@
 import * as React from "react"
 import {SearchkitManager} from "../SearchkitManager";
+import {ImmutableQuery} from "../query"
 import {Accessor} from "../accessors/Accessor"
-import {Searcher} from "../Searcher"
 var block = require('bem-cn');
 
 
 export class SearchkitComponent<P,S> extends React.Component<P,S> {
   searchkit:SearchkitManager
   accessor:Accessor
-  searcher:Searcher
   stateListenerUnsubscribe:Function
   bemBlocks:any
   blockClass:string
 
 	static contextTypes = {
-		searchkit:React.PropTypes.instanceOf(SearchkitManager),
-    searcher:React.PropTypes.instanceOf(Searcher)
+		searchkit:React.PropTypes.instanceOf(SearchkitManager)
 	}
 
   defineBEMBlocks() {
@@ -26,51 +24,44 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
     return null
   }
 
-  shouldCreateNewSearcher(){
-    return false
-  }
-
   translate(key){
     return this.searchkit.translate(key)
   }
 
   componentWillMount(){
-    this.searchkit = this.context["searchkit"]
-    this.accessor  = this.defineAccessor()
     this.bemBlocks = _.transform(this.defineBEMBlocks(), (result:any, cssClass, name) => {
       result[name] = block(cssClass);
     })
-    // if(!this.shouldCreateNewSearcher() || !this.searchkit.multipleSearchers){
-    this.searcher = (
-      this.searcher || this.props["searcher"] ||
-      this.context["searcher"] || this.searchkit.primarySearcher
-    )
-
-    if(this.accessor){
-      // this.searcher.stateManager.registerAccessor(this.accessor)
-      if(this.shouldCreateNewSearcher() && this.searchkit.multipleSearchers){
-        this.searcher = this.searchkit.createSearcher()
+    this.searchkit = this.context["searchkit"]
+    if(this.searchkit){
+      this.accessor  = this.defineAccessor()
+      if(this.accessor){
+        this.searchkit.addAccessor(this.accessor)
       }
-      this.searcher.addAccessor(this.accessor)
-    }
-    if(this.searcher){
-      this.stateListenerUnsubscribe = this.searcher.emitter.addListener(()=> {
+      this.stateListenerUnsubscribe = this.searchkit.emitter.addListener(()=> {
         this.forceUpdate()
       })
     }
+  }
 
+  getResults(){
+    return this.searchkit.results
+  }
+
+  getQuery():ImmutableQuery {
+    return this.searchkit.query
   }
 
   isInitialLoading(){
-    return this.searcher && this.searcher.initialLoading
+    return this.searchkit.initialLoading
   }
 
   isLoading(){
-    return this.searcher && this.searcher.loading
+    return this.searchkit.loading
   }
 
   getError(){
-    return this.searcher && this.searcher.error
+    return this.searchkit.error
   }
 
   componentWillUnmount(){

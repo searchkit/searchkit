@@ -1,5 +1,5 @@
 import {
-  FacetAccessor, ImmutableQuery, Searcher,
+  FacetAccessor, ImmutableQuery,
   BoolMust, BoolShould, ArrayState, TermQuery,
   FilterBucket, TermsBucket, CardinalityMetric
 } from "../../../"
@@ -14,9 +14,7 @@ describe("FacetAccessor", ()=> {
       id:"GenreId",
       size:20
     }
-    this.searcher = new Searcher(null)
     this.accessor = new FacetAccessor("genre", this.options)
-    this.accessor.setSearcher(this.searcher)
   })
 
   it("constructor()", ()=> {
@@ -27,7 +25,7 @@ describe("FacetAccessor", ()=> {
 
   it("getBuckets()", ()=> {
     expect(this.accessor.getBuckets()).toEqual([])
-    this.searcher.results = {
+    this.accessor.results = {
       aggregations:{
         genre:{
           genre:{buckets:[1,2]}
@@ -40,7 +38,7 @@ describe("FacetAccessor", ()=> {
 
   it("getCount()", ()=> {
     expect(this.accessor.getCount()).toEqual(0)
-    this.searcher.results = {
+    this.accessor.results = {
       aggregations:{
         genre:{
           genre_count:{
@@ -71,7 +69,7 @@ describe("FacetAccessor", ()=> {
 
   describe("view more options", () => {
     beforeEach(()=> {
-      this.searcher.translate = (key)=> {
+      this.accessor.translate = (key)=> {
         return {
           "view more":"View more", "view less":"View less",
           "view all":"View all"
@@ -117,7 +115,7 @@ describe("FacetAccessor", ()=> {
 
   describe("buildSharedQuery", ()=> {
     beforeEach(()=> {
-      this.searcher.translate = (key)=> {
+      this.accessor.translate = (key)=> {
         return {
           "1":"Games", "2":"Action",
           "3":"Comedy", "4":"Horror"

@@ -3,7 +3,6 @@ import * as _ from "lodash";
 import "../styles/index.scss";
 
 import {
-	Searcher,
 	SearchkitManager,
 	SearchkitComponent,
 	FacetAccessor,
@@ -20,10 +19,6 @@ export interface IMenuFilter {
 
 export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
 	accessor:FacetAccessor
-
-	shouldCreateNewSearcher() {
-		return true;
-	}
 
 	defineBEMBlocks() {
 		var blockName = this.props.mod || "menu-list"

@@ -1,5 +1,5 @@
 import {
-  NumericOptionsAccessor, ImmutableQuery, Searcher,
+  NumericOptionsAccessor, ImmutableQuery,
   BoolMust, BoolShould, ValueState, RangeQuery,
   RangeBucket, FilterBucket
 } from "../../../"
@@ -8,7 +8,6 @@ import * as _ from "lodash"
 describe("NumericOptionsAccessor", ()=> {
 
   beforeEach(()=> {
-    this.searcher = new Searcher(null)
     this.options = {
       field:"price",
       id:"price_id",
@@ -21,7 +20,6 @@ describe("NumericOptionsAccessor", ()=> {
     }
     this.accessor = new NumericOptionsAccessor("categories", this.options)
     this.accessor.uuid = "9999"
-    this.accessor.setSearcher(this.searcher)
     this.query = new ImmutableQuery()
     this.toPlainObject = (ob)=> {
       return JSON.parse(JSON.stringify(ob))
@@ -34,7 +32,7 @@ describe("NumericOptionsAccessor", ()=> {
   })
 
   it("getBuckets()", ()=> {
-    this.searcher.results = {
+    this.accessor.results = {
       aggregations:{
         categories:{
           categories:{

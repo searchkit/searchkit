@@ -1,11 +1,14 @@
-import { SearcherCollection } from "./SearcherCollection";
+import { ESTransport } from "./transport";
+import { ImmutableQuery } from "./query";
+import { SearchkitManager } from "./SearchkitManager";
 export declare class SearchRequest {
-    transport: any;
-    searchers: SearcherCollection;
+    transport: ESTransport;
+    query: ImmutableQuery;
+    searchkit: SearchkitManager;
     active: boolean;
-    constructor(transport: any, searchers: SearcherCollection);
-    run(): any;
+    constructor(transport: ESTransport, query: ImmutableQuery, searchkit: SearchkitManager);
+    run(): Promise<{}>;
     deactivate(): void;
-    setResponses(responses: any): void;
+    setResults(results: any): void;
     setError(error: any): void;
 }
