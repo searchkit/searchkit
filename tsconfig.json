@@ -93,11 +93,13 @@
     "./src/core/support/Newable.ts",
     "./src/core/support/Utils.ts",
     "./src/index.ts",
+    "./test/e2e/specs/TestSpec.ts",
     "./typings/tsd.d.ts"
   ],
   "filesGlob": [
     "./src/**/*.tsx",
     "./src/**/*.ts",
+    "./test/e2e/**/*.ts",
     "./typings/tsd.d.ts"
   ],
   "exclude": [],
