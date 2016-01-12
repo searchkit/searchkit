@@ -119,6 +119,29 @@ describe("SearchkitManager", ()=> {
     expect(searchkit.history.pushState).toHaveBeenCalledWith(
       null, jasmine.any(String), {q:"foo"}
     )
+    expect(searchkit.accessors.notifyStateChange)
+      .toHaveBeenCalledWith(searchkit.state)
+    searchkit.unlistenHistory()
+  })
+  it("performSearch() - same state + replaceState", ()=> {
+    const searchkit = new SearchkitManager("/", {
+      useHistory:true
+    })
+    searchkit.state = {
+      q:"foo"
+    }
+    searchkit.accessors.getState = ()=>{
+      return {q:"foo"}
+    }
+    spyOn(searchkit.accessors, "notifyStateChange")
+    spyOn(searchkit, "_search").and.returnValue(true)
+    spyOn(searchkit.history, "replaceState")
+    searchkit.performSearch(true)
+    expect(searchkit.history.replaceState)
+      .toHaveBeenCalled()
+    expect(searchkit.accessors.notifyStateChange)
+      .not.toHaveBeenCalled()
+    searchkit.unlistenHistory()
   })
 
   it("search()", ()=> {
@@ -140,8 +163,8 @@ describe("SearchkitManager", ()=> {
     expect(initialSearchRequest.active).toBe(false)
     expect(this.searchkit.currentSearchRequest.transport.host)
       .toBe(this.host)
-    expect(this.searchkit.currentSearchRequest.searchers)
-      .toEqual(this.searchers)
+    expect(this.searchkit.currentSearchRequest.query)
+      .toEqual(this.searchkit.query)
     expect(this.searchkit.currentSearchRequest.run)
       .toHaveBeenCalled()
     expect(this.searchkit.loading).toBe(true)

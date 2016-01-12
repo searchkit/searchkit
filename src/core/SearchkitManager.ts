@@ -111,7 +111,9 @@ export class SearchkitManager {
   }
 
   performSearch(replaceState=false){
-    this.accessors.notifyStateChange(this.state)
+    if(!_.isEqual(this.accessors.getState(), this.state)){
+      this.accessors.notifyStateChange(this.state)
+    }
     this._search()
     if(this.options.useHistory){
       const historyMethod = (replaceState) ?
@@ -131,7 +133,7 @@ export class SearchkitManager {
     this.emitter.trigger()
     this.currentSearchRequest && this.currentSearchRequest.deactivate()
     this.currentSearchRequest = new SearchRequest(
-      this.transport, this.query.getJSON(), this)
+      this.transport, this.query, this)
     this.currentSearchRequest.run()
   }
 

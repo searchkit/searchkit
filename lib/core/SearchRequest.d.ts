@@ -7,7 +7,7 @@ export declare class SearchRequest {
     searchkit: SearchkitManager;
     active: boolean;
     constructor(transport: ESTransport, query: ImmutableQuery, searchkit: SearchkitManager);
-    run(): Promise<{}>;
+    run(): any;
     deactivate(): void;
     setResults(results: any): void;
     setError(error: any): void;
