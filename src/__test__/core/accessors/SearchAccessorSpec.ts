@@ -1,7 +1,7 @@
 import {
   SearchAccessor, ImmutableQuery, MatchPhrasePrefix,
-  SimpleQueryString, ValueState, BoolShould, BoolMust
-
+  SimpleQueryString, ValueState, BoolShould, BoolMust,
+  MultiMatchQuery
 } from "../../../"
 
 describe("SearchAccessor", ()=> {
@@ -22,11 +22,11 @@ describe("SearchAccessor", ()=> {
       expect(query.query.query).toEqual(
         BoolMust([
           BoolShould([
-            BoolShould([
-              MatchPhrasePrefix("some query", "title^10"),
-              MatchPhrasePrefix("some query", "keywords")
-            ]),
-            SimpleQueryString("some query", {fields:["title^10", "keywords"]})
+            SimpleQueryString("some query", {fields:["title^10", "keywords"]}),
+            MultiMatchQuery("some query", {
+              type:"phrase_prefix",
+              fields:["title^10", "keywords"]
+            })
           ])
         ])
       )

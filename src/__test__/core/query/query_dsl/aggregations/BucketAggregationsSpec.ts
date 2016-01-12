@@ -3,7 +3,7 @@ import {
   TermsBucket, RangeBucket,
   ChildrenBucket, FilterBucket,
   NestedBucket,SignificantTermsBucket
-} from "../../../../"
+} from "../../../../../"
 
 describe("BucketAggregations", ()=> {
 

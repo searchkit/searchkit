@@ -1,7 +1,7 @@
 import {ValueState} from "../state"
 import {Accessor} from "./Accessor"
 import {
-  MatchPhrasePrefix,
+  MultiMatchQuery,
   BoolShould,
   SimpleQueryString
 } from "../query";
@@ -25,15 +25,21 @@ export class SearchAccessor extends Accessor<ValueState> {
     let queryStr = this.state.getValue()
     if(queryStr){
 
-      let simpleQuery = SimpleQueryString(queryStr, _.extend({}, this.options.queryOptions, {
-        "query":                queryStr,
-        "fields":               this.options.queryFields
-      }))
+      let simpleQuery = SimpleQueryString(
+        queryStr, _.extend(
+          {fields:this.options.queryFields},
+          this.options.queryOptions
+        )
+      )
 
-      let prefixQueries = this.options.prefixQueryFields ? BoolShould(_.map(this.options.prefixQueryFields,
-        MatchPhrasePrefix.bind(null, queryStr))) : []
+      let queries:Array<any> = [simpleQuery]
 
-      let queries = [].concat(prefixQueries).concat(simpleQuery)
+      if (this.options.prefixQueryFields) {
+        queries.push(MultiMatchQuery(queryStr, {
+          type:"phrase_prefix",
+          fields:this.options.prefixQueryFields
+        }))
+      }      
       return query.addQuery(BoolShould(queries))
     }
     return query

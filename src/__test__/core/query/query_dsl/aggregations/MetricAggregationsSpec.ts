@@ -1,6 +1,6 @@
 import {
   MinMetric, CardinalityMetric
-} from "../../../../"
+} from "../../../../../"
 
 describe("MetricAggregations", ()=> {
 

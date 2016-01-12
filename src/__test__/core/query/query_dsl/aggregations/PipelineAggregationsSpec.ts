@@ -1,9 +1,9 @@
 import {
   AvgBucketPipeline
-} from "../../../../"
+} from "../../../../../"
 
 describe("PipelineAggregations", ()=> {
-  
+
   it("AvgBucketPipeline", ()=> {
     let aggs = AvgBucketPipeline("avg_prices", "houses>price")
     expect(aggs).toEqual({
