@@ -8,7 +8,6 @@ export declare class SearchkitProvider extends React.Component<ISearcherProvider
     static childContextTypes: {
         searchkit: React.Requireable<any>;
     };
-    static wrap(app: any, searchkit: any): React.ClassicComponentClass<{}>;
     componentDidMount(): void;
     getChildContext(): {
         searchkit: SearchkitManager;

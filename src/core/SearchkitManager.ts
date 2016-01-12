@@ -18,14 +18,12 @@ export interface SearchkitOptions {
 }
 
 export class SearchkitManager {
-  // searchers:SearcherCollection
   host:string
   private registrationCompleted:Promise<any>
   completeRegistration:Function
   state:any
   translateFunction:Function
   defaultQueries:Array<Function>
-  // primarySearcher:Searcher
   currentSearchRequest:SearchRequest
   history
   _unlistenHistory:Function
