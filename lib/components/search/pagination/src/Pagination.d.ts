@@ -1,6 +1,8 @@
 import { SearchkitComponent, PaginationAccessor } from "../../../../core";
 export interface IPagination {
     mod?: string;
+    prevLinkText?: string;
+    nextLinkText?: string;
 }
 export declare enum DIRECTION {
     NEXT = 0,
