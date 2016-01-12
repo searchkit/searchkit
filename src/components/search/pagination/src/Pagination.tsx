@@ -9,7 +9,9 @@ import {
 } from "../../../../core"
 
 export interface IPagination {
-	mod?:string
+	mod?:string,
+	prevLinkText?:string,
+	nextLinkText?:string
 }
 
 export enum DIRECTION {
@@ -82,8 +84,8 @@ export class Pagination extends SearchkitComponent<IPagination, any> {
   render() {
     return (
       <div className={this.bemBlocks.container()} data-qa="pagination">
-					{this.paginationElement(DIRECTION.PREVIOUS, "prev", "Previous")}
-					{this.paginationElement(DIRECTION.NEXT, "next", "Next")}
+					{this.paginationElement(DIRECTION.PREVIOUS, "prev", (this.props.prevLinkText || "Previous"))}
+					{this.paginationElement(DIRECTION.NEXT, "next", (this.props.nextLinkText || "Next"))}
       </div>
     )
   }
