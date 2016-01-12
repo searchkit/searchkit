@@ -24,14 +24,12 @@ export class Hits extends SearchkitComponent<IHits, any> {
 
 	}
 
-	getHighlightedFields() {
-		let fields = {}
-		_.each(this.props.highlightFields, (field:any) => {
-			fields[field] = {}
-		})
-
+	getHighlightedFields() {	_
 		return {
-			fields:fields
+			fields:_.mapValues(
+				_.object(this.props.highlightFields),
+				_.constant({})
+			)
 		}
 	}
 
