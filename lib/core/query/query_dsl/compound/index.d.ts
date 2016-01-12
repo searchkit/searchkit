@@ -1,1 +1,1 @@
-export * from "./BoolQuery";
+export * from "./BoolQueries";

@@ -103,7 +103,7 @@ export class FacetAccessor extends Accessor<ArrayState> {
     return query
       .setAggs(FilterBucket(
         this.key,
-        query.getFilters(excludedKey),
+        query.getFiltersWithoutKeys(excludedKey),
         TermsBucket(this.key, this.key, {size:this.size}),
         CardinalityMetric(this.key+"_count", this.key)
       ))

@@ -68,7 +68,7 @@ export class NumericOptionsAccessor extends Accessor<ValueState> {
   buildOwnQuery(query) {
     return query.setAggs(FilterBucket(
       this.key,
-      query.getFilters(this.key),
+      query.getFiltersWithoutKeys(this.key),
       RangeBucket(
         this.key,
         this.options.field,

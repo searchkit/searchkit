@@ -130,7 +130,7 @@ export class NestedFacetAccessor extends Accessor<LevelState> {
     return query.setAggs(
       FilterBucket(
         this.key,
-        query.getFilters(this.uuid),
+        query.getFiltersWithoutKeys(this.uuid),
         NestedBucket(
           "children",
           this.options.field,
