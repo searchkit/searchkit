@@ -86,6 +86,10 @@ export class ImmutableQuery {
     return this.update({ $merge: {sort:sort}})
   }
 
+  setHighlight(higlight: any) {
+    return this.update({$merge: {highlight:higlight}})
+  }
+
   getSize(){
     return this.query.size
   }

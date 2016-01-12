@@ -19,6 +19,7 @@ export declare class ImmutableQuery {
     };
     setSize(size: number): ImmutableQuery;
     setSort(sort: string): ImmutableQuery;
+    setHighlight(higlight: any): ImmutableQuery;
     getSize(): any;
     setFrom(from: number): ImmutableQuery;
     getFrom(): any;
