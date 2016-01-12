@@ -11,7 +11,7 @@ describe("Searcher", ()=> {
     this.emitterSpy = jasmine.createSpy("emitter")
     this.searcher.emitter.addListener(
       this.emitterSpy)
-    this.accessor = new PageSizeAccessor("p", 10)
+    this.accessor = new PageSizeAccessor(10)
   })
 
   it("constructor()", ()=> {
@@ -90,14 +90,14 @@ describe("Searcher", ()=> {
   })
 
   it("setResults()", ()=> {
-    spyOn(this.accessor, "setResultsState")
+    spyOn(this.accessor, "onNewResults")
     this.searcher.addAccessor(this.accessor)
     this.searcher.loading = true
     this.searcher.setResults([1,2,3])
     expect(this.searcher.results).toEqual([1,2,3])
     expect(this.searcher.loading).toBe(false)
     expect(this.searcher.initialLoading).toBe(false)
-    expect(this.accessor.setResultsState)
+    expect(this.accessor.onNewResults)
       .toHaveBeenCalled()
     expect(this.emitterSpy).toHaveBeenCalled()
   })

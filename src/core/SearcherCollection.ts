@@ -1,6 +1,5 @@
-import {
-  Searcher
-} from "./Searcher"
+import {Searcher} from  "./Searcher"
+import {StatefulAccessor} from  "./accessors/StatefulAccessor"
 
 import * as _ from "lodash"
 
@@ -17,6 +16,12 @@ export class SearcherCollection {
       .value()
   }
 
+  getStatefulAccessors(){
+    return _.filter(this.getAccessors(), (accessor)=> {
+      return accessor instanceof StatefulAccessor
+    })
+  }
+
   add(searcher){
     this.searchers.push(searcher)
     return searcher
@@ -27,21 +32,21 @@ export class SearcherCollection {
   }
 
   getState(){
-    return _.reduce(this.getAccessors(), (state, accessor)=> {
+    return _.reduce(this.getStatefulAccessors(), (state, accessor)=> {
       return _.extend(state, accessor.getQueryObject())
     }, {})
   }
 
   setAccessorStates(query){
     _.each(
-      this.getAccessors(),
+      this.getStatefulAccessors(),
       accessor=>accessor.fromQueryObject(query)
     )
   }
 
   notifyStateChange(oldState){
     _.each(
-      this.getAccessors(),
+      this.getStatefulAccessors(),
       accessor => accessor.onStateChange(oldState)
     )
   }

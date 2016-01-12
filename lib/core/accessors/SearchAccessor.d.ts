@@ -1,11 +1,11 @@
 import { ValueState } from "../state";
-import { Accessor } from "./Accessor";
+import { StatefulAccessor } from "./StatefulAccessor";
 export interface SearchOptions {
     queryFields?: Array<string>;
     prefixQueryFields?: Array<string>;
     queryOptions?: any;
 }
-export declare class SearchAccessor extends Accessor<ValueState> {
+export declare class SearchAccessor extends StatefulAccessor<ValueState> {
     state: ValueState;
     options: SearchOptions;
     constructor(key: any, options?: {});

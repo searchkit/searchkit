@@ -5,7 +5,7 @@ import {
 describe("PageSizeAccessor", ()=> {
 
   beforeEach(()=> {
-    this.accessor = new PageSizeAccessor("s", 10)
+    this.accessor = new PageSizeAccessor(10)
     this.query = new ImmutableQuery()
   })
 

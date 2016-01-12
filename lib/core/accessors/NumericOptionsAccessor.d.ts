@@ -1,5 +1,5 @@
 import { ValueState } from "../state";
-import { Accessor } from "./Accessor";
+import { StatefulAccessor } from "./StatefulAccessor";
 export interface RangeOption {
     title: string;
     from?: number;
@@ -12,7 +12,7 @@ export interface NumericOptions {
     id: string;
     mod?: string;
 }
-export declare class NumericOptionsAccessor extends Accessor<ValueState> {
+export declare class NumericOptionsAccessor extends StatefulAccessor<ValueState> {
     state: ValueState;
     options: NumericOptions;
     constructor(key: any, options: NumericOptions);

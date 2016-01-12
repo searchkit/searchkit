@@ -1,12 +1,12 @@
 import {
-  Accessor, ValueState, Searcher, ImmutableQuery,
+  StatefulAccessor, ValueState, Searcher, ImmutableQuery,
   SearchkitManager
 } from "../../../"
 
-describe("Accessor", ()=> {
+describe("StatefulAccessor", ()=> {
 
   beforeEach(()=> {
-    class SomeAccessor extends Accessor<ValueState> {
+    class SomeAccessor extends StatefulAccessor<ValueState> {
       state = new ValueState()
     }
 

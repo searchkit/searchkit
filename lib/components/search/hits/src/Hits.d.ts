@@ -6,9 +6,6 @@ export interface IHits {
 }
 export declare class Hits extends SearchkitComponent<IHits, any> {
     componentWillMount(): void;
-    getHighlightedFields(): {
-        fields: {};
-    };
     defineAccessor(): PageSizeAccessor;
     defineBEMBlocks(): {
         container: string;

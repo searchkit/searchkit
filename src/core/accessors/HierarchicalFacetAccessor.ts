@@ -1,5 +1,5 @@
 import {State, LevelState} from "../state"
-import {Accessor} from "./Accessor"
+import {StatefulAccessor} from "./StatefulAccessor"
 import {
   TermQuery, TermsBucket, FilterBucket,
   BoolShould, BoolMust
@@ -7,7 +7,7 @@ import {
 import * as _ from "lodash";
 
 
-export class HierarchicalFacetAccessor extends Accessor<LevelState> {
+export class HierarchicalFacetAccessor extends StatefulAccessor<LevelState> {
 
   state = new LevelState()
   options:any

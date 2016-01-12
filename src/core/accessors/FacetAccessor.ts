@@ -1,5 +1,5 @@
 import {ArrayState} from "../state"
-import {Accessor} from "./Accessor"
+import {StatefulAccessor} from "./StatefulAccessor"
 import {
   TermQuery, TermsBucket, CardinalityMetric,
   BoolShould, BoolMust, SelectedFilter,
@@ -21,7 +21,7 @@ export interface ISizeOption {
   size:number
 }
 
-export class FacetAccessor extends Accessor<ArrayState> {
+export class FacetAccessor extends StatefulAccessor<ArrayState> {
 
   state = new ArrayState()
   options:any

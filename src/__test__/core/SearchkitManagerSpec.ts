@@ -148,7 +148,7 @@ describe("SearchkitManager", ()=> {
 
   it("_search()", ()=> {
     spyOn(SearchRequest.prototype, "run")
-    this.accessor = new PageSizeAccessor("s", 10)
+    this.accessor = new PageSizeAccessor(10)
     let initialSearchRequest  =
       this.searchkit.currentSearchRequest = new SearchRequest(this.host, null)
     this.searchkit.primarySearcher.addAccessor(

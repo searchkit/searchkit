@@ -1,6 +1,6 @@
 import { LevelState } from "../state";
-import { Accessor } from "./Accessor";
-export declare class HierarchicalFacetAccessor extends Accessor<LevelState> {
+import { StatefulAccessor } from "./StatefulAccessor";
+export declare class HierarchicalFacetAccessor extends StatefulAccessor<LevelState> {
     state: LevelState;
     options: any;
     uuids: Array<String>;

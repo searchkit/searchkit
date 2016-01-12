@@ -3,6 +3,7 @@ export declare class SearcherCollection {
     searchers: Array<Searcher>;
     constructor(searchers?: Array<Searcher>);
     getAccessors(): any[];
+    getStatefulAccessors(): any[];
     add(searcher: any): any;
     size(): number;
     getState(): {};

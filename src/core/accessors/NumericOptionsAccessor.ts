@@ -1,5 +1,5 @@
 import {State, ValueState} from "../state"
-import {Accessor} from "./Accessor"
+import {StatefulAccessor} from "./StatefulAccessor"
 import {
   RangeQuery, BoolMust,
   RangeBucket, FilterBucket
@@ -17,7 +17,7 @@ export interface NumericOptions {
   mod?:string
 }
 
-export class NumericOptionsAccessor extends Accessor<ValueState> {
+export class NumericOptionsAccessor extends StatefulAccessor<ValueState> {
 
   state = new ValueState()
   options:NumericOptions

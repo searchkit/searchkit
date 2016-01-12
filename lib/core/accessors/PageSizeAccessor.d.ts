@@ -1,8 +1,6 @@
-import { ValueState } from "../state";
 import { Accessor } from "./Accessor";
-export declare class PageSizeAccessor extends Accessor<ValueState> {
+export declare class PageSizeAccessor extends Accessor {
     size: number;
-    state: ValueState;
-    constructor(key: any, size: any);
+    constructor(size: number);
     buildOwnQuery(query: any): any;
 }

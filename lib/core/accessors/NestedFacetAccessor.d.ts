@@ -1,5 +1,5 @@
 import { LevelState } from "../state";
-import { Accessor } from "./Accessor";
+import { StatefulAccessor } from "./StatefulAccessor";
 export interface NestedFacetAccessorOptions {
     field: string;
     id: string;
@@ -8,7 +8,7 @@ export interface NestedFacetAccessorOptions {
     orderDirection?: string;
     startLevel?: number;
 }
-export declare class NestedFacetAccessor extends Accessor<LevelState> {
+export declare class NestedFacetAccessor extends StatefulAccessor<LevelState> {
     state: LevelState;
     options: any;
     constructor(key: any, options: NestedFacetAccessorOptions);

@@ -1,5 +1,5 @@
 import {ValueState} from "../state"
-import {Accessor} from "./Accessor"
+import {StatefulAccessor} from "./StatefulAccessor"
 import {
   MultiMatchQuery,
   BoolShould,
@@ -11,7 +11,7 @@ export interface SearchOptions {
   prefixQueryFields?:Array<string>
   queryOptions?:any
 }
-export class SearchAccessor extends Accessor<ValueState> {
+export class SearchAccessor extends StatefulAccessor<ValueState> {
   state = new ValueState()
   options:SearchOptions
 
@@ -39,7 +39,7 @@ export class SearchAccessor extends Accessor<ValueState> {
           type:"phrase_prefix",
           fields:this.options.prefixQueryFields
         }))
-      }      
+      }
       return query.addQuery(BoolShould(queries))
     }
     return query

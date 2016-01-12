@@ -3,7 +3,7 @@ import { Accessor } from "./accessors/Accessor";
 import { SearchkitManager } from "./SearchkitManager";
 import { EventEmitter } from "./support/EventEmitter";
 export declare class Searcher {
-    accessors: Array<Accessor<any>>;
+    accessors: Array<Accessor>;
     query: ImmutableQuery;
     queryHasChanged: boolean;
     results: any;
@@ -16,7 +16,7 @@ export declare class Searcher {
     constructor(searchkitManager: any);
     translate(key: any): any;
     hasFiltersOrQuery(): boolean;
-    addAccessor(accessor: Accessor<any>): void;
+    addAccessor(accessor: Accessor): void;
     clearQuery(): void;
     resetState(): void;
     buildQuery(query: any): ImmutableQuery;

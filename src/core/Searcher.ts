@@ -5,7 +5,7 @@ import {SearchkitManager} from "./SearchkitManager"
 import {EventEmitter} from "./support/EventEmitter";
 
 export class Searcher {
-  accessors: Array<Accessor<any>>
+  accessors: Array<Accessor>
   query: ImmutableQuery
   queryHasChanged: boolean
   results: any
@@ -35,7 +35,7 @@ export class Searcher {
     return this.query && this.query.hasFiltersOrQuery()
   }
 
-  addAccessor(accessor: Accessor<any>) {
+  addAccessor(accessor: Accessor) {
     this.accessors.push(accessor)
     accessor.setSearcher(this)
   }
@@ -67,7 +67,7 @@ export class Searcher {
   }
   setResults(results) {
     this.results = results
-    _.invoke(this.accessors, "setResultsState")
+    _.invoke(this.accessors, "onNewResults")
     this.onResponseChange()
   }
 

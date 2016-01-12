@@ -1,5 +1,5 @@
 import { ArrayState } from "../state";
-import { Accessor } from "./Accessor";
+import { StatefulAccessor } from "./StatefulAccessor";
 import { BoolShould } from "../query";
 export interface FacetAccessorOptions {
     operator?: string;
@@ -12,7 +12,7 @@ export interface ISizeOption {
     label: string;
     size: number;
 }
-export declare class FacetAccessor extends Accessor<ArrayState> {
+export declare class FacetAccessor extends StatefulAccessor<ArrayState> {
     state: ArrayState;
     options: any;
     defaultSize: number;

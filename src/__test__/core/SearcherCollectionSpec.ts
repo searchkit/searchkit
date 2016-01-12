@@ -1,6 +1,6 @@
 import {
   Searcher,EventEmitter,ImmutableQuery,SearcherCollection,
-  SearchkitManager, PageSizeAccessor, ValueState
+  SearchkitManager, PageSizeAccessor, ValueState, PaginationAccessor
 } from "../../"
 
 describe("SearcherCollection", ()=> {
@@ -8,16 +8,19 @@ describe("SearcherCollection", ()=> {
   beforeEach(()=> {
     this.searcher1 = new Searcher(null)
 
-    this.accessor1 = new PageSizeAccessor("p1", 10)
-    this.accessor2 = new PageSizeAccessor("p2", 20)
+    this.accessor1 = new PaginationAccessor("p1")
+    this.accessor2 = new PaginationAccessor("p2")
     this.searcher1.addAccessor(this.accessor1)
     this.searcher1.addAccessor(this.accessor2)
 
     this.searcher2 = new Searcher(null)
-    this.accessor3 = new PageSizeAccessor("p3", 30)
-    this.accessor4 = new PageSizeAccessor("p4", 40)
+    this.accessor3 = new PaginationAccessor("p3")
+    this.accessor4 = new PaginationAccessor("p4")
     this.searcher2.addAccessor(this.accessor3)
     this.searcher2.addAccessor(this.accessor4)
+
+    this.accessor5 = new PageSizeAccessor(50)
+    this.searcher2.addAccessor(this.accessor5)
     this.searchers = new SearcherCollection(
       [this.searcher1, this.searcher2])
   })
@@ -31,6 +34,13 @@ describe("SearcherCollection", ()=> {
 
   it("getAccessors()", ()=> {
     expect(this.searchers.getAccessors()).toEqual([
+      this.accessor1, this.accessor2,
+      this.accessor3, this.accessor4, this.accessor5
+    ])
+  })
+
+  it("getStatefulAccessors()", ()=> {
+    expect(this.searchers.getStatefulAccessors()).toEqual([
       this.accessor1, this.accessor2,
       this.accessor3, this.accessor4
     ])
@@ -67,12 +77,12 @@ describe("SearcherCollection", ()=> {
   it("notifyStateChange", ()=> {
     let stateChanges = []
     let oldState = {}
-    PageSizeAccessor.prototype["onStateChange"] = function(state){
-      expect(state).toBe(oldState)
-      stateChanges.push(this.key)
-    }
+    spyOn(PaginationAccessor.prototype, "onStateChange")
     this.searchers.notifyStateChange(oldState)
-    expect(stateChanges).toEqual(["p1", "p2", "p3", "p4"])
+    expect(PaginationAccessor.prototype.onStateChange)
+      .toHaveBeenCalledWith(oldState)
+    expect(PaginationAccessor.prototype.onStateChange["calls"].count())
+      .toBe(4)
   })
 
   it("getChangedSearchers()", ()=> {
@@ -96,8 +106,8 @@ describe("SearcherCollection", ()=> {
   it("buildQuery()", ()=> {
     let query = new ImmutableQuery()
     this.searchers.buildQuery(query)
-    expect(this.searcher1.query.getSize()).toBe(20)
-    expect(this.searcher2.query.getSize()).toBe(40)
+    expect(this.searcher1.query.getSize()).toBe(0)
+    expect(this.searcher2.query.getSize()).toBe(50)
   })
 
   it("getQueries()", ()=> {
@@ -105,8 +115,8 @@ describe("SearcherCollection", ()=> {
     this.searchers.buildQuery(query)
     let queries = this.searchers.getQueries()
     expect(queries.length).toBe(2)
-    expect(queries[0].size).toBe(20)
-    expect(queries[1].size).toBe(40)
+    expect(queries[0].size).toBe(0)
+    expect(queries[1].size).toBe(50)
   })
 
   it("setResponses()", ()=> {

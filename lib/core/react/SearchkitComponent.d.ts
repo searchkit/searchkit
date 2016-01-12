@@ -4,7 +4,7 @@ import { Accessor } from "../accessors/Accessor";
 import { Searcher } from "../Searcher";
 export declare class SearchkitComponent<P, S> extends React.Component<P, S> {
     searchkit: SearchkitManager;
-    accessor: Accessor<any>;
+    accessor: Accessor;
     searcher: Searcher;
     stateListenerUnsubscribe: Function;
     bemBlocks: any;
@@ -14,7 +14,7 @@ export declare class SearchkitComponent<P, S> extends React.Component<P, S> {
         searcher: React.Requireable<any>;
     };
     defineBEMBlocks(): any;
-    defineAccessor(): Accessor<any>;
+    defineAccessor(): Accessor;
     shouldCreateNewSearcher(): boolean;
     translate(key: any): any;
     componentWillMount(): void;

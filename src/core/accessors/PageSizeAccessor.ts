@@ -1,14 +1,9 @@
-import {ValueState} from "../state"
-import {Accessor} from "./Accessor"
-import * as _ from "lodash"
+import {Accessor} from "./Accessor";
 
-export class PageSizeAccessor extends Accessor<ValueState> {
+export class PageSizeAccessor extends Accessor {
 
-  size:number
-  state = new ValueState()
-  constructor(key, size){
-    super(key)
-    this.size = size
+  constructor(public size:number){
+    super()
   }
 
   buildOwnQuery(query){

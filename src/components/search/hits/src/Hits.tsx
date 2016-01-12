@@ -5,7 +5,8 @@ import "../styles/index.scss";
 import {
 	SearchkitComponent,
 	PageSizeAccessor,
-	ImmutableQuery
+	ImmutableQuery,
+	HighlightAccessor
 } from "../../../../core"
 
 export interface IHits {
@@ -18,23 +19,12 @@ export class Hits extends SearchkitComponent<IHits, any> {
 
 	componentWillMount() {
 		super.componentWillMount()
-		this.searchkit.addDefaultQuery((query:ImmutableQuery) => {
-			return query.setHighlight(this.getHighlightedFields())
-		})
-
-	}
-
-	getHighlightedFields() {	_
-		return {
-			fields:_.mapValues(
-				_.object(this.props.highlightFields),
-				_.constant({})
-			)
-		}
+		this.searcher.addAccessor(
+			new HighlightAccessor(this.props.highlightFields))
 	}
 
 	defineAccessor(){
-		return new PageSizeAccessor("s", this.props.hitsPerPage)
+		return new PageSizeAccessor(this.props.hitsPerPage)
 	}
 
 	defineBEMBlocks() {

@@ -1,5 +1,5 @@
 import { ValueState } from "../state";
-import { Accessor } from "./Accessor";
+import { StatefulAccessor } from "./StatefulAccessor";
 export interface SortingOptions {
     options: [{
         label: string;
@@ -8,7 +8,7 @@ export interface SortingOptions {
     }];
     mod?: string;
 }
-export declare class SortingAccessor extends Accessor<ValueState> {
+export declare class SortingAccessor extends StatefulAccessor<ValueState> {
     state: ValueState;
     options: SortingOptions;
     constructor(key: any, options: SortingOptions);

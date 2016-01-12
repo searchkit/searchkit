@@ -1,6 +1,6 @@
 import { ValueState } from "../state";
-import { Accessor } from "./Accessor";
-export declare class PaginationAccessor extends Accessor<ValueState> {
+import { StatefulAccessor } from "./StatefulAccessor";
+export declare class PaginationAccessor extends StatefulAccessor<ValueState> {
     state: ValueState;
     onStateChange(oldState: any): void;
     buildOwnQuery(query: any): any;

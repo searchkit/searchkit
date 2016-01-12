@@ -1,5 +1,5 @@
 import {LevelState} from "../state"
-import {Accessor} from "./Accessor"
+import {StatefulAccessor} from "./StatefulAccessor"
 import {
   TermQuery, TermsBucket, FilterBucket,
   BoolShould, BoolMust, NestedQuery,
@@ -15,7 +15,7 @@ export interface NestedFacetAccessorOptions {
   startLevel?:number
 }
 
-export class NestedFacetAccessor extends Accessor<LevelState> {
+export class NestedFacetAccessor extends StatefulAccessor<LevelState> {
 	state = new LevelState()
 	options:any
 

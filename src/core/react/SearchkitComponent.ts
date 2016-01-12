@@ -7,7 +7,7 @@ var block = require('bem-cn');
 
 export class SearchkitComponent<P,S> extends React.Component<P,S> {
   searchkit:SearchkitManager
-  accessor:Accessor<any>
+  accessor:Accessor
   searcher:Searcher
   stateListenerUnsubscribe:Function
   bemBlocks:any
@@ -22,7 +22,7 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
     return null;
   }
 
-  defineAccessor():Accessor<any>{
+  defineAccessor():Accessor{
     return null
   }
 

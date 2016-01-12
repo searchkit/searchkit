@@ -1,8 +1,8 @@
 import {ValueState} from "../state"
-import {Accessor} from "./Accessor"
+import {StatefulAccessor} from "./StatefulAccessor"
 import * as _ from "lodash"
 
-export class PaginationAccessor extends Accessor<ValueState> {
+export class PaginationAccessor extends StatefulAccessor<ValueState> {
   state = new ValueState()
 
   onStateChange(oldState){
