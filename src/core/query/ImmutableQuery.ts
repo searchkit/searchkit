@@ -31,6 +31,7 @@ export class ImmutableQuery {
     query.size = this.index.size
     query.from = this.index.from
     query.sort = this.index.sort
+    query.highlight = this.index.highlight
     this.query = _.omit(query, v => v === undefined)
   }
 
@@ -76,9 +77,7 @@ export class ImmutableQuery {
   }
 
   setAggs(aggs) {
-    let existingAggs = this.index.aggs || {}
-    let newAggs = _.extend({}, existingAggs, aggs)
-    return this.update({ $merge:{aggs:newAggs} })
+    return this.deepUpdate("aggs", aggs)
   }
 
   getFilters(keys) {
@@ -105,6 +104,10 @@ export class ImmutableQuery {
     return this.update({ $merge: {sort:sort}})
   }
 
+  setHighlight(highlight: any) {
+    return this.deepUpdate("highlight", highlight)
+  }
+
   getSize(){
     return this.query.size
   }
@@ -115,6 +118,15 @@ export class ImmutableQuery {
 
   getFrom(){
     return this.query.from
+  }
+
+
+  deepUpdate(key, ob){
+    return this.update({
+      $merge: {
+        [key]:_.merge({}, this.index[key] || {}, ob)
+      }
+    })
   }
 
   update(updateDef) {

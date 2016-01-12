@@ -1,9 +1,39 @@
 # Hierarchical Menu
-Component which renders a tree like structure. Used for items which have multiple levels of categorization. Used for when documents have only one hierarchical category. For documents with more than one categories, see hierarchical Refinement filter. 
+Component which renders a tree like structure. Used for items which have multiple levels of categorization. Used for when documents have only one hierarchical category. For documents with more than one categories, see hierarchical Refinement filter.
 
 ## Indexing
 
-Hierarchical Menu needs an array of level fields. Levels is derived from the order of the array. If an item had /Appliances/Air Conditioners/Window Air Conditioners category, the values would be as follows: {categories_lvl1:["Appliances"], categories_lvl2:["Air Conditioners"], categories_lvl3:["Window Air Conditioners"]}  
+Hierarchical Menu needs an array of level fields. Levels is derived from the order of the array. If an item was in /Appliances/Air Conditioners/Window Air Conditioners category, the setup would be as follows:
+
+
+### Mapping example
+```js
+{
+  "products":{
+    "category":{
+      "properties":{
+       //includes all ids for flat level querying
+       "all":{"type":"string", "index":"not_analyzed"},
+
+       //tags bucketed by their level in the tree
+       "lvl1":{"type":"string", "index":"not_analyzed"},
+       "lvl2":{"type":"string", "index":"not_analyzed"},
+       "lvl3":{"type":"string", "index":"not_analyzed"},
+       //...
+       "lvl10":{"type":"string", "index":"not_analyzed"}
+    }
+  }
+}
+```
+
+#### Indexing example
+```js
+{
+  category.lvl1:"Appliances",
+  category.lvl2:"Air Conditioners",
+  category.lvl3:"Window Air Conditioners"
+}
+```
 
 ## Example
 

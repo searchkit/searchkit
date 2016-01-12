@@ -187,6 +187,29 @@ describe("ImmutableQuery", ()=> {
     expect(query.getFrom()).toEqual(10)
   })
 
+  it("setHighlight()", ()=> {
+    let query = this.query.setHighlight({
+      "fields": {
+          "title":{},
+          "plot":{}
+      }
+    })
+    query = query.setHighlight({
+      "fields": {
+        "description":{}
+      }
+    })
+    expect(query.query.highlight).toEqual(
+      {
+        "fields": {
+            "title":{},
+            "plot":{},
+            "description":{}
+        }
+      }
+    )
+
+  })
 
   it("getJSON()", ()=> {
     let query = this.addFilter()

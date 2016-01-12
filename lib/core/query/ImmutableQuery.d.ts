@@ -20,9 +20,11 @@ export declare class ImmutableQuery {
     getFiltersWithoutKeys(keys: any): any;
     setSize(size: number): ImmutableQuery;
     setSort(sort: string): ImmutableQuery;
+    setHighlight(highlight: any): ImmutableQuery;
     getSize(): any;
     setFrom(from: number): ImmutableQuery;
     getFrom(): any;
+    deepUpdate(key: any, ob: any): ImmutableQuery;
     update(updateDef: any): ImmutableQuery;
     getJSON(): any;
 }

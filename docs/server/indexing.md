@@ -1,11 +1,58 @@
 # Indexing & Mapping Guide
+`Elasticsearch` querying is very sophisticated, and many of the features rely on an appropriate `mapping` configured.
 
-`Elasticsearch` querying is very sophisticated, and many of the features rely on an appropriate `mapping` configured
+## Updating index
+Straightforward to update the index. See [Updating indices](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html).
 
-## Multi fields
-Often you will want a field to be both `searchable` and appear as `facets`. A field will need to be indexed in 2 ways to achieve this, and we can make use of multi fields
+### Analyzer extensions
+Out the box, elasticsearch uses the default [standard analyzer](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-standard-analyzer.html). We extend the default analyzer to offer [word delimiter](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-word-delimiter-tokenfilter.html), [html strip](https://www.elastic.co/guide/en/elasticsearch/reference/1.4/analysis-htmlstrip-charfilter.html) and [char mapping](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-mapping-charfilter.html).
 
-### Mapping example
+```json
+{
+  "analysis": {
+    "char_filter": {
+       "replace": {
+        "type": "mapping",
+        "mappings": [
+          "&=> and "
+        ]
+      }
+    },
+    "filter": {
+      "word_delimiter" : {
+        "type" : "word_delimiter",
+        "split_on_numerics" : false,
+        "split_on_case_change" : true,
+        "generate_word_parts" : true,
+        "generate_number_parts" : true,
+        "catenate_all" : true,
+        "preserve_original":true,
+        "catenate_numbers":true
+      }
+    },
+    "analyzer": {
+      "default": {
+        "type": "custom",
+        "char_filter": [
+          "html_strip",
+          "replace"
+        ],
+        "tokenizer": "whitespace",
+        "filter": [
+            "lowercase",
+            "word_delimiter"
+        ]
+      }
+    }
+  }
+}```
+
+## Searchkit Mapping best practices
+
+### Indexing fields for filtering & searching
+Often you will want a field to be both `searchable` and appear as `filters`. A field will need to be indexed in 2 ways to achieve this, and we can make use of multi fields
+
+#### Mapping example
 ```json
 {
   "movie" : {
@@ -25,9 +72,9 @@ Often you will want a field to be both `searchable` and appear as `facets`. A fi
 ```
 
 This mapping will mean the `genres` field is indexed in 2 ways. The `genres` path will be analyzed by elastic search meaning it will be tokenized and have the standard stop words removed which is ideal for a free text search.
-The `genres.raw` path will be left untouched by `Elasticsearch`, `Searchkit` would use `not_analyzed` paths to power facetted search components.
+The `genres.raw` path will be left untouched by `Elasticsearch`, `Searchkit` would use `not_analyzed` paths to power aggregated search components.
 
-### Component examples
+#### Component examples
 Using the `genres.raw` field
 ```jsx
 <RefinementListFilter id="genres" title="Genres" field="genres.raw" operator="AND"/>
@@ -35,61 +82,4 @@ Using the `genres.raw` field
 Using the field for searching using prefix
 ```jsx
 <SearchBox prefixQueryFields={["genres^1", "name^10"]}/>
-```
-
-## Hierarchical Data
-`Searchkit` has an out the box `HierarchicalMenuFilter` component which displays a `tree` or `taxonomy` component.
-
-### Dynamic tree of multiple fields
-One example use of this component is composing several fields and dynamically constructed a tree to suit the UI.
-e.g. show a Hierarchical menu based on **movie type** and then a sub menu containing **movie genres**, `Searchkit` will construct the appropriate `aggregation` queries automatically behind the scenes
-```jsx
-<HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
-```
-
-### Structured tree
-Some applications may already have the concept of a `tree`. e.g. `Pages` or `Taxonomy` or `Hierarchical tags` in their application and would like `Searchkit` to automatically render the tree.
-
-We suggest the following `mapping` + `indexing` strategy for this.
-
-#### Hierarchical Mapping example
-given a field named `color` with a max of `10` levels, the field mapping definition for `color` would be defined as;
-
-##### Mapping example
-```js
-{
-  "photos":{
-    "color":{
-      "properties":{
-       //includes all ids for flat level querying
-       "all":{"type":"string", "index":"not_analyzed"},
-
-       //tags bucketed by their level in the tree
-       "lvl1":{"type":"string", "index":"not_analyzed"},
-       "lvl2":{"type":"string", "index":"not_analyzed"},
-       "lvl3":{"type":"string", "index":"not_analyzed"},
-       //...
-       "lvl10":{"type":"string", "index":"not_analyzed"}
-    }
-  }
-}
-```
-
-##### Indexing example
-```js
-{
-  "color.all":["Red", "Green", "Ruby Red", "Emerald", "Lime"]
-  "color.lvl1":["Red", "Green"]
-  "color.lvl2":["Ruby Red", "Emerald", "Lime"]
-}
-```
-> **Note** how the various colors are placed in their correct corresponding level in the tree.
-This logic will need to be implemented by your application during indexing of documents.
-
-#### Component example
-We would then configuring using the tree levels we wish to render
-```jsx
-<HierarchicalMenuFilter
-  title="Colors" id="colors"
-  fields={["color.lvl1", "color.lvl2", "color.lvl3"]/>  
 ```

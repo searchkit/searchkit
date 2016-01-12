@@ -4,15 +4,36 @@ import "../styles/index.scss";
 
 import {
 	SearchkitComponent,
-	PageSizeAccessor
+	PageSizeAccessor,
+	ImmutableQuery
 } from "../../../../core"
 
 export interface IHits {
 	hitsPerPage: number
 	mod?:string
+	highlightFields?:Array<string>
 }
 
 export class Hits extends SearchkitComponent<IHits, any> {
+
+	componentWillMount() {
+		super.componentWillMount()
+		this.searchkit.addDefaultQuery((query:ImmutableQuery) => {
+			return query.setHighlight(this.getHighlightedFields())
+		})
+
+	}
+
+	getHighlightedFields() {
+		let fields = {}
+		_.each(this.props.highlightFields, (field:any) => {
+			fields[field] = {}
+		})
+
+		return {
+			fields:fields
+		}
+	}
 
 	defineAccessor(){
 		return new PageSizeAccessor("s", this.props.hitsPerPage)
