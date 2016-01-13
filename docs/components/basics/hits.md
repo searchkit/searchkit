@@ -36,7 +36,9 @@ class App extends SearchkitComponent<any, any> {
 
 ## Props
 - `hitsPerPage` *(Number)*: Number of results displayed per page
-- `highlightFields` *(Array<string>)*: Array of highlighted fields. Any highlight matches will be returned in the result.highlight[fieldName]. See above for example. 
+- `highlightFields` *(Array<string>)*: Array of highlighted fields. Any highlight matches will be returned in the result.highlight[fieldName]. See above for example.
+- `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/translate.md) page.
+- `mod` *(string)*: Optional. A custom BEM container class.
 
 ## Customising Blank States
 

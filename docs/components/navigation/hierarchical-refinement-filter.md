@@ -70,6 +70,7 @@ class App extends SearchkitComponent<any, any> {
 - `startLevel` *(number)*: Optional. Can specify the root level to start from.
 - `orderKey` *(string)*: Order key either using default sortable keys `_count` `_term` or using the `order` field e.g. `taxonomy.order`
 - `orderDirection` *(string)*: `asc` or `desc`
+- `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/translate.md) page.
 
 ## Demo
 [](codepen://searchkit/OMgmwR?height=800&theme=0)

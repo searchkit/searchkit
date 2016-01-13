@@ -9,7 +9,7 @@ All components run a translate function on any text displayed. This includes:
 
 and many more in components.
 
-## How to override defaults
+## How to override global defaults
 ```js
 
 const searchkit = new SearchkitManager("locahost:9200")
@@ -23,4 +23,12 @@ searchkit.translateFunction = (key) => {
   }
   return translations[key]
 }
+```
+
+## Override component defaults
+
+You can pass any component an object of translations you wish to override. Example below:
+
+```
+<SearchBox translations={{"searchbox.placeholder":"search movies"}} autofocus={true} searchOnChange={true} queryFields={["actors^1","type^2","languages","title^5", "genres^2"]}/>
 ```
