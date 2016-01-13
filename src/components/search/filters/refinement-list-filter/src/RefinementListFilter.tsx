@@ -22,6 +22,12 @@ export interface RefinementListFilterProps extends SearchkitComponentProps {
 export class RefinementListFilter extends SearchkitComponent<RefinementListFilterProps, any> {
 	accessor:FacetAccessor
 
+	translations = {
+		"View more":"View more",
+		"View less": "View less",
+		"View all": "View all"
+	}
+
 	shouldCreateNewSearcher() {
 		return true;
 	}
@@ -89,7 +95,7 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
 		return (
 			<FastClick handler={this.toggleViewMoreOption.bind(this, option)}>
 				<div data-qa="show-more" className={this.bemBlocks.container("view-more-action")}>
-					{option.label}
+					{this.translate(option.label)}
 				</div>
 			</FastClick>
 		)
