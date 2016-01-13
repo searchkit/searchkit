@@ -54,7 +54,7 @@ export class SearchkitManager {
 			this.completeRegistration = resolve
 		})
     this.defaultQueries = []
-    this.translateFunction = _.identity
+    this.translateFunction = _.constant(undefined)
     // this.primarySearcher = this.createSearcher()
     this.query = new ImmutableQuery()
     this.emitter = new EventEmitter()

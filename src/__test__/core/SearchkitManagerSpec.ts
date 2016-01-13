@@ -63,7 +63,7 @@ describe("SearchkitManager", ()=> {
   it("translate()", ()=> {
     spyOn(this.searchkit, "translateFunction")
       .and.callThrough()
-    expect(this.searchkit.translate("foo")).toBe("foo")
+    expect(this.searchkit.translate("foo")).toBe(undefined)
     expect(this.searchkit.translateFunction)
       .toHaveBeenCalledWith("foo")
   })

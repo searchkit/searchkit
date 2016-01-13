@@ -18,6 +18,11 @@ export declare class FacetAccessor extends StatefulAccessor<ArrayState> {
     defaultSize: number;
     size: number;
     uuid: string;
+    translations: {
+        "facets.view_more": string;
+        "facets.view_less": string;
+        "facets.view_all": string;
+    };
     constructor(key: any, options: FacetAccessorOptions);
     getBuckets(): any;
     setViewMoreOption(option: ISizeOption): void;

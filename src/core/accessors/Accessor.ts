@@ -7,9 +7,11 @@ export class Accessor {
   uuid:string
   results:any
   active:boolean
+  translations:Object
   constructor(){
     this.uuid = Utils.guid()
     this.active = true
+    this.translations = {}
   }
 
   setActive(active:boolean){
@@ -21,8 +23,13 @@ export class Accessor {
     this.searchkit = searchkit
   }
 
+
   translate(key){
-    return this.searchkit && this.searchkit.translate(key) || key
+    return (
+      (this.searchkit && this.searchkit.translate(key)) ||
+       this.translations[key] ||
+       key
+    )
   }
 
   getResults(){

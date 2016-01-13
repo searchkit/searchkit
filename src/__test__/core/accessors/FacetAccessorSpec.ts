@@ -68,15 +68,7 @@ describe("FacetAccessor", ()=> {
   })
 
   describe("view more options", () => {
-    beforeEach(()=> {
-      this.accessor.translate = (key)=> {
-        return {
-          "view more":"View more", "view less":"View less",
-          "view all":"View all"
-        }[key]
-      }
-    })
-
+  
     it("setViewMoreOption", () => {
       this.accessor.setViewMoreOption({size:30})
       expect(this.accessor.size).toBe(30)

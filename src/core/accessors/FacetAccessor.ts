@@ -29,6 +29,12 @@ export class FacetAccessor extends StatefulAccessor<ArrayState> {
   size:number
   uuid:string
 
+  translations = {
+    "facets.view_more":"View more",
+    "facets.view_less":"View less",
+    "facets.view_all":"View all"
+  }
+
   constructor(key, options:FacetAccessorOptions){
     super(key, options.id)
     this.options = options
@@ -53,11 +59,11 @@ export class FacetAccessor extends StatefulAccessor<ArrayState> {
     if (total <= this.defaultSize) return null;
 
     if (total <= this.size) {
-      option = {size:this.defaultSize, label:this.translate("view less")}
+      option = {size:this.defaultSize, label:this.translate("facets.view_less")}
     } else if ((this.size + facetsPerPage) > total) {
-      option = {size:total, label:this.translate("view all")}
+      option = {size:total, label:this.translate("facets.view_all")}
     } else if ((this.size + facetsPerPage) < total) {
-      option = {size:this.size + facetsPerPage, label:this.translate("view more")}
+      option = {size:this.size + facetsPerPage, label:this.translate("facets.view_more")}
     } else if (total ){
       option = null
     }

@@ -16,10 +16,11 @@ const searchkit = new SearchkitManager("locahost:9200")
 
 searchkit.translateFunction = (key) => {
   let translations = {
-    "Previous":"Previous page",
+    "pagination.previous":"Previous page",
+    "pagination.next":"Next page",
     "id1":"Color",
     "id2": "Red"
   }
-  return translations[key] || key;
+  return translations[key]
 }
 ```

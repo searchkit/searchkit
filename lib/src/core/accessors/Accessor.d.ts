@@ -5,6 +5,7 @@ export declare class Accessor {
     uuid: string;
     results: any;
     active: boolean;
+    translations: Object;
     constructor();
     setActive(active: boolean): Accessor;
     setSearchkitManager(searchkit: any): void;

@@ -15,11 +15,11 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
   stateListenerUnsubscribe:Function
   bemBlocks:any
   blockClass:string
-  translations:Object
-
+  translations:Object = {}
 	static contextTypes = {
 		searchkit:React.PropTypes.instanceOf(SearchkitManager)
 	}
+
 
   defineBEMBlocks() {
     return null;
@@ -30,7 +30,11 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
   }
 
   translate(key){
-    return this.searchkit.translate(key)
+    return (
+      (this.searchkit && this.searchkit.translate(key)) ||
+       this.translations[key] ||
+       key
+    )
   }
 
   componentWillMount(){
