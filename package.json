@@ -2,7 +2,7 @@
   "name": "searchkit",
   "version": "0.2.0",
   "description": "A suite of react components to help create a UI quickly for elasticsearch ",
-  "main": "lib/index.js",
+  "main": "lib/src/index.js",
   "keywords": [
     "elasticsearch",
     "elastic search",
@@ -22,7 +22,7 @@
     "type": "git",
     "url": "https://github.com/searchkit/searchkit.git"
   },
-  "typings": "lib/index.d.ts",
+  "typings": "lib/src/index.d.ts",
   "scripts": {
     "test": "./node_modules/.bin/karma start --single-run --reporters junit,dots",
     "test:watch": "./node_modules/.bin/karma start karma.conf.js --auto-watch",
