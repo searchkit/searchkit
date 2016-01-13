@@ -29,6 +29,7 @@
   * [ImmutableQuery](/docs/core/ImmutableQuery.md)
   * [SearchkitProvider](/docs/core/SearchkitProvider.md)
   * [SearchkitComponent](/docs/core/SearchkitComponent.md)
+  * [Translation](/docs/core/Translate.md)
 * [Using Express](/docs/server/searchkit_express.md)
 * [Indexing & Mapping Guide](/docs/server/indexing.md)
 * [Examples](/docs/examples/README.md)
