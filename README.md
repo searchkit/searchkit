@@ -17,7 +17,6 @@ See full [Documentation](https://ssetem.gitbooks.io/searchkit/content/) or [Gett
 
 const host = "https://kili-eu-west-1.searchly.com/movies/"
 const searchkit = new SearchkitManager(host, {
-  multipleSearchers:false,
   basicAuth:"read:teetndhjnrspbzxxyfxmf5fb24suqxuj"
 })
 
