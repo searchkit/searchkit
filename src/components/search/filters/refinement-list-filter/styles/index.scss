@@ -1,27 +1,5 @@
 .refinement-list {
   margin-bottom:20px;
-  position:relative;
-
-  &.collapsible {
-    cursor:pointer;
-  }
-
-  &.collapsible &__header:after {
-    content:"";
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 10px 5px 0 5px;
-    border-color: #000 transparent transparent transparent;
-    position:absolute;
-    right:0px;
-    top:50%;
-    margin-top:-5px;
-  }
-
-  &.is-collapsed &__options, &__view-more-action {
-    display:none;
-  }
 
   &__header {
     margin-bottom:5px;
