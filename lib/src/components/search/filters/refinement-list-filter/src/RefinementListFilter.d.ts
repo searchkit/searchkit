@@ -1,13 +1,12 @@
-import { SearchkitComponent, FacetAccessor, ISizeOption } from "../../../../../core";
-export interface IRefinementListFilter {
+import { SearchkitComponent, FacetAccessor, ISizeOption, SearchkitComponentProps } from "../../../../../core";
+export interface RefinementListFilterProps extends SearchkitComponentProps {
     field: string;
     operator?: string;
     size?: number;
     title: string;
     id: string;
-    mod?: string;
 }
-export declare class RefinementListFilter extends SearchkitComponent<IRefinementListFilter, any> {
+export declare class RefinementListFilter extends SearchkitComponent<RefinementListFilterProps, any> {
     accessor: FacetAccessor;
     shouldCreateNewSearcher(): boolean;
     constructor(props: any);

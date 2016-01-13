@@ -6,18 +6,18 @@ import {
 	SearchkitManager,
 	SearchkitComponent,
 	FacetAccessor,
-	FastClick
+	FastClick,
+	SearchkitComponentProps
 } from "../../../../../core"
 
-export interface IMenuFilter {
+export interface MenuFilterProps extends SearchkitComponentProps {
 	field:string
 	title:string
 	id:string
-	mod?:string
 	size?:number
 }
 
-export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
+export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
 	accessor:FacetAccessor
 
 	defineBEMBlocks() {

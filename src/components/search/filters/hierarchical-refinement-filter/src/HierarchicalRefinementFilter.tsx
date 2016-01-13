@@ -5,18 +5,24 @@ import "../styles/index.scss";
 import {
 	SearchkitComponent,
   NestedFacetAccessor,
-	NestedFacetAccessorOptions,
-	FastClick
+	FastClick,
+	SearchkitComponentProps
 } from "../../../../../core"
 
-export interface IHierarchicalRefinementFilter extends NestedFacetAccessorOptions {
+export interface HierarchicalRefinementFilterProps extends SearchkitComponentProps {
 	mod?:string
+	field:string
+	id:string
+	title:string
+  orderKey?:string
+  orderDirection?:string
+  startLevel?:number
 }
 
-export class HierarchicalRefinementFilter extends SearchkitComponent<IHierarchicalRefinementFilter, any> {
+export class HierarchicalRefinementFilter extends SearchkitComponent<HierarchicalRefinementFilterProps, any> {
 	public accessor:NestedFacetAccessor
 
-	constructor(props:IHierarchicalRefinementFilter) {
+	constructor(props:HierarchicalRefinementFilterProps) {
 		super(props)
 	}
 

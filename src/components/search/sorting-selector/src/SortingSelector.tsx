@@ -6,16 +6,21 @@ import {
 	SearchkitComponent,
 	SortingAccessor,
 	FastClick,
-	SortingOptions
+	SortingOptions,
+	SearchkitComponentProps,
+	SortingOption
 } from "../../../../core"
 
+export interface SortingProps extends SearchkitComponentProps {
+	options:Array<SortingOption>
+}
 
 
-export class SortingSelector extends SearchkitComponent<SortingOptions, any> {
+export class SortingSelector extends SearchkitComponent<SortingProps, any> {
 	accessor:SortingAccessor
 
 	defineAccessor() {
-    return new SortingAccessor("sort", this.props)
+    return new SortingAccessor("sort", {options:this.props.options})
 	}
 
 	defineBEMBlocks() {

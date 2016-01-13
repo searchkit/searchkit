@@ -10,7 +10,6 @@ export interface NumericOptions {
     title: string;
     options: Array<RangeOption>;
     id: string;
-    mod?: string;
 }
 export declare class NumericOptionsAccessor extends StatefulAccessor<ValueState> {
     state: ValueState;

@@ -14,7 +14,6 @@ export interface NumericOptions {
   title:string
   options:Array<RangeOption>
   id:string
-  mod?:string
 }
 
 export class NumericOptionsAccessor extends StatefulAccessor<ValueState> {

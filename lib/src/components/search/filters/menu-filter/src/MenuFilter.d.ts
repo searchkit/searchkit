@@ -1,12 +1,11 @@
-import { SearchkitComponent, FacetAccessor } from "../../../../../core";
-export interface IMenuFilter {
+import { SearchkitComponent, FacetAccessor, SearchkitComponentProps } from "../../../../../core";
+export interface MenuFilterProps extends SearchkitComponentProps {
     field: string;
     title: string;
     id: string;
-    mod?: string;
     size?: number;
 }
-export declare class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
+export declare class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
     accessor: FacetAccessor;
     defineBEMBlocks(): {
         container: string;

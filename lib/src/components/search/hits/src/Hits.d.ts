@@ -1,10 +1,9 @@
-import { SearchkitComponent, PageSizeAccessor } from "../../../../core";
-export interface IHits {
+import { SearchkitComponent, PageSizeAccessor, SearchkitComponentProps } from "../../../../core";
+export interface HitsProps extends SearchkitComponentProps {
     hitsPerPage: number;
-    mod?: string;
     highlightFields?: Array<string>;
 }
-export declare class Hits extends SearchkitComponent<IHits, any> {
+export declare class Hits extends SearchkitComponent<HitsProps, any> {
     componentWillMount(): void;
     defineAccessor(): PageSizeAccessor;
     defineBEMBlocks(): {

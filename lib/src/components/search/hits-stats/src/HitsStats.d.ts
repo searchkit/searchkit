@@ -1,10 +1,9 @@
-import { SearchkitComponent } from "../../../../core";
-export interface IHitsStats {
-    mod?: string;
+import { SearchkitComponent, SearchkitComponentProps } from "../../../../core";
+export interface HitsStatsProps extends SearchkitComponentProps {
 }
-export declare class HitsStats extends SearchkitComponent<IHitsStats, any> {
+export declare class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
     translations: {
-        "HitStats.ResultsFound": string;
+        "ResultsFound": string;
     };
     defineBEMBlocks(): {
         container: string;

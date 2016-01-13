@@ -2,10 +2,14 @@ import {ValueState} from "../state"
 import {StatefulAccessor} from "./StatefulAccessor"
 import * as _ from "lodash"
 
-export interface SortingOptions {
-  options:[{label:string, field:string, order:string}]
-  mod?:string
+export interface SortingOption {
+  label:string, field:string, order:string
 }
+
+export interface SortingOptions {
+  options:Array<SortingOption>
+}
+
 export class SortingAccessor extends StatefulAccessor<ValueState> {
 
   state = new ValueState()

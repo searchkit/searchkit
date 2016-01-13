@@ -4,16 +4,16 @@ import "../styles/index.scss";
 
 import {
 	SearchkitComponent,
+	SearchkitComponentProps
 } from "../../../../core"
 
-export interface IHitsStats {
-	mod?:string
+export interface HitsStatsProps extends SearchkitComponentProps {
 }
 
-export class HitsStats extends SearchkitComponent<IHitsStats, any> {
+export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 
 	translations = {
-		"HitStats.ResultsFound":"results found"
+		"ResultsFound":"results found"
 	}
 
 	defineBEMBlocks() {

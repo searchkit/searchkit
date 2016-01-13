@@ -7,21 +7,19 @@ import {
 	SearchkitComponent,
 	FacetAccessor,
 	ISizeOption,
+	SearchkitComponentProps,
 	FastClick
 } from "../../../../../core"
 
-
-
-export interface IRefinementListFilter {
+export interface RefinementListFilterProps extends SearchkitComponentProps {
 	field:string
 	operator?:string
 	size?:number
 	title:string
 	id:string
-	mod?:string
 }
 
-export class RefinementListFilter extends SearchkitComponent<IRefinementListFilter, any> {
+export class RefinementListFilter extends SearchkitComponent<RefinementListFilterProps, any> {
 	accessor:FacetAccessor
 
 	shouldCreateNewSearcher() {

@@ -6,16 +6,16 @@ import {
 	SearchkitComponent,
 	PageSizeAccessor,
 	ImmutableQuery,
-	HighlightAccessor
+	HighlightAccessor,
+	SearchkitComponentProps
 } from "../../../../core"
 
-export interface IHits {
+export interface HitsProps extends SearchkitComponentProps{
 	hitsPerPage: number
-	mod?:string
 	highlightFields?:Array<string>
 }
 
-export class Hits extends SearchkitComponent<IHits, any> {
+export class Hits extends SearchkitComponent<HitsProps, any> {
 
 	componentWillMount() {
 		super.componentWillMount()

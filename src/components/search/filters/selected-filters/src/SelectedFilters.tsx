@@ -6,14 +6,14 @@ import {
 	SearchkitManager,
 	SearchkitComponent,
 	FacetAccessor,
-	FastClick
+	FastClick,
+	SearchkitComponentProps
 } from "../../../../../core"
 
-export interface ISelectedFilters {
-	mod?:string
+export interface SelectedFiltersProps extends SearchkitComponentProps {
 }
 
-export class SelectedFilters extends SearchkitComponent<ISelectedFilters, any> {
+export class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, any> {
 
 	defineBEMBlocks() {
 		var blockName = (this.props.mod || "selected-filters")
@@ -40,7 +40,7 @@ export class SelectedFilters extends SearchkitComponent<ISelectedFilters, any> {
 
 		return (
 			<div className={className} key={filter.name+":"+filter.value}>
-				<div className={block("name")}>{filter.name}: {filter.value}</div>
+				<div className={block("name")}>{this.translate(filter.name)}: {this.translate(filter.value)}</div>
 				<FastClick handler={this.removeFilter.bind(this, filter)}>
 					<div className={block("remove-action")}>x</div>
 				</FastClick>

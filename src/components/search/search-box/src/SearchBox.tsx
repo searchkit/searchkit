@@ -7,10 +7,11 @@ import "../styles/index.scss";
 
 import {
 	SearchAccessor,
-	SearchkitComponent
+	SearchkitComponent,
+	SearchkitComponentProps
 } from "../../../../core"
 
-export interface ISearchBox {
+export interface SearchBoxProps extends SearchkitComponentProps {
 	searchOnChange?:boolean
 	queryFields?:Array<string>
 	mod?:string
@@ -19,10 +20,10 @@ export interface ISearchBox {
 	prefixQueryFields?:Array<string>
 }
 
-export class SearchBox extends SearchkitComponent<ISearchBox, any> {
+export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 	accessor:SearchAccessor
 	lastSearchMs:number
-	constructor (props:ISearchBox) {
+	constructor (props:SearchBoxProps) {
 		super(props);
 		this.state = {
 			focused:false

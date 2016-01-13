@@ -1,8 +1,10 @@
-import { SearchkitComponent } from "../../../../../core";
-export interface IResetFilters {
-    mod?: string;
+import { SearchkitComponent, SearchkitComponentProps } from "../../../../../core";
+export interface ResetFiltersProps extends SearchkitComponentProps {
 }
-export declare class ResetFilters extends SearchkitComponent<IResetFilters, any> {
+export declare class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
+    translations: {
+        "ClearAllFilters": string;
+    };
     defineBEMBlocks(): {
         container: string;
     };

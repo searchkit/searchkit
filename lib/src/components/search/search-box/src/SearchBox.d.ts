@@ -1,5 +1,5 @@
-import { SearchAccessor, SearchkitComponent } from "../../../../core";
-export interface ISearchBox {
+import { SearchAccessor, SearchkitComponent, SearchkitComponentProps } from "../../../../core";
+export interface SearchBoxProps extends SearchkitComponentProps {
     searchOnChange?: boolean;
     queryFields?: Array<string>;
     mod?: string;
@@ -7,10 +7,10 @@ export interface ISearchBox {
     queryOptions?: any;
     prefixQueryFields?: Array<string>;
 }
-export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
+export declare class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     accessor: SearchAccessor;
     lastSearchMs: number;
-    constructor(props: ISearchBox);
+    constructor(props: SearchBoxProps);
     translations: {
         "searchbox.placeholder": string;
     };

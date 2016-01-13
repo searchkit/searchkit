@@ -1,13 +1,12 @@
-import { SearchkitComponent, HierarchicalFacetAccessor } from "../../../../../core";
-export interface IHierarchicalMenuFilter {
+import { SearchkitComponent, HierarchicalFacetAccessor, SearchkitComponentProps } from "../../../../../core";
+export interface HierarchicalMenuFilterProps extends SearchkitComponentProps {
     id: string;
     fields: Array<string>;
     title: string;
-    mod?: string;
 }
-export declare class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenuFilter, any> {
+export declare class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuFilterProps, any> {
     accessor: HierarchicalFacetAccessor;
-    constructor(props: IHierarchicalMenuFilter);
+    constructor(props: HierarchicalMenuFilterProps);
     defineBEMBlocks(): {
         container: string;
         option: string;

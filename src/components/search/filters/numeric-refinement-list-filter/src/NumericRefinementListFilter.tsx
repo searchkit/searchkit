@@ -6,12 +6,19 @@ import {
 	SearchkitManager,
 	SearchkitComponent,
 	NumericOptionsAccessor,
-	NumericOptions,
+	SearchkitComponentProps,
+	RangeOption,
 	FastClick
 } from "../../../../../core"
 
+export interface NumericRefinementListFilterProps extends SearchkitComponentProps {
+	field:string
+  title:string
+  options:Array<RangeOption>
+  id:string
+}
 
-export class NumericRefinementListFilter extends SearchkitComponent<NumericOptions, any> {
+export class NumericRefinementListFilter extends SearchkitComponent<NumericRefinementListFilterProps, any> {
 	accessor:NumericOptionsAccessor
 
 	shouldCreateNewSearcher() {

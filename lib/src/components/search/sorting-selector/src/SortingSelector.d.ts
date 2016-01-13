@@ -1,5 +1,8 @@
-import { SearchkitComponent, SortingAccessor, SortingOptions } from "../../../../core";
-export declare class SortingSelector extends SearchkitComponent<SortingOptions, any> {
+import { SearchkitComponent, SortingAccessor, SearchkitComponentProps, SortingOption } from "../../../../core";
+export interface SortingProps extends SearchkitComponentProps {
+    options: Array<SortingOption>;
+}
+export declare class SortingSelector extends SearchkitComponent<SortingProps, any> {
     accessor: SortingAccessor;
     defineAccessor(): SortingAccessor;
     defineBEMBlocks(): {

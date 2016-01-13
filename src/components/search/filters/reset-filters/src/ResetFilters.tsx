@@ -6,14 +6,18 @@ import {
 	SearchkitManager,
 	SearchkitComponent,
 	FacetAccessor,
-	FastClick
+	FastClick,
+	SearchkitComponentProps
 } from "../../../../../core"
 
-export interface IResetFilters {
-	mod?:string
+export interface ResetFiltersProps extends SearchkitComponentProps {
 }
 
-export class ResetFilters extends SearchkitComponent<IResetFilters, any> {
+export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
+
+	translations = {
+		"ClearAllFilters":"Clear all filters"
+	}
 
 	defineBEMBlocks() {
 		return {
@@ -35,7 +39,7 @@ export class ResetFilters extends SearchkitComponent<IResetFilters, any> {
 		var block = this.bemBlocks.container
 
 		return (
-			<div className={block("reset")}>clear all filters</div>
+			<div className={block("reset")}>{this.translate("ClearAllFilters")}</div>
 		)
 	}
 

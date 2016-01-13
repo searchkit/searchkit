@@ -5,20 +5,20 @@ import "../styles/index.scss";
 import {
 	SearchkitComponent,
   HierarchicalFacetAccessor,
-	FastClick
+	FastClick,
+	SearchkitComponentProps
 } from "../../../../../core"
 
-export interface IHierarchicalMenuFilter {
+export interface HierarchicalMenuFilterProps extends SearchkitComponentProps{
 	id:string
 	fields:Array<string>
 	title:string
-	mod?:string
 }
 
-export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenuFilter, any> {
+export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuFilterProps, any> {
 	public accessor:HierarchicalFacetAccessor
 
-	constructor(props:IHierarchicalMenuFilter) {
+	constructor(props:HierarchicalMenuFilterProps) {
 		super(props)
 	}
 
