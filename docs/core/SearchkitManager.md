@@ -23,3 +23,26 @@ const searchkit = new SearchkitManager(host, {
 * **httpHeaders** - A key value object containing headers to sent along with each http request
 
 * **basicAuth** - A string containing "key:val" for authenticating on each request, useful if using cloud providers such as [searchly.com](http://searchly.com)
+
+## Default Queries
+Sometimes we need to apply a default query which affects the entire search and is not serialized to the browser url.
+
+`SearchkitManager` allows ability to add these
+
+```js
+  import {
+    SearchkitManager,
+    TermQuery,
+    FilteredQuery,
+    BoolShould
+  }
+  const searchkit = new SearchkitManager("/")
+  searchkit.addDefaultQuery((query)=> {
+    return query.addQuery(FilteredQuery({
+      filter:BoolShould([
+        TermQuery("colour", "red"),
+        TermQuery("colour", "orange")
+      ])
+    }))
+  })
+```
