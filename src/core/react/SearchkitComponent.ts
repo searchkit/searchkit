@@ -41,6 +41,7 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
     this.bemBlocks = _.transform(this.defineBEMBlocks(), (result:any, cssClass, name) => {
       result[name] = block(cssClass);
     })
+    _.extend(this.translations, this.props["translations"])
     this.searchkit = this.context["searchkit"]
     if(this.searchkit){
       this.accessor  = this.defineAccessor()

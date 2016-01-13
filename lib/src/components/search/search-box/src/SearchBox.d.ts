@@ -2,7 +2,6 @@ import { SearchAccessor, SearchkitComponent, SearchkitComponentProps } from "../
 export interface SearchBoxProps extends SearchkitComponentProps {
     searchOnChange?: boolean;
     queryFields?: Array<string>;
-    mod?: string;
     autofocus?: boolean;
     queryOptions?: any;
     prefixQueryFields?: Array<string>;
