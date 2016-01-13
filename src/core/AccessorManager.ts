@@ -2,10 +2,15 @@ import {Accessor, StatefulAccessor} from  "./accessors"
 import {Utils} from "./support"
 import * as _ from "lodash"
 
+type StatefulAccessors = Array<StatefulAccessor<any>>
+
 export class AccessorManager {
 
-  constructor(public accessors:Array<Accessor> = []) {
-
+  accessors:Array<Accessor>
+  statefulAccessors:{}
+  constructor() {
+    this.accessors = []
+    this.statefulAccessors = {}
   }
 
   getAccessors(){
@@ -16,14 +21,19 @@ export class AccessorManager {
     return _.filter(this.accessors, {active:true})
   }
 
-  getStatefulAccessors():Array<StatefulAccessor<any>>{
-    return _.filter(
-      this.accessors,
-      Utils.instanceOf(StatefulAccessor)
-    )
+  getStatefulAccessors(){
+    return _.values(this.statefulAccessors) as StatefulAccessors
   }
 
   add(accessor){
+    if(accessor instanceof StatefulAccessor){
+      let existingAccessor = this.statefulAccessors[accessor.key]
+      if(existingAccessor){
+        return existingAccessor
+      } else {
+        this.statefulAccessors[accessor.key] = accessor
+      }
+    }
     this.accessors.push(accessor)
     return accessor
   }

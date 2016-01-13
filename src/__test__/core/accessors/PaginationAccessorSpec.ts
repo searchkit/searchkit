@@ -43,7 +43,9 @@ describe("PaginationAccessor", ()=> {
     let pagination = new PaginationAccessor("p")
     pagination.state = pagination.state.setValue(5)
     let pageSize = new PageSizeAccessor(100)
-    let accessors = new AccessorManager([pagination, pageSize])
+    let accessors = new AccessorManager()
+    accessors.add(pagination)
+    accessors.add(pageSize)
     let query = accessors.buildQuery(new ImmutableQuery())
 
     expect(query.getSize()).toBe(100)

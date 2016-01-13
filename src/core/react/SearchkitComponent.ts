@@ -46,7 +46,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
     if(this.searchkit){
       this.accessor  = this.defineAccessor()
       if(this.accessor){
-        this.searchkit.addAccessor(this.accessor)
+        this.accessor = this.searchkit.addAccessor(this.accessor)
       }
       this.stateListenerUnsubscribe = this.searchkit.emitter.addListener(()=> {
         this.forceUpdate()

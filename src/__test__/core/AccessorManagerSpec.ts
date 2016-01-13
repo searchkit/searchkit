@@ -15,8 +15,10 @@ describe("AccessorManager", ()=> {
 
     this.accessor3 = new PaginationAccessor("p3")
     this.accessor4 = new PaginationAccessor("p4")
+    this.accessor4b = new PaginationAccessor("p4")
     this.searchkit.addAccessor(this.accessor3)
     this.searchkit.addAccessor(this.accessor4)
+    this.searchkit.addAccessor(this.accessor4b)
 
     this.accessor5 = new PageSizeAccessor(50)
     this.searchkit.addAccessor(this.accessor5)
@@ -55,12 +57,23 @@ describe("AccessorManager", ()=> {
     ])
   })
 
+
   it("add()", ()=> {
     let accessors = new AccessorManager()
     expect(accessors.add(this.accessor1))
       .toEqual(this.accessor1)
     expect(accessors.getAccessors())
       .toEqual([this.accessor1])
+  })
+
+  it("adding accessor with same statefulKey", ()=> {
+    let accessors = new AccessorManager()
+    expect(accessors.add(this.accessor4))
+      .toEqual(this.accessor4)
+    expect(accessors.add(this.accessor4b))
+      .toEqual(this.accessor4)
+    expect(accessors.getAccessors())
+      .toEqual([this.accessor4])    
   })
 
 

@@ -26,7 +26,7 @@ export class StatefulAccessor<T extends State<any>> extends Accessor {
   getQueryObject(){
     let val = this.state.getValue()
     return (val) ? {
-      [this.urlKey]:this.state.getValue()
+      [this.urlKey]:val
     } : {}
   }
 

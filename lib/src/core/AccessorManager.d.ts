@@ -1,10 +1,11 @@
 import { Accessor, StatefulAccessor } from "./accessors";
 export declare class AccessorManager {
     accessors: Array<Accessor>;
-    constructor(accessors?: Array<Accessor>);
+    statefulAccessors: {};
+    constructor();
     getAccessors(): Accessor[];
     getActiveAccessors(): Accessor[];
-    getStatefulAccessors(): Array<StatefulAccessor<any>>;
+    getStatefulAccessors(): StatefulAccessor<any>[];
     add(accessor: any): any;
     getState(): {};
     setState(state: any): void;
