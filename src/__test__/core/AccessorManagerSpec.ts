@@ -96,10 +96,10 @@ describe("AccessorManager", ()=> {
   it("buildSharedQuery()", ()=> {
     let query = new ImmutableQuery()
     let sharedQuery = this.accessors.buildSharedQuery(query)
-    expect(query).toBe(sharedQuery)
     this.accessor1.buildSharedQuery = query => query.setSize(25)
     this.accessor2.buildSharedQuery = query => query.setSize(26)
     this.accessor2.setActive(false)
+    this.accessor5.setActive(false)
     let newSharedQuery = this.accessors.buildSharedQuery(query)
     expect(newSharedQuery).not.toBe(query)
     expect(newSharedQuery.getSize()).toBe(25)

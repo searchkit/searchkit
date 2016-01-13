@@ -1,5 +1,6 @@
 import {
-  PaginationAccessor, ImmutableQuery
+  PaginationAccessor, ImmutableQuery, PageSizeAccessor,
+  AccessorManager
 } from "../../../"
 
 
@@ -36,6 +37,17 @@ describe("PaginationAccessor", ()=> {
     query = query.setSize(15)
     expectStateFrom(3, 30)
 
+  })
+
+  it("Fix bug in conjunctionn with PageSizeAccessor", ()=> {
+    let pagination = new PaginationAccessor("p")
+    pagination.state = pagination.state.setValue(5)
+    let pageSize = new PageSizeAccessor(100)
+    let accessors = new AccessorManager([pagination, pageSize])
+    let query = accessors.buildQuery(new ImmutableQuery())
+
+    expect(query.getSize()).toBe(100)
+    expect(query.getFrom()).toBe(400)
   })
 
 

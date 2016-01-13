@@ -6,7 +6,7 @@ export class PageSizeAccessor extends Accessor {
     super()
   }
 
-  buildOwnQuery(query){
+  buildSharedQuery(query){
     return query.setSize(this.size)
   }
 }
