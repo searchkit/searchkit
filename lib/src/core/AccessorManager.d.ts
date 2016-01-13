@@ -3,6 +3,7 @@ export declare class AccessorManager {
     accessors: Array<Accessor>;
     constructor(accessors?: Array<Accessor>);
     getAccessors(): Accessor[];
+    getActiveAccessors(): Accessor[];
     getStatefulAccessors(): Array<StatefulAccessor<any>>;
     add(accessor: any): any;
     getState(): {};

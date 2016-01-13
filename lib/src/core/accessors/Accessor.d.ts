@@ -4,7 +4,9 @@ export declare class Accessor {
     searchkit: SearchkitManager;
     uuid: string;
     results: any;
+    active: boolean;
     constructor();
+    setActive(active: boolean): this;
     setSearchkitManager(searchkit: any): void;
     translate(key: any): any;
     getResults(): any;

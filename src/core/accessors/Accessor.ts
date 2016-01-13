@@ -6,8 +6,15 @@ export class Accessor {
   searchkit:SearchkitManager
   uuid:string
   results:any
+  active:boolean
   constructor(){
     this.uuid = Utils.guid()
+    this.active = true
+  }
+
+  setActive(active:boolean){
+    this.active = active
+    return this
   }
 
   setSearchkitManager(searchkit){

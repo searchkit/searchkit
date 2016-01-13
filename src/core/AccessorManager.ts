@@ -11,7 +11,11 @@ export class AccessorManager {
   getAccessors(){
     return this.accessors
   }
-  
+
+  getActiveAccessors(){
+    return _.filter(this.accessors, {active:true})
+  }
+
   getStatefulAccessors():Array<StatefulAccessor<any>>{
     return _.filter(
       this.accessors,
@@ -44,13 +48,13 @@ export class AccessorManager {
   }
 
   buildSharedQuery(query){
-    return _.reduce(this.accessors, (query, accessor)=>{
+    return _.reduce(this.getActiveAccessors(), (query, accessor)=>{
       return accessor.buildSharedQuery(query)
     }, query)
   }
 
   buildOwnQuery(query){
-    return _.reduce(this.accessors, (query, accessor)=>{
+    return _.reduce(this.getActiveAccessors(), (query, accessor)=>{
       return accessor.buildOwnQuery(query)
     }, query)
   }

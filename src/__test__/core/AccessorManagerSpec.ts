@@ -40,6 +40,14 @@ describe("AccessorManager", ()=> {
     ])
   })
 
+  it("getActiveAccessors()", ()=> {
+    this.accessor2.setActive(false)
+    this.accessor3.setActive(false)
+    expect(this.accessors.getActiveAccessors()).toEqual([
+      this.accessor1, this.accessor4, this.accessor5
+    ])
+  })
+
   it("getStatefulAccessors()", ()=> {
     expect(this.accessors.getStatefulAccessors()).toEqual([
       this.accessor1, this.accessor2,
@@ -89,9 +97,9 @@ describe("AccessorManager", ()=> {
     let query = new ImmutableQuery()
     let sharedQuery = this.accessors.buildSharedQuery(query)
     expect(query).toBe(sharedQuery)
-    this.accessor1.buildSharedQuery = function(query){
-      return query.setSize(25)
-    }
+    this.accessor1.buildSharedQuery = query => query.setSize(25)
+    this.accessor2.buildSharedQuery = query => query.setSize(26)
+    this.accessor2.setActive(false)
     let newSharedQuery = this.accessors.buildSharedQuery(query)
     expect(newSharedQuery).not.toBe(query)
     expect(newSharedQuery.getSize()).toBe(25)
@@ -99,8 +107,12 @@ describe("AccessorManager", ()=> {
 
   it("buildQuery()", ()=> {
     let query = new ImmutableQuery()
-    query = this.accessors.buildQuery(query)
-    expect(query.getSize()).toBe(50)
+    expect(this.accessors.buildQuery(query).getSize())
+      .toEqual(50)
+
+    this.accessor5.setActive(false)
+    expect(this.accessors.buildQuery(query).getSize())
+      .toBe(0)
   })
 
   it("setResults()", ()=> {
