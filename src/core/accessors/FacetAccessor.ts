@@ -13,7 +13,8 @@ export interface FacetAccessorOptions {
   title?:string
   id?:string
   size:number
-  facetsPerPage?:number
+  facetsPerPage?:number,
+  translations?:Object
 }
 
 export interface ISizeOption {
@@ -41,6 +42,9 @@ export class FacetAccessor extends StatefulAccessor<ArrayState> {
     this.defaultSize = options.size
     this.options.facetsPerPage = this.options.facetsPerPage || 50
     this.size = this.defaultSize;
+    if(options.translations){
+      _.extend(this.translations, options.translations)
+    }
   }
 
   getBuckets(){

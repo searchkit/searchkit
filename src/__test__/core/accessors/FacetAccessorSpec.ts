@@ -12,7 +12,10 @@ describe("FacetAccessor", ()=> {
       operator:"OR",
       title:"Genres",
       id:"GenreId",
-      size:20
+      size:20,
+      translations:{
+        "facets.view_more":"View more genres"
+      }
     }
     this.accessor = new FacetAccessor("genre", this.options)
   })
@@ -68,7 +71,7 @@ describe("FacetAccessor", ()=> {
   })
 
   describe("view more options", () => {
-  
+
     it("setViewMoreOption", () => {
       this.accessor.setViewMoreOption({size:30})
       expect(this.accessor.size).toBe(30)
@@ -78,7 +81,7 @@ describe("FacetAccessor", ()=> {
       this.accessor.getCount = () => {
         return 100
       }
-      expect(this.accessor.getMoreSizeOption()).toEqual({size:70, label:"View more"})
+      expect(this.accessor.getMoreSizeOption()).toEqual({size:70, label:"View more genres"})
     })
 
     it("getMoreSizeOption - view all", () => {
