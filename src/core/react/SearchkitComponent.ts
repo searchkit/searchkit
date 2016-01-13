@@ -9,7 +9,7 @@ export interface SearchkitComponentProps {
   translations?:Object
 }
 
-export class SearchkitComponent<P,S> extends React.Component<P,S> {
+export class SearchkitComponent<P extends SearchkitComponentProps,S> extends React.Component<P,S> {
   searchkit:SearchkitManager
   accessor:Accessor
   stateListenerUnsubscribe:Function
@@ -32,8 +32,9 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
   translate(key){
     return (
       (this.searchkit && this.searchkit.translate(key)) ||
-       this.translations[key] ||
-       key
+      (this.props.translations && this.props.translations[key]) ||
+      this.translations[key] ||
+      key
     )
   }
 
@@ -41,7 +42,6 @@ export class SearchkitComponent<P,S> extends React.Component<P,S> {
     this.bemBlocks = _.transform(this.defineBEMBlocks(), (result:any, cssClass, name) => {
       result[name] = block(cssClass);
     })
-    _.extend(this.translations, this.props["translations"])
     this.searchkit = this.context["searchkit"]
     if(this.searchkit){
       this.accessor  = this.defineAccessor()
