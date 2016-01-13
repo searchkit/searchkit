@@ -73,7 +73,7 @@ export class Pagination extends SearchkitComponent<IPagination, any> {
     return (
 			<FastClick handler={this.setPage.bind(this,direction)}>
 	      <div className={className} data-qa={direction}>
-	        <div className={this.bemBlocks.option("text")}>{displayText}</div>
+	        <div className={this.bemBlocks.option("text")}>{this.translate(displayText)}</div>
 	      </div>
 			</FastClick>
 		)
