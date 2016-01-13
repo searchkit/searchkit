@@ -17,6 +17,8 @@ export interface RefinementListFilterProps extends SearchkitComponentProps {
 	size?:number
 	title:string
 	id:string
+	collapsible?:boolean
+	collapsed?:boolean
 }
 
 export class RefinementListFilter extends SearchkitComponent<RefinementListFilterProps, any> {
@@ -34,6 +36,9 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
 
 	constructor(props) {
 		super(props);
+		this.state = {
+			collapsed:!!props.collapsed
+		}
 	}
 
 	defineAccessor() {
@@ -101,18 +106,36 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
 		)
 	}
 
+	toggleCollapse() {
+		if (!this.props.collapsible) return
+		this.setState({
+			collapsed: !this.state.collapsed
+		})
+	}
+
+	componentWillUpdate(props, state) {
+		this.accessor.setActive(!state.collapsed)
+	}
+
 	render() {
 
 		let block = this.bemBlocks.container
 		let className = block()
 			.mix(`filter--${this.props.id}`)
 			.state({
-				disabled: !this.hasOptions()
+				disabled: !this.hasOptions(),
+				collapsed: this.state.collapsed
 			})
+
+		if (this.props.collapsible) {
+			className = className.mix("collapsible")
+		}
 
 		return (
 			<div data-qa={`filter--${this.props.id}`} className={className}>
-				<div data-qa="header" className={block("header")}>{this.props.title}</div>
+				<FastClick handler={this.toggleCollapse.bind(this)}>
+					<div data-qa="header" className={block("header")}>{this.props.title}</div>
+				</FastClick>
 				<div data-qa="options" className={block("options")}>
 				{_.map(this.accessor.getBuckets(), this.renderOption.bind(this))}
 				</div>

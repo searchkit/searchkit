@@ -5,6 +5,8 @@ export interface RefinementListFilterProps extends SearchkitComponentProps {
     size?: number;
     title: string;
     id: string;
+    collapsible?: boolean;
+    collapsed?: boolean;
 }
 export declare class RefinementListFilter extends SearchkitComponent<RefinementListFilterProps, any> {
     accessor: FacetAccessor;
@@ -25,5 +27,7 @@ export declare class RefinementListFilter extends SearchkitComponent<RefinementL
     hasOptions(): boolean;
     toggleViewMoreOption(option: ISizeOption): void;
     renderShowMore(): JSX.Element;
+    toggleCollapse(): void;
+    componentWillUpdate(props: any, state: any): void;
     render(): JSX.Element;
 }
