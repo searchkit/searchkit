@@ -5,11 +5,11 @@ import "../styles/index.scss";
 import {
 	SearchkitComponent,
 	PaginationAccessor,
-	FastClick
+	FastClick,
+	SearchkitComponentProps
 } from "../../../../core"
 
-export interface IPagination {
-	mod?:string
+export interface PaginationProps extends SearchkitComponentProps {
 }
 
 export enum DIRECTION {
@@ -17,7 +17,7 @@ export enum DIRECTION {
 	PREVIOUS
 }
 
-export class Pagination extends SearchkitComponent<IPagination, any> {
+export class Pagination extends SearchkitComponent<PaginationProps, any> {
 	accessor:PaginationAccessor
 
 	translations = {

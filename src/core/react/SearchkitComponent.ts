@@ -4,6 +4,10 @@ import {ImmutableQuery} from "../query"
 import {Accessor} from "../accessors/Accessor"
 var block = require('bem-cn');
 
+export interface SearchkitComponentProps {
+  mod?:string
+  translations?:Object
+}
 
 export class SearchkitComponent<P,S> extends React.Component<P,S> {
   searchkit:SearchkitManager

@@ -29,6 +29,7 @@
     "./src/core/react/LoadingComponent.tsx",
     "./src/core/react/SearchkitProvider.tsx",
     "./src/__test__/core/AccessorManagerSpec.ts",
+    "./src/__test__/core/accessors/AccessorSpec.ts",
     "./src/__test__/core/accessors/FacetAccessorSpec.ts",
     "./src/__test__/core/accessors/HierarchicalFacetAccessorSpec.ts",
     "./src/__test__/core/accessors/NestedFacetAccessorSpec.ts",

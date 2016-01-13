@@ -2,6 +2,10 @@ import * as React from "react";
 import { SearchkitManager } from "../SearchkitManager";
 import { ImmutableQuery } from "../query";
 import { Accessor } from "../accessors/Accessor";
+export interface SearchkitComponentProps {
+    mod?: string;
+    translations?: Object;
+}
 export declare class SearchkitComponent<P, S> extends React.Component<P, S> {
     searchkit: SearchkitManager;
     accessor: Accessor;
