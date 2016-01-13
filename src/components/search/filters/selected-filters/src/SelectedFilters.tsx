@@ -36,7 +36,7 @@ export class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, an
 		let block = this.bemBlocks.option
 		let className = block()
 			.mix(this.bemBlocks.container("item"))
-			.mix(`selected-filter--${filter.$id}`)
+			.mix(`selected-filter--${filter.id}`)
 
 		return (
 			<div className={className} key={filter.name+":"+filter.value}>
