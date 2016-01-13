@@ -57,8 +57,8 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 	}
 
 	render() {
-		let hits:{}[] = _.get(this.getResults(), "hits.hits", [])
-		let hasHits = _.size(hits) > 0
+		let hits:Array<Object> = this.getHits()
+		let hasHits = hits.length > 0
 		let results = null
 
 		if (this.isInitialLoading()) {

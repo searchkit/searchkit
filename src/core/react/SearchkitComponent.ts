@@ -31,7 +31,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
 
   translate(key){
     return (
-      (this.searchkit && this.searchkit.translate(key)) ||
+      (this.searchkit.translate(key)) ||
       (this.props.translations && this.props.translations[key]) ||
       this.translations[key] ||
       key
@@ -56,6 +56,18 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
 
   getResults(){
     return this.searchkit.results
+  }
+
+  getHits(){
+    return this.searchkit.getHits()
+  }
+
+  getHitsCount(){
+    return this.searchkit.getHitsCount()
+  }
+
+  hasHits(){
+    return this.searchkit.hasHits()
   }
 
   getQuery():ImmutableQuery {
