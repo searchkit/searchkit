@@ -18,10 +18,14 @@ describe("SearchkitManager", ()=> {
     this.emitterSpy = jasmine.createSpy("emitter")
     this.searchkit.emitter.addListener(this.emitterSpy)
     this.accessors = this.searchkit.accessors
+
   })
 
 
   it("constructor()", ()=> {
+    let semverRegex = /^\d+\.\d+\.\d+-?\w*$/
+    expect(this.searchkit.VERSION).toMatch(semverRegex)
+    expect(SearchkitManager.VERSION).toMatch(semverRegex)
     expect(this.searchkit.host).toBe(this.host)
     expect(this.searchkit.accessors)
       .toEqual(jasmine.any(AccessorManager))

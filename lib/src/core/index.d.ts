@@ -8,3 +8,4 @@ export * from "./history";
 export * from "./transport";
 export * from "./SearchRequest";
 export * from "./AccessorManager";
+export * from "./SearchkitVersion";

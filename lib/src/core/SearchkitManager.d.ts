@@ -29,6 +29,8 @@ export declare class SearchkitManager {
     initialLoading: boolean;
     error: any;
     results: any;
+    VERSION: string;
+    static VERSION: string;
     constructor(host: string, options?: SearchkitOptions);
     addAccessor(accessor: any): any;
     addDefaultQuery(fn: Function): void;

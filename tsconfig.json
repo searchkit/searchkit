@@ -118,6 +118,7 @@
     "./src/core/react/index.ts",
     "./src/core/react/SearchkitComponent.ts",
     "./src/core/SearchkitManager.ts",
+    "./src/core/SearchkitVersion.ts",
     "./src/core/SearchRequest.ts",
     "./src/core/state/ArrayState.ts",
     "./src/core/state/index.ts",

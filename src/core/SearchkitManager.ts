@@ -6,6 +6,7 @@ import {ESTransport, AxiosESTransport} from "./transport";
 import {SearchRequest} from "./SearchRequest"
 import {Utils, EventEmitter} from "./support"
 import * as _ from "lodash"
+import {VERSION} from "./SearchkitVersion"
 
 require('es6-promise').polyfill()
 
@@ -37,6 +38,8 @@ export class SearchkitManager {
   initialLoading:boolean
   error:any
   results:any
+  VERSION = VERSION
+  static VERSION = VERSION
 
   constructor(host:string, options:SearchkitOptions = {}){
     this.options = _.defaults(options, {
