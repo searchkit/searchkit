@@ -12,11 +12,15 @@ export interface IHitsStats {
 
 export class HitsStats extends SearchkitComponent<IHitsStats, any> {
 
+	translations = {
+		"HitStats.ResultsFound":"results found"
+	}
+
 	defineBEMBlocks() {
 		return {
 			container: (this.props.mod || "hits-stats")
 		}
-	}	
+	}
 
 	getHitCount():number {
 		return _.get(this.getResults(), "hits.total", 0)
@@ -29,7 +33,7 @@ export class HitsStats extends SearchkitComponent<IHitsStats, any> {
 	renderText() {
 		return (
 			<div className={this.bemBlocks.container("info")} data-qa="info">
-				{this.getHitCount()} results found
+				{this.getHitCount()} {this.translate("ResultsFound")}
 			</div>
 		)
 	}

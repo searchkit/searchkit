@@ -11,6 +11,9 @@ export declare class SearchBox extends SearchkitComponent<ISearchBox, any> {
     accessor: SearchAccessor;
     lastSearchMs: number;
     constructor(props: ISearchBox);
+    translations: {
+        "searchbox.placeholder": string;
+    };
     componentWillMount(): void;
     defineBEMBlocks(): {
         container: string;

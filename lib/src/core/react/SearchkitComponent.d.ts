@@ -8,6 +8,7 @@ export declare class SearchkitComponent<P, S> extends React.Component<P, S> {
     stateListenerUnsubscribe: Function;
     bemBlocks: any;
     blockClass: string;
+    translations: Object;
     static contextTypes: {
         searchkit: React.Requireable<any>;
     };

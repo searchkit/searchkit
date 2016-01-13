@@ -3,6 +3,9 @@ export interface IHitsStats {
     mod?: string;
 }
 export declare class HitsStats extends SearchkitComponent<IHitsStats, any> {
+    translations: {
+        "HitStats.ResultsFound": string;
+    };
     defineBEMBlocks(): {
         container: string;
     };

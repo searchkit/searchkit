@@ -30,6 +30,10 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 		this.lastSearchMs = 0
 	}
 
+	translations = {
+		"searchbox.placeholder":"Search"
+	}
+
 	componentWillMount() {
 		super.componentWillMount()
 	}
@@ -90,7 +94,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
           <input type="text"
 					data-qa="query"
 					className={block("text")}
-					placeholder="search"
+					placeholder={this.translate("searchbox.placeholder")}
 					value={this.getValue()}
 					onFocus={this.setFocusState.bind(this, true)}
 					onBlur={this.setFocusState.bind(this, false)}

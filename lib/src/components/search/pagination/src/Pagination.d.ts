@@ -8,6 +8,10 @@ export declare enum DIRECTION {
 }
 export declare class Pagination extends SearchkitComponent<IPagination, any> {
     accessor: PaginationAccessor;
+    translations: {
+        "pagination.previous": string;
+        "pagination.next": string;
+    };
     defineAccessor(): PaginationAccessor;
     defineBEMBlocks(): {
         container: string;

@@ -19,7 +19,7 @@ export class Hits extends SearchkitComponent<IHits, any> {
 
 	componentWillMount() {
 		super.componentWillMount()
-		if(this.props.highlightFields) {			
+		if(this.props.highlightFields) {
 			this.searchkit.addAccessor(
 				new HighlightAccessor(this.props.highlightFields))
 		}
@@ -52,7 +52,7 @@ export class Hits extends SearchkitComponent<IHits, any> {
 
 	renderNoResults() {
 		return (
-			<div data-qa="no-results" className={this.bemBlocks.container("no-results")}>No results</div>
+			<div data-qa="no-results" className={this.bemBlocks.container("no-results")}>{this.translate("No results")}</div>
 		)
 	}
 

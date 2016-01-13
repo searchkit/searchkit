@@ -20,6 +20,11 @@ export enum DIRECTION {
 export class Pagination extends SearchkitComponent<IPagination, any> {
 	accessor:PaginationAccessor
 
+	translations = {
+		"pagination.previous":"Previous",
+		"pagination.next":"Next"
+	}
+
 	defineAccessor() {
     return new PaginationAccessor("p")
 	}
@@ -82,8 +87,8 @@ export class Pagination extends SearchkitComponent<IPagination, any> {
   render() {
     return (
       <div className={this.bemBlocks.container()} data-qa="pagination">
-					{this.paginationElement(DIRECTION.PREVIOUS, "prev", "Previous")}
-					{this.paginationElement(DIRECTION.NEXT, "next", "Next")}
+					{this.paginationElement(DIRECTION.PREVIOUS, "prev", "pagination.previous")}
+					{this.paginationElement(DIRECTION.NEXT, "next", "pagination.next")}
       </div>
     )
   }
