@@ -69,6 +69,7 @@
     "./src/__test__/core/support/EventEmitterSpec.ts",
     "./src/__test__/core/support/UtilsSpec.ts",
     "./src/__test__/core/transport/AxiosESTransportSpec.ts",
+    "./src/components/__test__/TestHelpers.ts",
     "./src/components/index.ts",
     "./src/components/search/filters/hierarchical-refinement-filter/page-objects/HierarchicalRefinementFilter.ts",
     "./src/components/search/filters/refinement-list-filter/page-objects/RefinementListFilter.ts",
