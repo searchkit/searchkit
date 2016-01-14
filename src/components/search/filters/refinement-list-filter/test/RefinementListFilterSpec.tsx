@@ -47,4 +47,17 @@ describe("Refinement List Filter tests", () => {
       })).toEqual([ 'test option 1 translated', 'test option 2', 'test option 3' ])
   });
 
+  it("should configure accessor correctly", ()=> {
+    let options = this.searchkit.accessors.getAccessors()[0].options
+    expect(options).toEqual({
+      "id": "test",
+      "title": "test",
+      "size": 50,
+      "facetsPerPage": 50,
+      "operator":undefined,
+      "translations":undefined
+    })
+
+  })
+
 });
