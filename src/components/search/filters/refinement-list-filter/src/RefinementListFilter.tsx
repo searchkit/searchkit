@@ -60,11 +60,13 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
 			.state({selected:isSelected})
 
 		return (
-			<div className={optionClassName} data-qa="option" onClick={this.addFilter.bind(this, option)} key={option.key}>
-				<div data-qa="checkbox" className={block("checkbox").state({selected:isSelected})}></div>
-				<div data-qa="label" className={block("text")}>{this.translate(option.key)}</div>
-				<div data-qa="count" className={block("count")}>{option.doc_count}</div>
-			</div>
+			<FastClick handler={this.addFilter.bind(this, option)} key={option.key}>
+				<div className={optionClassName} data-qa="option">
+					<div data-qa="checkbox" className={block("checkbox").state({selected:isSelected})}></div>
+					<div data-qa="label" className={block("text")}>{this.translate(option.key)}</div>
+					<div data-qa="count" className={block("count")}>{option.doc_count}</div>
+				</div>
+			</FastClick>
 		)
 	}
 

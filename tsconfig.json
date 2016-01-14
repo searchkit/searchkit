@@ -22,6 +22,7 @@
     "./src/components/search/filters/reset-filters/src/ResetFilters.tsx",
     "./src/components/search/filters/reset-filters/test/ResetFiltersSpec.tsx",
     "./src/components/search/filters/selected-filters/src/SelectedFilters.tsx",
+    "./src/components/search/filters/selected-filters/test/SelectedFiltersSpec.tsx",
     "./src/components/search/hits-stats/src/HitsStats.tsx",
     "./src/components/search/hits/src/Hits.tsx",
     "./src/components/search/pagination/src/Pagination.tsx",
