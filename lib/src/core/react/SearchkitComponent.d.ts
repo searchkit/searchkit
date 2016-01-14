@@ -21,6 +21,9 @@ export declare class SearchkitComponent<P extends SearchkitComponentProps, S> ex
     translate(key: any): any;
     componentWillMount(): void;
     getResults(): any;
+    getHits(): any[];
+    getHitsCount(): number;
+    hasHits(): boolean;
     getQuery(): ImmutableQuery;
     isInitialLoading(): boolean;
     isLoading(): boolean;

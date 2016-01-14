@@ -7,6 +7,7 @@ export interface FacetAccessorOptions {
     id?: string;
     size: number;
     facetsPerPage?: number;
+    translations?: Object;
 }
 export interface ISizeOption {
     label: string;

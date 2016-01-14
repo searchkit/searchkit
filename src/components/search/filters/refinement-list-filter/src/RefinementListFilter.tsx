@@ -21,13 +21,7 @@ export interface RefinementListFilterProps extends SearchkitComponentProps {
 
 export class RefinementListFilter extends SearchkitComponent<RefinementListFilterProps, any> {
 	accessor:FacetAccessor
-
-	translations = {
-		"View more":"View more",
-		"View less": "View less",
-		"View all": "View all"
-	}
-
+	
 	shouldCreateNewSearcher() {
 		return true;
 	}
@@ -37,10 +31,11 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
 	}
 
 	defineAccessor() {
-		return new FacetAccessor(
-			this.props.field,
-			{id:this.props.id, operator:this.props.operator, title:this.props.title, size:(this.props.size || 50)}
-		)
+		return new FacetAccessor( this.props.field,{
+			id:this.props.id, operator:this.props.operator,
+			title:this.props.title, size:(this.props.size || 50),
+			translations:this.props.translations
+		})
 	}
 
 	defineBEMBlocks() {

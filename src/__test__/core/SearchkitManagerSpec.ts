@@ -196,6 +196,28 @@ describe("SearchkitManager", ()=> {
       .toHaveBeenCalled()
   })
 
+  it("getHits()", ()=> {
+    expect(this.searchkit.getHits()).toEqual([])
+    this.searchkit.results = {
+      hits:{
+        hits:[1,2,3,4]
+      }
+    }
+    expect(this.searchkit.getHits()).toEqual([1,2,3,4])
+  })
+
+  it("getHitsCount(), hasHits()", ()=> {
+    expect(this.searchkit.getHitsCount()).toEqual(0)
+    expect(this.searchkit.hasHits()).toBe(false)
+    this.searchkit.results = {
+      hits:{
+        total:99
+      }
+    }
+    expect(this.searchkit.getHitsCount()).toEqual(99)
+    expect(this.searchkit.hasHits()).toBe(true)
+  })
+
   it("onResponseChange()", ()=> {
     this.searchkit.loading = true
     this.searchkit.initialLoading = true

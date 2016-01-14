@@ -8,11 +8,6 @@ export interface RefinementListFilterProps extends SearchkitComponentProps {
 }
 export declare class RefinementListFilter extends SearchkitComponent<RefinementListFilterProps, any> {
     accessor: FacetAccessor;
-    translations: {
-        "View more": string;
-        "View less": string;
-        "View all": string;
-    };
     shouldCreateNewSearcher(): boolean;
     constructor(props: any);
     defineAccessor(): FacetAccessor;

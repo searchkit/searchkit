@@ -46,12 +46,15 @@ export class SortingSelector extends SearchkitComponent<SortingProps, any> {
 	}
 
   render() {
-    return (
-      <div className={this.bemBlocks.container()}>
-      	<select onChange={this.updateSorting.bind(this)} value={this.getSelectedValue()}>
-					{_.map(this.props.options, this.renderOption.bind(this))}
-				</select>
-      </div>
-    )
+    if(this.hasHits()){
+			return (
+				<div className={this.bemBlocks.container()}>
+	      	<select onChange={this.updateSorting.bind(this)} value={this.getSelectedValue()}>
+						{_.map(this.props.options, this.renderOption.bind(this))}
+					</select>
+	      </div>
+			)
+		}
+		return null    
   }
 }

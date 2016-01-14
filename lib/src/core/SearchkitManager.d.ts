@@ -44,6 +44,9 @@ export declare class SearchkitManager {
     search(replaceState: any): void;
     _search(): void;
     setResults(results: any): void;
+    getHits(): any[];
+    getHitsCount(): number;
+    hasHits(): boolean;
     setError(error: any): void;
     onResponseChange(): void;
 }

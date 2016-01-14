@@ -147,6 +147,18 @@ export class SearchkitManager {
     this.onResponseChange()
   }
 
+  getHits(){
+    return _.get(this.results, ["hits", "hits"], [])
+  }
+
+  getHitsCount(){
+    return _.get(this.results, ["hits", "total"], 0)
+  }
+
+  hasHits(){
+    return this.getHitsCount() > 0
+  }
+
   setError(error){
     this.error = error
     this.onResponseChange()

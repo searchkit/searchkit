@@ -85,11 +85,14 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
 	}
 
   render() {
-    return (
-      <div className={this.bemBlocks.container()} data-qa="pagination">
+		if(this.hasHits()){
+			return (
+				<div className={this.bemBlocks.container()} data-qa="pagination">
 					{this.paginationElement(DIRECTION.PREVIOUS, "prev", "pagination.previous")}
 					{this.paginationElement(DIRECTION.NEXT, "next", "pagination.next")}
-      </div>
-    )
+      	</div>
+			)
+		}
+		return null
   }
 }
