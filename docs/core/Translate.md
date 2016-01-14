@@ -29,6 +29,6 @@ searchkit.translateFunction = (key) => {
 
 You can pass any component an object of translations you wish to override. Example below:
 
-```
+```jsx
 <SearchBox translations={{"searchbox.placeholder":"search movies"}} autofocus={true} searchOnChange={true} queryFields={["actors^1","type^2","languages","title^5", "genres^2"]}/>
 ```
