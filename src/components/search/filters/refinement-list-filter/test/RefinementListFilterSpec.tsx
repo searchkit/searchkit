@@ -6,7 +6,7 @@ const bem = require("bem-cn");
 import * as _ from "lodash";
 import * as sinon from "sinon";
 
-fdescribe("Refinement List Filter tests", () => {
+describe("Refinement List Filter tests", () => {
 
   beforeEach(() => {
 
