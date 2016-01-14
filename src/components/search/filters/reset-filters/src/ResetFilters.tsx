@@ -20,9 +20,6 @@ export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
 	}
 
 	static propTypes = _.defaults({
-		translations:React.PropTypes.shape({
-			"ClearAllFilters":React.PropTypes.string
-		})
 	}, SearchkitComponent.propTypes)
 
 	defineBEMBlocks() {

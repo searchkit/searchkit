@@ -26,10 +26,6 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
 	}
 
 	static propTypes = _.defaults({
-		translations:React.PropTypes.shape({
-			"pagination.previous":React.PropTypes.string,
-			"pagination.next":React.PropTypes.string
-		})
 	}, SearchkitComponent.propTypes)
 
 	defineAccessor() {

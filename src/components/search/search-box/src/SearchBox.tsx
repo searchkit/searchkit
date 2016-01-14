@@ -33,9 +33,6 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 		autofocus:React.PropTypes.bool,
 		queryOptions:React.PropTypes.object,
 		prefixQueryFields:React.PropTypes.arrayOf(React.PropTypes.string),
-		translations:React.PropTypes.shape({
-			"searchbox.placeholder":React.PropTypes.string
-		})
 	}, SearchkitComponent.propTypes)
 
 	constructor (props:SearchBoxProps) {
