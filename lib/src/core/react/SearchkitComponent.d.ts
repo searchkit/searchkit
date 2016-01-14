@@ -16,6 +16,7 @@ export declare class SearchkitComponent<P extends SearchkitComponentProps, S> ex
     static contextTypes: {
         searchkit: React.Requireable<any>;
     };
+    static translationsPropType: (translations: any) => (props: any, propName: any, componentName: any) => Error;
     static propTypes: any;
     defineBEMBlocks(): any;
     defineAccessor(): Accessor;

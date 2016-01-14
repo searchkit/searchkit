@@ -23,9 +23,10 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 	accessor:SearchAccessor
 	lastSearchMs:number
 
-	translations = {
+	static translations = {
 		"searchbox.placeholder":"Search"
 	}
+	translations = SearchBox.translations
 
 	static propTypes = _.defaults({
 		searchOnChange:React.PropTypes.bool,
@@ -33,6 +34,9 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 		autofocus:React.PropTypes.bool,
 		queryOptions:React.PropTypes.object,
 		prefixQueryFields:React.PropTypes.arrayOf(React.PropTypes.string),
+		translations:SearchkitComponent.translationsPropType(
+			SearchBox.translations
+		)
 	}, SearchkitComponent.propTypes)
 
 	constructor (props:SearchBoxProps) {

@@ -27,12 +27,11 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
 		operator:React.PropTypes.oneOf(["AND", "OR"]),
 		size:React.PropTypes.number,
 		title:React.PropTypes.string.isRequired,
-		id:React.PropTypes.string.isRequired
+		id:React.PropTypes.string.isRequired,
+		translations:SearchkitComponent.translationsPropType(
+			FacetAccessor.translations
+		)
 	}, SearchkitComponent.propTypes)
-
-	constructor(props) {
-		super(props);
-	}
 
 	defineAccessor() {
 		return new FacetAccessor( this.props.field,{

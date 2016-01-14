@@ -9,6 +9,9 @@ export interface SearchBoxProps extends SearchkitComponentProps {
 export declare class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     accessor: SearchAccessor;
     lastSearchMs: number;
+    static translations: {
+        "searchbox.placeholder": string;
+    };
     translations: {
         "searchbox.placeholder": string;
     };

@@ -15,11 +15,15 @@ export interface ResetFiltersProps extends SearchkitComponentProps {
 
 export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
 
-	translations = {
+	static translations = {
 		"ClearAllFilters":"Clear all filters"
 	}
+	translations = ResetFilters.translations
 
 	static propTypes = _.defaults({
+		translations:SearchkitComponent.translationsPropType(
+			ResetFilters.translations
+		)
 	}, SearchkitComponent.propTypes)
 
 	defineBEMBlocks() {
