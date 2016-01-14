@@ -5,6 +5,7 @@ export declare class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
     translations: {
         "ResultsFound": string;
     };
+    static propTypes: {};
     defineBEMBlocks(): {
         container: string;
     };

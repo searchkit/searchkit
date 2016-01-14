@@ -1,7 +1,7 @@
 import * as React from "react";
-import {SearchkitComponent} from "./SearchkitComponent"
+import {SearchkitComponent, SearchkitComponentProps} from "./SearchkitComponent"
 
-export interface LoadingProps {
+export interface LoadingProps extends SearchkitComponentProps {
   children?:any
 }
 

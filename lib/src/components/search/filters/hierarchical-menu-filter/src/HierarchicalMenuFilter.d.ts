@@ -6,6 +6,7 @@ export interface HierarchicalMenuFilterProps extends SearchkitComponentProps {
 }
 export declare class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuFilterProps, any> {
     accessor: HierarchicalFacetAccessor;
+    static propTypes: {};
     constructor(props: HierarchicalMenuFilterProps);
     defineBEMBlocks(): {
         container: string;

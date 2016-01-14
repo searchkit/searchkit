@@ -16,6 +16,12 @@ export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 		"ResultsFound":"results found"
 	}
 
+	static propTypes = _.defaults({
+		translations:React.PropTypes.shape({
+			"ResultsFound":React.PropTypes.string
+		})
+	}, SearchkitComponent.propTypes)
+
 	defineBEMBlocks() {
 		return {
 			container: (this.props.mod || "hits-stats")

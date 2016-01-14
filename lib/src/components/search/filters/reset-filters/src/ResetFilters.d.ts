@@ -5,6 +5,7 @@ export declare class ResetFilters extends SearchkitComponent<ResetFiltersProps, 
     translations: {
         "ClearAllFilters": string;
     };
+    static propTypes: {};
     defineBEMBlocks(): {
         container: string;
     };

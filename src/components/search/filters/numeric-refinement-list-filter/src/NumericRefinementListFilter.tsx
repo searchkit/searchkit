@@ -21,9 +21,18 @@ export interface NumericRefinementListFilterProps extends SearchkitComponentProp
 export class NumericRefinementListFilter extends SearchkitComponent<NumericRefinementListFilterProps, any> {
 	accessor:NumericOptionsAccessor
 
-	shouldCreateNewSearcher() {
-		return true;
-	}
+	static propTypes = _.defaults({
+		field:React.PropTypes.string.isRequired,
+		title:React.PropTypes.string.isRequired,
+		id:React.PropTypes.string.isRequired,
+		options:React.PropTypes.arrayOf(
+			React.PropTypes.shape({
+				title:React.PropTypes.string.isRequired,
+				from:React.PropTypes.number,
+				to:React.PropTypes.number
+			})
+		)
+	}, SearchkitComponent.propTypes)
 
 	defineAccessor() {
 		return new NumericOptionsAccessor(

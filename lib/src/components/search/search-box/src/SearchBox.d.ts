@@ -9,10 +9,11 @@ export interface SearchBoxProps extends SearchkitComponentProps {
 export declare class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     accessor: SearchAccessor;
     lastSearchMs: number;
-    constructor(props: SearchBoxProps);
     translations: {
         "searchbox.placeholder": string;
     };
+    static propTypes: {};
+    constructor(props: SearchBoxProps);
     componentWillMount(): void;
     defineBEMBlocks(): {
         container: string;

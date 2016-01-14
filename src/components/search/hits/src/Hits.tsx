@@ -17,6 +17,14 @@ export interface HitsProps extends SearchkitComponentProps{
 
 export class Hits extends SearchkitComponent<HitsProps, any> {
 
+	static propTypes = _.defaults({
+		hitsPerPage:React.PropTypes.number.isRequired,
+		highlightFields:React.PropTypes.arrayOf(
+			React.PropTypes.string
+		)
+	}, SearchkitComponent.propTypes)
+
+
 	componentWillMount() {
 		super.componentWillMount()
 		if(this.props.highlightFields) {

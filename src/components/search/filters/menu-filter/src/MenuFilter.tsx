@@ -20,6 +20,13 @@ export interface MenuFilterProps extends SearchkitComponentProps {
 export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
 	accessor:FacetAccessor
 
+	static propTypes = _.defaults({
+		field:React.PropTypes.string.isRequired,
+		title:React.PropTypes.string.isRequired,
+		id:React.PropTypes.string.isRequired,
+		size:React.PropTypes.number
+	}, SearchkitComponent.propTypes)
+
 	defineBEMBlocks() {
 		var blockName = this.props.mod || "menu-list"
 		return {

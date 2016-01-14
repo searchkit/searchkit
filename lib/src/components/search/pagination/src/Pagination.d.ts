@@ -11,6 +11,7 @@ export declare class Pagination extends SearchkitComponent<PaginationProps, any>
         "pagination.previous": string;
         "pagination.next": string;
     };
+    static propTypes: {};
     defineAccessor(): PaginationAccessor;
     defineBEMBlocks(): {
         container: string;

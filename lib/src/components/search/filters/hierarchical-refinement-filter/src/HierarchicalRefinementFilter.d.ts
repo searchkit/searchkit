@@ -1,6 +1,5 @@
 import { SearchkitComponent, NestedFacetAccessor, SearchkitComponentProps } from "../../../../../core";
 export interface HierarchicalRefinementFilterProps extends SearchkitComponentProps {
-    mod?: string;
     field: string;
     id: string;
     title: string;
@@ -10,6 +9,7 @@ export interface HierarchicalRefinementFilterProps extends SearchkitComponentPro
 }
 export declare class HierarchicalRefinementFilter extends SearchkitComponent<HierarchicalRefinementFilterProps, any> {
     accessor: NestedFacetAccessor;
+    static propTypes: {};
     constructor(props: HierarchicalRefinementFilterProps);
     defineBEMBlocks(): {
         container: string;

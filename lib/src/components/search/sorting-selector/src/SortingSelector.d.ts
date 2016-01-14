@@ -4,6 +4,7 @@ export interface SortingProps extends SearchkitComponentProps {
 }
 export declare class SortingSelector extends SearchkitComponent<SortingProps, any> {
     accessor: SortingAccessor;
+    static propTypes: {};
     defineAccessor(): SortingAccessor;
     defineBEMBlocks(): {
         container: string;

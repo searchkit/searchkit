@@ -22,9 +22,13 @@ export interface RefinementListFilterProps extends SearchkitComponentProps {
 export class RefinementListFilter extends SearchkitComponent<RefinementListFilterProps, any> {
 	accessor:FacetAccessor
 
-	shouldCreateNewSearcher() {
-		return true;
-	}
+	static propTypes = _.defaults({
+		field:React.PropTypes.string.isRequired,
+		operator:React.PropTypes.oneOf(["AND", "OR"]),
+		size:React.PropTypes.number,
+		title:React.PropTypes.string.isRequired,
+		id:React.PropTypes.string.isRequired
+	}, SearchkitComponent.propTypes)
 
 	constructor(props) {
 		super(props);
