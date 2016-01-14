@@ -1,17 +1,13 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {ResetFilters} from "../src/ResetFilters.tsx";
-import {SearchkitManager } from "../../../../../core";
-const bem = require("bem-cn");
+import {SearchkitManager} from "../../../../../core";
 import * as _ from "lodash";
 import * as sinon from "sinon";
 
 describe("Reset Filter tests", () => {
 
   beforeEach(() => {
-
-    this.bemContainer = bem("refinement-list")
-    this.bemOption = bem("refinement-list-option")
 
     this.searchkit = new SearchkitManager("localhost:9200", {useHistory:true})
     this.searchkit.translateFunction = (key)=> {

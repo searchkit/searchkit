@@ -72,6 +72,7 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
 	paginationElement(direction:DIRECTION, cssClass:string, displayText:string ) {
 		let className = this.bemBlocks.option()
 			.mix(this.bemBlocks.container("item"))
+			.mix(this.bemBlocks.option(cssClass))
 			.state({
 				disabled:this.isDisabled(direction)
 			})

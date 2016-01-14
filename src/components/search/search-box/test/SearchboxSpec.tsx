@@ -27,7 +27,7 @@ describe("Searchbox tests", () => {
 
   });
 
-  fit("render", () => {
+  it("render", () => {
     this.createWrapper()
     expect(this.wrapper.find(".search-box__text").get(0).placeholder).toBe("search movies")
   })
