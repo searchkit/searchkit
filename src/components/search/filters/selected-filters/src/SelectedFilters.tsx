@@ -55,7 +55,7 @@ export class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, an
 
   render() {
 		if (!this.hasFilters()) {
-			return (<div></div>)
+			return null
 		}
     return (
       <div className={this.bemBlocks.container()}>

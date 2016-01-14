@@ -6,7 +6,7 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "react/react.d.ts": {
-      "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
+      "commit": "d1f6bde13f2209be42e86c3686761e8bfcbb50a5"
     },
     "typescript/typescript.d.ts": {
       "commit": "68548c2daab053869f323d475419c693478bbb73"
@@ -70,6 +70,9 @@
     },
     "jasmine-ajax/jasmine-ajax.d.ts": {
       "commit": "8cd79728efa7652d934b2703feeb68bb4802aebb"
+    },
+    "enzyme/enzyme.d.ts": {
+      "commit": "d1f6bde13f2209be42e86c3686761e8bfcbb50a5"
     }
   }
 }
