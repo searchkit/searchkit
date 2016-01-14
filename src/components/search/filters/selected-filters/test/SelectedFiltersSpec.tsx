@@ -49,7 +49,9 @@ describe("SelectedFilters tests", () => {
 
     this.createWrapper()
 
-    expect(this.getContainer(null, 0).text()).toBe(true)
+    expect(this.getContainer(null, 0).children().map((n) => {
+        return n.find("."+this.bemOption("name")).text()
+    })).toBe("test name : test value")
 
     // this.searchkit.query.hasFiltersOrQuery = () => {return false}
     // let elem = this.wrapper.find(".reset-filters")
