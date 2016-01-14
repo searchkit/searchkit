@@ -20,6 +20,7 @@
     "./src/components/search/filters/refinement-list-filter/src/RefinementListFilter.tsx",
     "./src/components/search/filters/refinement-list-filter/test/RefinementListFilterSpec.tsx",
     "./src/components/search/filters/reset-filters/src/ResetFilters.tsx",
+    "./src/components/search/filters/reset-filters/test/ResetFiltersSpec.tsx",
     "./src/components/search/filters/selected-filters/src/SelectedFilters.tsx",
     "./src/components/search/hits-stats/src/HitsStats.tsx",
     "./src/components/search/hits/src/Hits.tsx",

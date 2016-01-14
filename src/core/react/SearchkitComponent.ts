@@ -15,7 +15,6 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
   accessor:Accessor
   stateListenerUnsubscribe:Function
   bemBlocks:any
-  blockClass:string
   translations:Object = {}
 	static contextTypes = {
 		searchkit:React.PropTypes.instanceOf(SearchkitManager)

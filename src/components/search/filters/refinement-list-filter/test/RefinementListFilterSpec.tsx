@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {RefinementListFilter} from "../src/RefinementListFilter.tsx";
-import {SearchkitProvider, SearchkitManager } from "../../../../../core";
+import {SearchkitManager} from "../../../../../core";
 const bem = require("bem-cn");
 import * as _ from "lodash";
 import * as sinon from "sinon";
