@@ -7,6 +7,7 @@ var block = require('bem-cn');
 export interface SearchkitComponentProps {
   mod?:string
   translations?:Object
+  searchkit?:SearchkitManager
 }
 
 export class SearchkitComponent<P extends SearchkitComponentProps,S> extends React.Component<P,S> {
@@ -42,7 +43,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
     this.bemBlocks = _.transform(this.defineBEMBlocks(), (result:any, cssClass, name) => {
       result[name] = block(cssClass);
     })
-    this.searchkit = this.context["searchkit"]
+    this.searchkit = this.props.searchkit || this.context["searchkit"]
     if(this.searchkit){
       this.accessor  = this.defineAccessor()
       if(this.accessor){

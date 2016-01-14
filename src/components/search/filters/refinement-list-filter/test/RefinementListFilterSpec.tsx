@@ -1,5 +1,5 @@
 import * as React from "react";
-import {mount, spyLifecycle} from "enzyme";
+import {mount, spyLifecycle, shallow} from "enzyme";
 import * as TestUtils from 'react-addons-test-utils';
 import {RefinementListFilter} from "../src/RefinementListFilter.tsx";
 import {SearchkitProvider, SearchkitManager } from "../../../../../core";
@@ -12,14 +12,17 @@ fdescribe("Refinement List Filter tests", () => {
     this.bemContainer = bem("refinement-list")
     this.bemOption = bem("refinement-list-option")
 
-    this.searchkit = new SearchkitManager("localhost:9200")
+    this.searchkit = new SearchkitManager("localhost:9200", {useHistory:true})
+    this.searchkit.translateFunction = (key)=> {
+      return {
+        "test option 1":"test option 1 translated"
+      }[key]
+    }
 
     this.wrapper = mount(
-      <SearchkitProvider searchkit={this.searchkit}>
-        <div>
-          <RefinementListFilter field="test" id="test" title="test" size={2} />
-        </div>
-      </SearchkitProvider>
+      <RefinementListFilter
+        field="test" id="test" title="test"
+        searchkit={this.searchkit} />
     );
 
     this.searchkit.setResults({
@@ -48,13 +51,21 @@ fdescribe("Refinement List Filter tests", () => {
           label: n.find("."+this.bemOption("text")).text(),
           count: n.find("."+this.bemOption("count")).text()
         }
-      })).toEqual([ {label:'test option 1', count:"1"},  {label:'test option 2', count:"2"},  {label:'test option 3', count:"3"} ])
+      })).toEqual([ {label:'test option 1 translated', count:"1"},  {label:'test option 2', count:"2"},  {label:'test option 3', count:"3"} ])
   });
 
-  // it("selects option", () => {
-  //   let option1 = this.wrapper.ref("test option 1")
-  //   // option1.simulate("click")
-  //   expect(option1.text()).toEqual(true)
-  // })
+
+  it("should configure accessor correctly", ()=> {
+    let options = this.searchkit.accessors.getAccessors()[0].options
+    expect(options).toEqual({
+      "id": "test",
+      "title": "test",
+      "size": 50,
+      "facetsPerPage": 50,
+      "operator":undefined,
+      "translations":undefined
+    })
+
+  })
 
 });
