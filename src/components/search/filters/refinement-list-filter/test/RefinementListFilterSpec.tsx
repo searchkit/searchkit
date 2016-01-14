@@ -3,17 +3,21 @@ import {mount, spyLifecycle} from "enzyme";
 import * as TestUtils from 'react-addons-test-utils';
 import {RefinementListFilter} from "../src/RefinementListFilter.tsx";
 import {SearchkitProvider, SearchkitManager } from "../../../../../core";
+const bem = require("bem-cn");
 
-describe("Refinement List Filter tests", () => {
+fdescribe("Refinement List Filter tests", () => {
 
   beforeEach(() => {
+
+    this.bemContainer = bem("refinement-list")
+    this.bemOption = bem("refinement-list-option")
 
     this.searchkit = new SearchkitManager("localhost:9200")
 
     this.wrapper = mount(
       <SearchkitProvider searchkit={this.searchkit}>
         <div>
-          <RefinementListFilter field="test" id="test" title="test" />
+          <RefinementListFilter field="test" id="test" title="test" size={2} />
         </div>
       </SearchkitProvider>
     );
@@ -29,7 +33,7 @@ describe("Refinement List Filter tests", () => {
             ]
           },
           "test.count":{
-            value:3
+            value:4
           }
         }
       }
@@ -37,11 +41,20 @@ describe("Refinement List Filter tests", () => {
   });
 
   it('renders correctly', () => {
-    expect(this.wrapper.find(".refinement-list__header").text()).toBe("test")
-    expect(this.wrapper.find(".refinement-list__options").children().map(
+    expect(this.wrapper.find("."+this.bemContainer("header")).text()).toBe("test")
+    expect(this.wrapper.find("."+this.bemContainer("options")).children().map(
       (n) => {
-        return n.find(".refinement-list-option__text").text()
-      })).toEqual([ 'test option 1', 'test option 2', 'test option 3' ])
+        return {
+          label: n.find("."+this.bemOption("text")).text(),
+          count: n.find("."+this.bemOption("count")).text()
+        }
+      })).toEqual([ {label:'test option 1', count:"1"},  {label:'test option 2', count:"2"},  {label:'test option 3', count:"3"} ])
   });
+
+  // it("selects option", () => {
+  //   let option1 = this.wrapper.ref("test option 1")
+  //   // option1.simulate("click")
+  //   expect(option1.text()).toEqual(true)
+  // })
 
 });
