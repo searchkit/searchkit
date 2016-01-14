@@ -88,11 +88,11 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
 		}
 
 		return (
-			<div onClick={this.toggleViewMoreOption.bind(this, option)}>
+			<FastClick handler={this.toggleViewMoreOption.bind(this, option)}>
 				<div data-qa="show-more" className={this.bemBlocks.container("view-more-action")}>
 					{this.translate(option.label)}
 				</div>
-			</div>
+			</FastClick>
 		)
 	}
 

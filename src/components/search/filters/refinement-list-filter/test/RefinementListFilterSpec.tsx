@@ -71,7 +71,6 @@ fdescribe("Refinement List Filter tests", () => {
     let option2 = this.getContainer("options", 1).children().at(0)
     option.simulate("mouseDown", {button:0})
     option2.simulate("mouseDown", {button:0})
-    this.wrapper.update()
     expect(option.hasClass("is-selected")).toBe(true)
     expect(option2.hasClass("is-selected")).toBe(true)
     expect(this.accessor.state.getValue()).toEqual(['test option 1', 'test option 2'])
@@ -80,13 +79,14 @@ fdescribe("Refinement List Filter tests", () => {
     expect(this.accessor.state.getValue()).toEqual(['test option 1'])
   })
 
-  xit("show more options", () => {
+  it("show more options", () => {
     let option = {label:"view more", size:20}
     this.accessor.getMoreSizeOption = () => {return option}
     this.accessor.setViewMoreOption = sinon.spy()
     this.wrapper.update()
     expect(this.getContainer("view-more-action").text()).toBe("view more")
     this.getContainer("view-more-action").simulate("mouseDown", {button:0})
+    this.wrapper.update()
     expect(this.accessor.setViewMoreOption.calledOnce).toBe(true)
     expect(this.accessor.setViewMoreOption.calledWith(option)).toBe(true)
   })
