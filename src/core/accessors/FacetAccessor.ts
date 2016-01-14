@@ -30,11 +30,12 @@ export class FacetAccessor extends StatefulAccessor<ArrayState> {
   size:number
   uuid:string
 
-  translations = {
+  static translations = {
     "facets.view_more":"View more",
     "facets.view_less":"View less",
     "facets.view_all":"View all"
   }
+  translations = FacetAccessor.translations
 
   constructor(key, options:FacetAccessorOptions){
     super(key, options.id)

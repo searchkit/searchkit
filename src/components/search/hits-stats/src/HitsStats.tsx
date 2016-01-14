@@ -12,9 +12,16 @@ export interface HitsStatsProps extends SearchkitComponentProps {
 
 export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 
-	translations = {
+	static translations = {
 		"ResultsFound":"results found"
 	}
+	translations = HitsStats.translations
+
+	static propTypes = _.defaults({
+		translations:SearchkitComponent.translationsPropType(
+			HitsStats.translations
+		)
+	}, SearchkitComponent.propTypes)
 
 	defineBEMBlocks() {
 		return {

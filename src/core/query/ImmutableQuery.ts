@@ -138,4 +138,8 @@ export class ImmutableQuery {
   getJSON() {
     return this.query
   }
+
+  printJSON(){
+    console.log(JSON.stringify(this.getJSON(), null, 2))
+  }
 }

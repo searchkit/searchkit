@@ -20,10 +20,18 @@ export enum DIRECTION {
 export class Pagination extends SearchkitComponent<PaginationProps, any> {
 	accessor:PaginationAccessor
 
-	translations = {
+
+	static translations = {
 		"pagination.previous":"Previous",
 		"pagination.next":"Next"
 	}
+	translations = Pagination.translations
+
+	static propTypes = _.defaults({
+		translations:SearchkitComponent.translationsPropType(
+			Pagination.translations
+		)
+	}, SearchkitComponent.propTypes)
 
 	defineAccessor() {
     return new PaginationAccessor("p")

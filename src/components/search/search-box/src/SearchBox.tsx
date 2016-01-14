@@ -22,6 +22,23 @@ export interface SearchBoxProps extends SearchkitComponentProps {
 export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 	accessor:SearchAccessor
 	lastSearchMs:number
+
+	static translations = {
+		"searchbox.placeholder":"Search"
+	}
+	translations = SearchBox.translations
+
+	static propTypes = _.defaults({
+		searchOnChange:React.PropTypes.bool,
+		queryFields:React.PropTypes.arrayOf(React.PropTypes.string),
+		autofocus:React.PropTypes.bool,
+		queryOptions:React.PropTypes.object,
+		prefixQueryFields:React.PropTypes.arrayOf(React.PropTypes.string),
+		translations:SearchkitComponent.translationsPropType(
+			SearchBox.translations
+		)
+	}, SearchkitComponent.propTypes)
+
 	constructor (props:SearchBoxProps) {
 		super(props);
 		this.state = {
@@ -30,9 +47,6 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 		this.lastSearchMs = 0
 	}
 
-	translations = {
-		"searchbox.placeholder":"Search"
-	}
 
 	componentWillMount() {
 		super.componentWillMount()
@@ -72,7 +86,6 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 
 	onChange(e){
 		const query = e.target.value;
-		console.log("onChange", query)
 		this.accessor.state = this.accessor.state.setValue(query)
 		if (this.props.searchOnChange) {
 			_.throttle(()=> {

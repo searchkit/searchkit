@@ -1,5 +1,5 @@
-import { SearchkitComponent } from "./SearchkitComponent";
-export interface LoadingProps {
+import { SearchkitComponent, SearchkitComponentProps } from "./SearchkitComponent";
+export interface LoadingProps extends SearchkitComponentProps {
     children?: any;
 }
 export declare class LoadingComponent extends SearchkitComponent<LoadingProps, any> {

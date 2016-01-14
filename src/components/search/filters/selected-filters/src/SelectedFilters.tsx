@@ -15,6 +15,10 @@ export interface SelectedFiltersProps extends SearchkitComponentProps {
 
 export class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, any> {
 
+
+	static propTypes = _.defaults({		
+	}, SearchkitComponent.propTypes)
+
 	defineBEMBlocks() {
 		var blockName = (this.props.mod || "selected-filters")
 		return {

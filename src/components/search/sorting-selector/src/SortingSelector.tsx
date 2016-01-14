@@ -18,6 +18,17 @@ export interface SortingProps extends SearchkitComponentProps {
 
 export class SortingSelector extends SearchkitComponent<SortingProps, any> {
 	accessor:SortingAccessor
+	
+	static propTypes = _.defaults({
+		options:React.PropTypes.arrayOf(
+			React.PropTypes.shape({
+				label:React.PropTypes.string.isRequired,
+				field:React.PropTypes.string.isRequired,
+				order:React.PropTypes.string.isRequired
+			})
+		)
+	}, SearchkitComponent.propTypes)
+
 
 	defineAccessor() {
     return new SortingAccessor("sort", {options:this.props.options})
@@ -55,6 +66,6 @@ export class SortingSelector extends SearchkitComponent<SortingProps, any> {
 	      </div>
 			)
 		}
-		return null    
+		return null
   }
 }

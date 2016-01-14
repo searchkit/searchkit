@@ -18,6 +18,12 @@ export interface HierarchicalMenuFilterProps extends SearchkitComponentProps{
 export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuFilterProps, any> {
 	public accessor:HierarchicalFacetAccessor
 
+	static propTypes = _.defaults({
+		id:React.PropTypes.string.isRequired,
+		fields:React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+		title:React.PropTypes.string.isRequired
+	}, SearchkitComponent.propTypes)
+
 	constructor(props:HierarchicalMenuFilterProps) {
 		super(props)
 	}

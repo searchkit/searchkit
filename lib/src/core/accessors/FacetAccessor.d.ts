@@ -19,6 +19,11 @@ export declare class FacetAccessor extends StatefulAccessor<ArrayState> {
     defaultSize: number;
     size: number;
     uuid: string;
+    static translations: {
+        "facets.view_more": string;
+        "facets.view_less": string;
+        "facets.view_all": string;
+    };
     translations: {
         "facets.view_more": string;
         "facets.view_less": string;

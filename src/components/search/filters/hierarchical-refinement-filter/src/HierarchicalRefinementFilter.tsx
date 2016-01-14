@@ -10,7 +10,6 @@ import {
 } from "../../../../../core"
 
 export interface HierarchicalRefinementFilterProps extends SearchkitComponentProps {
-	mod?:string
 	field:string
 	id:string
 	title:string
@@ -21,6 +20,15 @@ export interface HierarchicalRefinementFilterProps extends SearchkitComponentPro
 
 export class HierarchicalRefinementFilter extends SearchkitComponent<HierarchicalRefinementFilterProps, any> {
 	public accessor:NestedFacetAccessor
+
+	static propTypes = _.defaults({
+		field:React.PropTypes.string.isRequired,
+		id:React.PropTypes.string.isRequired,
+		title:React.PropTypes.string.isRequired,
+		orderKey:React.PropTypes.string,
+		orderDirection:React.PropTypes.oneOf(["asc", "desc"]),
+		startLevel:React.PropTypes.number
+	}, SearchkitComponent.propTypes)
 
 	constructor(props:HierarchicalRefinementFilterProps) {
 		super(props)
