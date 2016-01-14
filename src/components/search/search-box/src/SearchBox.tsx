@@ -86,7 +86,6 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 
 	onChange(e){
 		const query = e.target.value;
-		console.log("onChange", query)
 		this.accessor.state = this.accessor.state.setValue(query)
 		if (this.props.searchOnChange) {
 			_.throttle(()=> {

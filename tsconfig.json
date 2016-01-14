@@ -60,6 +60,7 @@
     "./src/__test__/core/query/query_dsl/term_level/RangeQuerySpec.ts",
     "./src/__test__/core/query/query_dsl/term_level/TermQuerySpec.ts",
     "./src/__test__/core/query/query_dsl/term_level/TermsQuerySpec.ts",
+    "./src/__test__/core/react/SearchkitComponentSpec.ts",
     "./src/__test__/core/SearchkitManagerSpec.ts",
     "./src/__test__/core/SearchRequestSpec.ts",
     "./src/__test__/core/state/ArrayStateSpec.ts",
