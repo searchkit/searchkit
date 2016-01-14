@@ -9,7 +9,6 @@ export class FastClick extends React.Component<any, any>{
   supportsTouch:boolean
 
   handleMouseDown(event){
-    console.log(event)
     if (this.supportsTouch) return
     if(event.button === 0){
       this.props.handler()
