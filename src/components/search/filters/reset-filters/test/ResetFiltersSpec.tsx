@@ -21,11 +21,9 @@ describe("Reset Filter tests", () => {
     }
 
     this.createWrapper = () => {
-
       this.wrapper = mount(
         <ResetFilters searchkit={this.searchkit} />
       );
-
     }
 
   });
@@ -52,6 +50,8 @@ describe("Reset Filter tests", () => {
     this.searchkit.performSearch = sinon.spy()
     this.createWrapper()
     let elem = this.wrapper.find(".reset-filters")
+    expect(this.searchkit.resetState.called).toBeFalsy()
+    expect(this.searchkit.performSearch.called).toBeFalsy()
     elem.simulate("mouseDown", {button:0})
     expect(this.searchkit.resetState.called).toBeTruthy()
     expect(this.searchkit.performSearch.called).toBeTruthy()

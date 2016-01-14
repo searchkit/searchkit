@@ -15,6 +15,13 @@ describe("SelectedFilters tests", () => {
 
     this.searchkit = new SearchkitManager("localhost:9200", {useHistory:true})
 
+    this.searchkit.translateFunction = (key)=> {
+      return {
+        "test name 2":"test name 2 translated",
+        "test value 2": "test value 2 translated"
+      }[key]
+    }
+
     this.getContainer = (label, index) => {
       let container = this.wrapper.find("."+this.bemContainer(label))
       if (_.isNumber(index)) {
@@ -32,51 +39,44 @@ describe("SelectedFilters tests", () => {
 
     }
 
-  });
-
-  it('renders correctly', () => {
+    this.removeFilterFn1 = sinon.spy();
 
     this.searchkit.query.getSelectedFilters = () => {
       return [
         {
           name:"test name",
           value:"test value",
-          remove: sinon.spy()
+          remove: this.removeFilterFn1
+        },
+        {
+          name:"test name 2",
+          value:"test value 2"
         }
-
       ]
     }
 
+  });
+
+  it('renders correctly', () => {
+
     this.createWrapper()
 
-    expect(this.getContainer(null, 0).children().map((n) => {
-        return n.find("."+this.bemOption("name")).text()
-    })).toBe("test name : test value")
+    expect(this.getContainer(null).children().map((n) => {
+      return n.children().at(0).text()
+    })).toEqual([
+      "test name: test value",
+      "test name 2 translated: test value 2 translated"
+    ])
 
-    // this.searchkit.query.hasFiltersOrQuery = () => {return false}
-    // let elem = this.wrapper.find(".reset-filters")
-    //
-    // this.wrapper.update()
-    // expect(elem.hasClass("is-disabled")).toBe(true)
-    //
-    // this.searchkit.query.hasFiltersOrQuery = () => {return true}
-    //
-    // this.wrapper.update()
-    // expect(elem.hasClass("is-disabled")).toBe(false)
-    //
-    // expect(elem.text()).toBe("reset filters")
+
   });
-  //
-  // it("handles reset click", () => {
-  //   this.searchkit.query.hasFiltersOrQuery = () => {return true}
-  //   this.searchkit.resetState = sinon.spy()
-  //   this.searchkit.performSearch = sinon.spy()
-  //   this.createWrapper()
-  //   let elem = this.wrapper.find(".reset-filters")
-  //   elem.simulate("mouseDown", {button:0})
-  //   expect(this.searchkit.resetState.called).toBeTruthy()
-  //   expect(this.searchkit.performSearch.called).toBeTruthy()
-  // })
+
+  it("handles remove click", () => {
+    this.createWrapper()
+    let elem = this.getContainer(null,0).find("."+this.bemOption("remove-action"))
+    elem.simulate("mouseDown", {button:0})
+    expect(this.removeFilterFn1.called).toBeTruthy()
+  })
 
 
 });
