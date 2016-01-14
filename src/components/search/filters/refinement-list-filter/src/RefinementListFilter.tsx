@@ -21,7 +21,7 @@ export interface RefinementListFilterProps extends SearchkitComponentProps {
 
 export class RefinementListFilter extends SearchkitComponent<RefinementListFilterProps, any> {
 	accessor:FacetAccessor
-	
+
 	shouldCreateNewSearcher() {
 		return true;
 	}

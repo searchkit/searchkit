@@ -4,7 +4,7 @@ import * as TestUtils from 'react-addons-test-utils';
 import {RefinementListFilter} from "../src/RefinementListFilter.tsx";
 import {SearchkitProvider, SearchkitManager } from "../../../../../core";
 
-fdescribe("Refinement List Filter tests", () => {
+describe("Refinement List Filter tests", () => {
 
   beforeEach(() => {
 
