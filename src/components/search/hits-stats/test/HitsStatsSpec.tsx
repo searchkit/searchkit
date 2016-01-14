@@ -6,7 +6,7 @@ const bem = require("bem-cn");
 import * as _ from "lodash";
 import * as sinon from "sinon";
 
-fdescribe("HitsStats tests", () => {
+describe("HitsStats tests", () => {
 
   beforeEach(() => {
     this.searchkit = new SearchkitManager("localhost:9200", {useHistory:false})
