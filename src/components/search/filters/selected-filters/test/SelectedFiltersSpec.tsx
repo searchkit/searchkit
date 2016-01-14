@@ -39,14 +39,14 @@ describe("SelectedFilters tests", () => {
 
     }
 
-    this.removeFilterFn1 = sinon.spy();
+    this.sinonSpy = sinon.spy();
 
     this.searchkit.query.getSelectedFilters = () => {
       return [
         {
           name:"test name",
           value:"test value",
-          remove: this.removeFilterFn1
+          remove: this.sinonSpy
         },
         {
           name:"test name 2",
@@ -75,7 +75,7 @@ describe("SelectedFilters tests", () => {
     this.createWrapper()
     let elem = this.getContainer(null,0).find("."+this.bemOption("remove-action"))
     elem.simulate("mouseDown", {button:0})
-    expect(this.removeFilterFn1.called).toBeTruthy()
+    expect(this.sinonSpy.called).toBeTruthy()
   })
 
 

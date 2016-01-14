@@ -24,7 +24,7 @@ export class FastClick extends React.Component<any, any>{
     if(touches.length === 1){
       return {
         x:touches[0].pageX,
-        y:touches[0].pageY,
+        y:touches[0].pageY
       }
     }
     return null
