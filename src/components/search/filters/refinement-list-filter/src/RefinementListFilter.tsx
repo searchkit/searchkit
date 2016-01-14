@@ -60,13 +60,11 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
 			.state({selected:isSelected})
 
 		return (
-			<FastClick handler={this.addFilter.bind(this, option)} key={option.key} >
-				<div className={optionClassName} data-qa="option" ref={option.key}>
-					<div data-qa="checkbox" className={block("checkbox").state({selected:isSelected})}></div>
-					<div data-qa="label" className={block("text")}>{this.translate(option.key)}</div>
-					<div data-qa="count" className={block("count")}>{option.doc_count}</div>
-				</div>
-			</FastClick>
+			<div className={optionClassName} data-qa="option" onClick={this.addFilter.bind(this, option)} key={option.key}>
+				<div data-qa="checkbox" className={block("checkbox").state({selected:isSelected})}></div>
+				<div data-qa="label" className={block("text")}>{this.translate(option.key)}</div>
+				<div data-qa="count" className={block("count")}>{option.doc_count}</div>
+			</div>
 		)
 	}
 
@@ -88,11 +86,11 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
 		}
 
 		return (
-			<FastClick handler={this.toggleViewMoreOption.bind(this, option)}>
+			<div onClick={this.toggleViewMoreOption.bind(this, option)}>
 				<div data-qa="show-more" className={this.bemBlocks.container("view-more-action")}>
 					{this.translate(option.label)}
 				</div>
-			</FastClick>
+			</div>
 		)
 	}
 

@@ -22,3 +22,4 @@
 /// <reference path="../node_modules/axios/axios.d.ts" />
 /// <reference path="jasmine-ajax/jasmine-ajax.d.ts" />
 /// <reference path="enzyme/enzyme.d.ts" />
+/// <reference path="sinon/sinon.d.ts" />

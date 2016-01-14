@@ -1,9 +1,10 @@
 import * as React from "react";
-import {mount, spyLifecycle, shallow} from "enzyme";
-import * as TestUtils from 'react-addons-test-utils';
+import {mount} from "enzyme";
 import {RefinementListFilter} from "../src/RefinementListFilter.tsx";
 import {SearchkitProvider, SearchkitManager } from "../../../../../core";
 const bem = require("bem-cn");
+import * as _ from "lodash";
+import * as sinon from "sinon";
 
 fdescribe("Refinement List Filter tests", () => {
 
@@ -41,12 +42,22 @@ fdescribe("Refinement List Filter tests", () => {
         }
       }
     })
+
+    this.accessor = this.searchkit.accessors.getAccessors()[0]
+    this.getContainer = (label, index) => {
+      let container = this.wrapper.find("."+this.bemContainer(label))
+      if (_.isNumber(index)) {
+        return container.children().at(index)
+      } else {
+        return container;
+      }
+    }
+
   });
 
   it('renders correctly', () => {
-    expect(this.wrapper.find("."+this.bemContainer("header")).text()).toBe("test title")
-    expect(this.wrapper.find("."+this.bemContainer("options")).children().map(
-
+    expect(this.getContainer("header").text()).toBe("test title")
+    expect(this.getContainer("options").children().map(
       (n) => {
         return {
           label: n.find("."+this.bemOption("text")).text(),
@@ -55,11 +66,38 @@ fdescribe("Refinement List Filter tests", () => {
       })).toEqual([ {label:'test option 1 translated', count:"1"},  {label:'test option 2', count:"2"},  {label:'test option 3', count:"3"} ])
   });
 
+  it('clicks options', () => {
+    let option = this.getContainer("options", 0)
+    let option2 = this.getContainer("options", 1)
+    option.simulate("click")
+    option2.simulate("click")
+    expect(option.hasClass("is-selected")).toBe(true)
+    expect(option2.hasClass("is-selected")).toBe(true)
+    expect(this.accessor.state.getValue()).toEqual(['test option 1', 'test option 2'])
+    option2.simulate("click")
+    expect(this.accessor.state.getValue()).toEqual(['test option 1'])
+  })
+
+  it("show more options", () => {
+    let option = {label:"view more", size:20}
+    this.accessor.getMoreSizeOption = () => {return option}
+    this.accessor.setViewMoreOption = sinon.spy()
+    this.wrapper.update()
+    expect(this.getContainer("view-more-action").text()).toBe("view more")
+    this.getContainer("view-more-action").simulate("click")
+    expect(this.accessor.setViewMoreOption.calledOnce).toBe(true)
+    expect(this.accessor.setViewMoreOption.calledWith(option)).toBe(true)
+  })
+
+  it("show no options", () => {
+    this.accessor.getMoreSizeOption = () => {return null}
+    this.wrapper.update()
+    expect(this.getContainer("view-more-action").length).toBe(0)
+  })
 
   it("should configure accessor correctly", ()=> {
-    let facetAccessor = this.searchkit.accessors.getAccessors()[0]
-    expect(facetAccessor.key).toBe("test")
-    let options = facetAccessor.options
+    expect(this.accessor.key).toBe("test")
+    let options = this.accessor.options
     expect(options).toEqual({
       "id": "test id",
       "title": "test title",
