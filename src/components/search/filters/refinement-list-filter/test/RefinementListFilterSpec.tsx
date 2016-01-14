@@ -21,7 +21,7 @@ fdescribe("Refinement List Filter tests", () => {
 
     this.wrapper = mount(
       <RefinementListFilter
-        field="test" id="test" title="test"
+        field="test" id="test id" title="test title"
         searchkit={this.searchkit} />
     );
 
@@ -44,8 +44,9 @@ fdescribe("Refinement List Filter tests", () => {
   });
 
   it('renders correctly', () => {
-    expect(this.wrapper.find("."+this.bemContainer("header")).text()).toBe("test")
+    expect(this.wrapper.find("."+this.bemContainer("header")).text()).toBe("test title")
     expect(this.wrapper.find("."+this.bemContainer("options")).children().map(
+
       (n) => {
         return {
           label: n.find("."+this.bemOption("text")).text(),
@@ -56,10 +57,12 @@ fdescribe("Refinement List Filter tests", () => {
 
 
   it("should configure accessor correctly", ()=> {
-    let options = this.searchkit.accessors.getAccessors()[0].options
+    let facetAccessor = this.searchkit.accessors.getAccessors()[0]
+    expect(facetAccessor.key).toBe("test")
+    let options = facetAccessor.options
     expect(options).toEqual({
-      "id": "test",
-      "title": "test",
+      "id": "test id",
+      "title": "test title",
       "size": 50,
       "facetsPerPage": 50,
       "operator":undefined,
