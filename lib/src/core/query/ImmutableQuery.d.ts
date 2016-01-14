@@ -27,4 +27,5 @@ export declare class ImmutableQuery {
     deepUpdate(key: any, ob: any): ImmutableQuery;
     update(updateDef: any): ImmutableQuery;
     getJSON(): any;
+    printJSON(): void;
 }
