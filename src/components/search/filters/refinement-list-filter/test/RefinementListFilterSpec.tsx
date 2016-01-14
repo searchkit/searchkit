@@ -1,12 +1,13 @@
 import * as React from "react";
 import {mount} from "enzyme";
+import {hasClass} from "../../../../__test__/TestHelpers"
 import {RefinementListFilter} from "../src/RefinementListFilter.tsx";
 import {SearchkitManager} from "../../../../../core";
 const bem = require("bem-cn");
 import * as _ from "lodash";
 import * as sinon from "sinon";
 
-fdescribe("Refinement List Filter tests", () => {
+describe("Refinement List Filter tests", () => {
 
   beforeEach(() => {
 
@@ -67,12 +68,12 @@ fdescribe("Refinement List Filter tests", () => {
   });
 
   it('clicks options', () => {
-    let option = this.getContainer("options", 0).children().at(0)
+    let option = this.getContainer("options", 0)
     let option2 = this.getContainer("options", 1).children().at(0)
     option.simulate("mouseDown", {button:0})
     option2.simulate("mouseDown", {button:0})
-    expect(option.hasClass("is-selected")).toBe(true)
-    expect(option2.hasClass("is-selected")).toBe(true)
+    expect(hasClass(option, "is-selected")).toBe(true)
+    expect(hasClass(option2, "is-selected")).toBe(true)
     expect(this.accessor.state.getValue()).toEqual(['test option 1', 'test option 2'])
     option2.simulate("mouseDown", {button:0})
     this.wrapper.update()

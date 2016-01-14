@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {HitsStats} from "../src/HitsStats.tsx";
 import {SearchkitManager} from "../../../../core";
 
-fdescribe("HitsStats tests", () => {
+describe("HitsStats tests", () => {
 
   beforeEach(() => {
     this.searchkit = new SearchkitManager("localhost:9200", {useHistory:false})
