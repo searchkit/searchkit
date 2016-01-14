@@ -6,7 +6,7 @@ const bem = require("bem-cn");
 import * as _ from "lodash";
 import * as sinon from "sinon";
 
-describe("Refinement List Filter tests", () => {
+fdescribe("Refinement List Filter tests", () => {
 
   beforeEach(() => {
 
@@ -69,12 +69,12 @@ describe("Refinement List Filter tests", () => {
   it('clicks options', () => {
     let option = this.getContainer("options", 0)
     let option2 = this.getContainer("options", 1)
-    option.simulate("click")
-    option2.simulate("click")
+    option.simulate("mouseDown", {button:0})
+    option2.simulate("mouseDown", {button:0})
     expect(option.hasClass("is-selected")).toBe(true)
     expect(option2.hasClass("is-selected")).toBe(true)
     expect(this.accessor.state.getValue()).toEqual(['test option 1', 'test option 2'])
-    option2.simulate("click")
+    option2.simulate("mouseDown", {button:0})
     expect(this.accessor.state.getValue()).toEqual(['test option 1'])
   })
 
@@ -84,7 +84,7 @@ describe("Refinement List Filter tests", () => {
     this.accessor.setViewMoreOption = sinon.spy()
     this.wrapper.update()
     expect(this.getContainer("view-more-action").text()).toBe("view more")
-    this.getContainer("view-more-action").simulate("click")
+    this.getContainer("view-more-action").simulate("mouseDown", {button:0})
     expect(this.accessor.setViewMoreOption.calledOnce).toBe(true)
     expect(this.accessor.setViewMoreOption.calledWith(option)).toBe(true)
   })
