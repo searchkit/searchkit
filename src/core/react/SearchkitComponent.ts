@@ -23,7 +23,8 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
 
   static propTypes:any = {
     mod :React.PropTypes.string,
-    translations: React.PropTypes.object,
+    translations: React.PropTypes.objectOf(
+      React.PropTypes.string),
     searchkit:React.PropTypes.instanceOf(SearchkitManager)
   }
 
