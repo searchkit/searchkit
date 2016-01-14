@@ -1,5 +1,5 @@
 import * as React from "react";
-import {mount, spyLifecycle} from "enzyme";
+import {mount, spyLifecycle, shallow} from "enzyme";
 import * as TestUtils from 'react-addons-test-utils';
 import {RefinementListFilter} from "../src/RefinementListFilter.tsx";
 import {SearchkitProvider, SearchkitManager } from "../../../../../core";
@@ -8,14 +8,17 @@ describe("Refinement List Filter tests", () => {
 
   beforeEach(() => {
 
-    this.searchkit = new SearchkitManager("localhost:9200")
+    this.searchkit = new SearchkitManager("localhost:9200", {useHistory:true})
+    this.searchkit.translateFunction = (key)=> {
+      return {
+        "test option 1":"test option 1 translated"
+      }[key]
+    }
 
     this.wrapper = mount(
-      <SearchkitProvider searchkit={this.searchkit}>
-        <div>
-          <RefinementListFilter field="test" id="test" title="test" />
-        </div>
-      </SearchkitProvider>
+      <RefinementListFilter
+        field="test" id="test" title="test"
+        searchkit={this.searchkit} />
     );
 
     this.searchkit.setResults({
@@ -41,7 +44,7 @@ describe("Refinement List Filter tests", () => {
     expect(this.wrapper.find(".refinement-list__options").children().map(
       (n) => {
         return n.find(".refinement-list-option__text").text()
-      })).toEqual([ 'test option 1', 'test option 2', 'test option 3' ])
+      })).toEqual([ 'test option 1 translated', 'test option 2', 'test option 3' ])
   });
 
 });
