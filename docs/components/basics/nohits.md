@@ -31,6 +31,8 @@ const App = ()=> (
 
 ## Props
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/translate.md) page.
+- `mod` *(string)*: Optional. A custom BEM container class.
+
 
 ## Translations
 - `nohits.no_results` - no results found
