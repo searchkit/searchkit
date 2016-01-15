@@ -1,4 +1,4 @@
-import { SearchAccessor, SearchkitComponent, SearchkitComponentProps } from "../../../../core";
+import { QueryAccessor, SearchkitComponent, SearchkitComponentProps } from "../../../../core";
 export interface SearchBoxProps extends SearchkitComponentProps {
     searchOnChange?: boolean;
     queryFields?: Array<string>;
@@ -7,7 +7,7 @@ export interface SearchBoxProps extends SearchkitComponentProps {
     prefixQueryFields?: Array<string>;
 }
 export declare class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
-    accessor: SearchAccessor;
+    accessor: QueryAccessor;
     lastSearchMs: number;
     static translations: any;
     translations: any;
@@ -17,7 +17,7 @@ export declare class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     defineBEMBlocks(): {
         container: string;
     };
-    defineAccessor(): SearchAccessor;
+    defineAccessor(): QueryAccessor;
     onSubmit(event: any): void;
     searchQuery(query: any): void;
     getValue(): string;

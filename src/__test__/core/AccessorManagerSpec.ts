@@ -1,5 +1,5 @@
 import {
-  EventEmitter,ImmutableQuery,AccessorManager,SearchAccessor, FacetAccessor,
+  EventEmitter,ImmutableQuery,AccessorManager, QueryAccessor, FacetAccessor,
   SearchkitManager, PageSizeAccessor, ValueState, PaginationAccessor
 } from "../../"
 
@@ -106,11 +106,11 @@ describe("AccessorManager", ()=> {
   })
 
   it("setQueryString()", ()=> {
-    let searchAccessor = new SearchAccessor("s")
+    let queryAccessor = new QueryAccessor("s")
     let accessorManager = new AccessorManager()
-    accessorManager.add(searchAccessor)
+    accessorManager.add(queryAccessor)
     accessorManager.setQueryString("foo")
-    expect(searchAccessor.state.getValue()).toBe('foo')
+    expect(queryAccessor.state.getValue()).toBe('foo')
   })
 
   it("resetFilters()", ()=> {
