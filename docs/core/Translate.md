@@ -43,6 +43,9 @@ You can pass any component an object of translations you wish to override. Examp
 - `facets.view_less` - View less
 - `facets.view_all` - View all
 
+### NoHits
+- `nohits.no_results` - no results found
+
 ### HitStats
 - `hitstats.results_found` - "results found"
 
