@@ -6,7 +6,7 @@
 // import "../styles/index.scss";
 //
 // import {
-// 	SearchAccessor,
+// 	QueryAccessor,
 // 	SearchkitComponent,
 // 	ESTransport, AxiosESTransport
 // } from "../../../../core"
@@ -14,7 +14,7 @@
 //
 //
 // export class Autocomplete extends SearchkitComponent<any, any> {
-// 	accessor:SearchAccessor
+// 	accessor:QueryAccessor
 // 	suggestSearcher: ESTransport
 //
 // 	defineBEMBlocks() {

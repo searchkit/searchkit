@@ -10,8 +10,9 @@ export interface SearchOptions {
   queryFields?:Array<string>
   prefixQueryFields?:Array<string>
   queryOptions?:any
+  disableSuggestions?:boolean
 }
-export class SearchAccessor extends StatefulAccessor<ValueState> {
+export class QueryAccessor extends StatefulAccessor<ValueState> {
   state = new ValueState()
   options:SearchOptions
 
@@ -52,7 +53,7 @@ export class SearchAccessor extends StatefulAccessor<ValueState> {
 
   buildOwnQuery(query) {
     let queryText = this.state.getValue()
-    if (!queryText) return query;
+    if (!queryText || this.options.disableSuggestions) return query;
 
     return query.setSuggestions({
       text:queryText,

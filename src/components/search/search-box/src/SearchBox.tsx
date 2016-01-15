@@ -6,7 +6,7 @@ var Autosuggest = require('react-autosuggest');
 import "../styles/index.scss";
 
 import {
-	SearchAccessor,
+	QueryAccessor,
 	SearchkitComponent,
 	SearchkitComponentProps
 } from "../../../../core"
@@ -20,7 +20,7 @@ export interface SearchBoxProps extends SearchkitComponentProps {
 }
 
 export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
-	accessor:SearchAccessor
+	accessor:QueryAccessor
 	lastSearchMs:number
 
 	static translations:any = {
@@ -58,7 +58,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 
 	defineAccessor(){
 
-		return new SearchAccessor("q", {
+		return new QueryAccessor("q", {
 			prefixQueryFields:(this.props.searchOnChange ? (this.props.prefixQueryFields || this.props.queryFields) : false),
 			queryFields:this.props.queryFields || ["_all"],
 			queryOptions:_.extend({

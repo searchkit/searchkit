@@ -1,15 +1,15 @@
 import {
-  SearchAccessor, ImmutableQuery, MatchPhrasePrefix,
+  QueryAccessor, ImmutableQuery, MatchPhrasePrefix,
   SimpleQueryString, ValueState, BoolShould, BoolMust,
   MultiMatchQuery
 } from "../../../"
 
-describe("SearchAccessor", ()=> {
+describe("QueryAccessor", ()=> {
 
   describe("prefix", () => {
 
     beforeEach(()=> {
-      this.accessor = new SearchAccessor("q", {
+      this.accessor = new QueryAccessor("q", {
         queryFields:["title^10", "keywords"],
         prefixQueryFields:["title^10", "keywords"]
       })
@@ -43,7 +43,7 @@ describe("SearchAccessor", ()=> {
 
   describe("queryOptions", () => {
     it("extend options", () => {
-      this.accessor = new SearchAccessor("q", {
+      this.accessor = new QueryAccessor("q", {
         queryFields:["_all"],
         queryOptions: {
           type:"best_fields",
@@ -68,7 +68,7 @@ describe("SearchAccessor", ()=> {
 
     beforeEach(() => {
       this.createAccessor = (fields) => {
-        this.accessor = new SearchAccessor("q", {
+        this.accessor = new QueryAccessor("q", {
           queryFields:fields
         })
       }
