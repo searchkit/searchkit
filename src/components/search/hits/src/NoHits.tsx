@@ -13,7 +13,7 @@ export interface NoHitsProps extends SearchkitComponentProps {
 }
 
 export class NoHits extends SearchkitComponent<NoHitsProps, any> {
-
+	accessor:NoFiltersHitCountAccessor
 	static translations = {
 		"NoHits.NoResultsFound":"No results found.",
 		"NoHits.DidYouMean":"Did you mean {suggestion}?",
@@ -58,7 +58,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	renderResetFilters() {
 		let hasFilters = this.getQuery().getSelectedFilters().length > 0
 		let query = this.searchkit.getQueryAccessor().getQueryString()
-		if (!hasFilters) return null
+		if (!hasFilters || this.accessor.getCount() == 0) return null
 		return (
 			<FastClick handler={this.resetFilters.bind(this)}>
 				<div className={this.bemBlocks.container("reset-filters")}>

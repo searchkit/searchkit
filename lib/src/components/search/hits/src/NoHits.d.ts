@@ -2,6 +2,7 @@ import { SearchkitComponent, SearchkitComponentProps, NoFiltersHitCountAccessor 
 export interface NoHitsProps extends SearchkitComponentProps {
 }
 export declare class NoHits extends SearchkitComponent<NoHitsProps, any> {
+    accessor: NoFiltersHitCountAccessor;
     static translations: {
         "NoHits.NoResultsFound": string;
         "NoHits.DidYouMean": string;
