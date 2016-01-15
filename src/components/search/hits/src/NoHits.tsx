@@ -15,9 +15,9 @@ export interface NoHitsProps extends SearchkitComponentProps {
 export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	accessor:NoFiltersHitCountAccessor
 	static translations = {
-		"NoHits.NoResultsFound":"No results found.",
+		"NoHits.NoResultsFound":"No results found for {query}.",
 		"NoHits.DidYouMean":"Did you mean {suggestion}?",
-		"NoHits.SearchWithoutFilters":"Search for {query} only."
+		"NoHits.SearchWithoutFilters":"Search for {query} only"
 	}
 	translations = NoHits.translations
 
@@ -76,18 +76,17 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	render() {
     if (this.hasHits() || this.isInitialLoading()) return null
 
-		let suggestions = _.compact([this.renderSuggestions(), this.renderResetFilters()])
+		let suggestions = _.compact([this.renderResetFilters(),this.renderSuggestions()])
+		let query = this.searchkit.getQueryAccessor().getQueryString()
 
 		if (suggestions.length == 2) {
 			suggestions.splice(1,0,<span key="or"> or </span>)
 		}
 
-		console.log(suggestions)
-
 		return (
 			<div data-qa="no-hits" className={this.bemBlocks.container()}>
 				<div className={this.bemBlocks.container("info")}>
-					{this.translate("NoHits.NoResultsFound")}
+					{this.translate("NoHits.NoResultsFound", {query:query})}
 				</div>
 				<div className={this.bemBlocks.container("steps")}>
 					{suggestions}
