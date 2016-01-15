@@ -7,14 +7,8 @@ export declare enum DIRECTION {
 }
 export declare class Pagination extends SearchkitComponent<PaginationProps, any> {
     accessor: PaginationAccessor;
-    static translations: {
-        "pagination.previous": string;
-        "pagination.next": string;
-    };
-    translations: {
-        "pagination.previous": string;
-        "pagination.next": string;
-    };
+    static translations: any;
+    translations: any;
     static propTypes: {};
     defineAccessor(): PaginationAccessor;
     defineBEMBlocks(): {

@@ -12,7 +12,7 @@ export interface HitsStatsProps extends SearchkitComponentProps {
 
 export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 
-	static translations = {
+	static translations:any = {
 		"ResultsFound":"results found"
 	}
 	translations = HitsStats.translations

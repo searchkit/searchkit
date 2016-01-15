@@ -15,7 +15,7 @@ export interface ResetFiltersProps extends SearchkitComponentProps {
 
 export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
 
-	static translations = {
+	static translations:any = {
 		"ClearAllFilters":"Clear all filters"
 	}
 	translations = ResetFilters.translations

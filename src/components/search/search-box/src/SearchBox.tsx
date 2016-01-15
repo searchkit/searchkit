@@ -23,7 +23,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 	accessor:SearchAccessor
 	lastSearchMs:number
 
-	static translations = {
+	static translations:any = {
 		"searchbox.placeholder":"Search"
 	}
 	translations = SearchBox.translations

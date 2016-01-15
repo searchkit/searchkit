@@ -21,7 +21,7 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
 	accessor:PaginationAccessor
 
 
-	static translations = {
+	static translations:any = {
 		"pagination.previous":"Previous",
 		"pagination.next":"Next"
 	}
