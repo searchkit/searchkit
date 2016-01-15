@@ -1,0 +1,16 @@
+import {Accessor} from "./Accessor";
+import {TopHitsMetric} from "../query"
+
+export class NoFiltersHitCountAccessor extends Accessor {
+  aggsKey = "no_filters_top_hits"
+
+  getCount(){
+    return this.getAggregations([this.aggsKey, "hits", "total"], 0)
+  }
+
+  buildOwnQuery(query){
+    return query.setAggs(TopHitsMetric(this.aggsKey,{
+      size:1, _source:false
+    }))
+  }
+}

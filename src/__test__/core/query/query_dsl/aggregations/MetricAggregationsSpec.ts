@@ -1,5 +1,5 @@
 import {
-  MinMetric, CardinalityMetric
+  MinMetric, CardinalityMetric, TopHitsMetric
 } from "../../../../../"
 
 describe("MetricAggregations", ()=> {
@@ -25,6 +25,19 @@ describe("MetricAggregations", ()=> {
       min_price:{
         min:{
           field:"prices"
+        }
+      }
+    })
+
+  })
+
+  it("TopHitsMetric", ()=> {
+    expect(TopHitsMetric("sometophits", {
+      size:1, _source:false
+    })).toEqual({
+      sometophits:{
+        top_hits:{
+          size:1, _source:false
         }
       }
     })

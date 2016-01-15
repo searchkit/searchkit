@@ -9,3 +9,4 @@ export * from "./HierarchicalFacetAccessor";
 export * from "./NumericOptionsAccessor";
 export * from "./SortingAccessor";
 export * from "./NestedFacetAccessor";
+export * from "./NoFiltersHitCountAccessor";

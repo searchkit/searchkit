@@ -11,3 +11,15 @@ export function MinMetric(key, field) {
     min: {field}
   })
 }
+
+export interface TopHitsMetricOptions{
+  size:number
+  from?:number
+  _source?:any
+  sort?:any
+  [prop:string]:any
+}
+
+export function TopHitsMetric(key, top_hits:TopHitsMetricOptions){
+  return AggsContainer(key,{top_hits})
+}
