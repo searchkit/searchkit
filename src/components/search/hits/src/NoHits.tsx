@@ -20,7 +20,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	}
 
 	render() {
-    if (this.hasHits()) return null
+    if (this.hasHits() || this.isInitialLoading()) return null
 
 		return (
 			<div data-qa="no-hits" className={this.bemBlocks.container()}>
