@@ -30,7 +30,7 @@ export class FacetAccessor extends StatefulAccessor<ArrayState> {
   size:number
   uuid:string
 
-  static translations = {
+  static translations:any = {
     "facets.view_more":"View more",
     "facets.view_less":"View less",
     "facets.view_all":"View all"
@@ -44,7 +44,7 @@ export class FacetAccessor extends StatefulAccessor<ArrayState> {
     this.options.facetsPerPage = this.options.facetsPerPage || 50
     this.size = this.defaultSize;
     if(options.translations){
-      _.extend(this.translations, options.translations)
+      this.translations = _.extend({}, this.translations, options.translations)
     }
   }
 
