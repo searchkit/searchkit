@@ -24,3 +24,20 @@ export class BaseQueryAccessor extends StatefulAccessor<ValueState> {
   }
 
 }
+
+export class NoopQueryAccessor extends BaseQueryAccessor {
+  keepOnlyQueryState(){
+    console.warn("keepOnlyQueryState called, No Query Accessor exists")
+  }
+
+  setQueryString(queryString, withReset=false){
+    console.warn("setQueryString called, No Query Accessor exists")
+  }
+
+  getQueryString(){
+    console.warn("getQueryString called, No Query Accessor exists")
+    return ""
+  }
+}
+
+export const noopQueryAccessor = new NoopQueryAccessor(null)

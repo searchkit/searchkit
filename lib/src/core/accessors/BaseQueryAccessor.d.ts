@@ -6,3 +6,9 @@ export declare class BaseQueryAccessor extends StatefulAccessor<ValueState> {
     setQueryString(queryString: any, withReset?: boolean): void;
     getQueryString(): string | number;
 }
+export declare class NoopQueryAccessor extends BaseQueryAccessor {
+    keepOnlyQueryState(): void;
+    setQueryString(queryString: any, withReset?: boolean): void;
+    getQueryString(): string;
+}
+export declare const noopQueryAccessor: NoopQueryAccessor;

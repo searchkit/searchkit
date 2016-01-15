@@ -1,4 +1,4 @@
-import {Accessor, StatefulAccessor, BaseQueryAccessor} from  "./accessors"
+import {Accessor, StatefulAccessor, BaseQueryAccessor, noopQueryAccessor} from  "./accessors"
 import {Utils} from "./support"
 import * as _ from "lodash"
 
@@ -12,7 +12,7 @@ export class AccessorManager {
 
   constructor() {
     this.accessors = []
-    this.queryAccessor = null
+    this.queryAccessor = noopQueryAccessor
     this.statefulAccessors = {}
   }
 
@@ -31,7 +31,7 @@ export class AccessorManager {
   add(accessor){
     if(accessor instanceof StatefulAccessor){
       if(accessor instanceof BaseQueryAccessor){
-        if(this.queryAccessor){
+        if(this.queryAccessor !== noopQueryAccessor){
           throw new Error("Only a single instance of BaseQueryAccessor is allowed")
         } else {
           this.queryAccessor = accessor

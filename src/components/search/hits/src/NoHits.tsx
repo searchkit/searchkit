@@ -51,11 +51,8 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	}
 
 	resetFilters() {
-		let queryAccessor = this.searchkit.getQueryAccessor()
-		if(queryAccessor){
-			queryAccessor.keepOnlyQueryState()
-			this.searchkit.performSearch(true)
-		}
+		this.searchkit.getQueryAccessor().keepOnlyQueryState()
+		this.searchkit.performSearch()
 	}
 
 	renderResetFilters() {
@@ -71,12 +68,8 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	}
 
 	setQueryString(query) {
-		let queryAccessor = this.searchkit.getQueryAccessor()
-		if(queryAccessor){
-			queryAccessor.setQueryString(query)
-			this.searchkit.performSearch(true)
-		}
-
+		this.searchkit.getQueryAccessor().setQueryString(query)
+		this.searchkit.performSearch(true)
 	}
 
 	render() {
