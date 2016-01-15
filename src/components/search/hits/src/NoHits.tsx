@@ -19,9 +19,9 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	suggestionsAccessor:SuggestionsAccessor
 
 	static translations = {
-		"NoHits.NoResultsFound":"No results found.",
+		"NoHits.NoResultsFound":"No results found for {query}.",
 		"NoHits.DidYouMean":"Did you mean {suggestion}?",
-		"NoHits.SearchWithoutFilters":"Search for {query} without filters."
+		"NoHits.SearchWithoutFilters":"Search for {query} only"
 	}
 	translations = NoHits.translations
 
@@ -67,13 +67,13 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 		return null
 	}
 
-	resetFilters() {
-		this.searchkit.getQueryAccessor().keepOnlyQueryState()
+	setQueryString(query) {
+		this.searchkit.getQueryAccessor().setQueryString(query)
 		this.searchkit.performSearch(true)
 	}
 
-	setQueryString(query) {
-		this.searchkit.getQueryAccessor().setQueryString(query)
+	resetFilters() {
+		this.searchkit.getQueryAccessor().keepOnlyQueryState()
 		this.searchkit.performSearch(true)
 	}
 
@@ -95,14 +95,22 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 
 
 	render() {
-    if (this.hasHits() || this.isInitialLoading()) return null
+    if (this.hasHits() || this.isInitialLoading() || this.isLoading()) return null
+
+		let suggestions = _.compact([this.renderResetFilters(),this.renderSuggestions()])
+		let query = this.searchkit.getQueryAccessor().getQueryString()
+
+		if (suggestions.length == 2) {
+			suggestions.splice(1,0,<span key="or"> or </span>)
+		}
 
 		return (
 			<div data-qa="no-hits" className={this.bemBlocks.container()}>
 				<div className={this.bemBlocks.container("info")}>
-					{this.translate("NoHits.NoResultsFound")}
-					{this.renderSuggestions()}
-					{this.renderResetFilters()}
+					{this.translate("NoHits.NoResultsFound", {query:query})}
+				</div>
+				<div className={this.bemBlocks.container("steps")}>
+					{suggestions}
 				</div>
       </div>
 		);

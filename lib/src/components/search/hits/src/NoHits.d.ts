@@ -21,8 +21,8 @@ export declare class NoHits extends SearchkitComponent<NoHitsProps, any> {
         container: string;
     };
     renderSuggestions(): JSX.Element;
-    resetFilters(): void;
     setQueryString(query: any): void;
+    resetFilters(): void;
     renderResetFilters(): JSX.Element;
     render(): JSX.Element;
 }
