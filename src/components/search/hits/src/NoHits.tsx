@@ -98,7 +98,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
     if (this.hasHits() || this.isInitialLoading() || this.isLoading()) return null
 
 		let suggestions = _.compact([this.renderResetFilters(),this.renderSuggestions()])
-		let query = this.searchkit.getQueryAccessor().getQueryString()
+		let query = this.getQuery().getQueryString()
 
 		if (suggestions.length == 2) {
 			suggestions.splice(1,0,<span key="or"> or </span>)
