@@ -34,6 +34,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 
 	renderSuggestions() {
 		let firstSuggestion = _.get(this.searchkit.getSuggestions(), [0,"options", 0, "text"], false)
+		if (!firstSuggestion) return null
 		return (
 			<FastClick handler={this.updateQueryString.bind(this,firstSuggestion)}>
 				<div className={this.bemBlocks.container("suggestion")}>
