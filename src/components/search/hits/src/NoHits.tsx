@@ -5,7 +5,8 @@ import "../styles/no-hits.scss";
 import {
 	SearchkitComponent,
 	SearchkitComponentProps,
-	FastClick
+	FastClick,
+	NoFiltersHitCountAccessor
 } from "../../../../core"
 
 export interface NoHitsProps extends SearchkitComponentProps {
@@ -14,8 +15,9 @@ export interface NoHitsProps extends SearchkitComponentProps {
 export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 
 	static translations = {
-		"NoHits.NoResultsFound":"No results found",
-		"NoHits.DidYouMean":"Did you mean {suggestion}?"
+		"NoHits.NoResultsFound":"No results found.",
+		"NoHits.DidYouMean":"Did you mean {suggestion}?",
+		"NoHits.SearchWithoutFilters":"Search for {query} without filters."
 	}
 	translations = NoHits.translations
 
@@ -24,6 +26,10 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 			NoHits.translations
 		)
 	}, SearchkitComponent.propTypes)
+
+	defineAccessor(){
+		return new NoFiltersHitCountAccessor()
+	}
 
 	defineBEMBlocks() {
 		let block = (this.props.mod || "no-hits")
@@ -44,6 +50,23 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 		)
 	}
 
+	resetFilters() {
+		this.searchkit.resetFilters()
+		this.searchkit.performSearch()
+	}
+
+	renderResetFilters() {
+		let hasFilters = this.getQuery().getSelectedFilters().length > 0
+		if (!hasFilters) return null
+		return (
+			<FastClick handler={this.resetFilters.bind(this)}>
+				<div className={this.bemBlocks.container("reset-filters")}>
+					{this.translate("NoHits.SearchWithoutFilters",{query:"f"})}
+				</div>
+			</FastClick>
+		)
+	}
+
 	setQueryString(query) {
 		this.searchkit.setQueryString(query)
 		this.searchkit.performSearch(true)
@@ -57,6 +80,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 				<div className={this.bemBlocks.container("info")}>
 					{this.translate("NoHits.NoResultsFound")}
 					{this.renderSuggestions()}
+					{this.renderResetFilters()}
 				</div>
       </div>
 		);

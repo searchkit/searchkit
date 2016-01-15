@@ -72,7 +72,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 	}
 
 	searchQuery(query) {
-		this.searchkit.resetState()
+		// this.searchkit.resetState()
 		this.accessor.state = this.accessor.state.setValue(query)
 		let now = +new Date
 		let newSearch = now - this.lastSearchMs <= 2000
