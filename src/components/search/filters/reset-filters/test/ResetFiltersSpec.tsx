@@ -10,15 +10,10 @@ describe("Reset Filter tests", () => {
   beforeEach(() => {
 
     this.searchkit = new SearchkitManager("localhost:9200", {useHistory:true})
-    this.searchkit.translateFunction = (key)=> {
-      return {
-        "ClearAllFilters":"reset filters"
-      }[key]
-    }
 
     this.createWrapper = () => {
       this.wrapper = mount(
-        <ResetFilters searchkit={this.searchkit} />
+        <ResetFilters searchkit={this.searchkit} translations={{"reset.clear_all":"reset filters"}}/>
       );
     }
 

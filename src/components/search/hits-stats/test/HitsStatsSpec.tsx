@@ -11,7 +11,7 @@ describe("HitsStats tests", () => {
     this.createWrapper = () => {
 
       this.wrapper = mount(
-        <HitsStats searchkit={this.searchkit} translations={{"ResultsFound":"movies found"}} />
+        <HitsStats searchkit={this.searchkit} translations={{"hitstats.results_found":"movies found"}} />
       );
 
     }

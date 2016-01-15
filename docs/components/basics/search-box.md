@@ -30,5 +30,8 @@ class App extends SearchkitComponent<any, any> {
 - `mod` *(string)*: Optional. A custom BEM container class.
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/translate.md) page.
 
+## Translations
+- `searchbox.placeholder` - "Search"
+
 ## Demo
 [](codepen://searchkit/zrNrGW?height=800&theme=0)
