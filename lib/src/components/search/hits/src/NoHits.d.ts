@@ -1,8 +1,10 @@
-import { SearchkitComponent, SearchkitComponentProps, NoFiltersHitCountAccessor } from "../../../../core";
+import { SearchkitComponent, SearchkitComponentProps, NoFiltersHitCountAccessor, SuggestionsAccessor } from "../../../../core";
 export interface NoHitsProps extends SearchkitComponentProps {
+    suggestionsField?: string;
 }
 export declare class NoHits extends SearchkitComponent<NoHitsProps, any> {
-    accessor: NoFiltersHitCountAccessor;
+    noFiltersAccessor: NoFiltersHitCountAccessor;
+    suggestionsAccessor: SuggestionsAccessor;
     static translations: {
         "NoHits.NoResultsFound": string;
         "NoHits.DidYouMean": string;
@@ -14,13 +16,13 @@ export declare class NoHits extends SearchkitComponent<NoHitsProps, any> {
         "NoHits.SearchWithoutFilters": string;
     };
     static propTypes: {};
-    defineAccessor(): NoFiltersHitCountAccessor;
+    componentWillMount(): void;
     defineBEMBlocks(): {
         container: string;
     };
     renderSuggestions(): JSX.Element;
     resetFilters(): void;
-    renderResetFilters(): JSX.Element;
     setQueryString(query: any): void;
+    renderResetFilters(): JSX.Element;
     render(): JSX.Element;
 }

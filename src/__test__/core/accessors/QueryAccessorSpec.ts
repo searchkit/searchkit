@@ -30,6 +30,7 @@ describe("QueryAccessor", ()=> {
           ])
         ])
       )
+      expect(query.getQueryString()).toBe("some query")
     })
 
     it("buildSharedQuery() - empty query", ()=> {

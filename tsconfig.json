@@ -105,6 +105,7 @@
     "./src/core/accessors/QueryAccessor.ts",
     "./src/core/accessors/SortingAccessor.ts",
     "./src/core/accessors/StatefulAccessor.ts",
+    "./src/core/accessors/SuggestionsAccessor.ts",
     "./src/core/history.ts",
     "./src/core/index.ts",
     "./src/core/query/ImmutableQuery.ts",

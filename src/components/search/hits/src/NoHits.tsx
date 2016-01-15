@@ -6,14 +6,18 @@ import {
 	SearchkitComponent,
 	SearchkitComponentProps,
 	FastClick,
-	NoFiltersHitCountAccessor
+	NoFiltersHitCountAccessor,
+	SuggestionsAccessor
 } from "../../../../core"
 
 export interface NoHitsProps extends SearchkitComponentProps {
+	suggestionsField?:string
 }
 
 export class NoHits extends SearchkitComponent<NoHitsProps, any> {
-	accessor:NoFiltersHitCountAccessor
+	noFiltersAccessor:NoFiltersHitCountAccessor
+	suggestionsAccessor:SuggestionsAccessor
+
 	static translations = {
 		"NoHits.NoResultsFound":"No results found.",
 		"NoHits.DidYouMean":"Did you mean {suggestion}?",
@@ -22,13 +26,22 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	translations = NoHits.translations
 
 	static propTypes = _.defaults({
+		suggestionsField:React.PropTypes.string,
 		translations:SearchkitComponent.translationsPropType(
 			NoHits.translations
 		)
 	}, SearchkitComponent.propTypes)
 
-	defineAccessor(){
-		return new NoFiltersHitCountAccessor()
+	componentWillMount(){
+		super.componentWillMount()
+		this.noFiltersAccessor = this.searchkit.addAccessor(
+			new NoFiltersHitCountAccessor()
+		)
+		if(this.props.suggestionsField){
+			this.suggestionsAccessor = this.searchkit.addAccessor(
+				new SuggestionsAccessor(this.props.suggestionsField)
+			)
+		}
 	}
 
 	defineBEMBlocks() {
@@ -39,15 +52,19 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	}
 
 	renderSuggestions() {
-		let firstSuggestion = _.get(this.searchkit.getSuggestions(), [0,"options", 0, "text"], false)
-		if (!firstSuggestion) return null
-		return (
-			<FastClick handler={this.setQueryString.bind(this,firstSuggestion)}>
-				<div className={this.bemBlocks.container("suggestion")}>
-					{this.translate("NoHits.DidYouMean", {suggestion:firstSuggestion})}
-				</div>
-			</FastClick>
-		)
+		if(this.suggestionsAccessor){
+			let suggestion = this.suggestionsAccessor.getSuggestion()
+			if(suggestion){
+				return (
+					<FastClick handler={this.setQueryString.bind(this,suggestion)}>
+						<div className={this.bemBlocks.container("suggestion")}>
+							{this.translate("NoHits.DidYouMean", {suggestion})}
+						</div>
+					</FastClick>
+				)
+			}
+		}
+		return null
 	}
 
 	resetFilters() {
@@ -55,23 +72,27 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 		this.searchkit.performSearch(true)
 	}
 
-	renderResetFilters() {
-		let hasFilters = this.getQuery().getSelectedFilters().length > 0
-		let query = this.searchkit.getQueryAccessor().getQueryString()
-		if (!hasFilters || this.accessor.getCount() == 0) return null
-		return (
-			<FastClick handler={this.resetFilters.bind(this)}>
-				<div className={this.bemBlocks.container("reset-filters")}>
-					{this.translate("NoHits.SearchWithoutFilters",{query})}
-				</div>
-			</FastClick>
-		)
-	}
-
 	setQueryString(query) {
 		this.searchkit.getQueryAccessor().setQueryString(query)
 		this.searchkit.performSearch(true)
 	}
+
+	renderResetFilters() {
+		if(this.noFiltersAccessor){
+			if(this.noFiltersAccessor.getCount() > 0){
+				let query = this.getQuery().getQueryString()
+				return (
+					<FastClick handler={this.resetFilters.bind(this)}>
+						<div className={this.bemBlocks.container("reset-filters")}>
+							{this.translate("NoHits.SearchWithoutFilters",{query})}
+						</div>
+					</FastClick>
+				)
+			}
+		}
+		return null
+	}
+
 
 	render() {
     if (this.hasHits() || this.isInitialLoading()) return null

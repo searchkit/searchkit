@@ -11,3 +11,4 @@ export * from "./SortingAccessor";
 export * from "./NestedFacetAccessor";
 export * from "./NoFiltersHitCountAccessor";
 export * from "./BaseQueryAccessor";
+export * from "./SuggestionsAccessor";

@@ -8,6 +8,8 @@ export declare class ImmutableQuery {
     hasFilters(): boolean;
     hasFiltersOrQuery(): boolean;
     addQuery(query: any): ImmutableQuery;
+    setQueryString(queryString: any): ImmutableQuery;
+    getQueryString(): any;
     addSelectedFilter(selectedFilter: SelectedFilter): ImmutableQuery;
     addSelectedFilters(selectedFilters: Array<SelectedFilter>): ImmutableQuery;
     getSelectedFilters(): any;

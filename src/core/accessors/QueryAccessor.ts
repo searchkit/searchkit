@@ -9,7 +9,6 @@ export interface SearchOptions {
   queryFields?:Array<string>
   prefixQueryFields?:Array<string>
   queryOptions?:any
-  disableSuggestions?:boolean
 }
 export class QueryAccessor extends BaseQueryAccessor {
   options:SearchOptions
@@ -40,31 +39,10 @@ export class QueryAccessor extends BaseQueryAccessor {
         }))
       }
       return query.addQuery(BoolShould(queries))
+        .setQueryString(queryStr)
     }
     return query
 
-  }
-
-  buildOwnQuery(query) {
-    let queryText = this.state.getValue()
-    if (!queryText || this.options.disableSuggestions) return query;
-
-    return query.setSuggestions({
-      text:queryText,
-			suggestions:{
-				phrase: {
-					field:"title",
-					real_word_error_likelihood : 0.95,
-					max_errors : 1,
-					gram_size : 4,
-					direct_generator : [{
-						field : "_all",
-						suggest_mode : "always",
-						min_word_length : 1
-					}]
-				}
-			}
-    })
   }
 
 }

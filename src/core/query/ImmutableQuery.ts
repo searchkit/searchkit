@@ -8,6 +8,7 @@ export class ImmutableQuery {
   index: any
   query: any
   static defaultIndex:any = {
+    queryString:"",
     filtersMap:{},
     selectedFilters:[],
     queries:[],
@@ -52,6 +53,14 @@ export class ImmutableQuery {
     return this.update({
       queries:{ $push: [query] }
     })
+  }
+
+  setQueryString(queryString){
+    return this.update({ $merge: { queryString} })
+  }
+
+  getQueryString(){
+    return this.index.queryString
   }
 
   addSelectedFilter(selectedFilter:SelectedFilter){

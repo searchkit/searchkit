@@ -39,7 +39,7 @@ export class Accessor {
   setResults(results){
     this.results = results
   }
-
+  
   getAggregations(path, defaultValue){
     const results = this.getResults()
     const getPath = ['aggregations',...path]

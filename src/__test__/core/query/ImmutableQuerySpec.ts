@@ -34,6 +34,7 @@ describe("ImmutableQuery", ()=> {
       size:0
     })
     expect(this.query.index).toEqual({
+      queryString:"",
       filtersMap:{},
       filters:[],
       selectedFilters:[],
@@ -68,6 +69,16 @@ describe("ImmutableQuery", ()=> {
     let unchangedQuery = new ImmutableQuery()
     expect(unchangedQuery.addQuery(null))
       .toBe(unchangedQuery)
+  })
+
+  it("setQueryString()", ()=> {
+    let query = this.query.setQueryString("foo")
+    expect(query.index.queryString).toBe("foo")
+  })
+
+  it("getQueryString()", ()=> {
+    let query = this.query.setQueryString("foo")
+    expect(query.getQueryString()).toBe("foo")
   })
 
   it("addAnonymousFilter()", ()=> {

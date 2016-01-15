@@ -34,7 +34,7 @@ describe("NoFiltersHitCountAccessor", ()=> {
   it("buildOwnQuery()", ()=> {
     let query = new ImmutableQuery().addSelectedFilter({
       id:"test", name:"test", value:"val", remove:_.identity
-    })
+    }).setQueryString("foo")
     let newQuery = this.accessor.buildOwnQuery(query)
     expect(newQuery).not.toBe(query)
     expect(newQuery.query.aggs)
