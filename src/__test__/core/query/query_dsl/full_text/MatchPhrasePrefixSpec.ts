@@ -3,7 +3,7 @@ import {
 } from "../../../../../"
 
 
-fdescribe("MatchPhrasePrefix", ()=> {
+describe("MatchPhrasePrefix", ()=> {
 
 
   it("empty string", ()=> {
