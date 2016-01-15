@@ -15,6 +15,6 @@ export declare class NoHits extends SearchkitComponent<NoHitsProps, any> {
         container: string;
     };
     renderSuggestions(): JSX.Element;
-    updateQueryString(queryString: any): void;
+    setQueryString(query: any): void;
     render(): JSX.Element;
 }
