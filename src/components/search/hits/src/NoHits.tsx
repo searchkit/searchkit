@@ -4,23 +4,19 @@ import "../styles/no-hits.scss";
 
 import {
 	SearchkitComponent,
-	SearchkitComponentProps
+	SearchkitComponentProps,
+	FastClick
 } from "../../../../core"
 
 export interface NoHitsProps extends SearchkitComponentProps {
 }
 
 export class NoHits extends SearchkitComponent<NoHitsProps, any> {
-	static translations:any = {
-		"nohits.no_results":"no results found"
-	}
-	translations = NoHits.translations
 
-	static propTypes = _.defaults({
-		translations:SearchkitComponent.translationsPropType(
-			NoHits.translations
-		)
-	}, SearchkitComponent.propTypes)
+	static translations = {
+		"NoHits.NoResultsFound":"No results found",
+		"NoHits.DidYouMean":"Did you mean {{suggestion}}?"
+	}
 
 	defineBEMBlocks() {
 		let block = (this.props.mod || "no-hits")
@@ -29,12 +25,28 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 		}
 	}
 
+	renderSuggestions() {
+		let firstSuggestion = _.get(this.searchkit.getSuggestions(), [0,"options", 0, "text"], false)
+		return (
+			<div className={this.bemBlocks.container("suggestion")}>
+				<FastClick handler={this.updateQueryString(firstSuggestion)}>
+					{this.translate("NoHits.DidYouMean", {suggestion:firstSuggestion})}
+				</FastClick>
+			</div>
+		)
+	}
+
+	updateQueryString(queryString) {
+		
+	}
+
 	render() {
     if (this.hasHits() || this.isInitialLoading()) return null
 
 		return (
 			<div data-qa="no-hits" className={this.bemBlocks.container()}>
-				{this.translate("nohits.no_results")}
+				<div className={this.bemBlocks.container("info")}>{this.translate("NoHits.NoResultsFound")}</div>
+				{this.renderSuggestions()}
       </div>
 		);
 	}

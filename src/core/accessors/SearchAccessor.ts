@@ -46,4 +46,26 @@ export class SearchAccessor extends StatefulAccessor<ValueState> {
 
   }
 
+  buildOwnQuery(query) {
+    let queryText = this.state.getValue()
+    if (!queryText) return query;
+
+    return query.setSuggestions({
+      text:queryText,
+			suggestions:{
+				phrase: {
+					field:"title",
+					real_word_error_likelihood : 0.95,
+					max_errors : 1,
+					gram_size : 4,
+					direct_generator : [{
+						field : "_all",
+						suggest_mode : "always",
+						min_word_length : 1
+					}]
+				}
+			}
+    })
+  }
+
 }
