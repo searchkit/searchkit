@@ -81,6 +81,9 @@ describe("AccessorManager", ()=> {
     let queryAccessor = new QueryAccessor("q")
     expect(accessors.add(queryAccessor)).toBe(queryAccessor)
     expect(accessors.getQueryAccessor()).toBe(queryAccessor)
+    expect(()=>accessors.add(queryAccessor)).toThrow(
+      new Error("Only a single instance of BaseQueryAccessor is allowed")
+    )
   })
 
   it("getState()", ()=> {
@@ -110,23 +113,6 @@ describe("AccessorManager", ()=> {
     expect(PaginationAccessor.prototype.onStateChange["calls"].count())
       .toBe(4)
   })
-
-  // it("setQueryString()", ()=> {
-  //   let queryAccessor = new QueryAccessor("s")
-  //   let accessorManager = new AccessorManager()
-  //   accessorManager.add(queryAccessor)
-  //   accessorManager.setQueryString("foo")
-  //   expect(queryAccessor.state.getValue()).toBe('foo')
-  // })
-  //
-  // it("resetFilters()", ()=> {
-  //   let facetAccessor = new FacetAccessor("f", {size:10})
-  //   facetAccessor.state.setValue(["foo", "bar"])
-  //   let accessorManager = new AccessorManager()
-  //   accessorManager.add(facetAccessor)
-  //   accessorManager.resetFilters()
-  //   expect(facetAccessor.state.getValue()).toEqual([])
-  // })
 
   it("buildSharedQuery()", ()=> {
     let query = new ImmutableQuery()

@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {SelectedFilters} from "../src/SelectedFilters.tsx";
-import {SearchkitManager } from "../../../../../core";
+import {SearchkitManager, ImmutableQuery } from "../../../../../core";
 const bem = require("bem-cn");
 import * as _ from "lodash";
 import * as sinon from "sinon";
@@ -41,19 +41,19 @@ describe("SelectedFilters tests", () => {
 
     this.sinonSpy = sinon.spy();
 
-    this.searchkit.query.getSelectedFilters = () => {
-      return [
-        {
-          name:"test name",
-          value:"test value",
-          remove: this.sinonSpy
-        },
-        {
-          name:"test name 2",
-          value:"test value 2"
-        }
-      ]
-    }
+    this.searchkit.query = new ImmutableQuery()
+      .addSelectedFilter({
+        id:"test",
+        name:"test name",
+        value:"test value",
+        remove: this.sinonSpy
+      }).addSelectedFilter({
+        id:"test2",
+        name:"test name 2",
+        value:"test value 2",
+        remove:_.identity
+      })
+
 
   });
 
