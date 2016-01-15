@@ -17,7 +17,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	static translations = {
 		"NoHits.NoResultsFound":"No results found.",
 		"NoHits.DidYouMean":"Did you mean {suggestion}?",
-		"NoHits.SearchWithoutFilters":"Search for {query} without filters."
+		"NoHits.SearchWithoutFilters":"Search for {query} only."
 	}
 	translations = NoHits.translations
 
