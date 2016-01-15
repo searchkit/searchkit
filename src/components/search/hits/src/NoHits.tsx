@@ -68,7 +68,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	}
 
 	setQueryString(query) {
-		this.searchkit.getQueryAccessor().setQueryString(query)
+		this.searchkit.getQueryAccessor().setQueryString(query, true)
 		this.searchkit.performSearch(true)
 	}
 
