@@ -1,4 +1,5 @@
 import { ImmutableQuery } from "./query";
+import { BaseQueryAccessor } from "./accessors";
 import { AccessorManager } from "./AccessorManager";
 import { ESTransport } from "./transport";
 import { SearchRequest } from "./SearchRequest";
@@ -47,8 +48,7 @@ export declare class SearchkitManager {
     getHits(): any[];
     getHitsCount(): number;
     getSuggestions(): {};
-    setQueryString(query: any): void;
-    resetFilters(): void;
+    getQueryAccessor(): BaseQueryAccessor;
     hasHits(): boolean;
     setError(error: any): void;
     onResponseChange(): void;

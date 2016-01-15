@@ -1,5 +1,5 @@
 import {ImmutableQuery} from "./query";
-import {Accessor} from "./accessors/Accessor"
+import {Accessor, BaseQueryAccessor} from "./accessors"
 import {AccessorManager} from "./AccessorManager"
 import {createHistory} from "./history";
 import {ESTransport, AxiosESTransport} from "./transport";
@@ -159,12 +159,8 @@ export class SearchkitManager {
     return _.get(this.results,["suggest", "suggestions"], {})
   }
 
-  setQueryString(query){
-    this.accessors.setQueryString(query)
-  }
-
-  resetFilters(){
-    this.accessors.resetFilters()
+  getQueryAccessor(): BaseQueryAccessor{
+    return this.accessors.queryAccessor
   }
 
   hasHits(){

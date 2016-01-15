@@ -76,6 +76,12 @@ describe("AccessorManager", ()=> {
       .toEqual([this.accessor4])
   })
 
+  it("add() - QueryAccessor", ()=> {
+    let accessors = new AccessorManager()
+    let queryAccessor = new QueryAccessor("q")
+    expect(accessors.add(queryAccessor)).toBe(queryAccessor)
+    expect(accessors.getQueryAccessor()).toBe(queryAccessor)
+  })
 
   it("getState()", ()=> {
     this.accessor1.state = new ValueState("a1state")
@@ -105,22 +111,22 @@ describe("AccessorManager", ()=> {
       .toBe(4)
   })
 
-  it("setQueryString()", ()=> {
-    let queryAccessor = new QueryAccessor("s")
-    let accessorManager = new AccessorManager()
-    accessorManager.add(queryAccessor)
-    accessorManager.setQueryString("foo")
-    expect(queryAccessor.state.getValue()).toBe('foo')
-  })
-
-  it("resetFilters()", ()=> {
-    let facetAccessor = new FacetAccessor("f", {size:10})
-    facetAccessor.state.setValue(["foo", "bar"])
-    let accessorManager = new AccessorManager()
-    accessorManager.add(facetAccessor)
-    accessorManager.resetFilters()
-    expect(facetAccessor.state.getValue()).toEqual([])
-  })
+  // it("setQueryString()", ()=> {
+  //   let queryAccessor = new QueryAccessor("s")
+  //   let accessorManager = new AccessorManager()
+  //   accessorManager.add(queryAccessor)
+  //   accessorManager.setQueryString("foo")
+  //   expect(queryAccessor.state.getValue()).toBe('foo')
+  // })
+  //
+  // it("resetFilters()", ()=> {
+  //   let facetAccessor = new FacetAccessor("f", {size:10})
+  //   facetAccessor.state.setValue(["foo", "bar"])
+  //   let accessorManager = new AccessorManager()
+  //   accessorManager.add(facetAccessor)
+  //   accessorManager.resetFilters()
+  //   expect(facetAccessor.state.getValue()).toEqual([])
+  // })
 
   it("buildSharedQuery()", ()=> {
     let query = new ImmutableQuery()
