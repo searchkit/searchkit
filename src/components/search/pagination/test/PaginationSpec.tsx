@@ -68,7 +68,14 @@ describe("Pagination tests", () => {
     it("renders no pagination on no results", () => {
       this.searchkit.setResults({hits:{total:0}})
       this.createWrapper()
-      expect(this.wrapper.find("pagination-navigation").length).toBe(0)
+      expect(this.wrapper.find(".pagination-navigation").length).toBe(0)
+    })
+
+    it("both disabled on only one total page", () => {
+      this.searchkit.setResults({hits:{total:10}})
+      this.createWrapper()
+      expect(this.wrapper.find(".pagination-navigation").length).toBe(1)
+      this.checkActionStates(1, true, true)
     })
 
   });
