@@ -65,6 +65,9 @@ describe("ImmutableQuery", ()=> {
     expect(query.query.query).toEqual(
       SimpleQueryString("foo")
     )
+    let unchangedQuery = new ImmutableQuery()
+    expect(unchangedQuery.addQuery(null))
+      .toBe(unchangedQuery)
   })
 
   it("addAnonymousFilter()", ()=> {
