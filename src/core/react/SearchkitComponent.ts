@@ -2,6 +2,7 @@ import * as React from "react"
 import {SearchkitManager} from "../SearchkitManager";
 import {ImmutableQuery} from "../query"
 import {Accessor} from "../accessors/Accessor"
+import {Utils} from "../support"
 var block = require('bem-cn');
 
 export interface SearchkitComponentProps {
@@ -54,13 +55,12 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
     return null
   }
 
-  translate(key){
-    return (
+  translate(key, interpolations?){
+    let translation = (
       (this.searchkit.translate(key)) ||
       (this.props.translations && this.props.translations[key]) ||
-      this.translations[key] ||
-      key
-    )
+      this.translations[key] || key)
+    return Utils.translate(translation, interpolations)
   }
 
   componentWillMount(){

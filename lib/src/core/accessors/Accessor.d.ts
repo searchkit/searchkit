@@ -9,7 +9,7 @@ export declare class Accessor {
     constructor();
     setActive(active: boolean): Accessor;
     setSearchkitManager(searchkit: any): void;
-    translate(key: any): any;
+    translate(key: any, interpolations?: any): any;
     getResults(): any;
     setResults(results: any): void;
     getAggregations(path: any, defaultValue: any): any;

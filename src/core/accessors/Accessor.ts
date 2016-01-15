@@ -24,12 +24,12 @@ export class Accessor {
   }
 
 
-  translate(key){
-    return (
+  translate(key, interpolations?){
+    let translation = (
       (this.searchkit && this.searchkit.translate(key)) ||
        this.translations[key] ||
-       key
-    )
+       key)
+    return Utils.translate(translation, interpolations)
   }
 
   getResults(){
