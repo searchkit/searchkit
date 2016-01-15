@@ -12,6 +12,8 @@ export declare class Accessor {
     translate(key: any, interpolations?: any): any;
     getResults(): any;
     setResults(results: any): void;
+    onQueryStringChange(queryStr: any): void;
+    onResetFilters(): void;
     getAggregations(path: any, defaultValue: any): any;
     buildSharedQuery(query: ImmutableQuery): ImmutableQuery;
     buildOwnQuery(query: ImmutableQuery): ImmutableQuery;

@@ -10,6 +10,8 @@ export declare class AccessorManager {
     getState(): {};
     setState(state: any): void;
     notifyStateChange(oldState: any): void;
+    setQueryString(query: any): void;
+    resetFilters(): void;
     buildSharedQuery(query: any): any;
     buildOwnQuery(query: any): any;
     buildQuery(query: any): any;

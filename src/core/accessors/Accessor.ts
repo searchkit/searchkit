@@ -40,6 +40,14 @@ export class Accessor {
     this.results = results
   }
 
+  onQueryStringChange(queryStr){
+
+  }
+
+  onResetFilters(){
+
+  }
+
   getAggregations(path, defaultValue){
     const results = this.getResults()
     const getPath = ['aggregations',...path]

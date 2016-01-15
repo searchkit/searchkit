@@ -159,6 +159,14 @@ export class SearchkitManager {
     return _.get(this.results,["suggest", "suggestions"], {})
   }
 
+  setQueryString(query){
+    this.accessors.setQueryString(query)
+  }
+
+  resetFilters(){
+    this.accessors.resetFilters()
+  }
+
   hasHits(){
     return this.getHitsCount() > 0
   }

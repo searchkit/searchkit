@@ -47,6 +47,8 @@ export declare class SearchkitManager {
     getHits(): any[];
     getHitsCount(): number;
     getSuggestions(): {};
+    setQueryString(query: any): void;
+    resetFilters(): void;
     hasHits(): boolean;
     setError(error: any): void;
     onResponseChange(): void;

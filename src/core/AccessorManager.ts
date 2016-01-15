@@ -57,6 +57,19 @@ export class AccessorManager {
     )
   }
 
+  setQueryString(query){
+    _.each(
+      this.getActiveAccessors(),
+      a => a.onQueryStringChange(query)
+    )
+  }
+  resetFilters(){
+    _.each(
+      this.getActiveAccessors(),
+      a => a.onResetFilters()
+    )
+  }
+
   buildSharedQuery(query){
     return _.reduce(this.getActiveAccessors(), (query, accessor)=>{
       return accessor.buildSharedQuery(query)

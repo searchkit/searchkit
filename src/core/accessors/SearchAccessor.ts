@@ -21,6 +21,10 @@ export class SearchAccessor extends StatefulAccessor<ValueState> {
     this.options.queryFields = this.options.queryFields || ["_all"]
   }
 
+  onQueryStringChange(queryString){
+    this.state = this.state.setValue(queryString)
+  }
+
   buildSharedQuery(query){
     let queryStr = this.state.getValue()
     if(queryStr){

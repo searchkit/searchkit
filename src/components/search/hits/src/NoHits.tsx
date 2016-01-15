@@ -35,7 +35,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	renderSuggestions() {
 		let firstSuggestion = _.get(this.searchkit.getSuggestions(), [0,"options", 0, "text"], false)
 		return (
-			<FastClick handler={this.updateQueryString(firstSuggestion)}>
+			<FastClick handler={this.updateQueryString.bind(this,firstSuggestion)}>
 				<div className={this.bemBlocks.container("suggestion")}>
 					{this.translate("NoHits.DidYouMean", {suggestion:firstSuggestion})}
 				</div>
@@ -44,7 +44,8 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	}
 
 	updateQueryString(queryString) {
-
+		this.searchkit.setQueryString(queryString)
+		this.searchkit.performSearch()
 	}
 
 	render() {
