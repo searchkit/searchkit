@@ -46,6 +46,7 @@ export declare class SearchkitManager {
     setResults(results: any): void;
     getHits(): any[];
     getHitsCount(): number;
+    getSuggestions(): {};
     hasHits(): boolean;
     setError(error: any): void;
     onResponseChange(): void;

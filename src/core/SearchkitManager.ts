@@ -155,6 +155,10 @@ export class SearchkitManager {
     return _.get(this.results, ["hits", "total"], 0)
   }
 
+  getSuggestions() {
+    return _.get(this.results,["suggest", "suggestions"], {})
+  }
+
   hasHits(){
     return this.getHitsCount() > 0
   }
