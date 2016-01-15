@@ -4,6 +4,8 @@ import {
   TopHitsMetric
 } from "../../../"
 
+import * as _ from "lodash"
+
 describe("NoFiltersHitCountAccessor", ()=> {
 
   beforeEach(()=> {
@@ -24,9 +26,18 @@ describe("NoFiltersHitCountAccessor", ()=> {
     expect(this.accessor.getCount()).toBe(2)
   })
 
+  it("buildOwnQuery() - with no filters", ()=> {
+    let query = new ImmutableQuery()
+    expect(this.accessor.buildOwnQuery(query)).toBe(query)
+  })
+
   it("buildOwnQuery()", ()=> {
-    let query = this.accessor.buildOwnQuery(new ImmutableQuery())
-    expect(query.query.aggs)
+    let query = new ImmutableQuery().addSelectedFilter({
+      id:"test", name:"test", value:"val", remove:_.identity
+    })
+    let newQuery = this.accessor.buildOwnQuery(query)
+    expect(newQuery).not.toBe(query)
+    expect(newQuery.query.aggs)
       .toEqual(TopHitsMetric(
         "no_filters_top_hits",
         { size:1, _source:false }

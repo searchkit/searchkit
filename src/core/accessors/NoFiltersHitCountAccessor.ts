@@ -9,8 +9,11 @@ export class NoFiltersHitCountAccessor extends Accessor {
   }
 
   buildOwnQuery(query){
-    return query.setAggs(TopHitsMetric(this.aggsKey,{
-      size:1, _source:false
-    }))
+    if(query.getSelectedFilters().length > 0){
+      return query.setAggs(TopHitsMetric(this.aggsKey,{
+        size:1, _source:false
+      }))
+    }
+    return query
   }
 }
