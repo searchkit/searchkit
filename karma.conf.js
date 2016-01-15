@@ -3,6 +3,10 @@ var WebpackConfig = require('webpack-config');
 
 // Karma configuration here
 module.exports = function (config) {
+  var needsCoverage = config.reporters.indexOf("coverage") > -1
+  if(needsCoverage && process.env.COVERALLS_REPO_TOKEN) {
+    config.reporters.push("coveralls")
+  }
   config.set({
     port: 3334,
     browsers: ['PhantomJS'],
@@ -15,13 +19,32 @@ module.exports = function (config) {
     preprocessors: {
       'webpack.tests.js': ['webpack', 'sourcemap']
     },
-    reporters: ['progress'], //report results in this format
 
     junitReporter: {
       outputDir: path.join(process.env.CIRCLE_TEST_REPORTS || '$CIRCLE_TEST_REPORTS', "karma", "junit.xml"),
       useBrowserName: false // add browser name to report and classes names
     },
 
-    webpack: new WebpackConfig().extend("webpack.test.config")
-  });
+    coverageReporter: {
+      type: 'lcov', // lcov or lcovonly are required for generating lcov.info files
+      dir: 'coverage/'
+    }
+  })
+
+  var webpack = new WebpackConfig().extend("webpack.test.config")
+  if(needsCoverage){
+    webpack = webpack.merge({
+      module:{
+        postLoaders: [{
+          test: /\.(js|tsx?)/,
+          exclude: /(test|node_modules|bower_components)/,
+          loader: 'istanbul-instrumenter'
+        }]
+      }
+    })
+  }
+  config.set({
+    webpack:webpack
+  })
+
 };
