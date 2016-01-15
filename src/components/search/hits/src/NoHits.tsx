@@ -17,6 +17,13 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 		"NoHits.NoResultsFound":"No results found",
 		"NoHits.DidYouMean":"Did you mean {{suggestion}}?"
 	}
+	translations = NoHits.translations
+
+	static propTypes = _.defaults({
+		translations:SearchkitComponent.translationsPropType(
+			NoHits.translations
+		)
+	}, SearchkitComponent.propTypes)
 
 	defineBEMBlocks() {
 		let block = (this.props.mod || "no-hits")
@@ -37,7 +44,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	}
 
 	updateQueryString(queryString) {
-		
+
 	}
 
 	render() {
@@ -45,8 +52,10 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 
 		return (
 			<div data-qa="no-hits" className={this.bemBlocks.container()}>
-				<div className={this.bemBlocks.container("info")}>{this.translate("NoHits.NoResultsFound")}</div>
-				{this.renderSuggestions()}
+				<div className={this.bemBlocks.container("info")}>
+					{this.translate("NoHits.NoResultsFound")}
+					{this.renderSuggestions()}
+				</div>
       </div>
 		);
 	}

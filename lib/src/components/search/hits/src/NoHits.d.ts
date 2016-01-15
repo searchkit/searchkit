@@ -6,6 +6,11 @@ export declare class NoHits extends SearchkitComponent<NoHitsProps, any> {
         "NoHits.NoResultsFound": string;
         "NoHits.DidYouMean": string;
     };
+    translations: {
+        "NoHits.NoResultsFound": string;
+        "NoHits.DidYouMean": string;
+    };
+    static propTypes: {};
     defineBEMBlocks(): {
         container: string;
     };
