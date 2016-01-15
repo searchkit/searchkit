@@ -51,8 +51,11 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	}
 
 	resetFilters() {
-		this.searchkit.resetFilters()
-		this.searchkit.performSearch()
+		let queryAccessor = this.searchkit.getQueryAccessor()
+		if(queryAccessor){
+			queryAccessor.keepOnlyQueryState()
+			this.searchkit.performSearch(true)
+		}
 	}
 
 	renderResetFilters() {
