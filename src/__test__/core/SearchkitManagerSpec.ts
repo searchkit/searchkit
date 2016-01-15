@@ -218,6 +218,19 @@ describe("SearchkitManager", ()=> {
     expect(this.searchkit.hasHits()).toBe(true)
   })
 
+  it("setQueryString()", ()=> {
+    spyOn(this.accessors, "setQueryString")
+    this.searchkit.setQueryString("foo")
+    expect(this.accessors.setQueryString).toHaveBeenCalledWith("foo")
+  })
+
+  it("resetFilters()", ()=> {
+    spyOn(this.accessors, "resetFilters")
+    this.searchkit.resetFilters()
+    expect(this.accessors.resetFilters)
+      .toHaveBeenCalled()
+  })
+
   it("onResponseChange()", ()=> {
     this.searchkit.loading = true
     this.searchkit.initialLoading = true

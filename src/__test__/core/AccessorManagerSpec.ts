@@ -1,5 +1,5 @@
 import {
-  EventEmitter,ImmutableQuery,AccessorManager,
+  EventEmitter,ImmutableQuery,AccessorManager,SearchAccessor, FacetAccessor,
   SearchkitManager, PageSizeAccessor, ValueState, PaginationAccessor
 } from "../../"
 
@@ -73,7 +73,7 @@ describe("AccessorManager", ()=> {
     expect(accessors.add(this.accessor4b))
       .toEqual(this.accessor4)
     expect(accessors.getAccessors())
-      .toEqual([this.accessor4])    
+      .toEqual([this.accessor4])
   })
 
 
@@ -105,6 +105,22 @@ describe("AccessorManager", ()=> {
       .toBe(4)
   })
 
+  it("setQueryString()", ()=> {
+    let searchAccessor = new SearchAccessor("s")
+    let accessorManager = new AccessorManager()
+    accessorManager.add(searchAccessor)
+    accessorManager.setQueryString("foo")
+    expect(searchAccessor.state.getValue()).toBe('foo')
+  })
+
+  it("resetFilters()", ()=> {
+    let facetAccessor = new FacetAccessor("f", {size:10})
+    facetAccessor.state.setValue(["foo", "bar"])
+    let accessorManager = new AccessorManager()
+    accessorManager.add(facetAccessor)
+    accessorManager.resetFilters()
+    expect(facetAccessor.state.getValue()).toEqual([])
+  })
 
   it("buildSharedQuery()", ()=> {
     let query = new ImmutableQuery()

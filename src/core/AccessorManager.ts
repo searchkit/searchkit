@@ -63,6 +63,7 @@ export class AccessorManager {
       a => a.onQueryStringChange(query)
     )
   }
+
   resetFilters(){
     _.each(
       this.getActiveAccessors(),

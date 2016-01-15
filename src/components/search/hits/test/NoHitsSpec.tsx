@@ -5,7 +5,7 @@ import {SearchkitManager} from "../../../../core";
 import * as _ from "lodash";
 import * as sinon from "sinon";
 
-describe("NoHits component", () => {
+xdescribe("NoHits component", () => {
 
   beforeEach(() => {
 
