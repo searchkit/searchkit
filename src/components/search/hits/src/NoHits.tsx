@@ -57,11 +57,12 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 
 	renderResetFilters() {
 		let hasFilters = this.getQuery().getSelectedFilters().length > 0
+		let query = this.searchkit.getQueryAccessor().getQueryString()
 		if (!hasFilters) return null
 		return (
 			<FastClick handler={this.resetFilters.bind(this)}>
 				<div className={this.bemBlocks.container("reset-filters")}>
-					{this.translate("NoHits.SearchWithoutFilters",{query:"f"})}
+					{this.translate("NoHits.SearchWithoutFilters",{query})}
 				</div>
 			</FastClick>
 		)
