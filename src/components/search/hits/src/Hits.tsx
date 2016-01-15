@@ -58,12 +58,6 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		)
 	}
 
-	renderNoResults() {
-		return (
-			<div data-qa="no-results" className={this.bemBlocks.container("no-results")}>{this.translate("No results")}</div>
-		)
-	}
-
 	render() {
 		let hits:Array<Object> = this.getHits()
 		let hasHits = hits.length > 0
@@ -71,8 +65,6 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 
 		if (this.isInitialLoading()) {
 			results = this.renderInitialView()
-		} else if (!hasHits) {
-			results = this.renderNoResults()
 		} else {
 			results = _.map(hits, this.renderResult.bind(this))
 		}

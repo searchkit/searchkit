@@ -6,7 +6,6 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist')
   },
-  watch:true,
   resolve: {
     extensions:[".js", ".ts", ".tsx","", ".webpack.js", ".web.js"],
     alias: {

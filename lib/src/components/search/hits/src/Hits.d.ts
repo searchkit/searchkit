@@ -13,6 +13,5 @@ export declare class Hits extends SearchkitComponent<HitsProps, any> {
     };
     renderResult(result: any): JSX.Element;
     renderInitialView(): JSX.Element;
-    renderNoResults(): JSX.Element;
     render(): JSX.Element;
 }
