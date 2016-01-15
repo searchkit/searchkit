@@ -1,4 +1,4 @@
-import {Accessor, StatefulAccessor} from  "./accessors"
+import {Accessor, StatefulAccessor, BaseQueryAccessor} from  "./accessors"
 import {Utils} from "./support"
 import * as _ from "lodash"
 
@@ -8,8 +8,11 @@ export class AccessorManager {
 
   accessors:Array<Accessor>
   statefulAccessors:{}
+  queryAccessor:BaseQueryAccessor
+
   constructor() {
     this.accessors = []
+    this.queryAccessor = null
     this.statefulAccessors = {}
   }
 
@@ -27,6 +30,13 @@ export class AccessorManager {
 
   add(accessor){
     if(accessor instanceof StatefulAccessor){
+      if(accessor instanceof BaseQueryAccessor){
+        if(this.queryAccessor){
+          throw new Error("Only a single instance of BaseQueryAccessor is allowed")
+        } else {
+          this.queryAccessor = accessor
+        }
+      }
       let existingAccessor = this.statefulAccessors[accessor.key]
       if(existingAccessor){
         return existingAccessor
@@ -57,18 +67,8 @@ export class AccessorManager {
     )
   }
 
-  setQueryString(query){
-    _.each(
-      this.getActiveAccessors(),
-      a => a.onQueryStringChange(query)
-    )
-  }
-
-  resetFilters(){
-    _.each(
-      this.getActiveAccessors(),
-      a => a.onResetFilters()
-    )
+  getQueryAccessor(){
+    return this.queryAccessor
   }
 
   buildSharedQuery(query){

@@ -72,8 +72,8 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 	}
 
 	searchQuery(query) {
-		// this.searchkit.resetState()
-		this.accessor.state = this.accessor.state.setValue(query)
+		let shouldResetOtherState = true
+		this.accessor.setQueryString(query, shouldResetOtherState )
 		let now = +new Date
 		let newSearch = now - this.lastSearchMs <= 2000
 		this.lastSearchMs = now
@@ -86,10 +86,10 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 
 	onChange(e){
 		const query = e.target.value;
-		this.accessor.state = this.accessor.state.setValue(query)
+		this.accessor.setQueryString(query)
 		if (this.props.searchOnChange) {
 			_.throttle(()=> {
-				this.searchQuery(this.accessor.state.getValue())
+				this.searchQuery(this.accessor.getQueryString())
 			}, 400)()
 		}
 		this.forceUpdate()

@@ -1,7 +1,8 @@
-import { Accessor, StatefulAccessor } from "./accessors";
+import { Accessor, StatefulAccessor, BaseQueryAccessor } from "./accessors";
 export declare class AccessorManager {
     accessors: Array<Accessor>;
     statefulAccessors: {};
+    queryAccessor: BaseQueryAccessor;
     constructor();
     getAccessors(): Accessor[];
     getActiveAccessors(): Accessor[];
@@ -10,8 +11,7 @@ export declare class AccessorManager {
     getState(): {};
     setState(state: any): void;
     notifyStateChange(oldState: any): void;
-    setQueryString(query: any): void;
-    resetFilters(): void;
+    getQueryAccessor(): BaseQueryAccessor;
     buildSharedQuery(query: any): any;
     buildOwnQuery(query: any): any;
     buildQuery(query: any): any;

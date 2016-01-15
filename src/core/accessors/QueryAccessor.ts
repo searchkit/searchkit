@@ -1,5 +1,4 @@
-import {ValueState} from "../state"
-import {StatefulAccessor} from "./StatefulAccessor"
+import {BaseQueryAccessor} from "./BaseQueryAccessor";
 import {
   MultiMatchQuery,
   BoolShould,
@@ -12,10 +11,9 @@ export interface SearchOptions {
   queryOptions?:any
   disableSuggestions?:boolean
 }
-export class QueryAccessor extends StatefulAccessor<ValueState> {
-  state = new ValueState()
+export class QueryAccessor extends BaseQueryAccessor {
   options:SearchOptions
-
+  
   constructor(key, options={}){
     super(key)
     this.options = options

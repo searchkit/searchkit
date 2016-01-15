@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {Pagination} from "../src/Pagination.tsx";
-import {SearchkitManager} from "../../../../core";
+import {SearchkitManager, ImmutableQuery} from "../../../../core";
 import * as _ from "lodash";
 import * as sinon from "sinon";
 
@@ -18,9 +18,8 @@ describe("Pagination tests", () => {
       this.accessor = this.searchkit.accessors.getAccessors()[0]
     }
 
-    this.searchkit.query.query = {
-      size: 10
-    }
+    this.searchkit.query = new ImmutableQuery().setSize(10)
+
 
     this.searchkit.setResults({
       hits:{

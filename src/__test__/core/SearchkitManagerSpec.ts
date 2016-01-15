@@ -1,7 +1,7 @@
 import {
   SearchkitManager, AccessorManager, ESTransport, AxiosESTransport,
   ImmutableQuery, createHistory, PageSizeAccessor, SearchRequest,
-  EventEmitter
+  EventEmitter, QueryAccessor
 } from "../../"
 
 describe("SearchkitManager", ()=> {
@@ -218,17 +218,10 @@ describe("SearchkitManager", ()=> {
     expect(this.searchkit.hasHits()).toBe(true)
   })
 
-  it("setQueryString()", ()=> {
-    spyOn(this.accessors, "setQueryString")
-    this.searchkit.setQueryString("foo")
-    expect(this.accessors.setQueryString).toHaveBeenCalledWith("foo")
-  })
-
-  it("resetFilters()", ()=> {
-    spyOn(this.accessors, "resetFilters")
-    this.searchkit.resetFilters()
-    expect(this.accessors.resetFilters)
-      .toHaveBeenCalled()
+  it("getQueryAccessor()", ()=> {
+    let queryAccessor = new QueryAccessor("q")
+    this.searchkit.addAccessor(queryAccessor)
+    expect(this.searchkit.getQueryAccessor()).toBe(queryAccessor)
   })
 
   it("onResponseChange()", ()=> {
