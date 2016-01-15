@@ -11,15 +11,9 @@ describe("Pagination tests", () => {
 
     this.searchkit = new SearchkitManager("localhost:9200", {useHistory:true})
 
-    this.searchkit.translateFunction = (key)=> {
-      return {
-
-      }[key]
-    }
-
     this.createWrapper = () => {
       this.wrapper = mount(
-        <Pagination searchkit={this.searchkit} />
+        <Pagination searchkit={this.searchkit} translations={{"pagination.previous":"Previous Page"}} />
       );
       this.accessor = this.searchkit.accessors.getAccessors()[0]
     }
@@ -53,6 +47,12 @@ describe("Pagination tests", () => {
 
     })
 
+    it("renders text", () => {
+      this.createWrapper()
+      expect(this.wrapper.find(".pagination-navigation-item__prev").text()).toBe("Previous Page")
+      expect(this.wrapper.find(".pagination-navigation-item__next").text()).toBe("Next")
+    })
+
     it('renders first page options', () => {
       this.checkActionStates(null,true, false)
     });
@@ -64,6 +64,12 @@ describe("Pagination tests", () => {
     it('renders forth page options', () => {
       this.checkActionStates(4, false, true)
     });
+
+    it("renders no pagination on no results", () => {
+      this.searchkit.setResults({hits:{total:0}})
+      this.createWrapper()
+      expect(this.wrapper.find("pagination-navigation").length).toBe(0)
+    })
 
   });
 
