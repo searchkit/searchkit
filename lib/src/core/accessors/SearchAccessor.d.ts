@@ -10,4 +10,5 @@ export declare class SearchAccessor extends StatefulAccessor<ValueState> {
     options: SearchOptions;
     constructor(key: any, options?: {});
     buildSharedQuery(query: any): any;
+    buildOwnQuery(query: any): any;
 }

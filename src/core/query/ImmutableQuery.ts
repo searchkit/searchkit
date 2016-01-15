@@ -32,6 +32,7 @@ export class ImmutableQuery {
     query.from = this.index.from
     query.sort = this.index.sort
     query.highlight = this.index.highlight
+    query.suggest = this.index.suggest
     this.query = _.omit(query, v => v === undefined)
   }
 
@@ -120,12 +121,17 @@ export class ImmutableQuery {
     return this.query.from
   }
 
-
   deepUpdate(key, ob){
     return this.update({
       $merge: {
         [key]:_.merge({}, this.index[key] || {}, ob)
       }
+    })
+  }
+
+  setSuggestions(suggestions) {
+    return this.update({
+      $merge:{suggest:suggestions}
     })
   }
 

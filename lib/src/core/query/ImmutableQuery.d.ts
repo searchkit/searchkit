@@ -25,6 +25,7 @@ export declare class ImmutableQuery {
     setFrom(from: number): ImmutableQuery;
     getFrom(): any;
     deepUpdate(key: any, ob: any): ImmutableQuery;
+    setSuggestions(suggestions: any): ImmutableQuery;
     update(updateDef: any): ImmutableQuery;
     getJSON(): any;
     printJSON(): void;
