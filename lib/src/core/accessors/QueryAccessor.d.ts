@@ -8,7 +8,6 @@ export interface SearchOptions {
 export declare class QueryAccessor extends BaseQueryAccessor {
     options: SearchOptions;
     constructor(key: any, options?: {});
-    onQueryStringChange(queryString: any): void;
     buildSharedQuery(query: any): any;
     buildOwnQuery(query: any): any;
 }

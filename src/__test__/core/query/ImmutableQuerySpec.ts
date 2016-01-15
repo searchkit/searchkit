@@ -214,6 +214,11 @@ describe("ImmutableQuery", ()=> {
 
   })
 
+  it("setSuggestions()", ()=> {
+    let query = this.query.setSuggestions("suggestions")
+    expect(query.query.suggest).toBe("suggestions")
+  })
+
   it("getJSON()", ()=> {
     let query = this.addFilter()
       .addQuery(SimpleQueryString("Hi"))

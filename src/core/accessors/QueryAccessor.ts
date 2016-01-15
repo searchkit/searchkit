@@ -13,15 +13,11 @@ export interface SearchOptions {
 }
 export class QueryAccessor extends BaseQueryAccessor {
   options:SearchOptions
-  
+
   constructor(key, options={}){
     super(key)
     this.options = options
     this.options.queryFields = this.options.queryFields || ["_all"]
-  }
-
-  onQueryStringChange(queryString){
-    this.state = this.state.setValue(queryString)
   }
 
   buildSharedQuery(query){
