@@ -4,7 +4,8 @@ import "../styles/no-hits.scss";
 
 import {
 	SearchkitComponent,
-	SearchkitComponentProps
+	SearchkitComponentProps,
+	FastClick
 } from "../../../../core"
 
 export interface NoHitsProps extends SearchkitComponentProps {
@@ -27,8 +28,16 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	renderSuggestions() {
 		let firstSuggestion = _.get(this.searchkit.getSuggestions(), [0,"options", 0, "text"], false)
 		return (
-			<div className={this.bemBlocks.container("suggestion")}>{this.translate("NoHits.DidYouMean", {suggestion:firstSuggestion})}</div>
+			<div className={this.bemBlocks.container("suggestion")}>
+				<FastClick handler={this.updateQueryString(firstSuggestion)}>
+					{this.translate("NoHits.DidYouMean", {suggestion:firstSuggestion})}
+				</FastClick>
+			</div>
 		)
+	}
+
+	updateQueryString(queryString) {
+		
 	}
 
 	render() {

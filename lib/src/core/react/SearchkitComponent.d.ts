@@ -20,7 +20,7 @@ export declare class SearchkitComponent<P extends SearchkitComponentProps, S> ex
     static propTypes: any;
     defineBEMBlocks(): any;
     defineAccessor(): Accessor;
-    translate(key: any): any;
+    translate(key: any, interpolations?: Object): any;
     componentWillMount(): void;
     getResults(): any;
     getHits(): any[];

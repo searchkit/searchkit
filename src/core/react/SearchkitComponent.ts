@@ -54,7 +54,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
     return null
   }
 
-  translate(key){
+  translate(key, interpolations:Object={}){
     return (
       (this.searchkit.translate(key)) ||
       (this.props.translations && this.props.translations[key]) ||
