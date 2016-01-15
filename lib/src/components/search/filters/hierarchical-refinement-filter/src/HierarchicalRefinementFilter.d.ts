@@ -15,7 +15,6 @@ export declare class HierarchicalRefinementFilter extends SearchkitComponent<Hie
         container: string;
         option: string;
     };
-    shouldCreateNewSearcher(): boolean;
     defineAccessor(): NestedFacetAccessor;
     addFilter(level: any, option: any): void;
     renderOption(level: any, option: any): JSX.Element;

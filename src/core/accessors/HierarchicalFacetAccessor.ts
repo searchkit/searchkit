@@ -1,5 +1,5 @@
 import {State, LevelState} from "../state"
-import {StatefulAccessor} from "./StatefulAccessor"
+import {FilterBasedAccessor} from "./FilterBasedAccessor";
 import {
   TermQuery, TermsBucket, FilterBucket,
   BoolShould, BoolMust
@@ -7,7 +7,7 @@ import {
 import * as _ from "lodash";
 
 
-export class HierarchicalFacetAccessor extends StatefulAccessor<LevelState> {
+export class HierarchicalFacetAccessor extends FilterBasedAccessor<LevelState> {
 
   state = new LevelState()
   options:any
@@ -22,6 +22,10 @@ export class HierarchicalFacetAccessor extends StatefulAccessor<LevelState> {
   computeUuids(){
     this.uuids = _.map(
       this.options.fields, field => this.uuid + field)
+  }
+
+  onResetFilters(){
+    this.resetState()
   }
 
   getBuckets(level){

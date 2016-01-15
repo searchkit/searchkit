@@ -90,6 +90,7 @@
     "./src/core/AccessorManager.ts",
     "./src/core/accessors/Accessor.ts",
     "./src/core/accessors/FacetAccessor.ts",
+    "./src/core/accessors/FilterBasedAccessor.ts",
     "./src/core/accessors/HierarchicalFacetAccessor.ts",
     "./src/core/accessors/HighlightAccessor.ts",
     "./src/core/accessors/index.ts",

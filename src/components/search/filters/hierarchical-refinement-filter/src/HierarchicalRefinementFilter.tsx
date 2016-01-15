@@ -42,10 +42,6 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<Hierarchica
 		};
 	}
 
-	shouldCreateNewSearcher() {
-		return true;
-	}
-
 	defineAccessor() {
 		return new NestedFacetAccessor(
 			this.props.id,

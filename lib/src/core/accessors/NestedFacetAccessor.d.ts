@@ -1,5 +1,5 @@
 import { LevelState } from "../state";
-import { StatefulAccessor } from "./StatefulAccessor";
+import { FilterBasedAccessor } from "./FilterBasedAccessor";
 export interface NestedFacetAccessorOptions {
     field: string;
     id: string;
@@ -8,10 +8,11 @@ export interface NestedFacetAccessorOptions {
     orderDirection?: string;
     startLevel?: number;
 }
-export declare class NestedFacetAccessor extends StatefulAccessor<LevelState> {
+export declare class NestedFacetAccessor extends FilterBasedAccessor<LevelState> {
     state: LevelState;
     options: any;
     constructor(key: any, options: NestedFacetAccessorOptions);
+    onResetFilters(): void;
     getBuckets(level: any): any;
     buildSharedQuery(query: any): any;
     getTermAggs(): {};

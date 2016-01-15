@@ -12,7 +12,6 @@ export declare class HierarchicalMenuFilter extends SearchkitComponent<Hierarchi
         container: string;
         option: string;
     };
-    shouldCreateNewSearcher(): boolean;
     defineAccessor(): HierarchicalFacetAccessor;
     addFilter(option: any, level: any): void;
     renderOption(level: any, option: any): JSX.Element;

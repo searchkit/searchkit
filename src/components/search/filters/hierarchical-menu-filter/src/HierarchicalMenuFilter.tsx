@@ -36,10 +36,6 @@ export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuF
 		};
 	}
 
-	shouldCreateNewSearcher() {
-		return true;
-	}
-
 	defineAccessor() {
 		return new HierarchicalFacetAccessor(
 			this.props.id,

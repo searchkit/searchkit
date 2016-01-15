@@ -1,5 +1,5 @@
 import {LevelState} from "../state"
-import {StatefulAccessor} from "./StatefulAccessor"
+import {FilterBasedAccessor} from "./FilterBasedAccessor"
 import {
   TermQuery, TermsBucket, FilterBucket,
   BoolShould, BoolMust, NestedQuery,
@@ -15,7 +15,7 @@ export interface NestedFacetAccessorOptions {
   startLevel?:number
 }
 
-export class NestedFacetAccessor extends StatefulAccessor<LevelState> {
+export class NestedFacetAccessor extends FilterBasedAccessor<LevelState> {
 	state = new LevelState()
 	options:any
 
@@ -23,6 +23,10 @@ export class NestedFacetAccessor extends StatefulAccessor<LevelState> {
 		super(key, options.id)
 		this.options = options
 	}
+
+  onResetFilters(){
+    this.resetState()
+  }
 
 	getBuckets(level) {
     return this.getAggregations(
