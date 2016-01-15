@@ -52,7 +52,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 
 	resetFilters() {
 		this.searchkit.getQueryAccessor().keepOnlyQueryState()
-		this.searchkit.performSearch()
+		this.searchkit.performSearch(true)
 	}
 
 	renderResetFilters() {
