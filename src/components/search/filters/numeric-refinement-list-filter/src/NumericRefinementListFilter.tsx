@@ -64,7 +64,8 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
 		let className = block()
 			.mix(this.bemBlocks.container("item"))
 			.state({
-				selected:this.isSelected(option)
+				selected:this.isSelected(option),
+				disabled:this.accessor.getBuckets().length == 0
 			})
 
 		return (
