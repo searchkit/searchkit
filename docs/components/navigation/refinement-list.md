@@ -27,6 +27,11 @@ class App extends SearchkitComponent<any, any> {
 - `operator` *('AND'|'OR')*: If you filter on a and b with OR, results with either the value a or b will match. If you select a and b, results will show which have both a and b.
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/translate.md) page.
 
+## Translations
+- `facets.view_more` - View more
+- `facets.view_less` - View less
+- `facets.view_all` - View all
+
 
 ## Demo
 [](codepen://searchkit/zrNrzL?height=800&theme=0)

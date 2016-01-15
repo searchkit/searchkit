@@ -11,6 +11,16 @@ export interface NoHitsProps extends SearchkitComponentProps {
 }
 
 export class NoHits extends SearchkitComponent<NoHitsProps, any> {
+	static translations:any = {
+		"nohits.no_results":"no results found"
+	}
+	translations = NoHits.translations
+
+	static propTypes = _.defaults({
+		translations:SearchkitComponent.translationsPropType(
+			NoHits.translations
+		)
+	}, SearchkitComponent.propTypes)
 
 	defineBEMBlocks() {
 		let block = (this.props.mod || "no-hits")
@@ -24,7 +34,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 
 		return (
 			<div data-qa="no-hits" className={this.bemBlocks.container()}>
-				no results found
+				{this.translate("nohits.no_results")}
       </div>
 		);
 	}

@@ -32,3 +32,26 @@ You can pass any component an object of translations you wish to override. Examp
 ```jsx
 <SearchBox translations={{"searchbox.placeholder":"search movies"}} autofocus={true} searchOnChange={true} queryFields={["actors^1","type^2","languages","title^5", "genres^2"]}/>
 ```
+
+## List of all translation overrides with their defaults
+
+### ResetFilters
+- `reset.clear_all` - Clear All Filters
+
+### RefinementListFilter
+- `facets.view_more` - View more
+- `facets.view_less` - View less
+- `facets.view_all` - View all
+
+### NoHits
+- `nohits.no_results` - no results found
+
+### HitStats
+- `hitstats.results_found` - "results found"
+
+### Pagination
+- `pagination.previous` - Previous
+- `pagination.next` - Next
+
+### Searchbox
+- `searchbox.placeholder` - "Search"

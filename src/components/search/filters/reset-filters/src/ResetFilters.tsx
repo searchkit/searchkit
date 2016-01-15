@@ -16,7 +16,7 @@ export interface ResetFiltersProps extends SearchkitComponentProps {
 export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
 
 	static translations:any = {
-		"ClearAllFilters":"Clear all filters"
+		"reset.clear_all":"Clear all filters"
 	}
 	translations = ResetFilters.translations
 
@@ -46,7 +46,7 @@ export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
 		var block = this.bemBlocks.container
 
 		return (
-			<div className={block("reset")}>{this.translate("ClearAllFilters")}</div>
+			<div className={block("reset")}>{this.translate("reset.clear_all")}</div>
 		)
 	}
 
