@@ -1,4 +1,19 @@
 .no-hits {
   text-align:center;
   margin-top:60px;
+
+  &__info {
+    font-size:20px;
+  }
+
+  &__steps {
+    margin-top:20px;
+    font-size:14px;
+    cursor:pointer;
+    i {
+      cursor:pointer;
+      font-style: normal;
+      color:#08c;
+    }
+  }
 }
