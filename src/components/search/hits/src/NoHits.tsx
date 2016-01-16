@@ -20,8 +20,8 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 
 	static translations = {
 		"NoHits.NoResultsFound":"No results found for {query}.",
-		"NoHits.DidYouMean":"Did you mean {suggestion}?",
-		"NoHits.SearchWithoutFilters":"Search for {query} only"
+		"NoHits.DidYouMean":"Search for {suggestion}",
+		"NoHits.SearchWithoutFilters":"Search for {query} without filters"
 	}
 	translations = NoHits.translations
 
@@ -57,7 +57,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 			if(suggestion){
 				return (
 					<FastClick handler={this.setQueryString.bind(this,suggestion)}>
-						<div className={this.bemBlocks.container("suggestion")}>
+						<div className={this.bemBlocks.container("step-action")}>
 							{this.translate("NoHits.DidYouMean", {suggestion})}
 						</div>
 					</FastClick>
@@ -83,7 +83,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 				let query = this.getQuery().getQueryString()
 				return (
 					<FastClick handler={this.resetFilters.bind(this)}>
-						<div className={this.bemBlocks.container("reset-filters")}>
+						<div className={this.bemBlocks.container("step-action")}>
 							{this.translate("NoHits.SearchWithoutFilters",{query})}
 						</div>
 					</FastClick>
@@ -96,13 +96,9 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 
 	render() {
     if (this.hasHits() || this.isInitialLoading() || this.isLoading()) return null
-
-		let suggestions = _.compact([this.renderResetFilters(),this.renderSuggestions()])
 		let query = this.getQuery().getQueryString()
 
-		if (suggestions.length == 2) {
-			suggestions.splice(1,0,<span key="or"> or </span>)
-		}
+		let suggestion = this.renderSuggestions() || this.renderResetFilters() || null;
 
 		return (
 			<div data-qa="no-hits" className={this.bemBlocks.container()}>
@@ -110,7 +106,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 					{this.translate("NoHits.NoResultsFound", {query:query})}
 				</div>
 				<div className={this.bemBlocks.container("steps")}>
-					{suggestions}
+					{suggestion}
 				</div>
       </div>
 		);
