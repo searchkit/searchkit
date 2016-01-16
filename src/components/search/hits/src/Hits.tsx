@@ -65,6 +65,8 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 
 		if (this.isInitialLoading()) {
 			results = this.renderInitialView()
+		} else if (!this.hasHits()) {
+			return null;
 		} else {
 			results = _.map(hits, this.renderResult.bind(this))
 		}
