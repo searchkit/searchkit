@@ -127,12 +127,11 @@ describe("AccessorManager", ()=> {
   })
 
   it("buildQuery()", ()=> {
-    let query = new ImmutableQuery()
-    expect(this.accessors.buildQuery(query).getSize())
+    expect(this.accessors.buildQuery().getSize())
       .toEqual(50)
 
     this.accessor5.setActive(false)
-    expect(this.accessors.buildQuery(query).getSize())
+    expect(this.accessors.buildQuery().getSize())
       .toBe(0)
   })
 

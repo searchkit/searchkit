@@ -39,14 +39,14 @@ describe("PaginationAccessor", ()=> {
 
   })
 
-  it("Fix bug in conjunctionn with PageSizeAccessor", ()=> {
+  it("Fix bug in conjunction with PageSizeAccessor", ()=> {
     let pagination = new PaginationAccessor("p")
     pagination.state = pagination.state.setValue(5)
     let pageSize = new PageSizeAccessor(100)
     let accessors = new AccessorManager()
     accessors.add(pagination)
     accessors.add(pageSize)
-    let query = accessors.buildQuery(new ImmutableQuery())
+    let query = accessors.buildQuery()
 
     expect(query.getSize()).toBe(100)
     expect(query.getFrom()).toBe(400)

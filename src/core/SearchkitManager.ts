@@ -1,5 +1,5 @@
 import {ImmutableQuery} from "./query";
-import {Accessor, BaseQueryAccessor} from "./accessors"
+import {Accessor, BaseQueryAccessor, AnonymousAccessor} from "./accessors"
 import {AccessorManager} from "./AccessorManager"
 import {createHistory} from "./history";
 import {ESTransport, AxiosESTransport} from "./transport";
@@ -24,7 +24,6 @@ export class SearchkitManager {
   completeRegistration:Function
   state:any
   translateFunction:Function
-  defaultQueries:Array<Function>
   currentSearchRequest:SearchRequest
   history
   _unlistenHistory:Function
@@ -56,7 +55,6 @@ export class SearchkitManager {
 		this.registrationCompleted = new Promise((resolve)=>{
 			this.completeRegistration = resolve
 		})
-    this.defaultQueries = []
     this.translateFunction = _.constant(undefined)
     // this.primarySearcher = this.createSearcher()
     this.query = new ImmutableQuery()
@@ -73,7 +71,7 @@ export class SearchkitManager {
   }
 
   addDefaultQuery(fn:Function){
-    this.defaultQueries.push(fn)
+    return this.addAccessor(new AnonymousAccessor(fn))
   }
 
   translate(key){
@@ -81,9 +79,7 @@ export class SearchkitManager {
   }
 
   buildQuery(){
-    var query = Utils.collapse(
-      this.defaultQueries, new ImmutableQuery())
-    return this.accessors.buildQuery(query)
+    return this.accessors.buildQuery()
   }
 
   resetState(){

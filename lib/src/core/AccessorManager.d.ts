@@ -14,7 +14,7 @@ export declare class AccessorManager {
     getQueryAccessor(): BaseQueryAccessor;
     buildSharedQuery(query: any): any;
     buildOwnQuery(query: any): any;
-    buildQuery(query: any): any;
+    buildQuery(): any;
     setResults(results: any): void;
     resetState(): void;
 }

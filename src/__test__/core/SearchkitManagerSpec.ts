@@ -1,7 +1,7 @@
 import {
   SearchkitManager, AccessorManager, ESTransport, AxiosESTransport,
   ImmutableQuery, createHistory, PageSizeAccessor, SearchRequest,
-  EventEmitter, QueryAccessor
+  EventEmitter, QueryAccessor, AnonymousAccessor
 } from "../../"
 
 describe("SearchkitManager", ()=> {
@@ -31,7 +31,6 @@ describe("SearchkitManager", ()=> {
       .toEqual(jasmine.any(AccessorManager))
     expect(this.searchkit.registrationCompleted).toEqual(
       jasmine.any(Promise))
-    expect(this.searchkit.defaultQueries).toEqual([])
     expect(this.searchkit.translateFunction)
       .toEqual(jasmine.any(Function))
     expect(this.searchkit.transport)
@@ -58,10 +57,13 @@ describe("SearchkitManager", ()=> {
   })
 
   it("addDefaultQuery()", ()=> {
-    const queryFn = ()=> {}
+    const queryFn = (query)=> {
+      return query.setSize(11)
+    }
     this.searchkit.addDefaultQuery(queryFn)
-    expect(this.searchkit.defaultQueries)
-      .toEqual([queryFn])
+    let anonymousAccessor = this.searchkit.accessors.accessors[0]
+    console.log(anonymousAccessor instanceof AnonymousAccessor)
+    expect(this.searchkit.buildQuery().getSize()).toBe(11)
   })
 
   it("translate()", ()=> {

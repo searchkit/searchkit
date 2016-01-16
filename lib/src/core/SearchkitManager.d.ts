@@ -17,7 +17,6 @@ export declare class SearchkitManager {
     completeRegistration: Function;
     state: any;
     translateFunction: Function;
-    defaultQueries: Array<Function>;
     currentSearchRequest: SearchRequest;
     history: any;
     _unlistenHistory: Function;
@@ -34,7 +33,7 @@ export declare class SearchkitManager {
     static VERSION: string;
     constructor(host: string, options?: SearchkitOptions);
     addAccessor(accessor: any): any;
-    addDefaultQuery(fn: Function): void;
+    addDefaultQuery(fn: Function): any;
     translate(key: any): any;
     buildQuery(): any;
     resetState(): void;

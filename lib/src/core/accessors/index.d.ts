@@ -12,3 +12,4 @@ export * from "./NestedFacetAccessor";
 export * from "./NoFiltersHitCountAccessor";
 export * from "./BaseQueryAccessor";
 export * from "./SuggestionsAccessor";
+export * from "./AnonymousAccessor";

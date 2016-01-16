@@ -1,5 +1,6 @@
 import {Accessor, StatefulAccessor, BaseQueryAccessor, noopQueryAccessor} from  "./accessors"
 import {Utils} from "./support"
+import {ImmutableQuery} from "./query"
 import * as _ from "lodash"
 
 type StatefulAccessors = Array<StatefulAccessor<any>>
@@ -83,9 +84,9 @@ export class AccessorManager {
     }, query)
   }
 
-  buildQuery(query){
+  buildQuery(){
     return this.buildOwnQuery(
-      this.buildSharedQuery(query)
+      this.buildSharedQuery(new ImmutableQuery())
     )
   }
 
