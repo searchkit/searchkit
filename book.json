@@ -10,7 +10,7 @@
     "versions": {
       "gitbookConfigURL": "https://raw.githubusercontent.com/searchkit/searchkit/gh-pages/book.json",
       "options": [
-        { "value": "https://searchkit.github.io/searchkit/v0.2.0/", "text": "Version 0.2.0" },
+        { "value": "https://searchkit.github.io/searchkit/v0.2.0/", "text": "Version 0.2.0", "selected":true},
         { "value": "https://searchkit.github.io/searchkit/v0.1.13/", "text": "Version 0.1.13" }
       ]
     }
