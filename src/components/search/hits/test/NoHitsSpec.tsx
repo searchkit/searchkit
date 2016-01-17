@@ -5,7 +5,7 @@ import {SearchkitManager} from "../../../../core";
 import * as _ from "lodash";
 import * as sinon from "sinon";
 
-fdescribe("NoHits component", () => {
+describe("NoHits component", () => {
 
   beforeEach(() => {
 
@@ -70,4 +70,8 @@ fdescribe("NoHits component", () => {
     })
 
   });
+
+  describe("suggestions", () => {
+
+  })
 });
