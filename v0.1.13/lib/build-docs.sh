@@ -17,5 +17,5 @@ mv _book $tag
 git clean docs  -f
 git checkout HEAD -- README.md
 
-# git add $tag
-# git commit -m "Update $tag docs"
+git add $tag
+git commit -m "Update $tag docs"
