@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "dependencies": {
+    "gitbook-cli": "^0.3.4",
+    "gitbook-plugin-github": "^1.1.0",
+    "gitbook-plugin-versions": "^1.1.0"
+  }
+}

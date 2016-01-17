@@ -1,0 +1,750 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Connecting Elasticsearch | What is Searchkit?</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.5.2">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-mermaid-2/bower_components/mermaid/dist/mermaid.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-prism/prism.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-versions/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../../docs/setup/indexing.html" />
+    
+    
+    <link rel="prev" href="../../docs/setup/project-setup.html" />
+    
+
+        <script src="../../gitbook/plugins/gitbook-plugin-mermaid-2/bower_components/mermaid/dist/mermaid.min.js"></script>
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="1.2" data-chapter-title="Connecting Elasticsearch" data-filepath="docs/setup/elasticsearch.md" data-basepath="../.." data-revision="Sun Jan 17 2016 14:34:29 GMT+0000 (GMT)">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="docs/setup/index.html">
+            
+                
+                    <a href="../../docs/setup/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Getting Started
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="docs/setup/project-setup.html">
+            
+                
+                    <a href="../../docs/setup/project-setup.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Project Setup &amp; use
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2" data-path="docs/setup/elasticsearch.html">
+            
+                
+                    <a href="../../docs/setup/elasticsearch.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Connecting Elasticsearch
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="docs/setup/indexing.html">
+            
+                
+                    <a href="../../docs/setup/indexing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        Indexing
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="docs/setup/using-components.html">
+            
+                
+                    <a href="../../docs/setup/using-components.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        Using components
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="docs/setup/extending-components.html">
+            
+                
+                    <a href="../../docs/setup/extending-components.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        Extending components
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="docs/components/index.html">
+            
+                
+                    <a href="../../docs/components/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Components
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="docs/components/basics/index.html">
+            
+                
+                    <a href="../../docs/components/basics/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Basics
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="docs/components/basics/search-box.html">
+            
+                
+                    <a href="../../docs/components/basics/search-box.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.1.</b>
+                        
+                        Search box
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" data-path="docs/components/basics/hits.html">
+            
+                
+                    <a href="../../docs/components/basics/hits.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.2.</b>
+                        
+                        Hits
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="docs/components/navigation/index.html">
+            
+                
+                    <a href="../../docs/components/navigation/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Navigation
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.1" data-path="docs/components/navigation/pagination.html">
+            
+                
+                    <a href="../../docs/components/navigation/pagination.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.1.</b>
+                        
+                        Pagination
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.2" data-path="docs/components/navigation/menu.html">
+            
+                
+                    <a href="../../docs/components/navigation/menu.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.2.</b>
+                        
+                        Menu
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.3" data-path="docs/components/navigation/hierarchical-menu.html">
+            
+                
+                    <a href="../../docs/components/navigation/hierarchical-menu.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.3.</b>
+                        
+                        Hierarchical Menu
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.4" data-path="docs/components/navigation/hierarchical-refinement-filter.html">
+            
+                
+                    <a href="../../docs/components/navigation/hierarchical-refinement-filter.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.4.</b>
+                        
+                        Hierarchical Refinement
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.5" data-path="docs/components/navigation/refinement-list.html">
+            
+                
+                    <a href="../../docs/components/navigation/refinement-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.5.</b>
+                        
+                        Refinement List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.6" data-path="docs/components/navigation/numeric-refinement-list.html">
+            
+                
+                    <a href="../../docs/components/navigation/numeric-refinement-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.6.</b>
+                        
+                        Numeric Refinement List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.7" data-path="docs/components/navigation/reset.html">
+            
+                
+                    <a href="../../docs/components/navigation/reset.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.7.</b>
+                        
+                        Reset
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="docs/components/sorting/index.html">
+            
+                
+                    <a href="../../docs/components/sorting/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        Sorting
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.3.1" data-path="docs/components/sorting/sort.html">
+            
+                
+                    <a href="../../docs/components/sorting/sort.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.1.</b>
+                        
+                        Sorting
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="docs/components/metadata/index.html">
+            
+                
+                    <a href="../../docs/components/metadata/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                        Metadata
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.4.1" data-path="docs/components/metadata/stats.html">
+            
+                
+                    <a href="../../docs/components/metadata/stats.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.1.</b>
+                        
+                        Stats
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="docs/core/index.html">
+            
+                
+                    <a href="../../docs/core/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        Core
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="docs/core/Architecture.html">
+            
+                
+                    <a href="../../docs/core/Architecture.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Architecture
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="docs/core/SearchkitManager.html">
+            
+                
+                    <a href="../../docs/core/SearchkitManager.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        SearchkitManager
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="docs/core/Accessors.html">
+            
+                
+                    <a href="../../docs/core/Accessors.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Accessors
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="docs/core/ImmutableQuery.html">
+            
+                
+                    <a href="../../docs/core/ImmutableQuery.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        ImmutableQuery
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="docs/core/SearchkitProvider.html">
+            
+                
+                    <a href="../../docs/core/SearchkitProvider.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.5.</b>
+                        
+                        SearchkitProvider
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="docs/core/SearchkitComponent.html">
+            
+                
+                    <a href="../../docs/core/SearchkitComponent.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.6.</b>
+                        
+                        SearchkitComponent
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="docs/server/searchkit_express.html">
+            
+                
+                    <a href="../../docs/server/searchkit_express.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Using Express
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="docs/server/indexing.html">
+            
+                
+                    <a href="../../docs/server/indexing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        Indexing &amp; Mapping Guide
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="docs/examples/index.html">
+            
+                
+                    <a href="../../docs/examples/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        Examples
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../../" >What is Searchkit?</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="connecting-to-elasticsearch-instance">Connecting to Elasticsearch instance</h1>
+<p>There are many ways to connect searchkit to an elasticsearch instance. We officially support ES 2.0+ but also works on 1.7.2 +. If connecting directly to elasticsearch (not using the searchkit-express), multipleSearchers cannot be true.</p>
+<h2 id="using-a-cloud-hosted-elasticsearch-instance">Using a cloud hosted elasticsearch instance</h2>
+<p>Searchkit can use a cloud based elasticsearch instance. If using in production, make sure the url is read only.</p>
+<h3 id="hosting-providers">Hosting providers</h3>
+<ul>
+<li><a href="www.qbox.io">qbox.io</a></li>
+<li><a href="www.search.ly">search.ly</a></li>
+<li><a href="https://aws.amazon.com/elasticsearch-service/" target="_blank">Amazon Elasticsearch Service</a></li>
+</ul>
+<h3 id="configuration">Configuration</h3>
+<pre><code class="lang-js"><span class="token keyword">const</span> sk <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchkitManager</span><span class="token punctuation">(</span><span class="token string">&quot;https://kili-eu-west-1.searchly.com/movies/&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  multipleSearchers<span class="token punctuation">:</span><span class="token keyword">false</span><span class="token punctuation">,</span>
+  basicAuth<span class="token punctuation">:</span><span class="token string">&quot;read:teetndhjnrspbzxxyfxmf5fb24suqxuj&quot;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token operator">&lt;</span>SearchkitProvider searchkit<span class="token operator">=</span><span class="token punctuation">{</span>sk<span class="token punctuation">}</span><span class="token operator">&gt;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>SearchkitProvider<span class="token operator">&gt;</span>
+</code></pre>
+<h2 id="using-local-es-server">Using Local ES Server</h2>
+<p>Connecting Searchkit to your local elasticsearch instance. If you are are getting a cors related error, you will need to add the following to you `config/elasticsearch.yml&apos; file.</p>
+<pre><code class="lang-yaml">http.cors.enabled <span class="token punctuation">:</span> <span class="token boolean important">true  </span>
+<span class="token key atrule">http.cors.allow-origin</span> <span class="token punctuation">:</span> <span class="token string">&quot;*&quot;</span>
+<span class="token key atrule">http.cors.allow-methods</span> <span class="token punctuation">:</span> OPTIONS<span class="token punctuation">,</span> HEAD<span class="token punctuation">,</span> GET<span class="token punctuation">,</span> POST<span class="token punctuation">,</span> PUT<span class="token punctuation">,</span> DELETE
+<span class="token key atrule">http.cors.allow-headers</span> <span class="token punctuation">:</span> X<span class="token punctuation">-</span>Requested<span class="token punctuation">-</span>With<span class="token punctuation">,</span>X<span class="token punctuation">-</span>Auth<span class="token punctuation">-</span>Token<span class="token punctuation">,</span>Content<span class="token punctuation">-</span>Type<span class="token punctuation">,</span> Content<span class="token punctuation">-</span>Length
+</code></pre>
+<h3 id="configuration">Configuration</h3>
+<pre><code class="lang-js"><span class="token keyword">const</span> sk <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchkitManager</span><span class="token punctuation">(</span><span class="token string">&quot;http://localhost:9200/&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  multipleSearchers<span class="token punctuation">:</span><span class="token keyword">false</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token operator">&lt;</span>SearchkitProvider searchkit<span class="token operator">=</span><span class="token punctuation">{</span>sk<span class="token punctuation">}</span><span class="token operator">&gt;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>SearchkitProvider<span class="token operator">&gt;</span>
+</code></pre>
+<h2 id="proxy-elasticsearch-connection">Proxy elasticsearch connection</h2>
+<p>We built a plugin for node express called <a href="www.github.com/searchkit/searchkit-express">searchkit-express</a>. This proxies the search request to elasticsearch via the server. This allows to validate requests on the server and with options to apply additional filters before it reaches the elasticsearch instance. See <a href="../server/searchkit_express.html">searchkit-express setup</a> for more information.</p>
+<h3 id="configuration">Configuration</h3>
+<pre><code class="lang-js"><span class="token keyword">const</span> sk <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchkitManager</span><span class="token punctuation">(</span><span class="token string">&quot;/&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  multipleSearchers<span class="token punctuation">:</span><span class="token keyword">true</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token operator">&lt;</span>SearchkitProvider searchkit<span class="token operator">=</span><span class="token punctuation">{</span>sk<span class="token punctuation">}</span><span class="token operator">&gt;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>SearchkitProvider<span class="token operator">&gt;</span>
+</code></pre>
+<h3 id="multiplesearchers">multipleSearchers</h3>
+<p>Elasticsearch provides an endpoint <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html" target="_blank">_msearch</a> for multiple searches to be performed within one request. When multipleSearchers is true, it will take advantage of this option to split each component&apos;s search into individual searches.</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../../docs/setup/project-setup.html" class="navigation navigation-prev " aria-label="Previous page: Project Setup &amp; use"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../../docs/setup/indexing.html" class="navigation navigation-next " aria-label="Next page: Indexing"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../../gitbook/app.js"></script>
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-mermaid-2/plugin.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-codepen/embed-codepen.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-versions/plugin.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"versions":{"type":"tags"},"mermaid-2":{},"prism":{},"codepen":{"height":300,"theme":0,"defaultTab":"result","description":""},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
