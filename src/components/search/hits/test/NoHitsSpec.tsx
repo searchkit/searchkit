@@ -13,7 +13,7 @@ describe("NoHits component", () => {
 
     this.createWrapper = () => {
       this.wrapper = mount(
-        <NoHits searchkit={this.searchkit} translations={{"NoHits.NoResultsFound":"no movies"}}/>
+        <NoHits searchkit={this.searchkit} translations={{"NoHits.NoResultsFound":"no movies"}} suggestionsField={"title"}/>
       )
     }
 
@@ -72,6 +72,59 @@ describe("NoHits component", () => {
   });
 
   describe("suggestions", () => {
+    it("suggest text", () => {
+      this.createWrapper()
+      this.searchkit.setResults({
+        hits:{
+          hits:[],
+          total:0
+        },
+        suggest:{
+          suggestions:[
+            {
+              options:[
+                {
+                  text:"matrix"
+                }
+              ]
+            }
+          ]
+        }
+      })
+
+      this.wrapper.update()
+      expect(this.wrapper.find('.no-hits__steps').text())
+        .toEqual("Search for matrix")
+    })
+
+    it("suggest remove filters", () => {
+      this.createWrapper()
+      this.searchkit.getSelectedFilters = () => {
+        return [{}]
+      }
+      this.searchkit.query.getQueryString = () => {
+        return "matrix"
+      }
+      this.searchkit.setResults({
+        aggregations:{
+          "no_filters_top_hits":{
+            hits:{
+              total:1
+            }
+          }
+        },
+        hits:{
+          hits:[],
+          total:0
+        }
+      })
+
+      this.wrapper.update()
+      expect(this.wrapper.find('.no-hits__steps').text())
+        .toBe("Search for matrix without filters")
+    })
+
 
   })
+
 });
