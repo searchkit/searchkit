@@ -1,3 +1,7 @@
+## 0.3.2 (18th Jan, 2016)
+
+* Correct Searchkit.version 
+
 ## 0.3.1 (18th Jan, 2016)
 
 * Better Documentation
