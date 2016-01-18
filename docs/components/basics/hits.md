@@ -37,12 +37,11 @@ class App extends SearchkitComponent<any, any> {
 ## Props
 - `hitsPerPage` *(Number)*: Number of results displayed per page
 - `highlightFields` *(Array<string>)*: Array of highlighted fields. Any highlight matches will be returned in the result.highlight[fieldName]. See above for example.
-- `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/translate.md) page.
 - `mod` *(string)*: Optional. A custom BEM container class.
 
 ## Customising Blank States
 
-Often the hits component will display the appropriate blank states, `renderInitialView` and `renderNoResults` can be overriden to provide custom behaviour, below is the default implementation
+Often the hits component will display the appropriate blank states, `renderInitialView` can be overridden to provide custom behaviour, below is the default implementation. `renderInitialView` is displayed when searchkit is fetching results from ES for the first time.
 
 ```jsx
 class MovieHits extends Hits {
@@ -52,11 +51,7 @@ class MovieHits extends Hits {
 	  <div className={this.bemBlocks.container("initial-loading")}></div>
 	)
   }
-  renderNoResults() {
-    return (
-	  <div className={this.bemBlocks.container("no-results")}>No results</div>
-	)
-  }
+
 }
 ```
 
