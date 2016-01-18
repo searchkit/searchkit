@@ -1,55 +1,73 @@
-require([ 'gitbook' ], function (gitbook) {
-  var options, selectedValue;
+require(['gitbook', 'jQuery', 'lodash'], function (gitbook, $, _) {
+    var versions = [],
+        current  = undefined;
 
-  function createOptionHTML(option) {
-    var isSelected = selectedValue ? selectedValue === option.value : !!option.selected;
-    return '<option value="' + option.value + '"' + (isSelected ? ' selected' : '') + '>' + option.text + '</option>';
-  }
+    // Update the select with a list of versions
+    function updateVersions(_versions) {
+        versions = _versions || versions;
+        current  = $('.versions-select select').val();
 
-  function insertVersionsSelect() {
-    if (options && jQuery('.versions-select').length === 0) {
-      jQuery(
-        '<li class="versions-select">' +
-          '<div>' +
-            '<select>' +
-              options.map(createOptionHTML).join('') +
-            '</select>' +
-          '</div>' +
-        '</li>'
-      ) .prependTo('.book-summary > ul.summary')
-        .change(function (event) {
-          var value = jQuery('option:selected', this).val();
+        // Cleanup existing selector
+        $('.versions-select').remove();
 
-          if (value)
-            window.location.href = value;
+        if (versions.length == 0) return;
+
+        var $li = $('<li>', {
+            'class': 'versions-select',
+            'html': '<div><select></select></div>'
+        });
+        var $select = $li.find('select');
+
+        _.each(versions, function(version) {
+            var $option = $('<option>', {
+                'selected': (current === undefined ? version.selected : (current === version.value)),
+                'value': version.value,
+                'text': version.text
+            });
+
+            $option.appendTo($select);
+        });
+
+        $select.change(function() {
+            var val = $select.val();
+            window.location.href = val;
+        })
+
+        $li.prependTo('.book-summary ul.summary');
+    }
+
+    // Fetch version from book.json (legacy plugin)
+    function fetchBookOptionsVersions(gitbookConfigURL) {
+        $.getJSON(gitbookConfigURL, function (bookConfig) {
+            options = bookConfig.pluginsConfig.versions.options;
+            updateVersions(options);
         });
     }
-  }
 
-  gitbook.events.bind('start', function (e, config) {
-    options = config.versions.options;
-
-    if (options)
-      for (var i = 0; selectedValue == null && i < options.length; ++i)
-        if (options[i].selected)
-          selectedValue = options[i].value;
-
-    insertVersionsSelect();
-
-    // Make sure we have a current book.json
-    if (config.versions.gitbookConfigURL) {
-      jQuery.getJSON(config.versions.gitbookConfigURL, function (bookConfig) {
-        options = bookConfig.pluginsConfig.versions.options;
-
-        // Update .versions-select with all options, preserving
-        // the option that was selected in this build's config
-        jQuery('.versions-select').remove();
-        insertVersionsSelect();
-      });
+    // Fetch gitbook.com versions
+    function fetchBookVersions(type) {
+        $.getJSON((gitbook.state.root+'/gitbook/api/versions/branches').replace(/\/\/+/g, '/'), function (versions) {
+            updateVersions(_.map(versions, function(v) {
+                return {
+                    text: v.name,
+                    value: v.urls.website,
+                    selected: v.current
+                };
+            }));
+        });
     }
-  });
 
-  gitbook.events.bind('page.change', function () {
-    insertVersionsSelect();
-  });
+    gitbook.events.bind('start', function (e, config) {
+        var pluginConfig = config.versions || {};
+
+        if (pluginConfig.options) updateVersions(pluginConfig.options);
+
+        // Make sure we have a current book.json
+        if (pluginConfig.gitbookConfigURL)  fetchBookOptionsVersions(pluginConfig.gitbookConfigURL);
+        else fetchBookVersions(pluginConfig.type || 'branches');
+    });
+
+    gitbook.events.bind('page.change', function () {
+        updateVersions();
+    });
 });
