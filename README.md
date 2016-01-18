@@ -48,6 +48,7 @@ const App = ()=> (
       </div>
       <div className="example-search-site__results">
         <Hits hitsPerPage={10}/>
+        <NoHits/>
       </div>
     </div>
   </SearchkitProvider>
