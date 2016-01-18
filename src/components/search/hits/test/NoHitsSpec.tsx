@@ -97,14 +97,15 @@ describe("NoHits component", () => {
         .toEqual("Search for matrix")
     })
 
-    it("suggest remove filters", () => {
+    fit("suggest remove filters", () => {
       this.createWrapper()
-      this.searchkit.getSelectedFilters = () => {
-        return [{}]
-      }
-      this.searchkit.query.getQueryString = () => {
-        return "matrix"
-      }
+      // this.searchkit.getSelectedFilters = () => {
+      //   return [{}]
+      // }
+
+      this.searchkit.query = this.searchkit.query.addFilter({})
+      this.searchkit.query = this.searchkit.query.setQueryString("matrix")
+
       this.searchkit.setResults({
         aggregations:{
           "no_filters_top_hits":{
