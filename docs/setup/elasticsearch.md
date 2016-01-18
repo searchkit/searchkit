@@ -43,7 +43,7 @@ const searchkit = new SearchkitManager("http://localhost:9200/")
 ```
 
 ## Proxy elasticsearch connection
-We built a plugin for node express called [searchkit-express](www.github.com/searchkit/searchkit-express). This proxies the search request to elasticsearch via the server. This allows to validate requests on the server and with options to apply additional filters before it reaches the elasticsearch instance. See [searchkit-express setup](../server/searchkit_express.md) for more information.
+We built a plugin for node express called [searchkit-express](http://www.github.com/searchkit/searchkit-express). This proxies the search request to elasticsearch via the server. This allows to validate requests on the server and with options to apply additional filters before it reaches the elasticsearch instance. See [searchkit-express setup](../server/searchkit_express.md) for more information.
 
 ### Configuration
 ```js

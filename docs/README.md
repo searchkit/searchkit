@@ -28,6 +28,7 @@
   * [SearchkitManager](/docs/core/SearchkitManager.md)
   * [Accessors](/docs/core/Accessors.md)
   * [ImmutableQuery](/docs/core/ImmutableQuery.md)
+  * [QueryDSL](/docs/core/QueryDSL.md)
   * [SearchkitProvider](/docs/core/SearchkitProvider.md)
   * [SearchkitComponent](/docs/core/SearchkitComponent.md)
   * [Translation](/docs/core/Translate.md)

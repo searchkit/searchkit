@@ -21,7 +21,7 @@ class App extends SearchkitComponent<any, any> {
 ```
 
 ## Props
-- `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/translate.md) page.
+- `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
 
 ## Translations
 - `reset.clear_all` - Clear All Filters

@@ -24,8 +24,9 @@ class App extends SearchkitComponent<any, any> {
 - `field` *(ESAttribute)*: Non-analysed elastic search field to create aggs for the menu
 - `title` *(string)*: Title of the menu. Shown as a header and within selected filters
 - `id` *(string)*: id of component. Must be unique. Used as key for url serialisation
+- `size` *(number)*: Amount of facets to bring back, this will influence the view more functionality.
 - `operator` *('AND'|'OR')*: If you filter on a and b with OR, results with either the value a or b will match. If you select a and b, results will show which have both a and b.
-- `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/translate.md) page.
+- `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
 
 ## Translations
 - `facets.view_more` - View more
