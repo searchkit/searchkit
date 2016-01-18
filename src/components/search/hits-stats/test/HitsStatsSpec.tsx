@@ -8,10 +8,10 @@ describe("HitsStats tests", () => {
   beforeEach(() => {
     this.searchkit = new SearchkitManager("localhost:9200", {useHistory:false})
 
-    this.createWrapper = () => {
+    this.createWrapper = (translations) => {
 
       this.wrapper = mount(
-        <HitsStats searchkit={this.searchkit} translations={{"hitstats.results_found":"movies found"}} />
+        <HitsStats searchkit={this.searchkit} translations={translations} />
       );
 
     }
@@ -22,10 +22,14 @@ describe("HitsStats tests", () => {
     this.searchkit.setResults({
       hits:{
         total:10
-      }
+      },
+      took:10
     })
-    this.createWrapper()
+    this.createWrapper({"hitstats.results_found":"{hitCount} movies found"})
     expect(this.wrapper.find(".hits-stats__info").text()).toEqual("10 movies found")
+
+    this.createWrapper()
+    expect(this.wrapper.find(".hits-stats__info").text()).toEqual("10 results found in 10ms")
   })
 
 

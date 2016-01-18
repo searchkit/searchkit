@@ -8,7 +8,6 @@ export declare class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
     defineBEMBlocks(): {
         container: string;
     };
-    getHitCount(): number;
     getTime(): number;
     renderText(): JSX.Element;
     render(): JSX.Element;

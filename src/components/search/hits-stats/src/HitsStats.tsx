@@ -13,7 +13,7 @@ export interface HitsStatsProps extends SearchkitComponentProps {
 export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 
 	static translations:any = {
-		"hitstats.results_found":"results found"
+		"hitstats.results_found":"{hitCount} results found in {timeTaken}ms"
 	}
 	translations = HitsStats.translations
 
@@ -29,10 +29,6 @@ export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 		}
 	}
 
-	getHitCount():number {
-		return _.get(this.getResults(), "hits.total", 0)
-	}
-
 	getTime():number {
 		return _.get(this.getResults(),"took", 0)
 	}
@@ -40,7 +36,11 @@ export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 	renderText() {
 		return (
 			<div className={this.bemBlocks.container("info")} data-qa="info">
-				{this.getHitCount()} {this.translate("hitstats.results_found")}
+				{this.translate("hitstats.results_found", {
+					timeTaken:this.getTime(),
+					hitCount:this.searchkit.getHitsCount()
+				})
+				}
 			</div>
 		)
 	}

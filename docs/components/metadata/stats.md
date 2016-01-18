@@ -54,8 +54,8 @@ You can override the default display for HitsStats by overriding the renderText 
 - `getTime` returns the time taken for the query.
 - `getResults` returns the results object.
 
-## Props 
+## Props
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/translate.md) page.
 
 ## Translations
-- `hitstats.results_found` - "results found"
+- `hitstats.results_found` - "{numberResults} results found in {timeTaken}"
