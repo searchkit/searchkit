@@ -74,6 +74,7 @@ describe("NoHits component", () => {
   describe("suggestions", () => {
     it("suggest text", () => {
       this.createWrapper()
+      this.searchkit.query = this.searchkit.query.setQueryString("matrixx")
       this.searchkit.setResults({
         hits:{
           hits:[],
@@ -93,8 +94,10 @@ describe("NoHits component", () => {
       })
 
       this.wrapper.update()
+      expect(this.wrapper.find(".no-hits__info").text())
+        .toEqual("No results found for matrixx. Did you mean matrix?")
       expect(this.wrapper.find('.no-hits__steps').text())
-        .toEqual("Search for matrix")
+        .toEqual("Search for matrix instead")
     })
 
     it("suggest remove filters", () => {

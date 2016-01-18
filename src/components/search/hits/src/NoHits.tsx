@@ -20,7 +20,8 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 
 	static translations = {
 		"NoHits.NoResultsFound":"No results found for {query}.",
-		"NoHits.DidYouMean":"Search for {suggestion}",
+		"NoHits.NoResultsFoundDidYouMean":"No results found for {query}. Did you mean {suggestion}?",
+		"NoHits.DidYouMean":"Search for {suggestion} instead",
 		"NoHits.SearchWithoutFilters":"Search for {query} without filters"
 	}
 	translations = NoHits.translations
@@ -51,18 +52,20 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 		}
 	}
 
+	getSuggestion() {
+		return this.suggestionsAccessor && this.suggestionsAccessor.getSuggestion()
+	}
+
 	renderSuggestions() {
-		if(this.suggestionsAccessor){
-			let suggestion = this.suggestionsAccessor.getSuggestion()
-			if(suggestion){
-				return (
-					<FastClick handler={this.setQueryString.bind(this,suggestion)}>
-						<div className={this.bemBlocks.container("step-action")}>
-							{this.translate("NoHits.DidYouMean", {suggestion})}
-						</div>
-					</FastClick>
-				)
-			}
+		let suggestion = this.getSuggestion()
+		if(suggestion){
+			return (
+				<FastClick handler={this.setQueryString.bind(this,suggestion)}>
+					<div className={this.bemBlocks.container("step-action")}>
+						{this.translate("NoHits.DidYouMean", {suggestion})}
+					</div>
+				</FastClick>
+			)
 		}
 		return null
 	}
@@ -98,15 +101,17 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
     if (this.hasHits() || this.isInitialLoading() || this.isLoading()) return null
 		let query = this.getQuery().getQueryString()
 
-		let suggestion = this.renderSuggestions() || this.renderResetFilters() || null;
+		let suggestion = this.getSuggestion()
+		let infoKey = suggestion ? "NoHits.NoResultsFoundDidYouMean" : "NoHits.NoResultsFound"
+		let action = this.renderSuggestions() || this.renderResetFilters() || null;
 
 		return (
 			<div data-qa="no-hits" className={this.bemBlocks.container()}>
 				<div className={this.bemBlocks.container("info")}>
-					{this.translate("NoHits.NoResultsFound", {query:query})}
+					{this.translate(infoKey, {query:query, suggestion:suggestion})}
 				</div>
 				<div className={this.bemBlocks.container("steps")}>
-					{suggestion}
+					{action}
 				</div>
       </div>
 		);

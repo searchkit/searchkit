@@ -7,11 +7,13 @@ export declare class NoHits extends SearchkitComponent<NoHitsProps, any> {
     suggestionsAccessor: SuggestionsAccessor;
     static translations: {
         "NoHits.NoResultsFound": string;
+        "NoHits.NoResultsFoundDidYouMean": string;
         "NoHits.DidYouMean": string;
         "NoHits.SearchWithoutFilters": string;
     };
     translations: {
         "NoHits.NoResultsFound": string;
+        "NoHits.NoResultsFoundDidYouMean": string;
         "NoHits.DidYouMean": string;
         "NoHits.SearchWithoutFilters": string;
     };
@@ -20,6 +22,7 @@ export declare class NoHits extends SearchkitComponent<NoHitsProps, any> {
     defineBEMBlocks(): {
         container: string;
     };
+    getSuggestion(): boolean;
     renderSuggestions(): JSX.Element;
     setQueryString(query: any): void;
     resetFilters(): void;
