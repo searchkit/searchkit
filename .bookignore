@@ -4,3 +4,6 @@ package.json
 lib
 stable
 v*
+.editorconfig
+.gitignore
+CNAME
