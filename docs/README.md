@@ -5,6 +5,7 @@
   * [Connecting Elasticsearch](/docs/setup/elasticsearch.md)
   * [Indexing](/docs/setup/indexing.md)
   * [Using components](/docs/setup/using-components.md)
+  * [Migrating from 0.2](/docs/setup/migrating_from_0_2.md)
   * [Extending components](/docs/setup/extending-components.md)
 * [Components](/docs/components/README.md)    
     * [Basics](/docs/components/basics/README.md)
