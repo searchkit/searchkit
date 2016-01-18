@@ -47,3 +47,4 @@ const App = ()=> (
 - `NoHits.NoResultsFound`: No results found for {query}.,
 - `NoHits.DidYouMean`:Search for {suggestion},
 - `NoHits.SearchWithoutFilters`:Search for {query} without filters
+- `NoHits.NoResultsFoundDidYouMean`:No results found for {query}. Did you mean {suggestion}?,
