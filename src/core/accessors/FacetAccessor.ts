@@ -1,9 +1,10 @@
 import {ArrayState} from "../state"
-import {Accessor} from "./Accessor"
+import {FilterBasedAccessor} from "./FilterBasedAccessor"
 import {
-  Term, Terms, Aggs, Cardinality,
-  BoolShould, BoolMust
-} from "../query/QueryBuilders";
+  TermQuery, TermsBucket, CardinalityMetric,
+  BoolShould, BoolMust, SelectedFilter,
+  FilterBucket
+} from "../query";
 import * as _ from "lodash";
 
 
@@ -12,6 +13,8 @@ export interface FacetAccessorOptions {
   title?:string
   id?:string
   size:number
+  facetsPerPage?:number,
+  translations?:Object
 }
 
 export interface ISizeOption {
@@ -19,23 +22,34 @@ export interface ISizeOption {
   size:number
 }
 
-export class FacetAccessor extends Accessor<ArrayState> {
+export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
 
   state = new ArrayState()
   options:any
   defaultSize:number
   size:number
+  uuid:string
+
+  static translations:any = {
+    "facets.view_more":"View more",
+    "facets.view_less":"View less",
+    "facets.view_all":"View all"
+  }
+  translations = FacetAccessor.translations
+
   constructor(key, options:FacetAccessorOptions){
     super(key, options.id)
     this.options = options
     this.defaultSize = options.size
+    this.options.facetsPerPage = this.options.facetsPerPage || 50
     this.size = this.defaultSize;
+    if(options.translations){
+      this.translations = _.extend({}, this.translations, options.translations)
+    }
   }
 
   getBuckets(){
-    const results = this.getResults()
-    const path = ['aggregations',this.key, this.key,'buckets']
-    return _.get(results, path, [])
+    return this.getAggregations([this.key, this.key, "buckets"], [])
   }
 
   setViewMoreOption(option:ISizeOption) {
@@ -45,15 +59,16 @@ export class FacetAccessor extends Accessor<ArrayState> {
   getMoreSizeOption():ISizeOption {
     var option = {size:0, label:""}
     var total = this.getCount()
+    var facetsPerPage = this.options.facetsPerPage
 
     if (total <= this.defaultSize) return null;
 
     if (total <= this.size) {
-      option = {size:this.defaultSize, label:this.translate("view less")}
-    } else if ((this.size + 50) > total) {
-      option = {size:total, label:this.translate("view all")}
-    } else if ((this.size + 50) < total) {
-      option = {size:this.size + 50, label:this.translate("view more")}
+      option = {size:this.defaultSize, label:this.translate("facets.view_less")}
+    } else if ((this.size + facetsPerPage) > total) {
+      option = {size:total, label:this.translate("facets.view_all")}
+    } else if ((this.size + facetsPerPage) < total) {
+      option = {size:this.size + facetsPerPage, label:this.translate("facets.view_more")}
     } else if (total ){
       option = null
     }
@@ -62,10 +77,7 @@ export class FacetAccessor extends Accessor<ArrayState> {
   }
 
   getCount():number {
-    let key = this.key+"_count";
-    const results = this.getResults()
-    const path = ['aggregations',key, key,'value']
-    return _.get(results, path, 0)
+    return this.getAggregations([this.key, this.key+"_count", "value"], 0) as number
   }
 
   isOrOperator(){
@@ -78,37 +90,33 @@ export class FacetAccessor extends Accessor<ArrayState> {
 
   buildSharedQuery(query){
     var filters = this.state.getValue()
-    var filterTerms = _.map(filters, (filter)=> {
-      return Term(this.key, filter, {
-        $name:this.options.title || this.translate(this.key),
-        $value:this.translate(filter),
-        $id:this.options.id,
-        $disabled: false,
-        $remove:()=> {
-          this.state = this.state.remove(filter)
-        }
-      })
-    } );
+    var filterTerms = _.map(filters, TermQuery.bind(null, this.key))
+    var selectedFilters:Array<SelectedFilter> = _.map(filters, (filter)=> {
+      return {
+        name:this.options.title || this.translate(this.key),
+        value:this.translate(filter),
+        id:this.options.id,
+        remove:()=> this.state = this.state.remove(filter)
+      }
+    })
     var boolBuilder = this.getBoolBuilder()
     if(filterTerms.length > 0){
-      query = query.addFilter(this.key, boolBuilder(filterTerms))
+      query = query.addFilter(this.uuid, boolBuilder(filterTerms))
+        .addSelectedFilters(selectedFilters)
     }
+
     return query
   }
 
   buildOwnQuery(query){
     var filters = this.state.getValue()
-    let excludedKey = (this.isOrOperator()) ? this.key : undefined
+    let excludedKey = (this.isOrOperator()) ? this.uuid : undefined
     return query
-      .setAggs(Aggs(
+      .setAggs(FilterBucket(
         this.key,
-        query.getFilters(excludedKey),
-        Terms(this.key, {size:this.size})
-      ))
-      .setAggs(Aggs(
-        this.key+"_count",
-        query.getFilters(excludedKey),
-        Cardinality(this.key)
+        query.getFiltersWithoutKeys(excludedKey),
+        TermsBucket(this.key, this.key, {size:this.size}),
+        CardinalityMetric(this.key+"_count", this.key)
       ))
 
   }

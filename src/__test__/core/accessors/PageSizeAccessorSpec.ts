@@ -5,7 +5,7 @@ import {
 describe("PageSizeAccessor", ()=> {
 
   beforeEach(()=> {
-    this.accessor = new PageSizeAccessor("s", 10)
+    this.accessor = new PageSizeAccessor(10)
     this.query = new ImmutableQuery()
   })
 
@@ -13,8 +13,8 @@ describe("PageSizeAccessor", ()=> {
     expect(this.accessor.size).toBe(10)
   })
 
-  it("buildOwnQuery()", ()=> {
-    let query = this.accessor.buildOwnQuery(this.query)
+  it("buildSharedQuery()", ()=> {
+    let query = this.accessor.buildSharedQuery(this.query)
     expect(query).not.toBe(this.query)
     expect(query.getSize()).toBe(10)
   })

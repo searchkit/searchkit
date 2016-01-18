@@ -3,18 +3,28 @@ import * as _ from "lodash";
 import "../styles/index.scss";
 
 import {
-	Searcher,
 	SearchkitManager,
 	SearchkitComponent,
 	FacetAccessor,
-	FastClick
+	FastClick,
+	SearchkitComponentProps
 } from "../../../../../core"
 
-export interface IResetFilters {
-	mod?:string
+export interface ResetFiltersProps extends SearchkitComponentProps {
 }
 
-export class ResetFilters extends SearchkitComponent<IResetFilters, any> {
+export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
+
+	static translations:any = {
+		"reset.clear_all":"Clear all filters"
+	}
+	translations = ResetFilters.translations
+
+	static propTypes = _.defaults({
+		translations:SearchkitComponent.translationsPropType(
+			ResetFilters.translations
+		)
+	}, SearchkitComponent.propTypes)
 
 	defineBEMBlocks() {
 		return {
@@ -23,7 +33,7 @@ export class ResetFilters extends SearchkitComponent<IResetFilters, any> {
 	}
 
   hasFilters():boolean {
-    return this.searcher.hasFiltersOrQuery()
+    return this.getQuery().hasFiltersOrQuery()
   }
 
 	resetFilters() {
@@ -36,7 +46,7 @@ export class ResetFilters extends SearchkitComponent<IResetFilters, any> {
 		var block = this.bemBlocks.container
 
 		return (
-			<div className={block("reset")}>clear all filters</div>
+			<div className={block("reset")}>{this.translate("reset.clear_all")}</div>
 		)
 	}
 

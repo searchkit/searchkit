@@ -1,81 +1,109 @@
 const update = require("react-addons-update")
-import {BoolMust} from "./QueryBuilders"
+import {BoolMust} from "./query_dsl"
 import * as _ from "lodash"
 import {Utils} from "../support/Utils"
+import {SelectedFilter} from "./SelectedFilter"
 
 export class ImmutableQuery {
   index: any
   query: any
-  static defaultQuery: any = {
-	  filter: BoolMust([]),
-    query: BoolMust([]),
+  static defaultIndex:any = {
+    queryString:"",
+    filtersMap:{},
+    selectedFilters:[],
+    queries:[],
+    filters:[],
     size:0
   }
-  static defaultIndex:any = {
-    filters:{},
-    filtersArray:[]
-  }
-  constructor(query = ImmutableQuery.defaultQuery, index = ImmutableQuery.defaultIndex) {
+  constructor(index = ImmutableQuery.defaultIndex) {
     this.index = index
-    this.query = query
+    this.buildQuery()
+  }
+
+  buildQuery(){
+    let query:any = {}
+    if(this.index.queries.length > 0) {
+      query.query = BoolMust(this.index.queries)
+    }
+    if(this.index.filters.length > 0) {
+      query.filter = BoolMust(this.index.filters)
+    }
+    query.aggs = this.index.aggs
+    query.size = this.index.size
+    query.from = this.index.from
+    query.sort = this.index.sort
+    query.highlight = this.index.highlight
+    query.suggest = this.index.suggest
+    this.query = _.omit(query, v => v === undefined)
   }
 
   hasFilters(){
-    return !_.isEmpty(this.index.filters)
+    return this.index.filters.length > 0
   }
 
   hasFiltersOrQuery(){
-    return (this.query.query.$array.length +
-      this.query.filter.$array.length) > 0 || !!this.query.sort
+    return (this.index.queries.length +
+      this.index.filters.length) > 0 || !!this.index.sort
   }
 
   addQuery(query:any) {
-    if (query) {
-      return this.update({
-        query: BoolMust({ $push: [query] })
-      })
+    if(!query){
+      return this
     }
-    return this
+    return this.update({
+      queries:{ $push: [query] }
+    })
   }
 
-  addHiddenFilter(bool){
+  setQueryString(queryString){
+    return this.update({ $merge: { queryString} })
+  }
+
+  getQueryString(){
+    return this.index.queryString
+  }
+
+  addSelectedFilter(selectedFilter:SelectedFilter){
+    return this.addSelectedFilters([selectedFilter])
+  }
+  addSelectedFilters(selectedFilters:Array<SelectedFilter>){
+    return this.update({
+      selectedFilters:{$push:selectedFilters}
+    })
+  }
+
+  getSelectedFilters(){
+    return this.index.selectedFilters
+  }
+  addAnonymousFilter(bool){
     return this.addFilter(Utils.guid(), bool)
   }
 
-  addFilter(key, bool) {
-    console.log(arguments)
-    var newIndex = update(this.index,{
-      filters:{
-        $merge:{[key]:bool}
-      },
-      filtersArray:{
-        $push:bool.$array
-      }
-    })
-
+  addFilter(key, filter) {
     return this.update({
-      filter: BoolMust({ $push: [bool] })
-    }, newIndex)
-
-  }
-
-  getFiltersArray(){
-    return this.index.filtersArray || []
+      filters: { $push: [filter] },
+      filtersMap:{ $merge:{ [key]:filter } }
+    })
   }
 
   setAggs(aggs) {
-    // console.log(aggs)
-    let existingAggs = this.query.aggs || {}
-    let newAggs = _.extend({}, existingAggs, aggs)
-    return this.update({ $merge:{aggs:newAggs} })
+    return this.deepUpdate("aggs", aggs)
   }
 
-  getFilters(key = undefined) {
-    if (!_.isArray(key)) {
-      key = [key];
-    }
-    const filters = _.values(_.omit(this.index.filters || {}, key))
+  getFilters(keys) {
+    return this.getFiltersWithoutKeys(keys)
+  }
+
+  _getFilters(keys, method){
+    keys = [].concat(keys)
+    const filters = _.values(method(this.index.filtersMap || {}, keys))
     return BoolMust(filters)
+  }
+  getFiltersWithKeys(keys){
+    return this._getFilters(keys, _.pick)
+  }
+  getFiltersWithoutKeys(keys){
+    return this._getFilters(keys, _.omit)
   }
 
   setSize(size: number) {
@@ -84,6 +112,10 @@ export class ImmutableQuery {
 
   setSort(sort: string) {
     return this.update({ $merge: {sort:sort}})
+  }
+
+  setHighlight(highlight: any) {
+    return this.deepUpdate("highlight", highlight)
   }
 
   getSize(){
@@ -98,29 +130,31 @@ export class ImmutableQuery {
     return this.query.from
   }
 
-  update(updateDef, newIndex = this.index) {
+  deepUpdate(key, ob){
+    return this.update({
+      $merge: {
+        [key]:_.merge({}, this.index[key] || {}, ob)
+      }
+    })
+  }
+
+  setSuggestions(suggestions) {
+    return this.update({
+      $merge:{suggest:suggestions}
+    })
+  }
+
+  update(updateDef) {
     return new ImmutableQuery(
-      update(this.query, updateDef),
-      newIndex
+      update(this.index, updateDef)
     )
   }
 
-  static areQueriesDifferent(queryA: ImmutableQuery, queryB: ImmutableQuery) {
-    if (!queryA || !queryB) {
-      return true
-    }
-
-    return !_.isEqual(queryA, queryB)
+  getJSON() {
+    return this.query
   }
 
-  getJSON() {
-    const replacer = (key, value) => {
-      if (/^\$/.test(key)) {
-        return undefined
-      } else {
-        return value
-      }
-    }
-    return JSON.parse(JSON.stringify(this.query, replacer))
+  printJSON(){
+    console.log(JSON.stringify(this.getJSON(), null, 2))
   }
 }

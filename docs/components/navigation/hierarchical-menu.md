@@ -58,6 +58,7 @@ class App extends SearchkitComponent<any, any> {
 - `fields` *([ESAttribute])*: An array of non-analysed elastic search fields to create aggs.
 - `title` *(string)*: Title of the menu. Shown as a header and within selected filters
 - `id` *(string)*: id of component. Must be unique. Used as key for url serialisation
+- `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
 
 ## Demo
 [](codepen://searchkit/jWyWmw?height=800&theme=0)

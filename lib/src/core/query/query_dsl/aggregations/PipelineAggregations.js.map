@@ -1,0 +1,1 @@
+{"version":3,"file":"PipelineAggregations.js","sourceRoot":"","sources":["../../../../../../src/core/query/query_dsl/aggregations/PipelineAggregations.ts"],"names":["AvgBucketPipeline"],"mappings":"AAAA,8BAA4B,iBAE5B,CAAC,CAF4C;AAE7C,2BAAkC,GAAG,EAAE,YAAY;IACjDA,MAAMA,CAACA,6BAAaA,CAACA,GAAGA,EAAEA,EAACA,cAAAA,YAAYA,EAACA,CAACA,CAAAA;AAC3CA,CAACA;AAFe,yBAAiB,oBAEhC,CAAA"}

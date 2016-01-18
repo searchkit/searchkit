@@ -4,15 +4,80 @@
     <meta charset="utf-8" />
     <title>React Tutorial</title>
 
-    <link rel="stylesheet" type="text/css" href="../../../release/styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react-dom.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../release/styles.css"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react-dom.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
     <script src="../../../release/bundle.js"></script>
+    <style>
+      html {
+        font-family: "Open Sans";
+        box-sizing: border-box;
+      }
 
+      *, *:before, *:after {
+        box-sizing: inherit;
+      }
+
+      .layout__search-box {
+        position: absolute;
+        top: 0;
+        left: 230px;
+        right: 0;
+        padding: 10px;
+        border-bottom: 1px solid #e1e1e1;
+        display: flex;
+      }
+      .layout__search-box .selected-filters {
+        border-right: 1px solid #e1e1e1;
+        max-height: 42px;
+      }
+
+      .layout__applied-filters {
+        position:absolute;
+        top:50px;
+        left:230px;
+        right:0;
+        height:50px;
+        border-bottom: 1px solid #e1e1e1;
+      }
+      .layout__filters {
+        position: absolute;
+        top: 0px;
+        left: 0;
+        bottom: 0;
+        width: 230px;
+        padding: 20px 20px 0 20px;
+        background: #fafafa;
+        border-right: 1px solid #e1e1e1;
+        overflow: auto;
+      }
+      .layout__filters .menu-list {
+        text-transform: capitalize;
+      }
+
+      .layout__results {
+        position: absolute;
+        left: 230px;
+        right: 0;
+        top: 110px;
+        bottom: 0;
+        padding: 0 20px 20px;
+        overflow: auto;
+      }
+      .layout .hits__item {
+        align-items: stretch !important;
+      }
+
+      .layout__filters__heading {
+        margin-bottom: 30px;
+        margin-top: 20px;
+      }
+    </style>
 
   </head>
   <body>
+
     <div id="app"></div>
     <script type="text/babel">
       const {
@@ -30,7 +95,7 @@
       	renderResult(result:any) {
       		return (
       			<div data-qa="hit" className={this.bemBlocks.item().mix(this.bemBlocks.container("item"))} key={result._id}>
-      				<div className={this.bemBlocks.item("title")}>{result._source.title}</div>
+      				<div data-qa="title" className={this.bemBlocks.item("title")}>{result._source.title}</div>
       			</div>
       		)
       	}
@@ -39,20 +104,20 @@
       const App = ()=> (
         <SearchkitProvider searchkit={searchkit}>
           <div>
-            <div className="example-search-site__query">
-              <SearchBox autofocus={true} mod="example-search-box" searchOnChange={true} prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
+            <div className="layout__query">
+              <SearchBox autofocus={true} searchOnChange={true} prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
             </div>
-            <div className="example-search-site__applied-filters">
-              <SelectedFilters mod="example-applied-filters"/>
-              <ResetFilters mod="example-reset-filters"/>
+            <div className="layout__applied-filters">
+              <SelectedFilters />
               <HitsStats/>
             </div>
-            <div className="example-search-site__filters">
+            <div className="layout__filters">
+              <ResetFilters/>
               <HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
               <RefinementListFilter id="actors" title="Actors" field="actors.raw" operator="AND" size={10}/>
             </div>
-            <div className="example-search-site__results">
-              <MovieHits hitsPerPage={10} mod="example-hits"/>
+            <div className="layout__results">
+              <MovieHits hitsPerPage={10}/>
             </div>
           </div>
         </SearchkitProvider>

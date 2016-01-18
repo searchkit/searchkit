@@ -5,11 +5,11 @@ import "../styles/index.scss";
 import {
 	SearchkitComponent,
 	PaginationAccessor,
-	FastClick
+	FastClick,
+	SearchkitComponentProps
 } from "../../../../core"
 
-export interface IPagination {
-	mod?:string
+export interface PaginationProps extends SearchkitComponentProps {
 }
 
 export enum DIRECTION {
@@ -17,8 +17,21 @@ export enum DIRECTION {
 	PREVIOUS
 }
 
-export class Pagination extends SearchkitComponent<IPagination, any> {
+export class Pagination extends SearchkitComponent<PaginationProps, any> {
 	accessor:PaginationAccessor
+
+
+	static translations:any = {
+		"pagination.previous":"Previous",
+		"pagination.next":"Next"
+	}
+	translations = Pagination.translations
+
+	static propTypes = _.defaults({
+		translations:SearchkitComponent.translationsPropType(
+			Pagination.translations
+		)
+	}, SearchkitComponent.propTypes)
 
 	defineAccessor() {
     return new PaginationAccessor("p")
@@ -55,9 +68,9 @@ export class Pagination extends SearchkitComponent<IPagination, any> {
 	isDisabled(direction:DIRECTION):boolean {
 		let currentPage:number = this.getCurrentPage();
 		let totalPages:number = Math.ceil(
-			_.get(this.searcher,"results.hits.total",1)
+			_.get(this.getResults(),".hits.total",1)
 			/
-			_.get(this.searcher, "query.query.size", 10)
+			_.get(this.getQuery(), "query.size", 10)
 		)
 		if (direction == DIRECTION.PREVIOUS && currentPage == 1) { return true; }
 		if (direction == DIRECTION.NEXT && currentPage == totalPages ) { return true; }
@@ -67,24 +80,28 @@ export class Pagination extends SearchkitComponent<IPagination, any> {
 	paginationElement(direction:DIRECTION, cssClass:string, displayText:string ) {
 		let className = this.bemBlocks.option()
 			.mix(this.bemBlocks.container("item"))
+			.mix(this.bemBlocks.option(cssClass))
 			.state({
 				disabled:this.isDisabled(direction)
 			})
     return (
 			<FastClick handler={this.setPage.bind(this,direction)}>
 	      <div className={className} data-qa={direction}>
-	        <div className={this.bemBlocks.option("text")}>{displayText}</div>
+	        <div className={this.bemBlocks.option("text")}>{this.translate(displayText)}</div>
 	      </div>
 			</FastClick>
 		)
 	}
 
   render() {
-    return (
-      <div className={this.bemBlocks.container()} data-qa="pagination">
-					{this.paginationElement(DIRECTION.PREVIOUS, "prev", "Previous")}
-					{this.paginationElement(DIRECTION.NEXT, "next", "Next")}
-      </div>
-    )
+		if(this.hasHits()){
+			return (
+				<div className={this.bemBlocks.container()} data-qa="pagination">
+					{this.paginationElement(DIRECTION.PREVIOUS, "prev", "pagination.previous")}
+					{this.paginationElement(DIRECTION.NEXT, "next", "pagination.next")}
+      	</div>
+			)
+		}
+		return null
   }
 }

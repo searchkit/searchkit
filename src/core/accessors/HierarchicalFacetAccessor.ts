@@ -1,26 +1,36 @@
 import {State, LevelState} from "../state"
-import {Accessor} from "./Accessor"
+import {FilterBasedAccessor} from "./FilterBasedAccessor";
 import {
-  Term, Terms, Aggs,
+  TermQuery, TermsBucket, FilterBucket,
   BoolShould, BoolMust
-} from "../query/QueryBuilders";
+} from "../query/";
 import * as _ from "lodash";
 
 
-export class HierarchicalFacetAccessor extends Accessor<LevelState> {
+export class HierarchicalFacetAccessor extends FilterBasedAccessor<LevelState> {
 
   state = new LevelState()
   options:any
+  uuids:Array<String>
+
   constructor(key, options:any){
     super(key)
     this.options = options
+    this.computeUuids()
+  }
+
+  computeUuids(){
+    this.uuids = _.map(
+      this.options.fields, field => this.uuid + field)
+  }
+
+  onResetFilters(){
+    this.resetState()
   }
 
   getBuckets(level){
-    const results = this.getResults()
     var field = this.options.fields[level]
-    const path = ['aggregations',field, field,'buckets']
-    return _.get(results, path, [])
+    return this.getAggregations([this.options.id, field, field, "buckets"], [])
   }
 
   buildSharedQuery(query) {
@@ -28,22 +38,30 @@ export class HierarchicalFacetAccessor extends Accessor<LevelState> {
     _.each(this.options.fields, (field:string, i:number) => {
       var filters = this.state.getLevel(i);
       var parentFilter = this.state.getLevel(i-1);
-
-      var filterTerms = _.map(filters, (filter:any, idx)=> {
-        return Term(field, filter, {
-          $name:this.translate(parentFilter[0]) || this.options.title || this.translate(field),
-          $value:this.translate(filter),
-          $id:this.options.id,
-          $remove:()=> {
-            this.state = this.state.remove(i, filter)
-          },
-          $disabled: this.state.levelHasFilters(i+1)
-        })
-      });
+      var isLeaf = !this.state.levelHasFilters(i+1)
+      var filterTerms = _.map(filters, TermQuery.bind(null, field))
 
       if(filterTerms.length > 0){
-        query = query.addFilter(field, BoolShould(filterTerms))
+        query = query.addFilter(
+          this.uuids[i],
+          (filterTerms.length  > 1 ) ?
+          BoolShould(filterTerms) : filterTerms[0])
+        }
+
+      if(isLeaf){
+        var selectedFilters = _.map(filters, (filter)=> {
+          return {
+            id:this.options.id,
+            name:this.translate(parentFilter[0]) || this.options.title || this.translate(field),
+            value:this.translate(filter),
+            remove:()=> {
+              this.state = this.state.remove(i, filter)
+            }
+          }
+        })
+        query = query.addSelectedFilters(selectedFilters)
       }
+
     })
 
     return query
@@ -52,18 +70,21 @@ export class HierarchicalFacetAccessor extends Accessor<LevelState> {
   buildOwnQuery(query){
     var filters = this.state.getValue()
     var field = this.options.fields[0]
-    var aggs = {};
-
-    _.each(this.options.fields, (field:string, i:number) => {
-
+    let lvlAggs = _.compact(_.map(this.options.fields, (field:string, i:number) => {
       if (this.state.levelHasFilters(i-1) || i == 0) {
-        _.extend(aggs, Aggs(
+        return FilterBucket(
           field,
-          query.getFilters(_.slice(this.options.fields,i)),
-          Terms(field, {size:this.options.size})
-        ))
+          query.getFiltersWithKeys(_.take(this.uuids,i)),
+          TermsBucket(field, field, {size:this.options.size})
+        )
       }
-    });
+    }));
+
+    var aggs = FilterBucket(
+      this.options.id,
+      query.getFiltersWithoutKeys(this.uuids),
+      ...lvlAggs
+    )
 
     return query.setAggs(aggs)
   }

@@ -20,8 +20,6 @@ import {
 	RefinementListFilter,
 	Hits,
 	HitsStats,
-	Searcher,
-	SearcherProvider,
 	SearchkitComponent,
 	SelectedFilters,
 	MenuFilter,

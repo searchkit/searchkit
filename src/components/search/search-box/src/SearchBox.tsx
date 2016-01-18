@@ -6,29 +6,47 @@ var Autosuggest = require('react-autosuggest');
 import "../styles/index.scss";
 
 import {
-	SearchAccessor,
-	SearchkitComponent
+	QueryAccessor,
+	SearchkitComponent,
+	SearchkitComponentProps
 } from "../../../../core"
 
-export interface ISearchBox {
+export interface SearchBoxProps extends SearchkitComponentProps {
 	searchOnChange?:boolean
 	queryFields?:Array<string>
-	mod?:string
 	autofocus?:boolean
 	queryOptions?:any
 	prefixQueryFields?:Array<string>
 }
 
-export class SearchBox extends SearchkitComponent<ISearchBox, any> {
-	accessor:SearchAccessor
+export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
+	accessor:QueryAccessor
 	lastSearchMs:number
-	constructor (props:ISearchBox) {
+
+	static translations:any = {
+		"searchbox.placeholder":"Search"
+	}
+	translations = SearchBox.translations
+
+	static propTypes = _.defaults({
+		searchOnChange:React.PropTypes.bool,
+		queryFields:React.PropTypes.arrayOf(React.PropTypes.string),
+		autofocus:React.PropTypes.bool,
+		queryOptions:React.PropTypes.object,
+		prefixQueryFields:React.PropTypes.arrayOf(React.PropTypes.string),
+		translations:SearchkitComponent.translationsPropType(
+			SearchBox.translations
+		)
+	}, SearchkitComponent.propTypes)
+
+	constructor (props:SearchBoxProps) {
 		super(props);
 		this.state = {
 			focused:false
 		}
 		this.lastSearchMs = 0
 	}
+
 
 	componentWillMount() {
 		super.componentWillMount()
@@ -39,9 +57,10 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	}
 
 	defineAccessor(){
-		return new SearchAccessor("q", {
-			prefixQueryFields:this.props.prefixQueryFields || (this.props.searchOnChange && this.props.queryFields),
-			queryFields:this.props.queryFields,
+
+		return new QueryAccessor("q", {
+			prefixQueryFields:(this.props.searchOnChange ? (this.props.prefixQueryFields || this.props.queryFields) : false),
+			queryFields:this.props.queryFields || ["_all"],
 			queryOptions:_.extend({
 			}, this.props.queryOptions)
 		})
@@ -53,8 +72,8 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 	}
 
 	searchQuery(query) {
-		this.searchkit.resetState()
-		this.accessor.state = this.accessor.state.setValue(query)
+		let shouldResetOtherState = false
+		this.accessor.setQueryString(query, shouldResetOtherState )
 		let now = +new Date
 		let newSearch = now - this.lastSearchMs <= 2000
 		this.lastSearchMs = now
@@ -67,10 +86,10 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
 
 	onChange(e){
 		const query = e.target.value;
-		this.accessor.state = this.accessor.state.setValue(query)
+		this.accessor.setQueryString(query)
 		if (this.props.searchOnChange) {
 			_.throttle(()=> {
-				this.searchQuery(this.accessor.state.getValue())
+				this.searchQuery(this.accessor.getQueryString())
 			}, 400)()
 		}
 		this.forceUpdate()
@@ -90,7 +109,7 @@ export class SearchBox extends SearchkitComponent<ISearchBox, any> {
           <input type="text"
 					data-qa="query"
 					className={block("text")}
-					placeholder="search"
+					placeholder={this.translate("searchbox.placeholder")}
 					value={this.getValue()}
 					onFocus={this.setFocusState.bind(this, true)}
 					onBlur={this.setFocusState.bind(this, false)}

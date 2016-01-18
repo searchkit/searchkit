@@ -1,90 +1,69 @@
 import {
-  Accessor, ValueState, Searcher, ImmutableQuery,
-  SearchkitManager
+  Accessor,
+  Utils,
+  SearchkitManager,
+  ImmutableQuery
 } from "../../../"
 
 describe("Accessor", ()=> {
 
   beforeEach(()=> {
-    class SomeAccessor extends Accessor<ValueState> {
-      state = new ValueState()
-    }
-
-    this.accessor = new SomeAccessor(
-      "genres.raw"
-    )
-    this.searchkit = new SearchkitManager("/")
-    this.searcher = new Searcher(this.searchkit)
-    this.accessor.setSearcher(this.searcher)
+    this.searchkit = new SearchkitManager("/", {useHistory:false})
+    spyOn(Utils, "guid").and.returnValue("some_uuid")
+    this.accessor = new Accessor()
+    this.query = new ImmutableQuery()
   })
 
   it("constructor()", ()=> {
-    expect(this.accessor.key).toEqual("genres.raw")
-    expect(this.accessor.urlKey).toEqual("genres_raw")
+    expect(this.accessor.active).toBe(true)
+    expect(this.accessor.uuid).toBe("some_uuid")
   })
 
-  it("setSearcher()", ()=> {
-    expect(this.accessor.searcher).toBe(this.searcher)
-    expect(this.accessor.state).toBe(this.accessor.resultsState)
+  it("setActive()", ()=> {
+    expect(this.accessor.setActive(false).active)
+      .toBe(false)
+  })
+
+  it("setSearchkitManager()", ()=> {
+    this.accessor.setSearchkitManager(this.searchkit)
+    expect(this.accessor.searchkit).toBe(this.searchkit)
   })
 
   it("translate()", ()=> {
-    this.searcher.translate = (key)=> {
-      return {a:'b'}[key]
-    }
-    expect(this.accessor.translate("a")).toBe("b")
+    expect(this.accessor.translate("foo")).toBe("foo")
+    this.searchkit.translate = key => key + "_translated"
+    this.accessor.setSearchkitManager(this.searchkit)
+    expect(this.accessor.translate("foo")).toBe("foo_translated")
   })
 
-  it("onStateChange()", ()=> {
-    expect(()=> this.accessor.onStateChange({}))
-      .not.toThrow()
+  it("set + get results", ()=> {
+    this.accessor.setResults("lots of hits")
+    expect(this.accessor.getResults()).toBe("lots of hits")
   })
 
-  it("fromQueryObject", ()=> {
-    let queryObject = {
-      genres_raw:[1,2],
-      authors_raw:[3,4]
-    }
-    this.accessor.fromQueryObject(queryObject)
-    expect(this.accessor.state.getValue())
-      .toEqual([1,2])
+  it("getAggregations()", ()=> {
+    expect(this.accessor.getAggregations(["tags", "buckets"], []))
+      .toEqual([])
+
+    this.accessor.setResults({
+      aggregations:{
+        tags:{
+          buckets:[1,2,3]
+        }
+      }
+    })
+    expect(this.accessor.getAggregations(["tags", "buckets"], []))
+      .toEqual([1,2,3])
   })
 
-  it("getQueryObject()", ()=> {
-    this.accessor.state = new ValueState([1,2])
-    expect(this.accessor.getQueryObject())
-      .toEqual({genres_raw:[1,2]})
+  it("buildSharedQuery()", ()=> {
+    expect(this.accessor.buildSharedQuery(this.query))
+      .toBe(this.query)
   })
 
-  it("getResults()", ()=> {
-    this.searcher.results = [1,2]
-    expect(this.accessor.getResults()).toEqual([1,2])
+  it("buildOwnQuery()", ()=> {
+    expect(this.accessor.buildOwnQuery(this.query))
+      .toBe(this.query)
   })
 
-  it("setResultsState()", ()=> {
-    delete this.accessor.resultsState
-    expect(this.accessor.state)
-      .not.toBe(this.accessor.resultsState)
-    this.accessor.setResultsState()
-    expect(this.accessor.state)
-      .toBe(this.accessor.resultsState)
-  })
-
-  it("resetState()", ()=> {
-    this.accessor.state = this.accessor.state.setValue("foo")
-    expect(this.accessor.state.getValue()).toBe("foo")
-    this.accessor.resetState()
-    expect(this.accessor.state.getValue()).toBe(null)
-  })
-
-  it("buildSharedQuery", ()=> {
-    let query = new ImmutableQuery()
-    expect(this.accessor.buildSharedQuery(query))
-      .toBe(query)
-  })
-  it("buildOwnQuery", ()=> {
-    let query = new ImmutableQuery()
-    expect(this.accessor.buildOwnQuery(query))
-      .toBe(query)
-  })
 })

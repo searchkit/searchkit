@@ -1,17 +1,22 @@
 import {State, ValueState} from "../state"
-import {Accessor} from "./Accessor"
-import {Range, BoolMust, Aggs, AggsRange} from "../query/QueryBuilders";
+import {FilterBasedAccessor} from "./FilterBasedAccessor"
+import {
+  RangeQuery, BoolMust,
+  RangeBucket, FilterBucket
+} from "../query";
 import * as _ from "lodash";
 
+export interface RangeOption {
+  title:string, from?:number, to?:number
+}
 export interface NumericOptions {
   field:string
   title:string
-  options:[{title:string, from?:number, to?:number}]
+  options:Array<RangeOption>
   id:string
-  mod?:string
 }
 
-export class NumericOptionsAccessor extends Accessor<ValueState> {
+export class NumericOptionsAccessor extends FilterBasedAccessor<ValueState> {
 
   state = new ValueState()
   options:NumericOptions
@@ -21,33 +26,36 @@ export class NumericOptionsAccessor extends Accessor<ValueState> {
   }
 
   getBuckets(){
-    const results = this.getResults()
-    const path = ['aggregations',this.key, this.key,'buckets']
-    return _.get(results, path, [])
+    return this.getAggregations(
+      [this.key, this.key,"buckets"], []
+    )
   }
 
   buildSharedQuery(query) {
     if (this.state.hasValue()) {
       let val:any = _.findWhere(this.options.options, {title:this.state.getValue()})
 
-      let rangeFilter = Range(this.options.field, val.from, val.to, {
-        $name:this.translate(this.options.title),
-        $value:this.translate(val.title),
-        $id:this.options.id,
-        $remove:()=> {
+      let rangeFilter = RangeQuery(this.options.field, val.from, val.to)
+      let selectedFilter = {
+        name:this.translate(this.options.title),
+        value:this.translate(val.title),
+        id:this.options.id,
+        remove:()=> {
           this.state = this.state.clear()
-        },
-        $disabled: false
-      })
+        }
+      }
 
-      query = query.addFilter(this.key, BoolMust([rangeFilter]))
+      return query
+        .addFilter(this.uuid, BoolMust([rangeFilter]))
+        .addSelectedFilter(selectedFilter)
+
     }
 
     return query
   }
 
   getRanges() {
-    return _.compact(_.map(this.options.options, (range:{title:string, from?:number, to?:number}) => {
+    return _.compact(_.map(this.options.options, (range:RangeOption) => {
       return {
         key:range.title,
         from:range.from,
@@ -57,10 +65,11 @@ export class NumericOptionsAccessor extends Accessor<ValueState> {
   }
 
   buildOwnQuery(query) {
-    return query.setAggs(Aggs(
+    return query.setAggs(FilterBucket(
       this.key,
-      query.getFilters(this.key),
-      AggsRange(
+      query.getFiltersWithoutKeys(this.key),
+      RangeBucket(
+        this.key,
         this.options.field,
         this.getRanges()
       )
