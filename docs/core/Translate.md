@@ -9,6 +9,9 @@ All components run a translate function on any text displayed. This includes:
 
 and many more in components.
 
+## Interpolations
+Some translations contain interpolations, E.g. `NoHits.NoResultsFound` which has a default translation of `No results found for {query}.` which means the component will provide the query value.
+
 ## How to override global defaults
 ```js
 
@@ -44,10 +47,13 @@ You can pass any component an object of translations you wish to override. Examp
 - `facets.view_all` - View all
 
 ### NoHits
-- `nohits.no_results` - no results found
+- `NoHits.NoResultsFound` - No results found for {query}.
+- `NoHits.DidYouMean` - Search for {suggestion}.
+- `NoHits.SearchWithoutFilters` - Search for {query} without filters
+- `NoHits.NoResultsFoundDidYouMean`:No results found for {query}. Did you mean {suggestion}?
 
 ### HitStats
-- `hitstats.results_found` - "results found"
+- `hitstats.results_found` - {hitCount} results found in {timeTaken}ms
 
 ### Pagination
 - `pagination.previous` - Previous

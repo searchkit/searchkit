@@ -28,7 +28,11 @@ const App = ()=> (
   <SearchkitProvider searchkit={searchkit}>
     <div>
       <Hits hitsPerPage={10}/>
-      <NoHits translations={{"NoHits.NoResultsFound":"No results found..."}} suggestionsField="title"/>
+      <NoHits translations={{
+        "NoHits.NoResultsFound":"No movies found were found for {query}",
+        "NoHits.DidYouMean":"Search for {suggestion}",
+        "NoHits.SearchWithoutFilters":"Search for {query} without filters"
+      }} suggestionsField="title"/>
     </div>
   </SearchkitProvider>
 )
@@ -39,12 +43,14 @@ const App = ()=> (
 
 ## Props
 - `suggestionsField` *(ESField)*: The field used to create suggestions from which closely match the current query and will bring better results.
-- `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/translate.md) page.
+- `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
 - `mod` *(string)*: Optional. A custom BEM container class.
 
 
 ## Translations
+>*Note* NoHits will interpolate the query or suggestion into your translation
+
 - `NoHits.NoResultsFound`: No results found for {query}.,
 - `NoHits.DidYouMean`:Search for {suggestion},
 - `NoHits.SearchWithoutFilters`:Search for {query} without filters
-- `NoHits.NoResultsFoundDidYouMean`:No results found for {query}. Did you mean {suggestion}?,
+- `NoHits.NoResultsFoundDidYouMean`:No results found for {query}. Did you mean {suggestion}?

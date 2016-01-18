@@ -9,8 +9,8 @@ If a document has the following paths for the field taxonomy:
   /Color/Green/Sea Green
   /Color/Green/Lime Green
 
-### Field definition
-
+### Mapping definition
+Below is the definition needed for a hierarchical field, we are making hierarchical colors in this case.
 ```js
 color:{
   type:"nested",
@@ -23,9 +23,9 @@ color:{
 }
 ```
 
-### data indexed
+### Indexing the data
 
-the document field for taxonomy would be:
+The document field for the hierarchical color field would be:
 
 ```js
 
@@ -36,7 +36,7 @@ color:[
   {level:3, value:"Orange Red", ancestors:["Color", "Red"]},
   {level:2, value:"Green", ancestors:["Color"]},
   {level:3, value:"Sea Green", ancestors:["Color", "Green"]},
-  {level:3, value:"Lime Green", ancestors:["Color", "Green"]},
+  {level:3, value:"Lime Green", ancestors:["Color", "Green"]}
 ]
 
 ```
@@ -57,7 +57,7 @@ class App extends SearchkitComponent<any, any> {
 
  render(){
     <div>
-      <HierarchicalRefinementFilter field="taxonomy" title="Categories" id="categories"/>
+      <HierarchicalRefinementFilter field="color" title="Colors" id="colors"/>
     </div>
   }
 }
@@ -66,11 +66,11 @@ class App extends SearchkitComponent<any, any> {
 ## Props
 - `field` *(ESAttribute)*: ES Field name. See indexing section on the data required for component.
 - `title` *(string)*: Title of the menu. Shown as a header and within selected filters
-- `id` *(string)*: id of component. Must be unique. Used as key for url serialisation
+- `id` *(string)*: id of component. Must be unique. Used as key for url serialization
 - `startLevel` *(number)*: Optional. Can specify the root level to start from.
-- `orderKey` *(string)*: Order key either using default sortable keys `_count` `_term` or using the `order` field e.g. `taxonomy.order`
+- `orderKey` *(string)*: Order key either using default sortable keys `_count` `_term` or using the `order` field e.g. `color.order`
 - `orderDirection` *(string)*: `asc` or `desc`
-- `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/translate.md) page.
+- `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
 
 ## Demo
 [](codepen://searchkit/OMgmwR?height=800&theme=0)

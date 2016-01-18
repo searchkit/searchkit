@@ -3,5 +3,5 @@ export interface FilteredQueryOptions {
   query?:any
 }
 export function FilteredQuery(filtered:FilteredQueryOptions){
-  return {filtered}    
+  return {filtered}
 }
