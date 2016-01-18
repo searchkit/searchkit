@@ -1,3 +1,7 @@
+## 0.3.1 (18th Jan, 2016)
+
+* Better Documentation
+
 ## 0.3.0 (18th Jan, 2016)
 
 ### Overview
