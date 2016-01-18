@@ -7,7 +7,7 @@ export declare class Accessor {
     active: boolean;
     translations: Object;
     constructor();
-    setActive(active: boolean): this;
+    setActive(active: boolean): Accessor;
     setSearchkitManager(searchkit: any): void;
     translate(key: any, interpolations?: any): any;
     getResults(): any;
