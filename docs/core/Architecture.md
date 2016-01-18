@@ -4,8 +4,6 @@ ElasticSearch's querying is very sophisticated and modelling relationship betwee
 ## Searchkit's core classes
 
 * **[SearchkitManager](SearchkitManager)** us a top level class to manage searchkit
-* **Searcher** is responsible for constructing a query from its child accessors + holds the results for dependant components.
->**Note** Most simple applications will need a single **Searcher**, **Searchkit** supports multple for advanced usage to power dashboards, or more complicated apps.
 * [**Accessor**](Accessors.md) An accessor manages state, maps to a url key and produces a part of an ElasticSearch query
 * [**SearchkitComponent**](SearchkitComponent.md) is the main react baseclass which ties the `Searcher` and  `Accessor` to the UI.
 * [**ImmutableQuery**](ImmutableQuery.md) A query object which is passed top down, the query is rebuilt on every search and accessors take care of returning a query based on its state.
@@ -16,8 +14,6 @@ ElasticSearch's querying is very sophisticated and modelling relationship betwee
 
 ```mermaid
 graph LR
-  SearchkitManager-->|has many|Searcher
-  Searcher-->|has many|Accessor  
+  SearchkitManager-->|has many|Accessor
   SearchkitComponent-->Accessor
-  SearchkitComponent-->Searcher
 ```

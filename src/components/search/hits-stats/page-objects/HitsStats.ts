@@ -1,11 +1,9 @@
 import {Component, Input, Button, field, defaults} from "xenon";
 
-@defaults({qa:"pagination"})
+@defaults({qa:"hits-stats"})
 export default class HitsStats extends Component {
 
-  @field(Component,{qa:"prev"})
-  prevLink: Component
+  @field(Component,{qa:"info"})
+  info: Component
 
-  @field(Component,{qa:"next"})
-  nextLink: Component
 }

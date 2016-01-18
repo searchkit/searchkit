@@ -1,10 +1,10 @@
 import {LevelState} from "../state"
-import {Accessor} from "./Accessor"
+import {FilterBasedAccessor} from "./FilterBasedAccessor"
 import {
-  Term, Terms, Aggs,
-  BoolShould, BoolMust,
-  NestedFilter, AggsList
-} from "../query/QueryBuilders";
+  TermQuery, TermsBucket, FilterBucket,
+  BoolShould, BoolMust, NestedQuery,
+  NestedBucket, MinMetric
+} from "../query";
 
 export interface NestedFacetAccessorOptions {
 	field:string
@@ -15,7 +15,7 @@ export interface NestedFacetAccessorOptions {
   startLevel?:number
 }
 
-export class NestedFacetAccessor extends Accessor<LevelState> {
+export class NestedFacetAccessor extends FilterBasedAccessor<LevelState> {
 	state = new LevelState()
 	options:any
 
@@ -24,10 +24,15 @@ export class NestedFacetAccessor extends Accessor<LevelState> {
 		this.options = options
 	}
 
+  onResetFilters(){
+    this.resetState()
+  }
+
 	getBuckets(level) {
-		const results = this.getResults()
-    const rpath = ['aggregations',this.key, "parents", "lvl"+level,"parents",'buckets']
-    return _.get(results, rpath, [])
+    return this.getAggregations(
+      [this.key, "children", "lvl"+level, "children", "buckets"],
+      []
+    )
 	}
 
 	buildSharedQuery(query) {
@@ -35,24 +40,32 @@ export class NestedFacetAccessor extends Accessor<LevelState> {
 		let levelFilters = this.state.getValue()
 		let lastIndex = levelFilters.length - 1
 		var filterTerms = _.map(levelFilters, (filter,i) => {
-
 			let value = filter[0]
 			let isLeaf = i === lastIndex
 			let subField = isLeaf ? ".value" : ".ancestors"
-			return Term(this.options.field + subField, value, {
-				$name:this.options.title || this.translate(this.key),
-				$value:this.translate(value),
-				$id:this.key,
-				$disabled: !isLeaf,
-				$remove:()=> {
-					this.state = this.state.clear(i)
-		    }
-			})
+			return TermQuery(this.options.field + subField, value)
 		})
 
 		if(filterTerms.length > 0){
-      query = query.addFilter(this.key,
-				NestedFilter(this.options.field, BoolMust(filterTerms)))
+      let leafFilter = _.get(levelFilters, [levelFilters.length - 1, 0], "")
+      let parentOfleaf = _.get(
+        levelFilters,
+        [levelFilters.length - 2, 0],
+        this.options.title || this.key
+      )
+      let selectedFilter = {
+        id:this.key,
+        name:this.translate(parentOfleaf),
+        value:leafFilter,
+        remove:()=> {
+          this.state = this.state.clear(levelFilters.length-1)
+        }
+      }
+
+      query = query.addFilter(this.uuid,
+				NestedQuery(this.options.field, BoolMust(filterTerms))
+      ).addSelectedFilter(selectedFilter)
+
     }
 
     return query
@@ -72,22 +85,18 @@ export class NestedFacetAccessor extends Accessor<LevelState> {
           orderMetric = {
             [subAggName]:orderDirection
           }
-          subAggs = {
-            [subAggName]:{
-              "min":{field:orderKey}
-            }
-          }
+          subAggs = MinMetric(subAggName, orderKey)
         }
       }
     }
     let valueField = this.options.field+".value"
 
-    return {
-      parents:_.extend(
-        Terms(valueField, {size:0, order:orderMetric}),
-        {aggs:subAggs}
-      )
-    }
+    return TermsBucket(
+      "children", valueField,
+      {size:0, order:orderMetric},
+      subAggs
+    )
+
   }
 
   buildOwnQuery(query){
@@ -97,11 +106,12 @@ export class NestedFacetAccessor extends Accessor<LevelState> {
     let ancestorsField = this.options.field+".ancestors"
     let startLevel = this.options.startLevel || 1
     let termAggs = this.getTermAggs()
+    let lvlAggs = []
     var addLevel = (level, ancestors=[]) => {
-      _.extend(aggs,
-        AggsList(
+      lvlAggs.push(
+        FilterBucket(
           "lvl"+level,
-          BoolMust([Term(levelField, level+startLevel), ...ancestors]),
+          BoolMust([TermQuery(levelField, level+startLevel), ...ancestors]),
           termAggs
         )
       )
@@ -114,28 +124,25 @@ export class NestedFacetAccessor extends Accessor<LevelState> {
 		_.each(levels, (level,i) => {
 
 			let ancestors = _.map(_.take(levels, i+1), (level)=>{
-				return Term(ancestorsField, level[0])
+				return TermQuery(ancestorsField, level[0])
 			})
 
       addLevel(i+1, ancestors)
 
     })
 
-		query = query.setAggs({
-			[this.key]: {
-        filter:query.getFilters(this.key),
-        aggs:{
-          parents:{
-            nested: {
-              path: this.options.field
-            },
-            aggs: aggs
-          }
-        }
-      }
-		})
+    return query.setAggs(
+      FilterBucket(
+        this.key,
+        query.getFiltersWithoutKeys(this.uuid),
+        NestedBucket(
+          "children",
+          this.options.field,
+          ...lvlAggs
+        )
+      )
+    )
 
-    return query
   }
 
 }

@@ -1,20 +1,21 @@
 import {
-  FacetAccessor, ImmutableQuery, Searcher,SearchkitManager,
-  BoolMust, BoolShould, ArrayState, HierarchicalFacetAccessor
+  FacetAccessor, ImmutableQuery,
+  BoolMust, BoolShould, ArrayState, HierarchicalFacetAccessor,
+  TermQuery, FilterBucket, TermsBucket
 } from "../../../"
 import * as _ from "lodash"
 
 describe("HierarchicalFacetAccessor", ()=> {
 
   beforeEach(()=> {
-    this.searcher = new Searcher(new SearchkitManager('/'))
     this.accessor = new HierarchicalFacetAccessor("categories", {
       fields:["lvl1", "lvl2", "lvl3"],
       id:"categories_id",
       title:"Categories",
       size:20
     })
-    this.accessor.setSearcher(this.searcher)
+    this.accessor.uuid = "999"
+    this.accessor.computeUuids()
     this.query = new ImmutableQuery()
     this.toPlainObject = (ob)=> {
       return JSON.parse(JSON.stringify(ob))
@@ -22,17 +23,21 @@ describe("HierarchicalFacetAccessor", ()=> {
   })
 
 
+
+
   it("getBuckets()", ()=> {
-    this.searcher.results = {
+    this.accessor.results = {
       aggregations:{
-        lvl2:{
+        categories_id:{
           lvl2:{
-            buckets:[1,2,3]
-          }
-        },
-        lvl3:{
+            lvl2:{
+              buckets:[1,2,3]
+            }
+          },
           lvl3:{
-            buckets:[4,5,6]
+            lvl3:{
+              buckets:[4,5,6]
+            }
           }
         }
       }
@@ -50,96 +55,87 @@ describe("HierarchicalFacetAccessor", ()=> {
       .add(0, "lvl1val")
       .add(1, "lvl2val")
       .add(2, "lvl3val")
-    expect(this.toPlainObject(this.accessor.state.getValue()))
-      .toEqual([["lvl1val"], ['lvl2val'], ["lvl3val"]])
+      .add(2, "lvl3val2")
+    expect(this.accessor.state.getValue())
+      .toEqual([["lvl1val"], ['lvl2val'], ["lvl3val", "lvl3val2"]])
 
     let query = this.accessor.buildSharedQuery(this.query)
-    let filters = _.chain(query.query.filter.$array)
-      .pluck("$array")
-      .flatten().value()
-    expect(this.toPlainObject(filters)).toEqual([
+    // console.log(JSON.stringify(query.query.filter, null, 2 ))
+
+    expect(query.query.filter).toEqual(
+      BoolMust([
+        TermQuery("lvl1", "lvl1val"),
+        TermQuery("lvl2", "lvl2val"),
+        BoolShould([
+          TermQuery("lvl3", "lvl3val"),
+          TermQuery("lvl3", "lvl3val2")
+        ])
+      ])
+    )
+
+    let selectedFilters = query.getSelectedFilters()
+    expect(this.toPlainObject(selectedFilters)).toEqual([
       {
-        "term": {
-          "lvl1": "lvl1val"
-        },
-        "$disabled": true,
-        "$name": "Categories",
-        "$value": "lvl1val",
-        "$id": "categories_id"
+        "id": "categories_id",
+        "name": "lvl2val",
+        "value": "lvl3val"
       },
       {
-        "term": {
-          "lvl2": "lvl2val"
-        },
-        "$disabled": true,
-        "$name": "lvl1val",
-        "$value": "lvl2val",
-        "$id": "categories_id"
-      },
-      {
-        "term": {
-          "lvl3": "lvl3val"
-        },
-        "$disabled": false,
-        "$name": "lvl2val",
-        "$value": "lvl3val",
-        "$id": "categories_id"
+        "id": "categories_id",
+        "name": "lvl2val",
+        "value": "lvl3val2"
       }
     ])
-    filters[1].$remove()
-    expect(this.toPlainObject(this.accessor.state.getValue()))
-      .toEqual([['lvl1val'], [], ['lvl3val']])
-    filters[0].$remove()
-    expect(this.toPlainObject(this.accessor.state.getValue()))
-      .toEqual([[], [], ['lvl3val']])
-    filters[2].$remove()
-    expect(this.toPlainObject(this.accessor.state.getValue()))
-      .toEqual([[], [], []])
-
-    //check same query is returned when no filters exist
-    let newQuery = this.accessor.buildSharedQuery(query)
-    expect(newQuery).toBe(query)
+    // console.log(JSON.stringify(selectedFilters, null, 2 ))
+    selectedFilters[0].remove()
+    expect(this.accessor.state.getValue())
+      .toEqual([["lvl1val"], ['lvl2val'], ["lvl3val2"]])
+    selectedFilters[1].remove()
+    expect(this.accessor.state.getValue())
+      .toEqual([["lvl1val"], ['lvl2val'], []])
   })
 
+
   it("buildOwnQuery()", ()=> {
-    const getFilters = (aggs)=> {
-      let filters = _.flatten(_.pluck(aggs.filter.$array, "$array"))
-      return _.map(filters, f=> _.pick(f,"term"))
-    }
+
     this.accessor.state = this.accessor.state
       .add(0, "lvl1val")
       .add(1, "lvl2val")
       .add(2, "lvl3val")
+    this.query = this.query.addFilter("other", BoolShould(["foo"]))
     let query = this.accessor.buildSharedQuery(this.query)
     query = this.accessor.buildOwnQuery(query)
-
-
-    //lvl1
-    let aggs1 = query.query.aggs.lvl1
-    expect(getFilters(aggs1)).toEqual([])
-    expect(aggs1.aggs.lvl1.terms).toEqual({
-      field:'lvl1', size:20
-    })
-
-
-    //lvl2
-    let aggs2 = query.query.aggs.lvl2
-    expect(getFilters(aggs2)).toEqual([
-      {term:{lvl1:"lvl1val"}}
+    expect(_.keys(query.index.filtersMap)).toEqual([
+      'other', '999lvl1', '999lvl2', '999lvl3'
     ])
-    expect(aggs2.aggs.lvl2.terms).toEqual({
-      field:"lvl2", size:20
-    })
 
-    //lvl3
-    let aggs3 = query.query.aggs.lvl3
-    expect(getFilters(aggs3)).toEqual([
-      {term:{lvl1:"lvl1val"}},
-      {term:{lvl2:"lvl2val"}}
-    ])
-    expect(aggs3.aggs.lvl3.terms).toEqual({
-      field:"lvl3", size:20
-    })
+    // console.log(JSON.stringify(query.query.aggs, null, 2))
+    var expected = FilterBucket(
+      "categories_id", BoolMust([BoolShould(["foo"])]),
+      FilterBucket(
+        "lvl1",
+        BoolMust([]),
+        TermsBucket("lvl1", "lvl1", {size:20})
+      ),
+      FilterBucket(
+        "lvl2",
+        BoolMust([
+          TermQuery("lvl1", "lvl1val")
+        ]),
+        TermsBucket("lvl2", "lvl2", {size:20})
+      ),
+      FilterBucket(
+        "lvl3",
+        BoolMust([
+          TermQuery("lvl1", "lvl1val"),
+          TermQuery("lvl2", "lvl2val")
+        ]),
+        TermsBucket("lvl3", "lvl3", {size:20})
+      )
+    )
+    // console.log(JSON.stringify(expected, null, 2))
+    expect(query.query.aggs).toEqual(expected)
+
 
   })
 

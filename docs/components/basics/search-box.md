@@ -28,6 +28,10 @@ class App extends SearchkitComponent<any, any> {
 - `prefixQueryFields` *(Array<string>)*: Optional. An array of elasticsearch fields to search within. Can specify boosting on particular fields. Will search `_all` by default. Will only be used if searchOnChange is true.
 - `queryOptions` *(Object)*: Optional. An object of options for [Query String](https://www.elastic.co/guide/en/elasticsearch/reference/2.0/query-dsl-query-string-query.html).
 - `mod` *(string)*: Optional. A custom BEM container class.
+- `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
+
+## Translations
+- `searchbox.placeholder` - "Search"
 
 ## Demo
 [](codepen://searchkit/zrNrGW?height=800&theme=0)

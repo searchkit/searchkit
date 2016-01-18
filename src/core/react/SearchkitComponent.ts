@@ -1,76 +1,114 @@
 import * as React from "react"
 import {SearchkitManager} from "../SearchkitManager";
+import {ImmutableQuery} from "../query"
 import {Accessor} from "../accessors/Accessor"
-import {Searcher} from "../Searcher"
+import {Utils} from "../support"
 var block = require('bem-cn');
 
+export interface SearchkitComponentProps {
+  mod?:string
+  translations?:Object
+  searchkit?:SearchkitManager
+}
 
-export class SearchkitComponent<P,S> extends React.Component<P,S> {
+export class SearchkitComponent<P extends SearchkitComponentProps,S> extends React.Component<P,S> {
   searchkit:SearchkitManager
-  accessor:Accessor<any>
-  searcher:Searcher
+  accessor:Accessor
   stateListenerUnsubscribe:Function
   bemBlocks:any
-  blockClass:string
+  translations:Object = {}
 
-	static contextTypes = {
-		searchkit:React.PropTypes.instanceOf(SearchkitManager),
-    searcher:React.PropTypes.instanceOf(Searcher)
+  static contextTypes = {
+		searchkit:React.PropTypes.instanceOf(SearchkitManager)
 	}
+
+  static translationsPropType = (translations)=> {
+    return (props, propName, componentName) =>{
+      let specifiedTranslations = props[propName]
+      let translationKeys = _.keys(translations)
+      let missing = _.without(
+        _.keys(specifiedTranslations),
+        ...translationKeys)
+      if(missing.length > 0){
+        return new Error(
+          componentName + ": incorrect translations, " +
+          missing.toString() + " keys are not included in " +
+          translationKeys.toString())
+      }
+      return null
+    }
+  }
+
+  static propTypes:any = {
+    mod :React.PropTypes.string,
+    translations: React.PropTypes.objectOf(
+      React.PropTypes.string),
+    searchkit:React.PropTypes.instanceOf(SearchkitManager)
+  }
+
 
   defineBEMBlocks() {
     return null;
   }
 
-  defineAccessor():Accessor<any>{
+  defineAccessor():Accessor{
     return null
   }
 
-  shouldCreateNewSearcher(){
-    return false
-  }
-
-  translate(key){
-    return this.searchkit.translate(key)
+  translate(key, interpolations?){
+    let translation = (
+      (this.searchkit.translate(key)) ||
+      (this.props.translations && this.props.translations[key]) ||
+      this.translations[key] || key)
+    return Utils.translate(translation, interpolations)
   }
 
   componentWillMount(){
-    this.searchkit = this.context["searchkit"]
-    this.accessor  = this.defineAccessor()
     this.bemBlocks = _.transform(this.defineBEMBlocks(), (result:any, cssClass, name) => {
       result[name] = block(cssClass);
     })
-    // if(!this.shouldCreateNewSearcher() || !this.searchkit.multipleSearchers){
-    this.searcher = (
-      this.searcher || this.props["searcher"] ||
-      this.context["searcher"] || this.searchkit.primarySearcher
-    )
-
-    if(this.accessor){
-      // this.searcher.stateManager.registerAccessor(this.accessor)
-      if(this.shouldCreateNewSearcher() && this.searchkit.multipleSearchers){
-        this.searcher = this.searchkit.createSearcher()
+    this.searchkit = this.props.searchkit || this.context["searchkit"]
+    if(this.searchkit){
+      this.accessor  = this.defineAccessor()
+      if(this.accessor){
+        this.accessor = this.searchkit.addAccessor(this.accessor)
       }
-      this.searcher.addAccessor(this.accessor)
-    }
-    if(this.searcher){
-      this.stateListenerUnsubscribe = this.searcher.emitter.addListener(()=> {
+      this.stateListenerUnsubscribe = this.searchkit.emitter.addListener(()=> {
         this.forceUpdate()
       })
     }
+  }
 
+  getResults(){
+    return this.searchkit.results
+  }
+
+  getHits(){
+    return this.searchkit.getHits()
+  }
+
+  getHitsCount(){
+    return this.searchkit.getHitsCount()
+  }
+
+  hasHits(){
+    return this.searchkit.hasHits()
+  }
+
+  getQuery():ImmutableQuery {
+    return this.searchkit.query
   }
 
   isInitialLoading(){
-    return this.searcher && this.searcher.initialLoading
+    return this.searchkit.initialLoading
   }
 
   isLoading(){
-    return this.searcher && this.searcher.loading
+    return this.searchkit.loading
   }
 
   getError(){
-    return this.searcher && this.searcher.error
+    return this.searchkit.error
   }
 
   componentWillUnmount(){

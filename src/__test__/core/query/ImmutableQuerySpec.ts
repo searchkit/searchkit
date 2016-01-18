@@ -2,11 +2,15 @@ import {
   ImmutableQuery,
   BoolMust,
   BoolShould,
-  Term,
-  Terms,
+  TermQuery,
+  TermsBucket,
+  FilterBucket,
   SimpleQueryString,
+  SelectedFilter,
   Utils
 } from "../../../"
+
+import * as _ from "lodash"
 
 describe("ImmutableQuery", ()=> {
 
@@ -15,7 +19,7 @@ describe("ImmutableQuery", ()=> {
 
     this.addFilter = ()=> {
       return this.query.addFilter("genres", BoolShould([
-        Term("genres", "comedy")
+        TermQuery("genres", "comedy")
       ]))
     }
 
@@ -27,12 +31,15 @@ describe("ImmutableQuery", ()=> {
   afterEach(()=> {
     //check immutability
     expect(this.query.query).toEqual({
-      filter:BoolMust([]),
-      query:BoolMust([]),
       size:0
     })
     expect(this.query.index).toEqual({
-      filters:{}, filtersArray:[]
+      queryString:"",
+      filtersMap:{},
+      filters:[],
+      selectedFilters:[],
+      queries:[],
+      size:0
     })
   })
 
@@ -56,24 +63,33 @@ describe("ImmutableQuery", ()=> {
 
   it("addQuery()", ()=> {
     let query = this.addQuery()
-    expect(query.query.query.$array).toEqual([
+    expect(query.query.query).toEqual(
       SimpleQueryString("foo")
-    ])
+    )
+    let unchangedQuery = new ImmutableQuery()
+    expect(unchangedQuery.addQuery(null))
+      .toBe(unchangedQuery)
   })
 
-  it("addHiddenFilter()", ()=> {
+  it("setQueryString()", ()=> {
+    let query = this.query.setQueryString("foo")
+    expect(query.index.queryString).toBe("foo")
+  })
+
+  it("getQueryString()", ()=> {
+    let query = this.query.setQueryString("foo")
+    expect(query.getQueryString()).toBe("foo")
+  })
+
+  it("addAnonymousFilter()", ()=> {
     let mockId = "123"
     let spy = spyOn(Utils, "guid").and.returnValue(mockId)
     let filter = BoolShould([1])
-    let query = this.query.addHiddenFilter(filter)
+    let query = this.query.addAnonymousFilter(filter)
 
-    expect(query.query.filter.$array)
-      .toEqual([filter])
-    expect(query.index).toEqual({
-      filters:{
-        [mockId]:filter
-      },
-      filtersArray:[1]
+    expect(query.query.filter).toEqual(filter)
+    expect(query.index.filtersMap).toEqual({
+      [mockId]:filter
     })
   })
 
@@ -81,42 +97,75 @@ describe("ImmutableQuery", ()=> {
     let filter = BoolShould([1])
     let query = this.query.addFilter("someKey", filter)
 
-    expect(query.query.filter.$array)
-      .toEqual([filter])
-    expect(query.index).toEqual({
-      filters:{
-        someKey:filter
-      },
-      filtersArray:[1]
+    expect(query.query.filter)
+      .toEqual(filter)
+    expect(query.index.filtersMap).toEqual({
+      someKey:filter
     })
 
   })
 
-  it("getFiltersArray()", ()=> {
-    expect(this.query.getFiltersArray())
-      .toBe(this.query.index.filtersArray)
+  describe("SelectedFilter", ()=> {
+    beforeEach(()=> {
+      this.filter = {
+        id:"foo",
+        name:"Bar",
+        value:"someValue",
+        remove:_.identity
+      }
+    })
+    it("addSelectedFilter()", ()=> {
+      let query = this.query.addSelectedFilter(this.filter)
+      expect(query.index.selectedFilters).toEqual(
+        [this.filter] )
+    })
+    it("addSelectedFilters()", ()=> {
+      let query = this.query.addSelectedFilters([this.filter])
+      expect(query.index.selectedFilters).toEqual(
+        [this.filter] )
+    })
+
+    it("getSelectedFilters()", ()=> {
+      let query = this.query.addSelectedFilters(
+        [this.filter, this.filter])
+      expect(query.getSelectedFilters()).toEqual([
+        this.filter, this.filter
+      ])
+    })
   })
 
   it("setAggs()", ()=> {
-    let genreAggs = {
-      "genre":{
-        filter:{},
-        aggs:{
-          "genre":Terms("genre", {})
-        }
-      }
-    }
-    let authorAggs = {
-      "author":{
-        filter:{},
-          aggs:{
-          "author":Terms("author", {})
-        }
-      }
-    }
+    let genreAggs = FilterBucket("genre_filter", {},
+      TermsBucket("genre_terms", "genre")
+    )
+    let authorAggs = FilterBucket("author_filter", {},
+      TermsBucket("author_terms", "author")
+    )
+
+
     let query = this.query.setAggs(genreAggs).setAggs(authorAggs)
-    expect(query.query.aggs).toEqual(_.extend({}, genreAggs, authorAggs))
-    expect(query.query.filter).toBeDefined()
+    expect(query.query.aggs).toEqual({
+      "genre_filter": {
+        "filter": {},
+        "aggs": {
+          "genre_terms": {
+            "terms": {
+              "field": "genre"
+            }
+          }
+        }
+      },
+      "author_filter": {
+        "filter": {},
+        "aggs": {
+          "author_terms": {
+            "terms": {
+              "field": "author"
+            }
+          }
+        }
+      }
+    })
 
   })
 
@@ -137,6 +186,9 @@ describe("ImmutableQuery", ()=> {
       .toEqual(BoolMust([bFilter, cFilter]))
     expect(query.getFilters("b"))
       .toEqual(BoolMust([aFilter, cFilter]))
+
+    expect(query.getFiltersWithKeys("b"))
+      .toEqual(BoolMust([bFilter]))
   })
 
   it("setSize()", ()=> {
@@ -149,49 +201,50 @@ describe("ImmutableQuery", ()=> {
     expect(query.getFrom()).toEqual(10)
   })
 
-  it("areQueriesDifferent()", ()=> {
-    let query1 = new ImmutableQuery()
-      .addQuery(SimpleQueryString("foo"))
-    let query2 = new ImmutableQuery()
-      .addQuery(SimpleQueryString("bar"))
+  it("setHighlight()", ()=> {
+    let query = this.query.setHighlight({
+      "fields": {
+          "title":{},
+          "plot":{}
+      }
+    })
+    query = query.setHighlight({
+      "fields": {
+        "description":{}
+      }
+    })
+    expect(query.query.highlight).toEqual(
+      {
+        "fields": {
+            "title":{},
+            "plot":{},
+            "description":{}
+        }
+      }
+    )
 
-    let query3 = new ImmutableQuery()
-      .addQuery(SimpleQueryString("bar"))
+  })
 
-    expect(ImmutableQuery.areQueriesDifferent(
-      query1, query2)).toBe(true)
-
-    expect(ImmutableQuery.areQueriesDifferent(
-      query2, query3)).toBe(false)
+  it("setSuggestions()", ()=> {
+    let query = this.query.setSuggestions("suggestions")
+    expect(query.query.suggest).toBe("suggestions")
   })
 
   it("getJSON()", ()=> {
     let query = this.addFilter()
       .addQuery(SimpleQueryString("Hi"))
     expect(query.getJSON()).toEqual({
-      "filter": {
-        "bool": {
-          "must": [{
-            "bool": {
-              "should": [{
-                "term": {
-                  "genres": "comedy"
-                }
-              }]
-            }
-          }]
-        }
-      },
       "query": {
-        "bool": {
-          "must": [{
-            "simple_query_string": {
-              "query": "Hi"
-            }
-          }]
+        "simple_query_string": {
+          "query": "Hi"
         }
       },
-      "size":0
+      "filter": {
+        "term": {
+          "genres": "comedy"
+        }
+      },
+      "size": 0
     })
   })
 

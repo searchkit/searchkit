@@ -6,16 +6,32 @@ import {
 	SearchkitComponent,
 	SortingAccessor,
 	FastClick,
-	SortingOptions
+	SortingOptions,
+	SearchkitComponentProps,
+	SortingOption
 } from "../../../../core"
 
+export interface SortingProps extends SearchkitComponentProps {
+	options:Array<SortingOption>
+}
 
 
-export class SortingSelector extends SearchkitComponent<SortingOptions, any> {
+export class SortingSelector extends SearchkitComponent<SortingProps, any> {
 	accessor:SortingAccessor
+	
+	static propTypes = _.defaults({
+		options:React.PropTypes.arrayOf(
+			React.PropTypes.shape({
+				label:React.PropTypes.string.isRequired,
+				field:React.PropTypes.string.isRequired,
+				order:React.PropTypes.string.isRequired
+			})
+		)
+	}, SearchkitComponent.propTypes)
+
 
 	defineAccessor() {
-    return new SortingAccessor("sort", this.props)
+    return new SortingAccessor("sort", {options:this.props.options})
 	}
 
 	defineBEMBlocks() {
@@ -41,12 +57,15 @@ export class SortingSelector extends SearchkitComponent<SortingOptions, any> {
 	}
 
   render() {
-    return (
-      <div className={this.bemBlocks.container()}>
-      	<select onChange={this.updateSorting.bind(this)} value={this.getSelectedValue()}>
-					{_.map(this.props.options, this.renderOption.bind(this))}
-				</select>
-      </div>
-    )
+    if(this.hasHits()){
+			return (
+				<div className={this.bemBlocks.container()}>
+	      	<select onChange={this.updateSorting.bind(this)} value={this.getSelectedValue()}>
+						{_.map(this.props.options, this.renderOption.bind(this))}
+					</select>
+	      </div>
+			)
+		}
+		return null
   }
 }

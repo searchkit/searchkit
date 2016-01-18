@@ -4,18 +4,37 @@ import "../styles/index.scss";
 
 import {
 	SearchkitComponent,
-	PageSizeAccessor
+	PageSizeAccessor,
+	ImmutableQuery,
+	HighlightAccessor,
+	SearchkitComponentProps
 } from "../../../../core"
 
-export interface IHits {
+export interface HitsProps extends SearchkitComponentProps{
 	hitsPerPage: number
-	mod?:string
+	highlightFields?:Array<string>
 }
 
-export class Hits extends SearchkitComponent<IHits, any> {
+export class Hits extends SearchkitComponent<HitsProps, any> {
+
+	static propTypes = _.defaults({
+		hitsPerPage:React.PropTypes.number.isRequired,
+		highlightFields:React.PropTypes.arrayOf(
+			React.PropTypes.string
+		)
+	}, SearchkitComponent.propTypes)
+
+
+	componentWillMount() {
+		super.componentWillMount()
+		if(this.props.highlightFields) {
+			this.searchkit.addAccessor(
+				new HighlightAccessor(this.props.highlightFields))
+		}
+	}
 
 	defineAccessor(){
-		return new PageSizeAccessor("s", this.props.hitsPerPage)
+		return new PageSizeAccessor(this.props.hitsPerPage)
 	}
 
 	defineBEMBlocks() {
@@ -39,21 +58,15 @@ export class Hits extends SearchkitComponent<IHits, any> {
 		)
 	}
 
-	renderNoResults() {
-		return (
-			<div data-qa="no-results" className={this.bemBlocks.container("no-results")}>No results</div>
-		)
-	}
-
 	render() {
-		let hits:{}[] = _.get(this.searcher, "results.hits.hits", [])
-		let hasHits = _.size(hits) > 0
+		let hits:Array<Object> = this.getHits()
+		let hasHits = hits.length > 0
 		let results = null
 
 		if (this.isInitialLoading()) {
 			results = this.renderInitialView()
-		} else if (!hasHits) {
-			results = this.renderNoResults()
+		} else if (!this.hasHits()) {
+			return null;
 		} else {
 			results = _.map(hits, this.renderResult.bind(this))
 		}

@@ -1,19 +1,23 @@
 import {
-  FacetAccessor, ImmutableQuery, Searcher,SearchkitManager,
-  BoolMust, BoolShould, ArrayState, NestedFacetAccessor
+  FacetAccessor, ImmutableQuery,
+  BoolMust, BoolShould, ArrayState, NestedFacetAccessor,
+  NestedQuery, TermQuery, FilterBucket, NestedBucket, MinMetric,
+  TermsBucket
 } from "../../../"
 import * as _ from "lodash"
 
 describe("NestedFacetAccessor", ()=> {
 
   beforeEach(()=> {
-    this.searcher = new Searcher(new SearchkitManager('/'))
-    this.accessor = new NestedFacetAccessor("categories", {
+    this.options = {
       field:"taxonomy",
       id:"categories",
-      title:"Categories"
-    })
-    this.accessor.setSearcher(this.searcher)
+      title:"Categories",
+      orderKey:"taxonomy.order",
+      orderDirection:"desc"
+    }
+    this.accessor = new NestedFacetAccessor("categories", this.options)
+    this.accessor.uuid = "999"
     this.query = new ImmutableQuery()
     this.toPlainObject = (ob)=> {
       return JSON.parse(JSON.stringify(ob))
@@ -22,17 +26,17 @@ describe("NestedFacetAccessor", ()=> {
 
 
   it("getBuckets()", ()=> {
-    this.searcher.results = {
+    this.accessor.results = {
       aggregations:{
         "categories": {
-          "parents": {
+          "children": {
             "lvl1":{
-              parents:{
+              children:{
                 buckets: [1,2,3]
               }
             },
             "lvl2":{
-              parents: {
+              children: {
                 buckets: [4,5,6]
               }
             }
@@ -48,6 +52,39 @@ describe("NestedFacetAccessor", ()=> {
       .toEqual([])
   })
 
+  it("getTermAggs()", ()=> {
+
+    expect(this.accessor.getTermAggs()).toEqual(
+      TermsBucket(
+        "children",
+        "taxonomy.value",
+        {size:0, order:{taxonomy_order:"desc"}},
+        MinMetric("taxonomy_order", "taxonomy.order")
+      )
+    )
+
+    this.options.orderKey = "_count"
+    this.options.orderDirection = "asc"
+    expect(this.accessor.getTermAggs()).toEqual(
+      TermsBucket(
+        "children", "taxonomy.value",
+        {size:0, order:{"_count":"asc"}}
+      )
+    )
+
+    delete this.options.orderKey
+    delete this.options.orderDirection
+
+    expect(this.accessor.getTermAggs()).toEqual(
+      TermsBucket(
+        "children", "taxonomy.value",
+        {size:0, order:undefined}
+      )
+    )
+
+  })
+
+
   it("buildSharedQuery", ()=> {
     this.accessor.state = this.accessor.state
       .add(0, "lvl1val")
@@ -57,113 +94,86 @@ describe("NestedFacetAccessor", ()=> {
       .toEqual([["lvl1val"], ['lvl2val'], ["lvl3val"]])
     //
     let query = this.accessor.buildSharedQuery(this.query)
-    let filters = _.chain(query.query.filter.$array)
-      .pluck("$array")
-      .flatten().value()
-    expect(this.toPlainObject(filters)).toEqual([
-      {
-        "term": {
-          "taxonomy.ancestors": "lvl1val"
-        },
-        "$disabled": true,
-        "$name": "Categories",
-        "$value": "lvl1val",
-        "$id": "categories"
-      },
-      {
-        "term": {
-          "taxonomy.ancestors": "lvl2val"
-        },
-        "$disabled": true,
-        "$name": "Categories",
-        "$value": "lvl2val",
-        "$id": "categories"
-      },
-      {
-        "term": {
-          "taxonomy.value": "lvl3val"
-        },
-        "$disabled": false,
-        "$name": "Categories",
-        "$value": "lvl3val",
-        "$id": "categories"
-      }
+    let expected = BoolMust([
+      NestedQuery("taxonomy",
+        BoolMust([
+          TermQuery("taxonomy.ancestors", "lvl1val"),
+          TermQuery("taxonomy.ancestors", "lvl2val"),
+          TermQuery("taxonomy.value", "lvl3val")
+        ])
+      )
     ])
-    filters[2].$remove()
-
-    query = this.accessor.buildSharedQuery(this.query)
-    filters = _.chain(query.query.filter.$array)
-      .pluck("$array")
-      .flatten().value()
-
-    expect(this.toPlainObject(filters)).toEqual([
-      {
-        "term": {
-          "taxonomy.ancestors": "lvl1val"
-        },
-        "$disabled": true,
-        "$name": "Categories",
-        "$value": "lvl1val",
-        "$id": "categories"
-      },
-      {
-        "term": {
-          "taxonomy.value": "lvl2val"
-        },
-        "$disabled": false,
-        "$name": "Categories",
-        "$value": "lvl2val",
-        "$id": "categories"
-      }
-    ])
+    expect(query.query.filter).toEqual(expected)
+    let selectedFilters = query.getSelectedFilters()
+    expect(this.toPlainObject(selectedFilters[0])).toEqual({
+      id: 'categories',
+      name: 'lvl2val',
+      value: 'lvl3val'
+    })
+    selectedFilters[0].remove()
+    expect(this.toPlainObject(this.accessor.state.getValue()))
+      .toEqual([["lvl1val"], ['lvl2val']])
   })
 
   it("buildOwnQuery()", ()=> {
-    const getFilters = (aggs)=> {
-      let filters = _.map(aggs.filter.$array, (f:any) => { return {term:f.term} })
-      return filters
-    }
-
     this.accessor.state = this.accessor.state
       .add(0, "lvl1val")
       .add(1, "lvl2val")
       .add(2, "lvl3val")
+    this.query = this.query.addFilter("other", BoolShould(["foo"]))
     let query = this.accessor.buildSharedQuery(this.query)
     query = this.accessor.buildOwnQuery(query)
+    expect(_.keys(query.index.filtersMap)).toEqual(['other', '999'])
+    let termsBucket = TermsBucket(
+      "children",
+      "taxonomy.value",
+      {size:0, order:{taxonomy_order:"desc"}},
+      MinMetric("taxonomy_order", "taxonomy.order")
+    )
+    let expected = FilterBucket(
+      "categories",
+      BoolMust([ BoolShould(["foo"]) ]),
+      NestedBucket(
+        "children","taxonomy",
+        FilterBucket(
+          "lvl0",
+          BoolMust([
+            TermQuery("taxonomy.level", 1)
+          ]),
+          termsBucket
+        ),
+        FilterBucket(
+          "lvl1",
+          BoolMust([
+            TermQuery("taxonomy.level", 2),
+            TermQuery("taxonomy.ancestors", "lvl1val")
+          ]),
+          termsBucket
+        ),
+        FilterBucket(
+          "lvl2",
+          BoolMust([
+            TermQuery("taxonomy.level", 3),
+            TermQuery("taxonomy.ancestors", "lvl1val"),
+            TermQuery("taxonomy.ancestors", "lvl2val")
+          ]),
+          termsBucket
+        ),
+        FilterBucket(
+          "lvl3",
+          BoolMust([
+            TermQuery("taxonomy.level", 4),
+            TermQuery("taxonomy.ancestors", "lvl1val"),
+            TermQuery("taxonomy.ancestors", "lvl2val"),
+            TermQuery("taxonomy.ancestors", "lvl3val")
+          ]),
+          termsBucket
+        )
 
-    //lvl1
-    let lvl1Aggs = query.query.aggs.categories.aggs.parents.aggs.lvl1;
-    expect(getFilters(lvl1Aggs)).toEqual([
-      {
-        term: {
-          "taxonomy.level":2
-        }
-      },
-      {
-        term: {
-          "taxonomy.ancestors":"lvl1val"
-        }
-      },
-    ])
+      )
 
-    let lvl2Aggs = query.query.aggs.categories.aggs.parents.aggs.lvl2;
-    expect(getFilters(lvl2Aggs)).toEqual([
-      {
-        term: {
-          "taxonomy.level":3
-        }
-      },
-      {
-        term: {
-          "taxonomy.ancestors":"lvl1val"
-        }
-      },
-      {
-        term: {
-          "taxonomy.ancestors":"lvl2val"
-        }
-      },
-    ])
+    )
+    expect(query.query.aggs).toEqual(expected)
 
   })
 

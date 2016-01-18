@@ -4,7 +4,7 @@ var assetsGlob = "./src/**/*.{scss,svg,jpg,png}"
 
 gulp.task("copy-assets", function() {
   gulp.src(assetsGlob)
-    .pipe(gulp.dest("./lib"))
+    .pipe(gulp.dest("./lib/src"))
 })
 
 gulp.task("default", function() {

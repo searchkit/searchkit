@@ -5,18 +5,32 @@ import "../styles/index.scss";
 import {
 	SearchkitComponent,
   NestedFacetAccessor,
-	NestedFacetAccessorOptions,
-	FastClick
+	FastClick,
+	SearchkitComponentProps
 } from "../../../../../core"
 
-export interface IHierarchicalRefinementFilter extends NestedFacetAccessorOptions {
-	mod?:string
+export interface HierarchicalRefinementFilterProps extends SearchkitComponentProps {
+	field:string
+	id:string
+	title:string
+  orderKey?:string
+  orderDirection?:string
+  startLevel?:number
 }
 
-export class HierarchicalRefinementFilter extends SearchkitComponent<IHierarchicalRefinementFilter, any> {
+export class HierarchicalRefinementFilter extends SearchkitComponent<HierarchicalRefinementFilterProps, any> {
 	public accessor:NestedFacetAccessor
 
-	constructor(props:IHierarchicalRefinementFilter) {
+	static propTypes = _.defaults({
+		field:React.PropTypes.string.isRequired,
+		id:React.PropTypes.string.isRequired,
+		title:React.PropTypes.string.isRequired,
+		orderKey:React.PropTypes.string,
+		orderDirection:React.PropTypes.oneOf(["asc", "desc"]),
+		startLevel:React.PropTypes.number
+	}, SearchkitComponent.propTypes)
+
+	constructor(props:HierarchicalRefinementFilterProps) {
 		super(props)
 	}
 
@@ -26,10 +40,6 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<IHierarchic
 			container:`${blockClass}-list`,
 			option:`${blockClass}-option`
 		};
-	}
-
-	shouldCreateNewSearcher() {
-		return true;
 	}
 
 	defineAccessor() {
@@ -84,9 +94,9 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<IHierarchic
   render(){
 		let block = this.bemBlocks.container;
     return (
-			<div className={block().mix(`filter--${this.props.id}`)}>
-				<div className={block("header")}>{this.props.title}</div>
-				<div className={block("root")}>
+			<div data-qa={`filter--${this.props.id}`} className={block().mix(`filter--${this.props.id}`)}>
+				<div data-qa="title" className={block("header")}>{this.props.title}</div>
+				<div data-qa="options" className={block("root")}>
 					{this.renderOptions(0)}
 				</div>
 			</div>

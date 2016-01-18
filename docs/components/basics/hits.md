@@ -6,6 +6,8 @@ The method will receive a single `hit` object from the search results, which wil
 
 ```jsx
 
+import * as _ from "lodash";
+
 import {
   Hits,
   SearchkitComponent
@@ -14,9 +16,9 @@ import {
 class MovieHits extends Hits {
   renderResult(result:any) {
     return (
-      <div className="hit" key={result._id}>
-        <img className="hit__poster" src={result._source.poster}/>
-        <div className="hit__title">{result._source.title}</div>
+      <div className={this.bemBlocks.item().mix(this.bemBlocks.container("item"))} key={result._id}>
+        <img className={this.bemBlocks.item("poster")} src={result._source.poster}/>
+        <div className={this.bemBlocks.item("title")} dangerouslySetInnerHTML={{__html:_.get(result,"highlight.title",false) || result._source.title}}></div>
       </div>
     )
   }
@@ -26,7 +28,7 @@ class App extends SearchkitComponent<any, any> {
 
   render(){
     <div>
-      <MovieHits hitsPerPage={50}/>
+      <MovieHits hitsPerPage={50} highlightFields={["title"]}/>
     </div>
   }
 }
@@ -34,10 +36,12 @@ class App extends SearchkitComponent<any, any> {
 
 ## Props
 - `hitsPerPage` *(Number)*: Number of results displayed per page
+- `highlightFields` *(Array<string>)*: Array of highlighted fields. Any highlight matches will be returned in the result.highlight[fieldName]. See above for example.
+- `mod` *(string)*: Optional. A custom BEM container class.
 
 ## Customising Blank States
 
-Often the hits component will display the appropriate blank states, `renderInitialView` and `renderNoResults` can be overriden to provide custom behaviour, below is the default implementation
+Often the hits component will display the appropriate blank states, `renderInitialView` can be overridden to provide custom behaviour, below is the default implementation. `renderInitialView` is displayed when searchkit is fetching results from ES for the first time.
 
 ```jsx
 class MovieHits extends Hits {
@@ -47,11 +51,7 @@ class MovieHits extends Hits {
 	  <div className={this.bemBlocks.container("initial-loading")}></div>
 	)
   }
-  renderNoResults() {
-    return (
-	  <div className={this.bemBlocks.container("no-results")}>No results</div>
-	)
-  }
+
 }
 ```
 

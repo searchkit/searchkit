@@ -3,27 +3,29 @@ import * as _ from "lodash";
 import "../styles/index.scss";
 
 import {
-	Searcher,
 	SearchkitManager,
 	SearchkitComponent,
 	FacetAccessor,
-	FastClick
+	FastClick,
+	SearchkitComponentProps
 } from "../../../../../core"
 
-export interface IMenuFilter {
+export interface MenuFilterProps extends SearchkitComponentProps {
 	field:string
 	title:string
 	id:string
-	mod?:string
 	size?:number
 }
 
-export class MenuFilter extends SearchkitComponent<IMenuFilter, any> {
+export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
 	accessor:FacetAccessor
 
-	shouldCreateNewSearcher() {
-		return true;
-	}
+	static propTypes = _.defaults({
+		field:React.PropTypes.string.isRequired,
+		title:React.PropTypes.string.isRequired,
+		id:React.PropTypes.string.isRequired,
+		size:React.PropTypes.number
+	}, SearchkitComponent.propTypes)
 
 	defineBEMBlocks() {
 		var blockName = this.props.mod || "menu-list"

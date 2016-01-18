@@ -5,20 +5,26 @@ import "../styles/index.scss";
 import {
 	SearchkitComponent,
   HierarchicalFacetAccessor,
-	FastClick
+	FastClick,
+	SearchkitComponentProps
 } from "../../../../../core"
 
-export interface IHierarchicalMenuFilter {
+export interface HierarchicalMenuFilterProps extends SearchkitComponentProps{
 	id:string
 	fields:Array<string>
 	title:string
-	mod?:string
 }
 
-export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenuFilter, any> {
+export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuFilterProps, any> {
 	public accessor:HierarchicalFacetAccessor
 
-	constructor(props:IHierarchicalMenuFilter) {
+	static propTypes = _.defaults({
+		id:React.PropTypes.string.isRequired,
+		fields:React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+		title:React.PropTypes.string.isRequired
+	}, SearchkitComponent.propTypes)
+
+	constructor(props:HierarchicalMenuFilterProps) {
 		super(props)
 	}
 
@@ -28,10 +34,6 @@ export class HierarchicalMenuFilter extends SearchkitComponent<IHierarchicalMenu
 			container:`${blockClass}-list`,
 			option:`${blockClass}-option`
 		};
-	}
-
-	shouldCreateNewSearcher() {
-		return true;
 	}
 
 	defineAccessor() {

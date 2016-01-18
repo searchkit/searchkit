@@ -3,21 +3,36 @@ import * as _ from "lodash";
 import "../styles/index.scss";
 
 import {
-	Searcher,
 	SearchkitManager,
 	SearchkitComponent,
 	NumericOptionsAccessor,
-	NumericOptions,
+	SearchkitComponentProps,
+	RangeOption,
 	FastClick
 } from "../../../../../core"
 
+export interface NumericRefinementListFilterProps extends SearchkitComponentProps {
+	field:string
+  title:string
+  options:Array<RangeOption>
+  id:string
+}
 
-export class NumericRefinementListFilter extends SearchkitComponent<NumericOptions, any> {
+export class NumericRefinementListFilter extends SearchkitComponent<NumericRefinementListFilterProps, any> {
 	accessor:NumericOptionsAccessor
 
-	shouldCreateNewSearcher() {
-		return true;
-	}
+	static propTypes = _.defaults({
+		field:React.PropTypes.string.isRequired,
+		title:React.PropTypes.string.isRequired,
+		id:React.PropTypes.string.isRequired,
+		options:React.PropTypes.arrayOf(
+			React.PropTypes.shape({
+				title:React.PropTypes.string.isRequired,
+				from:React.PropTypes.number,
+				to:React.PropTypes.number
+			})
+		)
+	}, SearchkitComponent.propTypes)
 
 	defineAccessor() {
 		return new NumericOptionsAccessor(
@@ -49,7 +64,8 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericOptio
 		let className = block()
 			.mix(this.bemBlocks.container("item"))
 			.state({
-				selected:this.isSelected(option)
+				selected:this.isSelected(option),
+				disabled:this.accessor.getBuckets().length == 0
 			})
 
 		return (

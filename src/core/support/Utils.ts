@@ -11,4 +11,26 @@ export class Utils {
     const reducer = (current, fn)=> fn(current)
     return _.reduce(collection, reducer, seed)
   }
+
+  static instanceOf(klass){
+    return (val)=> val instanceof klass
+  }
+
+  static interpolate(str, interpolations){
+    return str.replace(
+  		/{([^{}]*)}/g,
+  		(a, b) => {
+  			var r = interpolations[b];
+  			return typeof r === 'string' || typeof r === 'number' ? r : a;
+  		}
+    )
+  }
+
+  static translate(key, interpolations?){
+    if(interpolations){
+      return Utils.interpolate(key, interpolations)
+    } else {
+      return key
+    }
+  }
 }
