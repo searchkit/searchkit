@@ -8,7 +8,7 @@ Searchkit is a suite of UI components built in react. The aim is rapidly create 
 [![Join the chat at https://gitter.im/searchkit/searchkit](https://badges.gitter.im/searchkit/searchkit.svg)](https://gitter.im/searchkit/searchkit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Coverage Status](https://coveralls.io/repos/searchkit/searchkit/badge.svg?branch=develop&service=github)](https://coveralls.io/github/searchkit/searchkit?branch=develop)
 
-See full [Documentation](https://ssetem.gitbooks.io/searchkit/content/) or [Getting Started](https://ssetem.gitbooks.io/searchkit/content/docs/setup/index.html)
+See full [Documentation](http://docs.searchkit.co/stable) or [Getting Started](http://docs.searchkit.co/stable/docs/setup/project-setup.html)
 
 ## Quick Intro
 [Live demo](http://demo.searchkit.co)
