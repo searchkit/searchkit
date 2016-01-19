@@ -123,12 +123,15 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 
   sliderUpdate(newValues) {
     this.accessor.state = this.accessor.state.setValue({min:newValues[0], max:newValues[1]})
+		this.forceUpdate()
+	}
+	sliderUpdateAndSearch(newValues){
+		this.sliderUpdate(newValues)
 		this.searchkit.performSearch()
-  }
+	}
 
 	render() {
 		var block = this.bemBlocks.container
-
 		return (
 			<div className={block()}>
 				<div className={block("header")}>{this.translate(this.props.title)}</div>
@@ -136,11 +139,12 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
           min={this.props.min}
           max={this.props.max}
           range={true}
-					defaultValue={[
+					value={[
 						_.get(this.accessor.state.getValue(), "min", this.props.min),
 						_.get(this.accessor.state.getValue(), "max", this.props.max)
 					]}
-          onAfterChange={this.sliderUpdate.bind(this)}/>
+					onChange={this.sliderUpdate.bind(this)}
+          onAfterChange={this.sliderUpdateAndSearch.bind(this)}/>
 			</div>
 		);
 	}
