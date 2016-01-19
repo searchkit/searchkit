@@ -14,3 +14,4 @@ export * from "./BaseQueryAccessor";
 export * from "./SuggestionsAccessor";
 export * from "./AnonymousAccessor";
 export * from "./FilterBasedAccessor";
+export * from "./RangeAccessor";

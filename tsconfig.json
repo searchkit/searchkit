@@ -108,6 +108,7 @@
     "./src/core/accessors/PageSizeAccessor.ts",
     "./src/core/accessors/PaginationAccessor.ts",
     "./src/core/accessors/QueryAccessor.ts",
+    "./src/core/accessors/RangeAccessor.ts",
     "./src/core/accessors/SortingAccessor.ts",
     "./src/core/accessors/StatefulAccessor.ts",
     "./src/core/accessors/SuggestionsAccessor.ts",
