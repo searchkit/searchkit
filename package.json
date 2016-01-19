@@ -49,9 +49,9 @@
     "history": "1.13.0",
     "lodash": "^3.10.1",
     "qs": "ssetem/qs",
+    "rc-slider": "^3.3.1",
     "react": "^0.14.6",
-    "react-addons-update": "^0.14.3",
-    "react-autosuggest": "^2.2.0"
+    "react-addons-update": "^0.14.3"
   },
   "devDependencies": {
     "chalk": "^1.1.1",

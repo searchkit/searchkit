@@ -11,3 +11,4 @@ export * from "./search/pagination/src/Pagination";
 export * from "./search/search-box/src/SearchBox";
 export * from "./search/sorting-selector/src/SortingSelector";
 export * from "./search/filters/hierarchical-refinement-filter/src/HierarchicalRefinementFilter";
+export * from "./search/filters/range-filter/src/RangeFilter";

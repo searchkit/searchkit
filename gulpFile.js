@@ -7,6 +7,6 @@ gulp.task("copy-assets", function() {
     .pipe(gulp.dest("./lib/src"))
 })
 
-gulp.task("default", function() {
+gulp.task("default",["copy-assets"], function() {
   gulp.watch(assetsGlob, ["copy-assets"])
 })

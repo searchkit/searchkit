@@ -1,8 +1,6 @@
 import * as React from "react";
 import * as _ from "lodash"
 
-var Autosuggest = require('react-autosuggest');
-
 import "../styles/index.scss";
 
 import {
