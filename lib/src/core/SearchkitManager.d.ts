@@ -5,7 +5,6 @@ import { ESTransport } from "./transport";
 import { SearchRequest } from "./SearchRequest";
 import { EventEmitter } from "./support";
 export interface SearchkitOptions {
-    multipleSearchers?: boolean;
     useHistory?: boolean;
     httpHeaders?: Object;
     basicAuth?: string;
@@ -41,7 +40,7 @@ export declare class SearchkitManager {
     listenToHistory(): void;
     searchFromUrlQuery(query: any): void;
     performSearch(replaceState?: boolean): void;
-    search(replaceState: any): void;
+    search(replaceState?: boolean): void;
     _search(): void;
     setResults(results: any): void;
     getHits(): any[];

@@ -11,7 +11,6 @@ import {VERSION} from "./SearchkitVersion"
 require('es6-promise').polyfill()
 
 export interface SearchkitOptions {
-  multipleSearchers?:boolean,
   useHistory?:boolean,
   httpHeaders?:Object,
   basicAuth?:string,
@@ -121,7 +120,7 @@ export class SearchkitManager {
     }
   }
 
-  search(replaceState){
+  search(replaceState=false){
     this.performSearch(replaceState)
   }
 
