@@ -2,10 +2,15 @@
 
 .range-filter {
   margin-bottom:20px;
+
+  &__header {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
 }
 
 .bar-chart {
-  height:100px;
+  height:50px;
   flex-flow: row nowrap;
   justify-content: space-around;
   display:flex;
