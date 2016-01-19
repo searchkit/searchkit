@@ -1,16 +1,20 @@
 import {AggsContainer} from "./AggsContainer"
+import * as _ from "lodash"
 
-export function CardinalityMetric(key, field) {
-  return AggsContainer(key, {
-    cardinality: {field}
-  })
+
+export function FieldMetricFactory(metricOp){
+  return (key, field)=> {
+    return AggsContainer(key, {
+      [metricOp]:{field}
+    })
+  }
 }
 
-export function MinMetric(key, field) {
-  return AggsContainer(key, {
-    min: {field}
-  })
-}
+export const CardinalityMetric = FieldMetricFactory("cardinality")
+export const MinMetric = FieldMetricFactory("min")
+export const MaxMetric = FieldMetricFactory("max")
+export const AvgMetric = FieldMetricFactory("avg")
+export const SumMetric = FieldMetricFactory("sum")
 
 export interface TopHitsMetricOptions{
   size:number
@@ -22,4 +26,8 @@ export interface TopHitsMetricOptions{
 
 export function TopHitsMetric(key, top_hits:TopHitsMetricOptions){
   return AggsContainer(key,{top_hits})
+}
+
+export function GeoBoundsMetric(key, field, options={}){
+  return AggsContainer(key, {geo_bounds:_.extend({field}, options)})
 }

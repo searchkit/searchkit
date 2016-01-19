@@ -32,6 +32,10 @@ export function NestedBucket(key, path, ...childAggs){
   return AggsContainer(key, {nested:{path}}, childAggs)
 }
 
-export function SignificantTermsBucket(key, field, ...childAggs){
-  return AggsContainer(key, {significant_terms:{field}}, childAggs)
+export function SignificantTermsBucket(key, field, options={}, ...childAggs){
+  return AggsContainer(key, {significant_terms:_.extend({field}, options)}, childAggs)
+}
+
+export function GeohashBucket(key, field, options, ...childAggs){
+  return AggsContainer(key, {geohash_grid:_.extend({field}, options)}, childAggs)
 }

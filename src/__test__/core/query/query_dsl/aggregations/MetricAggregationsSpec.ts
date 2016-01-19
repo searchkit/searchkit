@@ -1,34 +1,39 @@
 import {
-  MinMetric, CardinalityMetric, TopHitsMetric
+  MinMetric, CardinalityMetric, TopHitsMetric,
+  GeoBoundsMetric, MaxMetric, AvgMetric, SumMetric
 } from "../../../../../"
 
 describe("MetricAggregations", ()=> {
 
   beforeEach(()=> {
-
+    this.testFieldMetric = (Metric, op)=>{
+      let aggs = Metric("key", "field")
+      expect(aggs).toEqual({
+        key:{
+          [op]:{field:"field"}
+        }
+      })
+    }
   })
 
   it("CardinalityMetric", ()=> {
-    let aggs = CardinalityMetric("genre_count", "genres")
-    expect(aggs).toEqual({
-      genre_count:{
-        cardinality:{
-          field:"genres"
-        }
-      }
-    })
+    this.testFieldMetric( CardinalityMetric, "cardinality" )
   })
 
   it("MinMetric", ()=> {
-    let aggs = MinMetric("min_price", "prices")
-    expect(aggs).toEqual({
-      min_price:{
-        min:{
-          field:"prices"
-        }
-      }
-    })
+    this.testFieldMetric( MinMetric, "min" )
+  })
 
+  it("MaxMetric", ()=> {
+    this.testFieldMetric( MaxMetric, "max" )
+  })
+
+  it("AvgMetric", ()=> {
+    this.testFieldMetric( AvgMetric, "avg" )
+  })
+
+  it("SumMetric", ()=> {
+    this.testFieldMetric( SumMetric, "sum" )
   })
 
   it("TopHitsMetric", ()=> {
@@ -42,6 +47,20 @@ describe("MetricAggregations", ()=> {
       }
     })
 
+  })
+
+  it("GeoBoundsMetric", ()=> {
+    expect(GeoBoundsMetric(
+      "bounds", "location",
+      {wrap_longitude:true}
+    )).toEqual({
+      bounds:{
+        geo_bounds:{
+          field:"location",
+          wrap_longitude:true
+        }
+      }
+    })
   })
 
 

@@ -2,7 +2,8 @@ import {
   AggsContainer,
   TermsBucket, RangeBucket,
   ChildrenBucket, FilterBucket,
-  NestedBucket,SignificantTermsBucket
+  NestedBucket,SignificantTermsBucket,
+  GeohashBucket
 } from "../../../../../"
 
 describe("BucketAggregations", ()=> {
@@ -62,10 +63,19 @@ describe("BucketAggregations", ()=> {
   it("SignificantTermsBucket", ()=> {
     this.aggs = SignificantTermsBucket(
       this.aggsKey, "crime_type",
+      {size:10},
       this.childBucket
     )
     this.expectAggs({
-      significant_terms:{field:"crime_type"}})
+      significant_terms:{field:"crime_type", size:10}})
   })
 
+  it("GeohashBucket", ()=> {
+    this.aggs = GeohashBucket(
+      this.aggsKey, "location",
+      {precision:5},
+      this.childBucket
+    )
+    this.expectAggs({geohash_grid:{field:"location", precision:5}})
+  })
 })
