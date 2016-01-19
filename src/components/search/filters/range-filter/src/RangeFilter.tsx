@@ -65,12 +65,21 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 		let values = this.accessor.getBuckets()
 		let maxValue = _.max(_.pluck(this.accessor.getBuckets(), "doc_count"))
 
+		let bars = maxValue == 0 ? null : _.map(this.accessor.getBuckets(), (value:any, i) => {
+			return (
+				<div
+				className="bar-chart__bar"
+				key={value.key}
+				style={{
+					height:`${(value.doc_count/maxValue)*100}%`
+				}}>
+				</div>
+			)
+		})
+
 		return (
 		<div className="bar-chart">
-			{_.map(this.accessor.getBuckets(), (value:any, i) => {
-				return <div className="bar-chart__bar" key={i} style={{
-					height:`${(value.doc_count/maxValue)*100}%`
-				}}></div>})}
+			{bars}
 		</div>
 		)
 
