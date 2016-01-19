@@ -1,5 +1,20 @@
 @import "~rc-slider/assets/index.css";
 
 .range-filter {
+  margin-bottom:20px;
+}
+
+.bar-chart {
+  height:100px;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  display:flex;
+  align-items: flex-end;
+
+  &__bar {
+    background:rgba(156,162,153,0.5);
+    flex:auto;
+    width:5%;
+  }
 
 }

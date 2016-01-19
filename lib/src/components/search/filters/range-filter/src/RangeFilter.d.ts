@@ -31,5 +31,6 @@ export declare class RangeFilter extends SearchkitComponent<RangeFilterProps, an
     };
     sliderUpdate(newValues: any): void;
     sliderUpdateAndSearch(newValues: any): void;
+    getHistogram(): JSX.Element;
     render(): JSX.Element;
 }

@@ -47,7 +47,7 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 			}
 
 			return query
-				.addFilter(this.uuid, BoolMust([rangeFilter]))
+				.addFilter(this.key, BoolMust([rangeFilter]))
 				.addSelectedFilter(selectedFilter)
 
 		}
@@ -75,7 +75,7 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 		}}
 		query = query.setAggs(FilterBucket(
 			this.key,
-			query.getFiltersWithoutKeys(),
+			query.getFiltersWithoutKeys(this.key),
 			histogramBucket
 		))
     return query;
@@ -130,11 +130,29 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 		this.searchkit.performSearch()
 	}
 
+	getHistogram() {
+		let values = this.accessor.getBuckets()
+		let maxValue = _.max(_.pluck(this.accessor.getBuckets(), "doc_count"))
+
+		return (
+		<div className="bar-chart">
+			{_.map(this.accessor.getBuckets(), (value:any) => {
+				return <div className="bar-chart__bar" style={{
+					height:`${(value.doc_count/maxValue)*100}%`
+				}}></div>})}
+		</div>
+		)
+
+	}
+
 	render() {
 		var block = this.bemBlocks.container
 		return (
 			<div className={block()}>
 				<div className={block("header")}>{this.translate(this.props.title)}</div>
+				<div>
+					{this.getHistogram()}
+				</div>
         <Rcslider
           min={this.props.min}
           max={this.props.max}
