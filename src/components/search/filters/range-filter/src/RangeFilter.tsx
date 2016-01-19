@@ -66,7 +66,7 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 			[this.key]:{
 			"histogram":{
 				 "field":this.options.field,
-				 "interval":(this.options.max - this.options.min) / 20,
+				 "interval":Math.ceil((this.options.max - this.options.min) / 20),
 				 "extended_bounds":{
 						 "min":this.options.min,
 						 "max":this.options.max
