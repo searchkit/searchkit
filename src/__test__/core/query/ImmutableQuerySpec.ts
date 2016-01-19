@@ -248,4 +248,12 @@ describe("ImmutableQuery", ()=> {
     })
   })
 
+  it("printJSON()", ()=> {
+    spyOn(console, "log")
+    this.query.printJSON()
+    expect(console.log).toHaveBeenCalledWith(
+      JSON.stringify(this.query.getJSON(), null, 2)
+    )
+  })  
+
 })

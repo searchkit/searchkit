@@ -1,7 +1,8 @@
 import {
   BaseQueryAccessor,
   SearchkitManager,
-  ValueState
+  ValueState,
+  noopQueryAccessor
 } from "../../../"
 
 describe("BaseQueryAccessor", ()=> {
@@ -41,7 +42,22 @@ describe("BaseQueryAccessor", ()=> {
   it("getQueryString()", ()=> {
     this.accessor.state = new ValueState("hi")
     expect(this.accessor.getQueryString()).toBe("hi")
+  })
 
+  it("noopQueryAccessor", ()=> {
+    spyOn(console, "warn")
+    noopQueryAccessor.keepOnlyQueryState()
+    noopQueryAccessor.setQueryString("foo")
+    expect(noopQueryAccessor.getQueryString()).toBe("")
+    expect(console.warn).toHaveBeenCalledWith(
+      "keepOnlyQueryState called, No Query Accessor exists"
+    )
+    expect(console.warn).toHaveBeenCalledWith(
+      "setQueryString called, No Query Accessor exists"
+    )
+    expect(console.warn).toHaveBeenCalledWith(
+      "getQueryString called, No Query Accessor exists"
+    )
   })
 
 })
