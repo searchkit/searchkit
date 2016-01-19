@@ -1,7 +1,7 @@
 import {State, ValueState} from "../state"
 import {FilterBasedAccessor} from "./FilterBasedAccessor"
 import {
-  RangeQuery, BoolMust,
+  RangeQuery,
   RangeBucket, FilterBucket
 } from "../query";
 import * as _ from "lodash";
@@ -46,7 +46,7 @@ export class NumericOptionsAccessor extends FilterBasedAccessor<ValueState> {
       }
 
       return query
-        .addFilter(this.uuid, BoolMust([rangeFilter]))
+        .addFilter(this.uuid, rangeFilter)
         .addSelectedFilter(selectedFilter)
 
     }
