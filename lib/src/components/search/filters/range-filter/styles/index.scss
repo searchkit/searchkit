@@ -7,6 +7,22 @@
     margin-bottom: 5px;
     font-weight: bold;
   }
+
+  &-value-labels {
+    display:flex;
+    justify-content: space-between;
+    margin-top:5px;
+
+    &__min {
+      align-self: flex-start;
+      font-size:12px;
+    }
+    &__max {
+      align-self: flex-end;
+      font-size:12px;
+    }
+  }
+
 }
 
 .bar-chart {

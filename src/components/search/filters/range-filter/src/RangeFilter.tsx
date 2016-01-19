@@ -117,8 +117,10 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	}
 
 	defineBEMBlocks() {
+		let block = this.props.mod || "range-filter"
 		return {
-			container: this.props.mod || "range-filter",
+			container: block,
+			labels: block+"-value-labels"
 		}
 	}
 
@@ -151,9 +153,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 		return (
 			<div className={block()}>
 				<div className={block("header")}>{this.translate(this.props.title)}</div>
-				<div>
-					{this.getHistogram()}
-				</div>
+				{this.getHistogram()}
         <Rcslider
           min={this.props.min}
           max={this.props.max}
@@ -164,6 +164,10 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 					]}
 					onChange={this.sliderUpdate.bind(this)}
           onAfterChange={this.sliderUpdateAndSearch.bind(this)}/>
+					<div className={block("x-label").mix(this.bemBlocks.labels())}>
+						<div className={this.bemBlocks.labels("min")}>{this.props.min}</div>
+						<div className={this.bemBlocks.labels("max")}>{this.props.max}</div>
+					</div>
 			</div>
 		);
 	}

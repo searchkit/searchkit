@@ -28,6 +28,7 @@ export declare class RangeFilter extends SearchkitComponent<RangeFilterProps, an
     defineAccessor(): RangeAccessor;
     defineBEMBlocks(): {
         container: string;
+        labels: string;
     };
     sliderUpdate(newValues: any): void;
     sliderUpdateAndSearch(newValues: any): void;
