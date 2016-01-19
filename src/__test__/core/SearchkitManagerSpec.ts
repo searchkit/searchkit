@@ -62,7 +62,6 @@ describe("SearchkitManager", ()=> {
     }
     this.searchkit.addDefaultQuery(queryFn)
     let anonymousAccessor = this.searchkit.accessors.accessors[0]
-    console.log(anonymousAccessor instanceof AnonymousAccessor)
     expect(this.searchkit.buildQuery().getSize()).toBe(11)
   })
 
