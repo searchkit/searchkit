@@ -3,7 +3,7 @@ import {
   TermsBucket, RangeBucket,
   ChildrenBucket, FilterBucket,
   NestedBucket,SignificantTermsBucket,
-  GeohashBucket
+  GeohashBucket, HistogramBucket
 } from "../../../../../"
 
 describe("BucketAggregations", ()=> {
@@ -78,4 +78,14 @@ describe("BucketAggregations", ()=> {
     )
     this.expectAggs({geohash_grid:{field:"location", precision:5}})
   })
+
+  it("GeohashBucket", ()=> {
+    this.aggs = HistogramBucket(
+      this.aggsKey, "price",
+      {interval:1},
+      this.childBucket
+    )
+    this.expectAggs({histogram:{field:"price", interval:1}})
+  })
+
 })

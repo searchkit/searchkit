@@ -9,3 +9,4 @@ export declare function FilterBucket(key: any, filter: any, ...childAggs: any[])
 export declare function NestedBucket(key: any, path: any, ...childAggs: any[]): {};
 export declare function SignificantTermsBucket(key: any, field: any, options?: {}, ...childAggs: any[]): {};
 export declare function GeohashBucket(key: any, field: any, options: any, ...childAggs: any[]): {};
+export declare function HistogramBucket(key: any, field: any, options?: {}, ...childAggs: any[]): {};

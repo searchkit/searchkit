@@ -39,3 +39,7 @@ export function SignificantTermsBucket(key, field, options={}, ...childAggs){
 export function GeohashBucket(key, field, options, ...childAggs){
   return AggsContainer(key, {geohash_grid:_.extend({field}, options)}, childAggs)
 }
+
+export function HistogramBucket(key, field, options={}, ...childAggs){
+  return AggsContainer(key, {histogram:_.extend({field}, options)}, childAggs)
+}

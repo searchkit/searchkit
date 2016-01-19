@@ -12,6 +12,7 @@ import {
   FilterBasedAccessor,
   ObjectState,
 	FilterBucket,
+	HistogramBucket,
 	RangeQuery,
 	BoolMust
 } from "../../../../../core"
@@ -62,26 +63,20 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
   }
 
   buildOwnQuery(query) {
-		let histogramBucket = {
-			[this.key]:{
-			"histogram":{
-				 "field":this.options.field,
-				 "interval":Math.ceil((this.options.max - this.options.min) / 20),
-				 "min_doc_count":0,
-				 "extended_bounds":{
-						 "min":this.options.min,
-						 "max":this.options.max
-				 }
-			}
-		}}
 		query = query.setAggs(FilterBucket(
 			this.key,
 			query.getFiltersWithoutKeys(this.key),
-			histogramBucket
+			HistogramBucket(this.key, this.options.field, {
+				"interval":Math.ceil((this.options.max - this.options.min) / 20),
+				"min_doc_count":0,
+				"extended_bounds":{
+						"min":this.options.min,
+						"max":this.options.max
+				}
+			})
 		))
     return query;
   }
-
 }
 
 export interface RangeFilterProps extends SearchkitComponentProps {
