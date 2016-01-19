@@ -48,7 +48,7 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 			}
 
 			return query
-				.addFilter(this.key, BoolMust([rangeFilter]))
+				.addFilter(this.key, rangeFilter)
 				.addSelectedFilter(selectedFilter)
 
 		}
