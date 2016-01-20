@@ -25,4 +25,5 @@ class App extends SearchkitComponent<any, any> {
 - `id` *(string)*: Required. id of component. Must be unique. Used as key for url serialisation
 - `min` *(number)*: Required. min start range
 - `max` *(number)*: Required. max start range
-- `title` *(number)*: Required. Title used for component and for selected filters component
+- `title` *(string)*: Required. Title used for component and for selected filters component
+- `showHistogram` *(boolean)*: Shows a histogram to provide a guide where their range would hit results.
