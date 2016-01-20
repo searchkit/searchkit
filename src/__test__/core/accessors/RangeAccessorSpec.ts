@@ -9,7 +9,7 @@ import {
   HistogramBucket
 } from "../../../"
 
-fdescribe("RangeAccessor", ()=> {
+describe("RangeAccessor", ()=> {
 
   beforeEach(()=> {
     this.accessor = new RangeAccessor("metascore", {
