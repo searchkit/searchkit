@@ -1,0 +1,28 @@
+# Range Filter
+The range filter provides the ability to create a range of
+
+## Example
+
+```jsx
+
+import {
+  RangeFilter,
+  SearchkitComponent
+} from "searchkit";
+
+class App extends SearchkitComponent<any, any> {
+
+  render(){
+    <div>
+      <RangeFilter field="metaScore" id="metascore" min="0" max="100" title="MetaScore"/>
+    </div>
+  }
+}
+```
+
+## Props
+- `field` *(ESField)*: Required. An elasticsearch numerical field value.
+- `id` *(string)*: Required. id of component. Must be unique. Used as key for url serialisation
+- `min` *(number)*: Required. min start range
+- `max` *(number)*: Required. max start range
+- `title` *(number)*: Required. Title used for component and for selected filters component
