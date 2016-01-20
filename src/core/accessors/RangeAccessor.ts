@@ -55,9 +55,18 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
   }
 
   buildOwnQuery(query) {
+		let otherFilters = query.getFiltersWithoutKeys(this.key)
+		let filters = BoolMust([
+			otherFilters,
+			{range:{
+				[this.options.field]:{					
+					gte:this.options.min, lte:this.options.max
+				}
+			}}
+		])
 		query = query.setAggs(FilterBucket(
 			this.key,
-			query.getFiltersWithoutKeys(this.key),
+			filters,
 			HistogramBucket(this.key, this.options.field, {
 				"interval":Math.ceil((this.options.max - this.options.min) / 20),
 				"min_doc_count":0,

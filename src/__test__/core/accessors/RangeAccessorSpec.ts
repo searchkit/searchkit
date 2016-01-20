@@ -67,7 +67,14 @@ describe("RangeAccessor", ()=> {
       expect(query.query.aggs).toEqual(
         FilterBucket("metascore",
           BoolMust([
-            BoolShould(["PG"])
+            BoolMust([
+              BoolShould(["PG"])
+            ]),
+            {range:{
+              metaScore:{
+                gte:0, lte:100
+              }
+            }}
           ]),
           HistogramBucket("metascore", "metaScore", {
             interval:5,
