@@ -14,7 +14,7 @@ class App extends SearchkitComponent<any, any> {
 
   render(){
     <div>
-      <RangeFilter field="metaScore" id="metascore" min="0" max="100" title="MetaScore"/>
+      <RangeFilter field="metaScore" id="metascore" min={0} max={100} showHistogram={true} title="MetaScore"/>
     </div>
   }
 }
