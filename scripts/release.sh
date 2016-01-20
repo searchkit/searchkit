@@ -16,6 +16,7 @@ read proceed
 git add .
 git commit -m "Updating to version ${newVersion}"
 git tag -a ${newVersion} -m "Updating to version ${newVersion}"
+git push --follow-tags
 
 echo "Type enter publish to npm"
 read proceed
