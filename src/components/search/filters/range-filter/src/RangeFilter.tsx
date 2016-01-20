@@ -29,14 +29,6 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 		id:React.PropTypes.string.isRequired
 	}, SearchkitComponent.propTypes)
 
-	constructor(props) {
-		this.state = {
-			min:0,
-			max:100
-		}
-		super(props)
-	}
-
 	defineAccessor() {
 		return new RangeAccessor(
 			this.props.id,
