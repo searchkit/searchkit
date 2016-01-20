@@ -5,6 +5,7 @@ export interface RangeFilterProps extends SearchkitComponentProps {
     max: number;
     id: string;
     title: string;
+    showHistogram?: boolean;
 }
 export declare class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
     accessor: RangeAccessor;
@@ -16,6 +17,7 @@ export declare class RangeFilter extends SearchkitComponent<RangeFilterProps, an
     };
     sliderUpdate(newValues: any): void;
     sliderUpdateAndSearch(newValues: any): void;
+    getMaxValue(): any;
     getHistogram(): JSX.Element;
     render(): JSX.Element;
 }

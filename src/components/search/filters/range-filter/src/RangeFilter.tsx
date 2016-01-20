@@ -18,6 +18,7 @@ export interface RangeFilterProps extends SearchkitComponentProps {
   max:number
   id:string
 	title:string
+	showHistogram?:boolean
 }
 
 export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
@@ -53,37 +54,52 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 		this.searchkit.performSearch()
 	}
 
-	getHistogram() {
-		let values = this.accessor.getBuckets()
-		let maxValue = _.max(_.pluck(this.accessor.getBuckets(), "doc_count"))
+	getMaxValue() {
+		return _.max(_.pluck(this.accessor.getBuckets(), "doc_count"))
+	}
 
-		let bars = maxValue == 0 ? null : _.map(this.accessor.getBuckets(), (value:any, i) => {
+	getHistogram() {
+		if (!this.props.showHistogram) return null
+
+		let values = this.accessor.getBuckets()
+		let maxValue = this.getMaxValue()
+
+		if (maxValue === 0) return null
+
+		let bars = _.map(this.accessor.getBuckets(), (value:any, i) => {
 			return (
-				<div
-				className="bar-chart__bar"
-				key={value.key}
-				style={{
-					height:`${(value.doc_count/maxValue)*100}%`
-				}}>
+				<div className="bar-chart__bar"
+					key={value.key}
+					style={{
+						height:`${(value.doc_count/maxValue)*100}%`
+					}}>
 				</div>
 			)
 		})
 
 		return (
-		<div className="bar-chart">
-			{bars}
-		</div>
+			<div className="bar-chart">
+				{bars}
+			</div>
 		)
 
 	}
 
 	render() {
 		var block = this.bemBlocks.container
+		var histogram = this.getHistogram()
+
+		var classname = block().state({
+			disabled:this.getMaxValue() == 0,
+			"no-histogram": histogram == null
+		})
+
 		return (
-			<div className={block()}>
+			<div className={classname}>
 				<div className={block("header")}>{this.translate(this.props.title)}</div>
-				{this.getHistogram()}
+				{histogram}
         <Rcslider
+					className={block("bar-chart")}
           min={this.props.min}
           max={this.props.max}
           range={true}

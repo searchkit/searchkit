@@ -8,6 +8,14 @@
     font-weight: bold;
   }
 
+  &.is-disabled {
+    display:none;
+  }
+
+  &.is-no-histogram &__bar-chart {
+    margin-top:15px;
+  }
+
   &-value-labels {
     display:flex;
     justify-content: space-between;
