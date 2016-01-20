@@ -54,56 +54,6 @@
 
 }
 
-.react-autosuggest {
-  width:100%;
-  background:white;
-  z-index:1000;
-
-
-  ul, li {
-    margin:0;
-    padding:0;
-  }
-}
-
-.react-autosuggest__suggestions {
-  padding:10px 0 5px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  border-radius:3px;
-  z-index:1000;
-}
-
-.react-autosuggest__suggestions-section {
-  margin-bottom:20px;
-  padding:0;
-}
-
-.react-autosuggest__suggestions-section-name {
-  text-transform:uppercase;
-  font-size:12px;
-  margin-bottom:10px;
-  color:#999;
-}
-
-.react-autosuggest__suggestions-section-suggestions {
-  list-style: none;
-  list-style-position:inside;
-  margin:0;
-}
-.react-autosuggest__suggestion {
-  padding:7px 10px;
-  line-height:22px;
-  font-size:14px;
-  em {
-    font-style: normal;
-    font-weight:700;
-  }
-
-  &--focused {
-    background:#f6f6f6;
-  }
-}
-
 .sk-spinning-loader {
   font-size: 10px;
   position: relative;
