@@ -55,13 +55,13 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	}
 
 	getMaxValue() {
+		if (this.accessor.getBuckets() == 0) return 0
 		return _.max(_.pluck(this.accessor.getBuckets(), "doc_count"))
 	}
 
 	getHistogram() {
 		if (!this.props.showHistogram) return null
 
-		let values = this.accessor.getBuckets()
 		let maxValue = this.getMaxValue()
 
 		if (maxValue === 0) return null
