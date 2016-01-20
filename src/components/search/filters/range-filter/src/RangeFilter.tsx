@@ -93,13 +93,13 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 			disabled:this.getMaxValue() == 0,
 			"no-histogram": histogram == null
 		})
+		var sliderClassname = block("bar-chart").toString()
 
 		return (
 			<div className={classname}>
 				<div className={block("header")}>{this.translate(this.props.title)}</div>
 				{histogram}
         <Rcslider
-					className={block("bar-chart")}
           min={this.props.min}
           max={this.props.max}
           range={true}

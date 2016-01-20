@@ -18,6 +18,7 @@
     "./src/components/search/filters/menu-filter/src/MenuFilter.tsx",
     "./src/components/search/filters/numeric-refinement-list-filter/src/NumericRefinementListFilter.tsx",
     "./src/components/search/filters/range-filter/src/RangeFilter.tsx",
+    "./src/components/search/filters/range-filter/test/RangeFilterSpec.tsx",
     "./src/components/search/filters/refinement-list-filter/src/RefinementListFilter.tsx",
     "./src/components/search/filters/refinement-list-filter/test/RefinementListFilterSpec.tsx",
     "./src/components/search/filters/reset-filters/src/ResetFilters.tsx",
