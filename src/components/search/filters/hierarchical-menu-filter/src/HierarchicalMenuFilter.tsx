@@ -86,8 +86,13 @@ export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuF
 
   render(){
 		let block = this.bemBlocks.container;
+		let classname = block()
+			.mix(`filter--${this.props.id}`)
+			.state({
+				disabled: this.accessor.getBuckets(0).length == 0
+			})
     return (
-			<div className={block().mix(`filter--${this.props.id}`)}>
+			<div className={classname}>
 				<div className={block("header")}>{this.props.title}</div>
 				<div className={block("root")}>
 					{this.renderOptions(0)}

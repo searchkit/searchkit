@@ -1,9 +1,13 @@
 
 
 .hierarchical-menu {
-  margin-bottom:20px;
 
   &-list {
+    margin-bottom:20px;
+
+    &.is-disabled {
+      display:none;
+    }
 
     &__header {
       margin-bottom:5px;
