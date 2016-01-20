@@ -19,7 +19,7 @@ export interface RangeAccessorOptions {
 
 export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 	options:any
-	state = new ObjectState()
+	state = new ObjectState({})
 
 	constructor(key, options:RangeAccessorOptions){
     super(key, options.id)
@@ -27,9 +27,8 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
   }
 
 	buildSharedQuery(query) {
-		let val:any = this.state.getValue()
-
-		if (this.state.hasValue() && val.min && val.max) {
+		if (this.state.hasValue()) {
+			let val:any = this.state.getValue()
 			let rangeFilter = RangeQuery(this.options.field, val.min, val.max)
 			let selectedFilter = {
 				name:this.translate(this.options.title),
