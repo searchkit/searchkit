@@ -27,8 +27,9 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
   }
 
 	buildSharedQuery(query) {
-		if (this.state.hasValue()) {
-			let val:any = this.state.getValue()
+		let val:any = this.state.getValue()
+
+		if (val.min && val.max) {
 			let rangeFilter = RangeQuery(this.options.field, val.min, val.max)
 			let selectedFilter = {
 				name:this.translate(this.options.title),

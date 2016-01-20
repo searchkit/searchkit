@@ -50,6 +50,7 @@
     "./src/__test__/core/accessors/PageSizeAccessorSpec.ts",
     "./src/__test__/core/accessors/PaginationAccessorSpec.ts",
     "./src/__test__/core/accessors/QueryAccessorSpec.ts",
+    "./src/__test__/core/accessors/RangeAccessorSpec.ts",
     "./src/__test__/core/accessors/SortingAccessorSpec.ts",
     "./src/__test__/core/accessors/StatefulAccessorSpec.ts",
     "./src/__test__/core/accessors/SuggestionsAccessorSpec.ts",
