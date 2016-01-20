@@ -32,7 +32,6 @@
     "./src/components/search/hits/test/NoHitsSpec.tsx",
     "./src/components/search/pagination/src/Pagination.tsx",
     "./src/components/search/pagination/test/PaginationSpec.tsx",
-    "./src/components/search/search-box/src/Autocomplete.tsx",
     "./src/components/search/search-box/src/SearchBox.tsx",
     "./src/components/search/search-box/test/SearchboxSpec.tsx",
     "./src/components/search/sorting-selector/src/SortingSelector.tsx",
