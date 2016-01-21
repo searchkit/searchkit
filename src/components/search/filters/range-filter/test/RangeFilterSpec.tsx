@@ -46,6 +46,7 @@ describe("Reset Filter tests", () => {
       })
 
       this.wrapper.update()
+      this.accessor = this.searchkit.accessors.getAccessors()[0]
     }
 
 
@@ -61,7 +62,6 @@ describe("Reset Filter tests", () => {
 
     expect(this.wrapper.find(".bar-chart").length).toBe(1)
     expect(this.wrapper.find(".bar-chart__bar").length).toBe(10)
-
   });
 
   it("renders without histogram", () => {
@@ -70,7 +70,15 @@ describe("Reset Filter tests", () => {
     expect(this.wrapper.find(".bar-chart__bar").length).toBe(0)
   })
 
-
-
+  it("accessor has correct config", () => {
+    this.createWrapper(true)
+    expect(this.accessor.options).toEqual({
+      id:"m",
+      min:0,
+      max:100,
+      field:"metascore",
+      title:"metascore"
+    })
+  })
 
 });
