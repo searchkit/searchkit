@@ -13,6 +13,8 @@
     "jsx": "react"
   },
   "files": [
+    "./src/__test__/core/react/FastClickSpec.tsx",
+    "./src/__test__/core/react/LoadingComponentSpec.tsx",
     "./src/__test__/core/react/SearchkitComponentSpec.tsx",
     "./src/__test__/core/react/SearchkitProviderSpec.tsx",
     "./src/components/search/filters/hierarchical-menu-filter/src/HierarchicalMenuFilter.tsx",
