@@ -12,7 +12,8 @@
     "library",
     "client-side",
     "widgets",
-    "react components"
+    "react components",
+    "react-component"
   ],
   "homepage": "http://www.searchkit.co",
   "bugs": {
