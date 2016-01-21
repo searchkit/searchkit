@@ -29,7 +29,8 @@
     "build": "tsc; gulp copy-assets; webpack;",
     "build:watch": "tsc -w",
     "prepublish": "rm -rf lib; rm -rf release; npm run-script build;",
-    "test:e2e": "protractor test/e2e/conf/protractor.conf.js"
+    "test:e2e": "protractor test/e2e/conf/protractor.conf.js",
+    "test:serve":"open 'http://localhost:8000/test/e2e/movie-app/'; python -m SimpleHTTPServer"
   },
   "authors": [
     {

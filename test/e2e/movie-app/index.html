@@ -84,7 +84,7 @@
       	SearchkitManager,SearchkitProvider,
       	SearchBox, Hits, RefinementListFilter,
       	HierarchicalMenuFilter, HitsStats,
-      	SelectedFilters, ResetFilters
+      	SelectedFilters, ResetFilters, RangeFilter
       } = Searchkit
       const host = "https://kili-eu-west-1.searchly.com/movies/"
       const searchkit = new SearchkitManager(host, {
@@ -113,6 +113,7 @@
             </div>
             <div className="layout__filters">
               <ResetFilters/>
+              <RangeFilter min={0} max={100} field="metaScore" id="metascore1" title="metascore" showHistogram={true}/>
               <HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
               <RefinementListFilter id="actors" title="Actors" field="actors.raw" operator="AND" size={10}/>
             </div>
