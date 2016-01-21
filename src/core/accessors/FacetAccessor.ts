@@ -5,7 +5,8 @@ import {
   BoolShould, BoolMust, SelectedFilter,
   FilterBucket
 } from "../query";
-import * as _ from "lodash";
+const assign = require("lodash/assign")
+const map = require("lodash/map")
 
 
 export interface FacetAccessorOptions {
@@ -44,7 +45,7 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     this.options.facetsPerPage = this.options.facetsPerPage || 50
     this.size = this.defaultSize;
     if(options.translations){
-      this.translations = _.extend({}, this.translations, options.translations)
+      this.translations = assign({}, this.translations, options.translations)
     }
   }
 
@@ -90,8 +91,8 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
 
   buildSharedQuery(query){
     var filters = this.state.getValue()
-    var filterTerms = _.map(filters, TermQuery.bind(null, this.key))
-    var selectedFilters:Array<SelectedFilter> = _.map(filters, (filter)=> {
+    var filterTerms = map(filters, TermQuery.bind(null, this.key))
+    var selectedFilters:Array<SelectedFilter> = map(filters, (filter)=> {
       return {
         name:this.options.title || this.translate(this.key),
         value:this.translate(filter),

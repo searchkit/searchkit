@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {SelectedFilters} from "../src/SelectedFilters.tsx";
 import {SearchkitManager, ImmutableQuery } from "../../../../../core";
 const bem = require("bem-cn");
-import * as _ from "lodash";
+const _ = require("lodash")
 import * as sinon from "sinon";
 
 describe("SelectedFilters tests", () => {

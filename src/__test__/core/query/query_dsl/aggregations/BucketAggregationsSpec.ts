@@ -5,6 +5,7 @@ import {
   NestedBucket,SignificantTermsBucket,
   GeohashBucket, HistogramBucket
 } from "../../../../../"
+const _ = require("lodash")
 
 describe("BucketAggregations", ()=> {
 
@@ -14,7 +15,7 @@ describe("BucketAggregations", ()=> {
     this.aggsKey = "aggsKey"
     this.expectAggs = (ob)=> {
       expect(this.aggs).toEqual({
-        "aggsKey":_.extend(ob, {aggs:this.childBucket})
+        "aggsKey":_.assign(ob, {aggs:this.childBucket})
       })
     }
   })

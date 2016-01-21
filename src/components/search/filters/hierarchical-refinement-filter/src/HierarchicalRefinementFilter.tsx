@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as _ from "lodash";
 import "../styles/index.scss";
 
 import {
@@ -8,6 +7,10 @@ import {
 	FastClick,
 	SearchkitComponentProps
 } from "../../../../../core"
+
+const defaults = require("lodash/defaults")
+const omit = require("lodash/omit")
+const map = require("lodash/map")
 
 export interface HierarchicalRefinementFilterProps extends SearchkitComponentProps {
 	field:string
@@ -21,7 +24,7 @@ export interface HierarchicalRefinementFilterProps extends SearchkitComponentPro
 export class HierarchicalRefinementFilter extends SearchkitComponent<HierarchicalRefinementFilterProps, any> {
 	public accessor:NestedFacetAccessor
 
-	static propTypes = _.defaults({
+	static propTypes = map({
 		field:React.PropTypes.string.isRequired,
 		id:React.PropTypes.string.isRequired,
 		title:React.PropTypes.string.isRequired,
@@ -45,7 +48,7 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<Hierarchica
 	defineAccessor() {
 		return new NestedFacetAccessor(
 			this.props.id,
-			_.omit(this.props, ["mod"]) as any
+			omit(this.props, ["mod"]) as any
 		)
 	}
 
@@ -85,7 +88,7 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<Hierarchica
 		return (
 			<div className={block("hierarchical-options")}>
 			{
-        _.map(this.accessor.getBuckets(level), this.renderOption.bind(this, level))
+        map(this.accessor.getBuckets(level), this.renderOption.bind(this, level))
       }
 			</div>
 		)

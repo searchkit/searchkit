@@ -43,9 +43,9 @@ export declare class SearchkitManager {
     search(replaceState?: boolean): void;
     _search(): void;
     setResults(results: any): void;
-    getHits(): any[];
-    getHitsCount(): number;
-    getSuggestions(): {};
+    getHits(): any;
+    getHitsCount(): any;
+    getSuggestions(): any;
     getQueryAccessor(): BaseQueryAccessor;
     hasHits(): boolean;
     setError(error: any): void;

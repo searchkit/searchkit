@@ -5,6 +5,8 @@ import {
   SimpleQueryString
 } from "../query";
 
+const assign = require("lodash/assign")
+
 export interface SearchOptions {
   queryFields?:Array<string>
   prefixQueryFields?:Array<string>
@@ -24,7 +26,7 @@ export class QueryAccessor extends BaseQueryAccessor {
     if(queryStr){
 
       let simpleQuery = SimpleQueryString(
-        queryStr, _.extend(
+        queryStr, assign(
           {fields:this.options.queryFields},
           this.options.queryOptions
         )

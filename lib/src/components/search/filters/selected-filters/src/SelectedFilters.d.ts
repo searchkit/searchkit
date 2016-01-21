@@ -2,7 +2,7 @@ import { SearchkitComponent, SearchkitComponentProps } from "../../../../../core
 export interface SelectedFiltersProps extends SearchkitComponentProps {
 }
 export declare class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, any> {
-    static propTypes: {};
+    static propTypes: any;
     defineBEMBlocks(): {
         container: string;
         option: string;

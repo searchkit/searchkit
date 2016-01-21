@@ -1,8 +1,12 @@
 const update = require("react-addons-update")
 import {BoolMust} from "./query_dsl"
-import * as _ from "lodash"
 import {Utils} from "../support/Utils"
 import {SelectedFilter} from "./SelectedFilter"
+const omitBy = require("lodash/omitBy")
+const omit = require("lodash/omit")
+const values = require("lodash/values")
+const pick = require("lodash/pick")
+const merge = require("lodash/merge")
 
 export class ImmutableQuery {
   index: any
@@ -34,7 +38,7 @@ export class ImmutableQuery {
     query.sort = this.index.sort
     query.highlight = this.index.highlight
     query.suggest = this.index.suggest
-    this.query = _.omit(query, v => v === undefined)
+    this.query = omitBy(query, v => v === undefined)
   }
 
   hasFilters(){
@@ -96,14 +100,14 @@ export class ImmutableQuery {
 
   _getFilters(keys, method){
     keys = [].concat(keys)
-    const filters = _.values(method(this.index.filtersMap || {}, keys))
+    const filters = values(method(this.index.filtersMap || {}, keys))
     return BoolMust(filters)
   }
   getFiltersWithKeys(keys){
-    return this._getFilters(keys, _.pick)
+    return this._getFilters(keys, pick)
   }
   getFiltersWithoutKeys(keys){
-    return this._getFilters(keys, _.omit)
+    return this._getFilters(keys, omit)
   }
 
   setSize(size: number) {
@@ -133,7 +137,7 @@ export class ImmutableQuery {
   deepUpdate(key, ob){
     return this.update({
       $merge: {
-        [key]:_.merge({}, this.index[key] || {}, ob)
+        [key]:merge({}, this.index[key] || {}, ob)
       }
     })
   }

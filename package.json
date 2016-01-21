@@ -1,6 +1,6 @@
 {
   "name": "searchkit",
-  "version": "0.3.3",
+  "version": "0.4.0-alpa",
   "description": "A suite of react components to help create a UI quickly for elasticsearch ",
   "main": "lib/src/index.js",
   "keywords": [
@@ -48,7 +48,7 @@
     "bem-cn": "^1.2.1",
     "es6-promise": "^3.0.2",
     "history": "1.13.0",
-    "lodash": "^3.10.1",
+    "lodash": "^4.0.0",
     "qs": "ssetem/qs",
     "rc-slider": "^3.3.1",
     "react": "^0.14.6",

@@ -1,4 +1,8 @@
 import {Accessor} from "./Accessor";
+const mapValues = require("lodash/mapValues")
+const zipObject = require("lodash/zipObject")
+const constant = require("lodash/constant")
+
 
 export class HighlightAccessor extends Accessor {
 
@@ -10,9 +14,9 @@ export class HighlightAccessor extends Accessor {
 
   computeHighlightedFields(fields) {
     return {
-      fields:_.mapValues(
-        _.object(fields),
-        _.constant({})
+      fields:mapValues(
+        zipObject(fields),
+        constant({})
       )
     }
   }

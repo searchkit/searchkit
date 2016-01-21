@@ -4,7 +4,7 @@ import {hasClass} from "../../../../__test__/TestHelpers"
 import {RefinementListFilter} from "../src/RefinementListFilter.tsx";
 import {SearchkitManager} from "../../../../../core";
 const bem = require("bem-cn");
-import * as _ from "lodash";
+const _ = require("lodash")
 import * as sinon from "sinon";
 
 describe("Refinement List Filter tests", () => {

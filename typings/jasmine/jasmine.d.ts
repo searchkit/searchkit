@@ -463,7 +463,7 @@ declare module jasmine {
         formatException(e: any): any;
         htmlEscape(str: string): string;
         argsToArray(args: any): any;
-        extend(destination: any, source: any): any;
+        assign(destination: any, source: any): any;
     }
 
     interface JsApiReporter extends Reporter {

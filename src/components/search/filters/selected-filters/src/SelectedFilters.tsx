@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as _ from "lodash";
 import "../styles/index.scss";
 
 import {
@@ -10,13 +9,17 @@ import {
 	SearchkitComponentProps
 } from "../../../../../core"
 
+const defaults = require("lodash/defaults")
+const size = require("lodash/size")
+const map = require("lodash/map")
+
 export interface SelectedFiltersProps extends SearchkitComponentProps {
 }
 
 export class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, any> {
 
 
-	static propTypes = _.defaults({		
+	static propTypes = defaults({
 	}, SearchkitComponent.propTypes)
 
 	defineBEMBlocks() {
@@ -32,7 +35,7 @@ export class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, an
 	}
 
 	hasFilters():boolean {
-		return _.size(this.getFilters()) > 0;
+		return size(this.getFilters()) > 0;
 	}
 
 	renderFilter(filter) {
@@ -63,7 +66,7 @@ export class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, an
 		}
     return (
       <div className={this.bemBlocks.container()}>
-				{_.map(this.getFilters(), this.renderFilter.bind(this))}
+				{map(this.getFilters(), this.renderFilter.bind(this))}
       </div>
     )
   }

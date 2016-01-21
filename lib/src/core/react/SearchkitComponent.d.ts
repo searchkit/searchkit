@@ -23,8 +23,8 @@ export declare class SearchkitComponent<P extends SearchkitComponentProps, S> ex
     translate(key: any, interpolations?: any): any;
     componentWillMount(): void;
     getResults(): any;
-    getHits(): any[];
-    getHitsCount(): number;
+    getHits(): any;
+    getHitsCount(): any;
     hasHits(): boolean;
     getQuery(): ImmutableQuery;
     isInitialLoading(): boolean;

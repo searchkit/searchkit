@@ -1,3 +1,5 @@
+const assign = require("lodash/assign")
+
 export interface MultiMatchOptions {
   fields:Array<string>,
   type?:string,
@@ -13,6 +15,6 @@ export function MultiMatchQuery(query, options:MultiMatchOptions){
   }
 
   return {
-    multi_match:_.extend({query}, options)
+    multi_match:assign({query}, options)
   }
 }

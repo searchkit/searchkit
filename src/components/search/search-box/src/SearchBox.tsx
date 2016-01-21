@@ -1,13 +1,14 @@
 import * as React from "react";
-import * as _ from "lodash"
-
 import "../styles/index.scss";
-
 import {
 	QueryAccessor,
 	SearchkitComponent,
 	SearchkitComponentProps
 } from "../../../../core"
+
+const defaults = require("lodash/defaults")
+const throttle = require("lodash/throttle")
+const assign = require("lodash/assign")
 
 export interface SearchBoxProps extends SearchkitComponentProps {
 	searchOnChange?:boolean
@@ -26,7 +27,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 	}
 	translations = SearchBox.translations
 
-	static propTypes = _.defaults({
+	static propTypes = defaults({
 		searchOnChange:React.PropTypes.bool,
 		queryFields:React.PropTypes.arrayOf(React.PropTypes.string),
 		autofocus:React.PropTypes.bool,
@@ -59,7 +60,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 		return new QueryAccessor("q", {
 			prefixQueryFields:(this.props.searchOnChange ? (this.props.prefixQueryFields || this.props.queryFields) : false),
 			queryFields:this.props.queryFields || ["_all"],
-			queryOptions:_.extend({
+			queryOptions:assign({
 			}, this.props.queryOptions)
 		})
 	}
@@ -86,7 +87,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 		const query = e.target.value;
 		this.accessor.setQueryString(query)
 		if (this.props.searchOnChange) {
-			_.throttle(()=> {
+			throttle(()=> {
 				this.searchQuery(this.accessor.getQueryString())
 			}, 400)()
 		}

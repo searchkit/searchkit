@@ -1,6 +1,4 @@
 import * as React from "react";
-import * as _ from "lodash";
-
 const Rcslider = require("rc-slider")
 import "../styles/index.scss";
 
@@ -11,6 +9,12 @@ import {
 	FastClick,
 	RangeAccessor
 } from "../../../../../core"
+
+const defaults = require("lodash/defaults")
+const max = require("lodash/max")
+const map = require("lodash/map")
+const get = require("lodash/get")
+
 
 export interface RangeFilterProps extends SearchkitComponentProps {
 	field:string
@@ -24,7 +28,7 @@ export interface RangeFilterProps extends SearchkitComponentProps {
 export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	accessor:RangeAccessor
 
-	static propTypes = _.defaults({
+	static propTypes = defaults({
 		field:React.PropTypes.string.isRequired,
 		title:React.PropTypes.string.isRequired,
 		id:React.PropTypes.string.isRequired
@@ -56,7 +60,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 
 	getMaxValue() {
 		if (this.accessor.getBuckets() == 0) return 0
-		return _.max(_.pluck(this.accessor.getBuckets(), "doc_count"))
+		return max(map(this.accessor.getBuckets(), "doc_count"))
 	}
 
 	getHistogram() {
@@ -66,7 +70,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 
 		if (maxValue === 0) return null
 
-		let bars = _.map(this.accessor.getBuckets(), (value:any, i) => {
+		let bars = map(this.accessor.getBuckets(), (value:any, i) => {
 			return (
 				<div className="bar-chart__bar"
 					key={value.key}
@@ -104,8 +108,8 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
           max={this.props.max}
           range={true}
 					value={[
-						_.get(this.accessor.state.getValue(), "min", this.props.min),
-						_.get(this.accessor.state.getValue(), "max", this.props.max)
+						get(this.accessor.state.getValue(), "min", this.props.min),
+						get(this.accessor.state.getValue(), "max", this.props.max)
 					]}
 					onChange={this.sliderUpdate.bind(this)}
           onAfterChange={this.sliderUpdateAndSearch.bind(this)}/>

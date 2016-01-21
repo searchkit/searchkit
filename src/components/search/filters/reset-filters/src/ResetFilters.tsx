@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as _ from "lodash";
 import "../styles/index.scss";
 
 import {
@@ -9,6 +8,7 @@ import {
 	FastClick,
 	SearchkitComponentProps
 } from "../../../../../core"
+const defaults = require("lodash/defaults")
 
 export interface ResetFiltersProps extends SearchkitComponentProps {
 }
@@ -20,7 +20,7 @@ export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
 	}
 	translations = ResetFilters.translations
 
-	static propTypes = _.defaults({
+	static propTypes = defaults({
 		translations:SearchkitComponent.translationsPropType(
 			ResetFilters.translations
 		)

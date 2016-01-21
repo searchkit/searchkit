@@ -1,6 +1,6 @@
 import {ValueState} from "../state"
 import {StatefulAccessor} from "./StatefulAccessor"
-import * as _ from "lodash"
+
 
 export class PaginationAccessor extends StatefulAccessor<ValueState> {
   state = new ValueState()

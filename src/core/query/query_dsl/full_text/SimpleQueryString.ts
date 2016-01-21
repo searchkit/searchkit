@@ -1,4 +1,4 @@
-import * as _ from "lodash"
+const assign = require("lodash/assign")
 
 export interface SimpleQueryStringOptions {
   analyzer?:string
@@ -12,6 +12,6 @@ export function SimpleQueryString(query, options={}){
     return
   }
   return {
-    "simple_query_string":_.extend({query}, options)
+    "simple_query_string":assign({query}, options)
   }
 }

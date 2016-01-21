@@ -9,7 +9,7 @@ export declare class Pagination extends SearchkitComponent<PaginationProps, any>
     accessor: PaginationAccessor;
     static translations: any;
     translations: any;
-    static propTypes: {};
+    static propTypes: any;
     defineAccessor(): PaginationAccessor;
     defineBEMBlocks(): {
         container: string;

@@ -4,6 +4,9 @@ import {ImmutableQuery} from "../query"
 import {Accessor} from "../accessors/Accessor"
 import {Utils} from "../support"
 var block = require('bem-cn');
+const keys = require("lodash/keys")
+const without = require("lodash/without")
+const transform = require("lodash/transform")
 
 export interface SearchkitComponentProps {
   mod?:string
@@ -25,9 +28,9 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
   static translationsPropType = (translations)=> {
     return (props, propName, componentName) =>{
       let specifiedTranslations = props[propName]
-      let translationKeys = _.keys(translations)
-      let missing = _.without(
-        _.keys(specifiedTranslations),
+      let translationKeys = keys(translations)
+      let missing = without(
+        keys(specifiedTranslations),
         ...translationKeys)
       if(missing.length > 0){
         return new Error(
@@ -64,7 +67,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
   }
 
   componentWillMount(){
-    this.bemBlocks = _.transform(this.defineBEMBlocks(), (result:any, cssClass, name) => {
+    this.bemBlocks = transform(this.defineBEMBlocks(), (result:any, cssClass, name) => {
       result[name] = block(cssClass);
     })
     this.searchkit = this.props.searchkit || this.context["searchkit"]

@@ -4,7 +4,7 @@ export declare class HighlightAccessor extends Accessor {
     highlightFields: any;
     constructor(fields: Array<string>);
     computeHighlightedFields(fields: any): {
-        fields: {};
+        fields: any;
     };
     buildOwnQuery(query: any): any;
 }

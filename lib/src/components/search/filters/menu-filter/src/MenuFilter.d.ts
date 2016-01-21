@@ -7,7 +7,7 @@ export interface MenuFilterProps extends SearchkitComponentProps {
 }
 export declare class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
     accessor: FacetAccessor;
-    static propTypes: {};
+    static propTypes: any;
     defineBEMBlocks(): {
         container: string;
         option: string;

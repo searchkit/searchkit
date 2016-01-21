@@ -10,7 +10,8 @@ import {
   Utils
 } from "../../../"
 
-import * as _ from "lodash"
+const _ = require("lodash")
+
 
 describe("ImmutableQuery", ()=> {
 
@@ -47,7 +48,7 @@ describe("ImmutableQuery", ()=> {
     expect(this.query.hasFilters()).toBe(false)
     let query = this.addFilter()
     expect(query.hasFilters()).toBe(true)
-    //immutability check
+    // immutability check
     expect(this.query.hasFilters()).toBe(false)
   })
 
@@ -254,6 +255,6 @@ describe("ImmutableQuery", ()=> {
     expect(console.log).toHaveBeenCalledWith(
       JSON.stringify(this.query.getJSON(), null, 2)
     )
-  })  
+  })
 
 })

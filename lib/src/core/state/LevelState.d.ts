@@ -3,7 +3,7 @@ export declare class LevelState extends State<Array<any>> {
     value: Array<any>;
     getValue(): any[];
     add(level: number, val: any): any;
-    contains(level: number, val: any): boolean;
+    contains(level: number, val: any): any;
     clear(level?: number): any;
     remove(level: number, val: any): any;
     toggle(level: number, val: any): any;

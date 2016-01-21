@@ -4,7 +4,9 @@ import {
   RangeQuery,
   RangeBucket, FilterBucket
 } from "../query";
-import * as _ from "lodash";
+const find = require("lodash/find")
+const compact = require("lodash/compact")
+const map = require("lodash/map")
 
 export interface RangeOption {
   title:string, from?:number, to?:number
@@ -33,7 +35,7 @@ export class NumericOptionsAccessor extends FilterBasedAccessor<ValueState> {
 
   buildSharedQuery(query) {
     if (this.state.hasValue()) {
-      let val:any = _.findWhere(this.options.options, {title:this.state.getValue()})
+      let val:any = find(this.options.options, {title:this.state.getValue()})
 
       let rangeFilter = RangeQuery(this.options.field, val.from, val.to)
       let selectedFilter = {
@@ -55,7 +57,7 @@ export class NumericOptionsAccessor extends FilterBasedAccessor<ValueState> {
   }
 
   getRanges() {
-    return _.compact(_.map(this.options.options, (range:RangeOption) => {
+    return compact(map(this.options.options, (range:RangeOption) => {
       return {
         key:range.title,
         from:range.from,

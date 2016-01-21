@@ -1,14 +1,14 @@
 import {Accessor} from "./Accessor";
+const get = require("lodash/get")
 
 export class SuggestionsAccessor extends Accessor {
-
 
   constructor(public field:string){
     super()
   }
 
   getSuggestion(){
-    return _.get(this.searchkit.getSuggestions(), [0,"options", 0, "text"], false)
+    return get(this.searchkit.getSuggestions(), [0,"options", 0, "text"], false)
   }
 
   buildOwnQuery(query) {

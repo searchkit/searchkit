@@ -2,7 +2,7 @@ import * as React from "react";
 import {mount} from "enzyme";
 import {Pagination} from "../src/Pagination.tsx";
 import {SearchkitManager, ImmutableQuery} from "../../../../core";
-import * as _ from "lodash";
+
 import * as sinon from "sinon";
 
 describe("Pagination tests", () => {

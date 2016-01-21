@@ -1,6 +1,7 @@
 import {ImmutableQuery} from "../query/ImmutableQuery";
 import {SearchkitManager} from "../SearchkitManager";
 import {Utils} from "../support"
+const get = require("lodash/get")
 
 export class Accessor {
   searchkit:SearchkitManager
@@ -39,11 +40,11 @@ export class Accessor {
   setResults(results){
     this.results = results
   }
-  
+
   getAggregations(path, defaultValue){
     const results = this.getResults()
     const getPath = ['aggregations',...path]
-    return _.get(results, getPath, defaultValue)
+    return get(results, getPath, defaultValue)
   }
 
   buildSharedQuery(query:ImmutableQuery){

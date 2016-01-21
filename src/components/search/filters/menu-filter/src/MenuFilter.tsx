@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as _ from "lodash";
 import "../styles/index.scss";
 
 import {
@@ -9,6 +8,9 @@ import {
 	FastClick,
 	SearchkitComponentProps
 } from "../../../../../core"
+
+const defaults = require("lodash/defaults")
+const map = require("lodash/map")
 
 export interface MenuFilterProps extends SearchkitComponentProps {
 	field:string
@@ -20,7 +22,7 @@ export interface MenuFilterProps extends SearchkitComponentProps {
 export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
 	accessor:FacetAccessor
 
-	static propTypes = _.defaults({
+	static propTypes = defaults({
 		field:React.PropTypes.string.isRequired,
 		title:React.PropTypes.string.isRequired,
 		id:React.PropTypes.string.isRequired,
@@ -86,7 +88,7 @@ export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
 				<div className={block("header")}>{this.props.title}</div>
 				<div className={block("options")}>
 				{this.renderOption("All", null, isAllChecked())}
-				{_.map(this.accessor.getBuckets(), this.createOption.bind(this))}
+				{map(this.accessor.getBuckets(), this.createOption.bind(this))}
 				</div>
 			</div>
 		);

@@ -1,7 +1,7 @@
 import * as axios from "axios"
-import * as _ from "lodash"
 import {ImmutableQuery} from "../query"
 import {ESTransport} from "./ESTransport";
+const defaults = require("lodash/defaults")
 
 export interface ESTransportOptions {
   headers?:Object,
@@ -15,7 +15,7 @@ export class AxiosESTransport extends ESTransport{
 
   constructor(public host:string, options:ESTransportOptions={}){
     super()
-    this.options = _.defaults(options, {
+    this.options = defaults(options, {
       headers:{}
     })
     if(this.options.basicAuth){

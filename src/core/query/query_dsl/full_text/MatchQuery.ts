@@ -1,3 +1,5 @@
+const assign = require("lodash/assign")
+
 export interface MatchQueryOptions {
   operator?:string,
   zero_terms_query?:string,
@@ -14,7 +16,7 @@ export function MatchQuery(field, query, options:MatchQueryOptions={}){
 
   return {
     match:{
-      [field]:_.extend({query}, options)
+      [field]:assign({query}, options)
     }
   }
 }

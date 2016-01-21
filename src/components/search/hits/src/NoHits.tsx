@@ -1,4 +1,3 @@
-import * as _ from "lodash";
 import * as React from "react";
 import "../styles/no-hits.scss";
 
@@ -9,6 +8,8 @@ import {
 	NoFiltersHitCountAccessor,
 	SuggestionsAccessor
 } from "../../../../core"
+
+const defaults = require("lodash/defaults")
 
 export interface NoHitsProps extends SearchkitComponentProps {
 	suggestionsField?:string
@@ -26,7 +27,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	}
 	translations = NoHits.translations
 
-	static propTypes = _.defaults({
+	static propTypes = defaults({
 		suggestionsField:React.PropTypes.string,
 		translations:SearchkitComponent.translationsPropType(
 			NoHits.translations

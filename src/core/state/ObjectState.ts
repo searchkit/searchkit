@@ -1,5 +1,5 @@
 import {State} from "./State"
-import * as _ from "lodash";
+const isEmpty = require("lodash/isEmpty")
 
 export class ObjectState extends State<Object>{
 
@@ -8,6 +8,6 @@ export class ObjectState extends State<Object>{
   }
 
   hasValue(){
-    return !_.isEmpty(this.value)
+    return !isEmpty(this.value)
   }
 }

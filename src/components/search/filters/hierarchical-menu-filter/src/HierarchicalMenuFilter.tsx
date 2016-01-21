@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as _ from "lodash";
+
 import "../styles/index.scss";
 
 import {
@@ -8,6 +8,9 @@ import {
 	FastClick,
 	SearchkitComponentProps
 } from "../../../../../core"
+
+const defaults = require("lodash/defaults")
+const map = require("lodash/map")
 
 export interface HierarchicalMenuFilterProps extends SearchkitComponentProps{
 	id:string
@@ -18,7 +21,7 @@ export interface HierarchicalMenuFilterProps extends SearchkitComponentProps{
 export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuFilterProps, any> {
 	public accessor:HierarchicalFacetAccessor
 
-	static propTypes = _.defaults({
+	static propTypes = defaults({
 		id:React.PropTypes.string.isRequired,
 		fields:React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
 		title:React.PropTypes.string.isRequired
@@ -79,7 +82,7 @@ export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuF
 		let block = this.bemBlocks.container;
 		return (
 			<div className={block("hierarchical-options")}>
-			{_.map(this.accessor.getBuckets(level), this.renderOption.bind(this,level))}
+			{map(this.accessor.getBuckets(level), this.renderOption.bind(this,level))}
 			</div>
 		)
 	}

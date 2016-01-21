@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as _ from "lodash";
 import "../styles/index.scss";
 
 import {
@@ -8,6 +7,10 @@ import {
 	FastClick,
 	SearchkitComponentProps
 } from "../../../../core"
+
+const defaults = require("lodash/defaults")
+const get = require("lodash/get")
+const assign = require("lodash/assign")
 
 export interface PaginationProps extends SearchkitComponentProps {
 }
@@ -27,7 +30,7 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
 	}
 	translations = Pagination.translations
 
-	static propTypes = _.defaults({
+	static propTypes = defaults({
 		translations:SearchkitComponent.translationsPropType(
 			Pagination.translations
 		)
@@ -68,9 +71,9 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
 	isDisabled(direction:DIRECTION):boolean {
 		let currentPage:number = this.getCurrentPage();
 		let totalPages:number = Math.ceil(
-			_.get(this.getResults(),".hits.total",1)
+			get(this.getResults(),".hits.total",1)
 			/
-			_.get(this.getQuery(), "query.size", 10)
+			get(this.getQuery(), "query.size", 10)
 		)
 		if (direction == DIRECTION.PREVIOUS && currentPage == 1) { return true; }
 		if (direction == DIRECTION.NEXT && currentPage == totalPages ) { return true; }

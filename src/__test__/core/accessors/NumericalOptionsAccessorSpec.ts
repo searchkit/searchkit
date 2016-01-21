@@ -3,7 +3,8 @@ import {
   BoolMust, BoolShould, ValueState, RangeQuery,
   RangeBucket, FilterBucket
 } from "../../../"
-import * as _ from "lodash"
+
+const _ = require("lodash")
 
 describe("NumericOptionsAccessor", ()=> {
 

@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {SearchBox} from "../src/SearchBox.tsx";
 import {SearchkitManager } from "../../../../core";
 const bem = require("bem-cn");
-import * as _ from "lodash";
+
 import * as sinon from "sinon";
 
 describe("Searchbox tests", () => {

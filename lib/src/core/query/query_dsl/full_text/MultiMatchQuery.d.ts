@@ -7,5 +7,5 @@ export interface MultiMatchOptions {
     analyzer?: string;
 }
 export declare function MultiMatchQuery(query: any, options: MultiMatchOptions): {
-    multi_match: {};
+    multi_match: any;
 };

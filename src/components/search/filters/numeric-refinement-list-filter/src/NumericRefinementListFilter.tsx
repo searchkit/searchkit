@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as _ from "lodash";
+
 import "../styles/index.scss";
 
 import {
@@ -11,6 +11,9 @@ import {
 	FastClick
 } from "../../../../../core"
 
+const defaults = require("lodash/defaults")
+const map = require("lodash/map")
+
 export interface NumericRefinementListFilterProps extends SearchkitComponentProps {
 	field:string
   title:string
@@ -21,7 +24,7 @@ export interface NumericRefinementListFilterProps extends SearchkitComponentProp
 export class NumericRefinementListFilter extends SearchkitComponent<NumericRefinementListFilterProps, any> {
 	accessor:NumericOptionsAccessor
 
-	static propTypes = _.defaults({
+	static propTypes = defaults({
 		field:React.PropTypes.string.isRequired,
 		title:React.PropTypes.string.isRequired,
 		id:React.PropTypes.string.isRequired,
@@ -86,7 +89,7 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
 			<div className={className}>
 				<div className={block("header")}>{this.props.title}</div>
 				<div className={block("options")}>
-				{_.map(this.accessor.getBuckets(), this.renderOption.bind(this))}
+				{map(this.accessor.getBuckets(), this.renderOption.bind(this))}
 				</div>
 			</div>
 		);

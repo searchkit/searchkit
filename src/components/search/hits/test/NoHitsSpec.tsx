@@ -2,7 +2,7 @@ import * as React from "react";
 import {mount} from "enzyme";
 import {NoHits} from "../src/NoHits";
 import {SearchkitManager} from "../../../../core";
-import * as _ from "lodash";
+
 import * as sinon from "sinon";
 
 describe("NoHits component", () => {
