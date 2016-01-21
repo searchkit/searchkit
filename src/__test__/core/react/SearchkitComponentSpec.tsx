@@ -45,7 +45,7 @@ describe("SearchkitComponent", ()=> {
   })
 
   it("translate()", ()=> {
-    let searchkit = new SearchkitManager("/", {useHistory:false})
+    let searchkit = SearchkitManager.mock()
     searchkit.translateFunction = (key)=> {
       return {"searchkit":"searchkit level"}[key]
     }
@@ -101,7 +101,7 @@ describe("SearchkitComponent", ()=> {
 
   it("componentWillMount()", ()=> {
     spyOn(this.component, "forceUpdate")
-    let searchkit = new SearchkitManager("/", {useHistory:false})
+    let searchkit = SearchkitManager.mock()
     this.component._computeBemBlocks = ()=> "computedBemBlocks"
     let accessor = new Accessor()
     this.component.defineAccessor = ()=> accessor
@@ -130,7 +130,7 @@ describe("SearchkitComponent", ()=> {
   describe("getters", ()=> {
 
     beforeEach(()=> {
-      this.searchkit = new SearchkitManager("/", {useHistory:false})
+      this.searchkit = SearchkitManager.mock()
       this.results = {
         hits:{
           hits:[1,2,3],

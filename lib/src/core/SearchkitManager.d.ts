@@ -30,6 +30,7 @@ export declare class SearchkitManager {
     results: any;
     VERSION: string;
     static VERSION: string;
+    static mock(): SearchkitManager;
     constructor(host: string, options?: SearchkitOptions);
     addAccessor(accessor: any): any;
     addDefaultQuery(fn: Function): any;

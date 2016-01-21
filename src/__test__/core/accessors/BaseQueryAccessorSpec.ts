@@ -8,7 +8,7 @@ import {
 describe("BaseQueryAccessor", ()=> {
 
   beforeEach(()=> {
-    this.searchkit = new SearchkitManager("/", {useHistory:false})
+    this.searchkit = SearchkitManager.mock()
     this.accessor = new BaseQueryAccessor("q")
     this.accessor.setSearchkitManager(this.searchkit)
   })

@@ -11,7 +11,7 @@ import {mount} from "enzyme";
 describe("SearchkitProvider", ()=> {
 
   beforeEach(()=> {
-    this.searchkit = new SearchkitManager("/", {useHistory:false})
+    this.searchkit = SearchkitManager.mock()
     class SomeComponent extends SearchkitComponent<any, any> {
 
       render(){

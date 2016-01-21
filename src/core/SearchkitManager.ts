@@ -42,6 +42,10 @@ export class SearchkitManager {
   VERSION = VERSION
   static VERSION = VERSION
 
+  static mock() {
+    return new SearchkitManager("/", {useHistory:false})
+  }
+
   constructor(host:string, options:SearchkitOptions = {}){
     this.options = defaults(options, {
       useHistory:true,

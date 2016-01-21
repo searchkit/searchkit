@@ -48,6 +48,12 @@ describe("SearchkitManager", ()=> {
     expect(this.searchkit.initialLoading).toBe(true)
   })
 
+  it("SearchkitManager.mock()", ()=> {
+    let searchkit = SearchkitManager.mock()
+    expect(searchkit.host).toBe("/")
+    expect(searchkit.options.useHistory).toBe(false)
+  })
+
   it("addAccessor()", ()=> {
     const accessor = new PageSizeAccessor(10)
     this.searchkit.addAccessor(accessor)

@@ -6,7 +6,7 @@ import {
 describe("AccessorManager", ()=> {
 
   beforeEach(()=> {
-    this.searchkit = new SearchkitManager("/", {useHistory:false})
+    this.searchkit = SearchkitManager.mock()
 
     this.accessor1 = new PaginationAccessor("p1")
     this.accessor2 = new PaginationAccessor("p2")
