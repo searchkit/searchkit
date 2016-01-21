@@ -14,6 +14,7 @@
   },
   "files": [
     "./src/__test__/core/react/SearchkitComponentSpec.tsx",
+    "./src/__test__/core/react/SearchkitProviderSpec.tsx",
     "./src/components/search/filters/hierarchical-menu-filter/src/HierarchicalMenuFilter.tsx",
     "./src/components/search/filters/hierarchical-refinement-filter/src/HierarchicalRefinementFilter.tsx",
     "./src/components/search/filters/menu-filter/src/MenuFilter.tsx",
