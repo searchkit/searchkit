@@ -53,6 +53,10 @@ describe("FastClick", ()=> {
       this.simulateTouch("touchEnd", 30, 40)
       expect(this.handler).not.toHaveBeenCalled()
       expect(this.fastClick.startPoint).toBe(undefined)
+
+      //ignore mousedowns if supports touch
+      this.wrapper.simulate("mouseDown", {button:0})
+      expect(this.handler).not.toHaveBeenCalled()        
     })
 
 
@@ -60,6 +64,16 @@ describe("FastClick", ()=> {
       this.simulateTouch("touchEnd", 29, 39)
       expect(this.handler).toHaveBeenCalled()
       expect(this.fastClick.startPoint).toBe(undefined)
+    })
+
+    it("ignore multiple touch", ()=> {
+      this.wrapper.simulate("touchStart", {
+        changedTouches:[
+          {pageX:1,pageY:2},
+          {pageX:10,pageY:22}
+        ]
+      })
+      expect(this.fastClick.startPoint).toBe(null)
     })
 
   })
