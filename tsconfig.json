@@ -40,6 +40,7 @@
     "./src/components/search/search-box/src/SearchBox.tsx",
     "./src/components/search/search-box/test/SearchboxSpec.tsx",
     "./src/components/search/sorting-selector/src/SortingSelector.tsx",
+    "./src/components/search/sorting-selector/test/SortSelectorSpec.tsx",
     "./src/core/react/LoadingComponent.tsx",
     "./src/core/react/SearchkitProvider.tsx",
     "./src/__test__/core/AccessorManagerSpec.ts",
