@@ -7,3 +7,4 @@ v*
 .editorconfig
 .gitignore
 CNAME
+circle.yml
