@@ -1,5 +1,5 @@
 export declare class EventEmitter {
-    private listeners;
+    listeners: any[];
     addListener(fn: any): () => void;
     trigger(...args: any[]): void;
 }

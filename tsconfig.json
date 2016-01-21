@@ -13,6 +13,7 @@
     "jsx": "react"
   },
   "files": [
+    "./src/__test__/core/react/SearchkitComponentSpec.tsx",
     "./src/components/search/filters/hierarchical-menu-filter/src/HierarchicalMenuFilter.tsx",
     "./src/components/search/filters/hierarchical-refinement-filter/src/HierarchicalRefinementFilter.tsx",
     "./src/components/search/filters/menu-filter/src/MenuFilter.tsx",
@@ -72,7 +73,6 @@
     "./src/__test__/core/query/query_dsl/term_level/RangeQuerySpec.ts",
     "./src/__test__/core/query/query_dsl/term_level/TermQuerySpec.ts",
     "./src/__test__/core/query/query_dsl/term_level/TermsQuerySpec.ts",
-    "./src/__test__/core/react/SearchkitComponentSpec.ts",
     "./src/__test__/core/SearchkitManagerSpec.ts",
     "./src/__test__/core/SearchRequestSpec.ts",
     "./src/__test__/core/state/ArrayStateSpec.ts",

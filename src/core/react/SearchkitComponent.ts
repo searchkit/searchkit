@@ -66,11 +66,17 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
     return Utils.translate(translation, interpolations)
   }
 
-  componentWillMount(){
-    this.bemBlocks = transform(this.defineBEMBlocks(), (result:any, cssClass, name) => {
+  _computeBemBlocks(){
+    return transform(this.defineBEMBlocks(), (result:any, cssClass, name) => {
       result[name] = block(cssClass);
     })
-    this.searchkit = this.props.searchkit || this.context["searchkit"]
+  }
+  _getSearchkit(){
+    return this.props.searchkit || this.context["searchkit"]
+  }
+  componentWillMount(){
+    this.bemBlocks = this._computeBemBlocks()
+    this.searchkit = this._getSearchkit()
     if(this.searchkit){
       this.accessor  = this.defineAccessor()
       if(this.accessor){

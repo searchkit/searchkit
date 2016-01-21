@@ -2,8 +2,7 @@ const without = require("lodash/without")
 const each = require("lodash/each")
 
 export class EventEmitter {
-  private listeners = []
-
+  listeners = []
 
   addListener(fn){
     this.listeners.push(fn)
