@@ -18,7 +18,7 @@ describe("MenuFilter tests", () => {
       <NumericRefinementListFilter searchkit={this.searchkit} id="score" title="Score" field="score" options={[
         {title:"All"},
         {title:"up to 20", from:0, to:21},
-        {title:"21 to 40", from:21, to:41},
+        {title:"21 to 40", from:21, to:41}
       ]}/>
     )
     this.accessor = this.searchkit.accessors.accessors[0]
@@ -39,6 +39,16 @@ describe("MenuFilter tests", () => {
     }
   })
 
+  it("should set accessor options correctly", ()=> {
+    expect(this.accessor.key).toBe("score")
+    expect(this.accessor.options).toEqual({
+      id:'score', field:"score", title:"Score", options:[
+        {title:"All"},
+        {title:"up to 20", from:0, to:21},
+        {title:"21 to 40", from:21, to:41}
+      ]
+    })
+  })
 
   it("should render correctly()", ()=> {
     this.setResults()
