@@ -92,6 +92,6 @@
     "typescript": "^1.7.0",
     "webpack": "^1.12.9",
     "webpack-config": "^3.0.0",
-    "xenon": "latest"
+    "xenon": "0.1.2"
   }
 }
