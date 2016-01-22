@@ -1,4 +1,4 @@
-import {Component, Input, Button, field, defaults} from "xenon";
+import {Component,  field, defaults} from "xenon";
 
 @defaults({qa:"pagination"})
 export default class Pagination extends Component {
