@@ -50,6 +50,14 @@ describe("MetricAggregations", ()=> {
   })
 
   it("GeoBoundsMetric", ()=> {
+    expect(GeoBoundsMetric("bounds", "location"))
+      .toEqual({
+        bounds:{
+          geo_bounds:{
+            field:"location"
+          }
+        }
+      })
     expect(GeoBoundsMetric(
       "bounds", "location",
       {wrap_longitude:true}

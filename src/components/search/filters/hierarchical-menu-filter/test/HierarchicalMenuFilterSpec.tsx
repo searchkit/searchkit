@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {HierarchicalMenuFilter} from "../src/HierarchicalMenuFilter";
-import {hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
+import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
 import {SearchkitManager} from "../../../../../core";
 const bem = require("bem-cn");
 import * as sinon from "sinon";
@@ -119,7 +119,7 @@ describe("MenuFilter tests", () => {
     this.setResults()
     let redOption = this.wrapper.find(".hierarchical-menu-list__hierarchical-options")
       .children().at(0).find(".hierarchical-menu-option")
-    redOption.simulate("mouseDown", {button:0})
+    fastClick(redOption)
     expect(this.accessor.state.getValue()).toEqual([["Red"]])
   })
 

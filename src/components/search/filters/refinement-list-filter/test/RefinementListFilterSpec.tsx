@@ -1,6 +1,6 @@
 import * as React from "react";
 import {mount} from "enzyme";
-import {hasClass} from "../../../../__test__/TestHelpers"
+import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
 import {RefinementListFilter} from "../src/RefinementListFilter.tsx";
 import {SearchkitManager} from "../../../../../core";
 const bem = require("bem-cn");
@@ -70,12 +70,12 @@ describe("Refinement List Filter tests", () => {
   it('clicks options', () => {
     let option = this.getContainer("options", 0)
     let option2 = this.getContainer("options", 1).children().at(0)
-    option.simulate("mouseDown", {button:0})
-    option2.simulate("mouseDown", {button:0})
+    fastClick(option)
+    fastClick(option2)
     expect(hasClass(option, "is-selected")).toBe(true)
     expect(hasClass(option2, "is-selected")).toBe(true)
     expect(this.accessor.state.getValue()).toEqual(['test option 1', 'test option 2'])
-    option2.simulate("mouseDown", {button:0})
+    fastClick(option2)
     this.wrapper.update()
     expect(this.accessor.state.getValue()).toEqual(['test option 1'])
   })
@@ -86,7 +86,7 @@ describe("Refinement List Filter tests", () => {
     this.accessor.setViewMoreOption = sinon.spy()
     this.wrapper.update()
     expect(this.getContainer("view-more-action").text()).toBe("view more")
-    this.getContainer("view-more-action").simulate("mouseDown", {button:0})
+    fastClick(this.getContainer("view-more-action"))
     this.wrapper.update()
     expect(this.accessor.setViewMoreOption.calledOnce).toBe(true)
     expect(this.accessor.setViewMoreOption.calledWith(option)).toBe(true)

@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {NumericRefinementListFilter} from "../src/NumericRefinementListFilter";
-import {hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
+import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
 import {SearchkitManager} from "../../../../../core";
 const bem = require("bem-cn");
 import * as sinon from "sinon";
@@ -86,7 +86,7 @@ describe("MenuFilter tests", () => {
     this.setResults()
     let secondOption = this.wrapper.find(".numeric-refinement-list__options")
       .children().at(1)
-    secondOption.simulate("mouseDown", {button:0})
+    fastClick(secondOption)
     expect(this.accessor.state.getValue()).toBe("up to 20")
     expect(this.searchkit.performSearch).toHaveBeenCalled()
   })

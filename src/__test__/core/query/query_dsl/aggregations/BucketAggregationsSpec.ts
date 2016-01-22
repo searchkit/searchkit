@@ -62,6 +62,11 @@ describe("BucketAggregations", ()=> {
   })
 
   it("SignificantTermsBucket", ()=> {
+    expect(SignificantTermsBucket(this.aggsKey, "crime_type")).toEqual({
+      [this.aggsKey]:{
+        significant_terms:{field:"crime_type"}
+      }
+    })
     this.aggs = SignificantTermsBucket(
       this.aggsKey, "crime_type",
       {size:10},
@@ -80,7 +85,12 @@ describe("BucketAggregations", ()=> {
     this.expectAggs({geohash_grid:{field:"location", precision:5}})
   })
 
-  it("GeohashBucket", ()=> {
+  it("HistogramBucket", ()=> {
+    expect(HistogramBucket(this.aggsKey, "price")).toEqual({
+      [this.aggsKey]:{
+        histogram:{field:"price"}
+      }
+    })
     this.aggs = HistogramBucket(
       this.aggsKey, "price",
       {interval:1},

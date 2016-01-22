@@ -1,7 +1,7 @@
 import {
   SearchkitManager, AccessorManager, ESTransport, AxiosESTransport,
   ImmutableQuery, createHistory, PageSizeAccessor, SearchRequest,
-  EventEmitter, QueryAccessor, AnonymousAccessor
+  EventEmitter, QueryAccessor, AnonymousAccessor, MockESTransport
 } from "../../"
 
 describe("SearchkitManager", ()=> {
@@ -52,6 +52,9 @@ describe("SearchkitManager", ()=> {
     let searchkit = SearchkitManager.mock()
     expect(searchkit.host).toBe("/")
     expect(searchkit.options.useHistory).toBe(false)
+    expect(searchkit.options.transport).toEqual(
+      jasmine.any(MockESTransport)
+    )
   })
 
   it("addAccessor()", ()=> {

@@ -2,6 +2,9 @@ import * as React from "react";
 import {mount} from "enzyme";
 import {ResetFilters} from "../src/ResetFilters.tsx";
 import {SearchkitManager} from "../../../../../core";
+import {
+  fastClick, hasClass, jsxToHTML, printPrettyHtml
+} from "../../../../__test__/TestHelpers"
 
 import * as sinon from "sinon";
 
@@ -43,7 +46,7 @@ describe("Reset Filter tests", () => {
     let elem = this.wrapper.find(".reset-filters")
     expect(this.searchkit.resetState.called).toBeFalsy()
     expect(this.searchkit.performSearch.called).toBeFalsy()
-    elem.simulate("mouseDown", {button:0})
+    fastClick(elem)
     expect(this.searchkit.resetState.called).toBeTruthy()
     expect(this.searchkit.performSearch.called).toBeTruthy()
   })

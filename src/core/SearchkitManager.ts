@@ -2,7 +2,7 @@ import {ImmutableQuery} from "./query";
 import {Accessor, BaseQueryAccessor, AnonymousAccessor} from "./accessors"
 import {AccessorManager} from "./AccessorManager"
 import {createHistory} from "./history";
-import {ESTransport, AxiosESTransport} from "./transport";
+import {ESTransport, AxiosESTransport, MockESTransport} from "./transport";
 import {SearchRequest} from "./SearchRequest"
 import {Utils, EventEmitter} from "./support"
 import {VERSION} from "./SearchkitVersion"
@@ -43,7 +43,10 @@ export class SearchkitManager {
   static VERSION = VERSION
 
   static mock() {
-    return new SearchkitManager("/", {useHistory:false})
+    return new SearchkitManager("/", {
+      useHistory:false,
+      transport:new MockESTransport()
+    })
   }
 
   constructor(host:string, options:SearchkitOptions = {}){

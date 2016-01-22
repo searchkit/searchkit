@@ -5,6 +5,10 @@ import {SearchkitManager, ImmutableQuery } from "../../../../../core";
 const bem = require("bem-cn");
 const _ = require("lodash")
 import * as sinon from "sinon";
+import {
+  fastClick, hasClass, jsxToHTML, printPrettyHtml
+} from "../../../../__test__/TestHelpers"
+
 
 describe("SelectedFilters tests", () => {
 
@@ -74,7 +78,7 @@ describe("SelectedFilters tests", () => {
   it("handles remove click", () => {
     this.createWrapper()
     let elem = this.getContainer(null,0).find("."+this.bemOption("remove-action"))
-    elem.simulate("mouseDown", {button:0})
+    fastClick(elem)
     expect(this.sinonSpy.called).toBeTruthy()
   })
 
