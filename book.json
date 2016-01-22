@@ -1,18 +1,33 @@
 {
   "gitbook": "2.5.2",
   "structure": {
-    "introduction":"docs/introduction.md",
+    "introduction": "docs/introduction.md",
     "summary": "docs/README.md",
-    "glossary":"docs/GLOSSARY.md"
+    "glossary": "docs/GLOSSARY.md"
   },
-  "plugins": ["mermaid-2", "prism", "-highlight", "codepen", "versions"],
+  "plugins": [
+    "mermaid-2",
+    "prism",
+    "-highlight",
+    "codepen",
+    "versions"
+  ],
   "pluginsConfig": {
     "versions": {
       "gitbookConfigURL": "https://raw.githubusercontent.com/searchkit/searchkit/gh-pages/book.json",
       "options": [
-        { "value": "https://searchkit.github.io/searchkit/v0.3.5/", "text": "Version 0.3.5"},        
-        { "value": "https://searchkit.github.io/searchkit/v0.2.0/", "text": "Version 0.2.0"},
-        { "value": "https://searchkit.github.io/searchkit/v0.1.13/", "text": "Version 0.1.13"}
+        {
+          "value": "https://searchkit.github.io/searchkit/v0.3.5",
+          "text": "Version 0.3.5"
+        },
+        {
+          "value": "https://searchkit.github.io/searchkit/v0.2.0/",
+          "text": "Version 0.2.0"
+        },
+        {
+          "value": "https://searchkit.github.io/searchkit/v0.1.13/",
+          "text": "Version 0.1.13"
+        }
       ]
     }
   }

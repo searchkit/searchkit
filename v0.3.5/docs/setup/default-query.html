@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Using components | What is Searchkit?</title>
+        <title>Setting a Default Query | What is Searchkit?</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.5.2">
@@ -45,10 +45,10 @@
         
     
     
-    <link rel="next" href="../../docs/setup/default-query.html" />
+    <link rel="next" href="../../docs/setup/migrating_from_0_2.html" />
     
     
-    <link rel="prev" href="../../docs/setup/indexing.html" />
+    <link rel="prev" href="../../docs/setup/using-components.html" />
     
 
         <script src="../../gitbook/plugins/gitbook-plugin-mermaid-2/bower_components/mermaid/dist/mermaid.min.js"></script>
@@ -56,7 +56,7 @@
     <body>
         
         
-    <div class="book" data-level="1.4" data-chapter-title="Using components" data-filepath="docs/setup/using-components.md" data-basepath="../.." data-revision="Fri Jan 22 2016 20:06:58 GMT+0000 (GMT)">
+    <div class="book" data-level="1.5" data-chapter-title="Setting a Default Query" data-filepath="docs/setup/default-query.md" data-basepath="../.." data-revision="Fri Jan 22 2016 20:06:58 GMT+0000 (GMT)">
     
 
 <div class="book-summary">
@@ -145,7 +145,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4" data-path="docs/setup/using-components.html">
+        <li class="chapter " data-level="1.4" data-path="docs/setup/using-components.html">
             
                 
                     <a href="../../docs/setup/using-components.html">
@@ -160,7 +160,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="docs/setup/default-query.html">
+        <li class="chapter active" data-level="1.5" data-path="docs/setup/default-query.html">
             
                 
                     <a href="../../docs/setup/default-query.html">
@@ -713,80 +713,31 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="using-components">Using Components</h1>
-<p>Once you have the project setup, elasticsearch correctly indexed with data, we can start by adding components to the page to interact with the elasticsearch instance. For this series of examples we are using typescript with webpack.</p>
-<h2 id="adding-basic-components">Adding basic components</h2>
-<p>To use searchkit, we need to instantiate a <code>SearchkitManager</code> with a elastic like host url as shown in <a href="elasticsearch.html">connecting elasticsearch</a>.</p>
-<p>We then add Searchbox and hits components to the page. This should render the standard searchbox and hits to the page.</p>
-<pre><code class="lang-jsx"><span class="token keyword">import</span> <span class="token operator">*</span> as React from <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token operator">*</span> as ReactDOM from <span class="token string">&quot;react-dom&quot;</span><span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> <span class="token punctuation">{</span>
-  SearchkitManager<span class="token punctuation">,</span> SearchkitProvider<span class="token punctuation">,</span> SearchBox<span class="token punctuation">,</span> Hits
-<span class="token punctuation">}</span> from <span class="token string">&quot;searchkit&quot;</span><span class="token punctuation">;</span>
-
-<span class="token keyword">const</span> searchkit <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchkitManager</span><span class="token punctuation">(</span><span class="token string">&quot;/&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SearchkitProvider</span> <span class="token attr-name">searchkit</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>searchkit<span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SearchBox</span><span class="token punctuation">/&gt;</span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Hits</span><span class="token punctuation">/&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>SearchkitProvider</span><span class="token punctuation">&gt;</span></span>
-<span class="token punctuation">)</span><span class="token punctuation">,</span>  document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&apos;root&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-</code></pre>
-<h2 id="adding-a-filter-based-component">Adding a filter based component</h2>
-<p>Each filter will require a unique id. This is used for url serialisation.</p>
-<pre><code class="lang-jsx"><span class="token keyword">import</span> <span class="token operator">*</span> as React from <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token operator">*</span> as ReactDOM from <span class="token string">&quot;react-dom&quot;</span><span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> <span class="token punctuation">{</span>
-  SearchkitManager<span class="token punctuation">,</span> SearchkitProvider<span class="token punctuation">,</span> SearchBox<span class="token punctuation">,</span> Hits<span class="token punctuation">,</span> RefinementListFilter
-<span class="token punctuation">}</span> from <span class="token string">&quot;searchkit&quot;</span><span class="token punctuation">;</span>
-
-<span class="token keyword">const</span> searchkit <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchkitManager</span><span class="token punctuation">(</span><span class="token string">&quot;/&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SearchkitProvider</span> <span class="token attr-name">searchkit</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>searchkit<span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SearchBox</span><span class="token punctuation">/&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>RefinementListFilter</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>actors<span class="token punctuation">&quot;</span></span> <span class="token attr-name">field</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>actors.raw<span class="token punctuation">&quot;</span>/</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Hits</span><span class="token punctuation">/&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>SearchkitProvider</span><span class="token punctuation">&gt;</span></span>
-<span class="token punctuation">)</span><span class="token punctuation">,</span>  document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&apos;root&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-</code></pre>
-<h2 id="wrapping-search-in-react-component">Wrapping search in React component</h2>
-<p>You may want to incapsulate the searchApp within a React component. You can be using the SearchkitComponent class.</p>
-<pre><code class="lang-jsx"><span class="token keyword">import</span> <span class="token operator">*</span> as React from <span class="token string">&quot;react&quot;</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token operator">*</span> as ReactDOM from <span class="token string">&quot;react-dom&quot;</span><span class="token punctuation">;</span>
-
-<span class="token keyword">import</span> <span class="token punctuation">{</span>
-  SearchkitManager<span class="token punctuation">,</span> SearchkitProvider<span class="token punctuation">,</span> SearchkitComponent
-<span class="token punctuation">}</span> from <span class="token string">&quot;searchkit&quot;</span><span class="token punctuation">;</span>
-
-<span class="token keyword">const</span> searchkit <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchkitManager</span><span class="token punctuation">(</span><span class="token string">&quot;/&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">class</span> <span class="token class-name">SearchApp</span> <span class="token keyword">extends</span> <span class="token class-name">SearchkitComponent</span><span class="token operator">&lt;</span>any<span class="token punctuation">,</span>any<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token punctuation">(</span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SearchBox</span><span class="token punctuation">/&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Hits</span><span class="token punctuation">/&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-    <span class="token punctuation">)</span>
+                        <h2 id="default-queries">Default Queries</h2>
+<p>Sometimes we need to apply a default query which affects the entire search and is not serialized to the browser url.</p>
+<p><code>SearchkitManager</code> allows ability to add these</p>
+<pre><code class="lang-js">  <span class="token keyword">import</span> <span class="token punctuation">{</span>
+    SearchkitManager<span class="token punctuation">,</span>
+    TermQuery<span class="token punctuation">,</span>
+    FilteredQuery<span class="token punctuation">,</span>
+    BoolShould
   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">(</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SearchkitProvider</span> <span class="token attr-name">searchkit</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>searchkit<span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SearchApp</span><span class="token punctuation">/&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>SearchkitProvider</span><span class="token punctuation">&gt;</span></span>
-<span class="token punctuation">)</span><span class="token punctuation">,</span>  document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&apos;root&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> searchkit <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchkitManager</span><span class="token punctuation">(</span><span class="token string">&quot;/&quot;</span><span class="token punctuation">)</span>
+  searchkit<span class="token punctuation">.</span><span class="token function">addDefaultQuery</span><span class="token punctuation">(</span><span class="token punctuation">(</span>query<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> query<span class="token punctuation">.</span><span class="token function">addQuery</span><span class="token punctuation">(</span><span class="token function">FilteredQuery</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      filter<span class="token punctuation">:</span><span class="token function">BoolShould</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+        <span class="token function">TermQuery</span><span class="token punctuation">(</span><span class="token string">&quot;colour&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;red&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token function">TermQuery</span><span class="token punctuation">(</span><span class="token string">&quot;colour&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;orange&quot;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
+<h3 id="immutablequery--querybuilders">ImmutableQuery + QueryBuilders</h3>
+<p>To see more detail on these apis have a look at these pages</p>
+<ul>
+<li><a href="../core/ImmutableQuery.html">ImmutableQuery</a></li>
+<li><a href="../core/QueryDSL.html">QueryDSL</a></li>
+</ul>
 
                     
                     </section>
@@ -797,10 +748,10 @@ ReactDOM<span class="token punctuation">.</span><span class="token function">ren
         </div>
 
         
-        <a href="../../docs/setup/indexing.html" class="navigation navigation-prev " aria-label="Previous page: Indexing"><i class="fa fa-angle-left"></i></a>
+        <a href="../../docs/setup/using-components.html" class="navigation navigation-prev " aria-label="Previous page: Using components"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../../docs/setup/default-query.html" class="navigation navigation-next " aria-label="Next page: Setting a Default Query"><i class="fa fa-angle-right"></i></a>
+        <a href="../../docs/setup/migrating_from_0_2.html" class="navigation navigation-next " aria-label="Next page: Migrating from 0.2"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
