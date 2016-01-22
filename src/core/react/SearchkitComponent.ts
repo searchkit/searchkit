@@ -85,6 +85,8 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
       this.stateListenerUnsubscribe = this.searchkit.emitter.addListener(()=> {
         this.forceUpdate()
       })
+    } else {
+      console.warn("No searchkit found in props or context for " + this.constructor["name"])
     }
   }
 

@@ -105,11 +105,14 @@ describe("SearchkitComponent", ()=> {
     this.component._computeBemBlocks = ()=> "computedBemBlocks"
     let accessor = new Accessor()
     this.component.defineAccessor = ()=> accessor
-
+    spyOn(console, "warn")
     this.component.componentWillMount()
     expect(this.component.bemBlocks).toBe("computedBemBlocks")
     expect(this.component.searchkit).toBe(undefined)
     expect(this.component.accessor).toBe(undefined)
+    expect(console.warn).toHaveBeenCalledWith(
+      'No searchkit found in props or context for SearchkitComponent'
+    )
 
     this.component.props = {searchkit}
     this.component.componentWillMount()

@@ -1,5 +1,5 @@
 import ReactTestUtils = require('react-addons-test-utils');
-
+const beautifyHtml = require('js-beautify').html
 export const hasClass = (inst, className)=> {
   if(ReactTestUtils.isDOMComponent(inst.node)) {
     return inst.hasClass(className)
@@ -10,4 +10,10 @@ export const hasClass = (inst, className)=> {
     } catch (e){}
   }
   return false
+}
+
+
+export const jsxToHTML = require('react-dom/server').renderToStaticMarkup
+export const printPrettyHtml = (html)=> {
+  console.log( beautifyHtml( html, {"indent_size":2} ) )
 }
