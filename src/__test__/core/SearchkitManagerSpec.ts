@@ -115,6 +115,29 @@ describe("SearchkitManager", ()=> {
       expect(searchkit._search).toHaveBeenCalled()
       expect(searchkit.accessors.setState)
         .toHaveBeenCalledWith({q:"foo"})
+      searchkit.unlistenHistory()
+      done()
+    }, 0)
+  })
+
+  it("listenToHistory() - handle error", (done)=> {
+    const history = createHistory()
+    history.pushState(null, window.location.pathname, {
+      q:"foo"
+    })
+    const searchkit = new SearchkitManager("/", {
+      useHistory:true
+    })
+    searchkit.searchFromUrlQuery = (query)=> {
+      throw new Error("oh no")
+    }
+    spyOn(console, "error")
+    searchkit.completeRegistration()
+    setTimeout(()=> {
+      expect(console.error["calls"].argsFor(0)[0])
+        .toContain("Error: oh no")
+
+      searchkit.unlistenHistory()
       done()
     }, 0)
   })
