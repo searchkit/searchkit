@@ -24,7 +24,7 @@ export interface HierarchicalRefinementFilterProps extends SearchkitComponentPro
 export class HierarchicalRefinementFilter extends SearchkitComponent<HierarchicalRefinementFilterProps, any> {
 	public accessor:NestedFacetAccessor
 
-	static propTypes = map({
+	static propTypes = defaults({
 		field:React.PropTypes.string.isRequired,
 		id:React.PropTypes.string.isRequired,
 		title:React.PropTypes.string.isRequired,
@@ -48,7 +48,7 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<Hierarchica
 	defineAccessor() {
 		return new NestedFacetAccessor(
 			this.props.id,
-			omit(this.props, ["mod"]) as any
+			omit(this.props, ["mod", "searchkit"]) as any
 		)
 	}
 
