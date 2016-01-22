@@ -1,6 +1,6 @@
 import * as React from "react";
 import {mount} from "enzyme";
-import {hasClass} from "../../../../__test__/TestHelpers"
+import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
 import {HierarchicalRefinementFilter} from "../src/HierarchicalRefinementFilter.tsx";
 import {SearchkitManager} from "../../../../../core";
 const bem = require("bem-cn");
@@ -11,16 +11,16 @@ describe("Refinement List Filter tests", () => {
 
   beforeEach(() => {
 
-    this.searchkit = new SearchkitManager("localhost:9200", {useHistory:true})
+    this.searchkit = SearchkitManager.mock()
+    spyOn(this.searchkit, "performSearch")
+    this.wrapper = mount(
+      <HierarchicalRefinementFilter
+        field="test" id="testid" title="test title"
+        searchkit={this.searchkit} />
+    );
+    this.accessor = this.searchkit.accessors.getAccessors()[0]
 
-    this.createWrapper = () => {
-
-      this.wrapper = mount(
-        <HierarchicalRefinementFilter
-          field="test" id="testid" title="test title"
-          searchkit={this.searchkit} />
-      );
-
+    this.setResults = ()=> {
       this.searchkit.setResults({
         aggregations: {
           testid:{
@@ -32,16 +32,20 @@ describe("Refinement List Filter tests", () => {
                     {key:"option2", doc_count:2}
                   ]
                 }
+              },
+              lvl1:{
+                children:{
+                  buckets:[
+                    {key:"option2child1", doc_count:1},
+                    {key:"option2child2", doc_count:1}
+                  ]
+                }
               }
+
             }
           }
         }
       })
-
-      this.wrapper.update()
-
-      this.accessor = this.searchkit.accessors.getAccessors()[0]
-
     }
 
     this.getContainer = (label, index) => {
@@ -55,22 +59,7 @@ describe("Refinement List Filter tests", () => {
 
   });
 
-  it("should render correctly", () => {
-    this.createWrapper()
-    this.wrapper.update()
-    expect(this.getContainer("header").text()).toBe("test title")
-    expect(this.getContainer("hierarchical-options").children().map(
-      (n) => {
-        return {
-          label: n.find(".hierarchical-refinement-option__text").text(),
-          count: n.find(".hierarchical-refinement-option__count").text()
-        }
-      })).toEqual([ {label:'option1', count:"1"}, {label:"option2", count:"2"}])
-  })
-
   it("should configure accessor correctly", ()=> {
-    this.createWrapper()
-
     expect(this.accessor.key).toBe("testid")
     let options = this.accessor.options
     expect(options).toEqual({
@@ -78,6 +67,85 @@ describe("Refinement List Filter tests", () => {
       "title": "test title",
       "field":"test"
     })
+
+  })
+  it("should render correctly", () => {
+    this.setResults()
+    expect(this.wrapper.html()).toEqual(jsxToHTML(
+      <div data-qa="filter--testid" className="hierarchical-refinement-list filter--testid">
+        <div data-qa="title" className="hierarchical-refinement-list__header">test title</div>
+        <div data-qa="options" className="hierarchical-refinement-list__root">
+          <div className="hierarchical-refinement-list__hierarchical-options">
+            <div>
+              <div className="hierarchical-refinement-option">
+                <div className="hierarchical-refinement-option__text">option1</div>
+                <div className="hierarchical-refinement-option__count">1</div>
+              </div>
+            </div>
+            <div>
+              <div className="hierarchical-refinement-option">
+                <div className="hierarchical-refinement-option__text">option2</div>
+                <div className="hierarchical-refinement-option__count">2</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))
+  })
+
+  it("should render 2nd level and have 1 levels selected correctly", ()=> {
+    this.accessor.state = this.accessor.state.setValue([
+      ["option2"], ["option2child2"]
+    ])
+    this.setResults()
+    expect(this.wrapper.html()).toEqual(jsxToHTML(
+      <div data-qa="filter--testid" className="hierarchical-refinement-list filter--testid">
+        <div data-qa="title" className="hierarchical-refinement-list__header">test title</div>
+        <div data-qa="options" className="hierarchical-refinement-list__root">
+          <div className="hierarchical-refinement-list__hierarchical-options">
+            <div>
+              <div className="hierarchical-refinement-option">
+                <div className="hierarchical-refinement-option__text">option1</div>
+                <div className="hierarchical-refinement-option__count">1</div>
+              </div>
+            </div>
+            <div>
+              <div className="hierarchical-refinement-option is-selected">
+                <div className="hierarchical-refinement-option__text">option2</div>
+                <div className="hierarchical-refinement-option__count">2</div>
+              </div>
+              <div className="hierarchical-refinement-list__hierarchical-options">
+                <div>
+                  <div className="hierarchical-refinement-option">
+                    <div className="hierarchical-refinement-option__text">option2child1</div>
+                    <div className="hierarchical-refinement-option__count">1</div>
+                  </div>
+                </div>
+                <div>
+                  <div className="hierarchical-refinement-option is-selected">
+                    <div className="hierarchical-refinement-option__text">option2child2</div>
+                    <div className="hierarchical-refinement-option__count">1</div>
+                  </div>
+                  <div className="hierarchical-refinement-list__hierarchical-options"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))
+  })
+
+  it("handle clicking an option", ()=> {
+    this.setResults()
+    let option2 = this.wrapper
+      .find(".hierarchical-refinement-list__hierarchical-options")
+      .children().at(1)
+      .find(".hierarchical-refinement-option")
+    fastClick(option2)
+    expect(this.accessor.state.getValue())
+      .toEqual([ ["option2"] ])
 
   })
 

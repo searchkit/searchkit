@@ -14,7 +14,7 @@ describe("Refinement List Filter tests", () => {
     this.bemContainer = bem("refinement-list")
     this.bemOption = bem("refinement-list-option")
 
-    this.searchkit = new SearchkitManager("localhost:9200", {useHistory:true})
+    this.searchkit = SearchkitManager.mock()
     this.searchkit.translateFunction = (key)=> {
       return {
         "test option 1":"test option 1 translated"

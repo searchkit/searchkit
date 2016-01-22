@@ -2,14 +2,16 @@ import * as React from "react";
 import {mount} from "enzyme";
 import {Pagination} from "../src/Pagination.tsx";
 import {SearchkitManager, ImmutableQuery} from "../../../../core";
-
+import {
+  fastClick, hasClass, jsxToHTML, printPrettyHtml
+} from "../../../__test__/TestHelpers"
 import * as sinon from "sinon";
 
 describe("Pagination tests", () => {
 
   beforeEach(() => {
 
-    this.searchkit = new SearchkitManager("localhost:9200", {useHistory:true})
+    this.searchkit = SearchkitManager.mock()
 
     this.createWrapper = () => {
       this.wrapper = mount(
@@ -85,13 +87,21 @@ describe("Pagination tests", () => {
       this.createWrapper()
       this.accessor.state = this.accessor.state.setValue(1)
 
-      this.wrapper
-        .find(".pagination-navigation-item__prev")
-        .simulate("mouseDown", {button:0})
-
+      fastClick(this.wrapper.find(".pagination-navigation-item__prev"))
       expect(this.accessor.state.getValue()).toBe(1)
-
     });
+
+    it("click previous, next", ()=> {
+      this.createWrapper()
+      this.accessor.state = this.accessor.state.setValue(5)
+      this.wrapper.update()
+      fastClick(this.wrapper.find( ".pagination-navigation-item__prev" ))
+      expect(this.accessor.state.getValue()).toBe(4)
+      fastClick(this.wrapper.find( ".pagination-navigation-item__next" ))
+      fastClick(this.wrapper.find( ".pagination-navigation-item__next" ))
+      expect(this.accessor.state.getValue()).toBe(6)
+
+    })
 
 
   })

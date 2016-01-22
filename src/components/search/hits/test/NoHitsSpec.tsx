@@ -2,6 +2,9 @@ import * as React from "react";
 import {mount} from "enzyme";
 import {NoHits} from "../src/NoHits";
 import {SearchkitManager} from "../../../../core";
+import {
+  fastClick, hasClass, jsxToHTML, printPrettyHtml
+} from "../../../__test__/TestHelpers"
 
 import * as sinon from "sinon";
 
@@ -9,8 +12,11 @@ describe("NoHits component", () => {
 
   beforeEach(() => {
 
-    this.searchkit = new SearchkitManager("localhost:9200", {useHistory:false})
-
+    this.searchkit = SearchkitManager.mock()
+    spyOn(this.searchkit, "performSearch")
+    this.queryAccessor = this.searchkit.getQueryAccessor()
+    spyOn(this.queryAccessor, "setQueryString")
+    spyOn(this.queryAccessor, "keepOnlyQueryState")
     this.createWrapper = () => {
       this.wrapper = mount(
         <NoHits searchkit={this.searchkit} translations={{"NoHits.NoResultsFound":"no movies"}} suggestionsField={"title"}/>
@@ -98,6 +104,11 @@ describe("NoHits component", () => {
         .toEqual("No results found for matrixx. Did you mean matrix?")
       expect(this.wrapper.find('.no-hits__steps').text())
         .toEqual("Search for matrix instead")
+      fastClick(this.wrapper.find(".no-hits__step-action"))
+      expect(this.queryAccessor.setQueryString)
+        .toHaveBeenCalledWith("matrix", true)
+      expect(this.searchkit.performSearch)
+        .toHaveBeenCalledWith(true)
     })
 
     it("suggest remove filters", () => {
@@ -122,6 +133,10 @@ describe("NoHits component", () => {
       this.wrapper.update()
       expect(this.wrapper.find('.no-hits__steps').text())
         .toBe("Search for matrix without filters")
+      fastClick(this.wrapper.find(".no-hits__step-action"))
+      expect(this.queryAccessor.keepOnlyQueryState)
+        .toHaveBeenCalled()
+      expect(this.searchkit.performSearch).toHaveBeenCalled()
     })
 
 

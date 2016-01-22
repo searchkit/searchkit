@@ -5,7 +5,9 @@ import {SearchkitManager} from "../../../../../core";
 const bem = require("bem-cn");
 import * as sinon from "sinon";
 const _ = require("lodash")
-var jsxToHTML = require('react-dom/server').renderToStaticMarkup;
+import {
+  hasClass, jsxToHTML, printPrettyHtml, fastClick
+} from "../../../../__test__/TestHelpers"
 
 
 describe("MenuFilter tests", () => {
@@ -108,11 +110,15 @@ describe("MenuFilter tests", () => {
     this.setResults()
     let blue = this.getOptionAt(2)
     let green = this.getOptionAt(3)
-    blue.simulate("mouseDown", {button:0})
+    fastClick(blue)
     expect(this.accessor.state.getValue()).toEqual(["Blue"])
-    green.simulate("mouseDown", {button:0})
+    fastClick(green)
     expect(this.accessor.state.getValue()).toEqual(["Green"])
     expect(this.searchkit.performSearch).toHaveBeenCalled()
+
+    //should clear if button clicked
+    fastClick(green)
+    expect(this.accessor.state.getValue()).toEqual([])
   })
 
 

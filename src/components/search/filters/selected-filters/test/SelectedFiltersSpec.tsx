@@ -13,7 +13,7 @@ describe("SelectedFilters tests", () => {
     this.bemContainer = bem("selected-filters")
     this.bemOption = bem("selected-filters-option")
 
-    this.searchkit = new SearchkitManager("localhost:9200", {useHistory:true})
+    this.searchkit = SearchkitManager.mock()
 
     this.searchkit.translateFunction = (key)=> {
       return {

@@ -15,7 +15,6 @@ export declare class Pagination extends SearchkitComponent<PaginationProps, any>
         container: string;
         option: string;
     };
-    hasPagination(): boolean;
     getCurrentPage(): number;
     setPage(direction: DIRECTION): void;
     isDisabled(direction: DIRECTION): boolean;

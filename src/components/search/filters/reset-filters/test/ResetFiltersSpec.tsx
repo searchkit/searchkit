@@ -9,7 +9,7 @@ describe("Reset Filter tests", () => {
 
   beforeEach(() => {
 
-    this.searchkit = new SearchkitManager("localhost:9200", {useHistory:true})
+    this.searchkit = SearchkitManager.mock()
 
     this.createWrapper = () => {
       this.wrapper = mount(

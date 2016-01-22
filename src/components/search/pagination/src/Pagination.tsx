@@ -48,10 +48,6 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
 		}
 	}
 
-  hasPagination():boolean {
-		return true
-  }
-
 	getCurrentPage():number {
 		return Number(this.accessor.state.getValue()) || 1;
 	}

@@ -9,21 +9,29 @@ describe("Hits component", () => {
 
   beforeEach(() => {
 
-    this.searchkit = new SearchkitManager("localhost:9200", {useHistory:false})
+    this.searchkit = SearchkitManager.mock()
 
-    this.createWrapper = () => {
-      this.wrapper = mount(
-        <Hits searchkit={this.searchkit} hitsPerPage={10}/>
-      )
-    }
+    this.wrapper = mount(
+      <Hits searchkit={this.searchkit} hitsPerPage={10} highlightFields={["title"]}/>
+    )
+
+    this.pageSizeAccessor = this.searchkit.accessors.accessors[0]
+    this.hitsAccessor = this.searchkit.accessors.accessors[1]
 
   });
+
+  it("initalize accessors correctly", ()=> {
+    expect(this.pageSizeAccessor.size).toBe(10)
+    expect(this.hitsAccessor.highlightFields)
+      .toEqual({
+         fields: { title:{}}
+      })
+  })
 
 
   describe('renders correctly', () => {
 
     beforeEach(() => {
-      this.createWrapper()
       this.hasRendered = () => {
         return this.wrapper.find(".hits").length == 1
       }

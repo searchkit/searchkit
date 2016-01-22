@@ -5,7 +5,7 @@ import {StatefulAccessor} from "./StatefulAccessor"
 export class PaginationAccessor extends StatefulAccessor<ValueState> {
   state = new ValueState()
 
-  onStateChange(oldState){
+  onStateChange(oldState={}){
     if(oldState[this.urlKey] == this.state.getValue()){
       this.state = this.state.clear()
     }
