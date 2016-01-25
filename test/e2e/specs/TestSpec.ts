@@ -52,7 +52,7 @@ describe("example", () => {
     expect(searchPage.hits.get(0).isVisible()).toBe(true)
     expect(searchPage.hits.get(0).title.getText()).toBe("The Matrix")
     expect(searchPage.hits.count()).toBe(3)
-    expect(searchPage.hitStats).toBe("3 results found")
+    expect(searchPage.hitStats.info.getText()).toBe("3 results found")
   })
 
   it("should refine actors", () => {
