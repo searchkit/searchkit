@@ -46,9 +46,7 @@ describe("example", () => {
   })
 
   it("should find matrix", () => {
-    searchPage.searchbox.query.type("matrix")
-    browser.sleep(100)
-    expect(searchPage.searchbox.loader.isNotVisible()).toBe(true)
+    searchPage.searchbox.search("matrix")
     expect(searchPage.hits.get(0).isVisible()).toBe(true)
     expect(searchPage.hits.get(0).title.getText()).toBe("The Matrix")
     expect(searchPage.hits.count()).toBe(3)
