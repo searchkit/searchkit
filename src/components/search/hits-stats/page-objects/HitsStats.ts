@@ -1,4 +1,4 @@
-import {Component, Input, Button, field, defaults} from "xenon";
+import {Component,  field, defaults} from "xenon";
 
 @defaults({qa:"hits-stats"})
 export default class HitsStats extends Component {

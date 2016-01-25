@@ -1,8 +1,8 @@
-import { Component, Input, Button } from "xenon";
+import { Component } from "xenon";
 import Loader from "./Loader";
 export default class SearchBox extends Component {
-    query: Input;
-    submit: Button;
+    query: Component;
+    submit: Component;
     loader: Loader;
     search(query: string): void;
 }

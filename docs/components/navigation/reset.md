@@ -26,7 +26,7 @@ class App extends SearchkitComponent<any, any> {
 ## Translations
 - `reset.clear_all` - Clear All Filters
 
-## Extending Component
+## Example overridding the translation
 
 ```jsx
 
@@ -35,19 +35,11 @@ import {
   SearchkitComponent
 } from "searchkit";
 
-class ExampleResetFilters extends ResetFilters {
-  renderResetButton() {
-    return (
-      <div className={this.bemBlocks.container("reset")}>clear</div>
-    )
-  }
-}
-
 class App extends SearchkitComponent<any, any> {
 
   render(){
     <div>
-      <ResetFilters/>
+      <ResetFilters translations={{"reset.clear_all":"Reset all filters"}}/>
     </div>
   }
 }
