@@ -58,7 +58,7 @@ describe("NumericOptionsAccessor", ()=> {
     let query = this.accessor.buildSharedQuery(this.query)
     let expected = BoolMust([
       BoolMust([
-        RangeQuery("price", 11, 21)
+        RangeQuery("price", {gte:11, lt:21})
       ])
     ])
     expect(query.query.filter).toEqual(expected)

@@ -29,7 +29,9 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 	buildSharedQuery(query) {
 		if (this.state.hasValue()) {
 			let val:any = this.state.getValue()
-			let rangeFilter = RangeQuery(this.options.field, val.min, val.max)
+			let rangeFilter = RangeQuery(this.options.field,{
+        gte:val.min, lt:val.max
+      })
 			let selectedFilter = {
 				name:this.translate(this.options.title),
 				value:`${val.min} - ${val.max}`,
@@ -59,7 +61,7 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 		let filters = BoolMust([
 			otherFilters,
 			{range:{
-				[this.options.field]:{					
+				[this.options.field]:{
 					gte:this.options.min, lte:this.options.max
 				}
 			}}

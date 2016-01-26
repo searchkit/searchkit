@@ -37,7 +37,9 @@ export class NumericOptionsAccessor extends FilterBasedAccessor<ValueState> {
     if (this.state.hasValue()) {
       let val:any = find(this.options.options, {title:this.state.getValue()})
 
-      let rangeFilter = RangeQuery(this.options.field, val.from, val.to)
+      let rangeFilter = RangeQuery(this.options.field,{
+        gte:val.from, lt:val.to
+      })
       let selectedFilter = {
         name:this.translate(this.options.title),
         value:this.translate(val.title),
