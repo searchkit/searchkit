@@ -37,13 +37,18 @@ describe("NumericOptionsAccessor", ()=> {
       aggregations:{
         categories:{
           categories:{
-            buckets:[1,2,3,4]
+            buckets:[
+              {key:1, doc_count:1},
+              {key:2, doc_count:2},
+              {key:3, doc_count:3},
+              {key:4, doc_count:0}
+            ]
           }
         }
       }
     }
-    expect(this.accessor.getBuckets())
-      .toEqual([1,2,3,4])
+    expect(_.map(this.accessor.getBuckets(), "key"))
+      .toEqual([1,2,3])
   })
   it("getRanges()", ()=> {
     expect(this.accessor.getRanges()).toEqual([

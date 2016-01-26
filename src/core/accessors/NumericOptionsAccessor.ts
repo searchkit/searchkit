@@ -7,6 +7,7 @@ import {
 const find = require("lodash/find")
 const compact = require("lodash/compact")
 const map = require("lodash/map")
+const filter = require("lodash/filter")
 
 export interface RangeOption {
   title:string, from?:number, to?:number
@@ -28,9 +29,13 @@ export class NumericOptionsAccessor extends FilterBasedAccessor<ValueState> {
   }
 
   getBuckets(){
-    return this.getAggregations(
+    return filter(this.getAggregations(
       [this.key, this.key,"buckets"], []
-    )
+    ), this.emptyOptionsFilter)
+  }
+
+  emptyOptionsFilter(option) {
+    return option.doc_count > 0
   }
 
   buildSharedQuery(query) {
