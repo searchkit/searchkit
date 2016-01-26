@@ -1,6 +1,19 @@
+## 0.4.0 (26th Jan, 2016)
+* update to lodash 4.0 with individual function imports (smaller footprint)
+* Breaking api change to internal query builder RangeQuery
+* Increased unit test coverage to 99%
+* Increase e2e test coverage
+
+## 0.3.5 (21st Jan, 2016)
+
+* New RangeFilter slider component
+* More QueryDSL builds
+* Improved tsting
+
+
 ## 0.3.2 (18th Jan, 2016)
 
-* Correct Searchkit.version 
+* Correct Searchkit.version
 
 ## 0.3.1 (18th Jan, 2016)
 
