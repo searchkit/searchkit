@@ -13,7 +13,7 @@ export default class SearchBox extends Component {
   loader: Loader
 
   search(query:string) {
-    this.query.type("matrix")
+    this.query.type(query)
     expect(this.loader.isNotVisible()).toBe(true)
   }
 }
