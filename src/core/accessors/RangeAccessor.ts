@@ -60,11 +60,9 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 		let otherFilters = query.getFiltersWithoutKeys(this.key)
 		let filters = BoolMust([
 			otherFilters,
-			{range:{
-				[this.options.field]:{
-					gte:this.options.min, lte:this.options.max
-				}
-			}}
+			RangeQuery(this.options.field,{
+        gte:this.options.min, lte:this.options.max
+      })
 		])
 		query = query.setAggs(FilterBucket(
 			this.key,
