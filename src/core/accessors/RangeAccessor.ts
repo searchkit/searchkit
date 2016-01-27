@@ -30,7 +30,7 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 		if (this.state.hasValue()) {
 			let val:any = this.state.getValue()
 			let rangeFilter = RangeQuery(this.options.field,{
-        gte:val.min, lt:val.max
+        gte:val.min, lte:val.max
       })
 			let selectedFilter = {
 				name:this.translate(this.options.title),
