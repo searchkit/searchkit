@@ -16,11 +16,8 @@ export declare class NumericOptionsAccessor extends FilterBasedAccessor<ValueSta
     options: NumericOptions;
     constructor(key: any, options: NumericOptions);
     getBuckets(): any;
+    emptyOptionsFilter(option: any): boolean;
     buildSharedQuery(query: any): any;
-    getRanges(): {
-        key: string;
-        from: number;
-        to: number;
-    }[];
+    getRanges(): any;
     buildOwnQuery(query: any): any;
 }

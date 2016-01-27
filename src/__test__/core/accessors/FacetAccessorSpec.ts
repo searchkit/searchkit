@@ -3,7 +3,7 @@ import {
   BoolMust, BoolShould, ArrayState, TermQuery,
   FilterBucket, TermsBucket, CardinalityMetric
 } from "../../../"
-import * as _ from "lodash"
+
 
 describe("FacetAccessor", ()=> {
 

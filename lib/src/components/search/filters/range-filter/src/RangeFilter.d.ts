@@ -9,7 +9,7 @@ export interface RangeFilterProps extends SearchkitComponentProps {
 }
 export declare class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
     accessor: RangeAccessor;
-    static propTypes: {};
+    static propTypes: any;
     defineAccessor(): RangeAccessor;
     defineBEMBlocks(): {
         container: string;

@@ -1,19 +1,19 @@
-import {Component, Input, Button, field, defaults} from "xenon";
+import {Component, field, defaults} from "xenon";
 import Loader from "./Loader";
 
 export default class SearchBox extends Component {
 
-  @field(Input, {qa:"query"})
-  query: Input
+  @field(Component, {qa:"query"})
+  query: Component
 
-  @field(Button, {qa:"submit"})
-  submit: Button
+  @field(Component, {qa:"submit"})
+  submit: Component
 
   @field(Loader)
   loader: Loader
 
   search(query:string) {
-    this.query.type(query);
-    this.submit.click();
+    this.query.type(query)
+    expect(this.loader.isNotVisible()).toBe(true)
   }
 }

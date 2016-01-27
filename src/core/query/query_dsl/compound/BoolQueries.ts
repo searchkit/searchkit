@@ -1,7 +1,7 @@
-import * as _ from "lodash"
+const isArray = require("lodash/isArray")
 
 function boolHelper(val, operator){
-  const isArr = _.isArray(val)
+  const isArr = isArray(val)
   if(isArr && val.length === 1){
     return val[0]
   }

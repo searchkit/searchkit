@@ -2,14 +2,17 @@ import * as React from "react";
 import {mount} from "enzyme";
 import {ResetFilters} from "../src/ResetFilters.tsx";
 import {SearchkitManager} from "../../../../../core";
-import * as _ from "lodash";
+import {
+  fastClick, hasClass, jsxToHTML, printPrettyHtml
+} from "../../../../__test__/TestHelpers"
+
 import * as sinon from "sinon";
 
 describe("Reset Filter tests", () => {
 
   beforeEach(() => {
 
-    this.searchkit = new SearchkitManager("localhost:9200", {useHistory:true})
+    this.searchkit = SearchkitManager.mock()
 
     this.createWrapper = () => {
       this.wrapper = mount(
@@ -43,7 +46,7 @@ describe("Reset Filter tests", () => {
     let elem = this.wrapper.find(".reset-filters")
     expect(this.searchkit.resetState.called).toBeFalsy()
     expect(this.searchkit.performSearch.called).toBeFalsy()
-    elem.simulate("mouseDown", {button:0})
+    fastClick(elem)
     expect(this.searchkit.resetState.called).toBeTruthy()
     expect(this.searchkit.performSearch.called).toBeTruthy()
   })

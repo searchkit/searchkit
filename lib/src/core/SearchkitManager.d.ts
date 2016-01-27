@@ -30,6 +30,7 @@ export declare class SearchkitManager {
     results: any;
     VERSION: string;
     static VERSION: string;
+    static mock(): SearchkitManager;
     constructor(host: string, options?: SearchkitOptions);
     addAccessor(accessor: any): any;
     addDefaultQuery(fn: Function): any;
@@ -43,9 +44,9 @@ export declare class SearchkitManager {
     search(replaceState?: boolean): void;
     _search(): void;
     setResults(results: any): void;
-    getHits(): any[];
-    getHitsCount(): number;
-    getSuggestions(): {};
+    getHits(): any;
+    getHitsCount(): any;
+    getSuggestions(): any;
     getQueryAccessor(): BaseQueryAccessor;
     hasHits(): boolean;
     setError(error: any): void;

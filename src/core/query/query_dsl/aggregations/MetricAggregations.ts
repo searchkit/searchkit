@@ -1,6 +1,5 @@
 import {AggsContainer} from "./AggsContainer"
-import * as _ from "lodash"
-
+const assign = require("lodash/assign")
 
 export function FieldMetricFactory(metricOp){
   return (key, field)=> {
@@ -29,5 +28,5 @@ export function TopHitsMetric(key, top_hits:TopHitsMetricOptions){
 }
 
 export function GeoBoundsMetric(key, field, options={}){
-  return AggsContainer(key, {geo_bounds:_.extend({field}, options)})
+  return AggsContainer(key, {geo_bounds:assign({field}, options)})
 }

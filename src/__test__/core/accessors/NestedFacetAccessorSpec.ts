@@ -4,7 +4,8 @@ import {
   NestedQuery, TermQuery, FilterBucket, NestedBucket, MinMetric,
   TermsBucket
 } from "../../../"
-import * as _ from "lodash"
+
+const _ = require("lodash")
 
 describe("NestedFacetAccessor", ()=> {
 

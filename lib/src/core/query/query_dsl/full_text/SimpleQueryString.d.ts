@@ -5,5 +5,5 @@ export interface SimpleQueryStringOptions {
     flags?: string;
 }
 export declare function SimpleQueryString(query: any, options?: {}): {
-    "simple_query_string": {};
+    "simple_query_string": any;
 };

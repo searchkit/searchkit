@@ -8,7 +8,7 @@ import {
 describe("Accessor", ()=> {
 
   beforeEach(()=> {
-    this.searchkit = new SearchkitManager("/", {useHistory:false})
+    this.searchkit = SearchkitManager.mock()
     spyOn(Utils, "guid").and.returnValue("some_uuid")
     this.accessor = new Accessor()
     this.query = new ImmutableQuery()

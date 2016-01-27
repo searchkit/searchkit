@@ -3,14 +3,17 @@ import {mount} from "enzyme";
 import {SearchBox} from "../src/SearchBox.tsx";
 import {SearchkitManager } from "../../../../core";
 const bem = require("bem-cn");
-import * as _ from "lodash";
+import {
+  fastClick, hasClass, jsxToHTML, printPrettyHtml
+} from "../../../__test__/TestHelpers"
+
 import * as sinon from "sinon";
 
 describe("Searchbox tests", () => {
 
   beforeEach(() => {
 
-    this.searchkit = new SearchkitManager("localhost:9200", {useHistory:true})
+    this.searchkit = SearchkitManager.mock()
 
     this.searchkit.translateFunction = (key)=> {
       return {
@@ -92,6 +95,26 @@ describe("Searchbox tests", () => {
       prefixQueryFields:["prefix"],
       "queryOptions": {}
     })
+
+  })
+
+  it("should handle focus", ()=> {
+    this.createWrapper(true, ["title"], ["prefix"])
+    expect(
+      this.wrapper.find(".search-box")
+        .hasClass("is-focused")
+    ).toBe(false)
+    expect(this.wrapper.node.state)
+      .toEqual({ focused:false })
+    this.wrapper.find(".search-box__text")
+      .simulate("focus")
+    expect(this.wrapper.node.state)
+      .toEqual({ focused:true })
+    this.wrapper.update()
+    expect(
+      this.wrapper.find(".search-box")
+        .hasClass("is-focused")
+    ).toBe(true)
 
   })
 

@@ -2,28 +2,36 @@ import * as React from "react";
 import {mount} from "enzyme";
 import {Hits} from "../src/Hits";
 import {SearchkitManager} from "../../../../core";
-import * as _ from "lodash";
+
 import * as sinon from "sinon";
 
 describe("Hits component", () => {
 
   beforeEach(() => {
 
-    this.searchkit = new SearchkitManager("localhost:9200", {useHistory:false})
+    this.searchkit = SearchkitManager.mock()
 
-    this.createWrapper = () => {
-      this.wrapper = mount(
-        <Hits searchkit={this.searchkit} hitsPerPage={10}/>
-      )
-    }
+    this.wrapper = mount(
+      <Hits searchkit={this.searchkit} hitsPerPage={10} highlightFields={["title"]}/>
+    )
+
+    this.pageSizeAccessor = this.searchkit.accessors.accessors[0]
+    this.hitsAccessor = this.searchkit.accessors.accessors[1]
 
   });
+
+  it("initalize accessors correctly", ()=> {
+    expect(this.pageSizeAccessor.size).toBe(10)
+    expect(this.hitsAccessor.highlightFields)
+      .toEqual({
+         fields: { title:{}}
+      })
+  })
 
 
   describe('renders correctly', () => {
 
     beforeEach(() => {
-      this.createWrapper()
       this.hasRendered = () => {
         return this.wrapper.find(".hits").length == 1
       }

@@ -1,7 +1,11 @@
 import {Accessor, StatefulAccessor, BaseQueryAccessor, noopQueryAccessor} from  "./accessors"
 import {Utils} from "./support"
 import {ImmutableQuery} from "./query"
-import * as _ from "lodash"
+const filter = require("lodash/filter")
+const values = require("lodash/values")
+const reduce = require("lodash/reduce")
+const assign = require("lodash/assign")
+const each = require("lodash/each")
 
 type StatefulAccessors = Array<StatefulAccessor<any>>
 
@@ -22,11 +26,11 @@ export class AccessorManager {
   }
 
   getActiveAccessors(){
-    return _.filter(this.accessors, {active:true})
+    return filter(this.accessors, {active:true})
   }
 
   getStatefulAccessors(){
-    return _.values(this.statefulAccessors) as StatefulAccessors
+    return values(this.statefulAccessors) as StatefulAccessors
   }
 
   add(accessor){
@@ -50,19 +54,19 @@ export class AccessorManager {
   }
 
   getState(){
-    return _.reduce(this.getStatefulAccessors(), (state, accessor)=> {
-      return _.extend(state, accessor.getQueryObject())
+    return reduce(this.getStatefulAccessors(), (state, accessor)=> {
+      return assign(state, accessor.getQueryObject())
     }, {})
   }
 
   setState(state){
-    _.each(
+    each(
       this.getStatefulAccessors(),
       accessor=>accessor.fromQueryObject(state)
     )
   }
   notifyStateChange(oldState){
-    _.each(
+    each(
       this.getStatefulAccessors(),
       accessor => accessor.onStateChange(oldState)
     )
@@ -73,13 +77,13 @@ export class AccessorManager {
   }
 
   buildSharedQuery(query){
-    return _.reduce(this.getActiveAccessors(), (query, accessor)=>{
+    return reduce(this.getActiveAccessors(), (query, accessor)=>{
       return accessor.buildSharedQuery(query)
     }, query)
   }
 
   buildOwnQuery(query){
-    return _.reduce(this.getActiveAccessors(), (query, accessor)=>{
+    return reduce(this.getActiveAccessors(), (query, accessor)=>{
       return accessor.buildOwnQuery(query)
     }, query)
   }
@@ -91,11 +95,11 @@ export class AccessorManager {
   }
 
   setResults(results){
-    _.each(this.accessors, a => a.setResults(results))
+    each(this.accessors, a => a.setResults(results))
   }
 
   resetState(){
-    _.each(this.getStatefulAccessors(), a => a.resetState())
+    each(this.getStatefulAccessors(), a => a.resetState())
   }
 
 }

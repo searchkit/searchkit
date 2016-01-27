@@ -4,7 +4,7 @@ export interface HitsProps extends SearchkitComponentProps {
     highlightFields?: Array<string>;
 }
 export declare class Hits extends SearchkitComponent<HitsProps, any> {
-    static propTypes: {};
+    static propTypes: any;
     componentWillMount(): void;
     defineAccessor(): PageSizeAccessor;
     defineBEMBlocks(): {

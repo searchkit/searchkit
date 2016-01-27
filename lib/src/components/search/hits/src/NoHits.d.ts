@@ -17,12 +17,12 @@ export declare class NoHits extends SearchkitComponent<NoHitsProps, any> {
         "NoHits.DidYouMean": string;
         "NoHits.SearchWithoutFilters": string;
     };
-    static propTypes: {};
+    static propTypes: any;
     componentWillMount(): void;
     defineBEMBlocks(): {
         container: string;
     };
-    getSuggestion(): boolean;
+    getSuggestion(): any;
     renderSuggestions(): JSX.Element;
     setQueryString(query: any): void;
     resetFilters(): void;

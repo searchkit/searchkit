@@ -4,7 +4,7 @@ export interface HitsStatsProps extends SearchkitComponentProps {
 export declare class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
     static translations: any;
     translations: any;
-    static propTypes: {};
+    static propTypes: any;
     defineBEMBlocks(): {
         container: string;
     };

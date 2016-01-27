@@ -3,8 +3,12 @@ import {mount} from "enzyme";
 import {SelectedFilters} from "../src/SelectedFilters.tsx";
 import {SearchkitManager, ImmutableQuery } from "../../../../../core";
 const bem = require("bem-cn");
-import * as _ from "lodash";
+const _ = require("lodash")
 import * as sinon from "sinon";
+import {
+  fastClick, hasClass, jsxToHTML, printPrettyHtml
+} from "../../../../__test__/TestHelpers"
+
 
 describe("SelectedFilters tests", () => {
 
@@ -13,7 +17,7 @@ describe("SelectedFilters tests", () => {
     this.bemContainer = bem("selected-filters")
     this.bemOption = bem("selected-filters-option")
 
-    this.searchkit = new SearchkitManager("localhost:9200", {useHistory:true})
+    this.searchkit = SearchkitManager.mock()
 
     this.searchkit.translateFunction = (key)=> {
       return {
@@ -74,7 +78,7 @@ describe("SelectedFilters tests", () => {
   it("handles remove click", () => {
     this.createWrapper()
     let elem = this.getContainer(null,0).find("."+this.bemOption("remove-action"))
-    elem.simulate("mouseDown", {button:0})
+    fastClick(elem)
     expect(this.sinonSpy.called).toBeTruthy()
   })
 

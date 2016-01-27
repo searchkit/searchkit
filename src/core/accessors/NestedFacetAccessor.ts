@@ -6,6 +6,14 @@ import {
   NestedBucket, MinMetric
 } from "../query";
 
+const map = require("lodash/map")
+const get = require("lodash/get")
+const includes = require("lodash/includes")
+const startsWith = require("lodash/startsWith")
+const each = require("lodash/each")
+const take = require("lodash/take")
+
+
 export interface NestedFacetAccessorOptions {
 	field:string
 	id:string
@@ -39,7 +47,7 @@ export class NestedFacetAccessor extends FilterBasedAccessor<LevelState> {
 
 		let levelFilters = this.state.getValue()
 		let lastIndex = levelFilters.length - 1
-		var filterTerms = _.map(levelFilters, (filter,i) => {
+		var filterTerms = map(levelFilters, (filter,i) => {
 			let value = filter[0]
 			let isLeaf = i === lastIndex
 			let subField = isLeaf ? ".value" : ".ancestors"
@@ -47,8 +55,8 @@ export class NestedFacetAccessor extends FilterBasedAccessor<LevelState> {
 		})
 
 		if(filterTerms.length > 0){
-      let leafFilter = _.get(levelFilters, [levelFilters.length - 1, 0], "")
-      let parentOfleaf = _.get(
+      let leafFilter = get(levelFilters, [levelFilters.length - 1, 0], "")
+      let parentOfleaf = get(
         levelFilters,
         [levelFilters.length - 2, 0],
         this.options.title || this.key
@@ -77,10 +85,10 @@ export class NestedFacetAccessor extends FilterBasedAccessor<LevelState> {
     if(this.options.orderKey){
       let orderDirection = this.options.orderDirection || "asc"
       let orderKey = this.options.orderKey
-      if(_.includes(["_count", "_term"], orderKey)) {
+      if(includes(["_count", "_term"], orderKey)) {
         orderMetric = {[orderKey]:orderDirection}
       } else {
-        if(_.startsWith(orderKey, this.options.field + ".")){
+        if(startsWith(orderKey, this.options.field + ".")){
           const subAggName = this.options.field + "_order"
           orderMetric = {
             [subAggName]:orderDirection
@@ -121,9 +129,9 @@ export class NestedFacetAccessor extends FilterBasedAccessor<LevelState> {
 
 		let levels = this.state.getValue()
 
-		_.each(levels, (level,i) => {
+		each(levels, (level,i) => {
 
-			let ancestors = _.map(_.take(levels, i+1), (level)=>{
+			let ancestors = map(take(levels, i+1), (level)=>{
 				return TermQuery(ancestorsField, level[0])
 			})
 

@@ -40,7 +40,13 @@ describe("RangeAccessor", ()=> {
       let query = new ImmutableQuery()
       this.accessor.state = new ObjectState({min:20, max:70})
       query = this.accessor.buildSharedQuery(query)
-      expect(query.query.filter).toEqual(RangeQuery("metaScore", 20, 70))
+      expect(query.query.filter).toEqual(RangeQuery("metaScore", {gte:20, lte:70}))
+      let selectedFilter = query.getSelectedFilters()[0]
+      expect(selectedFilter).toEqual(jasmine.objectContaining({
+        name:"Metascore", value:"20 - 70", id:"metascore"
+      }))
+      selectedFilter.remove()
+      expect(this.accessor.state.getValue()).toEqual({})
     })
 
     it("buildSharedQuery() - empty", ()=> {

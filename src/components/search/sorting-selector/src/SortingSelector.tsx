@@ -1,7 +1,5 @@
 import * as React from "react";
-import * as _ from "lodash";
 import "../styles/index.scss";
-
 import {
 	SearchkitComponent,
 	SortingAccessor,
@@ -10,6 +8,8 @@ import {
 	SearchkitComponentProps,
 	SortingOption
 } from "../../../../core"
+const defaults = require("lodash/defaults")
+const map = require("lodash/map")
 
 export interface SortingProps extends SearchkitComponentProps {
 	options:Array<SortingOption>
@@ -18,8 +18,8 @@ export interface SortingProps extends SearchkitComponentProps {
 
 export class SortingSelector extends SearchkitComponent<SortingProps, any> {
 	accessor:SortingAccessor
-	
-	static propTypes = _.defaults({
+
+	static propTypes = defaults({
 		options:React.PropTypes.arrayOf(
 			React.PropTypes.shape({
 				label:React.PropTypes.string.isRequired,
@@ -61,7 +61,7 @@ export class SortingSelector extends SearchkitComponent<SortingProps, any> {
 			return (
 				<div className={this.bemBlocks.container()}>
 	      	<select onChange={this.updateSorting.bind(this)} value={this.getSelectedValue()}>
-						{_.map(this.props.options, this.renderOption.bind(this))}
+						{map(this.props.options, this.renderOption.bind(this))}
 					</select>
 	      </div>
 			)

@@ -1,4 +1,6 @@
 import {State} from "./State"
+const contains = require("lodash/includes")
+const without = require("lodash/without")
 
 export class ArrayState extends State<Array<string|number>> {
   getValue() {
@@ -15,12 +17,12 @@ export class ArrayState extends State<Array<string|number>> {
     return this.create([])
   }
   remove(val) {
-    return this.create(_.without(this.getValue(), val))
+    return this.create(without(this.getValue(), val))
   }
   add(val) {
     return this.create(this.getValue().concat(val))
   }
   contains(val) {
-    return _.contains(this.value, val)
+    return contains(this.value, val)
   }
 }

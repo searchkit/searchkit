@@ -4,7 +4,10 @@ import {
   TermQuery, TermsBucket, FilterBucket,
   BoolShould, BoolMust
 } from "../query/";
-import * as _ from "lodash";
+const map = require("lodash/map")
+const each = require("lodash/each")
+const compact = require("lodash/compact")
+const take = require("lodash/take")
 
 
 export class HierarchicalFacetAccessor extends FilterBasedAccessor<LevelState> {
@@ -20,7 +23,7 @@ export class HierarchicalFacetAccessor extends FilterBasedAccessor<LevelState> {
   }
 
   computeUuids(){
-    this.uuids = _.map(
+    this.uuids = map(
       this.options.fields, field => this.uuid + field)
   }
 
@@ -35,11 +38,11 @@ export class HierarchicalFacetAccessor extends FilterBasedAccessor<LevelState> {
 
   buildSharedQuery(query) {
 
-    _.each(this.options.fields, (field:string, i:number) => {
+    each(this.options.fields, (field:string, i:number) => {
       var filters = this.state.getLevel(i);
       var parentFilter = this.state.getLevel(i-1);
       var isLeaf = !this.state.levelHasFilters(i+1)
-      var filterTerms = _.map(filters, TermQuery.bind(null, field))
+      var filterTerms = map(filters, TermQuery.bind(null, field))
 
       if(filterTerms.length > 0){
         query = query.addFilter(
@@ -49,7 +52,7 @@ export class HierarchicalFacetAccessor extends FilterBasedAccessor<LevelState> {
         }
 
       if(isLeaf){
-        var selectedFilters = _.map(filters, (filter)=> {
+        var selectedFilters = map(filters, (filter)=> {
           return {
             id:this.options.id,
             name:this.translate(parentFilter[0]) || this.options.title || this.translate(field),
@@ -70,11 +73,11 @@ export class HierarchicalFacetAccessor extends FilterBasedAccessor<LevelState> {
   buildOwnQuery(query){
     var filters = this.state.getValue()
     var field = this.options.fields[0]
-    let lvlAggs = _.compact(_.map(this.options.fields, (field:string, i:number) => {
+    let lvlAggs = compact(map(this.options.fields, (field:string, i:number) => {
       if (this.state.levelHasFilters(i-1) || i == 0) {
         return FilterBucket(
           field,
-          query.getFiltersWithKeys(_.take(this.uuids,i)),
+          query.getFiltersWithKeys(take(this.uuids,i)),
           TermsBucket(field, field, {size:this.options.size})
         )
       }

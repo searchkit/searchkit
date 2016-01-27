@@ -1,5 +1,4 @@
-import * as _ from "lodash"
-
+const assign = require("lodash/assign")
 import {AggsContainer} from "./AggsContainer"
 
 export interface TermsBucketOptions {
@@ -8,7 +7,7 @@ export interface TermsBucketOptions {
 }
 export function TermsBucket(key, field, options:TermsBucketOptions={}, ...childAggs){
   return AggsContainer(key, {
-    terms:_.extend({field}, options)
+    terms:assign({field}, options)
   }, childAggs)
 }
 
@@ -33,13 +32,13 @@ export function NestedBucket(key, path, ...childAggs){
 }
 
 export function SignificantTermsBucket(key, field, options={}, ...childAggs){
-  return AggsContainer(key, {significant_terms:_.extend({field}, options)}, childAggs)
+  return AggsContainer(key, {significant_terms:assign({field}, options)}, childAggs)
 }
 
 export function GeohashBucket(key, field, options, ...childAggs){
-  return AggsContainer(key, {geohash_grid:_.extend({field}, options)}, childAggs)
+  return AggsContainer(key, {geohash_grid:assign({field}, options)}, childAggs)
 }
 
 export function HistogramBucket(key, field, options={}, ...childAggs){
-  return AggsContainer(key, {histogram:_.extend({field}, options)}, childAggs)
+  return AggsContainer(key, {histogram:assign({field}, options)}, childAggs)
 }

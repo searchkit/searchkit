@@ -48,7 +48,7 @@ export class FastClick extends React.Component<any, any>{
       if(this.pointsWithinThreshold(this.startPoint, endPoint)){
         this.props.handler()
       }
-      delete this.startPoint
+      this.cleanupTouch()      
     }
 
   }

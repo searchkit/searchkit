@@ -8,7 +8,7 @@ export interface RefinementListFilterProps extends SearchkitComponentProps {
 }
 export declare class RefinementListFilter extends SearchkitComponent<RefinementListFilterProps, any> {
     accessor: FacetAccessor;
-    static propTypes: {};
+    static propTypes: any;
     defineAccessor(): FacetAccessor;
     defineBEMBlocks(): {
         container: string;

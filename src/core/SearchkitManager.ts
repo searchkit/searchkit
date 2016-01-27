@@ -2,11 +2,14 @@ import {ImmutableQuery} from "./query";
 import {Accessor, BaseQueryAccessor, AnonymousAccessor} from "./accessors"
 import {AccessorManager} from "./AccessorManager"
 import {createHistory} from "./history";
-import {ESTransport, AxiosESTransport} from "./transport";
+import {ESTransport, AxiosESTransport, MockESTransport} from "./transport";
 import {SearchRequest} from "./SearchRequest"
 import {Utils, EventEmitter} from "./support"
-import * as _ from "lodash"
 import {VERSION} from "./SearchkitVersion"
+const defaults = require("lodash/defaults")
+const constant = require("lodash/constant")
+const isEqual = require("lodash/isEqual")
+const get = require("lodash/get")
 
 require('es6-promise').polyfill()
 
@@ -39,8 +42,15 @@ export class SearchkitManager {
   VERSION = VERSION
   static VERSION = VERSION
 
+  static mock() {
+    return new SearchkitManager("/", {
+      useHistory:false,
+      transport:new MockESTransport()
+    })
+  }
+
   constructor(host:string, options:SearchkitOptions = {}){
-    this.options = _.defaults(options, {
+    this.options = defaults(options, {
       useHistory:true,
       httpHeaders:{}
     })
@@ -54,7 +64,7 @@ export class SearchkitManager {
 		this.registrationCompleted = new Promise((resolve)=>{
 			this.completeRegistration = resolve
 		})
-    this.translateFunction = _.constant(undefined)
+    this.translateFunction = constant(undefined)
     // this.primarySearcher = this.createSearcher()
     this.query = new ImmutableQuery()
     this.emitter = new EventEmitter()
@@ -97,7 +107,7 @@ export class SearchkitManager {
         this.registrationCompleted.then(()=>{
           this.searchFromUrlQuery(location.query)
         }).catch((e)=> {
-          console.log(e.stack)
+          console.error(e.stack)
         })
       }
     })
@@ -109,7 +119,7 @@ export class SearchkitManager {
   }
 
   performSearch(replaceState=false){
-    if(!_.isEqual(this.accessors.getState(), this.state)){
+    if(!isEqual(this.accessors.getState(), this.state)){
       this.accessors.notifyStateChange(this.state)
     }
     this._search()
@@ -143,15 +153,15 @@ export class SearchkitManager {
   }
 
   getHits(){
-    return _.get(this.results, ["hits", "hits"], [])
+    return get(this.results, ["hits", "hits"], [])
   }
 
   getHitsCount(){
-    return _.get(this.results, ["hits", "total"], 0)
+    return get(this.results, ["hits", "total"], 0)
   }
 
   getSuggestions() {
-    return _.get(this.results,["suggest", "suggestions"], {})
+    return get(this.results,["suggest", "suggestions"], {})
   }
 
   getQueryAccessor(): BaseQueryAccessor{

@@ -1,4 +1,5 @@
-import * as _ from "lodash"
+const reduce = require("lodash/reduce")
+
 export class Utils {
   static guid(){
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -9,7 +10,7 @@ export class Utils {
 
   static collapse(collection, seed){
     const reducer = (current, fn)=> fn(current)
-    return _.reduce(collection, reducer, seed)
+    return reduce(collection, reducer, seed)
   }
 
   static instanceOf(klass){

@@ -1,6 +1,6 @@
 import {ValueState} from "../state"
 import {StatefulAccessor} from "./StatefulAccessor"
-import * as _ from "lodash"
+const find = require("lodash/find")
 
 export interface SortingOption {
   label:string, field:string, order:string
@@ -21,7 +21,7 @@ export class SortingAccessor extends StatefulAccessor<ValueState> {
   }
 
   buildOwnQuery(query){
-    var selectedSortOption:any = _.findWhere(this.options.options, {label:this.state.getValue()})
+    var selectedSortOption:any = find(this.options.options, {label:this.state.getValue()})
     if (selectedSortOption) {
       query = query.setSort([{[selectedSortOption.field]: selectedSortOption.order}])
     }

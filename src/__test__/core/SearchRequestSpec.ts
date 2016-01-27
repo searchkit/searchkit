@@ -8,7 +8,7 @@ import {
 describe("SearchRequest", ()=> {
 
   beforeEach(()=> {
-    this.searchkit = new SearchkitManager("/", {useHistory:false})
+    this.searchkit = SearchkitManager.mock()
     this.transport = new AxiosESTransport("http://localhost:9200")
 
     this.query = new ImmutableQuery().setSize(10)

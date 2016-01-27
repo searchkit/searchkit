@@ -1,11 +1,12 @@
-import * as _ from "lodash";
 import * as React from "react";
 import "../styles/index.scss";
-
 import {
 	SearchkitComponent,
 	SearchkitComponentProps
 } from "../../../../core"
+
+const defaults = require("lodash/defaults")
+const get = require("lodash/get")
 
 export interface HitsStatsProps extends SearchkitComponentProps {
 }
@@ -17,7 +18,7 @@ export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 	}
 	translations = HitsStats.translations
 
-	static propTypes = _.defaults({
+	static propTypes = defaults({
 		translations:SearchkitComponent.translationsPropType(
 			HitsStats.translations
 		)
@@ -30,7 +31,7 @@ export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 	}
 
 	getTime():number {
-		return _.get(this.getResults(),"took", 0)
+		return get(this.getResults(),"took", 0)
 	}
 
 	renderText() {

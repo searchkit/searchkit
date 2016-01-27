@@ -1,4 +1,4 @@
-import {Component, Input, Button, field, defaults, List} from "xenon";
+import {Component,  field, defaults, List} from "xenon";
 import RefinementOption from "./RefinementOption.ts";
 
 export default class RefinementListFilter extends Component {

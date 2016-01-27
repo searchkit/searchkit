@@ -9,7 +9,7 @@ export interface HierarchicalRefinementFilterProps extends SearchkitComponentPro
 }
 export declare class HierarchicalRefinementFilter extends SearchkitComponent<HierarchicalRefinementFilterProps, any> {
     accessor: NestedFacetAccessor;
-    static propTypes: {};
+    static propTypes: any;
     constructor(props: HierarchicalRefinementFilterProps);
     defineBEMBlocks(): {
         container: string;

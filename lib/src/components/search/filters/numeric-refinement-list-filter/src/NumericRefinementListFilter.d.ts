@@ -7,7 +7,7 @@ export interface NumericRefinementListFilterProps extends SearchkitComponentProp
 }
 export declare class NumericRefinementListFilter extends SearchkitComponent<NumericRefinementListFilterProps, any> {
     accessor: NumericOptionsAccessor;
-    static propTypes: {};
+    static propTypes: any;
     defineAccessor(): NumericOptionsAccessor;
     defineBEMBlocks(): {
         container: string;

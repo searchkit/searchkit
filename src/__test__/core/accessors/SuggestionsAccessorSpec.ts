@@ -7,7 +7,7 @@ import {
 describe("SuggestionsAccessor", ()=> {
 
   beforeEach(()=> {
-    this.searchkit = new SearchkitManager("/", {useHistory:false})
+    this.searchkit = SearchkitManager.mock()
     this.accessor = new SuggestionsAccessor("title")
     this.searchkit.addAccessor(this.accessor)
   })

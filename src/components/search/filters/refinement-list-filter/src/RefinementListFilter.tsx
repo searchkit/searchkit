@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as _ from "lodash";
 import "../styles/index.scss";
 
 import {
@@ -10,6 +9,10 @@ import {
 	SearchkitComponentProps,
 	FastClick
 } from "../../../../../core"
+
+const defaults = require("lodash/defaults")
+const map = require("lodash/map")
+const isNumber = require("lodash/isNumber")
 
 export interface RefinementListFilterProps extends SearchkitComponentProps {
 	field:string
@@ -22,7 +25,7 @@ export interface RefinementListFilterProps extends SearchkitComponentProps {
 export class RefinementListFilter extends SearchkitComponent<RefinementListFilterProps, any> {
 	accessor:FacetAccessor
 
-	static propTypes = _.defaults({
+	static propTypes = defaults({
 		field:React.PropTypes.string.isRequired,
 		operator:React.PropTypes.oneOf(["AND", "OR"]),
 		size:React.PropTypes.number,
@@ -112,7 +115,7 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
 			<div data-qa={`filter--${this.props.id}`} className={className}>
 				<div data-qa="header" className={block("header")}>{this.props.title}</div>
 				<div data-qa="options" className={block("options")}>
-				{_.map(this.accessor.getBuckets(), this.renderOption.bind(this))}
+				{map(this.accessor.getBuckets(), this.renderOption.bind(this))}
 				</div>
 				{this.renderShowMore()}
       </div>

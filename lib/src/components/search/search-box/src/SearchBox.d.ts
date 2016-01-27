@@ -11,7 +11,7 @@ export declare class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     lastSearchMs: number;
     static translations: any;
     translations: any;
-    static propTypes: {};
+    static propTypes: any;
     constructor(props: SearchBoxProps);
     componentWillMount(): void;
     defineBEMBlocks(): {

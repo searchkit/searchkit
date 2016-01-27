@@ -1,4 +1,3 @@
-import * as _ from "lodash";
 import * as React from "react";
 import "../styles/index.scss";
 
@@ -10,6 +9,9 @@ import {
 	SearchkitComponentProps
 } from "../../../../core"
 
+const map = require("lodash/map")
+const defaults = require("lodash/defaults")
+
 export interface HitsProps extends SearchkitComponentProps{
 	hitsPerPage: number
 	highlightFields?:Array<string>
@@ -17,7 +19,7 @@ export interface HitsProps extends SearchkitComponentProps{
 
 export class Hits extends SearchkitComponent<HitsProps, any> {
 
-	static propTypes = _.defaults({
+	static propTypes = defaults({
 		hitsPerPage:React.PropTypes.number.isRequired,
 		highlightFields:React.PropTypes.arrayOf(
 			React.PropTypes.string
@@ -68,7 +70,7 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		} else if (!this.hasHits()) {
 			return null;
 		} else {
-			results = _.map(hits, this.renderResult.bind(this))
+			results = map(hits, this.renderResult.bind(this))
 		}
 
 		return (

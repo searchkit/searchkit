@@ -1,6 +1,6 @@
-import {Component, Input, Button, field, defaults} from "xenon";
+import {Component, field, defaults} from "xenon";
 
 export default class HierarchicalRefinementFilter extends Component {
 
-  
+
 }

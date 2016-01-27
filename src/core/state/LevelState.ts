@@ -1,5 +1,9 @@
 import {State} from "./State"
-import * as _ from "lodash"
+const isArray = require("lodash/isArray")
+const contains = require("lodash/includes")
+const take = require("lodash/take")
+const size = require("lodash/size")
+const without = require("lodash/without")
 const update = require("react-addons-update")
 
 export class LevelState extends State<Array<any>> {
@@ -11,7 +15,7 @@ export class LevelState extends State<Array<any>> {
 
   add(level:number, val) {
     var ob = this.getValue()
-    if (!_.isArray(ob[level])) {
+    if (!isArray(ob[level])) {
       ob = update(ob, {
         [level]:{$set:[]}
       })
@@ -23,16 +27,16 @@ export class LevelState extends State<Array<any>> {
   }
 
   contains(level:number, val) {
-    return _.contains(this.getValue()[level], val)
+    return contains(this.getValue()[level], val)
   }
 
   clear(level:number=0) {
-    return this.create(_.take(this.getValue(), level))
+    return this.create(take(this.getValue(), level))
   }
 
   remove(level:number, val) {
     return this.create(update(this.getValue(), {
-      [level]:{$set:_.without(this.getValue()[level], val)}
+      [level]:{$set:without(this.getValue()[level], val)}
     }))
   }
 
@@ -53,7 +57,7 @@ export class LevelState extends State<Array<any>> {
   }
 
   getLeafLevel() {
-    return _.size(this.value) -1;
+    return size(this.value) -1;
   }
 
   isLeafLevel(level:number):boolean {
