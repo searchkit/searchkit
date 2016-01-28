@@ -50,9 +50,14 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	}
 
   sliderUpdate(newValues) {
-    this.accessor.state = this.accessor.state.setValue({min:newValues[0], max:newValues[1]})
+  	if ((newValues[0] == this.props.min) && (newValues[1] == this.props.max)){
+  		this.accessor.state = this.accessor.state.clear()
+  	} else {
+    	this.accessor.state = this.accessor.state.setValue({min:newValues[0], max:newValues[1]})
+  	}
 		this.forceUpdate()
 	}
+	
 	sliderUpdateAndSearch(newValues){
 		this.sliderUpdate(newValues)
 		this.searchkit.performSearch()
