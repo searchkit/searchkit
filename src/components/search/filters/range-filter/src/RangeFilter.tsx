@@ -22,6 +22,7 @@ export interface RangeFilterProps extends SearchkitComponentProps {
   max:number
   id:string
 	title:string
+  interval?:number
 	showHistogram?:boolean
 }
 
@@ -35,9 +36,10 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	}, SearchkitComponent.propTypes)
 
 	defineAccessor() {
+		const { id, title, min, max, field, interval } = this.props
 		return new RangeAccessor(
-			this.props.id,
-			{id: this.props.id, title:this.props.title, min:this.props.min, max:this.props.max, field:this.props.field}
+			id,
+			{id, min, max, title, field, interval}
 		)
 	}
 
@@ -50,9 +52,14 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	}
 
   sliderUpdate(newValues) {
-    this.accessor.state = this.accessor.state.setValue({min:newValues[0], max:newValues[1]})
+  	if ((newValues[0] == this.props.min) && (newValues[1] == this.props.max)){
+  		this.accessor.state = this.accessor.state.clear()
+  	} else {
+    	this.accessor.state = this.accessor.state.setValue({min:newValues[0], max:newValues[1]})
+  	}
 		this.forceUpdate()
 	}
+
 	sliderUpdateAndSearch(newValues){
 		this.sliderUpdate(newValues)
 		this.searchkit.performSearch()
@@ -70,9 +77,14 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 
 		if (maxValue === 0) return null
 
+		const min = get(this.accessor.state.getValue(), "min", this.props.min)
+		const max = get(this.accessor.state.getValue(), "max", this.props.max)
+
 		let bars = map(this.accessor.getBuckets(), (value:any, i) => {
+			var className = "bar-chart__bar";
+			if (value.key < min || value.key > max) className += " bar-chart__bar-out";
 			return (
-				<div className="bar-chart__bar"
+				<div className={className}
 					key={value.key}
 					style={{
 						height:`${(value.doc_count/maxValue)*100}%`
@@ -88,6 +100,13 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 		)
 
 	}
+
+  getInterval(){
+    if (this.props.interval) {
+      return this.props.interval
+    }
+    return Math.ceil((this.props.max - this.props.min) / 20)
+  }
 
 	render() {
 		var block = this.bemBlocks.container
@@ -107,6 +126,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
           min={this.props.min}
           max={this.props.max}
           range={true}
+          step={this.getInterval()}
 					value={[
 						get(this.accessor.state.getValue(), "min", this.props.min),
 						get(this.accessor.state.getValue(), "max", this.props.max)
