@@ -57,7 +57,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
   	}
 		this.forceUpdate()
 	}
-	
+
 	sliderUpdateAndSearch(newValues){
 		this.sliderUpdate(newValues)
 		this.searchkit.performSearch()
@@ -75,12 +75,17 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 
 		if (maxValue === 0) return null
 
+		const min = get(this.accessor.state.getValue(), "min", this.props.min)
+		const max = get(this.accessor.state.getValue(), "max", this.props.max)
+
 		let bars = map(this.accessor.getBuckets(), (value:any, i) => {
+			const opacity = value.key < min || value.key > max ? 0.5 : undefined
 			return (
 				<div className="bar-chart__bar"
 					key={value.key}
 					style={{
-						height:`${(value.doc_count/maxValue)*100}%`
+						height:`${(value.doc_count/maxValue)*100}%`,
+						opacity
 					}}>
 				</div>
 			)
