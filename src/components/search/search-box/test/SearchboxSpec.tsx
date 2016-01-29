@@ -41,8 +41,14 @@ describe("Searchbox tests", () => {
 
     this.createWrapper(true)
 
-    this.wrapper.find(".search-box__text").simulate("input", {target: { value: 'm' }}).simulate("input", {target: { value: 'ma' }})
+    let boxText = this.wrapper.find(".search-box__text");
+    boxText.simulate("input", {target: { value: 'm' }})
+    expect(this.accessor.state.getValue()).toBe("m")
+    expect(spy.callCount).toBe(1)
+    boxText.simulate("input", {target: { value: 'ma' }})
     expect(this.accessor.state.getValue()).toBe("ma")
+    expect(spy.callCount).toBe(1) // throttling should block it
+    this.wrapper.node.throttledSearch.flush()
     expect(spy.callCount).toBe(2)
   })
 
