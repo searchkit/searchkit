@@ -90,6 +90,15 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
     }
   }
 
+  componentWillUnmount(){
+    if(this.stateListenerUnsubscribe){
+		  this.stateListenerUnsubscribe()
+    }
+    if(this.searchkit && this.accessor){
+      this.searchkit.removeAccessor(this.accessor)
+    }
+	}
+
   getResults(){
     return this.searchkit.results
   }
@@ -122,9 +131,5 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
     return this.searchkit.error
   }
 
-  componentWillUnmount(){
-    if(this.stateListenerUnsubscribe){
-		  this.stateListenerUnsubscribe()
-    }
-	}
+
 }

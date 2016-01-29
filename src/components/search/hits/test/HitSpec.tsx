@@ -61,11 +61,11 @@ describe("Hits component", () => {
       expect(this.hasRendered()).toBeFalsy()
     })
 
-    it("does render on initial view", () => {
+    it("no longer renders initial view", () => {
       this.searchkit.initialLoading = true
       this.wrapper.update()
-      expect(this.hasRendered()).toBeTruthy()
-      expect(this.wrapper.find(".hits__initial-loading").length).toBe(1)
+      expect(this.hasRendered()).toBeFalsy()
+      expect(this.wrapper.find(".hits__initial-loading").length).toBe(0)
     })
   })
 

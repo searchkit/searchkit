@@ -79,6 +79,10 @@ export class SearchkitManager {
     return this.accessors.add(accessor)
   }
 
+  removeAccessor(accessor){
+    this.accessors.remove(accessor)
+  }
+
   addDefaultQuery(fn:Function){
     return this.addAccessor(new AnonymousAccessor(fn))
   }

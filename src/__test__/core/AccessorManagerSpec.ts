@@ -1,6 +1,6 @@
 import {
   EventEmitter,ImmutableQuery,AccessorManager, QueryAccessor, FacetAccessor,
-  SearchkitManager, PageSizeAccessor, ValueState, PaginationAccessor
+  SearchkitManager, PageSizeAccessor, ValueState, PaginationAccessor, noopQueryAccessor
 } from "../../"
 
 describe("AccessorManager", ()=> {
@@ -58,15 +58,18 @@ describe("AccessorManager", ()=> {
   })
 
 
-  it("add()", ()=> {
+  it("add(), remove()", ()=> {
     let accessors = new AccessorManager()
     expect(accessors.add(this.accessor1))
       .toEqual(this.accessor1)
     expect(accessors.getAccessors())
       .toEqual([this.accessor1])
+
+    accessors.remove(this.accessor1)
+    expect(accessors.getAccessors()).toEqual([])
   })
 
-  it("adding accessor with same statefulKey", ()=> {
+  it("adding accessor with same statefulKey then remove", ()=> {
     let accessors = new AccessorManager()
     expect(accessors.add(this.accessor4))
       .toEqual(this.accessor4)
@@ -74,16 +77,33 @@ describe("AccessorManager", ()=> {
       .toEqual(this.accessor4)
     expect(accessors.getAccessors())
       .toEqual([this.accessor4])
+    expect(accessors.statefulAccessors).toEqual({
+      p4:this.accessor4
+    })
+
+    accessors.remove(this.accessor4)
+    expect(accessors.getAccessors()).toEqual([])
+    expect(accessors.statefulAccessors).toEqual({})
   })
 
-  it("add() - QueryAccessor", ()=> {
+  it("add() - QueryAccessor and then remove", ()=> {
     let accessors = new AccessorManager()
     let queryAccessor = new QueryAccessor("q")
     expect(accessors.add(queryAccessor)).toBe(queryAccessor)
     expect(accessors.getQueryAccessor()).toBe(queryAccessor)
+    expect(accessors.getAccessors()).toEqual([queryAccessor])
     expect(()=>accessors.add(queryAccessor)).toThrow(
       new Error("Only a single instance of BaseQueryAccessor is allowed")
     )
+
+    accessors.remove(queryAccessor)
+    expect(accessors.getAccessors()).toEqual([])
+    expect(accessors.getQueryAccessor()).toBe(noopQueryAccessor)
+  })
+
+  it("remove() handle null accessor", ()=> {
+    let accessors = new AccessorManager()
+    expect(()=> { accessors.remove(undefined)}).not.toThrow()
   })
 
   it("getState()", ()=> {
