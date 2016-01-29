@@ -17,9 +17,11 @@ describe("InitialLoader", ()=> {
     )
   })
 
-  it("should render correctly", ()=> {
+  it("should render correctly", ()=> {    
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div data-qa="initial-loading" className="initial-loader__initial-loading"></div>
+      <div className="initial-loader">
+        <div data-qa="initial-loading" className="initial-loader__initial-loading"></div>
+      </div>
     ))
     this.searchkit.initialLoading = false
     this.wrapper.update()

@@ -7,10 +7,11 @@ import {
 } from "../../../../core"
 
 
-const renderInitialView = ({bemBlocks})=> {
-  return <div data-qa="initial-loading" className={bemBlocks.container("initial-loading")}></div>
-}
-
+const renderInitialView = ({bemBlocks})=> (
+	<div className={bemBlocks.container()}>
+		<div data-qa="initial-loading" className={bemBlocks.container("initial-loading")}></div>
+	</div>
+)
 export interface InitialLoaderprops extends SearchkitComponentProps{
 	component?:any
 }
