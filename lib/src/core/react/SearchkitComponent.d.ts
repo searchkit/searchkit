@@ -24,6 +24,7 @@ export declare class SearchkitComponent<P extends SearchkitComponentProps, S> ex
     _computeBemBlocks(): any;
     _getSearchkit(): any;
     componentWillMount(): void;
+    componentWillUnmount(): void;
     getResults(): any;
     getHits(): any;
     getHitsCount(): any;
@@ -32,5 +33,4 @@ export declare class SearchkitComponent<P extends SearchkitComponentProps, S> ex
     isInitialLoading(): boolean;
     isLoading(): boolean;
     getError(): any;
-    componentWillUnmount(): void;
 }
