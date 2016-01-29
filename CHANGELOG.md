@@ -1,3 +1,5 @@
+## 0.5.0
+
 ## 0.4.0 (26th Jan, 2016)
 * update to lodash 4.0 with individual function imports (smaller footprint)
 * Breaking api change to internal query builder RangeQuery
