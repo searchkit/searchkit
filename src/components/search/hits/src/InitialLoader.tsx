@@ -3,17 +3,18 @@ import "../styles/index.scss";
 
 import {
 	SearchkitComponent,
-	SearchkitComponentProps
+	SearchkitComponentProps,
+	ReactComponentType
 } from "../../../../core"
 
 
-const renderInitialView = ({bemBlocks})=> (
-	<div className={bemBlocks.container()}>
-		<div data-qa="initial-loading" className={bemBlocks.container("initial-loading")}></div>
+const renderInitialView:React.StatelessComponent<any> = (props)=> (
+	<div className={props.bemBlocks.container()}>
+		<div data-qa="initial-loading" className={props.bemBlocks.container("initial-loading")}></div>
 	</div>
 )
 export interface InitialLoaderprops extends SearchkitComponentProps{
-	component?:any
+	component?:ReactComponentType
 }
 
 export class InitialLoader extends SearchkitComponent<InitialLoaderprops, any> {

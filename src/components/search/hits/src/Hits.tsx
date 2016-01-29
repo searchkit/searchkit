@@ -6,16 +6,26 @@ import {
 	PageSizeAccessor,
 	ImmutableQuery,
 	HighlightAccessor,
-	SearchkitComponentProps
+	SearchkitComponentProps,
+	ReactComponentType
 } from "../../../../core"
 
 const map = require("lodash/map")
 const defaults = require("lodash/defaults")
 
+
+export const HitItem:React.StatelessComponent<any> = (props)=> (
+	<div data-qa="hit" className={props.bemBlocks.item().mix(props.bemBlocks.container("item"))}>
+	</div>
+)
+
 export interface HitsProps extends SearchkitComponentProps{
 	hitsPerPage: number
 	highlightFields?:Array<string>
+	component?:ReactComponentType
 }
+
+
 
 export class Hits extends SearchkitComponent<HitsProps, any> {
 
@@ -48,22 +58,19 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 	}
 
 	renderResult(result:any) {
-		return (
-			<div data-qa="hit" className={this.bemBlocks.item().mix(this.bemBlocks.container("item"))} key={result._id}>
-			</div>
-		)
+		return React.createElement(this.props.component || HitItem, {
+			key:result._id, result, bemBlocks:this.bemBlocks
+		})
 	}
 
 	render() {
 		let hits:Array<Object> = this.getHits()
 		let hasHits = hits.length > 0
-		let results = null
 
 		if (!this.isInitialLoading() && hasHits) {
-			results = map(hits, this.renderResult.bind(this))
 			return (
 				<div data-qa="hits" className={this.bemBlocks.container()}>
-				{results}
+				{map(hits, this.renderResult.bind(this))}
 				</div>
 			);
 		}
