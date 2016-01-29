@@ -57,12 +57,15 @@ describe("SearchkitManager", ()=> {
     )
   })
 
-  it("addAccessor()", ()=> {
+  it("addAccessor(), removeAddAccessor()", ()=> {
     const accessor = new PageSizeAccessor(10)
     this.searchkit.addAccessor(accessor)
     expect(this.searchkit.accessors.accessors).toEqual([
       accessor
     ])
+    this.searchkit.removeAccessor(accessor)
+    expect(this.searchkit.accessors.accessors)
+      .toEqual([])
   })
 
   it("addDefaultQuery()", ()=> {

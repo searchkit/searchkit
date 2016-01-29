@@ -8,6 +8,7 @@ export declare class AccessorManager {
     getActiveAccessors(): any;
     getStatefulAccessors(): StatefulAccessor<any>[];
     add(accessor: any): any;
+    remove(accessor: any): void;
     getState(): any;
     setState(state: any): void;
     notifyStateChange(oldState: any): void;

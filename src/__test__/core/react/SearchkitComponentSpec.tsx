@@ -127,6 +127,8 @@ describe("SearchkitComponent", ()=> {
     expect(searchkit.emitter.listeners.length).toBe(1)
     this.component.componentWillUnmount()
     expect(searchkit.emitter.listeners.length).toBe(0)
+    //should removeAccessor    
+    expect(searchkit.accessors.accessors).toEqual([])
 
   })
 
