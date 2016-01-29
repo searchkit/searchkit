@@ -54,29 +54,21 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		)
 	}
 
-	renderInitialView() {
-		return (
-			<div data-qa="initial-loading" className={this.bemBlocks.container("initial-loading")}></div>
-		)
-	}
-
 	render() {
 		let hits:Array<Object> = this.getHits()
 		let hasHits = hits.length > 0
 		let results = null
 
-		if (this.isInitialLoading()) {
-			results = this.renderInitialView()
-		} else if (!this.hasHits()) {
-			return null;
-		} else {
+		if (!this.isInitialLoading() && hasHits) {
 			results = map(hits, this.renderResult.bind(this))
+			return (
+				<div data-qa="hits" className={this.bemBlocks.container()}>
+				{results}
+				</div>
+			);
 		}
 
-		return (
-			<div data-qa="hits" className={this.bemBlocks.container()}>
-				{results}
-      </div>
-		);
+		return null
+
 	}
 }
