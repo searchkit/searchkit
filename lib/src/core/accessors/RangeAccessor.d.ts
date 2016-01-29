@@ -5,6 +5,7 @@ export interface RangeAccessorOptions {
     id: string;
     min: number;
     max: number;
+    interval?: number;
     field: string;
 }
 export declare class RangeAccessor extends FilterBasedAccessor<ObjectState> {
@@ -13,5 +14,6 @@ export declare class RangeAccessor extends FilterBasedAccessor<ObjectState> {
     constructor(key: any, options: RangeAccessorOptions);
     buildSharedQuery(query: any): any;
     getBuckets(): any;
+    getInterval(): any;
     buildOwnQuery(query: any): any;
 }

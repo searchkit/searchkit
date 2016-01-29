@@ -9,13 +9,13 @@ import {
 
 import * as sinon from "sinon";
 
-describe("Reset Filter tests", () => {
+describe("Range Filter tests", () => {
 
   beforeEach(() => {
 
     this.searchkit = SearchkitManager.mock()
     spyOn(this.searchkit, "performSearch")
-    this.createWrapper = (withHistogram) => {
+    this.createWrapper = (withHistogram, interval=undefined) => {
       this.wrapper = mount(
         <RangeFilter
           id="m"
@@ -24,6 +24,7 @@ describe("Reset Filter tests", () => {
           min={0}
           max={100}
           title="metascore"
+          interval={interval}
           showHistogram={withHistogram}/>
       );
 
@@ -120,6 +121,20 @@ describe("Reset Filter tests", () => {
       min:40, max:60
     })
     expect(this.searchkit.performSearch).toHaveBeenCalled()
+
+    // min/max should clear
+    this.wrapper.node.sliderUpdateAndSearch([0,100])
+    expect(this.accessor.state.getValue()).toEqual({})
+  })
+
+  it("has default interval", ()=> {
+    this.createWrapper(true)
+    expect(this.accessor.getInterval()).toEqual(5)
+  })
+
+  it("handles interval correctly", ()=> {
+    this.createWrapper(true, 2)
+    expect(this.accessor.getInterval()).toEqual(2)
   })
 
   it("renders limited range correctly", ()=> {
