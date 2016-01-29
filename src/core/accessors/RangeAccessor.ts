@@ -14,6 +14,7 @@ export interface RangeAccessorOptions {
 	id:string
 	min:number
 	max:number
+  interval?: number
 	field:string
 }
 
@@ -56,6 +57,13 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
     )
   }
 
+  getInterval(){
+    if (this.options.interval) {
+      return this.options.interval
+    }
+    return Math.ceil((this.options.max - this.options.min) / 20)
+  }
+
   buildOwnQuery(query) {
 		let otherFilters = query.getFiltersWithoutKeys(this.key)
 		let filters = BoolMust([
@@ -68,7 +76,7 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 			this.key,
 			filters,
 			HistogramBucket(this.key, this.options.field, {
-				"interval":Math.ceil((this.options.max - this.options.min) / 20),
+				"interval":this.getInterval(),
 				"min_doc_count":0,
 				"extended_bounds":{
 						"min":this.options.min,
