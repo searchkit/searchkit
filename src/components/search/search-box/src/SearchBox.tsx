@@ -21,6 +21,7 @@ export interface SearchBoxProps extends SearchkitComponentProps {
 export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 	accessor:QueryAccessor
 	lastSearchMs:number
+	throttledSearch: () => void
 
 	static translations:any = {
 		"searchbox.placeholder":"Search"
@@ -44,6 +45,9 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 			focused:false
 		}
 		this.lastSearchMs = 0
+		this.throttledSearch = throttle(()=> {
+			this.searchQuery(this.accessor.getQueryString())
+		}, 400)
 	}
 
 
@@ -87,9 +91,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 		const query = e.target.value;
 		this.accessor.setQueryString(query)
 		if (this.props.searchOnChange) {
-			throttle(()=> {
-				this.searchQuery(this.accessor.getQueryString())
-			}, 400)()
+			this.throttledSearch()
 		}
 		this.forceUpdate()
 	}
@@ -103,9 +105,9 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 
 		return (
 			<div className={block().state({focused:this.state.focused})}>
-        <form onSubmit={this.onSubmit.bind(this)}>
-          <div className={block("icon")}></div>
-          <input type="text"
+				<form onSubmit={this.onSubmit.bind(this)}>
+					<div className={block("icon")}></div>
+					<input type="text"
 					data-qa="query"
 					className={block("text")}
 					placeholder={this.translate("searchbox.placeholder")}
@@ -115,10 +117,10 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 					ref="queryField"
 					autoFocus={this.props.autofocus}
 					onInput={this.onChange.bind(this)}/>
-          <input type="submit" value="search" className={block("action")} data-qa="submit"/>
+					<input type="submit" value="search" className={block("action")} data-qa="submit"/>
 					<div data-qa="loader" className={block("loader").mix("sk-spinning-loader").state({hidden:!this.isLoading()})}></div>
-        </form>
-      </div>
+				</form>
+			</div>
 		);
 
 	}
