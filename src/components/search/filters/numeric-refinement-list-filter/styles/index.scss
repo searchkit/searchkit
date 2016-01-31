@@ -6,6 +6,10 @@
     font-weight: bold;
   }
 
+  &.is-disabled  {
+    display:none;
+  }
+
   &__options {
 
   }
