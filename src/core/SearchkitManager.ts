@@ -6,10 +6,12 @@ import {ESTransport, AxiosESTransport, MockESTransport} from "./transport";
 import {SearchRequest} from "./SearchRequest"
 import {Utils, EventEmitter} from "./support"
 import {VERSION} from "./SearchkitVersion"
+
 const defaults = require("lodash/defaults")
 const constant = require("lodash/constant")
 const isEqual = require("lodash/isEqual")
 const get = require("lodash/get")
+const qs = require("qs")
 
 require('es6-promise').polyfill()
 
@@ -132,6 +134,12 @@ export class SearchkitManager {
         this.history.replaceState : this.history.pushState
       historyMethod(null, window.location.pathname, this.state)
     }
+  }
+
+  buildSearchUrl(extraParams = {}){
+    const params = defaults(extraParams, this.accessors.getState())
+    const queryString = qs.stringify(params, { encode: true })
+    return window.location.pathname + '?' + queryString
   }
 
   search(replaceState=false){
