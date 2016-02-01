@@ -77,7 +77,7 @@ export interface RefinementListFilterDisplayProps {
     buckets:Array<any>
     moreSizeOption:any
     toggleViewMoreOption:Function
-    itemComponent: ReactComponentType
+    itemComponent: ReactComponentType<RefinementListFilterItemProps>
 }
 
 export interface RefinementListFilterDisplayState { }
@@ -155,8 +155,8 @@ export interface RefinementListFilterProps extends SearchkitComponentProps {
   size?:number
   title:string
   id:string
-  component?: ReactComponentType //React.ComponentClass<RefinementListFilterDisplayProps>
-  itemComponent?: ReactComponentType
+  component?: ReactComponentType<RefinementListFilterDisplayProps>
+  itemComponent?: ReactComponentType<RefinementListFilterItemProps>
 }
 
 export class RefinementListFilter extends SearchkitComponent<RefinementListFilterProps, any> {
