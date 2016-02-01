@@ -12,6 +12,7 @@ export class StatefulAccessor<T extends State<any>> extends Accessor {
     super()
     this.key = key
     this.urlKey = urlString || key && key.replace(/\./g, "_")
+    this.urlWithState = this.urlWithState.bind(this)
   }
 
   onStateChange(oldState){
@@ -46,6 +47,10 @@ export class StatefulAccessor<T extends State<any>> extends Accessor {
 
   resetState(){
     this.state = this.state.clear()
+  }
+
+  urlWithState(state:T) {
+    return this.searchkit.buildSearchUrl({ [this.urlKey]: state })
   }
 
 }
