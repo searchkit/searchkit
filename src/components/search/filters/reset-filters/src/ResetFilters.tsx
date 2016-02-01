@@ -10,7 +10,6 @@ import {
 	ReactComponentType
 } from "../../../../../core"
 const defaults = require("lodash/defaults")
-const shallowEqual = require('react-pure-render/shallowEqual')
 
 
 export interface ResetFiltersDisplayProps {
@@ -21,15 +20,8 @@ export interface ResetFiltersDisplayProps {
 }
 
 export class ResetFiltersDisplay extends React.Component<ResetFiltersDisplayProps, any>{
-	// shouldComponentUpdate = shouldPureComponentUpdate
-	shouldComponentUpdate(nextProps){
-		// console.log(this, newProps)
-		return shallowEqual(this.props, nextProps)
-		// return true
-	}
 	render(){
 		const {bemBlock, hasFilters, translate, resetFilters} = this.props
-		// console.log(bemBlock, hasFilters, translate, resetFilters)
 		return (
 			<div>
 				<FastClick handler={resetFilters}>
