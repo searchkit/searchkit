@@ -37,9 +37,10 @@ export class Utils {
 
   static autobind(target, key, descriptor){
     let fn = descriptor.value
+    let boundFn
     return {
       get:function(){
-        return fn.bind(this)
+        return boundFn || (boundFn = fn.bind(this))
       }
     }
   }

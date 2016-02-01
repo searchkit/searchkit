@@ -58,6 +58,8 @@ describe("Utils", ()=> {
 
     let fn = new Foo().getMessage
     expect(fn("world")).toBe("hello world")
+    let foo = new Foo()
+    expect(foo.getMessage).toBe(foo.getMessage)
 
   })
 })
