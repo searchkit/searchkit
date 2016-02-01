@@ -9,6 +9,7 @@ Searchkit can use a cloud based elasticsearch instance. If using in production, 
 - [qbox.io](https://qbox.io)
 - [search.ly](http://searchly.com)
 - [Amazon Elasticsearch Service](https://aws.amazon.com/elasticsearch-service/)
+- [Logsene](https://www.sematext.com/logsene/index.html)
 
 ### Configuration
 
