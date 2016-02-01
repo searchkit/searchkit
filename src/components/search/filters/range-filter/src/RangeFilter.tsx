@@ -35,6 +35,12 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 		id:React.PropTypes.string.isRequired
 	}, SearchkitComponent.propTypes)
 
+	constructor(props){
+		super(props)
+		this.sliderUpdate = this.sliderUpdate.bind(this)
+		this.sliderUpdateAndSearch = this.sliderUpdateAndSearch.bind(this)
+	}
+
 	defineAccessor() {
 		const { id, title, min, max, field, interval } = this.props
 		return new RangeAccessor(
@@ -131,8 +137,8 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 						get(this.accessor.state.getValue(), "min", this.props.min),
 						get(this.accessor.state.getValue(), "max", this.props.max)
 					]}
-					onChange={this.sliderUpdate.bind(this)}
-          onAfterChange={this.sliderUpdateAndSearch.bind(this)}/>
+					onChange={this.sliderUpdate}
+          onAfterChange={this.sliderUpdateAndSearch}/>
 					<div className={block("x-label").mix(this.bemBlocks.labels())}>
 						<div className={this.bemBlocks.labels("min")}>{this.props.min}</div>
 						<div className={this.bemBlocks.labels("max")}>{this.props.max}</div>

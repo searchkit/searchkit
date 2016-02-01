@@ -6,11 +6,44 @@ import {
 	SearchkitComponent,
 	FacetAccessor,
 	FastClick,
-	SearchkitComponentProps
+	SearchkitComponentProps,
+	ReactComponentType
 } from "../../../../../core"
 const defaults = require("lodash/defaults")
+const shallowEqual = require('react-pure-render/shallowEqual')
+
+
+export interface ResetFiltersDisplayProps {
+	bemBlock:any,
+	hasFilters:boolean,
+	resetFilters:Function,
+	translate:Function
+}
+
+export class ResetFiltersDisplay extends React.Component<ResetFiltersDisplayProps, any>{
+	// shouldComponentUpdate = shouldPureComponentUpdate
+	shouldComponentUpdate(nextProps){
+		// console.log(this, newProps)
+		return shallowEqual(this.props, nextProps)
+		// return true
+	}
+	render(){
+		const {bemBlock, hasFilters, translate, resetFilters} = this.props
+		// console.log(bemBlock, hasFilters, translate, resetFilters)
+		return (
+			<div>
+				<FastClick handler={resetFilters}>
+					<div className={bemBlock().state({disabled:!hasFilters})}>
+						<div className={bemBlock("reset")}>{translate("reset.clear_all")}</div>
+					</div>
+				</FastClick>
+			</div>
+		)
+	}
+}
 
 export interface ResetFiltersProps extends SearchkitComponentProps {
+	component?:ReactComponentType<ResetFiltersDisplayProps>
 }
 
 export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
@@ -23,8 +56,18 @@ export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
 	static propTypes = defaults({
 		translations:SearchkitComponent.translationsPropType(
 			ResetFilters.translations
-		)
+		),
+		component:React.PropTypes.func
 	}, SearchkitComponent.propTypes)
+
+	static defaultProps = {
+		component:ResetFiltersDisplay
+	}
+
+	constructor(props){
+		super(props)
+		this.resetFilters = this.resetFilters.bind(this)
+	}
 
 	defineBEMBlocks() {
 		return {
@@ -41,26 +84,12 @@ export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
 		this.searchkit.performSearch()
 	}
 
-	renderResetButton() {
-
-		var block = this.bemBlocks.container
-
-		return (
-			<div className={block("reset")}>{this.translate("reset.clear_all")}</div>
-		)
-	}
-
   render() {
-		var block = this.bemBlocks.container
-
-    return (
-    <div>
-			<FastClick handler={this.resetFilters.bind(this)}>
-				<div className={block().state({disabled:!this.hasFilters()})}>
-					{this.renderResetButton()}
-				</div>
-			</FastClick>
-		</div>
-    )
+		return React.createElement(this.props.component, {
+			bemBlock:this.bemBlocks.container,
+			resetFilters:this.resetFilters,
+			hasFilters:this.hasFilters(),
+			translate:this.translate
+		})
   }
 }
