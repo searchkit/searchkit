@@ -10,7 +10,7 @@ var block = require('bem-cn');
 describe("SearchkitComponent", ()=> {
 
   beforeEach(()=> {
-    this.component = new SearchkitComponent()
+    this.component = new SearchkitComponent({})
     this.component.props = {}
     this.component.context = {}
   })
@@ -30,7 +30,7 @@ describe("SearchkitComponent", ()=> {
       }},
       "translations", "MyComponent"
     )).toEqual(null)
-  
+
 
   })
 
@@ -48,14 +48,16 @@ describe("SearchkitComponent", ()=> {
     this.component.translations = {
       "component":"component level {interpolation}"
     }
-    expect(this.component.translate("searchkit"))
+    //detach to test self binding
+    let componentTranslate = this.component.translate
+    expect(componentTranslate("searchkit"))
       .toEqual("searchkit level")
-    expect(this.component.translate("prop"))
+    expect(componentTranslate("prop"))
       .toEqual("prop level")
-    expect(this.component.translate("component", {
+    expect(componentTranslate("component", {
       interpolation:"foo"
     })).toEqual("component level foo")
-    expect(this.component.translate("missing key"))
+    expect(componentTranslate("missing key"))
       .toEqual("missing key")
   })
 
