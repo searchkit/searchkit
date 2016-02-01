@@ -137,7 +137,7 @@ export class SearchkitManager {
   }
 
   buildSearchUrl(extraParams = {}){
-    const params = defaults(extraParams, this.accessors.getState())
+    const params = defaults(extraParams, this.state || this.accessors.getState())
     const queryString = qs.stringify(params, { encode: true })
     return window.location.pathname + '?' + queryString
   }

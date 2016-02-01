@@ -19,6 +19,27 @@ const map = require("lodash/map")
 //  PREVIOUS
 // }
 
+export function generatePages(currentPage, totalPages, options) {
+  if (!options) options = {};
+  const pageScope = options.pageScope == undefined ? 3 : options.pageScope;
+  var pages = [];
+
+  if (currentPage > pageScope + 1) pages.push({ type: "number", page: 1 })
+  if (currentPage > pageScope + 2) pages.push({ type: "ellipsis" })
+  if (currentPage > 1) {
+    const min = Math.max(1, currentPage - pageScope)
+    for (let i = min; i < currentPage; i++) pages.push({ type: "number", page: i })
+  }
+  pages.push({ type: "number", page: currentPage, active: true })
+  if (currentPage < totalPages) {
+    const max = Math.min(currentPage + pageScope, totalPages)
+  }
+  if (currentPage < totalPages - pageScope) pages.push({ type: "ellipsis" })
+
+  return pages
+}
+
+
 export interface PaginationDisplayProps {
   currentPage: number
   totalPages: number
@@ -52,37 +73,28 @@ export class PaginationDisplay extends React.Component<PaginationDisplayProps, P
     return (pageNumber < 1) || (pageNumber > this.props.totalPages);
   }
 
+  getPages(){
+    const { showNumbers, currentPage, totalPages, pageScope } = this.props;
+    if (!showNumbers) return [];
+    return generatePages(currentPage, totalPages, { pageScope });
+  }
+
   render() {
     const { showNumbers, currentPage, pageScope, bemBlocks, totalPages } = this.props;
     // Renders numbers for pages, like "1, ..., 3, 4, 5, 6, 7, ..."
     return (
       <div className={bemBlocks.container() } data-qa="pagination">
         {this.renderPaginationElement(currentPage - 1, "prev", "pagination.previous") }
-        {currentPage > pageScope + 1 ? this.renderPaginationElement(1, "number") : undefined}
-        {currentPage > pageScope + 2 ? this.renderEllipsis() : undefined}
-        {this.renderPageNumbers(currentPage - pageScope, currentPage - 1) }
-        {this.renderPaginationElement(currentPage, "number", "" + currentPage) }
-        {this.renderPageNumbers(currentPage + 1, currentPage + pageScope) }
-        {currentPage < totalPages - pageScope ? this.renderEllipsis() : undefined}
+        {this.getPages().map(({type, page}, idx) => {
+          if (type == "ellipsis") return this.renderEllipsis(idx)
+          else return this.renderPaginationElement(page, "number")
+        })}
         {this.renderPaginationElement(currentPage + 1, "next", "pagination.next") }
       </div>
     )
   }
 
-  renderPageNumbers(min: number, max: number) {
-    const { showNumbers, totalPages } = this.props;
-    if (!showNumbers) return undefined;
-
-    const minPage = Math.max(1, min);
-    const maxPage = Math.min(totalPages, max);
-    let arr = [];
-    for (var i = minPage; i <= maxPage; i++) {
-      arr.push(this.renderPaginationElement(i, "number"));
-    }
-    return arr;
-  }
-
-  renderEllipsis(){
+  renderEllipsis(key){
     const { showNumbers, bemBlocks } = this.props;
     if (!showNumbers) return undefined;
 
@@ -93,9 +105,9 @@ export class PaginationDisplay extends React.Component<PaginationDisplayProps, P
         disabled: true
       })
     return (
-      <div className={className}>
+      <div key={"ellipsis-" + key} className={className}>
         <div className={bemBlocks.option("text") }>...</div>
-        </div>
+       </div>
     )
   }
 
@@ -119,13 +131,13 @@ export class PaginationDisplay extends React.Component<PaginationDisplayProps, P
     const displayText = text ? translate(text) : ("" + pageNumber);
     if (disabled){
       return (
-        <div className={className}>
+        <div key={"page-" + displayText} className={className}>
           <div className={bemBlocks.option("text") }>{displayText}</div>
         </div>
       )
     } else {
       return (
-        <FastClick key={displayText} handler={() => setPage(pageNumber) }>
+        <FastClick key={"page-" + displayText} handler={() => setPage(pageNumber) }>
           <a className={className} href={urlBuilder(pageNumber) }>
             <div className={bemBlocks.option("text") }>{displayText}</div>
           </a>

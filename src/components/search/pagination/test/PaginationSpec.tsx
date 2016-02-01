@@ -46,10 +46,16 @@ describe("Pagination tests", () => {
           .hasClass("is-disabled")).toBe(prevDisabled)
         expect(this.wrapper.find(".pagination-navigation-item__next")
           .hasClass("is-disabled")).toBe(nextDisabled)
-        const pageNumbers = this.wrapper.find(".pagination-navigation-item__number").map(e => e.text());
-        expect(pageNumbers).toEqual(pages);
-      }
+        const pageNumbers = this.wrapper.find(".pagination-navigation-item__number");
+        expect(pageNumbers.map(e => e.text())).toEqual(pages);
 
+        // Check links
+        pageNumbers.forEach((e, idx) => {
+          if (e.text() !== '...'){
+            expect(e.html()).toContain('"/context.html?p=' + pages[idx] + '"')
+          }
+        })
+      }
     })
 
     it("renders text", () => {
