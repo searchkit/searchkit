@@ -49,6 +49,12 @@ describe("Hits component", () => {
       })
       this.wrapper.update()
       expect(this.hasRendered()).toBeTruthy()
+      expect(this.wrapper.html()).toEqual(jsxToHTML(
+        <div data-qa="hits" className="hits">
+          <div data-qa="hit" className="hits-hit hits__item"></div>
+          <div data-qa="hit" className="hits-hit hits__item"></div>
+        </div>
+      ))
     })
 
     it("does not render on no hits", () => {
@@ -81,7 +87,7 @@ describe("Hits component", () => {
         return <div className={props.bemBlocks.item()}>{props.result.title}</div>
       }
       let wrapper = mount(
-        <Hits searchkit={this.searchkit} component={hit} hitsPerPage={10}/>
+        <Hits searchkit={this.searchkit} itemComponent={hit} hitsPerPage={10}/>
       )
       expect(wrapper.html()).toEqual(jsxToHTML(
         <div data-qa="hits" className="hits">

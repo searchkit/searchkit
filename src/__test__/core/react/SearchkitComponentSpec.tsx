@@ -30,17 +30,7 @@ describe("SearchkitComponent", ()=> {
       }},
       "translations", "MyComponent"
     )).toEqual(null)
-
-    expect(handler(
-      {translations:{
-        unknown1:"",
-        unknown2:""
-      }},
-      "translations", "MyComponent"
-    )).toEqual(new Error(
-      "MyComponent: incorrect translations, unknown1,unknown2 keys are not included in continueButton,cancelButton"
-    ))
-
+  
 
   })
 
@@ -127,7 +117,7 @@ describe("SearchkitComponent", ()=> {
     expect(searchkit.emitter.listeners.length).toBe(1)
     this.component.componentWillUnmount()
     expect(searchkit.emitter.listeners.length).toBe(0)
-    //should removeAccessor    
+    //should removeAccessor
     expect(searchkit.accessors.accessors).toEqual([])
 
   })
