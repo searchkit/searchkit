@@ -66,7 +66,7 @@ export class PaginationDisplay extends React.Component<PaginationDisplayProps, P
   }
 
   static defaultProps = {
-    showNumbers: true,
+    showNumbers: false,
     pageScope: 3
   }
 
