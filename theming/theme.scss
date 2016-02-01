@@ -63,8 +63,6 @@ html {
 
   &__info {
     display:flex;
-    align-content: space-around;
-    align-items: center;
   }
 
   &__filters {
@@ -141,8 +139,10 @@ html {
 }
 
 .sorting-selector {
-  align-self: flex-end;
-  flex:0;
+  flex:200px 0 0;
+  select {
+    width:200px;
+  }
 }
 
 .range-filter {
@@ -159,28 +159,21 @@ html {
   display:flex;
   font-size:14px;
   margin:0;
-  padding-left: 10px;
+  padding-left:0;
 
   &.is-disabled {
-    display:none;
+    // display:none;
   }
 }
 
 .selected-filters {
   display:flex;
   flex-flow:row;
+  margin-right:10px;
 
   &-option {
     background:#f4f4f4;
     border:none;
-
-
-    &__name {
-
-    }
-    &__remove-action {
-
-    }
   }
 }
 
@@ -189,7 +182,8 @@ html {
 }
 
 .hits-hit {
-  flex: 0 0 175px;
+  flex: 190px 0 0;
+
   a {
     text-decoration: none;
   }
