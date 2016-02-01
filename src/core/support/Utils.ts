@@ -34,4 +34,13 @@ export class Utils {
       return key
     }
   }
+
+  static autobind(target, key, descriptor){
+    let fn = descriptor.value
+    return {
+      get:function(){
+        return fn.bind(this)
+      }
+    }
+  }
 }
