@@ -46,5 +46,20 @@ describe("Utils", ()=> {
     )
   })
 
+  it("autobind()", ()=> {
+    class Foo {
+      message="hello"
 
+      @Utils.autobind
+      getMessage(something){
+        return this.message + " " + something
+      }
+    }
+
+    let fn = new Foo().getMessage
+    expect(fn("world")).toBe("hello world")
+    let foo = new Foo()
+    expect(foo.getMessage).toBe(foo.getMessage)
+
+  })
 })
