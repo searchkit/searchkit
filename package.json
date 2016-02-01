@@ -62,6 +62,7 @@
     "extract-text-webpack-plugin": "^0.9.1",
     "file-loader": "^0.8.5",
     "gulp": "^3.9.0",
+    "gulp-sass": "^2.1.1",
     "imports-loader": "^0.6.5",
     "istanbul": "^0.4.2",
     "istanbul-instrumenter-loader": "^0.1.3",
