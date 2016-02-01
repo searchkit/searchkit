@@ -33,6 +33,7 @@ export function generatePages(currentPage, totalPages, options) {
   pages.push({ type: "number", page: currentPage, active: true })
   if (currentPage < totalPages) {
     const max = Math.min(currentPage + pageScope, totalPages)
+    for (let i = currentPage + 1; i <= max; i++) pages.push({ type: "number", page: i })
   }
   if (currentPage < totalPages - pageScope) pages.push({ type: "ellipsis" })
 
