@@ -12,6 +12,7 @@ const assign = require("lodash/assign")
 
 export interface SearchBoxProps extends SearchkitComponentProps {
   searchOnChange?:boolean
+  searchThrottleTime?:number
   queryFields?:Array<string>
   autofocus?:boolean
   queryOptions?:any
@@ -28,8 +29,13 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
   }
   translations = SearchBox.translations
 
+  static defaultProps = {
+    searchThrottleTime:200
+  }
+
   static propTypes = defaults({
     searchOnChange:React.PropTypes.bool,
+    searchThrottleTime:React.PropTypes.number,
     queryFields:React.PropTypes.arrayOf(React.PropTypes.string),
     autofocus:React.PropTypes.bool,
     queryOptions:React.PropTypes.object,
@@ -47,7 +53,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     this.lastSearchMs = 0
     this.throttledSearch = throttle(()=> {
       this.searchQuery(this.accessor.getQueryString())
-    }, 400)
+    }, props.searchThrottleTime)
   }
 
   componentWillMount() {

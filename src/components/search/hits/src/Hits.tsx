@@ -14,7 +14,13 @@ const map = require("lodash/map")
 const defaults = require("lodash/defaults")
 
 
-export const HitItem:React.StatelessComponent<any> = (props)=> (
+export interface HitItemProps {
+	key:string,
+	bemBlocks?:any,
+	result:Object
+}
+
+export const HitItem:React.StatelessComponent<HitItemProps> = (props)=> (
 	<div data-qa="hit" className={props.bemBlocks.item().mix(props.bemBlocks.container("item"))}>
 	</div>
 )
@@ -22,9 +28,8 @@ export const HitItem:React.StatelessComponent<any> = (props)=> (
 export interface HitsProps extends SearchkitComponentProps{
 	hitsPerPage: number
 	highlightFields?:Array<string>
-	component?:ReactComponentType
+	itemComponent?:ReactComponentType<HitItemProps>
 }
-
 
 
 export class Hits extends SearchkitComponent<HitsProps, any> {
@@ -33,9 +38,13 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		hitsPerPage:React.PropTypes.number.isRequired,
 		highlightFields:React.PropTypes.arrayOf(
 			React.PropTypes.string
-		)
+		),
+		itemComponent:React.PropTypes.func
 	}, SearchkitComponent.propTypes)
 
+	static defaultProps = {
+		itemComponent:HitItem
+	}
 
 	componentWillMount() {
 		super.componentWillMount()
@@ -58,7 +67,7 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 	}
 
 	renderResult(result:any) {
-		return React.createElement(this.props.component || HitItem, {
+		return React.createElement(this.props.itemComponent, {
 			key:result._id, result, bemBlocks:this.bemBlocks
 		})
 	}

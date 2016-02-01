@@ -1,11 +1,12 @@
 import * as React from "react";
 import "../styles/index.scss";
-
 import {
 	SearchkitComponent,
 	SearchkitComponentProps,
 	ReactComponentType
 } from "../../../../core"
+
+const defaults = require("lodash/defaults")
 
 
 const renderInitialView:React.StatelessComponent<any> = (props)=> (
@@ -14,20 +15,28 @@ const renderInitialView:React.StatelessComponent<any> = (props)=> (
 	</div>
 )
 export interface InitialLoaderprops extends SearchkitComponentProps{
-	component?:ReactComponentType
+	component?:ReactComponentType<any>
 }
 
 export class InitialLoader extends SearchkitComponent<InitialLoaderprops, any> {
-  defineBEMBlocks() {
+	static defaultProps = {
+		component:renderInitialView
+	}
+	static propTypes = defaults({
+		component:React.PropTypes.func
+	}, SearchkitComponent.propTypes)
+
+	defineBEMBlocks() {
 		let block = (this.props.mod || "initial-loader")
 		return {
 			container: block
 		}
 	}
   render(){
-    let initialViewComponent = this.props.component || renderInitialView
     if(this.isInitialLoading()){
-      return React.createElement(initialViewComponent, {bemBlocks:this.bemBlocks})
+      return React.createElement(this.props.component, {
+				bemBlocks:this.bemBlocks
+			})
     }
     return null
   }

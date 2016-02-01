@@ -26,20 +26,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
 	}
 
   static translationsPropType = (translations)=> {
-    return (props, propName, componentName) =>{
-      let specifiedTranslations = props[propName]
-      let translationKeys = keys(translations)
-      let missing = without(
-        keys(specifiedTranslations),
-        ...translationKeys)
-      if(missing.length > 0){
-        return new Error(
-          componentName + ": incorrect translations, " +
-          missing.toString() + " keys are not included in " +
-          translationKeys.toString())
-      }
-      return null
-    }
+    return React.PropTypes.objectOf(React.PropTypes.string)
   }
 
   static propTypes:any = {
