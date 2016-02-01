@@ -68,7 +68,7 @@ describe("Refinement List Filter tests", () => {
   });
 
   it('clicks options', () => {
-    let option = this.getContainer("options", 0)
+    let option = this.getContainer("options", 0).children().at(0)
     let option2 = this.getContainer("options", 1).children().at(0)
     fastClick(option)
     fastClick(option2)
