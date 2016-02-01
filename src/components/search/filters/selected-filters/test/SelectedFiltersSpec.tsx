@@ -90,7 +90,7 @@ describe("SelectedFilters tests", () => {
     )
 
     this.wrapper = mount(
-      <SelectedFilters searchkit={this.searchkit} filterItemComponent={FilterItem}/>
+      <SelectedFilters searchkit={this.searchkit} itemComponent={FilterItem}/>
     );
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(

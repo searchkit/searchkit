@@ -34,7 +34,7 @@ export interface FilterItemProps {
 }
 
 export interface SelectedFiltersProps extends SearchkitComponentProps {
-	filterItemComponent?:ReactComponentType<FilterItemProps>
+	itemComponent?:ReactComponentType<FilterItemProps>
 }
 
 export class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, any> {
@@ -43,7 +43,7 @@ export class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, an
 	}, SearchkitComponent.propTypes)
 
 	static defaultProps = {
-     filterItemComponent: FilterItem
+     itemComponent: FilterItem
    }
 
 	constructor(props) {
@@ -69,7 +69,7 @@ export class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, an
 
 	renderFilter(filter) {
 
-		return React.createElement(this.props.filterItemComponent, {
+		return React.createElement(this.props.itemComponent, {
 			key:filter.value,
 			bemBlocks:this.bemBlocks,
 			filter:filter,
