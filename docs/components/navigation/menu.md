@@ -25,7 +25,7 @@ class App extends SearchkitComponent {
 ```
 
 ## Overriding Filter Option Component
-If you want to tweak the markup for a menu option, you can use the `itemComponent` prop and pass in a new functional component to be used to render each option.
+If you want to tweak the markup for a menu option, you can use the `itemComponent` prop and pass in a new react component to be used to render each option.
 
 ```jsx
 

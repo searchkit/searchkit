@@ -58,7 +58,7 @@ class App extends SearchkitComponent {
 - `size` *(number)*: Amount of facets to bring back, this will influence the view more functionality.
 - `operator` *('AND'|'OR')*: If you filter on a and b with OR, results with either the value a or b will match. If you select a and b, results will show which have both a and b.
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
-- `itemComponent` *(ReactComponent)*: Optional. Functional component which to overrides default filter renderer component
+- `itemComponent` *(ReactComponent)*: Optional. React component which overrides the default filter option component
 
 ## Translations
 - `facets.view_more` - View more
