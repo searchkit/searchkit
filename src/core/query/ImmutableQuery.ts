@@ -114,7 +114,7 @@ export class ImmutableQuery {
     return this.update({ $merge: { size } })
   }
 
-  setSort(sort: string) {
+  setSort(sort: any) {
     return this.update({ $merge: {sort:sort}})
   }
 

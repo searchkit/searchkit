@@ -212,8 +212,8 @@ describe("SearchkitManager", ()=> {
 
   it("_search() should not search with same query", ()=> {
     spyOn(SearchRequest.prototype, "run")
-    this.searchkit.query = new ImmutableQuery().setSize(20)
-    this.searchkit.buildQuery = ()=> new ImmutableQuery().setSize(20)
+    this.searchkit.query = new ImmutableQuery().setSize(20).setSort([{"created":"desc"}])
+    this.searchkit.buildQuery = ()=> new ImmutableQuery().setSize(20).setSort([{"created":"desc"}])
     this.searchkit._search()
     expect(SearchRequest.prototype.run)
       .not.toHaveBeenCalled()
