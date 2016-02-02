@@ -25,10 +25,10 @@ describe("SelectedFilters tests", () => {
       }[key]
     }
 
-    this.createWrapper = () => {
+    this.createWrapper = (props) => {
 
       this.wrapper = mount(
-        <SelectedFilters searchkit={this.searchkit} />
+        <SelectedFilters searchkit={this.searchkit} {...props} />
       );
 
     }
@@ -89,9 +89,7 @@ describe("SelectedFilters tests", () => {
     		</div>
     )
 
-    this.wrapper = mount(
-      <SelectedFilters searchkit={this.searchkit} itemComponent={FilterItem}/>
-    );
+    this.createWrapper({itemComponent:FilterItem})
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="selected-filters">
