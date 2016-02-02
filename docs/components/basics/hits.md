@@ -15,9 +15,9 @@ import {
 } from "searchkit";
 
 const HitItem = (props) => (
-  <div className={this.bemBlocks.item().mix(this.bemBlocks.container("item"))}>
-    <img className={this.bemBlocks.item("poster")} src={prop.result._source.poster}/>
-    <div className={this.bemBlocks.item("title")} dangerouslySetInnerHTML={{__html:_.get(prop.result,"highlight.title",false) || prop.result._source.title}}></div>
+  <div className={props.bemBlocks.item().mix(props.bemBlocks.container("item"))}>
+    <img className={props.bemBlocks.item("poster")} src={props.result._source.poster}/>
+    <div className={props.bemBlocks.item("title")} dangerouslySetInnerHTML={{__html:_.get(props.result,"highlight.title",false) || props.result._source.title}}></div>
   </div>
 )
 
