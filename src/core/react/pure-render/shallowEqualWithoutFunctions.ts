@@ -1,4 +1,3 @@
-const isEqual = require("lodash/isEqual")
 export function shallowEqualWithoutFunctions(objA, objB) {
   if (objA === objB) {
     return true;
@@ -22,9 +21,6 @@ export function shallowEqualWithoutFunctions(objA, objB) {
   for (var i = 0; i < keysA.length; i++) {
     if(typeof objA[keysA[i]] !== 'function' || componentRegex.test(keysA[i])){
       if (!bHasOwnProperty(keysA[i]) || objA[keysA[i]] !== objB[keysA[i]]) {
-        if(false && isEqual(objA[keysA[i]], objB[keysA[i]])){          
-          console.warn("Is simular but new reference", keysA[i], objA[keysA[i]])
-        }
         return false;
       }
     }
