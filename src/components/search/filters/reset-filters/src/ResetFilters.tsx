@@ -7,7 +7,8 @@ import {
 	FacetAccessor,
 	FastClick,
 	SearchkitComponentProps,
-	ReactComponentType
+	ReactComponentType,
+	PureRender
 } from "../../../../../core"
 const defaults = require("lodash/defaults")
 
@@ -19,6 +20,7 @@ export interface ResetFiltersDisplayProps {
 	translate:Function
 }
 
+@PureRender
 export class ResetFiltersDisplay extends React.Component<ResetFiltersDisplayProps, any>{
 	render(){
 		const {bemBlock, hasFilters, translate, resetFilters} = this.props

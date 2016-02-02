@@ -3,24 +3,35 @@ import "../styles/index.scss";
 import {
 	SearchkitComponent,
 	SearchkitComponentProps,
-	ReactComponentType
+	ReactComponentType,
+	PureRender
 } from "../../../../core"
 
 const defaults = require("lodash/defaults")
 
+export interface InitialViewDisplayProps {
+	bemBlocks:any
+}
 
-const renderInitialView:React.StatelessComponent<any> = (props)=> (
-	<div className={props.bemBlocks.container()}>
-		<div data-qa="initial-loading" className={props.bemBlocks.container("initial-loading")}></div>
-	</div>
-)
+@PureRender
+export class  InitialViewDisplay extends React.Component<InitialViewDisplayProps, any>{
+	render(){
+		return (
+	 		<div className={this.props.bemBlocks.container()}>
+	 			<div data-qa="initial-loading" className={this.props.bemBlocks.container("initial-loading")}></div>
+	 		</div>
+	 	)
+	}
+}
+
+
 export interface InitialLoaderprops extends SearchkitComponentProps{
-	component?:ReactComponentType<any>
+	component?:ReactComponentType<InitialViewDisplayProps>
 }
 
 export class InitialLoader extends SearchkitComponent<InitialLoaderprops, any> {
 	static defaultProps = {
-		component:renderInitialView
+		component:InitialViewDisplay
 	}
 	static propTypes = defaults({
 		component:React.PropTypes.func
