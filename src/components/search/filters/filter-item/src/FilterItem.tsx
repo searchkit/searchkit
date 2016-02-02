@@ -25,7 +25,7 @@ export class FilterItemComponent extends React.Component<FilterItemComponentProp
 											.mix(bemBlocks.container("item"))
 
 		return (
-      <FastClick handler={toggleFilter} key={label}>
+      <FastClick handler={toggleFilter}>
 				<div className={className} data-qa="option">
 					<div data-qa="label" className={bemBlocks.option("text")}>{label}</div>
 					<div data-qa="count" className={bemBlocks.option("count")}>{count}</div>

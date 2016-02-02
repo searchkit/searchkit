@@ -73,6 +73,7 @@ export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
 				toggleFilter:this.addFilter.bind(this, key),
 				bemBlocks: this.bemBlocks,
 				label:this.translate(key),
+				key:key,
 				docCount:count,
 				selected:isSelected,
 				translate:this.translate

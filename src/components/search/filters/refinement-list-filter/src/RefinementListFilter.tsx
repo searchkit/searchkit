@@ -7,85 +7,36 @@ import {
   FacetAccessor,
   ISizeOption,
   SearchkitComponentProps,
-  FastClick
+  FastClick,
+	ReactComponentType,
+	ArrayState
 } from "../../../../../core"
 
-import { ArrayState } from "../../../../../core/state"
-import { ReactComponentType } from "../../../../../core/react"
+import {FilterCheckboxItemComponent} from "../../filter-item/src/FilterItem";
 
 const defaults = require("lodash/defaults")
 const map = require("lodash/map")
 const isNumber = require("lodash/isNumber")
 
 
-export interface RefinementListItem {
-  key: string
-  doc_count: number
-}
-
-export interface RefinementListFilterItemProps {
-  itemKey: string
-  docCount: number
-  selected: boolean
-  translate: Function
-  bemBlocks: any
-  toggleFilter: (string) => void
-}
-
-export interface RefinementListFilterItemState { }
-
-export class RefinementListFilterItem extends React.Component<RefinementListFilterItemProps, RefinementListFilterItemState> {
-
-  constructor() {
-    super()
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleClick(){
-    const { itemKey, toggleFilter } = this.props
-    toggleFilter(itemKey)
-  }
-
-  render() {
-    const { itemKey, docCount, bemBlocks, selected, translate } = this.props
-    let block = bemBlocks.option
-
-    let optionClassName = block()
-      .mix(bemBlocks.container("item"))
-      .state({ selected })
-
-    return (
-      <FastClick handler={this.handleClick}>
-        <div className={optionClassName} data-qa="option">
-          <div data-qa="checkbox" className={block("checkbox").state({ selected }) }></div>
-          <div data-qa="label" className={block("text") }>{translate(itemKey) }</div>
-          <div data-qa="count" className={block("count") }>{docCount}</div>
-        </div>
-      </FastClick>
-    )
-  }
-}
-
 export interface RefinementListFilterDisplayProps {
     id:string
     title:string
     hasOptions:boolean
-    selected:ArrayState
+    state:ArrayState
     toggleFilter:(string) => void
     translate:Function
     bemBlocks:any
     buckets:Array<any>
     moreSizeOption:any
     toggleViewMoreOption:Function
-    itemComponent: ReactComponentType<RefinementListFilterItemProps>
+    itemComponent: ReactComponentType<FilterCheckboxItemComponent>
 }
 
-export interface RefinementListFilterDisplayState { }
-
-export class RefinementListFilterDisplay extends React.Component<RefinementListFilterDisplayProps, RefinementListFilterDisplayState> {
+export class RefinementListFilterDisplay extends React.Component<RefinementListFilterDisplayProps, any> {
 
   static defaultProps = {
-    itemComponent: RefinementListFilterItem
+    itemComponent: FilterCheckboxItemComponent
   }
 
   hasOptions():boolean {
@@ -115,16 +66,16 @@ export class RefinementListFilterDisplay extends React.Component<RefinementListF
   }
 
   renderOption(option) {
-    const { itemComponent, bemBlocks, selected, toggleFilter, translate } = this.props
+    const { itemComponent, bemBlocks, state, toggleFilter, translate } = this.props
 
     return React.createElement(itemComponent, {
       key: option.key,
-      itemKey: option.key,
-      docCount: option.doc_count,
-      selected: selected.contains(option.key),
+      label: translate(option.key),
+      count: option.doc_count,
+      selected: state.contains(option.key),
       translate,
       bemBlocks,
-      toggleFilter
+      toggleFilter: () => toggleFilter(option.key)
     });
   }
 
@@ -156,17 +107,11 @@ export interface RefinementListFilterProps extends SearchkitComponentProps {
   title:string
   id:string
   component?: ReactComponentType<RefinementListFilterDisplayProps>
-  itemComponent?: ReactComponentType<RefinementListFilterItemProps>
+  itemComponent?: ReactComponentType<FilterCheckboxItemComponent>
 }
 
 export class RefinementListFilter extends SearchkitComponent<RefinementListFilterProps, any> {
   accessor:FacetAccessor
-
-  constructor() {
-    super()
-    this.toggleFilter = this.toggleFilter.bind(this)
-    this.toggleViewMoreOption = this.toggleViewMoreOption.bind(this)
-  }
 
   static propTypes = defaults({
     field:React.PropTypes.string.isRequired,
@@ -181,7 +126,7 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
 
   static defaultProps = {
     component: RefinementListFilterDisplay,
-    itemComponent: RefinementListFilterItem
+    itemComponent: FilterCheckboxItemComponent
   }
 
   defineAccessor() {
@@ -219,11 +164,11 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
       itemComponent,
       bemBlocks: this.bemBlocks,
       buckets:this.accessor.getBuckets(),
-      toggleFilter: this.toggleFilter,
+      toggleFilter: this.toggleFilter.bind(this),
       moreSizeOption:this.accessor.getMoreSizeOption(),
-      toggleViewMoreOption:this.toggleViewMoreOption,
+      toggleViewMoreOption:this.toggleViewMoreOption.bind(this),
       translate:this.translate.bind(this),
-      selected:this.accessor.state,
+      state:this.accessor.state
     });
   }
 }
