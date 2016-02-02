@@ -14,7 +14,7 @@ import {
 } from "searchkit";
 
 const InitialLoaderComponent = (props) => (
-  <div className={this.bemBlocks.item().mix(this.bemBlocks.container("item"))}>
+  <div className={props.bemBlocks.item().mix(props.bemBlocks.container("item"))}>
     loading please wait...
   </div>
 )
@@ -32,4 +32,4 @@ class App extends SearchkitComponent {
 
 ## Props
 - `mod` *(string)*: Optional. A custom BEM container class.
-- `itemComponent` *(ReactComponent)*: Functional component used to render the contents of `InitialLoader`.
+- `itemComponent` *(ReactComponent)*: React component used to render the contents of `InitialLoader`.
