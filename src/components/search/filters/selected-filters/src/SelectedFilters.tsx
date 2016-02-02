@@ -17,8 +17,8 @@ const map = require("lodash/map")
 export const FilterItem:React.StatelessComponent<FilterItemProps> = (props)=> (
   	<div className={props.bemBlocks.option()
 			.mix(props.bemBlocks.container("item"))
-			.mix(`selected-filter--${props.filter.id}`)()}>
-			<div className={props.bemBlocks.option("name")}>{props.translate(props.filter.name)}: {props.translate(props.filter.value)}</div>
+			.mix(`selected-filter--${props.filterId}`)()}>
+			<div className={props.bemBlocks.option("name")}>{props.labelKey}: {props.labelValue}</div>
 			<FastClick handler={props.removeFilter}>
 				<div className={props.bemBlocks.option("remove-action")}>x</div>
 			</FastClick>
@@ -28,9 +28,11 @@ export const FilterItem:React.StatelessComponent<FilterItemProps> = (props)=> (
 export interface FilterItemProps {
 	key:string,
 	bemBlocks?:any,
-	filter:any,
-	removeFilter:any,
-	translate:any
+	filterId:string
+	labelKey:string,
+	labelValue:string,
+	removeFilter:Function,
+	translate:Function
 }
 
 export interface SelectedFiltersProps extends SearchkitComponentProps {
@@ -72,7 +74,9 @@ export class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, an
 		return React.createElement(this.props.itemComponent, {
 			key:filter.value,
 			bemBlocks:this.bemBlocks,
-			filter:filter,
+			filterId:filter.id,
+			labelKey:this.translate(filter.name),
+			labelValue:this.translate(filter.value),
 			removeFilter:this.removeFilter.bind(this, filter),
 			translate:this.translate
 		})
