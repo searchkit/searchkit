@@ -10,7 +10,7 @@ import {
 	ReactComponentType
 } from "../../../../../core"
 
-import {FilterItemComponent} from "../../filter-item/src/FilterItem";
+import {FilterItemComponent, FilterItemComponentProps} from "../../filter-item/src/FilterItem";
 
 const defaults = require("lodash/defaults")
 const map = require("lodash/map")
@@ -20,7 +20,7 @@ export interface MenuFilterProps extends SearchkitComponentProps {
 	title:string
 	id:string
 	size?:number
-	itemComponent?:ReactComponentType<FilterItemComponent>
+	itemComponent?:ReactComponentType<FilterItemComponentProps>
 }
 
 export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
