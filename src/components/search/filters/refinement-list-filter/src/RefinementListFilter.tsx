@@ -12,7 +12,7 @@ import {
 	ArrayState
 } from "../../../../../core"
 
-import {FilterCheckboxItemComponent} from "../../filter-item/src/FilterItem";
+import {FilterCheckboxItemComponent, FilterItemComponentProps} from "../../filter-item/src/FilterItem";
 
 const defaults = require("lodash/defaults")
 const map = require("lodash/map")
@@ -30,7 +30,7 @@ export interface RefinementListFilterDisplayProps {
     buckets:Array<any>
     moreSizeOption:any
     toggleViewMoreOption:Function
-    itemComponent: ReactComponentType<FilterCheckboxItemComponent>
+    itemComponent: ReactComponentType<FilterItemComponentProps>
 }
 
 export class RefinementListFilterDisplay extends React.Component<RefinementListFilterDisplayProps, any> {
@@ -107,7 +107,7 @@ export interface RefinementListFilterProps extends SearchkitComponentProps {
   title:string
   id:string
   component?: ReactComponentType<RefinementListFilterDisplayProps>
-  itemComponent?: ReactComponentType<FilterCheckboxItemComponent>
+  itemComponent?: ReactComponentType<FilterItemComponentProps>
 }
 
 export class RefinementListFilter extends SearchkitComponent<RefinementListFilterProps, any> {
