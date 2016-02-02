@@ -61,14 +61,29 @@ describe("Refinement List Filter tests", () => {
   });
 
   it('renders correctly', () => {
-    expect(this.getContainer("header").text()).toBe("test title")
-    expect(this.getContainer("options").children().map(
-      (n) => {
-        return {
-          label: n.find("."+this.bemOption("text")).text(),
-          count: n.find("."+this.bemOption("count")).text()
-        }
-      })).toEqual([ {label:'test option 1 translated', count:"1"},  {label:'test option 2', count:"2"},  {label:'test option 3', count:"3"} ])
+
+    expect(this.wrapper.html()).toEqual(jsxToHTML(
+<div data-qa="filter--test id" className="refinement-list filter--test id">
+  <div data-qa="header" className="refinement-list__header">test title</div>
+  <div data-qa="options" className="refinement-list__options">
+    <div className="refinement-list-option refinement-list__item" data-qa="option">
+      <div data-qa="checkbox" className="refinement-list-option__checkbox"></div>
+      <div data-qa="label" className="refinement-list-option__text">test option 1 translated</div>
+      <div data-qa="count" className="refinement-list-option__count">1</div>
+    </div>
+    <div className="refinement-list-option refinement-list__item" data-qa="option">
+      <div data-qa="checkbox" className="refinement-list-option__checkbox"></div>
+      <div data-qa="label" className="refinement-list-option__text">test option 2</div>
+      <div data-qa="count" className="refinement-list-option__count">2</div>
+    </div>
+    <div className="refinement-list-option refinement-list__item" data-qa="option">
+      <div data-qa="checkbox" className="refinement-list-option__checkbox"></div>
+      <div data-qa="label" className="refinement-list-option__text">test option 3</div>
+      <div data-qa="count" className="refinement-list-option__count">3</div>
+    </div>
+  </div>
+</div>))
+
   });
 
   it('clicks options', () => {
@@ -118,13 +133,13 @@ describe("Refinement List Filter tests", () => {
   it("should work with a custom itemComponent", () => {
     this.createWrapper(
       <RefinementListFilter
-        itemComponent = {({ itemKey, docCount }) => <div className="option">{itemKey} ({docCount})</div>}
+        itemComponent = {({ label, count }) => <div className="option">{label} ({count})</div>}
         field="test" id="test id" title="test title"
         searchkit={this.searchkit} />
     )
     expect(this.getContainer("header").text()).toBe("test title")
     expect(this.getContainer("options").find(".option").map(e => e.text()))
-      .toEqual(["test option 1 (1)", "test option 2 (2)", "test option 3 (3)"])
+      .toEqual(["test option 1 translated (1)", "test option 2 (2)", "test option 3 (3)"])
 
   })
 
