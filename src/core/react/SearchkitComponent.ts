@@ -36,6 +36,10 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
     searchkit:React.PropTypes.instanceOf(SearchkitManager)
   }
 
+  constructor(props?){
+    super(props)
+    this.translate = this.translate.bind(this)
+  }
 
   defineBEMBlocks() {
     return null;
