@@ -27,3 +27,4 @@ class App extends SearchkitComponent {
 - `max` *(number)*: Required. max start range
 - `title` *(string)*: Required. Title used for component and for selected filters component
 - `showHistogram` *(boolean)*: Shows a histogram to provide a guide where their range would hit results.
+- `mod` *(string)*: Optional. A custom BEM container class.

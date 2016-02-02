@@ -20,7 +20,7 @@ class App extends SearchkitComponent {
 }
 ```
 
-## Optional Override display
+## Overriding Display Component
 If you want to tweak the markup for reset filters, you can use the `component` prop and pass in a React Component to be used to render the reset button.
 
 ```jsx
@@ -54,12 +54,13 @@ class App extends SearchkitComponent {
 
 ## Props
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
-- `component` *(ReactComponent)*: Optional. Option to override the default display of reset filters
+- `component` *(ReactComponent)*: Optional. Used to override the default display of reset filters. See `Overriding Display Component` section.
+- `mod` *(string)*: Optional. A custom BEM container class.
 
 ## Translations
 - `reset.clear_all` - Clear All Filters
 
-## Example overridding the translation
+## Example overriding the translation
 
 ```jsx
 

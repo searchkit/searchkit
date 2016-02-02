@@ -59,7 +59,8 @@ class App extends SearchkitComponent {
 - `field` *(ESAttribute)*: Non-analysed elastic search field to create aggs for the menu
 - `title` *(string)*: Title of the menu. Shown as a header and within selected filters
 - `id` *(string)*: id of component. Must be unique. Used as key for url serialisation
-- `itemComponent` *(ReactComponent)*: Optional. React component which overrides the default filter option component
+- `itemComponent` *(ReactComponent)*: Optional. React component which overrides the default filter option component. See `Overriding Filter Option Component` section.
+- `mod` *(string)*: Optional. A custom BEM container class.
 
 ## Demo
 [](codepen://searchkit/YwNwVm?height=800&theme=0)

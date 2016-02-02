@@ -31,6 +31,7 @@ class App extends SearchkitComponent {
 - `options` *([{title:string, from?:number, to?:number}])*: Options displayed for the user to refine results with.
 - `title` *(string)*: Title of the menu. Shown as a header and within selected filters
 - `id` *(string)*: id of component. Must be unique. Used as key for url serialisation
+- `mod` *(string)*: Optional. A custom BEM container class.
 
 ## Demo
 [](codepen://searchkit/bEgERB?height=800&theme=0)

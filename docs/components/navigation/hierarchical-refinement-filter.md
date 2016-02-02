@@ -71,6 +71,7 @@ class App extends SearchkitComponent {
 - `orderKey` *(string)*: Order key either using default sortable keys `_count` `_term` or using the `order` field e.g. `color.order`
 - `orderDirection` *(string)*: `asc` or `desc`
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
+- `mod` *(string)*: Optional. A custom BEM container class.
 
 ## Demo
 [](codepen://searchkit/OMgmwR?height=800&theme=0)

@@ -23,6 +23,7 @@
       * [Numeric Refinement List](/docs/components/navigation/numeric-refinement-list.md)
       * [Reset](/docs/components/navigation/reset.md)
       * [Range Filter](/docs/components/navigation/range-filter.md)
+      * [Selected Filters](/docs/components/navigation/selected-filters.md)
     * [Sorting](/docs/components/sorting/README.md)
       * [Sorting](/docs/components/sorting/sort.md)
     * [Metadata](/docs/components/metadata/README.md)
