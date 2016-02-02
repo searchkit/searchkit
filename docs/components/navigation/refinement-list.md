@@ -20,8 +20,8 @@ class App extends SearchkitComponent {
 }
 ```
 
-## Overriding filter option render
-If you want to tweak the markup for a refinement option, you can use the `itemComponent` prop and pass in a new functional component to be used to render each option.
+## Overriding Filter Option Component
+If you want to tweak the markup for a refinement option, you can use the `itemComponent` prop and pass in a new react component to be used to render each option.
 
 ```jsx
 

@@ -24,7 +24,7 @@ class App extends SearchkitComponent {
 }
 ```
 
-## Overriding filter option render
+## Overriding Filter Option Component
 If you want to tweak the markup for a menu option, you can use the `itemComponent` prop and pass in a new functional component to be used to render each option.
 
 ```jsx
@@ -59,7 +59,7 @@ class App extends SearchkitComponent {
 - `field` *(ESAttribute)*: Non-analysed elastic search field to create aggs for the menu
 - `title` *(string)*: Title of the menu. Shown as a header and within selected filters
 - `id` *(string)*: id of component. Must be unique. Used as key for url serialisation
-- `itemComponent` *(ReactComponent)*: Optional. Functional component which to overrides default filter renderer component
+- `itemComponent` *(ReactComponent)*: Optional. React component which overrides the default filter option component
 
 ## Demo
 [](codepen://searchkit/YwNwVm?height=800&theme=0)
