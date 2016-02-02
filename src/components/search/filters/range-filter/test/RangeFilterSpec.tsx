@@ -142,16 +142,16 @@ describe("Range Filter tests", () => {
     this.wrapper.node.sliderUpdate([30,70])
     expect(this.wrapper.find(".bar-chart").html()).toEqual(jsxToHTML(
       <div className="bar-chart">
-        <div className="bar-chart__bar bar-chart__bar-out" style={{height:"20%"}}></div>
-        <div className="bar-chart__bar bar-chart__bar-out" style={{height:"60%"}}></div>
+        <div className="bar-chart__bar is-out-of-bounds" style={{height:"20%"}}></div>
+        <div className="bar-chart__bar is-out-of-bounds" style={{height:"60%"}}></div>
         <div className="bar-chart__bar" style={{height:"20%"}}></div>
         <div className="bar-chart__bar" style={{height:"20%"}}></div>
         <div className="bar-chart__bar" style={{height:"20%"}}></div>
         <div className="bar-chart__bar" style={{height:"100%"}}></div>
         <div className="bar-chart__bar" style={{height:"20%"}}></div>
-        <div className="bar-chart__bar bar-chart__bar-out" style={{height:"20%"}}></div>
-        <div className="bar-chart__bar bar-chart__bar-out" style={{height:"20%"}}></div>
-        <div className="bar-chart__bar bar-chart__bar-out" style={{height:"20%"}}></div>
+        <div className="bar-chart__bar is-out-of-bounds" style={{height:"20%"}}></div>
+        <div className="bar-chart__bar is-out-of-bounds" style={{height:"20%"}}></div>
+        <div className="bar-chart__bar is-out-of-bounds" style={{height:"20%"}}></div>
       </div>
     ))
   })

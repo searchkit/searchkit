@@ -88,7 +88,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 
 		let bars = map(this.accessor.getBuckets(), (value:any, i) => {
 			var className = "bar-chart__bar";
-			if (value.key < min || value.key > max) className += " bar-chart__bar-out";
+			if (value.key < min || value.key > max) className += " is-out-of-bounds";
 			return (
 				<div className={className}
 					key={value.key}
