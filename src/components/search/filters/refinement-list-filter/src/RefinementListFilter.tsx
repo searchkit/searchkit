@@ -167,7 +167,7 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
       toggleFilter: this.toggleFilter.bind(this),
       moreSizeOption:this.accessor.getMoreSizeOption(),
       toggleViewMoreOption:this.toggleViewMoreOption.bind(this),
-      translate:this.translate.bind(this),
+      translate:this.translate,
       state:this.accessor.state
     });
   }
