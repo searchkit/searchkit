@@ -20,7 +20,7 @@ export interface MenuFilterProps extends SearchkitComponentProps {
 	title:string
 	id:string
 	size?:number
-	filterItemComponent?:ReactComponentType<FilterItemComponent>
+	itemComponent?:ReactComponentType<FilterItemComponent>
 }
 
 export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
@@ -34,7 +34,7 @@ export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
 	}, SearchkitComponent.propTypes)
 
 	static defaultProps = {
-		filterItemComponent:FilterItemComponent
+		itemComponent:FilterItemComponent
 	}
 
 	constructor(props) {
@@ -69,7 +69,7 @@ export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
 	renderOption(key, count, isSelected) {
 
 		return (
-			React.createElement(this.props.filterItemComponent, {
+			React.createElement(this.props.itemComponent, {
 				toggleFilter:this.addFilter.bind(this, key),
 				bemBlocks: this.bemBlocks,
 				label:this.translate(key),
