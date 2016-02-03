@@ -28,4 +28,4 @@ class App extends SearchkitComponent {
 - `title` *(string)*: Required. Title used for component and for selected filters component
 - `showHistogram` *(boolean)*: Shows a histogram to provide a guide where their range would hit results.
 - `mod` *(string)*: Optional. A custom BEM container class.
-- `interval` *(number)*: Optional. Enables the slider to be stepped and the interval is the value to be added or subtracted on each step the slider makes. Must be greater than 0 and max - min should be evenly divisble by the step value. For example a min 0 max 100, a good interval would be 5. Without interval specified, the slider would be fluid in moving from min to max. 
+- `interval` *(number)*: Optional. Override the interval which is sent to ElasticSearch, used for generating the buckets which render the histogram. (Defaults to an interval which allows a max of 20 buckets which fit the range)
