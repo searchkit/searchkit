@@ -4,8 +4,8 @@ import {AggsContainer} from "./AggsContainer"
 export interface TermsBucketOptions {
   size?:number
   order?:any
-  include?:Array<string>
-  exclude?:Array<string>
+  include?:Array<string> | string
+  exclude?:Array<string> | string
 }
 
 export function TermsBucket(key, field, options:TermsBucketOptions={}, ...childAggs){

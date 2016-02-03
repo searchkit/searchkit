@@ -18,8 +18,8 @@ export interface FacetAccessorOptions {
   size:number
   facetsPerPage?:number
   translations?:Object
-  include?:Array<string>
-  exclude?:Array<string>
+  include?:Array<string> | string
+  exclude?:Array<string> | string
 }
 
 export interface ISizeOption {

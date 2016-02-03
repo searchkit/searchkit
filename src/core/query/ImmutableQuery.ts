@@ -7,6 +7,7 @@ const omit = require("lodash/omit")
 const values = require("lodash/values")
 const pick = require("lodash/pick")
 const merge = require("lodash/merge")
+const isUndefined = require("lodash/isUndefined")
 
 export class ImmutableQuery {
   index: any
@@ -38,7 +39,7 @@ export class ImmutableQuery {
     query.sort = this.index.sort
     query.highlight = this.index.highlight
     query.suggest = this.index.suggest
-    this.query = omitBy(query, v => v === undefined)
+    this.query = omitBy(query, isUndefined)
   }
 
   hasFilters(){
