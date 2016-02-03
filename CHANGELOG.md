@@ -1,3 +1,6 @@
+## 0.5.1 (3rd Feb, 2016)
+- missing theme css
+
 ## 0.5.0 (3rd Feb, 2016)
 
 ### Notable changes
