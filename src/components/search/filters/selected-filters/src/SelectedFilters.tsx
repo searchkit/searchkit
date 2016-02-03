@@ -7,23 +7,31 @@ import {
 	FacetAccessor,
 	FastClick,
 	SearchkitComponentProps,
-	ReactComponentType
+	ReactComponentType,
+	PureRender
 } from "../../../../../core"
 
 const defaults = require("lodash/defaults")
 const size = require("lodash/size")
 const map = require("lodash/map")
 
-export const FilterItem:React.StatelessComponent<FilterItemProps> = (props)=> (
-  	<div className={props.bemBlocks.option()
-			.mix(props.bemBlocks.container("item"))
-			.mix(`selected-filter--${props.filterId}`)()}>
-			<div className={props.bemBlocks.option("name")}>{props.labelKey}: {props.labelValue}</div>
-			<FastClick handler={props.removeFilter}>
-				<div className={props.bemBlocks.option("remove-action")}>x</div>
-			</FastClick>
-		</div>
-)
+@PureRender
+export class FilterItem extends React.Component<FilterItemProps, any> {
+
+	render(){
+		let props = this.props
+		return (
+			<div className={props.bemBlocks.option()
+				.mix(props.bemBlocks.container("item"))
+				.mix(`selected-filter--${props.filterId}`)()}>
+				<div className={props.bemBlocks.option("name")}>{props.labelKey}: {props.labelValue}</div>
+				<FastClick handler={props.removeFilter}>
+					<div className={props.bemBlocks.option("remove-action")}>x</div>
+				</FastClick>
+			</div>
+		)
+	}
+}
 
 export interface FilterItemProps {
 	key:string,

@@ -9,7 +9,8 @@ import {
   SearchkitComponentProps,
   FastClick,
 	ReactComponentType,
-	ArrayState
+	ArrayState,
+  PureRender
 } from "../../../../../core"
 
 import {FilterCheckboxItemComponent, FilterItemComponentProps} from "../../filter-item/src/FilterItem";
@@ -33,6 +34,7 @@ export interface RefinementListFilterDisplayProps {
     itemComponent: ReactComponentType<FilterItemComponentProps>
 }
 
+@PureRender
 export class RefinementListFilterDisplay extends React.Component<RefinementListFilterDisplayProps, any> {
 
   static defaultProps = {

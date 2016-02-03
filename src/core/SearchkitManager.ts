@@ -148,7 +148,11 @@ export class SearchkitManager {
 
   _search(){
     this.state = this.accessors.getState()
-    this.query = this.buildQuery()
+    let query = this.buildQuery()
+    if(this.query && isEqual(query.getJSON(), this.query.getJSON())) {
+      return
+    }    
+    this.query = query
     this.loading = true
     this.emitter.trigger()
     this.currentSearchRequest && this.currentSearchRequest.deactivate()
