@@ -40,7 +40,7 @@ class ExampleHitStats extends HitsStats {
   }
 }
 
-class App extends SearchkitComponent<any, any> {
+class App extends SearchkitComponent {
   render(){
     <div>
         <ExampleHitStats/>

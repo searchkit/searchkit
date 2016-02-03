@@ -63,7 +63,7 @@ import {
 
 const searchkit = new SearchkitManager("/");
 
-class SearchApp extends SearchkitComponent<any,any> {
+class SearchApp extends SearchkitComponent {
   render() {
     return (
       <div>
