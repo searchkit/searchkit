@@ -181,6 +181,32 @@ body {
   }
 }
 
+.pagination-navigation {
+  // border:1px solid #ddd;
+  // display:inline-block;
+
+  &-item__prev {
+
+  }
+
+  &-item {
+    border-radius: 0;
+    border:none;
+    border:1px solid #ddd;
+    border-right:none;
+  }
+
+  &-item__number {
+    &.is-active {
+      border-color:#08c;
+    }
+  }
+
+  &-item__next {
+    border-right:1px solid #ddd;
+  }
+}
+
 .hits {
   margin:0 15px;
 }
