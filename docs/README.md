@@ -11,6 +11,7 @@
     * [Basics](/docs/components/basics/README.md)
       * [Search box](/docs/components/basics/search-box.md)
       * [Hits](/docs/components/basics/hits.md)
+      * [Initial Loader](/docs/components/basics/initial-loader.md)
       * [NoHits](/docs/components/basics/nohits.md)
     * [Navigation](/docs/components/navigation/README.md)
       * [Pagination](/docs/components/navigation/pagination.md)
