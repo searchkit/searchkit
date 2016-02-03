@@ -1,21 +1,21 @@
 ## 0.5.0 (3rd Feb, 2016)
 
 ### Notable changes
-- remove lib from git. If you install package not via npm, you need to `npm run-script build` in root of project.[#37](https://github.com/searchkit/searchkit/issues/37)
+- remove lib from git. If you install package not via npm, you need to `npm run-script build` in root of project. [#37](https://github.com/searchkit/searchkit/issues/37)
 
 ### New Features
-* InitialView component[#34](https://github.com/searchkit/searchkit/issues/34)
+* InitialView component [#34](https://github.com/searchkit/searchkit/issues/34)
 
 
 ### Improvements
-* [Avoid duplicate redundant searches](https://github.com/searchkit/searchkit/issues/71)
+* Avoid duplicate redundant searches [#71](https://github.com/searchkit/searchkit/issues/71)
 * Discourage extending searchkit components, use `itemComponent` and `component` to override display with your own React components. The following components support this feature. See component docs for more information. [#17](https://github.com/searchkit/searchkit/issues/17)
-- Hits
-- InitialLoader
-- Menu
-- Refinement List
-- Reset
-- Selected Filters
+  - Hits
+  - InitialLoader
+  - Menu
+  - Refinement List
+  - Reset
+  - Selected Filters
 
 * Pagination supports showing links [#40](https://github.com/searchkit/searchkit/issues/40)
 * Range Filter no filter applied if range min max equals component min and max [#16](https://github.com/searchkit/searchkit/issues/16)
