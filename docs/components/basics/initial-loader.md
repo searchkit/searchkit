@@ -30,4 +30,4 @@ class App extends SearchkitComponent {
 
 ## Props
 - `mod` *(string)*: Optional. A custom BEM container class.
-- `itemComponent` *(ReactComponent)*: React component used to render the contents of `InitialLoader`.
+- `component` *(ReactComponent)*: React component used to render the contents of `InitialLoader`.

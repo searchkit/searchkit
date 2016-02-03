@@ -1,5 +1,5 @@
 # Range Filter
-The range filter provides the ability to create a range of
+The range filter lets users filter results within a numerical range. Provides a histogram so show the user where results are found on the range. 
 
 ## Example
 

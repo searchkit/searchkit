@@ -5,76 +5,11 @@
     <title>React Tutorial</title>
 
     <link rel="stylesheet" type="text/css" href="../../../release/styles.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../release/theme.css"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react-dom.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
     <script src="../../../release/bundle.js"></script>
-    <style>
-      html {
-        font-family: "Open Sans";
-        box-sizing: border-box;
-      }
-
-      *, *:before, *:after {
-        box-sizing: inherit;
-      }
-
-      .layout__search-box {
-        position: absolute;
-        top: 0;
-        left: 230px;
-        right: 0;
-        padding: 10px;
-        border-bottom: 1px solid #e1e1e1;
-        display: flex;
-      }
-      .layout__search-box .selected-filters {
-        border-right: 1px solid #e1e1e1;
-        max-height: 42px;
-      }
-
-      .layout__applied-filters {
-        position:absolute;
-        top:50px;
-        left:230px;
-        right:0;
-        height:50px;
-        border-bottom: 1px solid #e1e1e1;
-      }
-      .layout__filters {
-        position: absolute;
-        top: 0px;
-        left: 0;
-        bottom: 0;
-        width: 230px;
-        padding: 20px 20px 0 20px;
-        background: #fafafa;
-        border-right: 1px solid #e1e1e1;
-        overflow: auto;
-      }
-      .layout__filters .menu-list {
-        text-transform: capitalize;
-      }
-
-      .layout__results {
-        position: absolute;
-        left: 230px;
-        right: 0;
-        top: 110px;
-        bottom: 0;
-        padding: 0 20px 20px;
-        overflow: auto;
-      }
-      .layout .hits__item {
-        align-items: stretch !important;
-      }
-
-      .layout__filters__heading {
-        margin-bottom: 30px;
-        margin-top: 20px;
-      }
-    </style>
-
   </head>
   <body>
 
@@ -82,9 +17,9 @@
     <script type="text/babel">
       const {
       	SearchkitManager,SearchkitProvider,
-      	SearchBox, Hits, RefinementListFilter,
-      	HierarchicalMenuFilter, HitsStats,
-      	SelectedFilters, ResetFilters, RangeFilter
+      	SearchBox, Hits, RefinementListFilter, Pagination,
+      	HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
+      	SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter
       } = Searchkit
       const host = "https://kili-eu-west-1.searchly.com/movies/"
       const searchkit = new SearchkitManager(host, {
@@ -103,22 +38,57 @@
 
       const App = ()=> (
         <SearchkitProvider searchkit={searchkit}>
-          <div>
-            <div className="layout__query">
-              <SearchBox autofocus={true} searchOnChange={true} prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
+          <div className="layout">
+
+            <div className="layout__top-bar top-bar">
+              <div className="top-bar__content">
+                <div className="my-logo">Searchkit Acme co</div>
+                <SearchBox autofocus={true} searchOnChange={true} prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
+              </div>
             </div>
-            <div className="layout__applied-filters">
-              <SelectedFilters />
-              <HitsStats translations={{"hitstats.results_found":"{hitCount} results found"}}/>
-            </div>
-            <div className="layout__filters">
-              <ResetFilters/>
-              <RangeFilter min={0} max={100} field="metaScore" id="metascore1" title="metascore" showHistogram={true}/>
-              <HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
-              <RefinementListFilter id="actors" title="Actors" field="actors.raw" operator="AND" size={10}/>
-            </div>
-            <div className="layout__results">
-              <MovieHits hitsPerPage={10}/>
+
+            <div className="layout__body">
+
+        			<div className="layout__filters">
+        				<HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
+                <RangeFilter min={0} max={100} field="metaScore" id="metascore" title="Metascore" showHistogram={true}/>
+                <RangeFilter min={0} max={10} field="imdbRating" id="imdbRating" title="IMDB Rating" showHistogram={true}/>
+                <RefinementListFilter id="actors" title="Actors" field="actors.raw" size={10}/>
+        				<RefinementListFilter translations={{"facets.view_more":"View more writers"}} id="writers" title="Writers" field="writers.raw" operator="OR" size={10}/>
+        				<RefinementListFilter id="countries" title="Countries" field="countries.raw" operator="OR" size={10}/>
+                <NumericRefinementListFilter id="runtimeMinutes" title="Length" field="runtimeMinutes" options={[
+                  {title:"All"},
+                  {title:"up to 20", from:0, to:20},
+                  {title:"21 to 60", from:21, to:60},
+                  {title:"60 or more", from:61, to:1000}
+                ]}/>
+              </div>
+
+        			<div className="layout__results results-list">
+
+                <div className="results-list__action-bar action-bar">
+
+                  <div className="action-bar__info">
+            				<HitsStats translations={{
+                      "hitstats.results_found":"{hitCount} results found"
+                    }}/>
+            				<SortingSelector options={[
+            					{label:"Relevance", field:"_score", order:"desc"},
+            					{label:"Latest Releases", field:"released", order:"desc"},
+            					{label:"Earliest Releases", field:"released", order:"asc"}
+            				]}/>
+            			</div>
+
+                  <div className="action-bar__filters">
+                    <SelectedFilters/>
+                    <ResetFilters/>
+                  </div>
+
+                </div>
+        				<MovieHits hitsPerPage={10} highlightFields={["title"]}/>
+                <NoHits suggestionsField={"title"}/>
+        				<Pagination showNumbers={true}/>
+        			</div>
             </div>
           </div>
         </SearchkitProvider>
