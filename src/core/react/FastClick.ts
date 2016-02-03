@@ -1,7 +1,11 @@
 import * as React from "react";
+import {PureRender} from "./pure-render"
+
 export interface Point {
   x:number, y :number
 }
+
+@PureRender
 export class FastClick extends React.Component<any, any>{
 
   startPoint:Point
@@ -48,7 +52,7 @@ export class FastClick extends React.Component<any, any>{
       if(this.pointsWithinThreshold(this.startPoint, endPoint)){
         this.props.handler()
       }
-      this.cleanupTouch()      
+      this.cleanupTouch()
     }
 
   }

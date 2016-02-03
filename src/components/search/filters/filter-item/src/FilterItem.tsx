@@ -5,7 +5,8 @@ import {
 	FacetAccessor,
 	FastClick,
 	SearchkitComponentProps,
-	ReactComponentType
+	ReactComponentType,
+	PureRender
 } from "../../../../../core"
 
 export interface FilterItemComponentProps {
@@ -17,6 +18,7 @@ export interface FilterItemComponentProps {
   count: number
 }
 
+@PureRender
 export class FilterItemComponent extends React.Component<FilterItemComponentProps, any>{
 	render(){
 		const {bemBlocks, toggleFilter, translate, selected, label, count} = this.props
@@ -35,6 +37,7 @@ export class FilterItemComponent extends React.Component<FilterItemComponentProp
 	}
 }
 
+@PureRender
 export class FilterCheckboxItemComponent extends React.Component<FilterItemComponentProps, any>{
 	render(){
     const {bemBlocks, toggleFilter, translate, selected, label, count} = this.props

@@ -5,7 +5,8 @@ import {
   SearchkitComponent,
   PaginationAccessor,
   FastClick,
-  SearchkitComponentProps
+  SearchkitComponentProps,
+  PureRender
 } from "../../../../core"
 
 const defaults = require("lodash/defaults")
@@ -52,9 +53,9 @@ export interface PaginationDisplayProps {
   setPage: (number) => void
 }
 
-export interface PaginationDisplayState { }
 
-export class PaginationDisplay extends React.Component<PaginationDisplayProps, PaginationDisplayState> {
+@PureRender
+export class PaginationDisplay extends React.Component<PaginationDisplayProps, any> {
 
   static propTypes = {
     currentPage: React.PropTypes.number.isRequired,
