@@ -5,8 +5,6 @@ Initial loader is displayed when Searchkit hasn't yet received an elasticsearch 
 
 ```jsx
 
-import * as _ from "lodash";
-
 import {
   Hits,
   InitialLoader,
