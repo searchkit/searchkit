@@ -43,6 +43,12 @@
       "email": "ssetem@gmail.com"
     }
   ],
+  "contributors": [
+    {
+      "name": "Gregory Potdevin",
+      "email": "gregory.potdevin@gmail.com"
+    }
+  ],
   "license": "Apache-2.0",
   "dependencies": {
     "axios": "^0.8.1",
