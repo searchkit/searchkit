@@ -24,6 +24,7 @@ import {
 } from "searchkit"
 
 const searchkit = new SearchkitManager(<somehost>)
+
 const App = ()=> (
   <SearchkitProvider searchkit={searchkit}>
     <div>

@@ -10,7 +10,7 @@ import {
   SearchkitComponent
 } from "searchkit";
 
-class App extends SearchkitComponent<any, any> {
+class App extends SearchkitComponent {
 
   render(){
     <div>
@@ -22,6 +22,8 @@ class App extends SearchkitComponent<any, any> {
 
 ## Props
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
+- `showNumbers` *(Boolean)*: Display pagination page links. Defaults to `false`.
+- `mod` *(string)*: Optional. A custom BEM container class.
 
 ## Translations
 - `pagination.previous` - Previous
