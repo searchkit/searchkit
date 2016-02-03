@@ -131,8 +131,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
         <Rcslider
           min={this.props.min}
           max={this.props.max}
-          range={true}
-          step={this.getInterval()}
+          range={true}          
 					value={[
 						get(this.accessor.state.getValue(), "min", this.props.min),
 						get(this.accessor.state.getValue(), "max", this.props.max)
