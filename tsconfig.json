@@ -19,6 +19,7 @@
     "./src/__test__/core/react/SearchkitComponentSpec.tsx",
     "./src/__test__/core/react/SearchkitProviderSpec.tsx",
     "./src/components/search/filters/filter-item/src/FilterItem.tsx",
+    "./src/components/search/filters/filter-item/test/FilterItemSpec.tsx",
     "./src/components/search/filters/hierarchical-menu-filter/src/HierarchicalMenuFilter.tsx",
     "./src/components/search/filters/hierarchical-menu-filter/test/HierarchicalMenuFilterSpec.tsx",
     "./src/components/search/filters/hierarchical-refinement-filter/src/HierarchicalRefinementFilter.tsx",
