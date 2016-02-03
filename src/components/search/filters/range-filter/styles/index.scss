@@ -43,6 +43,12 @@
   &__bar {
     background:rgba(156,162,153,0.5);
     flex:1;
+
+    &.is-out-of-bounds {
+      background:rgba(156,162,153,0.3);
+    }
   }
+
+
 
 }

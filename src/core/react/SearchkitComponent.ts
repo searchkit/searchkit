@@ -26,20 +26,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
 	}
 
   static translationsPropType = (translations)=> {
-    return (props, propName, componentName) =>{
-      let specifiedTranslations = props[propName]
-      let translationKeys = keys(translations)
-      let missing = without(
-        keys(specifiedTranslations),
-        ...translationKeys)
-      if(missing.length > 0){
-        return new Error(
-          componentName + ": incorrect translations, " +
-          missing.toString() + " keys are not included in " +
-          translationKeys.toString())
-      }
-      return null
-    }
+    return React.PropTypes.objectOf(React.PropTypes.string)
   }
 
   static propTypes:any = {
@@ -49,6 +36,10 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
     searchkit:React.PropTypes.instanceOf(SearchkitManager)
   }
 
+  constructor(props?){
+    super(props)
+    this.translate = this.translate.bind(this)
+  }
 
   defineBEMBlocks() {
     return null;
@@ -90,6 +81,15 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
     }
   }
 
+  componentWillUnmount(){
+    if(this.stateListenerUnsubscribe){
+		  this.stateListenerUnsubscribe()
+    }
+    if(this.searchkit && this.accessor){
+      this.searchkit.removeAccessor(this.accessor)
+    }
+	}
+
   getResults(){
     return this.searchkit.results
   }
@@ -122,9 +122,5 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
     return this.searchkit.error
   }
 
-  componentWillUnmount(){
-    if(this.stateListenerUnsubscribe){
-		  this.stateListenerUnsubscribe()
-    }
-	}
+
 }

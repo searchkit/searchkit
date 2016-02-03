@@ -57,12 +57,15 @@ describe("SearchkitManager", ()=> {
     )
   })
 
-  it("addAccessor()", ()=> {
+  it("addAccessor(), removeAddAccessor()", ()=> {
     const accessor = new PageSizeAccessor(10)
     this.searchkit.addAccessor(accessor)
     expect(this.searchkit.accessors.accessors).toEqual([
       accessor
     ])
+    this.searchkit.removeAccessor(accessor)
+    expect(this.searchkit.accessors.accessors)
+      .toEqual([])
   })
 
   it("addDefaultQuery()", ()=> {
@@ -205,6 +208,21 @@ describe("SearchkitManager", ()=> {
     expect(this.searchkit.currentSearchRequest.run)
       .toHaveBeenCalled()
     expect(this.searchkit.loading).toBe(true)
+  })
+
+  it("_search() should not search with same query", ()=> {
+    spyOn(SearchRequest.prototype, "run")
+    this.searchkit.query = new ImmutableQuery().setSize(20).setSort([{"created":"desc"}])
+    this.searchkit.buildQuery = ()=> new ImmutableQuery().setSize(20).setSort([{"created":"desc"}])
+    this.searchkit._search()
+    expect(SearchRequest.prototype.run)
+      .not.toHaveBeenCalled()
+
+    this.searchkit.query = new ImmutableQuery().setSize(21)
+    this.searchkit._search()
+    expect(SearchRequest.prototype.run)
+      .toHaveBeenCalled()
+
   })
 
   it("setResults()", ()=> {

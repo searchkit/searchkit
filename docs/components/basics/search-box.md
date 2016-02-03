@@ -10,7 +10,7 @@ import {
   SearchkitComponent
 } from "searchkit";
 
-class App extends SearchkitComponent<any, any> {
+class App extends SearchkitComponent {
   render(){
     <div>
       <SearchBox
@@ -29,6 +29,7 @@ class App extends SearchkitComponent<any, any> {
 - `queryOptions` *(Object)*: Optional. An object of options for [Query String](https://www.elastic.co/guide/en/elasticsearch/reference/2.0/query-dsl-query-string-query.html).
 - `mod` *(string)*: Optional. A custom BEM container class.
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
+- `searchThrottleTime` *(number)*: Default is 200ms. Is used when `searchOnChange` prop is `true`. A search to elasticsearch will only be invoked once every `searchThrottleTime` ms.   
 
 ## Translations
 - `searchbox.placeholder` - "Search"

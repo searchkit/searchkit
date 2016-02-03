@@ -5,3 +5,4 @@ lib/__test__
 $CIRCLE_TEST_REPORTS
 _book
 coverage
+lib

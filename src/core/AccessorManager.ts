@@ -6,6 +6,7 @@ const values = require("lodash/values")
 const reduce = require("lodash/reduce")
 const assign = require("lodash/assign")
 const each = require("lodash/each")
+const without = require("lodash/without")
 
 type StatefulAccessors = Array<StatefulAccessor<any>>
 
@@ -51,6 +52,19 @@ export class AccessorManager {
     }
     this.accessors.push(accessor)
     return accessor
+  }
+
+  remove(accessor){
+    if(!accessor){
+      return
+    }
+    if(accessor instanceof StatefulAccessor){
+      if(this.queryAccessor == accessor){
+        this.queryAccessor = noopQueryAccessor
+      }
+      delete this.statefulAccessors[accessor.key]
+    }
+    this.accessors = without(this.accessors, accessor)
   }
 
   getState(){

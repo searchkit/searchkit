@@ -10,7 +10,7 @@ var block = require('bem-cn');
 describe("SearchkitComponent", ()=> {
 
   beforeEach(()=> {
-    this.component = new SearchkitComponent()
+    this.component = new SearchkitComponent({})
     this.component.props = {}
     this.component.context = {}
   })
@@ -31,16 +31,6 @@ describe("SearchkitComponent", ()=> {
       "translations", "MyComponent"
     )).toEqual(null)
 
-    expect(handler(
-      {translations:{
-        unknown1:"",
-        unknown2:""
-      }},
-      "translations", "MyComponent"
-    )).toEqual(new Error(
-      "MyComponent: incorrect translations, unknown1,unknown2 keys are not included in continueButton,cancelButton"
-    ))
-
 
   })
 
@@ -58,14 +48,16 @@ describe("SearchkitComponent", ()=> {
     this.component.translations = {
       "component":"component level {interpolation}"
     }
-    expect(this.component.translate("searchkit"))
+    //detach to test self binding
+    let componentTranslate = this.component.translate
+    expect(componentTranslate("searchkit"))
       .toEqual("searchkit level")
-    expect(this.component.translate("prop"))
+    expect(componentTranslate("prop"))
       .toEqual("prop level")
-    expect(this.component.translate("component", {
+    expect(componentTranslate("component", {
       interpolation:"foo"
     })).toEqual("component level foo")
-    expect(this.component.translate("missing key"))
+    expect(componentTranslate("missing key"))
       .toEqual("missing key")
   })
 
@@ -127,6 +119,8 @@ describe("SearchkitComponent", ()=> {
     expect(searchkit.emitter.listeners.length).toBe(1)
     this.component.componentWillUnmount()
     expect(searchkit.emitter.listeners.length).toBe(0)
+    //should removeAccessor
+    expect(searchkit.accessors.accessors).toEqual([])
 
   })
 

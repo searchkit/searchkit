@@ -6,10 +6,12 @@ import {ESTransport, AxiosESTransport, MockESTransport} from "./transport";
 import {SearchRequest} from "./SearchRequest"
 import {Utils, EventEmitter} from "./support"
 import {VERSION} from "./SearchkitVersion"
+
 const defaults = require("lodash/defaults")
 const constant = require("lodash/constant")
 const isEqual = require("lodash/isEqual")
 const get = require("lodash/get")
+const qs = require("qs")
 
 require('es6-promise').polyfill()
 
@@ -79,6 +81,10 @@ export class SearchkitManager {
     return this.accessors.add(accessor)
   }
 
+  removeAccessor(accessor){
+    this.accessors.remove(accessor)
+  }
+
   addDefaultQuery(fn:Function){
     return this.addAccessor(new AnonymousAccessor(fn))
   }
@@ -130,13 +136,23 @@ export class SearchkitManager {
     }
   }
 
+  buildSearchUrl(extraParams = {}){
+    const params = defaults(extraParams, this.state || this.accessors.getState())
+    const queryString = qs.stringify(params, { encode: true })
+    return window.location.pathname + '?' + queryString
+  }
+
   search(replaceState=false){
     this.performSearch(replaceState)
   }
 
   _search(){
     this.state = this.accessors.getState()
-    this.query = this.buildQuery()
+    let query = this.buildQuery()
+    if(this.query && isEqual(query.getJSON(), this.query.getJSON())) {
+      return
+    }    
+    this.query = query
     this.loading = true
     this.emitter.trigger()
     this.currentSearchRequest && this.currentSearchRequest.deactivate()

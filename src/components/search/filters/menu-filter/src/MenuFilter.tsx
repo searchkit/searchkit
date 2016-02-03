@@ -6,8 +6,11 @@ import {
 	SearchkitComponent,
 	FacetAccessor,
 	FastClick,
-	SearchkitComponentProps
+	SearchkitComponentProps,
+	ReactComponentType
 } from "../../../../../core"
+
+import {FilterItemComponent, FilterItemComponentProps} from "../../filter-item/src/FilterItem";
 
 const defaults = require("lodash/defaults")
 const map = require("lodash/map")
@@ -17,6 +20,7 @@ export interface MenuFilterProps extends SearchkitComponentProps {
 	title:string
 	id:string
 	size?:number
+	itemComponent?:ReactComponentType<FilterItemComponentProps>
 }
 
 export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
@@ -28,6 +32,10 @@ export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
 		id:React.PropTypes.string.isRequired,
 		size:React.PropTypes.number
 	}, SearchkitComponent.propTypes)
+
+	static defaultProps = {
+		itemComponent:FilterItemComponent
+	}
 
 	defineBEMBlocks() {
 		var blockName = this.props.mod || "menu-list"
@@ -53,27 +61,24 @@ export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
 		this.searchkit.performSearch()
 	}
 
-	renderOption(label, count, isChecked) {
-
-		var className = this.bemBlocks.option()
-											.state({selected: isChecked})
-											.mix(this.bemBlocks.container("item"))
+	renderOption(key, count, isSelected) {
 
 		return (
-			<FastClick handler={this.addFilter.bind(this, label)} key={label}>
-				<div className={className}>
-					<div className={this.bemBlocks.option("text")}>{label}</div>
-					<div className={this.bemBlocks.option("count")}>{count}</div>
-				</div>
-			</FastClick>
+			React.createElement(this.props.itemComponent, {
+				toggleFilter:this.addFilter.bind(this, key),
+				bemBlocks: this.bemBlocks,
+				label:this.translate(key),
+				key:key,
+				docCount:count,
+				selected:isSelected,
+				translate:this.translate
+			})
 		)
 	}
 
 	createOption(option) {
-		var isChecked = this.accessor.state.contains(option.key)
-		var count = option.doc_count
-		var label = this.translate(option.key)
-		return this.renderOption(label, count, isChecked);
+		const isChecked = this.accessor.state.contains(option.key)
+		return this.renderOption(option.key, option.doc_count, isChecked);
 	}
 
 	render() {

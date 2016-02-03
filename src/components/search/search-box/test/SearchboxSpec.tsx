@@ -28,6 +28,11 @@ describe("Searchbox tests", () => {
       this.accessor = this.searchkit.accessors.getAccessors()[0]
     }
 
+    this.typeSearch = (value)=> {
+      this.wrapper.find(".search-box__text")
+        .simulate("input", {target:{value}})
+    }
+
   });
 
   it("render", () => {
@@ -38,12 +43,36 @@ describe("Searchbox tests", () => {
   it("search on change", () => {
     let spy = sinon.spy()
     this.searchkit.performSearch = spy
-
     this.createWrapper(true)
-
-    this.wrapper.find(".search-box__text").simulate("input", {target: { value: 'm' }}).simulate("input", {target: { value: 'ma' }})
+    this.typeSearch("m")
+    expect(this.accessor.state.getValue()).toBe("m")
+    expect(spy.callCount).toBe(1)
+    this.typeSearch("ma")
     expect(this.accessor.state.getValue()).toBe("ma")
+    expect(spy.callCount).toBe(1) // throttling should block it
+    this.wrapper.node.throttledSearch.flush()
     expect(spy.callCount).toBe(2)
+  })
+
+  it("search on change with clock", ()=> {
+    jasmine.clock().install()
+    let queries = []
+    this.searchkit.performSearch = ()=> {
+      queries.push(this.searchkit.buildQuery())
+    }
+    expect(this.wrapper.node.props.searchThrottleTime).toBe(200)
+    this.createWrapper(true)
+    this.typeSearch("m")
+    jasmine.clock().tick(100)
+    expect(queries.length).toBe(1)
+    expect(queries[0].getQueryString()).toBe("m")
+    this.typeSearch("ma")
+    jasmine.clock().tick(100)
+    expect(queries.length).toBe(1)
+    jasmine.clock().tick(300)
+    expect(queries.length).toBe(2)
+    expect(queries[1].getQueryString()).toBe("ma")
+    jasmine.clock().uninstall()
   })
 
   it("search on submit", () => {
@@ -51,8 +80,8 @@ describe("Searchbox tests", () => {
     this.searchkit.performSearch = spy
 
     this.createWrapper(false)
-
-    this.wrapper.find(".search-box__text").simulate("input", {target: { value: 'm' }}).simulate("input", {target: { value: 'ma' }})
+    this.typeSearch('m')
+    this.typeSearch('ma')
     expect(this.accessor.state.getValue()).toBe("ma")
     expect(spy.callCount).toBe(0)
     this.wrapper.find("form").simulate("submit")

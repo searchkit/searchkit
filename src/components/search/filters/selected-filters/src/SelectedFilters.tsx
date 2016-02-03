@@ -6,21 +6,60 @@ import {
 	SearchkitComponent,
 	FacetAccessor,
 	FastClick,
-	SearchkitComponentProps
+	SearchkitComponentProps,
+	ReactComponentType,
+	PureRender
 } from "../../../../../core"
 
 const defaults = require("lodash/defaults")
 const size = require("lodash/size")
 const map = require("lodash/map")
 
+@PureRender
+export class FilterItem extends React.Component<FilterItemProps, any> {
+
+	render(){
+		let props = this.props
+		return (
+			<div className={props.bemBlocks.option()
+				.mix(props.bemBlocks.container("item"))
+				.mix(`selected-filter--${props.filterId}`)()}>
+				<div className={props.bemBlocks.option("name")}>{props.labelKey}: {props.labelValue}</div>
+				<FastClick handler={props.removeFilter}>
+					<div className={props.bemBlocks.option("remove-action")}>x</div>
+				</FastClick>
+			</div>
+		)
+	}
+}
+
+export interface FilterItemProps {
+	key:string,
+	bemBlocks?:any,
+	filterId:string
+	labelKey:string,
+	labelValue:string,
+	removeFilter:Function,
+	translate:Function
+}
+
 export interface SelectedFiltersProps extends SearchkitComponentProps {
+	itemComponent?:ReactComponentType<FilterItemProps>
 }
 
 export class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, any> {
 
-
 	static propTypes = defaults({
 	}, SearchkitComponent.propTypes)
+
+	static defaultProps = {
+     itemComponent: FilterItem
+   }
+
+	constructor(props) {
+		super(props)
+		this.translate = this.translate.bind(this)
+	}
 
 	defineBEMBlocks() {
 		var blockName = (this.props.mod || "selected-filters")
@@ -40,19 +79,15 @@ export class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, an
 
 	renderFilter(filter) {
 
-		let block = this.bemBlocks.option
-		let className = block()
-			.mix(this.bemBlocks.container("item"))
-			.mix(`selected-filter--${filter.id}`)
-
-		return (
-			<div className={className} key={filter.name+":"+filter.value}>
-				<div className={block("name")}>{this.translate(filter.name)}: {this.translate(filter.value)}</div>
-				<FastClick handler={this.removeFilter.bind(this, filter)}>
-					<div className={block("remove-action")}>x</div>
-				</FastClick>
-			</div>
-		)
+		return React.createElement(this.props.itemComponent, {
+			key:filter.value,
+			bemBlocks:this.bemBlocks,
+			filterId:filter.id,
+			labelKey:this.translate(filter.name),
+			labelValue:this.translate(filter.value),
+			removeFilter:this.removeFilter.bind(this, filter),
+			translate:this.translate
+		})
 	}
 
 	removeFilter(filter) {

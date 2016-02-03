@@ -1,0 +1,7 @@
+node_modules
+test/e2e/generated
+npm-debug.log
+lib/__test__
+$CIRCLE_TEST_REPORTS
+_book
+coverage

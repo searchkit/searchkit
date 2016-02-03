@@ -6,9 +6,11 @@ export * from "./search/filters/hierarchical-menu-filter/src/HierarchicalMenuFil
 export * from "./search/filters/numeric-refinement-list-filter/src/NumericRefinementListFilter";
 export * from "./search/hits/src/Hits";
 export * from "./search/hits/src/NoHits";
+export * from "./search/hits/src/InitialLoader";
 export * from "./search/hits-stats/src/HitsStats";
 export * from "./search/pagination/src/Pagination";
 export * from "./search/search-box/src/SearchBox";
 export * from "./search/sorting-selector/src/SortingSelector";
 export * from "./search/filters/hierarchical-refinement-filter/src/HierarchicalRefinementFilter";
 export * from "./search/filters/range-filter/src/RangeFilter";
+export * from "./search/filters/filter-item/src/FilterItem";

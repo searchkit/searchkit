@@ -6,16 +6,37 @@ import {
 	PageSizeAccessor,
 	ImmutableQuery,
 	HighlightAccessor,
-	SearchkitComponentProps
+	SearchkitComponentProps,
+	ReactComponentType,
+	PureRender
 } from "../../../../core"
 
 const map = require("lodash/map")
 const defaults = require("lodash/defaults")
 
+
+export interface HitItemProps {
+	key:string,
+	bemBlocks?:any,
+	result:Object
+}
+
+@PureRender
+export class HitItem extends React.Component<HitItemProps, any> {
+	render(){
+		return (
+			<div data-qa="hit" className={this.props.bemBlocks.item().mix(this.props.bemBlocks.container("item"))}>
+			</div>
+		)
+	}
+}
+
 export interface HitsProps extends SearchkitComponentProps{
 	hitsPerPage: number
 	highlightFields?:Array<string>
+	itemComponent?:ReactComponentType<HitItemProps>
 }
+
 
 export class Hits extends SearchkitComponent<HitsProps, any> {
 
@@ -23,9 +44,13 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		hitsPerPage:React.PropTypes.number.isRequired,
 		highlightFields:React.PropTypes.arrayOf(
 			React.PropTypes.string
-		)
+		),
+		itemComponent:React.PropTypes.func
 	}, SearchkitComponent.propTypes)
 
+	static defaultProps = {
+		itemComponent:HitItem
+	}
 
 	componentWillMount() {
 		super.componentWillMount()
@@ -48,35 +73,24 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 	}
 
 	renderResult(result:any) {
-		return (
-			<div data-qa="hit" className={this.bemBlocks.item().mix(this.bemBlocks.container("item"))} key={result._id}>
-			</div>
-		)
-	}
-
-	renderInitialView() {
-		return (
-			<div data-qa="initial-loading" className={this.bemBlocks.container("initial-loading")}></div>
-		)
+		return React.createElement(this.props.itemComponent, {
+			key:result._id, result, bemBlocks:this.bemBlocks
+		})
 	}
 
 	render() {
 		let hits:Array<Object> = this.getHits()
 		let hasHits = hits.length > 0
-		let results = null
 
-		if (this.isInitialLoading()) {
-			results = this.renderInitialView()
-		} else if (!this.hasHits()) {
-			return null;
-		} else {
-			results = map(hits, this.renderResult.bind(this))
+		if (!this.isInitialLoading() && hasHits) {
+			return (
+				<div data-qa="hits" className={this.bemBlocks.container()}>
+				{map(hits, this.renderResult.bind(this))}
+				</div>
+			);
 		}
 
-		return (
-			<div data-qa="hits" className={this.bemBlocks.container()}>
-				{results}
-      </div>
-		);
+		return null
+
 	}
 }

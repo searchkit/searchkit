@@ -9,7 +9,7 @@ import {
   SearchkitComponent
 } from "searchkit";
 
-class App extends SearchkitComponent<any, any> {
+class App extends SearchkitComponent {
 
   render(){
     <div>

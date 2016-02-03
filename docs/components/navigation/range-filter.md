@@ -10,7 +10,7 @@ import {
   SearchkitComponent
 } from "searchkit";
 
-class App extends SearchkitComponent<any, any> {
+class App extends SearchkitComponent {
 
   render(){
     <div>
@@ -27,3 +27,5 @@ class App extends SearchkitComponent<any, any> {
 - `max` *(number)*: Required. max start range
 - `title` *(string)*: Required. Title used for component and for selected filters component
 - `showHistogram` *(boolean)*: Shows a histogram to provide a guide where their range would hit results.
+- `mod` *(string)*: Optional. A custom BEM container class.
+- `interval` *(number)*: Optional. Override the interval which is sent to ElasticSearch, used for generating the buckets which render the histogram. (Defaults to an interval which allows a max of 20 buckets which fit the range)

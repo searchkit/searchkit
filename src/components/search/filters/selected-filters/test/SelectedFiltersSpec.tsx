@@ -1,14 +1,13 @@
 import * as React from "react";
 import {mount} from "enzyme";
-import {SelectedFilters} from "../src/SelectedFilters.tsx";
-import {SearchkitManager, ImmutableQuery } from "../../../../../core";
+import {SelectedFilters, FilterItemProps} from "../src/SelectedFilters.tsx";
+import {SearchkitManager, ImmutableQuery, FastClick} from "../../../../../core";
 const bem = require("bem-cn");
 const _ = require("lodash")
 import * as sinon from "sinon";
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
 } from "../../../../__test__/TestHelpers"
-
 
 describe("SelectedFilters tests", () => {
 
@@ -26,19 +25,10 @@ describe("SelectedFilters tests", () => {
       }[key]
     }
 
-    this.getContainer = (label, index) => {
-      let container = this.wrapper.find("."+this.bemContainer(label))
-      if (_.isNumber(index)) {
-        return container.children().at(index)
-      } else {
-        return container;
-      }
-    }
-
-    this.createWrapper = () => {
+    this.createWrapper = (props) => {
 
       this.wrapper = mount(
-        <SelectedFilters searchkit={this.searchkit} />
+        <SelectedFilters searchkit={this.searchkit} {...props} />
       );
 
     }
@@ -65,22 +55,61 @@ describe("SelectedFilters tests", () => {
 
     this.createWrapper()
 
-    expect(this.getContainer(null).children().map((n) => {
-      return n.children().at(0).text()
-    })).toEqual([
-      "test name: test value",
-      "test name 2 translated: test value 2 translated"
-    ])
+    expect(this.wrapper.html()).toEqual(jsxToHTML(
+<div className="selected-filters">
+  <div className="selected-filters-option selected-filters__item selected-filter--test">
+    <div className="selected-filters-option__name"><span>test name</span><span>: </span><span>test value</span></div>
+    <div className="selected-filters-option__remove-action">x</div>
+  </div>
+  <div className="selected-filters-option selected-filters__item selected-filter--test2">
+    <div className="selected-filters-option__name"><span>test name 2 translated</span><span>: </span><span>test value 2 translated</span></div>
+    <div className="selected-filters-option__remove-action">x</div>
+  </div>
+</div>
+    ))
 
 
   });
 
   it("handles remove click", () => {
     this.createWrapper()
-    let elem = this.getContainer(null,0).find("."+this.bemOption("remove-action"))
+    let elem = this.wrapper.find(".selected-filters-option").at(0).find("."+this.bemOption("remove-action"))
     fastClick(elem)
     expect(this.sinonSpy.called).toBeTruthy()
   })
 
+  it("overrides", () => {
+
+    const FilterItem:React.StatelessComponent<FilterItemProps> = (props)=> (
+      	<div className={props.bemBlocks.option()}>
+    			<div className={props.bemBlocks.option("override-name")}>{props.labelValue}</div>
+    			<FastClick handler={props.removeFilter}>
+    				<div className={props.bemBlocks.option("remove-action")}>x</div>
+    			</FastClick>
+    		</div>
+    )
+
+    this.createWrapper({itemComponent:FilterItem})
+
+    expect(this.wrapper.html()).toEqual(jsxToHTML(
+      <div className="selected-filters">
+        <div className="selected-filters-option">
+          <div className="selected-filters-option__override-name">test value</div>
+          <div className="selected-filters-option__remove-action">x</div>
+        </div>
+        <div className="selected-filters-option">
+          <div className="selected-filters-option__override-name">test value 2 translated</div>
+          <div className="selected-filters-option__remove-action">x</div>
+        </div>
+      </div>
+    ))
+
+    // click element to be removed
+
+    let elem = this.wrapper.find(".selected-filters-option").at(0).find("."+this.bemOption("remove-action"))
+    fastClick(elem)
+    expect(this.sinonSpy.called).toBeTruthy()
+
+  })
 
 });

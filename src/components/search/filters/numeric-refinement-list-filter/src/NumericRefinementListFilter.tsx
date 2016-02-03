@@ -59,7 +59,11 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
 
 	isSelected(option) {
 		return this.accessor.state.getValue() == option.key;
-	}
+  }
+
+  hasOptions(): boolean {
+      return this.accessor.getBuckets().length != 0
+  }
 
 	renderOption(option) {
 
@@ -83,7 +87,11 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
 
 	render() {
 		var block = this.bemBlocks.container
-		var className = block().mix(`filter--${this.props.id}`)
+		var className = block()
+      .mix(`filter--${this.props.id}`)
+      .state({
+          disabled: !this.hasOptions()
+      })
 
 		return (
 			<div className={className}>

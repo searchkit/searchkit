@@ -57,21 +57,21 @@ describe("MenuFilter tests", () => {
       <div className="menu-list filter--color">
         <div className="menu-list__header">Color</div>
         <div className="menu-list__options">
-          <div className="menu-list-option menu-list__item is-selected">
-            <div className="menu-list-option__text">All</div>
-            <div className="menu-list-option__count"></div>
+          <div className="menu-list-option menu-list__item is-selected" data-qa="option">
+            <div data-qa="label" className="menu-list-option__text">All</div>
+            <div data-qa="count" className="menu-list-option__count"></div>
           </div>
-          <div className="menu-list-option menu-list__item">
-            <div className="menu-list-option__text">Red Translated</div>
-            <div className="menu-list-option__count">10</div>
+          <div className="menu-list-option menu-list__item" data-qa="option">
+            <div data-qa="label" className="menu-list-option__text">Red Translated</div>
+            <div data-qa="count" className="menu-list-option__count"></div>
           </div>
-          <div className="menu-list-option menu-list__item">
-            <div className="menu-list-option__text">Blue</div>
-            <div className="menu-list-option__count">11</div>
+          <div className="menu-list-option menu-list__item" data-qa="option">
+            <div data-qa="label" className="menu-list-option__text">Blue</div>
+            <div data-qa="count" className="menu-list-option__count"></div>
           </div>
-          <div className="menu-list-option menu-list__item">
-            <div className="menu-list-option__text">Green</div>
-            <div className="menu-list-option__count">12</div>
+          <div className="menu-list-option menu-list__item" data-qa="option">
+            <div data-qa="label" className="menu-list-option__text">Green</div>
+            <div data-qa="count" className="menu-list-option__count"></div>
           </div>
         </div>
       </div>
@@ -85,21 +85,21 @@ describe("MenuFilter tests", () => {
       <div className="menu-list filter--color">
         <div className="menu-list__header">Color</div>
         <div className="menu-list__options">
-          <div className="menu-list-option menu-list__item">
-            <div className="menu-list-option__text">All</div>
-            <div className="menu-list-option__count"></div>
+          <div className="menu-list-option menu-list__item" data-qa="option">
+            <div data-qa="label" className="menu-list-option__text">All</div>
+            <div data-qa="count" className="menu-list-option__count"></div>
           </div>
-          <div className="menu-list-option menu-list__item">
-            <div className="menu-list-option__text">Red Translated</div>
-            <div className="menu-list-option__count">10</div>
+          <div className="menu-list-option menu-list__item" data-qa="option">
+            <div data-qa="label" className="menu-list-option__text">Red Translated</div>
+            <div data-qa="count" className="menu-list-option__count"></div>
           </div>
-          <div className="menu-list-option menu-list__item is-selected">
-            <div className="menu-list-option__text">Blue</div>
-            <div className="menu-list-option__count">11</div>
+          <div className="menu-list-option menu-list__item is-selected" data-qa="option">
+            <div data-qa="label" className="menu-list-option__text">Blue</div>
+            <div data-qa="count" className="menu-list-option__count"></div>
           </div>
-          <div className="menu-list-option menu-list__item">
-            <div className="menu-list-option__text">Green</div>
-            <div className="menu-list-option__count">12</div>
+          <div className="menu-list-option menu-list__item" data-qa="option">
+            <div data-qa="label" className="menu-list-option__text">Green</div>
+            <div data-qa="count" className="menu-list-option__count"></div>
           </div>
         </div>
       </div>

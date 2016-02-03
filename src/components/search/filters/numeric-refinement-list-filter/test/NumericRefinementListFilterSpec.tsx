@@ -9,7 +9,7 @@ const _ = require("lodash")
 
 
 
-describe("MenuFilter tests", () => {
+describe("NumericRefinementListFilter tests", () => {
 
   beforeEach(()=> {
     this.searchkit = SearchkitManager.mock()
@@ -82,13 +82,17 @@ describe("MenuFilter tests", () => {
     expect(hasClass(lastOption, "is-selected")).toBe(true)
   })
 
-  it("should handle clicking an option", ()=> {
-    this.setResults()
-    let secondOption = this.wrapper.find(".numeric-refinement-list__options")
-      .children().at(1)
-    fastClick(secondOption)
-    expect(this.accessor.state.getValue()).toBe("up to 20")
-    expect(this.searchkit.performSearch).toHaveBeenCalled()
+  it("should handle clicking an option", () => {
+      this.setResults()
+      let secondOption = this.wrapper.find(".numeric-refinement-list__options")
+          .children().at(1)
+      fastClick(secondOption)
+      expect(this.accessor.state.getValue()).toBe("up to 20")
+      expect(this.searchkit.performSearch).toHaveBeenCalled()
+  })
+
+  it("should be disabled for empty buckets", () => {
+      expect(this.wrapper.find(".numeric-refinement-list.is-disabled").length).toBe(1)
   })
 
 })
