@@ -17,6 +17,8 @@ gulp.task("theme", function() {
     .pipe(gulp.dest("./release"))
 })
 
+gulp.task("run-build", ["copy-assets","theme"])
+
 gulp.task("default",["copy-assets","theme"], function() {
   gulp.watch(assetsGlob, ["copy-assets"])
   gulp.watch(themeGlob, ["theme"])

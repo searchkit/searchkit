@@ -27,7 +27,7 @@
   "scripts": {
     "test": "./node_modules/.bin/karma start --single-run --reporters progress,junit,coverage",
     "test:watch": "./node_modules/.bin/karma start karma.conf.js --auto-watch",
-    "build": "tsc; gulp copy-assets; webpack;",
+    "build": "tsc; gulp run-build; webpack;",
     "build:watch": "tsc -w",
     "prepublish": "rm -rf lib; rm -rf release; npm run-script build;",
     "test:e2e": "protractor test/e2e/conf/protractor.conf.js",
