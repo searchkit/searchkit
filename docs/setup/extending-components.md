@@ -21,7 +21,7 @@ The container block would be accessible using `this.bemBlocks.container`.
 `this.bemBlocks.container("info").state({disabled:true})` -> "refinement-list__info is-disabled"
 
 ## Overriding rendering
-You can override rendering methods for some of the searchkit components. Below is an example of overriding the HitsStats component
+Some components have the feature to override the display component to allow you to control the markup and contents of the component using either the `itemComponent` or `component` props. Example of overriding the default rendering of a hit from `Hits` component.
 
 ```js
 
@@ -30,17 +30,32 @@ import {
   SearchkitComponent
 } from "searchkit";
 
-class ExampleHitStats extends HitsStats {
-  renderText() {
-    return (<div className="{this.bemBlocks.container("info")}">override text</div>)
-  }
-}
+const HitItem = (props) => (
+  <div className={props.bemBlocks.item().mix(props.bemBlocks.container("item"))}>
+    <img className={props.bemBlocks.item("poster")} src={props.result._source.poster}/>
+    <div className={props.bemBlocks.item("title")} dangerouslySetInnerHTML={{__html:_.get(props.result,"highlight.title",false) || props.result._source.title}}></div>
+  </div>
+)
 
 class App extends SearchkitComponent {
   render(){
     <div>
-        <ExampleHitStats/>
+      <SearchBox
+        searchOnChange={true}
+        queryOptions={{analyzer:"standard"}}
+        queryFields={["title^5", "languages", "text"]}/>
+
+      <Hits hitsPerPage={50} highlightFields={["title"]} itemComponent={HitItem}/>
+
     </div>
   }
 }
 ```
+
+The following components support this feature:
+- [Hits](../components/basics/hits.md)
+- [InitialLoader](../components/basics/initial-loader.md)
+- [Menu](../components/navigation/menu.md)
+- [Refinement List](../components/navigation/refinement-list.md)
+- [Reset](../components/navigation/reset.md)
+- [Selected Filters](../components/navigation/selected-filters.md)
