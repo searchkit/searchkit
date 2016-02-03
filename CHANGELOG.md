@@ -19,6 +19,7 @@
 
 * Pagination supports showing links [#40](https://github.com/searchkit/searchkit/issues/40)
 * Range Filter no filter applied if range min max equals component min and max [#16](https://github.com/searchkit/searchkit/issues/16)
+* Configurable search throttle time via prop on searchbox component [#55](https://github.com/searchkit/searchkit/issues/55)
 
 ### Bugs
 * No throttling of search query [#35](https://github.com/searchkit/searchkit/issues/35)
