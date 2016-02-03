@@ -208,6 +208,26 @@ describe("FacetAccessor", ()=> {
       )
     })
 
+    it("build own query - include/exclude", ()=> {
+      this.options.operator = "AND"
+      this.options.include = ["one", "two"]
+      this.options.exclude = ["three"]
+      let query = this.accessor.buildOwnQuery(this.query)
+      expect(query.query.aggs).toEqual(
+        FilterBucket("genre",
+          BoolMust([
+            BoolShould(["PG"]),
+            BoolShould([
+              TermQuery("genre", "1"),
+              TermQuery("genre", "2")
+            ])
+          ]),
+          TermsBucket("genre", "genre", {size:20, include: ["one", "two"], exclude: ["three"]}),
+          CardinalityMetric("genre_count", "genre")
+        )
+      )
+    })
+
 
   })
 

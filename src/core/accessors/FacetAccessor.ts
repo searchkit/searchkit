@@ -7,15 +7,19 @@ import {
 } from "../query";
 const assign = require("lodash/assign")
 const map = require("lodash/map")
+const omitBy = require("lodash/omitBy")
+const isUndefined = require("lodash/isUndefined")
 
 
 export interface FacetAccessorOptions {
-  operator?:string,
+  operator?:string
   title?:string
   id?:string
   size:number
-  facetsPerPage?:number,
+  facetsPerPage?:number
   translations?:Object
+  include?:Array<string> | string
+  exclude?:Array<string> | string
 }
 
 export interface ISizeOption {
@@ -116,7 +120,11 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
       .setAggs(FilterBucket(
         this.key,
         query.getFiltersWithoutKeys(excludedKey),
-        TermsBucket(this.key, this.key, {size:this.size}),
+        TermsBucket(this.key, this.key, omitBy({
+          size:this.size,
+          include: this.options.include,
+          exclude: this.options.exclude
+        }, isUndefined)),
         CardinalityMetric(this.key+"_count", this.key)
       ))
 
