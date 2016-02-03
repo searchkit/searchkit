@@ -2,9 +2,12 @@ const assign = require("lodash/assign")
 import {AggsContainer} from "./AggsContainer"
 
 export interface TermsBucketOptions {
-  size?:number,
+  size?:number
   order?:any
+  include?:Array<string>
+  exclude?:Array<string>
 }
+
 export function TermsBucket(key, field, options:TermsBucketOptions={}, ...childAggs){
   return AggsContainer(key, {
     terms:assign({field}, options)
