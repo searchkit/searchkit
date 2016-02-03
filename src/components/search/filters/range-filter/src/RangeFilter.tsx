@@ -107,13 +107,6 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 
 	}
 
-  getInterval(){
-    if (this.props.interval) {
-      return this.props.interval
-    }
-    return Math.ceil((this.props.max - this.props.min) / 20)
-  }
-
 	render() {
 		var block = this.bemBlocks.container
 		var histogram = this.getHistogram()
@@ -131,7 +124,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
         <Rcslider
           min={this.props.min}
           max={this.props.max}
-          range={true}          
+          range={true}
 					value={[
 						get(this.accessor.state.getValue(), "min", this.props.min),
 						get(this.accessor.state.getValue(), "max", this.props.max)
