@@ -57,11 +57,16 @@ export class FastClick extends React.Component<any, any>{
 
   }
 
+  handleClick(event){
+    event.preventDefault()
+  }
+
   render(){
     return React.cloneElement(this.props.children, {
       onMouseDown:this.handleMouseDown.bind(this),
       onTouchStart:this.handleTouchStart.bind(this),
-      onTouchEnd:this.handleTouchEnd.bind(this)
+      onTouchEnd:this.handleTouchEnd.bind(this),
+      onClick:this.handleClick.bind(this)
     })
   }
 

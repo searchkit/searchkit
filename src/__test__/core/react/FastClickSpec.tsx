@@ -56,7 +56,7 @@ describe("FastClick", ()=> {
 
       //ignore mousedowns if supports touch
       this.wrapper.simulate("mouseDown", {button:0})
-      expect(this.handler).not.toHaveBeenCalled()        
+      expect(this.handler).not.toHaveBeenCalled()
     })
 
 
@@ -74,6 +74,14 @@ describe("FastClick", ()=> {
         ]
       })
       expect(this.fastClick.startPoint).toBe(null)
+    })
+
+    it("prevents default click behaviour", ()=> {
+      let event = {
+        preventDefault:jasmine.createSpy("preventDefault")
+      }
+      this.wrapper.simulate("click", event)
+      expect(event.preventDefault).toHaveBeenCalled()
     })
 
   })
