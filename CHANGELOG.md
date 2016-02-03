@@ -1,4 +1,4 @@
-## 0.5.0
+## 0.5.0 (3rd Feb, 2016)
 
 ### Notable changes
 - remove lib from git. If you install package not via npm, you need to `npm run-script build` in root of project.[#37](https://github.com/searchkit/searchkit/issues/37)
