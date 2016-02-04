@@ -65,3 +65,8 @@ new ImmutableQuery().setSize([
   {"price" : {"order" : "asc"}}  
 ])
 ```
+
+* **`.setSource(sourceFilter)`**
+```js
+new ImmutableQuery().setSource(["title", "thumbnail"])    
+```
