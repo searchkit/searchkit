@@ -1,5 +1,5 @@
 # Hits Component
-Hits component displays results from ElasticSearch. To customize each result, you need to implement a React component and pass into `itemComponent` prop. 
+Hits component displays results from ElasticSearch. To customize each result, you need to implement a React component and pass into `itemComponent` prop.
 The component will receive a single `hit` object from the search results, which will include `result._source` which contains the untouched stored fields which were indexed.
 
 ## Example Usage
@@ -36,7 +36,7 @@ class App extends SearchkitComponent {
 - `highlightFields` *(Array<string>)*: Array of highlighted fields. Any highlight matches will be returned in the result.highlight[fieldName]. See above for example.
 - `mod` *(string)*: Optional. A custom BEM container class.
 - `itemComponent` *(ReactComponent)*: React component used for each hit render.
-
+- `sourceFilter` *(string|boolean|Array<string>)*: A source filter parameter which is sent to elasticsearch to reduce the hit `_source` data within the results. see the [elastic documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-source-filtering.html) for further details.
 
 ## Demo
 [](codepen://searchkit/vLgLOw?height=800&theme=0)
