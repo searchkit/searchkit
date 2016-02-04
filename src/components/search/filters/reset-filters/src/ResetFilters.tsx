@@ -17,18 +17,19 @@ export interface ResetFiltersDisplayProps {
 	bemBlock:any,
 	hasFilters:boolean,
 	resetFilters:Function,
+	clearAllLabel:string,
 	translate:Function
 }
 
 @PureRender
 export class ResetFiltersDisplay extends React.Component<ResetFiltersDisplayProps, any>{
 	render(){
-		const {bemBlock, hasFilters, translate, resetFilters} = this.props
+		const {bemBlock, hasFilters, translate, resetFilters, clearAllLabel} = this.props
 		return (
 			<div>
 				<FastClick handler={resetFilters}>
 					<div className={bemBlock().state({disabled:!hasFilters})}>
-						<div className={bemBlock("reset")}>{translate("reset.clear_all")}</div>
+						<div className={bemBlock("reset")}>{clearAllLabel}</div>
 					</div>
 				</FastClick>
 			</div>
@@ -79,11 +80,13 @@ export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
 	}
 
   render() {
-		return React.createElement(this.props.component, {
+		const props:ResetFiltersDisplayProps = {
 			bemBlock:this.bemBlocks.container,
 			resetFilters:this.resetFilters,
 			hasFilters:this.hasFilters(),
-			translate:this.translate
-		})
+			translate:this.translate,
+			clearAllLabel: this.translate("reset.clear_all")
+		}
+		return React.createElement(this.props.component, props)
   }
 }
