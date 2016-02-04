@@ -4,6 +4,8 @@ import {
   EventEmitter, QueryAccessor, AnonymousAccessor, MockESTransport
 } from "../../"
 
+const _ = require("lodash")
+
 describe("SearchkitManager", ()=> {
 
   beforeEach(()=> {
@@ -245,6 +247,32 @@ describe("SearchkitManager", ()=> {
     expect(this.searchkit.error).toBe(error)
     expect(this.searchkit.onResponseChange)
       .toHaveBeenCalled()
+  })
+
+  it("setResults() - change detection", ()=> {
+    spyOn(this.accessors, "setResults")
+    spyOn(this.searchkit, "onResponseChange")
+    let results = {
+      hits:{
+        total:2,
+        hits:[
+          {_id:1, _source:{title:"Doc1"}},
+          {_id:2, _source:{title:"Doc2"}}
+        ]
+      }
+    }
+    this.searchkit.setResults(_.clone(results))
+    expect(this.searchkit.results.hits.ids).toBe("1,2")
+    expect(this.searchkit.results.hits.hasChanged).toBe(true)
+    expect(this.searchkit.hasHitsChanged()).toBe(true)
+    this.searchkit.setResults(_.clone(results))
+    expect(this.searchkit.hasHitsChanged()).toBe(false)
+    results.hits.hits.push({_id:3, _source:{title:"Doc3"}})
+    this.searchkit.setResults(_.clone(results))
+    expect(this.searchkit.results.hits.ids).toBe("1,2,3")
+    expect(this.searchkit.hasHitsChanged()).toBe(true)
+
+
   })
 
   it("getHits()", ()=> {
