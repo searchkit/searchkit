@@ -156,6 +156,10 @@ describe("SearchkitComponent", ()=> {
       expect(this.component.hasHits()).toBe(true)
     })
 
+    it("hasHitsChanged()", ()=> {
+      expect(this.component.hasHitsChanged()).toBe(true)
+    })
+
     it("getQuery()", ()=> {
       expect(this.component.getQuery()).toBe(this.query)
     })

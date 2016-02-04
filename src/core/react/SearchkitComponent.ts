@@ -106,6 +106,10 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
     return this.searchkit.hasHits()
   }
 
+  hasHitsChanged(){
+    return this.searchkit.hasHitsChanged()
+  }
+
   getQuery():ImmutableQuery {
     return this.searchkit.query
   }

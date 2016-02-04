@@ -9,6 +9,7 @@ import {VERSION} from "./SearchkitVersion"
 
 const defaults = require("lodash/defaults")
 const constant = require("lodash/constant")
+const map = require("lodash/map")
 const isEqual = require("lodash/isEqual")
 const get = require("lodash/get")
 const qs = require("qs")
@@ -151,7 +152,7 @@ export class SearchkitManager {
     let query = this.buildQuery()
     if(this.query && isEqual(query.getJSON(), this.query.getJSON())) {
       return
-    }    
+    }
     this.query = query
     this.loading = true
     this.emitter.trigger()
@@ -162,10 +163,21 @@ export class SearchkitManager {
   }
 
   setResults(results){
+    this.compareResults(this.results, results)
     this.results = results
     this.error = null
     this.accessors.setResults(results)
     this.onResponseChange()
+  }
+
+  compareResults(previousResults, results){
+    let ids  = map(get(results, ["hits", "hits"], []), "_id").join(",")
+    let previousIds = get(results, ["hits", "ids"], "")
+    if(results.hits){
+      results.hits.ids = ids
+      results.hits.hasChanged = !(ids && ids === previousIds)
+    }
+
   }
 
   getHits(){
@@ -187,6 +199,12 @@ export class SearchkitManager {
   hasHits(){
     return this.getHitsCount() > 0
   }
+
+  hasHitsChanged(){
+    return get(this.results, ["hits", "hasChanged"], true)
+  }
+
+
 
   setError(error){
     this.error = error
