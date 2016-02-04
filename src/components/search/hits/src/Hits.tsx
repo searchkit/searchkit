@@ -59,7 +59,7 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 
 	static defaultProps = {
 		itemComponent:HitItem,
-		scrollTo: false
+		scrollTo: null
 	}
 
 	componentWillMount() {
@@ -76,10 +76,8 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 	}
 
 	componentDidUpdate() {
-		console.log(this.hasHitsChanged(), this.isLoading(), this.props.scrollTo)
-		if(this.hasHitsChanged() && !this.isLoading() && !!this.props.scrollTo) {
+		if(!!this.props.scrollTo && !this.isLoading() && this.hasHitsChanged()) {
 			document.querySelector(this.props.scrollTo).scrollTop = 0;
-			console.log("scrolling to top")
 		}
 	}
 
