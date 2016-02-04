@@ -14,20 +14,25 @@ describe("Hits component", () => {
     this.searchkit = SearchkitManager.mock()
 
     this.wrapper = mount(
-      <Hits searchkit={this.searchkit} hitsPerPage={10} highlightFields={["title"]}/>
+      <Hits searchkit={this.searchkit}
+            hitsPerPage={10}
+            highlightFields={["title"]}
+            sourceFilter={["title"]}/>
     )
 
     this.pageSizeAccessor = this.searchkit.accessors.accessors[0]
-    this.hitsAccessor = this.searchkit.accessors.accessors[1]
+    this.highlightAccessor = this.searchkit.accessors.accessors[1]
+    this.sourceFilterAccessor = this.searchkit.accessors.accessors[2]
 
   });
 
   it("initalize accessors correctly", ()=> {
     expect(this.pageSizeAccessor.size).toBe(10)
-    expect(this.hitsAccessor.highlightFields)
+    expect(this.highlightAccessor.highlightFields)
       .toEqual({
          fields: { title:{}}
       })
+    expect(this.sourceFilterAccessor.source).toEqual(["title"])
   })
 
 

@@ -8,7 +8,9 @@ import {
 	HighlightAccessor,
 	SearchkitComponentProps,
 	ReactComponentType,
-	PureRender
+	PureRender,
+	SourceFilterType,
+	SourceFilterAccessor
 } from "../../../../core"
 
 const map = require("lodash/map")
@@ -34,6 +36,7 @@ export class HitItem extends React.Component<HitItemProps, any> {
 export interface HitsProps extends SearchkitComponentProps{
 	hitsPerPage: number
 	highlightFields?:Array<string>
+	sourceFilter?:SourceFilterType
 	itemComponent?:ReactComponentType<HitItemProps>
 }
 
@@ -45,6 +48,11 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		highlightFields:React.PropTypes.arrayOf(
 			React.PropTypes.string
 		),
+		sourceFilterType:React.PropTypes.oneOf([
+			React.PropTypes.string,
+			React.PropTypes.arrayOf(React.PropTypes.string),
+			React.PropTypes.bool
+		]),
 		itemComponent:React.PropTypes.func
 	}, SearchkitComponent.propTypes)
 
@@ -57,6 +65,11 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		if(this.props.highlightFields) {
 			this.searchkit.addAccessor(
 				new HighlightAccessor(this.props.highlightFields))
+		}
+		if(this.props.sourceFilter){
+			this.searchkit.addAccessor(
+				new SourceFilterAccessor(this.props.sourceFilter)
+			)
 		}
 	}
 
