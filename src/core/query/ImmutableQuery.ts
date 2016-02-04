@@ -9,6 +9,8 @@ const pick = require("lodash/pick")
 const merge = require("lodash/merge")
 const isUndefined = require("lodash/isUndefined")
 
+export type SourceFilterType = string|Array<string>|boolean
+
 export class ImmutableQuery {
   index: any
   query: any
@@ -18,6 +20,7 @@ export class ImmutableQuery {
     selectedFilters:[],
     queries:[],
     filters:[],
+    _source:null,
     size:0
   }
   constructor(index = ImmutableQuery.defaultIndex) {
@@ -39,6 +42,9 @@ export class ImmutableQuery {
     query.sort = this.index.sort
     query.highlight = this.index.highlight
     query.suggest = this.index.suggest
+    if(this.index._source){
+      query._source = this.index._source
+    }
     this.query = omitBy(query, isUndefined)
   }
 
@@ -117,6 +123,10 @@ export class ImmutableQuery {
 
   setSort(sort: any) {
     return this.update({ $merge: {sort:sort}})
+  }
+
+  setSource(_source:SourceFilterType){
+    return this.update({$merge:{_source}})
   }
 
   setHighlight(highlight: any) {

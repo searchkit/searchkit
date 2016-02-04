@@ -40,7 +40,8 @@ describe("ImmutableQuery", ()=> {
       filters:[],
       selectedFilters:[],
       queries:[],
-      size:0
+      size:0,
+      _source:null
     })
   })
 
@@ -224,6 +225,11 @@ describe("ImmutableQuery", ()=> {
       }
     )
 
+  })
+
+  it("setSource()", ()=> {
+    let query = this.query.setSource(["title", "thumbnail"])
+    expect(query.query._source).toEqual(["title", "thumbnail"])
   })
 
   it("setSuggestions()", ()=> {
