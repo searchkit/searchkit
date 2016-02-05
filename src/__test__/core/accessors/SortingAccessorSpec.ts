@@ -39,10 +39,13 @@ describe("SortingAccessor", ()=> {
       price:'asc'
     }])
     this.accessor.state = this.accessor.state.clear()
-    let emptyQuery = this.accessor.buildOwnQuery(query)
-    expect(emptyQuery.query.sort).toBe(undefined)
+    query = this.accessor.buildOwnQuery(query)
+    expect(query.query.sort).toEqual([{ price: 'desc' }])
 
-    expect(emptyQuery).toBe(query)
+    this.options.options[1].defaultOption = true
+    query = this.accessor.buildOwnQuery(query)
+    expect(query.query.sort).toEqual([{ price: 'asc' }])
+
   })
 
 

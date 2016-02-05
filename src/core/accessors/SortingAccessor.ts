@@ -1,9 +1,11 @@
 import {ValueState} from "../state"
 import {StatefulAccessor} from "./StatefulAccessor"
 const find = require("lodash/find")
+const head = require("lodash/head")
 
 export interface SortingOption {
-  label:string, field:string, order:string
+  label:string, field:string,
+  order:string, defaultOption?:boolean
 }
 
 export interface SortingOptions {
@@ -20,8 +22,16 @@ export class SortingAccessor extends StatefulAccessor<ValueState> {
     this.options = options;
   }
 
+
+  getSelectedOption(){
+    let options = this.options.options
+    return  find(options, {label:this.state.getValue()}) ||
+            find(options, {defaultOption:true}) ||
+            head(options)
+  }
+
   buildOwnQuery(query){
-    var selectedSortOption:any = find(this.options.options, {label:this.state.getValue()})
+    let selectedSortOption = this.getSelectedOption()
     if (selectedSortOption) {
       query = query.setSort([{[selectedSortOption.field]: selectedSortOption.order}])
     }
