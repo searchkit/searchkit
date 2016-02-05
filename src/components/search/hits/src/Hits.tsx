@@ -38,7 +38,7 @@ export interface HitsProps extends SearchkitComponentProps{
 	highlightFields?:Array<string>
 	sourceFilter?:SourceFilterType
 	itemComponent?:ReactComponentType<HitItemProps>
-	scrollTo?: string
+	scrollTo?: boolean|string
 }
 
 
@@ -59,7 +59,7 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 
 	static defaultProps = {
 		itemComponent:HitItem,
-		scrollTo: null
+		scrollTo: "body"
 	}
 
 	componentWillMount() {
@@ -77,7 +77,8 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 
 	componentDidUpdate() {
 		if(!!this.props.scrollTo && !this.isLoading() && this.hasHitsChanged()) {
-			document.querySelector(this.props.scrollTo).scrollTop = 0;
+			const scrollSelector:string = (this.props.scrollTo == true) ? "body" : this.props.scrollTo.toString()
+			document.querySelector(scrollSelector).scrollTop = 0;
 		}
 	}
 
