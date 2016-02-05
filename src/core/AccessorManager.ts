@@ -45,11 +45,13 @@ export class AccessorManager {
       }
       let existingAccessor = this.statefulAccessors[accessor.key]
       if(existingAccessor){
+        existingAccessor.incrementRef()
         return existingAccessor
       } else {
         this.statefulAccessors[accessor.key] = accessor
       }
     }
+    accessor.incrementRef()
     this.accessors.push(accessor)
     return accessor
   }
@@ -58,13 +60,16 @@ export class AccessorManager {
     if(!accessor){
       return
     }
-    if(accessor instanceof StatefulAccessor){
-      if(this.queryAccessor == accessor){
-        this.queryAccessor = noopQueryAccessor
+    accessor.decrementRef()
+    if(accessor.refCount === 0){
+      if(accessor instanceof StatefulAccessor){
+        if(this.queryAccessor == accessor){
+          this.queryAccessor = noopQueryAccessor
+        }
+        delete this.statefulAccessors[accessor.key]
       }
-      delete this.statefulAccessors[accessor.key]
+      this.accessors = without(this.accessors, accessor)
     }
-    this.accessors = without(this.accessors, accessor)
   }
 
   getState(){
