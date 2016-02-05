@@ -143,7 +143,7 @@ describe("Hits component", () => {
 
     })
 
-    it("should scroll to body", () => {
+    it("should scroll to .element", () => {
       this.setupTest(".element")
 
       expect(this.element.scrollTop).toBe(0)
@@ -151,10 +151,11 @@ describe("Hits component", () => {
 
     })
 
-    it("no scroll to body", () => {
+    it("no scroll", () => {
       this.setupTest(false)
 
       expect(this.stub.called).toBe(false)
+      expect(this.element.scrollTop).toBe(100)
 
     })
 
