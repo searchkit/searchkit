@@ -186,13 +186,13 @@
     "./src/core/transport/MockESTransport.ts",
     "./src/index.ts",
     "./test/e2e/specs/TestSpec.ts",
-    "./typings/tsd.d.ts"
+    "./typings/main.d.ts"
   ],
   "filesGlob": [
     "./src/**/*.tsx",
     "./src/**/*.ts",
     "./test/e2e/**/*.ts",
-    "./typings/tsd.d.ts"
+    "./typings/main.d.ts"
   ],
   "exclude": [],
   "atom": {
