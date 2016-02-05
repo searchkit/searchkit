@@ -17,7 +17,16 @@ describe("Accessor", ()=> {
   it("constructor()", ()=> {
     expect(this.accessor.active).toBe(true)
     expect(this.accessor.uuid).toBe("some_uuid")
+    expect(this.accessor.refCount).toBe(0)
   })
+
+  it("incrementRef(), decrementRef()", ()=> {
+    this.accessor.incrementRef()
+    expect(this.accessor.refCount).toBe(1)
+    this.accessor.decrementRef()
+    expect(this.accessor.refCount).toBe(0)
+  })
+
 
   it("setActive()", ()=> {
     expect(this.accessor.setActive(false).active)

@@ -9,10 +9,20 @@ export class Accessor {
   results:any
   active:boolean
   translations:Object
+  refCount:number
   constructor(){
     this.uuid = Utils.guid()
     this.active = true
     this.translations = {}
+    this.refCount = 0
+  }
+
+  incrementRef(){
+    this.refCount++
+  }
+
+  decrementRef(){
+    this.refCount--
   }
 
   setActive(active:boolean){

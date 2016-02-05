@@ -60,17 +60,18 @@ describe("AccessorManager", ()=> {
 
   it("add(), remove()", ()=> {
     let accessors = new AccessorManager()
-    expect(accessors.add(this.accessor1))
-      .toEqual(this.accessor1)
-    expect(accessors.getAccessors())
-      .toEqual([this.accessor1])
-
+    this.accessor1.refCount = 0
+    expect(accessors.add(this.accessor1)).toEqual(this.accessor1)
+    expect(this.accessor1.refCount).toBe(1)
+    expect(accessors.getAccessors()).toEqual([this.accessor1])
     accessors.remove(this.accessor1)
+    expect(this.accessor1.refCount).toBe(0)
     expect(accessors.getAccessors()).toEqual([])
   })
 
   it("adding accessor with same statefulKey then remove", ()=> {
     let accessors = new AccessorManager()
+    this.accessor4.refCount = 0
     expect(accessors.add(this.accessor4))
       .toEqual(this.accessor4)
     expect(accessors.add(this.accessor4b))
@@ -79,8 +80,8 @@ describe("AccessorManager", ()=> {
       .toEqual([this.accessor4])
     expect(accessors.statefulAccessors).toEqual({
       p4:this.accessor4
-    })
-
+    })    
+    accessors.remove(this.accessor4)
     accessors.remove(this.accessor4)
     expect(accessors.getAccessors()).toEqual([])
     expect(accessors.statefulAccessors).toEqual({})
