@@ -127,7 +127,6 @@ describe("Hits component", () => {
             total:2
           }
         })
-        this.wrapper.update()
       }
     })
 
@@ -162,30 +161,28 @@ describe("Hits component", () => {
     it("wont scroll on same results", () => {
       this.setupTest(true)
 
-      expect(this.stub.callCount).toBe(2)
+      expect(this.stub.callCount).toBe(1)
       this.searchkit.setResults({
         hits:{
           hits:[{_id:1, title:1},{_id:2,title:2}],
           total:2
         }
       })
-      this.wrapper.update()
-      expect(this.stub.callCount).toBe(2)
+      expect(this.stub.callCount).toBe(1)
 
     })
 
     it("will scroll on new results", () => {
       this.setupTest(true)
 
-      expect(this.stub.callCount).toBe(2)
+      expect(this.stub.callCount).toBe(1)
       this.searchkit.setResults({
         hits:{
           hits:[{_id:3, title:1},{_id:4,title:2}],
           total:2
         }
       })
-      this.wrapper.update()
-      expect(this.stub.callCount).toBe(4)
+      expect(this.stub.callCount).toBe(2)
 
     })
 
