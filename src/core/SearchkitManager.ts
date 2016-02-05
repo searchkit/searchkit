@@ -172,7 +172,7 @@ export class SearchkitManager {
 
   compareResults(previousResults, results){
     let ids  = map(get(results, ["hits", "hits"], []), "_id").join(",")
-    let previousIds = get(results, ["hits", "ids"], "")
+    let previousIds = get(previousResults, ["hits", "ids"], "")
     if(results.hits){
       results.hits.ids = ids
       results.hits.hasChanged = !(ids && ids === previousIds)
