@@ -39,7 +39,6 @@ describe("SortingSelector tests", () => {
   it("renders with results", ()=> {
     this.setResults()
     expect(this.wrapper.children().length).toBe(1)
-    printPrettyHtml(this.wrapper.html())
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sorting-selector">
         <select defaultValue="Relevance">
@@ -54,7 +53,6 @@ describe("SortingSelector tests", () => {
   it("renders with selected value", ()=> {
     this.accessor.state = this.accessor.state.setValue("Latest Releases")
     this.setResults()
-    // return printPrettyHtml(this.wrapper.html())
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sorting-selector">
         <select defaultValue="Latest Releases" onChange={_.identity}>
