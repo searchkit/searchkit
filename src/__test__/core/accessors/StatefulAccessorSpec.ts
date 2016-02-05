@@ -1,11 +1,12 @@
 import {
   StatefulAccessor, ValueState, ImmutableQuery,
-  SearchkitManager
+  SearchkitManager, Utils
 } from "../../../"
 
 describe("StatefulAccessor", ()=> {
 
   beforeEach(()=> {
+    Utils.guidCounter = 0
     class SomeAccessor extends StatefulAccessor<ValueState> {
       state = new ValueState()
     }
@@ -18,6 +19,7 @@ describe("StatefulAccessor", ()=> {
   })
 
   it("constructor()", ()=> {
+    expect(this.accessor.uuid).toBe("genres.raw1")
     expect(this.accessor.key).toEqual("genres.raw")
     expect(this.accessor.urlKey).toEqual("genres_raw")
   })
