@@ -43,3 +43,4 @@
 * [Using Express](/docs/server/searchkit_express.md)
 * [Indexing & Mapping Guide](/docs/server/indexing.md)
 * [Examples](/docs/examples/README.md)
+* [Contributing Guide](/docs/developer-guide.md)
