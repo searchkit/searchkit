@@ -24,13 +24,13 @@ describe("Reset Filter tests", () => {
 
   it('renders correctly', () => {
     this.createWrapper()
-    this.searchkit.query.hasFiltersOrQuery = () => {return false}
+    this.searchkit.query.getSelectedFilters = () => {return []}
     let elem = this.wrapper.find(".reset-filters")
 
     this.wrapper.update()
     expect(elem.hasClass("is-disabled")).toBe(true)
 
-    this.searchkit.query.hasFiltersOrQuery = () => {return true}
+    this.searchkit.query.getSelectedFilters = () => {return [1]}
 
     this.wrapper.update()
     expect(elem.hasClass("is-disabled")).toBe(false)
@@ -39,7 +39,7 @@ describe("Reset Filter tests", () => {
   });
 
   it("handles reset click", () => {
-    this.searchkit.query.hasFiltersOrQuery = () => {return true}
+    this.searchkit.query.getSelectedFilters = () => {return [1]}
     this.searchkit.resetState = sinon.spy()
     this.searchkit.performSearch = sinon.spy()
     this.createWrapper()

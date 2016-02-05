@@ -1,5 +1,6 @@
 # Reset
-This component clears all the refinements that are currently applied (query and filters)
+This component clears all the selected filters that are currently applied.
+This component will ignore the query and hidden/default filters
 
 ## Example
 
