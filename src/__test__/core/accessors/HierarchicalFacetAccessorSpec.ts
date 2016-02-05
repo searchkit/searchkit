@@ -13,7 +13,9 @@ describe("HierarchicalFacetAccessor", ()=> {
       fields:["lvl1", "lvl2", "lvl3"],
       id:"categories_id",
       title:"Categories",
-      size:20
+      size:20,
+      orderKey:"_term",
+      orderDirection:"asc"
     })
     this.accessor.uuid = "999"
     this.accessor.computeUuids()
@@ -110,20 +112,21 @@ describe("HierarchicalFacetAccessor", ()=> {
       'other', '999lvl1', '999lvl2', '999lvl3'
     ])
 
+    let order = {_term:"asc"}
     // console.log(JSON.stringify(query.query.aggs, null, 2))
     var expected = FilterBucket(
       "categories_id", BoolMust([BoolShould(["foo"])]),
       FilterBucket(
         "lvl1",
         BoolMust([]),
-        TermsBucket("lvl1", "lvl1", {size:20})
+        TermsBucket("lvl1", "lvl1", {size:20, order})
       ),
       FilterBucket(
         "lvl2",
         BoolMust([
           TermQuery("lvl1", "lvl1val")
         ]),
-        TermsBucket("lvl2", "lvl2", {size:20})
+        TermsBucket("lvl2", "lvl2", {size:20,order})
       ),
       FilterBucket(
         "lvl3",
@@ -131,7 +134,7 @@ describe("HierarchicalFacetAccessor", ()=> {
           TermQuery("lvl1", "lvl1val"),
           TermQuery("lvl2", "lvl2val")
         ]),
-        TermsBucket("lvl3", "lvl3", {size:20})
+        TermsBucket("lvl3", "lvl3", {size:20, order})
       )
     )
     // console.log(JSON.stringify(expected, null, 2))

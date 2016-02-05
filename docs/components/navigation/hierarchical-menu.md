@@ -60,6 +60,8 @@ class App extends SearchkitComponent {
 - `id` *(string)*: id of component. Must be unique. Used as key for url serialisation
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
 - `mod` *(string)*: Optional. A custom BEM container class.
+- `orderKey` *(string)*: Order key either using an intrinsic sortable key `_count` `_term`
+- `orderDirection` *(string)*: `asc` or `desc`
 
 ## Demo
 [](codepen://searchkit/jWyWmw?height=800&theme=0)

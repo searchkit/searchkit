@@ -60,6 +60,9 @@ class App extends SearchkitComponent {
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
 - `itemComponent` *(ReactComponent)*: Optional. React component which overrides the default filter option component. See `Overriding Filter Option Component` section.
 - `mod` *(string)*: Optional. A custom BEM container class.
+- `orderKey` *(string)*: Order key either using an intrinsic sortable key `_count` `_term`
+- `orderDirection` *(string)*: `asc` or `desc`
+
 
 ## Translations
 - `facets.view_more` - View more

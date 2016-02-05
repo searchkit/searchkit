@@ -61,6 +61,9 @@ class App extends SearchkitComponent {
 - `id` *(string)*: id of component. Must be unique. Used as key for url serialisation
 - `itemComponent` *(ReactComponent)*: Optional. React component which overrides the default filter option component. See `Overriding Filter Option Component` section.
 - `mod` *(string)*: Optional. A custom BEM container class.
+- `orderKey` *(string)*: Order key either using an intrinsic sortable key `_count` `_term`
+- `orderDirection` *(string)*: `asc` or `desc`
+
 
 ## Demo
 [](codepen://searchkit/YwNwVm?height=800&theme=0)
