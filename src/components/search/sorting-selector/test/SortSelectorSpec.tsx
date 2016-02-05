@@ -5,8 +5,9 @@ import {SearchkitManager } from "../../../../core";
 const bem = require("bem-cn");
 import * as sinon from "sinon";
 const _ = require("lodash")
-var jsxToHTML = require('react-dom/server').renderToStaticMarkup;
-
+import {
+  fastClick, hasClass, jsxToHTML, printPrettyHtml
+} from "../../../__test__/TestHelpers"
 
 describe("SortingSelector tests", () => {
 
@@ -40,7 +41,7 @@ describe("SortingSelector tests", () => {
     expect(this.wrapper.children().length).toBe(1)
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sorting-selector">
-        <select>
+        <select defaultValue="Relevance">
           <option value="Relevance">Relevance</option>
           <option value="Latest Releases">Latest Releases</option>
           <option value="Earliest Releases">Earliest Releases</option>
@@ -54,7 +55,21 @@ describe("SortingSelector tests", () => {
     this.setResults()
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sorting-selector">
-        <select value="Latest Releases" onChange={_.identity}>
+        <select defaultValue="Latest Releases" onChange={_.identity}>
+          <option value="Relevance">Relevance</option>
+          <option value="Latest Releases">Latest Releases</option>
+          <option value="Earliest Releases">Earliest Releases</option>
+        </select>
+      </div>
+    ))
+  })
+
+  it("renders with defaultOption", ()=> {
+    this.accessor.options.options[2].defaultOption = true
+    this.setResults()
+    expect(this.wrapper.html()).toEqual(jsxToHTML(
+      <div className="sorting-selector">
+        <select defaultValue="Earliest Releases" onChange={_.identity}>
           <option value="Relevance">Relevance</option>
           <option value="Latest Releases">Latest Releases</option>
           <option value="Earliest Releases">Earliest Releases</option>

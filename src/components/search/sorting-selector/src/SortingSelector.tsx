@@ -24,7 +24,8 @@ export class SortingSelector extends SearchkitComponent<SortingProps, any> {
 			React.PropTypes.shape({
 				label:React.PropTypes.string.isRequired,
 				field:React.PropTypes.string.isRequired,
-				order:React.PropTypes.string.isRequired
+				order:React.PropTypes.string.isRequired,
+				defaultOption:React.PropTypes.bool
 			})
 		)
 	}, SearchkitComponent.propTypes)
@@ -53,7 +54,8 @@ export class SortingSelector extends SearchkitComponent<SortingProps, any> {
 	}
 
 	getSelectedValue():string {
-		return `${this.accessor.state.getValue()}`
+		let option = this.accessor.getSelectedOption()
+		return option && option.label
 	}
 
   render() {
