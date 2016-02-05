@@ -1,0 +1,28 @@
+{
+  "ambientDependencies": {
+    "angular-protractor": "github:joemcelroy/DefinitelyTyped/angular-protractor/angular-protractor.d.ts#0d64ea1b82ad1d804892ceec14d98a9be85f64fb",
+    "axios": "file:node_modules/axios/axios.d.ts",
+    "classnames": "github:joemcelroy/DefinitelyTyped/classnames/classnames.d.ts#0d64ea1b82ad1d804892ceec14d98a9be85f64fb",
+    "enzyme": "github:joemcelroy/DefinitelyTyped/enzyme/enzyme.d.ts#d1f6bde13f2209be42e86c3686761e8bfcbb50a5",
+    "es6-promise": "github:joemcelroy/DefinitelyTyped/es6-promise/es6-promise.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
+    "history": "github:joemcelroy/DefinitelyTyped/react-router/history.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
+    "jasmine": "github:joemcelroy/DefinitelyTyped/jasmine/jasmine.d.ts#0d64ea1b82ad1d804892ceec14d98a9be85f64fb",
+    "jasmine-ajax": "github:joemcelroy/DefinitelyTyped/jasmine-ajax/jasmine-ajax.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
+    "react": "github:joemcelroy/DefinitelyTyped/react/react.d.ts#d1f6bde13f2209be42e86c3686761e8bfcbb50a5",
+    "react-addons-create-fragment": "github:joemcelroy/DefinitelyTyped/react/react-addons-create-fragment.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
+    "react-addons-css-transition-group": "github:joemcelroy/DefinitelyTyped/react/react-addons-css-transition-group.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
+    "react-addons-linked-state-mixin": "github:joemcelroy/DefinitelyTyped/react/react-addons-linked-state-mixin.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
+    "react-addons-perf": "github:joemcelroy/DefinitelyTyped/react/react-addons-perf.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
+    "react-addons-pure-render-mixin": "github:joemcelroy/DefinitelyTyped/react/react-addons-pure-render-mixin.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
+    "react-addons-test-utils": "github:joemcelroy/DefinitelyTyped/react/react-addons-test-utils.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
+    "react-addons-transition-group": "github:joemcelroy/DefinitelyTyped/react/react-addons-transition-group.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
+    "react-addons-update": "github:joemcelroy/DefinitelyTyped/react/react-addons-update.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
+    "react-dom": "github:joemcelroy/DefinitelyTyped/react/react-dom.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
+    "react-global": "github:joemcelroy/DefinitelyTyped/react/react-global.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
+    "react-router": "github:joemcelroy/DefinitelyTyped/react-router/react-router.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
+    "require": "github:joemcelroy/DefinitelyTyped/requirejs/require.d.ts#70470ce4755f29bb8a55b549c6724f35269814fb",
+    "selenium-webdriver": "github:joemcelroy/DefinitelyTyped/selenium-webdriver/selenium-webdriver.d.ts#0d64ea1b82ad1d804892ceec14d98a9be85f64fb",
+    "sinon": "github:joemcelroy/DefinitelyTyped/sinon/sinon.d.ts#d1f6bde13f2209be42e86c3686761e8bfcbb50a5",
+    "typescript": "github:joemcelroy/DefinitelyTyped/typescript/typescript.d.ts#68548c2daab053869f323d475419c693478bbb73"
+  }
+}

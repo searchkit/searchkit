@@ -97,7 +97,6 @@
     "style-loader": "^0.13.0",
     "ts-loader": "^0.7.2",
     "ts-node": "^0.5.5",
-    "tsd": "^0.6.5",
     "typescript": "^1.7.0",
     "webpack": "^1.12.9",
     "webpack-config": "^3.0.0",
