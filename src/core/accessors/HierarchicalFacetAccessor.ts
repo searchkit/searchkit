@@ -8,7 +8,17 @@ const map = require("lodash/map")
 const each = require("lodash/each")
 const compact = require("lodash/compact")
 const take = require("lodash/take")
+const omitBy = require("lodash/omitBy")
+const isUndefined = require("lodash/isUndefined")
 
+export interface HierarchicalFacetAccessorOptions{
+  fields:Array<string>
+  size:number
+  id:string
+  title:string
+  orderKey?:string
+  orderDirection?:string
+}
 
 export class HierarchicalFacetAccessor extends FilterBasedAccessor<LevelState> {
 
@@ -16,7 +26,7 @@ export class HierarchicalFacetAccessor extends FilterBasedAccessor<LevelState> {
   options:any
   uuids:Array<String>
 
-  constructor(key, options:any){
+  constructor(key, options:HierarchicalFacetAccessorOptions){
     super(key)
     this.options = options
     this.computeUuids()
@@ -34,6 +44,14 @@ export class HierarchicalFacetAccessor extends FilterBasedAccessor<LevelState> {
   getBuckets(level){
     var field = this.options.fields[level]
     return this.getAggregations([this.options.id, field, field, "buckets"], [])
+  }
+
+
+  getOrder(){
+    if(this.options.orderKey){
+      let orderDirection = this.options.orderDirection || "asc"
+      return {[this.options.orderKey]:orderDirection}
+    }
   }
 
   buildSharedQuery(query) {
@@ -78,7 +96,9 @@ export class HierarchicalFacetAccessor extends FilterBasedAccessor<LevelState> {
         return FilterBucket(
           field,
           query.getFiltersWithKeys(take(this.uuids,i)),
-          TermsBucket(field, field, {size:this.options.size})
+          TermsBucket(field, field, omitBy({
+            size:this.options.size, order:this.getOrder()
+          }, isUndefined))
         )
       }
     }));

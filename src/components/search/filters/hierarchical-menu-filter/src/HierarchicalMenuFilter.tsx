@@ -16,6 +16,9 @@ export interface HierarchicalMenuFilterProps extends SearchkitComponentProps{
 	id:string
 	fields:Array<string>
 	title:string
+	size?:number
+	orderKey?:string
+	orderDirection?:string
 }
 
 export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuFilterProps, any> {
@@ -24,7 +27,9 @@ export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuF
 	static propTypes = defaults({
 		id:React.PropTypes.string.isRequired,
 		fields:React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-		title:React.PropTypes.string.isRequired
+		title:React.PropTypes.string.isRequired,
+		orderKey:React.PropTypes.string,
+		orderDirection:React.PropTypes.oneOf(["asc", "desc"])
 	}, SearchkitComponent.propTypes)
 
 	constructor(props:HierarchicalMenuFilterProps) {
@@ -40,10 +45,10 @@ export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuF
 	}
 
 	defineAccessor() {
-		return new HierarchicalFacetAccessor(
-			this.props.id,
-			{id:this.props.id, title:this.props.title, fields:this.props.fields, size:0}
-		)
+		const {id, title, fields, size=0, orderKey, orderDirection} = this.props
+		return new HierarchicalFacetAccessor(id, {
+			id, title, fields, size, orderKey, orderDirection
+		})
 	}
 
 	addFilter(option, level) {

@@ -14,6 +14,8 @@ describe("FacetAccessor", ()=> {
       title:"Genres",
       id:"GenreId",
       size:20,
+      orderKey:"_term",
+      orderDirection:"asc",
       translations:{
         "facets.view_more":"View more genres"
       }
@@ -185,7 +187,7 @@ describe("FacetAccessor", ()=> {
           BoolMust([
             BoolShould(["PG"])
           ]),
-          TermsBucket("genre", "genre", {size:20}),
+          TermsBucket("genre", "genre", {size:20, order:{_term:"asc"}}),
           CardinalityMetric("genre_count", "genre")
         )
       )
@@ -203,7 +205,7 @@ describe("FacetAccessor", ()=> {
               TermQuery("genre", "2")
             ])
           ]),
-          TermsBucket("genre", "genre", {size:20}),
+          TermsBucket("genre", "genre", {size:20, order:{_term:"asc"}}),
           CardinalityMetric("genre_count", "genre")
         )
       )
@@ -223,7 +225,12 @@ describe("FacetAccessor", ()=> {
               TermQuery("genre", "2")
             ])
           ]),
-          TermsBucket("genre", "genre", {size:20, include: ["one", "two"], exclude: ["three"]}),
+          TermsBucket("genre", "genre", {
+            size:20,
+            include: ["one", "two"],
+            exclude: ["three"],
+            order:{_term:"asc"}
+          }),
           CardinalityMetric("genre_count", "genre")
         )
       )

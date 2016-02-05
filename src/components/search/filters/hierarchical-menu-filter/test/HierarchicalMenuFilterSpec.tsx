@@ -16,7 +16,7 @@ describe("MenuFilter tests", () => {
     spyOn(this.searchkit, "performSearch")
     this.wrapper = mount(
       <HierarchicalMenuFilter searchkit={this.searchkit}
-        title="Categories" id="categories"
+        title="Categories" id="categories" orderKey="_term" orderDirection="asc"
         fields={["lvl1", "lvl2"]}
       />
     )
@@ -43,7 +43,8 @@ describe("MenuFilter tests", () => {
     expect(this.accessor.key).toBe("categories")
     expect(this.accessor.options).toEqual({
       id: 'categories', title: 'Categories',
-      fields: ['lvl1', 'lvl2'], size: 0
+      fields: ['lvl1', 'lvl2'], size: 0,
+      orderKey:"_term", orderDirection:"asc"
     })
   })
 

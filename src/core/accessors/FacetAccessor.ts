@@ -20,6 +20,8 @@ export interface FacetAccessorOptions {
   translations?:Object
   include?:Array<string> | string
   exclude?:Array<string> | string
+  orderKey?:string
+  orderDirection?:string
 }
 
 export interface ISizeOption {
@@ -93,6 +95,13 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     return this.isOrOperator() ? BoolShould : BoolMust
   }
 
+  getOrder(){
+    if(this.options.orderKey){
+      let orderDirection = this.options.orderDirection || "asc"
+      return {[this.options.orderKey]:orderDirection}
+    }
+  }
+
   buildSharedQuery(query){
     var filters = this.state.getValue()
     var filterTerms = map(filters, TermQuery.bind(null, this.key))
@@ -122,6 +131,7 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
         query.getFiltersWithoutKeys(excludedKey),
         TermsBucket(this.key, this.key, omitBy({
           size:this.size,
+          order:this.getOrder(),
           include: this.options.include,
           exclude: this.options.exclude
         }, isUndefined)),

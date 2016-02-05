@@ -20,7 +20,7 @@ describe("MenuFilter tests", () => {
       <MenuFilter
         searchkit={this.searchkit}
         translations={{"Red":"Red Translated"}}
-        field="color" title="Color"
+        field="color" title="Color" orderKey="_term" orderDirection="asc"
         id="color" size={10}/>
     )
     this.getOptionAt = (at)=> {
@@ -48,7 +48,7 @@ describe("MenuFilter tests", () => {
   it("expect accessor options to be correct", ()=> {
     expect(this.accessor.options).toEqual({
       id:"color", title:"Color", operator:"OR",
-      size:10, facetsPerPage:50
+      size:10, facetsPerPage:50, orderKey:"_term", orderDirection:"asc"
     })
   })
 

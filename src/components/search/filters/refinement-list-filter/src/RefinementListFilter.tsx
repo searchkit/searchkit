@@ -110,6 +110,8 @@ export interface RefinementListFilterProps extends SearchkitComponentProps {
   id:string
   component?: ReactComponentType<RefinementListFilterDisplayProps>
   itemComponent?: ReactComponentType<FilterItemComponentProps>
+  orderKey?:string
+  orderDirection?:string
 }
 
 export class RefinementListFilter extends SearchkitComponent<RefinementListFilterProps, any> {
@@ -123,7 +125,9 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
     id:React.PropTypes.string.isRequired,
     translations:SearchkitComponent.translationsPropType(
       FacetAccessor.translations
-    )
+    ),
+    orderKey:React.PropTypes.string,
+    orderDirection:React.PropTypes.oneOf(["asc", "desc"])
   }, SearchkitComponent.propTypes)
 
   static defaultProps = {
@@ -132,12 +136,15 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
   }
 
   defineAccessor() {
-    return new FacetAccessor( this.props.field,{
-      id:this.props.id, operator:this.props.operator,
-      title:this.props.title, size:(this.props.size || 50),
-      translations:this.props.translations
+    const {
+      field, id, operator, title,
+      size=50, translations, orderKey, orderDirection
+    } = this.props
+    return new FacetAccessor(field,{
+      id, operator,title, size,
+      translations, orderKey, orderDirection
     })
-  }
+}
 
   defineBEMBlocks() {
     var blockName = this.props.mod || "refinement-list"

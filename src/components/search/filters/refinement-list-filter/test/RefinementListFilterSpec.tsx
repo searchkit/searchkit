@@ -126,7 +126,9 @@ describe("Refinement List Filter tests", () => {
       "size": 50,
       "facetsPerPage": 50,
       "operator": undefined,
-      "translations": undefined
+      "translations": undefined,
+      "orderKey":undefined,
+      "orderDirection":undefined
     })
   })
 
