@@ -54,7 +54,7 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
   }
 
   getBuckets(){
-    return this.getAggregations([this.key, this.key, "buckets"], [])
+    return this.getAggregations([this.uuid, this.key, "buckets"], [])
   }
 
   setViewMoreOption(option:ISizeOption) {
@@ -118,7 +118,7 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     let excludedKey = (this.isOrOperator()) ? this.uuid : undefined
     return query
       .setAggs(FilterBucket(
-        this.key,
+        this.uuid,
         query.getFiltersWithoutKeys(excludedKey),
         TermsBucket(this.key, this.key, omitBy({
           size:this.size,

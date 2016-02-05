@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {MenuFilter} from "../src/MenuFilter.tsx";
-import {SearchkitManager} from "../../../../../core";
+import {SearchkitManager, Utils} from "../../../../../core";
 const bem = require("bem-cn");
 import * as sinon from "sinon";
 const _ = require("lodash")
@@ -13,6 +13,7 @@ import {
 describe("MenuFilter tests", () => {
 
   beforeEach(()=> {
+    Utils.guidCounter = 0
     this.searchkit = SearchkitManager.mock()
     spyOn(this.searchkit, "performSearch")
     this.wrapper = mount(
@@ -30,7 +31,7 @@ describe("MenuFilter tests", () => {
     this.setResults = ()=> {
       this.searchkit.setResults({
         aggregations:{
-          color:{
+          color1:{
             color:{
               buckets:[
                 {key:"Red", doc_count:10},

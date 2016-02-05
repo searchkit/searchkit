@@ -5,7 +5,10 @@ describe("Utils", ()=> {
 
 
   it("guid()", ()=> {
-    expect(Utils.guid().length).toEqual(36)
+    Utils.guidCounter = 0
+    expect(Utils.guid()).toBe("1")
+    expect(Utils.guid("prefix")).toBe("prefix2")
+    expect(Utils.guid("foo")).toBe("foo3")
   })
 
   it("collapse()", ()=> {

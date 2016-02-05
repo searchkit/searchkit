@@ -1,5 +1,5 @@
 import {
-  FacetAccessor, ImmutableQuery,
+  FacetAccessor, ImmutableQuery,Utils,
   BoolMust, BoolShould, ArrayState, TermQuery,
   FilterBucket, TermsBucket, CardinalityMetric
 } from "../../../"
@@ -8,6 +8,7 @@ import {
 describe("FacetAccessor", ()=> {
 
   beforeEach(()=> {
+    Utils.guidCounter = 0
     this.options = {
       operator:"OR",
       title:"Genres",
@@ -30,7 +31,7 @@ describe("FacetAccessor", ()=> {
     expect(this.accessor.getBuckets()).toEqual([])
     this.accessor.results = {
       aggregations:{
-        genre:{
+        genre1:{
           genre:{buckets:[1,2]}
         }
       }
@@ -180,7 +181,7 @@ describe("FacetAccessor", ()=> {
     it("build own query - or", ()=> {
       let query = this.accessor.buildOwnQuery(this.query)
       expect(query.query.aggs).toEqual(
-        FilterBucket("genre",
+        FilterBucket("genre1",
           BoolMust([
             BoolShould(["PG"])
           ]),
@@ -194,7 +195,7 @@ describe("FacetAccessor", ()=> {
       this.options.operator = "AND"
       let query = this.accessor.buildOwnQuery(this.query)
       expect(query.query.aggs).toEqual(
-        FilterBucket("genre",
+        FilterBucket("genre1",
           BoolMust([
             BoolShould(["PG"]),
             BoolShould([
@@ -214,7 +215,7 @@ describe("FacetAccessor", ()=> {
       this.options.exclude = ["three"]
       let query = this.accessor.buildOwnQuery(this.query)
       expect(query.query.aggs).toEqual(
-        FilterBucket("genre",
+        FilterBucket("genre1",
           BoolMust([
             BoolShould(["PG"]),
             BoolShould([

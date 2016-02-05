@@ -2,19 +2,18 @@ import * as React from "react";
 import {mount} from "enzyme";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
 import {RefinementListFilter} from "../src/RefinementListFilter.tsx";
-import {SearchkitManager} from "../../../../../core";
+import {SearchkitManager, Utils} from "../../../../../core";
 const bem = require("bem-cn");
 const _ = require("lodash")
 import * as sinon from "sinon";
 
 describe("Refinement List Filter tests", () => {
-
   this.createWrapper = (component) => {
     this.wrapper = mount(component)
 
     this.searchkit.setResults({
       aggregations: {
-        test: {
+        test1: {
           test: {
             buckets: [
               { key: "test option 1", doc_count: 1 },
@@ -41,6 +40,7 @@ describe("Refinement List Filter tests", () => {
   }
 
   beforeEach(() => {
+    Utils.guidCounter = 0
 
     this.bemContainer = bem("refinement-list")
     this.bemOption = bem("refinement-list-option")
