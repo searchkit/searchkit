@@ -19,7 +19,7 @@ export class NoHitsDisplay extends React.Component<NoHitsDisplayProps, any> {
 	getSuggestionAction() {
 		const {suggestion, setSuggestionFn, bemBlocks, translate} = this.props
 
-		if(this.suggestion){
+		if(suggestion){
 			return (
 				<FastClick handler={setSuggestionFn}>
 					<div className={bemBlocks.container("step-action")}>
