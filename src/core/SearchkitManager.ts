@@ -204,10 +204,10 @@ export class SearchkitManager {
     return get(this.results, ["hits", "hasChanged"], true)
   }
 
-
-
   setError(error){
     this.error = error
+    this.results = null
+    this.accessors.setResults(null)
     this.onResponseChange()
   }
 
