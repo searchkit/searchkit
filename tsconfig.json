@@ -41,6 +41,8 @@
     "./src/components/search/hits/src/Hits.tsx",
     "./src/components/search/hits/src/InitialLoader.tsx",
     "./src/components/search/hits/src/NoHits.tsx",
+    "./src/components/search/hits/src/NoHitsDisplay.tsx",
+    "./src/components/search/hits/src/NoHitsErrorDisplay.tsx",
     "./src/components/search/hits/test/HitsSpec.tsx",
     "./src/components/search/hits/test/InitialLoaderSpec.tsx",
     "./src/components/search/hits/test/NoHitsSpec.tsx",
