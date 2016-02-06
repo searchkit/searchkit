@@ -292,9 +292,11 @@ describe("SearchkitManager", ()=> {
     this.searchkit.results = {
       hits:{
         total:99
-      }
+      },
+      took:1
     }
-    expect(this.searchkit.getHitsCount()).toEqual(99)
+    expect(this.searchkit.getHitsCount()).toBe(99)
+    expect(this.searchkit.getTime()).toBe(1)
     expect(this.searchkit.hasHits()).toBe(true)
   })
 
