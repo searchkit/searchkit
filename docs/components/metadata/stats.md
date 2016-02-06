@@ -18,8 +18,40 @@ class App extends SearchkitComponent {
   }
 }
 ```
+
+## Overriding
+If you want to customise the display of HitsStats, you can override the display by passing in a ReactComponent into `component` prop.
+
+```jsx
+import {
+  HitsStats,
+  SearchkitComponent
+} from "searchkit";
+
+const customHitStats = (props) => {
+	const {resultsFoundLabel, bemBlocks, hitCount, timeTaken} = props
+	return (
+		<div className={bemBlocks.container()} data-qa="hits-stats">
+			<div className={bemBlocks.container("info")} data-qa="info">
+				I found {hitCount} in {timeTaken}ms!
+			</div>
+	  </div>
+	)
+}
+
+class App extends SearchkitComponent {
+
+  render(){
+    <div>
+        <HitsStats component={customHitStats}/>
+    </div>
+  }
+}
+```
+
 ## Props
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
+- `component` *(ReactComponent)*: A React component to override the default display component. Used when you want to change the markup of HitStats
 - `mod` *(string)*: Optional. A custom BEM container class.
 
 ## Demo
