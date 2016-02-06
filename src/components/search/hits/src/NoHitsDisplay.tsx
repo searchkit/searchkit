@@ -19,9 +19,9 @@ export class NoHitsDisplay extends React.Component<NoHitsDisplayProps, any> {
 	getSuggestionAction() {
 		const {suggestion, setSuggestionFn, bemBlocks, translate} = this.props
 
-		if(this.props.suggestion){
+		if(this.suggestion){
 			return (
-				<FastClick handler={this.props.setSuggestionFn}>
+				<FastClick handler={setSuggestionFn}>
 					<div className={bemBlocks.container("step-action")}>
 						{translate("NoHits.DidYouMean", {suggestion})}
 					</div>
