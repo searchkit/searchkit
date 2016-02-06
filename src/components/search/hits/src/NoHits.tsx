@@ -89,20 +89,17 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 		return this.noFiltersAccessor && this.noFiltersAccessor.getCount()
 	}
 
-	hasError() {
-		return false;
-	}
-
 	render() {
-    if (this.hasHits() || this.isInitialLoading() || this.isLoading()) return null
+    if ((this.hasHits() || this.isInitialLoading() || this.isLoading()) && !this.getError()) return null
 
-		if (this.hasError()) {
+		if (this.getError()) {
 			const props:NoHitsErrorDisplayProps = {
 				errorLabel:this.translate("NoHits.Error"),
 				resetSearchFn: this.resetSearch.bind(this),
 				translate: this.translate,
 				bemBlocks: this.bemBlocks,
-				tryAgainLabel: this.translate("NoHits.ResetSearch")
+				tryAgainLabel: this.translate("NoHits.ResetSearch"),
+				error: this.getError()
 			}
 			return React.createElement(this.props.errorComponent, props)
 		}

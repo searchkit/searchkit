@@ -9,6 +9,7 @@ export interface NoHitsErrorDisplayProps {
   resetSearchFn: Function
   translate: Function
 	bemBlocks: {container:Function}
+	error: any
 }
 
 export class NoHitsErrorDisplay extends React.Component<NoHitsErrorDisplayProps, any> {
