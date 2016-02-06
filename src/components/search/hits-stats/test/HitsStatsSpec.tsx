@@ -41,7 +41,7 @@ describe("HitsStats tests", () => {
     })
 
     const overrideComponent = (props:HitsStatsDisplayProps) => {
-      return (<div>{props.hitCount}</div>)
+      return (<div>{props.hitsCount}</div>)
     }
 
     this.createWrapper({component:overrideComponent})

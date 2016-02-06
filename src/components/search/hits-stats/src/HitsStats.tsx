@@ -13,7 +13,7 @@ export interface HitsStatsDisplayProps {
 	bemBlocks:{container:Function}
 	resultsFoundLabel: string
 	timeTaken:string
-	hitCount:string
+	hitsCount:string
 	translate:Function
 }
 
@@ -63,7 +63,7 @@ export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 			bemBlocks:this.bemBlocks,
 			translate:this.translate,
 			timeTaken: timeTaken,
-			hitCount: hitsCount,
+			hitsCount: hitsCount,
 			resultsFoundLabel: this.translate("hitstats.results_found", {
 				timeTaken:timeTaken,
 				hitCount:hitsCount
