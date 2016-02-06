@@ -188,6 +188,10 @@ export class SearchkitManager {
     return get(this.results, ["hits", "total"], 0)
   }
 
+  getTime() {
+    return get(this.results,"took", 0)
+  }
+
   getSuggestions() {
     return get(this.results,["suggest", "suggestions"], {})
   }
