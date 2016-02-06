@@ -19,7 +19,7 @@ describe("NoHits component", () => {
     spyOn(this.queryAccessor, "keepOnlyQueryState")
     this.createWrapper = () => {
       this.wrapper = mount(
-        <NoHits searchkit={this.searchkit} translations={{"NoHits.NoResultsFound":"no movies"}} suggestionsField={"title"}/>
+        <NoHits searchkit={this.searchkit} translations={{"NoHits.NoResultsFound":"no movies", "NoHits.Error":"error"}} suggestionsField={"title"}/>
       )
     }
 
@@ -137,6 +137,23 @@ describe("NoHits component", () => {
       expect(this.queryAccessor.keepOnlyQueryState)
         .toHaveBeenCalled()
       expect(this.searchkit.performSearch).toHaveBeenCalled()
+    })
+
+    it("render error", () => {
+      this.createWrapper()
+      this.searchkit.query = this.searchkit.query.addFilter({}).setQueryString("matrix")
+      this.searchkit.setError("rubbish")
+      this.wrapper.update()
+      expect(this.wrapper.html()).toEqual(jsxToHTML(
+<div data-qa="no-hits" className="no-hits">
+  <div className="no-hits__info">error</div>
+  <div className="no-hits__steps">
+    <div className="no-hits__step-action">Reset Search</div>
+  </div>
+</div>
+      ))
+
+
     })
 
 
