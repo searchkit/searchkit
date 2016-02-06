@@ -11,7 +11,7 @@ import {
 } from "../../../../core"
 
 import {NoHitsErrorDisplay, NoHitsErrorDisplayProps} from "./NoHitsErrorDisplay"
-import {NoHitsDisplay, NoHitsDisplayProps} from "./NohitsDisplay"
+import {NoHitsDisplay, NoHitsDisplayProps} from "./NoHitsDisplay"
 
 const defaults = require("lodash/defaults")
 
