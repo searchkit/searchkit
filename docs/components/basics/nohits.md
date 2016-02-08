@@ -43,6 +43,7 @@ const App = ()=> (
 >**Note** here we use NoHits as a sibling to `Hits`
 
 ## Overriding display for NoHits
+If you need to override the display of No Hits, you can pass in a React component into either `component` or `errorComponent` to override the default display.
 
 ```jsx
 import * as _ from "lodash";
@@ -82,7 +83,7 @@ const NoHitsErrorDisplay = (props) => {
 const App = ()=> (
   <SearchkitProvider searchkit={searchkit}>
     <div>
-      <Hits hitsPerPage={10}/>
+      <Hits hitsPerPage={10} sourceFilter={["title"]}/>
       <NoHits
       component={NoHitsDisplay}
       errorComponent={NoHitsErrorDisplay}
