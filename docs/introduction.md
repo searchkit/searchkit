@@ -30,7 +30,7 @@ const App = ()=> (
         <RefinementListFilter id="actors" title="Actors" field="actors.raw" operator="AND" size={10}/>
       </div>
       <div className="example-search-site__results">
-        <MovieHits hitsPerPage={10} mod="example-hits"/>
+        <Hits hitsPerPage={10} mod="example-hits" itemComponent={MovieHitsItem} sourceFilter={["title", "poster"]}/>
       </div>
     </div>
   </SearchkitProvider>

@@ -47,7 +47,7 @@ const App = ()=> (
           size={10}/>
       </div>
       <div className="example-search-site__results">
-        <Hits hitsPerPage={10}/>
+        <Hits hitsPerPage={10} sourceFilter={["title", "poster"]}/>
         <NoHits/>
       </div>
     </div>

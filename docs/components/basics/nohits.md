@@ -28,7 +28,7 @@ const searchkit = new SearchkitManager(<somehost>)
 const App = ()=> (
   <SearchkitProvider searchkit={searchkit}>
     <div>
-      <Hits hitsPerPage={10}/>
+      <Hits hitsPerPage={10} sourceFilter={["title"]}/>
       <NoHits translations={{
         "NoHits.NoResultsFound":"No movies found were found for {query}",
         "NoHits.DidYouMean":"Search for {suggestion}",
