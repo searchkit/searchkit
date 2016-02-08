@@ -2,7 +2,7 @@
 ### Notable Changes
 - `Hits` now supports the `sourceFilter` prop, we strongly advise you to use this as it will speed up your search and reduce a lot of wasted bandwidth [#20](https://github.com/searchkit/searchkit/issues/20)
 ```jsx
-<Hits hitsPerPage={50} sourceFilter={["title", "poster"]} itemComponent={HitItem}/>
+<Hits hitsPerPage={50} sourceFilter={["title", "poster", "imdbId"]} itemComponent={HitItem}/>
 ```
 - `SortingSelector` Component now supports `defaultOption` prop, and we have fixed issues in selection. [#89](https://github.com/searchkit/searchkit/issues/89)
 - `RefinementListFilter`, `MenuFilter`, `HierarchicalMenuFilter` all support sorting on intrinsic order fields via the the `orderKey` and `orderDirection` props. [#46](https://github.com/searchkit/searchkit/issues/46)
