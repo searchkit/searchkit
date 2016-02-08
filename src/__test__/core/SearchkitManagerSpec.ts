@@ -242,10 +242,12 @@ describe("SearchkitManager", ()=> {
   it("setResults() - error", ()=> {
     spyOn(this.searchkit, "onResponseChange")
     spyOn(this.accessors, "setResults")
+    spyOn(console, "error")
     expect(this.searchkit.results).toBe(undefined)
     let error = new Error("oh no")
     this.searchkit.setError(error)
     expect(this.searchkit.error).toBe(error)
+    expect(console.error).toHaveBeenCalledWith(error)
     expect(this.searchkit.results).toBe(null)
     expect(this.accessors.setResults)
       .toHaveBeenCalledWith(null)
