@@ -1,15 +1,15 @@
 ## 0.6.0 (8th feb, 2016)
 ### Notable Changes
-- `Hits` now supports the `sourceFilter` prop, we strongly advise you to use this as it will speed up your search and reduce a lot of wasted bandwidth
+- `Hits` now supports the `sourceFilter` prop, we strongly advise you to use this as it will speed up your search and reduce a lot of wasted bandwidth [#20](https://github.com/searchkit/searchkit/issues/20)
 ```jsx
 <Hits hitsPerPage={50} sourceFilter={["title", "poster"]} itemComponent={HitItem}/>
 ```
-- `SortingSelector` Component now supports `defaultOption` prop, and we have fixed issues in selection.
-- `RefinementListFilter`, `MenuFilter`, `HierarchicalMenuFilter` all support sorting on intrinsic order fields via the the `orderKey` and `orderDirection` props
+- `SortingSelector` Component now supports `defaultOption` prop, and we have fixed issues in selection. [#89](https://github.com/searchkit/searchkit/issues/89)
+- `RefinementListFilter`, `MenuFilter`, `HierarchicalMenuFilter` all support sorting on intrinsic order fields via the the `orderKey` and `orderDirection` props. [#46](https://github.com/searchkit/searchkit/issues/46)
 - `NoHits`, `ResetFilters` now support customization via high order react components
-- ScrollToTop improvements, now configurable on `Hits` component and will scroll to top on any result changes, this is via the `scrollTo` prop
-- ErrorHandling, we now display a more meaningful message when an error in elastic or the http call occurs. The `NoHits` component displays this, and is also configurable via the `errorComponent` higher order component prop.
-- `ResetFilters` now ignores defaultQueries.
+- ScrollToTop improvements, now configurable on `Hits` component and will scroll to top on any result changes, this is via the `scrollTo` prop. [#48](https://github.com/searchkit/searchkit/issues/48)
+- ErrorHandling, we now display a more meaningful message when an error in elastic or the http call occurs. The `NoHits` component displays this, and is also configurable via the `errorComponent` higher order component prop.[#18](https://github.com/searchkit/searchkit/issues/18)
+- `ResetFilters` now ignores defaultQueries.[#44](https://github.com/searchkit/searchkit/issues/44)
 
 ## 0.5.1 (3rd Feb, 2016)
 - missing theme css
