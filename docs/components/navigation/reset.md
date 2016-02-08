@@ -1,6 +1,5 @@
 # Reset
-This component clears all the selected filters that are currently applied.
-This component will ignore the query and hidden/default filters
+This component clears all the selected filters and search query that are currently applied.
 
 ## Example
 
