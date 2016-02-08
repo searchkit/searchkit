@@ -1,3 +1,16 @@
+## 0.6.0 (8th feb, 2016)
+### Notable Changes
+- `Hits` now supports sourceFilter prop, we strongly advise you to use this as it will speed up your search and reduce a lot of wasted bandwidth
+```jsx
+<Hits hitsPerPage={50} sourceFilter={["title", "poster"]} itemComponent={HitItem}/>
+```
+- `SortingSelector` Component now supports `defaultOption` prop, and we have fixed issues in selection.
+- `RefinementListFilter`, `MenuFilter`, `HierarchicalMenuFilter` all support sorting on intrinsic order fields via the the `orderKey` and `orderDirection` props
+- `NoHits`, `ResetFilters` now support customization via high order react components
+- ScrollToTop improvements, now configurable on `Hits` component and will scroll to top on any result changes, this is via the `scrollTo` prop
+- ErrorHandling, we now display a more meaningful message when an error in elastic or the http call occurs. The `NoHits` component displays this, and is also configurable via the `errorComponent` higher order component prop.
+- ResetFilters now ignores defaultQueries.
+
 ## 0.5.1 (3rd Feb, 2016)
 - missing theme css
 
