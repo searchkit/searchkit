@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {Pagination} from "../src/Pagination.tsx";
-import {SearchkitManager, ImmutableQuery, Hits} from "../../../..";
+import {SearchkitManager, ImmutableQuery} from "../../../../core";
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
 } from "../../../__test__/TestHelpers"
@@ -46,7 +46,6 @@ describe("Pagination tests", () => {
         this.wrapper.update()
         expect(this.wrapper.find(".pagination-navigation-item__prev")
           .hasClass("is-disabled")).toBe(prevDisabled)
-        // printPrettyHtml(this.wrapper.html())
         expect(this.wrapper.find(".pagination-navigation-item__next")
           .hasClass("is-disabled")).toBe(nextDisabled)
         const pageNumbers = this.wrapper.find(".pagination-navigation-item__number");
