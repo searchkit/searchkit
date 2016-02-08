@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {ResetFilters} from "../src/ResetFilters.tsx";
-import {SearchkitManager} from "../../../../../core";
+import {SearchkitManager, ImmutableQuery} from "../../../../../core";
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
 } from "../../../../__test__/TestHelpers"
@@ -50,6 +50,20 @@ describe("Reset Filter tests", () => {
     expect(this.searchkit.resetState.called).toBeTruthy()
     expect(this.searchkit.performSearch.called).toBeTruthy()
   })
+
+  it("hasFilters()", ()=> {
+    this.createWrapper()
+    let resetFilters = this.wrapper.node
+    expect(resetFilters.hasFilters()).toBe(false)
+    this.searchkit.query = new ImmutableQuery().setQueryString("foo")
+    expect(resetFilters.hasFilters()).toBe(true)
+    this.searchkit.query = new ImmutableQuery().addSelectedFilter({
+      id:"test", name:"testName", value:"testValue", remove:()=>{}
+    })
+    expect(resetFilters.hasFilters()).toBe(true)
+
+  })
+
 
 
 });

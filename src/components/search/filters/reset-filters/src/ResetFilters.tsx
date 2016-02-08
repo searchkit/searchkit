@@ -71,7 +71,8 @@ export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
 	}
 
   hasFilters():boolean {
-    return this.getQuery().getSelectedFilters().length > 0
+		let query = this.getQuery()
+    return query.getQueryString().length > 0 || query.getSelectedFilters().length > 0 
   }
 
 	resetFilters() {
