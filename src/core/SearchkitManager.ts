@@ -210,6 +210,7 @@ export class SearchkitManager {
 
   setError(error){
     this.error = error
+    console.error(this.error)
     this.results = null
     this.accessors.setResults(null)
     this.onResponseChange()
