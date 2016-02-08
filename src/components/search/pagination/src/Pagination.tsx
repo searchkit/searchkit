@@ -197,7 +197,7 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
   }
 
   isDisabled(pageNumber: number): boolean {
-    return (pageNumber < 1) || (pageNumber >= this.getTotalPages());
+    return (pageNumber < 1) || (pageNumber > this.getTotalPages());
   }
 
   setPage(pageNumber:number) {

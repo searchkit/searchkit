@@ -1,3 +1,8 @@
+## 0.6.1 (8th feb, 2016)
+### Notable Changes
+- Fix pagination bug where last page was not clickable.
+- Fix documentation references for sourceFilter which lead to incomplete demo
+
 ## 0.6.0 (8th feb, 2016)
 ### Notable Changes
 - `Hits` now supports the `sourceFilter` prop, we strongly advise you to use this as it will speed up your search and reduce a lot of wasted bandwidth [#20](https://github.com/searchkit/searchkit/issues/20)
