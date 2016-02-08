@@ -7,6 +7,8 @@
 - `SortingSelector` Component now supports `defaultOption` prop, and we have fixed issues in selection. [#89](https://github.com/searchkit/searchkit/issues/89)
 - `RefinementListFilter`, `MenuFilter`, `HierarchicalMenuFilter` all support sorting on intrinsic order fields via the the `orderKey` and `orderDirection` props. [#46](https://github.com/searchkit/searchkit/issues/46)
 - `NoHits`, `ResetFilters` now support customization via high order react components
+- `HitStats` now supports customization via higher order react component, note
+if you previously extended HitStats, you will need to change your code to use the `component` prop
 - ScrollToTop improvements, now configurable on `Hits` component and will scroll to top on any result changes, this is via the `scrollTo` prop. [#48](https://github.com/searchkit/searchkit/issues/48)
 - ErrorHandling, we now display a more meaningful message when an error in elastic or the http call occurs. The `NoHits` component displays this, and is also configurable via the `errorComponent` higher order component prop.[#18](https://github.com/searchkit/searchkit/issues/18)
 - `ResetFilters` now ignores defaultQueries.[#44](https://github.com/searchkit/searchkit/issues/44)
