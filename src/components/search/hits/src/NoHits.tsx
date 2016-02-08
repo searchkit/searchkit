@@ -6,13 +6,19 @@ import {
 	SearchkitComponentProps,
 	FastClick,
 	NoFiltersHitCountAccessor,
-	SuggestionsAccessor
+	SuggestionsAccessor,
+	ReactComponentType
 } from "../../../../core"
+
+import {NoHitsErrorDisplay, NoHitsErrorDisplayProps} from "./NoHitsErrorDisplay"
+import {NoHitsDisplay, NoHitsDisplayProps} from "./NoHitsDisplay"
 
 const defaults = require("lodash/defaults")
 
 export interface NoHitsProps extends SearchkitComponentProps {
 	suggestionsField?:string
+	errorComponent?: ReactComponentType<NoHitsErrorDisplayProps>
+	component?: ReactComponentType<NoHitsDisplayProps>
 }
 
 export class NoHits extends SearchkitComponent<NoHitsProps, any> {
@@ -23,7 +29,9 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 		"NoHits.NoResultsFound":"No results found for {query}.",
 		"NoHits.NoResultsFoundDidYouMean":"No results found for {query}. Did you mean {suggestion}?",
 		"NoHits.DidYouMean":"Search for {suggestion} instead",
-		"NoHits.SearchWithoutFilters":"Search for {query} without filters"
+		"NoHits.SearchWithoutFilters":"Search for {query} without filters",
+		"NoHits.Error":"We're sorry, an issue occured when fetching your results. Please try again.",
+		"NoHits.ResetSearch":"Reset Search"
 	}
 	translations = NoHits.translations
 
@@ -33,6 +41,11 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 			NoHits.translations
 		)
 	}, SearchkitComponent.propTypes)
+
+	static defaultProps = {
+		errorComponent: NoHitsErrorDisplay,
+		component: NoHitsDisplay
+	}
 
 	componentWillMount(){
 		super.componentWillMount()
@@ -57,20 +70,6 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 		return this.suggestionsAccessor && this.suggestionsAccessor.getSuggestion()
 	}
 
-	renderSuggestions() {
-		let suggestion = this.getSuggestion()
-		if(suggestion){
-			return (
-				<FastClick handler={this.setQueryString.bind(this,suggestion)}>
-					<div className={this.bemBlocks.container("step-action")}>
-						{this.translate("NoHits.DidYouMean", {suggestion})}
-					</div>
-				</FastClick>
-			)
-		}
-		return null
-	}
-
 	setQueryString(query) {
 		this.searchkit.getQueryAccessor().setQueryString(query, true)
 		this.searchkit.performSearch(true)
@@ -81,40 +80,46 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 		this.searchkit.performSearch(true)
 	}
 
-	renderResetFilters() {
-		if(this.noFiltersAccessor){
-			if(this.noFiltersAccessor.getCount() > 0){
-				let query = this.getQuery().getQueryString()
-				return (
-					<FastClick handler={this.resetFilters.bind(this)}>
-						<div className={this.bemBlocks.container("step-action")}>
-							{this.translate("NoHits.SearchWithoutFilters",{query})}
-						</div>
-					</FastClick>
-				)
-			}
-		}
-		return null
+	resetSearch() {
+		this.searchkit.getQueryAccessor().resetState()
+		this.searchkit.performSearch(true)
 	}
 
+	getFilterCount() {
+		return this.noFiltersAccessor && this.noFiltersAccessor.getCount()
+	}
 
 	render() {
-    if (this.hasHits() || this.isInitialLoading() || this.isLoading()) return null
-		let query = this.getQuery().getQueryString()
+    if ((this.hasHits() || this.isInitialLoading() || this.isLoading()) && !this.getError()) return null
 
-		let suggestion = this.getSuggestion()
+		if (this.getError()) {
+			const props:NoHitsErrorDisplayProps = {
+				errorLabel:this.translate("NoHits.Error"),
+				resetSearchFn: this.resetSearch.bind(this),
+				translate: this.translate,
+				bemBlocks: this.bemBlocks,
+				tryAgainLabel: this.translate("NoHits.ResetSearch"),
+				error: this.getError()
+			}
+			return React.createElement(this.props.errorComponent, props)
+		}
+
+		const suggestion = this.getSuggestion()
+		const query = this.getQuery().getQueryString()
 		let infoKey = suggestion ? "NoHits.NoResultsFoundDidYouMean" : "NoHits.NoResultsFound"
-		let action = this.renderSuggestions() || this.renderResetFilters() || null;
 
-		return (
-			<div data-qa="no-hits" className={this.bemBlocks.container()}>
-				<div className={this.bemBlocks.container("info")}>
-					{this.translate(infoKey, {query:query, suggestion:suggestion})}
-				</div>
-				<div className={this.bemBlocks.container("steps")}>
-					{action}
-				</div>
-      </div>
-		);
+		const props:NoHitsDisplayProps = {
+			noResultsLabel:this.translate(infoKey, {query:query, suggestion:suggestion}),
+		  translate: this.translate,
+			bemBlocks: this.bemBlocks,
+			suggestion: suggestion,
+			query: query,
+			filtersCount: this.getFilterCount(),
+			resetFiltersFn: this.resetFilters.bind(this),
+			setSuggestionFn: this.setQueryString.bind(this, suggestion)
+		}
+
+		return React.createElement(this.props.component, props)
+
 	}
 }

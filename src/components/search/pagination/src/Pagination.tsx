@@ -207,7 +207,6 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
     }
     this.accessor.state = this.accessor.state.setValue(pageNumber);
     this.searchkit.performSearch();
-    window.scrollTo(0,0); // BUG, doesn't work for inner divs
   }
 
   render() {
