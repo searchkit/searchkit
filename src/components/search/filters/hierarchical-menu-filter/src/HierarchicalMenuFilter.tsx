@@ -35,7 +35,7 @@ export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuF
 	}
 
 	defineBEMBlocks() {
-		var blockClass = this.props.mod || "hierarchical-menu";
+		var blockClass = this.props.mod || "sk-hierarchical-menu";
 		return {
 			container:`${blockClass}-list`,
 			option:`${blockClass}-option`

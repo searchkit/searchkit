@@ -59,7 +59,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	}
 
 	defineBEMBlocks() {
-		let block = (this.props.mod || "no-hits")
+		let block = (this.props.mod || "sk-no-hits")
 		return {
 			container: block
 		}

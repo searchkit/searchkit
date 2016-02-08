@@ -1,4 +1,4 @@
-.selected-filters {
+.sk-selected-filters {
   display:flex;
   flex-flow: row nowrap;
   &__item {
@@ -7,7 +7,7 @@
   }
 }
 
-.selected-filters-option {
+.sk-selected-filters-option {
   border:1px solid lighten(#08c,0);
   display:flex;
   padding:10px 0 10px 10px;

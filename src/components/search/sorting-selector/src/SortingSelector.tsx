@@ -38,7 +38,7 @@ export class SortingSelector extends SearchkitComponent<SortingProps, any> {
 
 	defineBEMBlocks() {
 		return {
-			container: (this.props.mod || "sorting-selector")
+			container: (this.props.mod || "sk-sorting-selector")
 		}
 	}
 

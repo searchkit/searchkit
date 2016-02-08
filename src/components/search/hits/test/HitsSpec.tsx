@@ -27,7 +27,7 @@ describe("Hits component", () => {
       this.sourceFilterAccessor = this.searchkit.accessors.accessors[2]
 
       this.hasRendered = () => {
-        return this.wrapper.find(".hits").length == 1
+        return this.wrapper.find(".sk-hits").length == 1
       }
 
     });
@@ -52,9 +52,9 @@ describe("Hits component", () => {
       this.wrapper.update()
       expect(this.hasRendered()).toBeTruthy()
       expect(this.wrapper.html()).toEqual(jsxToHTML(
-        <div data-qa="hits" className="hits">
-          <div data-qa="hit" className="hits-hit hits__item"></div>
-          <div data-qa="hit" className="hits-hit hits__item"></div>
+        <div data-qa="hits" className="sk-hits">
+          <div data-qa="hit" className="sk-hits-hit sk-hits__item"></div>
+          <div data-qa="hit" className="sk-hits-hit sk-hits__item"></div>
         </div>
       ))
     })
@@ -75,7 +75,7 @@ describe("Hits component", () => {
       this.searchkit.initialLoading = true
       this.wrapper.update()
       expect(this.hasRendered()).toBeFalsy()
-      expect(this.wrapper.find(".hits__initial-loading").length).toBe(0)
+      expect(this.wrapper.find(".sk-hits__initial-loading").length).toBe(0)
     })
 
     it("custom higher order component", ()=> {
@@ -92,9 +92,9 @@ describe("Hits component", () => {
         <Hits searchkit={this.searchkit} itemComponent={hit} hitsPerPage={10}/>
       )
       expect(wrapper.html()).toEqual(jsxToHTML(
-        <div data-qa="hits" className="hits">
-          <div className="hits-hit">1</div>
-          <div className="hits-hit">2</div>
+        <div data-qa="hits" className="sk-hits">
+          <div className="sk-hits-hit">1</div>
+          <div className="sk-hits-hit">2</div>
         </div>
       ))
     })

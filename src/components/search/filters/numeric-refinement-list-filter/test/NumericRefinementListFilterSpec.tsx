@@ -7,8 +7,6 @@ const bem = require("bem-cn");
 import * as sinon from "sinon";
 const _ = require("lodash")
 
-
-
 describe("NumericRefinementListFilter tests", () => {
 
   beforeEach(()=> {
@@ -53,20 +51,20 @@ describe("NumericRefinementListFilter tests", () => {
   it("should render correctly()", ()=> {
     this.setResults()
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="numeric-refinement-list filter--score">
-        <div className="numeric-refinement-list__header">Score</div>
-        <div className="numeric-refinement-list__options">
-          <div className="numeric-refinement-list-option numeric-refinement-list__item">
-            <div className="numeric-refinement-list-option__text">All</div>
-            <div className="numeric-refinement-list-option__count">30</div>
+      <div className="sk-numeric-refinement-list filter--score">
+        <div className="sk-numeric-refinement-list__header">Score</div>
+        <div className="sk-numeric-refinement-list__options">
+          <div className="sk-numeric-refinement-list-option sk-numeric-refinement-list__item">
+            <div className="sk-numeric-refinement-list-option__text">All</div>
+            <div className="sk-numeric-refinement-list-option__count">30</div>
           </div>
-          <div className="numeric-refinement-list-option numeric-refinement-list__item">
-            <div className="numeric-refinement-list-option__text">up to 20</div>
-            <div className="numeric-refinement-list-option__count">10</div>
+          <div className="sk-numeric-refinement-list-option sk-numeric-refinement-list__item">
+            <div className="sk-numeric-refinement-list-option__text">up to 20</div>
+            <div className="sk-numeric-refinement-list-option__count">10</div>
           </div>
-          <div className="numeric-refinement-list-option numeric-refinement-list__item">
-            <div className="numeric-refinement-list-option__text">21 to 40</div>
-            <div className="numeric-refinement-list-option__count">20</div>
+          <div className="sk-numeric-refinement-list-option sk-numeric-refinement-list__item">
+            <div className="sk-numeric-refinement-list-option__text">21 to 40</div>
+            <div className="sk-numeric-refinement-list-option__count">20</div>
           </div>
         </div>
       </div>
@@ -76,7 +74,7 @@ describe("NumericRefinementListFilter tests", () => {
   it("should select correctly", ()=> {
     this.accessor.state = this.accessor.state.setValue("21 to 40")
     this.setResults()
-    let lastOption = this.wrapper.find(".numeric-refinement-list__options")
+    let lastOption = this.wrapper.find(".sk-numeric-refinement-list__options")
       .children().at(2)
 
     expect(hasClass(lastOption, "is-selected")).toBe(true)
@@ -84,7 +82,7 @@ describe("NumericRefinementListFilter tests", () => {
 
   it("should handle clicking an option", () => {
       this.setResults()
-      let secondOption = this.wrapper.find(".numeric-refinement-list__options")
+      let secondOption = this.wrapper.find(".sk-numeric-refinement-list__options")
           .children().at(1)
       fastClick(secondOption)
       expect(this.accessor.state.getValue()).toBe("up to 20")
@@ -92,7 +90,7 @@ describe("NumericRefinementListFilter tests", () => {
   })
 
   it("should be disabled for empty buckets", () => {
-      expect(this.wrapper.find(".numeric-refinement-list.is-disabled").length).toBe(1)
+      expect(this.wrapper.find(".sk-numeric-refinement-list.is-disabled").length).toBe(1)
   })
 
 })

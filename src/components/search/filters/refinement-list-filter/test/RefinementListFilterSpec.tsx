@@ -42,8 +42,8 @@ describe("Refinement List Filter tests", () => {
   beforeEach(() => {
     Utils.guidCounter = 0
 
-    this.bemContainer = bem("refinement-list")
-    this.bemOption = bem("refinement-list-option")
+    this.bemContainer = bem("sk-refinement-list")
+    this.bemOption = bem("sk-refinement-list-option")
 
     this.searchkit = SearchkitManager.mock()
     this.searchkit.translateFunction = (key) => {
@@ -63,23 +63,23 @@ describe("Refinement List Filter tests", () => {
   it('renders correctly', () => {
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-<div data-qa="filter--test id" className="refinement-list filter--test id">
-  <div data-qa="header" className="refinement-list__header">test title</div>
-  <div data-qa="options" className="refinement-list__options">
-    <div className="refinement-list-option refinement-list__item" data-qa="option">
-      <div data-qa="checkbox" className="refinement-list-option__checkbox"></div>
-      <div data-qa="label" className="refinement-list-option__text">test option 1 translated</div>
-      <div data-qa="count" className="refinement-list-option__count">1</div>
+<div data-qa="filter--test id" className="sk-refinement-list filter--test id">
+  <div data-qa="header" className="sk-refinement-list__header">test title</div>
+  <div data-qa="options" className="sk-refinement-list__options">
+    <div className="sk-refinement-list-option sk-refinement-list__item" data-qa="option">
+      <div data-qa="checkbox" className="sk-refinement-list-option__checkbox"></div>
+      <div data-qa="label" className="sk-refinement-list-option__text">test option 1 translated</div>
+      <div data-qa="count" className="sk-refinement-list-option__count">1</div>
     </div>
-    <div className="refinement-list-option refinement-list__item" data-qa="option">
-      <div data-qa="checkbox" className="refinement-list-option__checkbox"></div>
-      <div data-qa="label" className="refinement-list-option__text">test option 2</div>
-      <div data-qa="count" className="refinement-list-option__count">2</div>
+    <div className="sk-refinement-list-option sk-refinement-list__item" data-qa="option">
+      <div data-qa="checkbox" className="sk-refinement-list-option__checkbox"></div>
+      <div data-qa="label" className="sk-refinement-list-option__text">test option 2</div>
+      <div data-qa="count" className="sk-refinement-list-option__count">2</div>
     </div>
-    <div className="refinement-list-option refinement-list__item" data-qa="option">
-      <div data-qa="checkbox" className="refinement-list-option__checkbox"></div>
-      <div data-qa="label" className="refinement-list-option__text">test option 3</div>
-      <div data-qa="count" className="refinement-list-option__count">3</div>
+    <div className="sk-refinement-list-option sk-refinement-list__item" data-qa="option">
+      <div data-qa="checkbox" className="sk-refinement-list-option__checkbox"></div>
+      <div data-qa="label" className="sk-refinement-list-option__text">test option 3</div>
+      <div data-qa="count" className="sk-refinement-list-option__count">3</div>
     </div>
   </div>
 </div>))
@@ -114,7 +114,7 @@ describe("Refinement List Filter tests", () => {
   it("show no options", () => {
     this.accessor.getMoreSizeOption = () => {return null}
     this.wrapper.update()
-    expect(this.getContainer("view-more-action").length).toBe(0)
+    expect(this.getContainer("sk-view-more-action").length).toBe(0)
   })
 
   it("should configure accessor correctly", () => {

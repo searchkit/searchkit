@@ -146,7 +146,7 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
 }
 
   defineBEMBlocks() {
-    var blockName = this.props.mod || "refinement-list"
+    var blockName = this.props.mod || "sk-refinement-list"
     return {
       container: blockName,
       option: `${blockName}-option`

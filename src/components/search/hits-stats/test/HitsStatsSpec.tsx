@@ -26,10 +26,10 @@ describe("HitsStats tests", () => {
       took:10
     })
     this.createWrapper({translations: {"hitstats.results_found":"{hitCount} movies found"}})
-    expect(this.wrapper.find(".hits-stats__info").text()).toEqual("10 movies found")
+    expect(this.wrapper.find(".sk-hits-stats__info").text()).toEqual("10 movies found")
 
     this.createWrapper()
-    expect(this.wrapper.find(".hits-stats__info").text()).toEqual("10 results found in 10ms")
+    expect(this.wrapper.find(".sk-hits-stats__info").text()).toEqual("10 results found in 10ms")
   })
 
   it('renders correctly - override component', () => {

@@ -43,7 +43,7 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
 	}
 
 	defineBEMBlocks() {
-		var blockName = this.props.mod || "numeric-refinement-list"
+		var blockName = this.props.mod || "sk-numeric-refinement-list"
 		return {
 			container: blockName,
 			option: `${blockName}-option`

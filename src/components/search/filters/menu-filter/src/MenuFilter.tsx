@@ -41,7 +41,7 @@ export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
 	}
 
 	defineBEMBlocks() {
-		var blockName = this.props.mod || "menu-list"
+		var blockName = this.props.mod || "sk-menu-list"
 		return {
 			container: blockName,
 			option: `${blockName}-option`

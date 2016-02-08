@@ -61,7 +61,7 @@ export class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, an
 	}
 
 	defineBEMBlocks() {
-		var blockName = (this.props.mod || "selected-filters")
+		var blockName = (this.props.mod || "sk-selected-filters")
 		return {
 			container: blockName,
 			option:`${blockName}-option`
