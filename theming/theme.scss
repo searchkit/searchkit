@@ -34,6 +34,12 @@ body {
   box-sizing: inherit;
 }
 
+// .menu-list,
+// .hierarchical-menu-list,
+// .hierarchical-refinement {
+//
+// }
+
 .layout {
 
   &__top-bar {
@@ -105,10 +111,11 @@ body {
 
 // components
 
-.refinement-list,
-.range-filter,
-.hierarchical-menu-list,
-.numeric-refinement-list {
+.sk-refinement-list,
+.sk-range-filter,
+.sk-hierarchical-menu-list,
+.sk-hierarchical-refinement-list,
+.sk-numeric-refinement-list {
 
   &__header {
     font-size:14px;
@@ -116,7 +123,7 @@ body {
 
 }
 
-.search-box {
+.sk-search-box {
   background: rgba(255,255,255,.15);
   border-radius: 2px;
   position: relative;
@@ -160,19 +167,19 @@ body {
   }
 }
 
-.hits-stats {
+.sk-hits-stats {
   align-self: flex-start;
   flex:1;
 }
 
-.sorting-selector {
+.sk-sorting-selector {
   flex:150px 0 0;
   select {
     width:150px;
   }
 }
 
-.range-filter {
+.sk-range-filter {
   .rc-slider-handle {
     border-color: #2a4466;
   }
@@ -181,7 +188,7 @@ body {
   }
 }
 
-.reset-filters {
+.sk-reset-filters {
   border:none;
   display:flex;
   font-size:14px;
@@ -193,7 +200,7 @@ body {
   }
 }
 
-.selected-filters {
+.sk-selected-filters {
   display:flex;
   flex-flow:row;
   margin-right:10px;
@@ -204,7 +211,7 @@ body {
   }
 }
 
-.pagination-navigation {
+.sk-pagination-navigation {
   // border:1px solid #ddd;
   // display:inline-block;
 
@@ -230,11 +237,11 @@ body {
   }
 }
 
-.hits {
+.sk-hits {
   margin:0 15px;
 }
 
-.hits-hit {
+.sk-hits-hit {
   flex: 190px 0 0;
 
   a {
