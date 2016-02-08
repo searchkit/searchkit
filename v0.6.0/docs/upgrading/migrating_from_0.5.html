@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Project Setup &amp; use | What is Searchkit?</title>
+        <title>Migrating from 0.5 | What is Searchkit?</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.5.2">
@@ -45,10 +45,10 @@
         
     
     
-    <link rel="next" href="../../docs/setup/elasticsearch.html" />
+    <link rel="next" href="../../docs/server/searchkit_express.html" />
     
     
-    <link rel="prev" href="../../docs/setup/index.html" />
+    <link rel="prev" href="../../docs/upgrading/migrating_from_0.4.html" />
     
 
         <script src="../../gitbook/plugins/gitbook-plugin-mermaid-2/bower_components/mermaid/dist/mermaid.min.js"></script>
@@ -56,7 +56,7 @@
     <body>
         
         
-    <div class="book" data-level="1.1" data-chapter-title="Project Setup &amp; use" data-filepath="docs/setup/project-setup.md" data-basepath="../.." data-revision="Mon Feb 08 2016 13:08:53 GMT+0000 (GMT)">
+    <div class="book" data-level="4.4" data-chapter-title="Migrating from 0.5" data-filepath="docs/upgrading/migrating_from_0.5.md" data-basepath="../.." data-revision="Mon Feb 08 2016 13:08:53 GMT+0000 (GMT)">
     
 
 <div class="book-summary">
@@ -100,7 +100,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.1" data-path="docs/setup/project-setup.html">
+        <li class="chapter " data-level="1.1" data-path="docs/setup/project-setup.html">
             
                 
                     <a href="../../docs/setup/project-setup.html">
@@ -711,7 +711,7 @@
             
         </li>
     
-        <li class="chapter " data-level="4.4" data-path="docs/upgrading/migrating_from_0.5.html">
+        <li class="chapter active" data-level="4.4" data-path="docs/upgrading/migrating_from_0.5.html">
             
                 
                     <a href="../../docs/upgrading/migrating_from_0.5.html">
@@ -824,43 +824,14 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="project-setup">Project Setup</h1>
-<p>Our recommended project setup is using webpack and typescript. We also support using searchkit with ES6 / Webpack and using normal library script file. Installing via NPM is recommended.</p>
-<h2 id="using-module">Using Module</h2>
-<p>We recommend using webpack for module dependency management of Searchkit&apos;s src, css and static assets. requires scss, file loaders to properly resolve searchkit dependencies. See <a href="http://github.com/searchkit/searchkit-boilerplate" target="_blank">searchkit boilerplate</a>.</p>
-<h3 id="installing-via-npm">Installing via NPM</h3>
-<p>Searchkit is available on <a href="http://npmjs.com/package/searchkit" target="_blank">npm</a>. Searchkit is written with typescript therefore typescript definition files are available.</p>
-<pre><code class="lang-sh">  npm install searchkit --save
+                        <h1 id="migrating-from-searchkit-05x">Migrating from Searchkit 0.5.x</h1>
+<h2 id="hits-sourcefilter-property">Hits sourceFilter property</h2>
+<p><code>Hits</code> now supports the <code>sourceFilter</code> prop, we strongly advise you to use this as it will speed up your search and reduce a lot of wasted bandwidth.</p>
+<pre><code class="lang-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Hits</span> <span class="token attr-name">hitsPerPage</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>50<span class="token punctuation">}</span></span> <span class="token attr-name">sourceFilter</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>&quot;title&quot;<span class="token punctuation">,</span> &quot;poster&quot;<span class="token punctuation">]</span><span class="token punctuation">}</span></span> <span class="token attr-name">itemComponent</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>HitItem<span class="token punctuation">}</span></span><span class="token punctuation">/&gt;</span></span>
 </code></pre>
-<h3 id="importing-with-webpack--es6">Importing with webpack / ES6</h3>
-<pre><code class="lang-js">
-<span class="token keyword">import</span> <span class="token punctuation">{</span>
-    SearchBox<span class="token punctuation">,</span>
-    RefinementListFilter<span class="token punctuation">,</span>
-    Hits<span class="token punctuation">,</span>
-    HitsStats<span class="token punctuation">,</span>
-    SearchkitComponent<span class="token punctuation">,</span>
-    SelectedFilters<span class="token punctuation">,</span>
-    MenuFilter<span class="token punctuation">,</span>
-    HierarchicalMenuFilter<span class="token punctuation">,</span>
-    Pagination<span class="token punctuation">,</span>
-    ResetFilters
-    <span class="token punctuation">}</span> from <span class="token string">&quot;searchkit&quot;</span><span class="token punctuation">;</span>
-</code></pre>
-<h2 id="using-library-script">Using library script</h2>
-<p>Searchkit library script is available from bower or from <a href="https://www.jsdelivr.com/?query=searchkit" target="_blank">jsdelivr CDN</a>.</p>
-<h3 id="installing-via-bower">Installing via bower</h3>
-<p>Requires React, ReactDOM to be included before searchkit. Within the release folder, the src <code>bundle.js</code>, the css <code>styles.css</code> and static file assets.</p>
-<pre><code class="lang-sh">  bower install searchkit --save
-</code></pre>
-<h3 id="cdn-script-include">CDN Script include</h3>
-<pre><code class="lang-html">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>text/javascript<span class="token punctuation">&quot;</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>//cdn.jsdelivr.net/react/0.14.5/react.min.js<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>text/javascript<span class="token punctuation">&quot;</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>//cdn.jsdelivr.net/react/0.14.5/react-dom.min.js<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>text/javascript<span class="token punctuation">&quot;</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>//cdn.jsdelivr.net/searchkit/latest/bundle.js<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>stylesheet<span class="token punctuation">&quot;</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>text/css<span class="token punctuation">&quot;</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>//cdn.jsdelivr.net/searchkit/latest/styles.css<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
-</code></pre>
-<h3 id="use">Use</h3>
-<p><p data-height="800" data-theme-id="0" data-slug-hash="vLgLOw" data-default-tab="js" data-user="searchkit" class="codepen">See the Pen <a href="http://codepen.io/searchkit/pen/vLgLOw/"></a> by searchkit (<a href="http://codepen.io/searchkit">@searchkit</a>) on <a href="http://codepen.io">CodePen</a>.</p></p>
+<h2 id="hitstats-component-overrides">HitStats component overrides</h2>
+<p>If you previously extended <code>HitStats</code> in order to customize the component, please switch to using the <code>component</code> prop.
+More details can be found in the <a href="../components/metadata/stats.html">HitStats documentation</a></p>
 
                     
                     </section>
@@ -871,10 +842,10 @@
         </div>
 
         
-        <a href="../../docs/setup/index.html" class="navigation navigation-prev " aria-label="Previous page: Getting Started"><i class="fa fa-angle-left"></i></a>
+        <a href="../../docs/upgrading/migrating_from_0.4.html" class="navigation navigation-prev " aria-label="Previous page: Migrating from 0.4"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../../docs/setup/elasticsearch.html" class="navigation navigation-next " aria-label="Next page: Connecting Elasticsearch"><i class="fa fa-angle-right"></i></a>
+        <a href="../../docs/server/searchkit_express.html" class="navigation navigation-next " aria-label="Next page: Using Express"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

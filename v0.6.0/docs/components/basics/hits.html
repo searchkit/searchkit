@@ -56,7 +56,7 @@
     <body>
         
         
-    <div class="book" data-level="2.1.2" data-chapter-title="Hits" data-filepath="docs/components/basics/hits.md" data-basepath="../../.." data-revision="Mon Feb 08 2016 13:04:59 GMT+0000 (GMT)">
+    <div class="book" data-level="2.1.2" data-chapter-title="Hits" data-filepath="docs/components/basics/hits.md" data-basepath="../../.." data-revision="Mon Feb 08 2016 13:08:53 GMT+0000 (GMT)">
     
 
 <div class="book-summary">
@@ -711,6 +711,21 @@
             
         </li>
     
+        <li class="chapter " data-level="4.4" data-path="docs/upgrading/migrating_from_0.5.html">
+            
+                
+                    <a href="../../../docs/upgrading/migrating_from_0.5.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        Migrating from 0.5
+                    </a>
+            
+            
+        </li>
+    
 
             </ul>
             
@@ -761,6 +776,21 @@
             
         </li>
     
+        <li class="chapter " data-level="8" data-path="docs/developer-guide.html">
+            
+                
+                    <a href="../../../docs/developer-guide.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        Contributing Guide
+                    </a>
+            
+            
+        </li>
+    
 
 
             
@@ -795,7 +825,7 @@
                     <section class="normal" id="section-">
                     
                         <h1 id="hits-component">Hits Component</h1>
-<p>Hits component displays results from ElasticSearch. To customize each result, you need to implement a React component and pass into <code>itemComponent</code> prop. 
+<p>Hits component displays results from ElasticSearch. To customize each result, you need to implement a React component and pass into <code>itemComponent</code> prop.
 The component will receive a single <code>hit</code> object from the search results, which will include <code>result._source</code> which contains the untouched stored fields which were indexed.</p>
 <h2 id="example-usage">Example Usage</h2>
 <pre><code class="lang-jsx">
@@ -818,7 +848,7 @@ The component will receive a single <code>hit</code> object from the search resu
 
   <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Hits</span> <span class="token attr-name">hitsPerPage</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>50<span class="token punctuation">}</span></span> <span class="token attr-name">highlightFields</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>&quot;title&quot;<span class="token punctuation">]</span><span class="token punctuation">}</span></span> <span class="token attr-name">itemComponent</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>HitItem<span class="token punctuation">}</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Hits</span> <span class="token attr-name">hitsPerPage</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>50<span class="token punctuation">}</span></span> <span class="token attr-name">highlightFields</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>&quot;title&quot;<span class="token punctuation">]</span><span class="token punctuation">}</span></span> <span class="token attr-name">sourceFilter</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>&quot;title&quot;<span class="token punctuation">,</span> &quot;poster&quot;<span class="token punctuation">]</span><span class="token punctuation">}</span></span> <span class="token attr-name">itemComponent</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>HitItem<span class="token punctuation">}</span></span><span class="token punctuation">/&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
@@ -829,6 +859,8 @@ The component will receive a single <code>hit</code> object from the search resu
 <li><code>highlightFields</code> <em>(Array<string>)</string></em>: Array of highlighted fields. Any highlight matches will be returned in the result.highlight[fieldName]. See above for example.</li>
 <li><code>mod</code> <em>(string)</em>: Optional. A custom BEM container class.</li>
 <li><code>itemComponent</code> <em>(ReactComponent)</em>: React component used for each hit render.</li>
+<li><code>sourceFilter</code> <em>(string|boolean|Array<string>)</string></em>: A source filter parameter which is sent to elasticsearch to reduce the hit <code>_source</code> data within the results. see the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-source-filtering.html" target="_blank">elastic documentation</a> for further details.</li>
+<li><code>scrollTo</code> <em>(string|boolean)</em>: When results have changed, we scroll to the top of the element using the jQuery style selector passed in the <code>scrollTo</code> prop. If true, it will use the body as the selector.  Default value is true. If false, it will not scroll when new results are rendered. We determine a change by comparing hits <code>_id</code> field with the new results.</li>
 </ul>
 <h2 id="demo">Demo</h2>
 <p><p data-height="800" data-theme-id="0" data-slug-hash="vLgLOw" data-default-tab="result" data-user="searchkit" class="codepen">See the Pen <a href="http://codepen.io/searchkit/pen/vLgLOw/"></a> by searchkit (<a href="http://codepen.io/searchkit">@searchkit</a>) on <a href="http://codepen.io">CodePen</a>.</p></p>
