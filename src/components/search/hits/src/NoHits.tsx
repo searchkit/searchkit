@@ -1,5 +1,4 @@
 import * as React from "react";
-import "../styles/no-hits.scss";
 
 import {
 	SearchkitComponent,

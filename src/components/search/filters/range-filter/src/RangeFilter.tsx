@@ -1,6 +1,5 @@
 import * as React from "react";
 const Rcslider = require("rc-slider")
-import "../styles/index.scss";
 
 import {
 	SearchkitManager,

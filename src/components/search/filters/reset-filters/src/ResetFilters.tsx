@@ -1,5 +1,4 @@
 import * as React from "react";
-import "../styles/index.scss";
 
 import {
 	SearchkitManager,
@@ -72,7 +71,7 @@ export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
 
   hasFilters():boolean {
 		let query = this.getQuery()
-    return query.getQueryString().length > 0 || query.getSelectedFilters().length > 0 
+    return query.getQueryString().length > 0 || query.getSelectedFilters().length > 0
   }
 
 	resetFilters() {

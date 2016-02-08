@@ -1,5 +1,5 @@
 import * as React from "react";
-import "../styles/index.scss";
+
 import {
 	SearchkitComponent,
 	SearchkitComponentProps,

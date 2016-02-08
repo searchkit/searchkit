@@ -1,5 +1,5 @@
 import * as React from "react";
-import "../styles/index.scss";
+
 import {
 	SearchkitComponent,
 	SortingAccessor,
@@ -8,6 +8,7 @@ import {
 	SearchkitComponentProps,
 	SortingOption
 } from "../../../../core"
+
 const defaults = require("lodash/defaults")
 const map = require("lodash/map")
 
