@@ -131,9 +131,9 @@ describe("Pagination tests", () => {
       this.createWrapper()
       this.accessor.state = this.accessor.state.setValue(7)
       this.wrapper.update()
-      fastClick(this.wrapper.find( ".pagination-navigation-item__next" ))
+      fastClick(this.wrapper.find( ".sk-pagination-navigation-item__next" ))
       expect(this.accessor.state.getValue()).toBe(8)
-      fastClick(this.wrapper.find( ".pagination-navigation-item__next" ))
+      fastClick(this.wrapper.find( ".sk-pagination-navigation-item__next" ))
       expect(this.accessor.state.getValue()).toBe(8)
     })
 

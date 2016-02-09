@@ -1,5 +1,5 @@
 import * as React from "react";
-import {mount} from "enzyme";
+import {mount, render} from "enzyme";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
 import {RefinementListFilter} from "../src/RefinementListFilter.tsx";
 import {SearchkitManager, Utils} from "../../../../../core";
@@ -61,30 +61,33 @@ describe("Refinement List Filter tests", () => {
   });
 
   it('renders correctly', () => {
-    printPrettyHtml(this.wrapper.html())
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
+
+    let output = jsxToHTML(
       <div data-qa="filter--test id" className="sk-refinement-list filter--test id">
         <div data-qa="header" className="sk-refinement-list__header">test title</div>
         <div data-qa="options" className="sk-refinement-list__options">
           <div className="sk-refinement-list-option sk-refinement-list__item" data-qa="option">
-            <input type="checkbox" data-qa="checkbox" className="sk-refinement-list-option__checkbox"/>
+            <input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-refinement-list-option__checkbox"/>
             <div data-qa="label" className="sk-refinement-list-option__text">test option 1 translated</div>
             <div data-qa="count" className="sk-refinement-list-option__count">1</div>
           </div>
           <div className="sk-refinement-list-option sk-refinement-list__item" data-qa="option">
-            <input type="checkbox" data-qa="checkbox" className="sk-refinement-list-option__checkbox"/>
+            <input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-refinement-list-option__checkbox"/>
             <div data-qa="label" className="sk-refinement-list-option__text">test option 2</div>
             <div data-qa="count" className="sk-refinement-list-option__count">2</div>
           </div>
           <div className="sk-refinement-list-option sk-refinement-list__item" data-qa="option">
-            <input type="checkbox" data-qa="checkbox" className="sk-refinement-list-option__checkbox"/>
+            <input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-refinement-list-option__checkbox"/>
             <div data-qa="label" className="sk-refinement-list-option__text">test option 3</div>
             <div data-qa="count" className="sk-refinement-list-option__count">3</div>
           </div>
         </div>
         <div data-qa="show-more" className="sk-refinement-list__view-more-action">View all</div>
       </div>
-    ))
+    ).replace(/__checkbox"\/>/g, `__checkbox">`)
+    // replacing cause jsdom html() not closing input tag
+
+    expect(this.wrapper.html()).toEqual(output)
 
   });
 
