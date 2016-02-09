@@ -9,10 +9,7 @@ See [Getting Started](/docs/setup/README.md)
 
 ```jsx
 
-const host = "https://kili-eu-west-1.searchly.com/movies/"
-const searchkit = new SearchkitManager(host, {  
-  basicAuth:"read:teetndhjnrspbzxxyfxmf5fb24suqxuj"
-})
+const searchkit = new SearchkitManager("http://demo.searchkit.co/api/movies/"
 
 const App = ()=> (
   <SearchkitProvider searchkit={searchkit}>
