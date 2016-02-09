@@ -27,7 +27,7 @@ function itemRenderer(props:FilterItemComponentProps, showCheckbox) {
   return (
     <FastClick handler={toggleFilter}>
       <div className={className} data-qa="option">
-        {showCheckbox ? <input type="checkbox" data-qa="checkbox" checked={selected} className={block("checkbox").state({ selected }) }/> : undefined}
+        {showCheckbox ? <input type="checkbox" data-qa="checkbox" checked={selected} readOnly className={block("checkbox").state({ selected }) } ></input> : undefined}
         <div data-qa="label" className={block("text")}>{label}</div>
         <div data-qa="count" className={block("count")}>{count}</div>
       </div>

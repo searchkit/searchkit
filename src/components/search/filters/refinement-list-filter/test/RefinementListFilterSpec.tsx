@@ -21,7 +21,7 @@ describe("Refinement List Filter tests", () => {
               { key: "test option 3", doc_count: 3 }
             ]
           },
-          "test.count": {
+          "test_count": {
             value: 4
           }
         }
@@ -54,35 +54,37 @@ describe("Refinement List Filter tests", () => {
 
     this.createWrapper(
       <RefinementListFilter
-        field="test" id="test id" title="test title"
+        field="test" id="test id" title="test title" size={3}
         searchkit={this.searchkit} />
     )
 
   });
 
   it('renders correctly', () => {
-
+    printPrettyHtml(this.wrapper.html())
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-<div data-qa="filter--test id" className="sk-refinement-list filter--test id">
-  <div data-qa="header" className="sk-refinement-list__header">test title</div>
-  <div data-qa="options" className="sk-refinement-list__options">
-    <div className="sk-refinement-list-option sk-refinement-list__item" data-qa="option">
-      <div data-qa="checkbox" className="sk-refinement-list-option__checkbox"></div>
-      <div data-qa="label" className="sk-refinement-list-option__text">test option 1 translated</div>
-      <div data-qa="count" className="sk-refinement-list-option__count">1</div>
-    </div>
-    <div className="sk-refinement-list-option sk-refinement-list__item" data-qa="option">
-      <div data-qa="checkbox" className="sk-refinement-list-option__checkbox"></div>
-      <div data-qa="label" className="sk-refinement-list-option__text">test option 2</div>
-      <div data-qa="count" className="sk-refinement-list-option__count">2</div>
-    </div>
-    <div className="sk-refinement-list-option sk-refinement-list__item" data-qa="option">
-      <div data-qa="checkbox" className="sk-refinement-list-option__checkbox"></div>
-      <div data-qa="label" className="sk-refinement-list-option__text">test option 3</div>
-      <div data-qa="count" className="sk-refinement-list-option__count">3</div>
-    </div>
-  </div>
-</div>))
+      <div data-qa="filter--test id" className="sk-refinement-list filter--test id">
+        <div data-qa="header" className="sk-refinement-list__header">test title</div>
+        <div data-qa="options" className="sk-refinement-list__options">
+          <div className="sk-refinement-list-option sk-refinement-list__item" data-qa="option">
+            <input type="checkbox" data-qa="checkbox" className="sk-refinement-list-option__checkbox"/>
+            <div data-qa="label" className="sk-refinement-list-option__text">test option 1 translated</div>
+            <div data-qa="count" className="sk-refinement-list-option__count">1</div>
+          </div>
+          <div className="sk-refinement-list-option sk-refinement-list__item" data-qa="option">
+            <input type="checkbox" data-qa="checkbox" className="sk-refinement-list-option__checkbox"/>
+            <div data-qa="label" className="sk-refinement-list-option__text">test option 2</div>
+            <div data-qa="count" className="sk-refinement-list-option__count">2</div>
+          </div>
+          <div className="sk-refinement-list-option sk-refinement-list__item" data-qa="option">
+            <input type="checkbox" data-qa="checkbox" className="sk-refinement-list-option__checkbox"/>
+            <div data-qa="label" className="sk-refinement-list-option__text">test option 3</div>
+            <div data-qa="count" className="sk-refinement-list-option__count">3</div>
+          </div>
+        </div>
+        <div data-qa="show-more" className="sk-refinement-list__view-more-action">View all</div>
+      </div>
+    ))
 
   });
 
@@ -123,7 +125,7 @@ describe("Refinement List Filter tests", () => {
     expect(options).toEqual({
       "id": "test id",
       "title": "test title",
-      "size": 50,
+      "size": 3,
       "facetsPerPage": 50,
       "operator": undefined,
       "translations": undefined,

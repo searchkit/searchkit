@@ -45,7 +45,7 @@ class App extends SearchkitComponent {
         queryOptions={{analyzer:"standard"}}
         queryFields={["title^5", "languages", "text"]}/>
 
-      <Hits hitsPerPage={50} highlightFields={["title"]} sourceFilter={["title", "poster"]} itemComponent={HitItem}/>
+      <Hits hitsPerPage={50} highlightFields={["title"]} sourceFilter={["title", "poster", "imdbId"]} itemComponent={HitItem}/>
 
     </div>
   }

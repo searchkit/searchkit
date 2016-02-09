@@ -1,8 +1,17 @@
+## 0.6.2 (9th feb, 2016)
+### Notable Changes
+- Fix regression in RefinementListFilter not showing view more options
+
+## 0.6.1 (8th feb, 2016)
+### Notable Changes
+- Fix pagination bug where last page was not clickable.
+- Fix documentation references for sourceFilter which lead to incomplete demo
+
 ## 0.6.0 (8th feb, 2016)
 ### Notable Changes
 - `Hits` now supports the `sourceFilter` prop, we strongly advise you to use this as it will speed up your search and reduce a lot of wasted bandwidth [#20](https://github.com/searchkit/searchkit/issues/20)
 ```jsx
-<Hits hitsPerPage={50} sourceFilter={["title", "poster"]} itemComponent={HitItem}/>
+<Hits hitsPerPage={50} sourceFilter={["title", "poster", "imdbId"]} itemComponent={HitItem}/>
 ```
 - `SortingSelector` Component now supports `defaultOption` prop, and we have fixed issues in selection. [#89](https://github.com/searchkit/searchkit/issues/89)
 - `RefinementListFilter`, `MenuFilter`, `HierarchicalMenuFilter` all support sorting on intrinsic order fields via the the `orderKey` and `orderDirection` props. [#46](https://github.com/searchkit/searchkit/issues/46)

@@ -12,7 +12,9 @@ describe("Pagination tests", () => {
   beforeEach(() => {
 
     this.searchkit = SearchkitManager.mock()
-
+    this.searchkit.addDefaultQuery((query)=> {
+      return query.setSize(10)
+    })
     this.createWrapper = (showNumbers=true, pageScope=3) => {
       this.wrapper = mount(
         <Pagination searchkit={this.searchkit}
@@ -20,7 +22,7 @@ describe("Pagination tests", () => {
                     pageScope={pageScope}
                     translations={{ "pagination.previous": "Previous Page" }} />
       );
-      this.accessor = this.searchkit.accessors.getAccessors()[0]
+      this.accessor = this.searchkit.accessors.statefulAccessors["p"]
     }
 
     this.searchkit.query = new ImmutableQuery().setSize(10)
@@ -123,7 +125,16 @@ describe("Pagination tests", () => {
       fastClick(this.wrapper.find( ".sk-pagination-navigation-item__next" ))
       fastClick(this.wrapper.find( ".sk-pagination-navigation-item__next" ))
       expect(this.accessor.state.getValue()).toBe(4)
+    })
 
+    it("ability to click last page", ()=> {
+      this.createWrapper()
+      this.accessor.state = this.accessor.state.setValue(7)
+      this.wrapper.update()
+      fastClick(this.wrapper.find( ".pagination-navigation-item__next" ))
+      expect(this.accessor.state.getValue()).toBe(8)
+      fastClick(this.wrapper.find( ".pagination-navigation-item__next" ))
+      expect(this.accessor.state.getValue()).toBe(8)
     })
 
 

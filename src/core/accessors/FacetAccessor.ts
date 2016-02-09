@@ -67,7 +67,6 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     var option = {size:0, label:""}
     var total = this.getCount()
     var facetsPerPage = this.options.facetsPerPage
-
     if (total <= this.defaultSize) return null;
 
     if (total <= this.size) {

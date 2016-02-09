@@ -15,10 +15,7 @@ See full [Documentation](http://docs.searchkit.co/stable) or [Getting Started](h
 
 ```jsx
 
-const host = "https://kili-eu-west-1.searchly.com/movies/"
-const searchkit = new SearchkitManager(host, {
-  basicAuth:"read:teetndhjnrspbzxxyfxmf5fb24suqxuj"
-})
+const searchkit = new SearchkitManager("http://demo.searchkit.co/api/movies/")
 
 const App = ()=> (
   <SearchkitProvider searchkit={searchkit}>
@@ -47,7 +44,7 @@ const App = ()=> (
           size={10}/>
       </div>
       <div className="example-search-site__results">
-        <Hits hitsPerPage={10} sourceFilter={["title", "poster"]}/>
+        <Hits hitsPerPage={10} sourceFilter={["title", "poster", "imdbId"]}/>
         <NoHits/>
       </div>
     </div>

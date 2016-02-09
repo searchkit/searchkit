@@ -25,7 +25,7 @@ class App extends SearchkitComponent {
 
   render(){
     <div>
-      <Hits hitsPerPage={50} highlightFields={["title"]} sourceFilter={["title", "poster"]} itemComponent={HitItem}/>
+      <Hits hitsPerPage={50} highlightFields={["title"]} sourceFilter={["title", "poster", "imdbId"]} itemComponent={HitItem}/>
     </div>
   }
 }
