@@ -4,8 +4,8 @@ const find = require("lodash/find")
 const head = require("lodash/head")
 
 export interface SortingOption {
-  label:string, field:string,
-  order:string, defaultOption?:boolean
+  label:string, field?:string,
+  order?:string, defaultOption?:boolean
 }
 
 export interface SortingOptions {
@@ -30,10 +30,22 @@ export class SortingAccessor extends StatefulAccessor<ValueState> {
             head(options)
   }
 
+  getSortQuery(sortOption){
+    if(sortOption.field && sortOption.order) {
+      return [{[sortOption.field]: sortOption.order}]
+    } else if (sortOption.field) {
+      return [sortOption.field]
+    }
+    return null
+  }
+
   buildOwnQuery(query){
     let selectedSortOption = this.getSelectedOption()
     if (selectedSortOption) {
-      query = query.setSort([{[selectedSortOption.field]: selectedSortOption.order}])
+      let sortQuery = this.getSortQuery(selectedSortOption)
+      if(sortQuery){
+        query = query.setSort(sortQuery)
+      }
     }
     return query
   }
