@@ -23,8 +23,8 @@ export class SortingSelector extends SearchkitComponent<SortingProps, any> {
 		options:React.PropTypes.arrayOf(
 			React.PropTypes.shape({
 				label:React.PropTypes.string.isRequired,
-				field:React.PropTypes.string.isRequired,
-				order:React.PropTypes.string.isRequired,
+				field:React.PropTypes.string,
+				order:React.PropTypes.string,
 				defaultOption:React.PropTypes.bool
 			})
 		)
