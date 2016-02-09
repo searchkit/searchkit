@@ -36,10 +36,6 @@
   &__action {
     height:40px;
     visibility: hidden;
-
-    &:active {
-      background:#000;
-    }
   }
 
   &__loader {

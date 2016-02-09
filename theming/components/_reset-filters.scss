@@ -1,24 +1,17 @@
 .sk-reset-filters {
-  margin-bottom:20px;
-  border:1px solid #08c;
   text-align:center;
-  border-radius:3px;
+  border-radius:$sk-border-radius;
   padding:10px 20px;
   cursor:pointer;
-  color:#08c;
+  color: $sk-active-bg-color;
 
   &.is-disabled {
     cursor:default;
-    border-color:#ddd;
-    color:#ddd;
+    color:$sk-disabled-text-color;
   }
 
   &__text {
-    font-size:12px;
+    font-size:$sk-list-secondary-font-size;
   }
 
-  &:not(&.is-disabled)&:hover {
-    border-color:#000;
-    color:darken(#ddd,50);
-  }
 }

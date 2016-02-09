@@ -84,7 +84,7 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
   }
 
   getCount():number {
-    return this.getAggregations([this.key, this.key+"_count", "value"], 0) as number
+    return this.getAggregations([this.uuid, this.key+"_count", "value"], 0) as number
   }
 
   isOrOperator(){

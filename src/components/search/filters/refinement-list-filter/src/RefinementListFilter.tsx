@@ -85,6 +85,7 @@ export class RefinementListFilterDisplay extends React.Component<RefinementListF
     const { bemBlocks, moreSizeOption, toggleViewMoreOption, translate } = this.props
 
     let option = moreSizeOption
+    console.log(moreSizeOption)
 
     if (!option) {
       return null;

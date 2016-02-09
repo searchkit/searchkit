@@ -1,21 +1,7 @@
-@import "components/search-box.scss";
+@import "vars.scss";
+@import "components.scss";
 
-@import "components/hits-stats.scss";
-@import "components/hits.scss";
-@import "components/no-hits.scss";
 
-@import "components/filter-item.scss";
-@import "components/hierarchical-menu-filter.scss";
-@import "components/hierarchical-refinement-filter.scss";
-@import "components/numeric-refinement-list-filter.scss";
-@import "components/refinement-list-filter.scss";
-@import "components/selected-filters.scss";
-@import "components/range-filter.scss";
-@import "components/reset-filters.scss";
-@import "components/menu-filter.scss";
-
-@import "components/pagination.scss";
-@import "components/sorting-selector.scss";
 
 html {
   box-sizing: border-box;
@@ -34,16 +20,18 @@ body {
   box-sizing: inherit;
 }
 
-// .menu-list,
-// .hierarchical-menu-list,
-// .hierarchical-refinement {
-//
-// }
+.sk-refinement-list,
+.sk-range-filter,
+.sk-hierarchical-menu-list,
+.sk-numeric-refinement-list,
+.sk-hierarchical-refinement-list {
+  margin-bottom:20px;
+}
 
 .layout {
 
   &__top-bar {
-    background: #2a4466;
+    background: $sk-primary-theme-color;
     height:60px;
     position: fixed;
     top: 0;
@@ -111,21 +99,9 @@ body {
 
 // components
 
-.sk-refinement-list,
-.sk-range-filter,
-.sk-hierarchical-menu-list,
-.sk-hierarchical-refinement-list,
-.sk-numeric-refinement-list {
-
-  &__header {
-    font-size:14px;
-  }
-
-}
-
 .sk-search-box {
   background: rgba(255,255,255,.15);
-  border-radius: 2px;
+  border-radius: $sk-border-radius;
   position: relative;
   display: flex;
   flex:1;
@@ -135,12 +111,12 @@ body {
   }
 
   &.is-focused &__text {
-    color:#444;
+    color:$sk-text-color;
   }
 
   &.is-focused &__text::-webkit-input-placeholder  {
-    color:#444;
-    font-weight:100;
+    color:$sk-text-color;
+    font-weight:$sk-light-weight;
   }
 
   form {
@@ -173,15 +149,15 @@ body {
 }
 
 .sk-sorting-selector {
-  flex:150px 0 0;
+  flex:200px 0 0;
   select {
-    width:150px;
+    width:200px;
   }
 }
 
 .sk-range-filter {
   .rc-slider-handle {
-    border-color: #2a4466;
+    border-color: $sk-primary-theme-color;
   }
   .rc-slider-track {
     background-color: rgba(156, 162, 153, 0.5);
@@ -211,34 +187,8 @@ body {
   }
 }
 
-.sk-pagination-navigation {
-  // border:1px solid #ddd;
-  // display:inline-block;
-
-  &-item__prev {
-
-  }
-
-  &-item {
-    border-radius: 0;
-    border:none;
-    border:1px solid #ddd;
-    border-right:none;
-  }
-
-  &-item__number {
-    &.is-active {
-      border-color:#08c;
-    }
-  }
-
-  &-item__next {
-    border-right:1px solid #ddd;
-  }
-}
-
 .sk-hits {
-  margin:0 15px;
+  margin:0 15px 20px;
 }
 
 .sk-hits-hit {
@@ -250,7 +200,7 @@ body {
   &__title {
     margin-top:10px;
     font-size:14px;
-    color:#08c;
+    color:$sk-action-text-color;
     em {
       background:yellow;
     }

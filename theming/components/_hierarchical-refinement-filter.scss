@@ -4,7 +4,8 @@
 
     &__header {
       margin-bottom:5px;
-      font-weight:bold;
+      font-weight:$sk-bold-weight;
+      font-size: $sk-heading-font-size;
     }
 
     &__root {
@@ -17,26 +18,7 @@
   }
 
   &-option {
-    padding:2px 0px 2px 0px;
-    cursor:pointer;
-    position:relative;
-    font-size:14px;
-    display:flex;
-    line-height:18px;
-
-    &.is-selected &__text {
-      font-weight:700;
-    }
-
-    &__text {
-      flex:auto;
-    }
-
-    &__count {
-      font-size: 12px;
-      text-align: right;
-      color: #cccccc;
-    }
+    @include filter-option;
   }
 
 }

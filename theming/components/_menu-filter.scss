@@ -2,7 +2,8 @@
 
   &__header {
     margin-bottom: 5px;
-    font-weight: bold;
+    font-weight: $sk-bold-weight;
+    font-size: $sk-heading-font-size;
   }
 
   &__options {
@@ -14,27 +15,7 @@
   }
 
   &-option {
-    position:relative;
-    cursor:pointer;
-    padding:0px 0;
-    line-height:22px;
-    display:flex;
-
-    &.is-selected &__text {
-      font-weight:700;
-    }
-
-    &__text {
-      flex:auto;
-      font-size:14px;
-    }
-
-    &__count {
-      font-size: 12px;
-      text-align: right;
-      color: #cccccc;
-    }
-
+    @include filter-option;
   }
 
 }
