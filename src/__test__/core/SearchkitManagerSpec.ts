@@ -304,6 +304,13 @@ describe("SearchkitManager", ()=> {
     expect(this.searchkit.getQueryAccessor()).toBe(queryAccessor)
   })
 
+  it("getAccessorsByType()", ()=> {
+    let queryAccessor = new QueryAccessor("q")
+    this.searchkit.addAccessor(queryAccessor)
+    expect(this.searchkit.getAccessorsByType(QueryAccessor))
+      .toEqual([queryAccessor])
+  })
+
   it("onResponseChange()", ()=> {
     this.searchkit.loading = true
     this.searchkit.initialLoading = true
