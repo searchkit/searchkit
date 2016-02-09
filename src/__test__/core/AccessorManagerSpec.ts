@@ -57,6 +57,13 @@ describe("AccessorManager", ()=> {
     ])
   })
 
+  it("getAccessorsByType()", ()=> {
+    expect(this.accessors.getAccessorsByType(PageSizeAccessor))
+      .toEqual([this.accessor5])
+    expect(this.accessors.getAccessorsByType(PaginationAccessor))
+      .toEqual([this.accessor1, this.accessor2, this.accessor3, this.accessor4])
+  })
+
 
   it("add(), remove()", ()=> {
     let accessors = new AccessorManager()
@@ -80,7 +87,7 @@ describe("AccessorManager", ()=> {
       .toEqual([this.accessor4])
     expect(accessors.statefulAccessors).toEqual({
       p4:this.accessor4
-    })    
+    })
     accessors.remove(this.accessor4)
     accessors.remove(this.accessor4)
     expect(accessors.getAccessors()).toEqual([])

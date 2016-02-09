@@ -34,6 +34,10 @@ export class AccessorManager {
     return values(this.statefulAccessors) as StatefulAccessors
   }
 
+  getAccessorsByType(type){
+    return filter(this.accessors, Utils.instanceOf(type))
+  }
+
   add(accessor){
     if(accessor instanceof StatefulAccessor){
       if(accessor instanceof BaseQueryAccessor){
