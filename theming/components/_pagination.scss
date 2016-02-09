@@ -1,0 +1,38 @@
+.sk-pagination-navigation {
+  text-align:center;
+  border-radius:3px;
+
+  &-item {
+    border:none;
+    border:1px solid $sk-border-color;
+    border-right:none;
+    display: inline-block;
+    padding:10px 20px;
+    text-align:center;
+    cursor:pointer;
+    text-decoration: none;
+    color:$sk-action-text-color;
+
+    &.is-active {
+      background: $sk-active-bg-color;
+      color:#fff;
+    }
+
+    &.is-disabled {
+      cursor: initial;
+      color: $sk-disabled-text-color;
+    }
+  }
+
+  &-item__next {
+    border-right:1px solid $sk-border-color;
+  }
+
+  &-item__number {
+    &.is-active {
+      border-color:$sk-action-text-color;
+    }
+
+  }
+
+}

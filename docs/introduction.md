@@ -9,10 +9,7 @@ See [Getting Started](/docs/setup/README.md)
 
 ```jsx
 
-const host = "https://kili-eu-west-1.searchly.com/movies/"
-const searchkit = new SearchkitManager(host, {  
-  basicAuth:"read:teetndhjnrspbzxxyfxmf5fb24suqxuj"
-})
+const searchkit = new SearchkitManager("http://demo.searchkit.co/api/movies/"
 
 const App = ()=> (
   <SearchkitProvider searchkit={searchkit}>
@@ -30,7 +27,7 @@ const App = ()=> (
         <RefinementListFilter id="actors" title="Actors" field="actors.raw" operator="AND" size={10}/>
       </div>
       <div className="example-search-site__results">
-        <MovieHits hitsPerPage={10} mod="example-hits"/>
+        <Hits hitsPerPage={10} mod="example-hits" itemComponent={MovieHitsItem} sourceFilter={["title", "poster", "imdbId"]}/>
       </div>
     </div>
   </SearchkitProvider>

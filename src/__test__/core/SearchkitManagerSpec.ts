@@ -239,12 +239,18 @@ describe("SearchkitManager", ()=> {
       .toHaveBeenCalled()
   })
 
-  it("setResults()", ()=> {
+  it("setResults() - error", ()=> {
     spyOn(this.searchkit, "onResponseChange")
+    spyOn(this.accessors, "setResults")
+    spyOn(console, "error")
     expect(this.searchkit.results).toBe(undefined)
     let error = new Error("oh no")
     this.searchkit.setError(error)
     expect(this.searchkit.error).toBe(error)
+    expect(console.error).toHaveBeenCalledWith(error)
+    expect(this.searchkit.results).toBe(null)
+    expect(this.accessors.setResults)
+      .toHaveBeenCalledWith(null)
     expect(this.searchkit.onResponseChange)
       .toHaveBeenCalled()
   })
@@ -292,9 +298,11 @@ describe("SearchkitManager", ()=> {
     this.searchkit.results = {
       hits:{
         total:99
-      }
+      },
+      took:1
     }
-    expect(this.searchkit.getHitsCount()).toEqual(99)
+    expect(this.searchkit.getHitsCount()).toBe(99)
+    expect(this.searchkit.getTime()).toBe(1)
     expect(this.searchkit.hasHits()).toBe(true)
   })
 

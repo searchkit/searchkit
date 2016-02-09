@@ -73,8 +73,8 @@ describe("Range Filter tests", () => {
   it('renders correctly', () => {
     this.createWrapper(true)
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-    <div className="range-filter">
-      <div className="range-filter__header">metascore</div>
+    <div className="sk-range-filter">
+      <div className="sk-range-filter__header">metascore</div>
       <div className="bar-chart">
         <div className="bar-chart__bar" style={{height:"20%"}}></div>
         <div className="bar-chart__bar" style={{height:"60%"}}></div>
@@ -94,9 +94,9 @@ describe("Range Filter tests", () => {
         <div className="rc-slider-step"></div>
         <div className="rc-slider-mark"></div>
       </div>
-      <div className="range-filter__x-label range-filter-value-labels">
-        <div className="range-filter-value-labels__min">0</div>
-        <div className="range-filter-value-labels__max">100</div>
+      <div className="sk-range-filter__x-label sk-range-filter-value-labels">
+        <div className="sk-range-filter-value-labels__min">0</div>
+        <div className="sk-range-filter-value-labels__max">100</div>
       </div>
     </div>
     ))

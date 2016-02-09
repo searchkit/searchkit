@@ -19,7 +19,7 @@ describe("NoHits component", () => {
     spyOn(this.queryAccessor, "keepOnlyQueryState")
     this.createWrapper = () => {
       this.wrapper = mount(
-        <NoHits searchkit={this.searchkit} translations={{"NoHits.NoResultsFound":"no movies"}} suggestionsField={"title"}/>
+        <NoHits searchkit={this.searchkit} translations={{"NoHits.NoResultsFound":"no movies", "NoHits.Error":"error"}} suggestionsField={"title"}/>
       )
     }
 
@@ -31,7 +31,7 @@ describe("NoHits component", () => {
     beforeEach(() => {
       this.createWrapper()
       this.hasRendered = () => {
-        return this.wrapper.find(".no-hits").length == 1
+        return this.wrapper.find(".sk-no-hits").length == 1
       }
     })
 
@@ -70,7 +70,7 @@ describe("NoHits component", () => {
       })
       this.wrapper.update()
       expect(this.hasRendered()).toBeTruthy()
-      expect(this.wrapper.find('.no-hits__info').text())
+      expect(this.wrapper.find('.sk-no-hits__info').text())
         .toBe("no movies")
 
     })
@@ -100,11 +100,11 @@ describe("NoHits component", () => {
       })
 
       this.wrapper.update()
-      expect(this.wrapper.find(".no-hits__info").text())
+      expect(this.wrapper.find(".sk-no-hits__info").text())
         .toEqual("No results found for matrixx. Did you mean matrix?")
-      expect(this.wrapper.find('.no-hits__steps').text())
+      expect(this.wrapper.find('.sk-no-hits__steps').text())
         .toEqual("Search for matrix instead")
-      fastClick(this.wrapper.find(".no-hits__step-action"))
+      fastClick(this.wrapper.find(".sk-no-hits__step-action"))
       expect(this.queryAccessor.setQueryString)
         .toHaveBeenCalledWith("matrix", true)
       expect(this.searchkit.performSearch)
@@ -131,12 +131,29 @@ describe("NoHits component", () => {
       })
 
       this.wrapper.update()
-      expect(this.wrapper.find('.no-hits__steps').text())
+      expect(this.wrapper.find('.sk-no-hits__steps').text())
         .toBe("Search for matrix without filters")
-      fastClick(this.wrapper.find(".no-hits__step-action"))
+      fastClick(this.wrapper.find(".sk-no-hits__step-action"))
       expect(this.queryAccessor.keepOnlyQueryState)
         .toHaveBeenCalled()
       expect(this.searchkit.performSearch).toHaveBeenCalled()
+    })
+
+    it("render error", () => {
+      this.createWrapper()
+      this.searchkit.query = this.searchkit.query.addFilter({}).setQueryString("matrix")
+      this.searchkit.setError("rubbish")
+      this.wrapper.update()
+      expect(this.wrapper.html()).toEqual(jsxToHTML(
+<div data-qa="no-hits" className="sk-no-hits">
+  <div className="sk-no-hits__info">error</div>
+  <div className="sk-no-hits__steps">
+    <div className="sk-no-hits__step-action">Reset Search</div>
+  </div>
+</div>
+      ))
+
+
     })
 
 

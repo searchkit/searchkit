@@ -1,4 +1,4 @@
-.hits {
+.sk-hits {
   display:flex;
   flex-flow: row wrap;
   align-items: flex-start;
@@ -15,7 +15,7 @@
   }
 }
 
-.hits-hit {
+.sk-hits-hit {
   padding:10px;
   max-width:250px;
   flex-flow: column nowrap;

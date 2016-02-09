@@ -188,6 +188,10 @@ export class SearchkitManager {
     return get(this.results, ["hits", "total"], 0)
   }
 
+  getTime() {
+    return get(this.results,"took", 0)
+  }
+
   getSuggestions() {
     return get(this.results,["suggest", "suggestions"], {})
   }
@@ -208,10 +212,11 @@ export class SearchkitManager {
     return get(this.results, ["hits", "hasChanged"], true)
   }
 
-
-
   setError(error){
     this.error = error
+    console.error(this.error)
+    this.results = null
+    this.accessors.setResults(null)
     this.onResponseChange()
   }
 

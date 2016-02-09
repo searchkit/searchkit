@@ -1,5 +1,4 @@
 import * as React from "react";
-import "../styles/index.scss";
 
 import {
   SearchkitComponent,
@@ -177,7 +176,7 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
   }
 
   defineBEMBlocks() {
-    let block = (this.props.mod || "pagination-navigation")
+    let block = (this.props.mod || "sk-pagination-navigation")
     return {
       container: block,
       option: `${block}-item`
@@ -197,7 +196,7 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
   }
 
   isDisabled(pageNumber: number): boolean {
-    return (pageNumber < 1) || (pageNumber >= this.getTotalPages());
+    return (pageNumber < 1) || (pageNumber > this.getTotalPages());
   }
 
   setPage(pageNumber:number) {
@@ -207,7 +206,6 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
     }
     this.accessor.state = this.accessor.state.setValue(pageNumber);
     this.searchkit.performSearch();
-    window.scrollTo(0,0); // BUG, doesn't work for inner divs
   }
 
   render() {

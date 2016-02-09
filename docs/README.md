@@ -40,6 +40,7 @@
   * [Migrating from 0.2](/docs/upgrading/migrating_from_0_2.md)
   * [Migrating from 0.3](/docs/upgrading/migrating_from_0_3.md)
   * [Migrating from 0.4](/docs/upgrading/migrating_from_0.4.md)
+  * [Migrating from 0.5](/docs/upgrading/migrating_from_0.5.md)
 * [Using Express](/docs/server/searchkit_express.md)
 * [Indexing & Mapping Guide](/docs/server/indexing.md)
 * [Examples](/docs/examples/README.md)

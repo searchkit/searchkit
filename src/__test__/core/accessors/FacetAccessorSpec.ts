@@ -46,7 +46,7 @@ describe("FacetAccessor", ()=> {
     expect(this.accessor.getCount()).toEqual(0)
     this.accessor.results = {
       aggregations:{
-        genre:{
+        genre1:{
           genre_count:{
             value:99
           }

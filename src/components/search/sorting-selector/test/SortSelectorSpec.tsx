@@ -16,7 +16,7 @@ describe("SortingSelector tests", () => {
     spyOn(this.searchkit, "performSearch")
     this.wrapper = mount(
       <SortingSelector searchkit={this.searchkit} options={[
-        {label:"Relevance", field:"_score", order:"desc"},
+        {label:"Relevance"},
         {label:"Latest Releases", field:"released", order:"desc"},
         {label:"Earliest Releases", field:"released", order:"asc"}
       ]}/>
@@ -40,7 +40,7 @@ describe("SortingSelector tests", () => {
     this.setResults()
     expect(this.wrapper.children().length).toBe(1)
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sorting-selector">
+      <div className="sk-sorting-selector">
         <select defaultValue="Relevance">
           <option value="Relevance">Relevance</option>
           <option value="Latest Releases">Latest Releases</option>
@@ -54,7 +54,7 @@ describe("SortingSelector tests", () => {
     this.accessor.state = this.accessor.state.setValue("Latest Releases")
     this.setResults()
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sorting-selector">
+      <div className="sk-sorting-selector">
         <select defaultValue="Latest Releases" onChange={_.identity}>
           <option value="Relevance">Relevance</option>
           <option value="Latest Releases">Latest Releases</option>
@@ -68,7 +68,7 @@ describe("SortingSelector tests", () => {
     this.accessor.options.options[2].defaultOption = true
     this.setResults()
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sorting-selector">
+      <div className="sk-sorting-selector">
         <select defaultValue="Earliest Releases" onChange={_.identity}>
           <option value="Relevance">Relevance</option>
           <option value="Latest Releases">Latest Releases</option>

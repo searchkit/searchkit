@@ -49,7 +49,7 @@ describe("Refinement List Filter tests", () => {
     }
 
     this.getContainer = (label, index) => {
-      let container = this.wrapper.find(".hierarchical-refinement-list__"+label)
+      let container = this.wrapper.find(".sk-hierarchical-refinement-list__"+label)
       if (_.isNumber(index)) {
         return container.children().at(index)
       } else {
@@ -72,20 +72,20 @@ describe("Refinement List Filter tests", () => {
   it("should render correctly", () => {
     this.setResults()
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div data-qa="filter--testid" className="hierarchical-refinement-list filter--testid">
-        <div data-qa="title" className="hierarchical-refinement-list__header">test title</div>
-        <div data-qa="options" className="hierarchical-refinement-list__root">
-          <div className="hierarchical-refinement-list__hierarchical-options">
+      <div data-qa="filter--testid" className="sk-hierarchical-refinement-list filter--testid">
+        <div data-qa="title" className="sk-hierarchical-refinement-list__header">test title</div>
+        <div data-qa="options" className="sk-hierarchical-refinement-list__root">
+          <div className="sk-hierarchical-refinement-list__hierarchical-options">
             <div>
-              <div className="hierarchical-refinement-option">
-                <div className="hierarchical-refinement-option__text">option1</div>
-                <div className="hierarchical-refinement-option__count">1</div>
+              <div className="sk-hierarchical-refinement-option">
+                <div className="sk-hierarchical-refinement-option__text">option1</div>
+                <div className="sk-hierarchical-refinement-option__count">1</div>
               </div>
             </div>
             <div>
-              <div className="hierarchical-refinement-option">
-                <div className="hierarchical-refinement-option__text">option2</div>
-                <div className="hierarchical-refinement-option__count">2</div>
+              <div className="sk-hierarchical-refinement-option">
+                <div className="sk-hierarchical-refinement-option__text">option2</div>
+                <div className="sk-hierarchical-refinement-option__count">2</div>
               </div>
             </div>
           </div>
@@ -100,34 +100,34 @@ describe("Refinement List Filter tests", () => {
     ])
     this.setResults()
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div data-qa="filter--testid" className="hierarchical-refinement-list filter--testid">
-        <div data-qa="title" className="hierarchical-refinement-list__header">test title</div>
-        <div data-qa="options" className="hierarchical-refinement-list__root">
-          <div className="hierarchical-refinement-list__hierarchical-options">
+      <div data-qa="filter--testid" className="sk-hierarchical-refinement-list filter--testid">
+        <div data-qa="title" className="sk-hierarchical-refinement-list__header">test title</div>
+        <div data-qa="options" className="sk-hierarchical-refinement-list__root">
+          <div className="sk-hierarchical-refinement-list__hierarchical-options">
             <div>
-              <div className="hierarchical-refinement-option">
-                <div className="hierarchical-refinement-option__text">option1</div>
-                <div className="hierarchical-refinement-option__count">1</div>
+              <div className="sk-hierarchical-refinement-option">
+                <div className="sk-hierarchical-refinement-option__text">option1</div>
+                <div className="sk-hierarchical-refinement-option__count">1</div>
               </div>
             </div>
             <div>
-              <div className="hierarchical-refinement-option is-selected">
-                <div className="hierarchical-refinement-option__text">option2</div>
-                <div className="hierarchical-refinement-option__count">2</div>
+              <div className="sk-hierarchical-refinement-option is-selected">
+                <div className="sk-hierarchical-refinement-option__text">option2</div>
+                <div className="sk-hierarchical-refinement-option__count">2</div>
               </div>
-              <div className="hierarchical-refinement-list__hierarchical-options">
+              <div className="sk-hierarchical-refinement-list__hierarchical-options">
                 <div>
-                  <div className="hierarchical-refinement-option">
-                    <div className="hierarchical-refinement-option__text">option2child1</div>
-                    <div className="hierarchical-refinement-option__count">1</div>
+                  <div className="sk-hierarchical-refinement-option">
+                    <div className="sk-hierarchical-refinement-option__text">option2child1</div>
+                    <div className="sk-hierarchical-refinement-option__count">1</div>
                   </div>
                 </div>
                 <div>
-                  <div className="hierarchical-refinement-option is-selected">
-                    <div className="hierarchical-refinement-option__text">option2child2</div>
-                    <div className="hierarchical-refinement-option__count">1</div>
+                  <div className="sk-hierarchical-refinement-option is-selected">
+                    <div className="sk-hierarchical-refinement-option__text">option2child2</div>
+                    <div className="sk-hierarchical-refinement-option__count">1</div>
                   </div>
-                  <div className="hierarchical-refinement-list__hierarchical-options"></div>
+                  <div className="sk-hierarchical-refinement-list__hierarchical-options"></div>
                 </div>
               </div>
             </div>
@@ -140,9 +140,9 @@ describe("Refinement List Filter tests", () => {
   it("handle clicking an option", ()=> {
     this.setResults()
     let option2 = this.wrapper
-      .find(".hierarchical-refinement-list__hierarchical-options")
+      .find(".sk-hierarchical-refinement-list__hierarchical-options")
       .children().at(1)
-      .find(".hierarchical-refinement-option")
+      .find(".sk-hierarchical-refinement-option")
     fastClick(option2)
     expect(this.accessor.state.getValue())
       .toEqual([ ["option2"] ])

@@ -86,21 +86,21 @@ describe("FilterItem", () => {
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="option container__item is-selected" data-qa="option">
-        <div data-qa="checkbox" className="option__checkbox is-selected"></div>
+      <input type="checkbox" data-qa="checkbox" checked={true} readOnly={true} className="option__checkbox is-selected"/>
         <div data-qa="label" className="option__text">test</div>
         <div data-qa="count" className="option__count">1</div>
       </div>
-    ))
+    ).replace(/is-selected"\/>/g, `is-selected">`))
 
     createRender({selected:false})
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="option container__item" data-qa="option">
-        <div data-qa="checkbox" className="option__checkbox"></div>
+        <input type="checkbox" data-qa="checkbox" readOnly={true} className="option__checkbox"/>
         <div data-qa="label" className="option__text">test</div>
         <div data-qa="count" className="option__count">1</div>
       </div>
-    ))
+    ).replace(/__checkbox"\/>/g, `__checkbox">`))
 
     expect(spy.called).toBe(false)
 

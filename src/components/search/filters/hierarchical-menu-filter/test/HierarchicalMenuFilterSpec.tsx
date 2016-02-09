@@ -7,8 +7,6 @@ const bem = require("bem-cn");
 import * as sinon from "sinon";
 const _ = require("lodash")
 
-
-
 describe("MenuFilter tests", () => {
 
   beforeEach(()=> {
@@ -51,20 +49,20 @@ describe("MenuFilter tests", () => {
   it("should render first level correctly", ()=> {
     this.setResults()
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="hierarchical-menu-list filter--categories">
-        <div className="hierarchical-menu-list__header">Categories</div>
-        <div className="hierarchical-menu-list__root">
-          <div className="hierarchical-menu-list__hierarchical-options">
+      <div className="sk-hierarchical-menu-list filter--categories">
+        <div className="sk-hierarchical-menu-list__header">Categories</div>
+        <div className="sk-hierarchical-menu-list__root">
+          <div className="sk-hierarchical-menu-list__hierarchical-options">
             <div>
-              <div className="hierarchical-menu-option">
-                <div className="hierarchical-menu-option__text">Red</div>
-                <div className="hierarchical-menu-option__count">10</div>
+              <div className="sk-hierarchical-menu-option">
+                <div className="sk-hierarchical-menu-option__text">Red</div>
+                <div className="sk-hierarchical-menu-option__count">10</div>
               </div>
             </div>
             <div>
-              <div className="hierarchical-menu-option">
-                <div className="hierarchical-menu-option__text">Green</div>
-                <div className="hierarchical-menu-option__count">20</div>
+              <div className="sk-hierarchical-menu-option">
+                <div className="sk-hierarchical-menu-option__text">Green</div>
+                <div className="sk-hierarchical-menu-option__count">20</div>
               </div>
             </div>
           </div>
@@ -79,35 +77,35 @@ describe("MenuFilter tests", () => {
     ])
     this.setResults()
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="hierarchical-menu-list filter--categories">
-        <div className="hierarchical-menu-list__header">Categories</div>
-        <div className="hierarchical-menu-list__root">
-          <div className="hierarchical-menu-list__hierarchical-options">
+      <div className="sk-hierarchical-menu-list filter--categories">
+        <div className="sk-hierarchical-menu-list__header">Categories</div>
+        <div className="sk-hierarchical-menu-list__root">
+          <div className="sk-hierarchical-menu-list__hierarchical-options">
             <div>
-              <div className="hierarchical-menu-option is-selected">
-                <div className="hierarchical-menu-option__text">Red</div>
-                <div className="hierarchical-menu-option__count">10</div>
+              <div className="sk-hierarchical-menu-option is-selected">
+                <div className="sk-hierarchical-menu-option__text">Red</div>
+                <div className="sk-hierarchical-menu-option__count">10</div>
               </div>
-              <div className="hierarchical-menu-list__hierarchical-options">
+              <div className="sk-hierarchical-menu-list__hierarchical-options">
                 <div>
-                  <div className="hierarchical-menu-option">
-                    <div className="hierarchical-menu-option__text">Crimson</div>
-                    <div className="hierarchical-menu-option__count">10</div>
+                  <div className="sk-hierarchical-menu-option">
+                    <div className="sk-hierarchical-menu-option__text">Crimson</div>
+                    <div className="sk-hierarchical-menu-option__count">10</div>
                   </div>
                 </div>
                 <div>
-                  <div className="hierarchical-menu-option is-selected">
-                    <div className="hierarchical-menu-option__text">Maroon</div>
-                    <div className="hierarchical-menu-option__count">12</div>
+                  <div className="sk-hierarchical-menu-option is-selected">
+                    <div className="sk-hierarchical-menu-option__text">Maroon</div>
+                    <div className="sk-hierarchical-menu-option__count">12</div>
                   </div>
-                  <div className="hierarchical-menu-list__hierarchical-options"></div>
+                  <div className="sk-hierarchical-menu-list__hierarchical-options"></div>
                 </div>
               </div>
             </div>
             <div>
-              <div className="hierarchical-menu-option">
-                <div className="hierarchical-menu-option__text">Green</div>
-                <div className="hierarchical-menu-option__count">20</div>
+              <div className="sk-hierarchical-menu-option">
+                <div className="sk-hierarchical-menu-option__text">Green</div>
+                <div className="sk-hierarchical-menu-option__count">20</div>
               </div>
             </div>
           </div>
@@ -118,8 +116,8 @@ describe("MenuFilter tests", () => {
 
   it("should handle selecting an option", ()=> {
     this.setResults()
-    let redOption = this.wrapper.find(".hierarchical-menu-list__hierarchical-options")
-      .children().at(0).find(".hierarchical-menu-option")
+    let redOption = this.wrapper.find(".sk-hierarchical-menu-list__hierarchical-options")
+      .children().at(0).find(".sk-hierarchical-menu-option")
     fastClick(redOption)
     expect(this.accessor.state.getValue()).toEqual([["Red"]])
   })

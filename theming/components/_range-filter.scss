@@ -1,11 +1,11 @@
 @import "~rc-slider/assets/index.css";
 
-.range-filter {
-  margin-bottom:20px;
+.sk-range-filter {
 
   &__header {
     margin-bottom: 5px;
-    font-weight: bold;
+    font-weight: $sk-bold-weight;
+    font-size: $sk-heading-font-size;
   }
 
   &.is-disabled {
@@ -23,11 +23,11 @@
 
     &__min {
       align-self: flex-start;
-      font-size:12px;
+      font-size:$sk-list-secondary-font-size;
     }
     &__max {
       align-self: flex-end;
-      font-size:12px;
+      font-size:$sk-list-secondary-font-size;
     }
   }
 

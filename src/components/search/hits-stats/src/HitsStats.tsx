@@ -1,14 +1,36 @@
 import * as React from "react";
-import "../styles/index.scss";
+
 import {
 	SearchkitComponent,
-	SearchkitComponentProps
+	SearchkitComponentProps,
+	ReactComponentType
 } from "../../../../core"
 
 const defaults = require("lodash/defaults")
 const get = require("lodash/get")
 
+export interface HitsStatsDisplayProps {
+	bemBlocks:{container:Function}
+	resultsFoundLabel: string
+	timeTaken:string
+	hitsCount:string
+	translate:Function
+}
+
+const HitsStatsDisplay = (props:HitsStatsDisplayProps) => {
+	const {resultsFoundLabel, bemBlocks} = props
+	return (
+		<div className={bemBlocks.container()} data-qa="hits-stats">
+			<div className={bemBlocks.container("info")} data-qa="info">
+				{resultsFoundLabel}
+			</div>
+	  </div>
+	)
+}
+
+
 export interface HitsStatsProps extends SearchkitComponentProps {
+	component?: ReactComponentType<HitsStatsDisplayProps>
 }
 
 export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
@@ -24,33 +46,29 @@ export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 		)
 	}, SearchkitComponent.propTypes)
 
+	static defaultProps = {
+		component: HitsStatsDisplay
+	}
+
 	defineBEMBlocks() {
 		return {
-			container: (this.props.mod || "hits-stats")
+			container: (this.props.mod || "sk-hits-stats")
 		}
 	}
 
-	getTime():number {
-		return get(this.getResults(),"took", 0)
-	}
-
-	renderText() {
-		return (
-			<div className={this.bemBlocks.container("info")} data-qa="info">
-				{this.translate("hitstats.results_found", {
-					timeTaken:this.getTime(),
-					hitCount:this.searchkit.getHitsCount()
-				})
-				}
-			</div>
-		)
-	}
-
 	render() {
-		return (
-			<div className={this.bemBlocks.container()} data-qa="hits-stats">
-				{this.renderText()}
-      </div>
-		);
+		const timeTaken = this.searchkit.getTime()
+		const hitsCount = this.searchkit.getHitsCount()
+		const props:HitsStatsDisplayProps = {
+			bemBlocks:this.bemBlocks,
+			translate:this.translate,
+			timeTaken: timeTaken,
+			hitsCount: hitsCount,
+			resultsFoundLabel: this.translate("hitstats.results_found", {
+				timeTaken:timeTaken,
+				hitCount:hitsCount
+			})
+		}
+		return React.createElement(this.props.component, props)
 	}
 }

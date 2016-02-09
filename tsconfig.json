@@ -41,6 +41,8 @@
     "./src/components/search/hits/src/Hits.tsx",
     "./src/components/search/hits/src/InitialLoader.tsx",
     "./src/components/search/hits/src/NoHits.tsx",
+    "./src/components/search/hits/src/NoHitsDisplay.tsx",
+    "./src/components/search/hits/src/NoHitsErrorDisplay.tsx",
     "./src/components/search/hits/test/HitsSpec.tsx",
     "./src/components/search/hits/test/InitialLoaderSpec.tsx",
     "./src/components/search/hits/test/NoHitsSpec.tsx",
@@ -188,13 +190,15 @@
     "./src/core/transport/MockESTransport.ts",
     "./src/index.ts",
     "./test/e2e/specs/TestSpec.ts",
-    "./typings/main.d.ts"
+    "./typings/main.d.ts",
+    "./theming/index.ts"
   ],
   "filesGlob": [
     "./src/**/*.tsx",
     "./src/**/*.ts",
     "./test/e2e/**/*.ts",
-    "./typings/main.d.ts"
+    "./typings/main.d.ts",
+    "./theming/*.ts"
   ],
   "exclude": [],
   "atom": {
