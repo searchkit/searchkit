@@ -1,3 +1,7 @@
+## 0.6.2 (9th feb, 2016)
+### Notable Changes
+- Fix regression in RefinementListFilter not showing view more options
+
 ## 0.6.1 (8th feb, 2016)
 ### Notable Changes
 - Fix pagination bug where last page was not clickable.
