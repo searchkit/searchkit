@@ -29,7 +29,7 @@ describe("Searchbox tests", () => {
     }
 
     this.typeSearch = (value)=> {
-      this.wrapper.find(".search-box__text")
+      this.wrapper.find(".sk-search-box__text")
         .simulate("input", {target:{value}})
     }
 
@@ -37,7 +37,7 @@ describe("Searchbox tests", () => {
 
   it("render", () => {
     this.createWrapper()
-    expect(this.wrapper.find(".search-box__text").get(0).placeholder).toBe("search movies")
+    expect(this.wrapper.find(".sk-search-box__text").get(0).placeholder).toBe("search movies")
   })
 
   it("search on change", () => {
@@ -130,18 +130,18 @@ describe("Searchbox tests", () => {
   it("should handle focus", ()=> {
     this.createWrapper(true, ["title"], ["prefix"])
     expect(
-      this.wrapper.find(".search-box")
+      this.wrapper.find(".sk-search-box")
         .hasClass("is-focused")
     ).toBe(false)
     expect(this.wrapper.node.state)
       .toEqual({ focused:false })
-    this.wrapper.find(".search-box__text")
+    this.wrapper.find(".sk-search-box__text")
       .simulate("focus")
     expect(this.wrapper.node.state)
       .toEqual({ focused:true })
     this.wrapper.update()
     expect(
-      this.wrapper.find(".search-box")
+      this.wrapper.find(".sk-search-box")
         .hasClass("is-focused")
     ).toBe(true)
 

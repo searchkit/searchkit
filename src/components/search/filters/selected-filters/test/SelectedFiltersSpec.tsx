@@ -13,8 +13,8 @@ describe("SelectedFilters tests", () => {
 
   beforeEach(() => {
 
-    this.bemContainer = bem("selected-filters")
-    this.bemOption = bem("selected-filters-option")
+    this.bemContainer = bem("sk-selected-filters")
+    this.bemOption = bem("sk-selected-filters-option")
 
     this.searchkit = SearchkitManager.mock()
 
@@ -56,14 +56,14 @@ describe("SelectedFilters tests", () => {
     this.createWrapper()
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-<div className="selected-filters">
-  <div className="selected-filters-option selected-filters__item selected-filter--test">
-    <div className="selected-filters-option__name"><span>test name</span><span>: </span><span>test value</span></div>
-    <div className="selected-filters-option__remove-action">x</div>
+<div className="sk-selected-filters">
+  <div className="sk-selected-filters-option sk-selected-filters__item selected-filter--test">
+    <div className="sk-selected-filters-option__name"><span>test name</span><span>: </span><span>test value</span></div>
+    <div className="sk-selected-filters-option__remove-action">x</div>
   </div>
-  <div className="selected-filters-option selected-filters__item selected-filter--test2">
-    <div className="selected-filters-option__name"><span>test name 2 translated</span><span>: </span><span>test value 2 translated</span></div>
-    <div className="selected-filters-option__remove-action">x</div>
+  <div className="sk-selected-filters-option sk-selected-filters__item selected-filter--test2">
+    <div className="sk-selected-filters-option__name"><span>test name 2 translated</span><span>: </span><span>test value 2 translated</span></div>
+    <div className="sk-selected-filters-option__remove-action">x</div>
   </div>
 </div>
     ))
@@ -73,7 +73,7 @@ describe("SelectedFilters tests", () => {
 
   it("handles remove click", () => {
     this.createWrapper()
-    let elem = this.wrapper.find(".selected-filters-option").at(0).find("."+this.bemOption("remove-action"))
+    let elem = this.wrapper.find(".sk-selected-filters-option").at(0).find("."+this.bemOption("remove-action"))
     fastClick(elem)
     expect(this.sinonSpy.called).toBeTruthy()
   })
@@ -92,21 +92,21 @@ describe("SelectedFilters tests", () => {
     this.createWrapper({itemComponent:FilterItem})
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="selected-filters">
-        <div className="selected-filters-option">
-          <div className="selected-filters-option__override-name">test value</div>
-          <div className="selected-filters-option__remove-action">x</div>
+      <div className="sk-selected-filters">
+        <div className="sk-selected-filters-option">
+          <div className="sk-selected-filters-option__override-name">test value</div>
+          <div className="sk-selected-filters-option__remove-action">x</div>
         </div>
-        <div className="selected-filters-option">
-          <div className="selected-filters-option__override-name">test value 2 translated</div>
-          <div className="selected-filters-option__remove-action">x</div>
+        <div className="sk-selected-filters-option">
+          <div className="sk-selected-filters-option__override-name">test value 2 translated</div>
+          <div className="sk-selected-filters-option__remove-action">x</div>
         </div>
       </div>
     ))
 
     // click element to be removed
 
-    let elem = this.wrapper.find(".selected-filters-option").at(0).find("."+this.bemOption("remove-action"))
+    let elem = this.wrapper.find(".sk-selected-filters-option").at(0).find("."+this.bemOption("remove-action"))
     fastClick(elem)
     expect(this.sinonSpy.called).toBeTruthy()
 

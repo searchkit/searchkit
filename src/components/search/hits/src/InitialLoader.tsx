@@ -1,5 +1,5 @@
 import * as React from "react";
-import "../styles/index.scss";
+
 import {
 	SearchkitComponent,
 	SearchkitComponentProps,
@@ -38,7 +38,7 @@ export class InitialLoader extends SearchkitComponent<InitialLoaderprops, any> {
 	}, SearchkitComponent.propTypes)
 
 	defineBEMBlocks() {
-		let block = (this.props.mod || "initial-loader")
+		let block = (this.props.mod || "sk-initial-loader")
 		return {
 			container: block
 		}

@@ -25,7 +25,7 @@ describe("Reset Filter tests", () => {
   it('renders correctly', () => {
     this.createWrapper()
     this.searchkit.query.getSelectedFilters = () => {return []}
-    let elem = this.wrapper.find(".reset-filters")
+    let elem = this.wrapper.find(".sk-reset-filters")
 
     this.wrapper.update()
     expect(elem.hasClass("is-disabled")).toBe(true)
@@ -43,7 +43,7 @@ describe("Reset Filter tests", () => {
     this.searchkit.resetState = sinon.spy()
     this.searchkit.performSearch = sinon.spy()
     this.createWrapper()
-    let elem = this.wrapper.find(".reset-filters")
+    let elem = this.wrapper.find(".sk-reset-filters")
     expect(this.searchkit.resetState.called).toBeFalsy()
     expect(this.searchkit.performSearch.called).toBeFalsy()
     fastClick(elem)

@@ -1,5 +1,5 @@
 import * as React from "react";
-import "../styles/index.scss";
+
 import {
 	SearchkitComponent,
 	SearchkitComponentProps,
@@ -52,7 +52,7 @@ export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 
 	defineBEMBlocks() {
 		return {
-			container: (this.props.mod || "hits-stats")
+			container: (this.props.mod || "sk-hits-stats")
 		}
 	}
 

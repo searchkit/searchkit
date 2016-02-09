@@ -1,15 +1,16 @@
-.no-hits {
+.sk-no-hits {
   text-align:center;
   margin-top:60px;
 
   &__info {
-    font-size:16px;
+    font-size:$sk-heading-font-size;
   }
 
   &__steps {
     margin-top:20px;
   }
 
+  // todo - button
   &__step-action {
     border:1px solid #ddd;
     color:#08c;

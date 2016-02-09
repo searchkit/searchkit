@@ -1,5 +1,4 @@
 import * as React from "react";
-import "../styles/index.scss";
 
 import {
   SearchkitComponent,
@@ -177,7 +176,7 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
   }
 
   defineBEMBlocks() {
-    let block = (this.props.mod || "pagination-navigation")
+    let block = (this.props.mod || "sk-pagination-navigation")
     return {
       container: block,
       option: `${block}-item`

@@ -1,5 +1,5 @@
 import * as React from "react";
-import "../styles/index.scss";
+
 import {
 	SearchkitComponent,
 	SortingAccessor,
@@ -8,6 +8,7 @@ import {
 	SearchkitComponentProps,
 	SortingOption
 } from "../../../../core"
+
 const defaults = require("lodash/defaults")
 const map = require("lodash/map")
 
@@ -37,7 +38,7 @@ export class SortingSelector extends SearchkitComponent<SortingProps, any> {
 
 	defineBEMBlocks() {
 		return {
-			container: (this.props.mod || "sorting-selector")
+			container: (this.props.mod || "sk-sorting-selector")
 		}
 	}
 
