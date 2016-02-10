@@ -16,7 +16,7 @@ describe("AxiosESTransport", ()=> {
   it("constructor()", ()=> {
     expect(this.transport.host).toBe(this.host)
     expect(this.transport.options.headers).toEqual({})
-    let axiosConfig = this.transport.axios.defaultConfig
+    let axiosConfig = this.transport.axios.defaults
     expect(axiosConfig.baseURL).toBe(this.host)
     expect(axiosConfig.timeout).toBe(AxiosESTransport.timeout)
     expect(axiosConfig.headers).toBe(this.transport.options.headers)
@@ -59,7 +59,7 @@ describe("AxiosESTransport", ()=> {
   it("test timeout", ()=> {
     AxiosESTransport.timeout = 10
     this.transport = new AxiosESTransport(this.host)
-    expect(this.transport.axios.defaultConfig.timeout)
+    expect(this.transport.axios.defaults.timeout)
       .toEqual(10)
   })
 
