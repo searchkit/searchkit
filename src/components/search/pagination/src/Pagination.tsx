@@ -84,7 +84,7 @@ export class PaginationDisplay extends React.Component<PaginationDisplayProps, a
     const { showNumbers, currentPage, pageScope, bemBlocks, totalPages } = this.props;
     // Renders numbers for pages, like "1, ..., 3, 4, 5, 6, 7, ..."
     return (
-      <div className={bemBlocks.container() } data-qa="pagination">
+      <div className={bemBlocks.container().state({numbered:this.props.showNumbers}) } data-qa="pagination">
         {this.renderPaginationElement(currentPage - 1, "prev", "pagination.previous") }
         {this.getPages().map(({type, page}, idx) => {
           if (type == "ellipsis") return this.renderEllipsis(idx)

@@ -66,6 +66,49 @@ describe("Pagination tests", () => {
       expect(this.wrapper.find(".sk-pagination-navigation-item__next").text()).toBe("Next")
     })
 
+    it("renders with pages", () => {
+      this.createWrapper()
+      expect(this.wrapper.html()).toEqual(jsxToHTML(
+<div className="sk-pagination-navigation is-numbered" data-qa="pagination">
+  <div className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__prev is-disabled">
+    <div className="sk-pagination-navigation-item__text">Previous Page</div>
+  </div>
+  <a className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__number is-active" href="/context.html?p=1">
+    <div className="sk-pagination-navigation-item__text">1</div>
+  </a>
+  <a className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__number" href="/context.html?p=2">
+    <div className="sk-pagination-navigation-item__text">2</div>
+  </a>
+  <a className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__number" href="/context.html?p=3">
+    <div className="sk-pagination-navigation-item__text">3</div>
+  </a>
+  <a className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__number" href="/context.html?p=4">
+    <div className="sk-pagination-navigation-item__text">4</div>
+  </a>
+  <div className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__number is-disabled">
+    <div className="sk-pagination-navigation-item__text">...</div>
+  </div>
+  <a className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__next" href="/context.html?p=2">
+    <div className="sk-pagination-navigation-item__text">Next</div>
+  </a>
+</div>
+      ))
+    })
+
+    it("renders with pages", () => {
+      this.createWrapper(false)
+      expect(this.wrapper.html()).toEqual(jsxToHTML(
+<div className="sk-pagination-navigation" data-qa="pagination">
+  <div className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__prev is-disabled">
+    <div className="sk-pagination-navigation-item__text">Previous Page</div>
+  </div>
+  <a className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__next" href="/context.html?p=2">
+    <div className="sk-pagination-navigation-item__text">Next</div>
+  </a>
+</div>
+      ))
+    })
+
     it('renders first page options', () => {
       this.createWrapper()
       this.checkActionStates(null,true, false, ['1', '2', '3', '4', '...'])

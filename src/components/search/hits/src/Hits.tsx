@@ -28,7 +28,6 @@ export class HitItem extends React.Component<HitItemProps, any> {
 	render(){
 		return (
 			<div data-qa="hit" className={this.props.bemBlocks.item().mix(this.props.bemBlocks.container("item"))}>
-			{JSON.stringify(this.props.result)}
 			</div>
 		)
 	}
