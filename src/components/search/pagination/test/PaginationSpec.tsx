@@ -145,6 +145,8 @@ describe("Pagination tests", () => {
       this.createWrapper()
       expect(this.wrapper.find(".sk-pagination-navigation").length).toBe(1)
       this.checkActionStates(1, true, true, ['1'])
+      expect(this.wrapper.find(".sk-pagination-navigation").hasClass("is-disabled")).toBe(true)
+
     })
 
   });

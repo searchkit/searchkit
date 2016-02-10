@@ -9,6 +9,10 @@
     width:600px;
   }
 
+  &.is-disabled {
+    display:none;
+  }
+
   &-item {
     border:none;
     border:1px solid $sk-border-color;
