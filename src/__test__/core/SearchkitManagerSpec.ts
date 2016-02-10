@@ -125,7 +125,7 @@ describe("SearchkitManager", ()=> {
     }, 0)
   })
 
-  fit("listenToHistory() - handle error", (done)=> {
+  it("listenToHistory() - handle error", (done)=> {
     const history = createHistory()
     history.pushState(null, window.location.pathname, {
       q:"foo"
@@ -136,14 +136,12 @@ describe("SearchkitManager", ()=> {
     searchkit.searchFromUrlQuery = (query)=> {
       throw new Error("oh no")
     }
-    // spyOn(console, "error")
+    spyOn(console, "error")
     searchkit.completeRegistration()
     setTimeout(()=> {
-      // console.log
-      // expect(console.error["calls"].argsFor(0)[0])
-      //   .toContain("Error: oh no")
-      //
-      // searchkit.unlistenHistory()
+      expect(console.error["calls"].argsFor(0)[0])
+        .toContain("searchFromUrlQuery")
+      searchkit.unlistenHistory()
       done()
     }, 0)
   })
