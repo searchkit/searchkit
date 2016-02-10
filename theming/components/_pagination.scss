@@ -1,17 +1,23 @@
 .sk-pagination-navigation {
   text-align:center;
   border-radius:3px;
+  width:600px;
+  display:flex;
+  margin:0 auto;
+  align-content: center;
+  flex-flow: row nowrap;
 
   &-item {
     border:none;
     border:1px solid $sk-border-color;
     border-right:none;
     display: inline-block;
-    padding:10px 20px;
+    flex:1;
     text-align:center;
     cursor:pointer;
     text-decoration: none;
     color:$sk-action-text-color;
+    line-height:40px;
 
     &.is-active {
       background: $sk-active-bg-color;
@@ -26,6 +32,11 @@
 
   &-item__next {
     border-right:1px solid $sk-border-color;
+    flex:0 0 150px;
+  }
+
+  &-item__prev {
+    flex:0 0 150px;
   }
 
   &-item__number {
