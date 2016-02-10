@@ -5,7 +5,8 @@ var copyrightBanner = require("fs").readFileSync("./COPYRIGHT", "utf-8");
 
 module.exports = {
   entry: [
-    './src/index.ts'
+    './src/index.ts',
+    './theming/index.ts'
   ],
   output: {
     path: path.join(__dirname, 'release'),

@@ -16,7 +16,7 @@ describe("SortingSelector tests", () => {
     spyOn(this.searchkit, "performSearch")
     this.wrapper = mount(
       <SortingSelector searchkit={this.searchkit} options={[
-        {label:"Relevance", field:"_score", order:"desc"},
+        {label:"Relevance"},
         {label:"Latest Releases", field:"released", order:"desc"},
         {label:"Earliest Releases", field:"released", order:"asc"}
       ]}/>
