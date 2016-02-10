@@ -1,5 +1,4 @@
 .sk-pagination-navigation {
-  border-radius:$sk-border-radius;
   width:300px;
   display:flex;
   margin:0 auto;
@@ -41,13 +40,13 @@
     border-right:1px solid $sk-border-color;
     flex:1 0 150px;
     flex-grow: 4;
-    max-width: none;
+    border-radius:0 $sk-border-radius $sk-border-radius 0;
   }
 
   &-item__prev {
     flex:1 0 150px;
     flex-grow: 4;
-    max-width: none;
+    border-radius:$sk-border-radius 0 0 $sk-border-radius;
   }
 
   &-item__number {
