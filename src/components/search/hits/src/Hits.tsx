@@ -42,6 +42,7 @@ export interface HitsProps extends SearchkitComponentProps{
 
 
 export class Hits extends SearchkitComponent<HitsProps, any> {
+  accessor: PageSizeAccessor
 
 	static propTypes = defaults({
 		hitsPerPage:React.PropTypes.number.isRequired,
@@ -74,11 +75,16 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		}
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate(prevProps) {
 		if(!!this.props.scrollTo && !this.isLoading() && this.hasHitsChanged()) {
 			const scrollSelector:string = (this.props.scrollTo == true) ? "body" : this.props.scrollTo.toString()
 			document.querySelector(scrollSelector).scrollTop = 0;
 		}
+    // Check for hitsPerPage change
+    if (prevProps.hitsPerPage != this.props.hitsPerPage){
+      this.accessor.size = this.props.hitsPerPage
+      this.searchkit.performSearch()
+    }
 	}
 
 	defineAccessor(){
