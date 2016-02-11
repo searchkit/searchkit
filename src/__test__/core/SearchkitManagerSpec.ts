@@ -140,8 +140,7 @@ describe("SearchkitManager", ()=> {
     searchkit.completeRegistration()
     setTimeout(()=> {
       expect(console.error["calls"].argsFor(0)[0])
-        .toContain("Error: oh no")
-
+        .toContain("searchFromUrlQuery")
       searchkit.unlistenHistory()
       done()
     }, 0)
