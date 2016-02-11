@@ -17,9 +17,10 @@ const defaults = require("lodash/defaults")
 
 
 export interface HitItemProps {
-	key:string,
-	bemBlocks?:any,
+	key:string
+	bemBlocks?:any
 	result:Object
+	index:number
 }
 
 @PureRender
@@ -93,9 +94,9 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		}
 	}
 
-	renderResult(result:any) {
+	renderResult(result:any, index:number) {
 		return React.createElement(this.props.itemComponent, {
-			key:result._id, result, bemBlocks:this.bemBlocks
+			key:result._id, result, bemBlocks:this.bemBlocks, index:index
 		})
 	}
 

@@ -61,8 +61,8 @@ describe("SearchkitComponent", ()=> {
       .toEqual("missing key")
   })
 
-  it("_computeBemBlocks()", ()=> {
-    expect(this.component._computeBemBlocks())
+  it("bemBlocks()", ()=> {
+    expect(this.component.bemBlocks)
       .toEqual({})
 
     this.component.defineBEMBlocks = ()=> {
@@ -73,9 +73,9 @@ describe("SearchkitComponent", ()=> {
   		}
     }
 
-    expect(this.component._computeBemBlocks().container().toString())
+    expect(this.component.bemBlocks.container().toString())
       .toBe("hits")
-    expect(this.component._computeBemBlocks().container("loading").toString())
+    expect(this.component.bemBlocks.container("loading").toString())
       .toBe("hits__loading")
   })
 
@@ -94,12 +94,10 @@ describe("SearchkitComponent", ()=> {
   it("componentWillMount()", ()=> {
     spyOn(this.component, "forceUpdate")
     let searchkit = SearchkitManager.mock()
-    this.component._computeBemBlocks = ()=> "computedBemBlocks"
     let accessor = new Accessor()
     this.component.defineAccessor = ()=> accessor
     spyOn(console, "warn")
     this.component.componentWillMount()
-    expect(this.component.bemBlocks).toBe("computedBemBlocks")
     expect(this.component.searchkit).toBe(undefined)
     expect(this.component.accessor).toBe(undefined)
     expect(console.warn).toHaveBeenCalledWith(
