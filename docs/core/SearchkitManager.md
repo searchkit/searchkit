@@ -46,3 +46,15 @@ Sometimes we need to apply a default query which affects the entire search and i
     }))
   })
 ```
+
+## Query Processor
+Searchkit offers ability to mutate the query just before its sent to ElasticSearch, this is so we can always support new apis for ElasticSearch and any custom logic you wish to add that is low level in searchkit normally.
+
+```typescript
+searchkit.setQueryProcessor((plainQueryObject){
+  plainQueryObject.source = false
+  return plainQueryObject
+})
+```
+
+>*Note* We only support 1 queryProcessor function currently, so multiple `setQueryProcessor` calls will override each other.
