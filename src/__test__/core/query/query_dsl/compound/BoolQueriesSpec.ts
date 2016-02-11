@@ -23,5 +23,63 @@ describe("BoolQueries", ()=> {
   it("BoolMustNot", ()=> {
     this.testBool(BoolMustNot, "must_not")
   })
+  it("should flatten BoolMust", () => {
+      const query = BoolMust([
+        "filter1",
+        BoolMust([ "filter2", "filter3" ]),
+        "filter4",
+        BoolMust(["filter5", "filter6"]),
+      ])
+      expect(query).toEqual({
+        bool: {
+          must: ["filter1", "filter2", "filter3", "filter4", "filter5", "filter6"]
+        }
+      })
+  })
+  it("should flatten BoolShould", () => {
+    const query = BoolShould([
+      "filter1",
+      BoolShould(["filter2", "filter3"]),
+      "filter4"
+    ])
+    expect(query).toEqual({
+      bool: {
+        should: ["filter1", "filter2", "filter3", "filter4"]
+      }
+    })
+  })
+  it("should not flatten BoolShould in BoolMust", () => {
+    const query = BoolMust([
+      "filter1",
+      BoolShould(["filter2", "filter3"]),
+      "filter4",
+      BoolMust(["filter5", "filter6"]),
+    ])
+    expect(query).toEqual({
+      bool: {
+        must: [
+          "filter1",
+          {bool: {should:["filter2", "filter3"]}},
+          "filter4", "filter5", "filter6"
+        ]
+      }
+    })
+  })
+  it("should not flatten BoolMustNot", () => {
+    const query = BoolMustNot([
+      "filter1",
+      BoolMustNot(["filter2", "filter3"]),
+      "filter4"
+    ])
+    expect(query).toEqual({
+      bool: {
+        must_not: [
+          "filter1",
+          { bool: { must_not: ["filter2", "filter3"] } },
+          "filter4"
+        ]
+      }
+    })
+  })
 
 })
