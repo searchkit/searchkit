@@ -1,5 +1,4 @@
 import * as React from "react";
-import "../styles/index.scss";
 
 import {
   SearchkitComponent,
@@ -83,9 +82,13 @@ export class PaginationDisplay extends React.Component<PaginationDisplayProps, a
 
   render() {
     const { showNumbers, currentPage, pageScope, bemBlocks, totalPages } = this.props;
+    const className = bemBlocks.container().state({
+      numbered:this.props.showNumbers,
+      disabled: totalPages == 1
+    })
     // Renders numbers for pages, like "1, ..., 3, 4, 5, 6, 7, ..."
     return (
-      <div className={bemBlocks.container() } data-qa="pagination">
+      <div className={className} data-qa="pagination">
         {this.renderPaginationElement(currentPage - 1, "prev", "pagination.previous") }
         {this.getPages().map(({type, page}, idx) => {
           if (type == "ellipsis") return this.renderEllipsis(idx)
@@ -177,7 +180,7 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
   }
 
   defineBEMBlocks() {
-    let block = (this.props.mod || "pagination-navigation")
+    let block = (this.props.mod || "sk-pagination-navigation")
     return {
       container: block,
       option: `${block}-item`

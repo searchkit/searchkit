@@ -1,5 +1,4 @@
 import * as React from "react";
-import "../styles/index.scss";
 
 import {
 	SearchkitManager,
@@ -42,7 +41,7 @@ export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
 	}
 
 	defineBEMBlocks() {
-		var blockName = this.props.mod || "menu-list"
+		var blockName = this.props.mod || "sk-menu-list"
 		return {
 			container: blockName,
 			option: `${blockName}-option`
@@ -54,7 +53,7 @@ export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
 		const operator = "OR"
 		return new FacetAccessor(field, {
 			id, operator, title, size, orderKey, orderDirection
-		})			
+		})
 	}
 
 	addFilter(option) {

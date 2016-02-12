@@ -1,0 +1,32 @@
+.filter-item {
+
+}
+
+@mixin filter-option {
+  position:relative;
+  cursor:pointer;
+  padding:0px 0;
+  line-height:22px;
+  display:flex;
+  // margin-left:1px;
+
+  &__checkbox {
+    margin: 5px 5px 0 1px;
+  }
+
+  &.is-selected &__text {
+    font-weight:$sk-bold-weight;
+  }
+
+  &__text {
+    flex:auto;
+    font-size:$sk-list-font-size;
+    color:$sk-list-text-color;
+  }
+
+  &__count {
+    font-size: $sk-list-secondary-font-size;
+    text-align: right;
+    color: $sk-list-secondary-text-color;
+  }
+}

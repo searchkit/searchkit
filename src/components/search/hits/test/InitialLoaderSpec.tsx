@@ -17,10 +17,10 @@ describe("InitialLoader", ()=> {
     )
   })
 
-  it("should render correctly", ()=> {    
+  it("should render correctly", ()=> {
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="initial-loader">
-        <div data-qa="initial-loading" className="initial-loader__initial-loading"></div>
+      <div className="sk-initial-loader">
+        <div data-qa="initial-loading" className="sk-initial-loader__initial-loading"></div>
       </div>
     ))
     this.searchkit.initialLoading = false
@@ -34,7 +34,7 @@ describe("InitialLoader", ()=> {
     )
     let wrapper = mount(<InitialLoader searchkit={this.searchkit} component={higherOrderComp}/>)
     expect(wrapper.html()).toEqual(jsxToHTML(
-      <p className="initial-loader__foo">Loading</p>
+      <p className="sk-initial-loader__foo">Loading</p>
     ))
   })
 

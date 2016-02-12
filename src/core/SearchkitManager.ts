@@ -9,6 +9,7 @@ import {VERSION} from "./SearchkitVersion"
 
 const defaults = require("lodash/defaults")
 const constant = require("lodash/constant")
+const identity = require("lodash/identity")
 const map = require("lodash/map")
 const isEqual = require("lodash/isEqual")
 const get = require("lodash/get")
@@ -36,7 +37,7 @@ export class SearchkitManager {
   transport:ESTransport
   emitter:EventEmitter
   accessors:AccessorManager
-
+  queryProcessor:Function
   query:ImmutableQuery
   loading:boolean
   initialLoading:boolean
@@ -68,6 +69,7 @@ export class SearchkitManager {
 			this.completeRegistration = resolve
 		})
     this.translateFunction = constant(undefined)
+    this.queryProcessor = identity
     // this.primarySearcher = this.createSearcher()
     this.query = new ImmutableQuery()
     this.emitter = new EventEmitter()
@@ -88,6 +90,10 @@ export class SearchkitManager {
 
   addDefaultQuery(fn:Function){
     return this.addAccessor(new AnonymousAccessor(fn))
+  }
+
+  setQueryProcessor(fn:Function){
+    this.queryProcessor = fn
   }
 
   translate(key){
@@ -125,8 +131,8 @@ export class SearchkitManager {
     this._search()
   }
 
-  performSearch(replaceState=false){
-    if(!isEqual(this.accessors.getState(), this.state)){
+  performSearch(replaceState=false, notifyState=true){
+    if(notifyState && !isEqual(this.accessors.getState(), this.state)){
       this.accessors.notifyStateChange(this.state)
     }
     this._search()
@@ -156,9 +162,10 @@ export class SearchkitManager {
     this.query = query
     this.loading = true
     this.emitter.trigger()
+    let queryObject = this.queryProcessor(this.query.getJSON())
     this.currentSearchRequest && this.currentSearchRequest.deactivate()
     this.currentSearchRequest = new SearchRequest(
-      this.transport, this.query, this)
+      this.transport, queryObject, this)
     this.currentSearchRequest.run()
   }
 
@@ -198,6 +205,10 @@ export class SearchkitManager {
 
   getQueryAccessor(): BaseQueryAccessor{
     return this.accessors.queryAccessor
+  }
+
+  getAccessorsByType(type){
+    return this.accessors.getAccessorsByType(type)
   }
 
   hasHits(){

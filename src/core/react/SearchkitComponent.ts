@@ -18,7 +18,6 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
   searchkit:SearchkitManager
   accessor:Accessor
   stateListenerUnsubscribe:Function
-  bemBlocks:any
   translations:Object = {}
 
   static contextTypes = {
@@ -57,7 +56,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
     return Utils.translate(translation, interpolations)
   }
 
-  _computeBemBlocks(){
+  get bemBlocks(){
     return transform(this.defineBEMBlocks(), (result:any, cssClass, name) => {
       result[name] = block(cssClass);
     })
@@ -66,7 +65,6 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
     return this.props.searchkit || this.context["searchkit"]
   }
   componentWillMount(){
-    this.bemBlocks = this._computeBemBlocks()
     this.searchkit = this._getSearchkit()
     if(this.searchkit){
       this.accessor  = this.defineAccessor()

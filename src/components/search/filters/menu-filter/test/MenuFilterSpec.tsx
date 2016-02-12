@@ -24,7 +24,7 @@ describe("MenuFilter tests", () => {
         id="color" size={10}/>
     )
     this.getOptionAt = (at)=> {
-      return this.wrapper.find(".menu-list__options")
+      return this.wrapper.find(".sk-menu-list__options")
         .children().at(at)
     }
     this.accessor = this.searchkit.accessors.accessors[0]
@@ -55,24 +55,24 @@ describe("MenuFilter tests", () => {
   it("render correctly", ()=> {
     this.setResults()
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="menu-list filter--color">
-        <div className="menu-list__header">Color</div>
-        <div className="menu-list__options">
-          <div className="menu-list-option menu-list__item is-selected" data-qa="option">
-            <div data-qa="label" className="menu-list-option__text">All</div>
-            <div data-qa="count" className="menu-list-option__count"></div>
+      <div className="sk-menu-list filter--color">
+        <div className="sk-menu-list__header">Color</div>
+        <div className="sk-menu-list__options">
+          <div className="sk-menu-list-option sk-menu-list__item is-selected" data-qa="option">
+            <div data-qa="label" className="sk-menu-list-option__text">All</div>
+            <div data-qa="count" className="sk-menu-list-option__count"></div>
           </div>
-          <div className="menu-list-option menu-list__item" data-qa="option">
-            <div data-qa="label" className="menu-list-option__text">Red Translated</div>
-            <div data-qa="count" className="menu-list-option__count"></div>
+          <div className="sk-menu-list-option sk-menu-list__item" data-qa="option">
+            <div data-qa="label" className="sk-menu-list-option__text">Red Translated</div>
+            <div data-qa="count" className="sk-menu-list-option__count"></div>
           </div>
-          <div className="menu-list-option menu-list__item" data-qa="option">
-            <div data-qa="label" className="menu-list-option__text">Blue</div>
-            <div data-qa="count" className="menu-list-option__count"></div>
+          <div className="sk-menu-list-option sk-menu-list__item" data-qa="option">
+            <div data-qa="label" className="sk-menu-list-option__text">Blue</div>
+            <div data-qa="count" className="sk-menu-list-option__count"></div>
           </div>
-          <div className="menu-list-option menu-list__item" data-qa="option">
-            <div data-qa="label" className="menu-list-option__text">Green</div>
-            <div data-qa="count" className="menu-list-option__count"></div>
+          <div className="sk-menu-list-option sk-menu-list__item" data-qa="option">
+            <div data-qa="label" className="sk-menu-list-option__text">Green</div>
+            <div data-qa="count" className="sk-menu-list-option__count"></div>
           </div>
         </div>
       </div>
@@ -83,24 +83,24 @@ describe("MenuFilter tests", () => {
     this.accessor.state = this.accessor.state.setValue("Blue")
     this.setResults()
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="menu-list filter--color">
-        <div className="menu-list__header">Color</div>
-        <div className="menu-list__options">
-          <div className="menu-list-option menu-list__item" data-qa="option">
-            <div data-qa="label" className="menu-list-option__text">All</div>
-            <div data-qa="count" className="menu-list-option__count"></div>
+      <div className="sk-menu-list filter--color">
+        <div className="sk-menu-list__header">Color</div>
+        <div className="sk-menu-list__options">
+          <div className="sk-menu-list-option sk-menu-list__item" data-qa="option">
+            <div data-qa="label" className="sk-menu-list-option__text">All</div>
+            <div data-qa="count" className="sk-menu-list-option__count"></div>
           </div>
-          <div className="menu-list-option menu-list__item" data-qa="option">
-            <div data-qa="label" className="menu-list-option__text">Red Translated</div>
-            <div data-qa="count" className="menu-list-option__count"></div>
+          <div className="sk-menu-list-option sk-menu-list__item" data-qa="option">
+            <div data-qa="label" className="sk-menu-list-option__text">Red Translated</div>
+            <div data-qa="count" className="sk-menu-list-option__count"></div>
           </div>
-          <div className="menu-list-option menu-list__item is-selected" data-qa="option">
-            <div data-qa="label" className="menu-list-option__text">Blue</div>
-            <div data-qa="count" className="menu-list-option__count"></div>
+          <div className="sk-menu-list-option sk-menu-list__item is-selected" data-qa="option">
+            <div data-qa="label" className="sk-menu-list-option__text">Blue</div>
+            <div data-qa="count" className="sk-menu-list-option__count"></div>
           </div>
-          <div className="menu-list-option menu-list__item" data-qa="option">
-            <div data-qa="label" className="menu-list-option__text">Green</div>
-            <div data-qa="count" className="menu-list-option__count"></div>
+          <div className="sk-menu-list-option sk-menu-list__item" data-qa="option">
+            <div data-qa="label" className="sk-menu-list-option__text">Green</div>
+            <div data-qa="count" className="sk-menu-list-option__count"></div>
           </div>
         </div>
       </div>

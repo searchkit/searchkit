@@ -1,4 +1,6 @@
-.selected-filters {
+@import "../vars.scss";
+
+.sk-selected-filters {
   display:flex;
   flex-flow: row nowrap;
   &__item {
@@ -7,18 +9,18 @@
   }
 }
 
-.selected-filters-option {
-  border:1px solid lighten(#08c,0);
+.sk-selected-filters-option {
+  border:1px solid $sk-active-bg-color;
   display:flex;
   padding:10px 0 10px 10px;
-  font-size:14px;
+  font-size:$sk-text-font-size;
   line-height:20px;
   border-radius:3px;
 
 
   &__name {
     flex:auto;
-    color:#08c;
+    color:$sk-action-text-color;
   }
 
   &__remove-action {
@@ -27,7 +29,7 @@
     cursor:pointer;
     font-size:16px;
     line-height:18px;
-    color:#08c;
+    color:$sk-action-text-color;
     font-weight:700;
   }
 

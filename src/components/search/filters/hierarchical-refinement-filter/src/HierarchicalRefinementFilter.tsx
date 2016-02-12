@@ -1,5 +1,4 @@
 import * as React from "react";
-import "../styles/index.scss";
 
 import {
 	SearchkitComponent,
@@ -38,7 +37,7 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<Hierarchica
 	}
 
 	defineBEMBlocks() {
-		var blockClass = this.props.mod || "hierarchical-refinement";
+		var blockClass = this.props.mod || "sk-hierarchical-refinement";
 		return {
 			container:`${blockClass}-list`,
 			option:`${blockClass}-option`

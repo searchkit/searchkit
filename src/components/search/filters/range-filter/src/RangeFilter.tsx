@@ -1,6 +1,5 @@
 import * as React from "react";
 const Rcslider = require("rc-slider")
-import "../styles/index.scss";
 
 import {
 	SearchkitManager,
@@ -50,7 +49,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	}
 
 	defineBEMBlocks() {
-		let block = this.props.mod || "range-filter"
+		let block = this.props.mod || "sk-range-filter"
 		return {
 			container: block,
 			labels: block+"-value-labels"

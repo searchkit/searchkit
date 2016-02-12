@@ -1,5 +1,4 @@
 import * as React from "react";
-import "../styles/index.scss";
 
 import {
 	SearchkitComponent,
@@ -18,9 +17,10 @@ const defaults = require("lodash/defaults")
 
 
 export interface HitItemProps {
-	key:string,
-	bemBlocks?:any,
+	key:string
+	bemBlocks?:any
 	result:Object
+	index:number
 }
 
 @PureRender
@@ -87,16 +87,16 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 	}
 
 	defineBEMBlocks() {
-		let block = (this.props.mod || "hits")
+		let block = (this.props.mod || "sk-hits")
 		return {
 			container: block,
 			item: `${block}-hit`
 		}
 	}
 
-	renderResult(result:any) {
+	renderResult(result:any, index:number) {
 		return React.createElement(this.props.itemComponent, {
-			key:result._id, result, bemBlocks:this.bemBlocks
+			key:result._id, result, bemBlocks:this.bemBlocks, index:index
 		})
 	}
 

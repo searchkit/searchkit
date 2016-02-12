@@ -18,6 +18,9 @@
     "./src/__test__/core/react/pure-render/PureRenderComponentSpec.tsx",
     "./src/__test__/core/react/SearchkitComponentSpec.tsx",
     "./src/__test__/core/react/SearchkitProviderSpec.tsx",
+    "./src/components/display/view-switcher/src/ViewSwitcherHits.tsx",
+    "./src/components/display/view-switcher/src/ViewSwitcherToggle.tsx",
+    "./src/components/display/view-switcher/test/ViewSwitcherHitsSpec.tsx",
     "./src/components/search/filters/filter-item/src/FilterItem.tsx",
     "./src/components/search/filters/filter-item/test/FilterItemSpec.tsx",
     "./src/components/search/filters/hierarchical-menu-filter/src/HierarchicalMenuFilter.tsx",
@@ -68,10 +71,12 @@
     "./src/__test__/core/accessors/PaginationAccessorSpec.ts",
     "./src/__test__/core/accessors/QueryAccessorSpec.ts",
     "./src/__test__/core/accessors/RangeAccessorSpec.ts",
+    "./src/__test__/core/accessors/ResetSearchAccessorSpec.ts",
     "./src/__test__/core/accessors/SortingAccessorSpec.ts",
     "./src/__test__/core/accessors/SourceFilterAccessorSpec.ts",
     "./src/__test__/core/accessors/StatefulAccessorSpec.ts",
     "./src/__test__/core/accessors/SuggestionsAccessorSpec.ts",
+    "./src/__test__/core/accessors/ViewOptionsAccessorSpec.ts",
     "./src/__test__/core/query/ImmutableQuerySpec.ts",
     "./src/__test__/core/query/query_dsl/aggregations/AggsContainerSpec.ts",
     "./src/__test__/core/query/query_dsl/aggregations/BucketAggregationsSpec.ts",
@@ -129,10 +134,12 @@
     "./src/core/accessors/PaginationAccessor.ts",
     "./src/core/accessors/QueryAccessor.ts",
     "./src/core/accessors/RangeAccessor.ts",
+    "./src/core/accessors/ResetSearchAccessor.ts",
     "./src/core/accessors/SortingAccessor.ts",
     "./src/core/accessors/SourceFilterAccessor.ts",
     "./src/core/accessors/StatefulAccessor.ts",
     "./src/core/accessors/SuggestionsAccessor.ts",
+    "./src/core/accessors/ViewOptionsAccessor.ts",
     "./src/core/history.ts",
     "./src/core/index.ts",
     "./src/core/query/ImmutableQuery.ts",
@@ -188,13 +195,15 @@
     "./src/core/transport/MockESTransport.ts",
     "./src/index.ts",
     "./test/e2e/specs/TestSpec.ts",
-    "./typings/main.d.ts"
+    "./typings/main.d.ts",
+    "./theming/index.ts"
   ],
   "filesGlob": [
     "./src/**/*.tsx",
     "./src/**/*.ts",
     "./test/e2e/**/*.ts",
-    "./typings/main.d.ts"
+    "./typings/main.d.ts",
+    "./theming/*.ts"
   ],
   "exclude": [],
   "atom": {

@@ -44,11 +44,11 @@ describe("Pagination tests", () => {
       this.checkActionStates = (page, prevDisabled, nextDisabled, pages) => {
         this.accessor.state = this.accessor.state.setValue(page)
         this.wrapper.update()
-        expect(this.wrapper.find(".pagination-navigation-item__prev")
+        expect(this.wrapper.find(".sk-pagination-navigation-item__prev")
           .hasClass("is-disabled")).toBe(prevDisabled)
-        expect(this.wrapper.find(".pagination-navigation-item__next")
+        expect(this.wrapper.find(".sk-pagination-navigation-item__next")
           .hasClass("is-disabled")).toBe(nextDisabled)
-        const pageNumbers = this.wrapper.find(".pagination-navigation-item__number");
+        const pageNumbers = this.wrapper.find(".sk-pagination-navigation-item__number");
         expect(pageNumbers.map(e => e.text())).toEqual(pages);
 
         // Check links
@@ -62,8 +62,51 @@ describe("Pagination tests", () => {
 
     it("renders text", () => {
       this.createWrapper()
-      expect(this.wrapper.find(".pagination-navigation-item__prev").text()).toBe("Previous Page")
-      expect(this.wrapper.find(".pagination-navigation-item__next").text()).toBe("Next")
+      expect(this.wrapper.find(".sk-pagination-navigation-item__prev").text()).toBe("Previous Page")
+      expect(this.wrapper.find(".sk-pagination-navigation-item__next").text()).toBe("Next")
+    })
+
+    it("renders with pages", () => {
+      this.createWrapper()
+      expect(this.wrapper.html()).toEqual(jsxToHTML(
+<div className="sk-pagination-navigation is-numbered" data-qa="pagination">
+  <div className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__prev is-disabled">
+    <div className="sk-pagination-navigation-item__text">Previous Page</div>
+  </div>
+  <a className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__number is-active" href="/context.html?p=1">
+    <div className="sk-pagination-navigation-item__text">1</div>
+  </a>
+  <a className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__number" href="/context.html?p=2">
+    <div className="sk-pagination-navigation-item__text">2</div>
+  </a>
+  <a className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__number" href="/context.html?p=3">
+    <div className="sk-pagination-navigation-item__text">3</div>
+  </a>
+  <a className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__number" href="/context.html?p=4">
+    <div className="sk-pagination-navigation-item__text">4</div>
+  </a>
+  <div className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__number is-disabled">
+    <div className="sk-pagination-navigation-item__text">...</div>
+  </div>
+  <a className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__next" href="/context.html?p=2">
+    <div className="sk-pagination-navigation-item__text">Next</div>
+  </a>
+</div>
+      ))
+    })
+
+    it("renders with pages", () => {
+      this.createWrapper(false)
+      expect(this.wrapper.html()).toEqual(jsxToHTML(
+<div className="sk-pagination-navigation" data-qa="pagination">
+  <div className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__prev is-disabled">
+    <div className="sk-pagination-navigation-item__text">Previous Page</div>
+  </div>
+  <a className="sk-pagination-navigation-item sk-pagination-navigation__item sk-pagination-navigation-item__next" href="/context.html?p=2">
+    <div className="sk-pagination-navigation-item__text">Next</div>
+  </a>
+</div>
+      ))
     })
 
     it('renders first page options', () => {
@@ -94,14 +137,16 @@ describe("Pagination tests", () => {
     it("renders no pagination on no results", () => {
       this.searchkit.setResults({hits:{total:0}})
       this.createWrapper()
-      expect(this.wrapper.find(".pagination-navigation").length).toBe(0)
+      expect(this.wrapper.find(".sk-pagination-navigation").length).toBe(0)
     })
 
     it("both disabled on only one total page", () => {
       this.searchkit.setResults({ hits: { total: 10 } })
       this.createWrapper()
-      expect(this.wrapper.find(".pagination-navigation").length).toBe(1)
+      expect(this.wrapper.find(".sk-pagination-navigation").length).toBe(1)
       this.checkActionStates(1, true, true, ['1'])
+      expect(this.wrapper.find(".sk-pagination-navigation").hasClass("is-disabled")).toBe(true)
+
     })
 
   });
@@ -112,7 +157,7 @@ describe("Pagination tests", () => {
       this.createWrapper()
       this.accessor.state = this.accessor.state.setValue(1)
 
-      fastClick(this.wrapper.find(".pagination-navigation-item__prev"))
+      fastClick(this.wrapper.find(".sk-pagination-navigation-item__prev"))
       expect(this.accessor.state.getValue()).toBe(1)
     });
 
@@ -120,10 +165,10 @@ describe("Pagination tests", () => {
       this.createWrapper()
       this.accessor.state = this.accessor.state.setValue(3)
       this.wrapper.update()
-      fastClick(this.wrapper.find( ".pagination-navigation-item__prev" ))
+      fastClick(this.wrapper.find( ".sk-pagination-navigation-item__prev" ))
       expect(this.accessor.state.getValue()).toBe(2)
-      fastClick(this.wrapper.find( ".pagination-navigation-item__next" ))
-      fastClick(this.wrapper.find( ".pagination-navigation-item__next" ))
+      fastClick(this.wrapper.find( ".sk-pagination-navigation-item__next" ))
+      fastClick(this.wrapper.find( ".sk-pagination-navigation-item__next" ))
       expect(this.accessor.state.getValue()).toBe(4)
     })
 
@@ -131,9 +176,9 @@ describe("Pagination tests", () => {
       this.createWrapper()
       this.accessor.state = this.accessor.state.setValue(7)
       this.wrapper.update()
-      fastClick(this.wrapper.find( ".pagination-navigation-item__next" ))
+      fastClick(this.wrapper.find( ".sk-pagination-navigation-item__next" ))
       expect(this.accessor.state.getValue()).toBe(8)
-      fastClick(this.wrapper.find( ".pagination-navigation-item__next" ))
+      fastClick(this.wrapper.find( ".sk-pagination-navigation-item__next" ))
       expect(this.accessor.state.getValue()).toBe(8)
     })
 

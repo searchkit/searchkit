@@ -1,6 +1,13 @@
+@import "vars.scss";
+@import "components.scss";
+
 html {
   box-sizing: border-box;
   background:#f4f4f4;
+  font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
 }
 
 body {
@@ -11,10 +18,18 @@ body {
   box-sizing: inherit;
 }
 
+.sk-refinement-list,
+.sk-range-filter,
+.sk-hierarchical-menu-list,
+.sk-numeric-refinement-list,
+.sk-hierarchical-refinement-list {
+  margin-bottom:20px;
+}
+
 .layout {
 
   &__top-bar {
-    background: #2a4466;
+    background: $sk-primary-theme-color;
     height:60px;
     position: fixed;
     top: 0;
@@ -29,6 +44,7 @@ body {
 
   &__body {
     max-width:1280px;
+    min-width:980px;
     display:flex;
     margin:60px auto 0;
   }
@@ -74,6 +90,10 @@ body {
     flex-flow: row;
     margin:15px 0 0;
   }
+
+  .sk-view-switcher {
+    margin-right:15px;
+  }
 }
 
 .results-list {
@@ -82,20 +102,9 @@ body {
 
 // components
 
-.refinement-list,
-.range-filter,
-.hierarchical-menu-list,
-.numeric-refinement-list {
-
-  &__header {
-    font-size:14px;
-  }
-
-}
-
-.search-box {
+.sk-search-box {
   background: rgba(255,255,255,.15);
-  border-radius: 2px;
+  border-radius: $sk-border-radius;
   position: relative;
   display: flex;
   flex:1;
@@ -105,12 +114,12 @@ body {
   }
 
   &.is-focused &__text {
-    color:#444;
+    color:$sk-text-color;
   }
 
   &.is-focused &__text::-webkit-input-placeholder  {
-    color:#444;
-    font-weight:100;
+    color:$sk-text-color;
+    font-weight:$sk-light-weight;
   }
 
   form {
@@ -137,40 +146,36 @@ body {
   }
 }
 
-.hits-stats {
+.sk-hits-stats {
   align-self: flex-start;
   flex:1;
 }
 
-.sorting-selector {
-  flex:150px 0 0;
+.sk-sorting-selector {
+  flex:200px 0 0;
   select {
-    width:150px;
+    width:200px;
   }
 }
 
-.range-filter {
+.sk-range-filter {
   .rc-slider-handle {
-    border-color: #2a4466;
+    border-color: $sk-primary-theme-color;
   }
   .rc-slider-track {
     background-color: rgba(156, 162, 153, 0.5);
   }
 }
 
-.reset-filters {
+.sk-reset-filters {
   border:none;
   display:flex;
   font-size:14px;
   margin:0;
   padding-left:0;
-
-  &.is-disabled {
-    // display:none;
-  }
 }
 
-.selected-filters {
+.sk-selected-filters {
   display:flex;
   flex-flow:row;
   margin-right:10px;
@@ -181,38 +186,38 @@ body {
   }
 }
 
-.pagination-navigation {
-  // border:1px solid #ddd;
-  // display:inline-block;
+.sk-hits-grid, .sk-hits-list {
+  margin:0 15px 20px;
+}
 
-  &-item__prev {
+.sk-hits-grid {
+  display:flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
 
+  &__no-results {
+    text-align:center;
+    margin-top:60px;
   }
 
-  &-item {
-    border-radius: 0;
-    border:none;
-    border:1px solid #ddd;
-    border-right:none;
-  }
-
-  &-item__number {
-    &.is-active {
-      border-color:#08c;
-    }
-  }
-
-  &-item__next {
-    border-right:1px solid #ddd;
+  &__item {
+    flex:1 1 250px;
+    display:flex;
+    margin-bottom:20px;
   }
 }
 
-.hits {
-  margin:0 15px;
-}
-
-.hits-hit {
+.sk-hits-grid-hit {
+  padding:10px;
+  max-width:250px;
+  flex-flow: column nowrap;
+  align-content: center;
+  align-items: center;
   flex: 190px 0 0;
+
+  em {
+    background:yellow;
+  }
 
   a {
     text-decoration: none;
@@ -220,9 +225,66 @@ body {
   &__title {
     margin-top:10px;
     font-size:14px;
-    color:#08c;
-    em {
-      background:yellow;
-    }
+    color:$sk-action-text-color;
   }
+}
+
+.sk-hits-list {
+  display:flex;
+  flex-flow: column wrap;
+  align-items: flex-start;
+
+  em {
+    background:yellow;
+  }
+
+  &__no-results {
+    text-align:center;
+    margin-top:60px;
+  }
+
+  &__item {
+    display:flex;
+    margin-bottom:20px;
+  }
+}
+
+.sk-hits-list-hit {
+  display:flex;
+
+  &__poster {
+    width:200px;
+    flex:0 0 200px;
+    padding:0px 20px;
+
+    img {
+      max-width:100%;
+      margin:0 auto;
+    }
+
+  }
+
+  &__details {
+    flex:1 0 0;
+    padding:10px;
+  }
+
+  &__title {
+    line-height:20px;
+    margin:0 0 5px;
+    font-size:18px;
+  }
+
+  &__subtitle {
+    line-height:20px;
+    margin:0 0 5px;
+    font-size:14px;
+    color:#666;
+    font-weight:300;
+  }
+
+  &__text {
+    line-height:20px;
+  }
+
 }

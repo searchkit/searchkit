@@ -4,25 +4,26 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var copyrightBanner = require("fs").readFileSync("./COPYRIGHT", "utf-8");
 
 module.exports = {
-  entry: [
-    './src/index.ts'
-  ],
+  entry: {
+    "ignore":'./theming/index.ts',
+    "bundle":'./src/index.ts'
+  },
   output: {
     path: path.join(__dirname, 'release'),
-    filename: 'bundle.js',
+    filename: '[name].js',
     library:["Searchkit"],
     libraryTarget:"umd",
     publicPath: '',
-    css: 'styles.css'
+    css: 'theme.css'
   },
   resolve: {
-    extensions:[".js", ".ts", ".tsx","", ".webpack.js", ".web.js"]
+    extensions:[".js", ".ts", ".tsx","", ".webpack.js", ".web.js", ".scss"]
   },
   plugins: [
     new webpack.BannerPlugin(copyrightBanner, {entryOnly:true}),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new ExtractTextPlugin("styles.css", {allChunks:true}),
+    new ExtractTextPlugin("theme.css", {allChunks:true}),
     new webpack.optimize.UglifyJsPlugin({
       mangle: {
         except: ['require', 'export', '$super']
@@ -49,19 +50,19 @@ module.exports = {
       {
         test: /\.tsx?$/,
         loaders: ['ts'],
-        include: path.join(__dirname, 'src')
+        include: [path.join(__dirname, 'src'),path.join(__dirname, 'theming')]
       },
       {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract(require.resolve("style-loader"),require.resolve("css-loader")+"!"+require.resolve("sass-loader")),
-        include: path.join(__dirname, 'src')
+        include: path.join(__dirname, 'theming')
       },
       {
         test: /\.(jpg|png|svg)$/,
         loaders: [
             'file-loader?name=[path][name].[ext]'
         ],
-        include: path.join(__dirname, 'src')
+        include: path.join(__dirname, 'theming')
       }
     ]
   }

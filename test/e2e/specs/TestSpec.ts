@@ -72,7 +72,7 @@ describe("example", () => {
     expect(searchPage.searchbox.loader.isNotVisible()).toBe(true)
     firstHit = searchPage.hits.get(0)
     expect(firstHit.isVisible()).toBe(true)
-    expect(firstHit.title.getText()).toBe("Confirmed Dead")
+    expect(firstHit.title.getText()).toBe("Do No Harm")
 
     searchPage.actorsFilter.options.get(0).click()
     expect(searchPage.searchbox.loader.isNotVisible()).toBe(true)

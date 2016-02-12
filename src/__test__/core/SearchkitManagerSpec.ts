@@ -48,6 +48,8 @@ describe("SearchkitManager", ()=> {
       jasmine.any(EventEmitter)
     )
     expect(this.searchkit.initialLoading).toBe(true)
+    //check queryProcessor is an identity function
+    expect(this.searchkit.queryProcessor("query")).toBe("query")
   })
 
   it("SearchkitManager.mock()", ()=> {
@@ -140,8 +142,7 @@ describe("SearchkitManager", ()=> {
     searchkit.completeRegistration()
     setTimeout(()=> {
       expect(console.error["calls"].argsFor(0)[0])
-        .toContain("Error: oh no")
-
+        .toContain("searchFromUrlQuery")
       searchkit.unlistenHistory()
       done()
     }, 0)
@@ -165,6 +166,7 @@ describe("SearchkitManager", ()=> {
       .toHaveBeenCalledWith(searchkit.state)
     searchkit.unlistenHistory()
   })
+
   it("performSearch() - same state + replaceState", ()=> {
     const searchkit = new SearchkitManager("/", {
       useHistory:true
@@ -184,6 +186,13 @@ describe("SearchkitManager", ()=> {
     expect(searchkit.accessors.notifyStateChange)
       .not.toHaveBeenCalled()
     searchkit.unlistenHistory()
+    searchkit.state={q:"bar"}
+    searchkit.performSearch(true, false)
+    expect(searchkit.accessors.notifyStateChange)
+      .not.toHaveBeenCalled()
+    searchkit.performSearch(true, true)
+    expect(searchkit.accessors.notifyStateChange)
+      .toHaveBeenCalled()
   })
 
   it("search()", ()=> {
@@ -196,6 +205,10 @@ describe("SearchkitManager", ()=> {
   it("_search()", ()=> {
     spyOn(SearchRequest.prototype, "run")
     this.accessor = new PageSizeAccessor(10)
+    this.searchkit.setQueryProcessor((query)=> {
+      query.source=true
+      return query
+    })
     let initialSearchRequest  =
       this.searchkit.currentSearchRequest = new SearchRequest(this.host, null, this.searchkit)
     this.searchkit.addAccessor(
@@ -205,8 +218,9 @@ describe("SearchkitManager", ()=> {
     expect(initialSearchRequest.active).toBe(false)
     expect(this.searchkit.currentSearchRequest.transport.host)
       .toBe(this.host)
-    expect(this.searchkit.currentSearchRequest.query)
-      .toEqual(this.searchkit.query)
+    expect(this.searchkit.currentSearchRequest.query).toEqual({
+      size: 10, source: true
+    })
     expect(this.searchkit.currentSearchRequest.run)
       .toHaveBeenCalled()
     expect(this.searchkit.loading).toBe(true)
@@ -310,6 +324,13 @@ describe("SearchkitManager", ()=> {
     let queryAccessor = new QueryAccessor("q")
     this.searchkit.addAccessor(queryAccessor)
     expect(this.searchkit.getQueryAccessor()).toBe(queryAccessor)
+  })
+
+  it("getAccessorsByType()", ()=> {
+    let queryAccessor = new QueryAccessor("q")
+    this.searchkit.addAccessor(queryAccessor)
+    expect(this.searchkit.getAccessorsByType(QueryAccessor))
+      .toEqual([queryAccessor])
   })
 
   it("onResponseChange()", ()=> {

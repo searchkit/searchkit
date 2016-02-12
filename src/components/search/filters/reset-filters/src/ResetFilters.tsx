@@ -1,5 +1,4 @@
 import * as React from "react";
-import "../styles/index.scss";
 
 import {
 	SearchkitManager,
@@ -8,7 +7,9 @@ import {
 	FastClick,
 	SearchkitComponentProps,
 	ReactComponentType,
-	PureRender
+	PureRender,
+	ResetSearchOptions,
+	ResetSearchAccessor
 } from "../../../../../core"
 const defaults = require("lodash/defaults")
 
@@ -38,7 +39,8 @@ export class ResetFiltersDisplay extends React.Component<ResetFiltersDisplayProp
 }
 
 export interface ResetFiltersProps extends SearchkitComponentProps {
-	component?:ReactComponentType<ResetFiltersDisplayProps>
+	component?:ReactComponentType<ResetFiltersDisplayProps>,
+	options?:ResetSearchOptions
 }
 
 export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
@@ -47,12 +49,14 @@ export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
 		"reset.clear_all":"Clear all filters"
 	}
 	translations = ResetFilters.translations
+	accessor:ResetSearchAccessor
 
 	static propTypes = defaults({
 		translations:SearchkitComponent.translationsPropType(
 			ResetFilters.translations
 		),
-		component:React.PropTypes.func
+		component:React.PropTypes.func,
+		options:React.PropTypes.object
 	}, SearchkitComponent.propTypes)
 
 	static defaultProps = {
@@ -66,17 +70,16 @@ export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
 
 	defineBEMBlocks() {
 		return {
-			container: (this.props.mod || "reset-filters")
+			container: (this.props.mod || "sk-reset-filters")
 		}
 	}
 
-  hasFilters():boolean {
-		let query = this.getQuery()
-    return query.getQueryString().length > 0 || query.getSelectedFilters().length > 0 
-  }
+	defineAccessor(){
+		return new ResetSearchAccessor(this.props.options)
+	}
 
 	resetFilters() {
-		this.searchkit.resetState()
+		this.accessor.performReset()
 		this.searchkit.performSearch()
 	}
 
@@ -84,7 +87,7 @@ export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
 		const props:ResetFiltersDisplayProps = {
 			bemBlock:this.bemBlocks.container,
 			resetFilters:this.resetFilters,
-			hasFilters:this.hasFilters(),
+			hasFilters:this.accessor.canReset(),
 			translate:this.translate,
 			clearAllLabel: this.translate("reset.clear_all")
 		}

@@ -1,0 +1,24 @@
+@import "filter-item.scss";
+@import "../vars.scss";
+
+.sk-menu-list {
+
+  &__header {
+    margin-bottom: 5px;
+    font-weight: $sk-bold-weight;
+    font-size: $sk-heading-font-size;
+  }
+
+  &__options {
+
+  }
+
+  &__items {
+
+  }
+
+  &-option {
+    @include filter-option;
+  }
+
+}

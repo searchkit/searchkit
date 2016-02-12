@@ -6,13 +6,12 @@ export class SearchRequest {
 
   active:boolean
   constructor(public transport:ESTransport,
-    public query:ImmutableQuery, public searchkit:SearchkitManager){
-
+    public query:Object, public searchkit:SearchkitManager){
     this.active = true
   }
 
   run(){
-    return this.transport.search(this.query.getJSON()).then(
+    return this.transport.search(this.query).then(
       this.setResults.bind(this)
     ).catch(
       this.setError.bind(this)

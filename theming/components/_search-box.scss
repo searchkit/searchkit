@@ -1,4 +1,6 @@
-.search-box {
+@import "../vars.scss";
+
+.sk-search-box {
   flex:auto;
 
   form {
@@ -13,7 +15,7 @@
     margin-left:10px;
     &:before {
       content:"";
-      background:url(../images/search.svg) no-repeat top left;
+      background:url(images/search.svg) no-repeat top left;
       background-size: contain;
       height:20px;
       width:20px;
@@ -36,10 +38,6 @@
   &__action {
     height:40px;
     visibility: hidden;
-
-    &:active {
-      background:#000;
-    }
   }
 
   &__loader {

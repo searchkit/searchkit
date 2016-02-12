@@ -14,7 +14,7 @@ describe("SearchRequest", ()=> {
     this.query = new ImmutableQuery().setSize(10)
 
     this.request = new SearchRequest(
-      this.transport, this.query, this.searchkit)
+      this.transport, this.query.getJSON(), this.searchkit)
   })
 
   it("constructor()", ()=> {
@@ -25,7 +25,7 @@ describe("SearchRequest", ()=> {
     expect(this.request.searchkit).toBe(
       this.searchkit)
     expect(this.request.query).toBe(
-      this.query)
+      this.query.getJSON())
   })
 
 
