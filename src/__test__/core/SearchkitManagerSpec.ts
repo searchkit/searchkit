@@ -166,6 +166,7 @@ describe("SearchkitManager", ()=> {
       .toHaveBeenCalledWith(searchkit.state)
     searchkit.unlistenHistory()
   })
+
   it("performSearch() - same state + replaceState", ()=> {
     const searchkit = new SearchkitManager("/", {
       useHistory:true
@@ -185,6 +186,13 @@ describe("SearchkitManager", ()=> {
     expect(searchkit.accessors.notifyStateChange)
       .not.toHaveBeenCalled()
     searchkit.unlistenHistory()
+    searchkit.state={q:"bar"}
+    searchkit.performSearch(true, false)
+    expect(searchkit.accessors.notifyStateChange)
+      .not.toHaveBeenCalled()
+    searchkit.performSearch(true, true)
+    expect(searchkit.accessors.notifyStateChange)
+      .toHaveBeenCalled()
   })
 
   it("search()", ()=> {
