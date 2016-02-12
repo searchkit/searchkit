@@ -60,15 +60,12 @@ export class SortingSelector extends SearchkitComponent<SortingProps, any> {
 	}
 
   render() {
-    if(this.hasHits()){
 			return (
-				<div className={this.bemBlocks.container()}>
+				<div className={this.bemBlocks.container().state({disabled: !this.hasHits()})}>
 	      	<select onChange={this.updateSorting.bind(this)} value={this.getSelectedValue()}>
 						{map(this.props.options, this.renderOption.bind(this))}
 					</select>
 	      </div>
 			)
 		}
-		return null
-  }
 }

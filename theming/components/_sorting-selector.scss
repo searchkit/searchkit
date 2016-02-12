@@ -4,6 +4,10 @@
   position:relative;
   cursor:pointer;
 
+  &.is-disabled {
+    display:none
+  }
+
   select {
     -webkit-appearance: none;
     -moz-appearance:    none;
