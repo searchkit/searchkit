@@ -4,9 +4,9 @@ import {
 	SearchkitComponent,
 	SearchkitComponentProps,
 	ViewOptionsAccessor
-} from "../../../core"
+} from "../../../../core"
 
-import {Hits} from "../../"
+import {Hits} from "../../../"
 
 export class ViewSwitcherHits extends SearchkitComponent<any, any> {
   accessor:ViewOptionsAccessor

@@ -2,19 +2,21 @@ import * as React from "react";
 import {
 	SearchkitComponent,
 	SearchkitComponentProps,
-	ViewOptionsAccessor
-} from "../../../core"
-import {Hits} from "../../"
+	ViewOptionsAccessor,
+	FastClick
+} from "../../../../core"
+import {Hits} from "../../../"
 
 const map = require("lodash/map")
 
 const ViewItemComponent = (props) => {
   return (
-    <div
-      className={props.bemBlocks.container("action").state({active:props.isActive})}
-      onClick={props.setView}>
-      {props.view}
-    </div>
+		<FastClick handler={props.setView}>
+			<div className={props.bemBlocks.container("action").state({active:props.isActive})}>
+		      {props.view}
+			</div>
+		</FastClick>
+
   )
 }
 
@@ -36,7 +38,7 @@ export class ViewSwitcherToggle extends SearchkitComponent<any, any> {
 
   render() {
     let viewOptionsAccessor = this.getViewOptionsSwitcherAccessor()
-    if(this.hasHits() && viewOptionsAccessor){
+    if(viewOptionsAccessor){
       let options = viewOptionsAccessor.options
       let selectedOption = viewOptionsAccessor.getSelectedOption()
       const actions = map(options, (option) => {
@@ -50,7 +52,7 @@ export class ViewSwitcherToggle extends SearchkitComponent<any, any> {
       })
 
       return (
-      <div className={this.bemBlocks.container()}>
+      <div className={this.bemBlocks.container().state({disabled:!this.hasHits()})}>
         {actions}
       </div>)
     }
