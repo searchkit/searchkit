@@ -4,6 +4,10 @@
   text-align: center;
   border-radius:$sk-border-radius;
 
+  &.is-disabled {
+    display:none;
+  }
+
   &__action {
     flex:1;
     border:1px solid $sk-border-color;
