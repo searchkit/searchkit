@@ -9,7 +9,7 @@ import {
 } from "../../../__test__/TestHelpers"
 import * as sinon from "sinon";
 
-fdescribe("View Switcher Hits component", () => {
+describe("View Switcher Hits component", () => {
 
   describe('renders correctly', () => {
 

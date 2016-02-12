@@ -26,7 +26,11 @@ export class ViewOptionsAccessor extends StatefulAccessor<ValueState>{
     } else {
       this.state = this.state.setValue(view.key)
     }
+    this.search()
 
+  }
+
+  search() {
     //this won't fire search as query didn't change, but it will serialize url
     //might need better way
     this.searchkit.performSearch(false, false)

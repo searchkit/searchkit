@@ -76,6 +76,7 @@
     "./src/__test__/core/accessors/SourceFilterAccessorSpec.ts",
     "./src/__test__/core/accessors/StatefulAccessorSpec.ts",
     "./src/__test__/core/accessors/SuggestionsAccessorSpec.ts",
+    "./src/__test__/core/accessors/ViewOptionsAccessorSpec.ts",
     "./src/__test__/core/query/ImmutableQuerySpec.ts",
     "./src/__test__/core/query/query_dsl/aggregations/AggsContainerSpec.ts",
     "./src/__test__/core/query/query_dsl/aggregations/BucketAggregationsSpec.ts",
