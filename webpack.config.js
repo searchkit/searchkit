@@ -4,13 +4,13 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var copyrightBanner = require("fs").readFileSync("./COPYRIGHT", "utf-8");
 
 module.exports = {
-  entry: [
-    './src/index.ts',
-    './theming/index.ts'
-  ],
+  entry: {
+    "ignore":'./theming/index.ts',
+    "bundle":'./src/index.ts'
+  },
   output: {
     path: path.join(__dirname, 'release'),
-    filename: 'bundle.js',
+    filename: '[name].js',
     library:["Searchkit"],
     libraryTarget:"umd",
     publicPath: '',

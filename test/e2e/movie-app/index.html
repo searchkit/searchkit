@@ -2,9 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>React Tutorial</title>
-
-    <link rel="stylesheet" type="text/css" href="../../../release/styles.css"/>
+    <title>e2e</title>
     <link rel="stylesheet" type="text/css" href="../../../release/theme.css"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react-dom.js"></script>
@@ -21,10 +19,8 @@
       	HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
       	SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter
       } = Searchkit
-      const host = "https://kili-eu-west-1.searchly.com/movies/"
-      const searchkit = new SearchkitManager(host, {
-        basicAuth:"read:teetndhjnrspbzxxyfxmf5fb24suqxuj"
-      })
+      const host = "http://demo.searchkit.co/api/movies"
+      const searchkit = new SearchkitManager(host)
 
       class MovieHits extends Hits {
       	renderResult(result:any) {
