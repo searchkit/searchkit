@@ -19,4 +19,17 @@ export class ViewOptionsAccessor extends StatefulAccessor<ValueState>{
            find(this.options, {defaultOption:true}) ||
            head(this.options)
   }
+
+  setView(view){
+    if(view.defaultOption){
+      this.state = this.state.clear()
+    } else {
+      this.state = this.state.setValue(view.key)
+    }
+
+    //this won't fire search as query didn't change, but it will serialize url
+    //might need better way
+    this.searchkit.performSearch(false, false)
+    this.searchkit.emitter.trigger()
+  }
 }

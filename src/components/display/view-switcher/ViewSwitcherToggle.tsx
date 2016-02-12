@@ -29,18 +29,9 @@ export class ViewSwitcherToggle extends SearchkitComponent<any, any> {
   getViewOptionsSwitcherAccessor(){
     return this.searchkit.getAccessorsByType(ViewOptionsAccessor)[0]
   }
-  changeView(view){
-    let viewOptionsAccessor = this.getViewOptionsSwitcherAccessor()
-    if(view.defaultOption){
-      viewOptionsAccessor.state = viewOptionsAccessor.state.clear()
-    } else {
-      viewOptionsAccessor.state = viewOptionsAccessor.state.setValue(view.key)
-    }
 
-    //this won't fire search as query didn't change, but it will serialize url
-    //might need better way
-    this.searchkit.performSearch(false, false)
-    this.searchkit.emitter.trigger()
+  setView(view){
+    this.getViewOptionsSwitcherAccessor().setView(view)
   }
 
   render() {
@@ -51,7 +42,7 @@ export class ViewSwitcherToggle extends SearchkitComponent<any, any> {
       const actions = map(options, (option) => {
         return React.createElement(ViewItemComponent, {
           view:option.title,
-          setView: ()=> this.changeView(option),
+          setView: ()=> this.setView(option),
           bemBlocks: this.bemBlocks,
           key:option.key,
           isActive: option == selectedOption
