@@ -82,4 +82,12 @@ describe("BoolQueries", ()=> {
     })
   })
 
+  it("should remove empty filters", () => {
+    const query = BoolMust([
+      {},
+      "filter4"
+    ])
+    expect(query).toEqual( "filter4" )
+  })
+
 })

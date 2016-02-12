@@ -1,6 +1,8 @@
 const isArray = require("lodash/isArray")
 const findIndex = require("lodash/findIndex")
 const forEach = require("lodash/forEach")
+const isEmpty = require("lodash/isEmpty")
+const filter = require("lodash/filter")
 const keys = require("lodash/keys")
 
 function isBoolOp(operator, val) {
@@ -26,14 +28,18 @@ function flattenBool(operator, arr) {
 
 function boolHelper(val, operator){
   const isArr = isArray(val)
-  if(isArr && val.length === 1){
-    return val[0]
-  } else if(isArr && val.length === 0){
-    return {}
-  } else if (isArr
-    && (operator == "must" || operator == "should")
-    && (findIndex(val, isBoolOp.bind(null, operator)) != -1)) {
-    val = flattenBool(operator, val)
+  if (isArr) {
+    // Remove empty filters
+    val = filter(val, f => !isEmpty(f))
+    if (isArr && val.length === 1) {
+      return val[0]
+    } else if (isArr && val.length === 0) {
+      return {}
+    } else if (isArr
+      && (operator == "must" || operator == "should")
+      && (findIndex(val, isBoolOp.bind(null, operator)) != -1)) {
+      val = flattenBool(operator, val)
+    }
   }
   return {
     bool:{
