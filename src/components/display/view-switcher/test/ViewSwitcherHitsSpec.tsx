@@ -7,7 +7,6 @@ import {SearchkitManager} from "../../../../core";
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
 } from "../../../__test__/TestHelpers"
-import * as sinon from "sinon";
 
 describe("View Switcher Hits component", () => {
 
