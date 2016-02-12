@@ -3,10 +3,15 @@ const omit = require("lodash/omit")
 import {
 	SearchkitComponent,
 	SearchkitComponentProps,
-	ViewOptionsAccessor
+	ViewOptionsAccessor,
+	ReactComponentType
 } from "../../../../core"
 
-import {Hits} from "../../../"
+import {Hits, HitsProps, HitItemProps} from "../../../"
+
+export interface ViewSwitcherHitsProps extends HitsProps {
+	hitComponents:[{key:string, title:string, itemComponent:ReactComponentType<HitItemProps>, defaultOption?:boolean}]
+}
 
 export class ViewSwitcherHits extends SearchkitComponent<any, any> {
   accessor:ViewOptionsAccessor
