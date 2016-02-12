@@ -131,8 +131,8 @@ export class SearchkitManager {
     this._search()
   }
 
-  performSearch(replaceState=false){
-    if(!isEqual(this.accessors.getState(), this.state)){
+  performSearch(replaceState=false, notifyState=true){
+    if(notifyState && !isEqual(this.accessors.getState(), this.state)){
       this.accessors.notifyStateChange(this.state)
     }
     this._search()
