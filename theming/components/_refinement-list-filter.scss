@@ -1,20 +1,27 @@
+@import "filter-item.scss";
+@import "../vars.scss";
+
 .sk-refinement-list {
 
-  &__header {
-    margin-bottom:5px;
-    font-weight:$sk-bold-weight;
-    font-size: $sk-heading-font-size;
-  }
+  &-filter {
 
-  &.is-disabled  {
-    display:none;
-  }
+    &__header {
+      margin-bottom:5px;
+      font-weight:$sk-bold-weight;
+      font-size: $sk-heading-font-size;
+    }
 
-  &__view-more-action {
-    font-size:$sk-list-secondary-font-size;
-    color:$sk-action-text-color;
-    cursor:pointer;
-    margin-top:5px;
+    &.is-disabled  {
+      display:none;
+    }
+
+    &__view-more-action {
+      font-size:$sk-list-secondary-font-size;
+      color:$sk-action-text-color;
+      cursor:pointer;
+      margin-top:5px;
+    }
+    
   }
 
   &-option {
