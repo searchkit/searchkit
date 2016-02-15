@@ -140,3 +140,11 @@ and to use these display components, use the `ViewSwitcherHits` component to swi
     scrollTo="body"
 />
 ```
+
+## Using one view type
+
+If you only want to use the grid view or list view, you need to specify on the `hits` component, the `mod` prop to be either `sk-hits-list` for list components or `sk-hits-grid` for grid components.
+
+```jsx
+  <Hits hitsPerPage={10} mod="sk-hits-list" itemComponent={ExampleHitsItem}/>
+```
