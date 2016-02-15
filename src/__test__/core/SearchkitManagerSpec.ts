@@ -326,11 +326,13 @@ describe("SearchkitManager", ()=> {
     expect(this.searchkit.getQueryAccessor()).toBe(queryAccessor)
   })
 
-  it("getAccessorsByType()", ()=> {
+  it("getAccessorsByType(), getAccessorByType()", ()=> {
     let queryAccessor = new QueryAccessor("q")
     this.searchkit.addAccessor(queryAccessor)
     expect(this.searchkit.getAccessorsByType(QueryAccessor))
       .toEqual([queryAccessor])
+    expect(this.searchkit.getAccessorByType(QueryAccessor))
+      .toEqual(queryAccessor)
   })
 
   it("onResponseChange()", ()=> {

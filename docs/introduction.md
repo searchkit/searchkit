@@ -9,7 +9,7 @@ See [Getting Started](/docs/setup/README.md)
 
 ```jsx
 
-const searchkit = new SearchkitManager("http://demo.searchkit.co/api/movies/"
+const searchkit = new SearchkitManager("http://demo.searchkit.co/api/movies/")
 
 const App = ()=> (
   <SearchkitProvider searchkit={searchkit}>
