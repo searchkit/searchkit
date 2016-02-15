@@ -1,15 +1,6 @@
 @import "vars.scss";
 @import "components.scss";
 
-html {
-  box-sizing: border-box;
-  background:#f4f4f4;
-  font-family: -apple-system, BlinkMacSystemFont,
-    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-    "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-}
-
 body {
   margin:0;
 }
@@ -18,15 +9,13 @@ body {
   box-sizing: inherit;
 }
 
-.sk-refinement-list,
-.sk-range-filter,
-.sk-hierarchical-menu-list,
-.sk-numeric-refinement-list,
-.sk-hierarchical-refinement-list {
-  margin-bottom:20px;
-}
-
-.layout {
+.sk-layout {
+  box-sizing: border-box;
+  background:#f4f4f4;
+  font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
 
   &__top-bar {
     background: $sk-primary-theme-color;
@@ -43,10 +32,9 @@ body {
   }
 
   &__body {
-    max-width:1280px;
-    min-width:980px;
     display:flex;
     margin:60px auto 0;
+    min-width:600px;
   }
 
   &__filters {
@@ -55,6 +43,14 @@ body {
     margin:15px 0 15px 15px;
     flex:0 0 246px;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.08);
+
+    .sk-refinement-list,
+    .sk-range-filter,
+    .sk-hierarchical-menu-list,
+    .sk-numeric-refinement-list,
+    .sk-hierarchical-refinement-list {
+      margin-bottom:20px;
+    }
   }
 
   &__results {
@@ -67,16 +63,41 @@ body {
 
 }
 
-.top-bar {
+.sk-top-bar {
   &__content {
-    width:1280px;
     display:flex;
     margin:0 auto;
     padding:0 15px;
+    width:100%;
   }
 }
 
-.action-bar {
+.sk-layout {
+
+  &__size-l {
+    .top-bar__content {
+      width:1280px;
+    }
+
+    .layout__body {
+      max-width:1280px;
+    }
+  }
+
+  &__size-m {
+
+    .top-bar__content {
+      width:960px;
+    }
+
+    .layout__body {
+      max-width:960px;
+    }
+
+  }
+}
+
+.sk-action-bar {
   display:flex;
   flex-flow: column wrap;
   margin:0 15px 15px;
@@ -96,7 +117,7 @@ body {
   }
 }
 
-.results-list {
+.sk-results-list {
   padding:15px 0;
 }
 
