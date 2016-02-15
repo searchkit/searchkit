@@ -7,6 +7,7 @@ const reduce = require("lodash/reduce")
 const assign = require("lodash/assign")
 const each = require("lodash/each")
 const without = require("lodash/without")
+const find = require("lodash/find")
 
 type StatefulAccessors = Array<StatefulAccessor<any>>
 
@@ -36,6 +37,10 @@ export class AccessorManager {
 
   getAccessorsByType(type){
     return filter(this.accessors, Utils.instanceOf(type))
+  }
+
+  getAccessorByType(type){
+    return find(this.accessors, Utils.instanceOf(type))
   }
 
   add(accessor){

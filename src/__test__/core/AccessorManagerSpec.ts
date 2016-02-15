@@ -1,5 +1,5 @@
 import {
-  EventEmitter,ImmutableQuery,AccessorManager, QueryAccessor, FacetAccessor,
+  EventEmitter,ImmutableQuery,AccessorManager, QueryAccessor, FacetAccessor, RangeAccessor,
   SearchkitManager, PageSizeAccessor, ValueState, PaginationAccessor, noopQueryAccessor
 } from "../../"
 
@@ -64,6 +64,14 @@ describe("AccessorManager", ()=> {
       .toEqual([this.accessor1, this.accessor2, this.accessor3, this.accessor4])
   })
 
+  it("getAccessorsByType()", ()=> {
+    expect(this.accessors.getAccessorByType(PageSizeAccessor))
+      .toEqual(this.accessor5)
+    expect(this.accessors.getAccessorByType(PaginationAccessor))
+      .toEqual(this.accessor1)
+    expect(this.accessors.getAccessorByType(RangeAccessor))
+      .toEqual(undefined)
+  })
 
   it("add(), remove()", ()=> {
     let accessors = new AccessorManager()

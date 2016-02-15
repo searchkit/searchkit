@@ -29,7 +29,7 @@ export class ViewSwitcherToggle extends SearchkitComponent<any, any> {
   }
 
   getViewOptionsSwitcherAccessor(){
-    return this.searchkit.getAccessorsByType(ViewOptionsAccessor)[0]
+    return this.searchkit.getAccessorByType(ViewOptionsAccessor)
   }
 
   setView(view){

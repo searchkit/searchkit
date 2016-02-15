@@ -211,6 +211,10 @@ export class SearchkitManager {
     return this.accessors.getAccessorsByType(type)
   }
 
+  getAccessorByType(type){
+    return this.accessors.getAccessorByType(type)
+  }
+
   hasHits(){
     return this.getHitsCount() > 0
   }
