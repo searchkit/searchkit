@@ -23,6 +23,8 @@
       * [Reset](/docs/components/navigation/reset.md)
       * [Hierarchical Menu](/docs/components/navigation/hierarchical-menu.md)
       * [Hierarchical Refinement](/docs/components/navigation/hierarchical-refinement-filter.md)
+    * [Display](/docs/components/display/README.md)
+      * [View Switcher](/docs/components/display/view-switcher.md)
     * [Sorting](/docs/components/sorting/README.md)
       * [Sorting](/docs/components/sorting/sort.md)
     * [Metadata](/docs/components/metadata/README.md)
