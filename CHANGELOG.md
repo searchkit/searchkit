@@ -1,3 +1,11 @@
+## 0.7.0 (15th feb, 2016)
+### Notable Changes
+- `Theming`, 0.7 has major changes to component classnames and overall theming approach. Searchkit classes are now prefixed with `sk-` in order to avoid collisions, we also provide a set of variables which control various aspects of the theme.
+- `setQueryProcessor` added to `SearchkitManager` which allows post processing of query before it is sent to elasticsearch. - `SortingSelector` Component now supports `defaultOption` prop, and we have fixed issues in selection. [#131](https://github.com/searchkit/searchkit/issues/131)
+- `SortingSelector` now allows empty field, sort properties, useful if you need to add a None option or you want to rely on elasticsearch defaults for sort direction. [#116](https://github.com/searchkit/searchkit/issues/116)
+- `ViewSwitcherHits` and `ViewSwitcherToggle` toggle components which allows view switch functionality, e.g. grid or list view. Our theming updates also provide good defaults for grid + list views. [#30](https://github.com/searchkit/searchkit/issues/116)
+- `ResetFilter` now accepts reset options. This allows the which features(filter, query, pagination) influence the resetting disabled state, and what get reset once the component has been clicked
+
 ## 0.6.2 (9th feb, 2016)
 ### Notable Changes
 - Fix regression in RefinementListFilter not showing view more options
