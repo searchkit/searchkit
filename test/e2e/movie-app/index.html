@@ -22,11 +22,12 @@
       const host = "http://demo.searchkit.co/api/movies"
       const searchkit = new SearchkitManager(host)
 
-      class MovieHits extends Hits {
-      	renderResult(result:any) {
+      class MovieHitsItem extends React.Component {
+      	render() {
+          const {result, bemBlocks} = this.props
       		return (
-      			<div data-qa="hit" className={this.bemBlocks.item().mix(this.bemBlocks.container("item"))} key={result._id}>
-      				<div data-qa="title" className={this.bemBlocks.item("title")}>{result._source.title}</div>
+      			<div data-qa="hit" className={bemBlocks.item().mix(bemBlocks.container("item"))} key={result._id}>
+      				<div data-qa="title" className={bemBlocks.item("title")}>{result._source.title}</div>
       			</div>
       		)
       	}
@@ -34,18 +35,18 @@
 
       const App = ()=> (
         <SearchkitProvider searchkit={searchkit}>
-          <div className="layout">
+          <div className="sk-layout">
 
-            <div className="layout__top-bar top-bar">
-              <div className="top-bar__content">
+            <div className="sk-layout__top-bar sk-top-bar">
+              <div className="sk-top-bar__content">
                 <div className="my-logo">Searchkit Acme co</div>
                 <SearchBox autofocus={true} searchOnChange={true} prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
               </div>
             </div>
 
-            <div className="layout__body">
+            <div className="sk-layout__body">
 
-        			<div className="layout__filters">
+        			<div className="sk-layout__filters">
         				<HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
                 <RangeFilter min={0} max={100} field="metaScore" id="metascore" title="Metascore" showHistogram={true}/>
                 <RangeFilter min={0} max={10} field="imdbRating" id="imdbRating" title="IMDB Rating" showHistogram={true}/>
@@ -60,11 +61,11 @@
                 ]}/>
               </div>
 
-        			<div className="layout__results results-list">
+        			<div className="sk-layout__results sk-results-list">
 
-                <div className="results-list__action-bar action-bar">
+                <div className="sk-results-list__action-bar sk-action-bar">
 
-                  <div className="action-bar__info">
+                  <div className="sk-action-bar__info">
             				<HitsStats translations={{
                       "hitstats.results_found":"{hitCount} results found"
                     }}/>
@@ -75,13 +76,13 @@
             				]}/>
             			</div>
 
-                  <div className="action-bar__filters">
+                  <div className="sk-action-bar__filters">
                     <SelectedFilters/>
                     <ResetFilters/>
                   </div>
 
                 </div>
-        				<MovieHits hitsPerPage={10} highlightFields={["title"]}/>
+        				<Hits hitsPerPage={10} highlightFields={["title"]} itemComponent={MovieHitsItem}/>
                 <NoHits suggestionsField={"title"}/>
         				<Pagination showNumbers={true}/>
         			</div>
