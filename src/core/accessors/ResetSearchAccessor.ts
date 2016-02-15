@@ -4,11 +4,12 @@ const each = require("lodash/each")
 export interface ResetSearchOptions {
   query?:boolean
   filter?:boolean
+  pagination?:boolean
 }
 
 export class ResetSearchAccessor extends Accessor {
 
-  constructor(public options:ResetSearchOptions={query:true, filter:true}){
+  constructor(public options:ResetSearchOptions={query:true, filter:true, pagination:true}){
     super()
   }
 
@@ -16,7 +17,7 @@ export class ResetSearchAccessor extends Accessor {
     let query = this.searchkit.query
     let options = this.options
     return (
-      (query.getFrom() > 0) ||
+      (options.pagination && query.getFrom() > 0) ||
       (options.query && query.getQueryString().length > 0) ||
       (options.filter && query.getSelectedFilters().length > 0)
     )
@@ -31,7 +32,7 @@ export class ResetSearchAccessor extends Accessor {
       each(filters, (accessor)=> accessor.resetState())
     }
     let paginationAccessor = this.searchkit.getAccessorByType(PaginationAccessor)
-    if(paginationAccessor){
+    if(this.options.pagination && paginationAccessor){
       paginationAccessor.resetState()
     }
 

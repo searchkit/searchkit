@@ -1,6 +1,6 @@
 import {
   ResetSearchAccessor, ImmutableQuery, SearchkitManager,
-  FilterBasedAccessor
+  FilterBasedAccessor, PaginationAccessor
 } from "../../../"
 
 describe("ResetSearchAccessor", ()=> {
@@ -14,7 +14,7 @@ describe("ResetSearchAccessor", ()=> {
 
   it("constructor()", ()=> {
     expect(this.accessor.options).toEqual({
-      query:true, filter:true
+      query:true, filter:true, pagination:true
     })
     let accessor = new ResetSearchAccessor({query:true})
     expect(accessor.options).toEqual({
@@ -23,7 +23,7 @@ describe("ResetSearchAccessor", ()=> {
   })
 
   it("canReset()", ()=> {
-    let options = {query:true, filter:true}
+    let options = {query:true, filter:true, pagination:true}
     this.accessor.options = options
     this.searchkit.query = new ImmutableQuery()
     expect(this.accessor.canReset()).toBe(false)
@@ -37,6 +37,10 @@ describe("ResetSearchAccessor", ()=> {
     expect(this.accessor.canReset()).toBe(true)
     options.filter = false
     expect(this.accessor.canReset()).toBe(false)
+    this.searchkit.query = new ImmutableQuery().setFrom(10)
+    expect(this.accessor.canReset()).toBe(true)
+    options.pagination = false
+    expect(this.accessor.canReset()).toBe(false)
   })
 
   it("performReset()", ()=> {
@@ -46,8 +50,11 @@ describe("ResetSearchAccessor", ()=> {
     spyOn(filterAccessor1, "resetState")
     let filterAccessor2 = new FilterBasedAccessor("f2")
     spyOn(filterAccessor2, "resetState")
+    let paginationAccessor = new PaginationAccessor("p")
+    spyOn(paginationAccessor, "resetState")
     this.searchkit.addAccessor(filterAccessor1)
     this.searchkit.addAccessor(filterAccessor2)
+    this.searchkit.addAccessor(paginationAccessor)
 
     this.accessor.options = {query:false, filter:false}
     this.accessor.performReset()
@@ -65,6 +72,11 @@ describe("ResetSearchAccessor", ()=> {
     this.accessor.performReset()
     expect(filterAccessor1.resetState).toHaveBeenCalled()
     expect(filterAccessor2.resetState).toHaveBeenCalled()
+    expect(paginationAccessor.resetState).not.toHaveBeenCalled()
+
+    this.accessor.options = {query:true, filter:true, pagination:true}
+    this.accessor.performReset()
+    expect(paginationAccessor.resetState).toHaveBeenCalled()
   })
 
 
