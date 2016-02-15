@@ -5,9 +5,9 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Introduction | What is Searchkit?</title>
+        <title>Introduction | Searchkit Docs</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="Searchkit is a suite of UI components built in react. The aim is rapidly create beautiful search applications using declarative components, and without being an ElasticSearch expert.">
+        <meta name="description" content="http://searchkit.github.io/searchkit/stable/">
         <meta name="generator" content="GitBook 2.5.2">
         
         
@@ -54,7 +54,7 @@
     <body>
         
         
-    <div class="book" data-level="0" data-chapter-title="Introduction" data-filepath="README.md" data-basepath="." data-revision="Mon Feb 15 2016 18:20:34 GMT+0000 (GMT)">
+    <div class="book" data-level="0" data-chapter-title="Introduction" data-filepath="README.md" data-basepath="." data-revision="Mon Feb 15 2016 18:35:52 GMT+0000 (GMT)">
     
 
 <div class="book-summary">
@@ -448,15 +448,31 @@
     
         <li class="chapter " data-level="2.3" data-path="docs/components/display/index.html">
             
-            <span><b>2.3.</b> Display</span>
+                
+                    <a href="./docs/components/display/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        Display
+                    </a>
             
             
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.3.1" data-path="docs/components/display/view-switcher.html">
+        <li class="chapter " data-level="2.3.1" data-path="docs/components/display/switcher.html">
             
-            <span><b>2.3.1.</b> View Switcher</span>
+                
+                    <a href="./docs/components/display/switcher.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.1.</b>
+                        
+                        View Switcher
+                    </a>
             
             
         </li>
@@ -913,7 +929,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="./" >What is Searchkit?</a>
+        <a href="./" >Searchkit Docs</a>
     </h1>
 </div>
 
@@ -923,55 +939,8 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="what-is-searchkit">What is Searchkit?</h2>
-<p>Searchkit is a suite of UI components built in react. The aim is rapidly create beautiful search applications using declarative components, and without being an ElasticSearch expert.</p>
-<p><img src="docs/assets/codepreview.png"></p>
-<p><a href="https://circleci.com/gh/searchkit/searchkit" target="_blank"><img src="https://circleci.com/gh/searchkit/searchkit.png?style=shield"></a>
-<a href="https://badge.fury.io/js/searchkit" target="_blank"><img src="https://badge.fury.io/js/searchkit.svg" alt="npm version"></a>
-<a href="https://gitter.im/searchkit/searchkit?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge" target="_blank"><img src="https://badges.gitter.im/searchkit/searchkit.svg" alt="Join the chat at https://gitter.im/searchkit/searchkit"></a>
-<a href="https://coveralls.io/github/searchkit/searchkit?branch=develop" target="_blank"><img src="https://coveralls.io/repos/searchkit/searchkit/badge.svg?branch=develop&amp;service=github" alt="Coverage Status"></a></p>
-<p>See full <a href="http://docs.searchkit.co/stable" target="_blank">Documentation</a> or <a href="http://docs.searchkit.co/stable/docs/setup/project-setup.html" target="_blank">Getting Started</a></p>
-<h2 id="quick-intro">Quick Intro</h2>
-<p><a href="http://demo.searchkit.co" target="_blank">Live demo</a></p>
-<pre><code class="lang-jsx">
-<span class="token keyword">const</span> searchkit <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SearchkitManager</span><span class="token punctuation">(</span><span class="token string">&quot;http://demo.searchkit.co/api/movies/&quot;</span><span class="token punctuation">)</span>
-
-<span class="token keyword">const</span> App <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SearchkitProvider</span> <span class="token attr-name">searchkit</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>searchkit<span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>example-search-site__query<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SearchBox</span>
-         <span class="token attr-name">autofocus</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token keyword">true</span><span class="token punctuation">}</span></span>
-         <span class="token attr-name">searchOnChange</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token keyword">true</span><span class="token punctuation">}</span></span>
-         <span class="token attr-name">prefixQueryFields</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>&quot;actors^1&quot;<span class="token punctuation">,</span>&quot;type^2&quot;<span class="token punctuation">,</span>&quot;languages&quot;<span class="token punctuation">,</span>&quot;title^10&quot;<span class="token punctuation">]</span><span class="token punctuation">}</span></span><span class="token punctuation">/&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>example-search-site__applied-filters<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SelectedFilters</span><span class="token punctuation">/&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ResetFilters</span><span class="token punctuation">/&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>HitsStats</span><span class="token punctuation">/&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>example-search-site__filters<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>HierarchicalMenuFilter</span>
-          <span class="token attr-name">fields</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>&quot;type<span class="token punctuation">.</span>raw&quot;<span class="token punctuation">,</span> &quot;genres<span class="token punctuation">.</span>raw&quot;<span class="token punctuation">]</span><span class="token punctuation">}</span></span>
-          <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Categories<span class="token punctuation">&quot;</span></span>
-          <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>categories<span class="token punctuation">&quot;</span>/</span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>RefinementListFilter</span>
-          <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>actors<span class="token punctuation">&quot;</span></span>
-          <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Actors<span class="token punctuation">&quot;</span></span>
-          <span class="token attr-name">field</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>actors.raw<span class="token punctuation">&quot;</span></span>
-          <span class="token attr-name">operator</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>AND<span class="token punctuation">&quot;</span></span>
-          <span class="token attr-name">size</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>10<span class="token punctuation">}</span></span><span class="token punctuation">/&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>example-search-site__results<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Hits</span> <span class="token attr-name">hitsPerPage</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>10<span class="token punctuation">}</span></span> <span class="token attr-name">sourceFilter</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>&quot;title&quot;<span class="token punctuation">,</span> &quot;poster&quot;<span class="token punctuation">,</span> &quot;imdbId&quot;<span class="token punctuation">]</span><span class="token punctuation">}</span></span><span class="token punctuation">/&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>NoHits</span><span class="token punctuation">/&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>SearchkitProvider</span><span class="token punctuation">&gt;</span></span>
-<span class="token punctuation">)</span>
-
-ReactDOM<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>App</span><span class="token punctuation">/&gt;</span></span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&apos;root&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-</code></pre>
+                        <h1 id="searchkit-docs">Searchkit Docs</h1>
+<p><a href="http://searchkit.github.io/searchkit/stable/" target="_blank">http://searchkit.github.io/searchkit/stable/</a></p>
 
                     
                     </section>

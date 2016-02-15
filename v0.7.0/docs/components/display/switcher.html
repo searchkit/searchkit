@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Range Filter | Searchkit Docs</title>
+        <title>View Switcher | Searchkit Docs</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.5.2">
@@ -45,10 +45,10 @@
         
     
     
-    <link rel="next" href="../../../docs/components/navigation/selected-filters.html" />
+    <link rel="next" href="../../../docs/components/sorting/sort.html" />
     
     
-    <link rel="prev" href="../../../docs/components/navigation/menu.html" />
+    <link rel="prev" href="../../../docs/components/display/index.html" />
     
 
         <script src="../../../gitbook/plugins/gitbook-plugin-mermaid-2/bower_components/mermaid/dist/mermaid.min.js"></script>
@@ -56,7 +56,7 @@
     <body>
         
         
-    <div class="book" data-level="2.2.5" data-chapter-title="Range Filter" data-filepath="docs/components/navigation/range-filter.md" data-basepath="../../.." data-revision="Mon Feb 15 2016 18:35:52 GMT+0000 (GMT)">
+    <div class="book" data-level="2.3.1" data-chapter-title="View Switcher" data-filepath="docs/components/display/switcher.md" data-basepath="../../.." data-revision="Mon Feb 15 2016 18:35:52 GMT+0000 (GMT)">
     
 
 <div class="book-summary">
@@ -368,7 +368,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.2.5" data-path="docs/components/navigation/range-filter.html">
+        <li class="chapter " data-level="2.2.5" data-path="docs/components/navigation/range-filter.html">
             
                 
                     <a href="../../../docs/components/navigation/range-filter.html">
@@ -464,7 +464,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.3.1" data-path="docs/components/display/switcher.html">
+        <li class="chapter active" data-level="2.3.1" data-path="docs/components/display/switcher.html">
             
                 
                     <a href="../../../docs/components/display/switcher.html">
@@ -941,34 +941,76 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="range-filter">Range Filter</h1>
-<p>The range filter lets users filter results within a numerical range. Provides a histogram so show the user where results are found on the range. </p>
+                        <h1 id="view-switcher">View Switcher</h1>
+<p>Searchkit&apos;s view switcher components come in 2 seperate components. <code>ViewSwitcherHits</code> which toggles the hits display and <code>ViewSwitcherToggle</code> which is the actual toggle button to switch views.</p>
 <h2 id="example">Example</h2>
-<pre><code class="lang-jsx">
-<span class="token keyword">import</span> <span class="token punctuation">{</span>
-  RangeFilter<span class="token punctuation">,</span>
-  SearchkitComponent
+<pre><code class="lang-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span>
+  Hits<span class="token punctuation">,</span>
+  ViewSwitcherHits<span class="token punctuation">,</span>
+  ViewSwitcherToggle  
 <span class="token punctuation">}</span> from <span class="token string">&quot;searchkit&quot;</span><span class="token punctuation">;</span>
 
-<span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">SearchkitComponent</span> <span class="token punctuation">{</span>
+<span class="token keyword">const</span> MovieHitsGridItem <span class="token operator">=</span> <span class="token punctuation">(</span>props<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span>result<span class="token punctuation">,</span> bemBlocks<span class="token punctuation">}</span> <span class="token operator">=</span> props
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>bemBlocks<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">mix</span><span class="token punctuation">(</span>bemBlocks<span class="token punctuation">.</span><span class="token function">container</span><span class="token punctuation">(</span>&quot;item&quot;<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>bemBlocks<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span>&quot;poster&quot;<span class="token punctuation">)</span><span class="token punctuation">}</span></span> <span class="token attr-name">src</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>result<span class="token punctuation">.</span>_source<span class="token punctuation">.</span>poster<span class="token punctuation">}</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>bemBlocks<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span>&quot;title&quot;<span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span><span class="token punctuation">{</span>result<span class="token punctuation">.</span>_source<span class="token punctuation">.</span>title<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> MovieHitsListItem <span class="token operator">=</span> <span class="token punctuation">(</span>props<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span>bemBlocks<span class="token punctuation">,</span> result<span class="token punctuation">}</span> <span class="token operator">=</span> props  
+  <span class="token keyword">const</span> source <span class="token operator">=</span> result<span class="token punctuation">.</span>_source
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>bemBlocks<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">mix</span><span class="token punctuation">(</span>bemBlocks<span class="token punctuation">.</span><span class="token function">container</span><span class="token punctuation">(</span>&quot;item&quot;<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span> <span class="token attr-name">data-qa</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>hit<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>bemBlocks<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span>&quot;poster&quot;<span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">data-qa</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>poster<span class="token punctuation">&quot;</span></span> <span class="token attr-name">src</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>result<span class="token punctuation">.</span>_source<span class="token punctuation">.</span>poster<span class="token punctuation">}</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>bemBlocks<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span>&quot;details&quot;<span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>bemBlocks<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span>&quot;title&quot;<span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span><span class="token punctuation">{</span>source<span class="token punctuation">.</span>title<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h3</span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>bemBlocks<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span>&quot;subtitle&quot;<span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span>Released <span class="token keyword">in</span> <span class="token punctuation">{</span>source<span class="token punctuation">.</span>year<span class="token punctuation">}</span><span class="token punctuation">,</span> rated <span class="token punctuation">{</span>source<span class="token punctuation">.</span>imdbRating<span class="token punctuation">}</span><span class="token operator">/</span><span class="token number">10</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h3</span><span class="token punctuation">&gt;</span></span>        
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token punctuation">)</span>
+
+<span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">{</span>
 
   <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>RangeFilter</span> <span class="token attr-name">field</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>metaScore<span class="token punctuation">&quot;</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>metascore<span class="token punctuation">&quot;</span></span> <span class="token attr-name">min</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>0<span class="token punctuation">}</span></span> <span class="token attr-name">max</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>100<span class="token punctuation">}</span></span> <span class="token attr-name">showHistogram</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token keyword">true</span><span class="token punctuation">}</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>MetaScore<span class="token punctuation">&quot;</span>/</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ViewSwitcherToggle</span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ViewSwitcherHits</span>
+          <span class="token attr-name">hitsPerPage</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>12<span class="token punctuation">}</span></span>
+          <span class="token attr-name">sourceFilter</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>&quot;plot&quot;<span class="token punctuation">,</span> &quot;title&quot;<span class="token punctuation">,</span> &quot;poster&quot;<span class="token punctuation">,</span> &quot;imdbId&quot;<span class="token punctuation">,</span> &quot;imdbRating&quot;<span class="token punctuation">,</span> &quot;year&quot;<span class="token punctuation">]</span><span class="token punctuation">}</span></span>
+          <span class="token attr-name">hitComponents</span> <span class="token attr-value"><span class="token punctuation">=</span> {[</span>
+            {<span class="token attr-name"><span class="token namespace">key:</span></span>&quot;<span class="token attr-name">grid</span>&quot;, <span class="token attr-name"><span class="token namespace">title:</span></span>&quot;<span class="token attr-name">Grid</span>&quot;, <span class="token attr-name"><span class="token namespace">itemComponent:</span>MovieHitsGridItem</span>, <span class="token attr-name"><span class="token namespace">defaultOption:</span>true</span>},
+            {<span class="token attr-name"><span class="token namespace">key:</span></span>&quot;<span class="token attr-name">list</span>&quot;, <span class="token attr-name"><span class="token namespace">title:</span></span>&quot;<span class="token attr-name">List</span>&quot;, <span class="token attr-name"><span class="token namespace">itemComponent:</span>MovieHitsListItem</span>}
+          ]}
+          <span class="token attr-name">scrollTo</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>body<span class="token punctuation">&quot;</span></span>
+      <span class="token punctuation">/&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="props">Props</h2>
+<h2 id="configuration">Configuration</h2>
+<p><code>ViewSwitcherHits</code> accepts all the props that <code>Hits</code> expects with 1 additional <code>hitComponents</code> prop.
+The <code>hitComponents</code> prop is an array of views, with <code>key</code>, <code>title</code>, <code>defaultOption</code> and <code>itemComponent</code>
+which is a react component to display a single item of the search results.</p>
+<pre><code class="lang-jsx">hitComponents <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">[</span>
+  <span class="token punctuation">{</span>key<span class="token punctuation">:</span><span class="token string">&quot;grid&quot;</span><span class="token punctuation">,</span> title<span class="token punctuation">:</span><span class="token string">&quot;Grid&quot;</span><span class="token punctuation">,</span> itemComponent<span class="token punctuation">:</span>MovieHitsGridItem<span class="token punctuation">,</span> defaultOption<span class="token punctuation">:</span><span class="token keyword">true</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span>key<span class="token punctuation">:</span><span class="token string">&quot;list&quot;</span><span class="token punctuation">,</span> title<span class="token punctuation">:</span><span class="token string">&quot;List&quot;</span><span class="token punctuation">,</span> itemComponent<span class="token punctuation">:</span>MovieHitsListItem<span class="token punctuation">}</span>
+<span class="token punctuation">]</span><span class="token punctuation">}</span>
+</code></pre>
+<h2 id="viewswitcherhits-props">ViewSwitcherHits Props</h2>
 <ul>
-<li><code>field</code> <em>(ESField)</em>: Required. An elasticsearch numerical field value.</li>
-<li><code>id</code> <em>(string)</em>: Required. id of component. Must be unique. Used as key for url serialisation</li>
-<li><code>min</code> <em>(number)</em>: Required. min start range</li>
-<li><code>max</code> <em>(number)</em>: Required. max start range</li>
-<li><code>title</code> <em>(string)</em>: Required. Title used for component and for selected filters component</li>
-<li><code>showHistogram</code> <em>(boolean)</em>: Shows a histogram to provide a guide where their range would hit results.</li>
+<li><code>hitComponents</code> <em>(Array&lt;{key, title, itemComponent, defaultOption?}&gt;)</em>: React component used for each hit render.</li>
+<li><code>hitsPerPage</code> <em>(Number)</em>: Number of results displayed per page</li>
+<li><code>highlightFields</code> <em>(Array<string>)</string></em>: Array of highlighted fields. Any highlight matches will be returned in the result.highlight[fieldName]. See above for example.</li>
 <li><code>mod</code> <em>(string)</em>: Optional. A custom BEM container class.</li>
-<li><code>interval</code> <em>(number)</em>: Optional. Override the interval which is sent to ElasticSearch, used for generating the buckets which render the histogram. (Defaults to an interval which allows a max of 20 buckets which fit the range)</li>
+<li><code>sourceFilter</code> <em>(string|boolean|Array<string>)</string></em>: A source filter parameter which is sent to elasticsearch to reduce the hit <code>_source</code> data within the results. see the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-source-filtering.html" target="_blank">elastic documentation</a> for further details.</li>
+<li><code>scrollTo</code> <em>(string|boolean)</em>: When results have changed, we scroll to the top of the element using the jQuery style selector passed in the <code>scrollTo</code> prop. If true, it will use the body as the selector.  Default value is true. If false, it will not scroll when new results are rendered. We determine a change by comparing hits <code>_id</code> field with the new results.</li>
+</ul>
+<h2 id="viewswitchertoggle-props">ViewSwitcherToggle Props</h2>
+<ul>
+<li>none</li>
 </ul>
 
                     
@@ -980,10 +1022,10 @@
         </div>
 
         
-        <a href="../../../docs/components/navigation/menu.html" class="navigation navigation-prev " aria-label="Previous page: Menu"><i class="fa fa-angle-left"></i></a>
+        <a href="../../../docs/components/display/index.html" class="navigation navigation-prev " aria-label="Previous page: Display"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../../../docs/components/navigation/selected-filters.html" class="navigation navigation-next " aria-label="Next page: Selected Filters"><i class="fa fa-angle-right"></i></a>
+        <a href="../../../docs/components/sorting/sort.html" class="navigation navigation-next " aria-label="Next page: Sorting"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

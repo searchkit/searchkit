@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Range Filter | Searchkit Docs</title>
+        <title>Display | Searchkit Docs</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.5.2">
@@ -45,10 +45,10 @@
         
     
     
-    <link rel="next" href="../../../docs/components/navigation/selected-filters.html" />
+    <link rel="next" href="../../../docs/components/display/switcher.html" />
     
     
-    <link rel="prev" href="../../../docs/components/navigation/menu.html" />
+    <link rel="prev" href="../../../docs/components/navigation/hierarchical-refinement-filter.html" />
     
 
         <script src="../../../gitbook/plugins/gitbook-plugin-mermaid-2/bower_components/mermaid/dist/mermaid.min.js"></script>
@@ -56,7 +56,7 @@
     <body>
         
         
-    <div class="book" data-level="2.2.5" data-chapter-title="Range Filter" data-filepath="docs/components/navigation/range-filter.md" data-basepath="../../.." data-revision="Mon Feb 15 2016 18:35:52 GMT+0000 (GMT)">
+    <div class="book" data-level="2.3" data-chapter-title="Display" data-filepath="docs/components/display/README.md" data-basepath="../../.." data-revision="Mon Feb 15 2016 18:35:52 GMT+0000 (GMT)">
     
 
 <div class="book-summary">
@@ -368,7 +368,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.2.5" data-path="docs/components/navigation/range-filter.html">
+        <li class="chapter " data-level="2.2.5" data-path="docs/components/navigation/range-filter.html">
             
                 
                     <a href="../../../docs/components/navigation/range-filter.html">
@@ -448,7 +448,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.3" data-path="docs/components/display/index.html">
+        <li class="chapter active" data-level="2.3" data-path="docs/components/display/index.html">
             
                 
                     <a href="../../../docs/components/display/index.html">
@@ -941,36 +941,7 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="range-filter">Range Filter</h1>
-<p>The range filter lets users filter results within a numerical range. Provides a histogram so show the user where results are found on the range. </p>
-<h2 id="example">Example</h2>
-<pre><code class="lang-jsx">
-<span class="token keyword">import</span> <span class="token punctuation">{</span>
-  RangeFilter<span class="token punctuation">,</span>
-  SearchkitComponent
-<span class="token punctuation">}</span> from <span class="token string">&quot;searchkit&quot;</span><span class="token punctuation">;</span>
-
-<span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">SearchkitComponent</span> <span class="token punctuation">{</span>
-
-  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>RangeFilter</span> <span class="token attr-name">field</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>metaScore<span class="token punctuation">&quot;</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>metascore<span class="token punctuation">&quot;</span></span> <span class="token attr-name">min</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>0<span class="token punctuation">}</span></span> <span class="token attr-name">max</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>100<span class="token punctuation">}</span></span> <span class="token attr-name">showHistogram</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token keyword">true</span><span class="token punctuation">}</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>MetaScore<span class="token punctuation">&quot;</span>/</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<h2 id="props">Props</h2>
-<ul>
-<li><code>field</code> <em>(ESField)</em>: Required. An elasticsearch numerical field value.</li>
-<li><code>id</code> <em>(string)</em>: Required. id of component. Must be unique. Used as key for url serialisation</li>
-<li><code>min</code> <em>(number)</em>: Required. min start range</li>
-<li><code>max</code> <em>(number)</em>: Required. max start range</li>
-<li><code>title</code> <em>(string)</em>: Required. Title used for component and for selected filters component</li>
-<li><code>showHistogram</code> <em>(boolean)</em>: Shows a histogram to provide a guide where their range would hit results.</li>
-<li><code>mod</code> <em>(string)</em>: Optional. A custom BEM container class.</li>
-<li><code>interval</code> <em>(number)</em>: Optional. Override the interval which is sent to ElasticSearch, used for generating the buckets which render the histogram. (Defaults to an interval which allows a max of 20 buckets which fit the range)</li>
-</ul>
-
+                        
                     
                     </section>
                 
@@ -980,10 +951,10 @@
         </div>
 
         
-        <a href="../../../docs/components/navigation/menu.html" class="navigation navigation-prev " aria-label="Previous page: Menu"><i class="fa fa-angle-left"></i></a>
+        <a href="../../../docs/components/navigation/hierarchical-refinement-filter.html" class="navigation navigation-prev " aria-label="Previous page: Hierarchical Refinement"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../../../docs/components/navigation/selected-filters.html" class="navigation navigation-next " aria-label="Next page: Selected Filters"><i class="fa fa-angle-right"></i></a>
+        <a href="../../../docs/components/display/switcher.html" class="navigation navigation-next " aria-label="Next page: View Switcher"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
