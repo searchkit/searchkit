@@ -1,6 +1,15 @@
 ## 0.7.0 (15th feb, 2016)
-### Notable Changes
+### Breaking Changes
 - `Theming`, 0.7 has major changes to component classnames and overall theming approach. Searchkit classes are now prefixed with `sk-` in order to avoid collisions, we also provide a set of variables which control various aspects of the theme. See theming section in docs.
+- `Hits` component requires `mod="sk-hits-grid"` to retain grid styling
+- If you are using the cdn, we only ship `themes.css` and no long `styles.css`
+```html
+<link href="//cdn.jsdelivr.net/searchkit/0.7.0/theme.css" rel="stylesheet"/>
+```
+- [Example pull request to update to 0.7.0](https://github.com/PAK90/Gatherer2/pull/2/files)
+
+
+### Notable Changes
 - `setQueryProcessor` added to `SearchkitManager` which allows post processing of query before it is sent to elasticsearch.  [#131](https://github.com/searchkit/searchkit/issues/131)
 - `SortingSelector` now allows empty field, sort properties, useful if you need to add a None option or you want to rely on elasticsearch defaults for sort direction. [#116](https://github.com/searchkit/searchkit/issues/116)
 - `ViewSwitcherHits` and `ViewSwitcherToggle` toggle components which allows view switch functionality, e.g. grid or list view. Our theming updates also provide good defaults for grid + list views. [#30](https://github.com/searchkit/searchkit/issues/116)
