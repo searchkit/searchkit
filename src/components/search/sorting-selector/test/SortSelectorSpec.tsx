@@ -19,7 +19,7 @@ describe("SortingSelector tests", () => {
         <SortingSelector searchkit={this.searchkit} options={[
           {label:"Relevance"},
           {label:"Latest Releases", field:"released", order:"desc"},
-          {label:"Earliest Releases", field:"released", order:"asc"}
+          {label:"Earliest Releases", field:"released", order:"asc", key:"earliest"}
         ]}/>
       )
     }
@@ -39,10 +39,10 @@ describe("SortingSelector tests", () => {
     expect(this.wrapper.children().length).toBe(1)
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-sorting-selector is-disabled">
-        <select defaultValue="Relevance">
-          <option value="Relevance">Relevance</option>
-          <option value="Latest Releases">Latest Releases</option>
-          <option value="Earliest Releases">Earliest Releases</option>
+        <select defaultValue="none">
+          <option value="none">Relevance</option>
+          <option value="released_desc">Latest Releases</option>
+          <option value="earliest">Earliest Releases</option>
         </select>
       </div>
     ))
@@ -53,26 +53,26 @@ describe("SortingSelector tests", () => {
     expect(this.wrapper.children().length).toBe(1)
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-sorting-selector">
-        <select defaultValue="Relevance">
-          <option value="Relevance">Relevance</option>
-          <option value="Latest Releases">Latest Releases</option>
-          <option value="Earliest Releases">Earliest Releases</option>
+        <select defaultValue="none">
+          <option value="none">Relevance</option>
+          <option value="released_desc">Latest Releases</option>
+          <option value="earliest">Earliest Releases</option>
         </select>
       </div>
     ))
   })
 
   it("renders with selected value", ()=> {
-    this.accessor.state = this.accessor.state.setValue("Latest Releases")
+    this.accessor.state = this.accessor.state.setValue("released_desc")
     this.setResults()
     this.setWrapper()
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-sorting-selector">
-        <select defaultValue="Latest Releases" onChange={_.identity}>
-          <option value="Relevance">Relevance</option>
-          <option value="Latest Releases">Latest Releases</option>
-          <option value="Earliest Releases">Earliest Releases</option>
+        <select defaultValue="released_desc" onChange={_.identity}>
+          <option value="none">Relevance</option>
+          <option value="released_desc">Latest Releases</option>
+          <option value="earliest">Earliest Releases</option>
         </select>
       </div>
     ))
@@ -84,21 +84,21 @@ describe("SortingSelector tests", () => {
     this.setWrapper()
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-sorting-selector">
-        <select defaultValue="Earliest Releases" onChange={_.identity}>
-          <option value="Relevance">Relevance</option>
-          <option value="Latest Releases">Latest Releases</option>
-          <option value="Earliest Releases">Earliest Releases</option>
+        <select defaultValue="earliest" onChange={_.identity}>
+          <option value="none">Relevance</option>
+          <option value="released_desc">Latest Releases</option>
+          <option value="earliest">Earliest Releases</option>
         </select>
       </div>
     ))
   })
 
   it("select new sort option", ()=> {
-    this.accessor.state = this.accessor.state.setValue("Latest Releases")
+    this.accessor.state = this.accessor.state.setValue("released_desc")
     this.setResults()
     let earlyOption = this.wrapper.find("select").children().at(2)
     earlyOption.simulate("change")
-    expect(this.accessor.state.getValue()).toBe("Earliest Releases")
+    expect(this.accessor.state.getValue()).toBe("earliest")
     expect(this.searchkit.performSearch).toHaveBeenCalled()
   })
 

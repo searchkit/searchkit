@@ -49,5 +49,24 @@ describe("Utils", ()=> {
     )
   })
 
+  it("computeOptionKeys", ()=> {
+    let options = [
+      {key:"foo"},
+      {a:"a"},
+      {a:"a", b:"b"}
+      {}
+    ]
+    let computedOptions = Utils.computeOptionKeys(
+      options, ["a", "b"], "all")
+
+    expect(computedOptions).toEqual([
+      {key: 'foo'},
+      {a: 'a', key: 'a'},
+      {a: 'a', b: 'b', key: 'a_b'},
+      {key:"all"}
+    ])
+
+  })
+
 
 })

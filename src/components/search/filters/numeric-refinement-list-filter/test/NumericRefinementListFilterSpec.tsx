@@ -14,7 +14,7 @@ describe("NumericRefinementListFilter tests", () => {
     spyOn(this.searchkit, "performSearch")
     this.wrapper = mount(
       <NumericRefinementListFilter searchkit={this.searchkit} id="score" title="Score" field="score" options={[
-        {title:"All"},
+        {title:"All", key:"everything"},
         {title:"up to 20", from:0, to:21},
         {title:"21 to 40", from:21, to:41}
       ]}/>
@@ -41,9 +41,9 @@ describe("NumericRefinementListFilter tests", () => {
     expect(this.accessor.key).toBe("score")
     expect(this.accessor.options).toEqual({
       id:'score', field:"score", title:"Score", options:[
-        {title:"All"},
-        {title:"up to 20", from:0, to:21},
-        {title:"21 to 40", from:21, to:41}
+        {title:"All", key:"everything"},
+        {title:"up to 20", from:0, to:21, key:"0_21"},
+        {title:"21 to 40", from:21, to:41, key:"21_41"}
       ]
     })
   })
@@ -72,7 +72,7 @@ describe("NumericRefinementListFilter tests", () => {
   })
 
   it("should select correctly", ()=> {
-    this.accessor.state = this.accessor.state.setValue("21 to 40")
+    this.accessor.state = this.accessor.state.setValue("21_41")
     this.setResults()
     let lastOption = this.wrapper.find(".sk-numeric-refinement-list__options")
       .children().at(2)
@@ -85,7 +85,7 @@ describe("NumericRefinementListFilter tests", () => {
       let secondOption = this.wrapper.find(".sk-numeric-refinement-list__options")
           .children().at(1)
       fastClick(secondOption)
-      expect(this.accessor.state.getValue()).toBe("up to 20")
+      expect(this.accessor.state.getValue()).toBe("0_21")
       expect(this.searchkit.performSearch).toHaveBeenCalled()
   })
 

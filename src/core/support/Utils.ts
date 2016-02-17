@@ -1,4 +1,7 @@
 const reduce = require("lodash/reduce")
+const map = require("lodash/map")
+const reject = require("lodash/reject")
+const isUndefined = require("lodash/isUndefined")
 
 export class Utils {
   static guidCounter = 0
@@ -33,5 +36,24 @@ export class Utils {
     } else {
       return key
     }
+  }
+
+  static computeOptionKeys(options, fields, defaultKey){
+    return map(options, (option)=> {
+      return Utils.generateKeyFromFields(option, fields, defaultKey)
+    })
+  }
+
+  static generateKeyFromFields(ob, fields, defaultKey){
+    if(ob.key){
+      return ob
+    }
+    let fieldValues = reject(map(fields, (field)=> ob[field]), isUndefined)
+    if(fieldValues.length > 0){
+      ob.key = fieldValues.join("_")
+    } else {
+      ob.key = defaultKey
+    }
+    return ob
   }
 }

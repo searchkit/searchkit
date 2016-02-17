@@ -14,6 +14,7 @@ describe("NumericOptionsAccessor", ()=> {
       id:"price_id",
       title:"”Price",
       options:[
+        {title:"All"},
         {title:"Cheap", from:1, to:11},
         {title:"Affordable", from:11, to:21},
         {title:"Pricey", from:21, to:101}
@@ -29,7 +30,12 @@ describe("NumericOptionsAccessor", ()=> {
 
   it("constructor()", ()=> {
     expect(this.accessor.key).toBe("categories")
-    expect(this.accessor.options).toBe(this.options)
+    expect(this.accessor.options.options).toEqual([
+      {title: 'All', key: 'all'},
+      {title: 'Cheap', from: 1, to: 11, key: '1_11'},
+      {title: 'Affordable', from: 11, to: 21, key: '11_21'},
+      {title: 'Pricey', from: 21, to: 101, key: '21_101'}
+    ])
   })
 
   it("getBuckets()", ()=> {
@@ -52,6 +58,7 @@ describe("NumericOptionsAccessor", ()=> {
   })
   it("getRanges()", ()=> {
     expect(this.accessor.getRanges()).toEqual([
+      {key: 'All'},
       {key: 'Cheap', from: 1, to: 11},
       {key: 'Affordable', from: 11, to: 21},
       {key: 'Pricey', from: 21, to: 101}
@@ -59,7 +66,7 @@ describe("NumericOptionsAccessor", ()=> {
   })
 
   it("buildSharedQuery()", ()=> {
-    this.accessor.state = new ValueState("Affordable")
+    this.accessor.state = new ValueState("11_21")
     let query = this.accessor.buildSharedQuery(this.query)
     let expected = BoolMust([
       BoolMust([
@@ -75,7 +82,7 @@ describe("NumericOptionsAccessor", ()=> {
     expect(this.toPlainObject(selectedFilters[0])).toEqual({
       name: '”Price', value: 'Affordable', id: 'price_id',
     })
-    expect(this.accessor.state.getValue()).toEqual("Affordable")
+    expect(this.accessor.state.getValue()).toEqual("11_21")
     selectedFilters[0].remove()
     expect(this.accessor.state.getValue()).toEqual(null)
   })
@@ -93,6 +100,9 @@ describe("NumericOptionsAccessor", ()=> {
           "categories",
           "price",
           [
+            {
+              "key": "All"
+            },
             {
               "key": "Cheap",
               "from": 1,

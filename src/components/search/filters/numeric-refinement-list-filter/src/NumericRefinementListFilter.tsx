@@ -30,16 +30,17 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
 			React.PropTypes.shape({
 				title:React.PropTypes.string.isRequired,
 				from:React.PropTypes.number,
-				to:React.PropTypes.number
+				to:React.PropTypes.number,
+				key:React.PropTypes.string
 			})
 		)
 	}, SearchkitComponent.propTypes)
 
 	defineAccessor() {
-		return new NumericOptionsAccessor(
-			this.props.id,
-			{id:this.props.id, field:this.props.field, options:this.props.options, title:this.props.title}
-		)
+		const {id, field, options, title} = this.props
+		return new NumericOptionsAccessor(id, {
+			id, field, options, title
+		})
 	}
 
 	defineBEMBlocks() {
@@ -51,12 +52,12 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
 	}
 
 	addFilter(option) {
-		this.accessor.state = this.accessor.state.toggle(option.key)
-		this.searchkit.performSearch()
+		this.accessor.setOption(option)
 	}
 
 	isSelected(option) {
-		return this.accessor.state.getValue() == option.key;
+		let selectedOption = this.accessor.getSelectedOption()
+		return selectedOption && selectedOption.title == option.key
   }
 
   hasOptions(): boolean {
