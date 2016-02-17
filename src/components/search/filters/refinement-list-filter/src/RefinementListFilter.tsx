@@ -139,13 +139,14 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
 
   static defaultProps = {
     component: RefinementListFilterDisplay,
-    itemComponent: FilterCheckboxItemComponent
+    itemComponent: FilterCheckboxItemComponent,
+    size:50
   }
 
   defineAccessor() {
     const {
       field, id, operator, title, include, exclude,
-      size=50, translations, orderKey, orderDirection
+      size, translations, orderKey, orderDirection
     } = this.props
     return new FacetAccessor(field,{
       id, operator,title, size, include, exclude,
