@@ -62,6 +62,9 @@ class App extends SearchkitComponent {
 - `mod` *(string)*: Optional. A custom BEM container class.
 - `orderKey` *(string)*: Order key either using an intrinsic sortable key `_count` `_term`
 - `orderDirection` *(string)*: `asc` or `desc`
+- `include` *(Array<string>|string):* Terms bucket  include parameter see [Terms bucket filtering](https://www.elastic.co/guide/en/elasticsearch/reference/2.x/search-aggregations-bucket-terms-aggregation.html#_filtering_values_2)
+- `exclude` *(Array<string>|string):* Terms bucket exclude parameter, see above
+
 
 
 ## Translations
