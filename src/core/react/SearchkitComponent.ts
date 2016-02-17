@@ -11,7 +11,8 @@ const transform = require("lodash/transform")
 export interface SearchkitComponentProps {
   mod?:string
   translations?:Object
-  searchkit?:SearchkitManager
+  searchkit?:SearchkitManager,
+  key?:string
 }
 
 export class SearchkitComponent<P extends SearchkitComponentProps,S> extends React.Component<P,S> {
