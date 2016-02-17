@@ -1,5 +1,6 @@
 import {State, ValueState} from "../state"
 import {FilterBasedAccessor} from "./FilterBasedAccessor"
+import {Utils} from "../support"
 import {
   RangeQuery,
   RangeBucket, FilterBucket
@@ -8,9 +9,11 @@ const find = require("lodash/find")
 const compact = require("lodash/compact")
 const map = require("lodash/map")
 const filter = require("lodash/filter")
+const omitBy = require("lodash/omitBy")
+const isUndefined = require("lodash/isUndefined")
 
 export interface RangeOption {
-  title:string, from?:number, to?:number
+  title:string, from?:number, to?:number, key?:string
 }
 export interface NumericOptions {
   field:string
@@ -26,6 +29,21 @@ export class NumericOptionsAccessor extends FilterBasedAccessor<ValueState> {
   constructor(key, options:NumericOptions){
     super(key)
     this.options = options
+    this.options.options = Utils.computeOptionKeys(
+      options.options, ["from", "to"], "all"
+    )
+  }
+
+  getSelectedOption(){
+    return find(this.options.options, {key:this.state.getValue()})
+  }
+
+  setOption(facetOption){
+    let option = find(this.options.options, {title:facetOption.key})
+    if(option){
+      this.state = this.state.toggle(option.key)
+      this.searchkit.performSearch()
+    }
   }
 
   getBuckets(){
@@ -39,15 +57,15 @@ export class NumericOptionsAccessor extends FilterBasedAccessor<ValueState> {
   }
 
   buildSharedQuery(query) {
-    if (this.state.hasValue()) {
-      let val:any = find(this.options.options, {title:this.state.getValue()})
+    let selectedOption = this.getSelectedOption()
+    if (selectedOption) {
 
       let rangeFilter = RangeQuery(this.options.field,{
-        gte:val.from, lt:val.to
+        gte:selectedOption.from, lt:selectedOption.to
       })
       let selectedFilter = {
         name:this.translate(this.options.title),
-        value:this.translate(val.title),
+        value:this.translate(selectedOption.title),
         id:this.options.id,
         remove:()=> {
           this.state = this.state.clear()
@@ -65,11 +83,11 @@ export class NumericOptionsAccessor extends FilterBasedAccessor<ValueState> {
 
   getRanges() {
     return compact(map(this.options.options, (range:RangeOption) => {
-      return {
+      return omitBy({
         key:range.title,
         from:range.from,
         to:range.to
-      };
+      }, isUndefined);
     }))
   }
 

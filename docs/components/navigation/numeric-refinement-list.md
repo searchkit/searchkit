@@ -28,7 +28,7 @@ class App extends SearchkitComponent {
 ```
 ## Props
 - `field` *(ESAttribute)*: Non-analysed elastic search field to create aggs for the menu
-- `options` *([{title:string, from?:number, to?:number}])*: Options displayed for the user to refine results with.
+- `options` *([{title:string, from?:number, to?:number, key?:string}])*: Options displayed for the user to refine results with. The key property will be used for url serialization, searchkit will generate if not provided.
 - `title` *(string)*: Title of the menu. Shown as a header and within selected filters
 - `id` *(string)*: id of component. Must be unique. Used as key for url serialisation
 - `mod` *(string)*: Optional. A custom BEM container class.
