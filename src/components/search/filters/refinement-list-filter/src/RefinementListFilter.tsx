@@ -111,6 +111,8 @@ export interface RefinementListFilterProps extends SearchkitComponentProps {
   itemComponent?: ReactComponentType<FilterItemComponentProps>
   orderKey?:string
   orderDirection?:string
+  include?:Array<string> | string
+  exclude?:Array<string> | string
 }
 
 export class RefinementListFilter extends SearchkitComponent<RefinementListFilterProps, any> {
@@ -126,21 +128,28 @@ export class RefinementListFilter extends SearchkitComponent<RefinementListFilte
       FacetAccessor.translations
     ),
     orderKey:React.PropTypes.string,
-    orderDirection:React.PropTypes.oneOf(["asc", "desc"])
+    orderDirection:React.PropTypes.oneOf(["asc", "desc"]),
+    include:React.PropTypes.oneOfType([
+      React.PropTypes.string, React.PropTypes.array
+    ]),
+    exclude:React.PropTypes.oneOfType([
+      React.PropTypes.string, React.PropTypes.array
+    ])
   }, SearchkitComponent.propTypes)
 
   static defaultProps = {
     component: RefinementListFilterDisplay,
-    itemComponent: FilterCheckboxItemComponent
+    itemComponent: FilterCheckboxItemComponent,
+    size:50
   }
 
   defineAccessor() {
     const {
-      field, id, operator, title,
-      size=50, translations, orderKey, orderDirection
+      field, id, operator, title, include, exclude,
+      size, translations, orderKey, orderDirection
     } = this.props
     return new FacetAccessor(field,{
-      id, operator,title, size,
+      id, operator,title, size, include, exclude,
       translations, orderKey, orderDirection
     })
 }

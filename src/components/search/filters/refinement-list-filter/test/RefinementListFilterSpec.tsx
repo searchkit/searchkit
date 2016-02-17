@@ -55,6 +55,7 @@ describe("Refinement List Filter tests", () => {
     this.createWrapper(
       <RefinementListFilter
         field="test" id="test id" title="test title" size={3}
+        include={"title"} exclude={["bad", "n/a"]}
         searchkit={this.searchkit} />
     )
 
@@ -133,7 +134,9 @@ describe("Refinement List Filter tests", () => {
       "operator": undefined,
       "translations": undefined,
       "orderKey":undefined,
-      "orderDirection":undefined
+      "orderDirection":undefined,
+      "include":"title",
+      "exclude":["bad","n/a"]
     })
   })
 

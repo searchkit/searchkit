@@ -22,6 +22,8 @@ export interface MenuFilterProps extends SearchkitComponentProps {
 	itemComponent?:ReactComponentType<FilterItemComponentProps>,
 	orderKey?:string
 	orderDirection?:string
+	include?:Array<string> | string
+  exclude?:Array<string> | string
 }
 
 export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
@@ -34,6 +36,12 @@ export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
 		size:React.PropTypes.number,
 		orderKey:React.PropTypes.string,
 		orderDirection:React.PropTypes.oneOf(["asc", "desc"]),
+		include:React.PropTypes.oneOfType([
+			React.PropTypes.string, React.PropTypes.array
+		]),
+		exclude:React.PropTypes.oneOfType([
+			React.PropTypes.string, React.PropTypes.array
+		])
 	}, SearchkitComponent.propTypes)
 
 	static defaultProps = {
@@ -49,10 +57,14 @@ export class MenuFilter extends SearchkitComponent<MenuFilterProps, any> {
 	}
 
 	defineAccessor() {
-		const {field, id, size=50, title, orderKey, orderDirection} = this.props
+		const {
+			field, id, size=50, title,
+			include, exclude, orderKey, orderDirection
+		} = this.props
 		const operator = "OR"
 		return new FacetAccessor(field, {
-			id, operator, title, size, orderKey, orderDirection
+			id, operator, title, size, orderKey, orderDirection,
+			include, exclude
 		})
 	}
 
