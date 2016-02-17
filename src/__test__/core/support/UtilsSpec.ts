@@ -53,7 +53,7 @@ describe("Utils", ()=> {
     let options = [
       {key:"foo"},
       {a:"a"},
-      {a:"a", b:"b"}
+      {a:"a", b:"b"},
       {}
     ]
     let computedOptions = Utils.computeOptionKeys(
