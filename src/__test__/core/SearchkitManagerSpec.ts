@@ -15,11 +15,14 @@ describe("SearchkitManager", ()=> {
       httpHeaders:{
         "Content-Type":"application/json"
       },
-      basicAuth:"key:val"
+      basicAuth:"key:val",
+      searchUrlPath:"/search"
     })
     this.emitterSpy = jasmine.createSpy("emitter")
     this.searchkit.emitter.addListener(this.emitterSpy)
     this.accessors = this.searchkit.accessors
+    expect(this.searchkit.transport.options.searchUrlPath)
+      .toBe("/search")
 
   })
 

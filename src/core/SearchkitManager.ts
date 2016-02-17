@@ -21,7 +21,8 @@ export interface SearchkitOptions {
   useHistory?:boolean,
   httpHeaders?:Object,
   basicAuth?:string,
-  transport?:ESTransport
+  transport?:ESTransport,
+  searchUrlPath?:string
 }
 
 export class SearchkitManager {
@@ -62,7 +63,8 @@ export class SearchkitManager {
 
     this.transport = this.options.transport || new AxiosESTransport(host, {
       headers:this.options.httpHeaders,
-      basicAuth:this.options.basicAuth
+      basicAuth:this.options.basicAuth,
+      searchUrlPath:this.options.searchUrlPath
     })
     this.accessors = new AccessorManager()
 		this.registrationCompleted = new Promise((resolve)=>{
