@@ -52,7 +52,7 @@ class App extends SearchkitComponent {
 ```
 
 ## Props
-- `field` *(ESAttribute)*: Non-analysed elastic search field to create aggs for the menu
+- `field` *(ESAttribute)*: Non-analysed elastic search field to create aggs for the menu. The field can be a single value or an array of values. 
 - `title` *(string)*: Title of the menu. Shown as a header and within selected filters
 - `id` *(string)*: id of component. Must be unique. Used as key for url serialisation
 - `size` *(number)*: Amount of facets to bring back, this will influence the view more functionality.
