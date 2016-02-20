@@ -21,7 +21,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
   stateListenerUnsubscribe:Function
   translations:Object = {}
 
-  static contextTypes = {
+  static contextTypes: React.ValidationMap<any> = {
 		searchkit:React.PropTypes.instanceOf(SearchkitManager)
 	}
 
