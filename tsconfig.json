@@ -64,6 +64,7 @@
     "./src/__test__/core/accessors/FacetAccessorSpec.ts",
     "./src/__test__/core/accessors/HierarchicalFacetAccessorSpec.ts",
     "./src/__test__/core/accessors/HighlightAccessorSpec.ts",
+    "./src/__test__/core/accessors/HitsAccessorSpec.ts",
     "./src/__test__/core/accessors/NestedFacetAccessorSpec.ts",
     "./src/__test__/core/accessors/NoFiltersHitCountAccessorSpec.ts",
     "./src/__test__/core/accessors/NumericalOptionsAccessorSpec.ts",

@@ -19,9 +19,14 @@ export class HitsAccessor extends Accessor {
   scrollIfNeeded(){
     if(this.searchkit.hasHitsChanged()){
       if(this.options.scrollTo){
-        const scrollSelector:string = (this.options.scrollTo == true) ? "body" : this.options.scrollTo.toString()
-  			document.querySelector(scrollSelector).scrollTop = 0;
+  			document.querySelector(this.getScrollSelector()).scrollTop = 0;
       }
     }
+  }
+
+  getScrollSelector(){
+    return (this.options.scrollTo == true) ?
+      "body" :
+      this.options.scrollTo.toString();
   }
 }
