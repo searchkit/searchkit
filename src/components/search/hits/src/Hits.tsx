@@ -90,9 +90,9 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		}
 	}
 
-	renderResult(result:any) {
+	renderResult(result:any, index:number) {
 		return React.createElement(this.props.itemComponent, {
-			key:result._id, result, bemBlocks:this.bemBlocks
+			key:result._id, result, bemBlocks:this.bemBlocks, index
 		})
 	}
 
