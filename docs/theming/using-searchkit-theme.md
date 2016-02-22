@@ -4,6 +4,16 @@
 
 We provide an out of the box theme to get developers started quickly.
 
+## Getting Started
+
+To use Searchkit's theme, add the `theme.css` file onto your site. You can use either the CDN link or the `theme.css` file in searchkit's release folder. If using the CDN link, please change the version number which matches your Searchkit version.
+
+```html
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/searchkit/0.7.0/theme.css">
+
+```
+
 ## Layout Areas
 
 ```html
