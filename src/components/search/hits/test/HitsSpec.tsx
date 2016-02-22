@@ -170,6 +170,7 @@ describe("Hits component", () => {
       })
       expect(this.stub.callCount).toBe(1)
 
+
     })
 
     it("will scroll on new results", () => {
@@ -182,6 +183,9 @@ describe("Hits component", () => {
           total:2
         }
       })
+      expect(this.stub.callCount).toBe(2)
+      //should not scroll on rerender
+      this.searchkit.emitter.trigger()
       expect(this.stub.callCount).toBe(2)
 
     })

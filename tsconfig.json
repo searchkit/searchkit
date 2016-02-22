@@ -126,6 +126,7 @@
     "./src/core/accessors/FilterBasedAccessor.ts",
     "./src/core/accessors/HierarchicalFacetAccessor.ts",
     "./src/core/accessors/HighlightAccessor.ts",
+    "./src/core/accessors/HitsAccessor.ts",
     "./src/core/accessors/index.ts",
     "./src/core/accessors/NestedFacetAccessor.ts",
     "./src/core/accessors/NoFiltersHitCountAccessor.ts",
