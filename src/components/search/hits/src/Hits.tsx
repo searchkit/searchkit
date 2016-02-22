@@ -9,19 +9,19 @@ import {
 	ReactComponentType,
 	PureRender,
 	SourceFilterType,
-	SourceFilterAccessor
+	SourceFilterAccessor,
+	HitsAccessor
 } from "../../../../core"
 
 const map = require("lodash/map")
 const defaults = require("lodash/defaults")
 
 
-export interface HitItemProps {
-	key:string
-	bemBlocks?:any
-	result:Object
-	index:number
-}
+	export interface HitItemProps {
+		key:string,
+		bemBlocks?:any,
+		result:Object
+	}
 
 @PureRender
 export class HitItem extends React.Component<HitItemProps, any> {
@@ -43,6 +43,7 @@ export interface HitsProps extends SearchkitComponentProps{
 
 
 export class Hits extends SearchkitComponent<HitsProps, any> {
+	hitsAccessor:HitsAccessor
 
 	static propTypes = defaults({
 		hitsPerPage:React.PropTypes.number.isRequired,
@@ -73,13 +74,8 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 				new SourceFilterAccessor(this.props.sourceFilter)
 			)
 		}
-	}
-
-	componentDidUpdate() {
-		if(!!this.props.scrollTo && !this.isLoading() && this.hasHitsChanged()) {
-			const scrollSelector:string = (this.props.scrollTo == true) ? "body" : this.props.scrollTo.toString()
-			document.querySelector(scrollSelector).scrollTop = 0;
-		}
+		this.hitsAccessor = new HitsAccessor({ scrollTo:this.props.scrollTo })
+		this.searchkit.addAccessor(this.hitsAccessor)
 	}
 
 	defineAccessor(){
@@ -96,7 +92,7 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 
 	renderResult(result:any, index:number) {
 		return React.createElement(this.props.itemComponent, {
-			key:result._id, result, bemBlocks:this.bemBlocks, index:index
+			key:result._id, result, bemBlocks:this.bemBlocks, index
 		})
 	}
 
