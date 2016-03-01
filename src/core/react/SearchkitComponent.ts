@@ -20,6 +20,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
   accessor:Accessor
   stateListenerUnsubscribe:Function
   translations:Object = {}
+  unmounted = false
 
   static contextTypes: React.ValidationMap<any> = {
 		searchkit:React.PropTypes.instanceOf(SearchkitManager)
@@ -73,7 +74,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
         this.accessor = this.searchkit.addAccessor(this.accessor)
       }
       this.stateListenerUnsubscribe = this.searchkit.emitter.addListener(()=> {
-        this.forceUpdate()
+        !this.unmounted && this.forceUpdate()
       })
     } else {
       console.warn("No searchkit found in props or context for " + this.constructor["name"])
@@ -87,6 +88,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
     if(this.searchkit && this.accessor){
       this.searchkit.removeAccessor(this.accessor)
     }
+    this.unmounted = true
 	}
 
   getResults(){
