@@ -31,7 +31,8 @@
     "build:watch": "tsc -w",
     "prepublish": "rm -rf lib; rm -rf release; npm run-script build;",
     "test:e2e": "protractor test/e2e/conf/protractor.conf.js",
-    "test:serve": "open 'http://localhost:8000/test/e2e/movie-app/'; python -m SimpleHTTPServer"
+    "test:e2e-standalone": "protractor test/e2e/conf/protractor.standalone.conf.js",
+    "test:serve": "node test/e2e/server/start.js"
   },
   "authors": [
     {

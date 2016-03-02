@@ -1,6 +1,5 @@
 
 require("ts-node/register")
-var server = require("../server/server")
 
 exports.config = {
 
@@ -12,7 +11,7 @@ exports.config = {
   ],
 
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 30000,
+    defaultTimeoutInterval: 60000,
     isVerbose: false,
     showColors: true,
     includeStackTrace: true
@@ -20,7 +19,6 @@ exports.config = {
 
   onPrepare: function() {
     browser.ignoreSynchronization = true;
-    // server.start(8080)
   }
 
 };
