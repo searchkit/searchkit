@@ -1,0 +1,63 @@
+@import "../vars.scss";
+
+.sk-arrow-down {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-top: 4px solid\9;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+.sk-arrow-right {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  margin-right: 2px;
+  vertical-align: middle;
+  border-bottom: 4px solid transparent;
+  border-top: 4px solid transparent;
+  border-left: 4px solid;
+}
+
+.sk-layout__filters {
+  .sk-panel {
+    margin-bottom: 16px;
+  }
+}
+
+.sk-action-bar {
+  .sk-panel {
+    &__header {
+      display: none;
+    }
+  }
+}
+
+.sk-panel {
+  width: 100%;
+
+  &__header {
+    margin-bottom: 5px;
+    font-weight: $sk-bold-weight;
+    font-size: $sk-heading-font-size;
+
+    &.is-collapsable  {
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+
+  &__content {
+    &.is-collapsed  {
+      display:none;
+    }
+  }
+
+  &.is-disabled  {
+    display:none;
+  }
+}

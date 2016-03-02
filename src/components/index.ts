@@ -15,3 +15,4 @@ export * from "./search/filters/hierarchical-refinement-filter/src/HierarchicalR
 export * from "./search/filters/range-filter/src/RangeFilter";
 export * from "./search/filters/filter-item/src/FilterItem";
 export * from "./display";
+export * from "./ui";
