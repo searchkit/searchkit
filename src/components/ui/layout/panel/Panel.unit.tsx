@@ -1,6 +1,6 @@
 import * as React from "react";
 import {mount} from "enzyme";
-import {Panel} from "../../"
+import {Panel} from "./Panel"
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../__test__/TestHelpers"
 
 describe("Panel", ()=> {
