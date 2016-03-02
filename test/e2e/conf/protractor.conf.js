@@ -1,12 +1,11 @@
 
 require("ts-node/register")
-var server = require("./server.js").server
+var server = require("../server/server")
 
 exports.config = {
 
   seleniumAddress: 'http://localhost:4444/wd/hub',
   chromeDriver: '../../../selenium/chromedriver',
-  baseUrl: "http://localhost:3000/",
   framework: 'jasmine',
   specs: [
     '../specs/**/*Spec.ts'
@@ -21,7 +20,7 @@ exports.config = {
 
   onPrepare: function() {
     browser.ignoreSynchronization = true;
-    server()
+    // server.start(8080)
   }
 
 };

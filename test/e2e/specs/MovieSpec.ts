@@ -37,7 +37,7 @@ describe("example", () => {
 
   beforeEach(() => {
     searchPage = new SearchPage();
-    browser.get("http://localhost:8080/test/e2e/movie-app");
+    browser.get("http://localhost:4000/movie-app");
   })
 
   it("should show hits", () => {
@@ -58,6 +58,7 @@ describe("example", () => {
     var firstOption = searchPage.actorsFilter.options.get(0);
     expect(searchPage.actorsFilter.options.count()).toBe(10)
     expect(firstOption.label.getText()).toBe("Naveen Andrews")
+    browser.executeScript("window.scrollTo(0,0)")
     firstOption.click()
 
     expect(searchPage.searchbox.loader.isNotVisible()).toBe(true)
