@@ -1,12 +1,12 @@
 import * as React from "react";
 import {mount} from "enzyme";
-import {ViewSwitcherToggle} from "../src/ViewSwitcherToggle";
-import {ViewSwitcherHits} from "../src/ViewSwitcherHits";
+import {ViewSwitcherToggle} from "./ViewSwitcherToggle";
+import {ViewSwitcherHits} from "./ViewSwitcherHits";
 
-import {SearchkitManager} from "../../../../core";
+import {SearchkitManager} from "../../../core";
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
-} from "../../../__test__/TestHelpers"
+} from "../../__test__/TestHelpers"
 
 describe("View Switcher Hits component", () => {
 

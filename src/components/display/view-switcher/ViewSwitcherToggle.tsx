@@ -4,7 +4,7 @@ import {
 	SearchkitComponentProps,
 	ViewOptionsAccessor,
 	FastClick
-} from "../../../../core"
+} from "../../../core"
 import {Hits} from "../../../"
 
 const map = require("lodash/map")

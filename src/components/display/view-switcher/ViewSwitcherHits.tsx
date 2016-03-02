@@ -7,9 +7,9 @@ import {
 	SearchkitComponentProps,
 	ViewOptionsAccessor,
 	ReactComponentType
-} from "../../../../core"
+} from "../../../core"
 
-import {Hits, HitsProps, HitItemProps} from "../../../"
+import {Hits, HitsProps, HitItemProps} from "../../"
 
 export interface ViewSwitcherHitsProps extends HitsProps {
 	hitComponents:[{
