@@ -1,0 +1,21 @@
+@import "filter-item.scss";
+@import "../vars.scss";
+
+.sk-item-list {
+
+  &.is-disabled  {
+    display:none;
+  }
+
+  &__options {
+
+  }
+
+  &__items {
+
+  }
+
+  &-option {
+    @include filter-option;
+  }
+}
