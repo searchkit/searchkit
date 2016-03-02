@@ -207,7 +207,7 @@
     "./src/core/transport/index.ts",
     "./src/core/transport/MockESTransport.ts",
     "./src/index.ts",
-    "./test/e2e/specs/TestSpec.ts",
+    "./test/e2e/specs/MovieSpec.ts",
     "./typings/main.d.ts",
     "./theming/index.ts"
   ],
