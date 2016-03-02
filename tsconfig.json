@@ -19,7 +19,7 @@
     "./src/__test__/core/react/SearchkitComponentSpec.tsx",
     "./src/__test__/core/react/SearchkitProviderSpec.tsx",
     "./src/components/display/view-switcher/ViewSwitcherHits.tsx",
-    "./src/components/display/view-switcher/ViewSwitcherHitsSpec.tsx",
+    "./src/components/display/view-switcher/ViewSwitcherHits.unit.tsx",
     "./src/components/display/view-switcher/ViewSwitcherToggle.tsx",
     "./src/components/search/filters/filter-item/src/FilterItem.tsx",
     "./src/components/search/filters/filter-item/test/FilterItemSpec.tsx",
