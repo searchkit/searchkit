@@ -4,7 +4,7 @@ const {
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
   Panel, TagCloud, Toggle, Select, Tabs,
-  RangeSlider,
+  RangeSlider, RangeHistogram,
 } = require("../../../../../src")
 
 const host = "http://demo.searchkit.co/api/movies"
@@ -49,6 +49,7 @@ class App extends React.Component<any, any> {
               <MockList title="Select" listComponent={Select}/>
               <MockList title="Tabs" listComponent={Tabs}/>
               <MockRange title="RangeSlider" rangeComponent={RangeSlider}/>
+              <MockRange title="RangeHistogram" rangeComponent={RangeHistogram}/>
             </div>
 
             <div className="sk-layout__results sk-results-list">
