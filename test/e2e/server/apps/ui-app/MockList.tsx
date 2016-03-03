@@ -26,7 +26,7 @@ export class MockList extends React.Component<any, any>{
         }
       },
       setItems(items){
-        self.setState({items:items})
+        self.setState({ selectedItems: items })
       },
       translate(key){
         return key + " translated"
