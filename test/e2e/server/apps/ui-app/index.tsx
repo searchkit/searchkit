@@ -3,14 +3,14 @@ const {
   SearchBox, Hits, RefinementListFilter, Pagination,
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
-  Panel
+  Panel, TagCloud, Toggle
 } = require("../../../../../src")
 
 const host = "http://demo.searchkit.co/api/movies"
 import * as ReactDOM from "react-dom";
 import * as React from "react";
 const searchkit = new SearchkitManager(host)
-
+import {MockList} from "./MockList"
 const _ = require("lodash")
 
 require("../../../../../theming/theme.scss")
@@ -42,6 +42,8 @@ class App extends React.Component<any, any> {
               <Panel title='My Panel' collapsable={true}>
                 <p>panel contents</p>
               </Panel>
+              <MockList title="Tag Cloud" listComponent={TagCloud}/>
+              <MockList title="Toggle" listComponent={Toggle}/>
             </div>
 
             <div className="sk-layout__results sk-results-list">

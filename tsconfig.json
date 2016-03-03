@@ -138,6 +138,7 @@
     "./src/components/ui/index.ts",
     "./src/components/ui/layout/index.ts",
     "./src/components/ui/list/index.ts",
+    "./src/components/ui/list/ListProps.ts",
     "./src/core/AccessorManager.ts",
     "./src/core/accessors/Accessor.ts",
     "./src/core/accessors/AnonymousAccessor.ts",
