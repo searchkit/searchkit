@@ -11,12 +11,12 @@ export class MockRange extends React.Component<any, any> {
         { key: 4, doc_count: 11 },
         { key: 5, doc_count: 12 },
         { key: 6, doc_count: 0 },
-        { key: 7, doc_count: 13 },
+        { key: 7, doc_count: 13 }
       ],
       min: 0, max: 10,
       minValue: 2, maxValue: 5,
       onChange: jasmine.createSpy("onChange"),
-      onFinished: jasmine.createSpy("onFinished"),
+      onFinished: jasmine.createSpy("onFinished")
     }
   }
 
