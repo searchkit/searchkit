@@ -1,6 +1,5 @@
 import * as React from "react";
 import {mount} from "enzyme";
-const bemBlock = require('bem-cn')
 
 import { Toggle } from "./Toggle"
 import { MockList } from "./MockList"
@@ -33,6 +32,7 @@ describe("Toggle", ()=> {
       <MockList listComponent={Toggle} mod="sk-toggle-updated" className="my-custom-class"/>
     )
     expect(this.wrapper.find(".sk-toggle-updated").length).toBe(1)
+    expect(this.wrapper.find(".sk-toggle-updated").hasClass("my-custom-class")).toBe(true)
   })
 
   it("can be disabled", ()=> {

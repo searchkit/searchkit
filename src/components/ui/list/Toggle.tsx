@@ -32,12 +32,11 @@ export class Toggle extends React.Component<ToggleProps, any> {
 
   static defaultProps: any = {
     mod: "sk-toggle",
-    urlBuilder: () => undefined,
     itemComponent: ToggleItem
   }
 
   render() {
-    const { translate, mod, itemComponent, items, selectedItems = [], toggleItem, disabled, showCount } = this.props
+    const { translate, mod, itemComponent, items, selectedItems = [], toggleItem, disabled, showCount, className } = this.props
 
     const bemBlocks = {
       container: block(mod)
@@ -56,7 +55,7 @@ export class Toggle extends React.Component<ToggleProps, any> {
       })
     })
     return (
-      <div className={bemBlocks.container().state({ disabled }) }>
+      <div className={bemBlocks.container().mix(className).state({ disabled }) }>
         {actions}
       </div>
     )
