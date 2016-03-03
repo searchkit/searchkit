@@ -11,27 +11,11 @@ import {
   CheckboxItemComponent,
 } from "./ItemComponents"
 
+import {MockList} from "./MockList";
+
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../__test__/TestHelpers"
 
 describe("ItemList Components", ()=> {
-
-  beforeEach(()=> {
-    this.items = [
-      {key:"a", label:"A", doc_count:10},
-      {key:"b", label:"B", doc_count:11},
-      {key:"c", title:"C", doc_count:12},
-      {key:"d", doc_count:13},
-    ]
-
-    this.selectedItems = ["a", "c"]
-    this.toggleItem = jasmine.createSpy("toggleItem")
-    this.setItems = jasmine.createSpy("setItems")
-
-    this.translate = (key)=> {
-      return key + " translated"
-    }
-
-  })
 
   it("ItemList should render and behave correctly", ()=> {
     let props = {
@@ -40,7 +24,7 @@ describe("ItemList Components", ()=> {
       translate:this.translate
     }
     this.wrapper = mount(
-      <ItemList {...props}/>
+      <MockList listComponent={ItemList}/>
     )
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
@@ -59,7 +43,7 @@ describe("ItemList Components", ()=> {
         </div>
         <div className="sk-item-list-option sk-item-list__item" data-qa="option">
           <div data-qa="label" className="sk-item-list-option__text">d translated</div>
-          <div data-qa="count" className="sk-item-list-option__count">13</div>
+          <div data-qa="count" className="sk-item-list-option__count">15</div>
         </div>
       </div>
     ))
@@ -77,9 +61,9 @@ describe("ItemList Components", ()=> {
     this.wrapper.setProps({mod:"my-item-list"})
     expect(this.wrapper.find(".my-item-list").length).toBe(1)
 
-    expect(this.toggleItem).not.toHaveBeenCalled()
+    expect(this.wrapper.node.state.toggleItem).not.toHaveBeenCalled()
     fastClick(this.wrapper.find(".my-item-list-option").at(2))
-    expect(this.toggleItem).toHaveBeenCalledWith("c")
+    expect(this.wrapper.node.state.toggleItem).toHaveBeenCalledWith("c")
   })
 
   it("check default props are set correctly", ()=> {
@@ -95,7 +79,7 @@ describe("ItemList Components", ()=> {
       mod: "sk-item-list-updated", className: "my-custom-class"
     }
     this.wrapper = mount(
-      <ItemList {...props}/>
+      <MockList listComponent={ItemList}   mod="sk-item-list-updated" className="my-custom-class"/>
     )
 
     expect(this.wrapper.find(".sk-item-list-updated").hasClass("my-custom-class")).toBe(true)
