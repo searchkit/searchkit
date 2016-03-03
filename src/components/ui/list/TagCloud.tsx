@@ -55,7 +55,6 @@ export class TagCloud extends React.Component<TagCloudProps, any> {
 
   static defaultProps: any = {
     mod: "sk-tag-cloud",
-    urlBuilder: () => undefined,
     itemComponent: TagCloudItem,
     showCount: false,
     minFontSize: 10, // Switch to em and use css on parent ?
@@ -81,7 +80,7 @@ export class TagCloud extends React.Component<TagCloudProps, any> {
   }
 
   renderItem(item, bemBlocks, min, max) {
-    const { itemComponent, minFontSize, maxFontSize, showCount, selectedItems = [], toggleItem, urlBuilder, disabled, translate } = this.props
+    const { itemComponent, minFontSize, maxFontSize, showCount, selectedItems = [], toggleItem, disabled, translate } = this.props
 
     var label = item.title || item.label || item.key
     if (showCount && (item.doc_count !== undefined)) label += ` (${item.doc_count})`
@@ -93,7 +92,6 @@ export class TagCloud extends React.Component<TagCloudProps, any> {
       bemBlocks: bemBlocks,
       key: item.key,
       disabled: disabled || item.disabled,
-      url: urlBuilder && urlBuilder(item),
       active: includes(selectedItems, item.key),
       fontSize
     })

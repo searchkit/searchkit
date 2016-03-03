@@ -16,7 +16,6 @@ export interface ItemListProps extends ListProps {
 export class AbstractItemList extends React.Component<ItemListProps, {}> {
   static defaultProps: any = {
     mod: "sk-item-list",
-    urlBuilder: () => undefined,
     showCount: true,
     itemComponent: CheckboxItemComponent,
     translate: str => str
@@ -25,7 +24,7 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
   render() {
     const {
       mod, itemComponent, items, selectedItems = [], translate,
-      toggleItem, disabled, urlBuilder, showCount, className
+      toggleItem, disabled, showCount, className
     } = this.props
 
     const bemBlocks = {
@@ -40,7 +39,6 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
         toggleItem: () => toggleItem(option.key),
         bemBlocks: bemBlocks,
         key: option.key,
-        url: urlBuilder && urlBuilder(option),
         count: option.doc_count,
         showCount,
         active: includes(selectedItems, option.key)

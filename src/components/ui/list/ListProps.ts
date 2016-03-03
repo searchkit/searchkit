@@ -9,7 +9,6 @@ export interface ListProps {
   className?: string
   showCount?: boolean
   translate?: (string) => string
-  urlBuilder?: (any) => string
 }
 
 export interface ItemProps {
