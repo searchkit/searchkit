@@ -8,7 +8,7 @@
     "history": "github:joemcelroy/DefinitelyTyped/react-router/history.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
     "jasmine": "github:joemcelroy/DefinitelyTyped/jasmine/jasmine.d.ts#0d64ea1b82ad1d804892ceec14d98a9be85f64fb",
     "jasmine-ajax": "github:joemcelroy/DefinitelyTyped/jasmine-ajax/jasmine-ajax.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
-    "react": "github:joemcelroy/DefinitelyTyped/react/react.d.ts#d1f6bde13f2209be42e86c3686761e8bfcbb50a5",
+    "react": "github:DefinitelyTyped/DefinitelyTyped/react/react.d.ts#945ebfe049964e429c2530971b9081f3c0f611df",
     "react-addons-create-fragment": "github:joemcelroy/DefinitelyTyped/react/react-addons-create-fragment.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
     "react-addons-css-transition-group": "github:joemcelroy/DefinitelyTyped/react/react-addons-css-transition-group.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
     "react-addons-linked-state-mixin": "github:joemcelroy/DefinitelyTyped/react/react-addons-linked-state-mixin.d.ts#8cd79728efa7652d934b2703feeb68bb4802aebb",
