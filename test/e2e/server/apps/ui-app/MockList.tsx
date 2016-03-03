@@ -37,8 +37,8 @@ export class MockList extends React.Component<any, any>{
   render(){
     return (
       <Panel title={this.props.title}>
-        {React.createElement(this.props.listComponent, this.state)}
-      </Panel>
+        {React.createElement(this.props.listComponent, _.assign({},  this.state, this.props))}
+        </Panel>
     )
   }
 
