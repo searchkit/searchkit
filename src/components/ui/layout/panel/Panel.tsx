@@ -1,15 +1,5 @@
-/*
-  CHANGELOG
-
-  add FacetContainer
-  add collapsable
-  renamed to Panel
-
- */
-
 import * as React from "react";
 const bemBlock = require('bem-cn')
-// require('./Panel.scss')
 
 export interface PanelProps extends React.Props<Panel> {
   key?: any
