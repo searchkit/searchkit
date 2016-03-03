@@ -48,6 +48,10 @@ describe("Select", ()=> {
       </div>
     ))
 
+    const optionC = this.wrapper.find("select").children().at(2)
+    optionC.simulate("change")
+    expect(this.setItems).toHaveBeenCalledWith(["c"])
+
     this.wrapper.setProps({disabled:true})
     expect(this.wrapper.find(".sk-select").hasClass("is-disabled")).toBe(true)
   })
