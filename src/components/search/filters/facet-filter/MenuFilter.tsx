@@ -24,10 +24,10 @@ export class MenuFilter2 extends FacetFilter<FacetFilterProps> {
   }
 
   toggleFilter(option) {
-    if (option === MenuFilter2.AllItem.key){
+    if (option === MenuFilter2.AllItem.key || this.accessor.state.contains(option)){
       this.accessor.state = this.accessor.state.clear()
     } else {
-      this.accessor.state = this.accessor.state.toggle(option);
+      this.accessor.state = this.accessor.state.setValue([option]);
     }
     this.searchkit.performSearch()
   }
