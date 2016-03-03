@@ -1,9 +1,9 @@
 import * as React from "react";
 
 import {
-FastClick,
-ReactComponentType,
-PureRender
+  FastClick,
+  ReactComponentType,
+  PureRender
 } from "../../../"
 
 import { ListProps, ItemProps } from './ListProps'
@@ -82,12 +82,12 @@ export class TagCloud extends React.Component<TagCloudProps, any> {
   renderItem(item, bemBlocks, min, max) {
     const { itemComponent, minFontSize, maxFontSize, showCount, selectedItems = [], toggleItem, disabled, translate } = this.props
 
-    var label = item.title || item.label || item.key
+    var label =  translate(item.title || item.label || item.key)
     if (showCount && (item.doc_count !== undefined)) label += ` (${item.doc_count})`
     const sizeRatio = (min === max) ? 0.5 : ((item.doc_count - min) / (max - min))
     const fontSize = minFontSize + sizeRatio * (maxFontSize - minFontSize) // TODO : make ratio function customizable (square, log, etc.)
     return React.createElement(itemComponent, {
-      label: translate(label),
+      label,
       toggleItem: () => toggleItem(item.key),
       bemBlocks: bemBlocks,
       key: item.key,

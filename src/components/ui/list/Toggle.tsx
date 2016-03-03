@@ -44,10 +44,10 @@ export class Toggle extends React.Component<ToggleProps, any> {
     }
 
     const actions = map(items, (option) => {
-      var label = option.title || option.label || option.key
+      var label = translate(option.title || option.label || option.key)
       if (showCount && (option.doc_count !== undefined)) label += ` (${option.doc_count})`
       return React.createElement(itemComponent, {
-        label:translate(label),
+        label:label,
         toggleItem: () => toggleItem(option.key),
         bemBlocks: bemBlocks,
         key: option.key,
