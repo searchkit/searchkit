@@ -9,10 +9,6 @@ const filter = require("lodash/filter")
 const transform = require("lodash/transform")
 const find = require("lodash/find")
 
-function filterSelectItems(items){
-  return filter(items, ({ hideInSelect = false }) => !hideInSelect)
-}
-
 export class Select extends React.Component<ListProps, any> {
 
   static defaultProps: any = {
@@ -47,7 +43,7 @@ export class Select extends React.Component<ListProps, any> {
     return (
       <div className={bemBlocks.container().mix(className).state({ disabled }) }>
         <select onChange={this.onChange} value={this.getSelectedValue() }>
-          {map(filterSelectItems(items), ({key, label, title, disabled, doc_count}, idx) => {
+          {map(items, ({key, label, title, disabled, doc_count}, idx) => {
             var text = translate(label || title || key)
             if (showCount && doc_count !== undefined) text += ` (${doc_count})`
             return <option key={key} value={key} disabled={disabled}>{text}</option>

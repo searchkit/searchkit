@@ -3,7 +3,8 @@ const {
   SearchBox, Hits, RefinementListFilter, Pagination,
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
-  Panel, TagCloud, Toggle, Select, Tabs,
+  Panel, TagCloud, Toggle, Select, Tabs, ItemList, CheckboxItemList, CheckboxFilter,
+  RefinementListFilter2, MenuFilter2,
   RangeSlider, RangeHistogram,
 } = require("../../../../../src")
 
@@ -44,10 +45,21 @@ class App extends React.Component<any, any> {
               <Panel title='My Panel' collapsable={true}>
                 <p>panel contents</p>
               </Panel>
+
               <MockList title="Tag Cloud" listComponent={TagCloud}/>
               <MockList title="Toggle" listComponent={Toggle}/>
               <MockList title="Select" listComponent={Select}/>
               <MockList title="Tabs" listComponent={Tabs}/>
+              <MockList title="Item List" listComponent={ItemList}/>
+              <MockList title="Checkbox List" listComponent={CheckboxItemList}/>
+              <CheckboxFilter id="rating" title="Rating" field="rated.raw" value="R" label="Rated 'R'"/>
+              <RefinementListFilter2
+                translations={{ "facets.view_more": "View more writers" }}
+                id="writers" title="Writers" field="writers.raw" size={10}
+                listComponent={CheckboxItemList}
+                />
+              <MenuFilter2 field="type.raw" title="Movie Type" id="movie_type" showCount={true} listComponent={Tabs}/>
+
               <MockRange title="RangeSlider" rangeComponent={RangeSlider}/>
               <MockRange title="RangeHistogram" rangeComponent={RangeHistogram}/>
             </div>

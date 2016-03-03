@@ -22,7 +22,7 @@ export class MockRange extends React.Component<any, any> {
       min: 0, max: 10,
       minValue: 2, maxValue: 5,
       onChange: jasmine.createSpy("onChange"),
-      onFinished: jasmine.createSpy("onFinished"),
+      onFinished: jasmine.createSpy("onFinished")
     }
   }
 

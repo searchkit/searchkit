@@ -3,8 +3,6 @@ const {
   Panel
 } = require("../../../../../src")
 
-const _ = require("lodash")
-
 export class MockRange extends React.Component<any, any>{
 
   constructor(props) {
@@ -44,7 +42,7 @@ export class MockRange extends React.Component<any, any>{
     return (
       <Panel title={this.props.title}>
         {React.createElement(this.props.rangeComponent, this.state) }
-        </Panel>
+      </Panel>
     )
   }
 

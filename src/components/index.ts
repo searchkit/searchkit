@@ -14,5 +14,6 @@ export * from "./search/sorting-selector/src/SortingSelector";
 export * from "./search/filters/hierarchical-refinement-filter/src/HierarchicalRefinementFilter";
 export * from "./search/filters/range-filter/src/RangeFilter";
 export * from "./search/filters/filter-item/src/FilterItem";
+export * from "./search/filters/facet-filter";
 export * from "./display";
 export * from "./ui";
