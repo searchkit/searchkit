@@ -16,10 +16,10 @@ describe("TagCloud", ()=> {
     )
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-tag-cloud">
-        <span className="sk-tag-cloud__item is-active" data-qa="option" style={{ fontSize: 10 }}>A translated</span>
-        <span className="sk-tag-cloud__item is-disabled" data-qa="option" style={{ fontSize: 11 }}>B translated</span>
-        <span className="sk-tag-cloud__item is-active" data-qa="option" style={{ fontSize: 12 }}>C translated</span>
-        <span className="sk-tag-cloud__item" data-qa="option" style={{ fontSize: 15 }}>d translated</span>
+        <span className="sk-tag-cloud__item is-active" data-qa="option" style={{ fontSize: 10 }}><span>A translated</span></span>
+        <span className="sk-tag-cloud__item is-disabled" data-qa="option" style={{ fontSize: 11 }}><span>B translated</span></span>
+        <span className="sk-tag-cloud__item is-active" data-qa="option" style={{ fontSize: 12 }}><span>C translated</span></span>
+        <span className="sk-tag-cloud__item" data-qa="option" style={{ fontSize: 15 }}><span>d translated</span></span>
       </div>
     ))
 
@@ -45,10 +45,10 @@ describe("TagCloud", ()=> {
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-tag-cloud">
-        <span className="sk-tag-cloud__item is-active" data-qa="option" style={{ fontSize: 10 }}>a translated</span>
-        <span className="sk-tag-cloud__item" data-qa="option" style={{ fontSize: 11 }}>B translated</span>
-        <span className="sk-tag-cloud__item is-active" data-qa="option" style={{ fontSize: 12 }}>C translated</span>
-        <span className="sk-tag-cloud__item" data-qa="option" style={{ fontSize: 15 }}>d translated</span>
+        <span className="sk-tag-cloud__item is-active" data-qa="option" style={{ fontSize: 10 }}><span>a translated</span></span>
+        <span className="sk-tag-cloud__item" data-qa="option" style={{ fontSize: 11 }}><span>B translated</span></span>
+        <span className="sk-tag-cloud__item is-active" data-qa="option" style={{ fontSize: 12 }}><span>C translated</span></span>
+        <span className="sk-tag-cloud__item" data-qa="option" style={{ fontSize: 15 }}><span>d translated</span></span>
       </div>
     ))
   })
@@ -67,7 +67,7 @@ describe("TagCloud", ()=> {
     )
 
     expect(this.wrapper.find(".sk-tag-cloud__item").at(0).text())
-      .toBe("A translated (10)")
+      .toBe("A translated10") // Count is appended in a span and styled with CSS
   })
 
 })

@@ -31,15 +31,17 @@ export interface TagCloudItemProps extends ItemProps {
 
 export class TagCloudItem extends React.Component<TagCloudItemProps, {}> {
   render() {
-    const {onClick, bemBlocks, active, disabled, label, url, fontSize} = this.props
+    const {onClick, bemBlocks, active, disabled, label, url, fontSize, showCount, count} = this.props
 
     const className = bemBlocks.container("item").state({ active, disabled })
     var component;
     const style = { fontSize }
+
+    const countEl = (showCount && (count !== undefined)) ? <span data-qa="count" className={bemBlocks.container("item__count")}>{ count }</span > : undefined
     if (url) {
-      component = <a href={url} className={className} data-qa="option" style={style}>{label}</a>
+      component = <a href={url} className={className} data-qa="option" style={style}>{label}{countEl}</a>
     } else {
-      component = <span className={className} data-qa="option" style={style}>{label}</span>
+      component = <span className={className} data-qa="option" style={style}>{label}{countEl}</span>
     }
     return <FastClick handler={onClick}>{component}</FastClick>
   }
@@ -82,18 +84,18 @@ export class TagCloud extends React.Component<TagCloudProps, any> {
   renderItem(item, bemBlocks, min, max) {
     const { itemComponent, minFontSize, maxFontSize, showCount, selectedItems = [], toggleItem, disabled, translate } = this.props
 
-    var label =  translate(item.title || item.label || item.key)
-    if (showCount && (item.doc_count !== undefined)) label += ` (${item.doc_count})`
     const sizeRatio = (min === max) ? 0.5 : ((item.doc_count - min) / (max - min))
     const fontSize = minFontSize + sizeRatio * (maxFontSize - minFontSize) // TODO : make ratio function customizable (square, log, etc.)
     return React.createElement(itemComponent, {
-      label,
+      label: translate(item.title || item.label || item.key),
       onClick: () => toggleItem(item.key),
       bemBlocks: bemBlocks,
       key: item.key,
       disabled: disabled || item.disabled,
       active: includes(selectedItems, item.key),
-      fontSize
+      fontSize,
+      showCount,
+      count: item.doc_count
     })
   }
 }

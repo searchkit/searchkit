@@ -18,7 +18,7 @@
     padding:4px 0px;
     border-right:none;
     text-decoration: none;
-    @include user-select(none);
+    //@include user-select(none);
 
     &:before {
       content: ' ';
@@ -28,6 +28,15 @@
     &:after {
       content: ' ';
       display: inline;
+    }
+
+    &__count {
+      &:before {
+        content: ' (';
+      }
+      &:after {
+        content: ')';
+      }
     }
 
     &.is-active {

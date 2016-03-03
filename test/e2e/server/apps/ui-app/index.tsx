@@ -46,7 +46,7 @@ class App extends React.Component<any, any> {
                 <p>panel contents</p>
               </Panel>
 
-              <MockList title="Tag Cloud" listComponent={TagCloud}/>
+              <MockList title="Tag Cloud" listComponent={TagCloud} showCount={true}/>
               <MockList title="Toggle" listComponent={Toggle}/>
               <MockList title="Select" listComponent={Select}/>
               <MockList title="Tabs" listComponent={Tabs}/>
