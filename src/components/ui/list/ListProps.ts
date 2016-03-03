@@ -13,7 +13,7 @@ export interface ListProps {
 
 export interface ItemProps {
     bemBlocks: { container: any, option: any }
-    toggleItem: Function
+    onClick: Function
     active: boolean
     label: string
     count: number

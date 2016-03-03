@@ -36,7 +36,7 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
       const label = option.title || option.label || option.key
       return React.createElement(itemComponent, {
         label: translate(label),
-        toggleItem: () => toggleItem(option.key),
+        onClick: () => toggleItem(option.key),
         bemBlocks: bemBlocks,
         key: option.key,
         count: option.doc_count,

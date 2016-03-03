@@ -13,12 +13,12 @@ const find = require("lodash/find")
 const includes = require("lodash/includes")
 
 
-const ToggleItem = ({toggleItem, bemBlocks, active, disabled, label, url}) => {
+const ToggleItem = ({onClick, bemBlocks, active, disabled, label, url}) => {
 
   const className = bemBlocks.container("action").state({ active, disabled })
 
   return (
-    <FastClick handler={toggleItem}>
+    <FastClick handler={onClick}>
       <div className={className}>{label}</div>
     </FastClick>
   )
@@ -47,7 +47,7 @@ export class Toggle extends React.Component<ToggleProps, any> {
       if (showCount && (option.doc_count !== undefined)) label += ` (${option.doc_count})`
       return React.createElement(itemComponent, {
         label:label,
-        toggleItem: () => toggleItem(option.key),
+        onClick: () => toggleItem(option.key),
         bemBlocks: bemBlocks,
         key: option.key,
         disabled: disabled || option.disabled,

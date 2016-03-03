@@ -14,17 +14,17 @@ describe("ItemComponents", ()=> {
       container:bemBlock("sk-item-container"),
       option:bemBlock("sk-item-option")
     }
-    this.toggleItem = jasmine.createSpy("toggleItem")
+    this.onClick = jasmine.createSpy("toggleItem")
 
     this.props = {
       label:"Images", count:10,
-      toggleItem:this.toggleItem,
+      onClick: this.onClick,
       bemBlocks:this.bemBlocks, showCount:true
     }
 
   })
 
-  it("ItemComponent render and behave correctly", ()=> {
+  it("should render and behave correctly", ()=> {
 
     this.wrapper = mount(
       <ItemComponent {...this.props}/>
@@ -50,9 +50,9 @@ describe("ItemComponents", ()=> {
 
     expect(this.wrapper.find(".sk-item-option").hasClass("is-active")).toBe(true)
 
-    expect(this.toggleItem).not.toHaveBeenCalled()
+    expect(this.onClick).not.toHaveBeenCalled()
     fastClick(this.wrapper.find(".sk-item-option"))
-    expect(this.toggleItem).toHaveBeenCalled()
+    expect(this.onClick).toHaveBeenCalled()
 
   })
 

@@ -16,14 +16,14 @@ describe("Tabs", ()=> {
       <ul className="sk-tabs">
         <li className="sk-tabs__tab is-active">A translated (10)</li>
         <li className="sk-tabs__tab is-disabled">B translated (11)</li>
-        <li className="sk-tabs__tab is-active">C translated (12)</li>
+        <li className="sk-tabs__tab">C translated (12)</li>
         <li className="sk-tabs__tab">d translated (15)</li>
       </ul>
     ))
 
-    expect(this.wrapper.node.state.toggleItem).not.toHaveBeenCalled()
+    expect(this.wrapper.node.state.setItems).not.toHaveBeenCalled()
     fastClick(this.wrapper.find(".sk-tabs__tab").at(2))
-    expect(this.wrapper.node.state.toggleItem).toHaveBeenCalledWith("c")
+    expect(this.wrapper.node.state.setItems).toHaveBeenCalledWith(["c"])
   })
 
   it("mod can be updated", () => {
@@ -49,7 +49,7 @@ describe("Tabs", ()=> {
       <ul className="sk-tabs">
         <li className="sk-tabs__tab is-active">A translated</li>
         <li className="sk-tabs__tab is-disabled">B translated</li>
-        <li className="sk-tabs__tab is-active">C translated</li>
+        <li className="sk-tabs__tab">C translated</li>
         <li className="sk-tabs__tab">d translated</li>
       </ul>
     ))

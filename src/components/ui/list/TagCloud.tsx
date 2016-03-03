@@ -31,7 +31,7 @@ export interface TagCloudItemProps extends ItemProps {
 
 export class TagCloudItem extends React.Component<TagCloudItemProps, {}> {
   render() {
-    const {toggleItem, bemBlocks, active, disabled, label, url, fontSize} = this.props
+    const {onClick, bemBlocks, active, disabled, label, url, fontSize} = this.props
 
     const className = bemBlocks.container("item").state({ active, disabled })
     var component;
@@ -41,7 +41,7 @@ export class TagCloudItem extends React.Component<TagCloudItemProps, {}> {
     } else {
       component = <span className={className} data-qa="option" style={style}>{label}</span>
     }
-    return <FastClick handler={toggleItem}>{component}</FastClick>
+    return <FastClick handler={onClick}>{component}</FastClick>
   }
 }
 
@@ -88,7 +88,7 @@ export class TagCloud extends React.Component<TagCloudProps, any> {
     const fontSize = minFontSize + sizeRatio * (maxFontSize - minFontSize) // TODO : make ratio function customizable (square, log, etc.)
     return React.createElement(itemComponent, {
       label,
-      toggleItem: () => toggleItem(item.key),
+      onClick: () => toggleItem(item.key),
       bemBlocks: bemBlocks,
       key: item.key,
       disabled: disabled || item.disabled,

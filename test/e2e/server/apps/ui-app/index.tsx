@@ -3,7 +3,7 @@ const {
   SearchBox, Hits, RefinementListFilter, Pagination,
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
-  Panel, TagCloud, Toggle, Select,
+  Panel, TagCloud, Toggle, Select, Tabs,
 } = require("../../../../../src")
 
 const host = "http://demo.searchkit.co/api/movies"
@@ -45,6 +45,7 @@ class App extends React.Component<any, any> {
               <MockList title="Tag Cloud" listComponent={TagCloud}/>
               <MockList title="Toggle" listComponent={Toggle}/>
               <MockList title="Select" listComponent={Select}/>
+              <MockList title="Tabs" listComponent={Tabs}/>
             </div>
 
             <div className="sk-layout__results sk-results-list">

@@ -18,7 +18,7 @@ export interface TabItemProps extends ItemProps {
 
 export class Tab extends React.Component<TabItemProps, {}> {
   render() {
-    const {toggleItem, bemBlocks, active, disabled, label, url} = this.props
+    const {onClick, bemBlocks, active, disabled, label, url} = this.props
 
     const className = bemBlocks.container("tab").state({ active, disabled })
     var component;
@@ -27,7 +27,7 @@ export class Tab extends React.Component<TabItemProps, {}> {
     } else {
       component = <li className={className}>{label}</li>
     }
-    return <FastClick handler={toggleItem}>{component}</FastClick>
+    return <FastClick handler={onClick}>{component}</FastClick>
   }
 }
 
@@ -42,23 +42,31 @@ export class Tabs extends React.Component<TabsProps, any> {
     itemComponent: Tab
   }
 
+  getSelectedValue() {
+    const { selectedItems = []} = this.props
+    if (selectedItems.length == 0) return null
+    return selectedItems[0]
+  }
+
   render() {
-    const { mod, itemComponent, items, selectedItems = [], toggleItem, disabled, showCount, translate, className } = this.props
+    const { mod, itemComponent, items, selectedItems = [], setItems, disabled, showCount, translate, className } = this.props
 
     const bemBlocks = {
       container: block(mod)
     }
+
+    const selectedKey = this.getSelectedValue()
 
     const options = map(items, (option) => {
       var label = translate(option.title || option.label || option.key)
       if (showCount && (option.doc_count !== undefined)) label += ` (${option.doc_count})`
       return React.createElement(itemComponent, {
         label,
-        toggleItem: () => toggleItem(option.key),
+        onClick: () => setItems([option.key]),
         bemBlocks: bemBlocks,
         key: option.key,
         disabled: disabled || option.disabled,
-        active: includes(selectedItems, option.key)
+        active: option.key === selectedKey
       })
     })
     return (
