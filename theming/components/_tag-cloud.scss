@@ -1,0 +1,45 @@
+@import "vars.scss";
+
+
+.sk-tag-cloud {
+  text-align: justify;
+  word-wrap: break-word;
+  line-height: 16px;
+
+  &.is-disabled {
+    display:none;
+  }
+
+  &__item {
+    display: inline;
+    cursor:pointer;
+    font-weight: $sk-medium-weight;
+    color: $sk-action-text-color;
+    padding:4px 0px;
+    border-right:none;
+    text-decoration: none;
+
+    &:before {
+      content: ' ';
+      display: inline;
+    }
+
+    &:after {
+      content: ' ';
+      display: inline;
+    }
+
+    &.is-active {
+      color:$sk-list-text-color;
+    }
+
+    &:hover {
+      color:$sk-list-text-color;
+    }
+
+    &.is-disabled {
+      cursor: initial;
+      color: #ddd;
+    }
+  }
+}
