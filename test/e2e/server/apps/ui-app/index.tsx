@@ -4,6 +4,7 @@ const {
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
   Panel, TagCloud, Toggle, Select, Tabs,
+  RangeSlider,
 } = require("../../../../../src")
 
 const host = "http://demo.searchkit.co/api/movies"
@@ -11,6 +12,7 @@ import * as ReactDOM from "react-dom";
 import * as React from "react";
 const searchkit = new SearchkitManager(host)
 import {MockList} from "./MockList"
+import {MockRange} from "./MockRange"
 const _ = require("lodash")
 
 require("../../../../../theming/theme.scss")
@@ -46,6 +48,7 @@ class App extends React.Component<any, any> {
               <MockList title="Toggle" listComponent={Toggle}/>
               <MockList title="Select" listComponent={Select}/>
               <MockList title="Tabs" listComponent={Tabs}/>
+              <MockRange title="RangeSlider" rangeComponent={RangeSlider}/>
             </div>
 
             <div className="sk-layout__results sk-results-list">

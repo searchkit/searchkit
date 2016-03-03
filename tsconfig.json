@@ -231,6 +231,7 @@
     "./src/**/*.tsx",
     "./src/**/*.ts",
     "./test/e2e/**/*.ts",
+    "./test/e2e/**/*.tsx",
     "./typings/main.d.ts",
     "./theming/*.ts"
   ],

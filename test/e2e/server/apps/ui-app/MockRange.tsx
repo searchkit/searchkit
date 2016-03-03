@@ -5,7 +5,7 @@ const {
 
 const _ = require("lodash")
 
-export class MockList extends React.Component<any, any>{
+export class MockRange extends React.Component<any, any>{
 
   constructor(props) {
     super(props)
@@ -19,17 +19,17 @@ export class MockList extends React.Component<any, any>{
         { key: 7, doc_count: 13 },
       ],
       min: 0, max: 10,
-      minValue: 2, maxValue: 5
-      onChange({min, max}){
+      minValue: 2, maxValue: 5,
+      onChange([minValue, maxValue]) {
         self.setState({
-          minValue: min, maxValue: max
+          minValue, maxValue
         })
       },
-      onFinished({min, max}) {
+      onFinished([minValue, maxValue]) {
         self.setState({
-          minValue: min, maxValue: max
+          minValue, maxValue
         })
-        console.log("Set range to ", min, ", ", max)
+        console.log("Set range to ", minValue, ", ", maxValue)
       }
     }
   }
@@ -37,7 +37,7 @@ export class MockList extends React.Component<any, any>{
   render() {
     return (
       <Panel title={this.props.title}>
-        {React.createElement(this.props.listComponent, this.state) }
+        {React.createElement(this.props.rangeComponent, this.state) }
         </Panel>
     )
   }
