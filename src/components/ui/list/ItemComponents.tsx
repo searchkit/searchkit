@@ -6,13 +6,9 @@ import {
   PureRender
 } from "../../../"
 
-export interface ItemComponentProps {
-  bemBlocks: { container: any, option: any }
-  toggleItem: Function
-  active: boolean
-  label: string
-  count: number
-  showCount: boolean
+import { ItemProps } from './ListProps'
+
+export interface ItemComponentProps extends ItemProps {
   showCheckbox: boolean
 }
 

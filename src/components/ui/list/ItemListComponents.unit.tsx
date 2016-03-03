@@ -25,8 +25,7 @@ describe("ItemList Components", ()=> {
 
     this.selectedItems = ["a", "c"]
     this.toggleItem = jasmine.createSpy("toggleItem")
-    this.urlBuilder = jasmine.createSpy("urlBuilder")
-      .and.callFake((key)=> key)
+    this.setItems = jasmine.createSpy("setItems")
 
     this.translate = (key)=> {
       return key + " translated"
@@ -37,7 +36,7 @@ describe("ItemList Components", ()=> {
   it("ItemList should render and behave correctly", ()=> {
     let props = {
       items:this.items, selectedItems: this.selectedItems,
-      toggleItem:this.toggleItem, urlBuilder:this.urlBuilder,
+      toggleItem: this.toggleItem, setItems: this.setItems,
       translate:this.translate
     }
     this.wrapper = mount(
@@ -65,8 +64,6 @@ describe("ItemList Components", ()=> {
       </div>
     ))
 
-    expect(this.urlBuilder.calls.count()).toBe(4)
-
     this.wrapper.setProps({disabled:true})
     expect(this.wrapper.find(".sk-item-list").hasClass("is-disabled")).toBe(true)
     expect(this.wrapper.find(".sk-item-list-option__count").length).toBe(4)
@@ -88,6 +85,20 @@ describe("ItemList Components", ()=> {
   it("check default props are set correctly", ()=> {
     expect(CheckboxItemList.defaultProps.itemComponent).toBe(CheckboxItemComponent)
     expect(ItemList.defaultProps.itemComponent).toBe(ItemComponent)
+  })
+
+  it("mod + classname can be updated", () => {
+    let props = {
+      items: this.items, selectedItems: this.selectedItems,
+      toggleItem: this.toggleItem, setItems: this.setItems,
+      translate: this.translate,
+      mod: "sk-item-list-updated", className: "my-custom-class"
+    }
+    this.wrapper = mount(
+      <ItemList {...props}/>
+    )
+
+    expect(this.wrapper.find(".sk-item-list-updated").hasClass("my-custom-class")).toBe(true)
   })
 
 })
