@@ -82,13 +82,13 @@ describe("TagCloud", ()=> {
       items: this.items, selectedItems: this.selectedItems,
       toggleItem: this.toggleItem, setItems: this.setItems,
       translate: this.translate,
-      mod: "sk-item-list-updated", className: "my-custom-class"
+      mod: "sk-other-class", className: "my-custom-class"
     }
     this.wrapper = mount(
       <TagCloud {...props}/>
     )
 
-    expect(this.wrapper.find(".sk-item-list-updated").hasClass("my-custom-class")).toBe(true)
+    expect(this.wrapper.find(".sk-other-class").hasClass("my-custom-class")).toBe(true)
   })
 
 })

@@ -62,6 +62,7 @@
     "./src/components/ui/list/ItemListComponents.tsx",
     "./src/components/ui/list/ItemListComponents.unit.tsx",
     "./src/components/ui/list/Select.tsx",
+    "./src/components/ui/list/Select.unit.tsx",
     "./src/components/ui/list/Tabs.tsx",
     "./src/components/ui/list/TagCloud.tsx",
     "./src/components/ui/list/TagCloud.unit.tsx",
