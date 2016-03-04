@@ -20,7 +20,7 @@ export class MenuFilter2 extends FacetFilter<FacetFilterProps> {
   }, FacetFilter.defaultProps)
 
   static AllItem = {
-    key:"All"
+    key:"$all", label: "All"
   }
 
   toggleFilter(option) {
@@ -33,6 +33,7 @@ export class MenuFilter2 extends FacetFilter<FacetFilterProps> {
   }
 
   setFilters(options){
+    // TODO : compare to previous options to see which one was toggled (if previous was [All] and new is [All, key2], the result should be [key2])
     this.toggleFilter(options[0])
   }
 
@@ -41,7 +42,7 @@ export class MenuFilter2 extends FacetFilter<FacetFilterProps> {
   }
 
   getItems(){
-    return concat(this.accessor.getBuckets(), MenuFilter2.AllItem)
+    return concat([MenuFilter2.AllItem], this.accessor.getBuckets())
   }
 
 
