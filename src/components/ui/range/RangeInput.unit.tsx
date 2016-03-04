@@ -15,9 +15,9 @@ describe("RangeInput", () => {
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <form className="sk-range-input">
-        <input type="number" className="sk-range-input__input" value="2" placeholder="min"/>
+        <input type="number" className="sk-range-input__input" value="2" placeholder="min" onChange={() => {}}/>
         <span> to </span>
-        <input type="number" className="sk-range-input__input" value="5" placeholder="max"/>
+        <input type="number" className="sk-range-input__input" value="5" placeholder="max" onChange={() => {}}/>
         <button type="submit" className="sk-range-input__submit">Go</button>
       </form>
     ))
