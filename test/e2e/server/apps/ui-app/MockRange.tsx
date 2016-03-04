@@ -1,7 +1,7 @@
 import * as React from "react";
 import {
   Panel, RangeSlider,
-  renderComponent,
+  renderComponent, RenderComponentPropType,
 } from "../../../../../src"
 
 export class MockRange extends React.Component<any, any>{
@@ -42,6 +42,11 @@ export class MockRange extends React.Component<any, any>{
   static defaultProps = {
       rangeComponent: RangeSlider,
       containerComponent: Panel,
+  }
+  
+  static propTypes = {
+    containerComponent: RenderComponentPropType,
+    rangeComponent: RenderComponentPropType,
   }
 
   render() {
