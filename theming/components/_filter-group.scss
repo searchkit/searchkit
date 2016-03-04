@@ -1,0 +1,85 @@
+@import "./vars.scss";
+
+.sk-filter-group {
+  &-item {
+
+    &__title, &__value, &__remove-action {
+      display: inline-block;
+    }
+      
+    &__title {
+      font-weight: bold;
+      
+      &:after {
+        content: ": ";
+      }
+    }
+
+    &__value {
+      padding-left: 4px;
+      
+      &:hover {
+        text-decoration: line-through;
+        cursor: pointer;
+      }
+      
+      &:after {
+        display:inline-block;
+        content: ", ";
+      }
+      
+      &:last-child:after {
+        content: ""; 
+      }
+    }
+
+    &__remove-action {
+      cursor: pointer;
+      font-weight: 700;
+    }
+  }
+}
+
+.sk-action-bar {
+  .sk-filter-group {
+    display: flex;
+    flex-flow: row;
+    margin-right: 10px;
+    color: $sk-action-text-color;
+
+    &-item {
+      border: none;
+      background: #f4f4f4;
+      display: inline-block;
+      padding: 10px 10px 10px 0px;
+      font-size: 14px;
+      line-height: 20px;
+      border-radius: 3px;
+      margin-right: 10px;
+
+      &__remove-action {
+        padding: 0 10px;
+      }
+    }
+  }
+}
+
+.sk-layout__filters {
+  .sk-filter-group {
+    display: block;
+    width: 100%;
+    margin-right: 10px;
+    color: $sk-list-text-color;
+
+    &-item {
+      border: none;
+      display: block;
+      font-size: 14px;
+      line-height: 20px;
+
+      &__remove-action {
+        padding-right: 10px;
+      }
+    }
+  }
+}

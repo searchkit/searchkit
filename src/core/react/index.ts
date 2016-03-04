@@ -1,7 +1,8 @@
-export * from "./SearchkitComponent"
-export * from "./SearchkitProvider"
+
+export * from "./FastClick"
 export * from "./LoadingComponent"
 export * from "./ReactComponentType"
-export * from "./FastClick"
 export * from "./RenderComponent"
-export * from "./pure-render/index"
+export * from "./SearchkitComponent"
+export * from "./SearchkitProvider"
+export * from "./pure-render"

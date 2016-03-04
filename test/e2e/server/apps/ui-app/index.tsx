@@ -6,6 +6,7 @@ const {
   Panel, TagCloud, Toggle, Select, Tabs, ItemList, CheckboxItemList, /*CheckboxFilter,*/
   RefinementListFilter2, MenuFilter2,
   RangeSlider, RangeHistogram, RangeInput,
+  FilterGroup,
 } = require("../../../../../src")
 
 const host = "http://demo.searchkit.co/api/movies"
@@ -33,6 +34,21 @@ const MovieHitsGridItem = (props)=> {
   )
 }
 
+const filterGroupProps = {
+  title: "FilterGroup",
+  filters: [
+    {value: 'A'},
+    {value: 'B'},
+    {value: 'C'},
+    {value: 'D'}
+  ],
+  removeFilter(){},
+  removeFilters(){},
+  translate(key){
+    return key + " translated"
+  }
+}
+
 
 class App extends React.Component<any, any> {
   render(){
@@ -45,6 +61,10 @@ class App extends React.Component<any, any> {
               <Panel title='My Panel' collapsable={true}>
                 <p>panel contents</p>
               </Panel>
+              
+              <div className="sk-filter-group">
+                <FilterGroup {...filterGroupProps}/>
+              </div>
 
               <MockList title="Tag Cloud" listComponent={TagCloud} showCount={true}/>
               <MockList title="Toggle" listComponent={Toggle}/>
@@ -89,6 +109,11 @@ class App extends React.Component<any, any> {
                 <div className="sk-action-bar__filters">
                   <SelectedFilters/>
                   <ResetFilters/>
+                  
+                  <div className="sk-filter-group">
+                    <FilterGroup {...filterGroupProps}/>
+                    <FilterGroup {...filterGroupProps}/>
+                  </div>
                 </div>
 
               </div>
