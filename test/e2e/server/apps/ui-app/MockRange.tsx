@@ -1,9 +1,8 @@
 import * as React from "react";
 import {
-  Panel, RangeSlider
+  Panel, RangeSlider,
+  renderComponent,
 } from "../../../../../src"
-
-import { renderComponent } from "../../../../../src/utils"
 
 export class MockRange extends React.Component<any, any>{
 
@@ -47,9 +46,9 @@ export class MockRange extends React.Component<any, any>{
 
   render() {
       const { title, containerComponent, rangeComponent } = this.props
-    return renderComponent(containerComponent, { title }, [
+    return renderComponent(containerComponent, { title }, 
         renderComponent(rangeComponent, this.state)
-    ])
+    )
   }
 
 }
