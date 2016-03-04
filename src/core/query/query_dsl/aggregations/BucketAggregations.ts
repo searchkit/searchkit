@@ -6,6 +6,7 @@ export interface TermsBucketOptions {
   order?:any
   include?:Array<string> | string
   exclude?:Array<string> | string
+  min_doc_count?:number
 }
 
 export function TermsBucket(key, field, options:TermsBucketOptions={}, ...childAggs){

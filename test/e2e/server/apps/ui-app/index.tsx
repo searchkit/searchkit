@@ -3,7 +3,7 @@ const {
   SearchBox, Hits, RefinementListFilter, Pagination,
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
-  Panel, TagCloud, Toggle, Select, Tabs, ItemList, CheckboxItemList, CheckboxFilter,
+  Panel, TagCloud, Toggle, Select, Tabs, ItemList, CheckboxItemList, /*CheckboxFilter,*/
   RefinementListFilter2, MenuFilter2,
   RangeSlider, RangeHistogram, RangeInput,
 } = require("../../../../../src")
@@ -52,7 +52,7 @@ class App extends React.Component<any, any> {
               <MockList title="Tabs" listComponent={Tabs}/>
               <MockList title="Item List" listComponent={ItemList}/>
               <MockList title="Checkbox List" listComponent={CheckboxItemList}/>
-              <CheckboxFilter id="rating" title="Rating" field="rated.raw" value="R" label="Rated 'R'"/>
+              {/*<CheckboxFilter id="rating" title="Rating" field="rated.raw" value="R" label="Rated 'R'"/>*/}
               <RefinementListFilter2
                 translations={{ "facets.view_more": "View more writers" }}
                 id="writers" title="Writers" field="writers.raw" size={10}

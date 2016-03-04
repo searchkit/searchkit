@@ -211,10 +211,11 @@ describe("FacetAccessor", ()=> {
       )
     })
 
-    it("build own query - include/exclude", ()=> {
+    it("build own query - include/exclude/min_doc_count", ()=> {
       this.options.operator = "AND"
       this.options.include = ["one", "two"]
       this.options.exclude = ["three"]
+      this.options.min_doc_count = 0
       let query = this.accessor.buildOwnQuery(this.query)
       expect(query.query.aggs).toEqual(
         FilterBucket("genre1",
@@ -229,6 +230,7 @@ describe("FacetAccessor", ()=> {
             size:20,
             include: ["one", "two"],
             exclude: ["three"],
+            min_doc_count:0,
             order:{_term:"asc"}
           }),
           CardinalityMetric("genre_count", "genre")

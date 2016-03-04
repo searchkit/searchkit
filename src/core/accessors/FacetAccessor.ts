@@ -21,7 +21,8 @@ export interface FacetAccessorOptions {
   include?:Array<string> | string
   exclude?:Array<string> | string
   orderKey?:string
-  orderDirection?:string
+  orderDirection?:string,
+  min_doc_count?:number
 }
 
 export interface ISizeOption {
@@ -132,7 +133,8 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
           size:this.size,
           order:this.getOrder(),
           include: this.options.include,
-          exclude: this.options.exclude
+          exclude: this.options.exclude,
+          min_doc_count:this.options.min_doc_count
         }, isUndefined)),
         CardinalityMetric(this.key+"_count", this.key)
       ))
