@@ -24,16 +24,16 @@ export class MockRange extends React.Component<any, any>{
       ],
       min: 0, max: 10,
       minValue: 2, maxValue: 5,
-      onChange([minValue, maxValue]) {
+      onChange({min, max}) {
         self.setState({
-          minValue, maxValue
+          minValue: min, maxValue: max
         })
       },
-      onFinished([minValue, maxValue]) {
+      onFinished({min, max}) {
         self.setState({
-          minValue, maxValue
+          minValue: min, maxValue: max
         })
-        console.log("Set range to ", minValue, ", ", maxValue)
+        console.log("Set range to ", min, ", ", max)
       }
     }
   }
