@@ -11,7 +11,7 @@ const {
 const host = "http://demo.searchkit.co/api/movies"
 import * as ReactDOM from "react-dom";
 import * as React from "react";
-const searchkit = new SearchkitManager(host)
+const searchkit = new SearchkitManager(host, {searchOnLoad:true})
 import {MockList} from "./MockList"
 import {MockRange} from "./MockRange"
 const _ = require("lodash")

@@ -50,6 +50,7 @@ describe("SearchkitManager", ()=> {
     expect(this.searchkit.emitter).toEqual(
       jasmine.any(EventEmitter)
     )
+    expect(this.searchkit.options.searchOnLoad).toBe(true)
     expect(this.searchkit.initialLoading).toBe(true)
     //check queryProcessor is an identity function
     expect(this.searchkit.queryProcessor("query")).toBe("query")
@@ -128,6 +129,32 @@ describe("SearchkitManager", ()=> {
       searchkit.unlistenHistory()
       done()
     }, 0)
+  })
+
+  it("listenToHistory() - searchOnLoad false", (done)=> {
+    const history = createHistory()
+    history.pushState(null, window.location.pathname, {
+      q:"foo-previous"
+    })
+
+    const searchkit = new SearchkitManager("/", {
+      useHistory:true,
+      searchOnLoad:false
+    })
+    spyOn(searchkit.accessors, "setState")
+    spyOn(searchkit, "_search")
+    searchkit.completeRegistration()
+    setTimeout(()=> {
+      expect(searchkit._search).not.toHaveBeenCalled()
+      history.goBack()
+      setTimeout(()=> {
+        expect(searchkit._search).toHaveBeenCalled()
+        expect(searchkit.accessors.setState)
+          .toHaveBeenCalledWith({})
+        searchkit.unlistenHistory()
+        done()
+      },0)
+    },0)
   })
 
   it("listenToHistory() - handle error", (done)=> {

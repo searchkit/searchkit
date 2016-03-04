@@ -24,6 +24,10 @@ const searchkit = new SearchkitManager(host, {
 
 * **basicAuth** - A string containing "key:val" for authenticating on each request, useful if using cloud providers such as [searchly.com](http://searchly.com)
 
+* **searchOnLoad** - A boolean to search on load, defaults to `true`, only works when `useHistory` is enabled
+
+* **useHistory** - A boolean to enable url history support, defaults to `true`
+
 * **searchUrlPath** - A the search endpoint name, defaults to `/_search`. Used if your server proxy endpoint needs a different url convention.
 ## Default Queries
 Sometimes we need to apply a default query which affects the entire search and is not serialized to the browser url.

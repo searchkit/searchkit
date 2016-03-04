@@ -17,8 +17,11 @@ const qs = require("qs")
 
 require('es6-promise').polyfill()
 
+const after = require("lodash/after")
+
 export interface SearchkitOptions {
   useHistory?:boolean,
+  searchOnLoad?:boolean,
   httpHeaders?:Object,
   basicAuth?:string,
   transport?:ESTransport,
@@ -57,7 +60,8 @@ export class SearchkitManager {
   constructor(host:string, options:SearchkitOptions = {}){
     this.options = defaults(options, {
       useHistory:true,
-      httpHeaders:{}
+      httpHeaders:{},
+      searchOnLoad:true
     })
     this.host = host
 
@@ -116,7 +120,9 @@ export class SearchkitManager {
     }
   }
   listenToHistory(){
-    this._unlistenHistory = this.history.listen((location)=>{
+    let callsBeforeListen = (this.options.searchOnLoad) ? 1: 2
+
+    this._unlistenHistory = this.history.listen(after(callsBeforeListen,(location)=>{
       //action is POP when the browser modified
       if(location.action === "POP") {
         this.registrationCompleted.then(()=>{
@@ -125,7 +131,7 @@ export class SearchkitManager {
           console.error(e.stack)
         })
       }
-    })
+    }))
   }
 
   searchFromUrlQuery(query){
