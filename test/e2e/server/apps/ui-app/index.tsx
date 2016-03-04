@@ -60,6 +60,12 @@ class App extends React.Component<any, any> {
                 />
               <MenuFilter2 field="type.raw" title="Movie Type" id="movie_type" showCount={true} listComponent={Tabs}/>
 
+              <hr />
+              <MockRange title="Container Component" containerComponent={Panel}/>
+              <MockRange title="Container Element" containerComponent={<Panel />}/>
+              <MockRange title="Container Element with props" containerComponent={<Panel collapsable={true}/>}/>
+              <MockRange title="Container Function" containerComponent={(props, children) => <Panel {...props} collapsable={true}>{children}</Panel>}/>
+              <hr />              
               <MockRange title="RangeSlider" rangeComponent={RangeSlider}/>
               <MockRange title="RangeHistogram" rangeComponent={RangeHistogram}/>
               <MockRange title="RangeInput" rangeComponent={RangeInput}/>

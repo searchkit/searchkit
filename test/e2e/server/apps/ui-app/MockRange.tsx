@@ -1,7 +1,9 @@
 import * as React from "react";
-const {
-  Panel
-} = require("../../../../../src")
+import {
+  Panel, RangeSlider
+} from "../../../../../src"
+
+import { renderComponent } from "../../../../../src/utils"
 
 export class MockRange extends React.Component<any, any>{
 
@@ -37,13 +39,17 @@ export class MockRange extends React.Component<any, any>{
       }
     }
   }
+  
+  static defaultProps = {
+      rangeComponent: RangeSlider,
+      containerComponent: Panel,
+  }
 
   render() {
-    return (
-      <Panel title={this.props.title}>
-        {React.createElement(this.props.rangeComponent, this.state) }
-      </Panel>
-    )
+      const { title, containerComponent, rangeComponent } = this.props
+    return renderComponent(containerComponent, { title }, [
+        renderComponent(rangeComponent, this.state)
+    ])
   }
 
 }

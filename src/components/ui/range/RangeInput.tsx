@@ -116,7 +116,7 @@ export class RangeInput extends React.Component<RangeInputProps, {}> {
                field="max"
                onChange={this.handleInputChange}
                placeholder={translate('range.max') || maxPlaceholder } />
-        <button type="submit" className={bemBlocks.container("submit")}> { translate('range.submit') || 'Go'}</button>
+        <button type="submit" className={bemBlocks.container("submit")}>{ translate('range.submit') || 'Go'}</button>
       </form>
     )
   }
