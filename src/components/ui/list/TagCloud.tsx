@@ -35,7 +35,7 @@ export class TagCloudItem extends React.Component<TagCloudItemProps, {}> {
 
     const className = bemBlocks.container("item").state({ active, disabled })
     var component;
-    const style = { fontSize }
+    const style = { fontSize: fontSize + 'em' }
 
     const countEl = (showCount && (count !== undefined)) ? <span data-qa="count" className={bemBlocks.container("item__count")}>{ count }</span > : undefined
     if (url) {
@@ -59,8 +59,8 @@ export class TagCloud extends React.Component<TagCloudProps, any> {
     mod: "sk-tag-cloud",
     itemComponent: TagCloudItem,
     showCount: false,
-    minFontSize: 10, // Switch to em and use css on parent ?
-    maxFontSize: 15,
+    minFontSize: 1, // In em
+    maxFontSize: 1.5,
     translate: (str) => str
   }
 
