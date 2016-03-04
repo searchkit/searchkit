@@ -149,8 +149,6 @@ describe("SearchkitManager", ()=> {
       history.goBack()
       setTimeout(()=> {
         expect(searchkit._search).toHaveBeenCalled()
-        expect(searchkit.accessors.setState)
-          .toHaveBeenCalledWith({})
         searchkit.unlistenHistory()
         done()
       },0)
