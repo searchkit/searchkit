@@ -9,6 +9,10 @@ const concat = require("lodash/concat")
 
 import {FacetFilterProps, FacetFilterPropTypes} from "./FacetFilterProps"
 
+const allItem = {
+  key:"$all", label: "All"
+}
+
 export class MenuFilter2 extends FacetFilter<FacetFilterProps> {
 
   static propTypes = defaults({
@@ -19,12 +23,8 @@ export class MenuFilter2 extends FacetFilter<FacetFilterProps> {
     operator:"OR"
   }, FacetFilter.defaultProps)
 
-  static AllItem = {
-    key:"$all", label: "All"
-  }
-
   toggleFilter(option) {
-    if (option === MenuFilter2.AllItem.key || this.accessor.state.contains(option)){
+    if (option === allItem.key || this.accessor.state.contains(option)){
       this.accessor.state = this.accessor.state.clear()
     } else {
       this.accessor.state = this.accessor.state.setValue([option]);
@@ -38,11 +38,16 @@ export class MenuFilter2 extends FacetFilter<FacetFilterProps> {
   }
 
   getSelectedItems() {
-    return [this.accessor.state.getValue()[0] || MenuFilter2.AllItem.key]
+    return [this.accessor.state.getValue()[0] || allItem.key]
   }
 
   getItems(){
-    return concat([MenuFilter2.AllItem], this.accessor.getBuckets())
+    const all = {
+      key: allItem.key, 
+      label: allItem.label, 
+      doc_count: this.accessor.getDocCount()
+    }
+    return concat([all], this.accessor.getBuckets())
   }
 
 
