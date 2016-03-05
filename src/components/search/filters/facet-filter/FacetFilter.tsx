@@ -4,7 +4,7 @@ import {FacetFilterProps, FacetFilterPropTypes} from "./FacetFilterProps"
 
 import {
   FacetAccessor, SearchkitComponent, ISizeOption,
-  FastClick
+  FastClick, renderComponent
 } from "../../../../core"
 
 import {
@@ -89,14 +89,13 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
   }
 
   render() {
-    const { listComponent, containerComponent, showCount, title, id, collapsable } = this.props
-    return React.createElement(containerComponent, {
+    const { listComponent, containerComponent, showCount, title, id } = this.props
+    return renderComponent(containerComponent, {
       title,
       className: id ? `filter--${id}` : undefined,
-      disabled: !this.hasOptions(),
-      collapsable
+      disabled: !this.hasOptions()
     }, [
-      React.createElement(listComponent, {
+      renderComponent(listComponent, {
         key:"listComponent",
         items: this.getItems(),
         selectedItems: this.getSelectedItems(),

@@ -2,7 +2,8 @@ import * as React from "react";
 
 import {
   ReactComponentType, SearchkitComponentProps,
-  SearchkitComponent, FacetAccessor
+  SearchkitComponent, FacetAccessor,
+  RenderComponentPropType, RenderComponentType
 } from "../../../../core"
 
 import {
@@ -16,14 +17,13 @@ export interface FacetFilterProps extends SearchkitComponentProps {
   size?: number
   title: string
   id: string
-  containerComponent?: ReactComponentType<any>
-  itemComponent?: ReactComponentType<ItemProps>
-  listComponent?: ReactComponentType<ListProps>
+  containerComponent?: RenderComponentType<any>
+  itemComponent?: RenderComponentType<ItemProps>
+  listComponent?: RenderComponentType<ListProps>
   orderKey?: string
   orderDirection?: string
   include?: Array<string> | string
   exclude?: Array<string> | string
-  collapsable?: boolean
   showCount?: boolean
   showMore?:boolean
 }
@@ -34,6 +34,9 @@ export const FacetFilterPropTypes = defaults({
   size: React.PropTypes.number,
   title: React.PropTypes.string.isRequired,
   id: React.PropTypes.string.isRequired,
+  containerComponent:RenderComponentPropType,
+  listComponent:RenderComponentPropType,
+  itemComponent:RenderComponentPropType,
   translations: SearchkitComponent.translationsPropType(
     FacetAccessor.translations
   ),
@@ -45,7 +48,6 @@ export const FacetFilterPropTypes = defaults({
   exclude: React.PropTypes.oneOfType([
       React.PropTypes.string, React.PropTypes.array
   ]),
-  collapsable: React.PropTypes.bool,
   showCount: React.PropTypes.bool,
   showMore: React.PropTypes.bool
 },SearchkitComponent.propTypes)
