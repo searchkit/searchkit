@@ -10,11 +10,6 @@ import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../__test__/Te
 describe("ItemHistogramList Components", ()=> {
 
   it("should render and behave correctly", ()=> {
-    let props = {
-      items:this.items, selectedItems: this.selectedItems,
-      toggleItem: this.toggleItem, setItems: this.setItems,
-      translate:this.translate
-    }
     this.wrapper = mount(
       <MockList listComponent={ItemHistogramList}/>
     )
@@ -59,15 +54,21 @@ describe("ItemHistogramList Components", ()=> {
     expect(this.wrapper.node.state.toggleItem).toHaveBeenCalledWith("c")
   })
   
-  it("mod + classname can be updated", () => {
-    let props = {
-      items: this.items, selectedItems: this.selectedItems,
-      toggleItem: this.toggleItem, setItems: this.setItems,
-      translate: this.translate,
-      mod: "sk-item-list-updated", className: "my-custom-class"
-    }
+  it("should handle multiselect={false}", () => {
     this.wrapper = mount(
-      <MockList listComponent={ItemHistogramList}   mod="sk-item-list-updated" className="my-custom-class"/>
+      <MockList listComponent={ItemHistogramList} multiselect={false}/>
+    )
+
+    expect(this.wrapper.node.state.toggleItem).not.toHaveBeenCalled()
+    expect(this.wrapper.node.state.setItems).not.toHaveBeenCalled()
+    fastClick(this.wrapper.find(".sk-item-list-option").at(2))
+    expect(this.wrapper.node.state.toggleItem).not.toHaveBeenCalled()
+    expect(this.wrapper.node.state.setItems).toHaveBeenCalledWith(["c"])
+  })
+  
+  it("mod + classname can be updated", () => {
+    this.wrapper = mount(
+      <MockList listComponent={ItemHistogramList}  mod="sk-item-list-updated" className="my-custom-class"/>
     )
 
     expect(this.wrapper.find(".sk-item-list-updated").hasClass("my-custom-class")).toBe(true)
