@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom";
 import {mount, render} from "enzyme";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../__test__/TestHelpers"
 import {FacetFilter} from "./FacetFilter.tsx";
+import {RefinementListFilter} from "./RefinementListFilter.tsx";
 import {SearchkitManager, Utils} from "../../../../core";
 import {Toggle, ItemComponent} from "../../../ui";
 const bem = require("bem-cn");
@@ -170,7 +171,7 @@ describe("Facet Filter tests", () => {
     )
 
     this.createWrapper(
-      <FacetFilter
+      <RefinementListFilter
         containerComponent={container}
         listComponent={Toggle}
         itemComponent={(props)=> <ItemComponent {...props} showCount={true}/>}
