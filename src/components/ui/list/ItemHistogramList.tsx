@@ -33,23 +33,18 @@ export class ItemHistogramComponent extends React.Component<ItemHistogramCompone
       label, count, showCount, showCheckbox, listDocCount } = this.props
     const block = bemBlocks.option
     const className = block()
-      .state({ active, disabled })
+      .state({ active, disabled, histogram: true })
       .mix(bemBlocks.container("item"))
-    
-    const histogramStyle = {
-      position: 'absolute', backgroundColor: '#f0f0f0', top: 1, bottom: 1, right: 0, 
-      display: 'inline-block',
-      zIndex: -1,
-      width: (this.getCountRatio()*100) + '%'
-    }
+      
+    const barWidth = (this.getCountRatio()*100) + '%'
       
     return (
       <FastClick handler={onClick}>
-        <div className={className} style={defaults({zIndex: 1}, style)} data-qa="option">
-          <div style={histogramStyle} />
+        <div className={className} style={style} data-qa="option">
+          <div className={block("bar")} style={{width: barWidth}} />
           {showCheckbox ? <input type="checkbox" data-qa="checkbox" checked={active} readOnly className={block("checkbox").state({ active }) } ></input> : undefined}
           <div data-qa="label" className={block("text") }>{label}</div>
-          {(showCount && (count != undefined)) ? <div data-qa="count" className={block("count") } style={{paddingRight: 4, color: '#999'}}>{count}</div> : undefined}
+          {(showCount && (count != undefined)) ? <div data-qa="count" className={block("count") }>{count}</div> : undefined}
         </div>
       </FastClick>
     )
