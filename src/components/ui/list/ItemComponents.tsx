@@ -14,7 +14,7 @@ export interface ItemComponentProps extends ItemProps {
 
 function itemRenderer(props: ItemComponentProps) {
   const {
-    bemBlocks, onClick, active,
+    bemBlocks, onClick, active, style,
     label, count, showCount, showCheckbox} = props
   const block = bemBlocks.option
   const className = block()
@@ -22,7 +22,7 @@ function itemRenderer(props: ItemComponentProps) {
     .mix(bemBlocks.container("item"))
   return (
     <FastClick handler={onClick}>
-      <div className={className} data-qa="option">
+      <div className={className} style={style} data-qa="option">
         {showCheckbox ? <input type="checkbox" data-qa="checkbox" checked={active} readOnly className={block("checkbox").state({ active }) } ></input> : undefined}
         <div data-qa="label" className={block("text") }>{label}</div>
         {(showCount && (count != undefined)) ? < div data-qa="count" className={block("count") }>{count}</div> : undefined}

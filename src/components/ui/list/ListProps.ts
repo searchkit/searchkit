@@ -19,6 +19,7 @@ export interface ItemProps {
     label: string
     count: number
     showCount: boolean
+    style?: any
     listDocCount?: number // number of documents for this list
     disabled?: boolean
 }

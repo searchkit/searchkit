@@ -3,9 +3,11 @@ import * as React from "react";
 import {
   FastClick,
   ReactComponentType,
-  PureRender
+  PureRender,
+  renderComponent,
 } from "../../../"
 
+import { ItemComponent } from './ItemComponents'
 import { ListProps, ItemProps } from './ListProps'
 
 const block = require('bem-cn')
@@ -24,40 +26,17 @@ function computeMinMax(items, field) {
   }
 }
 
-export interface TagCloudItemProps extends ItemProps {
-  url?: string
-  fontSize: number
-}
-
-export class TagCloudItem extends React.Component<TagCloudItemProps, {}> {
-  render() {
-    const {onClick, bemBlocks, active, disabled, label, fontSize, showCount, count} = this.props
-
-    const className = bemBlocks.container("item").state({ active, disabled })
-    var component;
-    const style = { fontSize: fontSize + 'em' }
-
-    const countEl = (showCount && (count !== undefined)) ? <span data-qa="count" className={bemBlocks.container("item__count")}>{ count }</span > : undefined
-      
-    return (
-      <FastClick handler={onClick}>
-        <span className={className} data-qa="option" style={style}>{label}{countEl}</span>
-      </FastClick>
-    )
-  }
-}
-
 export interface TagCloudProps extends ListProps {
   minFontSize?: number
   maxFontSize?: number
-  itemComponent?: ReactComponentType<any>
+  itemComponent?: ReactComponentType<ItemProps>
 }
 
 export class TagCloud extends React.Component<TagCloudProps, any> {
 
   static defaultProps: any = {
     mod: "sk-tag-cloud",
-    itemComponent: TagCloudItem,
+    itemComponent: ItemComponent,
     showCount: false,
     minFontSize: 1, // In em
     maxFontSize: 1.5,
@@ -68,7 +47,8 @@ export class TagCloud extends React.Component<TagCloudProps, any> {
     const { mod, className, disabled, items, translate } = this.props
 
     const bemBlocks = {
-      container: block(mod)
+      container: block(mod),
+      option: block(`${mod}-option`)
     }
 
     const sortedItems = sortBy(items, it => translate(it.title || it.label || it.key).toLowerCase())
@@ -86,14 +66,14 @@ export class TagCloud extends React.Component<TagCloudProps, any> {
 
     const sizeRatio = (min === max) ? 0.5 : ((item.doc_count - min) / (max - min))
     const fontSize = minFontSize + sizeRatio * (maxFontSize - minFontSize) // TODO : make ratio function customizable (square, log, etc.)
-    return React.createElement(itemComponent, {
+    return renderComponent(itemComponent, {
       label: translate(item.title || item.label || item.key),
       onClick: () => toggleItem(item.key),
       bemBlocks: bemBlocks,
       key: item.key,
       disabled: disabled || item.disabled,
       active: includes(selectedItems, item.key),
-      fontSize,
+      style: { fontSize: fontSize + 'em' },
       showCount,
       count: item.doc_count
     })

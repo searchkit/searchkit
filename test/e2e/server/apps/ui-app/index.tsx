@@ -62,11 +62,13 @@ class App extends React.Component<any, any> {
                 <p>panel contents</p>
               </Panel>
               
-              <div className="sk-filter-group">
-                <FilterGroup {...filterGroupProps}/>
-              </div>
-
-              <MockList title="Tag Cloud" listComponent={TagCloud} showCount/>
+              <Panel title="Grouped Filters">
+                <div className="sk-filter-group">
+                  <FilterGroup {...filterGroupProps}/>
+                </div>
+              </Panel>
+              <MockList title="Tag Cloud" listComponent={TagCloud}/>
+              <MockList title="Tag Cloud with count" listComponent={TagCloud} showCount/>
               <MockList title="Toggle" listComponent={Toggle}/>
               <MockList title="Toggle with count" listComponent={<Toggle showCount/>}/>
               <MockList title="Select" listComponent={Select}/>
