@@ -63,6 +63,7 @@
     "./src/components/ui/layout/Panel.unit.tsx",
     "./src/components/ui/list/ItemComponents.tsx",
     "./src/components/ui/list/ItemComponents.unit.tsx",
+    "./src/components/ui/list/ItemHistogramList.tsx",
     "./src/components/ui/list/ItemListComponents.tsx",
     "./src/components/ui/list/ItemListComponents.unit.tsx",
     "./src/components/ui/list/MockList.tsx",

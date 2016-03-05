@@ -14,13 +14,13 @@ export interface ListProps {
 }
 
 export interface ItemProps {
-    bemBlocks: { container: any, option: any }
-    onClick: Function
-    label: string
-    count: number
-    active?: boolean
-    disabled?: boolean
-    showCount: boolean
-    style?: any
-    listDocCount?: number // number of documents for this list
+  bemBlocks: { container: any, option: any }
+  onClick: Function
+  label: string
+  count: number
+  active?: boolean
+  disabled?: boolean
+  showCount: boolean
+  style?: any
+  listDocCount?: number // number of documents for this list
 }

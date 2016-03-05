@@ -6,7 +6,7 @@ const {
   Panel, TagCloud, Toggle, Select, Tabs, ItemList, CheckboxItemList, /*CheckboxFilter,*/
   RefinementListFilter2, MenuFilter2,
   RangeSlider, RangeHistogram, RangeInput,
-  FilterGroup,
+  FilterGroup, ItemHistogramList
 } = require("../../../../../src")
 
 const host = "http://demo.searchkit.co/api/movies"
@@ -58,15 +58,14 @@ class App extends React.Component<any, any> {
 
           <div className="sk-layout__body">
             <div className="sk-layout__filters">
-              <Panel title='My Panel' collapsable={true}>
-                <p>panel contents</p>
-              </Panel>
-              
-              <Panel title="Grouped Filters">
+              <Panel title="Grouped Filters" collapsable={true}>
                 <div className="sk-filter-group">
                   <FilterGroup {...filterGroupProps}/>
                 </div>
               </Panel>
+
+              <MenuFilter2 field="type.raw" title="Movie Type" id="movie_type" listComponent={ItemHistogramList}/>
+
               <MockList title="Tag Cloud" listComponent={TagCloud}/>
               <MockList title="Tag Cloud with count" listComponent={TagCloud} showCount/>
               <MockList title="Toggle" listComponent={Toggle}/>
