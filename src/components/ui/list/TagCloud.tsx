@@ -31,19 +31,19 @@ export interface TagCloudItemProps extends ItemProps {
 
 export class TagCloudItem extends React.Component<TagCloudItemProps, {}> {
   render() {
-    const {onClick, bemBlocks, active, disabled, label, url, fontSize, showCount, count} = this.props
+    const {onClick, bemBlocks, active, disabled, label, fontSize, showCount, count} = this.props
 
     const className = bemBlocks.container("item").state({ active, disabled })
     var component;
     const style = { fontSize: fontSize + 'em' }
 
     const countEl = (showCount && (count !== undefined)) ? <span data-qa="count" className={bemBlocks.container("item__count")}>{ count }</span > : undefined
-    if (url) {
-      component = <a href={url} className={className} data-qa="option" style={style}>{label}{countEl}</a>
-    } else {
-      component = <span className={className} data-qa="option" style={style}>{label}{countEl}</span>
-    }
-    return <FastClick handler={onClick}>{component}</FastClick>
+      
+    return (
+      <FastClick handler={onClick}>
+        <span className={className} data-qa="option" style={style}>{label}{countEl}</span>
+      </FastClick>
+    )
   }
 }
 

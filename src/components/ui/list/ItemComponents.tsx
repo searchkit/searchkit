@@ -25,7 +25,7 @@ function itemRenderer(props: ItemComponentProps) {
       <div className={className} data-qa="option">
         {showCheckbox ? <input type="checkbox" data-qa="checkbox" checked={active} readOnly className={block("checkbox").state({ active }) } ></input> : undefined}
         <div data-qa="label" className={block("text") }>{label}</div>
-        {showCount ? < div data-qa="count" className={block("count") }>{count}</div> : undefined}
+        {(showCount && (count != undefined)) ? < div data-qa="count" className={block("count") }>{count}</div> : undefined}
       </div>
     </FastClick>
   )

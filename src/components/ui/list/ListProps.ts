@@ -4,6 +4,7 @@ export interface ListProps {
   setItems: (keys:Array<string>)=>void
   items: Array<any>
   selectedItems: Array<string>
+  docCount?: number // number of documents for this list
   disabled?: boolean
   mod?: string
   className?: string
@@ -18,5 +19,6 @@ export interface ItemProps {
     label: string
     count: number
     showCount: boolean
+    listDocCount?: number // number of documents for this list
     disabled?: boolean
 }

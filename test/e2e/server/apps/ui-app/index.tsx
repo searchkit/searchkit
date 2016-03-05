@@ -45,7 +45,7 @@ const filterGroupProps = {
   removeFilter(){},
   removeFilters(){},
   translate(key){
-    return key + " translated"
+    return key + "!"
   }
 }
 
@@ -66,8 +66,9 @@ class App extends React.Component<any, any> {
                 <FilterGroup {...filterGroupProps}/>
               </div>
 
-              <MockList title="Tag Cloud" listComponent={TagCloud} showCount={true}/>
+              <MockList title="Tag Cloud" listComponent={TagCloud} showCount/>
               <MockList title="Toggle" listComponent={Toggle}/>
+              <MockList title="Toggle with count" listComponent={<Toggle showCount/>}/>
               <MockList title="Select" listComponent={Select}/>
               <MockList title="Tabs" listComponent={Tabs}/>
               <MockList title="Item List" listComponent={ItemList}/>
@@ -78,7 +79,7 @@ class App extends React.Component<any, any> {
                 id="writers" title="Writers" field="writers.raw" size={10}
                 listComponent={CheckboxItemList}
                 />
-              <MenuFilter2 field="type.raw" title="Movie Type" id="movie_type" showCount={true} listComponent={Tabs}/>
+              <MenuFilter2 field="type.raw" title="Movie Type" id="movie_type" showCount listComponent={Tabs}/>
 
               <hr />
               <MockRange title="Container Component" containerComponent={Panel}/>

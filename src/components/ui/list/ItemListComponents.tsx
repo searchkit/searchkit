@@ -24,7 +24,7 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
   render() {
     const {
       mod, itemComponent, items, selectedItems = [], translate,
-      toggleItem, disabled, showCount, className
+      toggleItem, disabled, showCount, className, docCount
     } = this.props
 
     const bemBlocks = {
@@ -40,6 +40,7 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
         bemBlocks: bemBlocks,
         key: option.key,
         count: option.doc_count,
+        listDocCount: docCount,
         showCount,
         active: includes(selectedItems, option.key)
       })
@@ -61,5 +62,13 @@ export class ItemList extends AbstractItemList {
 export class CheckboxItemList extends AbstractItemList {
     static defaultProps = defaults({
         itemComponent: CheckboxItemComponent
+    }, AbstractItemList.defaultProps)
+}
+
+export class Toggle extends AbstractItemList {
+    static defaultProps = defaults({
+        itemComponent: ItemComponent,
+        mod: 'sk-toggle',
+        showCount: false,
     }, AbstractItemList.defaultProps)
 }

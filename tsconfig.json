@@ -72,8 +72,6 @@
     "./src/components/ui/list/Tabs.unit.tsx",
     "./src/components/ui/list/TagCloud.tsx",
     "./src/components/ui/list/TagCloud.unit.tsx",
-    "./src/components/ui/list/Toggle.tsx",
-    "./src/components/ui/list/Toggle.unit.tsx",
     "./src/components/ui/range/MockRange.tsx",
     "./src/components/ui/range/RangeHistogram.tsx",
     "./src/components/ui/range/RangeHistogram.unit.tsx",
