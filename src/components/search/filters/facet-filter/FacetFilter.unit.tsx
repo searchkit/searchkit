@@ -55,7 +55,7 @@ describe("Facet Filter tests", () => {
 
   });
 
-  it('renders correctly', () => {    
+  it('renders correctly', () => {
     let output = jsxToHTML(
       <div className="sk-panel filter--test id">
         <div className="sk-panel__header">test title</div>
@@ -145,6 +145,20 @@ describe("Facet Filter tests", () => {
     expect(this.wrapper.find(".option").map(e => e.text()))
       .toEqual(["test option 1 translated (1)", "test option 2 (2)", "test option 3 (3)"])
 
+  })
+
+  it("operator can be updated", ()=> {
+    spyOn(this.searchkit, "performSearch")
+    this.wrapper.setProps({operator:"AND"})
+    expect(this.accessor.options.operator).toBe("AND")
+    expect(this.searchkit.performSearch).toHaveBeenCalled()
+  })
+
+  it("setFilters", ()=> {
+    spyOn(this.searchkit, "performSearch")
+    this.wrapper.node.setFilters(["foo"])
+    expect(this.accessor.state.getValue()).toEqual(["foo"])
+    expect(this.searchkit.performSearch).toHaveBeenCalled()
   })
 
   // it("should work with a custom component", () => {

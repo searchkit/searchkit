@@ -57,6 +57,23 @@ describe("FacetAccessor", ()=> {
       .toEqual(99)
   })
 
+  it("getDocCount()", ()=> {
+    expect(this.accessor.getDocCount()).toEqual(0)
+    this.accessor.results = {
+      aggregations:{
+        genre1:{
+          genre_count:{
+            value:99
+          },
+          doc_count:50
+        }
+      }
+    }
+    expect(this.accessor.getDocCount())
+      .toEqual(50)
+  })
+
+
   it("isOrOperator()", ()=> {
     expect(this.accessor.isOrOperator())
       .toBe(true)
