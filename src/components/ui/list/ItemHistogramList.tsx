@@ -39,16 +39,17 @@ export class ItemHistogramComponent extends React.Component<ItemHistogramCompone
     const histogramStyle = {
       position: 'absolute', backgroundColor: '#f0f0f0', top: 1, bottom: 1, right: 0, 
       display: 'inline-block',
+      zIndex: -1,
       width: (this.getCountRatio()*100) + '%'
     }
       
     return (
       <FastClick handler={onClick}>
-        <div className={className} style={style} data-qa="option">
+        <div className={className} style={defaults({zIndex: 1}, style)} data-qa="option">
           <div style={histogramStyle} />
-          {showCheckbox ? <input type="checkbox" style={{zIndex: 1}} data-qa="checkbox" checked={active} readOnly className={block("checkbox").state({ active }) } ></input> : undefined}
-          <div data-qa="label" className={block("text") } style={{zIndex: 1}}>{label}</div>
-          {(showCount && (count != undefined)) ? <div data-qa="count" className={block("count") } style={{zIndex: 1, paddingRight: 4, color: '#999'}}>{count}</div> : undefined}
+          {showCheckbox ? <input type="checkbox" data-qa="checkbox" checked={active} readOnly className={block("checkbox").state({ active }) } ></input> : undefined}
+          <div data-qa="label" className={block("text") }>{label}</div>
+          {(showCount && (count != undefined)) ? <div data-qa="count" className={block("count") } style={{paddingRight: 4, color: '#999'}}>{count}</div> : undefined}
         </div>
       </FastClick>
     )
