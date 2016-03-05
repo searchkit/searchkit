@@ -22,7 +22,7 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
     multiselect: true,
     selectItems: [],
   }
-  
+
   isActive(option){
     const { selectedItems, multiselect } = this.props
     if (multiselect){
@@ -44,8 +44,8 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
       container: block(mod),
       option: block(`${mod}-option`)
     }
-    
-    const toggleFunc = multiselect ? toggleItem : (key => setItems([key])) 
+
+    const toggleFunc = multiselect ? toggleItem : (key => setItems([key]))
 
     const actions = map(items, (option) => {
       const label = option.title || option.label || option.key
@@ -70,7 +70,7 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
 
 export class ItemList extends AbstractItemList {
     static defaultProps = defaults({
-        itemComponent: ItemComponent
+      itemComponent: ItemComponent
     }, AbstractItemList.defaultProps)
 }
 

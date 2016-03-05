@@ -20,9 +20,8 @@ function itemRenderer(props: ItemComponentProps) {
   const className = block()
     .state({ active, disabled })
     .mix(bemBlocks.container("item"))
-    
+
   const hasCount = showCount && (count != undefined) && (count != null)
-    
   return (
     <FastClick handler={onClick}>
       <div className={className} style={style} data-qa="option">

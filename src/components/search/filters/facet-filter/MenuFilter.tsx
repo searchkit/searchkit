@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { ItemList } from '../../../../'
+import { ItemList } from '../../../ui'
 import { FacetFilter} from "./FacetFilter"
 
 const defaults = require("lodash/defaults")
@@ -33,7 +33,6 @@ export class MenuFilter2 extends FacetFilter<FacetFilterProps> {
   }
 
   setFilters(options){
-    // TODO : compare to previous options to see which one was toggled (if previous was [All] and new is [All, key2], the result should be [key2])
     this.toggleFilter(options[0])
   }
 
@@ -43,8 +42,8 @@ export class MenuFilter2 extends FacetFilter<FacetFilterProps> {
 
   getItems(){
     const all = {
-      key: allItem.key, 
-      label: allItem.label, 
+      key: allItem.key,
+      label: allItem.label,
       doc_count: this.accessor.getDocCount()
     }
     return concat([all], this.accessor.getBuckets())

@@ -25,6 +25,7 @@
     "./src/components/search/filters/facet-filter/FacetFilter.tsx",
     "./src/components/search/filters/facet-filter/FacetFilter.unit.tsx",
     "./src/components/search/filters/facet-filter/MenuFilter.tsx",
+    "./src/components/search/filters/facet-filter/MenuFilter.unit.tsx",
     "./src/components/search/filters/facet-filter/RefinementListFilter.tsx",
     "./src/components/search/filters/filter-item/src/FilterItem.tsx",
     "./src/components/search/filters/filter-item/test/FilterItemSpec.tsx",
