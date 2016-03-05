@@ -98,6 +98,7 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
       renderComponent(listComponent, {
         key:"listComponent",
         items: this.getItems(),
+        itemComponent:this.props.itemComponent,
         selectedItems: this.getSelectedItems(),
         toggleItem: this.toggleFilter.bind(this),
         setItems: this.setFilters.bind(this),
