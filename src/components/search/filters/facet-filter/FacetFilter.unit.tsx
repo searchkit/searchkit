@@ -4,6 +4,7 @@ import {mount, render} from "enzyme";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../__test__/TestHelpers"
 import {FacetFilter} from "./FacetFilter.tsx";
 import {SearchkitManager, Utils} from "../../../../core";
+import {Toggle, ItemComponent} from "../../../ui";
 const bem = require("bem-cn");
 const _ = require("lodash")
 import * as sinon from "sinon";
@@ -46,7 +47,8 @@ describe("Facet Filter tests", () => {
     this.createWrapper(
       <FacetFilter
         field="test" id="test id" title="test title" size={3}
-        include={"title"} exclude={["bad", "n/a"]}
+        include={"title"} exclude={["bad", "n/a"]} operator="OR"
+        orderKey="_count" orderDirection="desc" translations={{"facets.view_all":"View all facets"}}
         searchkit={this.searchkit} />
     )
 
@@ -77,7 +79,7 @@ describe("Facet Filter tests", () => {
               <div data-qa="count" className="sk-item-list-option__count">3</div>
             </div>
           </div>
-          <div data-qa="show-more" className="sk-refinement-list__view-more-action">View all</div>
+          <div data-qa="show-more" className="sk-refinement-list__view-more-action">View all facets</div>
         </div>
       </div>
     )
@@ -120,15 +122,16 @@ describe("Facet Filter tests", () => {
   it("should configure accessor correctly", () => {
     expect(this.accessor.key).toBe("test")
     let options = this.accessor.options
+
     expect(options).toEqual({
       "id": "test id",
       "title": "test title",
       "size": 3,
       "facetsPerPage": 50,
-      "operator": undefined,
-      "translations": undefined,
-      "orderKey":undefined,
-      "orderDirection":undefined,
+      "operator": "OR",
+      "translations": {"facets.view_all":"View all facets"},
+      "orderKey":"_count",
+      "orderDirection":"desc",
       "include":"title",
       "exclude":["bad","n/a"]
     })
@@ -161,24 +164,38 @@ describe("Facet Filter tests", () => {
     expect(this.searchkit.performSearch).toHaveBeenCalled()
   })
 
-  // it("should work with a custom component", () => {
-  //   this.createWrapper(
-  //     <FacetFilter
-  //       component={({ title, buckets }) => (
-  //         <div>
-  //           <div className="header">{title}</div>
-  //           <div className="options">
-  //             {buckets.map(({ key, doc_count }) => <div key={key} className="option">{key} ({doc_count})</div>) }
-  //           </div>
-  //         </div>
-  //       )}
-  //       field="test" id="test id" title="test title"
-  //       searchkit={this.searchkit} />
-  //   )
-  //   expect(this.wrapper.find(".header").text()).toBe("test title")
-  //   expect(this.wrapper.find(".option").map(e => e.text()))
-  //     .toEqual(["test option 1 (1)", "test option 2 (2)", "test option 3 (3)"])
-  //
-  // })
+  it("should work with custom components", () => {
+    let container = (props, children)=> (
+      <div {...props}>{children}</div>
+    )
+
+    this.createWrapper(
+      <FacetFilter
+        containerComponent={container}
+        listComponent={Toggle}
+        itemComponent={(props)=> <ItemComponent {...props} showCount={true}/>}
+        field="test" id="test id" title="test title"
+        searchkit={this.searchkit} />
+    )
+    expect(this.wrapper.html()).toEqual(jsxToHTML(
+      <div title="test title" className="filter--test id">
+        <div className="sk-toggle">
+          <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+            <div data-qa="label" className="sk-toggle-option__text">test option 1 translated</div>
+            <div data-qa="count" className="sk-toggle-option__count">1</div>
+          </div>
+          <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+            <div data-qa="label" className="sk-toggle-option__text">test option 2</div>
+            <div data-qa="count" className="sk-toggle-option__count">2</div>
+          </div>
+          <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+            <div data-qa="label" className="sk-toggle-option__text">test option 3</div>
+            <div data-qa="count" className="sk-toggle-option__count">3</div>
+          </div>
+        </div>
+        <div data-qa="show-more" className="sk-refinement-list__view-more-action">View all facets</div>
+      </div>
+    ))
+  })
 
 });
