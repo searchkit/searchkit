@@ -18,31 +18,46 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
     mod: "sk-item-list",
     showCount: true,
     itemComponent: CheckboxItemComponent,
-    translate: str => str
+    translate: str => str,
+    multiselect: true,
+    selectItems: [],
+  }
+  
+  isActive(option){
+    const { selectedItems, multiselect } = this.props
+    if (multiselect){
+      return includes(selectedItems, option.key)
+    } else {
+      if (selectedItems.length == 0) return null
+      return selectedItems[0] == option.key
+    }
   }
 
   render() {
     const {
       mod, itemComponent, items, selectedItems = [], translate,
-      toggleItem, disabled, showCount, className, docCount
+      toggleItem, setItems, multiselect,
+      disabled, showCount, className, docCount
     } = this.props
 
     const bemBlocks = {
       container: block(mod),
       option: block(`${mod}-option`)
     }
+    
+    const toggleFunc = multiselect ? toggleItem : (key => setItems([key])) 
 
     const actions = map(items, (option) => {
       const label = option.title || option.label || option.key
       return React.createElement(itemComponent, {
         label: translate(label),
-        onClick: () => toggleItem(option.key),
+        onClick: () => toggleFunc(option.key),
         bemBlocks: bemBlocks,
         key: option.key,
         count: option.doc_count,
         listDocCount: docCount,
         showCount,
-        active: includes(selectedItems, option.key)
+        active: this.isActive(option)
       })
     })
     return (
@@ -70,5 +85,14 @@ export class Toggle extends AbstractItemList {
         itemComponent: ItemComponent,
         mod: 'sk-toggle',
         showCount: false,
+    }, AbstractItemList.defaultProps)
+}
+
+export class Tabs extends AbstractItemList {
+    static defaultProps = defaults({
+        itemComponent: ItemComponent,
+        mod: 'sk-tabs',
+        showCount: false,
+        multiselect: false,
     }, AbstractItemList.defaultProps)
 }

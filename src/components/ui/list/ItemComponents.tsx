@@ -14,11 +14,11 @@ export interface ItemComponentProps extends ItemProps {
 
 function itemRenderer(props: ItemComponentProps) {
   const {
-    bemBlocks, onClick, active, style,
+    bemBlocks, onClick, active, disabled, style,
     label, count, showCount, showCheckbox} = props
   const block = bemBlocks.option
   const className = block()
-    .state({ active })
+    .state({ active, disabled })
     .mix(bemBlocks.container("item"))
   return (
     <FastClick handler={onClick}>

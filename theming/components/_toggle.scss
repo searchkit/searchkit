@@ -17,7 +17,7 @@
     display:none;
   }
 
-  &__item {
+  &-option {
     flex:1;
     border:1px solid $sk-border-color;
     cursor:pointer;
@@ -47,19 +47,19 @@
       cursor: initial;
       color: #ddd;
     }
-  }
-  
-  &-option {
+    
     &__text, &__count {
       display: inline;
     }
     
-    &__count:before {
-      content: " ("
-    }
+    &__count {
+      &:before {
+        content: " ("
+      }
     
-    &__count:after {
-      content: ")"
+      &:after {
+        content: ")"
+      }
     }
   }
 }

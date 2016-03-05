@@ -73,6 +73,7 @@ class App extends React.Component<any, any> {
               <MockList title="Toggle with count" listComponent={<Toggle showCount/>}/>
               <MockList title="Select" listComponent={Select}/>
               <MockList title="Tabs" listComponent={Tabs}/>
+              <MockList title="Tabs" listComponent={Tabs} showCount={true}/>
               <MockList title="Item List" listComponent={ItemList}/>
               <MockList title="Checkbox List" listComponent={CheckboxItemList}/>
               {/*<CheckboxFilter id="rating" title="Rating" field="rated.raw" value="R" label="Rated 'R'"/>*/}
@@ -81,7 +82,7 @@ class App extends React.Component<any, any> {
                 id="writers" title="Writers" field="writers.raw" size={10}
                 listComponent={CheckboxItemList}
                 />
-              <MenuFilter2 field="type.raw" title="Movie Type" id="movie_type" showCount listComponent={Tabs}/>
+              <MenuFilter2 field="type.raw" title="Movie Type" id="movie_type" showCount={false} listComponent={Tabs}/>
 
               <hr />
               <MockRange title="Container Component" containerComponent={Panel}/>

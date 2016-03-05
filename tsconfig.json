@@ -68,8 +68,6 @@
     "./src/components/ui/list/MockList.tsx",
     "./src/components/ui/list/Select.tsx",
     "./src/components/ui/list/Select.unit.tsx",
-    "./src/components/ui/list/Tabs.tsx",
-    "./src/components/ui/list/Tabs.unit.tsx",
     "./src/components/ui/list/TagCloud.tsx",
     "./src/components/ui/list/TagCloud.unit.tsx",
     "./src/components/ui/range/MockRange.tsx",

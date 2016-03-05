@@ -11,7 +11,7 @@
     display:none;
   }
 
-  &__tab {
+  &-option {
     cursor:pointer;
     display: inline-block;
     font-weight: $sk-medium-weight;
@@ -23,11 +23,6 @@
     border: 1px solid transparent;
     border-radius: $sk-border-radius $sk-border-radius 0 0;
 
-    a {
-      text-decoration: none;
-      color: $sk-action-text-color;
-    }
-
     &.is-active {
       background-color: white;
       color:$sk-list-text-color;
@@ -35,15 +30,25 @@
       cursor: default;
       border: 1px solid #ddd;
       border-bottom-color: transparent;
-
-      a {
-        color:$sk-list-text-color;
-      }
     }
 
     &.is-disabled {
       cursor: initial;
       color: #ddd;
+    }
+    
+    &__text, &__count {
+      display: inline;
+    }
+    
+    &__count {
+      &:before {
+        content: " ("
+      }
+    
+      &:after {
+        content: ")"
+      }
     }
   }
 }
