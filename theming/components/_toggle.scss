@@ -17,7 +17,7 @@
     display:none;
   }
 
-  &__action {
+  &-option {
     flex:1;
     border:1px solid $sk-border-color;
     cursor:pointer;
@@ -40,13 +40,26 @@
     &.is-active {
       background-color:$sk-active-bg-color;
       color:white;
-      font-weight: $sk-bold-weight;
       border-color:$sk-active-bg-color;
     }
 
     &.is-disabled {
       cursor: initial;
       color: #ddd;
+    }
+    
+    &__text, &__count {
+      display: inline;
+    }
+    
+    &__count {
+      &:before {
+        content: " ("
+      }
+    
+      &:after {
+        content: ")"
+      }
     }
   }
 }

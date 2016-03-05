@@ -11,15 +11,19 @@
     display:none;
   }
 
-  &__item {
+  &-option {
     display: inline;
     cursor:pointer;
     font-weight: $sk-medium-weight;
     color: $sk-action-text-color;
-    padding:4px 0px;
+    padding:4px 2px;
     border-right:none;
     text-decoration: none;
     //@include user-select(none);
+    
+    &__text, &__count {
+      display: inline;
+    }
 
     &:before {
       content: ' ';

@@ -6,7 +6,7 @@ const {
   Panel, TagCloud, Toggle, Select, Tabs, ItemList, CheckboxItemList, /*CheckboxFilter,*/
   RefinementListFilter2, MenuFilter2,
   RangeSlider, RangeHistogram, RangeInput,
-  FilterGroup,
+  FilterGroup, ItemHistogramList
 } = require("../../../../../src")
 
 const host = "http://demo.searchkit.co/api/movies"
@@ -45,7 +45,7 @@ const filterGroupProps = {
   removeFilter(){},
   removeFilters(){},
   translate(key){
-    return key + " translated"
+    return key + "!"
   }
 }
 
@@ -58,18 +58,21 @@ class App extends React.Component<any, any> {
 
           <div className="sk-layout__body">
             <div className="sk-layout__filters">
-              <Panel title='My Panel' collapsable={true}>
-                <p>panel contents</p>
+              <Panel title="Grouped Filters" collapsable={true}>
+                <div className="sk-filter-group">
+                  <FilterGroup {...filterGroupProps}/>
+                </div>
               </Panel>
-              
-              <div className="sk-filter-group">
-                <FilterGroup {...filterGroupProps}/>
-              </div>
 
-              <MockList title="Tag Cloud" listComponent={TagCloud} showCount={true}/>
+              <MenuFilter2 field="type.raw" title="Movie Type" id="movie_type" listComponent={ItemHistogramList}/>
+
+              <MockList title="Tag Cloud" listComponent={TagCloud}/>
+              <MockList title="Tag Cloud with count" listComponent={TagCloud} showCount/>
               <MockList title="Toggle" listComponent={Toggle}/>
+              <MockList title="Toggle with count" listComponent={<Toggle showCount/>}/>
               <MockList title="Select" listComponent={Select}/>
               <MockList title="Tabs" listComponent={Tabs}/>
+              <MockList title="Tabs" listComponent={Tabs} showCount={true}/>
               <MockList title="Item List" listComponent={ItemList}/>
               <MockList title="Checkbox List" listComponent={CheckboxItemList}/>
               {/*<CheckboxFilter id="rating" title="Rating" field="rated.raw" value="R" label="Rated 'R'"/>*/}
@@ -78,7 +81,7 @@ class App extends React.Component<any, any> {
                 id="writers" title="Writers" field="writers.raw" size={10}
                 listComponent={CheckboxItemList}
                 />
-              <MenuFilter2 field="type.raw" title="Movie Type" id="movie_type" showCount={true} listComponent={Tabs}/>
+              <MenuFilter2 field="type.raw" title="Movie Type" id="movie_type" showCount={false} listComponent={Tabs}/>
 
               <hr />
               <MockRange title="Container Component" containerComponent={Panel}/>

@@ -12,6 +12,7 @@ export class MockList extends React.Component<any, any> {
         {key:"c", title:"C", doc_count:12},
         {key:"d", doc_count:15},
       ],
+      docCount: 10+11+12+15,
       selectedItems:["a", "c"],
       toggleItem:jasmine.createSpy("toggleItem"),
       setItems:jasmine.createSpy("setItems"),

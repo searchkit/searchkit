@@ -17,5 +17,24 @@
 
   &-option {
     @include filter-option;
+        
+    &.is-histogram {
+      z-index: 1;  
+    }
+    
+    &.is-histogram &__count {
+      padding-right: 4px;
+      color: #999;
+    }
+    
+    &__bar {
+      position: absolute;
+      background-color: #f0f0f0;
+      top: 1;
+      bottom: 1;
+      right: 0;
+      display: inline-block;
+      z-index: -1;
+    }
   }
 }

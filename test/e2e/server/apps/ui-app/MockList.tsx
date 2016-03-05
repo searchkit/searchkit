@@ -1,6 +1,7 @@
 import * as React from "react";
 const {
-  Panel
+  Panel,
+  renderComponent
 } = require("../../../../../src")
 
 const _ = require("lodash")
@@ -29,7 +30,7 @@ export class MockList extends React.Component<any, any>{
         self.setState({ selectedItems: items })
       },
       translate(key){
-        return key + " translated"
+        return key + "!"
       }
     }
   }
@@ -37,8 +38,8 @@ export class MockList extends React.Component<any, any>{
   render(){
     return (
       <Panel title={this.props.title}>
-        {React.createElement(this.props.listComponent, _.assign({},  this.state, this.props))}
-        </Panel>
+        {renderComponent(this.props.listComponent, _.assign({},  this.state, this.props))}
+     </Panel>
     )
   }
 

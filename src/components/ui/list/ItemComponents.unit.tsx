@@ -46,6 +46,14 @@ describe("ItemComponents", ()=> {
       </div>
     ).replace(/checkbox"\/>/, `checkbox">`))
 
+    this.wrapper.setProps({showCount:true, showCheckbox:false, count: undefined})
+
+    expect(this.wrapper.html()).toEqual(jsxToHTML(
+      <div className="sk-item-option sk-item-container__item" data-qa="option">
+        <div data-qa="label" className="sk-item-option__text">Images</div>
+      </div>
+    ))
+
     this.wrapper.setProps({active:true})
 
     expect(this.wrapper.find(".sk-item-option").hasClass("is-active")).toBe(true)

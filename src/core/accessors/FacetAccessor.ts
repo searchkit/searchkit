@@ -59,6 +59,10 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
   getBuckets(){
     return this.getAggregations([this.uuid, this.key, "buckets"], [])
   }
+  
+  getDocCount(){
+    return this.getAggregations([this.uuid, "doc_count"], 0)
+  }
 
   setViewMoreOption(option:ISizeOption) {
     this.size = option.size;
