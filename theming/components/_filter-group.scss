@@ -6,10 +6,10 @@
     &__title, &__value, &__remove-action {
       display: inline-block;
     }
-      
+
     &__title {
       font-weight: bold;
-      
+
       &:after {
         content: ": ";
       }
@@ -17,19 +17,20 @@
 
     &__value {
       padding-left: 4px;
-      
+
       &:hover {
         text-decoration: line-through;
         cursor: pointer;
+        color: $sk-remove-action-color;
       }
-      
+
       &:after {
         display:inline-block;
         content: ", ";
       }
-      
+
       &:last-child:after {
-        content: ""; 
+        content: "";
       }
     }
 
