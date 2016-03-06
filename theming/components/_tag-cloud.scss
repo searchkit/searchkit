@@ -14,13 +14,13 @@
   &-option {
     display: inline;
     cursor:pointer;
-    font-weight: $sk-medium-weight;
-    color: $sk-action-text-color;
+    font-weight: $sk-light-weight;
+    color: $sk-list-text-color;
     padding:4px 2px;
     border-right:none;
     text-decoration: none;
-    //@include user-select(none);
-    
+
+
     &__text, &__count {
       display: inline;
     }
@@ -44,17 +44,14 @@
       }
     }
 
-    &.is-active {
-      color:$sk-list-text-color;
+    &.is-active &__text {
+      color: $sk-action-active-color;
+      font-weight: $sk-medium-weight;
     }
-
-    // &:hover {
-    //   color:$sk-list-text-color;
-    // }
 
     &.is-disabled {
       cursor: initial;
-      color: #ddd;
+      color: $sk-disabled-text-color;
     }
   }
 }
