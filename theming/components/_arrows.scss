@@ -1,0 +1,15 @@
+@mixin sk-arrow-down($size, $color: #666) {
+  width:0;
+  height:0;
+  border-top: $size solid $color;
+  border-right: $size solid transparent;
+  border-left: $size solid transparent;
+}
+
+@mixin sk-arrow-right($size, $color: #666) {
+  width:0;
+  height:0;
+  border-bottom: $size solid transparent;
+  border-top: $size solid transparent;
+  border-left: $size solid $color;
+}
