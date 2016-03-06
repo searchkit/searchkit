@@ -43,11 +43,7 @@
     top:50%;
     margin-top:-3px;
     right:10px;
-    width:0;
-    height:0;
-    border-left:6px solid transparent;
-    border-right:6px solid transparent;
-    border-top:6px solid #666;
+    @include sk-arrow-down(6px);
   }
 
 }

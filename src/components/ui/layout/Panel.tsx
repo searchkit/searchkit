@@ -52,10 +52,9 @@ export class Panel extends React.Component<PanelProps, {collapsed: boolean}> {
 
     var titleDiv
     if (collapsable){
-      const arrowClass = collapsed ? 'sk-arrow-right' : 'sk-arrow-down'
       titleDiv = (
-        <div className={block("header").state({ collapsable })} onClick={this.toggleCollapsed.bind(this)}>
-          <span className={arrowClass}/>{" "}{title}
+        <div className={block("header").state({ collapsable, collapsed })} onClick={this.toggleCollapsed.bind(this)}>
+          {title}
         </div>
       )
     } else {

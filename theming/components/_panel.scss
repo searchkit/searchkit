@@ -1,29 +1,6 @@
 @import "../vars.scss";
 @import "../mixins/user-select.scss";
 
-.sk-arrow-down {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  vertical-align: middle;
-  border-top: 4px dashed;
-  border-top: 4px solid\9;
-  border-right: 4px solid transparent;
-  border-left: 4px solid transparent;
-}
-
-.sk-arrow-right {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  margin-left: 2px;
-  margin-right: 2px;
-  vertical-align: middle;
-  border-bottom: 4px solid transparent;
-  border-top: 4px solid transparent;
-  border-left: 4px solid;
-}
-
 .sk-layout__filters {
   .sk-panel {
     margin-bottom: 16px;
@@ -49,7 +26,27 @@
     &.is-collapsable  {
       cursor: pointer;
       @include user-select(none);
+      padding-left:15px;
+      position: relative;
+
+      &:after {
+        content:"";
+        display:block;
+        position:absolute;
+        top:50%;
+        margin-top:-3px;
+        left: -1px;
+        @include sk-arrow-down(5px);
+      }
+
+      &.is-collapsed:after {
+        @include sk-arrow-right(5px);
+        margin-top:-5px;
+        left: 0;
+      }
+
     }
+
   }
 
   &__content {
