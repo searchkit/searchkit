@@ -31,9 +31,8 @@ describe("Panel", ()=> {
     //this markup will change in react 15.x
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-panel">
-        <div className="sk-panel__header is-collapsable">
-          <span className="sk-arrow-right"></span>
-          <span> </span><span>My Panel</span>
+        <div className="sk-panel__header is-collapsable is-collapsed">
+          My Panel
         </div>
         <div className="sk-panel__content is-collapsed">
           <p>panel content...</p>
@@ -42,10 +41,10 @@ describe("Panel", ()=> {
     ))
 
     let expectIsCollapsed = (shouldBeCollapsed)=> {
-      let arrowClass = (shouldBeCollapsed) ? ".sk-arrow-right": ".sk-arrow-down"
       expect(this.wrapper.find(".sk-panel__content").hasClass("is-collapsed"))
         .toBe(shouldBeCollapsed)
-      expect(this.wrapper.find(arrowClass).length).toBe(1)
+      expect(this.wrapper.find(".sk-panel__header").hasClass("is-collapsed"))
+        .toBe(shouldBeCollapsed)
     }
 
     //test collapsing
