@@ -65,6 +65,21 @@ describe("Panel", ()=> {
     expect(this.wrapper.find(".sk-panel-updated").hasClass("my-custom-class")).toBe(true)
   })
 
+  it("defaultCollapsed", ()=> {
+    this.wrapper = mount(
+      <Panel title="My Panel" collapsable={true} defaultCollapsed={false}>
+        <p>panel content...</p>
+      </Panel>
+    )
+
+    expect(this.wrapper.find(".sk-panel__header").hasClass("is-collapsable"))
+      .toBe(true)
+    expect(this.wrapper.find(".sk-panel__header").hasClass("is-collapsed"))
+      .toBe(false)
+
+  })
+
+
 
   })
 

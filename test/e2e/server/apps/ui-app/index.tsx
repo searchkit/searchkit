@@ -58,7 +58,7 @@ class App extends React.Component<any, any> {
 
           <div className="sk-layout__body">
             <div className="sk-layout__filters">
-              <Panel title="Grouped Filters" collapsable={true}>
+              <Panel title="Grouped Filters" collapsable={true} defaultCollapsed={false}>
                 <div className="sk-filter-group">
                   <FilterGroup {...filterGroupProps}/>
                 </div>
@@ -88,7 +88,7 @@ class App extends React.Component<any, any> {
               <MockRange title="Container Element" containerComponent={<Panel />}/>
               <MockRange title="Container Element with props" containerComponent={<Panel collapsable={true}/>}/>
               <MockRange title="Container Function" containerComponent={(props, children) => <Panel {...props} collapsable={true}>{children}</Panel>}/>
-              <hr />              
+              <hr />
               <MockRange title="RangeSlider" rangeComponent={RangeSlider}/>
               <MockRange title="RangeHistogram" rangeComponent={RangeHistogram}/>
               <MockRange title="RangeInput" rangeComponent={RangeInput}/>
@@ -112,7 +112,7 @@ class App extends React.Component<any, any> {
                 <div className="sk-action-bar__filters">
                   <SelectedFilters/>
                   <ResetFilters/>
-                  
+
                   <div className="sk-filter-group">
                     <FilterGroup {...filterGroupProps}/>
                     <FilterGroup {...filterGroupProps}/>

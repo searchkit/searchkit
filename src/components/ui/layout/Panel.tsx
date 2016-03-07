@@ -8,6 +8,7 @@ export interface PanelProps extends React.Props<Panel> {
   disabled?: boolean
   className?: string
   collapsable?: boolean
+  defaultCollapsed?:boolean
 }
 
 export class Panel extends React.Component<PanelProps, {collapsed: boolean}> {
@@ -17,19 +18,21 @@ export class Panel extends React.Component<PanelProps, {collapsed: boolean}> {
     disabled: React.PropTypes.bool,
     mod: React.PropTypes.string,
     className: React.PropTypes.string,
-    collapsable: React.PropTypes.bool
+    collapsable: React.PropTypes.bool,
+    defaultCollapsed:React.PropTypes.bool
   }
 
   static defaultProps = {
     disabled: false,
     collapsable: false,
-    mod: "sk-panel"
+    defaultCollapsed:true,
+    mod: "sk-panel",
   }
 
   constructor(props){
     super(props)
     this.state = {
-      collapsed: props.collapsable
+      collapsed: props.defaultCollapsed
     }
   }
 
@@ -41,7 +44,7 @@ export class Panel extends React.Component<PanelProps, {collapsed: boolean}> {
 
   render() {
     const { title, mod, className, disabled, children, collapsable } = this.props
-    const { collapsed } = this.state
+    const collapsed  = collapsable && this.state.collapsed
     const bemBlocks = {
       container: bemBlock(mod)
     }
