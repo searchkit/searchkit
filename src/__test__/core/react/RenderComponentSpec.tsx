@@ -51,7 +51,7 @@ describe("RenderComponent", ()=> {
     ))
   })
 
-  it("React.Component class", ()=> {
+  it("React Element", ()=> {
     this.mount(this.SubPanelElement)
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-panel">
@@ -63,7 +63,7 @@ describe("RenderComponent", ()=> {
     ))
   })
 
-  it("React.Component class", ()=> {
+  it("Render function", ()=> {
     this.mount(this.PanelFunction)
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-panel">
@@ -73,6 +73,20 @@ describe("RenderComponent", ()=> {
         </div>
       </div>
     ))
+  })
+
+  it("Invalid component", ()=> {
+    spyOn(console, "warn")
+    try{
+      this.mount(10)
+      printPrettyHtml(this.wrapper.html())
+    } catch (e){
+
+    }
+    expect(console.warn).toHaveBeenCalledWith(
+      "Invalid component", 10
+    )
+
   })
 
 })
