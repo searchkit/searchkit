@@ -97,7 +97,6 @@ export class HitsTable extends React.Component<any, {}>{
   
   render(){
     const { columns, hits } = this.props
-    console.log(this.props)
     return (
       <div style={{width: '100%', boxSizing: 'border-box', padding: 8}}>
         <table className="sk-table sk-table-striped" style={{width: '100%', boxSizing: 'border-box'}}>
@@ -108,6 +107,39 @@ export class HitsTable extends React.Component<any, {}>{
             {map(hits, hit => (
               <tr key={hit._id}>
                 {map(columns, (col, idx) => this.renderCell(hit, col, idx))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+}
+
+class MovieHitsTable extends React.Component<any, {}> {
+  
+  render(){
+    const { hits } = this.props
+    return (
+      <div style={{width: '100%', boxSizing: 'border-box', padding: 8}}>
+        <table className="sk-table sk-table-striped" style={{width: '100%', boxSizing: 'border-box'}}>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Title</th>
+              <th>Year</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            {map(hits, hit => (
+              <tr key={hit._id}>
+                <td style={{margin: 0, padding: 0, width: 40}}>
+                  <img data-qa="poster" src={hit._source.poster} style={{width: 40}}/>
+                </td>
+                <td>{hit._source.title}</td>
+                <td>{hit._source.year}</td>
+                <td>{hit._source.rating}</td>
               </tr>
             ))}
           </tbody>
@@ -175,6 +207,7 @@ class App extends React.Component<any, any> {
                   hitComponents = {[
                     {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem},
                     {key:"list", title:"List", itemComponent:MovieHitsListItem},
+                    {key:"movie-table", title:"Movies", listComponent:MovieHitsTable, defaultOption:true},
                     {key:"table", title:"Table", listComponent:<HitsTable 
                       cellComponent={MovieHitsCell}
                       columns={[
@@ -182,7 +215,7 @@ class App extends React.Component<any, any> {
                         'title', 
                         'year', 
                         {key: 'imdbRating', label: 'rating'}
-                      ]} />, defaultOption:true}
+                      ]} />}
                   ]}
                   scrollTo="body"
               />
