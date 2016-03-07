@@ -11,6 +11,7 @@ import * as React from "react";
 const searchkit = new SearchkitManager(host)
 
 const _ = require("lodash")
+const map = require("lodash/map")
 
 require("../../../../../theming/theme.scss")
 require("./customisations.scss")
@@ -46,6 +47,43 @@ const MovieHitsListItem = (props)=> {
       </div>
     </div>
   )
+}
+
+export class HitsTable extends React.Component<any, {}>{
+  
+  renderHeader(column, idx){
+    if ((typeof column) === "string"){
+      return <th key={idx + "-" + column}>{column}</th>
+    } else {
+      return <th key={idx + "-" + column.key}>{column.label}</th>
+    }
+  }
+  
+  renderCell(hit, column, idx){
+    const key = ((typeof column) === "string") ? column : column.key
+    return <td key={idx + '-' + key}>{hit._source[key]}</td>
+  }
+  
+  render(){
+    const { columns, hits } = this.props
+    console.log(this.props)
+    return (
+      <div style={{width: '100%', boxSizing: 'border-box', padding: 8}}>
+        <table className="sk-table sk-table-striped" style={{width: '100%', boxSizing: 'border-box'}}>
+          <thead>
+            <tr>{map(columns, this.renderHeader)}</tr>
+          </thead>
+          <tbody>
+            {map(hits, hit => (
+              <tr key={hit._id}>
+                {map(columns, (col, idx) => this.renderCell(hit, col, idx))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
 }
 
 class App extends React.Component<any, any> {
@@ -104,8 +142,13 @@ class App extends React.Component<any, any> {
                   hitsPerPage={12} highlightFields={["title","plot"]}
                   sourceFilter={["plot", "title", "poster", "imdbId", "imdbRating", "year"]}
                   hitComponents = {[
-                    {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem, defaultOption:true},
-                    {key:"list", title:"List", itemComponent:MovieHitsListItem}
+                    {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem},
+                    {key:"list", title:"List", itemComponent:MovieHitsListItem},
+                    {key:"table", title:"Table", listComponent:<HitsTable columns={[
+                      'title', 
+                      'year', 
+                      {key: 'imdbRating', label: 'rating'}
+                    ]} />, defaultOption:true}
                   ]}
                   scrollTo="body"
               />
