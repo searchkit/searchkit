@@ -4,7 +4,7 @@ const {
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
   Panel, TagCloud, Toggle, Select, Tabs, ItemList, CheckboxItemList, /*CheckboxFilter,*/
-  RefinementListFilter2, MenuFilter2,
+  MenuFilter,
   RangeSlider, RangeHistogram, RangeInput,
   FilterGroup, ItemHistogramList
 } = require("../../../../../src")
@@ -64,7 +64,7 @@ class App extends React.Component<any, any> {
                 </div>
               </Panel>
 
-              <MenuFilter2 field="type.raw" title="Movie Type" id="movie_type" listComponent={ItemHistogramList}/>
+              <MenuFilter field="type.raw" title="Movie Type" id="movie_type" listComponent={ItemHistogramList}/>
 
               <MockList title="Tag Cloud" listComponent={TagCloud}/>
               <MockList title="Tag Cloud with count" listComponent={TagCloud} showCount/>
@@ -76,12 +76,12 @@ class App extends React.Component<any, any> {
               <MockList title="Item List" listComponent={ItemList}/>
               <MockList title="Checkbox List" listComponent={CheckboxItemList}/>
               {/*<CheckboxFilter id="rating" title="Rating" field="rated.raw" value="R" label="Rated 'R'"/>*/}
-              <RefinementListFilter2
+              <RefinementListFilter
                 translations={{ "facets.view_more": "View more writers" }}
                 id="writers" title="Writers" field="writers.raw" size={10}
                 listComponent={CheckboxItemList}
                 />
-              <MenuFilter2 field="type.raw" title="Movie Type" id="movie_type" showCount={false} listComponent={Tabs}/>
+              <MenuFilter field="type.raw" title="Movie Type" id="movie_type" showCount={false} listComponent={Tabs}/>
 
               <hr />
               <MockRange title="Container Component" containerComponent={Panel}/>

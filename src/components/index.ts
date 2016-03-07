@@ -1,5 +1,5 @@
-export * from "./search/filters/menu-filter/src/MenuFilter";
-export * from "./search/filters/refinement-list-filter/src/RefinementListFilter";
+// export * from "./search/filters/menu-filter/src/MenuFilter";
+// export * from "./search/filters/refinement-list-filter/src/RefinementListFilter";
 export * from "./search/filters/reset-filters/src/ResetFilters";
 export * from "./search/filters/selected-filters/src/SelectedFilters";
 export * from "./search/filters/hierarchical-menu-filter/src/HierarchicalMenuFilter";
