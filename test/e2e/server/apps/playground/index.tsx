@@ -3,7 +3,7 @@ const {
   SearchBox, Hits, RefinementListFilter, Pagination,
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
-  ViewSwitcherHits, ViewSwitcherToggle, Select,
+  ViewSwitcherHits, ViewSwitcherToggle, Select, Toggle,
   renderComponent
 } = require("../../../../../src")
 const host = "http://demo.searchkit.co/api/movies"
@@ -188,12 +188,17 @@ class App extends React.Component<any, any> {
                     "hitstats.results_found":"{hitCount} results found"
                   }}/>
                   <ViewSwitcherToggle/>
-                  <ViewSwitcherToggle listComponent={Select}/>
+                  {/*<ViewSwitcherToggle listComponent={Select}/>*/}
                   <SortingSelector options={[
                     {label:"Relevance", field:"_score", order:"desc"},
                     {label:"Latest Releases", field:"released", order:"desc"},
                     {label:"Earliest Releases", field:"released", order:"asc"}
                   ]}/>
+                  {/*<SortingSelector options={[
+                    {label:"Relevance", field:"_score", order:"desc"},
+                    {label:"Latest Releases", field:"released", order:"desc"},
+                    {label:"Earliest Releases", field:"released", order:"asc"}
+                  ]} listComponent={Toggle}/>*/}
                 </div>
 
                 <div className="sk-action-bar__filters">
