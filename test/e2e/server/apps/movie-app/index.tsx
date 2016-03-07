@@ -205,7 +205,7 @@ class App extends React.Component<any, any> {
                   hitsPerPage={12} highlightFields={["title","plot"]}
                   sourceFilter={["plot", "title", "poster", "imdbId", "imdbRating", "year"]}
                   hitComponents = {[
-                    {key:"grid", title:"Grid"},
+                    {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem},
                     {key:"list", title:"List", itemComponent:MovieHitsListItem},
                     {key:"movie-table", title:"Movies", listComponent:MovieHitsTable, defaultOption:true},
                     {key:"table", title:"Table", listComponent:<HitsTable
