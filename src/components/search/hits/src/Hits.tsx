@@ -13,11 +13,13 @@ import {
 	HitsAccessor,
 	RenderComponentType,
 	RenderComponentPropType,
-	renderComponent
+	renderComponent,
+	block
 } from "../../../../core"
 
 const map = require("lodash/map")
 const defaults = require("lodash/defaults")
+
 
 
 export interface HitItemProps {
@@ -28,6 +30,7 @@ export interface HitItemProps {
 
 @PureRender
 export class HitItem extends React.Component<HitItemProps, any> {
+
 	render(){
 		return (
 			<div data-qa="hit" className={this.props.bemBlocks.item().mix(this.props.bemBlocks.container("item"))}>
@@ -37,18 +40,37 @@ export class HitItem extends React.Component<HitItemProps, any> {
 }
 
 export interface HitsListProps{
-	bemBlocks?:{item?:any, container?:any},
+	mod?:string,
+	className?:string,
 	itemComponent?:RenderComponentType<HitItemProps>,
 	hits:Array<Object>
 }
 
+@PureRender
 export class HitsList extends React.Component<HitsListProps, any>{
+
+	static defaultProps={
+		mod:"sk-hits"
+	}
+
+	static propTypes = {
+		mod:React.PropTypes.string,
+		className:React.PropTypes.string,
+		itemComponent:RenderComponentPropType,
+		hits:React.PropTypes.array
+	}
+
 	render(){
+		const {hits, mod, className, itemComponent} = this.props
+		const bemBlocks = {
+			container: block(mod),
+			item: block(`${mod}-hit`)
+		}
 		return (
-			<div data-qa="hits" className={this.props.bemBlocks.container()}>
-				{map(this.props.hits, (result, index)=> {
-					return renderComponent(this.props.itemComponent, {
-						key:result._id, result, bemBlocks:this.props.bemBlocks, index
+			<div data-qa="hits" className={bemBlocks.container().mix(className)}>
+				{map(hits, (result, index)=> {
+					return renderComponent(itemComponent, {
+						key:result._id, result, bemBlocks, index
 					})
 				})}
 			</div>
@@ -62,7 +84,8 @@ export interface HitsProps extends SearchkitComponentProps{
 	sourceFilter?:SourceFilterType
 	itemComponent?:ReactComponentType<HitItemProps>
 	listComponent?:ReactComponentType<HitsListProps>
-	scrollTo?: boolean|string
+	scrollTo?: boolean|string,
+	className?:string
 }
 
 
@@ -80,7 +103,8 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 			React.PropTypes.bool
 		]),
 		itemComponent:RenderComponentPropType,
-		listComponent:RenderComponentPropType
+		listComponent:RenderComponentPropType,
+		className:React.PropTypes.string
 	}, SearchkitComponent.propTypes)
 
 	static defaultProps = {
@@ -108,20 +132,6 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		return new PageSizeAccessor(this.props.hitsPerPage)
 	}
 
-	defineBEMBlocks() {
-		let block = (this.props.mod || "sk-hits")
-		return {
-			container: block,
-			item: `${block}-hit`
-		}
-	}
-
-	renderResult(result:any, index:number) {
-		return React.createElement(this.props.itemComponent, {
-			key:result._id, result, bemBlocks:this.bemBlocks, index
-		})
-	}
-
 	render() {
 		let hits:Array<Object> = this.getHits()
 		let hasHits = hits.length > 0
@@ -129,7 +139,8 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		if (!this.isInitialLoading() && hasHits) {
 			return renderComponent(this.props.listComponent, {
 				hits,
-				bemBlocks:this.bemBlocks,
+				mod:this.props.mod,
+				className:this.props.className,
 				itemComponent:this.props.itemComponent
 			})
 		}

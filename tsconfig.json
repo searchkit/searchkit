@@ -208,6 +208,7 @@
     "./src/core/query/query_dsl/term_level/TermQuery.ts",
     "./src/core/query/query_dsl/term_level/TermsQuery.ts",
     "./src/core/query/SelectedFilter.ts",
+    "./src/core/react/block.ts",
     "./src/core/react/FastClick.ts",
     "./src/core/react/index.ts",
     "./src/core/react/pure-render/index.ts",
