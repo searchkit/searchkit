@@ -53,8 +53,8 @@ describe("Hits component", () => {
       expect(this.hasRendered()).toBeTruthy()
       expect(this.wrapper.html()).toEqual(jsxToHTML(
         <div data-qa="hits" className="sk-hits">
-          <div data-qa="hit" className="sk-hits-hit sk-hits__item"></div>
-          <div data-qa="hit" className="sk-hits-hit sk-hits__item"></div>
+          <div data-qa="hit" className="sk-hits-hit sk-hits__item">1</div>
+          <div data-qa="hit" className="sk-hits-hit sk-hits__item">2</div>
         </div>
       ))
     })

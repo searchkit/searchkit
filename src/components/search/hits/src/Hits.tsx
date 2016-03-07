@@ -25,7 +25,7 @@ const defaults = require("lodash/defaults")
 export interface HitItemProps {
 	key:string,
 	bemBlocks?:any,
-	result:Object
+	result:any
 }
 
 @PureRender
@@ -33,7 +33,9 @@ export class HitItem extends React.Component<HitItemProps, any> {
 
 	render(){
 		return (
-			<div data-qa="hit" className={this.props.bemBlocks.item().mix(this.props.bemBlocks.container("item"))}>
+			<div data-qa="hit"
+				className={this.props.bemBlocks.item().mix(this.props.bemBlocks.container("item"))}>
+				{this.props.result._id}
 			</div>
 		)
 	}
@@ -50,7 +52,8 @@ export interface HitsListProps{
 export class HitsList extends React.Component<HitsListProps, any>{
 
 	static defaultProps={
-		mod:"sk-hits"
+		mod:"sk-hits",
+		itemComponent:HitItem
 	}
 
 	static propTypes = {
@@ -108,7 +111,6 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 	}, SearchkitComponent.propTypes)
 
 	static defaultProps = {
-		itemComponent:HitItem,
 		listComponent:HitsList,
 		scrollTo: "body"
 	}
