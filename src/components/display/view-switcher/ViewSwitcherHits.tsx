@@ -6,16 +6,20 @@ import {
 	SearchkitComponent,
 	SearchkitComponentProps,
 	ViewOptionsAccessor,
-	ReactComponentType
+	RenderComponentType,
+	RenderComponentPropType
 } from "../../../core"
 
-import {Hits, HitsProps, HitItemProps} from "../../"
+import {
+	Hits, HitsProps, HitItemProps, HitsListProps
+} from "../../"
 
 export interface ViewSwitcherHitsProps extends HitsProps {
 	hitComponents:[{
 		key:string,
 		title:string,
-		itemComponent:ReactComponentType<HitItemProps>,
+		itemComponent?:RenderComponentType<HitItemProps>,
+		listComponent?:RenderComponentType<HitsListProps>,
 		defaultOption?:boolean
 	}]
 }
@@ -28,7 +32,8 @@ export class ViewSwitcherHits extends SearchkitComponent<ViewSwitcherHitsProps, 
 			React.PropTypes.shape({
 				key:React.PropTypes.string.isRequired,
 				title:React.PropTypes.string.isRequired,
-				itemComponent:React.PropTypes.func.isRequired,
+				itemComponent:RenderComponentPropType,
+				listComponent:RenderComponentPropType,
 				defaultOption:React.PropTypes.bool
 			})
 		)
@@ -46,6 +51,7 @@ export class ViewSwitcherHits extends SearchkitComponent<ViewSwitcherHitsProps, 
     let props = omit(this.props, "hitComponents")
     let selectedOption = this.accessor.getSelectedOption()
     props.itemComponent = selectedOption.itemComponent
+		props.listComponent = selectedOption.listComponent
     props.mod = 'sk-hits-'+selectedOption.key
     return (
       <Hits {...props} />

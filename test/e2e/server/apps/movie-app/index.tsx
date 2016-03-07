@@ -2,7 +2,8 @@ const {
   SearchkitManager,SearchkitProvider,
   SearchBox, Hits, RefinementListFilter, Pagination,
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
-  SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter
+  SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
+  ViewSwitcherHits, ViewSwitcherToggle
 } = require("../../../../../src")
 const host = "http://demo.searchkit.co/api/movies"
 import * as ReactDOM from "react-dom";
@@ -29,6 +30,23 @@ const MovieHitsGridItem = (props)=> {
   )
 }
 
+const MovieHitsListItem = (props)=> {
+  const {bemBlocks, result} = props
+  let url = "http://www.imdb.com/title/" + result._source.imdbId
+  const source:any = _.extend({}, result._source, result.highlight)
+  return (
+    <div className={bemBlocks.item().mix(bemBlocks.container("item"))} data-qa="hit">
+      <div className={bemBlocks.item("poster")}>
+        <img data-qa="poster" src={result._source.poster}/>
+      </div>
+      <div className={bemBlocks.item("details")}>
+        <a href={url} target="_blank"><h2 className={bemBlocks.item("title")} dangerouslySetInnerHTML={{__html:source.title}}></h2></a>
+        <h3 className={bemBlocks.item("subtitle")}>Released in {source.year}, rated {source.imdbRating}/10</h3>
+        <div className={bemBlocks.item("text")} dangerouslySetInnerHTML={{__html:source.plot}}></div>
+      </div>
+    </div>
+  )
+}
 
 class App extends React.Component<any, any> {
   render(){
@@ -68,6 +86,7 @@ class App extends React.Component<any, any> {
                   <HitsStats translations={{
                     "hitstats.results_found":"{hitCount} results found"
                   }}/>
+                  <ViewSwitcherToggle/>
                   <SortingSelector options={[
                     {label:"Relevance", field:"_score", order:"desc"},
                     {label:"Latest Releases", field:"released", order:"desc"},
@@ -81,7 +100,15 @@ class App extends React.Component<any, any> {
                 </div>
 
               </div>
-              <Hits hitsPerPage={10} highlightFields={["title"]} itemComponent={MovieHitsGridItem} mod="sk-hits-grid"/>
+              <ViewSwitcherHits
+                  hitsPerPage={12} highlightFields={["title","plot"]}
+                  sourceFilter={["plot", "title", "poster", "imdbId", "imdbRating", "year"]}
+                  hitComponents = {[
+                    {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem, defaultOption:true},
+                    {key:"list", title:"List", itemComponent:MovieHitsListItem}
+                  ]}
+                  scrollTo="body"
+              />
               <NoHits suggestionsField={"title"}/>
               <Pagination showNumbers={true}/>
             </div>

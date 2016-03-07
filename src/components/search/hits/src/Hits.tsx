@@ -10,18 +10,21 @@ import {
 	PureRender,
 	SourceFilterType,
 	SourceFilterAccessor,
-	HitsAccessor
+	HitsAccessor,
+	RenderComponentType,
+	RenderComponentPropType,
+	renderComponent
 } from "../../../../core"
 
 const map = require("lodash/map")
 const defaults = require("lodash/defaults")
 
 
-	export interface HitItemProps {
-		key:string,
-		bemBlocks?:any,
-		result:Object
-	}
+export interface HitItemProps {
+	key:string,
+	bemBlocks?:any,
+	result:Object
+}
 
 @PureRender
 export class HitItem extends React.Component<HitItemProps, any> {
@@ -33,11 +36,32 @@ export class HitItem extends React.Component<HitItemProps, any> {
 	}
 }
 
+export interface HitsListProps{
+	bemBlocks?:{item?:any, container?:any},
+	itemComponent?:RenderComponentType<HitItemProps>,
+	hits:Array<Object>
+}
+
+export class HitsList extends React.Component<HitsListProps, any>{
+	render(){
+		return (
+			<div data-qa="hits" className={this.props.bemBlocks.container()}>
+				{map(this.props.hits, (result, index)=> {
+					return renderComponent(this.props.itemComponent, {
+						key:result._id, result, bemBlocks:this.props.bemBlocks, index
+					})
+				})}
+			</div>
+		)
+	}
+}
+
 export interface HitsProps extends SearchkitComponentProps{
 	hitsPerPage: number
 	highlightFields?:Array<string>
 	sourceFilter?:SourceFilterType
 	itemComponent?:ReactComponentType<HitItemProps>
+	listComponent?:ReactComponentType<HitsListProps>
 	scrollTo?: boolean|string
 }
 
@@ -55,11 +79,13 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 			React.PropTypes.arrayOf(React.PropTypes.string),
 			React.PropTypes.bool
 		]),
-		itemComponent:React.PropTypes.func
+		itemComponent:RenderComponentPropType,
+		listComponent:RenderComponentPropType
 	}, SearchkitComponent.propTypes)
 
 	static defaultProps = {
 		itemComponent:HitItem,
+		listComponent:HitsList,
 		scrollTo: "body"
 	}
 
@@ -101,11 +127,11 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		let hasHits = hits.length > 0
 
 		if (!this.isInitialLoading() && hasHits) {
-			return (
-				<div data-qa="hits" className={this.bemBlocks.container()}>
-				{map(hits, this.renderResult.bind(this))}
-				</div>
-			);
+			return renderComponent(this.props.listComponent, {
+				hits,
+				bemBlocks:this.bemBlocks,
+				itemComponent:this.props.itemComponent
+			})
 		}
 
 		return null
