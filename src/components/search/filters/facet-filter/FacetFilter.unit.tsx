@@ -166,8 +166,8 @@ describe("Facet Filter tests", () => {
   })
 
   it("should work with custom components", () => {
-    let container = (props, children)=> (
-      <div {...props}>{children}</div>
+    let container = (props)=> (
+      <div {...props}>{props.children}</div>
     )
 
     this.createWrapper(

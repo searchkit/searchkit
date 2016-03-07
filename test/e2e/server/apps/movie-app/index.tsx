@@ -67,13 +67,13 @@ export class MovieHitsCell extends React.Component<any, {}> {
 }
 
 export class HitsTable extends React.Component<any, {}>{
-  
+
   constructor(props){
     super(props)
     this.renderHeader = this.renderHeader.bind(this)
     this.renderCell = this.renderCell.bind(this)
   }
-  
+
   renderHeader(column, idx){
     if ((typeof column) === "string"){
       return <th key={idx + "-" + column}>{column}</th>
@@ -82,19 +82,19 @@ export class HitsTable extends React.Component<any, {}>{
       return <th key={idx + "-" + column.key} style={column.style}>{label}</th>
     }
   }
-  
+
   renderCell(hit, column, idx){
     const { cellComponent } = this.props
-    
+
     const key = ((typeof column) === "string") ? column : column.key
     var element;
     if (cellComponent){
-      return renderComponent(cellComponent, {hit, columnKey: key, column, columnIdx: idx})
+      return renderComponent(cellComponent, {hit, columnKey: key, key, column, columnIdx: idx})
     } else {
-      return <td key={idx + '-' + key}>{hit._source[key]}</td> 
+      return <td key={idx + '-' + key}>{hit._source[key]}</td>
     }
   }
-  
+
   render(){
     const { columns, hits } = this.props
     return (
@@ -139,7 +139,7 @@ class MovieHitsTable extends React.Component<any, {}> {
                 </td>
                 <td>{hit._source.title}</td>
                 <td>{hit._source.year}</td>
-                <td>{hit._source.rating}</td>
+                <td>{hit._source.imdbRating}</td>
               </tr>
             ))}
           </tbody>
@@ -212,8 +212,8 @@ class App extends React.Component<any, any> {
                       cellComponent={MovieHitsCell}
                       columns={[
                         {key: 'poster', label: '', style:{ width: 40}},
-                        'title', 
-                        'year', 
+                        'title',
+                        'year',
                         {key: 'imdbRating', label: 'rating'}
                       ]} />}
                   ]}
