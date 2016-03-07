@@ -10,8 +10,9 @@ const transform = require("lodash/transform")
 
 export interface SearchkitComponentProps {
   mod?:string
+  className?:string
   translations?:Object
-  searchkit?:SearchkitManager,
+  searchkit?:SearchkitManager
   key?:string
 }
 
@@ -32,6 +33,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
 
   static propTypes:any = {
     mod :React.PropTypes.string,
+    className :React.PropTypes.string,
     translations: React.PropTypes.objectOf(
       React.PropTypes.string),
     searchkit:React.PropTypes.instanceOf(SearchkitManager)

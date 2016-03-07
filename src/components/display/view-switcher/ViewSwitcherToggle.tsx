@@ -42,6 +42,8 @@ export class ViewSwitcherToggle extends SearchkitComponent<ViewSwitcherProps, an
       let options = viewOptionsAccessor.options
       let selectedOption = viewOptionsAccessor.getSelectedOption().key
 			return renderComponent(this.props.listComponent, {
+				mod:this.props.mod,
+				className:this.props.className,
 				disabled:!this.hasHits(),
 				items:options,
 				selectedItems:[selectedOption],

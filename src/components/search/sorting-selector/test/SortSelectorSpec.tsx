@@ -2,6 +2,7 @@ import * as React from "react";
 import {mount} from "enzyme";
 import {SortingSelector} from "../src/SortingSelector.tsx";
 import {SearchkitManager } from "../../../../core";
+import {Toggle} from "../../../ui";
 const bem = require("bem-cn");
 import * as sinon from "sinon";
 const _ = require("lodash")
@@ -20,7 +21,7 @@ describe("SortingSelector tests", () => {
           {label:"Relevance"},
           {label:"Latest Releases", field:"released", order:"desc"},
           {label:"Earliest Releases", field:"released", order:"asc", key:"earliest"}
-        ]}/>
+        ]} translations={{"Relevance":"Relevance translated"}}/>
       )
     }
     this.setWrapper()
@@ -38,9 +39,9 @@ describe("SortingSelector tests", () => {
   it("is disabled when no results", ()=> {
     expect(this.wrapper.children().length).toBe(1)
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-sorting-selector is-disabled">
+      <div className="sk-select is-disabled">
         <select defaultValue="none">
-          <option value="none">Relevance</option>
+          <option value="none">Relevance translated</option>
           <option value="released_desc">Latest Releases</option>
           <option value="earliest">Earliest Releases</option>
         </select>
@@ -52,9 +53,9 @@ describe("SortingSelector tests", () => {
     this.setResults()
     expect(this.wrapper.children().length).toBe(1)
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-sorting-selector">
+      <div className="sk-select">
         <select defaultValue="none">
-          <option value="none">Relevance</option>
+          <option value="none">Relevance translated</option>
           <option value="released_desc">Latest Releases</option>
           <option value="earliest">Earliest Releases</option>
         </select>
@@ -68,9 +69,9 @@ describe("SortingSelector tests", () => {
     this.setWrapper()
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-sorting-selector">
+      <div className="sk-select">
         <select defaultValue="released_desc" onChange={_.identity}>
-          <option value="none">Relevance</option>
+          <option value="none">Relevance translated</option>
           <option value="released_desc">Latest Releases</option>
           <option value="earliest">Earliest Releases</option>
         </select>
@@ -83,9 +84,9 @@ describe("SortingSelector tests", () => {
     this.setResults()
     this.setWrapper()
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-sorting-selector">
+      <div className="sk-select">
         <select defaultValue="earliest" onChange={_.identity}>
-          <option value="none">Relevance</option>
+          <option value="none">Relevance translated</option>
           <option value="released_desc">Latest Releases</option>
           <option value="earliest">Earliest Releases</option>
         </select>
@@ -100,6 +101,30 @@ describe("SortingSelector tests", () => {
     earlyOption.simulate("change")
     expect(this.accessor.state.getValue()).toBe("earliest")
     expect(this.searchkit.performSearch).toHaveBeenCalled()
+  })
+
+  it("custom mod, className, listComponent", ()=> {
+    this.wrapper = mount(
+      <SortingSelector searchkit={this.searchkit}
+        mod="my-select" className="custom-class" listComponent={Toggle} options={[
+        {label:"Relevance"},
+        {label:"Latest Releases", field:"released", order:"desc"},
+        {label:"Earliest Releases", field:"released", order:"asc", key:"earliest"}
+      ]}/>
+    )
+    expect(this.wrapper.html()).toEqual(jsxToHTML(
+      <div className="my-select custom-class is-disabled">
+        <div className="my-select-option my-select__item is-active" data-qa="option">
+          <div data-qa="label" className="my-select-option__text">Relevance</div>
+        </div>
+        <div className="my-select-option my-select__item" data-qa="option">
+          <div data-qa="label" className="my-select-option__text">Latest Releases</div>
+        </div>
+        <div className="my-select-option my-select__item" data-qa="option">
+          <div data-qa="label" className="my-select-option__text">Earliest Releases</div>
+        </div>
+      </div>
+    ))
   })
 
 })

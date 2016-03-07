@@ -2,6 +2,7 @@ import * as React from "react";
 import {mount} from "enzyme";
 import {ViewSwitcherToggle} from "./ViewSwitcherToggle";
 import {ViewSwitcherHits} from "./ViewSwitcherHits";
+import {Select} from "../../ui";
 
 import {SearchkitManager} from "../../../core";
 import {
@@ -44,29 +45,31 @@ describe("View Switcher Hits component", () => {
           total:2
         }
       })
+      this.setWrapper = (props={})=> {
+        this.wrapper = mount(
+          <div>
 
-      this.wrapper = mount(
-        <div>
+            <ViewSwitcherHits searchkit={this.searchkit}
+            hitComponents = {[
+              {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem, defaultOption:true},
+              {key:"list", title:"List", itemComponent:MovieHitsListItem},
+              {key:"custom-list", title:"Custom List", listComponent:MovieList}
+            ]}
+            highlightFields={["title"]}
+            hitsPerPage={12}
+            sourceFilter={["title"]}/>
+            <ViewSwitcherToggle searchkit={this.searchkit} translations={{"Grid":"My Grid"}} {...props}/>
 
-          <ViewSwitcherHits searchkit={this.searchkit}
-                hitComponents = {[
-                  {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem, defaultOption:true},
-                  {key:"list", title:"List", itemComponent:MovieHitsListItem},
-                  {key:"custom-list", title:"Custom List", listComponent:MovieList}
-                ]}
-                highlightFields={["title"]}
-                hitsPerPage={12}
-                sourceFilter={["title"]}/>
-          <ViewSwitcherToggle searchkit={this.searchkit} translations={{"Grid":"My Grid"}}/>
-
-        </div>
-      )
+          </div>
+        )
+      }
 
       this.ViewOptionsAccessor = this.searchkit.accessors.accessors[0]
 
     });
 
     it("View Switcher Hits", ()=> {
+      this.setWrapper()
       expect(this.wrapper.html()).toEqual(jsxToHTML(
         <div>
           <div data-qa="hits" className="sk-hits-grid">
@@ -131,6 +134,31 @@ describe("View Switcher Hits component", () => {
       ))
     })
 
+    it("custom mod, className, listComponent", ()=> {
+      this.setWrapper({
+        mod:"my-view-switcher", className:"customClass",
+        listComponent:Select
+      })
+      expect(this.wrapper.html()).toEqual(jsxToHTML(
+        <div>
+          <div data-qa="hits" className="sk-hits-grid">
+            <div className="grid-item">1</div>
+            <div className="grid-item">2</div>
+          </div>
+          <div className="my-view-switcher customClass">
+            <select defaultValue="grid">
+              <option value="grid">My Grid</option>
+              <option value="list">List</option>
+              <option value="custom-list">Custom List</option>
+            </select>
+          </div>
+        </div>
+      ))
+    })
+
+
   })
+
+
 
 })
