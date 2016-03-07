@@ -57,7 +57,7 @@ describe("View Switcher Hits component", () => {
                 highlightFields={["title"]}
                 hitsPerPage={12}
                 sourceFilter={["title"]}/>
-          <ViewSwitcherToggle searchkit={this.searchkit}/>
+          <ViewSwitcherToggle searchkit={this.searchkit} translations={{"Grid":"My Grid"}}/>
 
         </div>
       )
@@ -73,16 +73,23 @@ describe("View Switcher Hits component", () => {
             <div className="grid-item">1</div>
             <div className="grid-item">2</div>
           </div>
-          <div className="sk-view-switcher">
-            <div className="sk-view-switcher__action is-active">Grid</div>
-            <div className="sk-view-switcher__action">List</div>
-            <div className="sk-view-switcher__action">Custom List</div>
+          <div className="sk-toggle">
+            <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option">
+              <div data-qa="label" className="sk-toggle-option__text">My Grid</div>
+            </div>
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+              <div data-qa="label" className="sk-toggle-option__text">List</div>
+            </div>
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+              <div data-qa="label" className="sk-toggle-option__text">Custom List</div>
+            </div>
           </div>
         </div>
       ))
 
-      fastClick(this.wrapper.find(".sk-view-switcher__action").at(1))
+      fastClick(this.wrapper.find(".sk-toggle-option").at(1))
       this.wrapper.update()
+
 
       expect(this.wrapper.html()).toEqual(jsxToHTML(
         <div>
@@ -90,23 +97,35 @@ describe("View Switcher Hits component", () => {
             <div className="list-item">1</div>
             <div className="list-item">2</div>
           </div>
-          <div className="sk-view-switcher">
-            <div className="sk-view-switcher__action">Grid</div>
-            <div className="sk-view-switcher__action is-active">List</div>
-            <div className="sk-view-switcher__action">Custom List</div>
+          <div className="sk-toggle">
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+              <div data-qa="label" className="sk-toggle-option__text">My Grid</div>
+            </div>
+            <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option">
+              <div data-qa="label" className="sk-toggle-option__text">List</div>
+            </div>
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+              <div data-qa="label" className="sk-toggle-option__text">Custom List</div>
+            </div>
           </div>
         </div>
       ))
 
-      fastClick(this.wrapper.find(".sk-view-switcher__action").at(2))
+      fastClick(this.wrapper.find(".sk-toggle-option").at(2))
 
       expect(this.wrapper.html()).toEqual(jsxToHTML(
         <div>
           <div className="custom-list">1,2</div>
-          <div className="sk-view-switcher">
-            <div className="sk-view-switcher__action">Grid</div>
-            <div className="sk-view-switcher__action">List</div>
-            <div className="sk-view-switcher__action is-active">Custom List</div>
+          <div className="sk-toggle">
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+              <div data-qa="label" className="sk-toggle-option__text">My Grid</div>
+            </div>
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+              <div data-qa="label" className="sk-toggle-option__text">List</div>
+            </div>
+            <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option">
+              <div data-qa="label" className="sk-toggle-option__text">Custom List</div>
+            </div>
           </div>
         </div>
       ))

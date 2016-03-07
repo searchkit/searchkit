@@ -9,7 +9,7 @@ import {ValueState, SearchkitComponent} from "../../core"
 export class ViewOptionsAccessor extends StatefulAccessor<ValueState>{
   state = new ValueState()
   options:Array<any>
-  constructor(key, options){
+  constructor(key, options:Array<any>){
     super(key)
     this.options = options
   }
@@ -20,13 +20,16 @@ export class ViewOptionsAccessor extends StatefulAccessor<ValueState>{
            head(this.options)
   }
 
-  setView(view){
-    if(view.defaultOption){
-      this.state = this.state.clear()
-    } else {
-      this.state = this.state.setValue(view.key)
+  setView(key){
+    let view = find(this.options, {key})
+    if(view) {
+      if(view.defaultOption){
+        this.state = this.state.clear()
+      } else {
+        this.state = this.state.setValue(view.key)
+      }
+      this.search()
     }
-    this.search()
 
   }
 

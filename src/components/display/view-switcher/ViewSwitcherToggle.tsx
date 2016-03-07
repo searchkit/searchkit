@@ -3,30 +3,30 @@ import {
 	SearchkitComponent,
 	SearchkitComponentProps,
 	ViewOptionsAccessor,
-	FastClick
+	RenderComponentType,
+	RenderComponentPropType,
+	renderComponent
 } from "../../../core"
+
 import {Hits} from "../../../"
+import {Toggle, ListProps} from "../../ui"
 
-const map = require("lodash/map")
+const defaults = require("lodash/defaults")
 
-const ViewItemComponent = (props) => {
-  return (
-		<FastClick handler={props.setView}>
-			<div className={props.bemBlocks.container("action").state({active:props.isActive})}>
-		      {props.view}
-			</div>
-		</FastClick>
 
-  )
+export interface ViewSwitcherProps extends SearchkitComponentProps {
+	listComponent?:RenderComponentType<ListProps>
 }
 
-export class ViewSwitcherToggle extends SearchkitComponent<any, any> {
+export class ViewSwitcherToggle extends SearchkitComponent<ViewSwitcherProps, any> {
 
-  defineBEMBlocks() {
-    return {
-      container:this.props.mod || "sk-view-switcher"
-    }
-  }
+	static defaultProps = {
+		listComponent:Toggle
+	}
+
+	static propTypes = defaults({
+		listComponent:RenderComponentPropType
+	}, SearchkitComponent.propTypes)
 
   getViewOptionsSwitcherAccessor(){
     return this.searchkit.getAccessorByType(ViewOptionsAccessor)
@@ -40,21 +40,16 @@ export class ViewSwitcherToggle extends SearchkitComponent<any, any> {
     let viewOptionsAccessor = this.getViewOptionsSwitcherAccessor()
     if(viewOptionsAccessor){
       let options = viewOptionsAccessor.options
-      let selectedOption = viewOptionsAccessor.getSelectedOption()
-      const actions = map(options, (option) => {
-        return React.createElement(ViewItemComponent, {
-          view:option.title,
-          setView: ()=> this.setView(option),
-          bemBlocks: this.bemBlocks,
-          key:option.key,
-          isActive: option == selectedOption
-        })
-      })
-
-      return (
-      <div className={this.bemBlocks.container().state({disabled:!this.hasHits()})}>
-        {actions}
-      </div>)
+      let selectedOption = viewOptionsAccessor.getSelectedOption().key
+			return renderComponent(this.props.listComponent, {
+				disabled:!this.hasHits(),
+				items:options,
+				selectedItems:[selectedOption],
+				toggleItem:this.setView.bind(this),
+				setItems: ([item]) => this.setView(item),
+				urlBuilder: (item) => this.getViewOptionsSwitcherAccessor().urlWithState(item.key),
+				translate:this.translate
+			})
     }
     return null
 

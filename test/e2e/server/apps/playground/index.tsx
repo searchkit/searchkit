@@ -3,7 +3,8 @@ const {
   SearchBox, Hits, RefinementListFilter, Pagination,
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
-  ViewSwitcherHits, ViewSwitcherToggle
+  ViewSwitcherHits, ViewSwitcherToggle, Select,
+  renderComponent
 } = require("../../../../../src")
 const host = "http://demo.searchkit.co/api/movies"
 import * as ReactDOM from "react-dom";
@@ -11,6 +12,8 @@ import * as React from "react";
 const searchkit = new SearchkitManager(host)
 
 const _ = require("lodash")
+const map = require("lodash/map")
+const isUndefined = require("lodash/isUndefined")
 
 require("../../../../../theming/theme.scss")
 require("./customisations.scss")
@@ -46,6 +49,104 @@ const MovieHitsListItem = (props)=> {
       </div>
     </div>
   )
+}
+
+export class MovieHitsCell extends React.Component<any, {}> {
+  render(){
+    const { hit, columnKey, columnIdx } = this.props
+    if (columnKey === "poster"){
+      return (
+        <td key={columnIdx + '-' + columnKey} style={{margin: 0, padding: 0, width: 40}}>
+          <img data-qa="poster" src={hit._source.poster} style={{width: 40}}/>
+        </td>
+      )
+    } else {
+      return <td key={columnIdx + '-' + columnKey}>{hit._source[columnKey]}</td>
+    }
+  }
+}
+
+export class HitsTable extends React.Component<any, {}>{
+
+  constructor(props){
+    super(props)
+    this.renderHeader = this.renderHeader.bind(this)
+    this.renderCell = this.renderCell.bind(this)
+  }
+
+  renderHeader(column, idx){
+    if ((typeof column) === "string"){
+      return <th key={idx + "-" + column}>{column}</th>
+    } else {
+      const label = isUndefined(column.label) ? column.key : column.label
+      return <th key={idx + "-" + column.key} style={column.style}>{label}</th>
+    }
+  }
+
+  renderCell(hit, column, idx){
+    const { cellComponent } = this.props
+
+    const key = ((typeof column) === "string") ? column : column.key
+    var element;
+    if (cellComponent){
+      return renderComponent(cellComponent, {hit, columnKey: key, key, column, columnIdx: idx})
+    } else {
+      return <td key={idx + '-' + key}>{hit._source[key]}</td>
+    }
+  }
+
+  render(){
+    const { columns, hits } = this.props
+    return (
+      <div style={{width: '100%', boxSizing: 'border-box', padding: 8}}>
+        <table className="sk-table sk-table-striped" style={{width: '100%', boxSizing: 'border-box'}}>
+          <thead>
+            <tr>{map(columns, this.renderHeader)}</tr>
+          </thead>
+          <tbody>
+            {map(hits, hit => (
+              <tr key={hit._id}>
+                {map(columns, (col, idx) => this.renderCell(hit, col, idx))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+}
+
+class MovieHitsTable extends React.Component<any, {}> {
+
+  render(){
+    const { hits } = this.props
+    return (
+      <div style={{width: '100%', boxSizing: 'border-box', padding: 8}}>
+        <table className="sk-table sk-table-striped" style={{width: '100%', boxSizing: 'border-box'}}>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Title</th>
+              <th>Year</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            {map(hits, hit => (
+              <tr key={hit._id}>
+                <td style={{margin: 0, padding: 0, width: 40}}>
+                  <img data-qa="poster" src={hit._source.poster} style={{width: 40}}/>
+                </td>
+                <td>{hit._source.title}</td>
+                <td>{hit._source.year}</td>
+                <td>{hit._source.imdbRating}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
 }
 
 class App extends React.Component<any, any> {
@@ -87,6 +188,7 @@ class App extends React.Component<any, any> {
                     "hitstats.results_found":"{hitCount} results found"
                   }}/>
                   <ViewSwitcherToggle/>
+                  <ViewSwitcherToggle listComponent={Select}/>
                   <SortingSelector options={[
                     {label:"Relevance", field:"_score", order:"desc"},
                     {label:"Latest Releases", field:"released", order:"desc"},
@@ -104,8 +206,17 @@ class App extends React.Component<any, any> {
                   hitsPerPage={12} highlightFields={["title","plot"]}
                   sourceFilter={["plot", "title", "poster", "imdbId", "imdbRating", "year"]}
                   hitComponents = {[
-                    {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem, defaultOption:true},
-                    {key:"list", title:"List", itemComponent:MovieHitsListItem}
+                    {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem},
+                    {key:"list", title:"List", itemComponent:MovieHitsListItem},
+                    {key:"movie-table", title:"Movies", listComponent:MovieHitsTable, defaultOption:true},
+                    {key:"table", title:"Table", listComponent:<HitsTable
+                      cellComponent={MovieHitsCell}
+                      columns={[
+                        {key: 'poster', label: '', style:{ width: 40}},
+                        'title',
+                        'year',
+                        {key: 'imdbRating', label: 'rating'}
+                      ]} />}
                   ]}
                   scrollTo="body"
               />
