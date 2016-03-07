@@ -67,13 +67,13 @@ export class MovieHitsCell extends React.Component<any, {}> {
 }
 
 export class HitsTable extends React.Component<any, {}>{
-  
+
   constructor(props){
     super(props)
     this.renderHeader = this.renderHeader.bind(this)
     this.renderCell = this.renderCell.bind(this)
   }
-  
+
   renderHeader(column, idx){
     if ((typeof column) === "string"){
       return <th key={idx + "-" + column}>{column}</th>
@@ -82,19 +82,19 @@ export class HitsTable extends React.Component<any, {}>{
       return <th key={idx + "-" + column.key} style={column.style}>{label}</th>
     }
   }
-  
+
   renderCell(hit, column, idx){
     const { cellComponent } = this.props
-    
+
     const key = ((typeof column) === "string") ? column : column.key
     var element;
     if (cellComponent){
-      return renderComponent(cellComponent, {hit, columnKey: key, column, columnIdx: idx})
+      return renderComponent(cellComponent, {hit, columnKey: key, key, column, columnIdx: idx})
     } else {
-      return <td key={idx + '-' + key}>{hit._source[key]}</td> 
+      return <td key={idx + '-' + key}>{hit._source[key]}</td>
     }
   }
-  
+
   render(){
     const { columns, hits } = this.props
     console.log(this.props)
@@ -175,12 +175,12 @@ class App extends React.Component<any, any> {
                   hitComponents = {[
                     {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem},
                     {key:"list", title:"List", itemComponent:MovieHitsListItem},
-                    {key:"table", title:"Table", listComponent:<HitsTable 
+                    {key:"table", title:"Table", listComponent:<HitsTable
                       cellComponent={MovieHitsCell}
                       columns={[
                         {key: 'poster', label: '', style:{ width: 40}},
-                        'title', 
-                        'year', 
+                        'title',
+                        'year',
                         {key: 'imdbRating', label: 'rating'}
                       ]} />, defaultOption:true}
                   ]}
