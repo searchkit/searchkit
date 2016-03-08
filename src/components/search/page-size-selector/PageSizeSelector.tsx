@@ -4,18 +4,34 @@ import {
   SearchkitComponentProps,
   PageSizeAccessor,
   FastClick,
-  PaginationAccessor
+  PaginationAccessor,
+  RenderComponentType,
+  RenderComponentPropType,
+  renderComponent
 } from "../../../core"
 
 const map = require("lodash/map")
+const defaults = require("lodash/defaults")
 
-import { Select } from "../../ui"
+import { Select, ListProps } from "../../ui"
 
-export class PageSizeSelector extends SearchkitComponent<any, any> {
+export interface PageSizeSelectorProps extends SearchkitComponentProps {
+  listComponent?:RenderComponentType<ListProps>
+  options:Array<Number>
+}
+
+export class PageSizeSelector extends SearchkitComponent<PageSizeSelectorProps, any> {
 
   static defaultProps = {
     listComponent: Select
   }
+
+  static propTypes = defaults({
+    listComponent:RenderComponentPropType,
+    options:React.PropTypes.arrayOf(
+      React.PropTypes.number
+    ).isRequired
+  },SearchkitComponent.propTypes)
 
   getPageSizeAccessor(){
     return this.searchkit.getAccessorByType(PageSizeAccessor)
@@ -41,7 +57,7 @@ export class PageSizeSelector extends SearchkitComponent<any, any> {
       })
       let selectedSize = pageSizeAccessor.getSize()
       const {mod, className} = this.props
-      return React.createElement(this.props.listComponent, {
+      return renderComponent(this.props.listComponent, {
         mod, className,
         disabled: !this.hasHits(),
         items: options,
