@@ -53,6 +53,8 @@ describe("Panel", ()=> {
     expectIsCollapsed(false)
     this.wrapper.find(".sk-panel__header").simulate("click")
     expectIsCollapsed(true)
+    this.wrapper.setProps({defaultCollapsed:false})
+    expectIsCollapsed(false)
 
   it("can be disabled", ()=> {
     expect(this.wrapper.find(".sk-panel").hasClass("is-disabled")).toBe(false)

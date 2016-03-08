@@ -26,13 +26,21 @@ export class Panel extends React.Component<PanelProps, {collapsed: boolean}> {
     disabled: false,
     collapsable: false,
     defaultCollapsed:true,
-    mod: "sk-panel",
+    mod: "sk-panel"
   }
 
   constructor(props){
     super(props)
     this.state = {
       collapsed: props.defaultCollapsed
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.defaultCollapsed != this.props.defaultCollapsed) {
+      this.setState({
+        collapsed: nextProps.defaultCollapsed
+      })
     }
   }
 
