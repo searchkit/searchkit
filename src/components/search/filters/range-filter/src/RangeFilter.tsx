@@ -58,8 +58,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	static defaultProps = {
 		containerComponent: Panel,
 		rangeComponent: RangeSliderHistogram,
-		showHistogram: true,
-		collapsable: false
+		showHistogram: true
 	}
 
 
@@ -121,8 +120,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
     return renderComponent(containerComponent, {
       title,
       className: id ? `filter--${id}` : undefined,
-      disabled: maxValue == 0,
-      collapsable
+      disabled: maxValue == 0
     }, this.renderRangeComponent(this.getRangeComponent()))
   }
 
