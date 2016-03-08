@@ -2,6 +2,8 @@ import ReactTestUtils = require('react-addons-test-utils');
 const beautifyHtml = require('js-beautify').html
 const { renderToStaticMarkup } = require('react-dom/server')
 import * as ReactDOM from "react-dom"
+const compact = require("lodash/compact")
+const map = require("lodash/map")
 
 export const hasClass = (inst, className)=> {
   if(ReactTestUtils.isDOMComponent(inst.node)) {
@@ -25,6 +27,13 @@ export const printPrettyHtml = (html)=> {
     .replace(/class=/g, "className=")
     .replace(/<input([^>]*)>/g, "<input$1/>")
     .replace(/readonly=""/g,"readOnly={true}")
+    .replace(/style="([^"]+)"+/g, (match, style)=> {
+      let reactStyle = map(compact(style.split(";")), (keyvalue)=> {
+        let [key, value] = keyvalue.split(":")
+        return `${key}:"${value}"`
+      }).join(",")
+      return "style={{" + reactStyle + "}}"
+    })
   console.log("\n"+ html)
 }
 

@@ -80,6 +80,7 @@
     "./src/components/ui/list/TagCloud.tsx",
     "./src/components/ui/list/TagCloud.unit.tsx",
     "./src/components/ui/range/MockRange.tsx",
+    "./src/components/ui/range/RangeComponents.tsx",
     "./src/components/ui/range/RangeHistogram.tsx",
     "./src/components/ui/range/RangeHistogram.unit.tsx",
     "./src/components/ui/range/RangeInput.tsx",
