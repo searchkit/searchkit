@@ -41,11 +41,11 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	}
 
 	defineAccessor() {
-		const { id, title, min, max, field, interval } = this.props
-		return new RangeAccessor(
-			id,
-			{id, min, max, title, field, interval}
-		)
+		const { id, title, min, max, field,
+			interval, showHistogram } = this.props
+		return new RangeAccessor(id,{
+			id, min, max, title, field, interval, loadBuckets:showHistogram
+		})
 	}
 
 	defineBEMBlocks() {

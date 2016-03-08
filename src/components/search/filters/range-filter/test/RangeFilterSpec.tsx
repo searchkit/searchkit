@@ -66,7 +66,8 @@ describe("Range Filter tests", () => {
       max:100,
       field:"metascore",
       title:"metascore",
-      interval: undefined
+      interval: undefined,
+      loadBuckets:true
     })
   })
 

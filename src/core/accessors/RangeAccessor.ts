@@ -15,7 +15,8 @@ export interface RangeAccessorOptions {
 	min:number
 	max:number
   interval?: number
-	field:string
+	field:string,
+	loadBuckets?:boolean
 }
 
 export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
@@ -65,25 +66,28 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
   }
 
   buildOwnQuery(query) {
-		let otherFilters = query.getFiltersWithoutKeys(this.key)
-		let filters = BoolMust([
-			otherFilters,
-			RangeQuery(this.options.field,{
-        gte:this.options.min, lte:this.options.max
-      })
-		])
-		query = query.setAggs(FilterBucket(
-			this.key,
-			filters,
-			HistogramBucket(this.key, this.options.field, {
-				"interval":this.getInterval(),
-				"min_doc_count":0,
-				"extended_bounds":{
+		console.log(this.options.loadBuckets)
+		if(this.options.loadBuckets){
+			let otherFilters = query.getFiltersWithoutKeys(this.key)
+			let filters = BoolMust([
+				otherFilters,
+				RangeQuery(this.options.field,{
+					gte:this.options.min, lte:this.options.max
+				})
+			])
+			query = query.setAggs(FilterBucket(
+				this.key,
+				filters,
+				HistogramBucket(this.key, this.options.field, {
+					"interval":this.getInterval(),
+					"min_doc_count":0,
+					"extended_bounds":{
 						"min":this.options.min,
 						"max":this.options.max
-				}
-			})
-		))
+					}
+				})
+			))
+		}
     return query;
   }
 }
