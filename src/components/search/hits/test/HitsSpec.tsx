@@ -33,7 +33,7 @@ describe("Hits component", () => {
     });
 
     it("initalize accessors correctly", ()=> {
-      expect(this.pageSizeAccessor.size).toBe(10)
+      expect(this.pageSizeAccessor.defaultSize).toBe(10)
       expect(this.highlightAccessor.highlightFields)
         .toEqual({
            fields: { title:{}}

@@ -8,12 +8,14 @@ const map = require("lodash/map")
 const filter = require("lodash/filter")
 const transform = require("lodash/transform")
 const find = require("lodash/find")
+const identity = require("lodash/identity")
 
 export class Select extends React.Component<ListProps, any> {
 
   static defaultProps: any = {
     mod: "sk-select",
-    showCount: true
+    showCount: true,
+    translate:identity
   }
 
   constructor(props){

@@ -4,7 +4,7 @@ const {
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
   ViewSwitcherHits, ViewSwitcherToggle, Select, Toggle,
-  renderComponent
+  renderComponent, PageSizeSelector
 } = require("../../../../../src")
 const host = "http://demo.searchkit.co/api/movies"
 import * as ReactDOM from "react-dom";
@@ -189,6 +189,7 @@ class App extends React.Component<any, any> {
                   }}/>
                   <ViewSwitcherToggle/>
                   {/*<ViewSwitcherToggle listComponent={Select}/>*/}
+                  <PageSizeSelector options={[4,12,25]}/>
                   <SortingSelector options={[
                     {label:"Relevance", field:"_score", order:"desc"},
                     {label:"Latest Releases", field:"released", order:"desc"},

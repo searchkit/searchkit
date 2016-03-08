@@ -56,6 +56,8 @@
     "./src/components/search/hits/test/HitsSpec.tsx",
     "./src/components/search/hits/test/InitialLoaderSpec.tsx",
     "./src/components/search/hits/test/NoHitsSpec.tsx",
+    "./src/components/search/page-size-selector/PageSizeSelector.tsx",
+    "./src/components/search/page-size-selector/PageSizeSelector.unit.tsx",
     "./src/components/search/pagination/src/Pagination.tsx",
     "./src/components/search/pagination/test/PaginationSpec.tsx",
     "./src/components/search/search-box/src/SearchBox.tsx",

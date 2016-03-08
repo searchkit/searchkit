@@ -1,12 +1,25 @@
-import {Accessor} from "./Accessor";
+import {StatefulAccessor} from "./StatefulAccessor";
+import {ValueState} from "../state"
 
-export class PageSizeAccessor extends Accessor {
+export class PageSizeAccessor extends StatefulAccessor<ValueState> {
+  state = new ValueState()
+  constructor(public defaultSize:number){
+    super("size")
+  }
 
-  constructor(public size:number){
-    super()
+  setSize(size){    
+    if(this.defaultSize == size){
+      this.state = this.state.clear()
+    } else {
+      this.state = this.state.setValue(size)
+    }
+  }
+
+  getSize(){
+    return this.state.getValue() || this.defaultSize
   }
 
   buildSharedQuery(query){
-    return query.setSize(this.size)
+    return query.setSize(this.getSize())
   }
 }
