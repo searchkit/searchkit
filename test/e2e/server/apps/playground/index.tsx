@@ -4,6 +4,7 @@ const {
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
   ViewSwitcherHits, ViewSwitcherToggle, Select, Toggle,
+  ItemList, CheckboxItemList, ItemHistogramList, Tabs, TagCloud, MenuFilter,
   renderComponent, PageSizeSelector, RangeSliderHistogramInput
 } = require("../../../../../src")
 const host = "http://demo.searchkit.co/api/movies"
@@ -14,6 +15,8 @@ const searchkit = new SearchkitManager(host)
 const _ = require("lodash")
 const map = require("lodash/map")
 const isUndefined = require("lodash/isUndefined")
+
+import { TogglePanel } from './TogglePanel'
 
 require("../../../../../theming/theme.scss")
 require("./customisations.scss")
@@ -149,7 +152,30 @@ class MovieHitsTable extends React.Component<any, {}> {
   }
 }
 
+const listComponents = {
+  list: ItemList,
+  checkbox: CheckboxItemList,
+  histogram: ItemHistogramList,
+  select: Select,
+  tabs: (props) => <Tabs {...props} showCount={false}/>,
+  tags: TagCloud,
+  toggle: (props) => <Toggle {...props} showCount={false}/>
+}
+
 class App extends React.Component<any, any> {
+  
+  constructor(props){
+    super(props)
+    
+    this.state = {
+      viewMode: "list"
+    }
+  }
+
+  handleViewModeChange(e){
+    this.setState({viewMode: e.target.value})
+  }
+  
   render(){
     return (
       <SearchkitProvider searchkit={searchkit}>
@@ -165,6 +191,24 @@ class App extends React.Component<any, any> {
           <div className="sk-layout__body">
 
             <div className="sk-layout__filters">
+            
+              <MenuFilter field={"type.raw"} title="Movie Type" id="types" listComponent={listComponents[this.state.viewMode]}
+                containerComponent={
+                (props) => (
+                  <TogglePanel {...props} rightComponent={(
+                      <select value={this.state.listMode} onChange={this.handleViewModeChange.bind(this) }>
+                        <option value="list">List</option>
+                        <option value="checkbox">Checkbox</option>
+                        <option value="histogram">Histogram</option>
+                        <option value="select">Select</option>
+                        <option value="tabs">Tabs</option>
+                        <option value="tags">TagCloud</option>
+                        <option value="toggle">Toggle</option>
+                      </select>
+                    )} />
+                )
+              }/>
+              
               <HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
               <RangeFilter min={0} max={100} field="metaScore" id="metascore" title="Metascore" showHistogram={true}/>
               <RangeFilter min={0} max={10} field="imdbRating" id="imdbRating" title="IMDB Rating" showHistogram={true} rangeComponent={RangeSliderHistogramInput}/>
