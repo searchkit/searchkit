@@ -13,7 +13,7 @@ describe("ItemHistogramList Components", ()=> {
     this.wrapper = mount(
       <MockList listComponent={ItemHistogramList}/>
     )
-    
+
     const total = 10+11+12+15
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-item-list">
@@ -22,7 +22,7 @@ describe("ItemHistogramList Components", ()=> {
           <div data-qa="label" className="sk-item-list-option__text">A translated</div>
           <div data-qa="count" className="sk-item-list-option__count">10</div>
         </div>
-        <div className="sk-item-list-option sk-item-list__item is-histogram" data-qa="option">
+        <div className="sk-item-list-option sk-item-list__item is-disabled is-histogram" data-qa="option">
           <div className="sk-item-list-option__bar" style={{width: ((11/total)*100) + '%'}} />
           <div data-qa="label" className="sk-item-list-option__text">B translated</div>
           <div data-qa="count" className="sk-item-list-option__count">11</div>
@@ -53,7 +53,7 @@ describe("ItemHistogramList Components", ()=> {
     fastClick(this.wrapper.find(".my-item-list-option").at(2))
     expect(this.wrapper.node.state.toggleItem).toHaveBeenCalledWith("c")
   })
-  
+
   it("should handle multiselect={false}", () => {
     this.wrapper = mount(
       <MockList listComponent={ItemHistogramList} multiselect={false}/>
@@ -65,7 +65,7 @@ describe("ItemHistogramList Components", ()=> {
     expect(this.wrapper.node.state.toggleItem).not.toHaveBeenCalled()
     expect(this.wrapper.node.state.setItems).toHaveBeenCalledWith(["c"])
   })
-  
+
   it("mod + classname can be updated", () => {
     this.wrapper = mount(
       <MockList listComponent={ItemHistogramList}  mod="sk-item-list-updated" className="my-custom-class"/>

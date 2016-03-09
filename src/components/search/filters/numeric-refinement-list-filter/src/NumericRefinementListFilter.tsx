@@ -6,7 +6,6 @@ import {
 	NumericOptionsAccessor,
 	SearchkitComponentProps,
 	RangeOption,
-	FastClick,
 	RenderComponentType,
 	RenderComponentPropType,
 	renderComponent
@@ -60,6 +59,12 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
     showCount: true
   }
 
+	constructor(props){
+		super(props)
+		this.toggleItem = this.toggleItem.bind(this)
+		this.setItems = this.setItems.bind(this)
+	}
+
   defineAccessor() {
     const {id, field, options, title, multiselect} = this.props
     return new NumericOptionsAccessor(id, {
@@ -67,7 +72,7 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
     })
   }
 
-  toggleFilter(key) {
+  toggleItem(key) {
     this.accessor.toggleOption(key)
   }
 
@@ -100,8 +105,8 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
       items: this.accessor.getBuckets(),
 			itemComponent,
       selectedItems: this.getSelectedItems(),
-      toggleItem: this.toggleFilter.bind(this),
-			setItems:this.setItems.bind(this),
+      toggleItem: this.toggleItem,
+			setItems:this.setItems,
       showCount,
 			translate:this.translate
     }));

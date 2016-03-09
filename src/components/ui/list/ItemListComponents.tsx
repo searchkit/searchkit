@@ -57,6 +57,7 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
         key: option.key,
         count: option.doc_count,
         listDocCount: docCount,
+        disabled:option.disabled,
         showCount,
         active: this.isActive(option)
       })

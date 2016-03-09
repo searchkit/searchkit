@@ -228,6 +228,7 @@ class App extends React.Component<any, any> {
               />
               <NoHits suggestionsField={"title"}/>
               <Pagination showNumbers={true}/>
+              <Pagination showNumbers={true} showText={false} listComponent={Select}/>
             </div>
           </div>
         </div>
