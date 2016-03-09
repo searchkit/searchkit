@@ -15,7 +15,6 @@ import {
   Toggle, ListProps
 } from "../../../ui"
 
-import { generatePages } from "./PaginationUtils"
 
 const defaults = require("lodash/defaults")
 const get = require("lodash/get")
@@ -23,89 +22,12 @@ const assign = require("lodash/assign")
 const map = require("lodash/map")
 const compact = require("lodash/compact")
 
-
-
-export interface PaginationDisplayProps {
-  currentPage: number
-  totalPages: number
-  showNumbers?: boolean
-  showText?:boolean
-  pageScope?: number // Number of page to show before/after the current number
-  listComponent?: RenderComponentType<ListProps>
-  translate: (string) => string
-  setPage: (number) => void
-}
-
-
-@PureRender
-export class PaginationDisplay extends React.Component<PaginationDisplayProps, any> {
-
-  static propTypes = {
-    currentPage: React.PropTypes.number.isRequired,
-    totalPages: React.PropTypes.number.isRequired,
-    showNumbers: React.PropTypes.bool,
-    showText:React.PropTypes.bool,
-    pageScope: React.PropTypes.number,
-    setPage: React.PropTypes.func,
-    listComponent: React.PropTypes.any
-  }
-
-  static defaultProps = {
-    showNumbers: false,
-    pageScope: 3,
-    listComponent: Toggle,
-    showText:true
-  }
-
-  getPages(){
-    const { showNumbers, currentPage, totalPages, pageScope } = this.props
-
-    const options = { showNumbers, pageScope, showLast: false }
-    return generatePages(currentPage, totalPages, options);
-  }
-
-  render() {
-    const { translate, setPage, listComponent, currentPage, totalPages, showText } = this.props;
-
-    const items = compact(map(this.getPages(), (p, idx) => {
-      switch (p.type) {
-        case 'number': return {
-          key: p.page,
-          label: '' + p.page,
-          page: p.page,
-          disabled: false
-        }
-        case 'ellipsis': return showText && {
-          key: 'ellipsis-' + idx,
-          label: '...',
-          page: undefined,
-          disabled: true
-        }
-        case 'previous':  // continue
-        case 'next': return showText && {
-          key: p.type,
-          label: translate('pagination.' + p.type),
-          page: p.page,
-          disabled: p.disabled
-        }
-      }
-    }))
-    return renderComponent(listComponent, {
-      items,
-      selectedItems: [currentPage],
-      toggleItem:setPage,
-      setItems:(items)=> setPage(items[0]),
-      disabled: totalPages <= 1
-    })
-  }
-}
-
-
 export interface PaginationProps extends SearchkitComponentProps {
-  showNumbers?: boolean
-  pageScope?: number // Number of page to show before/after the current number
   listComponent?: any
+  pageScope?: number // Number of page to show before/after the current number
+  showNumbers?: boolean
   showText?:boolean
+  showLast?:boolean
 }
 
 export class Pagination extends SearchkitComponent<PaginationProps, any> {
@@ -122,14 +44,25 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
     translations:SearchkitComponent.translationsPropType(
       Pagination.translations
     ),
+    listComponent: RenderComponentPropType,
+    pageScope: React.PropTypes.number,
     showNumbers:React.PropTypes.bool,
     showText:React.PropTypes.bool,
-    pageScope: React.PropTypes.number,
-    listComponent: RenderComponentPropType
+    showLast:React.PropTypes.bool,
   }, SearchkitComponent.propTypes)
 
   static defaultProps = {
-    listComponent: Toggle
+    listComponent: Toggle,
+    pageScope: 3,
+    showNumbers: true,
+    showText: true,
+    showLast: false,
+  }
+  
+  constructor(props){
+    super(props)
+    
+    this.setPage = this.setPage.bind(this)
   }
 
   defineAccessor() {
@@ -168,18 +101,61 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
     this.searchkit.performSearch();
   }
 
+  getPages() {
+    const {
+      showNumbers, pageScope, showText, showLast
+    } = this.props
+
+    var pages = []
+    const showNext = showText
+    const showPrevious = showText
+    const currentPage = this.getCurrentPage()
+    const totalPages = this.getTotalPages()
+
+    if (showPrevious) pages.push({
+      key: "previous",
+      page: currentPage > 1 ? (currentPage - 1) : undefined,
+      label: this.translate('pagination.previous'),
+      disabled: currentPage === 1
+    })
+    if (showNumbers){
+      if (currentPage > pageScope + 1) pages.push({ key: 1, label: '1', page: 1 })
+      if (showText && currentPage > pageScope + 2) pages.push({ key: "ellipsis-first", label: '...', disabled: true })
+      if (currentPage > 1) {
+        const min = Math.max(1, currentPage - pageScope)
+        for (let i = min; i < currentPage; i++) pages.push({ key: i, label: '' + i, page: i })
+      }
+      pages.push({ key: currentPage, label: '' + currentPage, page: currentPage, active: true })
+      if (currentPage < totalPages) {
+        const max = Math.min(currentPage + pageScope, totalPages)
+        for (let i = currentPage + 1; i <= max; i++) pages.push({ key: i, label: '' + i, page: i })
+      }
+      const lastEllipsisLimit = showLast ? (totalPages - pageScope - 1) : (totalPages - pageScope)
+      if (showText && currentPage < lastEllipsisLimit) pages.push({ key: "ellipsis-last", label: '...', disabled: true })
+      if (showLast && (currentPage < totalPages - pageScope)) pages.push({ key: totalPages, label: '' + totalPages, page: totalPages })
+    }
+    if (showNext) pages.push({
+      key: "next",
+      label: this.translate('pagination.next'),
+      page: currentPage < totalPages - 1 ? (currentPage + 1) : undefined,
+      disabled: currentPage === totalPages
+    })
+
+    return pages
+  }
+
+
   render() {
     if (!this.hasHits()) return null;
 
-    const { showNumbers, pageScope, listComponent, showText } = this.props;
-    return <PaginationDisplay
-              listComponent={listComponent}
-              currentPage = { this.getCurrentPage() }
-              totalPages={this.getTotalPages()}
-              showNumbers={showNumbers}
-              showText={showText}
-              pageScope={pageScope}
-              translate={this.translate.bind(this)}
-              setPage={this.setPage.bind(this)} />
+    return renderComponent(this.props.listComponent, {
+      items: this.getPages(),
+      selectedItems: [this.getCurrentPage()],
+      toggleItem:this.setPage,
+      setItems:(items) => {
+        if (items && items.length > 0) this.setPage(items[0])
+      },
+      disabled: this.getTotalPages() <= 1
+    })
   }
 }
