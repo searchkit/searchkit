@@ -124,11 +124,11 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
     if (showNumbers){
       if (showFirst && currentPage > pageScope + 1) builder.page(1)
       if (showEllipsis && currentPage > pageScope + 2) builder.ellipsis()
-      if (currentPage > 1) builder.range(Math.max(1, currentPage - pageScope), currentPage-1)
+      if (currentPage > 1) builder.range(currentPage - pageScope, currentPage-1)
       
       builder.page(currentPage, {active: true})
       
-      if (currentPage < totalPages) builder.range(currentPage+1, Math.min(currentPage + pageScope, totalPages))
+      if (currentPage < totalPages) builder.range(currentPage+1, currentPage + pageScope)
       const lastEllipsisLimit = showLast ? (totalPages - pageScope - 1) : (totalPages - pageScope)
       if (showEllipsis && currentPage < lastEllipsisLimit) builder.ellipsis()
       if (showLast && (currentPage < totalPages - pageScope)) builder.page(totalPages)
