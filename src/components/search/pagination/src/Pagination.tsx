@@ -22,7 +22,10 @@ const assign = require("lodash/assign")
 const map = require("lodash/map")
 const compact = require("lodash/compact")
 
-import { PaginationHelper } from "./PaginationUtils"
+import { Paginator } from "./PaginationUtils"
+
+
+
 
 export interface PaginationProps extends SearchkitComponentProps {
   listComponent?: any
@@ -105,36 +108,16 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
 
   getPages() {
     const {
-      showNumbers, pageScope, showText, showLast
+      showNumbers, pageScope, showText
     } = this.props
     const currentPage = this.getCurrentPage()
     const totalPages = this.getTotalPages()
-    const showFirst = true
-    const showPrevious = showText
-    const showNext = showText
-    const showEllipsis = showText
     
-    const builder = new PaginationHelper({
-      currentPage, 
-      totalPages, 
-      translate: this.translate
+    const builder =  Paginator.build({
+      showNumbers, showFirst: true, 
+      showPrevious: showText, showNext: showText, showEllipsis: showText
     })
-
-    if (showPrevious) builder.previous() 
-    if (showNumbers){
-      if (showFirst && currentPage > pageScope + 1) builder.page(1)
-      if (showEllipsis && currentPage > pageScope + 2) builder.ellipsis()
-      if (currentPage > 1) builder.range(currentPage - pageScope, currentPage-1)
-      
-      builder.page(currentPage, {active: true})
-      
-      if (currentPage < totalPages) builder.range(currentPage+1, currentPage + pageScope)
-      const lastEllipsisLimit = showLast ? (totalPages - pageScope - 1) : (totalPages - pageScope)
-      if (showEllipsis && currentPage < lastEllipsisLimit) builder.ellipsis()
-      if (showLast && (currentPage < totalPages - pageScope)) builder.page(totalPages)
-    }
-    if (showNext) builder.next()
-    return builder.pages
+    return builder(currentPage, totalPages, this.translate, pageScope)
   }
 
 
