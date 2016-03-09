@@ -33,7 +33,7 @@ export interface PaginationDisplayProps {
   pageScope?: number // Number of page to show before/after the current number
   listComponent?: RenderComponentType<ListProps>
   translate: (string) => string
-  setPage: (number) => void,
+  setPage: (number) => void
 }
 
 
@@ -125,7 +125,7 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
     showNumbers:React.PropTypes.bool,
     showText:React.PropTypes.bool,
     pageScope: React.PropTypes.number,
-    listComponent: RenderComponentPropType,
+    listComponent: RenderComponentPropType
   }, SearchkitComponent.propTypes)
 
   static defaultProps = {
