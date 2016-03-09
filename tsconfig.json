@@ -59,6 +59,7 @@
     "./src/components/search/page-size-selector/PageSizeSelector.tsx",
     "./src/components/search/page-size-selector/PageSizeSelector.unit.tsx",
     "./src/components/search/pagination/src/Pagination.tsx",
+    "./src/components/search/pagination/src/PaginationUtils.ts",
     "./src/components/search/pagination/test/PaginationSpec.tsx",
     "./src/components/search/search-box/src/SearchBox.tsx",
     "./src/components/search/search-box/test/SearchboxSpec.tsx",
