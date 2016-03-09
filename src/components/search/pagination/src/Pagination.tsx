@@ -22,6 +22,8 @@ const assign = require("lodash/assign")
 const map = require("lodash/map")
 const compact = require("lodash/compact")
 
+import { PaginationHelper } from "./PaginationUtils"
+
 export interface PaginationProps extends SearchkitComponentProps {
   listComponent?: any
   pageScope?: number // Number of page to show before/after the current number
@@ -105,43 +107,34 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
     const {
       showNumbers, pageScope, showText, showLast
     } = this.props
-
-    var pages = []
-    const showNext = showText
-    const showPrevious = showText
     const currentPage = this.getCurrentPage()
     const totalPages = this.getTotalPages()
-
-    if (showPrevious) pages.push({
-      key: "previous",
-      page: currentPage > 1 ? (currentPage - 1) : undefined,
-      label: this.translate('pagination.previous'),
-      disabled: currentPage === 1
+    const showFirst = true
+    const showPrevious = showText
+    const showNext = showText
+    const showEllipsis = showText
+    
+    const builder = new PaginationHelper({
+      currentPage, 
+      totalPages, 
+      translate: this.translate
     })
+
+    if (showPrevious) builder.previous() 
     if (showNumbers){
-      if (currentPage > pageScope + 1) pages.push({ key: 1, label: '1', page: 1 })
-      if (showText && currentPage > pageScope + 2) pages.push({ key: "ellipsis-first", label: '...', disabled: true })
-      if (currentPage > 1) {
-        const min = Math.max(1, currentPage - pageScope)
-        for (let i = min; i < currentPage; i++) pages.push({ key: i, label: '' + i, page: i })
-      }
-      pages.push({ key: currentPage, label: '' + currentPage, page: currentPage, active: true })
-      if (currentPage < totalPages) {
-        const max = Math.min(currentPage + pageScope, totalPages)
-        for (let i = currentPage + 1; i <= max; i++) pages.push({ key: i, label: '' + i, page: i })
-      }
+      if (showFirst && currentPage > pageScope + 1) builder.page(1)
+      if (showEllipsis && currentPage > pageScope + 2) builder.ellipsis()
+      if (currentPage > 1) builder.range(Math.max(1, currentPage - pageScope), currentPage-1)
+      
+      builder.page(currentPage, {active: true})
+      
+      if (currentPage < totalPages) builder.range(currentPage+1, Math.min(currentPage + pageScope, totalPages))
       const lastEllipsisLimit = showLast ? (totalPages - pageScope - 1) : (totalPages - pageScope)
-      if (showText && currentPage < lastEllipsisLimit) pages.push({ key: "ellipsis-last", label: '...', disabled: true })
-      if (showLast && (currentPage < totalPages - pageScope)) pages.push({ key: totalPages, label: '' + totalPages, page: totalPages })
+      if (showEllipsis && currentPage < lastEllipsisLimit) builder.ellipsis()
+      if (showLast && (currentPage < totalPages - pageScope)) builder.page(totalPages)
     }
-    if (showNext) pages.push({
-      key: "next",
-      label: this.translate('pagination.next'),
-      page: currentPage < totalPages - 1 ? (currentPage + 1) : undefined,
-      disabled: currentPage === totalPages
-    })
-
-    return pages
+    if (showNext) builder.next()
+    return builder.pages
   }
 
 
