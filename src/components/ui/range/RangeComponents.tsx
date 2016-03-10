@@ -3,9 +3,10 @@ import * as React from 'react'
 import {
   RangeHistogram, RangeSlider, RangeInput
 } from './'
-
+import { PureRender } from "../../../core"
 const defaults = require("lodash/defaults")
 
+@PureRender
 export class RangeComponent extends React.Component<any, {}> {
   static propTypes = {
     showHistogram:React.PropTypes.bool,

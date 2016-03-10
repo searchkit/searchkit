@@ -1,6 +1,6 @@
 import * as React from "react";
 const bemBlock = require('bem-cn')
-
+import {PureRender} from "../../../core"
 export interface PanelProps extends React.Props<Panel> {
   key?: any
   title?: string
@@ -11,6 +11,7 @@ export interface PanelProps extends React.Props<Panel> {
   defaultCollapsed?:boolean
 }
 
+@PureRender
 export class Panel extends React.Component<PanelProps, {collapsed: boolean}> {
 
   static propTypes = {

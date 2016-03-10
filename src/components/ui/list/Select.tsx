@@ -3,6 +3,7 @@ import * as React from "react";
 import { ItemComponent, CheckboxItemComponent } from "./ItemComponents"
 import { ListProps } from "./ListProps"
 
+import {PureRender} from "../../../core"
 const block = require('bem-cn')
 const map = require("lodash/map")
 const filter = require("lodash/filter")
@@ -10,6 +11,7 @@ const transform = require("lodash/transform")
 const find = require("lodash/find")
 const identity = require("lodash/identity")
 
+@PureRender
 export class Select extends React.Component<ListProps, any> {
 
   static defaultProps: any = {

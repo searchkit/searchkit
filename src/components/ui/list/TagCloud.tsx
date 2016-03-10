@@ -33,6 +33,7 @@ export interface TagCloudProps extends ListProps {
   itemComponent?: ReactComponentType<ItemProps>
 }
 
+@PureRender
 export class TagCloud extends React.Component<TagCloudProps, any> {
 
   static defaultProps: any = {
