@@ -17,6 +17,7 @@ import {MockList} from "./MockList"
 import {MockRange} from "./MockRange"
 const _ = require("lodash")
 
+require("./customisations.scss")
 require("../../../../../theming/theme.scss")
 
 const MovieHitsGridItem = (props)=> {
