@@ -10,7 +10,7 @@ accessor.state = accessor.state.setValue(5)
 // from field gets added to Elastic Query
 ```
 
-## List of existing accessors
+## List of some of Searchkit's existing accessors
 * [FacetAccessor](https://github.com/searchkit/searchkit/blob/master/src/core/accessors/FacetAccessor.ts)
 * [HierarchicalFacetAccessor](https://github.com/searchkit/searchkit/blob/master/src/core/accessors/HierarchicalFacetAccessor.ts)
 * [NumericOptionsAccessor](https://github.com/searchkit/searchkit/blob/master/src/core/accessors/NumericOptionsAccessor.ts)

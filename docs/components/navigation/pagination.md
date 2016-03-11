@@ -23,6 +23,9 @@ class App extends SearchkitComponent {
 ## Props
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
 - `showNumbers` *(Boolean)*: Display pagination page links. Defaults to `false`.
+- `showLast` *(Boolean)*: Whether to show last page (often slow in ElasticSearch ), defaults to `false`
+- `showText` *(Boolean)*: Whether to display previous, next + dividers. Useful to switch off when using Select component.
+defaults to `true`
 - `mod` *(string)*: Optional. A custom BEM container class.
 
 ## Translations

@@ -48,6 +48,7 @@
   * [Migrating from 0.4](/docs/upgrading/migrating_from_0.4.md)
   * [Migrating from 0.5](/docs/upgrading/migrating_from_0.5.md)
   * [Migrating from 0.6](/docs/upgrading/migrating_from_0.6.md)
+  * [Migrating from 0.7](/docs/upgrading/migrating_from_0.7.md)
 * [Using Express](/docs/server/searchkit_express.md)
 * [Indexing & Mapping Guide](/docs/server/indexing.md)
 * [Examples](/docs/examples/README.md)

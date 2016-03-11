@@ -36,7 +36,7 @@ You can pass any component an object of translations you wish to override. Examp
 <SearchBox translations={{"searchbox.placeholder":"search movies"}} autofocus={true} searchOnChange={true} queryFields={["actors^1","type^2","languages","title^5", "genres^2"]}/>
 ```
 
-## List of all translation overrides with their defaults
+## List of some of the translation overrides with their defaults
 
 ### ResetFilters
 - `reset.clear_all` - Clear All Filters
