@@ -1,9 +1,11 @@
 @import "./vars.scss";
 
 .sk-filter-group {
-  &-item {
-
-    &__title, &__value, &__remove-action {
+  
+  &-items {
+    display: inline-block;
+    
+    &__title, &__list, &__value {
       display: inline-block;
     }
 
@@ -34,53 +36,55 @@
       }
     }
 
-    &__remove-action {
-      cursor: pointer;
-      font-weight: 700;
-    }
+  }
+
+  &__remove-action {
+    display: inline-block;
+    cursor: pointer;
+    font-weight: 700;
   }
 }
 
 .sk-action-bar {
-  .sk-filter-group {
+  .sk-filter-groups {
     display: flex;
     flex-flow: row;
     margin-right: 10px;
     color: $sk-action-text-color;
+  }
+  
+  .sk-filter-group {
+    border: none;
+    background: #f4f4f4;
+    display: inline-block;
+    padding: 10px 10px 10px 0px;
+    font-size: 14px;
+    line-height: 20px;
+    border-radius: 3px;
+    margin-right: 10px;
 
-    &-item {
-      border: none;
-      background: #f4f4f4;
-      display: inline-block;
-      padding: 10px 10px 10px 0px;
-      font-size: 14px;
-      line-height: 20px;
-      border-radius: 3px;
-      margin-right: 10px;
-
-      &__remove-action {
-        padding: 0 10px;
-      }
+    &__remove-action {
+      padding: 0 10px;
     }
   }
 }
 
 .sk-layout__filters {
-  .sk-filter-group {
+  .sk-filter-groups {
     display: block;
     width: 100%;
     margin-right: 10px;
     color: $sk-list-text-color;
+  }
+  
+  .sk-filter-group {
+    border: none;
+    display: block;
+    font-size: 14px;
+    line-height: 20px;
 
-    &-item {
-      border: none;
-      display: block;
-      font-size: 14px;
-      line-height: 20px;
-
-      &__remove-action {
-        padding-right: 10px;
-      }
+    &__remove-action {
+      padding-right: 10px;
     }
   }
 }

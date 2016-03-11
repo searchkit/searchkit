@@ -60,7 +60,7 @@ class App extends React.Component<any, any> {
           <div className="sk-layout__body">
             <div className="sk-layout__filters">
               <Panel title="Grouped Filters" collapsable={true} defaultCollapsed={false}>
-                <div className="sk-filter-group">
+                <div className="sk-filter-groups">
                   <FilterGroup {...filterGroupProps}/>
                 </div>
               </Panel>
@@ -114,7 +114,7 @@ class App extends React.Component<any, any> {
                   <SelectedFilters/>
                   <ResetFilters/>
 
-                  <div className="sk-filter-group">
+                  <div className="sk-filter-groups">
                     <FilterGroup {...filterGroupProps}/>
                     <FilterGroup {...filterGroupProps}/>
                   </div>

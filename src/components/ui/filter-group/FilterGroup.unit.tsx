@@ -29,22 +29,26 @@ describe("FilterGroup", ()=> {
     )
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-filter-group-item">
-        <div className="sk-filter-group-item__remove-action">X</div>
-        <div className="sk-filter-group-item__title">GroupTitle</div>
-        <div className="sk-filter-group-item__value">A translated</div>
-        <div className="sk-filter-group-item__value">B translated</div>
-        <div className="sk-filter-group-item__value">C translated</div>
-        <div className="sk-filter-group-item__value">D translated</div>
+      <div className="sk-filter-group">
+        <div className="sk-filter-group__remove-action">X</div>
+        <div className="sk-filter-group-items">
+          <div className="sk-filter-group-items__title">GroupTitle</div>
+          <div className="sk-filter-group-items__list">
+            <div className="sk-filter-group-items__value">A translated</div>
+            <div className="sk-filter-group-items__value">B translated</div>
+            <div className="sk-filter-group-items__value">C translated</div>
+            <div className="sk-filter-group-items__value">D translated</div>
+          </div>
+        </div>
       </div>
     ))
 
     expect(this.removeFilters).not.toHaveBeenCalled()
-    fastClick(this.wrapper.find(".sk-filter-group-item__remove-action"))
+    fastClick(this.wrapper.find(".sk-filter-group__remove-action"))
     expect(this.removeFilters).toHaveBeenCalledWith(this.filters)
 
     expect(this.removeFilter).not.toHaveBeenCalled()
-    fastClick(this.wrapper.find(".sk-filter-group-item__value").at(2))
+    fastClick(this.wrapper.find(".sk-filter-group-items__value").at(2))
     expect(this.removeFilter).toHaveBeenCalledWith(this.filters[2])
   })
 
@@ -56,7 +60,7 @@ describe("FilterGroup", ()=> {
                    filters={this.filters} />
     )
 
-    expect(this.wrapper.find(".sk-filter-group-updated-item").hasClass("my-custom-class")).toBe(true)
+    expect(this.wrapper.find(".sk-filter-group-updated").hasClass("my-custom-class")).toBe(true)
   })
 
 })

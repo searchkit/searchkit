@@ -2,7 +2,8 @@ const {
   SearchkitManager,SearchkitProvider,
   SearchBox, Hits, RefinementListFilter, Pagination,
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
-  SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
+  GroupedSelectedFilters, SelectedFilters, ResetFilters, 
+  RangeFilter, NumericRefinementListFilter,
   ViewSwitcherHits, ViewSwitcherToggle, Select, Toggle,
   ItemList, CheckboxItemList, ItemHistogramList, Tabs, TagCloud, MenuFilter,
   renderComponent, PageSizeSelector, RangeSliderHistogramInput
@@ -158,7 +159,7 @@ const listComponents = {
   histogram: ItemHistogramList,
   select: Select,
   tabs: (props) => <Tabs {...props} showCount={false}/>,
-  tags: TagCloud,
+  tags: (props) => <TagCloud {...props} showCount={false} />,
   toggle: (props) => <Toggle {...props} showCount={false}/>
 }
 
@@ -192,7 +193,7 @@ class App extends React.Component<any, any> {
 
             <div className="sk-layout__filters">
             
-              <MenuFilter field={"type.raw"} title="Movie Type" id="types" listComponent={listComponents[this.state.viewMode]}
+              <MenuFilter field={"type.raw"} size={10} title="Movie Type" id="types" listComponent={listComponents[this.state.viewMode]}
                 containerComponent={
                 (props) => (
                   <TogglePanel {...props} rightComponent={(
@@ -249,6 +250,10 @@ class App extends React.Component<any, any> {
                 <div className="sk-action-bar__filters">
                   <SelectedFilters/>
                   <ResetFilters/>
+                </div>
+
+                <div className="sk-action-bar__filters">
+                  <GroupedSelectedFilters/>
                 </div>
 
               </div>

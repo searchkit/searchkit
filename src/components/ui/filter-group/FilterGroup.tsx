@@ -39,7 +39,7 @@ export class FilterGroupItem extends React.Component<FilterGroupItemProps, any> 
 
     return (
       <FastClick handler={this.removeFilter}>
-        <div className={bemBlocks.item("value") }>{label}</div>
+        <div className={bemBlocks.items("value") }>{label}</div>
       </FastClick>
     )
   }
@@ -79,14 +79,18 @@ export class FilterGroup extends React.Component<FilterGroupProps, any> {
 
     const bemBlocks = {
         container: bemBlock(mod),
-        item: bemBlock (`${mod}-item`)
+        items: bemBlock (`${mod}-items`)
     }
       
     return (
-      <div key={title} className={bemBlocks.item().mix(className)}>
+      <div key={title} className={bemBlocks.container().mix(className)}>
         {this.renderRemove(bemBlocks)}
-        <div className={bemBlocks.item("title") }>{title}</div>
-        {map(filters, filter => this.renderFilter(filter, bemBlocks))}
+        <div className={bemBlocks.items()}>
+          <div className={bemBlocks.items("title")}>{title}</div>
+          <div className={bemBlocks.items("list")}>
+            {map(filters, filter => this.renderFilter(filter, bemBlocks))}
+          </div>
+        </div>
       </div>
     )
   }
@@ -108,7 +112,7 @@ export class FilterGroup extends React.Component<FilterGroupProps, any> {
     
     return (
       <FastClick handler={this.removeFilters}>
-        <div className={bemBlocks.item("remove-action") } onClick={this.removeFilters}>X</div>
+        <div className={bemBlocks.container("remove-action") } onClick={this.removeFilters}>X</div>
       </FastClick>
     )
   }
