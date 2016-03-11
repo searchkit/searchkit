@@ -13,6 +13,7 @@ const map = require('lodash/map')
 
 export interface FilterGroupItemProps {
   key: string
+  itemKey: string
   bemBlocks?: any
   label: string
   filter: any
@@ -35,11 +36,11 @@ export class FilterGroupItem extends React.Component<FilterGroupItemProps, any> 
   }
 
   render() {
-    const { bemBlocks, label } = this.props
+    const { bemBlocks, label, itemKey } = this.props
 
     return (
       <FastClick handler={this.removeFilter}>
-        <div className={bemBlocks.items("value") }>{label}</div>
+        <div className={bemBlocks.items("value") } data-key={itemKey}>{label}</div>
       </FastClick>
     )
   }
@@ -100,6 +101,7 @@ export class FilterGroup extends React.Component<FilterGroupProps, any> {
 
     return (
       <FilterGroupItem key={filter.value}
+                  itemKey={filter.value}
                   bemBlocks={bemBlocks}
                   filter={filter}
                   label={translate(filter.value)}

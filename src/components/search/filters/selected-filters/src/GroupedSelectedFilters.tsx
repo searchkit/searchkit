@@ -84,6 +84,7 @@ export class GroupedSelectedFilters extends SearchkitComponent<GroupedSelectedFi
         {map(this.getGroupedFilters(), (filters) =>
           React.createElement(groupComponent, {
             key:filters[0].id,
+            className: filters[0].id ? `filter-group-${filters[0].id}` : undefined,
             title: this.translate(filters[0].name),
             filters: filters,
             translate: this.translate,

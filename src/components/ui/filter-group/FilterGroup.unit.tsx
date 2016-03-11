@@ -24,20 +24,21 @@ describe("FilterGroup", ()=> {
 
     this.wrapper = mount(
       <FilterGroup title={this.title} translate={this.translate} 
+                   className="filter-group-1"
                    removeFilter={this.removeFilter} removeFilters={this.removeFilters}
                    filters={this.filters} />
     )
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-filter-group">
+      <div className="sk-filter-group filter-group-1">
         <div className="sk-filter-group__remove-action">X</div>
         <div className="sk-filter-group-items">
           <div className="sk-filter-group-items__title">GroupTitle</div>
           <div className="sk-filter-group-items__list">
-            <div className="sk-filter-group-items__value">A translated</div>
-            <div className="sk-filter-group-items__value">B translated</div>
-            <div className="sk-filter-group-items__value">C translated</div>
-            <div className="sk-filter-group-items__value">D translated</div>
+            <div className="sk-filter-group-items__value" data-key="A">A translated</div>
+            <div className="sk-filter-group-items__value" data-key="B">B translated</div>
+            <div className="sk-filter-group-items__value" data-key="C">C translated</div>
+            <div className="sk-filter-group-items__value" data-key="D">D translated</div>
           </div>
         </div>
       </div>
