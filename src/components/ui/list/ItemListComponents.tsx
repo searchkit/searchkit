@@ -55,6 +55,7 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
         onClick: () => toggleFunc(option.key),
         bemBlocks: bemBlocks,
         key: option.key,
+        itemKey:option.key,
         count: option.doc_count,
         listDocCount: docCount,
         disabled:option.disabled,

@@ -17,7 +17,7 @@ describe("ItemComponents", ()=> {
     this.onClick = jasmine.createSpy("toggleItem")
 
     this.props = {
-      label:"Images", count:10,
+      label:"Images", count:10, itemKey:"images",
       onClick: this.onClick,
       bemBlocks:this.bemBlocks, showCount:true
     }
@@ -30,7 +30,7 @@ describe("ItemComponents", ()=> {
       <ItemComponent {...this.props}/>
     )
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-item-option sk-item-container__item" data-qa="option" data-key="Images">
+      <div className="sk-item-option sk-item-container__item" data-qa="option" data-key="images">
         <div data-qa="label" className="sk-item-option__text">Images</div>
         <div data-qa="count" className="sk-item-option__count">10</div>
       </div>
@@ -39,7 +39,7 @@ describe("ItemComponents", ()=> {
     this.wrapper.setProps({showCount:false, showCheckbox:true})
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-item-option sk-item-container__item" data-qa="option" data-key="Images">
+      <div className="sk-item-option sk-item-container__item" data-qa="option" data-key="images">
         <input type="checkbox" data-qa="checkbox" readOnly className="sk-item-option__checkbox"/>
         <div data-qa="label" className="sk-item-option__text">Images</div>
       </div>
@@ -48,7 +48,7 @@ describe("ItemComponents", ()=> {
     this.wrapper.setProps({showCount:true, showCheckbox:false, count: undefined})
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-item-option sk-item-container__item" data-qa="option" data-key="Images">
+      <div className="sk-item-option sk-item-container__item" data-qa="option" data-key="images">
         <div data-qa="label" className="sk-item-option__text">Images</div>
       </div>
     ))

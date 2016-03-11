@@ -16,16 +16,16 @@ describe("TagCloud", ()=> {
     )    
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-tag-cloud">
-        <div className="sk-tag-cloud-option sk-tag-cloud__item is-active" style={{fontSize:"1em"}} data-qa="option" data-key="A translated">
+        <div className="sk-tag-cloud-option sk-tag-cloud__item is-active" style={{fontSize:"1em"}} data-qa="option" data-key="a">
           <div data-qa="label" className="sk-tag-cloud-option__text">A translated</div>
         </div>
-        <div className="sk-tag-cloud-option sk-tag-cloud__item is-disabled" style={{fontSize:"1.1em"}} data-qa="option" data-key="B translated">
+        <div className="sk-tag-cloud-option sk-tag-cloud__item is-disabled" style={{fontSize:"1.1em"}} data-qa="option" data-key="b">
           <div data-qa="label" className="sk-tag-cloud-option__text">B translated</div>
         </div>
-        <div className="sk-tag-cloud-option sk-tag-cloud__item is-active" style={{fontSize:"1.2em"}} data-qa="option" data-key="C translated">
+        <div className="sk-tag-cloud-option sk-tag-cloud__item is-active" style={{fontSize:"1.2em"}} data-qa="option" data-key="c">
           <div data-qa="label" className="sk-tag-cloud-option__text">C translated</div>
         </div>
-        <div className="sk-tag-cloud-option sk-tag-cloud__item" style={{fontSize:"1.5em"}} data-qa="option" data-key="d translated">
+        <div className="sk-tag-cloud-option sk-tag-cloud__item" style={{fontSize:"1.5em"}} data-qa="option" data-key="d">
           <div data-qa="label" className="sk-tag-cloud-option__text">d translated</div>
         </div>
       </div>
@@ -52,16 +52,16 @@ describe("TagCloud", ()=> {
     )
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-tag-cloud">
-        <div className="sk-tag-cloud-option sk-tag-cloud__item is-active" style={{fontSize:"1em"}} data-qa="option" data-key="a translated">
+        <div className="sk-tag-cloud-option sk-tag-cloud__item is-active" style={{fontSize:"1em"}} data-qa="option" data-key="a">
           <div data-qa="label" className="sk-tag-cloud-option__text">a translated</div>
         </div>
-        <div className="sk-tag-cloud-option sk-tag-cloud__item" style={{fontSize:"1.1em"}} data-qa="option" data-key="B translated">
+        <div className="sk-tag-cloud-option sk-tag-cloud__item" style={{fontSize:"1.1em"}} data-qa="option" data-key="b">
           <div data-qa="label" className="sk-tag-cloud-option__text">B translated</div>
         </div>
-        <div className="sk-tag-cloud-option sk-tag-cloud__item is-active" style={{fontSize:"1.2em"}} data-qa="option" data-key="C translated">
+        <div className="sk-tag-cloud-option sk-tag-cloud__item is-active" style={{fontSize:"1.2em"}} data-qa="option" data-key="c">
           <div data-qa="label" className="sk-tag-cloud-option__text">C translated</div>
         </div>
-        <div className="sk-tag-cloud-option sk-tag-cloud__item" style={{fontSize:"1.5em"}} data-qa="option" data-key="d translated">
+        <div className="sk-tag-cloud-option sk-tag-cloud__item" style={{fontSize:"1.5em"}} data-qa="option" data-key="d">
           <div data-qa="label" className="sk-tag-cloud-option__text">d translated</div>
         </div>
       </div>

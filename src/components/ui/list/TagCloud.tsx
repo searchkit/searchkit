@@ -73,6 +73,7 @@ export class TagCloud extends React.Component<TagCloudProps, any> {
       onClick: () => toggleItem(item.key),
       bemBlocks: bemBlocks,
       key: item.key,
+      itemKey: item.key,
       disabled: disabled || item.disabled,
       active: includes(selectedItems, item.key),
       style: { fontSize: fontSize + 'em' },

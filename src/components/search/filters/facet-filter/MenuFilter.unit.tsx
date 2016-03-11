@@ -60,11 +60,11 @@ describe("MenuFilter", ()=> {
         <div className="sk-panel__header">Color</div>
         <div className="sk-panel__content">
           <div data-qa="options" className="sk-item-list">
-            <div className="sk-item-list-option sk-item-list__item is-active" data-qa="option" data-key="All">
+            <div className="sk-item-list-option sk-item-list__item is-active" data-qa="option" data-key="$all">
               <div data-qa="label" className="sk-item-list-option__text">All</div>
               <div data-qa="count" className="sk-item-list-option__count">33</div>
             </div>
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="Red Translated">
+            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="Red">
               <div data-qa="label" className="sk-item-list-option__text">Red Translated</div>
               <div data-qa="count" className="sk-item-list-option__count">10</div>
             </div>

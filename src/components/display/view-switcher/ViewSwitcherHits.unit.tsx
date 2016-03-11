@@ -77,13 +77,13 @@ describe("View Switcher Hits component", () => {
             <div className="grid-item">2</div>
           </div>
           <div data-qa="options" className="sk-toggle">
-            <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option" data-key="My Grid">
+            <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option" data-key="grid">
               <div data-qa="label" className="sk-toggle-option__text">My Grid</div>
             </div>
-            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="List">
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="list">
               <div data-qa="label" className="sk-toggle-option__text">List</div>
             </div>
-            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="Custom List">
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="custom-list">
               <div data-qa="label" className="sk-toggle-option__text">Custom List</div>
             </div>
           </div>
@@ -101,13 +101,13 @@ describe("View Switcher Hits component", () => {
             <div className="list-item">2</div>
           </div>
           <div data-qa="options" className="sk-toggle">
-            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="My Grid">
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="grid">
               <div data-qa="label" className="sk-toggle-option__text">My Grid</div>
             </div>
-            <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option" data-key="List">
+            <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option" data-key="list">
               <div data-qa="label" className="sk-toggle-option__text">List</div>
             </div>
-            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="Custom List">
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="custom-list">
               <div data-qa="label" className="sk-toggle-option__text">Custom List</div>
             </div>
           </div>
@@ -120,13 +120,13 @@ describe("View Switcher Hits component", () => {
         <div>
           <div className="custom-list">1,2</div>
           <div data-qa="options" className="sk-toggle">
-            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="My Grid">
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="grid">
               <div data-qa="label" className="sk-toggle-option__text">My Grid</div>
             </div>
-            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="List">
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="list">
               <div data-qa="label" className="sk-toggle-option__text">List</div>
             </div>
-            <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option" data-key="Custom List">
+            <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option" data-key="custom-list">
               <div data-qa="label" className="sk-toggle-option__text">Custom List</div>
             </div>
           </div>

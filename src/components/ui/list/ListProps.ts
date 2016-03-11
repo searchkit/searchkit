@@ -23,4 +23,5 @@ export interface ItemProps {
   showCount: boolean
   style?: any
   listDocCount?: number // number of documents for this list
+  itemKey?:string
 }
