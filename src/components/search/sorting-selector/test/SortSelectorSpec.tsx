@@ -111,16 +111,16 @@ describe("SortingSelector tests", () => {
         {label:"Latest Releases", field:"released", order:"desc"},
         {label:"Earliest Releases", field:"released", order:"asc", key:"earliest"}
       ]}/>
-    )
+    )    
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="my-select custom-class is-disabled">
-        <div className="my-select-option my-select__item is-active" data-qa="option">
+      <div data-qa="options" className="my-select custom-class is-disabled">
+        <div className="my-select-option my-select__item is-active" data-qa="option" data-key="Relevance">
           <div data-qa="label" className="my-select-option__text">Relevance</div>
         </div>
-        <div className="my-select-option my-select__item" data-qa="option">
+        <div className="my-select-option my-select__item" data-qa="option" data-key="Latest Releases">
           <div data-qa="label" className="my-select-option__text">Latest Releases</div>
         </div>
-        <div className="my-select-option my-select__item" data-qa="option">
+        <div className="my-select-option my-select__item" data-qa="option" data-key="Earliest Releases">
           <div data-qa="label" className="my-select-option__text">Earliest Releases</div>
         </div>
       </div>

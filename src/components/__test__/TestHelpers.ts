@@ -27,6 +27,7 @@ export const printPrettyHtml = (html)=> {
     .replace(/class=/g, "className=")
     .replace(/<input([^>]*)>/g, "<input$1/>")
     .replace(/readonly=""/g,"readOnly={true}")
+    .replace(/font-size/g,"fontSize")
     .replace(/style="([^"]+)"+/g, (match, style)=> {
       let reactStyle = map(compact(style.split(";")), (keyvalue)=> {
         let [key, value] = keyvalue.split(":")

@@ -16,24 +16,24 @@ describe("ItemHistogramList Components", ()=> {
 
     const total = 10+11+12+15
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-item-list">
-        <div className="sk-item-list-option sk-item-list__item is-active is-histogram" data-qa="option">
-          <div className="sk-item-list-option__bar" style={{width: ((10/total)*100) + '%'}} />
+      <div data-qa="options" className="sk-item-list">
+        <div className="sk-item-list-option sk-item-list__item is-active is-histogram" data-qa="option" data-key="A translated">
+          <div className="sk-item-list-option__bar" style={{width:"20.833333333333336%"}}></div>
           <div data-qa="label" className="sk-item-list-option__text">A translated</div>
           <div data-qa="count" className="sk-item-list-option__count">10</div>
         </div>
-        <div className="sk-item-list-option sk-item-list__item is-disabled is-histogram" data-qa="option">
-          <div className="sk-item-list-option__bar" style={{width: ((11/total)*100) + '%'}} />
+        <div className="sk-item-list-option sk-item-list__item is-disabled is-histogram" data-qa="option" data-key="B translated">
+          <div className="sk-item-list-option__bar" style={{width:"22.916666666666664%"}}></div>
           <div data-qa="label" className="sk-item-list-option__text">B translated</div>
           <div data-qa="count" className="sk-item-list-option__count">11</div>
         </div>
-        <div className="sk-item-list-option sk-item-list__item is-active is-histogram" data-qa="option">
-          <div className="sk-item-list-option__bar" style={{width: ((12/total)*100) + '%'}} />
+        <div className="sk-item-list-option sk-item-list__item is-active is-histogram" data-qa="option" data-key="C translated">
+          <div className="sk-item-list-option__bar" style={{width:"25%"}}></div>
           <div data-qa="label" className="sk-item-list-option__text">C translated</div>
           <div data-qa="count" className="sk-item-list-option__count">12</div>
         </div>
-        <div className="sk-item-list-option sk-item-list__item is-histogram" data-qa="option">
-          <div className="sk-item-list-option__bar" style={{width: ((15/total)*100) + '%'}} />
+        <div className="sk-item-list-option sk-item-list__item is-histogram" data-qa="option" data-key="d translated">
+          <div className="sk-item-list-option__bar" style={{width:"31.25%"}}></div>
           <div data-qa="label" className="sk-item-list-option__text">d translated</div>
           <div data-qa="count" className="sk-item-list-option__count">15</div>
         </div>

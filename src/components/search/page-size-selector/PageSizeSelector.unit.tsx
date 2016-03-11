@@ -64,14 +64,14 @@ describe("PageSizeSelector", ()=> {
     })
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div>
-        <div className="my-page-selector my-class">
-          <div className="my-page-selector-option my-page-selector__item" data-qa="option">
+        <div data-qa="options" className="my-page-selector my-class">
+          <div className="my-page-selector-option my-page-selector__item" data-qa="option" data-key="4">
             <div data-qa="label" className="my-page-selector-option__text">4</div>
           </div>
-          <div className="my-page-selector-option my-page-selector__item is-active" data-qa="option">
+          <div className="my-page-selector-option my-page-selector__item is-active" data-qa="option" data-key="12">
             <div data-qa="label" className="my-page-selector-option__text">12</div>
           </div>
-          <div className="my-page-selector-option my-page-selector__item" data-qa="option">
+          <div className="my-page-selector-option my-page-selector__item" data-qa="option" data-key="24">
             <div data-qa="label" className="my-page-selector-option__text">24</div>
           </div>
         </div>

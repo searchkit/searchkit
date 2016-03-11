@@ -60,26 +60,26 @@ describe("Pagination tests", () => {
     it("renders text", () => {
       this.createWrapper()
       expect(this.wrapper.html()).toEqual(jsxToHTML(
-        <div className="sk-toggle">
-          <div className="sk-toggle-option sk-toggle__item is-disabled" data-qa="option">
+        <div data-qa="options" className="sk-toggle">
+          <div className="sk-toggle-option sk-toggle__item is-disabled" data-qa="option" data-key="Previous Page">
             <div data-qa="label" className="sk-toggle-option__text">Previous Page</div>
           </div>
-          <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option">
+          <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option" data-key="1">
             <div data-qa="label" className="sk-toggle-option__text">1</div>
           </div>
-          <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="2">
             <div data-qa="label" className="sk-toggle-option__text">2</div>
           </div>
-          <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="3">
             <div data-qa="label" className="sk-toggle-option__text">3</div>
           </div>
-          <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="4">
             <div data-qa="label" className="sk-toggle-option__text">4</div>
           </div>
-          <div className="sk-toggle-option sk-toggle__item is-disabled" data-qa="option">
+          <div className="sk-toggle-option sk-toggle__item is-disabled" data-qa="option" data-key="...">
             <div data-qa="label" className="sk-toggle-option__text">...</div>
           </div>
-          <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="Next">
             <div data-qa="label" className="sk-toggle-option__text">Next</div>
           </div>
         </div>
@@ -89,11 +89,11 @@ describe("Pagination tests", () => {
     it("renders with pages", () => {
       this.createWrapper(false)
       expect(this.wrapper.html()).toEqual(jsxToHTML(
-        <div className="sk-toggle">
-          <div className="sk-toggle-option sk-toggle__item is-disabled" data-qa="option">
+        <div data-qa="options" className="sk-toggle">
+          <div className="sk-toggle-option sk-toggle__item is-disabled" data-qa="option" data-key="Previous Page">
             <div data-qa="label" className="sk-toggle-option__text">Previous Page</div>
           </div>
-          <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="Next">
             <div data-qa="label" className="sk-toggle-option__text">Next</div>
           </div>
         </div>

@@ -63,16 +63,16 @@ describe("NumericRefinementListFilter tests", () => {
       <div className="sk-panel filter--score">
         <div className="sk-panel__header">Score</div>
         <div className="sk-panel__content">
-          <div className="sk-item-list">
-            <div className="sk-item-list-option sk-item-list__item is-active" data-qa="option">
+          <div data-qa="options" className="sk-item-list">
+            <div className="sk-item-list-option sk-item-list__item is-active" data-qa="option" data-key="All">
               <div data-qa="label" className="sk-item-list-option__text">All</div>
               <div data-qa="count" className="sk-item-list-option__count">30</div>
             </div>
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option">
+            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="up to 20">
               <div data-qa="label" className="sk-item-list-option__text">up to 20</div>
               <div data-qa="count" className="sk-item-list-option__count">10</div>
             </div>
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option">
+            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="21 to 40">
               <div data-qa="label" className="sk-item-list-option__text">21 to 40</div>
               <div data-qa="count" className="sk-item-list-option__count">20</div>
             </div>

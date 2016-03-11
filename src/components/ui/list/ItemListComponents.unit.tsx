@@ -24,23 +24,22 @@ describe("ItemList Components", ()=> {
     }
     this.wrapper = mount(
       <MockList listComponent={ItemList}/>
-    )
-
+    )    
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-item-list">
-        <div className="sk-item-list-option sk-item-list__item is-active" data-qa="option">
+      <div data-qa="options" className="sk-item-list">
+        <div className="sk-item-list-option sk-item-list__item is-active" data-qa="option" data-key="A translated">
           <div data-qa="label" className="sk-item-list-option__text">A translated</div>
           <div data-qa="count" className="sk-item-list-option__count">10</div>
         </div>
-        <div className="sk-item-list-option sk-item-list__item is-disabled" data-qa="option">
+        <div className="sk-item-list-option sk-item-list__item is-disabled" data-qa="option" data-key="B translated">
           <div data-qa="label" className="sk-item-list-option__text">B translated</div>
           <div data-qa="count" className="sk-item-list-option__count">11</div>
         </div>
-        <div className="sk-item-list-option sk-item-list__item is-active" data-qa="option">
+        <div className="sk-item-list-option sk-item-list__item is-active" data-qa="option" data-key="C translated">
           <div data-qa="label" className="sk-item-list-option__text">C translated</div>
           <div data-qa="count" className="sk-item-list-option__count">12</div>
         </div>
-        <div className="sk-item-list-option sk-item-list__item" data-qa="option">
+        <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="d translated">
           <div data-qa="label" className="sk-item-list-option__text">d translated</div>
           <div data-qa="count" className="sk-item-list-option__count">15</div>
         </div>

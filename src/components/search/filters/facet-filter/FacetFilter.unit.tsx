@@ -62,19 +62,16 @@ describe("Facet Filter tests", () => {
       <div className="sk-panel filter--test id">
         <div className="sk-panel__header">test title</div>
         <div className="sk-panel__content">
-          <div className="sk-item-list">
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option">
-              <input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox"/>
+          <div data-qa="options" className="sk-item-list">
+            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 1 translated"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox"/>
               <div data-qa="label" className="sk-item-list-option__text">test option 1 translated</div>
               <div data-qa="count" className="sk-item-list-option__count">1</div>
             </div>
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option">
-              <input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox"/>
+            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 2"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox"/>
               <div data-qa="label" className="sk-item-list-option__text">test option 2</div>
               <div data-qa="count" className="sk-item-list-option__count">2</div>
             </div>
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option">
-              <input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox"/>
+            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 3"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox"/>
               <div data-qa="label" className="sk-item-list-option__text">test option 3</div>
               <div data-qa="count" className="sk-item-list-option__count">3</div>
             </div>
@@ -177,18 +174,19 @@ describe("Facet Filter tests", () => {
         field="test" id="test id" title="test title"
         searchkit={this.searchkit} />
     )
+
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div title="test title" className="filter--test id">
-        <div className="sk-toggle">
-          <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+        <div data-qa="options" className="sk-toggle">
+          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 1 translated">
             <div data-qa="label" className="sk-toggle-option__text">test option 1 translated</div>
             <div data-qa="count" className="sk-toggle-option__count">1</div>
           </div>
-          <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 2">
             <div data-qa="label" className="sk-toggle-option__text">test option 2</div>
             <div data-qa="count" className="sk-toggle-option__count">2</div>
           </div>
-          <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 3">
             <div data-qa="label" className="sk-toggle-option__text">test option 3</div>
             <div data-qa="count" className="sk-toggle-option__count">3</div>
           </div>

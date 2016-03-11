@@ -76,14 +76,14 @@ describe("View Switcher Hits component", () => {
             <div className="grid-item">1</div>
             <div className="grid-item">2</div>
           </div>
-          <div className="sk-toggle">
-            <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option">
+          <div data-qa="options" className="sk-toggle">
+            <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option" data-key="My Grid">
               <div data-qa="label" className="sk-toggle-option__text">My Grid</div>
             </div>
-            <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="List">
               <div data-qa="label" className="sk-toggle-option__text">List</div>
             </div>
-            <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="Custom List">
               <div data-qa="label" className="sk-toggle-option__text">Custom List</div>
             </div>
           </div>
@@ -100,14 +100,14 @@ describe("View Switcher Hits component", () => {
             <div className="list-item">1</div>
             <div className="list-item">2</div>
           </div>
-          <div className="sk-toggle">
-            <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+          <div data-qa="options" className="sk-toggle">
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="My Grid">
               <div data-qa="label" className="sk-toggle-option__text">My Grid</div>
             </div>
-            <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option">
+            <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option" data-key="List">
               <div data-qa="label" className="sk-toggle-option__text">List</div>
             </div>
-            <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="Custom List">
               <div data-qa="label" className="sk-toggle-option__text">Custom List</div>
             </div>
           </div>
@@ -119,14 +119,14 @@ describe("View Switcher Hits component", () => {
       expect(this.wrapper.html()).toEqual(jsxToHTML(
         <div>
           <div className="custom-list">1,2</div>
-          <div className="sk-toggle">
-            <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+          <div data-qa="options" className="sk-toggle">
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="My Grid">
               <div data-qa="label" className="sk-toggle-option__text">My Grid</div>
             </div>
-            <div className="sk-toggle-option sk-toggle__item" data-qa="option">
+            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="List">
               <div data-qa="label" className="sk-toggle-option__text">List</div>
             </div>
-            <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option">
+            <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option" data-key="Custom List">
               <div data-qa="label" className="sk-toggle-option__text">Custom List</div>
             </div>
           </div>
@@ -139,6 +139,7 @@ describe("View Switcher Hits component", () => {
         mod:"my-view-switcher", className:"customClass",
         listComponent:Select
       })
+
       expect(this.wrapper.html()).toEqual(jsxToHTML(
         <div>
           <div data-qa="hits" className="sk-hits-grid">

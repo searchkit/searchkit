@@ -24,7 +24,7 @@ function itemRenderer(props: ItemComponentProps) {
   const hasCount = showCount && (count != undefined) && (count != null)
   return (
     <FastClick handler={onClick}>
-      <div className={className} style={style} data-qa="option">
+      <div className={className} style={style} data-qa="option" data-key={label}>
         {showCheckbox ? <input type="checkbox" data-qa="checkbox" checked={active} readOnly className={block("checkbox").state({ active }) } ></input> : undefined}
         <div data-qa="label" className={block("text") }>{label}</div>
         {hasCount ? < div data-qa="count" className={block("count") }>{count}</div> : undefined}

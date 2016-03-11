@@ -17,7 +17,7 @@ export interface ItemHistogramComponentProps extends ItemProps {
 
 @PureRender
 export class ItemHistogramComponent extends React.Component<ItemHistogramComponentProps, {}> {
-  
+
   getCountRatio(){
     const { count, listDocCount } = this.props
     if ((count == undefined) || (listDocCount == undefined) || (listDocCount == 0)) {
@@ -26,7 +26,7 @@ export class ItemHistogramComponent extends React.Component<ItemHistogramCompone
       return count / listDocCount
     }
   }
-  
+
   render(){
     const {
       bemBlocks, onClick, active, disabled, style,
@@ -35,12 +35,12 @@ export class ItemHistogramComponent extends React.Component<ItemHistogramCompone
     const className = block()
       .state({ active, disabled, histogram: true })
       .mix(bemBlocks.container("item"))
-      
+
     const barWidth = (this.getCountRatio()*100) + '%'
-      
+
     return (
       <FastClick handler={onClick}>
-        <div className={className} style={style} data-qa="option">
+        <div className={className} style={style} data-qa="option" data-key={label}>
           <div className={block("bar")} style={{width: barWidth}} />
           {showCheckbox ? <input type="checkbox" data-qa="checkbox" checked={active} readOnly className={block("checkbox").state({ active }) } ></input> : undefined}
           <div data-qa="label" className={block("text") }>{label}</div>
