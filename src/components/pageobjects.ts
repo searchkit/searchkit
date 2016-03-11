@@ -1,0 +1,6 @@
+export * from "./search/filters/facet-filter/pageobjects"
+export * from "./search/hits/page-objects/Hits"
+export * from "./search/hits-stats/page-objects/HitsStats"
+export * from "./search/search-box/page-objects/Searchbox"
+export * from "./search/search-box/page-objects/Loader"
+export * from "./ui/list/pageobjects"

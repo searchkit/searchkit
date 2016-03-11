@@ -1,8 +1,7 @@
 import {Component, field, defaults, List} from "xenon";
-import Hits from "../../../src/components/search/hits/page-objects/Hits.ts";
-import Searchbox from "../../../src/components/search/search-box/page-objects/SearchBox.ts";
-import RefinementListFilter from "../../../src/components/search/filters/refinement-list-filter/page-objects/RefinementListFilter.ts";
-import HitsStats from "../../../src/components/search/hits-stats/page-objects/HitsStats.ts";
+import {
+  Searchbox, FacetFilter, HitsStats
+}from "../../../src/components/pageobjects";
 
 class Hit extends Component {
 
@@ -27,8 +26,8 @@ class SearchPage extends Component {
   @field(HitsStats)
   hitStats:HitsStats
 
-  @field(RefinementListFilter, {id:"actors"})
-  actorsFilter:RefinementListFilter
+  @field(FacetFilter, {id:"actors"})
+  actorsFilter:FacetFilter
 }
 
 var searchPage:SearchPage = null;
@@ -42,7 +41,7 @@ describe("example", () => {
 
   it("should show hits", () => {
     expect(searchPage.hits.isVisible(20000)).toBe(true);
-    expect(searchPage.hits.count()).toBe(10)
+    expect(searchPage.hits.count()).toBe(12)
   })
 
   it("should find matrix", () => {

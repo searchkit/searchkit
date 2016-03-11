@@ -1,7 +1,7 @@
 import {Component, field, defaults} from "xenon";
-import Loader from "./Loader";
+import {Loader} from "./Loader";
 
-export default class SearchBox extends Component {
+export class Searchbox extends Component {
 
   @field(Component, {qa:"query"})
   query: Component
