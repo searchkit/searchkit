@@ -2,11 +2,11 @@ const {
   SearchkitManager,SearchkitProvider,
   SearchBox, Hits, RefinementListFilter, Pagination,
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
-  GroupedSelectedFilters, SelectedFilters, ResetFilters, 
+  GroupedSelectedFilters, SelectedFilters, ResetFilters,
   RangeFilter, NumericRefinementListFilter,
   ViewSwitcherHits, ViewSwitcherToggle, Select, Toggle,
   ItemList, CheckboxItemList, ItemHistogramList, Tabs, TagCloud, MenuFilter,
-  renderComponent, PageSizeSelector, RangeSliderHistogramInput
+  renderComponent, PageSizeSelector, RangeSliderHistogramInput, Panel
 } = require("../../../../../src")
 const host = "http://demo.searchkit.co/api/movies"
 import * as ReactDOM from "react-dom";
@@ -164,10 +164,10 @@ const listComponents = {
 }
 
 class App extends React.Component<any, any> {
-  
+
   constructor(props){
     super(props)
-    
+
     this.state = {
       viewMode: "list"
     }
@@ -176,7 +176,7 @@ class App extends React.Component<any, any> {
   handleViewModeChange(e){
     this.setState({viewMode: e.target.value})
   }
-  
+
   render(){
     return (
       <SearchkitProvider searchkit={searchkit}>
@@ -192,7 +192,9 @@ class App extends React.Component<any, any> {
           <div className="sk-layout__body">
 
             <div className="sk-layout__filters">
-            
+              <Panel title="Selected Filters" collapsable={true} defaultCollapsed={false}>
+                <SelectedFilters/>
+              </Panel>
               <MenuFilter field={"type.raw"} size={10} title="Movie Type" id="types" listComponent={listComponents[this.state.viewMode]}
                 containerComponent={
                 (props) => (
@@ -209,7 +211,7 @@ class App extends React.Component<any, any> {
                     )} />
                 )
               }/>
-              
+
               <HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
               <RangeFilter min={0} max={100} field="metaScore" id="metascore" title="Metascore" showHistogram={true}/>
               <RangeFilter min={0} max={10} field="imdbRating" id="imdbRating" title="IMDB Rating" showHistogram={true} rangeComponent={RangeSliderHistogramInput}/>
