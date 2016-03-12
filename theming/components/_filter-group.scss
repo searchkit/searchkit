@@ -1,10 +1,10 @@
 @import "./vars.scss";
 
 .sk-filter-group {
-  
+
   &-items {
     display: inline-block;
-    
+
     &__title, &__list, &__value {
       display: inline-block;
     }
@@ -41,7 +41,7 @@
   &__remove-action {
     display: inline-block;
     cursor: pointer;
-    font-weight: 700;
+    font-weight: $sk-bold-weight;
   }
 }
 
@@ -52,15 +52,15 @@
     margin-right: 10px;
     color: $sk-action-text-color;
   }
-  
+
   .sk-filter-group {
     border: none;
     background: #f4f4f4;
     display: inline-block;
     padding: 10px 10px 10px 0px;
-    font-size: 14px;
+    font-size: $sk-list-font-size;
     line-height: 20px;
-    border-radius: 3px;
+    border-radius: $sk-border-radius;
     margin-right: 10px;
 
     &__remove-action {
@@ -76,11 +76,11 @@
     margin-right: 10px;
     color: $sk-list-text-color;
   }
-  
+
   .sk-filter-group {
     border: none;
     display: block;
-    font-size: 14px;
+    font-size: $sk-list-font-size;
     line-height: 20px;
 
     &__remove-action {
