@@ -48,7 +48,7 @@ module.exports = {
     });
 
     app.listen(port, function () {
-      console.log(`server running at localhost:4000, go refresh and see magic`);
+      console.log(`server running at localhost:${port}, go refresh and see magic`);
     });
   }
 }

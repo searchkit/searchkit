@@ -57,12 +57,13 @@ which is a react component to display a single item of the search results.
 ```jsx
 hitComponents = {[
   {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem, defaultOption:true},
-  {key:"list", title:"List", itemComponent:MovieHitsListItem}
+  {key:"list", title:"List", itemComponent:MovieHitsListItem},
+  {key:"table", title:"Table", listComponent:MovieHitsTableList}
 ]}
 ```
 
 ##ViewSwitcherHits Props
-- `hitComponents` *(Array<{key, title, itemComponent, defaultOption?}>)*: React component used for each hit render.
+- `hitComponents` *(Array<{key, title, itemComponent, listComponent, defaultOption?}>)*: React component used for each hit render.
 - `hitsPerPage` *(Number)*: Number of results displayed per page
 - `highlightFields` *(Array<string>)*: Array of highlighted fields. Any highlight matches will be returned in the result.highlight[fieldName]. See above for example.
 - `mod` *(string)*: Optional. A custom BEM container class.
@@ -70,4 +71,5 @@ hitComponents = {[
 - `scrollTo` *(string|boolean)*: When results have changed, we scroll to the top of the element using the jQuery style selector passed in the `scrollTo` prop. If true, it will use the body as the selector.  Default value is true. If false, it will not scroll when new results are rendered. We determine a change by comparing hits `_id` field with the new results.
 
 ##ViewSwitcherToggle Props
-- none
+- `listComponent` *(ReactComponent)*: Used to customize the list behavior
+  - defaults to `Toggle`, compatible with `Toggle`, `Select`, `Tabs`

@@ -1,6 +1,7 @@
 # Pagination
 The pagination component provides ability to go to next and previous page.
 
+![Example](./assets/pagination.png)
 ## Example
 
 ```jsx
@@ -14,7 +15,7 @@ class App extends SearchkitComponent {
 
   render(){
     <div>
-      <Pagination/>
+      <Pagination showNumbers={true}/>
     </div>
   }
 }
@@ -27,6 +28,9 @@ class App extends SearchkitComponent {
 - `showText` *(Boolean)*: Whether to display previous, next + dividers. Useful to switch off when using Select component.
 defaults to `true`
 - `mod` *(string)*: Optional. A custom BEM container class.
+- `listComponent` *(React Component)*: Used to change the rendering defaults to `Toggle`.
+  - Use `Select` with `showText={false}` to have a select based pagination.
+
 
 ## Translations
 - `pagination.previous` - Previous
