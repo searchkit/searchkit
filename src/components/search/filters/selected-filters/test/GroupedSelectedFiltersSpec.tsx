@@ -59,7 +59,6 @@ describe("GroupedSelectedFilters tests", () => {
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-filter-groups">
         <div className="sk-filter-group filter-group-test">
-          <div className="sk-filter-group__remove-action">X</div>
           <div className="sk-filter-group-items">
             <div className="sk-filter-group-items__title">test name</div>
             <div className="sk-filter-group-items__list">
@@ -67,15 +66,16 @@ describe("GroupedSelectedFilters tests", () => {
               <div className="sk-filter-group-items__value" data-key="test value 3">test value 3</div>
             </div>
           </div>
+          <div className="sk-filter-group__remove-action">X</div>
         </div>
         <div className="sk-filter-group filter-group-test2">
-          <div className="sk-filter-group__remove-action">X</div>
           <div className="sk-filter-group-items">
             <div className="sk-filter-group-items__title">test name 2 translated</div>
             <div className="sk-filter-group-items__list">
               <div className="sk-filter-group-items__value" data-key="test value 2">test value 2 translated</div>
             </div>
           </div>
+          <div className="sk-filter-group__remove-action">X</div>
         </div>
       </div>
     ))

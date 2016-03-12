@@ -23,7 +23,7 @@ describe("FilterGroup", ()=> {
   it("should render and behave correctly", ()=> {
 
     this.wrapper = mount(
-      <FilterGroup title={this.title} translate={this.translate} 
+      <FilterGroup title={this.title} translate={this.translate}
                    className="filter-group-1"
                    removeFilter={this.removeFilter} removeFilters={this.removeFilters}
                    filters={this.filters} />
@@ -31,7 +31,6 @@ describe("FilterGroup", ()=> {
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-filter-group filter-group-1">
-        <div className="sk-filter-group__remove-action">X</div>
         <div className="sk-filter-group-items">
           <div className="sk-filter-group-items__title">GroupTitle</div>
           <div className="sk-filter-group-items__list">
@@ -41,6 +40,7 @@ describe("FilterGroup", ()=> {
             <div className="sk-filter-group-items__value" data-key="D">D translated</div>
           </div>
         </div>
+        <div className="sk-filter-group__remove-action">X</div>
       </div>
     ))
 
@@ -56,7 +56,7 @@ describe("FilterGroup", ()=> {
   it("mod + classname can be updated", () => {
     this.wrapper = mount(
       <FilterGroup mod="sk-filter-group-updated" className="my-custom-class"
-                   title={this.title} translate={this.translate} 
+                   title={this.title} translate={this.translate}
                    removeFilter={this.removeFilter} removeFilters={this.removeFilters}
                    filters={this.filters} />
     )
