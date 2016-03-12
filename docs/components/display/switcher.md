@@ -1,6 +1,11 @@
 # View Switcher
 Searchkit's view switcher components come in 2 seperate components. `ViewSwitcherHits` which toggles the hits display and `ViewSwitcherToggle` which is the actual toggle button to switch views.
 
+<img src="./assets/view-switch-grid.png" height="200px"/>
+<img src="./assets/view-switch-list.png" height="200px"/>
+<img src="./assets/view-switch-table.png" height="200px"/>
+
+
 ## Example
 ```jsx
 import {
@@ -31,6 +36,34 @@ const MovieHitsListItem = (props)=> {
     </div>
   )
 
+const MovieHitsTable = (props)=> {  
+  const { hits } = this.props
+  return (
+    <div style={{width: '100%', boxSizing: 'border-box', padding: 8}}>
+      <table className="sk-table sk-table-striped" style={{width: '100%', boxSizing: 'border-box'}}>
+        <thead>
+          <tr>
+            <th></th> <th>Title</th> <th>Year</th> <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+        {map(hits, hit => (
+          <tr key={hit._id}>
+            <td style={{margin: 0, padding: 0, width: 40}}>
+              <img data-qa="poster" src={hit._source.poster} style={{width: 40}}/>
+            </td>
+            <td>{hit._source.title}</td>
+            <td>{hit._source.year}</td>
+            <td>{hit._source.imdbRating}</td>
+          </tr>
+          ))}
+          </tbody>
+      </table>
+    </div>
+    )  
+}
+
+
 class App extends React.Component {
 
   render(){
@@ -41,7 +74,8 @@ class App extends React.Component {
           sourceFilter={["plot", "title", "poster", "imdbId", "imdbRating", "year"]}
           hitComponents = {[
             {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem, defaultOption:true},
-            {key:"list", title:"List", itemComponent:MovieHitsListItem}
+            {key:"list", title:"List", itemComponent:MovieHitsListItem},
+            {key:"table", title:"Table", listComponent:MovieHitsTable}
           ]}
           scrollTo="body"
       />
@@ -52,13 +86,13 @@ class App extends React.Component {
 
 ## Configuration
 `ViewSwitcherHits` accepts all the props that `Hits` expects with 1 additional `hitComponents` prop.
-The `hitComponents` prop is an array of views, with `key`, `title`, `defaultOption` and `itemComponent`
-which is a react component to display a single item of the search results.
+The `hitComponents` prop is an array of views, with `key`, `title`, `defaultOption` and `itemComponent` or `listComponent`.
+
 ```jsx
 hitComponents = {[
   {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem, defaultOption:true},
   {key:"list", title:"List", itemComponent:MovieHitsListItem},
-  {key:"table", title:"Table", listComponent:MovieHitsTableList}
+  {key:"table", title:"Table", listComponent:MovieHitsTable}
 ]}
 ```
 
