@@ -66,7 +66,6 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
   }
 
   buildOwnQuery(query) {
-		console.log(this.options.loadBuckets)
 		if(this.options.loadBuckets){
 			let otherFilters = query.getFiltersWithoutKeys(this.key)
 			let filters = BoolMust([
