@@ -34,6 +34,8 @@ module.exports = {
       }
     }));
 
+    app.use(webpackHotMiddleware(compiler));
+
     app.get("/", function(req, res){
       res.render("index", {
         apps:apps

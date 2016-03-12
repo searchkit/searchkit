@@ -3,9 +3,13 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var apps = require("./apps")
 
-var entries = {}
+var entries = {
+}
 apps.forEach(function(app){
-  entries[app] = path.join(__dirname, '/apps/'+app)
+  entries[app] = [
+    'webpack-hot-middleware/client?reload=true',
+    path.join(__dirname, '/apps/'+app)
+  ]
 })
 console.log(entries)
 
@@ -18,6 +22,7 @@ module.exports = {
     publicPath: '/static'
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
   resolve: {
