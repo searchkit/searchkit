@@ -82,16 +82,16 @@ export class FilterGroup extends React.Component<FilterGroupProps, any> {
         container: bemBlock(mod),
         items: bemBlock (`${mod}-items`)
     }
-      
+
     return (
       <div key={title} className={bemBlocks.container().mix(className)}>
-        {this.renderRemove(bemBlocks)}
         <div className={bemBlocks.items()}>
           <div className={bemBlocks.items("title")}>{title}</div>
           <div className={bemBlocks.items("list")}>
             {map(filters, filter => this.renderFilter(filter, bemBlocks))}
           </div>
         </div>
+        {this.renderRemove(bemBlocks)}
       </div>
     )
   }
@@ -108,10 +108,10 @@ export class FilterGroup extends React.Component<FilterGroupProps, any> {
                   removeFilter={removeFilter} />
     )
   }
-  
+
   renderRemove(bemBlocks){
     if (!this.props.removeFilters) return null
-    
+
     return (
       <FastClick handler={this.removeFilters}>
         <div className={bemBlocks.container("remove-action") } onClick={this.removeFilters}>X</div>

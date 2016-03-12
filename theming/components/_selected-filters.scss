@@ -31,6 +31,13 @@
     line-height:18px;
     color:$sk-action-text-color;
     font-weight:700;
+    border-left:1px solid #ddd;
+    padding: 0 15px 0 10px;
+    margin-left:10px;
+
+    &:hover {
+      color: $sk-remove-action-color;
+    }
   }
 
 }

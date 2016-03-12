@@ -57,14 +57,33 @@
     border: none;
     background: #f4f4f4;
     display: inline-block;
-    padding: 10px 10px 10px 0px;
+    padding: 0 0 0 10px;
     font-size: $sk-list-font-size;
     line-height: 20px;
     border-radius: $sk-border-radius;
     margin-right: 10px;
 
+    &-items {
+
+      &__title {
+        // color: #666;
+        font-weight: $sk-light-weight;
+      }
+
+      &__list {
+        padding:10px 0;
+      }
+
+    }
+
     &__remove-action {
-      padding: 0 10px;
+      border-left:1px solid #ddd;
+      padding: 0 15px 0 10px;
+      margin-left:10px;
+
+      &:hover {
+        color: $sk-remove-action-color;
+      }
     }
   }
 }
