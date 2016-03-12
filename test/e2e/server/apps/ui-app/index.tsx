@@ -65,6 +65,10 @@ class App extends React.Component<any, any> {
                 </div>
               </Panel>
 
+              <Panel title="Selected Filters" collapsable={true} defaultCollapsed={false}>
+                <SelectedFilters/>                
+              </Panel>
+
               <MenuFilter field="type.raw" title="Movie Type" id="movie_type" listComponent={ItemHistogramList}/>
 
               <MockList title="Tag Cloud" listComponent={TagCloud}/>
