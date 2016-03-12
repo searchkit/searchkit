@@ -4,7 +4,7 @@
   padding-bottom: 16px; // Take into account marks
 
   .rc-slider-handle {
-    border-color: #2a4466;
+    border-color: $sk-border-color;
   }
   .rc-slider-track {
     background-color: rgba(156, 162, 153, 0.5);

@@ -1,5 +1,4 @@
 @import "../vars.scss";
-@import "../mixins/user-select.scss";
 
 .sk-layout__filters {
   .sk-panel {
@@ -25,7 +24,7 @@
 
     &.is-collapsable  {
       cursor: pointer;
-      @include user-select(none);
+      user-select: none;
       padding-left:15px;
       position: relative;
 

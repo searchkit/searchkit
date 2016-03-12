@@ -2,7 +2,7 @@
 
 .sk-tabs {
   width: 100%;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $sk-border-color;
   list-style: none;
   padding: 0;
   margin: 4px 0;
@@ -28,24 +28,24 @@
       color:$sk-list-text-color;
       border-color:$sk-active-bg-color;
       cursor: default;
-      border: 1px solid #ddd;
+      border: 1px solid $sk-border-color;
       border-bottom-color: transparent;
     }
 
     &.is-disabled {
       cursor: initial;
-      color: #ddd;
+      color: $sk-border-color;
     }
-    
+
     &__text, &__count {
       display: inline;
     }
-    
+
     &__count {
       &:before {
         content: " ("
       }
-    
+
       &:after {
         content: ")"
       }

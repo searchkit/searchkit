@@ -8,10 +8,10 @@
     display: inline-block;
     width: 60px;
     border-radius: $sk-border-radius;
-    border: 1px solid #ddd;
+    border: 1px solid $sk-border-color;
 
     &.is-error {
-      border-color: red;
+      border-color: $sk-remove-action-color;
     }
   }
 

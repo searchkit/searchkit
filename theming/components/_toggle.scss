@@ -45,18 +45,18 @@
 
     &.is-disabled {
       cursor: initial;
-      color: #ddd;
+      color: $sk-disabled-text-color;
     }
-    
+
     &__text, &__count {
       display: inline;
     }
-    
+
     &__count {
       &:before {
         content: " ("
       }
-    
+
       &:after {
         content: ")"
       }

@@ -1,5 +1,4 @@
 @import "../vars.scss";
-@import "../mixins/user-select.scss";
 
 .sk-tag-cloud {
   text-align: justify;
@@ -19,7 +18,6 @@
     padding:4px 2px;
     border-right:none;
     text-decoration: none;
-
 
     &__text, &__count {
       display: inline;
