@@ -59,14 +59,14 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
   static defaultProps = {
     listComponent: Toggle,
     pageScope: 3,
-    showNumbers: true,
+    showNumbers: false,
     showText: true,
-    showLast: false,
+    showLast: false
   }
-  
+
   constructor(props){
     super(props)
-    
+
     this.setPage = this.setPage.bind(this)
   }
 
@@ -112,9 +112,9 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
     } = this.props
     const currentPage = this.getCurrentPage()
     const totalPages = this.getTotalPages()
-    
+
     const builder =  Paginator.build({
-      showNumbers, showFirst: true, 
+      showNumbers, showFirst: true,
       showPrevious: showText, showNext: showText, showEllipsis: showText
     })
     return builder(currentPage, totalPages, this.translate, pageScope)

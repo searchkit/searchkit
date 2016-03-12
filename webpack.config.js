@@ -5,7 +5,7 @@ var copyrightBanner = require("fs").readFileSync("./COPYRIGHT", "utf-8");
 
 module.exports = {
   entry: {
-    "ignore":'./theming/index.ts',
+    "ignore":['./theming/index.ts'],
     "bundle":'./src/index.ts'
   },
   output: {
