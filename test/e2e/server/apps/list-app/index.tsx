@@ -77,6 +77,11 @@ class App extends React.Component<any, any> {
             </div>
 
             <div className="sk-layout__results sk-results-list">
+              <div className="sk-action-bar__info">
+                <HitsStats translations={{
+                  "hitstats.results_found":"{hitCount} results found"
+                }}/>
+              </div>
               <Hits
                   hitsPerPage={12} highlightFields={["title","plot"]}
                   sourceFilter={["plot", "title", "poster", "imdbId", "imdbRating", "year"]}
