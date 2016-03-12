@@ -31,6 +31,10 @@
       * [Sorting](/docs/components/sorting/sort.md)
     * [Metadata](/docs/components/metadata/README.md)
       * [Stats](/docs/components/metadata/stats.md)
+    * [UI]()
+      * [Panel](/docs/components/ui/panel.md)
+      * [ListComponents](/docs/components/ui/list-components.md)
+
 * [Theming](/docs/theming/README.md)
   * [Using Theme](/docs/theming/using-searchkit-theme.md)
   * [Extending Theme](/docs/theming/extending-searchkit-theme.md)
