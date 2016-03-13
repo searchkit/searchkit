@@ -6,7 +6,7 @@ const {
   RangeFilter, NumericRefinementListFilter,
   ViewSwitcherHits, ViewSwitcherToggle, Select, Toggle,
   ItemList, CheckboxItemList, ItemHistogramList, Tabs, TagCloud, MenuFilter,
-  renderComponent, PageSizeSelector, RangeSliderHistogramInput, Panel
+  renderComponent, PageSizeSelector, RangeSliderHistogramInput, Panel, PaginationSelect
 } = require("../../../../../src")
 const host = "http://demo.searchkit.co/api/movies"
 import * as ReactDOM from "react-dom";
@@ -279,7 +279,7 @@ class App extends React.Component<any, any> {
               />
               <NoHits suggestionsField={"title"}/>
               <Pagination showNumbers={true}/>
-              <Pagination showNumbers={true} showText={false} listComponent={Select}/>
+              <PaginationSelect/>
             </div>
           </div>
         </div>

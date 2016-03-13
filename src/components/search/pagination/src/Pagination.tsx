@@ -12,20 +12,17 @@ import {
 } from "../../../../core"
 
 import {
-  Toggle, ListProps
+  Toggle, ListProps, Select
 } from "../../../ui"
-
 
 const defaults = require("lodash/defaults")
 const get = require("lodash/get")
 const assign = require("lodash/assign")
 const map = require("lodash/map")
 const compact = require("lodash/compact")
+const bem = require("bem-cn")
 
 import { Paginator } from "./PaginationUtils"
-
-
-
 
 export interface PaginationProps extends SearchkitComponentProps {
   listComponent?: any
@@ -37,7 +34,6 @@ export interface PaginationProps extends SearchkitComponentProps {
 
 export class Pagination extends SearchkitComponent<PaginationProps, any> {
   accessor:PaginationAccessor
-
 
   static translations:any = {
     "pagination.previous":"Previous",
@@ -62,11 +58,12 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
     showNumbers: true,
     showText: true,
     showLast: false,
+    mod: "sk-pagination-navigation"
   }
-  
+
   constructor(props){
     super(props)
-    
+
     this.setPage = this.setPage.bind(this)
   }
 
@@ -112,19 +109,19 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
     } = this.props
     const currentPage = this.getCurrentPage()
     const totalPages = this.getTotalPages()
-    
+
     const builder =  Paginator.build({
-      showNumbers, showFirst: true, 
+      showNumbers, showFirst: true,
       showPrevious: showText, showNext: showText, showEllipsis: showText
     })
     return builder(currentPage, totalPages, this.translate, pageScope)
   }
 
-
   render() {
     if (!this.hasHits()) return null;
+    const className = bem(this.props.mod).state({numbered:this.props.showNumbers})
 
-    return renderComponent(this.props.listComponent, {
+    const view = renderComponent(this.props.listComponent, {
       items: this.getPages(),
       selectedItems: [this.getCurrentPage()],
       toggleItem:this.setPage,
@@ -133,5 +130,17 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
       },
       disabled: this.getTotalPages() <= 1
     })
+
+    return <div className={className}>{view}</div>
+
   }
+}
+
+export class PaginationSelect extends Pagination {
+    static defaultProps = defaults({
+        listComponent: Select,
+        mod: 'sk-pagination-select',
+        showNumbers: true,
+        showText: false
+    }, Pagination.defaultProps)
 }
