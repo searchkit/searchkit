@@ -6,4 +6,13 @@
   padding:10px 20px;
   cursor:pointer;
   font-size: $sk-action-font-size;
+  outline:none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: black;
+  }
 }

@@ -8,8 +8,6 @@ const defaults = require("lodash/defaults")
 const get = require("lodash/get")
 const clamp = require("lodash/clamp")
 
-// const noop = () => { }
-
 /*
  * Input validates input and only calls onChange for valid values
  */
@@ -110,7 +108,7 @@ export class RangeInput extends React.Component<RangeInputProps, {}> {
                field="min"
                onChange={this.handleInputChange}
                placeholder={translate('range.min') || minPlaceholder} />
-        {translate('range.to') || ' to '}
+        <div className={bemBlocks.container("to-label")}>{translate('range.to') || 'to'}</div>
         <NumberInput ref="max" className={bemBlocks.container("input")}
                value={maxValue}
                field="max"
