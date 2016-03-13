@@ -63,6 +63,7 @@
     "react-addons-update": "^0.14.7"
   },
   "devDependencies": {
+    "autoprefixer": "^6.3.3",
     "chalk": "^1.1.1",
     "css-loader": "^0.23.1",
     "ejs": "^2.4.1",
@@ -93,6 +94,7 @@
     "null-loader": "^0.1.1",
     "phantomjs-polyfill": "0.0.2",
     "phantomjs-prebuilt": "^2.1.4",
+    "postcss-loader": "^0.8.2",
     "react-addons-test-utils": "^0.14.6",
     "react-dom": "^0.14.6",
     "sass-loader": "^3.1.2",
