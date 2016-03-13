@@ -17,6 +17,8 @@
 .sk-select {
   position:relative;
   cursor:pointer;
+  max-height:30px;
+  display:inline-block;
 
   &.is-disabled {
     display:none
@@ -28,7 +30,7 @@
     appearance:         none;
     background:none;
     padding:6px 10px;
-    padding-right: 24px;
+    padding-right: 30px;
     border:1px solid $sk-border-color;
     outline:0;
     font-weight:$sk-bold-weight;
@@ -44,6 +46,7 @@
     margin-top:-3px;
     right:10px;
     @include sk-arrow-down(6px);
+    pointer-events: none;
   }
 
 }
