@@ -64,13 +64,7 @@ class App extends SearchkitComponent {
 
 ## List Component examples
 
-<img src="./assets/menu-itemlist.png" height="150px"/>
-<img src="./assets/menu-checkbox.png" height="150px"/>
-<img src="./assets/menu-histogram.png" height="150px"/>
-<img src="./assets/menu-tabs.png" height="120px"/>
-<img src="./assets/menu-tagcloud.png" height="120px"/>
-<img src="./assets/menu-select.png" height="100px"/>
-<img src="./assets/menu-toggle.png" height="100px"/>
+<img src="./assets/menu-list-components.png"/>
 
 
 

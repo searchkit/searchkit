@@ -1,6 +1,9 @@
 # List Components
 A Suite of UI Components which render lists in various ways and can be passed to many Searchkit components to change their list appearance.
 
+<img src="../navigation/assets/menu-list-components.png" />
+
+
 Many of SearchKit's components which render lists will support a `listComponent` prop where these components an be referenced
 
 ## ItemList
