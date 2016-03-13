@@ -7,7 +7,7 @@ const autoprefixer = require('autoprefixer')
 module.exports = {
   entry: {
     "ignore":['./theming/index.ts'],
-    "bundle":'./src/index.ts'
+    "bundle":['./src/index.ts']
   },
   output: {
     path: path.join(__dirname, 'release'),
