@@ -12,6 +12,7 @@
   align-content:center;
   text-align: center;
   border-radius: $sk-border-radius;
+  max-height:30px;
 
   &.is-disabled {
     display:none;
