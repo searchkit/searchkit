@@ -41,7 +41,9 @@ export class ItemHistogramComponent extends React.Component<ItemHistogramCompone
     return (
       <FastClick handler={onClick}>
         <div className={className} style={style} data-qa="option" data-key={itemKey}>
-          <div className={block("bar")} style={{width: barWidth}} />
+          <div className={block("bar-container")}>
+            <div className={block("bar")} style={{width: barWidth}} />
+          </div>
           {showCheckbox ? <input type="checkbox" data-qa="checkbox" checked={active} readOnly className={block("checkbox").state({ active }) } ></input> : undefined}
           <div data-qa="label" className={block("text") }>{label}</div>
           {(showCount && (count != undefined)) ? <div data-qa="count" className={block("count") }>{count}</div> : undefined}
