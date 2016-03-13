@@ -1,0 +1,48 @@
+
+.my-logo {
+  color:white;
+  flex:0 0 250px;
+  padding:13px 20px;
+  margin-right:15px;
+  line-height: 16px;
+}
+
+.list-app {
+  .sk-layout__body {
+    flex-flow: row wrap;
+  }
+
+  .sk-layout__results {
+    flex: 1 100%;
+  }
+
+  .sk-layout__filters {
+    flex: 1 100%;
+    margin: 15px 15px 20px;
+    box-shadow: none;
+    background: transparent;
+    padding: 0;
+    margin: 7px 7px 0 7px;
+  }
+
+  .sk-layout__filters-row {
+    display: flex;
+    flex-flow: row wrap;
+    
+    .sk-panel {
+      flex: 1 30%;
+      margin: 8px;
+      padding: 8px;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+      background: white;
+      
+      &.filter--tag-cloud, &.filter--select {
+        flex: 1 20%;   
+      } 
+      
+      &.filter--toggle, &.filter--tabs {
+        flex: 3 70%;       
+      }
+    }
+  } 
+}

@@ -55,7 +55,7 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
   static defaultProps = {
     listComponent: Toggle,
     pageScope: 3,
-    showNumbers: true,
+    showNumbers: false,
     showText: true,
     showLast: false,
     mod: "sk-pagination-navigation"
