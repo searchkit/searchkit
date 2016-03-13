@@ -48,6 +48,18 @@ body {
     .sk-hierarchical-refinement-list {
       margin-bottom:20px;
     }
+
+    .sk-select {
+      width:100%;
+    }
+
+    .sk-selected-filters {
+      flex-flow: column nowrap;
+      &-option {
+        margin-right:0;
+        margin-bottom:10px;
+      }
+    }
   }
 
   &__results {
@@ -204,6 +216,21 @@ body {
   }
 }
 
+.sk-pagination-navigation {
+  width:300px;
+  margin:10px auto;
+
+  &.is-numbered {
+    width:600px;
+  }
+
+}
+
+.sk-pagination-select {
+  margin: 10px auto;
+  text-align:center;
+}
+
 .sk-hits-grid, .sk-hits-list {
   margin:0 15px 20px;
 }
@@ -307,7 +334,8 @@ body {
   }
 
   &__text {
-    line-height:20px;
+    line-height:22px;
+    max-width:800px;
   }
 
 }
