@@ -27,6 +27,7 @@ class App extends SearchkitComponent {
 - `showLast` *(Boolean)*: Whether to show last page (often slow in ElasticSearch ), defaults to `false`
 - `showText` *(Boolean)*: Whether to display previous, next + dividers. Useful to switch off when using Select component.
 defaults to `true`
+- `pageScope` *(Number)*: When using `showNumber={true}`, how many page numbers to show before and after the current page number. Defaults to `3`
 - `mod` *(string)*: Optional. A custom BEM container class.
 - `listComponent` *(React Component)*: Used to change the rendering.
   - Compatible with `Toggle`, `Select`, `TagCloud`, `ItemCheckboxList`, `ItemList`
