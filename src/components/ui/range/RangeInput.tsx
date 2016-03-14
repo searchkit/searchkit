@@ -108,7 +108,7 @@ export class RangeInput extends React.Component<RangeInputProps, {}> {
                field="min"
                onChange={this.handleInputChange}
                placeholder={translate('range.min') || minPlaceholder} />
-        <div className={bemBlocks.container("to-label")}>{translate('range.to') || 'to'}</div>
+        <div className={bemBlocks.container("to-label")}>{translate('range.to') || '-'}</div>
         <NumberInput ref="max" className={bemBlocks.container("input")}
                value={maxValue}
                field="max"

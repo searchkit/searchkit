@@ -1,7 +1,7 @@
 # Range Components
 A Suite of UI Components which render ranges in various ways and can be passed to some Searchkit components to change their range appearance.
 
-<img src="../navigation/assets/range-filter.png" height="150px"  />
+<img src="./assets/range-components.png" />
 
 Currently works for `RangeFilter` using the `rangeComponent` prop
 
