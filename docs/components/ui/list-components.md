@@ -20,12 +20,12 @@ Used to render list of facets or items when multiselecting
 
 
 ## ItemHistogramList
-Used to render list of facets or items with a histogram bar showing the count
+Used to render list of facets or items with a histogram bar showing the count. Requires a `doc_count` for each item, so won't work for Pagination, SortingSelector, and other non-filter components. 
 
 <img src="../navigation/assets/menu-histogram.png" height="150px"/>
 
 ## TagCloud
-Used to render list of facets or items where the count influences the size of text
+Used to render list of facets or items where the count influences the size of text. Requires a `doc_count` for each item, so won't work for Pagination, SortingSelector, and other non-filter components. 
 
 <img src="../navigation/assets/menu-tagcloud.png" height="150px"/>
 
@@ -66,4 +66,4 @@ ItemList, ItemCheckboxList, Tabs, Select, Toggle
 ItemList, ItemCheckboxList, Tabs, Select, Toggle
 
 ##### Pagination
-Tabs, Select
+ItemList, ItemCheckboxList, Tabs, Select, Toggle
