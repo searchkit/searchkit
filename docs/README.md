@@ -34,6 +34,7 @@
     * [UI]()
       * [Panel](/docs/components/ui/panel.md)
       * [ListComponents](/docs/components/ui/list-components.md)
+      * [RangeComponents](/docs/components/ui/range-components.md)
 
 * [Theming](/docs/theming/README.md)
   * [Using Theme](/docs/theming/using-searchkit-theme.md)
