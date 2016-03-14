@@ -37,7 +37,7 @@ class App extends SearchkitComponent {
 - `multiselect` *(boolean)*: Whether component should behave like a multiple select, defaults to `false`
 - `showCount` *(boolean)*: Whether component should show facet counts, defaults to `true`
 - `listComponent` *(React Component)*: Customize the rendering of the component at the list level
-  - Compatible with `Toggle`, `Select`, `TagCloud`, `ItemCheckboxList`, `ItemList`, `ItemHistogramList`
+  - Compatible with `Select`, `Tabs`, `Toggle`, `TagCloud`, `ItemList`, `CheckboxItemList`, `ItemHistogramList`
   - Defaults to `ItemList`
 - `itemComponent` *(React Component)*: Customize each row/item rendering within the list.
 

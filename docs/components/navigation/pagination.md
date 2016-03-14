@@ -28,7 +28,9 @@ class App extends SearchkitComponent {
 - `showText` *(Boolean)*: Whether to display previous, next + dividers. Useful to switch off when using Select component.
 defaults to `true`
 - `mod` *(string)*: Optional. A custom BEM container class.
-- `listComponent` *(React Component)*: Used to change the rendering defaults to `Toggle`.
+- `listComponent` *(React Component)*: Used to change the rendering.
+  - Compatible with `Toggle`, `Select`, `TagCloud`, `ItemCheckboxList`, `ItemList`
+  - Defaults to `Toggle`
   - Use `Select` with `showText={false}` to have a select based pagination.
 
 

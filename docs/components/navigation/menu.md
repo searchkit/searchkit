@@ -43,7 +43,8 @@ class App extends SearchkitComponent {
       <MenuFilter
         field="languages.raw"
         title="Languages"
-        id="languages" listComponent={ItemList}/>
+        id="languages" 
+        listComponent={ItemList}/>
     </div>
   }
 }
@@ -54,8 +55,9 @@ class App extends SearchkitComponent {
 - `title` *(string)*: Title of the menu. Shown as a header and within selected filters
 - `id` *(string)*: id of component. Must be unique. Used as key for url serialisation
 - `itemComponent` *(ReactComponent)*: Optional. React component which overrides the default filter option component. See `Overriding Filter Option Component` section.
-- `listComponent` *(ReactComponent)*: Override the listComponent, defaults to `ItemList`
-  - Compatible with `Select`, `Tabs`, `Toggle`, `TagCloud`, `ItemHistogramList`, `ItemList`, `CheckboxItemList`
+- `listComponent` *(ReactComponent)*: Override the listComponent
+  - Compatible with `Select`, `Tabs`, `Toggle`, `TagCloud`, `ItemList`, `CheckboxItemList`, `ItemHistogramList`
+  - Defaults to `ItemList`
 - `mod` *(string)*: Optional. A custom BEM container class.
 - `orderKey` *(string)*: Order key either using an intrinsic sortable key `_count` `_term`
 - `orderDirection` *(string)*: `asc` or `desc`

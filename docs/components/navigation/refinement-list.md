@@ -32,7 +32,7 @@ import {
 } from "searchkit";
 
 const RefinementOption = (props) => (
-  <div className={props.bemBlocks.item().state({selected:props.selected}).mix(this.bemBlocks.container("item"))} onClick={props.toggleFilter}>
+  <div className={props.bemBlocks.item().state({selected:props.selected}).mix(this.bemBlocks.container("item"))} onClick={props.onClick}>
     <div className={props.bemBlocks.item("label")}>{props.label}</div>
     <div className={props.bemBlocks.item("count")}>{props.docCount}</div>
   </div>
@@ -60,8 +60,8 @@ class App extends SearchkitComponent {
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
 - `itemComponent` *(ReactComponent)*: Optional. React component which overrides the default filter option component. See `Overriding Filter Option Component` section.
 - `listComponent` *(ReactComponent)*: Optional. Overrides the component at the list level.
-  - Compatible with `Select`, `Tabs`, `Toggle`, `TagCloud`, `ItemHistogramList`, `ItemList`, `CheckboxItemList`
-  - defaults to `CheckboxItemList`
+  - Compatible with `Select`, `Tabs`, `Toggle`, `TagCloud`, `ItemList`, `CheckboxItemList`, `ItemHistogramList`
+  - Defaults to `CheckboxItemList`
 - `mod` *(string)*: Optional. A custom BEM container class.
 - `orderKey` *(string)*: Order key either using an intrinsic sortable key `_count` `_term`
 - `orderDirection` *(string)*: `asc` or `desc`

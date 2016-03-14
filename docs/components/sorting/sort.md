@@ -31,7 +31,8 @@ class App extends SearchkitComponent {
 ## Props
 - `options` *([{label:string, field?:<ESAttribute>, order?:(desc|asc), defaultOption?:boolean}], key?:string)*: Options displayed for the user to order results with.
 - `listComponent` *(ReactComponent)* customise how the component is rendered
-  - Compatible with `Toggle`, `Select`, defaults to `Select`
+  - Compatible with `Select`, `Tabs`, `Toggle`, `ItemList`, `CheckboxItemList`
+  - Defaults to `Select`
 
 
 ## Default selected

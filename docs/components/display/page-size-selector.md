@@ -29,4 +29,5 @@ const App = ()=> (
 ##PageSizeSelector Props
 - `options` *(Array<number>)*: Array of page numbers to be shown
 - `listComponent` *(ReactComponent)*: Used to customize the list behavior
-  - defaults to `Select`, compatible with `Toggle`, `Select`, `Tabs`
+  - Compatible with `Select`, `Tabs`, `Toggle`, `ItemList`, `CheckboxItemList`
+  - Defaults to `Select`
