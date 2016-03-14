@@ -199,8 +199,8 @@ describe("Pagination tests", () => {
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-pagination-select is-numbered">
         <div className="sk-select">
-          <select>
-            <option selected value="1">1</option>
+          <select defaultValue="1">
+            <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
