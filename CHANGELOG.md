@@ -1,3 +1,20 @@
+## 0.8.0 (15th March, 2016)
+### Breaking Changes
+ - Classname changes,in RefinementListFilter, MenuFilter, NumericRefinementListFilter, Pagination, ViewSwitcherToggle, SortingSelector. We have updated the theme to be backwards compatible, but if you have custom css for those components, you may need to update them.
+
+### Notable Changes
+ - New UI Components  
+  - List components (Toggle, Select, ItemList, CheckboxItemList, ItemHistogramList, Tabs, TagCloud)
+    - supported by RefinementListFilter, MenuFilter, Pagination, ViewSwitcherToggle, SortingSelector, NumericRefinementListFilter
+  - Panel, all left hand filter components use Panel which can be collapsable now.  
+ - Added range input capability to RangeFilter
+ - Added PageSizeSelector for selecting how many results per page
+ - Hits + ViewSwitcherHits now supports listComponent to fully handled the list container.
+ - Pagination now supports showText property, PaginationSelect is a select based implementation of Pagination
+ - SearchkitManager now supports searchOnLoad property which controls whether the initial search runs.
+ - SearchkitManager has a searchUrlPath property which controls the endpoint name (defaults to \_search)
+ - exclude/include properties added to RefinementListFilter, MenuFilter. These are just a pass through property to ElasticSearch's Terms Aggregation
+
 ## 0.7.0 (15th feb, 2016)
 ### Breaking Changes
 - `Theming`, 0.7 has major changes to component classnames and overall theming approach. Searchkit classes are now prefixed with `sk-` in order to avoid collisions, we also provide a set of variables which control various aspects of the theme. See theming section in docs.
