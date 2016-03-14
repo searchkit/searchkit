@@ -19,7 +19,7 @@ import {
 const HitItem = (props) => (
   <div className={props.bemBlocks.item().mix(props.bemBlocks.container("item"))}>
     <img className={props.bemBlocks.item("poster")} src={props.result._source.poster}/>
-    <div className={props.bemBlocks.item("title")} dangerouslySetInnerHTML={{__html:_.get(props.result,"highlight.title",false) || props.result._source.title}}></div>
+    <div className={props.bemBlocks.item("title")} dangerouslySetInnerHTML={{__html:_.get(props.result,"highlight.title",props.result._source.title)}}></div>
   </div>
 )
 
