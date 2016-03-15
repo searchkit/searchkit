@@ -7,7 +7,10 @@
   - List components (`Toggle`, `Select`, `ItemList`, `CheckboxItemList`, `ItemHistogramList`, `Tabs`, `TagCloud`)
     - supported by `RefinementListFilter`, `MenuFilter`, `Pagination`, `ViewSwitcherToggle`, `SortingSelector`, `NumericRefinementListFilter`
   - Panel, all left hand filter components use Panel which can be collapsable now.  
+- RefinementListFilter, MenuFilter itemComponent changes
+  - If you have implemented a custom itemComponent, the toggleFilter action function has been renamed to onClick, be sure to rename so that clicking facets works as expected.
  - Added range input capability to `RangeFilter`
+
  - Added `PageSizeSelector` for selecting how many results per page
  - `Hits` + `ViewSwitcherHits` now supports listComponent to fully handled the list container.
  - `Pagination` now supports showText property, `PaginationSelect` is a select based implementation of Pagination
