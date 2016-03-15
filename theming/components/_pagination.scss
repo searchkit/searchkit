@@ -4,4 +4,9 @@
 }
 
 .sk-pagination-navigation {
+
+  .sk-toggle-option:first-child,
+  .sk-toggle-option:last-child {
+    flex: 4;
+  }
 }
