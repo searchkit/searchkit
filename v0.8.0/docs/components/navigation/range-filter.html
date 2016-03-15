@@ -1,0 +1,1133 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Range Filter | What is Searchkit?</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.5.2">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../../../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../../../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../../../gitbook/plugins/gitbook-plugin-mermaid-2/bower_components/mermaid/dist/mermaid.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../../gitbook/plugins/gitbook-plugin-prism/prism.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../../gitbook/plugins/gitbook-plugin-versions/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../../../docs/components/navigation/selected-filters.html" />
+    
+    
+    <link rel="prev" href="../../../docs/components/navigation/menu.html" />
+    
+
+        <script src="../../../gitbook/plugins/gitbook-plugin-mermaid-2/bower_components/mermaid/dist/mermaid.min.js"></script>
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="2.2.5" data-chapter-title="Range Filter" data-filepath="docs/components/navigation/range-filter.md" data-basepath="../../.." data-revision="Tue Mar 15 2016 20:50:17 GMT+0000 (GMT)">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../../../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="docs/setup/index.html">
+            
+                
+                    <a href="../../../docs/setup/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Getting Started
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="docs/setup/project-setup.html">
+            
+                
+                    <a href="../../../docs/setup/project-setup.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Project Setup &amp; use
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="docs/setup/elasticsearch.html">
+            
+                
+                    <a href="../../../docs/setup/elasticsearch.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Connecting Elasticsearch
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="docs/setup/indexing.html">
+            
+                
+                    <a href="../../../docs/setup/indexing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        Indexing
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="docs/setup/using-components.html">
+            
+                
+                    <a href="../../../docs/setup/using-components.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        Using components
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="docs/setup/default-query.html">
+            
+                
+                    <a href="../../../docs/setup/default-query.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        Setting a Default Query
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="docs/setup/extending-components.html">
+            
+                
+                    <a href="../../../docs/setup/extending-components.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.6.</b>
+                        
+                        Extending components
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="docs/components/index.html">
+            
+                
+                    <a href="../../../docs/components/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Components
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="docs/components/basics/index.html">
+            
+                
+                    <a href="../../../docs/components/basics/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Basics
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="docs/components/basics/search-box.html">
+            
+                
+                    <a href="../../../docs/components/basics/search-box.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.1.</b>
+                        
+                        Search box
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" data-path="docs/components/basics/hits.html">
+            
+                
+                    <a href="../../../docs/components/basics/hits.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.2.</b>
+                        
+                        Hits
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3" data-path="docs/components/basics/nohits.html">
+            
+                
+                    <a href="../../../docs/components/basics/nohits.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.3.</b>
+                        
+                        No Hits
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.4" data-path="docs/components/basics/initial-loader.html">
+            
+                
+                    <a href="../../../docs/components/basics/initial-loader.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.4.</b>
+                        
+                        Initial Loader
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="docs/components/navigation/index.html">
+            
+                
+                    <a href="../../../docs/components/navigation/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Navigation
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.1" data-path="docs/components/navigation/pagination.html">
+            
+                
+                    <a href="../../../docs/components/navigation/pagination.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.1.</b>
+                        
+                        Pagination
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.2" data-path="docs/components/navigation/refinement-list.html">
+            
+                
+                    <a href="../../../docs/components/navigation/refinement-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.2.</b>
+                        
+                        Refinement List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.3" data-path="docs/components/navigation/numeric-refinement-list.html">
+            
+                
+                    <a href="../../../docs/components/navigation/numeric-refinement-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.3.</b>
+                        
+                        Numeric Refinement List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.4" data-path="docs/components/navigation/menu.html">
+            
+                
+                    <a href="../../../docs/components/navigation/menu.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.4.</b>
+                        
+                        Menu
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.2.5" data-path="docs/components/navigation/range-filter.html">
+            
+                
+                    <a href="../../../docs/components/navigation/range-filter.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.5.</b>
+                        
+                        Range Filter
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.6" data-path="docs/components/navigation/selected-filters.html">
+            
+                
+                    <a href="../../../docs/components/navigation/selected-filters.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.6.</b>
+                        
+                        Selected Filters
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.7" data-path="docs/components/navigation/grouped-selected-filters.html">
+            
+                
+                    <a href="../../../docs/components/navigation/grouped-selected-filters.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.7.</b>
+                        
+                        Grouped Selected Filters
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.8" data-path="docs/components/navigation/reset.html">
+            
+                
+                    <a href="../../../docs/components/navigation/reset.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.8.</b>
+                        
+                        Reset
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.9" data-path="docs/components/navigation/hierarchical-menu.html">
+            
+                
+                    <a href="../../../docs/components/navigation/hierarchical-menu.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.9.</b>
+                        
+                        Hierarchical Menu
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.10" data-path="docs/components/navigation/hierarchical-refinement-filter.html">
+            
+                
+                    <a href="../../../docs/components/navigation/hierarchical-refinement-filter.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.10.</b>
+                        
+                        Hierarchical Refinement
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="docs/components/display/index.html">
+            
+            <span><b>2.3.</b> Display</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.3.1" data-path="docs/components/display/switcher.html">
+            
+                
+                    <a href="../../../docs/components/display/switcher.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.1.</b>
+                        
+                        View Switcher
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3.2" data-path="docs/components/display/page-size-selector.html">
+            
+                
+                    <a href="../../../docs/components/display/page-size-selector.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.2.</b>
+                        
+                        Page Size Selector
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="docs/components/sorting/index.html">
+            
+            <span><b>2.4.</b> Sorting</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.4.1" data-path="docs/components/sorting/sort.html">
+            
+                
+                    <a href="../../../docs/components/sorting/sort.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.1.</b>
+                        
+                        Sorting
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="docs/components/metadata/index.html">
+            
+            <span><b>2.5.</b> Metadata</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.5.1" data-path="docs/components/metadata/stats.html">
+            
+                
+                    <a href="../../../docs/components/metadata/stats.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.1.</b>
+                        
+                        Stats
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" >
+            
+            <span><b>2.6.</b> UI</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.6.1" data-path="docs/components/ui/panel.html">
+            
+                
+                    <a href="../../../docs/components/ui/panel.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.1.</b>
+                        
+                        Panel
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6.2" data-path="docs/components/ui/list-components.html">
+            
+                
+                    <a href="../../../docs/components/ui/list-components.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.2.</b>
+                        
+                        ListComponents
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6.3" data-path="docs/components/ui/range-components.html">
+            
+                
+                    <a href="../../../docs/components/ui/range-components.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.3.</b>
+                        
+                        RangeComponents
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="docs/theming/index.html">
+            
+                
+                    <a href="../../../docs/theming/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        Theming
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="docs/theming/using-searchkit-theme.html">
+            
+                
+                    <a href="../../../docs/theming/using-searchkit-theme.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Using Theme
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="docs/theming/extending-searchkit-theme.html">
+            
+                
+                    <a href="../../../docs/theming/extending-searchkit-theme.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        Extending Theme
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="docs/theming/building-your-own.html">
+            
+                
+                    <a href="../../../docs/theming/building-your-own.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Building Your own CSS
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="docs/core/index.html">
+            
+                
+                    <a href="../../../docs/core/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Core
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="docs/core/Architecture.html">
+            
+                
+                    <a href="../../../docs/core/Architecture.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Architecture
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="docs/core/SearchkitManager.html">
+            
+                
+                    <a href="../../../docs/core/SearchkitManager.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        SearchkitManager
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="docs/core/Accessors.html">
+            
+                
+                    <a href="../../../docs/core/Accessors.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Accessors
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="docs/core/ImmutableQuery.html">
+            
+                
+                    <a href="../../../docs/core/ImmutableQuery.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        ImmutableQuery
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="docs/core/QueryDSL.html">
+            
+                
+                    <a href="../../../docs/core/QueryDSL.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        QueryDSL
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="docs/core/SearchkitProvider.html">
+            
+                
+                    <a href="../../../docs/core/SearchkitProvider.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.6.</b>
+                        
+                        SearchkitProvider
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="docs/core/SearchkitComponent.html">
+            
+                
+                    <a href="../../../docs/core/SearchkitComponent.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.7.</b>
+                        
+                        SearchkitComponent
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="docs/core/Translate.html">
+            
+                
+                    <a href="../../../docs/core/Translate.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.8.</b>
+                        
+                        Translation
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="docs/upgrading/index.html">
+            
+                
+                    <a href="../../../docs/upgrading/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        Migrating
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="docs/upgrading/migrating_from_0_2.html">
+            
+                
+                    <a href="../../../docs/upgrading/migrating_from_0_2.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        Migrating from 0.2
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="docs/upgrading/migrating_from_0_3.html">
+            
+                
+                    <a href="../../../docs/upgrading/migrating_from_0_3.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        Migrating from 0.3
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="docs/upgrading/migrating_from_0.4.html">
+            
+                
+                    <a href="../../../docs/upgrading/migrating_from_0.4.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Migrating from 0.4
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="docs/upgrading/migrating_from_0.5.html">
+            
+                
+                    <a href="../../../docs/upgrading/migrating_from_0.5.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        Migrating from 0.5
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="docs/upgrading/migrating_from_0.6.html">
+            
+                
+                    <a href="../../../docs/upgrading/migrating_from_0.6.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        Migrating from 0.6
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.6" data-path="docs/upgrading/migrating_from_0.7.html">
+            
+                
+                    <a href="../../../docs/upgrading/migrating_from_0.7.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.6.</b>
+                        
+                        Migrating from 0.7
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="docs/server/searchkit_express.html">
+            
+                
+                    <a href="../../../docs/server/searchkit_express.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        Using Express
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="docs/server/indexing.html">
+            
+                
+                    <a href="../../../docs/server/indexing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        Indexing &amp; Mapping Guide
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="docs/examples/index.html">
+            
+                
+                    <a href="../../../docs/examples/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        Examples
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9" data-path="docs/developer-guide.html">
+            
+                
+                    <a href="../../../docs/developer-guide.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.</b>
+                        
+                        Contributing Guide
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../../../" >What is Searchkit?</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="range-filter">Range Filter</h1>
+<p>The range filter lets users filter results within a numerical range. Provides a histogram so show the user where results are found on the range.</p>
+<p><img src="assets/range-filter.png" height="150px"></p>
+<h2 id="example">Example</h2>
+<pre><code class="lang-jsx">
+<span class="token keyword">import</span> <span class="token punctuation">{</span>
+  RangeFilter<span class="token punctuation">,</span>
+  SearchkitComponent
+<span class="token punctuation">}</span> from <span class="token string">&quot;searchkit&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">SearchkitComponent</span> <span class="token punctuation">{</span>
+
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>RangeFilter</span> <span class="token attr-name">field</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>metaScore<span class="token punctuation">&quot;</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>metascore<span class="token punctuation">&quot;</span></span> <span class="token attr-name">min</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>0<span class="token punctuation">}</span></span> <span class="token attr-name">max</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>100<span class="token punctuation">}</span></span> <span class="token attr-name">showHistogram</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token keyword">true</span><span class="token punctuation">}</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>MetaScore<span class="token punctuation">&quot;</span>/</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="props">Props</h2>
+<ul>
+<li><code>field</code> <em>(ESField)</em>: Required. An elasticsearch numerical field value.</li>
+<li><code>id</code> <em>(string)</em>: Required. id of component. Must be unique. Used as key for url serialisation</li>
+<li><code>min</code> <em>(number)</em>: Required. min start range</li>
+<li><code>max</code> <em>(number)</em>: Required. max start range</li>
+<li><code>title</code> <em>(string)</em>: Required. Title used for component and for selected filters component</li>
+<li><code>showHistogram</code> <em>(boolean)</em>: Shows a histogram to provide a guide where their range would hit results.</li>
+<li><code>rangeComponent</code> <em>(ReactComponent)</em>: Control which sub range component to render<ul>
+<li>Compatible with <code>RangeSliderHistogram</code>, <code>RangeSliderHistogramInput</code>, <code>RangeSliderInput</code>, <code>RangeHistogramInput</code></li>
+<li>Defaults to <code>RangeSliderHistogram</code></li>
+</ul>
+</li>
+<li><code>mod</code> <em>(string)</em>: Optional. A custom BEM container class.</li>
+<li><code>interval</code> <em>(number)</em>: Optional. Override the interval which is sent to ElasticSearch, used for generating the buckets which render the histogram. (Defaults to an interval which allows a max of 20 buckets which fit the range)</li>
+</ul>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../../../docs/components/navigation/menu.html" class="navigation navigation-prev " aria-label="Previous page: Menu"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../../../docs/components/navigation/selected-filters.html" class="navigation navigation-next " aria-label="Next page: Selected Filters"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../../../gitbook/app.js"></script>
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-mermaid-2/plugin.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-codepen/embed-codepen.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-versions/plugin.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"versions":{"gitbookConfigURL":"https://raw.githubusercontent.com/searchkit/searchkit/gh-pages/book.json","options":[{"value":"https://searchkit.github.io/searchkit/v0.8.0","text":"Version 0.8.0","selected":true},{"value":"https://searchkit.github.io/searchkit/v0.7.0","text":"Version 0.7.0"},{"value":"https://searchkit.github.io/searchkit/v0.6.2","text":"Version 0.6.2"},{"value":"https://searchkit.github.io/searchkit/v0.5.1","text":"Version 0.5.1"},{"value":"https://searchkit.github.io/searchkit/v0.4.0","text":"Version 0.4.0"},{"value":"https://searchkit.github.io/searchkit/v0.3.5","text":"Version 0.3.5"},{"value":"https://searchkit.github.io/searchkit/v0.2.0/","text":"Version 0.2.0"},{"value":"https://searchkit.github.io/searchkit/v0.1.13/","text":"Version 0.1.13"}],"type":"branches"},"mermaid-2":{},"prism":{},"codepen":{"height":300,"theme":0,"defaultTab":"result","description":""},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
