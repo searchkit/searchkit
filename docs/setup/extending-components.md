@@ -21,7 +21,7 @@ The container block would be accessible using `this.bemBlocks.container`.
 `this.bemBlocks.container("info").state({disabled:true})` -> "refinement-list__info is-disabled"
 
 ## Overriding rendering
-Some components have the feature to override the display component to allow you to control the markup and contents of the component using either the `itemComponent` or `component` props. Example of overriding the default rendering of a hit from `Hits` component.
+Some components have the feature to override the display component to allow you to control the markup and contents of the component using the `itemComponent` props. Example of overriding the default rendering of a hit from `Hits` component.
 
 ```js
 

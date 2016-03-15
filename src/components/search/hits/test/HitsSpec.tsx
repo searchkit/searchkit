@@ -33,7 +33,7 @@ describe("Hits component", () => {
     });
 
     it("initalize accessors correctly", ()=> {
-      expect(this.pageSizeAccessor.size).toBe(10)
+      expect(this.pageSizeAccessor.defaultSize).toBe(10)
       expect(this.highlightAccessor.highlightFields)
         .toEqual({
            fields: { title:{}}
@@ -53,8 +53,8 @@ describe("Hits component", () => {
       expect(this.hasRendered()).toBeTruthy()
       expect(this.wrapper.html()).toEqual(jsxToHTML(
         <div data-qa="hits" className="sk-hits">
-          <div data-qa="hit" className="sk-hits-hit sk-hits__item"></div>
-          <div data-qa="hit" className="sk-hits-hit sk-hits__item"></div>
+          <div data-qa="hit" className="sk-hits-hit sk-hits__item">1</div>
+          <div data-qa="hit" className="sk-hits-hit sk-hits__item">2</div>
         </div>
       ))
     })
@@ -170,6 +170,7 @@ describe("Hits component", () => {
       })
       expect(this.stub.callCount).toBe(1)
 
+
     })
 
     it("will scroll on new results", () => {
@@ -183,7 +184,30 @@ describe("Hits component", () => {
         }
       })
       expect(this.stub.callCount).toBe(2)
+      //should not scroll on rerender
+      this.searchkit.emitter.trigger()
+      expect(this.stub.callCount).toBe(2)
 
+    })
+
+    it("wont scroll on outside update", () => {
+      this.setupTest(true)
+
+      expect(this.stub.callCount).toBe(1)
+      this.searchkit.setResults({
+        hits: {
+          hits: [{ _id: 3, title: 1 }, { _id: 4, title: 2 }],
+          total: 2
+        }
+      })
+      expect(this.stub.callCount).toBe(2)
+      // Update with the same props
+      this.wrapper.setProps({
+        searchkit: this.seachkit,
+        scrollTo: true,
+        hitsPerPage: 10
+      })
+      expect(this.stub.callCount).toBe(2)
     })
 
   })

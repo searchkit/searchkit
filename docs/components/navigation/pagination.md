@@ -1,6 +1,7 @@
 # Pagination
 The pagination component provides ability to go to next and previous page.
 
+![Example](./assets/pagination.png)
 ## Example
 
 ```jsx
@@ -14,7 +15,7 @@ class App extends SearchkitComponent {
 
   render(){
     <div>
-      <Pagination/>
+      <Pagination showNumbers={true}/>
     </div>
   }
 }
@@ -23,7 +24,16 @@ class App extends SearchkitComponent {
 ## Props
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
 - `showNumbers` *(Boolean)*: Display pagination page links. Defaults to `false`.
+- `showLast` *(Boolean)*: Whether to show last page (often slow in ElasticSearch ), defaults to `false`
+- `showText` *(Boolean)*: Whether to display previous, next + dividers. Useful to switch off when using Select component.
+defaults to `true`
+- `pageScope` *(Number)*: When using `showNumber={true}`, how many page numbers to show before and after the current page number. Defaults to `3`
 - `mod` *(string)*: Optional. A custom BEM container class.
+- `listComponent` *(React Component)*: Used to change the rendering.
+  - Compatible with `Toggle`, `Select`, `TagCloud`, `ItemCheckboxList`, `ItemList`
+  - Defaults to `Toggle`
+  - Use `Select` with `showText={false}` to have a select based pagination.
+
 
 ## Translations
 - `pagination.previous` - Previous

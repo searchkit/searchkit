@@ -17,11 +17,15 @@ const qs = require("qs")
 
 require('es6-promise').polyfill()
 
+const after = require("lodash/after")
+
 export interface SearchkitOptions {
   useHistory?:boolean,
+  searchOnLoad?:boolean,
   httpHeaders?:Object,
   basicAuth?:string,
-  transport?:ESTransport
+  transport?:ESTransport,
+  searchUrlPath?:string
 }
 
 export class SearchkitManager {
@@ -56,13 +60,15 @@ export class SearchkitManager {
   constructor(host:string, options:SearchkitOptions = {}){
     this.options = defaults(options, {
       useHistory:true,
-      httpHeaders:{}
+      httpHeaders:{},
+      searchOnLoad:true
     })
     this.host = host
 
     this.transport = this.options.transport || new AxiosESTransport(host, {
       headers:this.options.httpHeaders,
-      basicAuth:this.options.basicAuth
+      basicAuth:this.options.basicAuth,
+      searchUrlPath:this.options.searchUrlPath
     })
     this.accessors = new AccessorManager()
 		this.registrationCompleted = new Promise((resolve)=>{
@@ -114,7 +120,9 @@ export class SearchkitManager {
     }
   }
   listenToHistory(){
-    this._unlistenHistory = this.history.listen((location)=>{
+    let callsBeforeListen = (this.options.searchOnLoad) ? 1: 2
+
+    this._unlistenHistory = this.history.listen(after(callsBeforeListen,(location)=>{
       //action is POP when the browser modified
       if(location.action === "POP") {
         this.registrationCompleted.then(()=>{
@@ -123,7 +131,7 @@ export class SearchkitManager {
           console.error(e.stack)
         })
       }
-    })
+    }))
   }
 
   searchFromUrlQuery(query){

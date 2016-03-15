@@ -15,5 +15,5 @@ ElasticSearch's querying is very sophisticated and modelling relationship betwee
 ```mermaid
 graph LR
   SearchkitManager-->|has many|Accessor
-  SearchkitComponent-->Accessor
+  SearchkitComponent-->|has many|Accessor
 ```

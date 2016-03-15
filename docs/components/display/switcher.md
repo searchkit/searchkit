@@ -1,6 +1,11 @@
 # View Switcher
 Searchkit's view switcher components come in 2 seperate components. `ViewSwitcherHits` which toggles the hits display and `ViewSwitcherToggle` which is the actual toggle button to switch views.
 
+<img src="./assets/view-switch-grid.png" height="200px"/>
+<img src="./assets/view-switch-list.png" height="200px"/>
+<img src="./assets/view-switch-table.png" height="200px"/>
+
+
 ## Example
 ```jsx
 import {
@@ -31,6 +36,34 @@ const MovieHitsListItem = (props)=> {
     </div>
   )
 
+const MovieHitsTable = (props)=> {  
+  const { hits } = this.props
+  return (
+    <div style={{width: '100%', boxSizing: 'border-box', padding: 8}}>
+      <table className="sk-table sk-table-striped" style={{width: '100%', boxSizing: 'border-box'}}>
+        <thead>
+          <tr>
+            <th></th> <th>Title</th> <th>Year</th> <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+        {map(hits, hit => (
+          <tr key={hit._id}>
+            <td style={{margin: 0, padding: 0, width: 40}}>
+              <img data-qa="poster" src={hit._source.poster} style={{width: 40}}/>
+            </td>
+            <td>{hit._source.title}</td>
+            <td>{hit._source.year}</td>
+            <td>{hit._source.imdbRating}</td>
+          </tr>
+          ))}
+          </tbody>
+      </table>
+    </div>
+    )  
+}
+
+
 class App extends React.Component {
 
   render(){
@@ -41,7 +74,8 @@ class App extends React.Component {
           sourceFilter={["plot", "title", "poster", "imdbId", "imdbRating", "year"]}
           hitComponents = {[
             {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem, defaultOption:true},
-            {key:"list", title:"List", itemComponent:MovieHitsListItem}
+            {key:"list", title:"List", itemComponent:MovieHitsListItem},
+            {key:"table", title:"Table", listComponent:MovieHitsTable}
           ]}
           scrollTo="body"
       />
@@ -52,17 +86,18 @@ class App extends React.Component {
 
 ## Configuration
 `ViewSwitcherHits` accepts all the props that `Hits` expects with 1 additional `hitComponents` prop.
-The `hitComponents` prop is an array of views, with `key`, `title`, `defaultOption` and `itemComponent`
-which is a react component to display a single item of the search results.
+The `hitComponents` prop is an array of views, with `key`, `title`, `defaultOption` and `itemComponent` or `listComponent`.
+
 ```jsx
 hitComponents = {[
   {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem, defaultOption:true},
-  {key:"list", title:"List", itemComponent:MovieHitsListItem}
+  {key:"list", title:"List", itemComponent:MovieHitsListItem},
+  {key:"table", title:"Table", listComponent:MovieHitsTable}
 ]}
 ```
 
 ##ViewSwitcherHits Props
-- `hitComponents` *(Array<{key, title, itemComponent, defaultOption?}>)*: React component used for each hit render.
+- `hitComponents` *(Array<{key, title, itemComponent, listComponent, defaultOption?}>)*: React component used for each hit render.
 - `hitsPerPage` *(Number)*: Number of results displayed per page
 - `highlightFields` *(Array<string>)*: Array of highlighted fields. Any highlight matches will be returned in the result.highlight[fieldName]. See above for example.
 - `mod` *(string)*: Optional. A custom BEM container class.
@@ -70,4 +105,5 @@ hitComponents = {[
 - `scrollTo` *(string|boolean)*: When results have changed, we scroll to the top of the element using the jQuery style selector passed in the `scrollTo` prop. If true, it will use the body as the selector.  Default value is true. If false, it will not scroll when new results are rendered. We determine a change by comparing hits `_id` field with the new results.
 
 ##ViewSwitcherToggle Props
-- none
+- `listComponent` *(ReactComponent)*: Used to customize the list behavior
+  - defaults to `Toggle`, compatible with `Toggle`, `Select`, `Tabs`

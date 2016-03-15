@@ -1,6 +1,8 @@
 # Numeric Refinement List
 Allows the user to refine results based on a numerical elasticsearch attribute. You specify an array of options for the user to select from. Will only allow the user to select one.
 
+<img src="./assets/numeric-itemlist.png" height="200px"/>
+
 ## Example
 
 ```jsx
@@ -28,10 +30,16 @@ class App extends SearchkitComponent {
 ```
 ## Props
 - `field` *(ESAttribute)*: Non-analysed elastic search field to create aggs for the menu
-- `options` *([{title:string, from?:number, to?:number}])*: Options displayed for the user to refine results with.
+- `options` *([{title:string, from?:number, to?:number, key?:string}])*: Options displayed for the user to refine results with. The key property will be used for url serialization, searchkit will generate if not provided.
 - `title` *(string)*: Title of the menu. Shown as a header and within selected filters
 - `id` *(string)*: id of component. Must be unique. Used as key for url serialisation
 - `mod` *(string)*: Optional. A custom BEM container class.
+- `multiselect` *(boolean)*: Whether component should behave like a multiple select, defaults to `false`
+- `showCount` *(boolean)*: Whether component should show facet counts, defaults to `true`
+- `listComponent` *(React Component)*: Customize the rendering of the component at the list level
+  - Compatible with `Select`, `Tabs`, `Toggle`, `TagCloud`, `ItemList`, `CheckboxItemList`, `ItemHistogramList`
+  - Defaults to `ItemList`
+- `itemComponent` *(React Component)*: Customize each row/item rendering within the list.
 
 ## Demo
 [](codepen://searchkit/bEgERB?height=800&theme=0)

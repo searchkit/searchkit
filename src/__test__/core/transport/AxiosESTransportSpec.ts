@@ -23,22 +23,28 @@ describe("AxiosESTransport", ()=> {
     expect(this.transport instanceof ESTransport).toBe(true)
   })
 
-  it("constructor() - headers", ()=> {
+  it("constructor() - additional options", ()=> {
     const transport = new AxiosESTransport(this.host, {
       headers:{
         "Content-Type":"application/json",
       },
-      basicAuth:"key:val"
+      basicAuth:"key:val",
+      searchUrlPath:"/_search/"
     })
     expect(transport.options.headers).toEqual({
       "Content-Type":"application/json",
       "Authorization":"Basic " + btoa("key:val")
     })
+    expect(transport.options.searchUrlPath).toBe("/_search/")
   })
 
   it("search()", (done)=> {
     let mockResults = {hits:[1,2,3]}
-    jasmine.Ajax.stubRequest(this.host + "_search").andReturn({
+    this.host = "http://search:9200/"
+    this.transport = new AxiosESTransport(this.host, {
+      searchUrlPath:"/search"
+    })
+    jasmine.Ajax.stubRequest(this.host + "search").andReturn({
       "responseText": JSON.stringify(mockResults)
     });
     this.transport.search({

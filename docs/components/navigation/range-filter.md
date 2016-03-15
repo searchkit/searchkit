@@ -1,5 +1,7 @@
 # Range Filter
-The range filter lets users filter results within a numerical range. Provides a histogram so show the user where results are found on the range. 
+The range filter lets users filter results within a numerical range. Provides a histogram so show the user where results are found on the range.
+
+<img src="./assets/range-filter.png" height="150px"/>
 
 ## Example
 
@@ -27,5 +29,8 @@ class App extends SearchkitComponent {
 - `max` *(number)*: Required. max start range
 - `title` *(string)*: Required. Title used for component and for selected filters component
 - `showHistogram` *(boolean)*: Shows a histogram to provide a guide where their range would hit results.
+- `rangeComponent` *(ReactComponent)*: Control which sub range component to render
+   - Compatible with `RangeSliderHistogram`, `RangeSliderHistogramInput`, `RangeSliderInput`, `RangeHistogramInput`
+   - Defaults to `RangeSliderHistogram`
 - `mod` *(string)*: Optional. A custom BEM container class.
 - `interval` *(number)*: Optional. Override the interval which is sent to ElasticSearch, used for generating the buckets which render the histogram. (Defaults to an interval which allows a max of 20 buckets which fit the range)

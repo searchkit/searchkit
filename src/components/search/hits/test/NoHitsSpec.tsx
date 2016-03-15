@@ -142,7 +142,7 @@ describe("NoHits component", () => {
     it("render error", () => {
       this.createWrapper()
       this.searchkit.query = this.searchkit.query.addFilter({}).setQueryString("matrix")
-      this.searchkit.setError("rubbish")
+      this.searchkit.setError("simulated error")
       this.wrapper.update()
       expect(this.wrapper.html()).toEqual(jsxToHTML(
 <div data-qa="no-hits" className="sk-no-hits">

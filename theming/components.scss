@@ -1,10 +1,27 @@
 @import "vars.scss";
+
+@import "components/arrows.scss";
+@import "components/actions.scss";
+@import "components/loader.scss";
+
 @import "components/search-box.scss";
 
 @import "components/hits-stats.scss";
 @import "components/no-hits.scss";
 
+@import "components/filter-group.scss";
+
 @import "components/filter-item.scss";
+@import "components/item-list.scss";
+@import "components/select.scss";
+@import "components/tabs.scss";
+@import "components/tag-cloud.scss";
+@import "components/toggle.scss";
+
+@import "components/range-input.scss";
+@import "components/range-histogram.scss";
+@import "components/range-slider.scss";
+
 @import "components/hierarchical-menu-filter.scss";
 @import "components/hierarchical-refinement-filter.scss";
 @import "components/numeric-refinement-list-filter.scss";
@@ -17,3 +34,7 @@
 @import "components/pagination.scss";
 @import "components/sorting-selector.scss";
 @import "components/view-switcher.scss";
+
+@import "components/table.scss";
+
+@import "components/panel.scss";

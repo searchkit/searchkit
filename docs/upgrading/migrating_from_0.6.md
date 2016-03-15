@@ -8,3 +8,10 @@ In 0.7, we have prefixed all searchkit's classnames with `sk-` to prevent potent
 
 ## No more styles.css
 We ship with only one css file, `theme.css`. This includes all component styles and basic searchkit layout.  
+
+## Retain grid styling
+`Hits` component requires `mod="sk-hits-grid"` to retain grid styling
+
+## Examples + Docs
+- [Example pull request to update to 0.7.0](https://github.com/PAK90/Gatherer2/pull/2/files)
+- [Searchkit Theming documentation](../theming/using-searchkit-theme.md)

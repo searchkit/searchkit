@@ -5,7 +5,8 @@ const defaults = require("lodash/defaults")
 
 export interface ESTransportOptions {
   headers?:Object,
-  basicAuth?:string
+  basicAuth?:string,
+  searchUrlPath?:string
 }
 
 export class AxiosESTransport extends ESTransport{
@@ -16,7 +17,8 @@ export class AxiosESTransport extends ESTransport{
   constructor(public host:string, options:ESTransportOptions={}){
     super()
     this.options = defaults(options, {
-      headers:{}
+      headers:{},
+      searchUrlPath:"/_search"
     })
     if(this.options.basicAuth){
       this.options.headers["Authorization"] = (
@@ -30,7 +32,7 @@ export class AxiosESTransport extends ESTransport{
   }
 
   search(query:Object){
-    return this.axios.post("/_search", query)
+    return this.axios.post(this.options.searchUrlPath, query)
       .then(this.getData)
   }
 

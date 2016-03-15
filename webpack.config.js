@@ -1,12 +1,13 @@
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var copyrightBanner = require("fs").readFileSync("./COPYRIGHT", "utf-8");
+const path = require('path')
+const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const copyrightBanner = require("fs").readFileSync("./COPYRIGHT", "utf-8")
+const autoprefixer = require('autoprefixer')
 
 module.exports = {
   entry: {
-    "ignore":'./theming/index.ts',
-    "bundle":'./src/index.ts'
+    "ignore":['./theming/index.ts'],
+    "bundle":['./src/index.ts']
   },
   output: {
     path: path.join(__dirname, 'release'),
@@ -18,6 +19,9 @@ module.exports = {
   },
   resolve: {
     extensions:[".js", ".ts", ".tsx","", ".webpack.js", ".web.js", ".scss"]
+  },
+  postcss: function () {
+    return [autoprefixer]
   },
   plugins: [
     new webpack.BannerPlugin(copyrightBanner, {entryOnly:true}),
@@ -54,7 +58,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract(require.resolve("style-loader"),require.resolve("css-loader")+"!"+require.resolve("sass-loader")),
+        loader: ExtractTextPlugin.extract(require.resolve("style-loader"),require.resolve("css-loader")+"!"+require.resolve("postcss-loader")+"!"+require.resolve("sass-loader")),
         include: path.join(__dirname, 'theming')
       },
       {

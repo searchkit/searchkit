@@ -1,6 +1,9 @@
 # NoHits Component
 `NoHits` component is displayed when the current query yields no results from Elasticsearch. `NoHits` may offer actions to help the user tweak their search to return results. `NoHits` will display an error when Elastic search responds with an error. You can override the display of NoHits by passing in a React Component in `component` or `errorComponent` props. See Overriding section for more details.
 
+![Example](./assets/no-hits.png)
+
+
 ## Tweaking Query Actions
 If the current query and filters applied returns no results, `NoHits` component will try to provide steps to adjust the search.
 

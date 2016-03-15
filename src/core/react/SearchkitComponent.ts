@@ -10,8 +10,10 @@ const transform = require("lodash/transform")
 
 export interface SearchkitComponentProps {
   mod?:string
+  className?:string
   translations?:Object
   searchkit?:SearchkitManager
+  key?:string
 }
 
 export class SearchkitComponent<P extends SearchkitComponentProps,S> extends React.Component<P,S> {
@@ -19,8 +21,9 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
   accessor:Accessor
   stateListenerUnsubscribe:Function
   translations:Object = {}
+  unmounted = false
 
-  static contextTypes = {
+  static contextTypes: React.ValidationMap<any> = {
 		searchkit:React.PropTypes.instanceOf(SearchkitManager)
 	}
 
@@ -30,6 +33,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
 
   static propTypes:any = {
     mod :React.PropTypes.string,
+    className :React.PropTypes.string,
     translations: React.PropTypes.objectOf(
       React.PropTypes.string),
     searchkit:React.PropTypes.instanceOf(SearchkitManager)
@@ -72,7 +76,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
         this.accessor = this.searchkit.addAccessor(this.accessor)
       }
       this.stateListenerUnsubscribe = this.searchkit.emitter.addListener(()=> {
-        this.forceUpdate()
+        !this.unmounted && this.forceUpdate()
       })
     } else {
       console.warn("No searchkit found in props or context for " + this.constructor["name"])
@@ -86,6 +90,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
     if(this.searchkit && this.accessor){
       this.searchkit.removeAccessor(this.accessor)
     }
+    this.unmounted = true
 	}
 
   getResults(){

@@ -32,15 +32,9 @@ If you want to tweak the markup for a menu option, you can use the `itemComponen
 import {
   Pagination,
   Hits,
-  SearchkitComponent
+  SearchkitComponent,
+  ItemList
 } from "searchkit";
-
-const MenuOption = (props) => (
-  <div className={props.bemBlocks.item().state({selected:props.selected}).mix(this.bemBlocks.container("item"))} onClick={props.toggleFilter}>
-    <div className={props.bemBlocks.item("label")}>{props.label}</div>
-    <div className={props.bemBlocks.item("count")}>{props.docCount}</div>
-  </div>
-)
 
 class App extends SearchkitComponent {
 
@@ -49,7 +43,8 @@ class App extends SearchkitComponent {
       <MenuFilter
         field="languages.raw"
         title="Languages"
-        id="languages" itemComponent={MenuOption}/>
+        id="languages" 
+        listComponent={ItemList}/>
     </div>
   }
 }
@@ -60,9 +55,19 @@ class App extends SearchkitComponent {
 - `title` *(string)*: Title of the menu. Shown as a header and within selected filters
 - `id` *(string)*: id of component. Must be unique. Used as key for url serialisation
 - `itemComponent` *(ReactComponent)*: Optional. React component which overrides the default filter option component. See `Overriding Filter Option Component` section.
+- `listComponent` *(ReactComponent)*: Override the listComponent
+  - Compatible with `Select`, `Tabs`, `Toggle`, `TagCloud`, `ItemList`, `CheckboxItemList`, `ItemHistogramList`
+  - Defaults to `ItemList`
 - `mod` *(string)*: Optional. A custom BEM container class.
 - `orderKey` *(string)*: Order key either using an intrinsic sortable key `_count` `_term`
 - `orderDirection` *(string)*: `asc` or `desc`
+- `include` *(Array<string>|string):* Terms bucket  include parameter see [Terms bucket filtering](https://www.elastic.co/guide/en/elasticsearch/reference/2.x/search-aggregations-bucket-terms-aggregation.html#_filtering_values_2)
+- `exclude` *(Array<string>|string):* Terms bucket exclude parameter, see above
+
+## List Component examples
+
+<img src="./assets/menu-list-components.png"/>
+
 
 
 ## Demo

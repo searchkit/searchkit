@@ -23,8 +23,14 @@ describe("BucketAggregations", ()=> {
   it("TermsBucket", ()=> {
     this.aggs = TermsBucket(
       this.aggsKey, "genres",
-      {size:10}, this.childBucket)
-    this.expectAggs({terms:{field:"genres", size:10}})
+      {size:10, min_doc_count:0, include:"bmw", exclude:"audi"}, this.childBucket)
+    this.expectAggs({
+      terms:{
+        field:"genres",
+        size:10, min_doc_count:0,
+        include:"bmw", exclude:"audi"
+      }
+    })
   })
   it("RangeBucket", ()=> {
     this.aggs = RangeBucket(

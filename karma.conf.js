@@ -8,6 +8,7 @@ module.exports = function (config) {
   if(needsCoverage && process.env.COVERALLS_REPO_TOKEN) {
     config.reporters.push("coveralls")
   }
+  config.reporters.push("jasmine-diff")
   config.set({
     port: 3334,
     browsers: ['PhantomJS'],

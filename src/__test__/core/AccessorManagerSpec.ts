@@ -1,7 +1,16 @@
 import {
   EventEmitter,ImmutableQuery,AccessorManager, QueryAccessor, FacetAccessor, RangeAccessor,
-  SearchkitManager, PageSizeAccessor, ValueState, PaginationAccessor, noopQueryAccessor
+  SearchkitManager, ValueState, PaginationAccessor, noopQueryAccessor, Accessor
 } from "../../"
+
+class StatelessPageAccessor extends Accessor {
+  constructor(public size:number){
+    super()
+  }
+  buildSharedQuery(query){
+    return query.setSize(this.size)
+  }
+}
 
 describe("AccessorManager", ()=> {
 
@@ -20,7 +29,7 @@ describe("AccessorManager", ()=> {
     this.searchkit.addAccessor(this.accessor4)
     this.searchkit.addAccessor(this.accessor4b)
 
-    this.accessor5 = new PageSizeAccessor(50)
+    this.accessor5 = new StatelessPageAccessor(50)
     this.searchkit.addAccessor(this.accessor5)
     this.accessors = this.searchkit.accessors
   })
@@ -58,14 +67,14 @@ describe("AccessorManager", ()=> {
   })
 
   it("getAccessorsByType()", ()=> {
-    expect(this.accessors.getAccessorsByType(PageSizeAccessor))
+    expect(this.accessors.getAccessorsByType(StatelessPageAccessor))
       .toEqual([this.accessor5])
     expect(this.accessors.getAccessorsByType(PaginationAccessor))
       .toEqual([this.accessor1, this.accessor2, this.accessor3, this.accessor4])
   })
 
   it("getAccessorsByType()", ()=> {
-    expect(this.accessors.getAccessorByType(PageSizeAccessor))
+    expect(this.accessors.getAccessorByType(StatelessPageAccessor))
       .toEqual(this.accessor5)
     expect(this.accessors.getAccessorByType(PaginationAccessor))
       .toEqual(this.accessor1)

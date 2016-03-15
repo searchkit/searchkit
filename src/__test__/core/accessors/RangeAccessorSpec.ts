@@ -17,7 +17,8 @@ describe("RangeAccessor", ()=> {
       id:"metascore",
       min:0,
       max:100,
-      field:"metaScore"
+      field:"metaScore",
+      loadBuckets:true
     })
   })
 
@@ -55,7 +56,6 @@ describe("RangeAccessor", ()=> {
       let newQuery = this.accessor.buildSharedQuery(query)
       expect(newQuery).toBe(query)
     })
-
   })
 
   describe("buildOwnQuery", ()=> {
@@ -92,6 +92,12 @@ describe("RangeAccessor", ()=> {
           })
         )
       )
+    })
+
+    it("build own query loadBuckets:false", ()=> {
+      this.accessor.options.loadBuckets = false
+      let query = this.accessor.buildOwnQuery(this.query)
+      expect(query).toBe(this.query)
     })
 
   })

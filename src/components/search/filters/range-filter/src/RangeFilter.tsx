@@ -6,14 +6,27 @@ import {
 	SearchkitComponent,
 	SearchkitComponentProps,
 	FastClick,
-	RangeAccessor
+	RangeAccessor,
+	RenderComponentType,
+	RenderComponentPropType,
+	renderComponent
 } from "../../../../../core"
+
+import {
+	RangeProps, Panel, RangeComponentBuilder,
+	RangeSliderHistogram, RangeSlider
+} from "../../../../ui"
 
 const defaults = require("lodash/defaults")
 const max = require("lodash/max")
+const maxBy = require("lodash/maxBy")
 const map = require("lodash/map")
 const get = require("lodash/get")
 
+function computeMaxValue(items, field) {
+  if (!items || items.length == 0) return 0
+  return maxBy(items, field)[field]
+}
 
 export interface RangeFilterProps extends SearchkitComponentProps {
 	field:string
@@ -23,7 +36,12 @@ export interface RangeFilterProps extends SearchkitComponentProps {
 	title:string
   interval?:number
 	showHistogram?:boolean
+	containerComponent?: RenderComponentType<any>
+  rangeComponent?: RenderComponentType<RangeProps>
+  collapsable?: boolean
 }
+
+
 
 export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	accessor:RangeAccessor
@@ -31,8 +49,18 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	static propTypes = defaults({
 		field:React.PropTypes.string.isRequired,
 		title:React.PropTypes.string.isRequired,
-		id:React.PropTypes.string.isRequired
+		id:React.PropTypes.string.isRequired,
+		containerComponent:RenderComponentPropType,
+		rangeComponent:RenderComponentPropType
 	}, SearchkitComponent.propTypes)
+
+
+	static defaultProps = {
+		containerComponent: Panel,
+		rangeComponent: RangeSliderHistogram,
+		showHistogram: true
+	}
+
 
 	constructor(props){
 		super(props)
@@ -41,11 +69,11 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	}
 
 	defineAccessor() {
-		const { id, title, min, max, field, interval } = this.props
-		return new RangeAccessor(
-			id,
-			{id, min, max, title, field, interval}
-		)
+		const { id, title, min, max, field,
+			interval, showHistogram } = this.props
+		return new RangeAccessor(id,{
+			id, min, max, title, field, interval, loadBuckets:showHistogram
+		})
 	}
 
 	defineBEMBlocks() {
@@ -57,10 +85,10 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	}
 
   sliderUpdate(newValues) {
-  	if ((newValues[0] == this.props.min) && (newValues[1] == this.props.max)){
+  	if ((newValues.min == this.props.min) && (newValues.max == this.props.max)){
   		this.accessor.state = this.accessor.state.clear()
   	} else {
-    	this.accessor.state = this.accessor.state.setValue({min:newValues[0], max:newValues[1]})
+    	this.accessor.state = this.accessor.state.setValue(newValues)
   	}
 		this.forceUpdate()
 	}
@@ -75,66 +103,38 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 		return max(map(this.accessor.getBuckets(), "doc_count"))
 	}
 
-	getHistogram() {
-		if (!this.props.showHistogram) return null
-
-		let maxValue = this.getMaxValue()
-
-		if (maxValue === 0) return null
-
-		const min = get(this.accessor.state.getValue(), "min", this.props.min)
-		const max = get(this.accessor.state.getValue(), "max", this.props.max)
-
-		let bars = map(this.accessor.getBuckets(), (value:any, i) => {
-			var className = "bar-chart__bar";
-			if (value.key < min || value.key > max) className += " is-out-of-bounds";
-			return (
-				<div className={className}
-					key={value.key}
-					style={{
-						height:`${(value.doc_count/maxValue)*100}%`
-					}}>
-				</div>
-			)
-		})
-
-		return (
-			<div className="bar-chart">
-				{bars}
-			</div>
-		)
-
+	getRangeComponent():RenderComponentType<any>{
+	  const { rangeComponent, showHistogram } = this.props
+	  if (!showHistogram && (rangeComponent === RangeSliderHistogram)) {
+	    return RangeSlider
+	  } else {
+	    return rangeComponent
+	  }
 	}
 
 	render() {
-		var block = this.bemBlocks.container
-		var histogram = this.getHistogram()
+    const { id, title, containerComponent, collapsable } = this.props
 
-		var classname = block().state({
-			disabled:this.getMaxValue() == 0,
-			"no-histogram": histogram == null
-		})
-		var sliderClassname = block("bar-chart").toString()
+    const maxValue = computeMaxValue(this.accessor.getBuckets(), "doc_count")
 
-		return (
-			<div className={classname}>
-				<div className={block("header")}>{this.translate(this.props.title)}</div>
-				{histogram}
-        <Rcslider
-          min={this.props.min}
-          max={this.props.max}
-          range={true}
-					value={[
-						get(this.accessor.state.getValue(), "min", this.props.min),
-						get(this.accessor.state.getValue(), "max", this.props.max)
-					]}
-					onChange={this.sliderUpdate}
-          onAfterChange={this.sliderUpdateAndSearch}/>
-					<div className={block("x-label").mix(this.bemBlocks.labels())}>
-						<div className={this.bemBlocks.labels("min")}>{this.props.min}</div>
-						<div className={this.bemBlocks.labels("max")}>{this.props.max}</div>
-					</div>
-			</div>
-		);
-	}
+    return renderComponent(containerComponent, {
+      title,
+      className: id ? `filter--${id}` : undefined,
+      disabled: maxValue == 0
+    }, this.renderRangeComponent(this.getRangeComponent()))
+  }
+
+  renderRangeComponent(component: RenderComponentType<any>) {
+    const { min, max } = this.props
+    const state = this.accessor.state.getValue()
+    return renderComponent(component, {
+      min, max,
+      minValue: Number(get(state, "min", min)),
+      maxValue: Number(get(state, "max", max)),
+      items: this.accessor.getBuckets(),
+      onChange: this.sliderUpdate,
+      onFinished: this.sliderUpdateAndSearch
+    })
+  }
+
 }
