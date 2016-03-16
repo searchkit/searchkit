@@ -101,7 +101,6 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
         itemComponent:this.props.itemComponent,
         selectedItems: this.getSelectedItems(),
         toggleItem: this.toggleFilter.bind(this),
-        toggleFilter: this.toggleFilter.bind(this),
         setItems: this.setFilters.bind(this),
         docCount: this.accessor.getDocCount(),
         showCount,
