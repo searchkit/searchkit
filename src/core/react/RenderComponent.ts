@@ -6,7 +6,7 @@ const defaults = require('lodash/defaults')
 
 export type RenderFunction = (props?:any, children?:any) => Element
 export type Element = React.ReactElement<any>
-export type RenderComponentType<P> = React.ComponentClass<P> | Element | RenderFunction;
+export type RenderComponentType<P> = React.ComponentClass<P> | React.ClassicComponentClass<P> | Element | RenderFunction;
 
 export const RenderComponentPropType = React.PropTypes.oneOfType([
   function(props:any, propName: string, componentName: string) {
