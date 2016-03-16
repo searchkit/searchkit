@@ -34,7 +34,7 @@ import {
 Searchkit library script is available from bower or from [jsdelivr CDN](https://www.jsdelivr.com/?query=searchkit).
 
 ### Installing via bower
-Requires React, ReactDOM to be included before searchkit. Within the release folder, the src `bundle.js`, the css `styles.css` and static file assets.
+Requires React, ReactDOM to be included before searchkit. Within the release folder, the src `bundle.js`, the css `theme.css` and static file assets.
 
 ```sh
   bower install searchkit --save
@@ -43,10 +43,10 @@ Requires React, ReactDOM to be included before searchkit. Within the release fol
 ### CDN Script include
 
 ```html
-  <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.5/react.min.js"></script>
-  <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.5/react-dom.min.js"></script>
-  <script type="text/javascript" src="//cdn.jsdelivr.net/searchkit/latest/bundle.js"></script>
-  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/searchkit/latest/styles.css">
+  <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react.min.js"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react-dom.min.js"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/searchkit/0.8.1/bundle.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/searchkit/0.8.1/theme.css">
 ```
 
 ### Use

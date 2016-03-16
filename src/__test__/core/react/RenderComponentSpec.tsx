@@ -21,6 +21,13 @@ describe("RenderComponent", ()=> {
     this.SubPanel.defaultProps.title = "SubPanel"
 
     this.SubPanelElement = <Panel title="PanelElement"/>
+    this.PanelReactClass = React.createClass({
+      render(){
+        return (<Panel title="PanelReactClass" {...this.props}>
+          {this.props.children}
+        </Panel>)
+      }
+    })
 
     this.PanelFunction = (props)=> {
       return (
@@ -56,6 +63,18 @@ describe("RenderComponent", ()=> {
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-panel">
         <div className="sk-panel__header">PanelElement</div>
+        <div className="sk-panel__content">
+          <p>content..</p>
+        </div>
+      </div>
+    ))
+  })
+
+  it("React Class", ()=> {
+    this.mount(this.PanelReactClass)
+    expect(this.wrapper.html()).toEqual(jsxToHTML(
+      <div className="sk-panel">
+        <div className="sk-panel__header">PanelReactClass</div>
         <div className="sk-panel__content">
           <p>content..</p>
         </div>

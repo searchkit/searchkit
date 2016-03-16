@@ -1,3 +1,7 @@
+## 0.8.1 (16th March, 2016)
+### Bug Fixes
+ - support Classic components using react.createClass properly in our prop overrides such as listComponent, itemComponent etc.
+
 ## 0.8.0 (15th March, 2016)
 ### Breaking Changes
  - Classname changes,in `RefinementListFilter`, `MenuFilter`, `NumericRefinementListFilter`, `Pagination`, `ViewSwitcherToggle`, `SortingSelector`. We have updated the theme to be backwards compatible, but if you have custom css for those components, you may need to update them.
