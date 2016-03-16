@@ -26,7 +26,7 @@ class FunctionComponent extends React.Component<any, any> {
 }
 
 export function renderComponent(component:RenderComponentType<any>, props={}, children=null){
-  if (component["prototype"] instanceof React.Component){
+  if (component["prototype"] instanceof React.Component || (component["prototype"] && component["prototype"].isReactComponent)){
     return React.createElement(component as React.ComponentClass<any>, props, children)
   } else if (React.isValidElement(component)){
     return React.cloneElement(component as Element, props, children);
