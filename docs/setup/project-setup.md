@@ -45,8 +45,8 @@ Requires React, ReactDOM to be included before searchkit. Within the release fol
 ```html
   <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react.min.js"></script>
   <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react-dom.min.js"></script>
-  <script type="text/javascript" src="//cdn.jsdelivr.net/searchkit/0.8.1/bundle.js"></script>
-  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/searchkit/0.8.1/theme.css">
+  <script type="text/javascript" src="//cdn.jsdelivr.net/searchkit/0.8.2/bundle.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/searchkit/0.8.2/theme.css">
 ```
 
 ### Use

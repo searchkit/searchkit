@@ -1,3 +1,7 @@
+## 0.8.2 (17th March, 2016)
+### Bug Fixes
+ - PageSizeSelector synchronises state correctly with url
+
 ## 0.8.1 (16th March, 2016)
 ### Bug Fixes
  - support Classic components using react.createClass properly in our prop overrides such as listComponent, itemComponent etc.

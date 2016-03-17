@@ -34,6 +34,13 @@ describe("PageSizeSelector", ()=> {
     }
   })
 
+  it("getSize()", ()=> {
+    this.setWrapper()
+    expect(this.accessor.getSize()).toBe(12)
+    this.accessor.state = this.accessor.state.setValue("24")
+    expect(this.accessor.getSize()).toBe(24)
+  })
+
   it("should render and behave correctly", ()=> {
     this.setWrapper()
     expect(this.wrapper.html()).toEqual(jsxToHTML(

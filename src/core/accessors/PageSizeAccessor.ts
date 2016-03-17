@@ -7,7 +7,7 @@ export class PageSizeAccessor extends StatefulAccessor<ValueState> {
     super("size")
   }
 
-  setSize(size){    
+  setSize(size){
     if(this.defaultSize == size){
       this.state = this.state.clear()
     } else {
@@ -16,7 +16,7 @@ export class PageSizeAccessor extends StatefulAccessor<ValueState> {
   }
 
   getSize(){
-    return this.state.getValue() || this.defaultSize
+    return Number(this.state.getValue() || this.defaultSize)
   }
 
   buildSharedQuery(query){
