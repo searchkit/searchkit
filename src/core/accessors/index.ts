@@ -1,5 +1,6 @@
 export * from "./Accessor"
 export * from "./StatefulAccessor"
+export * from "./CheckboxFilterAccessor"
 export * from "./FacetAccessor"
 export * from "./QueryAccessor"
 export * from "./PaginationAccessor"

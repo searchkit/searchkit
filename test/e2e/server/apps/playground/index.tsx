@@ -1,12 +1,15 @@
 const {
   SearchkitManager,SearchkitProvider,
   SearchBox, Hits, RefinementListFilter, Pagination,
+  CheckboxFilter,
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   GroupedSelectedFilters, SelectedFilters, ResetFilters,
   RangeFilter, NumericRefinementListFilter,
   ViewSwitcherHits, ViewSwitcherToggle, Select, Toggle,
   ItemList, CheckboxItemList, ItemHistogramList, Tabs, TagCloud, MenuFilter,
-  renderComponent, PageSizeSelector, RangeSliderHistogramInput, Panel, PaginationSelect
+  renderComponent, PageSizeSelector, RangeSliderHistogramInput, Panel, PaginationSelect,
+  
+  TermQuery, RangeQuery, BoolMust
 } = require("../../../../../src")
 const host = "http://demo.searchkit.co/api/movies"
 import * as ReactDOM from "react-dom";
@@ -195,6 +198,14 @@ class App extends React.Component<any, any> {
               <Panel title="Selected Filters" collapsable={true} defaultCollapsed={false}>
                 <SelectedFilters/>
               </Panel>
+              <CheckboxFilter id="rated-r" title="Rating" label="Rated R" filter={TermQuery("rated.raw", 'R')} />
+              <CheckboxFilter id="recent" title="Date" label="Recent" filter={RangeQuery("year", {gt: 2012})} />
+              <CheckboxFilter id="old-movies" title="Movile filter" label="Old movies" filter={
+                BoolMust([
+                  RangeQuery("year", {lt: 1970}),
+                  TermQuery("type.raw", "Movie")
+                ])} />
+              
               <MenuFilter field={"type.raw"} size={10} title="Movie Type" id="types" listComponent={listComponents[this.state.viewMode]}
                 containerComponent={
                 (props) => (
@@ -250,12 +261,8 @@ class App extends React.Component<any, any> {
                 </div>
 
                 <div className="sk-action-bar__filters">
-                  <SelectedFilters/>
-                  <ResetFilters/>
-                </div>
-
-                <div className="sk-action-bar__filters">
                   <GroupedSelectedFilters/>
+                  <ResetFilters/>
                 </div>
 
               </div>

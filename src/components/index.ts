@@ -1,3 +1,4 @@
+export * from "./search/filters/checkbox-filter/CheckboxFilter";
 export * from "./search/filters/reset-filters/src/ResetFilters";
 export * from "./search/filters/selected-filters/src/GroupedSelectedFilters";
 export * from "./search/filters/selected-filters/src/SelectedFilters";
