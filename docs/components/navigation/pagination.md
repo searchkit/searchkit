@@ -30,9 +30,13 @@ defaults to `true`
 - `pageScope` *(Number)*: When using `showNumber={true}`, how many page numbers to show before and after the current page number. Defaults to `3`
 - `mod` *(string)*: Optional. A custom BEM container class.
 - `listComponent` *(React Component)*: Used to change the rendering.
-  - Compatible with `Toggle`, `Select`, `TagCloud`, `ItemCheckboxList`, `ItemList`
-  - Defaults to `Toggle`
-  - Use `Select` with `showText={false}` to have a select based pagination.
+
+## PaginationSelect
+If you would like a more compact rendering, you can use Searchkit's `PaginationSelect component instead`
+
+```jsx
+<PaginationSelect/>
+```
 
 
 ## Translations
