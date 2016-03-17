@@ -55,7 +55,7 @@ export class PageSizeSelector extends SearchkitComponent<PageSizeSelectorProps, 
       let options = map(this.props.options, (option)=> {
         return {key:option, label:option}
       })
-      let selectedSize = pageSizeAccessor.getSize()
+      let selectedSize = pageSizeAccessor.getSize()      
       const {mod, className} = this.props
       return renderComponent(this.props.listComponent, {
         mod, className,

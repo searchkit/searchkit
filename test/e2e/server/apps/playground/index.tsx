@@ -236,7 +236,7 @@ class App extends React.Component<any, any> {
                   }}/>
                   <ViewSwitcherToggle/>
                   {/*<ViewSwitcherToggle listComponent={Select}/>*/}
-                  <PageSizeSelector options={[4,12,25]}/>
+                  <PageSizeSelector options={[4,12,25]} listComponent={Toggle }/>
                   <SortingSelector options={[
                     {label:"Relevance", field:"_score", order:"desc"},
                     {label:"Latest Releases", field:"released", order:"desc"},
