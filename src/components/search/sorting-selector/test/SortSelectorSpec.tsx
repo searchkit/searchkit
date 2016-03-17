@@ -103,6 +103,24 @@ describe("SortingSelector tests", () => {
     expect(this.searchkit.performSearch).toHaveBeenCalled()
   })
 
+  it("handle prop reload without breaking computed keys", ()=> {
+    this.wrapper.setProps({options:[
+      {label:"Relevance"},
+      {label:"Latest Releases", field:"released", order:"desc"},
+      {label:"Earliest Releases", field:"released", order:"asc", key:"earliest"}
+    ]})
+    this.setResults()
+    expect(this.wrapper.html()).toEqual(jsxToHTML(
+      <div className="sk-select">
+        <select defaultValue="none">
+          <option value="none">Relevance translated</option>
+          <option value="released_desc">Latest Releases</option>
+          <option value="earliest">Earliest Releases</option>
+        </select>
+      </div>
+    ))
+  })
+
   it("custom mod, className, listComponent", ()=> {
     this.wrapper = mount(
       <SortingSelector searchkit={this.searchkit}
@@ -111,7 +129,7 @@ describe("SortingSelector tests", () => {
         {label:"Latest Releases", field:"released", order:"desc"},
         {label:"Earliest Releases", field:"released", order:"asc", key:"earliest"}
       ]}/>
-    )    
+    )
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div data-qa="options" className="my-select custom-class is-disabled">
         <div className="my-select-option my-select__item is-active" data-qa="option" data-key="none">
@@ -125,6 +143,7 @@ describe("SortingSelector tests", () => {
         </div>
       </div>
     ))
+
   })
 
 })

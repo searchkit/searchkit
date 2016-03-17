@@ -1,3 +1,7 @@
+## 0.8.3 (17th March, 2016)
+### Bug Fixes
+ - SortingSelector handles for app reload.
+
 ## 0.8.2 (17th March, 2016)
 ### Bug Fixes
  - PageSizeSelector synchronises state correctly with url
