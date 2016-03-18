@@ -33,6 +33,7 @@
     "./src/components/search/filters/hierarchical-menu-filter/test/HierarchicalMenuFilterSpec.tsx",
     "./src/components/search/filters/hierarchical-refinement-filter/src/HierarchicalRefinementFilter.tsx",
     "./src/components/search/filters/hierarchical-refinement-filter/test/HierarchicalRefinementFilterSpec.tsx",
+    "./src/components/search/filters/input-filter/InputFilter.tsx",
     "./src/components/search/filters/numeric-refinement-list-filter/src/NumericRefinementListFilter.tsx",
     "./src/components/search/filters/numeric-refinement-list-filter/test/NumericRefinementListFilterSpec.tsx",
     "./src/components/search/filters/range-filter/src/RangeFilter.tsx",

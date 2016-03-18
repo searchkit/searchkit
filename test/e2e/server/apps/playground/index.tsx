@@ -9,6 +9,8 @@ const {
   ItemList, CheckboxItemList, ItemHistogramList, Tabs, TagCloud, MenuFilter,
   renderComponent, PageSizeSelector, RangeSliderHistogramInput, Panel, PaginationSelect,
   
+  InputFilter,
+  
   TermQuery, RangeQuery, BoolMust
 } = require("../../../../../src")
 const host = "http://demo.searchkit.co/api/movies"
@@ -206,6 +208,7 @@ class App extends React.Component<any, any> {
                   TermQuery("type.raw", "Movie")
                 ])} />
               
+              <InputFilter id="author_q" title="Actors filter" placeholder="Search actors" searchOnChange={true} prefixQueryFields={["actors"]} queryFields={["actors"]}/>
               <MenuFilter field={"type.raw"} size={10} title="Movie Type" id="types" listComponent={listComponents[this.state.viewMode]}
                 containerComponent={
                 (props) => (

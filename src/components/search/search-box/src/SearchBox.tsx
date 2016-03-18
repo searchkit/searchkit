@@ -16,6 +16,9 @@ export interface SearchBoxProps extends SearchkitComponentProps {
   queryFields?:Array<string>
   autofocus?:boolean
   queryOptions?:any
+  id?: string
+  mod?: string
+  placeholder?: string
   prefixQueryFields?:Array<string>
 }
 
@@ -30,10 +33,13 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
   translations = SearchBox.translations
 
   static defaultProps = {
+    id: 'q',
+    mod: 'sk-search-box',
     searchThrottleTime:200
   }
 
   static propTypes = defaults({
+    id:React.PropTypes.string,
     searchOnChange:React.PropTypes.bool,
     searchThrottleTime:React.PropTypes.number,
     queryFields:React.PropTypes.arrayOf(React.PropTypes.string),
@@ -42,7 +48,9 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     prefixQueryFields:React.PropTypes.arrayOf(React.PropTypes.string),
     translations:SearchkitComponent.translationsPropType(
       SearchBox.translations
-    )
+    ),
+    mod: React.PropTypes.string,
+    placeholder: React.PropTypes.string
   }, SearchkitComponent.propTypes)
 
   constructor (props:SearchBoxProps) {
@@ -61,16 +69,16 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
   }
 
   defineBEMBlocks() {
-    return {container:(this.props.mod || "sk-search-box")};
+    return { container:this.props.mod };
   }
 
   defineAccessor(){
-
-    return new QueryAccessor("q", {
-      prefixQueryFields:(this.props.searchOnChange ? (this.props.prefixQueryFields || this.props.queryFields) : false),
-      queryFields:this.props.queryFields || ["_all"],
+    const { id, prefixQueryFields, queryFields, searchOnChange, queryOptions } = this.props
+    return new QueryAccessor(id, {
+      prefixQueryFields:(searchOnChange ? (prefixQueryFields || queryFields) : false),
+      queryFields:queryFields || ["_all"],
       queryOptions:assign({
-      }, this.props.queryOptions)
+      }, queryOptions)
     })
   }
 
@@ -115,7 +123,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
           <input type="text"
           data-qa="query"
           className={block("text")}
-          placeholder={this.translate("searchbox.placeholder")}
+          placeholder={this.props.placeholder || this.translate("searchbox.placeholder")}
           value={this.getValue()}
           onFocus={this.setFocusState.bind(this, true)}
           onBlur={this.setFocusState.bind(this, false)}
