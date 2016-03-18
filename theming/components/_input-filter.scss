@@ -1,0 +1,55 @@
+@import "../vars.scss";
+
+.sk-input-filter {
+  flex:auto;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+
+  form {
+    display:flex;
+    margin:0;
+    position:relative;
+  }
+
+  &__icon {
+    flex:0 20px 20px;
+    margin-top:6px;
+    margin-left:10px;
+    &:before {
+      content:"";
+      background:url(images/search.svg) no-repeat top left;
+      background-size: contain;
+      height:20px;
+      width:20px;
+      display: block;
+    }
+    opacity:0.3;
+  }
+
+  &__text {
+    padding:7px;
+    width:100%;
+    flex:3;
+    font-size:14px;
+    border:none;
+    &:focus {
+      outline:0;
+    }
+  }
+
+  &__action {
+    height:30px;
+    visibility: hidden;
+  }
+
+  &__loader {
+    flex:0 20px 20px;
+    align-self: flex-end;
+    margin:5px 10px;
+
+    &.is-hidden {
+      display:none;
+    }
+  }
+
+}

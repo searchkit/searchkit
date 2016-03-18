@@ -17,6 +17,8 @@ export interface SearchBoxProps extends SearchkitComponentProps {
   autofocus?:boolean
   queryOptions?:any
   id?: string
+  mod?: string
+  placeholder?: string
   prefixQueryFields?:Array<string>
 }
 
@@ -32,6 +34,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 
   static defaultProps = {
     id: 'q',
+    mod: 'sk-search-box',
     searchThrottleTime:200
   }
 
@@ -45,7 +48,9 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     prefixQueryFields:React.PropTypes.arrayOf(React.PropTypes.string),
     translations:SearchkitComponent.translationsPropType(
       SearchBox.translations
-    )
+    ),
+    mod: React.PropTypes.string,
+    placeholder: React.PropTypes.string
   }, SearchkitComponent.propTypes)
 
   constructor (props:SearchBoxProps) {
@@ -64,7 +69,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
   }
 
   defineBEMBlocks() {
-    return {container:(this.props.mod || "sk-search-box")};
+    return { container:this.props.mod };
   }
 
   defineAccessor(){
@@ -118,7 +123,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
           <input type="text"
           data-qa="query"
           className={block("text")}
-          placeholder={this.translate("searchbox.placeholder")}
+          placeholder={this.props.placeholder || this.translate("searchbox.placeholder")}
           value={this.getValue()}
           onFocus={this.setFocusState.bind(this, true)}
           onBlur={this.setFocusState.bind(this, false)}
