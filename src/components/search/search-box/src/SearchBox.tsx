@@ -16,6 +16,7 @@ export interface SearchBoxProps extends SearchkitComponentProps {
   queryFields?:Array<string>
   autofocus?:boolean
   queryOptions?:any
+  id?: string
   prefixQueryFields?:Array<string>
 }
 
@@ -30,10 +31,12 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
   translations = SearchBox.translations
 
   static defaultProps = {
+    id: 'q',
     searchThrottleTime:200
   }
 
   static propTypes = defaults({
+    id:React.PropTypes.string,
     searchOnChange:React.PropTypes.bool,
     searchThrottleTime:React.PropTypes.number,
     queryFields:React.PropTypes.arrayOf(React.PropTypes.string),
@@ -65,12 +68,12 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
   }
 
   defineAccessor(){
-
-    return new QueryAccessor("q", {
-      prefixQueryFields:(this.props.searchOnChange ? (this.props.prefixQueryFields || this.props.queryFields) : false),
-      queryFields:this.props.queryFields || ["_all"],
+    const { id, prefixQueryFields, queryFields, searchOnChange, queryOptions } = this.props
+    return new QueryAccessor(id, {
+      prefixQueryFields:(searchOnChange ? (prefixQueryFields || queryFields) : false),
+      queryFields:queryFields || ["_all"],
       queryOptions:assign({
-      }, this.props.queryOptions)
+      }, queryOptions)
     })
   }
 

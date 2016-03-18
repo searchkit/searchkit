@@ -227,6 +227,7 @@ class App extends React.Component<any, any> {
               <RangeFilter min={0} max={100} field="metaScore" id="metascore" title="Metascore" showHistogram={true}/>
               <RangeFilter min={0} max={10} field="imdbRating" id="imdbRating" title="IMDB Rating" showHistogram={true} rangeComponent={RangeSliderHistogramInput}/>
               <RefinementListFilter id="actors" title="Actors" field="actors.raw" size={10}/>
+              <SearchBox id="author_q" autofocus={false} searchOnChange={true} prefixQueryFields={["actors"]} queryFields={["actors"]}/>
               <RefinementListFilter translations={{"facets.view_more":"View more writers"}} id="writers" title="Writers" field="writers.raw" operator="OR" size={10}/>
               <RefinementListFilter id="countries" title="Countries" field="countries.raw" operator="OR" size={10}/>
               <NumericRefinementListFilter listComponent={Select} id="runtimeMinutes" title="Length" field="runtimeMinutes" options={[
