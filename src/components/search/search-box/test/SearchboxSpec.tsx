@@ -60,8 +60,8 @@ describe("Searchbox tests", () => {
     this.searchkit.performSearch = ()=> {
       queries.push(this.searchkit.buildQuery())
     }
-    expect(this.wrapper.node.props.searchThrottleTime).toBe(200)
     this.createWrapper(true)
+    expect(this.wrapper.node.props.searchThrottleTime).toBe(200)
     this.typeSearch("m")
     jasmine.clock().tick(100)
     expect(queries.length).toBe(1)

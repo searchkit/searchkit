@@ -25,15 +25,15 @@ describe("Searchbox tests", () => {
       this.wrapper = mount(
         <InputFilter searchkit={this.searchkit}
                    id="test_id"
-                   title="Test title" 
-                   searchOnChange={searchOnChange} 
-                   queryFields={queryFields} 
+                   title="Test title"
+                   searchOnChange={searchOnChange}
+                   queryFields={queryFields}
                    prefixQueryFields={prefixQueryFields}
                    {...otherProps} />
       );
       this.accessor = this.searchkit.accessors.getAccessors()[0]
     }
-    
+
     this.setResults = ()=> {
       this.searchkit.setResults({
         hits:{
@@ -42,7 +42,7 @@ describe("Searchbox tests", () => {
         }
       })
     }
-    
+
     this.setEmptyResults = () => {
       this.searchkit.setResults({
         hits: {
@@ -62,18 +62,18 @@ describe("Searchbox tests", () => {
     this.createWrapper()
     expect(this.wrapper.find(".sk-input-filter__text").get(0).placeholder).toBe("search placeholder")
   })
-  
+
   it("toggles visibility", () => {
     let spy = sinon.spy()
     this.searchkit.performSearch = spy
     this.createWrapper(true)
-    
+
     this.setEmptyResults()
     expect(hasClass(this.wrapper.find(".sk-panel"), "is-disabled")).toBe(true)
-    
+
     this.setResults()
     expect(hasClass(this.wrapper.find(".sk-panel"), "is-disabled")).toBe(false)
-    
+
     // Don't hide if active filter
     this.typeSearch("noresults")
     this.setEmptyResults()
@@ -122,18 +122,18 @@ describe("Searchbox tests", () => {
     this.searchkit.performSearch = ()=> {
       queries.push(this.searchkit.buildQuery())
     }
-    expect(this.wrapper.node.props.searchThrottleTime).toBe(200)
     this.createWrapper(true)
+    expect(this.wrapper.node.props.searchThrottleTime).toBe(200)
     this.typeSearch("m")
     jasmine.clock().tick(100)
     expect(queries.length).toBe(1)
-    expect(queries[0].getQueryString()).toBe("m")
+    expect(queries[0].getSelectedFilters()[0].value).toBe("m")
     this.typeSearch("ma")
     jasmine.clock().tick(100)
     expect(queries.length).toBe(1)
     jasmine.clock().tick(300)
     expect(queries.length).toBe(2)
-    expect(queries[1].getQueryString()).toBe("ma")
+    expect(queries[1].getSelectedFilters()[0].value).toBe("ma")
     jasmine.clock().uninstall()
   })
 
