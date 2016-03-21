@@ -20,7 +20,7 @@ export class TagFilterConfig extends SearchkitComponent<TagFilterConfigProps, {}
     } = this.props
 
     return new FacetAccessor(field, {
-      id, operator, title, size: 0
+      id, operator, title, size: 1, loadAggregations: false
     })
   }
 
