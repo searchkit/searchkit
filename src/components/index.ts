@@ -1,3 +1,5 @@
+export * from "./search/filters/checkbox-filter/CheckboxFilter";
+export * from "./search/filters/input-filter/InputFilter";
 export * from "./search/filters/reset-filters/src/ResetFilters";
 export * from "./search/filters/selected-filters/src/GroupedSelectedFilters";
 export * from "./search/filters/selected-filters/src/SelectedFilters";
@@ -14,5 +16,6 @@ export * from "./search/page-size-selector/PageSizeSelector";
 export * from "./search/filters/hierarchical-refinement-filter/src/HierarchicalRefinementFilter";
 export * from "./search/filters/range-filter/src/RangeFilter";
 export * from "./search/filters/facet-filter";
+export * from "./search/filters/tag-filter";
 export * from "./display";
 export * from "./ui";

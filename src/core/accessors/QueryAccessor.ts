@@ -11,6 +11,8 @@ export interface SearchOptions {
   queryFields?:Array<string>
   prefixQueryFields?:Array<string>
   queryOptions?:any
+  title?: string
+  addToFilters?:boolean
 }
 export class QueryAccessor extends BaseQueryAccessor {
   options:SearchOptions
@@ -40,8 +42,19 @@ export class QueryAccessor extends BaseQueryAccessor {
           fields:this.options.prefixQueryFields
         }))
       }
-      return query.addQuery(BoolShould(queries))
+      query = query.addQuery(BoolShould(queries))
         .setQueryString(queryStr)
+      
+      if (this.options.addToFilters){
+        query = query.addSelectedFilter({
+          name: this.options.title,
+          value: queryStr,
+          id: this.key,
+          remove: () => this.state = this.state.clear()
+        })
+      }
+        
+      return query
     }
     return query
 

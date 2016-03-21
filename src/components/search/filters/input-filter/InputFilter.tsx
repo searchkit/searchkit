@@ -3,26 +3,35 @@ import * as React from "react";
 import {
   QueryAccessor,
   SearchkitComponent,
-  SearchkitComponentProps
-} from "../../../../core"
+  SearchkitComponentProps,
+  ReactComponentType
+} from "../../../../core";
 
-const defaults = require("lodash/defaults")
+import { SearchBox } from "../../search-box/src/SearchBox"
+
+import {
+  Panel
+} from "../../../ui"
+
+const defaults = require('lodash/defaults')
 const throttle = require("lodash/throttle")
 const assign = require("lodash/assign")
 
-export interface SearchBoxProps extends SearchkitComponentProps {
+export interface InputFilterProps extends SearchkitComponentProps {
+  id: string
+  title: string
+  mod?: string
   searchOnChange?:boolean
   searchThrottleTime?:number
   queryFields?:Array<string>
-  autofocus?:boolean
-  queryOptions?:any
-  id?: string
-  mod?: string
-  placeholder?: string
   prefixQueryFields?:Array<string>
+  queryOptions?:any
+  placeholder?: string
+  containerComponent?: ReactComponentType<any>
+  collapsable?: boolean
 }
 
-export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
+export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
   accessor:QueryAccessor
   lastSearchMs:number
   throttledSearch: () => void
@@ -33,17 +42,18 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
   translations = SearchBox.translations
 
   static defaultProps = {
-    id: 'q',
-    mod: 'sk-search-box',
+    containerComponent: Panel,
+    collapsable: false,
+    mod: "sk-input-filter",
     searchThrottleTime:200
   }
 
   static propTypes = defaults({
-    id:React.PropTypes.string,
+    id:React.PropTypes.string.isRequired,
+    title: React.PropTypes.string.isRequired,
     searchOnChange:React.PropTypes.bool,
     searchThrottleTime:React.PropTypes.number,
     queryFields:React.PropTypes.arrayOf(React.PropTypes.string),
-    autofocus:React.PropTypes.bool,
     queryOptions:React.PropTypes.object,
     prefixQueryFields:React.PropTypes.arrayOf(React.PropTypes.string),
     translations:SearchkitComponent.translationsPropType(
@@ -53,7 +63,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     placeholder: React.PropTypes.string
   }, SearchkitComponent.propTypes)
 
-  constructor (props:SearchBoxProps) {
+  constructor (props:InputFilterProps) {
     super(props);
     this.state = {
       focused:false
@@ -73,12 +83,13 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
   }
 
   defineAccessor(){
-    const { id, prefixQueryFields, queryFields, searchOnChange, queryOptions } = this.props
+    const { id, title, prefixQueryFields, queryFields, searchOnChange, queryOptions } = this.props
     return new QueryAccessor(id, {
+      title, 
+      addToFilters: true,
       prefixQueryFields:(searchOnChange ? (prefixQueryFields || queryFields) : false),
       queryFields:queryFields || ["_all"],
-      queryOptions:assign({
-      }, queryOptions)
+      queryOptions:assign({}, queryOptions)
     })
   }
 
@@ -114,27 +125,33 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
   }
 
   render() {
+    const { containerComponent, title, id, collapsable } = this.props
     let block = this.bemBlocks.container
 
-    return (
+    return React.createElement(containerComponent, {
+      title,
+      className: id ? `filter--${id}` : undefined,
+      disabled: (this.searchkit.getHitsCount() == 0) && (this.getValue() == ""),
+      collapsable
+    },
       <div className={block().state({focused:this.state.focused})}>
         <form onSubmit={this.onSubmit.bind(this)}>
           <div className={block("icon")}></div>
           <input type="text"
-          data-qa="query"
+          data-qa="input-filter"
           className={block("text")}
           placeholder={this.props.placeholder || this.translate("searchbox.placeholder")}
           value={this.getValue()}
           onFocus={this.setFocusState.bind(this, true)}
           onBlur={this.setFocusState.bind(this, false)}
           ref="queryField"
-          autoFocus={this.props.autofocus}
+          autoFocus={false}
           onInput={this.onChange.bind(this)}/>
           <input type="submit" value="search" className={block("action")} data-qa="submit"/>
           <div data-qa="loader" className={block("loader").mix("sk-spinning-loader").state({hidden:!this.isLoading()})}></div>
         </form>
       </div>
     );
-
   }
+
 }

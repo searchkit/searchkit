@@ -1,0 +1,22 @@
+@import "../vars.scss";
+
+.sk-tag-filter {
+  cursor: pointer;
+}
+
+.sk-tag-filter-list {
+  display: inline;
+  
+  .sk-tag-filter{
+    display: inline;
+  
+    &:after {
+      content: ", ";
+      cursor: initial;
+    }
+    
+    &:last-child:after {
+      content: "";
+    }
+  }
+}
