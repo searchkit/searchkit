@@ -43,8 +43,7 @@ export class QueryAccessor extends BaseQueryAccessor {
         }))
       }
       query = query.addQuery(BoolShould(queries))
-        .setQueryString(queryStr)
-      
+
       if (this.options.addToFilters){
         query = query.addSelectedFilter({
           name: this.options.title,
@@ -52,8 +51,10 @@ export class QueryAccessor extends BaseQueryAccessor {
           id: this.key,
           remove: () => this.state = this.state.clear()
         })
+      } else {
+        query = query.setQueryString(queryStr)
       }
-        
+
       return query
     }
     return query
