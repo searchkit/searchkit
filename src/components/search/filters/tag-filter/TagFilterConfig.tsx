@@ -1,24 +1,37 @@
 import * as React from "react";
 
-import { RefinementListFilter } from "../facet-filter"
-
-import { SearchkitComponentProps } from "../../../../core"
-
-class NullComponent extends React.Component<{}, {}> {
-  render(){return null}
-}
+import { 
+  SearchkitComponent, SearchkitComponentProps, FacetAccessor 
+} from "../../../../core"
 
 export interface TagFilterConfigProps extends SearchkitComponentProps {
   field: string
-  operator?: string
-  size?: number
   title: string
   id: string
+  operator?: string
 }
 
-export class TagFilterConfig extends React.Component<TagFilterConfigProps, {}> {
+export class TagFilterConfig extends SearchkitComponent<TagFilterConfigProps, {}> {
+  accessor: FacetAccessor
 
-  render() {
-    return <RefinementListFilter {...this.props} size={0} containerComponent={NullComponent}/>
+  defineAccessor() {
+    const {
+      field, id, operator, title
+    } = this.props
+
+    return new FacetAccessor(field, {
+      id, operator, title, size: 0
+    })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.operator != this.props.operator) {
+      this.accessor.options.operator = this.props.operator
+      this.searchkit.performSearch()
+    }
+  }
+  
+  render(){
+    return null
   }
 }
