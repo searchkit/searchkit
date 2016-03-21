@@ -1,5 +1,5 @@
 import {State} from "../state"
-import {StatefulAccessor} from "./StatefulAccessor"
+import {FilterBasedAccessor} from "./FilterBasedAccessor"
 import {
   CardinalityMetric, BoolMust, SelectedFilter, FilterBucket
 } from "../query";
@@ -15,7 +15,7 @@ export interface CheckboxFilterAccessorOptions {
   defaultValue?: boolean
 }
 
-export class CheckboxFilterAccessor extends StatefulAccessor<State<boolean>> {
+export class CheckboxFilterAccessor extends FilterBasedAccessor<State<boolean>> {
 
   state = new State<boolean>(false)
   options:any
@@ -25,7 +25,7 @@ export class CheckboxFilterAccessor extends StatefulAccessor<State<boolean>> {
   static translations:any = {
     "checkbox.on":"active"
   }
-  
+
   constructor(key, options:CheckboxFilterAccessorOptions){
     super(key, options.id)
     this.options = options
@@ -33,7 +33,7 @@ export class CheckboxFilterAccessor extends StatefulAccessor<State<boolean>> {
     this.state = this.state.create(options.defaultValue)
     this.translations = assign({}, options.translations)
   }
-  
+
   getDocCount(){
     return this.getAggregations([this.uuid, "doc_count"], 0)
   }
