@@ -42,12 +42,18 @@
     visibility: hidden;
   }
 
-  &__loader {
-    flex:0 20px 20px;
-    align-self: flex-end;
-    margin:5px 10px;
+  &__remove {
+    &:before {
+      flex:0 20px 20px;
+      align-self: flex-end;
+      padding:5px 10px;
+      line-height: 30px;
+      color: #bbb;
+      content: "x";
+      cursor: pointer;
+    }
 
-    &.is-hidden {
+    &.is-hidden:before {
       display:none;
     }
   }

@@ -69,6 +69,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
       focused:false
     }
     this.lastSearchMs = 0
+    this.onClear = this.onClear.bind(this)
     this.throttledSearch = throttle(()=> {
       this.searchQuery(this.accessor.getQueryString())
     }, props.searchThrottleTime)
@@ -119,6 +120,12 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
     }
     this.forceUpdate()
   }
+  
+  onClear(){
+    this.accessor.state = this.accessor.state.clear()
+    this.searchkit.performSearch()
+    this.forceUpdate()
+  }
 
   setFocusState(focused:boolean) {
     this.setState({focused:focused})
@@ -126,8 +133,8 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
 
   render() {
     const { containerComponent, title, id, collapsable } = this.props
-    let block = this.bemBlocks.container
-
+    const block = this.bemBlocks.container
+    const value = this.getValue()
     return React.createElement(containerComponent, {
       title,
       className: id ? `filter--${id}` : undefined,
@@ -138,17 +145,19 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
         <form onSubmit={this.onSubmit.bind(this)}>
           <div className={block("icon")}></div>
           <input type="text"
-          data-qa="input-filter"
-          className={block("text")}
-          placeholder={this.props.placeholder || this.translate("searchbox.placeholder")}
-          value={this.getValue()}
-          onFocus={this.setFocusState.bind(this, true)}
-          onBlur={this.setFocusState.bind(this, false)}
-          ref="queryField"
-          autoFocus={false}
-          onInput={this.onChange.bind(this)}/>
+            data-qa="input-filter"
+            className={block("text")}
+            placeholder={this.props.placeholder || this.translate("searchbox.placeholder")}
+            value={value}
+            onFocus={this.setFocusState.bind(this, true)}
+            onBlur={this.setFocusState.bind(this, false)}
+            ref="queryField"
+            autoFocus={false}
+            onInput={this.onChange.bind(this)}/>
           <input type="submit" value="search" className={block("action")} data-qa="submit"/>
-          <div data-qa="loader" className={block("loader").mix("sk-spinning-loader").state({hidden:!this.isLoading()})}></div>
+          <div data-qa="remove" 
+               onClick={this.onClear}
+               className={block("remove").state({hidden:value == ""})} />
         </form>
       </div>
     );

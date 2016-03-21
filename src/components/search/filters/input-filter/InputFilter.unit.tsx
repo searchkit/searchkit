@@ -94,7 +94,7 @@ describe("Searchbox tests", () => {
               <div className="my-input__icon" />
               <input type="text" data-qa="input-filter" className="my-input__text" placeholder="search placeholder" value=""/>
               <input type="submit" value="search" className="my-input__action" data-qa="submit" />
-              <div data-qa="loader" className="my-input__loader sk-spinning-loader is-hidden"></div>
+              <div data-qa="remove" className="my-input__remove is-hidden"></div>
             </form>
           </div>
         </div>
@@ -148,6 +148,25 @@ describe("Searchbox tests", () => {
     expect(spy.callCount).toBe(0)
     this.wrapper.find("form").simulate("submit")
     expect(spy.callCount).toBe(1)
+  })
+
+  it("should have a working remove icon", () => {
+    let spy = sinon.spy()
+    this.searchkit.performSearch = spy
+
+    this.createWrapper(false)
+    this.setResults()
+    
+    expect(hasClass(this.wrapper.find(".sk-input-filter__remove"), "is-hidden")).toBe(true)
+    this.typeSearch('ma')
+    expect(hasClass(this.wrapper.find(".sk-input-filter__remove"), "is-hidden")).toBe(false)
+    expect(spy.callCount).toBe(0)
+    this.wrapper.find("form").simulate("submit")
+    expect(spy.callCount).toBe(1)
+    this.wrapper.find(".sk-input-filter__remove").simulate("click")
+    expect(this.accessor.state.getValue()).toBe(null)
+    expect(spy.callCount).toBe(2)
+    expect(hasClass(this.wrapper.find(".sk-input-filter__remove"), "is-hidden")).toBe(true)
   })
 
   it("should configure accessor defaults correctly", ()=> {
