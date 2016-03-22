@@ -5,11 +5,11 @@ import {
   SearchkitComponentProps,
   ReactComponentType,
   PureRender
-} from "../../../../../core"
+} from "../../../../core"
 
 import {
 	FilterGroup
-} from "../../../../ui"
+} from "../../../ui"
 
 const bemBlock = require('bem-cn')
 

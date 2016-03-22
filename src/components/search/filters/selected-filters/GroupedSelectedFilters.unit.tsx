@@ -1,13 +1,13 @@
 import * as React from "react";
 import {mount} from "enzyme";
-import {GroupedSelectedFilters} from "../src/GroupedSelectedFilters.tsx";
-import {SearchkitManager, ImmutableQuery, FastClick} from "../../../../../core";
+import {GroupedSelectedFilters} from "./GroupedSelectedFilters";
+import {SearchkitManager, ImmutableQuery, FastClick} from "../../../../core";
 const bem = require("bem-cn");
 const _ = require("lodash")
 import * as sinon from "sinon";
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
-} from "../../../../__test__/TestHelpers"
+} from "../../../__test__/TestHelpers"
 
 describe("GroupedSelectedFilters tests", () => {
 
