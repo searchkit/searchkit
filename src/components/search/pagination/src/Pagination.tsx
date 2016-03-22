@@ -127,7 +127,6 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
       selectedItems: [this.getCurrentPage()],
       toggleItem:this.setPage,
       setItems:(items) => {
-        console.log(items)
         if (items && items.length > 0) this.setPage(items[0])
       },
       disabled: this.getTotalPages() <= 1
