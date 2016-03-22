@@ -20,6 +20,7 @@ const get = require("lodash/get")
 const assign = require("lodash/assign")
 const map = require("lodash/map")
 const compact = require("lodash/compact")
+const isNaN = require("lodash/isNaN")
 const bem = require("bem-cn")
 
 import { Paginator } from "./PaginationUtils"
@@ -84,7 +85,7 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
   }
 
   isDisabled(pageNumber: number): boolean {
-    return (pageNumber < 1) || (pageNumber > this.getTotalPages());
+    return isNaN(pageNumber) || (pageNumber < 1) || (pageNumber > this.getTotalPages());
   }
 
   normalizePage(page: (number | string)):number {
