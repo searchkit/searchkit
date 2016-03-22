@@ -8,7 +8,7 @@ import {
 	SearchkitComponentProps,
 	ReactComponentType,
 	PureRender
-} from "../../../../../core"
+} from "../../../../core"
 
 const defaults = require("lodash/defaults")
 const size = require("lodash/size")
@@ -79,7 +79,7 @@ export class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, an
 	renderFilter(filter) {
 
 		return React.createElement(this.props.itemComponent, {
-			key:filter.value,
+			key:filter.name +'$$' + filter.value,
 			bemBlocks:this.bemBlocks,
 			filterId:filter.id,
 			labelKey:this.translate(filter.name),
