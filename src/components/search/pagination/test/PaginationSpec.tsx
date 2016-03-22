@@ -189,6 +189,15 @@ describe("Pagination tests", () => {
       expect(this.accessor.state.getValue()).toBe(8)
     })
 
+    it("dividers should not alter state", ()=> {
+      this.createWrapper()
+      this.accessor.state = this.accessor.state.setValue(2)
+      this.wrapper.update()
+      fastClick(this.wrapper.find("[data-key='ellipsis-6']"))
+      //this was NaN before bug fix
+      expect(this.accessor.state.getValue()).toBe(2)
+    })
+
   })
 
   it("PaginationSelect", () => {
