@@ -26,6 +26,7 @@ export interface InputFilterProps extends SearchkitComponentProps {
   queryFields?:Array<string>
   prefixQueryFields?:Array<string>
   queryOptions?:any
+  prefixQueryOptions?:any
   placeholder?: string
   containerComponent?: ReactComponentType<any>
   collapsable?: boolean
@@ -56,6 +57,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
     queryFields:React.PropTypes.arrayOf(React.PropTypes.string),
     queryOptions:React.PropTypes.object,
     prefixQueryFields:React.PropTypes.arrayOf(React.PropTypes.string),
+    prefixQueryOptions:React.PropTypes.object,
     translations:SearchkitComponent.translationsPropType(
       SearchBox.translations
     ),
@@ -84,13 +86,14 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
   }
 
   defineAccessor(){
-    const { id, title, prefixQueryFields, queryFields, searchOnChange, queryOptions } = this.props
+    const { id, title, prefixQueryFields, queryFields, searchOnChange, queryOptions, prefixQueryOptions } = this.props
     return new QueryAccessor(id, {
       title, 
       addToFilters: true,
       prefixQueryFields:(searchOnChange ? (prefixQueryFields || queryFields) : false),
       queryFields:queryFields || ["_all"],
-      queryOptions:assign({}, queryOptions)
+      queryOptions:assign({}, queryOptions),
+      prefixQueryOptions:assign({}, prefixQueryOptions)
     })
   }
 

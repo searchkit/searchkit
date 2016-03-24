@@ -11,6 +11,7 @@ export interface SearchOptions {
   queryFields?:Array<string>
   prefixQueryFields?:Array<string>
   queryOptions?:any
+  prefixQueryOptions?:any
   title?: string
   addToFilters?:boolean
 }
@@ -37,10 +38,13 @@ export class QueryAccessor extends BaseQueryAccessor {
       let queries:Array<any> = [simpleQuery]
 
       if (this.options.prefixQueryFields) {
-        queries.push(MultiMatchQuery(queryStr, {
-          type:"phrase_prefix",
-          fields:this.options.prefixQueryFields
-        }))
+          queries.push(MultiMatchQuery(queryStr, assign(
+              this.options.prefixQueryOptions,
+              {
+                  type:"phrase_prefix",
+                  fields:this.options.prefixQueryFields,
+              }
+          )))
       }
       query = query.addQuery(BoolShould(queries))
 
