@@ -38,7 +38,6 @@ export interface RangeFilterProps extends SearchkitComponentProps {
 	showHistogram?:boolean
 	containerComponent?: RenderComponentType<any>
   rangeComponent?: RenderComponentType<RangeProps>
-  collapsable?: boolean
 }
 
 
@@ -113,7 +112,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	}
 
 	render() {
-    const { id, title, containerComponent, collapsable } = this.props
+    const { id, title, containerComponent } = this.props
 
     const maxValue = computeMaxValue(this.accessor.getBuckets(), "doc_count")
 

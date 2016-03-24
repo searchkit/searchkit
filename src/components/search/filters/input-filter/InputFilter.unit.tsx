@@ -7,6 +7,10 @@ import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
 } from "../../../__test__/TestHelpers"
 
+import {
+  Panel
+} from "../../../ui"
+
 import * as sinon from "sinon";
 
 describe("Searchbox tests", () => {
@@ -211,7 +215,13 @@ describe("Searchbox tests", () => {
       prefixQueryFields:["prefix"],
       "queryOptions": {}
     })
+  })
 
+  it("should accept Panel elements as containerComponent", ()=> {
+    this.createWrapper(true, ["title"], ["prefix"], {
+      containerComponent: <Panel collapsable={true} />
+    })
+    expect(hasClass(this.wrapper.find(".sk-panel__header"), "is-collapsable")).toBe(true)
   })
 
 

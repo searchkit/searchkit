@@ -4,7 +4,8 @@ import {
   QueryAccessor,
   SearchkitComponent,
   SearchkitComponentProps,
-  ReactComponentType
+  ReactComponentType, 
+  renderComponent
 } from "../../../../core";
 
 import { SearchBox } from "../../search-box/src/SearchBox"
@@ -28,7 +29,6 @@ export interface InputFilterProps extends SearchkitComponentProps {
   queryOptions?:any
   placeholder?: string
   containerComponent?: ReactComponentType<any>
-  collapsable?: boolean
 }
 
 export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
@@ -132,14 +132,13 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
   }
 
   render() {
-    const { containerComponent, title, id, collapsable } = this.props
+    const { containerComponent, title, id } = this.props
     const block = this.bemBlocks.container
     const value = this.getValue()
-    return React.createElement(containerComponent, {
+    return renderComponent(containerComponent, {
       title,
       className: id ? `filter--${id}` : undefined,
-      disabled: (this.searchkit.getHitsCount() == 0) && (this.getValue() == ""),
-      collapsable
+      disabled: (this.searchkit.getHitsCount() == 0) && (this.getValue() == "")
     },
       <div className={block().state({focused:this.state.focused})}>
         <form onSubmit={this.onSubmit.bind(this)}>
