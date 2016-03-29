@@ -107,4 +107,26 @@ describe("QueryAccessor", ()=> {
 
   })
 
+  it("prefixQueryFields with options", ()=> {
+    this.accessor = new QueryAccessor("q", {
+      prefixQueryFields:["title"],
+      prefixQueryOptions: {
+        minimum_should_match:"50%"
+      }
+    })
+    let query = new ImmutableQuery()
+    this.accessor.state = new ValueState("some query")
+    query = this.accessor.buildSharedQuery(query)
+    expect(query.query.query).toEqual(BoolMust([
+      BoolShould([
+        SimpleQueryString("some query", {fields:["_all"]}),
+        MultiMatchQuery("some query", {
+          type:"phrase_prefix",
+          fields:["title"],
+          minimum_should_match:"50%"
+        })
+      ])
+    ]))
+  })
+
 })

@@ -4,11 +4,11 @@ import {
   QueryAccessor,
   SearchkitComponent,
   SearchkitComponentProps,
-  ReactComponentType, 
+  ReactComponentType,
   renderComponent
 } from "../../../../core";
 
-import { SearchBox } from "../../search-box/src/SearchBox"
+import { SearchBox } from "../../search-box/SearchBox"
 
 import {
   Panel
@@ -25,8 +25,9 @@ export interface InputFilterProps extends SearchkitComponentProps {
   searchOnChange?:boolean
   searchThrottleTime?:number
   queryFields?:Array<string>
-  prefixQueryFields?:Array<string>
   queryOptions?:any
+  prefixQueryFields?:Array<string>
+  prefixQueryOptions?:any
   placeholder?: string
   containerComponent?: ReactComponentType<any>
 }
@@ -56,6 +57,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
     queryFields:React.PropTypes.arrayOf(React.PropTypes.string),
     queryOptions:React.PropTypes.object,
     prefixQueryFields:React.PropTypes.arrayOf(React.PropTypes.string),
+    prefixQueryOptions:React.PropTypes.object,
     translations:SearchkitComponent.translationsPropType(
       SearchBox.translations
     ),
@@ -84,13 +86,16 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
   }
 
   defineAccessor(){
-    const { id, title, prefixQueryFields, queryFields, searchOnChange, queryOptions } = this.props
+    const {
+      id, title, prefixQueryFields, queryFields,
+      searchOnChange, queryOptions, prefixQueryOptions } = this.props
     return new QueryAccessor(id, {
-      title, 
+      title,
       addToFilters: true,
-      prefixQueryFields:(searchOnChange ? (prefixQueryFields || queryFields) : false),
+      prefixQueryFields,
       queryFields:queryFields || ["_all"],
-      queryOptions:assign({}, queryOptions)
+      queryOptions:assign({}, queryOptions),
+      prefixQueryOptions:assign({}, prefixQueryOptions)
     })
   }
 
@@ -120,7 +125,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
     }
     this.forceUpdate()
   }
-  
+
   onClear(){
     this.accessor.state = this.accessor.state.clear()
     this.searchkit.performSearch()
@@ -154,7 +159,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
             autoFocus={false}
             onInput={this.onChange.bind(this)}/>
           <input type="submit" value="search" className={block("action")} data-qa="submit"/>
-          <div data-qa="remove" 
+          <div data-qa="remove"
                onClick={this.onClear}
                className={block("remove").state({hidden:value == ""})} />
         </form>
