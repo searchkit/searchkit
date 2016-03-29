@@ -9,7 +9,7 @@ export * from "./search/hits/src/NoHits";
 export * from "./search/hits/src/InitialLoader";
 export * from "./search/hits-stats/src/HitsStats";
 export * from "./search/pagination/src/Pagination";
-export * from "./search/search-box/src/SearchBox";
+export * from "./search/search-box/SearchBox";
 export * from "./search/sorting-selector/src/SortingSelector";
 export * from "./search/page-size-selector/PageSizeSelector";
 export * from "./search/filters/hierarchical-refinement-filter/src/HierarchicalRefinementFilter";

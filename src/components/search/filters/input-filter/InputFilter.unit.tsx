@@ -13,7 +13,7 @@ import {
 
 import * as sinon from "sinon";
 
-describe("Searchbox tests", () => {
+describe("InputFilter tests", () => {
 
   beforeEach(() => {
 
@@ -160,7 +160,7 @@ describe("Searchbox tests", () => {
 
     this.createWrapper(false)
     this.setResults()
-    
+
     expect(hasClass(this.wrapper.find(".sk-input-filter__remove"), "is-hidden")).toBe(true)
     this.typeSearch('ma')
     expect(hasClass(this.wrapper.find(".sk-input-filter__remove"), "is-hidden")).toBe(false)
@@ -181,9 +181,10 @@ describe("Searchbox tests", () => {
     expect(options).toEqual({
       title: "Test title",
       addToFilters: true,
-      "queryFields": ["title"],
-      prefixQueryFields:false,
-      "queryOptions": {}
+      queryFields: ["title"],
+      prefixQueryFields:null,
+      queryOptions: {},
+      prefixQueryOptions: {}
     })
 
   })
@@ -197,23 +198,28 @@ describe("Searchbox tests", () => {
       title: "Test title",
       addToFilters: true,
       queryFields: ["title"],
-      prefixQueryFields:["title"],
-      queryOptions: {}
+      prefixQueryFields:null,
+      queryOptions: {},
+      prefixQueryOptions: {}
     })
 
   })
 
   it("should configure accessor + prefix", ()=> {
-    this.createWrapper(true, ["title"], ["prefix"])
+    this.createWrapper(true, ["title"], ["prefix"], {
+      queryOptions:{minimum_should_match:"60%"},
+      prefixQueryOptions:{minimum_should_match:"70%"}
+    })
 
     expect(this.accessor.key).toBe("test_id")
     let options = this.accessor.options
     expect(options).toEqual({
       title: "Test title",
       addToFilters: true,
-      "queryFields": ["title"],
+      queryFields: ["title"],
       prefixQueryFields:["prefix"],
-      "queryOptions": {}
+      queryOptions:{minimum_should_match:"60%"},
+      prefixQueryOptions:{minimum_should_match:"70%"}
     })
   })
 

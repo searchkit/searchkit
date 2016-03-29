@@ -1,11 +1,11 @@
 import * as React from "react";
 import {mount} from "enzyme";
-import {SearchBox} from "../src/SearchBox.tsx";
-import {SearchkitManager } from "../../../../core";
+import {SearchBox} from "./SearchBox.tsx";
+import {SearchkitManager } from "../../../core";
 const bem = require("bem-cn");
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
-} from "../../../__test__/TestHelpers"
+} from "../../__test__/TestHelpers"
 
 import * as sinon from "sinon";
 
@@ -23,7 +23,12 @@ describe("Searchbox tests", () => {
 
     this.createWrapper = (searchOnChange=false, queryFields=null, prefixQueryFields=null) => {
       this.wrapper = mount(
-        <SearchBox searchkit={this.searchkit} searchOnChange={searchOnChange} queryFields={queryFields} prefixQueryFields={prefixQueryFields}/>
+        <SearchBox searchkit={this.searchkit}
+          searchOnChange={searchOnChange}
+          queryFields={queryFields} prefixQueryFields={prefixQueryFields}
+          queryOptions={{minimum_should_match:"60%"}}
+          prefixQueryOptions={{minimum_should_match:"70%"}}
+        />
       );
       this.accessor = this.searchkit.accessors.getAccessors()[0]
     }
@@ -94,9 +99,10 @@ describe("Searchbox tests", () => {
     expect(this.accessor.key).toBe("q")
     let options = this.accessor.options
     expect(options).toEqual({
-      "queryFields": ["title"],
-      prefixQueryFields:false,
-      "queryOptions": {}
+      queryFields: ["title"],
+      prefixQueryFields:null,
+      queryOptions: {minimum_should_match:"60%"},
+      prefixQueryOptions: {minimum_should_match:"70%"}
     })
 
   })
@@ -107,9 +113,10 @@ describe("Searchbox tests", () => {
     expect(this.accessor.key).toBe("q")
     let options = this.accessor.options
     expect(options).toEqual({
-      "queryFields": ["title"],
-      prefixQueryFields:["title"],
-      "queryOptions": {}
+      queryFields: ["title"],
+      prefixQueryFields:null,
+      queryOptions: {minimum_should_match:"60%"},
+      prefixQueryOptions: {minimum_should_match:"70%"}
     })
 
   })
@@ -120,9 +127,10 @@ describe("Searchbox tests", () => {
     expect(this.accessor.key).toBe("q")
     let options = this.accessor.options
     expect(options).toEqual({
-      "queryFields": ["title"],
+      queryFields: ["title"],
       prefixQueryFields:["prefix"],
-      "queryOptions": {}
+      queryOptions: {minimum_should_match:"60%"},
+      prefixQueryOptions: {minimum_should_match:"70%"}
     })
 
   })
