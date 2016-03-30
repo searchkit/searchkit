@@ -5,7 +5,8 @@ import {
 	FilterBucket,
 	HistogramBucket,
 	RangeQuery,
-	BoolMust
+	BoolMust,
+	CardinalityMetric
 } from "../query";
 
 
@@ -16,7 +17,7 @@ export interface RangeAccessorOptions {
 	max:number
   interval?: number
 	field:string,
-	loadBuckets?:boolean
+	loadHistogram?:boolean
 }
 
 export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
@@ -58,6 +59,14 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
     )
   }
 
+	isDisabled() {
+		if (this.options.loadHistogram) {
+			return this.getBuckets().length == 0
+		} else {
+			return this.getAggregations([this.key, this.key, "value"], 0) == 0
+		}
+	}
+
   getInterval(){
     if (this.options.interval) {
       return this.options.interval
@@ -66,7 +75,6 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
   }
 
   buildOwnQuery(query) {
-		if(this.options.loadBuckets){
 			let otherFilters = query.getFiltersWithoutKeys(this.key)
 			let filters = BoolMust([
 				otherFilters,
@@ -74,10 +82,11 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 					gte:this.options.min, lte:this.options.max
 				})
 			])
-			query = query.setAggs(FilterBucket(
-				this.key,
-				filters,
-				HistogramBucket(this.key, this.options.field, {
+
+			let metric = null
+
+			if (this.options.loadHistogram) {
+				metric = HistogramBucket(this.key, this.options.field, {
 					"interval":this.getInterval(),
 					"min_doc_count":0,
 					"extended_bounds":{
@@ -85,8 +94,14 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 						"max":this.options.max
 					}
 				})
+			} else {
+				metric = CardinalityMetric(this.key, this.options.field)
+			}
+
+			return query.setAggs(FilterBucket(
+				this.key,
+				filters,
+				metric
 			))
-		}
-    return query;
-  }
+	}
 }

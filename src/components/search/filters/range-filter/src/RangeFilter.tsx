@@ -71,7 +71,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 		const { id, title, min, max, field,
 			interval, showHistogram } = this.props
 		return new RangeAccessor(id,{
-			id, min, max, title, field, interval, loadBuckets:showHistogram
+			id, min, max, title, field, interval, loadHistogram:showHistogram
 		})
 	}
 
@@ -114,12 +114,10 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	render() {
     const { id, title, containerComponent } = this.props
 
-    const maxValue = computeMaxValue(this.accessor.getBuckets(), "doc_count")
-
     return renderComponent(containerComponent, {
       title,
       className: id ? `filter--${id}` : undefined,
-      disabled: maxValue == 0
+      disabled: this.accessor.isDisabled()
     }, this.renderRangeComponent(this.getRangeComponent()))
   }
 

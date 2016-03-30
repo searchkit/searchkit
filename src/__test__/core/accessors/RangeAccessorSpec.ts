@@ -18,7 +18,7 @@ describe("RangeAccessor", ()=> {
       min:0,
       max:100,
       field:"metaScore",
-      loadBuckets:true
+      loadHistogram:true
     })
   })
 
@@ -95,7 +95,7 @@ describe("RangeAccessor", ()=> {
     })
 
     it("build own query loadBuckets:false", ()=> {
-      this.accessor.options.loadBuckets = false
+      this.accessor.options.loadHistogram = false
       let query = this.accessor.buildOwnQuery(this.query)
       expect(query).toBe(this.query)
     })
