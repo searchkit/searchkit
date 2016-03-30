@@ -6,7 +6,8 @@ import {
   BoolShould,
   FilterBucket,
   BoolMust,
-  HistogramBucket
+  HistogramBucket,
+  CardinalityMetric
 } from "../../../"
 
 describe("RangeAccessor", ()=> {
@@ -33,6 +34,29 @@ describe("RangeAccessor", ()=> {
     }
     expect(this.accessor.getBuckets())
       .toEqual([1,2])
+  })
+
+  it("isDisabled()", () => {
+    expect(this.accessor.isDisabled()).toEqual(true)
+    this.accessor.results = {
+      aggregations:{
+        metascore:{
+          metascore:{buckets:[1,2]}
+        }
+      }
+    }
+    this.accessor.options.loadHistogram = false
+    expect(this.accessor.isDisabled()).toEqual(true)
+
+    this.accessor.results = {
+      aggregations:{
+        metascore:{
+          metascore:{value:1}
+        }
+      }
+    }
+    expect(this.accessor.isDisabled()).toEqual(false)
+
   })
 
   describe("build query", () => {
@@ -97,7 +121,22 @@ describe("RangeAccessor", ()=> {
     it("build own query loadBuckets:false", ()=> {
       this.accessor.options.loadHistogram = false
       let query = this.accessor.buildOwnQuery(this.query)
-      expect(query).toBe(this.query)
+      // expect(query).toBe(this.query)
+      expect(query.query.aggs).toEqual(
+        FilterBucket("metascore",
+          BoolMust([
+            BoolMust([
+              BoolShould(["PG"])
+            ]),
+            {range:{
+              metaScore:{
+                gte:0, lte:100
+              }
+            }}
+          ]),
+          CardinalityMetric("metascore", "metaScore")
+        )
+      )
     })
 
   })
