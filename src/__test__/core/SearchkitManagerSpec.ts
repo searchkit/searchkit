@@ -266,7 +266,18 @@ describe("SearchkitManager", ()=> {
     this.searchkit._search()
     expect(SearchRequest.prototype.run)
       .toHaveBeenCalled()
+  })
 
+  it("reloadSearch()", ()=> {
+    spyOn(SearchRequest.prototype, "run")
+    this.searchkit.query = new ImmutableQuery().setSize(20).setSort([{"created":"desc"}])
+    this.searchkit.buildQuery = ()=> new ImmutableQuery().setSize(20).setSort([{"created":"desc"}])
+    this.searchkit._search()
+    expect(SearchRequest.prototype.run)
+      .not.toHaveBeenCalled()
+    this.searchkit.reloadSearch()
+    expect(SearchRequest.prototype.run)
+      .toHaveBeenCalled()
   })
 
   it("setResults()", ()=> {

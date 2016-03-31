@@ -14,6 +14,7 @@ export interface SearchBoxProps extends SearchkitComponentProps {
   searchOnChange?:boolean
   searchThrottleTime?:number
   queryFields?:Array<string>
+  queryBuilder?:Function
   queryOptions?:any
   autofocus?:boolean
   id?: string
@@ -43,6 +44,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     id:React.PropTypes.string,
     searchOnChange:React.PropTypes.bool,
     searchThrottleTime:React.PropTypes.number,
+    queryBuilder:React.PropTypes.func,
     queryFields:React.PropTypes.arrayOf(React.PropTypes.string),
     autofocus:React.PropTypes.bool,
     queryOptions:React.PropTypes.object,
@@ -73,14 +75,15 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
 
   defineAccessor(){
     const {
-      id, prefixQueryFields, queryFields,
+      id, prefixQueryFields, queryFields, queryBuilder,
       searchOnChange, queryOptions, prefixQueryOptions
     } = this.props
     return new QueryAccessor(id, {
       prefixQueryFields,
       prefixQueryOptions:assign({}, prefixQueryOptions),
       queryFields:queryFields || ["_all"],
-      queryOptions:assign({}, queryOptions)
+      queryOptions:assign({}, queryOptions),
+      queryBuilder
     })
   }
 

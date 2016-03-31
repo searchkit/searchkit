@@ -1,6 +1,6 @@
 const assign = require("lodash/assign")
 
-export interface SimpleQueryStringOptions {
+export interface QueryStringOptions {
   analyzer?:string
   fields?:Array<string>
   default_operator?:string
@@ -8,11 +8,11 @@ export interface SimpleQueryStringOptions {
   [str:string]:any
 }
 
-export function SimpleQueryString(query, options:SimpleQueryStringOptions={}){
+export function QueryString(query, options:QueryStringOptions={}){
   if(!query){
     return
   }
   return {
-    "simple_query_string":assign({query}, options)
+    "query_string":assign({query}, options)
   }
 }

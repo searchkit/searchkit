@@ -59,7 +59,7 @@ export class DynamicRangeFilter extends SearchkitComponent<DynamicRangeFilterPro
 	}
 
 	defineBEMBlocks() {
-		let block = this.props.mod || "sk-range-filter"
+		let block = this.props.mod || "sk-dynamic-range-filter"
 		return {
 			container: block,
 			labels: block+"-value-labels"

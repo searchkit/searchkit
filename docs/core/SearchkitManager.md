@@ -52,6 +52,12 @@ Sometimes we need to apply a default query which affects the entire search and i
   })
 ```
 
+## reloadSearch
+If you want to reload the search even with query and state hasn't changed
+```typescript
+  searchkit.reloadSearch()
+```
+
 ## Query Processor
 Searchkit offers ability to mutate the query just before its sent to ElasticSearch, this is so we can always support new apis for ElasticSearch and any custom logic you wish to add that is low level in searchkit normally.
 
