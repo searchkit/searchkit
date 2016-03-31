@@ -88,22 +88,22 @@ body {
 .sk-layout {
 
   &__size-l {
-    .top-bar__content {
+    .sk-top-bar__content {
       width:1280px;
     }
 
-    .layout__body {
+    .sk-layout__body {
       max-width:1280px;
     }
   }
 
   &__size-m {
 
-    .top-bar__content {
+    .sk-top-bar__content {
       width:960px;
     }
 
-    .layout__body {
+    .sk-layout__body {
       max-width:960px;
     }
 

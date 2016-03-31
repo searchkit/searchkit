@@ -73,6 +73,7 @@
     "./src/components/ui/filter-group/FilterGroup.tsx",
     "./src/components/ui/filter-group/FilterGroup.unit.tsx",
     "./src/components/ui/layout/Layout.tsx",
+    "./src/components/ui/layout/Layout.unit.tsx",
     "./src/components/ui/layout/Panel.tsx",
     "./src/components/ui/layout/Panel.unit.tsx",
     "./src/components/ui/list/ItemComponents.tsx",
