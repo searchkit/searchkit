@@ -11,7 +11,6 @@ export const LayoutBuilder = (className)=> {
       </div>
   )
 }
-export const Layout = LayoutBuilder("sk-layout")
 export const LayoutBody = LayoutBuilder("sk-layout__body")
 export const LayoutResults = LayoutBuilder("sk-layout__results sk-results-list")
 export const ActionBar = LayoutBuilder("sk-results-list__action-bar sk-action-bar")
@@ -25,3 +24,12 @@ export const TopBar = (props)=> (
     </div>
   </div>
 )
+
+export const Layout = (props) => {
+  const sizeClass = props.size ? "sk-layout__size-"+props.size : null
+  return (
+    <div className={mixClasses("sk-layout", props.className, sizeClass)}>
+      {props.children}
+    </div>
+  )
+}
