@@ -14,6 +14,7 @@ export interface SearchOptions {
   prefixQueryOptions?:Object
   title?: string
   addToFilters?:boolean
+  queryBuilder?:Function
 }
 export class QueryAccessor extends BaseQueryAccessor {
   options:SearchOptions
@@ -27,8 +28,8 @@ export class QueryAccessor extends BaseQueryAccessor {
   buildSharedQuery(query){
     let queryStr = this.state.getValue()
     if(queryStr){
-
-      let simpleQuery = SimpleQueryString(
+      let queryBuilder  = this.options.queryBuilder || SimpleQueryString
+      let simpleQuery = queryBuilder(
         queryStr, assign(
           {fields:this.options.queryFields},
           this.options.queryOptions

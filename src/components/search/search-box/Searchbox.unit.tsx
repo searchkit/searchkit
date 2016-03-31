@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {SearchBox} from "./SearchBox.tsx";
-import {SearchkitManager } from "../../../core";
+import {SearchkitManager, QueryString } from "../../../core";
 const bem = require("bem-cn");
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
@@ -21,13 +21,14 @@ describe("Searchbox tests", () => {
       }[key]
     }
 
-    this.createWrapper = (searchOnChange=false, queryFields=null, prefixQueryFields=null) => {
+    this.createWrapper = (searchOnChange=false, queryFields=null, prefixQueryFields=null, options={}) => {
       this.wrapper = mount(
         <SearchBox searchkit={this.searchkit}
           searchOnChange={searchOnChange}
           queryFields={queryFields} prefixQueryFields={prefixQueryFields}
           queryOptions={{minimum_should_match:"60%"}}
           prefixQueryOptions={{minimum_should_match:"70%"}}
+          {...options}
         />
       );
       this.accessor = this.searchkit.accessors.getAccessors()[0]
@@ -102,7 +103,8 @@ describe("Searchbox tests", () => {
       queryFields: ["title"],
       prefixQueryFields:null,
       queryOptions: {minimum_should_match:"60%"},
-      prefixQueryOptions: {minimum_should_match:"70%"}
+      prefixQueryOptions: {minimum_should_match:"70%"},
+      queryBuilder:undefined
     })
 
   })
@@ -116,13 +118,14 @@ describe("Searchbox tests", () => {
       queryFields: ["title"],
       prefixQueryFields:null,
       queryOptions: {minimum_should_match:"60%"},
-      prefixQueryOptions: {minimum_should_match:"70%"}
+      prefixQueryOptions: {minimum_should_match:"70%"},
+      queryBuilder:undefined
     })
 
   })
 
   it("should configure accessor + prefix", ()=> {
-    this.createWrapper(true, ["title"], ["prefix"])
+    this.createWrapper(true, ["title"], ["prefix"], {queryBuilder:QueryString})
 
     expect(this.accessor.key).toBe("q")
     let options = this.accessor.options
@@ -130,7 +133,8 @@ describe("Searchbox tests", () => {
       queryFields: ["title"],
       prefixQueryFields:["prefix"],
       queryOptions: {minimum_should_match:"60%"},
-      prefixQueryOptions: {minimum_should_match:"70%"}
+      prefixQueryOptions: {minimum_should_match:"70%"},
+      queryBuilder:QueryString
     })
 
   })
