@@ -157,6 +157,11 @@ export class SearchkitManager {
     return window.location.pathname + '?' + queryString
   }
 
+  reloadSearch(){
+    delete this.query
+    this.performSearch()
+  }
+
   search(replaceState=false){
     this.performSearch(replaceState)
   }
