@@ -64,9 +64,9 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 	isDisabled() {
 		if (this.options.loadHistogram) {
 			const maxValue = get(maxBy(this.getBuckets(), "doc_count"), "doc_count", 0)
-			return maxValue == 0
+			return maxValue === 0
 		} else {
-			return this.getAggregations([this.key, this.key, "value"], 0) == 0
+			return this.getAggregations([this.key, this.key, "value"], 0) === 0
 		}
 	}
 
