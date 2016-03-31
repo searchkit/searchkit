@@ -67,7 +67,7 @@ describe("Range Filter tests", () => {
       field:"metascore",
       title:"metascore",
       interval: undefined,
-      loadBuckets:true
+      loadHistogram:true
     })
   })
 
@@ -142,7 +142,7 @@ describe("Range Filter tests", () => {
 
   it("renders limited range correctly", ()=> {
     this.createWrapper(true)
-    this.wrapper.node.sliderUpdate({min:30,max:70})    
+    this.wrapper.node.sliderUpdate({min:30,max:70})
     expect(this.wrapper.find(".sk-range-histogram").html()).toEqual(jsxToHTML(
       <div className="sk-range-histogram">
         <div className="sk-range-histogram__bar is-out-of-bounds" style={{height:"20%"}}></div>
