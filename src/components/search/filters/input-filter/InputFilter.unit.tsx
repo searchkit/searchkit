@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import { InputFilter } from "./InputFilter";
-import { SearchkitManager } from "../../../../core";
+import { SearchkitManager, SimpleQueryString, QueryString } from "../../../../core";
 const bem = require("bem-cn");
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
@@ -184,7 +184,8 @@ describe("InputFilter tests", () => {
       queryFields: ["title"],
       prefixQueryFields:null,
       queryOptions: {},
-      prefixQueryOptions: {}
+      prefixQueryOptions: {},
+      queryBuilder:undefined
     })
 
   })
@@ -200,7 +201,8 @@ describe("InputFilter tests", () => {
       queryFields: ["title"],
       prefixQueryFields:null,
       queryOptions: {},
-      prefixQueryOptions: {}
+      prefixQueryOptions: {},
+      queryBuilder:undefined
     })
 
   })
@@ -208,7 +210,8 @@ describe("InputFilter tests", () => {
   it("should configure accessor + prefix", ()=> {
     this.createWrapper(true, ["title"], ["prefix"], {
       queryOptions:{minimum_should_match:"60%"},
-      prefixQueryOptions:{minimum_should_match:"70%"}
+      prefixQueryOptions:{minimum_should_match:"70%"},
+      queryBuilder:QueryString
     })
 
     expect(this.accessor.key).toBe("test_id")
@@ -219,7 +222,8 @@ describe("InputFilter tests", () => {
       queryFields: ["title"],
       prefixQueryFields:["prefix"],
       queryOptions:{minimum_should_match:"60%"},
-      prefixQueryOptions:{minimum_should_match:"70%"}
+      prefixQueryOptions:{minimum_should_match:"70%"},
+      queryBuilder:QueryString
     })
   })
 

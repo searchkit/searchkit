@@ -1,7 +1,7 @@
 import {
   QueryAccessor, ImmutableQuery, MatchPhrasePrefix,
   SimpleQueryString, ValueState, BoolShould, BoolMust,
-  MultiMatchQuery
+  MultiMatchQuery,QueryString
 } from "../../../"
 
 describe("QueryAccessor", ()=> {
@@ -46,6 +46,7 @@ describe("QueryAccessor", ()=> {
     it("extend options", () => {
       this.accessor = new QueryAccessor("q", {
         queryFields:["_all"],
+        queryBuilder:QueryString,
         queryOptions: {
           type:"best_fields",
           x:"y"
@@ -58,7 +59,7 @@ describe("QueryAccessor", ()=> {
       expect(query.query.query).toEqual(
         BoolMust([
           BoolShould([
-            SimpleQueryString("some query", {fields:["_all"], type:"best_fields", x:"y"})
+            QueryString("some query", {fields:["_all"], type:"best_fields", x:"y"})
           ])
         ])
       )

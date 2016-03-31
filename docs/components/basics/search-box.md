@@ -28,6 +28,9 @@ class App extends SearchkitComponent {
 ## Props
 - `searchOnChange` *(Boolean)*: Optional. Updates search results as you type. Will be false by default.
   - use with `prefixQueryFields` to get a better search as you type behaviour.
+- `queryBuilder` *(Function)* builder used to create the query going to elastic.
+  - defaults to `SimpleQueryString`
+  - Supports `QueryString`, or custom function accepting `(query:string, options:Object)`
 - `queryFields` *(Array<string>)*: Optional. An array of elasticsearch fields to search within. Can specify boosting on particular fields. Will search `_all` by default.
 - `queryOptions` *(Object)*: Optional. An object of options for [Query String](https://www.elastic.co/guide/en/elasticsearch/reference/2.0/query-dsl-query-string-query.html).
 - `prefixQueryFields` *(Array<string>)*: Optional. An array of elasticsearch fields to search within. Can specify boosting on particular fields. Will search `_all` by default. Will only be used if searchOnChange is true.
