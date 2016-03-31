@@ -68,8 +68,8 @@ export class DynamicRangeFilter extends SearchkitComponent<DynamicRangeFilterPro
 
   getMinMax() {
     return {
-      min: this.accessor.getStat("min"),
-      max: this.accessor.getStat("max")
+      min: this.accessor.getStat("min") || 0,
+      max: this.accessor.getStat("max") || 0
     }
   }
 

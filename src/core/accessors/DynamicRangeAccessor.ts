@@ -57,7 +57,7 @@ export class DynamicRangeAccessor extends FilterBasedAccessor<ObjectState> {
   }
 
 	isDisabled() {
-		return false
+		return (this.getStat("count") === 0) || (this.getStat("min") === this.getStat("max"))
 	}
 
   buildOwnQuery(query) {
