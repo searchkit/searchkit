@@ -57,6 +57,9 @@ export class Accessor {
     return get(results, getPath, defaultValue)
   }
 
+  beforeBuildQuery(){
+
+  }
   buildSharedQuery(query:ImmutableQuery){
     return query
   }

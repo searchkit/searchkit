@@ -1,19 +1,37 @@
-## What is Searchkit?
-Searchkit is a suite of UI components built in react. The aim is to rapidly create beautiful search applications using declarative components, and without being an ElasticSearch expert.
+const {
+  SearchkitManager,SearchkitProvider,
+  SearchBox, Hits, RefinementListFilter, Pagination,
+  HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
+  SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
+  ViewSwitcherHits, ViewSwitcherToggle
+} = require("../../../../../src")
 
-<img src="./docs/assets/codepreview.png"/>
+const _ = require("lodash")
 
-[<img src="https://circleci.com/gh/searchkit/searchkit.png?style=shield"/>](https://circleci.com/gh/searchkit/searchkit)
-[![npm version](https://badge.fury.io/js/searchkit.svg)](https://badge.fury.io/js/searchkit)
-[![Join the chat at https://gitter.im/searchkit/searchkit](https://badges.gitter.im/searchkit/searchkit.svg)](https://gitter.im/searchkit/searchkit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Coverage Status](https://coveralls.io/repos/searchkit/searchkit/badge.svg?branch=develop&service=github)](https://coveralls.io/github/searchkit/searchkit?branch=develop)
+const {
+  Layout, TopBar, LayoutBody, LayoutResults,
+  ActionBar, ActionBarInfo, ActionBarFilters, SideBar
+} = require("../../../../../src")
 
-See full [Documentation](http://docs.searchkit.co/stable) or [Getting Started](http://docs.searchkit.co/stable/docs/setup/project-setup.html)
+import * as ReactDOM from "react-dom";
+import * as React from "react";
+require("../../../../../theming/theme.scss")
 
-## Quick Intro
-[Live demo](http://demo.searchkit.co)
+const MovieHitsGridItem = (props)=> {
+  const {bemBlocks, result} = props
+  let url = "http://www.imdb.com/title/" + result._source.imdbId
+  const source:any = _.extend({}, result._source, result.highlight)
+  return (
+    <div className={bemBlocks.item().mix(bemBlocks.container("item"))} data-qa="hit">
+      <a href={url} target="_blank">
+        <img data-qa="poster" className={bemBlocks.item("poster")} src={result._source.poster} width="170" height="240"/>
+        <div data-qa="title" className={bemBlocks.item("title")} dangerouslySetInnerHTML={{__html:source.title}}>
+        </div>
+      </a>
+    </div>
+  )
+}
 
-```jsx
 const searchkit = new SearchkitManager("http://demo.searchkit.co/api/movies/")
 
 
@@ -59,6 +77,3 @@ const App = ()=> (
 )
 
 ReactDOM.render(<App/>, document.getElementById('root'))
-
-
-```
