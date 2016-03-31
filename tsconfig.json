@@ -100,6 +100,7 @@
     "./src/__test__/core/accessors/AnonymousAccessorSpec.ts",
     "./src/__test__/core/accessors/BaseQueryAccessorSpec.ts",
     "./src/__test__/core/accessors/CheckboxFilterAccessorSpec.ts",
+    "./src/__test__/core/accessors/DynamicRangeAccessorSpec.ts",
     "./src/__test__/core/accessors/FacetAccessorSpec.ts",
     "./src/__test__/core/accessors/HierarchicalFacetAccessorSpec.ts",
     "./src/__test__/core/accessors/HighlightAccessorSpec.ts",

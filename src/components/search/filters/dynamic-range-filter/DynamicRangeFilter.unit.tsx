@@ -6,7 +6,7 @@ import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
 } from "../../../__test__/TestHelpers"
 
-fdescribe("Dynamic Range Filter tests", () => {
+describe("Dynamic Range Filter tests", () => {
 
   beforeEach(() => {
 
