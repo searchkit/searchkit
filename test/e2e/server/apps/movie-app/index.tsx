@@ -10,6 +10,7 @@ const {
   Layout, TopBar, LayoutBody, LayoutResults,
   ActionBar, ActionBarRow, SideBar
 } = require("../../../../../src")
+
 const host = "http://demo.searchkit.co/api/movies"
 import * as ReactDOM from "react-dom";
 import * as React from "react";
@@ -81,6 +82,7 @@ class App extends React.Component<any, any> {
           </SideBar>
           <LayoutResults>
             <ActionBar>
+
               <ActionBarRow>
                 <HitsStats translations={{
                   "hitstats.results_found":"{hitCount} results found"
