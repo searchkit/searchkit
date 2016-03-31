@@ -172,12 +172,17 @@ describe("AccessorManager", ()=> {
   })
 
   it("buildQuery()", ()=> {
+    spyOn(Accessor.prototype, "beforeBuildQuery")
     expect(this.accessors.buildQuery().getSize())
       .toEqual(50)
+
+    expect(Accessor.prototype.beforeBuildQuery["calls"].count())
+      .toBe(5)
 
     this.accessor5.setActive(false)
     expect(this.accessors.buildQuery().getSize())
       .toBe(0)
+
   })
 
   it("setResults()", ()=> {

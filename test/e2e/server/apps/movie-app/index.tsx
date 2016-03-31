@@ -81,7 +81,7 @@ class App extends React.Component<any, any> {
           </SideBar>
           <LayoutResults>
             <ActionBar>
-            
+
               <ActionBarRow>
                 <HitsStats translations={{
                   "hitstats.results_found":"{hitCount} results found"
