@@ -25,6 +25,7 @@
     "./src/components/search/filters/checkbox-filter/CheckboxFilter.tsx",
     "./src/components/search/filters/checkbox-filter/CheckboxFilter.unit.tsx",
     "./src/components/search/filters/dynamic-range-filter/DynamicRangeFilter.tsx",
+    "./src/components/search/filters/dynamic-range-filter/DynamicRangeFilter.unit.tsx",
     "./src/components/search/filters/facet-filter/FacetFilter.tsx",
     "./src/components/search/filters/facet-filter/FacetFilter.unit.tsx",
     "./src/components/search/filters/facet-filter/MenuFilter.tsx",
