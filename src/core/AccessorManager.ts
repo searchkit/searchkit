@@ -117,6 +117,7 @@ export class AccessorManager {
   }
 
   buildQuery(){
+    each(this.getActiveAccessors(), accessor => accessor.beforeBuildQuery())
     return this.buildOwnQuery(
       this.buildSharedQuery(new ImmutableQuery())
     )
