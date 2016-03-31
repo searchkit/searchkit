@@ -19,6 +19,7 @@
       * [Numeric Refinement List](/docs/components/navigation/numeric-refinement-list.md)
       * [Menu](/docs/components/navigation/menu.md)
       * [Range Filter](/docs/components/navigation/range-filter.md)
+      * [Dynamic Range Filter](/docs/components/navigation/dynamic-range-filter.md)
       * [Selected Filters](/docs/components/navigation/selected-filters.md)
       * [Grouped Selected Filters](/docs/components/navigation/grouped-selected-filters.md)
       * [Reset](/docs/components/navigation/reset.md)

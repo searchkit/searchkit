@@ -16,5 +16,6 @@ export * from "./search/filters/hierarchical-refinement-filter/src/HierarchicalR
 export * from "./search/filters/range-filter/src/RangeFilter";
 export * from "./search/filters/facet-filter";
 export * from "./search/filters/tag-filter";
+export * from "./search/filters/dynamic-range-filter/DynamicRangeFilter";
 export * from "./display";
 export * from "./ui";
