@@ -9,6 +9,8 @@ import {
 	CardinalityMetric
 } from "../query";
 
+const maxBy = require("lodash/maxBy")
+const get = require("lodash/get")
 
 export interface RangeAccessorOptions {
 	title:string
@@ -61,7 +63,8 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 
 	isDisabled() {
 		if (this.options.loadHistogram) {
-			return this.getBuckets().length == 0
+			const maxValue = get(maxBy(this.getBuckets(), "doc_count"), "doc_count", 0)
+			return maxValue == 0
 		} else {
 			return this.getAggregations([this.key, this.key, "value"], 0) == 0
 		}
@@ -83,7 +86,7 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 				})
 			])
 
-			let metric = null
+			let metric
 
 			if (this.options.loadHistogram) {
 				metric = HistogramBucket(this.key, this.options.field, {

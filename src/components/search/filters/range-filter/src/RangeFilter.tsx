@@ -18,15 +18,8 @@ import {
 } from "../../../../ui"
 
 const defaults = require("lodash/defaults")
-const max = require("lodash/max")
-const maxBy = require("lodash/maxBy")
 const map = require("lodash/map")
 const get = require("lodash/get")
-
-function computeMaxValue(items, field) {
-  if (!items || items.length == 0) return 0
-  return maxBy(items, field)[field]
-}
 
 export interface RangeFilterProps extends SearchkitComponentProps {
 	field:string
@@ -95,11 +88,6 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	sliderUpdateAndSearch(newValues){
 		this.sliderUpdate(newValues)
 		this.searchkit.performSearch()
-	}
-
-	getMaxValue() {
-		if (this.accessor.getBuckets() == 0) return 0
-		return max(map(this.accessor.getBuckets(), "doc_count"))
 	}
 
 	getRangeComponent():RenderComponentType<any>{

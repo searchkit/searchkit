@@ -36,16 +36,39 @@ describe("RangeAccessor", ()=> {
       .toEqual([1,2])
   })
 
-  it("isDisabled()", () => {
-    expect(this.accessor.isDisabled()).toEqual(true)
+  it("isDisabled() - with histogram", () => {
+    this.accessor.options.loadHistogram = true
+
     this.accessor.results = {
       aggregations:{
         metascore:{
-          metascore:{buckets:[1,2]}
+          metascore:{buckets:[{key:1, doc_count:0}, {key:2, doc_count:0}]}
         }
       }
     }
+    expect(this.accessor.isDisabled()).toEqual(true)
+
+    this.accessor.results = {
+      aggregations:{
+        metascore:{
+          metascore:{buckets:[{key:1, doc_count:0}, {key:2, doc_count:1}]}
+        }
+      }
+    }
+    expect(this.accessor.isDisabled()).toEqual(false)
+
+  })
+
+  it("isDisabled() - without histogram", () => {
     this.accessor.options.loadHistogram = false
+
+    this.accessor.results = {
+      aggregations:{
+        metascore:{
+          metascore:{value:0}
+        }
+      }
+    }
     expect(this.accessor.isDisabled()).toEqual(true)
 
     this.accessor.results = {
