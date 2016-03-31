@@ -14,6 +14,7 @@ export const MinMetric = FieldMetricFactory("min")
 export const MaxMetric = FieldMetricFactory("max")
 export const AvgMetric = FieldMetricFactory("avg")
 export const SumMetric = FieldMetricFactory("sum")
+export const StatsMetric = FieldMetricFactory("stats")
 
 export interface TopHitsMetricOptions{
   size:number
