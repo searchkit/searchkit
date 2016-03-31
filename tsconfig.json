@@ -211,7 +211,6 @@
     "./src/core/query/query_dsl/full_text/MatchPhrasePrefix.ts",
     "./src/core/query/query_dsl/full_text/MatchQuery.ts",
     "./src/core/query/query_dsl/full_text/MultiMatchQuery.ts",
-    "./src/core/query/query_dsl/full_text/PriceFieldAccessor.ts",
     "./src/core/query/query_dsl/full_text/QueryString.ts",
     "./src/core/query/query_dsl/full_text/SimpleQueryString.ts",
     "./src/core/query/query_dsl/index.ts",
