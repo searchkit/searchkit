@@ -1,19 +1,5 @@
 @import "vars.scss";
 
-.sk-action-bar {
-
-  .sk-select {
-    margin-right:15px;
-  }
-}
-
-.sk-layout__filters {
-
-  .sk-select select {
-    width: 100%
-  }
-}
-
 .sk-select {
   position:relative;
   cursor:pointer;

@@ -57,13 +57,13 @@ body {
       margin-top:10px;
     }
 
-    .sk-selected-filters {
-      flex-flow: column nowrap;
-      &-option {
-        margin-right:0;
-        margin-bottom:10px;
-      }
-    }
+    // .sk-selected-filters {
+    //   flex-flow: column nowrap;
+    //   &-option {
+    //     margin-right:0;
+    //     margin-bottom:10px;
+    //   }
+    // }
   }
 
   &__results {
@@ -115,18 +115,18 @@ body {
   flex-flow: column wrap;
   margin:0 15px 15px;
 
-  &__info {
+  &-row {
     display:flex;
+    flex-flow: row wrap;
+    margin:0px 0 10px;
+
+    &:last-child {
+      margin:0;
+    }
   }
 
-  &__filters {
-    display:flex;
-    flex-flow: row;
-    margin:15px 0 0;
-  }
-
-  .sk-view-switcher {
-    margin-right:15px;
+  .sk-hits-stats {
+    line-height: 30px;
   }
 }
 
@@ -211,7 +211,7 @@ body {
 
 .sk-selected-filters {
   display:flex;
-  flex-flow:row;
+  flex-flow:row wrap;
   margin-right:10px;
 
   &-option {
@@ -342,4 +342,18 @@ body {
     max-width:800px;
   }
 
+}
+
+.sk-action-bar {
+
+  .sk-select, .sk-toggle {
+    margin-left:15px;
+  }
+}
+
+.sk-layout__filters {
+
+  .sk-select select {
+    width: 100%
+  }
 }

@@ -10,7 +10,7 @@ const _ = require("lodash")
 
 const {
   Layout, TopBar, LayoutBody, LayoutResults,
-  ActionBar, ActionBarInfo, ActionBarFilters, SideBar
+  ActionBar, ActionBarRow, SideBar
 } = require("../../../../../src")
 
 import * as ReactDOM from "react-dom";
@@ -59,13 +59,16 @@ const App = ()=> (
         </SideBar>
         <LayoutResults>
           <ActionBar>
-            <ActionBarInfo>
+          
+            <ActionBarRow>
               <HitsStats/>
-            </ActionBarInfo>
-            <ActionBarFilters>
+            </ActionBarRow>
+
+            <ActionBarRow>
               <SelectedFilters/>
               <ResetFilters/>
-            </ActionBarFilters>
+            </ActionBarRow>
+
           </ActionBar>
           <Hits mod="sk-hits-grid" hitsPerPage={10} itemComponent={MovieHitsGridItem}
             sourceFilter={["title", "poster", "imdbId"]}/>

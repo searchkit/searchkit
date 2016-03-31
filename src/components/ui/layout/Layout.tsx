@@ -15,8 +15,7 @@ export const Layout = LayoutBuilder("sk-layout")
 export const LayoutBody = LayoutBuilder("sk-layout__body")
 export const LayoutResults = LayoutBuilder("sk-layout__results sk-results-list")
 export const ActionBar = LayoutBuilder("sk-results-list__action-bar sk-action-bar")
-export const ActionBarInfo = LayoutBuilder("sk-action-bar__info")
-export const ActionBarFilters = LayoutBuilder("sk-action-bar__filters")
+export const ActionBarRow = LayoutBuilder("sk-action-bar-row")
 export const SideBar = LayoutBuilder("sk-layout__filters")
 
 export const TopBar = (props)=> (

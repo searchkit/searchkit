@@ -8,7 +8,7 @@ const {
 
 const {
   Layout, TopBar, LayoutBody, LayoutResults,
-  ActionBar, ActionBarInfo, ActionBarFilters, SideBar
+  ActionBar, ActionBarRow, SideBar
 } = require("../../../../../src")
 const host = "http://demo.searchkit.co/api/movies"
 import * as ReactDOM from "react-dom";
@@ -81,7 +81,8 @@ class App extends React.Component<any, any> {
           </SideBar>
           <LayoutResults>
             <ActionBar>
-              <ActionBarInfo>
+            
+              <ActionBarRow>
                 <HitsStats translations={{
                   "hitstats.results_found":"{hitCount} results found"
                 }}/>
@@ -91,11 +92,13 @@ class App extends React.Component<any, any> {
                   {label:"Latest Releases", field:"released", order:"desc"},
                   {label:"Earliest Releases", field:"released", order:"asc"}
                 ]}/>
-              </ActionBarInfo>
-              <ActionBarFilters>
+              </ActionBarRow>
+
+              <ActionBarRow>
                 <SelectedFilters/>
                 <ResetFilters/>
-              </ActionBarFilters>
+              </ActionBarRow>
+
             </ActionBar>
             <ViewSwitcherHits
                 hitsPerPage={12} highlightFields={["title","plot"]}
