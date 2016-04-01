@@ -33,7 +33,7 @@ class App extends SearchkitComponent {
 ```
 
 ## Advanced Sorting
-If you need to specify multiple sorting fields or have special options for sort field like `mode`, you can use the more advanced `fields` key (shown in example for "Highly Rated" option). This accepts an array of sort fields and allows sorting properties to be sent in the `options` object.
+If you need to specify multiple sorting fields or have special options for sort field like `mode`, you can use the more advanced `fields` key (shown in example for "Highly Rated" option). This accepts an array of sort fields and allows sorting properties to be sent in the `options` object. *Requires the `key` option to be specified.*
 
 ## Props
 - `options` *([{label:string, field?:<ESAttribute>, order?:(desc|asc), defaultOption?:boolean, fields?:Object}], key?:string)*: Options displayed for the user to order results with. You can use `fields` if you need to specify special options to sort, see `advanced sorting` section.
