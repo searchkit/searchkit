@@ -22,6 +22,7 @@
       * [Dynamic Range Filter](/docs/components/navigation/dynamic-range-filter.md)
       * [Input Filter](/docs/components/navigation/input-filter.md)
       * [Checkbox Filter](/docs/components/navigation/checkbox-filter.md)
+      * [Tag Filter](/docs/components/navigation/tag-filter.md)
       * [Selected Filters](/docs/components/navigation/selected-filters.md)
       * [Grouped Selected Filters](/docs/components/navigation/grouped-selected-filters.md)
       * [Reset](/docs/components/navigation/reset.md)
