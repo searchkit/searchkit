@@ -8,9 +8,9 @@ const {
   ViewSwitcherHits, ViewSwitcherToggle, Select, Toggle,
   ItemList, CheckboxItemList, ItemHistogramList, Tabs, TagCloud, MenuFilter,
   renderComponent, PageSizeSelector, RangeSliderHistogramInput, Panel, PaginationSelect,
-  
+
   InputFilter, TagFilter, TagFilterList, TagFilterConfig,
-  
+
   TermQuery, RangeQuery, BoolMust
 } = require("../../../../../src")
 const host = "http://demo.searchkit.co/api/movies"
@@ -47,7 +47,7 @@ const MovieHitsListItem = (props)=> {
   let url = "http://www.imdb.com/title/" + result._source.imdbId
   const source:any = _.extend({}, result._source, result.highlight)
   const { title, poster, writers = [], actors = [], genres = [], plot, released, rated } = source;
-  
+
   return (
     <div className={bemBlocks.item().mix(bemBlocks.container("item"))} data-qa="hit">
       <div className={bemBlocks.item("poster")}>
@@ -217,7 +217,7 @@ class App extends React.Component<any, any> {
                   RangeQuery("year", {lt: 1970}),
                   TermQuery("type.raw", "Movie")
                 ])} />
-              
+
               <InputFilter id="author_q" title="Actors filter" placeholder="Search actors" searchOnChange={true} prefixQueryFields={["actors"]} queryFields={["actors"]}/>
               <MenuFilter field={"type.raw"} size={10} title="Movie Type" id="types" listComponent={listComponents[this.state.viewMode]}
                 containerComponent={
@@ -255,7 +255,7 @@ class App extends React.Component<any, any> {
 
               <div className="sk-results-list__action-bar sk-action-bar">
 
-                <div className="sk-action-bar__info">
+                <div className="sk-action-bar-row">
                   <HitsStats translations={{
                     "hitstats.results_found":"{hitCount} results found"
                   }}/>
@@ -274,7 +274,7 @@ class App extends React.Component<any, any> {
                   ]} listComponent={Toggle}/>*/}
                 </div>
 
-                <div className="sk-action-bar__filters">
+                <div className="sk-action-bar-row">
                   <GroupedSelectedFilters/>
                   <ResetFilters/>
                 </div>
