@@ -21,15 +21,22 @@ class App extends SearchkitComponent {
       <SortingSelector options={[
         {label:"Relevance", field:"_score", order:"desc", defaultOption:true},
         {label:"Latest Releases", field:"released", order:"desc"},
-        {label:"Earliest Releases", field:"released", order:"asc", key:"earliest"}
+        {label:"Earliest Releases", field:"released", order:"asc", key:"earliest"},
+        {label:"Highly Rated", key:"rating", fields: [
+          {field:"rating", options: {order:"desc"}},
+          {field:"prices", options: {order:"asc", "mode" : "avg"}}
+        ]}
       ]}/>
     </div>
   }
 }
 ```
 
+## Advanced Sorting
+If you need to specify multiple sorting fields or have special options for sort field like `mode`, you can use the more advanced `fields` key (shown in example for "Highly Rated" option). This accepts an array of sort fields and allows sorting properties to be sent in the `options` object. *Requires the `key` option to be specified.*
+
 ## Props
-- `options` *([{label:string, field?:<ESAttribute>, order?:(desc|asc), defaultOption?:boolean}], key?:string)*: Options displayed for the user to order results with.
+- `options` *([{label:string, field?:<ESAttribute>, order?:(desc|asc), defaultOption?:boolean, fields?:Object}], key?:string)*: Options displayed for the user to order results with. You can use `fields` if you need to specify special options to sort, see `advanced sorting` section.
 - `listComponent` *(ReactComponent)* customise how the component is rendered
   - Compatible with `Select`, `Tabs`, `Toggle`, `ItemList`, `CheckboxItemList`
   - Defaults to `Select`

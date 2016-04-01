@@ -11,7 +11,9 @@ const {
 
   InputFilter, TagFilter, TagFilterList, TagFilterConfig,
 
-  TermQuery, RangeQuery, BoolMust
+  TermQuery, RangeQuery, BoolMust,
+
+  Layout, LayoutBody, LayoutResults, SideBar, TopBar, ActionBar, ActionBarRow
 } = require("../../../../../src")
 const host = "http://demo.searchkit.co/api/movies"
 import * as ReactDOM from "react-dom";
@@ -195,18 +197,15 @@ class App extends React.Component<any, any> {
   render(){
     return (
       <SearchkitProvider searchkit={searchkit}>
-        <div className="sk-layout">
+        <Layout>
 
-          <div className="sk-layout__top-bar sk-top-bar">
-            <div className="sk-top-bar__content">
-              <div className="my-logo">Searchkit Acme co</div>
-              <SearchBox autofocus={true} searchOnChange={true} prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
-            </div>
-          </div>
+          <TopBar>
+            <SearchBox autofocus={true} searchOnChange={true} prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
+          </TopBar>
 
-          <div className="sk-layout__body">
+          <LayoutBody>
 
-            <div className="sk-layout__filters">
+            <SideBar>
               <Panel title="Selected Filters" collapsable={true} defaultCollapsed={false}>
                 <SelectedFilters/>
               </Panel>
@@ -249,13 +248,13 @@ class App extends React.Component<any, any> {
                 {title:"21 to 60", from:21, to:60},
                 {title:"60 or more", from:61, to:1000}
               ]}/>
-            </div>
+            </SideBar>
 
-            <div className="sk-layout__results sk-results-list">
+            <LayoutResults>
 
-              <div className="sk-results-list__action-bar sk-action-bar">
+              <ActionBar>
 
-                <div className="sk-action-bar-row">
+                <ActionBarRow>
                   <HitsStats translations={{
                     "hitstats.results_found":"{hitCount} results found"
                   }}/>
@@ -272,14 +271,15 @@ class App extends React.Component<any, any> {
                     {label:"Latest Releases", field:"released", order:"desc"},
                     {label:"Earliest Releases", field:"released", order:"asc"}
                   ]} listComponent={Toggle}/>*/}
-                </div>
+                </ActionBarRow>
 
-                <div className="sk-action-bar-row">
+                <ActionBarRow>
                   <GroupedSelectedFilters/>
                   <ResetFilters/>
-                </div>
+                </ActionBarRow>
 
-              </div>
+              </ActionBar>
+
               <ViewSwitcherHits
                   hitsPerPage={12} highlightFields={["title","plot"]}
                   sourceFilter={["plot", "title", "poster", "imdbId", "imdbRating", "year", "genres", "writers", "actors"]}
@@ -301,9 +301,9 @@ class App extends React.Component<any, any> {
               <NoHits suggestionsField={"title"}/>
               <Pagination showNumbers={true}/>
               <PaginationSelect/>
-            </div>
-          </div>
-        </div>
+            </LayoutResults>
+          </LayoutBody>
+        </Layout>
       </SearchkitProvider>
     )
   }
