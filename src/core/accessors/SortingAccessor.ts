@@ -6,10 +6,15 @@ const head = require("lodash/head")
 const map = require("lodash/map")
 const compact = require("lodash/map")
 
+export interface SortingField {
+  field:string
+  options:Object
+}
+
 export interface SortingOption {
   label:string, field?:string,
   order?:string, defaultOption?:boolean,
-  key?:string
+  key?:string, fields?: Array<SortingField>
 }
 
 export interface SortingOptions {
@@ -37,7 +42,11 @@ export class SortingAccessor extends StatefulAccessor<ValueState> {
   }
 
   getSortQuery(sortOption){
-    if(sortOption.field && sortOption.order) {
+    if (sortOption.fields) {
+      return map(sortOption.fields, (field) => {
+        return { [field.field]: field.options || {} }
+      })
+    } else if(sortOption.field && sortOption.order) {
       return [{[sortOption.field]: sortOption.order}]
     } else if (sortOption.field) {
       return [sortOption.field]

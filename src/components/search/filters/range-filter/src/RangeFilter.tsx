@@ -18,15 +18,8 @@ import {
 } from "../../../../ui"
 
 const defaults = require("lodash/defaults")
-const max = require("lodash/max")
-const maxBy = require("lodash/maxBy")
 const map = require("lodash/map")
 const get = require("lodash/get")
-
-function computeMaxValue(items, field) {
-  if (!items || items.length == 0) return 0
-  return maxBy(items, field)[field]
-}
 
 export interface RangeFilterProps extends SearchkitComponentProps {
 	field:string
@@ -38,7 +31,6 @@ export interface RangeFilterProps extends SearchkitComponentProps {
 	showHistogram?:boolean
 	containerComponent?: RenderComponentType<any>
   rangeComponent?: RenderComponentType<RangeProps>
-  collapsable?: boolean
 }
 
 
@@ -72,7 +64,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 		const { id, title, min, max, field,
 			interval, showHistogram } = this.props
 		return new RangeAccessor(id,{
-			id, min, max, title, field, interval, loadBuckets:showHistogram
+			id, min, max, title, field, interval, loadHistogram:showHistogram
 		})
 	}
 
@@ -98,11 +90,6 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 		this.searchkit.performSearch()
 	}
 
-	getMaxValue() {
-		if (this.accessor.getBuckets() == 0) return 0
-		return max(map(this.accessor.getBuckets(), "doc_count"))
-	}
-
 	getRangeComponent():RenderComponentType<any>{
 	  const { rangeComponent, showHistogram } = this.props
 	  if (!showHistogram && (rangeComponent === RangeSliderHistogram)) {
@@ -113,14 +100,12 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	}
 
 	render() {
-    const { id, title, containerComponent, collapsable } = this.props
-
-    const maxValue = computeMaxValue(this.accessor.getBuckets(), "doc_count")
+    const { id, title, containerComponent } = this.props
 
     return renderComponent(containerComponent, {
       title,
       className: id ? `filter--${id}` : undefined,
-      disabled: maxValue == 0
+      disabled: this.accessor.isDisabled()
     }, this.renderRangeComponent(this.getRangeComponent()))
   }
 

@@ -36,14 +36,14 @@ import {
   ItemList
 } from "searchkit";
 
-class App extends SearchkitComponent {
+class App extends React.Component {
 
   render(){
     <div>
       <MenuFilter
         field="languages.raw"
         title="Languages"
-        id="languages" 
+        id="languages"
         listComponent={ItemList}/>
     </div>
   }

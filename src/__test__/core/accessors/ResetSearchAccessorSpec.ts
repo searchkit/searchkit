@@ -1,6 +1,6 @@
 import {
   ResetSearchAccessor, ImmutableQuery, SearchkitManager,
-  FilterBasedAccessor, PaginationAccessor
+  FilterBasedAccessor, PaginationAccessor, QueryAccessor
 } from "../../../"
 
 describe("ResetSearchAccessor", ()=> {
@@ -50,30 +50,33 @@ describe("ResetSearchAccessor", ()=> {
     spyOn(filterAccessor1, "resetState")
     let filterAccessor2 = new FilterBasedAccessor("f2")
     spyOn(filterAccessor2, "resetState")
+    let searchInputAccessor = new QueryAccessor("s", {addToFilters:true})
+    searchInputAccessor.state = searchInputAccessor.state.setValue("foo")
     let paginationAccessor = new PaginationAccessor("p")
     spyOn(paginationAccessor, "resetState")
     this.searchkit.addAccessor(filterAccessor1)
     this.searchkit.addAccessor(filterAccessor2)
+    this.searchkit.addAccessor(searchInputAccessor)
     this.searchkit.addAccessor(paginationAccessor)
-
+    this.searchkit.query = this.searchkit.buildQuery()
     this.accessor.options = {query:false, filter:false}
     this.accessor.performReset()
     expect(queryAccessor.resetState).not.toHaveBeenCalled()
     expect(filterAccessor1.resetState).not.toHaveBeenCalled()
     expect(filterAccessor2.resetState).not.toHaveBeenCalled()
-
+    expect(searchInputAccessor.state.getValue()).toBe("foo")
     this.accessor.options = {query:true, filter:false}
     this.accessor.performReset()
     expect(queryAccessor.resetState).toHaveBeenCalled()
     expect(filterAccessor1.resetState).not.toHaveBeenCalled()
     expect(filterAccessor2.resetState).not.toHaveBeenCalled()
-
+    expect(searchInputAccessor.state.getValue()).toBe("foo")
     this.accessor.options = {query:true, filter:true}
     this.accessor.performReset()
     expect(filterAccessor1.resetState).toHaveBeenCalled()
     expect(filterAccessor2.resetState).toHaveBeenCalled()
     expect(paginationAccessor.resetState).not.toHaveBeenCalled()
-
+    expect(searchInputAccessor.state.getValue()).toBe(null)
     this.accessor.options = {query:true, filter:true, pagination:true}
     this.accessor.performReset()
     expect(paginationAccessor.resetState).toHaveBeenCalled()

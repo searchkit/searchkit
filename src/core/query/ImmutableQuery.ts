@@ -101,7 +101,7 @@ export class ImmutableQuery {
     return this.deepUpdate("aggs", aggs)
   }
 
-  getFilters(keys) {
+  getFilters(keys=[]) {
     return this.getFiltersWithoutKeys(keys)
   }
 

@@ -1,5 +1,11 @@
 import {Component, field, defaults} from "xenon";
-import {Loader} from "./Loader";
+
+@defaults({qa:"loader", states:SearchLoader.states})
+export class SearchLoader extends Component {
+  public static states = {
+    HIDDEN: "is-hidden"
+  }
+}
 
 export class Searchbox extends Component {
 
@@ -9,8 +15,8 @@ export class Searchbox extends Component {
   @field(Component, {qa:"submit"})
   submit: Component
 
-  @field(Loader)
-  loader: Loader
+  @field(SearchLoader)
+  loader: SearchLoader
 
   search(query:string) {
     this.query.type(query)

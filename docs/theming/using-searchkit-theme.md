@@ -10,75 +10,73 @@ To use Searchkit's theme, add the `theme.css` file onto your site. You can use e
 
 ```html
 
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/searchkit/0.7.0/theme.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/searchkit/0.9.0/theme.css">
 
 ```
 
 ## Layout Areas
 
 ```html
-<div className="sk-layout">
 
-  <div className="sk-layout__top-bar sk-top-bar">
-    <div className="sk-top-bar__content">
+// layout components
+import {
+  Layout, TopBar, LayoutBody, LayoutResults,
+  ActionBar, ActionBarRow, SideBar
+} from "searchkit"
+
+<Layout>
+
+  <TopBar>
       // red area
-      <div className="my-logo">Logo</div>
       <SearchBox .../>
-    </div>
-  </div>
+  </TopBar>
 
-  <div className="sk-layout__body">
+  <LayoutBody>
 
-    <div className="sk-layout__filters">
+    <SideBar>
       // yellow area
       <HierarchicalMenuFilter .../>
       <RefinementListFilter .../>
-    </div>
+    </SideBar>
 
-    <div className="sk-layout__results sk-results-list">
+    <LayoutResults>
 
-      <div className="sk-results-list__action-bar sk-action-bar">
-        <div className="sk-action-bar__info">
+      <ActionBar>
+        <ActionBarRow>
           // blue area
           <HitsStats .../>
           <ViewSwitcherToggle/>
           <SortingSelector .../>
-        </div>
+        </ActionBarRow>
 
-        <div className="sk-action-bar__filters">
+        <ActionBarRow>
           // aqua area
           <SelectedFilters/>
           <ResetFilters/>
-        </div>
+        </ActionBarRow>
 
-      </div>
+      </ActionBar>
 
       // green area
       <Hits ../>
       <Pagination .../>
 
-    </div>
-  </div>
-</div>
+    </LayoutResults>
+
+  </LayoutBody>
+
+</Layout>
 ```
 
 When you include searchkit's `theme.css`, we provide you a basic layout.
 
 ## Layout Max width
-You can control the max-width of the layout by adding css classes to the `layout` div.
+You can control the max-width of the layout by adding `size` prop to the `layout` component.
 
-* `sk-layout__size-m` : max-width of 960px
-* `sk-layout__size-l` : max-width of 1280px
+* `<layout size="m">` : max-width of 960px
+* `<layout size="l">` : max-width of 1280px
 
 If no size class is applied, layout will use the full width of the browser.
-
-For example, if I wanted the layout to be at max-width of 960px, I would apply the `sk-layout__size-m` classname on the `sk-layout` element:
-
-```html
-  <div className="sk-layout sk-layout__size-m">
-  ...
-  </div>
-```
 
 ## Grid / List Hit Items
 We provide out of the box styles for Hit items for Grid and List Views. See `ViewSwitcherHits` component.
@@ -127,6 +125,12 @@ const MovieHitsListItem = (props)=> {
         <a href={url} target="_blank"><h2 className={bemBlocks.item("title")} dangerouslySetInnerHTML={{__html:source.title}}></h2></a>
         // red area
         <h3 className={bemBlocks.item("subtitle")}>Released in {source.year}, rated {source.imdbRating}/10</h3>
+        // blue area
+        <ul className={bemBlocks.item("tags")}>
+          <li>Genres: <TagFilterList field="genres.raw" values={genres} /></li>
+          <li>Writers: <TagFilterList field="writers.raw" values={writers} /></li>
+          <li>Actors: <TagFilterList field="actors.raw" values={actors} /></li>
+        </ul>
         // yellow area
         <div className={bemBlocks.item("text")} dangerouslySetInnerHTML={{__html:source.plot}}></div>
       </div>

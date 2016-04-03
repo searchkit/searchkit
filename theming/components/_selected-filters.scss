@@ -2,10 +2,10 @@
 
 .sk-selected-filters {
   display:flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   &__item {
-    flex:auto;
-    margin-right:10px;
+    flex:0 0 auto;
+    margin:0 10px 10px 0;
   }
 }
 

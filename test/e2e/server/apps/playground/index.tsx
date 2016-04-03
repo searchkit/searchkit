@@ -1,12 +1,19 @@
 const {
   SearchkitManager,SearchkitProvider,
   SearchBox, Hits, RefinementListFilter, Pagination,
+  CheckboxFilter,
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   GroupedSelectedFilters, SelectedFilters, ResetFilters,
   RangeFilter, NumericRefinementListFilter,
   ViewSwitcherHits, ViewSwitcherToggle, Select, Toggle,
   ItemList, CheckboxItemList, ItemHistogramList, Tabs, TagCloud, MenuFilter,
-  renderComponent, PageSizeSelector, RangeSliderHistogramInput, Panel, PaginationSelect
+  renderComponent, PageSizeSelector, RangeSliderHistogramInput, Panel, PaginationSelect,
+
+  InputFilter, TagFilter, TagFilterList, TagFilterConfig,
+
+  TermQuery, RangeQuery, BoolMust,
+
+  Layout, LayoutBody, LayoutResults, SideBar, TopBar, ActionBar, ActionBarRow
 } = require("../../../../../src")
 const host = "http://demo.searchkit.co/api/movies"
 import * as ReactDOM from "react-dom";
@@ -41,6 +48,8 @@ const MovieHitsListItem = (props)=> {
   const {bemBlocks, result} = props
   let url = "http://www.imdb.com/title/" + result._source.imdbId
   const source:any = _.extend({}, result._source, result.highlight)
+  const { title, poster, writers = [], actors = [], genres = [], plot, released, rated } = source;
+
   return (
     <div className={bemBlocks.item().mix(bemBlocks.container("item"))} data-qa="hit">
       <div className={bemBlocks.item("poster")}>
@@ -49,6 +58,11 @@ const MovieHitsListItem = (props)=> {
       <div className={bemBlocks.item("details")}>
         <a href={url} target="_blank"><h2 className={bemBlocks.item("title")} dangerouslySetInnerHTML={{__html:source.title}}></h2></a>
         <h3 className={bemBlocks.item("subtitle")}>Released in {source.year}, rated {source.imdbRating}/10</h3>
+        <ul className={bemBlocks.item("tags")}>
+          <li>Genres: <TagFilterList field="genres.raw" values={genres} /></li>
+          <li>Writers: <TagFilterList field="writers.raw" values={writers} /></li>
+          <li>Actors: <TagFilterList field="actors.raw" values={actors} /></li>
+        </ul>
         <div className={bemBlocks.item("text")} dangerouslySetInnerHTML={{__html:source.plot}}></div>
       </div>
     </div>
@@ -180,21 +194,27 @@ class App extends React.Component<any, any> {
   render(){
     return (
       <SearchkitProvider searchkit={searchkit}>
-        <div className="sk-layout">
+        <Layout>
 
-          <div className="sk-layout__top-bar sk-top-bar">
-            <div className="sk-top-bar__content">
-              <div className="my-logo">Searchkit Acme co</div>
-              <SearchBox autofocus={true} searchOnChange={true} prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
-            </div>
-          </div>
+          <TopBar>
+            <SearchBox autofocus={true} searchOnChange={true} prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
+          </TopBar>
 
-          <div className="sk-layout__body">
+          <LayoutBody>
 
-            <div className="sk-layout__filters">
+            <SideBar>
               <Panel title="Selected Filters" collapsable={true} defaultCollapsed={false}>
                 <SelectedFilters/>
               </Panel>
+              <CheckboxFilter id="rated-r" title="Rating" label="Rated R" filter={TermQuery("rated.raw", 'R')} />
+              <CheckboxFilter id="recent" title="Date" label="Recent" filter={RangeQuery("year", {gt: 2012})} />
+              <CheckboxFilter id="old-movies" title="Movile filter" label="Old movies" filter={
+                BoolMust([
+                  RangeQuery("year", {lt: 1970}),
+                  TermQuery("type.raw", "Movie")
+                ])} />
+
+              <InputFilter id="author_q" title="Actors filter" placeholder="Search actors" searchOnChange={true} prefixQueryFields={["actors"]} queryFields={["actors"]}/>
               <MenuFilter field={"type.raw"} size={10} title="Movie Type" id="types" listComponent={listComponents[this.state.viewMode]}
                 containerComponent={
                 (props) => (
@@ -215,6 +235,7 @@ class App extends React.Component<any, any> {
               <HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
               <RangeFilter min={0} max={100} field="metaScore" id="metascore" title="Metascore" showHistogram={true}/>
               <RangeFilter min={0} max={10} field="imdbRating" id="imdbRating" title="IMDB Rating" showHistogram={true} rangeComponent={RangeSliderHistogramInput}/>
+              <TagFilterConfig id="genres" title="Genres" field="genres.raw" />
               <RefinementListFilter id="actors" title="Actors" field="actors.raw" size={10}/>
               <RefinementListFilter translations={{"facets.view_more":"View more writers"}} id="writers" title="Writers" field="writers.raw" operator="OR" size={10}/>
               <RefinementListFilter id="countries" title="Countries" field="countries.raw" operator="OR" size={10}/>
@@ -224,13 +245,13 @@ class App extends React.Component<any, any> {
                 {title:"21 to 60", from:21, to:60},
                 {title:"60 or more", from:61, to:1000}
               ]}/>
-            </div>
+            </SideBar>
 
-            <div className="sk-layout__results sk-results-list">
+            <LayoutResults>
 
-              <div className="sk-results-list__action-bar sk-action-bar">
+              <ActionBar>
 
-                <div className="sk-action-bar__info">
+                <ActionBarRow>
                   <HitsStats translations={{
                     "hitstats.results_found":"{hitCount} results found"
                   }}/>
@@ -247,21 +268,18 @@ class App extends React.Component<any, any> {
                     {label:"Latest Releases", field:"released", order:"desc"},
                     {label:"Earliest Releases", field:"released", order:"asc"}
                   ]} listComponent={Toggle}/>*/}
-                </div>
+                </ActionBarRow>
 
-                <div className="sk-action-bar__filters">
-                  <SelectedFilters/>
-                  <ResetFilters/>
-                </div>
-
-                <div className="sk-action-bar__filters">
+                <ActionBarRow>
                   <GroupedSelectedFilters/>
-                </div>
+                  <ResetFilters/>
+                </ActionBarRow>
 
-              </div>
+              </ActionBar>
+
               <ViewSwitcherHits
                   hitsPerPage={12} highlightFields={["title","plot"]}
-                  sourceFilter={["plot", "title", "poster", "imdbId", "imdbRating", "year"]}
+                  sourceFilter={["plot", "title", "poster", "imdbId", "imdbRating", "year", "genres", "writers", "actors"]}
                   hitComponents = {[
                     {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem},
                     {key:"list", title:"List", itemComponent:MovieHitsListItem},
@@ -280,9 +298,9 @@ class App extends React.Component<any, any> {
               <NoHits suggestionsField={"title"}/>
               <Pagination showNumbers={true}/>
               <PaginationSelect/>
-            </div>
-          </div>
-        </div>
+            </LayoutResults>
+          </LayoutBody>
+        </Layout>
       </SearchkitProvider>
     )
   }

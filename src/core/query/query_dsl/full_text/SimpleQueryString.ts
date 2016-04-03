@@ -5,9 +5,10 @@ export interface SimpleQueryStringOptions {
   fields?:Array<string>
   default_operator?:string
   flags?:string
+  [str:string]:any
 }
 
-export function SimpleQueryString(query, options={}){
+export function SimpleQueryString(query, options:SimpleQueryStringOptions={}){
   if(!query){
     return
   }

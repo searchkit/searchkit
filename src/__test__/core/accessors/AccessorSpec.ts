@@ -65,6 +65,14 @@ describe("Accessor", ()=> {
       .toEqual([1,2,3])
   })
 
+  it("beforeBuildQuery()", ()=> {
+    expect(this.accessor.beforeBuildQuery).toEqual(
+      jasmine.any(Function)
+    )
+    expect(this.accessor.beforeBuildQuery()).toEqual(undefined)
+
+  })
+
   it("buildSharedQuery()", ()=> {
     expect(this.accessor.buildSharedQuery(this.query))
       .toBe(this.query)

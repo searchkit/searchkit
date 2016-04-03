@@ -21,8 +21,9 @@ export interface FacetAccessorOptions {
   include?:Array<string> | string
   exclude?:Array<string> | string
   orderKey?:string
-  orderDirection?:string,
+  orderDirection?:string
   min_doc_count?:number
+  loadAggregations?: boolean
 }
 
 export interface ISizeOption {
@@ -37,6 +38,7 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
   defaultSize:number
   size:number
   uuid:string
+  loadAggregations: boolean
 
   static translations:any = {
     "facets.view_more":"View more",
@@ -51,6 +53,7 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     this.defaultSize = options.size
     this.options.facetsPerPage = this.options.facetsPerPage || 50
     this.size = this.defaultSize;
+    this.loadAggregations = isUndefined(this.options.loadAggregations) ? true : this.options.loadAggregations
     if(options.translations){
       this.translations = assign({}, this.translations, options.translations)
     }
@@ -127,21 +130,24 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
   }
 
   buildOwnQuery(query){
-    var filters = this.state.getValue()
-    let excludedKey = (this.isOrOperator()) ? this.uuid : undefined
-    return query
-      .setAggs(FilterBucket(
-        this.uuid,
-        query.getFiltersWithoutKeys(excludedKey),
-        TermsBucket(this.key, this.key, omitBy({
-          size:this.size,
-          order:this.getOrder(),
-          include: this.options.include,
-          exclude: this.options.exclude,
-          min_doc_count:this.options.min_doc_count
-        }, isUndefined)),
-        CardinalityMetric(this.key+"_count", this.key)
-      ))
-
+    if (!this.loadAggregations){
+      return query
+    } else {
+      var filters = this.state.getValue()
+      let excludedKey = (this.isOrOperator()) ? this.uuid : undefined
+      return query
+        .setAggs(FilterBucket(
+          this.uuid,
+          query.getFiltersWithoutKeys(excludedKey),
+          TermsBucket(this.key, this.key, omitBy({
+            size:this.size,
+            order:this.getOrder(),
+            include: this.options.include,
+            exclude: this.options.exclude,
+            min_doc_count:this.options.min_doc_count
+          }, isUndefined)),
+          CardinalityMetric(this.key+"_count", this.key)
+        ))
+    }
   }
 }

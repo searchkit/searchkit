@@ -4,7 +4,7 @@ import {
   QueryAccessor,
   SearchkitComponent,
   SearchkitComponentProps
-} from "../../../../core"
+} from "../../../core"
 
 const defaults = require("lodash/defaults")
 const throttle = require("lodash/throttle")
@@ -14,9 +14,14 @@ export interface SearchBoxProps extends SearchkitComponentProps {
   searchOnChange?:boolean
   searchThrottleTime?:number
   queryFields?:Array<string>
-  autofocus?:boolean
+  queryBuilder?:Function
   queryOptions?:any
+  autofocus?:boolean
+  id?: string
+  mod?: string
+  placeholder?: string
   prefixQueryFields?:Array<string>
+  prefixQueryOptions?:Object
 }
 
 export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
@@ -30,19 +35,26 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
   translations = SearchBox.translations
 
   static defaultProps = {
+    id: 'q',
+    mod: 'sk-search-box',
     searchThrottleTime:200
   }
 
   static propTypes = defaults({
+    id:React.PropTypes.string,
     searchOnChange:React.PropTypes.bool,
     searchThrottleTime:React.PropTypes.number,
+    queryBuilder:React.PropTypes.func,
     queryFields:React.PropTypes.arrayOf(React.PropTypes.string),
     autofocus:React.PropTypes.bool,
     queryOptions:React.PropTypes.object,
     prefixQueryFields:React.PropTypes.arrayOf(React.PropTypes.string),
+    prefixQueryOptions:React.PropTypes.object,
     translations:SearchkitComponent.translationsPropType(
       SearchBox.translations
-    )
+    ),
+    mod: React.PropTypes.string,
+    placeholder: React.PropTypes.string
   }, SearchkitComponent.propTypes)
 
   constructor (props:SearchBoxProps) {
@@ -56,21 +68,22 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     }, props.searchThrottleTime)
   }
 
-  componentWillMount() {
-    super.componentWillMount()
-  }
 
   defineBEMBlocks() {
-    return {container:(this.props.mod || "sk-search-box")};
+    return { container:this.props.mod };
   }
 
   defineAccessor(){
-
-    return new QueryAccessor("q", {
-      prefixQueryFields:(this.props.searchOnChange ? (this.props.prefixQueryFields || this.props.queryFields) : false),
-      queryFields:this.props.queryFields || ["_all"],
-      queryOptions:assign({
-      }, this.props.queryOptions)
+    const {
+      id, prefixQueryFields, queryFields, queryBuilder,
+      searchOnChange, queryOptions, prefixQueryOptions
+    } = this.props
+    return new QueryAccessor(id, {
+      prefixQueryFields,
+      prefixQueryOptions:assign({}, prefixQueryOptions),
+      queryFields:queryFields || ["_all"],
+      queryOptions:assign({}, queryOptions),
+      queryBuilder
     })
   }
 
@@ -115,7 +128,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
           <input type="text"
           data-qa="query"
           className={block("text")}
-          placeholder={this.translate("searchbox.placeholder")}
+          placeholder={this.props.placeholder || this.translate("searchbox.placeholder")}
           value={this.getValue()}
           onFocus={this.setFocusState.bind(this, true)}
           onBlur={this.setFocusState.bind(this, false)}

@@ -63,7 +63,6 @@ export class TogglePanel extends React.Component<TogglePanelProps, {collapsed: b
           .state({ disabled })
 
       var titleDiv
-      console.log('rightComponent', rightComponent)
       if (collapsable){
         const arrowClass = collapsed ? 'sk-arrow-right' : 'sk-arrow-down'
         titleDiv = (

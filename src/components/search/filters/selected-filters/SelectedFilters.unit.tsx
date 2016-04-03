@@ -1,13 +1,13 @@
 import * as React from "react";
 import {mount} from "enzyme";
-import {SelectedFilters, FilterItemProps} from "../src/SelectedFilters.tsx";
-import {SearchkitManager, ImmutableQuery, FastClick} from "../../../../../core";
+import {SelectedFilters, FilterItemProps} from "./SelectedFilters";
+import {SearchkitManager, ImmutableQuery, FastClick} from "../../../../core";
 const bem = require("bem-cn");
 const _ = require("lodash")
 import * as sinon from "sinon";
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
-} from "../../../../__test__/TestHelpers"
+} from "../../../__test__/TestHelpers"
 
 describe("SelectedFilters tests", () => {
 
@@ -110,6 +110,32 @@ describe("SelectedFilters tests", () => {
     fastClick(elem)
     expect(this.sinonSpy.called).toBeTruthy()
 
+  })
+  
+  it("handles duplicate values", () => {
+    
+    this.searchkit.query = new ImmutableQuery()
+      .addSelectedFilter({
+        id:"test",
+        name:"test name",
+        value:"test value",
+        remove: this.sinonSpy
+      }).addSelectedFilter({
+        id:"test2",
+        name:"test name 2",
+        value:"test value 2",
+        remove:_.identity
+      }).addSelectedFilter({
+        id:"test2",
+        name:"test name 2",
+        value:"test value",
+        remove:_.identity
+      })
+      
+     this.createWrapper()
+     
+     let elems = this.wrapper.find(".sk-selected-filters-option")
+     expect(elems.length).toEqual(3)
   })
 
 });

@@ -3,8 +3,14 @@ const {
   SearchBox, Hits, RefinementListFilter, Pagination,
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
-  ViewSwitcherHits, ViewSwitcherToggle
+  ViewSwitcherHits, ViewSwitcherToggle, DynamicRangeFilter
 } = require("../../../../../src")
+
+const {
+  Layout, TopBar, LayoutBody, LayoutResults,
+  ActionBar, ActionBarRow, SideBar
+} = require("../../../../../src")
+
 const host = "http://demo.searchkit.co/api/movies"
 import * as ReactDOM from "react-dom";
 import * as React from "react";
@@ -52,68 +58,64 @@ class App extends React.Component<any, any> {
   render(){
     return (
       <SearchkitProvider searchkit={searchkit}>
-        <div className="sk-layout">
+        <Layout>
+          <TopBar>
+            <div className="my-logo">Searchkit Acme co</div>
+            <SearchBox autofocus={true} searchOnChange={true} prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
+          </TopBar>
 
-          <div className="sk-layout__top-bar sk-top-bar">
-            <div className="sk-top-bar__content">
-              <div className="my-logo">Searchkit Acme co</div>
-              <SearchBox autofocus={true} searchOnChange={true} prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
-            </div>
-          </div>
+        <LayoutBody>
 
-          <div className="sk-layout__body">
+          <SideBar>
+            <HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
+            <DynamicRangeFilter field="metaScore" id="metascore" title="Metascore"/>
+            <RangeFilter min={0} max={10} field="imdbRating" id="imdbRating" title="IMDB Rating" showHistogram={true}/>
+            <RefinementListFilter id="actors" title="Actors" field="actors.raw" size={10}/>
+            <RefinementListFilter translations={{"facets.view_more":"View more writers"}} id="writers" title="Writers" field="writers.raw" operator="OR" size={10}/>
+            <RefinementListFilter id="countries" title="Countries" field="countries.raw" operator="OR" size={10}/>
+            <NumericRefinementListFilter id="runtimeMinutes" title="Length" field="runtimeMinutes" options={[
+              {title:"All"},
+              {title:"up to 20", from:0, to:20},
+              {title:"21 to 60", from:21, to:60},
+              {title:"60 or more", from:61, to:1000}
+            ]}/>
+          </SideBar>
+          <LayoutResults>
+            <ActionBar>
 
-            <div className="sk-layout__filters">
-              <HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
-              <RangeFilter min={0} max={100} field="metaScore" id="metascore" title="Metascore" showHistogram={true}/>
-              <RangeFilter min={0} max={10} field="imdbRating" id="imdbRating" title="IMDB Rating" showHistogram={true}/>
-              <RefinementListFilter id="actors" title="Actors" field="actors.raw" size={10}/>
-              <RefinementListFilter translations={{"facets.view_more":"View more writers"}} id="writers" title="Writers" field="writers.raw" operator="OR" size={10}/>
-              <RefinementListFilter id="countries" title="Countries" field="countries.raw" operator="OR" size={10}/>
-              <NumericRefinementListFilter id="runtimeMinutes" title="Length" field="runtimeMinutes" options={[
-                {title:"All"},
-                {title:"up to 20", from:0, to:20},
-                {title:"21 to 60", from:21, to:60},
-                {title:"60 or more", from:61, to:1000}
-              ]}/>
-            </div>
+              <ActionBarRow>
+                <HitsStats translations={{
+                  "hitstats.results_found":"{hitCount} results found"
+                }}/>
+                <ViewSwitcherToggle/>
+                <SortingSelector options={[
+                  {label:"Relevance", field:"_score", order:"desc"},
+                  {label:"Latest Releases", field:"released", order:"desc"},
+                  {label:"Earliest Releases", field:"released", order:"asc"}
+                ]}/>
+              </ActionBarRow>
 
-            <div className="sk-layout__results sk-results-list">
+              <ActionBarRow>
+                <SelectedFilters/>
+                <ResetFilters/>
+              </ActionBarRow>
 
-              <div className="sk-results-list__action-bar sk-action-bar">
+            </ActionBar>
+            <ViewSwitcherHits
+                hitsPerPage={12} highlightFields={["title","plot"]}
+                sourceFilter={["plot", "title", "poster", "imdbId", "imdbRating", "year"]}
+                hitComponents = {[
+                  {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem, defaultOption:true},
+                  {key:"list", title:"List", itemComponent:MovieHitsListItem}
+                ]}
+                scrollTo="body"
+            />
+            <NoHits suggestionsField={"title"}/>
+            <Pagination showNumbers={true}/>
+          </LayoutResults>
 
-                <div className="sk-action-bar__info">
-                  <HitsStats translations={{
-                    "hitstats.results_found":"{hitCount} results found"
-                  }}/>
-                  <ViewSwitcherToggle/>
-                  <SortingSelector options={[
-                    {label:"Relevance", field:"_score", order:"desc"},
-                    {label:"Latest Releases", field:"released", order:"desc"},
-                    {label:"Earliest Releases", field:"released", order:"asc"}
-                  ]}/>
-                </div>
-
-                <div className="sk-action-bar__filters">
-                  <SelectedFilters/>
-                  <ResetFilters/>
-                </div>
-
-              </div>
-              <ViewSwitcherHits
-                  hitsPerPage={12} highlightFields={["title","plot"]}
-                  sourceFilter={["plot", "title", "poster", "imdbId", "imdbRating", "year"]}
-                  hitComponents = {[
-                    {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem, defaultOption:true},
-                    {key:"list", title:"List", itemComponent:MovieHitsListItem}
-                  ]}
-                  scrollTo="body"
-              />
-              <NoHits suggestionsField={"title"}/>
-              <Pagination showNumbers={true}/>
-            </div>
-          </div>
-        </div>
+          </LayoutBody>
+        </Layout>
       </SearchkitProvider>
     )
   }
