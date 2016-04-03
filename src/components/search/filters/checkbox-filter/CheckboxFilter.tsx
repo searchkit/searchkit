@@ -73,7 +73,7 @@ export class CheckboxFilter extends SearchkitComponent<CheckboxFilterProps, any>
       return [this.props.label]
     } else {
       return []
-    } 
+    }
   }
 
   render() {
@@ -85,7 +85,7 @@ export class CheckboxFilter extends SearchkitComponent<CheckboxFilterProps, any>
       className: id ? `filter--${id}` : undefined,
       disabled: false
     },
-      React.createElement(listComponent, {
+      renderComponent(listComponent, {
         items: [{ key: label, doc_count: this.accessor.getDocCount() }],
         selectedItems: this.getSelectedItems(),
         toggleItem: this.toggleFilter,

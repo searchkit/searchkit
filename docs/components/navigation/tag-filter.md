@@ -1,6 +1,7 @@
 # TagFilter, TagFilterList, TagFilterConfig
 A suite of components to provide tag filters within your search results.
 
+<img src="./assets/tag-filter.png"/>
 
 
 ## Example

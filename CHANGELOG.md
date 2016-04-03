@@ -1,3 +1,24 @@
+## 0.9.0 (3rd April, 2016)
+### Breaking changes
+- layout classnames `sk-action-bar__info` + `sk-action-bar__filter` renamed to `sk-action-bar-row`.
+  - We strongly advise to use the new layout components.
+
+### Notable Changes
+ - New `Layout` components to be used instead of specific div + classname markup
+   - `Layout`, `TopBar`, `LayoutBody`, `SideBar`, `LayoutResults`, `ActionBar`, `ActionBarRow`
+   - precursor to responsive layout where we make these layout components more intelligent.
+ - New `CheckboxFilter` component which does a on/off checkbox based on arbitrary query
+ - New `InputFilter` component which is a free text filter, great if you need to filter on specific fields.
+ - New `DynamicRangeFilter` component which will dynamically calculate the possible min/max based on your search results.
+  - note this filter only supports range slider UI.
+ - New `TagFilter` components, Used to have clickable tags within your search results.
+ - `SearchBox` enhancements
+  - `prefixQueryOptions` prop if you want to customize the elastic options for this query
+  - `queryBuilder` prop if you want to customize how the query is built, defaults to `SimpleQueryString`
+ - `SortSelector` now supports multiple sort fields (e.g. secondary sort), be sure to provide the mandatory key
+ - `SearchkitManager` has new `reloadSearch` method, used if you want to just reload the search even with the same query.
+
+
 ## 0.8.3 (17th March, 2016)
 ### Bug Fixes
  - SortingSelector handles for app reload.
