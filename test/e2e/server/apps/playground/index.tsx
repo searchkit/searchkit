@@ -58,11 +58,8 @@ const MovieHitsListItem = (props)=> {
       <div className={bemBlocks.item("details")}>
         <a href={url} target="_blank"><h2 className={bemBlocks.item("title")} dangerouslySetInnerHTML={{__html:source.title}}></h2></a>
         <h3 className={bemBlocks.item("subtitle")}>Released in {source.year}, rated {source.imdbRating}/10</h3>
-        <ul style={{ marginTop: 8, marginBottom: 8, listStyle: 'none', paddingLeft: 20 }}>
-          <li>Rating: {rated}</li>
-          <li>Genres: <div className="sk-tag-filter-list">
-            {map(genres, a => <TagFilter key={a} field="genres.raw" value={a} />) }
-          </div></li>
+        <ul className={bemBlocks.item("tags")}>
+          <li>Genres: <TagFilterList field="genres.raw" values={genres} /></li>
           <li>Writers: <TagFilterList field="writers.raw" values={writers} /></li>
           <li>Actors: <TagFilterList field="actors.raw" values={actors} /></li>
         </ul>

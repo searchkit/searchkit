@@ -125,6 +125,12 @@ const MovieHitsListItem = (props)=> {
         <a href={url} target="_blank"><h2 className={bemBlocks.item("title")} dangerouslySetInnerHTML={{__html:source.title}}></h2></a>
         // red area
         <h3 className={bemBlocks.item("subtitle")}>Released in {source.year}, rated {source.imdbRating}/10</h3>
+        // blue area
+        <ul className={bemBlocks.item("tags")}>
+          <li>Genres: <TagFilterList field="genres.raw" values={genres} /></li>
+          <li>Writers: <TagFilterList field="writers.raw" values={writers} /></li>
+          <li>Actors: <TagFilterList field="actors.raw" values={actors} /></li>
+        </ul>
         // yellow area
         <div className={bemBlocks.item("text")} dangerouslySetInnerHTML={{__html:source.plot}}></div>
       </div>
