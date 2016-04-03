@@ -337,6 +337,27 @@ body {
     font-weight:300;
   }
 
+  &__tags {
+    line-height: 20px;
+    margin:0;
+    font-size: 14px;
+    color: #666;
+    font-weight: 300;
+    list-style: none;
+    padding:0;
+    margin-bottom:10px;
+
+    .sk-tag-filter {
+      &:hover {
+        color: $sk-action-text-color;
+      }
+
+      &:active {
+        color: black;
+      }
+    }
+  }
+
   &__text {
     line-height:22px;
     max-width:800px;
