@@ -9,12 +9,12 @@
    - precursor to responsive layout where we make these layout components more intelligent.
  - New `CheckboxFilter` component which does a on/off checkbox based on arbitrary query
  - New `InputFilter` component which is a free text filter, great if you need to filter on specific fields.
- - New `DynamicRangeFilter` component which will dynamically calculate the possible min/max based on your search results.
+ - New `DynamicRangeFilter` component which will dynamically calculates the possible min/max based on your search results.
   - note this filter only supports range slider UI.
  - New `TagFilter` components, Used to have clickable tags within your search results.
  - `SearchBox` enhancements
   - `prefixQueryOptions` prop if you want to customize the elastic options for this query
-  - `queryBuilder` prop if you want to customize how the query is built, defaults to `SimpleQueryString`
+  - `queryBuilder` prop if you want to customize how the query is built, defaults to `SimpleQueryString`    
  - `SortSelector` now supports multiple sort fields (e.g. secondary sort), be sure to provide the mandatory key
  - `SearchkitManager` has new `reloadSearch` method, used if you want to just reload the search even with the same query.
 

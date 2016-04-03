@@ -36,6 +36,7 @@
     * [Metadata](/docs/components/metadata/README.md)
       * [Stats](/docs/components/metadata/stats.md)
     * [UI]()
+      * [Layout](/docs/components/ui/layout-components.md)
       * [Panel](/docs/components/ui/panel.md)
       * [ListComponents](/docs/components/ui/list-components.md)
       * [RangeComponents](/docs/components/ui/range-components.md)

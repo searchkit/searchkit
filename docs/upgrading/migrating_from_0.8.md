@@ -5,35 +5,22 @@
 ### Action bar classes renamed
 `sk-action-bar__info` + `sk-action-bar__filter` renamed to `sk-action-bar-row`.
 We strongly recommend using Searchkit's new layout components, see more below.
-```jsx
-// before
-<div className="sk-results-list__action-bar sk-action-bar">
-  <div className="sk-action-bar__info">
-    <HitsStats/>  
-  </div>
-  <div className="sk-action-bar__filters">
-    <GroupedSelectedFilters/>
-    <ResetFilters/>
-  </div>
-</div>
-
-//after
-<div className="sk-results-list__action-bar sk-action-bar">
-  <div className="sk-action-bar-row">
-    <HitsStats/>  
-  </div>
-  <div className="sk-action-bar-row">
-    <GroupedSelectedFilters/>
-    <ResetFilters/>
-  </div>
-</div>
-```
 
 ## Notable Changes
 
-Brand new layout components, rather than using div's with specific classNames, we now provide out the box
-layout components which will work towards responsive layout in future versions.
-We strongly encourage you all to use these new layout components.
+- #### Layout components
 
-- `Layout`, `TopBar`, `LayoutBody`, `SideBar`, `LayoutResults`, `ActionBar`, `ActionBarRow`
-- see [Theming guide](../theming/using-searchkit-theme.md)
+  Brand new layout components, rather than using div's with specific classNames, we now provide out the box
+  layout components which will work towards responsive layout in future versions.
+  We strongly encourage you all to use these new layout components.
+
+  - `Layout`, `TopBar`, `LayoutBody`, `SideBar`, `LayoutResults`, `ActionBar`, `ActionBarRow`
+  - see [Layout example](../components/ui/layout-components.md)
+  - see [Theming guide](../theming/using-searchkit-theme.md)
+- New [CheckboxFilter](../components/navigation/checkbox-filter.md)   
+- New [InputFilter](../components/navigation/input-filter.md)   
+- New [DynamicRangeFilter](../components/navigation/dynamic-range-filter.md)   
+- New [TagFilter components](../components/navigation/tag-filter.md)   
+- `SortSelector` supports multiple sort fields
+- `SearchkitManager` has new `reloadSearch` method
+- `SearchBox` and `InputFilter` support new `queryBuilder` and `prefixQueryOptions` props
