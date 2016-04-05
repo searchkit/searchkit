@@ -13,12 +13,12 @@
 
   &-option {
     flex:1;
-    background-color: white;
-    border:1px solid $sk-border-color;
+    background-color: $sk-toggle-background;
+    border:1px solid $sk-toggle-border-color;
     cursor:pointer;
     font-weight: $sk-medium-weight;
     font-size:$sk-list-font-size;
-    color: $sk-action-text-color;
+    color: $sk-toggle-text-color;
     padding:5px 10px;
     border-right:none;
     text-decoration: none;
@@ -30,13 +30,13 @@
 
     &:last-child {
       border-radius: 0 $sk-border-radius $sk-border-radius 0;
-      border-right:1px solid $sk-border-color;
+      border-right:1px solid $sk-toggle-border-color;
     }
 
     &.is-active {
-      background-color:$sk-active-bg-color;
-      color:white;
-      border-color:$sk-active-bg-color;
+      background-color:$sk-toggle-active-background;
+      color:$sk-toggle-active-text-color;
+      border-color:$sk-toggle-active-background;
     }
 
     &.is-disabled {

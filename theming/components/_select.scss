@@ -14,15 +14,15 @@
     -webkit-appearance: none;
     -moz-appearance:    none;
     appearance:         none;
-    background:white;
+    background:$sk-toggle-background;
     padding:6px 10px;
     padding-right: 30px;
-    border:1px solid $sk-border-color;
+    border:1px solid $sk-toggle-border-color;
     outline:0;
     font-weight:$sk-bold-weight;
     font-size:$sk-text-font-size;
     border-radius:$sk-border-radius;
-    color:#000;
+    color:$sk-toggle-text-color;
   }
 
   &:after {
