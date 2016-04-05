@@ -68,6 +68,16 @@ class App extends React.Component {
 
 <img src="./assets/menu-list-components.png"/>
 
+## Translations
+- `All` - View more
+
+```jsx
+<MenuFilter
+  field="languages.raw"
+  title="Languages"
+  id="languages"
+  translations={{"All":"All languages"}}/>
+```
 
 
 ## Demo
