@@ -1,4 +1,18 @@
-$sk-layout-background: black;
+
+$sk-layout-background: #111 !default;
+$sk-layout-panel-background: #333 !default;
+$sk-primary-theme-color: #2a4466 !default;
+$sk-active-bg-color: #08c !default;
+$sk-border-color: #aaa !default;
+$sk-title-color: #eee !default;
+$sk-text-color: #bbb !default;
+$sk-text-secondary-color: #aaa !default;
+$sk-list-text-color: #bbb !default;
+$sk-list-secondary-text-color: #ccc !default;
+$sk-action-text-color: #08c !default;
+$sk-action-active-color: #fff !default;
+$sk-disabled-text-color: #777 !default;
+$sk-remove-action-color: #fa2a00 !default;
 
 @import "../../../../../theming/theme.scss";
 
