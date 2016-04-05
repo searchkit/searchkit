@@ -69,7 +69,7 @@ class App extends React.Component {
 <img src="./assets/menu-list-components.png"/>
 
 ## Translations
-- `All` - View more
+- `All` - All
 
 ```jsx
 <MenuFilter
