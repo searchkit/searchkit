@@ -4,7 +4,7 @@ const {
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
   ViewSwitcherHits, ViewSwitcherToggle, DynamicRangeFilter,
-  InputFilter
+  InputFilter, GroupedSelectedFilters
 } = require("../../../../../src")
 
 const {
@@ -98,6 +98,7 @@ class App extends React.Component<any, any> {
 
               <ActionBarRow>
                 <SelectedFilters/>
+                <GroupedSelectedFilters/>
                 <ResetFilters/>
               </ActionBarRow>
 
