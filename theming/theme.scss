@@ -209,17 +209,6 @@ body {
   padding-left:0;
 }
 
-.sk-selected-filters {
-  display:flex;
-  flex-flow:row wrap;
-  margin-right:10px;
-
-  &-option {
-    background:#f4f4f4;
-    border:none;
-  }
-}
-
 .sk-pagination-navigation {
   width:300px;
   margin:10px auto;
