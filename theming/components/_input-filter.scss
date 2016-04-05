@@ -4,7 +4,7 @@
 .sk-input-filter {
   flex:auto;
   border-radius: 3px;
-  border: 1px solid #ccc;
+  border: 1px solid $sk-border-color;
 
   form {
     display:flex;
@@ -32,7 +32,9 @@
     width:100%;
     flex:3;
     font-size:14px;
+    background: transparent;
     border:none;
+    color: $sk-text-color;
     &:focus {
       outline:0;
     }
@@ -49,7 +51,7 @@
       align-self: flex-end;
       padding:5px 10px;
       line-height: 30px;
-      color: #bbb;
+      color: $sk-text-color;
       content: "x";
       cursor: pointer;
     }
