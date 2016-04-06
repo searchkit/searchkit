@@ -35,7 +35,7 @@ body {
   }
 
   &__filters {
-    background:white;
+    background:$sk-layout-panel-background;
     padding:15px;
     margin:15px 0 15px 15px;
     flex:0 0 246px;
@@ -67,7 +67,7 @@ body {
   }
 
   &__results {
-    background:white;
+    background:$sk-layout-panel-background;
     margin:15px 15px 15px 15px;
     flex:auto;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.08);
@@ -207,17 +207,6 @@ body {
   font-size:14px;
   margin:0;
   padding-left:0;
-}
-
-.sk-selected-filters {
-  display:flex;
-  flex-flow:row wrap;
-  margin-right:10px;
-
-  &-option {
-    background:#f4f4f4;
-    border:none;
-  }
 }
 
 .sk-pagination-navigation {

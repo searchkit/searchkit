@@ -2,7 +2,7 @@ const {
   SearchkitManager,SearchkitProvider,
   SearchBox, Hits, RefinementListFilter, Pagination,
   MenuFilter, HitsStats, SortingSelector, NoHits,
-  ItemList, CheckboxItemList, ItemHistogramList, 
+  ItemList, CheckboxItemList, ItemHistogramList,
   Tabs, TagCloud, Toggle, Select
 } = require("../../../../../src")
 const host = "http://demo.searchkit.co/api/movies"
@@ -65,14 +65,14 @@ class App extends React.Component<any, any> {
 
             <div className="sk-layout__filters">
               <div className="sk-layout__filters-row">
-                <MenuFilter field={"type.raw"} title="ItemList" id="item-list" listComponent={ItemList} />
+                <MenuFilter translations={{"All":"All options"}} field={"type.raw"} title="ItemList" id="item-list" listComponent={ItemList} />
                 <MenuFilter field={"type.raw"} title="CheckboxItemList" id="checkbox-item-list" listComponent={CheckboxItemList} />
                 <MenuFilter field={"type.raw"} title="ItemHistogramList" id="histogram-list" listComponent={ItemHistogramList} />
                 <MenuFilter field={"type.raw"} title="TagCloud" id="tag-cloud" listComponent={TagCloud} />
                 <MenuFilter field={"type.raw"} title="Toggle" id="toggle" listComponent={Toggle} />
                 <MenuFilter field={"type.raw"} title="Tabs" id="tabs" listComponent={Tabs} />
                 <MenuFilter field={"type.raw"} title="Select" id="select" listComponent={Select} />
-              
+
               </div>
             </div>
 

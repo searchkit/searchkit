@@ -266,6 +266,7 @@
     "./test/e2e/server/apps/range-app/index.tsx",
     "./test/e2e/server/apps/readme-app/index.tsx",
     "./test/e2e/server/apps/taxonomy-app/index.tsx",
+    "./test/e2e/server/apps/theme-app/index.tsx",
     "./test/e2e/server/apps/ui-app/index.tsx",
     "./test/e2e/server/apps/ui-app/MockList.tsx",
     "./test/e2e/server/apps/ui-app/MockRange.tsx",

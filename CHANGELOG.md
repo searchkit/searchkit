@@ -1,3 +1,8 @@
+## 0.9.1 (6th April, 2016)
+### Notable changes
+- fix scss dep management, so vars.scss can be overriden
+- add a dark theme example app in our test folder
+
 ## 0.9.0 (3rd April, 2016)
 ### Breaking changes
 - layout classnames `sk-action-bar__info` + `sk-action-bar__filter` renamed to `sk-action-bar-row`.

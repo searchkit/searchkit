@@ -5,12 +5,14 @@ $sk-light-weight: 300 !default;
 $sk-font-family: -apple-system, BlinkMacSystemFont,
   "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
   "Fira Sans", "Droid Sans", "Helvetica Neue",
-  sans-serif;
+  sans-serif !default;
 
-$sk-layout-background: #f4f4f4;
+$sk-layout-background: #f4f4f4 !default;
+$sk-layout-panel-background: white !default;
 $sk-primary-theme-color: #2a4466 !default;
 $sk-active-bg-color: #08c !default;
 $sk-border-color: #ccc !default;
+$sk-title-color: black !default;
 $sk-text-color: #444 !default;
 $sk-text-secondary-color: #777 !default;
 $sk-list-text-color: #666 !default;
@@ -19,6 +21,14 @@ $sk-action-text-color: #08c !default;
 $sk-action-active-color: #000 !default;
 $sk-disabled-text-color: #ddd !default;
 $sk-remove-action-color: #fa2a00 !default;
+
+$sk-selector-background: white !default; 
+$sk-selector-active-background: #08c !default; 
+$sk-selector-border-color: #ccc !default; 
+$sk-selector-text-color: black !default; 
+$sk-selector-active-text-color: white !default; 
+
+$sk-selected-filters-background: #f4f4f4 !default;
 
 $sk-heading-font-size: 14px !default;
 $sk-text-font-size: 14px !default;

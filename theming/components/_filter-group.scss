@@ -1,4 +1,4 @@
-@import "./vars.scss";
+@import "../vars.scss";
 
 .sk-filter-group {
 
@@ -49,13 +49,13 @@
   .sk-filter-groups {
     display: flex;
     flex-flow: row;
-    margin-right: 10px;
+    margin: 0 10px 10px 0;
     color: $sk-action-text-color;
   }
 
   .sk-filter-group {
     border: none;
-    background: #f4f4f4;
+    background: $sk-selected-filters-background;
     display: inline-block;
     padding: 0 0 0 10px;
     font-size: $sk-list-font-size;
