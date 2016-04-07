@@ -1,3 +1,11 @@
+## 0.9.2 (7th April, 2016)
+### Notable changes
+- fix `CheckboxFilter` disabled state
+- fix `SearchBox`, `InputFilter` when searchOnChange=false disabled state
+- introduce `blurAction` to `SearchBox`, `InputFilter`
+  - `blurAction="search" will search on blur`
+  - `blurAction="restore" will restore text to previous state on blur`
+
 ## 0.9.1 (6th April, 2016)
 ### Notable changes
 - fix scss dep management, so vars.scss can be overriden

@@ -9,12 +9,14 @@ import {
 
 import * as sinon from "sinon";
 
+const omit = require("lodash/omit")
+
 describe("Searchbox tests", () => {
 
   beforeEach(() => {
 
     this.searchkit = SearchkitManager.mock()
-
+    spyOn(this.searchkit, "performSearch")
     this.searchkit.translateFunction = (key)=> {
       return {
         "searchbox.placeholder":"search movies",
@@ -88,9 +90,10 @@ describe("Searchbox tests", () => {
     this.createWrapper(false)
     this.typeSearch('m')
     this.typeSearch('ma')
-    expect(this.accessor.state.getValue()).toBe("ma")
+    expect(this.accessor.state.getValue()).toBe(null)
     expect(spy.callCount).toBe(0)
     this.wrapper.find("form").simulate("submit")
+    expect(this.accessor.state.getValue()).toBe("ma")
     expect(spy.callCount).toBe(1)
   })
 
@@ -99,7 +102,7 @@ describe("Searchbox tests", () => {
 
     expect(this.accessor.key).toBe("q")
     let options = this.accessor.options
-    expect(options).toEqual({
+    expect(omit(options, "onQueryStateChange")).toEqual({
       queryFields: ["title"],
       prefixQueryFields:null,
       queryOptions: {minimum_should_match:"60%"},
@@ -119,7 +122,8 @@ describe("Searchbox tests", () => {
       prefixQueryFields:null,
       queryOptions: {minimum_should_match:"60%"},
       prefixQueryOptions: {minimum_should_match:"70%"},
-      queryBuilder:undefined
+      queryBuilder:undefined,
+      onQueryStateChange:jasmine.any(Function)
     })
 
   })
@@ -134,7 +138,8 @@ describe("Searchbox tests", () => {
       prefixQueryFields:["prefix"],
       queryOptions: {minimum_should_match:"60%"},
       prefixQueryOptions: {minimum_should_match:"70%"},
-      queryBuilder:QueryString
+      queryBuilder:QueryString,
+      onQueryStateChange:jasmine.any(Function)
     })
 
   })
@@ -146,11 +151,11 @@ describe("Searchbox tests", () => {
         .hasClass("is-focused")
     ).toBe(false)
     expect(this.wrapper.node.state)
-      .toEqual({ focused:false })
+      .toEqual({ focused:false, input: undefined })
     this.wrapper.find(".sk-search-box__text")
       .simulate("focus")
     expect(this.wrapper.node.state)
-      .toEqual({ focused:true })
+      .toEqual({ focused:true, input: undefined })
     this.wrapper.update()
     expect(
       this.wrapper.find(".sk-search-box")
@@ -159,5 +164,53 @@ describe("Searchbox tests", () => {
 
   })
 
+
+  describe("url change + blurAction", ()=> {
+
+    it("blurAction:restore", ()=> {
+      this.createWrapper(false, ["title"], ["prefix"], {
+        blurAction:"restore"
+      })
+      this.typeSearch("la")
+      expect(this.wrapper.node.getValue() ).toEqual("la")
+      this.accessor.fromQueryObject({
+        q:"foo"
+      })
+      expect(this.wrapper.node.getValue() ).toEqual("foo")
+
+      this.typeSearch("bar")
+      expect(this.wrapper.node.getValue()).toEqual("bar")
+      this.wrapper.find(".sk-search-box__text")
+        .simulate("blur")
+
+      // should be restored to previous value
+      expect(this.wrapper.node.getValue()).toEqual("foo")
+      expect(this.searchkit.performSearch).not.toHaveBeenCalled()
+
+    })
+
+    it("blurAction:search", ()=> {
+      this.createWrapper(false, ["title"], ["prefix"], {
+        blurAction:"search"
+      })
+      this.typeSearch("la")
+      expect(this.wrapper.node.getValue() ).toEqual("la")
+      this.accessor.fromQueryObject({
+        q:"foo"
+      })
+      expect(this.wrapper.node.getValue() ).toEqual("foo")
+
+      this.typeSearch("bar")
+      expect(this.wrapper.node.getValue()).toEqual("bar")
+      this.wrapper.find(".sk-search-box__text")
+        .simulate("blur")
+
+      // should flush value + search
+      expect(this.wrapper.node.getValue()).toEqual("bar")
+      expect(this.searchkit.performSearch).toHaveBeenCalled()
+
+    })
+
+  })
 
 });
