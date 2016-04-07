@@ -15,6 +15,10 @@ describe("CheckboxFilter tests", () => {
     this.wrapper = mount(component)
 
     this.searchkit.setResults({
+      hits:{
+        hits:[{_id:1, title:1},{_id:2,title:2}],
+        total:2
+      },
       aggregations: {
         "test id1": {
           doc_count: 50
@@ -83,5 +87,25 @@ describe("CheckboxFilter tests", () => {
       "translations": undefined,
       "filter": TermQuery("test-field", "test-value")
     })
+  })
+  
+  it("can disable", () => {
+    expect(hasClass(this.wrapper.find(".sk-panel"), "is-disabled")).toBe(false)
+    this.searchkit.setResults({
+      hits:{ total:0 },
+      aggregations: {
+        "test id1": {
+          doc_count: 50
+        }
+      }
+    })
+    expect(hasClass(this.wrapper.find(".sk-panel"), "is-disabled")).toBe(true)
+    
+    expect(this.accessor.state.getValue()).toEqual(null)
+    let option = this.wrapper.find(".sk-item-list").children().at(0)
+    fastClick(option)
+    expect(this.accessor.state.getValue()).toEqual(true)
+    
+    expect(hasClass(this.wrapper.find(".sk-panel"), "is-disabled")).toBe(false)
   })
 });
