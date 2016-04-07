@@ -16,7 +16,7 @@ describe("Searchbox tests", () => {
   beforeEach(() => {
 
     this.searchkit = SearchkitManager.mock()
-
+    spyOn(this.searchkit, "performSearch")
     this.searchkit.translateFunction = (key)=> {
       return {
         "searchbox.placeholder":"search movies",
@@ -117,12 +117,13 @@ describe("Searchbox tests", () => {
 
     expect(this.accessor.key).toBe("q")
     let options = this.accessor.options
-    expect(omit(options, "onQueryStateChange")).toEqual({
+    expect(options).toEqual({
       queryFields: ["title"],
       prefixQueryFields:null,
       queryOptions: {minimum_should_match:"60%"},
       prefixQueryOptions: {minimum_should_match:"70%"},
-      queryBuilder:undefined
+      queryBuilder:undefined,
+      onQueryStateChange:jasmine.any(Function)
     })
 
   })
@@ -132,12 +133,13 @@ describe("Searchbox tests", () => {
 
     expect(this.accessor.key).toBe("q")
     let options = this.accessor.options
-    expect(omit(options, "onQueryStateChange")).toEqual({
+    expect(options).toEqual({
       queryFields: ["title"],
       prefixQueryFields:["prefix"],
       queryOptions: {minimum_should_match:"60%"},
       prefixQueryOptions: {minimum_should_match:"70%"},
-      queryBuilder:QueryString
+      queryBuilder:QueryString,
+      onQueryStateChange:jasmine.any(Function)
     })
 
   })
@@ -162,5 +164,53 @@ describe("Searchbox tests", () => {
 
   })
 
+
+  describe("url change + blurAction", ()=> {
+
+    it("blurAction:restore", ()=> {
+      this.createWrapper(false, ["title"], ["prefix"], {
+        blurAction:"restore"
+      })
+      this.typeSearch("la")
+      expect(this.wrapper.node.getValue() ).toEqual("la")
+      this.accessor.fromQueryObject({
+        q:"foo"
+      })
+      expect(this.wrapper.node.getValue() ).toEqual("foo")
+
+      this.typeSearch("bar")
+      expect(this.wrapper.node.getValue()).toEqual("bar")
+      this.wrapper.find(".sk-search-box__text")
+        .simulate("blur")
+
+      // should be restored to previous value
+      expect(this.wrapper.node.getValue()).toEqual("foo")
+      expect(this.searchkit.performSearch).not.toHaveBeenCalled()
+
+    })
+
+    it("blurAction:search", ()=> {
+      this.createWrapper(false, ["title"], ["prefix"], {
+        blurAction:"search"
+      })
+      this.typeSearch("la")
+      expect(this.wrapper.node.getValue() ).toEqual("la")
+      this.accessor.fromQueryObject({
+        q:"foo"
+      })
+      expect(this.wrapper.node.getValue() ).toEqual("foo")
+
+      this.typeSearch("bar")
+      expect(this.wrapper.node.getValue()).toEqual("bar")
+      this.wrapper.find(".sk-search-box__text")
+        .simulate("blur")
+
+      // should flush value + search
+      expect(this.wrapper.node.getValue()).toEqual("bar")
+      expect(this.searchkit.performSearch).toHaveBeenCalled()
+
+    })
+
+  })
 
 });

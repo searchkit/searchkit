@@ -75,7 +75,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
     super(props);
     this.state = {
       focused:false,
-      input: undefined 
+      input: undefined
     }
     this.lastSearchMs = 0
     this.onClear = this.onClear.bind(this)
@@ -134,7 +134,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
       return input
     }
   }
-  
+
   getAccessorValue(){
     return (this.accessor.state.getValue() || "") + ""
   }
@@ -160,11 +160,11 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
     if (!focused){
       const { input } = this.state
       if (this.props.blurAction == "search"
-        && !isUndefined(input) 
+        && !isUndefined(input)
         && input != this.getAccessorValue()){
         this.searchQuery(input)
       }
-      this.setState({ 
+      this.setState({
         focused,
         input: undefined // Flush (should use accessor's state now)
       })
@@ -176,7 +176,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
   render() {
     const { containerComponent, title, id } = this.props
     const block = this.bemBlocks.container
-    const value = this.getValue()
+    const value = this.getValue()    
     return renderComponent(containerComponent, {
       title,
       className: id ? `filter--${id}` : undefined,
