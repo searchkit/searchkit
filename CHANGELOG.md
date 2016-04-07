@@ -1,5 +1,6 @@
 ## 0.9.2 (7th April, 2016)
 ### Notable changes
+- fix `NoHits` styling so it uses scss vars
 - fix `CheckboxFilter` disabled state
 - fix `SearchBox`, `InputFilter` when searchOnChange=false disabled state
 - introduce `blurAction` to `SearchBox`, `InputFilter`
