@@ -197,7 +197,7 @@ class App extends React.Component<any, any> {
         <Layout>
 
           <TopBar>
-            <SearchBox autofocus={true} searchOnChange={true} prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
+            <SearchBox autofocus={true} searchOnChange={false} prefixQueryFields={["actors^1","type^2","languages","title^10"]}/>
           </TopBar>
 
           <LayoutBody>

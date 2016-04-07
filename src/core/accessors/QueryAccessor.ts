@@ -15,7 +15,7 @@ export interface SearchOptions {
   title?: string
   addToFilters?:boolean
   queryBuilder?:Function
-  onStateChange?:Function
+  onQueryStateChange?:Function
 }
 export class QueryAccessor extends BaseQueryAccessor {
   options:SearchOptions
@@ -26,9 +26,10 @@ export class QueryAccessor extends BaseQueryAccessor {
     this.options.queryFields = this.options.queryFields || ["_all"]
   }
   
-  onStateChange(oldState={}){
-    if (this.options.onStateChange){
-      this.options.onStateChange()
+  fromQueryObject(ob){
+    super.fromQueryObject(ob)
+    if (this.options.onQueryStateChange){
+      this.options.onQueryStateChange()
     }
   }
 

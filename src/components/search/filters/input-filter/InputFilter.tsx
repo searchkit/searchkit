@@ -104,7 +104,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
       queryFields:queryFields || ["_all"],
       queryOptions:assign({}, queryOptions),
       prefixQueryOptions:assign({}, prefixQueryOptions),
-      onStateChange: () => {
+      onQueryStateChange: () => {
         if (!this.unmounted && this.state.input){
           this.setState({input: undefined})
         }
@@ -144,10 +144,10 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
     if (this.props.searchOnChange) {
       this.accessor.setQueryString(query)
       this.throttledSearch()
+      this.forceUpdate()
     } else {
       this.setState({ input: query })
     }
-    this.forceUpdate()
   }
 
   onClear(){

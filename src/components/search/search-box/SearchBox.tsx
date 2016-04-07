@@ -9,6 +9,7 @@ import {
 const defaults = require("lodash/defaults")
 const throttle = require("lodash/throttle")
 const assign = require("lodash/assign")
+const isUndefined = require("lodash/isUndefined")
 
 export interface SearchBoxProps extends SearchkitComponentProps {
   searchOnChange?:boolean
@@ -22,6 +23,7 @@ export interface SearchBoxProps extends SearchkitComponentProps {
   placeholder?: string
   prefixQueryFields?:Array<string>
   prefixQueryOptions?:Object
+  blurAction?:"search"|"restore"
 }
 
 export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
@@ -37,7 +39,8 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
   static defaultProps = {
     id: 'q',
     mod: 'sk-search-box',
-    searchThrottleTime:200
+    searchThrottleTime:200,
+    blurAction: "search"
   }
 
   static propTypes = defaults({
@@ -54,13 +57,15 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
       SearchBox.translations
     ),
     mod: React.PropTypes.string,
-    placeholder: React.PropTypes.string
+    placeholder: React.PropTypes.string,
+    blurAction: React.PropTypes.string
   }, SearchkitComponent.propTypes)
 
   constructor (props:SearchBoxProps) {
     super(props);
     this.state = {
-      focused:false
+      focused:false,
+      input: undefined
     }
     this.lastSearchMs = 0
     this.throttledSearch = throttle(()=> {
@@ -83,7 +88,12 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
       prefixQueryOptions:assign({}, prefixQueryOptions),
       queryFields:queryFields || ["_all"],
       queryOptions:assign({}, queryOptions),
-      queryBuilder
+      queryBuilder,
+      onQueryStateChange: () => {
+        if (!this.unmounted && this.state.input){
+          this.setState({input: undefined})
+        }
+      }
     })
   }
 
@@ -102,20 +112,44 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
   }
 
   getValue(){
+    const { input } = this.state
+    if (isUndefined(input)) {
+      return this.getAccessorValue()
+    } else {
+      return input
+    }
+  }
+  
+  getAccessorValue(){
     return (this.accessor.state.getValue() || "") + ""
   }
 
   onChange(e){
     const query = e.target.value;
-    this.accessor.setQueryString(query)
     if (this.props.searchOnChange) {
+      this.accessor.setQueryString(query)
       this.throttledSearch()
+      this.forceUpdate()
+    } else {
+      this.setState({ input: query })
     }
-    this.forceUpdate()
   }
 
   setFocusState(focused:boolean) {
-    this.setState({focused:focused})
+    if (!focused){
+      const { input } = this.state
+      if (this.props.blurAction == "search"
+        && !isUndefined(input) 
+        && input != this.getAccessorValue()){
+        this.searchQuery(input)
+      }
+      this.setState({ 
+        focused,
+        input: undefined // Flush (should use accessor's state now)
+      })
+    } else {
+      this.setState({ focused })
+    }
   }
 
   render() {
