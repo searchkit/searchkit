@@ -203,6 +203,15 @@ describe("ImmutableQuery", ()=> {
     expect(query.getFrom()).toEqual(10)
   })
 
+  it("getPage()", ()=> {
+    let query = this.query.setSize(15)
+    expect(query.getPage()).toEqual(1)
+    query = query.setSize(20)
+    expect(query.getPage()).toEqual(1)
+    query = query.setFrom(60)
+    expect(query.getPage()).toEqual(4)
+  })
+
   it("setHighlight()", ()=> {
     let query = this.query.setHighlight({
       "fields": {
