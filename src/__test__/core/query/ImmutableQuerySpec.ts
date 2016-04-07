@@ -210,6 +210,9 @@ describe("ImmutableQuery", ()=> {
     expect(query.getPage()).toEqual(1)
     query = query.setFrom(60)
     expect(query.getPage()).toEqual(4)
+    // Page should always be an integer
+    query = query.setFrom(50)
+    expect(query.getPage()).toEqual(3) // floor(3.5)
   })
 
   it("setHighlight()", ()=> {
