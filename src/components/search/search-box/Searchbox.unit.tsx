@@ -9,6 +9,8 @@ import {
 
 import * as sinon from "sinon";
 
+const omit = require("lodash/omit")
+
 describe("Searchbox tests", () => {
 
   beforeEach(() => {
@@ -88,9 +90,10 @@ describe("Searchbox tests", () => {
     this.createWrapper(false)
     this.typeSearch('m')
     this.typeSearch('ma')
-    expect(this.accessor.state.getValue()).toBe("ma")
+    expect(this.accessor.state.getValue()).toBe(null)
     expect(spy.callCount).toBe(0)
     this.wrapper.find("form").simulate("submit")
+    expect(this.accessor.state.getValue()).toBe("ma")
     expect(spy.callCount).toBe(1)
   })
 
@@ -99,7 +102,7 @@ describe("Searchbox tests", () => {
 
     expect(this.accessor.key).toBe("q")
     let options = this.accessor.options
-    expect(options).toEqual({
+    expect(omit(options, "onQueryStateChange")).toEqual({
       queryFields: ["title"],
       prefixQueryFields:null,
       queryOptions: {minimum_should_match:"60%"},
@@ -114,7 +117,7 @@ describe("Searchbox tests", () => {
 
     expect(this.accessor.key).toBe("q")
     let options = this.accessor.options
-    expect(options).toEqual({
+    expect(omit(options, "onQueryStateChange")).toEqual({
       queryFields: ["title"],
       prefixQueryFields:null,
       queryOptions: {minimum_should_match:"60%"},
@@ -129,7 +132,7 @@ describe("Searchbox tests", () => {
 
     expect(this.accessor.key).toBe("q")
     let options = this.accessor.options
-    expect(options).toEqual({
+    expect(omit(options, "onQueryStateChange")).toEqual({
       queryFields: ["title"],
       prefixQueryFields:["prefix"],
       queryOptions: {minimum_should_match:"60%"},
@@ -146,11 +149,11 @@ describe("Searchbox tests", () => {
         .hasClass("is-focused")
     ).toBe(false)
     expect(this.wrapper.node.state)
-      .toEqual({ focused:false })
+      .toEqual({ focused:false, input: undefined })
     this.wrapper.find(".sk-search-box__text")
       .simulate("focus")
     expect(this.wrapper.node.state)
-      .toEqual({ focused:true })
+      .toEqual({ focused:true, input: undefined })
     this.wrapper.update()
     expect(
       this.wrapper.find(".sk-search-box")
