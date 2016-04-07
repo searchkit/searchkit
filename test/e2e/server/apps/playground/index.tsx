@@ -214,7 +214,8 @@ class App extends React.Component<any, any> {
                   TermQuery("type.raw", "Movie")
                 ])} />
 
-              <InputFilter id="author_q" title="Actors filter" placeholder="Search actors" searchOnChange={true} prefixQueryFields={["actors"]} queryFields={["actors"]}/>
+              <InputFilter id="author_q" title="Actors filter" placeholder="Search actors" searchOnChange={false} blurAction="search" queryFields={["actors"]}/>
+              <InputFilter id="writer_q" title="Writers filter" placeholder="Search writers" searchOnChange={false} blurAction="restore" queryFields={["writers"]}/>
               <MenuFilter field={"type.raw"} size={10} title="Movie Type" id="types" listComponent={listComponents[this.state.viewMode]}
                 containerComponent={
                 (props) => (
