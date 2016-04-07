@@ -48,20 +48,35 @@ new ImmutableQuery().addAnonymousFilter(BoolShould([
     Term("color", "yellow")
 ]))
 ```
+
 * **`.setSize(size)`**
 ```js
 new ImmutableQuery().setSize(10)
 ```
 
-* **`.setFrom(from)`**
+* **`.getSize()`**
 ```js
-new ImmutableQuery().setSize(100)
+query.getSize()
 ```
 
+* **`.setFrom(from)`**
+```js
+new ImmutableQuery().setFrom(100)
+```
+
+* **`.getFrom()`**
+```js
+query.getFrom()
+```
+
+* **`.getPage()`**
+```js
+query.getPage()
+```
 
 * **`.setSort(sortOb)`**
 ```js
-new ImmutableQuery().setSize([  
+new ImmutableQuery().setSort([  
   {"price" : {"order" : "asc"}}  
 ])
 ```
