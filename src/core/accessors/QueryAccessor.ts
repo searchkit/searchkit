@@ -15,6 +15,7 @@ export interface SearchOptions {
   title?: string
   addToFilters?:boolean
   queryBuilder?:Function
+  onChange?:Function
 }
 export class QueryAccessor extends BaseQueryAccessor {
   options:SearchOptions
@@ -23,6 +24,13 @@ export class QueryAccessor extends BaseQueryAccessor {
     super(key)
     this.options = options
     this.options.queryFields = this.options.queryFields || ["_all"]
+  }
+  
+  onStateChange(oldState={}){
+    console.log("onStateChange")
+    if (this.options.onChange){
+      this.options.onChange()
+    }
   }
 
   buildSharedQuery(query){
