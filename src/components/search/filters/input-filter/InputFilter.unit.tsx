@@ -13,6 +13,8 @@ import {
 
 import * as sinon from "sinon";
 
+const omit = require("lodash/omit")
+
 describe("InputFilter tests", () => {
 
   beforeEach(() => {
@@ -148,9 +150,11 @@ describe("InputFilter tests", () => {
     this.createWrapper(false)
     this.typeSearch('m')
     this.typeSearch('ma')
-    expect(this.accessor.state.getValue()).toBe("ma")
+    // State left in the component
+    expect(this.accessor.state.getValue()).toBe(null)
     expect(spy.callCount).toBe(0)
     this.wrapper.find("form").simulate("submit")
+    expect(this.accessor.state.getValue()).toBe("ma")
     expect(spy.callCount).toBe(1)
   })
 
@@ -178,7 +182,7 @@ describe("InputFilter tests", () => {
 
     expect(this.accessor.key).toBe("test_id")
     let options = this.accessor.options
-    expect(options).toEqual({
+    expect(omit(options, "onQueryStateChange")).toEqual({
       title: "Test title",
       addToFilters: true,
       queryFields: ["title"],
@@ -195,11 +199,11 @@ describe("InputFilter tests", () => {
 
     expect(this.accessor.key).toBe("test_id")
     let options = this.accessor.options
-    expect(options).toEqual({
+    expect(omit(options, "onQueryStateChange")).toEqual({
       title: "Test title",
       addToFilters: true,
-      queryFields: ["title"],
       prefixQueryFields:null,
+      queryFields: ["title"],
       queryOptions: {},
       prefixQueryOptions: {},
       queryBuilder:undefined
@@ -216,7 +220,7 @@ describe("InputFilter tests", () => {
 
     expect(this.accessor.key).toBe("test_id")
     let options = this.accessor.options
-    expect(options).toEqual({
+    expect(omit(options, "onQueryStateChange")).toEqual({
       title: "Test title",
       addToFilters: true,
       queryFields: ["title"],

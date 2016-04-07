@@ -99,11 +99,11 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
     return new QueryAccessor(id, {
       title,
       addToFilters: true,
-      prefixQueryFields,
-      queryBuilder,
       queryFields:queryFields || ["_all"],
+      prefixQueryFields,
       queryOptions:assign({}, queryOptions),
       prefixQueryOptions:assign({}, prefixQueryOptions),
+      queryBuilder,
       onQueryStateChange: () => {
         if (!this.unmounted && this.state.input){
           this.setState({input: undefined})
