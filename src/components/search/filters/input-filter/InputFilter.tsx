@@ -104,7 +104,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
       queryFields:queryFields || ["_all"],
       queryOptions:assign({}, queryOptions),
       prefixQueryOptions:assign({}, prefixQueryOptions),
-      onChange: () => {
+      onStateChange: () => {
         if (!this.unmounted && this.state.input){
           this.setState({input: undefined})
         }
