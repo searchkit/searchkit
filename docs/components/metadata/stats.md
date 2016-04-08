@@ -29,11 +29,11 @@ import {
 } from "searchkit";
 
 const customHitStats = (props) => {
-	const {resultsFoundLabel, bemBlocks, hitCount, timeTaken} = props
+	const {resultsFoundLabel, bemBlocks, hitsCount, timeTaken} = props
 	return (
 		<div className={bemBlocks.container()} data-qa="hits-stats">
 			<div className={bemBlocks.container("info")} data-qa="info">
-				I found {hitCount} in {timeTaken}ms!
+				I found {hitsCount} in {timeTaken}ms!
 			</div>
 	  </div>
 	)
