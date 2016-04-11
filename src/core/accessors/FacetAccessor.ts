@@ -79,7 +79,7 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
 
     if (total <= this.size) {
       option = {size:this.defaultSize, label:this.translate("facets.view_less")}
-    } else if ((this.size + facetsPerPage) > total) {
+    } else if ((this.size + facetsPerPage) >= total) {
       option = {size:total, label:this.translate("facets.view_all")}
     } else if ((this.size + facetsPerPage) < total) {
       option = {size:this.size + facetsPerPage, label:this.translate("facets.view_more")}
