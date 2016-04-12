@@ -23,6 +23,8 @@
     font-size:$sk-text-font-size;
     border-radius:$sk-border-radius;
     color:$sk-selector-text-color;
+    height: initial;
+    line-height: initial;
   }
 
   &:after {
