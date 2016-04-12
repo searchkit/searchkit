@@ -136,50 +136,6 @@ body {
 
 // components
 
-.sk-search-box {
-  background: rgba(255,255,255,.15);
-  border-radius: $sk-border-radius;
-  position: relative;
-  display: flex;
-  flex:1;
-
-  &.is-focused {
-    background:white;
-  }
-
-  &.is-focused &__text {
-    color:$sk-text-color;
-  }
-
-  &.is-focused &__text::-webkit-input-placeholder  {
-    color:$sk-text-color;
-    font-weight:$sk-light-weight;
-  }
-
-  form {
-    width:100%;
-  }
-
-  &__text {
-    background:transparent;
-    color:#fff;
-    font-size:16px;
-    padding-left:10px;
-    &::-webkit-input-placeholder  {
-      color:rgba(255,255,255,1);
-      font-weight:100;
-    }
-  }
-
-  &__icon {
-    margin:10px 0 0 15px;
-  }
-
-  &__action {
-    display:none;
-  }
-}
-
 .sk-hits-stats {
   align-self: flex-start;
   flex:1;

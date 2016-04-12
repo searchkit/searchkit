@@ -2,18 +2,23 @@
 @import "./search-icon.scss";
 
 .sk-search-box {
-  flex:auto;
+  background: rgba(255,255,255,.15);
+  border-radius: $sk-border-radius;
+  position: relative;
+  display: flex;
+  flex:1;
 
   form {
     display:flex;
     margin:0;
     position:relative;
+    width:100%;
   }
 
   &__icon {
     flex:0 20px 20px;
-    margin-top:10px;
-    margin-left:10px;
+    margin:10px 0 0 15px;
+    
     &:before {
       content:"";
       @include search-icon;
@@ -25,20 +30,32 @@
     opacity:0.3;
   }
 
-  &__text {
+  input.sk-search-box__text {
     padding:10px 20px;
     width:100%;
     flex:3;
     font-size:18px;
     border:none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background:transparent;
+    color:#fff;
+    font-size:16px;
+    padding-left:10px;
+    
     &:focus {
       outline:0;
+    }
+    &::-webkit-input-placeholder  {
+      color:rgba(255,255,255,1);
+      font-weight:100;
     }
   }
 
   &__action {
     height:40px;
     visibility: hidden;
+    display:none;
   }
 
   &__loader {
@@ -50,5 +67,17 @@
       display:none;
     }
   }
+  
+  &.is-focused {
+    background:white;
+  }
 
+  &.is-focused &__text {
+    color:$sk-text-color;
+  }
+
+  &.is-focused &__text::-webkit-input-placeholder  {
+    color:$sk-text-color;
+    font-weight:$sk-light-weight;
+  }
 }
