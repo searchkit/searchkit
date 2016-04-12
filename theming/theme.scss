@@ -185,13 +185,6 @@ body {
   flex:1;
 }
 
-.sk-sorting-selector {
-  flex:200px 0 0;
-  select {
-    width:200px;
-  }
-}
-
 .sk-range-filter {
   .rc-slider-handle {
     border-color: $sk-primary-theme-color;
