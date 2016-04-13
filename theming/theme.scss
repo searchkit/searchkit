@@ -142,7 +142,7 @@ body {
   position: relative;
   display: flex;
   flex:1;
-
+    
   &.is-focused {
     background:white;
   }
@@ -155,26 +155,29 @@ body {
     color:$sk-text-color;
     font-weight:$sk-light-weight;
   }
-
+  
   form {
     width:100%;
   }
-
-  &__text {
+  
+  input.sk-search-box__text {
+    -webkit-box-shadow: none;
+    box-shadow: none;
     background:transparent;
     color:#fff;
     font-size:16px;
     padding-left:10px;
+    
     &::-webkit-input-placeholder  {
       color:rgba(255,255,255,1);
       font-weight:100;
     }
   }
-
+  
   &__icon {
     margin:10px 0 0 15px;
   }
-
+    
   &__action {
     display:none;
   }
@@ -183,13 +186,6 @@ body {
 .sk-hits-stats {
   align-self: flex-start;
   flex:1;
-}
-
-.sk-sorting-selector {
-  flex:200px 0 0;
-  select {
-    width:200px;
-  }
 }
 
 .sk-range-filter {
