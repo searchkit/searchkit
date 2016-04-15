@@ -85,6 +85,8 @@ export class SearchkitManager {
     if(this.options.useHistory) {
       this.history = createHistory()
       this.listenToHistory()
+    } else {
+      this.runInitialSearch()
     }
   }
   addAccessor(accessor){
@@ -138,6 +140,14 @@ export class SearchkitManager {
         })
       }
     }))
+  }
+
+  runInitialSearch(){
+    if(this.options.searchOnLoad) {
+      this.registrationCompleted.then(()=> {
+        this._search()
+      })
+    }
   }
 
   searchFromUrlQuery(query){

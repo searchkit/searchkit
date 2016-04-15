@@ -24,7 +24,7 @@ const searchkit = new SearchkitManager(host, {
 
 * **basicAuth** - A string containing "key:val" for authenticating on each request, useful if using cloud providers such as [searchly.com](http://searchly.com)
 
-* **searchOnLoad** - A boolean to search on load, defaults to `true`, only works when `useHistory` is enabled
+* **searchOnLoad** - A boolean to search on load, defaults to `true`
 
 * **useHistory** - A boolean to enable url history support, defaults to `true`
 
