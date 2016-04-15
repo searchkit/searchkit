@@ -284,12 +284,17 @@ describe("SearchkitManager", ()=> {
     spyOn(this.accessors, "setResults")
     spyOn(this.searchkit, "onResponseChange")
     expect(this.searchkit.results).toBe(undefined)
+    let resultsSpy = jasmine.createSpy("results")
+    let removalFn = this.searchkit.addResultsListener(resultsSpy)
+    expect(removalFn).toEqual(jasmine.any(Function))
     this.searchkit.setResults("foo")
     expect(this.searchkit.results).toBe("foo")
     expect(this.accessors.setResults)
       .toHaveBeenCalledWith("foo")
     expect(this.searchkit.onResponseChange)
       .toHaveBeenCalled()
+    expect(resultsSpy).toHaveBeenCalledWith("foo")
+
   })
 
   it("setResults() - error", ()=> {
