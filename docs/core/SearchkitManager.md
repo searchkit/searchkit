@@ -67,5 +67,15 @@ searchkit.setQueryProcessor((plainQueryObject){
   return plainQueryObject
 })
 ```
-
 >*Note* We only support 1 queryProcessor function currently, so multiple `setQueryProcessor` calls will override each other.
+
+
+## resultsListener
+If you want to be notified when results changed
+```typescript
+let removalFn = searchkit.addResultsListener((results){
+  //do something with results
+})
+
+//removalFn() if you want to stop listening
+```
