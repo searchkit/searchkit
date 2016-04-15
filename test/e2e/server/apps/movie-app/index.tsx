@@ -4,7 +4,7 @@ const {
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
   ViewSwitcherHits, ViewSwitcherToggle, DynamicRangeFilter,
-  InputFilter, GroupedSelectedFilters, RangeComponentBuilder
+  InputFilter, GroupedSelectedFilters
 } = require("../../../../../src")
 
 const {
@@ -69,14 +69,7 @@ class App extends React.Component<any, any> {
           <SideBar>
             <HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
             <DynamicRangeFilter field="metaScore" id="metascore" title="Metascore"/>
-            <RangeFilter min={100000} max={500000}
-              field="someField"
-              id="someId"
-              title="Some Title"
-              showHistogram={true}
-              rangeComponent={RangeComponentBuilder({
-                showHistogram: true, showSlider: true, marks:{100000:"100k", 50000:"500k"}
-              })}/>
+            <RangeFilter min={0} max={10} field="imdbRating" id="imdbRating" title="IMDB Rating" showHistogram={true}/>
             <InputFilter id="writers" searchThrottleTime={500} title="Writers" placeholder="Search writers" searchOnChange={true} queryFields={["writers"]} />
             <RefinementListFilter id="actors" title="Actors" field="actors.raw" size={10}/>
             <RefinementListFilter translations={{"facets.view_more":"View more writers"}} id="writers" title="Writers" field="writers.raw" operator="OR" size={10}/>
