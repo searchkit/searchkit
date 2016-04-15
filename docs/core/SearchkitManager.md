@@ -62,7 +62,7 @@ If you want to reload the search even with query and state hasn't changed
 Searchkit offers ability to mutate the query just before its sent to ElasticSearch, this is so we can always support new apis for ElasticSearch and any custom logic you wish to add that is low level in searchkit normally.
 
 ```typescript
-searchkit.setQueryProcessor((plainQueryObject){
+searchkit.setQueryProcessor((plainQueryObject)=>{
   plainQueryObject.source = false
   return plainQueryObject
 })
@@ -73,7 +73,7 @@ searchkit.setQueryProcessor((plainQueryObject){
 ## resultsListener
 If you want to be notified when results changed
 ```typescript
-let removalFn = searchkit.addResultsListener((results){
+let removalFn = searchkit.addResultsListener((results)=>{
   //do something with results
 })
 
