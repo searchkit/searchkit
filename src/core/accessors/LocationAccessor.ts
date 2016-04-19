@@ -65,7 +65,6 @@ export class LocationAccessor extends BaseQueryAccessor {
     let q = (this.state.getValue() || "") + ""
     if (q && !this.loading) {
       let radius = this.searchkit.getAccessorByType(RadiusAccessor).getRadius()
-      console.log("Radius: " + radius)
       let geolocation = this.getCachedGeolocation(q)
       if (!isEmpty(geolocation)) {
         let geoFilter = GeoQuery(this.options.queryField, {

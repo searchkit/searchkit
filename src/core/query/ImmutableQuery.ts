@@ -123,11 +123,7 @@ export class ImmutableQuery {
   }
 
   setRadius(radius: string) {
-    console.log("setRadius called with value " + radius)
-    let newQuery = this.update({ $merge: { radius  }  })
-    console.log("New query:")
-    console.log(newQuery)
-    return newQuery
+    return this.update({ $merge: { radius  }  })
   }
 
   setSort(sort: any) {
@@ -147,8 +143,6 @@ export class ImmutableQuery {
   }
 
   getRadius() {
-    console.log("getRadius called")
-    console.log(this.index)
     return this.index.radius
   }
 
