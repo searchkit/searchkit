@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import {PureRender} from "./pure-render"
+const omitBy = require('lodash/omitBy')
 const isUndefined = require('lodash/isUndefined')
 const defaults = require('lodash/defaults')
 
@@ -29,7 +30,7 @@ export function renderComponent(component:RenderComponentType<any>, props={}, ch
   if (component["prototype"] instanceof React.Component || (component["prototype"] && component["prototype"].isReactComponent)){
     return React.createElement(component as React.ComponentClass<any>, props, children)
   } else if (React.isValidElement(component)){
-    return React.cloneElement(component as Element, props, children);
+    return React.cloneElement(component as Element, omitBy(props, isUndefined), children);
   } else if ((typeof component) === 'function'){
     const funProps = (children != null) ? defaults(props, {children}) : props
     return React.createElement(FunctionComponent, {
