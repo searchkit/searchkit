@@ -21,7 +21,8 @@ export class ImmutableQuery {
     queries:[],
     filters:[],
     _source:null,
-    size:0
+    size:0,
+    radius:""
   }
   constructor(index = ImmutableQuery.defaultIndex) {
     this.index = index
@@ -121,6 +122,14 @@ export class ImmutableQuery {
     return this.update({ $merge: { size } })
   }
 
+  setRadius(radius: string) {
+    console.log("setRadius called with value " + radius)
+    let newQuery = this.update({ $merge: { radius  }  })
+    console.log("New query:")
+    console.log(newQuery)
+    return newQuery
+  }
+
   setSort(sort: any) {
     return this.update({ $merge: {sort:sort}})
   }
@@ -135,6 +144,12 @@ export class ImmutableQuery {
 
   getSize(){
     return this.query.size
+  }
+
+  getRadius() {
+    console.log("getRadius called")
+    console.log(this.index)
+    return this.index.radius
   }
 
   setFrom(from: number) {

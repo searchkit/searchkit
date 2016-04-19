@@ -20,6 +20,12 @@ export interface FilterGroupItemProps {
   removeFilter: Function
 }
 
+const decodeHtmlEntity = function(str) {
+  return str.replace(/&#(\d+);/g, function(match, dec) {
+    return String.fromCharCode(dec);
+  }).replace(/&amp;/g, '&').replace(/&quot;/g, '"');
+};
+
 @PureRender
 export class FilterGroupItem extends React.Component<FilterGroupItemProps, any> {
 
@@ -104,7 +110,7 @@ export class FilterGroup extends React.Component<FilterGroupProps, any> {
                   itemKey={filter.value}
                   bemBlocks={bemBlocks}
                   filter={filter}
-                  label={translate(filter.value)}
+                  label={decodeHtmlEntity(filter.value)}
                   removeFilter={removeFilter} />
     )
   }

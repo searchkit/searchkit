@@ -14,6 +14,12 @@ export interface ItemListProps extends ListProps {
   itemComponent?: any
 }
 
+const decodeHtmlEntity = function(str) {
+  return str.replace(/&#(\d+);/g, function(match, dec) {
+    return String.fromCharCode(dec);
+  }).replace(/&amp;/g, '&').replace(/&quot;/g, '"');
+};
+
 export class AbstractItemList extends React.Component<ItemListProps, {}> {
   static defaultProps: any = {
     mod: "sk-item-list",
@@ -51,7 +57,7 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
     const actions = map(items, (option) => {
       const label = option.title || option.label || option.key
       return React.createElement(itemComponent, {
-        label: translate(label),
+        label: decodeHtmlEntity(label),
         onClick: () => toggleFunc(option.key),
         bemBlocks: bemBlocks,
         key: option.key,

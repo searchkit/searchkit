@@ -11,6 +11,7 @@ export * from "./search/hits-stats/src/HitsStats";
 export * from "./search/pagination/src/Pagination";
 export * from "./search/search-box/src/SearchBox";
 export * from "./search/search-box/src/LocationBox";
+export * from "./search/search-box/src/RadiusSelector";
 export * from "./search/sorting-selector/src/SortingSelector";
 export * from "./search/page-size-selector/PageSizeSelector";
 export * from "./search/filters/hierarchical-refinement-filter/src/HierarchicalRefinementFilter";

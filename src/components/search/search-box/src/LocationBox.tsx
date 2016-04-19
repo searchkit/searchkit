@@ -2,6 +2,7 @@ import * as React from "react";
 
 import {
   LocationAccessor,
+  RadiusAccessor,
   SearchkitComponent,
   SearchkitComponentProps
 } from "../../../../core"
@@ -18,6 +19,7 @@ export interface LocationBoxProps extends SearchkitComponentProps {
 
 export class LocationBox extends SearchkitComponent<LocationBoxProps, any> {
   accessor: LocationAccessor
+  radiusAccessor: RadiusAccessor
   search: () => void
 
   static translations:any = {
@@ -47,6 +49,8 @@ export class LocationBox extends SearchkitComponent<LocationBoxProps, any> {
 
   componentWillMount() {
     super.componentWillMount()
+    this.radiusAccessor = new RadiusAccessor("30km")
+    this.searchkit.addAccessor(this.radiusAccessor)
   }
 
   defineBEMBlocks() {
@@ -54,7 +58,6 @@ export class LocationBox extends SearchkitComponent<LocationBoxProps, any> {
   }
 
   defineAccessor() {
-
     return new LocationAccessor("loc", {
       queryField: this.props.queryField,
       queryRadius: this.props.queryRadius,

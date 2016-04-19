@@ -3,6 +3,9 @@ import {BaseQueryAccessor} from "./BaseQueryAccessor";
 import {
   GeoQuery
 } from "../query";
+import {
+  RadiusAccessor
+} from "../accessors"
 
 const isEmpty = require("lodash/isEmpty")
 
@@ -59,18 +62,17 @@ export class LocationAccessor extends BaseQueryAccessor {
   }
 
   buildSharedQuery(query) {
-    let queryStr = this.state.getValue()
-    if (queryStr && !this.loading) {
-      let q = String(queryStr)
+    let q = (this.state.getValue() || "") + ""
+    if (q && !this.loading) {
+      let radius = this.searchkit.getAccessorByType(RadiusAccessor).getRadius()
+      console.log("Radius: " + radius)
       let geolocation = this.getCachedGeolocation(q)
       if (!isEmpty(geolocation)) {
-        console.log(geolocation)
         let geoFilter = GeoQuery(this.options.queryField, {
           lat: geolocation.lat,
           lon: geolocation.lng,
-          distance: "30km"
+          distance: radius
         })
-        console.log(this.options)
         let selectedFilter = {
           name: this.options.title,
           value: q,
@@ -79,7 +81,6 @@ export class LocationAccessor extends BaseQueryAccessor {
         }
         return query.addFilter(this.key, geoFilter).addSelectedFilter(selectedFilter)
       } else {
-        console.log("no cached geolocation")
         this.getCachedGeolocation(q)
       }
     }

@@ -12,8 +12,12 @@ export class FastClick extends React.Component<any, any>{
   threshold = 20
   supportsTouch:boolean
 
+  isTouchDevice() {
+    return 'ontouchstart' in window || navigator.maxTouchPoints
+  }
+
   handleMouseDown(event){
-    if (this.supportsTouch) return
+    if (this.supportsTouch || this.isTouchDevice()) return
     if(event.button === 0){
       this.props.handler()
     }
