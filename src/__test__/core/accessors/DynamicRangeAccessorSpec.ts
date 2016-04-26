@@ -36,6 +36,38 @@ describe("DynamicRangeAccessor", ()=> {
       .toEqual(0)
   })
 
+  it("ceil max, floor min", ()=> {
+    this.accessor.results = {
+      aggregations:{
+        metascore:{
+          metascore:{
+            min:0.3,
+            max:9.8
+          }
+        }
+      }
+    }
+    expect(this.accessor.getStat("max"))
+      .toEqual(10)
+    expect(this.accessor.getStat("min"))
+      .toEqual(0)
+
+    this.accessor.results = {
+      aggregations:{
+        metascore:{
+          metascore:{
+            min:0,
+            max:10
+          }
+        }
+      }
+    }
+    expect(this.accessor.getStat("max"))
+      .toEqual(10)
+    expect(this.accessor.getStat("min"))
+      .toEqual(0)
+  })
+
   it("isDisabled()", () => {
     this.accessor.results = {
       aggregations:{

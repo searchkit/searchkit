@@ -51,9 +51,12 @@ export class DynamicRangeAccessor extends FilterBasedAccessor<ObjectState> {
 	}
 
   getStat(stat) {
-    return this.getAggregations(
+		const agg = this.getAggregations(
       [this.key, this.key, stat], 0
     )
+		if (stat === "max") return Math.ceil(agg)
+		if (stat === "min") return Math.floor(agg)
+		return agg
   }
 
 	isDisabled() {
