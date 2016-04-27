@@ -78,4 +78,4 @@ class App extends SearchkitComponent {
 
 
 ## Demo
-[](codepen://searchkit/zrNrzL?height=800&theme=0)
+[Sample](http://codepen.io/searchkit/pen/zrNrzL)
