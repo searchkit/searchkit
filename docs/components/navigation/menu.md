@@ -8,7 +8,8 @@ Provides a way to navigate through results for a single attribute. Only one valu
 import {
   Pagination,
   Hits,
-  SearchkitComponent
+  SearchkitComponent,
+  MenuFilter
 } from "searchkit";
 
 class App extends SearchkitComponent {
