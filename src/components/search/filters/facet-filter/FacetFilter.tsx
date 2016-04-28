@@ -19,6 +19,7 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
   static propTypes = FacetFilterPropTypes
 
   static defaultProps = {
+    fieldOptions: {},
     listComponent: CheckboxItemList,
     containerComponent: Panel,
     size: 50,
@@ -33,11 +34,11 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
   }
   getAccessorOptions(){
     const {
-      field, id, operator, title, include, exclude,
+      field, fieldOptions, id, operator, title, include, exclude,
       size, translations, orderKey, orderDirection
     } = this.props
     return {
-      id, operator, title, size, include, exclude,
+      id, fieldOptions, operator, title, size, include, exclude,
       translations, orderKey, orderDirection
     }
   }

@@ -3,7 +3,7 @@ import {FilterBasedAccessor} from "./FilterBasedAccessor"
 import {
   TermQuery, TermsBucket, CardinalityMetric,
   BoolShould, BoolMust, SelectedFilter,
-  FilterBucket
+  FilterBucket, NestedBucket
 } from "../query";
 const assign = require("lodash/assign")
 const map = require("lodash/map")
@@ -15,6 +15,7 @@ export interface FacetAccessorOptions {
   operator?:string
   title?:string
   id?:string
+  fieldOptions?: {type: string, terms: Array<string>}
   size:number
   facetsPerPage?:number
   translations?:Object
@@ -36,6 +37,8 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
   state = new ArrayState()
   options:any
   defaultSize:number
+  queryType:string
+  nestedTerms: Array<string>
   size:number
   uuid:string
   loadAggregations: boolean
@@ -51,6 +54,8 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     super(key, options.id)
     this.options = options
     this.defaultSize = options.size
+    this.nestedTerms = isUndefined(options.fieldOptions) ? [] : options.fieldOptions.terms
+    this.queryType = isUndefined(options.fieldOptions) ? `` : options.fieldOptions.type
     this.options.facetsPerPage = this.options.facetsPerPage || 50
     this.size = this.defaultSize;
     this.loadAggregations = isUndefined(this.options.loadAggregations) ? true : this.options.loadAggregations
@@ -60,10 +65,27 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
   }
 
   getBuckets(){
+    if (this.queryType == "nested") {
+      let buckets = this.getAggregations([this.uuid, this.key, this.nestedTerms[0], "buckets"], [])
+
+      // Map name as label on bucket.
+      buckets = buckets.map((elem) => {
+        const nestedTerm = this.nestedTerms[1]
+        return {
+          doc_count: elem.doc_count,
+          key: elem.key,
+          label: elem[nestedTerm].buckets[0].key
+        }
+      })
+      return buckets
+    }
     return this.getAggregations([this.uuid, this.key, "buckets"], [])
   }
-  
+
   getDocCount(){
+    if (this.queryType == "nested") {
+      return this.getAggregations([this.uuid, this.key, "doc_count"], 0)
+    }
     return this.getAggregations([this.uuid, "doc_count"], 0)
   }
 
@@ -111,7 +133,8 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
 
   buildSharedQuery(query){
     var filters = this.state.getValue()
-    var filterTerms = map(filters, TermQuery.bind(null, this.key))
+    var term = this.queryType == "nested" ? this.nestedTerms[0] : this.key
+    var filterTerms = map(filters, TermQuery.bind(null, term))
     var selectedFilters:Array<SelectedFilter> = map(filters, (filter)=> {
       return {
         name:this.options.title || this.translate(this.key),
@@ -132,7 +155,39 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
   buildOwnQuery(query){
     if (!this.loadAggregations){
       return query
-    } else {
+    }
+    else if (this.queryType == "nested"){
+      var filters = this.state.getValue()
+      let excludedKey = (this.isOrOperator()) ? this.uuid : undefined
+
+      const nestedTerm = TermsBucket(this.nestedTerms[1], this.nestedTerms[1], omitBy({
+        size:this.size,
+        order:this.getOrder(),
+        include: this.options.include,
+        exclude: this.options.exclude,
+        min_doc_count:this.options.min_doc_count
+      }, isUndefined))
+
+      const nestedTerms = TermsBucket(this.nestedTerms[0], this.nestedTerms[0], omitBy({
+        size:this.size,
+        order:this.getOrder(),
+        include: this.options.include,
+        exclude: this.options.exclude,
+        min_doc_count:this.options.min_doc_count,
+      }), nestedTerm)
+
+      return query
+        .setAggs(FilterBucket(
+          this.uuid,
+          query.getFiltersWithoutKeys(excludedKey),
+          NestedBucket(
+            this.key,
+            this.key,
+            nestedTerms,
+            CardinalityMetric(this.key+"_count", this.key)
+          )))
+    }
+    else {
       var filters = this.state.getValue()
       let excludedKey = (this.isOrOperator()) ? this.uuid : undefined
       return query
