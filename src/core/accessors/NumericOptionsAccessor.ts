@@ -2,7 +2,7 @@ import {State, ArrayState} from "../state"
 import {FilterBasedAccessor} from "./FilterBasedAccessor"
 import {Utils} from "../support"
 import {
-  RangeQuery, BoolShould,
+  RangeQuery, BoolShould, CardinalityMetric,
   RangeBucket, FilterBucket, SelectedFilter
 } from "../";
 
@@ -91,9 +91,14 @@ export class NumericOptionsAccessor extends FilterBasedAccessor<ArrayState> {
   }
 
   getBuckets(){
+    console.log("uuid", this.uuid)
     return filter(this.getAggregations(
-      [this.key, this.key,"buckets"], []
+      [this.uuid, this.key,"buckets"], []
     ), this.emptyOptionsFilter)
+  }
+  
+  getDocCount(){
+    return this.getAggregations([this.uuid, "doc_count"], 0)
   }
 
   emptyOptionsFilter(option) {
@@ -134,13 +139,14 @@ export class NumericOptionsAccessor extends FilterBasedAccessor<ArrayState> {
 
   buildOwnQuery(query) {
     return query.setAggs(FilterBucket(
-      this.key,
+      this.uuid,
       query.getFiltersWithoutKeys(this.uuid),
       RangeBucket(
         this.key,
         this.options.field,
         this.getRanges()
-      )
+      ),
+      CardinalityMetric(this.key+"_count", this.key)
     ))
   }
 

@@ -107,6 +107,7 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
       selectedItems: this.getSelectedItems(),
       toggleItem: this.toggleItem,
 			setItems:this.setItems,
+      docCount: this.accessor.getDocCount(),
       showCount,
 			translate:this.translate
     }));

@@ -1,7 +1,8 @@
 import {
   NumericOptionsAccessor, ImmutableQuery,
   BoolMust, BoolShould, ArrayState, RangeQuery,
-  RangeBucket, FilterBucket,SearchkitManager
+  CardinalityMetric,
+  RangeBucket, FilterBucket,SearchkitManager, Utils
 } from "../../../"
 
 const _ = require("lodash")
@@ -44,7 +45,7 @@ describe("NumericOptionsAccessor", ()=> {
   it("getBuckets()", ()=> {
     this.accessor.results = {
       aggregations:{
-        categories:{
+        "9999":{
           categories:{
             buckets:[
               {key:1, doc_count:1},
@@ -171,7 +172,7 @@ describe("NumericOptionsAccessor", ()=> {
     query = this.accessor.buildOwnQuery(query)
     expect(query.query.aggs).toEqual(
       FilterBucket(
-        "categories",
+        "9999",
         BoolMust([BoolShould(["foo"])]),
         RangeBucket(
           "categories",
@@ -196,7 +197,8 @@ describe("NumericOptionsAccessor", ()=> {
               "to": 101
             }
           ]
-        )
+        ),
+        CardinalityMetric("categories_count", "categories")
       )
     )
 
