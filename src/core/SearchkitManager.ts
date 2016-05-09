@@ -146,8 +146,8 @@ export class SearchkitManager {
     this._search()
     if(this.options.useHistory){
       const historyMethod = (replaceState) ?
-        this.history.replaceState : this.history.pushState
-      historyMethod(null, window.location.pathname, this.state)
+        this.history.replace : this.history.push
+      historyMethod({pathname: window.location.pathname, query:this.state})
     }
   }
 
