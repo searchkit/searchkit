@@ -144,6 +144,10 @@ export class ImmutableQuery {
   getFrom(){
     return this.query.from
   }
+  
+  getPage(){
+    return 1 + Math.floor((this.getFrom()||0) / (this.getSize()||10))
+  }
 
   deepUpdate(key, ob){
     return this.update({

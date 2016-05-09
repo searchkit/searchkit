@@ -28,6 +28,7 @@ describe("PaginationAccessor", ()=> {
     const expectStateFrom = (state, from)=> {
       this.accessor.state = this.accessor.state.setValue(state)
       query = this.accessor.buildOwnQuery(query)
+      expect(query.getPage()).toBe(state || 1)
       expect(query.getFrom()).toBe(from)
     }
     expectStateFrom(null, undefined)
@@ -41,6 +42,7 @@ describe("PaginationAccessor", ()=> {
 
   it("Fix bug in conjunction with PageSizeAccessor", ()=> {
     let pagination = new PaginationAccessor("p")
+   
     pagination.state = pagination.state.setValue(5)
     let pageSize = new PageSizeAccessor(100)
     let accessors = new AccessorManager()
@@ -50,6 +52,7 @@ describe("PaginationAccessor", ()=> {
 
     expect(query.getSize()).toBe(100)
     expect(query.getFrom()).toBe(400)
+    expect(query.getPage()).toBe(5)
   })
 
 

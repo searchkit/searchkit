@@ -5,12 +5,14 @@ import { RangeProps } from './RangeProps'
 const Rcslider = require("rc-slider")
 
 const block = require('bem-cn')
+const { PureRender } = require("../../../core/react/pure-render")
 
 export interface RangeSliderProps extends RangeProps {
   step?: number
   marks: Object
 }
 
+@PureRender
 export class RangeSlider extends React.Component<RangeSliderProps, {}> {
 
   static defaultProps = {

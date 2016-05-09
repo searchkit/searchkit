@@ -10,19 +10,23 @@ describe("SearchkitManager", ()=> {
 
   beforeEach(()=> {
     this.host = "http://localhost:9200"
+    spyOn(SearchkitManager.prototype, "runInitialSearch").and.callThrough()
     this.searchkit = new SearchkitManager(this.host, {
       useHistory:false,
       httpHeaders:{
         "Content-Type":"application/json"
       },
       basicAuth:"key:val",
-      searchUrlPath:"/search"
+      searchUrlPath:"/search",
+      searchOnLoad:false
     })
     this.emitterSpy = jasmine.createSpy("emitter")
     this.searchkit.emitter.addListener(this.emitterSpy)
     this.accessors = this.searchkit.accessors
     expect(this.searchkit.transport.options.searchUrlPath)
       .toBe("/search")
+    expect(SearchkitManager.prototype.runInitialSearch)
+      .toHaveBeenCalled()
 
   })
 
@@ -50,7 +54,7 @@ describe("SearchkitManager", ()=> {
     expect(this.searchkit.emitter).toEqual(
       jasmine.any(EventEmitter)
     )
-    expect(this.searchkit.options.searchOnLoad).toBe(true)
+    expect(this.searchkit.options.searchOnLoad).toBe(false)
     expect(this.searchkit.initialLoading).toBe(true)
     //check queryProcessor is an identity function
     expect(this.searchkit.queryProcessor("query")).toBe("query")
@@ -195,6 +199,28 @@ describe("SearchkitManager", ()=> {
     searchkit.unlistenHistory()
   })
 
+  it("run initial search", (done)=> {
+    let searchkit = new SearchkitManager(this.host, {
+      useHistory:false, searchOnLoad:false
+    })
+    spyOn(searchkit, "_search")
+    expect(SearchkitManager.prototype.runInitialSearch)
+      .toHaveBeenCalled()
+    searchkit.completeRegistration()
+    setTimeout(()=> {
+      expect(searchkit._search).not.toHaveBeenCalled()
+      searchkit.options.searchOnLoad = true
+      searchkit.runInitialSearch()
+      setTimeout(()=> {
+        expect(searchkit._search).toHaveBeenCalled()
+        done()
+      })
+    })
+
+  })
+
+
+
   it("performSearch() - same state + replaceState", ()=> {
     const searchkit = new SearchkitManager("/", {
       useHistory:true
@@ -284,12 +310,17 @@ describe("SearchkitManager", ()=> {
     spyOn(this.accessors, "setResults")
     spyOn(this.searchkit, "onResponseChange")
     expect(this.searchkit.results).toBe(undefined)
+    let resultsSpy = jasmine.createSpy("results")
+    let removalFn = this.searchkit.addResultsListener(resultsSpy)
+    expect(removalFn).toEqual(jasmine.any(Function))
     this.searchkit.setResults("foo")
     expect(this.searchkit.results).toBe("foo")
     expect(this.accessors.setResults)
       .toHaveBeenCalledWith("foo")
     expect(this.searchkit.onResponseChange)
       .toHaveBeenCalled()
+    expect(resultsSpy).toHaveBeenCalledWith("foo")
+
   })
 
   it("setResults() - error", ()=> {

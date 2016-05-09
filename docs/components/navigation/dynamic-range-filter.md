@@ -8,7 +8,7 @@ The dynamic range filter lets users filter results within a numerical range. The
 ```jsx
 
 import {
-  RangeFilter,
+  DynamicRangeFilter,
   SearchkitComponent
 } from "searchkit";
 

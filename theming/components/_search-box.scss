@@ -2,7 +2,7 @@
 @import "./search-icon.scss";
 
 .sk-search-box {
-  flex:auto;
+  flex: auto;
 
   form {
     display:flex;
@@ -12,8 +12,8 @@
 
   &__icon {
     flex:0 20px 20px;
-    margin-top:10px;
-    margin-left:10px;
+    margin:10px 0 0 10px;
+    
     &:before {
       content:"";
       @include search-icon;
@@ -25,12 +25,15 @@
     opacity:0.3;
   }
 
-  &__text {
+  input.sk-search-box__text {
     padding:10px 20px;
     width:100%;
     flex:3;
     font-size:18px;
     border:none;
+    height: initial;
+    line-height: initial;
+    
     &:focus {
       outline:0;
     }
@@ -50,5 +53,4 @@
       display:none;
     }
   }
-
 }

@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { ItemComponent, CheckboxItemComponent } from "./ItemComponents"
 import { ListProps } from "./ListProps"
+import { PureRender } from "../../../core/react/pure-render"
 
 const block = require('bem-cn')
 
@@ -14,6 +15,7 @@ export interface ItemListProps extends ListProps {
   itemComponent?: any
 }
 
+@PureRender
 export class AbstractItemList extends React.Component<ItemListProps, {}> {
   static defaultProps: any = {
     mod: "sk-item-list",

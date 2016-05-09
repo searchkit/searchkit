@@ -39,6 +39,7 @@ class App extends SearchkitComponent {
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
 - `placeholder` *(string)*: placeholder for the input box
 - `searchThrottleTime` *(number)*: Default is 200ms. Is used when `searchOnChange` prop is `true`. A search to elasticsearch will only be invoked once every `searchThrottleTime` ms.   
+- `blurAction` *(search|restore)*: When `searchOnChange={false}` Configure behavior of the SearchBox  when the user blur's out of the field. Defaults to `search`
 
 ## Translations
 - `searchbox.placeholder` - "Search"

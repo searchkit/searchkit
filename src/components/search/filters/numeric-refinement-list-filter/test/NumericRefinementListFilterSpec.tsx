@@ -2,7 +2,7 @@ import * as React from "react";
 import {mount} from "enzyme";
 import {NumericRefinementListFilter} from "../src/NumericRefinementListFilter";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
-import {SearchkitManager} from "../../../../../core";
+import {SearchkitManager, Utils} from "../../../../../core";
 import {Select} from "../../../../ui";
 const bem = require("bem-cn");
 import * as sinon from "sinon";
@@ -11,6 +11,7 @@ const _ = require("lodash")
 describe("NumericRefinementListFilter tests", () => {
 
   beforeEach(()=> {
+    Utils.guidCounter = 0
     this.searchkit = SearchkitManager.mock()
     spyOn(this.searchkit, "performSearch")
     this.setWrapper = (props={})=>{
@@ -26,7 +27,7 @@ describe("NumericRefinementListFilter tests", () => {
     this.setResults = ()=> {
       this.searchkit.setResults({
         aggregations:{
-          score:{
+          score1:{
             score:{
               buckets:[
                 {key:"All", doc_count:30},

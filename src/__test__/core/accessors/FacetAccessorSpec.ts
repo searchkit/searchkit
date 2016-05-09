@@ -111,6 +111,13 @@ describe("FacetAccessor", ()=> {
       expect(this.accessor.getMoreSizeOption()).toEqual({size:30, label:"View all"})
     })
 
+    it("getMoreSizeOption - view all page size equals total", () => {
+      this.accessor.getCount = () => {
+        return 70
+      }
+      expect(this.accessor.getMoreSizeOption()).toEqual({size:70, label:"View all"})
+    })
+
     it("getMoreSizeOption - view less", () => {
       this.accessor.getCount = () => {
         return 30

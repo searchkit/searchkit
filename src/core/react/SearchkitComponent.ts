@@ -76,7 +76,9 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
         this.accessor = this.searchkit.addAccessor(this.accessor)
       }
       this.stateListenerUnsubscribe = this.searchkit.emitter.addListener(()=> {
-        !this.unmounted && this.forceUpdate()
+        if(!this.unmounted){
+          this.forceUpdate();
+        } 
       })
     } else {
       console.warn("No searchkit found in props or context for " + this.constructor["name"])

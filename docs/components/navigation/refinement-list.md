@@ -28,6 +28,7 @@ If you want to tweak the markup for a refinement option, you can use the `itemCo
 import {
   Pagination,
   Hits,
+  RefinementListFilter,
   SearchkitComponent
 } from "searchkit";
 
@@ -77,4 +78,4 @@ class App extends SearchkitComponent {
 
 
 ## Demo
-[](codepen://searchkit/zrNrzL?height=800&theme=0)
+[Sample](http://codepen.io/searchkit/pen/zrNrzL)

@@ -40,6 +40,7 @@ export class SearchkitManager {
   options:SearchkitOptions
   transport:ESTransport
   emitter:EventEmitter
+  resultsEmitter:EventEmitter
   accessors:AccessorManager
   queryProcessor:Function
   query:ImmutableQuery
@@ -79,10 +80,13 @@ export class SearchkitManager {
     // this.primarySearcher = this.createSearcher()
     this.query = new ImmutableQuery()
     this.emitter = new EventEmitter()
+    this.resultsEmitter = new EventEmitter()
     this.initialLoading = true
     if(this.options.useHistory) {
       this.history = createHistory()
       this.listenToHistory()
+    } else {
+      this.runInitialSearch()
     }
   }
   addAccessor(accessor){
@@ -114,6 +118,10 @@ export class SearchkitManager {
     this.accessors.resetState()
   }
 
+  addResultsListener(fn){
+    return this.resultsEmitter.addListener(fn)
+  }
+
   unlistenHistory(){
     if(this.options.useHistory && this._unlistenHistory){
       this._unlistenHistory()
@@ -132,6 +140,14 @@ export class SearchkitManager {
         })
       }
     }))
+  }
+
+  runInitialSearch(){
+    if(this.options.searchOnLoad) {
+      this.registrationCompleted.then(()=> {
+        this._search()
+      })
+    }
   }
 
   searchFromUrlQuery(query){
@@ -188,6 +204,7 @@ export class SearchkitManager {
     this.error = null
     this.accessors.setResults(results)
     this.onResponseChange()
+    this.resultsEmitter.trigger(this.results)
   }
 
   compareResults(previousResults, results){

@@ -35,6 +35,9 @@
     background: transparent;
     border:none;
     color: $sk-text-color;
+    height: initial;
+    line-height: initial;
+    
     &:focus {
       outline:0;
     }
@@ -43,6 +46,7 @@
   &__action {
     height:30px;
     visibility: hidden;
+    display: none;
   }
 
   &__remove {
