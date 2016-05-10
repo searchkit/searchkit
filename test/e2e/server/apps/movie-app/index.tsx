@@ -97,7 +97,6 @@ class App extends React.Component<any, any> {
               </ActionBarRow>
 
               <ActionBarRow>
-                <SelectedFilters/>
                 <GroupedSelectedFilters/>
                 <ResetFilters/>
               </ActionBarRow>

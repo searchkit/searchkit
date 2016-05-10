@@ -117,9 +117,9 @@ describe("SearchkitManager", ()=> {
 
   it("listenToHistory()", (done)=> {
     const history = createHistory()
-    history.pushState(null, window.location.pathname, {
+    history.push({pathname: window.location.pathname, query:{
       q:"foo"
-    })
+    }})
     const searchkit = new SearchkitManager("/", {
       useHistory:true
     })
@@ -137,9 +137,9 @@ describe("SearchkitManager", ()=> {
 
   it("listenToHistory() - searchOnLoad false", (done)=> {
     const history = createHistory()
-    history.pushState(null, window.location.pathname, {
+    history.push({pathname: window.location.pathname, query: {
       q:"foo-previous"
-    })
+    }})
 
     const searchkit = new SearchkitManager("/", {
       useHistory:true,
@@ -161,9 +161,9 @@ describe("SearchkitManager", ()=> {
 
   it("listenToHistory() - handle error", (done)=> {
     const history = createHistory()
-    history.pushState(null, window.location.pathname, {
+    history.push({pathname: window.location.pathname, query: {
       q:"foo"
-    })
+    }})
     const searchkit = new SearchkitManager("/", {
       useHistory:true
     })
@@ -189,10 +189,10 @@ describe("SearchkitManager", ()=> {
     }
     spyOn(searchkit.accessors, "notifyStateChange")
     spyOn(searchkit, "_search").and.returnValue(true)
-    spyOn(searchkit.history, "pushState")
+    spyOn(searchkit.history, "push")
     searchkit.performSearch()
-    expect(searchkit.history.pushState).toHaveBeenCalledWith(
-      null, jasmine.any(String), {q:"foo"}
+    expect(searchkit.history.push).toHaveBeenCalledWith(
+      {pathname:"/context.html", query: {q:"foo"}}
     )
     expect(searchkit.accessors.notifyStateChange)
       .toHaveBeenCalledWith(searchkit.state)
@@ -233,9 +233,9 @@ describe("SearchkitManager", ()=> {
     }
     spyOn(searchkit.accessors, "notifyStateChange")
     spyOn(searchkit, "_search").and.returnValue(true)
-    spyOn(searchkit.history, "replaceState")
+    spyOn(searchkit.history, "replace")
     searchkit.performSearch(true)
-    expect(searchkit.history.replaceState)
+    expect(searchkit.history.replace)
       .toHaveBeenCalled()
     expect(searchkit.accessors.notifyStateChange)
       .not.toHaveBeenCalled()
