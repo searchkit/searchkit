@@ -2,6 +2,7 @@ import {ImmutableQuery} from "../query/ImmutableQuery";
 import {SearchkitManager} from "../SearchkitManager";
 import {Utils} from "../support"
 const get = require("lodash/get")
+const compact = require("lodash/compact")
 
 export class Accessor {
   searchkit:SearchkitManager
@@ -53,7 +54,7 @@ export class Accessor {
 
   getAggregations(path, defaultValue){
     const results = this.getResults()
-    const getPath = ['aggregations',...path]
+    const getPath = compact(['aggregations',...path])
     return get(results, getPath, defaultValue)
   }
 

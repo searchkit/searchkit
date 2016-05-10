@@ -3,7 +3,8 @@ import {FilterBasedAccessor} from "./FilterBasedAccessor"
 import {
   TermQuery, TermsBucket, CardinalityMetric,
   BoolShould, BoolMust, SelectedFilter,
-  FilterBucket
+  FilterBucket,  FieldContextFactory, FieldContext,
+  FieldOptions
 } from "../query";
 const assign = require("lodash/assign")
 const map = require("lodash/map")
@@ -24,6 +25,7 @@ export interface FacetAccessorOptions {
   orderDirection?:string
   min_doc_count?:number
   loadAggregations?: boolean
+  fieldOptions?:FieldOptions
 }
 
 export interface ISizeOption {
@@ -39,6 +41,7 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
   size:number
   uuid:string
   loadAggregations: boolean
+  fieldContext:FieldContext
 
   static translations:any = {
     "facets.view_more":"View more",
@@ -57,15 +60,33 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     if(options.translations){
       this.translations = assign({}, this.translations, options.translations)
     }
+    this.options.fieldOptions = this.options.fieldOptions || {type:"embedded"}
+    this.options.fieldOptions.field = this.key
+    this.fieldContext = FieldContextFactory(this.options.fieldOptions)
+    console.log(this.options.fieldOptions, this.fieldContext)
   }
 
   getBuckets(){
-    return this.getAggregations([this.uuid, this.key, "buckets"], [])
+    return this.getAggregations([
+      this.uuid,
+      this.fieldContext.getAggregationPath(),
+      this.key, "buckets"], [])
   }
-  
+
   getDocCount(){
-    return this.getAggregations([this.uuid, "doc_count"], 0)
+    return this.getAggregations([
+      this.uuid,
+      this.fieldContext.getAggregationPath(),
+      "doc_count"], 0)
   }
+
+  getCount():number {
+    return this.getAggregations([
+      this.uuid,
+      this.fieldContext.getAggregationPath(),
+      this.key+"_count", "value"], 0) as number
+  }
+
 
   setViewMoreOption(option:ISizeOption) {
     this.size = option.size;
@@ -90,9 +111,6 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     return option;
   }
 
-  getCount():number {
-    return this.getAggregations([this.uuid, this.key+"_count", "value"], 0) as number
-  }
 
   isOrOperator(){
     return this.options.operator === "OR"
@@ -111,7 +129,9 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
 
   buildSharedQuery(query){
     var filters = this.state.getValue()
-    var filterTerms = map(filters, TermQuery.bind(null, this.key))
+    var filterTerms = map(filters, (filter)=> {
+      return this.fieldContext.wrapFilter(TermQuery(this.key, filter))
+    })
     var selectedFilters:Array<SelectedFilter> = map(filters, (filter)=> {
       return {
         name:this.options.title || this.translate(this.key),
@@ -139,14 +159,16 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
         .setAggs(FilterBucket(
           this.uuid,
           query.getFiltersWithoutKeys(excludedKey),
-          TermsBucket(this.key, this.key, omitBy({
-            size:this.size,
-            order:this.getOrder(),
-            include: this.options.include,
-            exclude: this.options.exclude,
-            min_doc_count:this.options.min_doc_count
-          }, isUndefined)),
-          CardinalityMetric(this.key+"_count", this.key)
+          ...this.fieldContext.wrapAggregations(
+            TermsBucket(this.key, this.key, omitBy({
+              size:this.size,
+              order:this.getOrder(),
+              include: this.options.include,
+              exclude: this.options.exclude,
+              min_doc_count:this.options.min_doc_count
+            }, isUndefined)),
+            CardinalityMetric(this.key+"_count", this.key)
+          )
         ))
     }
   }

@@ -4,7 +4,7 @@ import {FacetFilterProps, FacetFilterPropTypes} from "./FacetFilterProps"
 
 import {
   FacetAccessor, SearchkitComponent, ISizeOption,
-  FastClick, renderComponent
+  FastClick, renderComponent, FieldOptions
 } from "../../../../core"
 
 import {
@@ -34,11 +34,11 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
   getAccessorOptions(){
     const {
       field, id, operator, title, include, exclude,
-      size, translations, orderKey, orderDirection
+      size, translations, orderKey, orderDirection, fieldOptions
     } = this.props
     return {
       id, operator, title, size, include, exclude,
-      translations, orderKey, orderDirection
+      translations, orderKey, orderDirection, fieldOptions
     }
   }
   defineAccessor() {

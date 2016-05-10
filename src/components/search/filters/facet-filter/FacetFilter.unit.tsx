@@ -3,7 +3,7 @@ import {mount, render} from "enzyme";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../__test__/TestHelpers"
 import {FacetFilter} from "./FacetFilter.tsx";
 import {RefinementListFilter} from "./RefinementListFilter.tsx";
-import {SearchkitManager, Utils} from "../../../../core";
+import {SearchkitManager, Utils, FieldOptions} from "../../../../core";
 import {Toggle, ItemComponent} from "../../../ui";
 const bem = require("bem-cn");
 const _ = require("lodash")
@@ -130,7 +130,11 @@ describe("Facet Filter tests", () => {
       "orderKey":"_count",
       "orderDirection":"desc",
       "include":"title",
-      "exclude":["bad","n/a"]
+      "exclude":["bad","n/a"],
+      "fieldOptions":{
+        type:"embedded",
+        field:"test"
+      }
     })
   })
 

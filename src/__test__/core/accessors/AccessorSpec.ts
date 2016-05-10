@@ -63,6 +63,10 @@ describe("Accessor", ()=> {
     })
     expect(this.accessor.getAggregations(["tags", "buckets"], []))
       .toEqual([1,2,3])
+
+    expect(this.accessor.getAggregations(["tags", undefined, "buckets"], []))
+      .toEqual([1,2,3])
+
   })
 
   it("beforeBuildQuery()", ()=> {
