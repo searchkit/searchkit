@@ -18,10 +18,15 @@
     &__hierarchical-options {
       margin-left:10px;
     }
+    
+    &.is-disabled  {
+      display:none;
+    }
   }
 
   &-option {
     @include filter-option;
   }
+
 
 }
