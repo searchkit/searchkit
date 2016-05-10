@@ -149,4 +149,15 @@ describe("Refinement List Filter tests", () => {
 
   })
 
+  it("should add disabled state when no results", ()=> {
+    expect(this.wrapper.html()).toEqual(jsxToHTML(
+      <div data-qa="filter--testid" className="sk-hierarchical-refinement-list filter--testid is-disabled">
+        <div data-qa="title" className="sk-hierarchical-refinement-list__header">test title</div>
+        <div data-qa="options" className="sk-hierarchical-refinement-list__root">
+          <div className="sk-hierarchical-refinement-list__hierarchical-options"></div>
+        </div>
+      </div>
+    ))
+  })
+
 });
