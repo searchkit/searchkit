@@ -13,6 +13,7 @@ import {
 const defaults = require("lodash/defaults")
 export interface FacetFilterProps extends SearchkitComponentProps {
   field: string
+  fieldOptions?: {type: string, terms: Array<string>}
   operator?: string
   size?: number
   title: string
@@ -30,6 +31,7 @@ export interface FacetFilterProps extends SearchkitComponentProps {
 
 export const FacetFilterPropTypes = defaults({
   field: React.PropTypes.string.isRequired,
+  fieldOptions: React.PropTypes.object,
   operator: React.PropTypes.oneOf(["AND", "OR"]),
   size: React.PropTypes.number,
   title: React.PropTypes.string.isRequired,
