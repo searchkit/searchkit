@@ -1,7 +1,16 @@
 import {FieldContext} from './FieldContext';
 import {ChildrenBucket, HasChildQuery} from "../query_dsl"
+const get = require("lodash/get")
 
 export class ChildrenFieldContext extends FieldContext {
+
+  constructor(fieldOptions){
+    super(fieldOptions)
+    if(!get(this.fieldOptions, "options.childType")){
+      throw new Error("fieldOptions type:children requires options.childType")
+    }
+  }
+
 
   getAggregationPath(){
     return "inner"

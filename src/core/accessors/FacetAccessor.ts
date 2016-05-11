@@ -63,7 +63,6 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     this.options.fieldOptions = this.options.fieldOptions || {type:"embedded"}
     this.options.fieldOptions.field = this.key
     this.fieldContext = FieldContextFactory(this.options.fieldOptions)
-    console.log(this.options.fieldOptions, this.fieldContext)
   }
 
   getBuckets(){
