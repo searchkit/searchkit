@@ -50,7 +50,11 @@ describe("MenuFilter", ()=> {
       id:"color", title:"Color", operator:"OR",
       translations:{"Red":"Red Translated"},
       size:10, facetsPerPage:50, orderKey:"_term",
-      orderDirection:"asc", include:"title", exclude:["n/a"]
+      orderDirection:"asc", include:"title", exclude:["n/a"],
+      "fieldOptions":{
+        type:"embedded",
+        field:"color"
+      }
     })
   })
 
