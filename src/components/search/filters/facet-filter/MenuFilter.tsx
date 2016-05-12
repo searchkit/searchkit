@@ -6,6 +6,7 @@ import { FacetFilter} from "./FacetFilter"
 const defaults = require("lodash/defaults")
 const map = require("lodash/map")
 const concat = require("lodash/concat")
+const isUndefined = require("lodash/isUndefined")
 
 import {FacetFilterProps, FacetFilterPropTypes} from "./FacetFilterProps"
 
@@ -37,7 +38,8 @@ export class MenuFilter extends FacetFilter<FacetFilterProps> {
   }
 
   getSelectedItems() {
-    return [this.accessor.state.getValue()[0] || allItem.key]
+    let selectedValue = this.accessor.state.getValue()[0]
+    return [!isUndefined(selectedValue) ? selectedValue:allItem.key]
   }
 
   getItems(){
