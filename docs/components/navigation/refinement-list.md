@@ -68,6 +68,30 @@ class App extends SearchkitComponent {
 - `orderDirection` *(string)*: `asc` or `desc`
 - `include` *(Array<string>|string):* Terms bucket  include parameter see [Terms bucket filtering](https://www.elastic.co/guide/en/elasticsearch/reference/2.x/search-aggregations-bucket-terms-aggregation.html#_filtering_values_2)
 - `exclude` *(Array<string>|string):* Terms bucket exclude parameter, see above
+- `fieldOptions` *({type:"embedded|nested|children", options:Object})* Configures the type field that is stored in ElasticSearch, can be `embedded`(default) `nested` or `children`
+  - `type:nested` requires `options.path` provided
+  - `type:children` requires `options.childType` provided
+
+
+## Nested + Parent/Child
+Providing fieldOptions prop allows support for nesting and parent/child
+### Nested
+```jsx
+  <RefinementListFilter
+    id="embeddedTags"
+    title= "Embedded Tags"
+    field='tags.name'
+    fieldOptions={{type:'embedded', options:{path:'tags'}}}/>
+```
+
+### Child
+```jsx
+  <RefinementListFilter
+    id="childrenTags"
+    title= "Children Tags"
+    field='name'
+    fieldOptions={{type:'children', options:{childType:'tags'}}}/>
+```
 
 
 
