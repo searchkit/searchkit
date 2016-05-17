@@ -98,6 +98,7 @@
     "protractor": "^3.2.1",
     "react-addons-test-utils": "^0.14.6",
     "react-dom": "^0.14.6",
+    "react-router": "^2.4.0",
     "sass-loader": "^3.1.2",
     "serve-favicon": "^2.3.0",
     "sinon": "^1.17.2",
