@@ -24,7 +24,7 @@ const TaxonomyHitsItem = (props)=> {
   const {result, bemBlocks} = props
   return (
     <div className={bemBlocks.item().mix(bemBlocks.container("item"))}>
-      {result._source.name}
+      {result._source.path}
     </div>
   )
 }
@@ -35,7 +35,7 @@ export class App extends React.Component<any, any> {
 
   constructor() {
     super()
-    const host = "http://demo.searchkit.co/api/taxonomy"
+    const host = "http://localhost:9200/taxonomynested/locations"
     this.searchkit = new SearchkitManager(host)
   }
 
@@ -59,10 +59,9 @@ export class App extends React.Component<any, any> {
       <div className="sk-layout__body">
 
   			<div className="sk-layout__filters">
-          <HierarchicalRefinementFilter field="taxonomy" id="categories" title="Region" startLevel={2}/>
           <RefinementListFilter
-            field="taxonomy.value"
-            fieldOptions={{type:'nested', options:{path:"taxonomy"}}}
+            field="level"
+            fieldOptions={{type:'children', options:{childrenType:"nodes"}}}
             size={10}
             id="NestedTest" title="Nested Test"/>
   			</div>

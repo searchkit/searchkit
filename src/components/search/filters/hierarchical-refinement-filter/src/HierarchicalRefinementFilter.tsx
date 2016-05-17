@@ -95,8 +95,12 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<Hierarchica
 
   render(){
 		let block = this.bemBlocks.container;
+		let disabled = this.accessor.getBuckets(0).length === 0		
+		let className =
+			block().mix(`filter--${this.props.id}`)
+				.state({disabled})
     return (
-			<div data-qa={`filter--${this.props.id}`} className={block().mix(`filter--${this.props.id}`)}>
+			<div data-qa={`filter--${this.props.id}`} className={className}>
 				<div data-qa="title" className={block("header")}>{this.props.title}</div>
 				<div data-qa="options" className={block("root")}>
 					{this.renderOptions(0)}

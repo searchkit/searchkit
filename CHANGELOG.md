@@ -1,3 +1,17 @@
+## 0.10.0-0 (13th May, 2016)
+
+### Notable changes
+- `RefinementListFilter` now supports `fieldOptions` for `nested`/`child` fields
+- MenuFilter fix to support booleans
+- HierarchicalRefinementFilter disabled state fix
+- update history dependency to `2.1.1` which should be compatible with react-router 2.x
+- fix `DynamicRangeFilter` rounding issues
+- Fix corner cases to BoolMustNot queries
+- `SearchkitManager` `searchOnLoad` now works without history
+- `SearchkitManager.addResultsListener` to register a callback when ever new results are recieved
+- Fix input filter styling
+- Fix FacetFilter 'View All' link edge case
+
 ## 0.9.2 (7th April, 2016)
 ### Notable changes
 - fix `NoHits` styling so it uses scss vars
