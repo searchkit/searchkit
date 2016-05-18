@@ -37,9 +37,16 @@ const MovieHitsListItem = (props)=> {
 }
 
 class App extends React.Component<any, any> {
+
+  searchkit:any
+
+  componentWillMount() {
+    this.searchkit = new SearchkitManager(host)
+  }
+
   render(){
     return (
-      <SearchkitProvider searchkit={searchkit}>
+      <SearchkitProvider searchkit={this.searchkit}>
         <div className="sk-layout list-app">
 
           <div className="sk-layout__top-bar sk-top-bar">
@@ -86,7 +93,10 @@ class App extends React.Component<any, any> {
 }
 
 const View = (props) => {
-  return (<div>View</div>)
+  return (<div>
+    <Link to={'/list-app'}>go to list</Link>
+    <a onClick={props.history.goBack}>go back</a>
+    </div>)
 }
 
 ReactDOM.render((

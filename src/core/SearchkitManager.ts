@@ -88,6 +88,7 @@ export class SearchkitManager {
     } else {
       this.runInitialSearch()
     }
+    
   }
   addAccessor(accessor){
     accessor.setSearchkitManager(this)
