@@ -17,8 +17,16 @@ export class SearchkitProvider extends React.Component<SearchkitProps,any> {
 		children:React.PropTypes.element.isRequired
 	}
 
+	componentWillMount() {
+		this.props.searchkit.setupListeners()
+	}
+
 	componentDidMount(){
 		this.props.searchkit.completeRegistration()
+	}
+
+	componentWillUnmount(){
+		this.props.searchkit.unlistenHistory()
 	}
 
 	getChildContext(){

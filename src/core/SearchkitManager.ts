@@ -52,10 +52,12 @@ export class SearchkitManager {
   static VERSION = VERSION
 
   static mock() {
-    return new SearchkitManager("/", {
+    let searchkit = new SearchkitManager("/", {
       useHistory:false,
       transport:new MockESTransport()
     })
+    searchkit.setupListeners()
+    return searchkit
   }
 
   constructor(host:string, options:SearchkitOptions = {}){
@@ -81,8 +83,12 @@ export class SearchkitManager {
     this.query = new ImmutableQuery()
     this.emitter = new EventEmitter()
     this.resultsEmitter = new EventEmitter()
+  }
+
+  setupListeners() {
     this.initialLoading = true
     if(this.options.useHistory) {
+      this.unlistenHistory()
       this.history = createHistory()
       this.listenToHistory()
     } else {

@@ -20,6 +20,7 @@ describe("SearchkitManager", ()=> {
       searchUrlPath:"/search",
       searchOnLoad:false
     })
+    this.searchkit.setupListeners()
     this.emitterSpy = jasmine.createSpy("emitter")
     this.searchkit.emitter.addListener(this.emitterSpy)
     this.accessors = this.searchkit.accessors
@@ -120,9 +121,13 @@ describe("SearchkitManager", ()=> {
     history.push({pathname: window.location.pathname, query:{
       q:"foo"
     }})
+    SearchkitManager.prototype.unlistenHistory = jasmine.createSpy("unlisten")
     const searchkit = new SearchkitManager("/", {
       useHistory:true
     })
+    searchkit.setupListeners()
+    expect(SearchkitManager.prototype.unlistenHistory)
+      .toHaveBeenCalled()
     spyOn(searchkit.accessors, "setState")
     spyOn(searchkit, "_search")
     searchkit.completeRegistration()
@@ -145,6 +150,7 @@ describe("SearchkitManager", ()=> {
       useHistory:true,
       searchOnLoad:false
     })
+    searchkit.setupListeners()
     spyOn(searchkit.accessors, "setState")
     spyOn(searchkit, "_search")
     searchkit.completeRegistration()
@@ -167,6 +173,8 @@ describe("SearchkitManager", ()=> {
     const searchkit = new SearchkitManager("/", {
       useHistory:true
     })
+    searchkit.setupListeners()
+
     searchkit.searchFromUrlQuery = (query)=> {
       throw new Error("oh no")
     }
@@ -184,6 +192,7 @@ describe("SearchkitManager", ()=> {
     const searchkit = new SearchkitManager("/", {
       useHistory:true
     })
+    searchkit.setupListeners()
     searchkit.state = {
       q:"foo"
     }
@@ -225,6 +234,7 @@ describe("SearchkitManager", ()=> {
     const searchkit = new SearchkitManager("/", {
       useHistory:true
     })
+    searchkit.setupListeners()
     searchkit.state = {
       q:"foo"
     }
