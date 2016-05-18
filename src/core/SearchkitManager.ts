@@ -81,6 +81,10 @@ export class SearchkitManager {
     this.query = new ImmutableQuery()
     this.emitter = new EventEmitter()
     this.resultsEmitter = new EventEmitter()
+    this.prepareInitial()
+  }
+
+  prepareInitial() {
     this.initialLoading = true
     if(this.options.useHistory) {
       this.history = createHistory()
@@ -88,7 +92,6 @@ export class SearchkitManager {
     } else {
       this.runInitialSearch()
     }
-    
   }
   addAccessor(accessor){
     accessor.setSearchkitManager(this)
@@ -130,6 +133,8 @@ export class SearchkitManager {
   }
   listenToHistory(){
     let callsBeforeListen = (this.options.searchOnLoad) ? 1: 2
+
+    console.log("listen")
 
     this._unlistenHistory = this.history.listen(after(callsBeforeListen,(location)=>{
       //action is POP when the browser modified

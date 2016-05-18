@@ -8,7 +8,6 @@ const {
 const host = "http://demo.searchkit.co/api/movies"
 import * as ReactDOM from "react-dom";
 import * as React from "react";
-const searchkit = new SearchkitManager(host)
 import {Router, Route, browserHistory, Link, IndexRoute} from 'react-router'
 
 const _ = require("lodash")
@@ -36,17 +35,13 @@ const MovieHitsListItem = (props)=> {
   )
 }
 
+const searchkit = new SearchkitManager(host)
+
 class App extends React.Component<any, any> {
-
-  searchkit:any
-
-  componentWillMount() {
-    this.searchkit = new SearchkitManager(host)
-  }
 
   render(){
     return (
-      <SearchkitProvider searchkit={this.searchkit}>
+      <SearchkitProvider searchkit={searchkit}>
         <div className="sk-layout list-app">
 
           <div className="sk-layout__top-bar sk-top-bar">
