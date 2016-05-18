@@ -52,10 +52,12 @@ export class SearchkitManager {
   static VERSION = VERSION
 
   static mock() {
-    return new SearchkitManager("/", {
+    let searchkit = new SearchkitManager("/", {
       useHistory:false,
       transport:new MockESTransport()
     })
+    searchkit.setupListeners()
+    return searchkit
   }
 
   constructor(host:string, options:SearchkitOptions = {}){
@@ -80,11 +82,10 @@ export class SearchkitManager {
     // this.primarySearcher = this.createSearcher()
     this.query = new ImmutableQuery()
     this.emitter = new EventEmitter()
-    this.resultsEmitter = new EventEmitter()    
-    this.prepareInitial()
+    this.resultsEmitter = new EventEmitter()
   }
 
-  prepareInitial() {
+  setupListeners() {
     this.initialLoading = true
     if(this.options.useHistory) {
       this.unlistenHistory()
@@ -136,7 +137,7 @@ export class SearchkitManager {
     let callsBeforeListen = (this.options.searchOnLoad) ? 1: 2
 
     this._unlistenHistory = this.history.listen(after(callsBeforeListen,(location)=>{
-      //action is POP when the browser modified      
+      //action is POP when the browser modified
       if(location.action === "POP") {
         this.registrationCompleted.then(()=>{
           this.searchFromUrlQuery(location.query)

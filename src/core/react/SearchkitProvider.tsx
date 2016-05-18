@@ -18,7 +18,7 @@ export class SearchkitProvider extends React.Component<SearchkitProps,any> {
 	}
 
 	componentWillMount() {
-		this.props.searchkit.prepareInitial()
+		this.props.searchkit.setupListeners()
 	}
 
 	componentDidMount(){
