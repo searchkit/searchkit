@@ -120,9 +120,12 @@ describe("SearchkitManager", ()=> {
     history.push({pathname: window.location.pathname, query:{
       q:"foo"
     }})
+    SearchkitManager.prototype.unlistenHistory = jasmine.createSpy("unlisten")
     const searchkit = new SearchkitManager("/", {
       useHistory:true
     })
+    expect(SearchkitManager.prototype.unlistenHistory)
+      .toHaveBeenCalled()
     spyOn(searchkit.accessors, "setState")
     spyOn(searchkit, "_search")
     searchkit.completeRegistration()
