@@ -1,3 +1,6 @@
+## 0.10.0-1 (18th May, 2016)
+- `SearchkitManager` is more intelligent with reregistering url listeners
+
 ## 0.10.0-0 (13th May, 2016)
 
 ### Notable changes
