@@ -6,6 +6,7 @@ import {
   Hits,
   HierarchicalRefinementFilter,
   RefinementListFilter,
+  NumericRefinementListFilter,
   Pagination,
   ResetFilters,
   SelectedFilters,
@@ -65,6 +66,16 @@ export class App extends React.Component<any, any> {
             fieldOptions={{type:'nested', options:{path:"taxonomy"}}}
             size={10}
             id="NestedTest" title="Nested Test"/>
+          <NumericRefinementListFilter
+            field="taxonomy.level"
+            options={[
+              {title:"All"},
+              {title:"1", from:1, to:2},
+              {title:"2", from:2, to:3},
+              {title:"3", from:3}
+            ]}
+            fieldOptions={{type:'nested', options:{path:"taxonomy"}}}
+            id="NestedNumeric" title="Nested Numeric"/>
   			</div>
 
         <div className="sk-layout__results sk-results-list">
