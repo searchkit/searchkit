@@ -37,7 +37,7 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
       size, translations, orderKey, orderDirection, fieldOptions
     } = this.props
     return {
-      id, operator, title, size, include, exclude,
+      id, operator, title, size, include, exclude, field,
       translations, orderKey, orderDirection, fieldOptions
     }
   }

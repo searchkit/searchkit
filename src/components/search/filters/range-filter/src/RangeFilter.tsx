@@ -9,7 +9,8 @@ import {
 	RangeAccessor,
 	RenderComponentType,
 	RenderComponentPropType,
-	renderComponent
+	renderComponent,
+	FieldOptions
 } from "../../../../../core"
 
 import {
@@ -31,6 +32,7 @@ export interface RangeFilterProps extends SearchkitComponentProps {
 	showHistogram?:boolean
 	containerComponent?: RenderComponentType<any>
   rangeComponent?: RenderComponentType<RangeProps>
+	fieldOptions?:FieldOptions
 }
 
 
@@ -43,7 +45,11 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 		title:React.PropTypes.string.isRequired,
 		id:React.PropTypes.string.isRequired,
 		containerComponent:RenderComponentPropType,
-		rangeComponent:RenderComponentPropType
+		rangeComponent:RenderComponentPropType,
+		fieldOptions:React.PropTypes.shape({
+			type:React.PropTypes.oneOf(["embedded", "nested", "children"]).isRequired,
+			options:React.PropTypes.object
+		})
 	}, SearchkitComponent.propTypes)
 
 
@@ -61,10 +67,11 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	}
 
 	defineAccessor() {
-		const { id, title, min, max, field,
+		const { id, title, min, max, field, fieldOptions,
 			interval, showHistogram } = this.props
 		return new RangeAccessor(id,{
-			id, min, max, title, field, interval, loadHistogram:showHistogram
+			id, min, max, title, field,
+			interval, loadHistogram:showHistogram, fieldOptions
 		})
 	}
 

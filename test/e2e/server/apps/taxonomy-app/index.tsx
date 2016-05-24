@@ -15,7 +15,8 @@ import {
   SearchkitManager,
   SearchkitProvider,
   NoHits,
-  InitialLoader
+  InitialLoader,
+  RangeFilter
 } from "../../../../../src"
 
 import "./customisations.scss";
@@ -76,6 +77,9 @@ export class App extends React.Component<any, any> {
             ]}
             fieldOptions={{type:'nested', options:{path:"taxonomy"}}}
             id="NestedNumeric" title="Nested Numeric"/>
+          <RangeFilter min={1} max={6} field="taxonomy.level" id="levelRange"
+            title="Taxonomy level range" fieldOptions={{type:"nested", options:{path:"taxonomy"}}}/>
+
   			</div>
 
         <div className="sk-layout__results sk-results-list">

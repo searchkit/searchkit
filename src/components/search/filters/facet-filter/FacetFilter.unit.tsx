@@ -122,6 +122,7 @@ describe("Facet Filter tests", () => {
 
     expect(options).toEqual({
       "id": "test id",
+      "field":"test",
       "title": "test title",
       "size": 3,
       "facetsPerPage": 50,

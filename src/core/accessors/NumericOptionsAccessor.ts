@@ -40,7 +40,7 @@ export class NumericOptionsAccessor extends FilterBasedAccessor<ArrayState> {
       options.options, ["from", "to"], "all"
     )
     this.options.fieldOptions = this.options.fieldOptions || {type:"embedded"}
-    this.options.fieldOptions.field = this.key
+    this.options.fieldOptions.field = this.options.field
     this.fieldContext = FieldContextFactory(this.options.fieldOptions)
 
   }
