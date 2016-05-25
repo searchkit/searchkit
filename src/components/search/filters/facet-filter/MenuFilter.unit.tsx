@@ -47,7 +47,7 @@ describe("MenuFilter", ()=> {
   it("expect accessor options to be correct", ()=> {
     expect(this.wrapper.node.props.listComponent).toBe(ItemList)
     expect(this.accessor.options).toEqual({
-      id:"color", title:"Color", operator:"OR",
+      id:"color", field:"color", title:"Color", operator:"OR",
       translations:{"Red":"Red Translated"},
       size:10, facetsPerPage:50, orderKey:"_term",
       orderDirection:"asc", include:"title", exclude:["n/a"],

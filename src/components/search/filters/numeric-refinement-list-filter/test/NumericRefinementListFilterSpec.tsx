@@ -53,7 +53,11 @@ describe("NumericRefinementListFilter tests", () => {
         {title:"All", key:"everything"},
         {title:"up to 20", from:0, to:21, key:"0_21"},
         {title:"21 to 40", from:21, to:41, key:"21_41"}
-      ], multiselect:false
+      ],
+      multiselect:false,
+      fieldOptions:{
+        type:'embedded', field:'score'
+      }
     })
   })
 

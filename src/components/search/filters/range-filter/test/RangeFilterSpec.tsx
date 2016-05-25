@@ -67,7 +67,11 @@ describe("Range Filter tests", () => {
       field:"metascore",
       title:"metascore",
       interval: undefined,
-      loadHistogram:true
+      loadHistogram:true,
+      fieldOptions:{
+        type:'embedded',
+        field:'metascore'
+      }
     })
   })
 
