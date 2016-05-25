@@ -1,10 +1,6 @@
-## 0.10.0-1 (18th May, 2016)
+## 0.10.0-2 (25th May, 2016)
 - `SearchkitManager` is more intelligent with reregistering url listeners
-
-## 0.10.0-0 (13th May, 2016)
-
-### Notable changes
-- `RefinementListFilter` now supports `fieldOptions` for `nested`/`child` fields
+- `RefinementListFilter`, `MenuFilter`, `NumericRefinementListFilter` and `RangeAccessor` now supports `fieldOptions` for `nested`/`child` fields
 - MenuFilter fix to support booleans
 - HierarchicalRefinementFilter disabled state fix
 - update history dependency to `2.1.1` which should be compatible with react-router 2.x
