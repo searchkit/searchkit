@@ -9,7 +9,8 @@ describe("NestedFieldContext", ()=> {
     this.fieldContext = FieldContextFactory({
       type:"nested",
       options:{
-        path:"tags"
+        path:"tags",
+        score_mode:"sum"
       }
     })
   })
@@ -42,7 +43,7 @@ describe("NestedFieldContext", ()=> {
   it("wrapFilter()", ()=> {
     let termFilter = TermQuery("color", "red")
     expect(this.fieldContext.wrapFilter(termFilter))
-      .toEqual(NestedQuery("tags", termFilter))
+      .toEqual(NestedQuery("tags", termFilter, {score_mode:'sum'}))
 
   })
 

@@ -71,28 +71,7 @@ class App extends SearchkitComponent {
 - `fieldOptions` *({type:"embedded|nested|children", options:Object})* Configures the type field that is stored in ElasticSearch, can be `embedded`(default) `nested` or `children`
   - `type:nested` requires `options.path` provided
   - `type:children` requires `options.childType` provided
-
-
-## Nested + Parent/Child
-Providing fieldOptions prop allows support for nesting and parent/child
-### Nested
-```jsx
-  <RefinementListFilter
-    id="embeddedTags"
-    title= "Embedded Tags"
-    field='tags.name'
-    fieldOptions={{type:'embedded', options:{path:'tags'}}}/>
-```
-
-### Child
-```jsx
-  <RefinementListFilter
-    id="childrenTags"
-    title= "Children Tags"
-    field='name'
-    fieldOptions={{type:'children', options:{childType:'tags'}}}/>
-```
-
+  - see [Field Options](../../core/FieldOptions.md)
 
 
 ## Translations

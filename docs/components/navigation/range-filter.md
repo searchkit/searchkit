@@ -37,3 +37,4 @@ class App extends SearchkitComponent {
 - `fieldOptions` *({type:"embedded|nested|children", options:Object})* Configures the type field that is stored in ElasticSearch, can be `embedded`(default) `nested` or `children`
   - `type:nested` requires `options.path` provided
   - `type:children` requires `options.childType` provided
+  - see [Field Options](../../core/FieldOptions.md)
