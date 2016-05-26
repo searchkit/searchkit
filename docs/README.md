@@ -50,6 +50,7 @@
   * [SearchkitManager](/docs/core/SearchkitManager.md)
   * [Accessors](/docs/core/Accessors.md)
   * [ImmutableQuery](/docs/core/ImmutableQuery.md)
+  * [FieldOptions](/docs/core/FieldOptions.md)
   * [QueryDSL](/docs/core/QueryDSL.md)
   * [SearchkitProvider](/docs/core/SearchkitProvider.md)
   * [SearchkitComponent](/docs/core/SearchkitComponent.md)

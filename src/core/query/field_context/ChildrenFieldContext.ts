@@ -23,6 +23,10 @@ export class ChildrenFieldContext extends FieldContext {
     )]
   }
   wrapFilter(filter){
-    return HasChildQuery(this.fieldOptions.options.childType, filter)
+    return HasChildQuery(
+      this.fieldOptions.options.childType,
+      filter,
+      this.fieldOptions.options
+    )
   }
 }

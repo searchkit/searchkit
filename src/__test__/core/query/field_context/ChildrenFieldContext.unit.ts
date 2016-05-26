@@ -9,7 +9,8 @@ describe("ChildrenFieldContext", ()=> {
     this.fieldContext = FieldContextFactory({
       type:"children",
       options:{
-        childType:"tags"
+        childType:"tags",
+        score_mode:"sum"
       }
     })
   })
@@ -42,7 +43,7 @@ describe("ChildrenFieldContext", ()=> {
   it("wrapFilter()", ()=> {
     let termFilter = TermQuery("color", "red")
     expect(this.fieldContext.wrapFilter(termFilter))
-      .toEqual(HasChildQuery("tags", termFilter))
+      .toEqual(HasChildQuery("tags", termFilter, {score_mode:'sum'}))
   })
 
 })

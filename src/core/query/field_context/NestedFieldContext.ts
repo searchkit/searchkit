@@ -23,6 +23,10 @@ export class NestedFieldContext extends FieldContext {
     )]
   }
   wrapFilter(filter){
-    return NestedQuery(this.fieldOptions.options.path, filter)
+    return NestedQuery(
+      this.fieldOptions.options.path,
+      filter,
+      this.fieldOptions.options
+    )
   }
 }
