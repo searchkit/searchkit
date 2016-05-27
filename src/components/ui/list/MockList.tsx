@@ -18,7 +18,8 @@ export class MockList extends React.Component<any, any> {
       setItems:jasmine.createSpy("setItems"),
       translate(key){
         return key + " translated"
-      }
+      },
+      countFormatter:(count)=> "#"+count
     }
   }
 

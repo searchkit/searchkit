@@ -240,7 +240,7 @@ class App extends React.Component<any, any> {
               <RefinementListFilter id="actors" title="Actors" field="actors.raw" size={10}/>
               <RefinementListFilter translations={{"facets.view_more":"View more writers"}} id="writers" title="Writers" field="writers.raw" operator="OR" size={10}/>
               <RefinementListFilter id="countries" title="Countries" field="countries.raw" operator="OR" size={10}/>
-              <NumericRefinementListFilter listComponent={Select} id="runtimeMinutes" title="Length" field="runtimeMinutes" options={[
+              <NumericRefinementListFilter countFormatter={(count)=>"#"+count} listComponent={Select} id="runtimeMinutes" title="Length" field="runtimeMinutes" options={[
                 {title:"All"},
                 {title:"up to 20", from:0, to:20},
                 {title:"21 to 60", from:21, to:60},

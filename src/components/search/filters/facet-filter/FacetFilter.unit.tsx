@@ -46,7 +46,7 @@ describe("Facet Filter tests", () => {
 
     this.createWrapper(
       <FacetFilter
-        field="test" id="test id" title="test title" size={3}
+        field="test" id="test id" title="test title" size={3} countFormatter={(count)=>"#"+count}
         include={"title"} exclude={["bad", "n/a"]} operator="OR"
         orderKey="_count" orderDirection="desc" translations={{"facets.view_all":"View all facets"}}
         searchkit={this.searchkit} />
@@ -65,15 +65,15 @@ describe("Facet Filter tests", () => {
           <div data-qa="options" className="sk-item-list">
             <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 1"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox"/>
               <div data-qa="label" className="sk-item-list-option__text">test option 1 translated</div>
-              <div data-qa="count" className="sk-item-list-option__count">1</div>
+              <div data-qa="count" className="sk-item-list-option__count">#1</div>
             </div>
             <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 2"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox"/>
               <div data-qa="label" className="sk-item-list-option__text">test option 2</div>
-              <div data-qa="count" className="sk-item-list-option__count">2</div>
+              <div data-qa="count" className="sk-item-list-option__count">#2</div>
             </div>
             <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 3"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox"/>
               <div data-qa="label" className="sk-item-list-option__text">test option 3</div>
-              <div data-qa="count" className="sk-item-list-option__count">3</div>
+              <div data-qa="count" className="sk-item-list-option__count">#3</div>
             </div>
           </div>
           <div data-qa="show-more" className="sk-refinement-list__view-more-action">View all facets</div>

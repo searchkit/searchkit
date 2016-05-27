@@ -13,7 +13,7 @@ describe("TagCloud", ()=> {
   it("should render and behave correctly", ()=> {
     this.wrapper = mount(
       <MockList listComponent={TagCloud}/>
-    )    
+    )
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-tag-cloud">
         <div className="sk-tag-cloud-option sk-tag-cloud__item is-active" style={{fontSize:"1em"}} data-qa="option" data-key="a">
@@ -82,7 +82,7 @@ describe("TagCloud", ()=> {
     )
 
     expect(this.wrapper.find(".sk-tag-cloud__item").at(0).text())
-      .toBe("A translated10") // Count is appended in a span and styled with CSS
+      .toBe("A translated#10") // Count is appended in a span and styled with CSS
   })
 
 })

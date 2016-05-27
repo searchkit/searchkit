@@ -119,7 +119,9 @@ describe("NumericRefinementListFilter tests", () => {
   it("should allow custom mod, className, listComponent, translations", ()=> {
     this.setWrapper({
       mod:"my-numeric", className:"my-class",
-      listComponent:Select, translations:{"All":"Everything"}
+      listComponent:Select, translations:{"All":"Everything"},
+      countFormatter:(count)=>"#"+count
+
     })
     this.setResults()
     expect(this.wrapper.html()).toEqual(jsxToHTML(
@@ -128,9 +130,9 @@ describe("NumericRefinementListFilter tests", () => {
         <div className="sk-panel__content">
           <div className="my-numeric my-class">
             <select>
-              <option value="All">Everything (30)</option>
-              <option value="up to 20">up to 20 (10)</option>
-              <option value="21 to 40">21 to 40 (20)</option>
+              <option value="All">Everything (#30)</option>
+              <option value="up to 20">up to 20 (#10)</option>
+              <option value="21 to 40">21 to 40 (#20)</option>
             </select>
           </div>
         </div>

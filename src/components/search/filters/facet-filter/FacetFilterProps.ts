@@ -27,7 +27,8 @@ export interface FacetFilterProps extends SearchkitComponentProps {
   exclude?: Array<string> | string
   showCount?: boolean
   showMore?:boolean
-  fieldOptions?:FieldOptions
+  fieldOptions?:FieldOptions,
+  countFormatter?:(count:number)=> number | string
 }
 
 export const FacetFilterPropTypes = defaults({
@@ -55,5 +56,6 @@ export const FacetFilterPropTypes = defaults({
   fieldOptions:React.PropTypes.shape({
     type:React.PropTypes.oneOf(["embedded", "nested", "children"]).isRequired,
     options:React.PropTypes.object
-  })
+  }),
+  countFormatter:React.PropTypes.func
 },SearchkitComponent.propTypes)

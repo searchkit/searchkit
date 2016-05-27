@@ -29,7 +29,8 @@ export interface NumericRefinementListFilterProps extends SearchkitComponentProp
   listComponent?: RenderComponentType<ListProps>
   itemComponent?: RenderComponentType<ItemProps>
   containerComponent?: RenderComponentType<any>
-	fieldOptions?:FieldOptions
+	fieldOptions?:FieldOptions,
+  countFormatter?:(count:number)=> number | string
 }
 
 export class NumericRefinementListFilter extends SearchkitComponent<NumericRefinementListFilterProps, any> {
@@ -55,7 +56,8 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
 		fieldOptions:React.PropTypes.shape({
 	    type:React.PropTypes.oneOf(["embedded", "nested", "children"]).isRequired,
 	    options:React.PropTypes.object
-	  })
+	  }),
+		countFormatter:React.PropTypes.func
   }, SearchkitComponent.propTypes)
 
   static defaultProps = {
@@ -98,7 +100,7 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
   render() {
     const {
 			listComponent, containerComponent, itemComponent,
-			showCount, title, id, mod, className
+			showCount, title, id, mod, className, countFormatter
 		} = this.props
 
   	return renderComponent(containerComponent, {
@@ -115,7 +117,8 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
 			setItems:this.setItems,
       docCount: this.accessor.getDocCount(),
       showCount,
-			translate:this.translate
+			translate:this.translate,
+			countFormatter
     }));
   }
 }
