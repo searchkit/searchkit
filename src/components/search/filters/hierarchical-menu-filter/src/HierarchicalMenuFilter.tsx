@@ -9,6 +9,7 @@ import {
 
 const defaults = require("lodash/defaults")
 const map = require("lodash/map")
+const identity = require("lodash/identity")
 
 export interface HierarchicalMenuFilterProps extends SearchkitComponentProps{
 	id:string
@@ -16,23 +17,24 @@ export interface HierarchicalMenuFilterProps extends SearchkitComponentProps{
 	title:string
 	size?:number
 	orderKey?:string
-	orderDirection?:string
+	orderDirection?:string,
+	countFormatter?:(count:number)=> string | number
 }
 
 export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuFilterProps, any> {
 	public accessor:HierarchicalFacetAccessor
 
+	static defaultProps = {
+		countFormatter:identity
+	}
 	static propTypes = defaults({
 		id:React.PropTypes.string.isRequired,
 		fields:React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
 		title:React.PropTypes.string.isRequired,
 		orderKey:React.PropTypes.string,
-		orderDirection:React.PropTypes.oneOf(["asc", "desc"])
+		orderDirection:React.PropTypes.oneOf(["asc", "desc"]),
+		countFormatter:React.PropTypes.func
 	}, SearchkitComponent.propTypes)
-
-	constructor(props:HierarchicalMenuFilterProps) {
-		super(props)
-	}
 
 	defineBEMBlocks() {
 		var blockClass = this.props.mod || "sk-hierarchical-menu";
@@ -59,7 +61,7 @@ export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuF
 	renderOption(level, option) {
 
 		var block = this.bemBlocks.option
-
+		const {countFormatter} = this.props
 		var className = block().state({
 			selected:this.accessor.state.contains(level, option.key)
 		})
@@ -69,7 +71,7 @@ export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuF
 				<FastClick handler={this.addFilter.bind(this, option,level)}>
 					<div className={className}>
 						<div className={block("text")}>{this.translate(option.key)}</div>
-						<div className={block("count")}>{option.doc_count}</div>
+						<div className={block("count")}>{countFormatter(option.doc_count)}</div>
 					</div>
 				</FastClick>
 					{(() => {
