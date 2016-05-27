@@ -64,6 +64,8 @@ class App extends SearchkitComponent {
 - `mod` *(string)*: Optional. A custom BEM container class.
 - `orderKey` *(string)*: Order key either using an intrinsic sortable key `_count` `_term`
 - `orderDirection` *(string)*: `asc` or `desc`
+- `countFormatter` *((count:number)=> number|string)* A optional function to format the doc counts
+
 
 ## Demo
 [](codepen://searchkit/jWyWmw?height=800&theme=0)
