@@ -1,4 +1,4 @@
-## 0.10.0-2 (25th May, 2016)
+## 0.10.0-3 (27th May, 2016)
 - `SearchkitManager` is more intelligent with reregistering url listeners
 - `RefinementListFilter`, `MenuFilter`, `NumericRefinementListFilter` and `RangeAccessor` now supports `fieldOptions` for `nested`/`child` fields
 - MenuFilter fix to support booleans
