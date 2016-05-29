@@ -33,9 +33,9 @@ import {
 } from "searchkit";
 
 const RefinementOption = (props) => (
-  <div className={props.bemBlocks.item().state({selected:props.selected}).mix(this.bemBlocks.container("item"))} onClick={props.onClick}>
-    <div className={props.bemBlocks.item("label")}>{props.label}</div>
-    <div className={props.bemBlocks.item("count")}>{props.docCount}</div>
+  <div className={props.bemBlocks.option().state({selected:props.selected}).mix(props.bemBlocks.container("item"))} onClick={props.onClick}>
+    <div className={props.bemBlocks.option("text")}>{props.label}</div>
+    <div className={props.bemBlocks.option("count")}>{props.count}</div>
   </div>
 )
 

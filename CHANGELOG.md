@@ -1,10 +1,12 @@
-## 0.10.0-3 (27th May, 2016)
+## 0.10.0-4 (29th May, 2016)
 - `SearchkitManager` is more intelligent with reregistering url listeners
-- `RefinementListFilter`, `MenuFilter`, `NumericRefinementListFilter` and `RangeAccessor` now supports `fieldOptions` for `nested`/`child` fields
+- `RefinementListFilter`, `MenuFilter`, `NumericRefinementListFilter` and `RangeFilter` now supports `fieldOptions` for `nested`/`child` fields
 - MenuFilter fix to support booleans
 - HierarchicalRefinementFilter disabled state fix
 - update history dependency to `2.1.1` which should be compatible with react-router 2.x
 - fix `DynamicRangeFilter` rounding issues
+- Added `countFormatter` count formatting support to `RefinementListFilter`, `MenuFilter`, `NumericRefinementListFilter`, `HierarchicalMenuFilter`, `HierarchicalRefinementFilter`, `HitsStats`
+- Added `rangeFormatter` range display support to `RangeFilter`, `DynamicRangeFilter`
 - Fix corner cases to BoolMustNot queries
 - `SearchkitManager` `searchOnLoad` now works without history
 - `SearchkitManager.addResultsListener` to register a callback when ever new results are recieved
