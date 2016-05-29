@@ -5,7 +5,10 @@ import {
 	FilterBucket,
 	RangeQuery,
 	BoolMust,
-	StatsMetric
+	StatsMetric,
+	FieldOptions,
+	FieldContext,
+	FieldContextFactory
 } from "../query";
 
 const maxBy = require("lodash/maxBy")
@@ -15,23 +18,29 @@ export interface DynamicRangeAccessorOptions {
 	title:string
 	id:string
 	field:string
+	fieldOptions?:FieldOptions
+
 }
 
 export class DynamicRangeAccessor extends FilterBasedAccessor<ObjectState> {
 	options:any
+	fieldContext:FieldContext
 	state = new ObjectState({})
 
 	constructor(key, options:DynamicRangeAccessorOptions){
     super(key, options.id)
     this.options = options
+		this.options.fieldOptions = this.options.fieldOptions || {type:"embedded"}
+    this.options.fieldOptions.field = this.options.field
+    this.fieldContext = FieldContextFactory(this.options.fieldOptions)
   }
 
 	buildSharedQuery(query) {
 		if (this.state.hasValue()) {
 			let val:any = this.state.getValue()
-			let rangeFilter = RangeQuery(this.options.field,{
+			let rangeFilter = this.fieldContext.wrapFilter(RangeQuery(this.options.field,{
         gte:val.min, lte:val.max
-      })
+      }))
 			let selectedFilter = {
 				name:this.translate(this.options.title),
 				value:`${val.min} - ${val.max}`,
@@ -51,9 +60,10 @@ export class DynamicRangeAccessor extends FilterBasedAccessor<ObjectState> {
 	}
 
   getStat(stat) {
-    return this.getAggregations(
-      [this.key, this.key, stat], 0
-    )
+    return this.getAggregations([
+			this.key,
+			this.fieldContext.getAggregationPath(),
+			this.key, stat],0 )
   }
 
 	isDisabled() {
@@ -66,7 +76,9 @@ export class DynamicRangeAccessor extends FilterBasedAccessor<ObjectState> {
 			return query.setAggs(FilterBucket(
 				this.key,
 				otherFilters,
-				StatsMetric(this.key, this.options.field)
+				...this.fieldContext.wrapAggregations(					
+					StatsMetric(this.key, this.options.field)
+				)
 			))
 	}
 }

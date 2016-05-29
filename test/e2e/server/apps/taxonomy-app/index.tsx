@@ -7,6 +7,7 @@ import {
   HierarchicalRefinementFilter,
   RefinementListFilter,
   NumericRefinementListFilter,
+  DynamicRangeFilter,
   Pagination,
   ResetFilters,
   SelectedFilters,
@@ -79,6 +80,9 @@ export class App extends React.Component<any, any> {
             id="NestedNumeric" title="Nested Numeric"/>
           <RangeFilter min={1} max={6} field="taxonomy.level" id="levelRange"
             title="Taxonomy level range" fieldOptions={{type:"nested", options:{path:"taxonomy"}}}/>
+
+            <DynamicRangeFilter field="taxonomy.level" id="levelRangeDynamic"
+              title="Taxonomy level Dynamic range" fieldOptions={{type:"nested", options:{path:"taxonomy"}}}/>
 
   			</div>
 
