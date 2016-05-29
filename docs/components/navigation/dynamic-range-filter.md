@@ -30,3 +30,4 @@ class App extends SearchkitComponent {
    - Compatible with `RangeSliderInput`
    - Defaults to `RangeSliderInput`
 - `mod` *(string)*: Optional. A custom BEM container class.
+- `rangeFormatter` *((count:number)=> string|number)* A formatter function used to convert numbers into more readable display values. E.g. long number formatting or prefixing currencies.`
