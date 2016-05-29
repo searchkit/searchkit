@@ -72,6 +72,8 @@ class App extends SearchkitComponent {
 - `orderDirection` *(string)*: `asc` or `desc`
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
 - `mod` *(string)*: Optional. A custom BEM container class.
+- `countFormatter` *((count:number)=> number|string)* A optional function to format the doc counts
+
 
 ## Demo
 [](codepen://searchkit/OMgmwR?height=800&theme=0)

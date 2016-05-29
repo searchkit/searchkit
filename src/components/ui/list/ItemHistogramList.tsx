@@ -19,11 +19,11 @@ export interface ItemHistogramComponentProps extends ItemProps {
 export class ItemHistogramComponent extends React.Component<ItemHistogramComponentProps, {}> {
 
   getCountRatio(){
-    const { count, listDocCount } = this.props
-    if ((count == undefined) || (listDocCount == undefined) || (listDocCount == 0)) {
+    const { rawCount, listDocCount } = this.props
+    if ((rawCount == undefined) || (listDocCount == undefined) || (listDocCount == 0)) {
       return 0
     } else {
-      return count / listDocCount
+      return rawCount / listDocCount
     }
   }
 

@@ -17,11 +17,7 @@ import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../__test__/Te
 describe("ItemList Components", ()=> {
 
   it("ItemList should render and behave correctly", ()=> {
-    let props = {
-      items:this.items, selectedItems: this.selectedItems,
-      toggleItem: this.toggleItem, setItems: this.setItems,
-      translate:this.translate
-    }
+
     this.wrapper = mount(
       <MockList listComponent={ItemList}/>
     )
@@ -29,19 +25,19 @@ describe("ItemList Components", ()=> {
       <div data-qa="options" className="sk-item-list">
         <div className="sk-item-list-option sk-item-list__item is-active" data-qa="option" data-key="a">
           <div data-qa="label" className="sk-item-list-option__text">A translated</div>
-          <div data-qa="count" className="sk-item-list-option__count">10</div>
+          <div data-qa="count" className="sk-item-list-option__count">#10</div>
         </div>
         <div className="sk-item-list-option sk-item-list__item is-disabled" data-qa="option" data-key="b">
           <div data-qa="label" className="sk-item-list-option__text">B translated</div>
-          <div data-qa="count" className="sk-item-list-option__count">11</div>
+          <div data-qa="count" className="sk-item-list-option__count">#11</div>
         </div>
         <div className="sk-item-list-option sk-item-list__item is-active" data-qa="option" data-key="c">
           <div data-qa="label" className="sk-item-list-option__text">C translated</div>
-          <div data-qa="count" className="sk-item-list-option__count">12</div>
+          <div data-qa="count" className="sk-item-list-option__count">#12</div>
         </div>
         <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="d">
           <div data-qa="label" className="sk-item-list-option__text">d translated</div>
-          <div data-qa="count" className="sk-item-list-option__count">15</div>
+          <div data-qa="count" className="sk-item-list-option__count">#15</div>
         </div>
       </div>
     ))
@@ -77,7 +73,7 @@ describe("ItemList Components", ()=> {
       mod: "sk-item-list-updated", className: "my-custom-class"
     }
     this.wrapper = mount(
-      <MockList listComponent={ItemList}   mod="sk-item-list-updated" className="my-custom-class"/>
+      <MockList listComponent={ItemList} mod="sk-item-list-updated" className="my-custom-class"/>
     )
 
     expect(this.wrapper.find(".sk-item-list-updated").hasClass("my-custom-class")).toBe(true)

@@ -53,6 +53,8 @@ class App extends SearchkitComponent {
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
 - `component` *(ReactComponent)*: A React component to override the default display component. Used when you want to change the markup of HitStats
 - `mod` *(string)*: Optional. A custom BEM container class.
+- `countFormatter` *((count:number)=> number|string)* A optional function to format the doc counts
+
 
 ## Demo
 [](codepen://searchkit/PZWZbP?height=400&theme=0)

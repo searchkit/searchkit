@@ -61,7 +61,7 @@ class App extends React.Component<any, any> {
                 <MenuFilter field={"type.raw"} title="TagCloud" id="tag-cloud" listComponent={TagCloud} />
                 <MenuFilter field={"type.raw"} title="Toggle" id="toggle" listComponent={Toggle} />
                 <MenuFilter field={"type.raw"} title="Tabs" id="tabs" listComponent={Tabs} />
-                <MenuFilter field={"type.raw"} title="Select" id="select" listComponent={Select} />
+                <MenuFilter countFormatter={(count)=> "#"+count} field={"type.raw"} title="Select" id="select" listComponent={Select} />
 
               </div>
             </div>

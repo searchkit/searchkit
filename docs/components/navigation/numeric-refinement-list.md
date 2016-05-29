@@ -44,6 +44,8 @@ class App extends SearchkitComponent {
   - `type:nested` requires `options.path` provided
   - `type:children` requires `options.childType` provided
   - see [Field Options](../../core/FieldOptions.md)
+- `countFormatter` *((count:number)=> number|string)* A optional function to format the doc counts
+
 
 
 ## Demo
