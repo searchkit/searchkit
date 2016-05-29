@@ -53,6 +53,7 @@ export class RangeSlider extends React.Component<RangeSliderProps, {}> {
             [min]: rangeFormatter(min),
             [max]: rangeFormatter(max)
           }}
+          tipFormatter={rangeFormatter}
           range={true}
           step={step}
           value={[minValue, maxValue]}

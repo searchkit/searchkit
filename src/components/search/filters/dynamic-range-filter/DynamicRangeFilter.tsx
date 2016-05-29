@@ -20,6 +20,7 @@ import {
 const defaults = require("lodash/defaults")
 const map = require("lodash/map")
 const get = require("lodash/get")
+const identity = require("lodash/identity")
 
 export interface DynamicRangeFilterProps extends SearchkitComponentProps {
 	field:string
@@ -27,6 +28,7 @@ export interface DynamicRangeFilterProps extends SearchkitComponentProps {
 	title:string
 	containerComponent?: RenderComponentType<any>
   rangeComponent?: RenderComponentType<RangeProps>
+	rangeFormatter?:(count:number)=> number | string
 }
 
 export class DynamicRangeFilter extends SearchkitComponent<DynamicRangeFilterProps, any> {
@@ -37,12 +39,14 @@ export class DynamicRangeFilter extends SearchkitComponent<DynamicRangeFilterPro
 		title:React.PropTypes.string.isRequired,
 		id:React.PropTypes.string.isRequired,
 		containerComponent:RenderComponentPropType,
-		rangeComponent:RenderComponentPropType
+		rangeComponent:RenderComponentPropType,
+		rangeFormatter:React.PropTypes.func
 	}, SearchkitComponent.propTypes)
 
 	static defaultProps = {
 		containerComponent: Panel,
-		rangeComponent: RangeSlider
+		rangeComponent: RangeSlider,
+		rangeFormatter:identity
 	}
 
 	constructor(props){
@@ -102,11 +106,13 @@ export class DynamicRangeFilter extends SearchkitComponent<DynamicRangeFilterPro
 
   renderRangeComponent(component: RenderComponentType<any>) {
     const {min, max} = this.getMinMax()
+		const {rangeFormatter} = this.props
     const state = this.accessor.state.getValue()
     return renderComponent(component, {
       min, max,
       minValue: Number(get(state, "min", min)),
       maxValue: Number(get(state, "max", max)),
+			rangeFormatter,
       onChange: this.sliderUpdate,
       onFinished: this.sliderUpdateAndSearch
     })
