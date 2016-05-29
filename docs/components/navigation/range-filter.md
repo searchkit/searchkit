@@ -38,3 +38,4 @@ class App extends SearchkitComponent {
   - `type:nested` requires `options.path` provided
   - `type:children` requires `options.childType` provided
   - see [Field Options](../../core/FieldOptions.md)
+- `rangeFormatter` *((count:number)=> string|number)* A formatter function used to convert numbers into more readable display values. E.g. long number formatting or prefixing currencies.`

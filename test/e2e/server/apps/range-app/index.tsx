@@ -69,7 +69,7 @@ class App extends React.Component<any, any> {
                 <RangeFilter min={0} max={100} field="metaScore" id="metascore" title="RangeSliderHistogram" rangeComponent={RangeSliderHistogram}/>
                 <RangeFilter min={0} max={100} field="metaScore" id="metascore" title="RangeHistogramInput" rangeComponent={RangeHistogramInput}/>
                 <RangeFilter min={0} max={100} field="metaScore" id="metascore" title="RangeSliderHistogramInput" rangeComponent={RangeSliderHistogramInput}/>
-                <RangeFilter min={0} max={100} field="metaScore" id="metascore" title="RangeSlider" rangeComponent={RangeSlider}/>
+                <RangeFilter min={0} max={100} field="metaScore" id="metascore" title="RangeSlider" rangeComponent={RangeSlider} rangeFormatter={(count)=> count + " stars" }/>
                 <RangeFilter min={0} max={100} field="metaScore" id="metascore" title="RangeInput" rangeComponent={RangeInput}/>
                 <RangeFilter min={0} max={100} field="metaScore" id="metascore" title="RangeSliderInput" rangeComponent={RangeSliderInput}/>
               </div>
