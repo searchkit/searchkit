@@ -25,6 +25,7 @@ describe("Range Filter tests", () => {
           max={100}
           title="metascore"
           interval={interval}
+          rangeFormatter={(count)=> count + " score"}
           showHistogram={withHistogram}/>
       );
 
@@ -100,7 +101,7 @@ describe("Range Filter tests", () => {
                 <div className="rc-slider-handle" style={{left:"0%"}}></div>
                 <div className="rc-slider-track" style={{left:"0%",width:"100%",visibility:"visible"}}></div>
                 <div className="rc-slider-step"><span className="rc-slider-dot rc-slider-dot-active" style={{left:"0%"}}></span><span className="rc-slider-dot rc-slider-dot-active" style={{left:"100%"}}></span></div>
-                <div className="rc-slider-mark"><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:"90%",left:"-45%"}}>0</span><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:"90%",left:"55%"}}>100</span></div>
+                <div className="rc-slider-mark"><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:"90%",left:"-45%"}}>0 score</span><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:"90%",left:"55%"}}>100 score</span></div>
               </div>
             </div>
           </div>
