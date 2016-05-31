@@ -35,12 +35,26 @@ describe("FacetAccessor", ()=> {
     this.accessor.results = {
       aggregations:{
         genre1:{
-          genre:{buckets:[1,2]}
+          genre:{buckets:[
+            {key:"a", doc_count:1},
+            {key:"b", doc_count:2}
+          ]}
         }
       }
     }
     expect(this.accessor.getBuckets())
-      .toEqual([1,2])
+      .toEqual([
+        {key:"a", doc_count:1},
+        {key:"b", doc_count:2}
+      ])
+
+    this.accessor.state = this.accessor.state.setValue(["a", "c"])
+    expect(this.accessor.getBuckets())
+      .toEqual([
+        {key:"c"},
+        {key:"a", doc_count:1},
+        {key:"b", doc_count:2}
+      ])
   })
 
   it("getCount()", ()=> {

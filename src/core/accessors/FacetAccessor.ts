@@ -10,6 +10,8 @@ const assign = require("lodash/assign")
 const map = require("lodash/map")
 const omitBy = require("lodash/omitBy")
 const isUndefined = require("lodash/isUndefined")
+const keyBy = require("lodash/keyBy")
+const reject = require("lodash/reject")
 
 
 export interface FacetAccessorOptions {
@@ -65,11 +67,22 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     this.fieldContext = FieldContextFactory(this.options.fieldOptions)
   }
 
-  getBuckets(){
+  getRawBuckets(){
     return this.getAggregations([
       this.uuid,
       this.fieldContext.getAggregationPath(),
       this.key, "buckets"], [])
+  }
+
+  getBuckets(){
+    let rawBuckets = this.getRawBuckets()
+    let keyIndex = keyBy(rawBuckets, "key")
+    let inIndex = (filter)=> !!keyIndex[filter]
+    let missingFilters =map(
+      reject(this.state.getValue() || [], inIndex),
+      (key)=> ({key})
+    )
+    return missingFilters.concat(rawBuckets)
   }
 
   getDocCount(){
