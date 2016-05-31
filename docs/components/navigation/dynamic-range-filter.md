@@ -31,3 +31,6 @@ class App extends SearchkitComponent {
    - Defaults to `RangeSliderInput`
 - `mod` *(string)*: Optional. A custom BEM container class.
 - `rangeFormatter` *((count:number)=> string|number)* A formatter function used to convert numbers into more readable display values. E.g. long number formatting or prefixing currencies.`
+- `fieldOptions` *({type:"embedded|nested|children", options:Object})* Configures the type field that is stored in ElasticSearch, can be `embedded`(default) `nested` or `children`
+  - `type:nested` requires `options.path` provided
+  - `type:children` requires `options.childType` provided

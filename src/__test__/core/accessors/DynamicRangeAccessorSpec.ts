@@ -6,7 +6,9 @@ import {
   BoolShould,
   FilterBucket,
   BoolMust,
-  StatsMetric
+  StatsMetric,
+  NestedQuery,
+  NestedBucket
 } from "../../../"
 
 describe("DynamicRangeAccessor", ()=> {
@@ -125,6 +127,72 @@ describe("DynamicRangeAccessor", ()=> {
         )
       )
     })
+
+  })
+
+  describe("Nested support", ()=> {
+
+    beforeEach(()=> {
+      this.accessor = new DynamicRangeAccessor("metascore", {
+        title:"Metascore",
+        id:"metascore",
+        field:"metaScore",
+        fieldOptions:{
+          type:'nested',
+          options:{path:"nestedField"}
+        }
+      })
+    })
+
+    it("getStats()", ()=> {
+      this.accessor.results = {
+        aggregations:{
+          metascore:{
+            inner:{
+              metascore:{
+                min:0,
+                max:100
+              }
+            }
+          }
+        }
+      }
+      expect(this.accessor.getStat("max"))
+        .toEqual(100)
+      expect(this.accessor.getStat("dd"))
+        .toEqual(0)
+    })
+
+    it("buildSharedQuery()", ()=> {
+      let query = new ImmutableQuery()
+      this.accessor.state = new ObjectState({min:20, max:70})
+      query = this.accessor.buildSharedQuery(query)
+      expect(query.query.filter).toEqual(
+        NestedQuery("nestedField",
+          RangeQuery("metaScore", {gte:20, lte:70})
+        )
+      )
+    })
+
+
+    it("build own query", ()=> {
+      this.accessor.state = new ObjectState({min:20, max:70})
+      this.query = new ImmutableQuery()
+      .addFilter("rating_uuid", BoolShould(["PG"]))
+      this.query = this.accessor.buildSharedQuery(this.query)
+      let query = this.accessor.buildOwnQuery(this.query)
+      expect(query.query.aggs).toEqual(
+        FilterBucket("metascore",
+          BoolMust([
+            BoolShould(["PG"])
+          ]),
+          NestedBucket("inner", "nestedField",
+            StatsMetric("metascore", "metaScore")
+          )
+        )
+      )
+    })
+
 
   })
 

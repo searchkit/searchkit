@@ -9,7 +9,8 @@ import {
 	RenderComponentType,
 	RenderComponentPropType,
 	renderComponent,
-  DynamicRangeAccessor
+  DynamicRangeAccessor,
+	FieldOptions
 } from "../../../../core"
 
 import {
@@ -29,6 +30,8 @@ export interface DynamicRangeFilterProps extends SearchkitComponentProps {
 	containerComponent?: RenderComponentType<any>
   rangeComponent?: RenderComponentType<RangeProps>
 	rangeFormatter?:(count:number)=> number | string
+	fieldOptions?:FieldOptions
+
 }
 
 export class DynamicRangeFilter extends SearchkitComponent<DynamicRangeFilterProps, any> {
@@ -40,7 +43,11 @@ export class DynamicRangeFilter extends SearchkitComponent<DynamicRangeFilterPro
 		id:React.PropTypes.string.isRequired,
 		containerComponent:RenderComponentPropType,
 		rangeComponent:RenderComponentPropType,
-		rangeFormatter:React.PropTypes.func
+		rangeFormatter:React.PropTypes.func,
+		fieldOptions:React.PropTypes.shape({
+			type:React.PropTypes.oneOf(["embedded", "nested", "children"]).isRequired,
+			options:React.PropTypes.object
+		}),
 	}, SearchkitComponent.propTypes)
 
 	static defaultProps = {
@@ -56,9 +63,9 @@ export class DynamicRangeFilter extends SearchkitComponent<DynamicRangeFilterPro
 	}
 
 	defineAccessor() {
-		const { id, title, field } = this.props
+		const { id, title, field, fieldOptions } = this.props
 		return new DynamicRangeAccessor(id,{
-			id, title, field
+			id, title, field, fieldOptions
 		})
 	}
 

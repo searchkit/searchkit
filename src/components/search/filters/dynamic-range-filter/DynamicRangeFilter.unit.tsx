@@ -68,7 +68,11 @@ describe("Dynamic Range Filter tests", () => {
     expect(this.accessor.options).toEqual({
       id:"m",
       field:"metascore",
-      title:"metascore"
+      title:"metascore",
+      fieldOptions:{
+        type:"embedded",
+        field:"metascore"
+      }
     })
   })
 
