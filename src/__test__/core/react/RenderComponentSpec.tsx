@@ -19,29 +19,50 @@ describe("RenderComponent", ()=> {
     this.SubPanel = class SubPanel extends Panel {
     }
     this.SubPanel.defaultProps.title = "SubPanel"
-
     this.SubPanelElement = <Panel title="PanelElement"/>
     this.PanelReactClass = React.createClass({
+      contextTypes:{
+        color:React.PropTypes.string
+      },
       render(){
-        return (<Panel title="PanelReactClass" {...this.props}>
+        return (<Panel title={"PanelReactClass " + this.context.color} {...this.props}>
           {this.props.children}
         </Panel>)
       }
     })
 
-    this.PanelFunction = (props)=> {
+    this.PanelFunction = (props, context)=> {
       return (
-        <Panel title="PanelFunction">
+        <Panel title={"PanelFunction " + context.color}>
           {props.children}
         </Panel>
       )
     }
+    this.PanelFunction.contextTypes = {
+      color:React.PropTypes.string
+    }
+
+    class Provider extends React.Component<any, any>{
+      static childContextTypes = {
+        color: React.PropTypes.string
+      }
+      getChildContext(){
+        return {color:"purple"}
+      }
+      render(){
+        return this.props.children
+      }
+    }
 
     this.mount = (component, props={})=> {
-      this.wrapper = mount(renderComponent(
-        component, props,
-        <p>content..</p>
-      ))
+      this.wrapper = mount(
+        <Provider>
+          {renderComponent(
+            component, props,
+            <p>content..</p>
+          )}
+        </Provider>
+      )
     }
 
   })
@@ -74,7 +95,7 @@ describe("RenderComponent", ()=> {
     this.mount(this.PanelReactClass)
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-panel">
-        <div className="sk-panel__header">PanelReactClass</div>
+        <div className="sk-panel__header">PanelReactClass purple</div>
         <div className="sk-panel__content">
           <p>content..</p>
         </div>
@@ -86,7 +107,7 @@ describe("RenderComponent", ()=> {
     this.mount(this.PanelFunction)
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-panel">
-        <div className="sk-panel__header">PanelFunction</div>
+        <div className="sk-panel__header">PanelFunction purple</div>
         <div className="sk-panel__content">
           <p>content..</p>
         </div>
