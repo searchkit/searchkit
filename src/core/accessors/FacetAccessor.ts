@@ -12,6 +12,8 @@ const omitBy = require("lodash/omitBy")
 const isUndefined = require("lodash/isUndefined")
 const keyBy = require("lodash/keyBy")
 const reject = require("lodash/reject")
+const each = require("lodash/each")
+const identity = require("lodash/identity")
 
 
 export interface FacetAccessorOptions {
@@ -28,6 +30,7 @@ export interface FacetAccessorOptions {
   min_doc_count?:number
   loadAggregations?: boolean
   fieldOptions?:FieldOptions
+  bucketsTransform?:Function
 }
 
 export interface ISizeOption {
@@ -65,6 +68,7 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     this.options.fieldOptions = this.options.fieldOptions || {type:"embedded"}
     this.options.fieldOptions.field = this.key
     this.fieldContext = FieldContextFactory(this.options.fieldOptions)
+    this.options.bucketsTransform = this.options.bucketsTransform || identity
   }
 
   getRawBuckets(){
@@ -78,14 +82,20 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     let rawBuckets = this.getRawBuckets()
     let keyIndex = keyBy(rawBuckets, "key")
     let inIndex = (filter)=> !!keyIndex[filter]
-    let missingFilters =map(
-      reject(this.state.getValue() || [], inIndex),
-      (key)=> ({key})
-    )
-    if(missingFilters.length > 0){
-      return missingFilters.concat(rawBuckets)
-    }
-    return rawBuckets
+    let missingFilters = []
+    each(this.state.getValue(), (filter)=> {
+      if(keyIndex[filter]) {
+        keyIndex[filter].selected = true
+      } else {
+        missingFilters.push({
+          key:filter, missing:true, selected:true
+        })
+      }
+    })
+    let buckets = (missingFilters.length > 0) ?
+      missingFilters.concat(rawBuckets) : rawBuckets
+
+    return this.options.bucketsTransform(buckets)
   }
 
   getDocCount(){

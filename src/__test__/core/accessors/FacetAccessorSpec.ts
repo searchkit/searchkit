@@ -55,10 +55,16 @@ describe("FacetAccessor", ()=> {
     this.accessor.state = this.accessor.state.setValue(["a", "c"])
     expect(this.accessor.getBuckets())
       .toEqual([
-        {key:"c"},
-        {key:"a", doc_count:1},
+        {key:"c", missing:true, selected:true},
+        {key:"a", doc_count:1, selected:true},
         {key:"b", doc_count:2}
       ])
+    this.accessor.options.bucketsTransform = (buckets)=> {
+      return buckets.slice(0,1)
+    }
+    expect(this.accessor.getBuckets()).toEqual([
+      {key:"c", missing:true, selected:true}
+    ])
   })
 
   it("getCount()", ()=> {

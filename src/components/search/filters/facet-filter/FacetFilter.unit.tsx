@@ -49,7 +49,7 @@ describe("Facet Filter tests", () => {
         field="test" id="test id" title="test title" size={3} countFormatter={(count)=>"#"+count}
         include={"title"} exclude={["bad", "n/a"]} operator="OR"
         orderKey="_count" orderDirection="desc" translations={{"facets.view_all":"View all facets"}}
-        searchkit={this.searchkit} />
+        searchkit={this.searchkit} bucketsTransform={_.identity}/>
     )
 
     this.getViewMore = ()=> this.wrapper.find(".sk-refinement-list__view-more-action")
@@ -120,7 +120,7 @@ describe("Facet Filter tests", () => {
     expect(this.accessor.key).toBe("test")
     let options = this.accessor.options
 
-    expect(options).toEqual({
+    expect(options).toEqual(jasmine.objectContaining({
       "id": "test id",
       "field":"test",
       "title": "test title",
@@ -135,8 +135,9 @@ describe("Facet Filter tests", () => {
       "fieldOptions":{
         type:"embedded",
         field:"test"
-      }
-    })
+      },
+      "bucketsTransform":_.identity
+    }))
   })
 
   it("should work with a custom itemComponent", () => {

@@ -46,7 +46,7 @@ describe("MenuFilter", ()=> {
 
   it("expect accessor options to be correct", ()=> {
     expect(this.wrapper.node.props.listComponent).toBe(ItemList)
-    expect(this.accessor.options).toEqual({
+    expect(this.accessor.options).toEqual(jasmine.objectContaining({
       id:"color", field:"color", title:"Color", operator:"OR",
       translations:{"Red":"Red Translated"},
       size:10, facetsPerPage:50, orderKey:"_term",
@@ -55,7 +55,7 @@ describe("MenuFilter", ()=> {
         type:"embedded",
         field:"color"
       }
-    })
+    }))
   })
 
   it("getSelectedItems", ()=> {

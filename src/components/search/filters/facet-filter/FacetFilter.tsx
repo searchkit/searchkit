@@ -33,11 +33,11 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
   }
   getAccessorOptions(){
     const {
-      field, id, operator, title, include, exclude,
+      field, id, operator, title, include, exclude, bucketsTransform,
       size, translations, orderKey, orderDirection, fieldOptions
     } = this.props
     return {
-      id, operator, title, size, include, exclude, field,
+      id, operator, title, size, include, exclude, field, bucketsTransform,
       translations, orderKey, orderDirection, fieldOptions
     }
   }
