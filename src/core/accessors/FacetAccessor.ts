@@ -82,7 +82,10 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
       reject(this.state.getValue() || [], inIndex),
       (key)=> ({key})
     )
-    return missingFilters.concat(rawBuckets)
+    if(missingFilters.length > 0){
+      return missingFilters.concat(rawBuckets)
+    }
+    return rawBuckets
   }
 
   getDocCount(){

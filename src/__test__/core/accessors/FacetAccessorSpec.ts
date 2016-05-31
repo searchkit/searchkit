@@ -48,6 +48,10 @@ describe("FacetAccessor", ()=> {
         {key:"b", doc_count:2}
       ])
 
+    // test raw buckets referential equality
+    expect(this.accessor.getBuckets())
+      .toBe(this.accessor.getRawBuckets())
+
     this.accessor.state = this.accessor.state.setValue(["a", "c"])
     expect(this.accessor.getBuckets())
       .toEqual([
