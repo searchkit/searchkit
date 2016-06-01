@@ -70,7 +70,7 @@ class App extends React.Component<any, any> {
             <HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
             <DynamicRangeFilter field="metaScore" id="metascore" title="Metascore" rangeFormatter={(count)=> count + "*"}/>
             <RangeFilter min={0} max={10} field="imdbRating" id="imdbRating" title="IMDB Rating" showHistogram={true}/>
-            <InputFilter id="writersSearch" searchThrottleTime={500} title="Writers" placeholder="Search writers" searchOnChange={true} queryFields={["writers"]} />
+            <InputFilter id="writersQ" searchThrottleTime={500} title="Writers" placeholder="Search writers" searchOnChange={true} queryFields={["writers"]} />
             <RefinementListFilter id="actors" title="Actors" field="actors.raw" size={10}/>
             <RefinementListFilter translations={{"facets.view_more":"View more writers"}} id="writers" title="Writers" field="writers.raw" operator="OR" size={10}/>
             <RefinementListFilter id="countries" title="Countries" field="countries.raw" operator="OR" size={10}/>
