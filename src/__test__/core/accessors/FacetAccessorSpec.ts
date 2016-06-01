@@ -58,7 +58,7 @@ describe("FacetAccessor", ()=> {
         {key:"c", missing:true, selected:true},
         {key:"a", doc_count:1, selected:true},
         {key:"b", doc_count:2}
-      ])    
+      ])
   })
 
   it("getCount()", ()=> {
@@ -113,7 +113,7 @@ describe("FacetAccessor", ()=> {
 
     it("setViewMoreOption", () => {
       this.accessor.setViewMoreOption({size:30})
-      expect(this.accessor.size).toBe(30)
+      expect(this.accessor.options.size).toBe(30)
     })
 
     it("getMoreSizeOption - view more", () => {
@@ -141,7 +141,7 @@ describe("FacetAccessor", ()=> {
       this.accessor.getCount = () => {
         return 30
       }
-      this.accessor.size = 30
+      this.accessor.options.size = 30
       expect(this.accessor.getMoreSizeOption()).toEqual({size:20, label:"View less"})
     })
 
