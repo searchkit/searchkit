@@ -78,7 +78,7 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
     this.searchkit.performSearch()
   }
 
-  hasOptions(): boolean {
+  hasOptions(): boolean {    
     return this.accessor.getBuckets().length != 0
   }
 
