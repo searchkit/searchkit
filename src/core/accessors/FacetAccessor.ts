@@ -30,7 +30,6 @@ export interface FacetAccessorOptions {
   min_doc_count?:number
   loadAggregations?: boolean
   fieldOptions?:FieldOptions
-  bucketsTransform?:Function
 }
 
 export interface ISizeOption {
@@ -67,8 +66,7 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     }
     this.options.fieldOptions = this.options.fieldOptions || {type:"embedded"}
     this.options.fieldOptions.field = this.key
-    this.fieldContext = FieldContextFactory(this.options.fieldOptions)
-    this.options.bucketsTransform = this.options.bucketsTransform || identity
+    this.fieldContext = FieldContextFactory(this.options.fieldOptions)    
   }
 
   getRawBuckets(){
@@ -95,7 +93,7 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     let buckets = (missingFilters.length > 0) ?
       missingFilters.concat(rawBuckets) : rawBuckets
 
-    return this.options.bucketsTransform(buckets)
+    return buckets
   }
 
   getDocCount(){

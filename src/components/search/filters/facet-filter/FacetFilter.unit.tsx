@@ -135,8 +135,7 @@ describe("Facet Filter tests", () => {
       "fieldOptions":{
         type:"embedded",
         field:"test"
-      },
-      "bucketsTransform":_.identity
+      }
     }))
   })
 
@@ -178,23 +177,24 @@ describe("Facet Filter tests", () => {
         listComponent={Toggle}
         itemComponent={(props)=> <ItemComponent {...props} showCount={true}/>}
         field="test" id="test id" title="test title"
+        bucketsTransform={(buckets)=> _.reverse(buckets)}
         searchkit={this.searchkit} />
     )
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div title="test title" className="filter--test id">
         <div data-qa="options" className="sk-toggle">
-          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 1">
-            <div data-qa="label" className="sk-toggle-option__text">test option 1 translated</div>
-            <div data-qa="count" className="sk-toggle-option__count">1</div>
+          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 3">
+            <div data-qa="label" className="sk-toggle-option__text">test option 3</div>
+            <div data-qa="count" className="sk-toggle-option__count">3</div>
           </div>
           <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 2">
             <div data-qa="label" className="sk-toggle-option__text">test option 2</div>
             <div data-qa="count" className="sk-toggle-option__count">2</div>
           </div>
-          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 3">
-            <div data-qa="label" className="sk-toggle-option__text">test option 3</div>
-            <div data-qa="count" className="sk-toggle-option__count">3</div>
+          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 1">
+            <div data-qa="label" className="sk-toggle-option__text">test option 1 translated</div>
+            <div data-qa="count" className="sk-toggle-option__count">1</div>
           </div>
         </div>
         <div data-qa="show-more" className="sk-refinement-list__view-more-action">View all facets</div>
