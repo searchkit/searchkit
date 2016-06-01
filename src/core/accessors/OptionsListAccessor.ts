@@ -28,12 +28,11 @@ export class OptionsListAccessor extends StatefulAccessor<ValueState>{
 
   beforeBuildQuery(){
     let accessor = this.searchkit.accessors.statefulAccessors[this.options.accessorId]
-    console.log(accessor, this.options, this.searchkit.accessors.statefulAccessors)
     if(accessor){
       let option = this.getSelectedOption()
-      console.log(option)
-      accessor.options[this.options.accessorProp] = option.value
-      console.log(accessor.options, option.value)
+      if(option){        
+        accessor.options[this.options.accessorProp] = option.value
+      }
     }
   }
 
@@ -44,7 +43,7 @@ export class OptionsListAccessor extends StatefulAccessor<ValueState>{
            head(options)
   }
 
-  selectOption(key){    
+  selectOption(key){
     let option = find(this.options.options, {key})
     if(option) {
       if(option.defaultOption){
