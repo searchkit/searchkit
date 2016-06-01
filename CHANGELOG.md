@@ -1,6 +1,9 @@
-## 0.10.0-4 (29th May, 2016)
+## 0.10.0-5 (1st June, 2016)
 - `SearchkitManager` is more intelligent with reregistering url listeners
 - `RefinementListFilter`, `MenuFilter`, `NumericRefinementListFilter` and `RangeFilter` now supports `fieldOptions` for `nested`/`child` fields
+- `RefinementListFilter`, `MenuFilter` inject missing selected filters
+- `RefinementListFilter`, `MenuFilter` have new `bucketsTransform` prop function to manipulate the elastic search buckets returned.
+- Bug fix to itemComponent, listComponent, \*Component which allows context in stateless components
 - MenuFilter fix to support booleans
 - HierarchicalRefinementFilter disabled state fix
 - update history dependency to `2.1.1` which should be compatible with react-router 2.x
