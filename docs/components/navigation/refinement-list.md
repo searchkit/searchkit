@@ -73,6 +73,8 @@ class App extends SearchkitComponent {
   - `type:children` requires `options.childType` provided
   - see [Field Options](../../core/FieldOptions.md)
 - `countFormatter` *((count:number)=> number|string)* A optional function to format the doc counts
+- `bucketsTransform` *((buckets:Array)=> transformedBuckets)* A optional function to transform the buckets used for the aggregation, can be used to sort the list or to inject new facets.
+
 
 ## Translations
 - `facets.view_more` - View more

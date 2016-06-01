@@ -29,6 +29,7 @@ export interface FacetFilterProps extends SearchkitComponentProps {
   showMore?:boolean
   fieldOptions?:FieldOptions,
   countFormatter?:(count:number)=> number | string
+  bucketsTransform?:Function
 }
 
 export const FacetFilterPropTypes = defaults({
@@ -57,5 +58,6 @@ export const FacetFilterPropTypes = defaults({
     type:React.PropTypes.oneOf(["embedded", "nested", "children"]).isRequired,
     options:React.PropTypes.object
   }),
-  countFormatter:React.PropTypes.func
+  countFormatter:React.PropTypes.func,
+  bucketsTransform:React.PropTypes.func
 },SearchkitComponent.propTypes)
