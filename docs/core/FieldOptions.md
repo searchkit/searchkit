@@ -8,6 +8,7 @@
 - MenuFilter
 - RangeFilter
 - NumericRefinementListFilter
+- DynamicRangeFilter
 
 ## Nested Example
 
