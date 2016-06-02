@@ -26,21 +26,23 @@ export class OptionsListAccessor extends StatefulAccessor<ValueState>{
     this.options = options
   }
 
-  beforeBuildQuery(){
-    let accessor = this.searchkit.accessors.statefulAccessors[this.options.accessorId]
-    if(accessor){
-      let option = this.getSelectedOption()
-      if(option){        
-        accessor.options[this.options.accessorProp] = option.value
-      }
-    }
-  }
-
   getSelectedOption(){
     let options = this.options.options
     return find(options, {key:this.state.getValue()}) ||
            find(options, {defaultOption:true}) ||
            head(options)
+  }
+
+  beforeBuildQuery(){
+    const {accessorId, accessorProp} = this.options
+    let accessor = this.searchkit.accessors.statefulAccessors[accessorId]
+    let option = this.getSelectedOption()
+    if(accessor && option && accessor.options){
+      accessor.options[accessorProp] = option.value
+    } else {
+      option = option || {value:undefined}
+      console.warn(`Could not set accessor option accessorId:${accessorId}, accessorProp:${accessorProp} with value ${option.value}`)
+    }
   }
 
   selectOption(key){
