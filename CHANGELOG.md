@@ -1,4 +1,4 @@
-## 0.10.0-5 (1st June, 2016)
+## 0.10.0 (4th June, 2016)
 - `SearchkitManager` is more intelligent with reregistering url listeners
 - `RefinementListFilter`, `MenuFilter`, `NumericRefinementListFilter` and `RangeFilter` now supports `fieldOptions` for `nested`/`child` fields
 - `RefinementListFilter`, `MenuFilter` inject missing selected filters
