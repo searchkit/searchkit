@@ -1,0 +1,1309 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>View Switcher | What is Searchkit?</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.5.2">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../../../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../../../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../../../gitbook/plugins/gitbook-plugin-mermaid-2/bower_components/mermaid/dist/mermaid.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../../gitbook/plugins/gitbook-plugin-prism/prism.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../../gitbook/plugins/gitbook-plugin-versions/plugin.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../../../docs/components/display/page-size-selector.html" />
+    
+    
+    <link rel="prev" href="../../../docs/components/navigation/hierarchical-refinement-filter.html" />
+    
+
+        <script src="../../../gitbook/plugins/gitbook-plugin-mermaid-2/bower_components/mermaid/dist/mermaid.min.js"></script>
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="2.3.1" data-chapter-title="View Switcher" data-filepath="docs/components/display/switcher.md" data-basepath="../../.." data-revision="Sat Jun 04 2016 13:20:39 GMT+0100 (BST)">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../../../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="docs/setup/index.html">
+            
+                
+                    <a href="../../../docs/setup/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Getting Started
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="docs/setup/project-setup.html">
+            
+                
+                    <a href="../../../docs/setup/project-setup.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Project Setup &amp; use
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="docs/setup/elasticsearch.html">
+            
+                
+                    <a href="../../../docs/setup/elasticsearch.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Connecting Elasticsearch
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="docs/setup/indexing.html">
+            
+                
+                    <a href="../../../docs/setup/indexing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        Indexing
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="docs/setup/using-components.html">
+            
+                
+                    <a href="../../../docs/setup/using-components.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        Using components
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="docs/setup/default-query.html">
+            
+                
+                    <a href="../../../docs/setup/default-query.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        Setting a Default Query
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="docs/setup/extending-components.html">
+            
+                
+                    <a href="../../../docs/setup/extending-components.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.6.</b>
+                        
+                        Extending components
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="docs/components/index.html">
+            
+                
+                    <a href="../../../docs/components/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Components
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="docs/components/basics/index.html">
+            
+                
+                    <a href="../../../docs/components/basics/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Basics
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="docs/components/basics/search-box.html">
+            
+                
+                    <a href="../../../docs/components/basics/search-box.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.1.</b>
+                        
+                        Search box
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" data-path="docs/components/basics/hits.html">
+            
+                
+                    <a href="../../../docs/components/basics/hits.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.2.</b>
+                        
+                        Hits
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3" data-path="docs/components/basics/nohits.html">
+            
+                
+                    <a href="../../../docs/components/basics/nohits.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.3.</b>
+                        
+                        No Hits
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.4" data-path="docs/components/basics/initial-loader.html">
+            
+                
+                    <a href="../../../docs/components/basics/initial-loader.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.4.</b>
+                        
+                        Initial Loader
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="docs/components/navigation/index.html">
+            
+                
+                    <a href="../../../docs/components/navigation/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Navigation
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.1" data-path="docs/components/navigation/pagination.html">
+            
+                
+                    <a href="../../../docs/components/navigation/pagination.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.1.</b>
+                        
+                        Pagination
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.2" data-path="docs/components/navigation/refinement-list.html">
+            
+                
+                    <a href="../../../docs/components/navigation/refinement-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.2.</b>
+                        
+                        Refinement List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.3" data-path="docs/components/navigation/numeric-refinement-list.html">
+            
+                
+                    <a href="../../../docs/components/navigation/numeric-refinement-list.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.3.</b>
+                        
+                        Numeric Refinement List
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.4" data-path="docs/components/navigation/menu.html">
+            
+                
+                    <a href="../../../docs/components/navigation/menu.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.4.</b>
+                        
+                        Menu
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.5" data-path="docs/components/navigation/range-filter.html">
+            
+                
+                    <a href="../../../docs/components/navigation/range-filter.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.5.</b>
+                        
+                        Range Filter
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.6" data-path="docs/components/navigation/dynamic-range-filter.html">
+            
+                
+                    <a href="../../../docs/components/navigation/dynamic-range-filter.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.6.</b>
+                        
+                        Dynamic Range Filter
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.7" data-path="docs/components/navigation/input-filter.html">
+            
+                
+                    <a href="../../../docs/components/navigation/input-filter.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.7.</b>
+                        
+                        Input Filter
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.8" data-path="docs/components/navigation/checkbox-filter.html">
+            
+                
+                    <a href="../../../docs/components/navigation/checkbox-filter.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.8.</b>
+                        
+                        Checkbox Filter
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.9" data-path="docs/components/navigation/tag-filter.html">
+            
+                
+                    <a href="../../../docs/components/navigation/tag-filter.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.9.</b>
+                        
+                        Tag Filter
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.10" data-path="docs/components/navigation/selected-filters.html">
+            
+                
+                    <a href="../../../docs/components/navigation/selected-filters.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.10.</b>
+                        
+                        Selected Filters
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.11" data-path="docs/components/navigation/grouped-selected-filters.html">
+            
+                
+                    <a href="../../../docs/components/navigation/grouped-selected-filters.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.11.</b>
+                        
+                        Grouped Selected Filters
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.12" data-path="docs/components/navigation/reset.html">
+            
+                
+                    <a href="../../../docs/components/navigation/reset.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.12.</b>
+                        
+                        Reset
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.13" data-path="docs/components/navigation/hierarchical-menu.html">
+            
+                
+                    <a href="../../../docs/components/navigation/hierarchical-menu.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.13.</b>
+                        
+                        Hierarchical Menu
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.14" data-path="docs/components/navigation/hierarchical-refinement-filter.html">
+            
+                
+                    <a href="../../../docs/components/navigation/hierarchical-refinement-filter.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.14.</b>
+                        
+                        Hierarchical Refinement
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="docs/components/display/index.html">
+            
+            <span><b>2.3.</b> Display</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="2.3.1" data-path="docs/components/display/switcher.html">
+            
+                
+                    <a href="../../../docs/components/display/switcher.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.1.</b>
+                        
+                        View Switcher
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3.2" data-path="docs/components/display/page-size-selector.html">
+            
+                
+                    <a href="../../../docs/components/display/page-size-selector.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.2.</b>
+                        
+                        Page Size Selector
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="docs/components/sorting/index.html">
+            
+            <span><b>2.4.</b> Sorting</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.4.1" data-path="docs/components/sorting/sort.html">
+            
+                
+                    <a href="../../../docs/components/sorting/sort.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.1.</b>
+                        
+                        Sorting
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="docs/components/metadata/index.html">
+            
+            <span><b>2.5.</b> Metadata</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.5.1" data-path="docs/components/metadata/stats.html">
+            
+                
+                    <a href="../../../docs/components/metadata/stats.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.1.</b>
+                        
+                        Stats
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" >
+            
+            <span><b>2.6.</b> UI</span>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.6.1" data-path="docs/components/ui/layout-components.html">
+            
+                
+                    <a href="../../../docs/components/ui/layout-components.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.1.</b>
+                        
+                        Layout
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6.2" data-path="docs/components/ui/panel.html">
+            
+                
+                    <a href="../../../docs/components/ui/panel.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.2.</b>
+                        
+                        Panel
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6.3" data-path="docs/components/ui/list-components.html">
+            
+                
+                    <a href="../../../docs/components/ui/list-components.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.3.</b>
+                        
+                        ListComponents
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6.4" data-path="docs/components/ui/range-components.html">
+            
+                
+                    <a href="../../../docs/components/ui/range-components.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.4.</b>
+                        
+                        RangeComponents
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="docs/theming/index.html">
+            
+                
+                    <a href="../../../docs/theming/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        Theming
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="docs/theming/using-searchkit-theme.html">
+            
+                
+                    <a href="../../../docs/theming/using-searchkit-theme.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Using Theme
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="docs/theming/extending-searchkit-theme.html">
+            
+                
+                    <a href="../../../docs/theming/extending-searchkit-theme.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        Extending Theme
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="docs/theming/building-your-own.html">
+            
+                
+                    <a href="../../../docs/theming/building-your-own.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        Building Your own CSS
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="docs/core/index.html">
+            
+                
+                    <a href="../../../docs/core/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Core
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="docs/core/Architecture.html">
+            
+                
+                    <a href="../../../docs/core/Architecture.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Architecture
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="docs/core/SearchkitManager.html">
+            
+                
+                    <a href="../../../docs/core/SearchkitManager.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        SearchkitManager
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="docs/core/Accessors.html">
+            
+                
+                    <a href="../../../docs/core/Accessors.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Accessors
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="docs/core/ImmutableQuery.html">
+            
+                
+                    <a href="../../../docs/core/ImmutableQuery.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        ImmutableQuery
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="docs/core/FieldOptions.html">
+            
+                
+                    <a href="../../../docs/core/FieldOptions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        FieldOptions
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="docs/core/QueryDSL.html">
+            
+                
+                    <a href="../../../docs/core/QueryDSL.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.6.</b>
+                        
+                        QueryDSL
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="docs/core/SearchkitProvider.html">
+            
+                
+                    <a href="../../../docs/core/SearchkitProvider.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.7.</b>
+                        
+                        SearchkitProvider
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="docs/core/SearchkitComponent.html">
+            
+                
+                    <a href="../../../docs/core/SearchkitComponent.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.8.</b>
+                        
+                        SearchkitComponent
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.9" data-path="docs/core/Translate.html">
+            
+                
+                    <a href="../../../docs/core/Translate.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.9.</b>
+                        
+                        Translation
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="docs/upgrading/index.html">
+            
+                
+                    <a href="../../../docs/upgrading/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        Migrating
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="docs/upgrading/migrating_from_0_2.html">
+            
+                
+                    <a href="../../../docs/upgrading/migrating_from_0_2.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        Migrating from 0.2
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="docs/upgrading/migrating_from_0_3.html">
+            
+                
+                    <a href="../../../docs/upgrading/migrating_from_0_3.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        Migrating from 0.3
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="docs/upgrading/migrating_from_0.4.html">
+            
+                
+                    <a href="../../../docs/upgrading/migrating_from_0.4.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        Migrating from 0.4
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="docs/upgrading/migrating_from_0.5.html">
+            
+                
+                    <a href="../../../docs/upgrading/migrating_from_0.5.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        Migrating from 0.5
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="docs/upgrading/migrating_from_0.6.html">
+            
+                
+                    <a href="../../../docs/upgrading/migrating_from_0.6.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        Migrating from 0.6
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.6" data-path="docs/upgrading/migrating_from_0.7.html">
+            
+                
+                    <a href="../../../docs/upgrading/migrating_from_0.7.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.6.</b>
+                        
+                        Migrating from 0.7
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.7" data-path="docs/upgrading/migrating_from_0.8.html">
+            
+                
+                    <a href="../../../docs/upgrading/migrating_from_0.8.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.7.</b>
+                        
+                        Migrating from 0.8
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="docs/server/searchkit_express.html">
+            
+                
+                    <a href="../../../docs/server/searchkit_express.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        Using Express
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="docs/server/indexing.html">
+            
+                
+                    <a href="../../../docs/server/indexing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        Indexing &amp; Mapping Guide
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="docs/examples/index.html">
+            
+                
+                    <a href="../../../docs/examples/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        Examples
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9" data-path="docs/developer-guide.html">
+            
+                
+                    <a href="../../../docs/developer-guide.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.</b>
+                        
+                        Contributing Guide
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../../../" >What is Searchkit?</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="view-switcher">View Switcher</h1>
+<p>Searchkit&apos;s view switcher components come in 2 seperate components. <code>ViewSwitcherHits</code> which toggles the hits display and <code>ViewSwitcherToggle</code> which is the actual toggle button to switch views.</p>
+<p><img src="assets/view-switch-grid.png" height="200px">
+<img src="assets/view-switch-list.png" height="200px">
+<img src="assets/view-switch-table.png" height="200px"></p>
+<h2 id="example">Example</h2>
+<pre><code class="lang-jsx"><span class="token keyword">import</span> <span class="token punctuation">{</span>
+  Hits<span class="token punctuation">,</span>
+  ViewSwitcherHits<span class="token punctuation">,</span>
+  ViewSwitcherToggle  
+<span class="token punctuation">}</span> from <span class="token string">&quot;searchkit&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> MovieHitsGridItem <span class="token operator">=</span> <span class="token punctuation">(</span>props<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span>result<span class="token punctuation">,</span> bemBlocks<span class="token punctuation">}</span> <span class="token operator">=</span> props
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>bemBlocks<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">mix</span><span class="token punctuation">(</span>bemBlocks<span class="token punctuation">.</span><span class="token function">container</span><span class="token punctuation">(</span>&quot;item&quot;<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>bemBlocks<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span>&quot;poster&quot;<span class="token punctuation">)</span><span class="token punctuation">}</span></span> <span class="token attr-name">src</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>result<span class="token punctuation">.</span>_source<span class="token punctuation">.</span>poster<span class="token punctuation">}</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>bemBlocks<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span>&quot;title&quot;<span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span><span class="token punctuation">{</span>result<span class="token punctuation">.</span>_source<span class="token punctuation">.</span>title<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> MovieHitsListItem <span class="token operator">=</span> <span class="token punctuation">(</span>props<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span>bemBlocks<span class="token punctuation">,</span> result<span class="token punctuation">}</span> <span class="token operator">=</span> props  
+  <span class="token keyword">const</span> source <span class="token operator">=</span> result<span class="token punctuation">.</span>_source
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>bemBlocks<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">mix</span><span class="token punctuation">(</span>bemBlocks<span class="token punctuation">.</span><span class="token function">container</span><span class="token punctuation">(</span>&quot;item&quot;<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">}</span></span> <span class="token attr-name">data-qa</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>hit<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>bemBlocks<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span>&quot;poster&quot;<span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">data-qa</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>poster<span class="token punctuation">&quot;</span></span> <span class="token attr-name">src</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>result<span class="token punctuation">.</span>_source<span class="token punctuation">.</span>poster<span class="token punctuation">}</span></span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>bemBlocks<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span>&quot;details&quot;<span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>bemBlocks<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span>&quot;title&quot;<span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span><span class="token punctuation">{</span>source<span class="token punctuation">.</span>title<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h3</span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>bemBlocks<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span>&quot;subtitle&quot;<span class="token punctuation">)</span><span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span>Released <span class="token keyword">in</span> <span class="token punctuation">{</span>source<span class="token punctuation">.</span>year<span class="token punctuation">}</span><span class="token punctuation">,</span> rated <span class="token punctuation">{</span>source<span class="token punctuation">.</span>imdbRating<span class="token punctuation">}</span><span class="token operator">/</span><span class="token number">10</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h3</span><span class="token punctuation">&gt;</span></span>        
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> MovieHitsTable <span class="token operator">=</span> <span class="token punctuation">(</span>props<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>  
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> hits <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>props
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">style</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span>width<span class="token punctuation">:</span> &apos;100%&apos;<span class="token punctuation">,</span> boxSizing<span class="token punctuation">:</span> &apos;border-box&apos;<span class="token punctuation">,</span> padding<span class="token punctuation">:</span> 8<span class="token punctuation">}</span></span>}<span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>sk-table</span> <span class="token attr-name">sk-table-striped</span>&quot; <span class="token attr-name">style</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span>width<span class="token punctuation">:</span> &apos;100%&apos;<span class="token punctuation">,</span> boxSizing<span class="token punctuation">:</span> &apos;border-box&apos;<span class="token punctuation">}</span></span>}<span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thead</span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Year<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">&gt;</span></span>Rating<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>thead</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tbody</span><span class="token punctuation">&gt;</span></span>
+        <span class="token punctuation">{</span><span class="token function">map</span><span class="token punctuation">(</span>hits<span class="token punctuation">,</span> hit <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span> <span class="token attr-name">key</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>hit<span class="token punctuation">.</span>_id<span class="token punctuation">}</span></span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span> <span class="token attr-name">style</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span>margin<span class="token punctuation">:</span> 0<span class="token punctuation">,</span> padding<span class="token punctuation">:</span> 0<span class="token punctuation">,</span> width<span class="token punctuation">:</span> 40<span class="token punctuation">}</span></span>}<span class="token punctuation">&gt;</span></span>
+              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">data-qa</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>poster<span class="token punctuation">&quot;</span></span> <span class="token attr-name">src</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>hit<span class="token punctuation">.</span>_source<span class="token punctuation">.</span>poster<span class="token punctuation">}</span></span> <span class="token attr-name">style</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span>width<span class="token punctuation">:</span> 40<span class="token punctuation">}</span></span>}<span class="token punctuation">/&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">{</span>hit<span class="token punctuation">.</span>_source<span class="token punctuation">.</span>title<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">{</span>hit<span class="token punctuation">.</span>_source<span class="token punctuation">.</span>year<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">{</span>hit<span class="token punctuation">.</span>_source<span class="token punctuation">.</span>imdbRating<span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+          <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tbody</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token punctuation">)</span>  
+<span class="token punctuation">}</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">App</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">{</span>
+
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ViewSwitcherToggle</span><span class="token punctuation">/&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ViewSwitcherHits</span>
+          <span class="token attr-name">hitsPerPage</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span>12<span class="token punctuation">}</span></span>
+          <span class="token attr-name">sourceFilter</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>&quot;plot&quot;<span class="token punctuation">,</span> &quot;title&quot;<span class="token punctuation">,</span> &quot;poster&quot;<span class="token punctuation">,</span> &quot;imdbId&quot;<span class="token punctuation">,</span> &quot;imdbRating&quot;<span class="token punctuation">,</span> &quot;year&quot;<span class="token punctuation">]</span><span class="token punctuation">}</span></span>
+          <span class="token attr-name">hitComponents</span> <span class="token attr-value"><span class="token punctuation">=</span> {[</span>
+            {<span class="token attr-name"><span class="token namespace">key:</span></span>&quot;<span class="token attr-name">grid</span>&quot;, <span class="token attr-name"><span class="token namespace">title:</span></span>&quot;<span class="token attr-name">Grid</span>&quot;, <span class="token attr-name"><span class="token namespace">itemComponent:</span>MovieHitsGridItem</span>, <span class="token attr-name"><span class="token namespace">defaultOption:</span>true</span>},
+            {<span class="token attr-name"><span class="token namespace">key:</span></span>&quot;<span class="token attr-name">list</span>&quot;, <span class="token attr-name"><span class="token namespace">title:</span></span>&quot;<span class="token attr-name">List</span>&quot;, <span class="token attr-name"><span class="token namespace">itemComponent:</span>MovieHitsListItem</span>},
+            {<span class="token attr-name"><span class="token namespace">key:</span></span>&quot;<span class="token attr-name">table</span>&quot;, <span class="token attr-name"><span class="token namespace">title:</span></span>&quot;<span class="token attr-name">Table</span>&quot;, <span class="token attr-name"><span class="token namespace">listComponent:</span>MovieHitsTable</span>}
+          ]}
+          <span class="token attr-name">scrollTo</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>body<span class="token punctuation">&quot;</span></span>
+      <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="configuration">Configuration</h2>
+<p><code>ViewSwitcherHits</code> accepts all the props that <code>Hits</code> expects with 1 additional <code>hitComponents</code> prop.
+The <code>hitComponents</code> prop is an array of views, with <code>key</code>, <code>title</code>, <code>defaultOption</code> and <code>itemComponent</code> or <code>listComponent</code>.</p>
+<pre><code class="lang-jsx">hitComponents <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">[</span>
+  <span class="token punctuation">{</span>key<span class="token punctuation">:</span><span class="token string">&quot;grid&quot;</span><span class="token punctuation">,</span> title<span class="token punctuation">:</span><span class="token string">&quot;Grid&quot;</span><span class="token punctuation">,</span> itemComponent<span class="token punctuation">:</span>MovieHitsGridItem<span class="token punctuation">,</span> defaultOption<span class="token punctuation">:</span><span class="token keyword">true</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span>key<span class="token punctuation">:</span><span class="token string">&quot;list&quot;</span><span class="token punctuation">,</span> title<span class="token punctuation">:</span><span class="token string">&quot;List&quot;</span><span class="token punctuation">,</span> itemComponent<span class="token punctuation">:</span>MovieHitsListItem<span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span>key<span class="token punctuation">:</span><span class="token string">&quot;table&quot;</span><span class="token punctuation">,</span> title<span class="token punctuation">:</span><span class="token string">&quot;Table&quot;</span><span class="token punctuation">,</span> listComponent<span class="token punctuation">:</span>MovieHitsTable<span class="token punctuation">}</span>
+<span class="token punctuation">]</span><span class="token punctuation">}</span>
+</code></pre>
+<h2 id="viewswitcherhits-props">ViewSwitcherHits Props</h2>
+<ul>
+<li><code>hitComponents</code> <em>(Array&lt;{key, title, itemComponent, listComponent, defaultOption?}&gt;)</em>: React component used for each hit render.</li>
+<li><code>hitsPerPage</code> <em>(Number)</em>: Number of results displayed per page</li>
+<li><code>highlightFields</code> <em>(Array<string>)</string></em>: Array of highlighted fields. Any highlight matches will be returned in the result.highlight[fieldName]. See above for example.</li>
+<li><code>mod</code> <em>(string)</em>: Optional. A custom BEM container class.</li>
+<li><code>sourceFilter</code> <em>(string|boolean|Array<string>)</string></em>: A source filter parameter which is sent to elasticsearch to reduce the hit <code>_source</code> data within the results. see the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-source-filtering.html" target="_blank">elastic documentation</a> for further details.</li>
+<li><code>scrollTo</code> <em>(string|boolean)</em>: When results have changed, we scroll to the top of the element using the jQuery style selector passed in the <code>scrollTo</code> prop. If true, it will use the body as the selector.  Default value is true. If false, it will not scroll when new results are rendered. We determine a change by comparing hits <code>_id</code> field with the new results.</li>
+</ul>
+<h2 id="viewswitchertoggle-props">ViewSwitcherToggle Props</h2>
+<ul>
+<li><code>listComponent</code> <em>(ReactComponent)</em>: Used to customize the list behavior<ul>
+<li>defaults to <code>Toggle</code>, compatible with <code>Toggle</code>, <code>Select</code>, <code>Tabs</code></li>
+</ul>
+</li>
+</ul>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../../../docs/components/navigation/hierarchical-refinement-filter.html" class="navigation navigation-prev " aria-label="Previous page: Hierarchical Refinement"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../../../docs/components/display/page-size-selector.html" class="navigation navigation-next " aria-label="Next page: Page Size Selector"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../../../gitbook/app.js"></script>
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-mermaid-2/plugin.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-codepen/embed-codepen.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-versions/plugin.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../../../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"versions":{"gitbookConfigURL":"https://raw.githubusercontent.com/searchkit/searchkit/gh-pages/book.json","options":[{"value":"https://searchkit.github.io/searchkit/v0.10.0","text":"Version 0.10.0","selected":true},{"value":"https://searchkit.github.io/searchkit/v0.9.2","text":"Version 0.9.2"},{"value":"https://searchkit.github.io/searchkit/v0.8.3","text":"Version 0.8.3"},{"value":"https://searchkit.github.io/searchkit/v0.7.0","text":"Version 0.7.0"},{"value":"https://searchkit.github.io/searchkit/v0.6.2","text":"Version 0.6.2"},{"value":"https://searchkit.github.io/searchkit/v0.5.1","text":"Version 0.5.1"},{"value":"https://searchkit.github.io/searchkit/v0.4.0","text":"Version 0.4.0"},{"value":"https://searchkit.github.io/searchkit/v0.3.5","text":"Version 0.3.5"},{"value":"https://searchkit.github.io/searchkit/v0.2.0/","text":"Version 0.2.0"},{"value":"https://searchkit.github.io/searchkit/v0.1.13/","text":"Version 0.1.13"}],"type":"branches"},"mermaid-2":{},"prism":{},"codepen":{"height":300,"theme":0,"defaultTab":"result","description":""},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
