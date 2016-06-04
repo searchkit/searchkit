@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Indexing &amp; Mapping Guide | What is Searchkit?</title>
+        <title>Migrating from 0.9 | What is Searchkit?</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.5.2">
@@ -45,10 +45,10 @@
         
     
     
-    <link rel="next" href="../../docs/examples/index.html" />
+    <link rel="next" href="../../docs/server/searchkit_express.html" />
     
     
-    <link rel="prev" href="../../docs/server/searchkit_express.html" />
+    <link rel="prev" href="../../docs/upgrading/migrating_from_0.8.html" />
     
 
         <script src="../../gitbook/plugins/gitbook-plugin-mermaid-2/bower_components/mermaid/dist/mermaid.min.js"></script>
@@ -56,7 +56,7 @@
     <body>
         
         
-    <div class="book" data-level="7" data-chapter-title="Indexing &amp; Mapping Guide" data-filepath="docs/server/indexing.md" data-basepath="../.." data-revision="Sat Jun 04 2016 13:22:58 GMT+0100 (BST)">
+    <div class="book" data-level="5.8" data-chapter-title="Migrating from 0.9" data-filepath="docs/upgrading/migrating_from_0.9.md" data-basepath="../.." data-revision="Sat Jun 04 2016 13:22:58 GMT+0100 (BST)">
     
 
 <div class="book-summary">
@@ -1043,7 +1043,7 @@
             
         </li>
     
-        <li class="chapter " data-level="5.8" data-path="docs/upgrading/migrating_from_0.9.html">
+        <li class="chapter active" data-level="5.8" data-path="docs/upgrading/migrating_from_0.9.html">
             
                 
                     <a href="../../docs/upgrading/migrating_from_0.9.html">
@@ -1078,7 +1078,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="7" data-path="docs/server/indexing.html">
+        <li class="chapter " data-level="7" data-path="docs/server/indexing.html">
             
                 
                     <a href="../../docs/server/indexing.html">
@@ -1156,80 +1156,9 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="indexing--mapping-guide">Indexing &amp; Mapping Guide</h1>
-<p><code>Elasticsearch</code> querying is very sophisticated, and many of the features rely on an appropriate <code>mapping</code> configured.</p>
-<h2 id="updating-index">Updating index</h2>
-<p>Straightforward to update the index. See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html" target="_blank">Updating indices</a>.</p>
-<h3 id="analyzer-extensions">Analyzer extensions</h3>
-<p>Out the box, elasticsearch uses the default <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-standard-analyzer.html" target="_blank">standard analyzer</a>. We extend the default analyzer to offer <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-word-delimiter-tokenfilter.html" target="_blank">word delimiter</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/1.4/analysis-htmlstrip-charfilter.html" target="_blank">html strip</a> and <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-mapping-charfilter.html" target="_blank">char mapping</a>.</p>
-<pre><code class="lang-json"><span class="token punctuation">{</span>
-  <span class="token string">&quot;analysis&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    <span class="token string">&quot;char_filter&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-       <span class="token string">&quot;replace&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token string">&quot;type&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;mapping&quot;</span><span class="token punctuation">,</span>
-        <span class="token string">&quot;mappings&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
-          <span class="token string">&quot;&amp;=&gt; and &quot;</span>
-        <span class="token punctuation">]</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token string">&quot;filter&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      <span class="token string">&quot;word_delimiter&quot;</span> <span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token string">&quot;type&quot;</span> <span class="token punctuation">:</span> <span class="token string">&quot;word_delimiter&quot;</span><span class="token punctuation">,</span>
-        <span class="token string">&quot;split_on_numerics&quot;</span> <span class="token punctuation">:</span> <span class="token keyword">false</span><span class="token punctuation">,</span>
-        <span class="token string">&quot;split_on_case_change&quot;</span> <span class="token punctuation">:</span> <span class="token keyword">true</span><span class="token punctuation">,</span>
-        <span class="token string">&quot;generate_word_parts&quot;</span> <span class="token punctuation">:</span> <span class="token keyword">true</span><span class="token punctuation">,</span>
-        <span class="token string">&quot;generate_number_parts&quot;</span> <span class="token punctuation">:</span> <span class="token keyword">true</span><span class="token punctuation">,</span>
-        <span class="token string">&quot;catenate_all&quot;</span> <span class="token punctuation">:</span> <span class="token keyword">true</span><span class="token punctuation">,</span>
-        <span class="token string">&quot;preserve_original&quot;</span><span class="token punctuation">:</span><span class="token keyword">true</span><span class="token punctuation">,</span>
-        <span class="token string">&quot;catenate_numbers&quot;</span><span class="token punctuation">:</span><span class="token keyword">true</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token string">&quot;analyzer&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      <span class="token string">&quot;default&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token string">&quot;type&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;custom&quot;</span><span class="token punctuation">,</span>
-        <span class="token string">&quot;char_filter&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
-          <span class="token string">&quot;html_strip&quot;</span><span class="token punctuation">,</span>
-          <span class="token string">&quot;replace&quot;</span>
-        <span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token string">&quot;tokenizer&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;whitespace&quot;</span><span class="token punctuation">,</span>
-        <span class="token string">&quot;filter&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
-            <span class="token string">&quot;lowercase&quot;</span><span class="token punctuation">,</span>
-            <span class="token string">&quot;word_delimiter&quot;</span>
-        <span class="token punctuation">]</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<h2 id="searchkit-mapping-best-practices">Searchkit Mapping best practices</h2>
-<h3 id="indexing-fields-for-filtering--searching">Indexing fields for filtering &amp; searching</h3>
-<p>Often you will want a field to be both <code>searchable</code> and appear as <code>filters</code>. A field will need to be indexed in 2 ways to achieve this, and we can make use of multi fields</p>
-<h4 id="mapping-example">Mapping example</h4>
-<pre><code class="lang-json"><span class="token punctuation">{</span>
-  <span class="token string">&quot;movie&quot;</span> <span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    <span class="token string">&quot;properties&quot;</span> <span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      <span class="token string">&quot;genres&quot;</span> <span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token string">&quot;type&quot;</span> <span class="token punctuation">:</span> <span class="token string">&quot;string&quot;</span><span class="token punctuation">,</span>
-        <span class="token string">&quot;fields&quot;</span> <span class="token punctuation">:</span> <span class="token punctuation">{</span>          
-          <span class="token string">&quot;raw&quot;</span> <span class="token punctuation">:</span> <span class="token punctuation">{</span>
-            <span class="token string">&quot;type&quot;</span> <span class="token punctuation">:</span> <span class="token string">&quot;string&quot;</span><span class="token punctuation">,</span>
-            <span class="token string">&quot;index&quot;</span> <span class="token punctuation">:</span> <span class="token string">&quot;not_analyzed&quot;</span>
-          <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>This mapping will mean the <code>genres</code> field is indexed in 2 ways. The <code>genres</code> path will be analyzed by elastic search meaning it will be tokenized and have the standard stop words removed which is ideal for a free text search.
-The <code>genres.raw</code> path will be left untouched by <code>Elasticsearch</code>, <code>Searchkit</code> would use <code>not_analyzed</code> paths to power aggregated search components.</p>
-<h4 id="component-examples">Component examples</h4>
-<p>Using the <code>genres.raw</code> field</p>
-<pre><code class="lang-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>RefinementListFilter</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>genres<span class="token punctuation">&quot;</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Genres<span class="token punctuation">&quot;</span></span> <span class="token attr-name">field</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>genres.raw<span class="token punctuation">&quot;</span></span> <span class="token attr-name">operator</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>AND<span class="token punctuation">&quot;</span>/</span><span class="token punctuation">&gt;</span></span>
-</code></pre>
-<p>Using the field for searching using prefix</p>
-<pre><code class="lang-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SearchBox</span> <span class="token attr-name">prefixQueryFields</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>&quot;genres^1&quot;<span class="token punctuation">,</span> &quot;name^10&quot;<span class="token punctuation">]</span><span class="token punctuation">}</span></span><span class="token punctuation">/&gt;</span></span>
-</code></pre>
+                        <h1 id="migrating-from-searchkit-09x">Migrating from Searchkit 0.9.x</h1>
+<h2 id="upgrade-to-history-2xx">upgrade to history 2.x.x</h2>
+<p>We have upgraded internally our history library, which works with latets react-router. There shouldn&apos;t be any breaking changes, but keep a lookout in this area.</p>
 
                     
                     </section>
@@ -1240,10 +1169,10 @@ The <code>genres.raw</code> path will be left untouched by <code>Elasticsearch</
         </div>
 
         
-        <a href="../../docs/server/searchkit_express.html" class="navigation navigation-prev " aria-label="Previous page: Using Express"><i class="fa fa-angle-left"></i></a>
+        <a href="../../docs/upgrading/migrating_from_0.8.html" class="navigation navigation-prev " aria-label="Previous page: Migrating from 0.8"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../../docs/examples/index.html" class="navigation navigation-next " aria-label="Next page: Examples"><i class="fa fa-angle-right"></i></a>
+        <a href="../../docs/server/searchkit_express.html" class="navigation navigation-next " aria-label="Next page: Using Express"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
