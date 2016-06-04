@@ -31,5 +31,15 @@ describe("SearchkitProvider", ()=> {
       .toBe(this.searchkit)
   })
 
+  it("should call setupListeners()", ()=> {
+    spyOn(this.searchkit, "setupListeners")
+    expect(this.searchkit.setupListeners).not.toHaveBeenCalled()
+    this.wrapper.node.componentWillMount()
+    expect(this.searchkit.setupListeners).toHaveBeenCalled()
+    this.searchkit.unlistenHistory = jasmine.createSpy("unlisten")
+    this.wrapper.node.componentWillUnmount()
+    expect(this.searchkit.unlistenHistory).toHaveBeenCalled()
+  })
+
 
 })

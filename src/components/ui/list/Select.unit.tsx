@@ -19,10 +19,10 @@ describe("Select", ()=> {
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-select">
         <select defaultValue="a">
-          <option value="a">A translated (10)</option>
-          <option value="b" disabled={true}>B translated (11)</option>
-          <option value="c">C translated (12)</option>
-          <option value="d">d translated (15)</option>
+          <option value="a">A translated (#10)</option>
+          <option value="b" disabled={true}>B translated (#11)</option>
+          <option value="c">C translated (#12)</option>
+          <option value="d">d translated (#15)</option>
         </select>
       </div>
     ))

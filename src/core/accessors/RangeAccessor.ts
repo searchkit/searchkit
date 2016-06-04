@@ -6,7 +6,10 @@ import {
 	HistogramBucket,
 	RangeQuery,
 	BoolMust,
-	CardinalityMetric
+	CardinalityMetric,
+	FieldOptions,
+	FieldContext,
+	FieldContextFactory
 } from "../query";
 
 const maxBy = require("lodash/maxBy")
@@ -20,23 +23,28 @@ export interface RangeAccessorOptions {
   interval?: number
 	field:string,
 	loadHistogram?:boolean
+	fieldOptions?:FieldOptions
 }
 
 export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 	options:any
 	state = new ObjectState({})
+	fieldContext:FieldContext
 
 	constructor(key, options:RangeAccessorOptions){
     super(key, options.id)
     this.options = options
+		this.options.fieldOptions = this.options.fieldOptions || {type:"embedded"}
+    this.options.fieldOptions.field = this.options.field
+    this.fieldContext = FieldContextFactory(this.options.fieldOptions)
   }
 
 	buildSharedQuery(query) {
 		if (this.state.hasValue()) {
 			let val:any = this.state.getValue()
-			let rangeFilter = RangeQuery(this.options.field,{
+			let rangeFilter = this.fieldContext.wrapFilter(RangeQuery(this.options.field,{
         gte:val.min, lte:val.max
-      })
+      }))
 			let selectedFilter = {
 				name:this.translate(this.options.title),
 				value:`${val.min} - ${val.max}`,
@@ -56,9 +64,10 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 	}
 
 	getBuckets(){
-    return this.getAggregations(
-      [this.key, this.key, "buckets"], []
-    )
+    return this.getAggregations([
+			this.key,
+			this.fieldContext.getAggregationPath(),
+			this.key, "buckets"], [])
   }
 
 	isDisabled() {
@@ -66,7 +75,10 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 			const maxValue = get(maxBy(this.getBuckets(), "doc_count"), "doc_count", 0)
 			return maxValue === 0
 		} else {
-			return this.getAggregations([this.key, this.key, "value"], 0) === 0
+			return this.getAggregations([
+				this.key,
+				this.fieldContext.getAggregationPath(),
+				this.key, "value"], 0) === 0
 		}
 	}
 
@@ -81,9 +93,11 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 			let otherFilters = query.getFiltersWithoutKeys(this.key)
 			let filters = BoolMust([
 				otherFilters,
-				RangeQuery(this.options.field,{
-					gte:this.options.min, lte:this.options.max
-				})
+				this.fieldContext.wrapFilter(					
+					RangeQuery(this.options.field,{
+						gte:this.options.min, lte:this.options.max
+					})
+				)
 			])
 
 			let metric
@@ -104,7 +118,7 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 			return query.setAggs(FilterBucket(
 				this.key,
 				filters,
-				metric
+				...this.fieldContext.wrapAggregations(metric)
 			))
 	}
 }

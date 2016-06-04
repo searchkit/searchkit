@@ -34,3 +34,8 @@ class App extends SearchkitComponent {
    - Defaults to `RangeSliderHistogram`
 - `mod` *(string)*: Optional. A custom BEM container class.
 - `interval` *(number)*: Optional. Override the interval which is sent to ElasticSearch, used for generating the buckets which render the histogram. (Defaults to an interval which allows a max of 20 buckets which fit the range)
+- `fieldOptions` *({type:"embedded|nested|children", options:Object})* Configures the type field that is stored in ElasticSearch, can be `embedded`(default) `nested` or `children`
+  - `type:nested` requires `options.path` provided
+  - `type:children` requires `options.childType` provided
+  - see [Field Options](../../core/FieldOptions.md)
+- `rangeFormatter` *((count:number)=> string|number)* A formatter function used to convert numbers into more readable display values. E.g. long number formatting or prefixing currencies.`

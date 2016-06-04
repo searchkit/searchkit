@@ -31,12 +31,12 @@ function boolHelper(val, operator){
   if (isArr) {
     // Remove empty filters
     val = filter(val, f => !isEmpty(f))
-    if (isArr && val.length === 1) {
-      return val[0]
-    } else if (isArr && val.length === 0) {
+    if (val.length === 1) {
+      if (operator != "must_not") return val[0]
+      else val = val[0] // Unbox array
+    } else if (val.length === 0) {
       return {}
-    } else if (isArr
-      && (operator == "must" || operator == "should")
+    } else if ((operator == "must" || operator == "should")
       && (findIndex(val, isBoolOp.bind(null, operator)) != -1)) {
       val = flattenBool(operator, val)
     }

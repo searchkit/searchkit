@@ -22,28 +22,28 @@ describe("ItemHistogramList Components", ()=> {
             <div className="sk-item-list-option__bar" style={{width:"20.833333333333336%"}}></div>
           </div>
           <div data-qa="label" className="sk-item-list-option__text">A translated</div>
-          <div data-qa="count" className="sk-item-list-option__count">10</div>
+          <div data-qa="count" className="sk-item-list-option__count">#10</div>
         </div>
         <div className="sk-item-list-option sk-item-list__item is-disabled is-histogram" data-qa="option" data-key="b">
           <div className="sk-item-list-option__bar-container">
             <div className="sk-item-list-option__bar" style={{width:"22.916666666666664%"}}></div>
           </div>
           <div data-qa="label" className="sk-item-list-option__text">B translated</div>
-          <div data-qa="count" className="sk-item-list-option__count">11</div>
+          <div data-qa="count" className="sk-item-list-option__count">#11</div>
         </div>
         <div className="sk-item-list-option sk-item-list__item is-active is-histogram" data-qa="option" data-key="c">
           <div className="sk-item-list-option__bar-container">
             <div className="sk-item-list-option__bar" style={{width:"25%"}}></div>
           </div>
           <div data-qa="label" className="sk-item-list-option__text">C translated</div>
-          <div data-qa="count" className="sk-item-list-option__count">12</div>
+          <div data-qa="count" className="sk-item-list-option__count">#12</div>
         </div>
         <div className="sk-item-list-option sk-item-list__item is-histogram" data-qa="option" data-key="d">
           <div className="sk-item-list-option__bar-container">
             <div className="sk-item-list-option__bar" style={{width:"31.25%"}}></div>
           </div>
           <div data-qa="label" className="sk-item-list-option__text">d translated</div>
-          <div data-qa="count" className="sk-item-list-option__count">15</div>
+          <div data-qa="count" className="sk-item-list-option__count">#15</div>
         </div>
       </div>
     ))

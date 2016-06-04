@@ -4,7 +4,7 @@ import {FacetFilterProps, FacetFilterPropTypes} from "./FacetFilterProps"
 
 import {
   FacetAccessor, SearchkitComponent, ISizeOption,
-  FastClick, renderComponent
+  FastClick, renderComponent, FieldOptions
 } from "../../../../core"
 
 import {
@@ -12,6 +12,7 @@ import {
 } from "../../../ui"
 
 const defaults = require("lodash/defaults")
+const identity = require("lodash/identity")
 
 export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<T, any> {
   accessor: FacetAccessor
@@ -24,7 +25,8 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
     size: 50,
     collapsable: false,
     showCount: true,
-    showMore: true
+    showMore: true,
+    bucketsTransform:identity
   }
 
   constructor(props){
@@ -34,11 +36,11 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
   getAccessorOptions(){
     const {
       field, id, operator, title, include, exclude,
-      size, translations, orderKey, orderDirection
+      size, translations, orderKey, orderDirection, fieldOptions
     } = this.props
     return {
-      id, operator, title, size, include, exclude,
-      translations, orderKey, orderDirection
+      id, operator, title, size, include, exclude, field,
+      translations, orderKey, orderDirection, fieldOptions
     }
   }
   defineAccessor() {
@@ -85,11 +87,11 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
   }
 
   getItems(){
-    return this.accessor.getBuckets()
+    return this.props.bucketsTransform(this.accessor.getBuckets())
   }
 
   render() {
-    const { listComponent, containerComponent, showCount, title, id } = this.props
+    const { listComponent, containerComponent, showCount, title, id, countFormatter } = this.props
     return renderComponent(containerComponent, {
       title,
       className: id ? `filter--${id}` : undefined,
@@ -104,7 +106,8 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
         setItems: this.setFilters.bind(this),
         docCount: this.accessor.getDocCount(),
         showCount,
-        translate:this.translate
+        translate:this.translate,
+        countFormatter
       }),
       this.renderShowMore()
     ]);

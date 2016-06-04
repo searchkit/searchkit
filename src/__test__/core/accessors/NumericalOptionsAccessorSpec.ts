@@ -1,7 +1,8 @@
 import {
   NumericOptionsAccessor, ImmutableQuery,
   BoolMust, BoolShould, ArrayState, RangeQuery,
-  RangeBucket, FilterBucket,SearchkitManager
+  CardinalityMetric, NestedQuery,NestedBucket,
+  RangeBucket, FilterBucket,SearchkitManager, Utils
 } from "../../../"
 
 const _ = require("lodash")
@@ -44,7 +45,7 @@ describe("NumericOptionsAccessor", ()=> {
   it("getBuckets()", ()=> {
     this.accessor.results = {
       aggregations:{
-        categories:{
+        "9999":{
           categories:{
             buckets:[
               {key:1, doc_count:1},
@@ -171,7 +172,7 @@ describe("NumericOptionsAccessor", ()=> {
     query = this.accessor.buildOwnQuery(query)
     expect(query.query.aggs).toEqual(
       FilterBucket(
-        "categories",
+        "9999",
         BoolMust([BoolShould(["foo"])]),
         RangeBucket(
           "categories",
@@ -199,6 +200,104 @@ describe("NumericOptionsAccessor", ()=> {
         )
       )
     )
+
+  })
+
+  describe("Nested usecase", ()=> {
+
+    beforeEach(()=> {
+      this.options = {
+        field:"price",
+        id:"price_id",
+        title:"”Price",
+        options:[
+          {title:"All"},
+          {title:"Cheap", from:1, to:11},
+          {title:"Affordable", from:11, to:21},
+          {title:"Pricey", from:21, to:101}
+        ],
+        fieldOptions:{
+          type:"nested",
+          options:{
+            path:"nestedPrice"
+          }
+        }
+      }
+      this.accessor = new NumericOptionsAccessor("categories", this.options)
+      this.accessor.uuid = "9999"
+    })
+
+    it("buildSharedQuery()", ()=> {
+      this.accessor.state = new ArrayState(["11_21", "21_101"])
+      let query = this.accessor.buildSharedQuery(this.query)
+      let expected = BoolMust([
+        BoolShould([
+          NestedQuery("nestedPrice", RangeQuery("price", {gte:11, lt:21})),
+          NestedQuery("nestedPrice", RangeQuery("price", {gte:21, lt:101}))
+        ])
+      ])
+      expect(query.query.filter).toEqual(expected)
+    })
+
+    it("buildOwnQuery()", ()=> {
+      this.query = this.query.addFilter("other", BoolShould(["foo"]))
+      let query = this.accessor.buildSharedQuery(this.query)
+      query = this.accessor.buildOwnQuery(query)
+      expect(query.query.aggs).toEqual(
+        FilterBucket(
+          "9999",
+          BoolMust([BoolShould(["foo"])]),
+          NestedBucket(
+            "inner", "nestedPrice",
+            RangeBucket(
+              "categories",
+              "price",
+              [
+                {
+                  "key": "All"
+                },
+                {
+                  "key": "Cheap",
+                  "from": 1,
+                  "to": 11
+                },
+                {
+                  "key": "Affordable",
+                  "from": 11,
+                  "to": 21
+                },
+                {
+                  "key": "Pricey",
+                  "from": 21,
+                  "to": 101
+                }
+              ]
+            )
+          )
+        )
+      )
+    })
+
+    it("getBuckets()", ()=> {
+      this.accessor.results = {
+        aggregations:{
+          "9999":{
+            inner:{
+              categories:{
+                buckets:[
+                  {key:1, doc_count:1},
+                  {key:2, doc_count:2},
+                  {key:3, doc_count:3},
+                  {key:4, doc_count:0}
+                ]
+              }
+            }
+          }
+        }
+      }
+      expect(_.map(this.accessor.getBuckets(), "key"))
+        .toEqual([1,2,3])
+    })
 
   })
 

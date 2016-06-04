@@ -40,6 +40,13 @@ class App extends SearchkitComponent {
   - Compatible with `Select`, `Tabs`, `Toggle`, `TagCloud`, `ItemList`, `CheckboxItemList`, `ItemHistogramList`
   - Defaults to `ItemList`
 - `itemComponent` *(React Component)*: Customize each row/item rendering within the list.
+- `fieldOptions` *({type:"embedded|nested|children", options:Object})* Configures the type field that is stored in ElasticSearch, can be `embedded`(default) `nested` or `children`
+  - `type:nested` requires `options.path` provided
+  - `type:children` requires `options.childType` provided
+  - see [Field Options](../../core/FieldOptions.md)
+- `countFormatter` *((count:number)=> number|string)* A optional function to format the doc counts
+
+
 
 ## Demo
 [](codepen://searchkit/bEgERB?height=800&theme=0)

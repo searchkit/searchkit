@@ -2,13 +2,11 @@
 
 .sk-range-input {
   width: 100%;
-  display:flex;
   align-content: center;
 
   &__input {
-    flex:0 0 60px;
     display: inline-block;
-    width: 60px;
+    width: 68px;
     border-radius: $sk-border-radius;
     border: 1px solid $sk-border-color;
     height:30px;
@@ -20,17 +18,18 @@
   }
 
   &__submit {
-    flex:0 0 auto;
     @extend .sk-action-button;
+    display: inline-block;
     background:white;
     height:30px;
     padding:0 10px;
-    margin-left:10px;
+    margin-left:8px;
   }
 
   &__to-label {
+    display: inline-block;
     line-height:30px;
-    margin: 0 10px;
+    margin: 0 8px;
     color: $sk-text-color;
     font-size: $sk-text-font-size;
   }

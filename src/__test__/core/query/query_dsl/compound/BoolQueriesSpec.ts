@@ -21,7 +21,11 @@ describe("BoolQueries", ()=> {
     this.testBool(BoolShould, "should")
   })
   it("BoolMustNot", ()=> {
-    this.testBool(BoolMustNot, "must_not")
+    expect(BoolMustNot([])).toEqual({})
+    expect(BoolMustNot(["filter"])).toEqual({bool: {must_not: "filter"}})
+    expect(BoolMustNot(["filter1", "filter2"])).toEqual({
+      bool:{must_not:["filter1", "filter2"]}
+    })
   })
   it("should flatten BoolMust", () => {
       const query = BoolMust([

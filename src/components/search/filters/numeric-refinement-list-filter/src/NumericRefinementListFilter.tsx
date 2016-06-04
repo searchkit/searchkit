@@ -8,7 +8,8 @@ import {
 	RangeOption,
 	RenderComponentType,
 	RenderComponentPropType,
-	renderComponent
+	renderComponent,
+	FieldOptions
 } from "../../../../../core"
 
 import {
@@ -28,6 +29,8 @@ export interface NumericRefinementListFilterProps extends SearchkitComponentProp
   listComponent?: RenderComponentType<ListProps>
   itemComponent?: RenderComponentType<ItemProps>
   containerComponent?: RenderComponentType<any>
+	fieldOptions?:FieldOptions,
+  countFormatter?:(count:number)=> number | string
 }
 
 export class NumericRefinementListFilter extends SearchkitComponent<NumericRefinementListFilterProps, any> {
@@ -49,7 +52,12 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
         to:React.PropTypes.number,
         key:React.PropTypes.string
       })
-    )
+    ),
+		fieldOptions:React.PropTypes.shape({
+	    type:React.PropTypes.oneOf(["embedded", "nested", "children"]).isRequired,
+	    options:React.PropTypes.object
+	  }),
+		countFormatter:React.PropTypes.func
   }, SearchkitComponent.propTypes)
 
   static defaultProps = {
@@ -66,9 +74,9 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
 	}
 
   defineAccessor() {
-    const {id, field, options, title, multiselect} = this.props
+    const {id, field, options, title, multiselect, fieldOptions} = this.props
     return new NumericOptionsAccessor(id, {
-      id, field, options, title, multiselect
+      id, field, options, title, multiselect, fieldOptions
     })
   }
 
@@ -92,7 +100,7 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
   render() {
     const {
 			listComponent, containerComponent, itemComponent,
-			showCount, title, id, mod, className
+			showCount, title, id, mod, className, countFormatter
 		} = this.props
 
   	return renderComponent(containerComponent, {
@@ -107,8 +115,10 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
       selectedItems: this.getSelectedItems(),
       toggleItem: this.toggleItem,
 			setItems:this.setItems,
+      docCount: this.accessor.getDocCount(),
       showCount,
-			translate:this.translate
+			translate:this.translate,
+			countFormatter
     }));
   }
 }

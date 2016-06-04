@@ -12,7 +12,7 @@
   display:flex;
   font-weight: $sk-light-weight;
 
-  &__checkbox {
+  input#{&}__checkbox {
     margin: 5px 5px 0 1px;
   }
 

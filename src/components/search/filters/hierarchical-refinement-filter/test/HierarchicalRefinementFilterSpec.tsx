@@ -15,6 +15,7 @@ describe("Refinement List Filter tests", () => {
     spyOn(this.searchkit, "performSearch")
     this.wrapper = mount(
       <HierarchicalRefinementFilter
+        countFormatter={(count)=> "#"+count}
         field="test" id="testid" title="test title"
         searchkit={this.searchkit} />
     );
@@ -65,7 +66,10 @@ describe("Refinement List Filter tests", () => {
     expect(options).toEqual({
       "id": "testid",
       "title": "test title",
-      "field":"test"
+      "field":"test",
+      "orderKey":undefined,
+      "orderDirection":undefined,
+      "startLevel":undefined
     })
 
   })
@@ -79,13 +83,13 @@ describe("Refinement List Filter tests", () => {
             <div>
               <div className="sk-hierarchical-refinement-option">
                 <div className="sk-hierarchical-refinement-option__text">option1</div>
-                <div className="sk-hierarchical-refinement-option__count">1</div>
+                <div className="sk-hierarchical-refinement-option__count">#1</div>
               </div>
             </div>
             <div>
               <div className="sk-hierarchical-refinement-option">
                 <div className="sk-hierarchical-refinement-option__text">option2</div>
-                <div className="sk-hierarchical-refinement-option__count">2</div>
+                <div className="sk-hierarchical-refinement-option__count">#2</div>
               </div>
             </div>
           </div>
@@ -107,25 +111,25 @@ describe("Refinement List Filter tests", () => {
             <div>
               <div className="sk-hierarchical-refinement-option">
                 <div className="sk-hierarchical-refinement-option__text">option1</div>
-                <div className="sk-hierarchical-refinement-option__count">1</div>
+                <div className="sk-hierarchical-refinement-option__count">#1</div>
               </div>
             </div>
             <div>
               <div className="sk-hierarchical-refinement-option is-selected">
                 <div className="sk-hierarchical-refinement-option__text">option2</div>
-                <div className="sk-hierarchical-refinement-option__count">2</div>
+                <div className="sk-hierarchical-refinement-option__count">#2</div>
               </div>
               <div className="sk-hierarchical-refinement-list__hierarchical-options">
                 <div>
                   <div className="sk-hierarchical-refinement-option">
                     <div className="sk-hierarchical-refinement-option__text">option2child1</div>
-                    <div className="sk-hierarchical-refinement-option__count">1</div>
+                    <div className="sk-hierarchical-refinement-option__count">#1</div>
                   </div>
                 </div>
                 <div>
                   <div className="sk-hierarchical-refinement-option is-selected">
                     <div className="sk-hierarchical-refinement-option__text">option2child2</div>
-                    <div className="sk-hierarchical-refinement-option__count">1</div>
+                    <div className="sk-hierarchical-refinement-option__count">#1</div>
                   </div>
                   <div className="sk-hierarchical-refinement-list__hierarchical-options"></div>
                 </div>
@@ -147,6 +151,17 @@ describe("Refinement List Filter tests", () => {
     expect(this.accessor.state.getValue())
       .toEqual([ ["option2"] ])
 
+  })
+
+  it("should add disabled state when no results", ()=> {
+    expect(this.wrapper.html()).toEqual(jsxToHTML(
+      <div data-qa="filter--testid" className="sk-hierarchical-refinement-list filter--testid is-disabled">
+        <div data-qa="title" className="sk-hierarchical-refinement-list__header">test title</div>
+        <div data-qa="options" className="sk-hierarchical-refinement-list__root">
+          <div className="sk-hierarchical-refinement-list__hierarchical-options"></div>
+        </div>
+      </div>
+    ))
   })
 
 });

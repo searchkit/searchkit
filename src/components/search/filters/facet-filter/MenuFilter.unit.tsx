@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 import {mount, render} from "enzyme";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../__test__/TestHelpers"
 import {MenuFilter} from "./MenuFilter.tsx";
-import {SearchkitManager, Utils} from "../../../../core";
+import {SearchkitManager, Utils, ArrayState} from "../../../../core";
 import {Toggle, ItemComponent, ItemList} from "../../../ui";
 const bem = require("bem-cn");
 const _ = require("lodash")
@@ -46,12 +46,28 @@ describe("MenuFilter", ()=> {
 
   it("expect accessor options to be correct", ()=> {
     expect(this.wrapper.node.props.listComponent).toBe(ItemList)
-    expect(this.accessor.options).toEqual({
-      id:"color", title:"Color", operator:"OR",
+    expect(this.accessor.options).toEqual(jasmine.objectContaining({
+      id:"color", field:"color", title:"Color", operator:"OR",
       translations:{"Red":"Red Translated"},
       size:10, facetsPerPage:50, orderKey:"_term",
-      orderDirection:"asc", include:"title", exclude:["n/a"]
-    })
+      orderDirection:"asc", include:"title", exclude:["n/a"],
+      "fieldOptions":{
+        type:"embedded",
+        field:"color"
+      }
+    }))
+  })
+
+  it("getSelectedItems", ()=> {
+    this.accessor.state = new ArrayState([])
+    expect(this.wrapper.node.getSelectedItems())
+      .toEqual(['$all'])
+    this.accessor.state = new ArrayState([false])
+    expect(this.wrapper.node.getSelectedItems())
+      .toEqual([false])
+    this.accessor.state = new ArrayState(["foo", "bar"])
+    expect(this.wrapper.node.getSelectedItems())
+      .toEqual(["foo"])
   })
 
   it("should render correctly", ()=> {

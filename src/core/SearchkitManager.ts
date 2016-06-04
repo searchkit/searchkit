@@ -40,6 +40,7 @@ export class SearchkitManager {
   options:SearchkitOptions
   transport:ESTransport
   emitter:EventEmitter
+  resultsEmitter:EventEmitter
   accessors:AccessorManager
   queryProcessor:Function
   query:ImmutableQuery
@@ -51,10 +52,12 @@ export class SearchkitManager {
   static VERSION = VERSION
 
   static mock() {
-    return new SearchkitManager("/", {
+    let searchkit = new SearchkitManager("/", {
       useHistory:false,
       transport:new MockESTransport()
     })
+    searchkit.setupListeners()
+    return searchkit
   }
 
   constructor(host:string, options:SearchkitOptions = {}){
@@ -79,10 +82,17 @@ export class SearchkitManager {
     // this.primarySearcher = this.createSearcher()
     this.query = new ImmutableQuery()
     this.emitter = new EventEmitter()
+    this.resultsEmitter = new EventEmitter()
+  }
+
+  setupListeners() {
     this.initialLoading = true
     if(this.options.useHistory) {
+      this.unlistenHistory()
       this.history = createHistory()
       this.listenToHistory()
+    } else {
+      this.runInitialSearch()
     }
   }
   addAccessor(accessor){
@@ -114,6 +124,10 @@ export class SearchkitManager {
     this.accessors.resetState()
   }
 
+  addResultsListener(fn){
+    return this.resultsEmitter.addListener(fn)
+  }
+
   unlistenHistory(){
     if(this.options.useHistory && this._unlistenHistory){
       this._unlistenHistory()
@@ -134,6 +148,14 @@ export class SearchkitManager {
     }))
   }
 
+  runInitialSearch(){
+    if(this.options.searchOnLoad) {
+      this.registrationCompleted.then(()=> {
+        this._search()
+      })
+    }
+  }
+
   searchFromUrlQuery(query){
     this.accessors.setState(query)
     this._search()
@@ -146,8 +168,8 @@ export class SearchkitManager {
     this._search()
     if(this.options.useHistory){
       const historyMethod = (replaceState) ?
-        this.history.replaceState : this.history.pushState
-      historyMethod(null, window.location.pathname, this.state)
+        this.history.replace : this.history.push
+      historyMethod({pathname: window.location.pathname, query:this.state})
     }
   }
 
@@ -188,6 +210,7 @@ export class SearchkitManager {
     this.error = null
     this.accessors.setResults(results)
     this.onResponseChange()
+    this.resultsEmitter.trigger(this.results)
   }
 
   compareResults(previousResults, results){

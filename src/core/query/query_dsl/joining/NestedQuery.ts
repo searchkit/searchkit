@@ -1,7 +1,11 @@
-export function NestedQuery(path, filter){
+const assign = require("lodash/assign")
+const pick = require("lodash/pick")
+const allowedOptions = ["score_mode", "inner_hits"]
+
+export function NestedQuery(path, filter, options={}){
   return {
-    nested:{
-      path, filter      
-    }
+    nested:assign({
+      path, filter
+    }, pick(options, allowedOptions))
   }
 }

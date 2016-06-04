@@ -3,7 +3,8 @@ import * as React from "react";
 import {
   ReactComponentType, SearchkitComponentProps,
   SearchkitComponent, FacetAccessor,
-  RenderComponentPropType, RenderComponentType
+  RenderComponentPropType, RenderComponentType,
+  FieldOptions
 } from "../../../../core"
 
 import {
@@ -26,6 +27,9 @@ export interface FacetFilterProps extends SearchkitComponentProps {
   exclude?: Array<string> | string
   showCount?: boolean
   showMore?:boolean
+  fieldOptions?:FieldOptions,
+  countFormatter?:(count:number)=> number | string
+  bucketsTransform?:Function
 }
 
 export const FacetFilterPropTypes = defaults({
@@ -49,5 +53,11 @@ export const FacetFilterPropTypes = defaults({
       React.PropTypes.string, React.PropTypes.array
   ]),
   showCount: React.PropTypes.bool,
-  showMore: React.PropTypes.bool
+  showMore: React.PropTypes.bool,
+  fieldOptions:React.PropTypes.shape({
+    type:React.PropTypes.oneOf(["embedded", "nested", "children"]).isRequired,
+    options:React.PropTypes.object
+  }),
+  countFormatter:React.PropTypes.func,
+  bucketsTransform:React.PropTypes.func
 },SearchkitComponent.propTypes)

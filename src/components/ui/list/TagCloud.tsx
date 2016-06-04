@@ -42,7 +42,8 @@ export class TagCloud extends React.Component<TagCloudProps, any> {
     showCount: false,
     minFontSize: 1, // In em
     maxFontSize: 1.5,
-    translate: identity
+    translate: identity,
+    countFormatter:identity
   }
 
   render() {
@@ -64,7 +65,9 @@ export class TagCloud extends React.Component<TagCloudProps, any> {
   }
 
   renderItem(item, bemBlocks, min, max) {
-    const { itemComponent, minFontSize, maxFontSize, showCount, selectedItems = [], toggleItem, disabled, translate } = this.props
+    const {
+      itemComponent, minFontSize, maxFontSize,showCount, countFormatter,
+      selectedItems = [], toggleItem, disabled, translate } = this.props
 
     const sizeRatio = (min === max) ? 0.5 : ((item.doc_count - min) / (max - min))
     const fontSize = minFontSize + sizeRatio * (maxFontSize - minFontSize) // TODO : make ratio function customizable (square, log, etc.)
@@ -78,7 +81,7 @@ export class TagCloud extends React.Component<TagCloudProps, any> {
       active: includes(selectedItems, item.key),
       style: { fontSize: fontSize + 'em' },
       showCount,
-      count: item.doc_count
+      count: countFormatter(item.doc_count)
     })
   }
 }

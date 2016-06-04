@@ -15,6 +15,7 @@ describe("MenuFilter tests", () => {
     this.wrapper = mount(
       <HierarchicalMenuFilter searchkit={this.searchkit}
         title="Categories" id="categories" orderKey="_term" orderDirection="asc"
+        countFormatter={(count)=> "#"+count}
         fields={["lvl1", "lvl2"]}
       />
     )
@@ -56,13 +57,13 @@ describe("MenuFilter tests", () => {
             <div>
               <div className="sk-hierarchical-menu-option">
                 <div className="sk-hierarchical-menu-option__text">Red</div>
-                <div className="sk-hierarchical-menu-option__count">10</div>
+                <div className="sk-hierarchical-menu-option__count">#10</div>
               </div>
             </div>
             <div>
               <div className="sk-hierarchical-menu-option">
                 <div className="sk-hierarchical-menu-option__text">Green</div>
-                <div className="sk-hierarchical-menu-option__count">20</div>
+                <div className="sk-hierarchical-menu-option__count">#20</div>
               </div>
             </div>
           </div>
@@ -84,19 +85,19 @@ describe("MenuFilter tests", () => {
             <div>
               <div className="sk-hierarchical-menu-option is-selected">
                 <div className="sk-hierarchical-menu-option__text">Red</div>
-                <div className="sk-hierarchical-menu-option__count">10</div>
+                <div className="sk-hierarchical-menu-option__count">#10</div>
               </div>
               <div className="sk-hierarchical-menu-list__hierarchical-options">
                 <div>
                   <div className="sk-hierarchical-menu-option">
                     <div className="sk-hierarchical-menu-option__text">Crimson</div>
-                    <div className="sk-hierarchical-menu-option__count">10</div>
+                    <div className="sk-hierarchical-menu-option__count">#10</div>
                   </div>
                 </div>
                 <div>
                   <div className="sk-hierarchical-menu-option is-selected">
                     <div className="sk-hierarchical-menu-option__text">Maroon</div>
-                    <div className="sk-hierarchical-menu-option__count">12</div>
+                    <div className="sk-hierarchical-menu-option__count">#12</div>
                   </div>
                   <div className="sk-hierarchical-menu-list__hierarchical-options"></div>
                 </div>
@@ -105,7 +106,7 @@ describe("MenuFilter tests", () => {
             <div>
               <div className="sk-hierarchical-menu-option">
                 <div className="sk-hierarchical-menu-option__text">Green</div>
-                <div className="sk-hierarchical-menu-option__count">20</div>
+                <div className="sk-hierarchical-menu-option__count">#20</div>
               </div>
             </div>
           </div>

@@ -28,13 +28,14 @@ If you want to tweak the markup for a refinement option, you can use the `itemCo
 import {
   Pagination,
   Hits,
+  RefinementListFilter,
   SearchkitComponent
 } from "searchkit";
 
 const RefinementOption = (props) => (
-  <div className={props.bemBlocks.item().state({selected:props.selected}).mix(this.bemBlocks.container("item"))} onClick={props.onClick}>
-    <div className={props.bemBlocks.item("label")}>{props.label}</div>
-    <div className={props.bemBlocks.item("count")}>{props.docCount}</div>
+  <div className={props.bemBlocks.option().state({selected:props.selected}).mix(props.bemBlocks.container("item"))} onClick={props.onClick}>
+    <div className={props.bemBlocks.option("text")}>{props.label}</div>
+    <div className={props.bemBlocks.option("count")}>{props.count}</div>
   </div>
 )
 
@@ -67,7 +68,12 @@ class App extends SearchkitComponent {
 - `orderDirection` *(string)*: `asc` or `desc`
 - `include` *(Array<string>|string):* Terms bucket  include parameter see [Terms bucket filtering](https://www.elastic.co/guide/en/elasticsearch/reference/2.x/search-aggregations-bucket-terms-aggregation.html#_filtering_values_2)
 - `exclude` *(Array<string>|string):* Terms bucket exclude parameter, see above
-
+- `fieldOptions` *({type:"embedded|nested|children", options:Object})* Configures the type field that is stored in ElasticSearch, can be `embedded`(default) `nested` or `children`
+  - `type:nested` requires `options.path` provided
+  - `type:children` requires `options.childType` provided
+  - see [Field Options](../../core/FieldOptions.md)
+- `countFormatter` *((count:number)=> number|string)* A optional function to format the doc counts
+- `bucketsTransform` *((buckets:Array)=> transformedBuckets)* A optional function to transform the buckets used for the aggregation, can be used to sort the list or to inject new facets.
 
 
 ## Translations
@@ -77,4 +83,4 @@ class App extends SearchkitComponent {
 
 
 ## Demo
-[](codepen://searchkit/zrNrzL?height=800&theme=0)
+[Sample](http://codepen.io/searchkit/pen/zrNrzL)

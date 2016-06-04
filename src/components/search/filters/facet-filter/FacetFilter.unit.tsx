@@ -3,7 +3,7 @@ import {mount, render} from "enzyme";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../__test__/TestHelpers"
 import {FacetFilter} from "./FacetFilter.tsx";
 import {RefinementListFilter} from "./RefinementListFilter.tsx";
-import {SearchkitManager, Utils} from "../../../../core";
+import {SearchkitManager, Utils, FieldOptions} from "../../../../core";
 import {Toggle, ItemComponent} from "../../../ui";
 const bem = require("bem-cn");
 const _ = require("lodash")
@@ -46,10 +46,10 @@ describe("Facet Filter tests", () => {
 
     this.createWrapper(
       <FacetFilter
-        field="test" id="test id" title="test title" size={3}
+        field="test" id="test id" title="test title" size={3} countFormatter={(count)=>"#"+count}
         include={"title"} exclude={["bad", "n/a"]} operator="OR"
         orderKey="_count" orderDirection="desc" translations={{"facets.view_all":"View all facets"}}
-        searchkit={this.searchkit} />
+        searchkit={this.searchkit} bucketsTransform={_.identity}/>
     )
 
     this.getViewMore = ()=> this.wrapper.find(".sk-refinement-list__view-more-action")
@@ -65,15 +65,15 @@ describe("Facet Filter tests", () => {
           <div data-qa="options" className="sk-item-list">
             <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 1"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox"/>
               <div data-qa="label" className="sk-item-list-option__text">test option 1 translated</div>
-              <div data-qa="count" className="sk-item-list-option__count">1</div>
+              <div data-qa="count" className="sk-item-list-option__count">#1</div>
             </div>
             <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 2"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox"/>
               <div data-qa="label" className="sk-item-list-option__text">test option 2</div>
-              <div data-qa="count" className="sk-item-list-option__count">2</div>
+              <div data-qa="count" className="sk-item-list-option__count">#2</div>
             </div>
             <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 3"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox"/>
               <div data-qa="label" className="sk-item-list-option__text">test option 3</div>
-              <div data-qa="count" className="sk-item-list-option__count">3</div>
+              <div data-qa="count" className="sk-item-list-option__count">#3</div>
             </div>
           </div>
           <div data-qa="show-more" className="sk-refinement-list__view-more-action">View all facets</div>
@@ -120,8 +120,9 @@ describe("Facet Filter tests", () => {
     expect(this.accessor.key).toBe("test")
     let options = this.accessor.options
 
-    expect(options).toEqual({
+    expect(options).toEqual(jasmine.objectContaining({
       "id": "test id",
+      "field":"test",
       "title": "test title",
       "size": 3,
       "facetsPerPage": 50,
@@ -130,8 +131,12 @@ describe("Facet Filter tests", () => {
       "orderKey":"_count",
       "orderDirection":"desc",
       "include":"title",
-      "exclude":["bad","n/a"]
-    })
+      "exclude":["bad","n/a"],
+      "fieldOptions":{
+        type:"embedded",
+        field:"test"
+      }
+    }))
   })
 
   it("should work with a custom itemComponent", () => {
@@ -172,23 +177,24 @@ describe("Facet Filter tests", () => {
         listComponent={Toggle}
         itemComponent={(props)=> <ItemComponent {...props} showCount={true}/>}
         field="test" id="test id" title="test title"
+        bucketsTransform={(buckets)=> _.reverse(buckets)}
         searchkit={this.searchkit} />
     )
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div title="test title" className="filter--test id">
         <div data-qa="options" className="sk-toggle">
-          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 1">
-            <div data-qa="label" className="sk-toggle-option__text">test option 1 translated</div>
-            <div data-qa="count" className="sk-toggle-option__count">1</div>
+          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 3">
+            <div data-qa="label" className="sk-toggle-option__text">test option 3</div>
+            <div data-qa="count" className="sk-toggle-option__count">3</div>
           </div>
           <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 2">
             <div data-qa="label" className="sk-toggle-option__text">test option 2</div>
             <div data-qa="count" className="sk-toggle-option__count">2</div>
           </div>
-          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 3">
-            <div data-qa="label" className="sk-toggle-option__text">test option 3</div>
-            <div data-qa="count" className="sk-toggle-option__count">3</div>
+          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 1">
+            <div data-qa="label" className="sk-toggle-option__text">test option 1 translated</div>
+            <div data-qa="count" className="sk-toggle-option__count">1</div>
           </div>
         </div>
         <div data-qa="show-more" className="sk-refinement-list__view-more-action">View all facets</div>

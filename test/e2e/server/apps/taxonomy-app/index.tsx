@@ -5,6 +5,9 @@ import {
   SearchBox,
   Hits,
   HierarchicalRefinementFilter,
+  RefinementListFilter,
+  NumericRefinementListFilter,
+  DynamicRangeFilter,
   Pagination,
   ResetFilters,
   SelectedFilters,
@@ -13,7 +16,8 @@ import {
   SearchkitManager,
   SearchkitProvider,
   NoHits,
-  InitialLoader
+  InitialLoader,
+  RangeFilter
 } from "../../../../../src"
 
 import "./customisations.scss";
@@ -59,6 +63,27 @@ export class App extends React.Component<any, any> {
 
   			<div className="sk-layout__filters">
           <HierarchicalRefinementFilter field="taxonomy" id="categories" title="Region" startLevel={2}/>
+          <RefinementListFilter
+            field="taxonomy.value"
+            fieldOptions={{type:'nested', options:{path:"taxonomy"}}}
+            size={10}
+            id="NestedTest" title="Nested Test"/>
+          <NumericRefinementListFilter
+            field="taxonomy.level"
+            options={[
+              {title:"All"},
+              {title:"1", from:1, to:2},
+              {title:"2", from:2, to:3},
+              {title:"3", from:3}
+            ]}
+            fieldOptions={{type:'nested', options:{path:"taxonomy"}}}
+            id="NestedNumeric" title="Nested Numeric"/>
+          <RangeFilter min={1} max={6} field="taxonomy.level" id="levelRange"
+            title="Taxonomy level range" fieldOptions={{type:"nested", options:{path:"taxonomy"}}}/>
+
+            <DynamicRangeFilter field="taxonomy.level" id="levelRangeDynamic"
+              title="Taxonomy level Dynamic range" fieldOptions={{type:"nested", options:{path:"taxonomy"}}}/>
+
   			</div>
 
         <div className="sk-layout__results sk-results-list">

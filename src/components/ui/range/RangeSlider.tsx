@@ -2,19 +2,24 @@ import * as React from "react";
 
 import { RangeProps } from './RangeProps'
 
+const identity = require("lodash/identity")
 const Rcslider = require("rc-slider")
 
 const block = require('bem-cn')
+const { PureRender } = require("../../../core/react/pure-render")
 
 export interface RangeSliderProps extends RangeProps {
   step?: number
-  marks: Object
+  marks?: Object
+  rangeFormatter?:(number)=> number | string
 }
 
+@PureRender
 export class RangeSlider extends React.Component<RangeSliderProps, {}> {
 
   static defaultProps = {
     mod: "sk-range-slider",
+    rangeFormatter:identity
   }
 
   constructor(props){
@@ -32,7 +37,7 @@ export class RangeSlider extends React.Component<RangeSliderProps, {}> {
   }
 
   render() {
-    const { mod, className, step, marks,
+    const { mod, className, step, marks,rangeFormatter,
       min, max, minValue, maxValue } = this.props
 
     const bemBlocks = {
@@ -44,7 +49,11 @@ export class RangeSlider extends React.Component<RangeSliderProps, {}> {
         <Rcslider
           min={min}
           max={max}
-          marks={marks || { [min]: min, [max]: max }}
+          marks={marks || {
+            [min]: rangeFormatter(min),
+            [max]: rangeFormatter(max)
+          }}
+          tipFormatter={rangeFormatter}
           range={true}
           step={step}
           value={[minValue, maxValue]}

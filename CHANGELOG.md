@@ -1,5 +1,24 @@
+## 0.10.0 (4th June, 2016)
+- `SearchkitManager` is more intelligent with reregistering url listeners
+- `RefinementListFilter`, `MenuFilter`, `NumericRefinementListFilter` and `RangeFilter` now supports `fieldOptions` for `nested`/`child` fields
+- `RefinementListFilter`, `MenuFilter` inject missing selected filters
+- `RefinementListFilter`, `MenuFilter` have new `bucketsTransform` prop function to manipulate the elastic search buckets returned.
+- Bug fix to itemComponent, listComponent, \*Component which allows context in stateless components
+- MenuFilter fix to support booleans
+- HierarchicalRefinementFilter disabled state fix
+- update history dependency to `2.1.1` which should be compatible with react-router 2.x
+- fix `DynamicRangeFilter` rounding issues
+- Added `countFormatter` count formatting support to `RefinementListFilter`, `MenuFilter`, `NumericRefinementListFilter`, `HierarchicalMenuFilter`, `HierarchicalRefinementFilter`, `HitsStats`
+- Added `rangeFormatter` range display support to `RangeFilter`, `DynamicRangeFilter`
+- Fix corner cases to BoolMustNot queries
+- `SearchkitManager` `searchOnLoad` now works without history
+- `SearchkitManager.addResultsListener` to register a callback when ever new results are recieved
+- Fix input filter styling
+- Fix FacetFilter 'View All' link edge case
+
 ## 0.9.2 (7th April, 2016)
 ### Notable changes
+- fix `NoHits` styling so it uses scss vars
 - fix `CheckboxFilter` disabled state
 - fix `SearchBox`, `InputFilter` when searchOnChange=false disabled state
 - introduce `blurAction` to `SearchBox`, `InputFilter`

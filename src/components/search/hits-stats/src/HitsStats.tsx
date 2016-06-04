@@ -8,12 +8,13 @@ import {
 
 const defaults = require("lodash/defaults")
 const get = require("lodash/get")
+const identity = require("lodash/identity")
 
 export interface HitsStatsDisplayProps {
 	bemBlocks:{container:Function}
 	resultsFoundLabel: string
 	timeTaken:string
-	hitsCount:string
+	hitsCount:string|number
 	translate:Function
 }
 
@@ -31,6 +32,7 @@ const HitsStatsDisplay = (props:HitsStatsDisplayProps) => {
 
 export interface HitsStatsProps extends SearchkitComponentProps {
 	component?: ReactComponentType<HitsStatsDisplayProps>
+	countFormatter?:(count:number)=> number | string
 }
 
 export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
@@ -43,11 +45,13 @@ export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 	static propTypes = defaults({
 		translations:SearchkitComponent.translationsPropType(
 			HitsStats.translations
-		)
+		),
+		countFormatter:React.PropTypes.func
 	}, SearchkitComponent.propTypes)
 
 	static defaultProps = {
-		component: HitsStatsDisplay
+		component: HitsStatsDisplay,
+		countFormatter:identity
 	}
 
 	defineBEMBlocks() {
@@ -58,7 +62,8 @@ export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 
 	render() {
 		const timeTaken = this.searchkit.getTime()
-		const hitsCount = this.searchkit.getHitsCount()
+		const {countFormatter} = this.props
+		const hitsCount = countFormatter(this.searchkit.getHitsCount())
 		const props:HitsStatsDisplayProps = {
 			bemBlocks:this.bemBlocks,
 			translate:this.translate,

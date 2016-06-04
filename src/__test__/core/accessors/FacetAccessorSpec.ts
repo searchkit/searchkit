@@ -1,7 +1,8 @@
 import {
   FacetAccessor, ImmutableQuery,Utils,
   BoolMust, BoolShould, ArrayState, TermQuery,
-  FilterBucket, TermsBucket, CardinalityMetric
+  FilterBucket, TermsBucket, CardinalityMetric,
+  NestedFieldContext, NestedQuery, NestedBucket
 } from "../../../"
 
 
@@ -34,12 +35,30 @@ describe("FacetAccessor", ()=> {
     this.accessor.results = {
       aggregations:{
         genre1:{
-          genre:{buckets:[1,2]}
+          genre:{buckets:[
+            {key:"a", doc_count:1},
+            {key:"b", doc_count:2}
+          ]}
         }
       }
     }
     expect(this.accessor.getBuckets())
-      .toEqual([1,2])
+      .toEqual([
+        {key:"a", doc_count:1},
+        {key:"b", doc_count:2}
+      ])
+
+    // test raw buckets referential equality
+    expect(this.accessor.getBuckets())
+      .toBe(this.accessor.getRawBuckets())
+
+    this.accessor.state = this.accessor.state.setValue(["a", "c"])
+    expect(this.accessor.getBuckets())
+      .toEqual([
+        {key:"c", missing:true, selected:true},
+        {key:"a", doc_count:1, selected:true},
+        {key:"b", doc_count:2}
+      ])    
   })
 
   it("getCount()", ()=> {
@@ -109,6 +128,13 @@ describe("FacetAccessor", ()=> {
         return 30
       }
       expect(this.accessor.getMoreSizeOption()).toEqual({size:30, label:"View all"})
+    })
+
+    it("getMoreSizeOption - view all page size equals total", () => {
+      this.accessor.getCount = () => {
+        return 70
+      }
+      expect(this.accessor.getMoreSizeOption()).toEqual({size:70, label:"View all"})
     })
 
     it("getMoreSizeOption - view less", () => {
@@ -255,6 +281,75 @@ describe("FacetAccessor", ()=> {
       )
     })
 
+    describe("NestedFieldContext", ()=> {
+      beforeEach(()=> {
+        this.options = {
+          operator:"OR",
+          title:"Genres",
+          id:"GenreId",
+          size:20,
+          fieldOptions:{
+            type:"nested",
+            options:{ path:"tags" }
+          }
+        }
+        this.accessor = new FacetAccessor("genre", this.options)
+        this.accessor.results = {
+          aggregations:{
+            genre2:{
+              inner:{
+                genre:{buckets:[1,2]}
+              }
+            }
+          }
+        }
+      })
+
+      it("constructor", ()=> {
+        expect(this.accessor.fieldContext)
+          .toEqual(jasmine.any(NestedFieldContext))
+
+      })
+
+      it("buildSharedQuery", ()=> {
+        this.accessor.state = new ArrayState([
+          "1", "2"
+        ])
+
+        this.query = new ImmutableQuery()
+          .addFilter("rating_uuid", BoolShould(["PG"]))
+        this.query = this.accessor.buildSharedQuery(this.query)
+        expect(this.query.index.filtersMap["genre2"]).toEqual(
+          BoolShould([
+            NestedQuery("tags", TermQuery("genre", "1")),
+            NestedQuery("tags", TermQuery("genre", "2"))
+          ])
+        )
+
+      })
+
+      it("buildOwnQuery", ()=> {
+        this.accessor.state = new ArrayState([
+          "1", "2"
+        ])
+        this.query = new ImmutableQuery()
+          .addFilter("rating_uuid", BoolShould(["PG"]))
+        this.query = this.accessor.buildOwnQuery(this.query)
+        expect(this.query.query.aggs).toEqual(
+          FilterBucket("genre2",
+            BoolShould(["PG"]),
+            NestedBucket("inner","tags",
+              TermsBucket("genre", "genre", {size:20}),
+              CardinalityMetric("genre_count", "genre")
+            )
+          )
+        )
+      })
+
+      it("getBuckets()", ()=> {
+        expect(this.accessor.getBuckets()).toEqual([1,2])
+      })
+    })
 
   })
 

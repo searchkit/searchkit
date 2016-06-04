@@ -9,7 +9,8 @@ import {
 	RangeAccessor,
 	RenderComponentType,
 	RenderComponentPropType,
-	renderComponent
+	renderComponent,
+	FieldOptions
 } from "../../../../../core"
 
 import {
@@ -31,6 +32,9 @@ export interface RangeFilterProps extends SearchkitComponentProps {
 	showHistogram?:boolean
 	containerComponent?: RenderComponentType<any>
   rangeComponent?: RenderComponentType<RangeProps>
+	rangeFormatter?:(count:number)=> number | string
+	marks?:Object
+	fieldOptions?:FieldOptions
 }
 
 
@@ -43,7 +47,13 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 		title:React.PropTypes.string.isRequired,
 		id:React.PropTypes.string.isRequired,
 		containerComponent:RenderComponentPropType,
-		rangeComponent:RenderComponentPropType
+		rangeComponent:RenderComponentPropType,
+		fieldOptions:React.PropTypes.shape({
+			type:React.PropTypes.oneOf(["embedded", "nested", "children"]).isRequired,
+			options:React.PropTypes.object
+		}),
+		rangeFormatter:React.PropTypes.func,
+		marks:React.PropTypes.object
 	}, SearchkitComponent.propTypes)
 
 
@@ -61,10 +71,11 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	}
 
 	defineAccessor() {
-		const { id, title, min, max, field,
+		const { id, title, min, max, field, fieldOptions,
 			interval, showHistogram } = this.props
 		return new RangeAccessor(id,{
-			id, min, max, title, field, interval, loadHistogram:showHistogram
+			id, min, max, title, field,
+			interval, loadHistogram:showHistogram, fieldOptions
 		})
 	}
 
@@ -110,7 +121,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
   }
 
   renderRangeComponent(component: RenderComponentType<any>) {
-    const { min, max } = this.props
+    const { min, max, rangeFormatter, marks } = this.props
     const state = this.accessor.state.getValue()
     return renderComponent(component, {
       min, max,
@@ -118,7 +129,8 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
       maxValue: Number(get(state, "max", max)),
       items: this.accessor.getBuckets(),
       onChange: this.sliderUpdate,
-      onFinished: this.sliderUpdateAndSearch
+      onFinished: this.sliderUpdateAndSearch,
+			rangeFormatter, marks
     })
   }
 
