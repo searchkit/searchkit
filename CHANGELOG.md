@@ -1,3 +1,6 @@
+## 0.10.1 (10th August, 2016)
+- fix pagination regression due to lodash change of api
+
 ## 0.10.0 (4th June, 2016)
 - `SearchkitManager` is more intelligent with reregistering url listeners
 - `RefinementListFilter`, `MenuFilter`, `NumericRefinementListFilter` and `RangeFilter` now supports `fieldOptions` for `nested`/`child` fields
