@@ -33,6 +33,7 @@ export interface InputFilterProps extends SearchkitComponentProps {
   placeholder?: string
   blurAction?:"search"|"restore"
   containerComponent?: ReactComponentType<any>
+  alwaysEnabled?:boolean
 }
 
 export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
@@ -50,7 +51,8 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
     collapsable: false,
     mod: "sk-input-filter",
     searchThrottleTime:200,
-    blurAction: "search"
+    blurAction: "search",
+    alwaysEnabled:false
   }
 
   static propTypes = defaults({
@@ -68,7 +70,8 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
     ),
     mod: React.PropTypes.string,
     placeholder: React.PropTypes.string,
-    blurAction: React.PropTypes.string
+    blurAction: React.PropTypes.string,
+    alwaysEnabled:React.PropTypes.bool
   }, SearchkitComponent.propTypes)
 
   constructor (props:InputFilterProps) {
@@ -95,7 +98,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
   defineAccessor(){
     const {
       id, title, prefixQueryFields, queryFields, queryBuilder,
-      searchOnChange, queryOptions, prefixQueryOptions } = this.props
+      searchOnChange, queryOptions, prefixQueryOptions, alwaysEnabled } = this.props
     return new QueryAccessor(id, {
       title,
       addToFilters: true,
@@ -180,7 +183,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
     return renderComponent(containerComponent, {
       title,
       className: id ? `filter--${id}` : undefined,
-      disabled: (this.searchkit.getHitsCount() == 0) && (this.getAccessorValue() == "")
+      disabled: (!this.props.alwaysEnabled && (this.searchkit.getHitsCount() == 0) && (this.getAccessorValue() == ""))
     },
       <div className={block().state({focused:this.state.focused})}>
         <form onSubmit={this.onSubmit.bind(this)}>
