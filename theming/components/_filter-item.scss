@@ -14,6 +14,7 @@
 
   input#{&}__checkbox {
     margin: 5px 5px 0 1px;
+    flex: 0 0 15px;
   }
 
   &.is-active &__text {
