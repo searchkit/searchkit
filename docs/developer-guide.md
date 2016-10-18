@@ -6,7 +6,6 @@
 
 Have these two tasks running whilst developing
 
-- `tsc -w`
-- `gulp`
+- `npm run build:watch`
 
 TODO
