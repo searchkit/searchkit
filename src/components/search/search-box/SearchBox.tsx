@@ -23,7 +23,7 @@ export interface SearchBoxProps extends SearchkitComponentProps {
   placeholder?: string
   prefixQueryFields?:Array<string>
   prefixQueryOptions?:Object
-  blurAction?:"search"|"restore"
+  blurAction?:"search"|"restore"|"none"
 }
 
 export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
@@ -136,7 +136,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
   }
 
   setFocusState(focused:boolean) {
-    if (!focused){
+    if (!focused && this.props.blurAction != "none") {
       const { input } = this.state
       if (this.props.blurAction == "search"
         && !isUndefined(input) 
