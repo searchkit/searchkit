@@ -211,6 +211,28 @@ describe("Searchbox tests", () => {
 
     })
 
+    it("blurAction:none", ()=> {
+      this.createWrapper(false, ["title"], ["prefix"], {
+        blurAction:"search"
+      })
+      this.typeSearch("la")
+      expect(this.wrapper.node.getValue() ).toEqual("la")
+      this.accessor.fromQueryObject({
+        q:"foo"
+      })
+      expect(this.wrapper.node.getValue() ).toEqual("foo")
+
+      this.typeSearch("bar")
+      expect(this.wrapper.node.getValue()).toEqual("bar")
+      this.wrapper.find(".sk-search-box__text")
+        .simulate("blur")
+
+      // should flush value + search
+      expect(this.wrapper.node.getValue()).toEqual("bar")
+      expect(this.searchkit.performSearch).toHaveBeenCalled()
+
+    })
+
   })
 
 });
