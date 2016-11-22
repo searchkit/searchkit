@@ -54,6 +54,9 @@ export class AccessorManager {
       }
       let existingAccessor = this.statefulAccessors[accessor.key]
       if(existingAccessor){
+        if(accessor.constructor !== existingAccessor.constructor){
+          throw new Error(`Accessor with id:${accessor.key} is being overwritten by accessor of type ${accessor.constructor.name} expecting type ${existingAccessor.constructor.name}`)
+        }
         existingAccessor.incrementRef()
         return existingAccessor
       } else {

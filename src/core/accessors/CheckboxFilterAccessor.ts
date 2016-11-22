@@ -20,7 +20,6 @@ export class CheckboxFilterAccessor extends FilterBasedAccessor<State<boolean>> 
   state = new State<boolean>(false)
   options:any
   uuid:string
-  filter: any
 
   static translations:any = {
     "checkbox.on":"active"
@@ -29,7 +28,6 @@ export class CheckboxFilterAccessor extends FilterBasedAccessor<State<boolean>> 
   constructor(key, options:CheckboxFilterAccessorOptions){
     super(key, options.id)
     this.options = options
-    this.filter = options.filter
     this.state = this.state.create(options.defaultValue)
     this.translations = assign({}, options.translations)
   }
@@ -40,7 +38,7 @@ export class CheckboxFilterAccessor extends FilterBasedAccessor<State<boolean>> 
 
   buildSharedQuery(query){
     if(this.state.getValue()){
-      query = query.addFilter(this.uuid, this.filter)
+      query = query.addFilter(this.uuid, this.options.filter)
         .addSelectedFilter({
           name:this.options.title || this.translate(this.key),
           value: this.options.label || this.translate("checkbox.on"),
@@ -55,8 +53,8 @@ export class CheckboxFilterAccessor extends FilterBasedAccessor<State<boolean>> 
   buildOwnQuery(query){
     var filters = query.getFilters()
     if (!this.state.getValue()){
-      if (filters) filters = BoolMust([filters, this.filter])
-      else filters = this.filter
+      if (filters) filters = BoolMust([filters, this.options.filter])
+      else filters = this.options.filter
     }
     return query
       .setAggs(FilterBucket(

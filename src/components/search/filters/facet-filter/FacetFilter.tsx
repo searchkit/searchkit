@@ -45,7 +45,7 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
   }
   defineAccessor() {
     return new FacetAccessor(
-      this.props.field, this.getAccessorOptions())
+      this.props.id, this.getAccessorOptions())
   }
 
   defineBEMBlocks() {
@@ -78,7 +78,7 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
     this.searchkit.performSearch()
   }
 
-  hasOptions(): boolean {
+  hasOptions(): boolean {    
     return this.accessor.getBuckets().length != 0
   }
 

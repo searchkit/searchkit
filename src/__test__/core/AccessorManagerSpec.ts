@@ -1,6 +1,6 @@
 import {
   EventEmitter,ImmutableQuery,AccessorManager, QueryAccessor, FacetAccessor, RangeAccessor,
-  SearchkitManager, ValueState, PaginationAccessor, noopQueryAccessor, Accessor
+  SearchkitManager, ValueState, PaginationAccessor, noopQueryAccessor, Accessor, StatefulAccessor
 } from "../../"
 
 class StatelessPageAccessor extends Accessor {
@@ -126,10 +126,23 @@ describe("AccessorManager", ()=> {
     expect(accessors.getQueryAccessor()).toBe(noopQueryAccessor)
   })
 
+  it("add() - handle same key but different type error", ()=> {
+    let accessors = new AccessorManager()
+    let queryAccessor = new QueryAccessor("q")
+    let badAccessor = new StatefulAccessor("q")
+    expect(accessors.add(queryAccessor)).toBe(queryAccessor)
+    expect(()=> accessors.add(badAccessor)).toThrowError(
+      "Accessor with id:q is being overwritten by accessor of type StatefulAccessor expecting type QueryAccessor"
+    )
+
+  })
+
   it("remove() handle null accessor", ()=> {
     let accessors = new AccessorManager()
     expect(()=> { accessors.remove(undefined)}).not.toThrow()
   })
+
+
 
   it("getState()", ()=> {
     this.accessor1.state = new ValueState("a1state")

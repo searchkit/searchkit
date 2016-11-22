@@ -9,6 +9,8 @@ const {
   ItemList, CheckboxItemList, ItemHistogramList, Tabs, TagCloud, MenuFilter,
   renderComponent, PageSizeSelector, RangeSliderHistogramInput, Panel, PaginationSelect,
 
+  OptionsList,
+
   InputFilter, TagFilter, TagFilterList, TagFilterConfig,
 
   TermQuery, RangeQuery, BoolMust,
@@ -237,6 +239,16 @@ class App extends React.Component<any, any> {
               <RangeFilter min={0} max={100} field="metaScore" id="metascore" title="Metascore" showHistogram={true}/>
               <RangeFilter min={0} max={10} field="imdbRating" id="imdbRating" title="IMDB Rating" showHistogram={true} rangeComponent={RangeSliderHistogramInput}/>
               <TagFilterConfig id="genres" title="Genres" field="genres.raw" />
+              <OptionsList
+                id="actorsSize"
+                accessorId="actors" accessorProp="size"
+                options={[
+                  {key:"2", label:"2", value:2, defaultOption:true},
+                  {key:"10", label:"10", value:10},
+                  {key:"20", label:"20", value:20}
+                ]}
+                listComponent={Toggle}
+              />
               <RefinementListFilter id="actors" title="Actors" field="actors.raw" size={10}/>
               <RefinementListFilter translations={{"facets.view_more":"View more writers"}} id="writers" title="Writers" field="writers.raw" operator="OR" size={10}/>
               <RefinementListFilter id="countries" title="Countries" field="countries.raw" operator="OR" size={10}/>

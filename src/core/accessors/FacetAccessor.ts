@@ -21,6 +21,7 @@ export interface FacetAccessorOptions {
   title?:string
   id?:string
   size:number
+  defaultSize?:number
   facetsPerPage?:number
   translations?:Object
   include?:Array<string> | string
@@ -41,8 +42,6 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
 
   state = new ArrayState()
   options:any
-  defaultSize:number
-  size:number
   uuid:string
   loadAggregations: boolean
   fieldContext:FieldContext
@@ -57,16 +56,15 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
   constructor(key, options:FacetAccessorOptions){
     super(key, options.id)
     this.options = options
-    this.defaultSize = options.size
+    this.options.defaultSize = this.options.size
     this.options.facetsPerPage = this.options.facetsPerPage || 50
-    this.size = this.defaultSize;
     this.loadAggregations = isUndefined(this.options.loadAggregations) ? true : this.options.loadAggregations
     if(options.translations){
       this.translations = assign({}, this.translations, options.translations)
     }
     this.options.fieldOptions = this.options.fieldOptions || {type:"embedded"}
-    this.options.fieldOptions.field = this.key
-    this.fieldContext = FieldContextFactory(this.options.fieldOptions)    
+    this.options.fieldOptions.field = this.options.field
+    this.fieldContext = FieldContextFactory(this.options.fieldOptions)
   }
 
   getRawBuckets(){
@@ -112,21 +110,21 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
 
 
   setViewMoreOption(option:ISizeOption) {
-    this.size = option.size;
+    this.options.size = option.size;
   }
 
   getMoreSizeOption():ISizeOption {
     var option = {size:0, label:""}
     var total = this.getCount()
     var facetsPerPage = this.options.facetsPerPage
-    if (total <= this.defaultSize) return null;
+    if (total <= this.options.defaultSize) return null;
 
-    if (total <= this.size) {
-      option = {size:this.defaultSize, label:this.translate("facets.view_less")}
-    } else if ((this.size + facetsPerPage) >= total) {
+    if (total <= this.options.size) {
+      option = {size:this.options.defaultSize, label:this.translate("facets.view_less")}
+    } else if ((this.options.size + facetsPerPage) >= total) {
       option = {size:total, label:this.translate("facets.view_all")}
-    } else if ((this.size + facetsPerPage) < total) {
-      option = {size:this.size + facetsPerPage, label:this.translate("facets.view_more")}
+    } else if ((this.options.size + facetsPerPage) < total) {
+      option = {size:this.options.size + facetsPerPage, label:this.translate("facets.view_more")}
     } else if (total ){
       option = null
     }
@@ -184,7 +182,7 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
           query.getFiltersWithoutKeys(excludedKey),
           ...this.fieldContext.wrapAggregations(
             TermsBucket(this.key, this.key, omitBy({
-              size:this.size,
+              size:this.options.size,
               order:this.getOrder(),
               include: this.options.include,
               exclude: this.options.exclude,
