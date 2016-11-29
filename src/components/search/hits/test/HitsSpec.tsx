@@ -15,16 +15,19 @@ describe("Hits component", () => {
 
       this.searchkit = SearchkitManager.mock()
 
+      let customHighlight = { "fields": {} }
       this.wrapper = mount(
         <Hits searchkit={this.searchkit}
               hitsPerPage={10}
               highlightFields={["title"]}
+              customHighlight={customHighlight}
               sourceFilter={["title"]}/>
       )
 
       this.pageSizeAccessor = this.searchkit.accessors.accessors[0]
       this.highlightAccessor = this.searchkit.accessors.accessors[1]
-      this.sourceFilterAccessor = this.searchkit.accessors.accessors[2]
+      this.customHighlightAccessor = this.searchkit.accessors.accessors[2]
+      this.sourceFilterAccessor = this.searchkit.accessors.accessors[3]
 
       this.hasRendered = () => {
         return this.wrapper.find(".sk-hits").length == 1
@@ -34,6 +37,7 @@ describe("Hits component", () => {
 
     it("initalize accessors correctly", ()=> {
       expect(this.pageSizeAccessor.defaultSize).toBe(10)
+      expect(this.customHighlightAccessor.highlightRequest).toEqual({ "fields": {} })
       expect(this.highlightAccessor.highlightFields)
         .toEqual({
            fields: { title:{}}

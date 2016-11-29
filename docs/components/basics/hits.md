@@ -37,6 +37,7 @@ class App extends SearchkitComponent {
 ## Props
 - `hitsPerPage` *(Number)*: Number of results displayed per page
 - `highlightFields` *(Array<string>)*: Array of highlighted fields. Any highlight matches will be returned in the result.highlight[fieldName]. See above for example.
+- `customHighlight` *(Object)*: Optional. Allows any custom highlight behavior to control the number of fragments, fragment sizes, and highlighter. Passed through directly to elasticsearch as the value for `highlight`. See the [elastic documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-highlighting.html) for further details.
 - `mod` *(string)*: Optional. A custom BEM container class.
   - Searchkit ships with defaults for `sk-hits-grid` and `sk-hits-list`
 - `itemComponent` *(ReactComponent)*: React component used for each hit render.
