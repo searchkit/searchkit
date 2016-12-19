@@ -34,7 +34,7 @@ export class ImmutableQuery {
       query.query = BoolMust(this.index.queries)
     }
     if(this.index.filters.length > 0) {
-      query.filter = BoolMust(this.index.filters)
+      query.post_filter = BoolMust(this.index.filters)
     }
     query.aggs = this.index.aggs
     query.size = this.index.size
