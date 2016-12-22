@@ -11,6 +11,10 @@ export class NestedFieldContext extends FieldContext {
     }
   }
 
+  getFilter(){
+    return {};
+  }
+
   getAggregationPath(){
     return "inner"
   }
