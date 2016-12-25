@@ -1,5 +1,5 @@
 import {FieldContext} from './FieldContext';
-import {NestedBucket, NestedQuery} from "../query_dsl"
+import {NestedBucket, NestedQuery, FilterBucket} from "../query_dsl"
 const get = require("lodash/get")
 
 export class NestedFieldContext extends FieldContext {
@@ -11,20 +11,24 @@ export class NestedFieldContext extends FieldContext {
     }
   }
 
-  getFilter(){
-    return {};
+  getContextFilter(){
+    return get(this.fieldOptions, "options.filter", null);
   }
 
   getAggregationPath(){
-    return "inner"
+    return ["inner", "filtered.aggs"];
   }
 
   wrapAggregations(...aggregations){
     return [NestedBucket(
       "inner",
       this.fieldOptions.options.path,
-      ...aggregations
-    )]
+      FilterBucket(
+        "filtered.aggs",
+        this.fieldOptions.options.filter || {},
+        ...aggregations
+      )
+    )];
   }
   wrapFilter(filter){
     return NestedQuery(

@@ -26,7 +26,8 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
     collapsable: false,
     showCount: true,
     showMore: true,
-    bucketsTransform:identity
+    bucketsTransform:identity,
+    customAccessor:null
   }
 
   constructor(props){
@@ -44,6 +45,9 @@ export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<
     }
   }
   defineAccessor() {
+    if (this.props.customAccessor) {
+      return this.props.customAccessor.call(this);
+    }
     return new FacetAccessor(
       this.props.field, this.getAccessorOptions())
   }
