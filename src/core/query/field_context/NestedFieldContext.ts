@@ -11,24 +11,24 @@ export class NestedFieldContext extends FieldContext {
     }
   }
 
-  getContextFilter(){
-    return get(this.fieldOptions, "options.filter", null);
-  }
-
   getAggregationPath(){
-    return ["inner", "filtered.aggs"];
+    return this.getCustomAggregator()
+      ? this.getCustomAggregator().getAggregationPath()
+      : ["inner", "filtered.aggs"];
   }
 
   wrapAggregations(...aggregations){
-    return [NestedBucket(
-      "inner",
-      this.fieldOptions.options.path,
-      FilterBucket(
-        "filtered.aggs",
-        this.fieldOptions.options.filter || {},
-        ...aggregations
-      )
-    )];
+    return this.getCustomAggregator()
+      ? this.getCustomAggregator().getAggregation(this, ...aggregations)
+      : [NestedBucket(
+          "inner",
+          this.fieldOptions.options.path,
+          FilterBucket(
+            "filtered.aggs",
+            this.getContextFilter(),
+            ...aggregations
+          )
+        )];
   }
   wrapFilter(filter){
     return NestedQuery(
