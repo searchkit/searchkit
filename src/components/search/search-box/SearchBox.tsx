@@ -119,7 +119,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
       return input
     }
   }
-  
+
   getAccessorValue(){
     return (this.accessor.state.getValue() || "") + ""
   }
@@ -139,11 +139,11 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     if (!focused){
       const { input } = this.state
       if (this.props.blurAction == "search"
-        && !isUndefined(input) 
+        && !isUndefined(input)
         && input != this.getAccessorValue()){
         this.searchQuery(input)
       }
-      this.setState({ 
+      this.setState({
         focused,
         input: undefined // Flush (should use accessor's state now)
       })
@@ -166,7 +166,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
           value={this.getValue()}
           onFocus={this.setFocusState.bind(this, true)}
           onBlur={this.setFocusState.bind(this, false)}
-          ref="queryField"
+          /*ref="queryField"*/
           autoFocus={this.props.autofocus}
           onInput={this.onChange.bind(this)}/>
           <input type="submit" value="search" className={block("action")} data-qa="submit"/>

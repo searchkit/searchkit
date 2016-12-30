@@ -1,7 +1,7 @@
 
  export interface ICustomAggregator {
    getAggregationPath():Array<any>|String
-   getAggregation(fieldContext, ...aggregations):any[]
+   getAggregations(fieldContext, ...aggregations):any[]
  }
 
 export class CustomAggregator<ICustomAggregator> {
@@ -14,7 +14,7 @@ export class CustomAggregator<ICustomAggregator> {
         return this.path;
     }
 
-    getAggregation(fieldContext, ...aggregations) {
+    getAggregations(fieldContext, ...aggregations) {
         return this.aggregator(fieldContext, ...aggregations);
     }
 }

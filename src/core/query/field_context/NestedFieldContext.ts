@@ -19,17 +19,22 @@ export class NestedFieldContext extends FieldContext {
 
   wrapAggregations(...aggregations){
     return this.getCustomAggregator()
-      ? this.getCustomAggregator().getAggregation(this, ...aggregations)
-      : [NestedBucket(
-          "inner",
-          this.fieldOptions.options.path,
-          FilterBucket(
-            "filtered.aggs",
-            this.getContextFilter(),
-            ...aggregations
-          )
-        )];
+      ? this.getCustomAggregator().getAggregations(this, ...aggregations)
+      : this.getAggregations(...aggregations);
   }
+
+  getAggregations(...aggregations) {
+    return [NestedBucket(
+      "inner",
+      this.fieldOptions.options.path,
+      FilterBucket(
+        "filtered.aggs",
+        this.getContextFilter(),
+        ...aggregations
+      )
+    )];
+  }
+
   wrapFilter(filter){
     return NestedQuery(
       this.fieldOptions.options.path,
