@@ -63,15 +63,15 @@ describe("Facet Filter tests", () => {
         <div className="sk-panel__header">test title</div>
         <div className="sk-panel__content">
           <div data-qa="options" className="sk-item-list">
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 1"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox"/>
+            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 1"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox" value="on"/>
               <div data-qa="label" className="sk-item-list-option__text">test option 1 translated</div>
               <div data-qa="count" className="sk-item-list-option__count">#1</div>
             </div>
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 2"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox"/>
+            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 2"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox" value="on"/>
               <div data-qa="label" className="sk-item-list-option__text">test option 2</div>
               <div data-qa="count" className="sk-item-list-option__count">#2</div>
             </div>
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 3"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox"/>
+            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 3"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox" value="on"/>
               <div data-qa="label" className="sk-item-list-option__text">test option 3</div>
               <div data-qa="count" className="sk-item-list-option__count">#3</div>
             </div>

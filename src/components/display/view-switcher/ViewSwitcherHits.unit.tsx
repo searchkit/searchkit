@@ -147,7 +147,7 @@ describe("View Switcher Hits component", () => {
             <div className="grid-item">2</div>
           </div>
           <div className="my-view-switcher customClass">
-            <select defaultValue="grid">
+            <select>
               <option value="grid">My Grid</option>
               <option value="list">List</option>
               <option value="custom-list">Custom List</option>

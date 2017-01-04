@@ -1,6 +1,6 @@
 import * as React from "react";
 import {mount} from "enzyme";
-import {SearchBox} from "./SearchBox.tsx";
+import {SearchBox} from "./SearchBox";
 import {SearchkitManager, QueryString } from "../../../core";
 const bem = require("bem-cn");
 import {

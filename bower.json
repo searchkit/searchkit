@@ -5,10 +5,8 @@
     "release/bundle.js",
     "release/styles.css"
   ],
-  "dependencies": {
-  },
-  "devDependencies": {
-  },
+  "dependencies": {},
+  "devDependencies": {},
   "moduleType": [
     "amd",
     "globals",

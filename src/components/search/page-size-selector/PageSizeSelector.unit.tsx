@@ -46,7 +46,7 @@ describe("PageSizeSelector", ()=> {
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div>
         <div className="sk-select">
-          <select defaultValue="12">
+          <select>
             <option value="4">4</option>
             <option value="12">12</option>
             <option value="24">24</option>

@@ -19,7 +19,15 @@ export const hasClass = (inst, className)=> {
 
 
 export function jsxToHTML(Element){
-  return renderToStaticMarkup(Element).replace(/<input([^>]*)\/>/g, "<input$1>")
+  return renderToStaticMarkup(Element)
+    .replace(/<input([^>]*)\/>/g, "<input$1>")
+}
+
+export function htmlClean(html) {
+  return html
+    .replace(/<!-- react-text: \d+ -->/g, '')
+    .replace(/<!-- \/react-text -->/g, '')
+    .replace(/<!-- react-empty: \d+ -->/g, '')
 }
 
 export const printPrettyHtml = (html)=> {
