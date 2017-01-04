@@ -1,13 +1,13 @@
-import * as React from "react";;
-import {mount, render} from "enzyme";
+import * as React from "react"
+import {mount, render} from "enzyme"
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../__test__/TestHelpers"
-import {FacetFilter} from "./FacetFilter.tsx";
-import {RefinementListFilter} from "./RefinementListFilter.tsx";
-import {SearchkitManager, Utils, FieldOptions} from "../../../../core";
-import {Toggle, ItemComponent} from "../../../ui";
-const bem = require("bem-cn");
+import {FacetFilter} from "./FacetFilter"
+import {RefinementListFilter} from "./RefinementListFilter"
+import {SearchkitManager, Utils, FieldOptions} from "../../../../core"
+import {Toggle, ItemComponent} from "../../../ui"
+const bem = require("bem-cn")
 const _ = require("lodash")
-import * as sinon from "sinon";
+import * as sinon from "sinon"
 
 describe("Facet Filter tests", () => {
   this.createWrapper = (component) => {

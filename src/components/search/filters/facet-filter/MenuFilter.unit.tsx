@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {mount, render} from "enzyme";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../__test__/TestHelpers"
-import {MenuFilter} from "./MenuFilter.tsx";
+import {MenuFilter} from "./MenuFilter";
 import {SearchkitManager, Utils, ArrayState} from "../../../../core";
 import {Toggle, ItemComponent, ItemList} from "../../../ui";
 const bem = require("bem-cn");

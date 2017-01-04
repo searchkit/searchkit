@@ -1,6 +1,6 @@
 import * as React from "react";
 import {mount} from "enzyme";
-import {ResetFilters} from "../src/ResetFilters.tsx";
+import {ResetFilters} from "../src/ResetFilters";
 import {SearchkitManager, ImmutableQuery, ResetSearchAccessor} from "../../../../../core";
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
