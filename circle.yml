@@ -4,9 +4,26 @@ general:
       - gh-pages
 
 machine:
+  environment:
+    YARN_VERSION: 0.18.1
   node:
     version: 4.2.1
 
 dependencies:
+  pre:
+    - |
+      if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}" ]]; then
+        echo "Download and install Yarn."
+        curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+      else
+        echo "The correct version of Yarn is already installed."
+      fi
+  override:
+    - yarn install
+  cache_directories:
+    - ~/.yarn
+    - ~/.cache/yarn
+
+test:
   pre:
     - npm install -g karma-cli
