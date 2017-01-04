@@ -9,4 +9,4 @@ machine:
 
 dependencies:
   pre:
-   - npm install -g karma-cli
+    - npm install -g karma-cli
