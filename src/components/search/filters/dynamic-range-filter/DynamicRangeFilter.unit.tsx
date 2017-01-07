@@ -51,7 +51,7 @@ describe("Dynamic Range Filter tests", () => {
         <div className="sk-panel__content">
           <div className="sk-range-slider">
             <div className="rc-slider">
-              <div className="rc-slider-track rc-slider-track-1" style={{visibility:"visible",left:"0%",width:"100%"}}></div>
+              <div className="rc-slider-track rc-slider-track-1" style={{visibility:" visible", " left":" 0%", " width":" 100%"}}></div>
               <div className="rc-slider-step">
                 <span className="rc-slider-dot rc-slider-dot-active" style={{left: "0%"}}></span>
                 <span className="rc-slider-dot rc-slider-dot-active" style={{left: "100%"}}></span>
