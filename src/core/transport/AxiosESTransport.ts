@@ -1,7 +1,7 @@
 import * as axios from "axios"
 import {ImmutableQuery} from "../query"
-import {ESTransport} from "./ESTransport";
-const defaults = require("lodash/defaults")
+import {ESTransport} from "./ESTransport"
+import {defaults} from "lodash"
 
 export interface ESTransportOptions {
   headers?:Object,
@@ -11,7 +11,7 @@ export interface ESTransportOptions {
 
 export class AxiosESTransport extends ESTransport{
   static timeout = 5000
-  axios:axios.AxiosInstance
+  axios: Axios.AxiosInstance
   options:ESTransportOptions
 
   constructor(public host:string, options:ESTransportOptions={}){

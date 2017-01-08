@@ -2,12 +2,12 @@ import * as React from "react";
 
 import { RangeProps } from './RangeProps'
 
-const block = require('bem-cn')
+import block from 'bem-cn'
 
-const defaults = require("lodash/defaults")
-const get = require("lodash/get")
-const clamp = require("lodash/clamp")
-const omit = require('lodash/omit')
+import {defaults} from "lodash"
+import {get} from "lodash"
+import {clamp} from "lodash"
+import {omit} from 'lodash'
 
 /*
  * Input validates input and only calls onChange for valid values

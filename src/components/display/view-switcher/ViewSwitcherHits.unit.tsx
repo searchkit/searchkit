@@ -9,7 +9,7 @@ import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
 } from "../../__test__/TestHelpers"
 
-const map = require("lodash/map")
+import {map} from "lodash"
 
 describe("View Switcher Hits component", () => {
 

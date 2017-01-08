@@ -16,8 +16,8 @@ import {
 	ListProps, ItemProps, ItemList, Panel
 } from "../../../../ui"
 
-const defaults = require("lodash/defaults")
-const map = require("lodash/map")
+import {defaults} from "lodash"
+import {map} from "lodash"
 
 export interface NumericRefinementListFilterProps extends SearchkitComponentProps {
   field:string

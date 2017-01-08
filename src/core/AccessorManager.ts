@@ -1,13 +1,13 @@
 import {Accessor, StatefulAccessor, BaseQueryAccessor, noopQueryAccessor} from  "./accessors"
 import {Utils} from "./support"
 import {ImmutableQuery} from "./query"
-const filter = require("lodash/filter")
-const values = require("lodash/values")
-const reduce = require("lodash/reduce")
-const assign = require("lodash/assign")
-const each = require("lodash/each")
-const without = require("lodash/without")
-const find = require("lodash/find")
+import {filter} from "lodash"
+import {values} from "lodash"
+import {reduce} from "lodash"
+import {assign} from "lodash"
+import {each} from "lodash"
+import {without} from "lodash"
+import {find} from "lodash"
 
 type StatefulAccessors = Array<StatefulAccessor<any>>
 

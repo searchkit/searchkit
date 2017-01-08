@@ -1,6 +1,6 @@
 import * as React from "react";
 import {mount} from "enzyme";
-const bemBlock = require('bem-cn')
+import bemBlock from 'bem-cn'
 
 import { TagCloud } from "./TagCloud"
 import { MockList } from "./MockList"

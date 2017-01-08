@@ -5,7 +5,7 @@ import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__tes
 import {SearchkitManager} from "../../../../../core";
 const bem = require("bem-cn");
 import * as sinon from "sinon";
-const _ = require("lodash")
+import * as _ from "lodash"
 
 describe("MenuFilter tests", () => {
 

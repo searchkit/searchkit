@@ -1,19 +1,19 @@
-const {
+import {
   SearchkitManager,SearchkitProvider,
   SearchBox, Hits, RefinementListFilter, Pagination,
   MenuFilter, HitsStats, SortingSelector, NoHits,
   ItemList, CheckboxItemList, ItemHistogramList,
   Tabs, TagCloud, Toggle, Select
-} = require("../../../../../src")
+} from "../../../../../src"
 const host = "http://demo.searchkit.co/api/movies"
-import * as ReactDOM from "react-dom";
-import * as React from "react";
+import * as ReactDOM from "react-dom"
+import * as React from "react"
 import {Router, Route, browserHistory, Link, IndexRoute} from 'react-router'
 
-const _ = require("lodash")
+import * as _ from "lodash"
 
-require("../../../../../theming/theme.scss")
-require("./customisations.scss")
+import "../../../../../theming/theme.scss"
+import "./customisations.scss"
 
 const MovieHitsListItem = (props)=> {
   const {bemBlocks, result} = props

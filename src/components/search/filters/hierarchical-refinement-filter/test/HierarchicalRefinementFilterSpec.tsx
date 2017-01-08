@@ -3,8 +3,8 @@ import {mount} from "enzyme";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
 import {HierarchicalRefinementFilter} from "../src/HierarchicalRefinementFilter"
 import {SearchkitManager} from "../../../../../core"
-const bem = require("bem-cn")
-const _ = require("lodash")
+import bem from "bem-cn"
+import * as _ from "lodash"
 import * as sinon from "sinon"
 
 describe("Refinement List Filter tests", () => {

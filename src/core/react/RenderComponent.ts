@@ -1,9 +1,9 @@
 import * as React from 'react'
 
 import {PureRender} from "./pure-render"
-const omitBy = require('lodash/omitBy')
-const isUndefined = require('lodash/isUndefined')
-const defaults = require('lodash/defaults')
+import {omitBy} from 'lodash'
+import {isUndefined} from 'lodash'
+import {defaults} from 'lodash'
 
 export type RenderFunction = (props?:any, children?:any) => Element
 export type Element = React.ReactElement<any>

@@ -11,7 +11,7 @@ import {
 	ResetSearchOptions,
 	ResetSearchAccessor
 } from "../../../../../core"
-const defaults = require("lodash/defaults")
+import {defaults} from "lodash"
 
 
 export interface ResetFiltersDisplayProps {

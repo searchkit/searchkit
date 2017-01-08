@@ -4,7 +4,7 @@ import {
   EventEmitter, QueryAccessor, AnonymousAccessor, MockESTransport
 } from "../../"
 
-const _ = require("lodash")
+import * as _ from "lodash"
 
 describe("SearchkitManager", ()=> {
 

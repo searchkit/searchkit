@@ -10,9 +10,9 @@ import {
 	PureRender
 } from "../../../../core"
 
-const defaults = require("lodash/defaults")
-const size = require("lodash/size")
-const map = require("lodash/map")
+import {defaults} from "lodash"
+import {size} from "lodash"
+import {map} from "lodash"
 
 @PureRender
 export class FilterItem extends React.Component<FilterItemProps, any> {

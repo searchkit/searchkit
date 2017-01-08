@@ -2,11 +2,11 @@ import * as React from "react";
 
 import { RangeProps } from './RangeProps'
 
-const identity = require("lodash/identity")
-const Rcslider = require("rc-slider")
+import { identity } from "lodash"
+import Rcslider from "rc-slider"
 
-const block = require('bem-cn')
-const { PureRender } = require("../../../core/react/pure-render")
+import block from 'bem-cn'
+import { PureRender } from "../../../core/react/pure-render"
 
 export interface RangeSliderProps extends RangeProps {
   step?: number

@@ -5,7 +5,7 @@ import {
   TermsBucket
 } from "../../../"
 
-const _ = require("lodash")
+import * as _ from "lodash"
 
 describe("NestedFacetAccessor", ()=> {
 

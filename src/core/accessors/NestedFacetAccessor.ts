@@ -6,12 +6,12 @@ import {
   NestedBucket, MinMetric
 } from "../query";
 
-const map = require("lodash/map")
-const get = require("lodash/get")
-const includes = require("lodash/includes")
-const startsWith = require("lodash/startsWith")
-const each = require("lodash/each")
-const take = require("lodash/take")
+import {map} from "lodash"
+import {get} from "lodash"
+import {includes} from "lodash"
+import {startsWith} from "lodash"
+import {each} from "lodash"
+import {take} from "lodash"
 
 
 export interface NestedFacetAccessorOptions {

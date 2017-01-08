@@ -2,22 +2,22 @@ import {ImmutableQuery} from "./query";
 import {Accessor, BaseQueryAccessor, AnonymousAccessor} from "./accessors"
 import {AccessorManager} from "./AccessorManager"
 import {createHistory} from "./history";
-import {ESTransport, AxiosESTransport, MockESTransport} from "./transport";
+import {ESTransport, AxiosESTransport, MockESTransport} from "./transport"
 import {SearchRequest} from "./SearchRequest"
 import {Utils, EventEmitter} from "./support"
 import {VERSION} from "./SearchkitVersion"
 
-const defaults = require("lodash/defaults")
-const constant = require("lodash/constant")
-const identity = require("lodash/identity")
-const map = require("lodash/map")
-const isEqual = require("lodash/isEqual")
-const get = require("lodash/get")
-const qs = require("qs")
+import {defaults} from "lodash"
+import {constant} from "lodash"
+import {identity} from "lodash"
+import {map} from "lodash"
+import {isEqual} from "lodash"
+import {get} from "lodash"
+import qs from "qs"
 
 require('es6-promise').polyfill()
 
-const after = require("lodash/after")
+import {after} from "lodash"
 
 export interface SearchkitOptions {
   useHistory?:boolean,

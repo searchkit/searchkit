@@ -4,7 +4,7 @@ const {
   renderComponent
 } = require("../../../../../src")
 
-const _ = require("lodash")
+import * as _ from "lodash"
 
 export class MockList extends React.Component<any, any>{
 

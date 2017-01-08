@@ -1,5 +1,5 @@
 import {Accessor} from "./Accessor";
-const get = require("lodash/get")
+import {get} from "lodash"
 
 export class SuggestionsAccessor extends Accessor {
 

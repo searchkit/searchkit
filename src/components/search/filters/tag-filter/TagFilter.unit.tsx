@@ -5,7 +5,7 @@ import { TagFilter, TagFilterConfig } from "./";
 import {SearchkitManager, Utils} from "../../../../core";
 
 const bem = require("bem-cn");
-const _ = require("lodash")
+import * as _ from "lodash"
 import * as sinon from "sinon";
 
 describe("TagFilter tests", () => {

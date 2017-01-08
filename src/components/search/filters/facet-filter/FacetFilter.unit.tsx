@@ -6,7 +6,7 @@ import {RefinementListFilter} from "./RefinementListFilter"
 import {SearchkitManager, Utils, FieldOptions} from "../../../../core"
 import {Toggle, ItemComponent} from "../../../ui"
 const bem = require("bem-cn")
-const _ = require("lodash")
+import * as _ from "lodash"
 import * as sinon from "sinon"
 
 describe("Facet Filter tests", () => {

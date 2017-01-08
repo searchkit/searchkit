@@ -15,12 +15,12 @@ import {
   Toggle, ListProps, Select
 } from "../../../ui"
 
-const defaults = require("lodash/defaults")
-const get = require("lodash/get")
-const assign = require("lodash/assign")
-const map = require("lodash/map")
-const compact = require("lodash/compact")
-const isNaN = require("lodash/isNaN")
+import {defaults} from "lodash"
+import {get} from "lodash"
+import {assign} from "lodash"
+import {map} from "lodash"
+import {compact} from "lodash"
+import {isNaN} from "lodash"
 const bem = require("bem-cn")
 
 import { Paginator } from "./PaginationUtils"

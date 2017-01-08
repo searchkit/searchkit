@@ -1,5 +1,5 @@
 
-const defaults = require('lodash/defaults')
+import {defaults} from 'lodash'
 
 export class PaginationHelper {
   

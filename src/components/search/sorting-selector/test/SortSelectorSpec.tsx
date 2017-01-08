@@ -5,7 +5,7 @@ import {SearchkitManager } from "../../../../core";
 import {Toggle} from "../../../ui";
 const bem = require("bem-cn");
 import * as sinon from "sinon";
-const _ = require("lodash")
+import * as _ from "lodash"
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
 } from "../../../__test__/TestHelpers"

@@ -7,7 +7,7 @@ import {Toggle, ItemComponent} from "../../../ui";
 import { TermQuery } from "../../../../core";
 
 const bem = require("bem-cn");
-const _ = require("lodash")
+import * as _ from "lodash"
 import * as sinon from "sinon";
 
 describe("CheckboxFilter tests", () => {

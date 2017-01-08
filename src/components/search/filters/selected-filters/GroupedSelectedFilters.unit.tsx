@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {GroupedSelectedFilters} from "./GroupedSelectedFilters";
 import {SearchkitManager, ImmutableQuery, FastClick} from "../../../../core";
 const bem = require("bem-cn");
-const _ = require("lodash")
+import * as _ from "lodash"
 import * as sinon from "sinon";
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml

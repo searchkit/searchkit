@@ -6,14 +6,14 @@ import {
 	ReactComponentType
 } from "../../../../core"
 
-const defaults = require("lodash/defaults")
-const get = require("lodash/get")
-const identity = require("lodash/identity")
+import {defaults} from "lodash"
+import {get} from "lodash"
+import {identity} from "lodash"
 
 export interface HitsStatsDisplayProps {
-	bemBlocks:{container:Function}
+	bemBlocks:{container: Function}
 	resultsFoundLabel: string
-	timeTaken:string
+	timeTaken:string|number
 	hitsCount:string|number
 	translate:Function
 }
@@ -64,7 +64,7 @@ export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 		const timeTaken = this.searchkit.getTime()
 		const {countFormatter} = this.props
 		const hitsCount = countFormatter(this.searchkit.getHitsCount())
-		const props:HitsStatsDisplayProps = {
+		const props: HitsStatsDisplayProps = {
 			bemBlocks:this.bemBlocks,
 			translate:this.translate,
 			timeTaken: timeTaken,

@@ -3,7 +3,7 @@ import {
   BoolMust, BoolShould, ArrayState, HierarchicalFacetAccessor,
   TermQuery, FilterBucket, TermsBucket
 } from "../../../"
-const _ = require("lodash")
+import * as _ from "lodash"
 
 
 describe("HierarchicalFacetAccessor", ()=> {

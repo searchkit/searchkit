@@ -13,7 +13,7 @@ import {
 
 import * as sinon from "sinon";
 
-const omit = require("lodash/omit")
+import {omit} from "lodash"
 
 describe("InputFilter tests", () => {
 
