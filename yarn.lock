@@ -4693,9 +4693,9 @@ wtf-8@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/wtf-8/-/wtf-8-1.0.0.tgz#392d8ba2d0f1c34d1ee2d630f15d0efb68e1048a"
 
-xenon@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/xenon/-/xenon-0.1.4.tgz#ca74ed330be27d02a2d18d8d26e9cb1a2e5f68f6"
+xenon@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/xenon/-/xenon-0.1.5.tgz#d893b0a9e994bd4939ea8adc5ce6331c44f76945"
 
 xml-char-classes@^1.0.0:
   version "1.0.0"

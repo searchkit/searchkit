@@ -127,7 +127,7 @@
     "webpack": "^1.12.14",
     "webpack-config": "^4.0.0",
     "webpack-hot-middleware": "^2.9.1",
-    "xenon": "^0.1.4",
+    "xenon": "^0.1.5",
     "react": "^15.4.0"
   }
 }
