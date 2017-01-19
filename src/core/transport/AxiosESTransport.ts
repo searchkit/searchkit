@@ -1,13 +1,7 @@
 import * as axios from "axios"
 import {ImmutableQuery} from "../query"
-import {ESTransport} from "./ESTransport";
+import {ESTransport, ESTransportOptions} from "./ESTransport";
 const defaults = require("lodash/defaults")
-
-export interface ESTransportOptions {
-  headers?:Object,
-  basicAuth?:string,
-  searchUrlPath?:string
-}
 
 export class AxiosESTransport extends ESTransport{
   static timeout = 5000
@@ -18,6 +12,7 @@ export class AxiosESTransport extends ESTransport{
     super()
     this.options = defaults(options, {
       headers:{},
+      withCredentials: false,
       searchUrlPath:"/_search"
     })
     if(this.options.basicAuth){
@@ -27,7 +22,8 @@ export class AxiosESTransport extends ESTransport{
     this.axios = axios.create({
       baseURL:this.host,
       timeout:AxiosESTransport.timeout,
-      headers:this.options.headers
+      headers:this.options.headers,
+      withCredentials: this.options.withCredentials
     })
   }
 

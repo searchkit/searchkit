@@ -28,7 +28,7 @@ function flattenBool(operator, arr) {
 
 function boolHelper(val, operator){
   const isArr = isArray(val)
-  if (isArr) {
+  if (isArr && val.lenght > 1) {
     // Remove empty filters
     val = filter(val, f => !isEmpty(f))
     if (val.length === 1) {
@@ -40,6 +40,9 @@ function boolHelper(val, operator){
       && (findIndex(val, isBoolOp.bind(null, operator)) != -1)) {
       val = flattenBool(operator, val)
     }
+  }
+  else if (isArr && val.lenght === 1) {
+    val = val[0];
   }
   return {
     bool:{
