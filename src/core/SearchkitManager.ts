@@ -1,7 +1,7 @@
 import {ImmutableQuery} from "./query";
 import {Accessor, BaseQueryAccessor, AnonymousAccessor} from "./accessors"
 import {AccessorManager} from "./AccessorManager"
-import {createHistory} from "./history";
+import {createHistoryInstance} from "./history";
 import {ESTransport, AxiosESTransport, MockESTransport} from "./transport"
 import {SearchRequest} from "./SearchRequest"
 import {Utils, EventEmitter} from "./support"
@@ -89,7 +89,7 @@ export class SearchkitManager {
     this.initialLoading = true
     if(this.options.useHistory) {
       this.unlistenHistory()
-      this.history = createHistory()
+      this.history = createHistoryInstance()
       this.listenToHistory()
     } else {
       this.runInitialSearch()

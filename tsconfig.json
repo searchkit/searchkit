@@ -584,7 +584,6 @@
     "./node_modules/@types/lodash/zip/index.d.ts",
     "./node_modules/@types/lodash/zipObject/index.d.ts",
     "./node_modules/@types/lodash/zipWith/index.d.ts",
-    "./node_modules/@types/node/index.d.ts",
     "./node_modules/@types/q/index.d.ts",
     "./node_modules/@types/react-addons-create-fragment/index.d.ts",
     "./node_modules/@types/react-dom/index.d.ts",
@@ -676,6 +675,6 @@
   ],
   "exclude": [],
   "atom": {
-    "rewriteTsconfig": true
+    "rewriteTsconfig": false
   }
 }

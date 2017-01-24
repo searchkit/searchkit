@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { ItemList } from '../../../ui'
+import { ItemList, Panel, CheckboxItemList } from '../../../ui'
 import { FacetFilter} from "./FacetFilter"
 
 import {defaults} from "lodash"

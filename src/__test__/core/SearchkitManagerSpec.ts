@@ -1,6 +1,6 @@
 import {
   SearchkitManager, AccessorManager, ESTransport, AxiosESTransport,
-  ImmutableQuery, createHistory, PageSizeAccessor, SearchRequest,
+  ImmutableQuery, createHistoryInstance, PageSizeAccessor, SearchRequest,
   EventEmitter, QueryAccessor, AnonymousAccessor, MockESTransport
 } from "../../"
 
@@ -117,7 +117,7 @@ describe("SearchkitManager", ()=> {
   })
 
   it("listenToHistory()", (done)=> {
-    const history = createHistory()
+    const history = createHistoryInstance()
     history.push({pathname: window.location.pathname, query:{
       q:"foo"
     }})
@@ -141,7 +141,7 @@ describe("SearchkitManager", ()=> {
   })
 
   it("listenToHistory() - searchOnLoad false", (done)=> {
-    const history = createHistory()
+    const history = createHistoryInstance()
     history.push({pathname: window.location.pathname, query: {
       q:"foo-previous"
     }})
@@ -166,7 +166,7 @@ describe("SearchkitManager", ()=> {
   })
 
   it("listenToHistory() - handle error", (done)=> {
-    const history = createHistory()
+    const history = createHistoryInstance()
     history.push({pathname: window.location.pathname, query: {
       q:"foo"
     }})
