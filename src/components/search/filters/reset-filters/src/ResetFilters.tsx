@@ -9,7 +9,8 @@ import {
 	ReactComponentType,
 	PureRender,
 	ResetSearchOptions,
-	ResetSearchAccessor
+	ResetSearchAccessor,
+  renderComponent
 } from "../../../../../core"
 import {defaults} from "lodash"
 
@@ -91,6 +92,6 @@ export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
 			translate:this.translate,
 			clearAllLabel: this.translate("reset.clear_all")
 		}
-		return React.createElement(this.props.component, props)
+		return renderComponent(this.props.component, props)
   }
 }

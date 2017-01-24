@@ -3,7 +3,8 @@ import * as React from "react";
 import {
 	SearchkitComponent,
 	SearchkitComponentProps,
-	ReactComponentType
+	ReactComponentType,
+  renderComponent
 } from "../../../../core"
 
 import {defaults} from "lodash"
@@ -74,6 +75,6 @@ export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 				hitCount:hitsCount
 			})
 		}
-		return React.createElement(this.props.component, props)
+		return renderComponent(this.props.component, props)
 	}
 }

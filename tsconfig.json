@@ -455,7 +455,6 @@
     "./node_modules/@types/lodash/max/index.d.ts",
     "./node_modules/@types/lodash/maxBy/index.d.ts",
     "./node_modules/@types/lodash/mean/index.d.ts",
-    "./node_modules/@types/lodash/meanBy/index.d.ts",
     "./node_modules/@types/lodash/memoize/index.d.ts",
     "./node_modules/@types/lodash/merge/index.d.ts",
     "./node_modules/@types/lodash/mergeWith/index.d.ts",
@@ -614,7 +613,6 @@
     "./node_modules/@types/react-router/lib/useRoutes.d.ts",
     "./node_modules/@types/react-router/lib/withRouter.d.ts",
     "./node_modules/@types/react/index.d.ts",
-    "./node_modules/@types/requirejs/index.d.ts",
     "./node_modules/@types/selenium-webdriver/chrome.d.ts",
     "./node_modules/@types/selenium-webdriver/edge.d.ts",
     "./node_modules/@types/selenium-webdriver/executors.d.ts",
@@ -674,7 +672,6 @@
     "./test/e2e/**/*.ts",
     "./test/e2e/**/*.tsx",
     "./theming/*.ts",
-    "./node_modules/@types/**/*.d.ts",
     "./node_modules/protractor/**/*.d.ts"
   ],
   "exclude": [],

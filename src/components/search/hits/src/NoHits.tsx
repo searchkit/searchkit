@@ -6,7 +6,8 @@ import {
 	FastClick,
 	NoFiltersHitCountAccessor,
 	SuggestionsAccessor,
-	ReactComponentType
+	ReactComponentType,
+  renderComponent
 } from "../../../../core"
 
 import {NoHitsErrorDisplay, NoHitsErrorDisplayProps} from "./NoHitsErrorDisplay"
@@ -103,7 +104,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 				tryAgainLabel: this.translate("NoHits.ResetSearch"),
 				error: this.getError()
 			}
-			return React.createElement(this.props.errorComponent, props)
+			return renderComponent(this.props.errorComponent, props)
 		}
 
 		const suggestion: any = this.getSuggestion()
@@ -121,7 +122,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 			setSuggestionFn: this.setQueryString.bind(this, suggestion)
 		}
 
-		return React.createElement(this.props.component, props)
+		return renderComponent(this.props.component, props)
 
 	}
 }

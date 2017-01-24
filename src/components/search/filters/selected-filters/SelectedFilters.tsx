@@ -7,7 +7,8 @@ import {
 	FastClick,
 	SearchkitComponentProps,
 	ReactComponentType,
-	PureRender
+	PureRender,
+	renderComponent
 } from "../../../../core"
 
 import {defaults} from "lodash"
@@ -78,7 +79,7 @@ export class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, an
 
 	renderFilter(filter) {
 
-		return React.createElement(this.props.itemComponent, {
+		return renderComponent(this.props.itemComponent, {
 			key:filter.name +'$$' + filter.value,
 			bemBlocks:this.bemBlocks,
 			filterId:filter.id,

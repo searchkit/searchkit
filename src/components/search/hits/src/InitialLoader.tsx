@@ -4,7 +4,8 @@ import {
 	SearchkitComponent,
 	SearchkitComponentProps,
 	ReactComponentType,
-	PureRender
+	PureRender,
+  renderComponent
 } from "../../../../core"
 
 import {defaults} from "lodash"
@@ -45,7 +46,7 @@ export class InitialLoader extends SearchkitComponent<InitialLoaderprops, any> {
 	}
   render(){
     if(this.isInitialLoading()){
-      return React.createElement(this.props.component, {
+      return renderComponent(this.props.component, {
 				bemBlocks:this.bemBlocks
 			})
     }

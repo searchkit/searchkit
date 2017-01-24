@@ -4,7 +4,8 @@ import {
   SearchkitComponent,
   SearchkitComponentProps,
   ReactComponentType,
-  PureRender
+  PureRender,
+  renderComponent
 } from "../../../../core"
 
 import {
@@ -85,7 +86,7 @@ export class GroupedSelectedFilters extends SearchkitComponent<GroupedSelectedFi
     return (
       <div className={this.bemBlocks.container() }>
         {map(this.getGroupedFilters(), (filters) =>
-          React.createElement(groupComponent, {
+          renderComponent(groupComponent, {
             key:filters[0].id,
             className: filters[0].id ? `filter-group-${filters[0].id}` : undefined,
             title: this.translate(filters[0].name),

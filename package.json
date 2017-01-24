@@ -65,7 +65,6 @@
     "@types/react-addons-create-fragment": "^0.14.15",
     "@types/react-dom": "^0.14.20",
     "@types/react-router": "^2.0.41",
-    "@types/requirejs": "^2.1.28",
     "@types/selenium-webdriver": "^2.53.39",
     "@types/sinon": "^1.16.34",
     "axios": "^0.9.1",

@@ -11,7 +11,9 @@ export type RenderComponentType<P> = React.ComponentClass<P> | React.ClassicComp
 
 export const RenderComponentPropType = React.PropTypes.oneOfType([
   function(props:any, propName: string, componentName: string) {
-    return isUndefined(props[propName]) || (props[propName]["prototype"] instanceof React.Component)
+     if(isUndefined(props[propName]) || (props[propName]["prototype"] instanceof React.Component)) {
+       return null
+     }
   },
   React.PropTypes.element,
   React.PropTypes.func,
