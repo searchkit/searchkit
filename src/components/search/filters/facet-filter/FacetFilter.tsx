@@ -7,9 +7,7 @@ import {
   FastClick, renderComponent, FieldOptions
 } from "../../../../core"
 
-import {
-   CheckboxItemList, Panel
-} from "../../../ui"
+import {CheckboxItemList, Panel} from "../../../ui"
 
 import {defaults} from "lodash"
 import {identity} from "lodash"
