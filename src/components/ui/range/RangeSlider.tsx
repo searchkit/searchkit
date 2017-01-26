@@ -3,9 +3,9 @@ import * as React from "react";
 import { RangeProps } from './RangeProps'
 
 import { identity } from "lodash"
-import Rcslider from "rc-slider"
+let Rcslider = require("rc-slider")
 
-import block from 'bem-cn'
+let block = require("bem-cn")
 import { PureRender } from "../../../core/react/pure-render"
 
 export interface RangeSliderProps extends RangeProps {

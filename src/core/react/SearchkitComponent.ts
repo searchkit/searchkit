@@ -3,7 +3,7 @@ import {SearchkitManager} from "../SearchkitManager"
 import {ImmutableQuery} from "../query"
 import {Accessor} from "../accessors/Accessor"
 import {Utils} from "../support"
-import block from 'bem-cn'
+let block = require("bem-cn")
 import {keys} from "lodash"
 import {without} from "lodash"
 import {mapValues} from "lodash"

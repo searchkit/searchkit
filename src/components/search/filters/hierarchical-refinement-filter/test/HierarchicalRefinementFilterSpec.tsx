@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
 import {HierarchicalRefinementFilter} from "../src/HierarchicalRefinementFilter"
 import {SearchkitManager} from "../../../../../core"
-import bem from "bem-cn"
+let bem = require("bem-cn")
 import * as _ from "lodash"
 import * as sinon from "sinon"
 

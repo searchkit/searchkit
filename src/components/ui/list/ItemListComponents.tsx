@@ -4,7 +4,7 @@ import { ItemComponent, CheckboxItemComponent } from "./ItemComponents"
 import { ListProps } from "./ListProps"
 import { PureRender } from "../../../core/react/pure-render"
 
-import block from 'bem-cn'
+let block = require("bem-cn")
 
 import {map} from "lodash"
 import {includes} from "lodash"

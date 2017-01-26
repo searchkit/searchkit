@@ -6,7 +6,7 @@ import {
   FastClick,
 } from "../../../"
 
-import bemBlock from 'bem-cn'
+let bemBlock = require("bem-cn")
 import {size} from 'lodash'
 import {toArray} from 'lodash'
 import {map} from 'lodash'

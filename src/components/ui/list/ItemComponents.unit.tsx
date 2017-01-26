@@ -1,7 +1,6 @@
 import * as React from "react"
 import {mount} from "enzyme"
-import bemBlock from 'bem-cn'
-import jasmine from 'jasmine-core'
+let bemBlock = require("bem-cn")
 
 import {
   ItemComponent,

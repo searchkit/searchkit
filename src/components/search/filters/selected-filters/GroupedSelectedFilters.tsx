@@ -12,7 +12,7 @@ import {
 	FilterGroup
 } from "../../../ui"
 
-import bemBlock from 'bem-cn'
+let bemBlock = require("bem-cn")
 
 import {defaults} from 'lodash'
 import {groupBy} from 'lodash'

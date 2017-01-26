@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { RangeProps } from './RangeProps'
 
-import block from 'bem-cn'
+let block = require("bem-cn")
 
 import {defaults} from "lodash"
 import {get} from "lodash"
