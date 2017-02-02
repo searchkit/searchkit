@@ -15,6 +15,9 @@ export interface ItemListProps extends ListProps {
 }
 
 const decodeHtmlEntity = function(str) {
+  if (typeof str !== 'string') {
+    return str;
+  }
   return str.replace(/&#(\d+);/g, function(match, dec) {
     return String.fromCharCode(dec);
   }).replace(/&amp;/g, '&').replace(/&quot;/g, '"');
