@@ -70,7 +70,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     this.lastSearchMs = 0
     this.throttledSearch = throttle(()=> {
       this.searchQuery(this.accessor.getQueryString())
-    }, props.searchThrottleTime)
+    }, 200)
   }
 
 
@@ -119,7 +119,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
       return input
     }
   }
-  
+
   getAccessorValue(){
     return (this.accessor.state.getValue() || "") + ""
   }
@@ -139,11 +139,11 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     if (!focused){
       const { input } = this.state
       if (this.props.blurAction == "search"
-        && !isUndefined(input) 
+        && !isUndefined(input)
         && input != this.getAccessorValue()){
         this.searchQuery(input)
       }
-      this.setState({ 
+      this.setState({
         focused,
         input: undefined // Flush (should use accessor's state now)
       })

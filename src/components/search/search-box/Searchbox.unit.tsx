@@ -6,12 +6,15 @@ const bem = require("bem-cn");
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
 } from "../../__test__/TestHelpers"
+import {
+  throttle
+} from 'lodash'
 
 import * as sinon from "sinon";
 
 import {omit} from "lodash"
 
-describe("Searchbox tests", () => {
+fdescribe("Searchbox tests", () => {
 
   beforeEach(() => {
 
@@ -62,25 +65,34 @@ describe("Searchbox tests", () => {
     expect(spy.callCount).toBe(2)
   })
 
-  it("search on change with clock", ()=> {
-    jasmine.clock().install()
-    let queries = []
-    this.searchkit.performSearch = ()=> {
-      queries.push(this.searchkit.buildQuery())
-    }
-    this.createWrapper(true)
-    expect(this.wrapper.node.props.searchThrottleTime).toBe(200)
-    this.typeSearch("m")
-    jasmine.clock().tick(100)
-    expect(queries.length).toBe(1)
-    expect(queries[0].getQueryString()).toBe("m")
-    this.typeSearch("ma")
-    jasmine.clock().tick(100)
-    expect(queries.length).toBe(1)
-    jasmine.clock().tick(300)
-    expect(queries.length).toBe(2)
-    expect(queries[1].getQueryString()).toBe("ma")
-    jasmine.clock().uninstall()
+  describe("search on change with clock", () => {
+
+    beforeEach(() => {
+      jasmine.clock().install()
+    })
+
+    fit("clock", ()=> {
+      let queries = []
+      this.searchkit.performSearch = ()=> {
+        queries.push(this.searchkit.buildQuery())
+      }
+      this.createWrapper(true)
+      expect(this.wrapper.node.props.searchThrottleTime).toBe(200)
+      this.typeSearch("m")
+      jasmine.clock().tick(100)
+      expect(queries.length).toBe(1)
+      expect(queries[0].getQueryString()).toBe("m")
+      this.typeSearch("ma")
+      jasmine.clock().tick(100)
+      expect(queries.length).toBe(1)
+      jasmine.clock().tick(300)
+      expect(queries.length).toBe(2)
+      expect(queries[1].getQueryString()).toBe("ma")
+    })
+
+    afterEach(() => {
+      jasmine.clock().uninstall()
+    })
   })
 
   it("search on submit", () => {
