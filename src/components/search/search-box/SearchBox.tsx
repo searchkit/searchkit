@@ -70,7 +70,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     this.lastSearchMs = 0
     this.throttledSearch = throttle(()=> {
       this.searchQuery(this.accessor.getQueryString())
-    }, 200)
+    }, props.searchThrottleTime)
   }
 
 
