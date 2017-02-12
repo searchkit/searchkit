@@ -60,7 +60,6 @@
     "@types/jasmine": "^2.5.40",
     "@types/jasmine-ajax": "^3.1.32",
     "@types/lodash": "^4.14.50",
-    "@types/protractor": "^4.0.0",
     "@types/react": "0.0.0",
     "@types/react-addons-create-fragment": "^0.14.15",
     "@types/react-dom": "^0.14.20",
