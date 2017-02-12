@@ -666,11 +666,7 @@
     "./node_modules/@types/selenium-webdriver/safari.d.ts",
     "./node_modules/@types/selenium-webdriver/testing.d.ts",
     "./node_modules/@types/sinon/index.d.ts",
-    "./node_modules/@types/source-map/index.d.ts",
-    "./node_modules/@types/tapable/index.d.ts",
-    "./node_modules/@types/uglify-js/index.d.ts",
-    "./node_modules/@types/webpack-env/index.d.ts",
-    "./node_modules/@types/webpack/index.d.ts"
+    "./node_modules/@types/source-map/index.d.ts"
   ],
   "filesGlob": [
     "./src/**/*.tsx",
