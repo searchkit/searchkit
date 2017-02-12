@@ -14,7 +14,7 @@ import * as sinon from "sinon";
 
 import {omit} from "lodash"
 
-fdescribe("Searchbox tests", () => {
+describe("Searchbox tests", () => {
 
   beforeEach(() => {
 
@@ -65,13 +65,13 @@ fdescribe("Searchbox tests", () => {
     expect(spy.callCount).toBe(2)
   })
 
-  describe("search on change with clock", () => {
+  xdescribe("search on change with clock", () => {
 
     beforeEach(() => {
       jasmine.clock().install()
     })
 
-    fit("clock", ()=> {
+    it("clock", ()=> {
       let queries = []
       this.searchkit.performSearch = ()=> {
         queries.push(this.searchkit.buildQuery())
