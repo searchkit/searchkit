@@ -42,12 +42,15 @@ export class ViewSwitcherHits extends SearchkitComponent<ViewSwitcherHitsProps, 
     return new ViewOptionsAccessor("view", this.props.hitComponents)
   }
   render(){
-    let selectedOption = this.accessor.getSelectedOption()
-    this.props.itemComponent = selectedOption.itemComponent
-		this.props.listComponent = selectedOption.listComponent
-    this.props.mod = 'sk-hits-'+selectedOption.key
+    const selectedOption = this.accessor.getSelectedOption()
+    const props = {
+      ...this.props,
+      itemComponent: selectedOption.itemComponent,
+      listComponent: selectedOption.listComponent,
+      mod: 'sk-hits-'+selectedOption.key
+    }
     return (
-      <Hits {...this.props} />
+      <Hits {...props} />
     )
   }
 }
