@@ -15,10 +15,9 @@ describe("Select", ()=> {
   })
 
   it("should render and behave correctly", ()=> {
-
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-select">
-        <select defaultValue="a">
+        <select>
           <option value="a">A translated (#10)</option>
           <option value="b" disabled={true}>B translated (#11)</option>
           <option value="c">C translated (#12)</option>
@@ -30,7 +29,6 @@ describe("Select", ()=> {
     const optionC = this.wrapper.find("select").children().at(2)
     optionC.simulate("change")
     expect(this.wrapper.node.state.setItems).toHaveBeenCalledWith(["c"])
-
     this.wrapper.setProps({disabled:true})
     expect(this.wrapper.find(".sk-select").hasClass("is-disabled")).toBe(true)
   })

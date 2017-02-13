@@ -14,10 +14,7 @@ import {
   Panel
 } from "../../../ui"
 
-const defaults = require('lodash/defaults')
-const throttle = require("lodash/throttle")
-const assign = require("lodash/assign")
-const isUndefined = require("lodash/isUndefined")
+import {defaults, throttle, assign, isUndefined} from 'lodash'
 
 export interface InputFilterProps extends SearchkitComponentProps {
   id: string
@@ -176,7 +173,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
   render() {
     const { containerComponent, title, id } = this.props
     const block = this.bemBlocks.container
-    const value = this.getValue()    
+    const value = this.getValue()
     return renderComponent(containerComponent, {
       title,
       className: id ? `filter--${id}` : undefined,

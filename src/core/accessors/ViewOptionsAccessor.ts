@@ -1,7 +1,7 @@
-const map = require("lodash/map")
-const head = require("lodash/head")
-const find = require("lodash/find")
-const omit = require("lodash/omit")
+import {map} from "lodash"
+import {head} from "lodash"
+import {find} from "lodash"
+import {omit} from "lodash"
 
 import {StatefulAccessor} from "./StatefulAccessor"
 import {ValueState, SearchkitComponent} from "../../core"

@@ -12,8 +12,8 @@ import {
 	FieldContextFactory
 } from "../query";
 
-const maxBy = require("lodash/maxBy")
-const get = require("lodash/get")
+import {maxBy} from "lodash"
+import {get} from "lodash"
 
 export interface RangeAccessorOptions {
 	title:string

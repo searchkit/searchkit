@@ -15,17 +15,17 @@ describe("RangeHistogram", () => {
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-range-histogram">
-        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: '0%'}}/>
-        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: '0%'}}/>
-        <div className="sk-range-histogram__bar" style={{height: '0%'}}/>
-        <div className="sk-range-histogram__bar" style={{height: '60%'}}/>
-        <div className="sk-range-histogram__bar" style={{height: '70%'}}/>
-        <div className="sk-range-histogram__bar" style={{height: '80%'}}/>
-        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: '0%'}}/>
-        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: '100%'}}/>
-        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: '0%'}}/>
-        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: '0%'}}/>
-        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: '0%'}}/>
+        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: ' 0%'}}/>
+        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: ' 0%'}}/>
+        <div className="sk-range-histogram__bar" style={{height: ' 0%'}}/>
+        <div className="sk-range-histogram__bar" style={{height: ' 60%'}}/>
+        <div className="sk-range-histogram__bar" style={{height: ' 70%'}}/>
+        <div className="sk-range-histogram__bar" style={{height: ' 80%'}}/>
+        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: ' 0%'}}/>
+        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: ' 100%'}}/>
+        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: ' 0%'}}/>
+        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: ' 0%'}}/>
+        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: ' 0%'}}/>
       </div>
     ))
   })

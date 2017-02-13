@@ -1,5 +1,5 @@
 import * as React from "react";
-const bemBlock = require('bem-cn')
+let bemBlock = require("bem-cn")
 import {PureRender} from "../../../core"
 export interface PanelProps extends React.Props<Panel> {
   key?: any

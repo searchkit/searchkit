@@ -1,5 +1,5 @@
 import {AggsContainer} from "./AggsContainer"
-const assign = require("lodash/assign")
+import {assign} from "lodash"
 
 export function FieldMetricFactory(metricOp){
   return (key, field)=> {

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const bemBlock = require('bem-cn')
+let bemBlock = require("bem-cn")
 
 export interface TogglePanelProps extends React.Props<TogglePanel> {
   key?: any

@@ -11,7 +11,7 @@ import {
   ItemProps, ListProps
 } from "../../../"
 
-const defaults = require("lodash/defaults")
+import {defaults} from "lodash"
 export interface FacetFilterProps extends SearchkitComponentProps {
   field: string
   operator?: string

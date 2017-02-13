@@ -4,7 +4,7 @@ import {
   CardinalityMetric, BoolMust, SelectedFilter, FilterBucket
 } from "../query";
 
-const assign = require('lodash/assign')
+import {assign} from 'lodash'
 
 export interface CheckboxFilterAccessorOptions {
   id:string

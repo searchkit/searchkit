@@ -6,7 +6,7 @@ import {SearchkitManager, Utils} from "../../../../../core";
 import {Select} from "../../../../ui";
 const bem = require("bem-cn");
 import * as sinon from "sinon";
-const _ = require("lodash")
+import * as _ from "lodash"
 
 describe("NumericRefinementListFilter tests", () => {
 

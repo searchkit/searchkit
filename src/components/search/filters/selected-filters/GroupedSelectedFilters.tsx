@@ -4,21 +4,22 @@ import {
   SearchkitComponent,
   SearchkitComponentProps,
   ReactComponentType,
-  PureRender
+  PureRender,
+  renderComponent
 } from "../../../../core"
 
 import {
 	FilterGroup
 } from "../../../ui"
 
-const bemBlock = require('bem-cn')
+let bemBlock = require("bem-cn")
 
-const defaults = require('lodash/defaults')
-const groupBy = require('lodash/groupBy')
-const size = require('lodash/size')
-const toArray = require('lodash/toArray')
-const forEach = require('lodash/forEach')
-const map = require('lodash/map')
+import {defaults} from 'lodash'
+import {groupBy} from 'lodash'
+import {size} from 'lodash'
+import {toArray} from 'lodash'
+import {forEach} from 'lodash'
+import {map} from 'lodash'
 
 
 export interface GroupedSelectedFiltersProps extends SearchkitComponentProps {
@@ -26,6 +27,9 @@ export interface GroupedSelectedFiltersProps extends SearchkitComponentProps {
 }
 
 export class GroupedSelectedFilters extends SearchkitComponent<GroupedSelectedFiltersProps, any> {
+  bemBlocks: {
+    container: Function
+  }
 
   static propTypes = defaults({
   }, SearchkitComponent.propTypes)
@@ -82,7 +86,7 @@ export class GroupedSelectedFilters extends SearchkitComponent<GroupedSelectedFi
     return (
       <div className={this.bemBlocks.container() }>
         {map(this.getGroupedFilters(), (filters) =>
-          React.createElement(groupComponent, {
+          renderComponent(groupComponent, {
             key:filters[0].id,
             className: filters[0].id ? `filter-group-${filters[0].id}` : undefined,
             title: this.translate(filters[0].name),

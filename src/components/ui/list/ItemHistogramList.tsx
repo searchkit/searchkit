@@ -9,7 +9,7 @@ import {
 
 import { ItemProps } from './ListProps'
 
-const defaults = require('lodash/defaults')
+import {defaults} from 'lodash'
 
 export interface ItemHistogramComponentProps extends ItemProps {
   showCheckbox: boolean

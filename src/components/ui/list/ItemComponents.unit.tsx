@@ -1,6 +1,7 @@
-import * as React from "react";
-import {mount} from "enzyme";
-const bemBlock = require('bem-cn')
+import * as React from "react"
+import {mount} from "enzyme"
+let bemBlock = require("bem-cn")
+
 import {
   ItemComponent,
   CheckboxItemComponent
@@ -15,6 +16,7 @@ describe("ItemComponents", ()=> {
       option:bemBlock("sk-item-option")
     }
     this.onClick = jasmine.createSpy("toggleItem")
+
 
     this.props = {
       label:"Images", count:10, itemKey:"images",
@@ -40,7 +42,7 @@ describe("ItemComponents", ()=> {
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-item-option sk-item-container__item" data-qa="option" data-key="images">
-        <input type="checkbox" data-qa="checkbox" readOnly className="sk-item-option__checkbox"/>
+        <input type="checkbox" data-qa="checkbox" readOnly className="sk-item-option__checkbox" value="on"/>
         <div data-qa="label" className="sk-item-option__text">Images</div>
       </div>
     ).replace(/checkbox"\/>/, `checkbox">`))

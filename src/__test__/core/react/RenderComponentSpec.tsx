@@ -119,7 +119,7 @@ describe("RenderComponent", ()=> {
     spyOn(console, "warn")
     try{
       this.mount(10)
-      printPrettyHtml(this.wrapper.html())
+      // printPrettyHtml(this.wrapper.html())
     } catch (e){
 
     }

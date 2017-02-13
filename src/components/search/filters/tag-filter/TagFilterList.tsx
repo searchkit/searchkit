@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from "react"
 
 import {
   SearchkitComponent,
@@ -14,13 +14,13 @@ export interface TagFilterListProps extends SearchkitComponentProps {
   children?: React.ReactChildren
 }
 
-const map = require("lodash/map")
+import {map} from "lodash"
 
 export class TagFilterList extends React.Component<TagFilterListProps, any> {
 
   render() {
     const { field, values, searchkit } = this.props
-    
+
     return (
       <div className="sk-tag-filter-list">
         {map(values, value => <TagFilter key={value} field={field} value={value} searchkit={searchkit} />)}
