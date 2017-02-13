@@ -36,7 +36,7 @@ export class SortingAccessor extends StatefulAccessor<ValueState> {
 
   getSelectedOption(){
     let options = this.options.options
-    return  find(options, {key:this.state.getValue()}) ||
+    return  find(options, {key: this.state.getValue().toString() }) ||
             find(options, {defaultOption:true}) ||
             head(options)
   }

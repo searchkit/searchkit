@@ -635,7 +635,6 @@
     "./node_modules/@types/react-router/lib/browserHistory.d.ts",
     "./node_modules/@types/react-router/lib/createMemoryHistory.d.ts",
     "./node_modules/@types/react-router/lib/hashHistory.d.ts",
-    "./node_modules/@types/react-router/lib/History.d.ts",
     "./node_modules/@types/react-router/lib/IndexLink.d.ts",
     "./node_modules/@types/react-router/lib/IndexRedirect.d.ts",
     "./node_modules/@types/react-router/lib/IndexRoute.d.ts",
