@@ -63,9 +63,9 @@ describe("HierarchicalFacetAccessor", ()=> {
       .toEqual([["lvl1val"], ['lvl2val'], ["lvl3val", "lvl3val2"]])
 
     let query = this.accessor.buildSharedQuery(this.query)
-    // console.log(JSON.stringify(query.query.filter, null, 2 ))
+    // console.log(JSON.stringify(query.query.post_filter, null, 2 ))
 
-    expect(query.query.filter).toEqual(
+    expect(query.query.post_filter).toEqual(
       BoolMust([
         TermQuery("lvl1", "lvl1val"),
         TermQuery("lvl2", "lvl2val"),

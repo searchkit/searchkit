@@ -89,7 +89,7 @@ describe("ImmutableQuery", ()=> {
     let filter = BoolShould([1])
     let query = this.query.addAnonymousFilter(filter)
 
-    expect(query.query.filter).toEqual(filter)
+    expect(query.query.post_filter).toEqual(filter)
     expect(query.index.filtersMap).toEqual({
       [mockId]:filter
     })
@@ -99,7 +99,7 @@ describe("ImmutableQuery", ()=> {
     let filter = BoolShould([1])
     let query = this.query.addFilter("someKey", filter)
 
-    expect(query.query.filter)
+    expect(query.query.post_filter)
       .toEqual(filter)
     expect(query.index.filtersMap).toEqual({
       someKey:filter
@@ -258,7 +258,7 @@ describe("ImmutableQuery", ()=> {
           "query": "Hi"
         }
       },
-      "filter": {
+      "post_filter": {
         "term": {
           "genres": "comedy"
         }
