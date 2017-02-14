@@ -148,7 +148,7 @@ describe("NumericOptionsAccessor", ()=> {
         RangeQuery("price", {gte:21, lt:101})
       ])
     ])
-    expect(query.query.filter).toEqual(expected)
+    expect(query.query.post_filter).toEqual(expected)
     expect(_.keys(query.index.filtersMap))
       .toEqual(["9999"])
 
@@ -236,7 +236,7 @@ describe("NumericOptionsAccessor", ()=> {
           NestedQuery("nestedPrice", RangeQuery("price", {gte:21, lt:101}))
         ])
       ])
-      expect(query.query.filter).toEqual(expected)
+      expect(query.query.post_filter).toEqual(expected)
     })
 
     it("buildOwnQuery()", ()=> {

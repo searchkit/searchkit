@@ -104,7 +104,7 @@ describe("NestedFacetAccessor", ()=> {
         ])
       )
     ])
-    expect(query.query.filter).toEqual(expected)
+    expect(query.query.post_filter).toEqual(expected)
     let selectedFilters = query.getSelectedFilters()
     expect(this.toPlainObject(selectedFilters[0])).toEqual({
       id: 'categories',

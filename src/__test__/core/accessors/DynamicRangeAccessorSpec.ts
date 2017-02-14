@@ -89,7 +89,7 @@ describe("DynamicRangeAccessor", ()=> {
       let query = new ImmutableQuery()
       this.accessor.state = new ObjectState({min:20, max:70})
       query = this.accessor.buildSharedQuery(query)
-      expect(query.query.filter).toEqual(RangeQuery("metaScore", {gte:20, lte:70}))
+      expect(query.query.post_filter).toEqual(RangeQuery("metaScore", {gte:20, lte:70}))
       let selectedFilter = query.getSelectedFilters()[0]
       expect(selectedFilter).toEqual(jasmine.objectContaining({
         name:"Metascore", value:"20 - 70", id:"metascore"
@@ -167,7 +167,7 @@ describe("DynamicRangeAccessor", ()=> {
       let query = new ImmutableQuery()
       this.accessor.state = new ObjectState({min:20, max:70})
       query = this.accessor.buildSharedQuery(query)
-      expect(query.query.filter).toEqual(
+      expect(query.query.post_filter).toEqual(
         NestedQuery("nestedField",
           RangeQuery("metaScore", {gte:20, lte:70})
         )
