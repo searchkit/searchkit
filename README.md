@@ -1,4 +1,4 @@
-## New version 1.0.0-3
+## New version 1.0.0-4
 
 We are working towards releasing 1.0 and releasing betas to reach that goal. Notable changes include React 15 compatibility (completed), Typescript 2.2 updates (completed), Elasticsearch 5 support (in progress).
 
