@@ -10,7 +10,6 @@ import {
   throttle
 } from 'lodash'
 
-import * as sinon from "sinon";
 
 import {omit} from "lodash"
 
@@ -52,24 +51,18 @@ describe("Searchbox tests", () => {
   })
 
   it("search on change", () => {
-    let spy = sinon.spy()
-    this.searchkit.performSearch = spy
     this.createWrapper(true)
     this.typeSearch("m")
     expect(this.accessor.state.getValue()).toBe("m")
-    expect(spy.callCount).toBe(1)
+    expect(this.searchkit.performSearch.calls.count()).toEqual(1)
     this.typeSearch("ma")
     expect(this.accessor.state.getValue()).toBe("ma")
-    expect(spy.callCount).toBe(1) // throttling should block it
+    expect(this.searchkit.performSearch.calls.count()).toEqual(1)
     this.wrapper.node.throttledSearch.flush()
-    expect(spy.callCount).toBe(2)
+    expect(this.searchkit.performSearch.calls.count()).toEqual(2)
   })
 
-  xdescribe("search on change with clock", () => {
-
-    beforeEach(() => {
-      jasmine.clock().install()
-    })
+  describe("search on change with clock", () => {
 
     it("clock", ()=> {
       let queries = []
@@ -79,34 +72,27 @@ describe("Searchbox tests", () => {
       this.createWrapper(true)
       expect(this.wrapper.node.props.searchThrottleTime).toBe(200)
       this.typeSearch("m")
-      jasmine.clock().tick(100)
+      this.wrapper.node.throttledSearch.flush()
       expect(queries.length).toBe(1)
       expect(queries[0].getQueryString()).toBe("m")
       this.typeSearch("ma")
-      jasmine.clock().tick(100)
       expect(queries.length).toBe(1)
-      jasmine.clock().tick(300)
+      this.wrapper.node.throttledSearch.flush()
       expect(queries.length).toBe(2)
       expect(queries[1].getQueryString()).toBe("ma")
     })
 
-    afterEach(() => {
-      jasmine.clock().uninstall()
-    })
   })
 
   it("search on submit", () => {
-    let spy = sinon.spy()
-    this.searchkit.performSearch = spy
-
     this.createWrapper(false)
     this.typeSearch('m')
     this.typeSearch('ma')
     expect(this.accessor.state.getValue()).toBe(null)
-    expect(spy.callCount).toBe(0)
+    expect(this.searchkit.performSearch.calls.count()).toEqual(0)
     this.wrapper.find("form").simulate("submit")
     expect(this.accessor.state.getValue()).toBe("ma")
-    expect(spy.callCount).toBe(1)
+    expect(this.searchkit.performSearch.calls.count()).toEqual(1)
   })
 
   it("should configure accessor defaults correctly", ()=> {
