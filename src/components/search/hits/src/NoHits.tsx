@@ -33,7 +33,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 		"NoHits.NoResultsFoundDidYouMean":"No results found for {query}. Did you mean {suggestion}?",
 		"NoHits.DidYouMean":"Search for {suggestion} instead",
 		"NoHits.SearchWithoutFilters":"Search for {query} without filters",
-		"NoHits.Error":"We're sorry, an issue occured when fetching your results. Please try again.",
+		"NoHits.Error":"We're sorry, an issue occurred when fetching your results. Please try again.",
 		"NoHits.ResetSearch":"Reset Search"
 	}
 	translations = NoHits.translations
