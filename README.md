@@ -3,6 +3,12 @@ Searchkit is a suite of UI components built in react. The aim is to rapidly crea
 
 <img src="./docs/assets/codepreview.png"/>
 
+## New version 1.0.0-3
+
+We are working towards releasing 1.0 and releasing betas to reach that goal. Notable changes include React 15 compatibility (completed), Typescript 2.2 updates (completed), Elasticsearch 5 support (in progress).
+
+Please help us test 1.0.0 by using the beta releases. 1.0.0-3 is the latest release.
+
 [<img src="https://circleci.com/gh/searchkit/searchkit.png?style=shield"/>](https://circleci.com/gh/searchkit/searchkit)
 [![npm version](https://badge.fury.io/js/searchkit.svg)](https://badge.fury.io/js/searchkit)
 [![Join the chat at https://gitter.im/searchkit/searchkit](https://badges.gitter.im/searchkit/searchkit.svg)](https://gitter.im/searchkit/searchkit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
