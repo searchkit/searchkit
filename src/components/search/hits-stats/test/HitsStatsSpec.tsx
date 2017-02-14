@@ -1,6 +1,6 @@
 import * as React from "react";
 import {mount} from "enzyme";
-import {HitsStats, HitsStatsDisplayProps} from "../src/HitsStats.tsx";
+import {HitsStats, HitsStatsDisplayProps} from "../src/HitsStats";
 import {SearchkitManager} from "../../../../core";
 
 describe("HitsStats tests", () => {

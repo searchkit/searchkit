@@ -45,7 +45,8 @@ Out the box, elasticsearch uses the default [standard analyzer](https://www.elas
       }
     }
   }
-}```
+}
+```
 
 ## Searchkit Mapping best practices
 

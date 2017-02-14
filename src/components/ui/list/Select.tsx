@@ -4,12 +4,12 @@ import { ItemComponent, CheckboxItemComponent } from "./ItemComponents"
 import { ListProps } from "./ListProps"
 
 import {PureRender} from "../../../core"
-const block = require('bem-cn')
-const map = require("lodash/map")
-const filter = require("lodash/filter")
-const transform = require("lodash/transform")
-const find = require("lodash/find")
-const identity = require("lodash/identity")
+let block = require("bem-cn")
+import {map} from "lodash"
+import {filter} from "lodash"
+import {transform} from "lodash"
+import {find} from "lodash"
+import {identity} from "lodash"
 
 @PureRender
 export class Select extends React.Component<ListProps, any> {
@@ -48,7 +48,7 @@ export class Select extends React.Component<ListProps, any> {
 
     return (
       <div className={bemBlocks.container().mix(className).state({ disabled }) }>
-        <select onChange={this.onChange} value={this.getSelectedValue() }>
+        <select onChange={this.onChange} value={this.getSelectedValue()}>
           {map(items, ({key, label, title, disabled, doc_count}, idx) => {
             var text = translate(label || title || key)
             if (showCount && doc_count !== undefined) text += ` (${countFormatter(doc_count)})`

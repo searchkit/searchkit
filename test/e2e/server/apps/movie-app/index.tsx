@@ -17,7 +17,7 @@ import * as ReactDOM from "react-dom";
 import * as React from "react";
 const searchkit = new SearchkitManager(host)
 
-const _ = require("lodash")
+import * as _ from "lodash"
 
 require("./styles.scss")
 

@@ -1,5 +1,5 @@
-import {Component,  field, defaults, List} from "xenon";
-import {ItemList} from  "../../../ui/list/pageobjects.ts"
+import {Component,  field, defaults, List} from "xenon"
+import {ItemList} from  "../../../ui/list/pageobjects"
 
 export class FacetFilter extends ItemList {
 

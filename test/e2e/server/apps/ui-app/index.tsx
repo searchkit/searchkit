@@ -15,7 +15,7 @@ import * as React from "react";
 const searchkit = new SearchkitManager(host, {searchOnLoad:true})
 import {MockList} from "./MockList"
 import {MockRange} from "./MockRange"
-const _ = require("lodash")
+import * as _ from "lodash"
 
 require("./customisations.scss")
 require("../../../../../theming/theme.scss")

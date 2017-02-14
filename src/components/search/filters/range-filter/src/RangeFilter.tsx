@@ -18,9 +18,9 @@ import {
 	RangeSliderHistogram, RangeSlider
 } from "../../../../ui"
 
-const defaults = require("lodash/defaults")
-const map = require("lodash/map")
-const get = require("lodash/get")
+import {defaults} from "lodash"
+import {map} from "lodash"
+import {get} from "lodash"
 
 export interface RangeFilterProps extends SearchkitComponentProps {
 	field:string

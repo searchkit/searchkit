@@ -1,10 +1,10 @@
 import {ValueState} from "../state"
 import {StatefulAccessor} from "./StatefulAccessor";
 import {Utils} from "../support"
-const find = require("lodash/find")
-const head = require("lodash/head")
-const map = require("lodash/map")
-const compact = require("lodash/map")
+import {find} from "lodash"
+import {head} from "lodash"
+import {map} from "lodash"
+import {compact} from "lodash"
 
 export interface SortingField {
   field:string
@@ -36,14 +36,14 @@ export class SortingAccessor extends StatefulAccessor<ValueState> {
 
   getSelectedOption(){
     let options = this.options.options
-    return  find(options, {key:this.state.getValue()}) ||
+    return  find(options, {key: `${this.state.getValue()}` }) ||
             find(options, {defaultOption:true}) ||
             head(options)
   }
 
   getSortQuery(sortOption){
     if (sortOption.fields) {
-      return map(sortOption.fields, (field) => {
+      return map(sortOption.fields, (field: SortingField) => {
         return { [field.field]: field.options || {} }
       })
     } else if(sortOption.field && sortOption.order) {

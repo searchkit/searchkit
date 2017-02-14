@@ -17,8 +17,8 @@ import {
 	block
 } from "../../../../core"
 
-const map = require("lodash/map")
-const defaults = require("lodash/defaults")
+import {map} from "lodash"
+import {defaults} from "lodash"
 
 
 
@@ -60,7 +60,7 @@ export class HitsList extends React.Component<HitsListProps, any>{
 		mod:React.PropTypes.string,
 		className:React.PropTypes.string,
 		itemComponent:RenderComponentPropType,
-		hits:React.PropTypes.array
+		hits:React.PropTypes.any
 	}
 
 	render(){
@@ -71,7 +71,7 @@ export class HitsList extends React.Component<HitsListProps, any>{
 		}
 		return (
 			<div data-qa="hits" className={bemBlocks.container().mix(className)}>
-				{map(hits, (result, index)=> {
+				{map(hits, (result: any, index)=> {
 					return renderComponent(itemComponent, {
 						key:result._id, result, bemBlocks, index
 					})

@@ -1,6 +1,6 @@
 import * as React from "react";
 import {mount} from "enzyme";
-import {DynamicRangeFilter} from "./DynamicRangeFilter.tsx";
+import {DynamicRangeFilter} from "./DynamicRangeFilter";
 import {SearchkitManager} from "../../../../core";
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
@@ -50,12 +50,13 @@ describe("Dynamic Range Filter tests", () => {
         <div className="sk-panel__header">metascore</div>
         <div className="sk-panel__content">
           <div className="sk-range-slider">
-            <div className="rc-slider">
-              <div className="rc-slider-handle" style={{left:" 100%"}}></div>
-              <div className="rc-slider-handle" style={{left:" 0%"}}></div>
-              <div className="rc-slider-track" style={{visibility:" visible", " left":" 0%", " width":" 100%"}}></div>
-              <div className="rc-slider-step"><span className="rc-slider-dot rc-slider-dot-active" style={{left:"0%"}}></span><span className="rc-slider-dot rc-slider-dot-active" style={{left:"100%"}}></span></div>
-              <div className="rc-slider-mark"><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:"90%",left:"-45%"}}>1 score</span><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:"90%",left:"55%"}}>120 score</span></div>
+            <div className="rc-slider rc-slider-with-marks">
+              <div className="rc-slider-rail"></div>
+              <div className="rc-slider-track rc-slider-track-1" style={{visibility:" visible", " left":" 0%", " width":" 100%"}}></div>
+              <div className="rc-slider-step"><span className="rc-slider-dot rc-slider-dot-active" style={{left:" 0%"}}></span><span className="rc-slider-dot rc-slider-dot-active" style={{left:" 100%"}}></span></div>
+              <div className="rc-slider-handle rc-slider-handle-1 rc-slider-handle-lower" style={{left:" 0%"}}></div>
+              <div className="rc-slider-handle rc-slider-handle-2 rc-slider-handle-upper" style={{left:" 100%"}}></div>
+              <div className="rc-slider-mark"><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:" 90%", " margin-left":" -45%", " left":" 0%"}}>1 score</span><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:" 90%", " margin-left":" -45%", " left":" 100%"}}>120 score</span></div>
             </div>
           </div>
         </div>

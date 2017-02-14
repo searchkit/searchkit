@@ -1,11 +1,11 @@
 import * as React from "react";;
 import {mount, render} from "enzyme";
-import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../__test__/TestHelpers"
+import {fastClick, hasClass, jsxToHTML, printPrettyHtml, htmlClean} from "../../../__test__/TestHelpers"
 import { TagFilterList, TagFilterConfig } from "./";
 import {SearchkitManager, Utils} from "../../../../core";
 
 const bem = require("bem-cn");
-const _ = require("lodash")
+import * as _ from "lodash"
 import * as sinon from "sinon";
 
 describe("TagFilterList tests", () => {
@@ -42,7 +42,7 @@ describe("TagFilterList tests", () => {
         "test option 1": "test option 1 translated"
       }[key]
     }
-    
+
     this.createWrapper(
       <div>
         <TagFilterConfig field="test" id="test id" title="test title" operator="OR" searchkit={this.searchkit} />
@@ -54,17 +54,16 @@ describe("TagFilterList tests", () => {
   it('renders correctly', () => {
     let output = jsxToHTML(
       <div>
-        <noscript />
         <div className="sk-tag-filter-list">
           <div className="sk-tag-filter">test option 1</div>
           <div className="sk-tag-filter">test option 2</div>
         </div>
       </div>
     )
-    expect(this.wrapper.html()).toEqual(output)
+    expect(htmlClean(this.wrapper.html())).toEqual(output)
   });
 
-  it('handles click', () => {    
+  it('handles click', () => {
     let option = this.wrapper.find(".sk-tag-filter").at(0)
     let option2 = this.wrapper.find(".sk-tag-filter").at(1)
     fastClick(option)

@@ -6,10 +6,10 @@ import {
   FastClick,
 } from "../../../"
 
-const bemBlock = require('bem-cn')
-const size = require('lodash/size')
-const toArray = require('lodash/toArray')
-const map = require('lodash/map')
+let bemBlock = require("bem-cn")
+import {size} from 'lodash'
+import {toArray} from 'lodash'
+import {map} from 'lodash'
 
 export interface FilterGroupItemProps {
   key: string

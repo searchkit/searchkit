@@ -1,11 +1,11 @@
 import * as React from "react";
 import {mount} from "enzyme";
-import {SortingSelector} from "../src/SortingSelector.tsx";
+import {SortingSelector} from "../src/SortingSelector";
 import {SearchkitManager } from "../../../../core";
 import {Toggle} from "../../../ui";
 const bem = require("bem-cn");
 import * as sinon from "sinon";
-const _ = require("lodash")
+import * as _ from "lodash"
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
 } from "../../../__test__/TestHelpers"
@@ -40,7 +40,7 @@ describe("SortingSelector tests", () => {
     expect(this.wrapper.children().length).toBe(1)
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-select is-disabled">
-        <select defaultValue="none">
+        <select>
           <option value="none">Relevance translated</option>
           <option value="released_desc">Latest Releases</option>
           <option value="earliest">Earliest Releases</option>
@@ -54,7 +54,7 @@ describe("SortingSelector tests", () => {
     expect(this.wrapper.children().length).toBe(1)
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-select">
-        <select defaultValue="none">
+        <select>
           <option value="none">Relevance translated</option>
           <option value="released_desc">Latest Releases</option>
           <option value="earliest">Earliest Releases</option>
@@ -70,7 +70,7 @@ describe("SortingSelector tests", () => {
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-select">
-        <select defaultValue="released_desc" onChange={_.identity}>
+        <select onChange={_.identity}>
           <option value="none">Relevance translated</option>
           <option value="released_desc">Latest Releases</option>
           <option value="earliest">Earliest Releases</option>
@@ -85,7 +85,7 @@ describe("SortingSelector tests", () => {
     this.setWrapper()
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-select">
-        <select defaultValue="earliest" onChange={_.identity}>
+        <select onChange={_.identity}>
           <option value="none">Relevance translated</option>
           <option value="released_desc">Latest Releases</option>
           <option value="earliest">Earliest Releases</option>
@@ -112,7 +112,7 @@ describe("SortingSelector tests", () => {
     this.setResults()
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-select">
-        <select defaultValue="none">
+        <select>
           <option value="none">Relevance translated</option>
           <option value="released_desc">Latest Releases</option>
           <option value="earliest">Earliest Releases</option>

@@ -1,12 +1,12 @@
 import * as React from "react";
 
-import { ItemList } from '../../../ui'
+import { ItemList, Panel, CheckboxItemList } from '../../../ui'
 import { FacetFilter} from "./FacetFilter"
 
-const defaults = require("lodash/defaults")
-const map = require("lodash/map")
-const concat = require("lodash/concat")
-const isUndefined = require("lodash/isUndefined")
+import {defaults} from "lodash"
+import {map} from "lodash"
+import {concat} from "lodash"
+import {isUndefined} from "lodash"
 
 import {FacetFilterProps, FacetFilterPropTypes} from "./FacetFilterProps"
 

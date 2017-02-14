@@ -1,7 +1,7 @@
-const reduce = require("lodash/reduce")
-const map = require("lodash/map")
-const reject = require("lodash/reject")
-const isUndefined = require("lodash/isUndefined")
+import {reduce} from "lodash"
+import {map} from "lodash"
+import {reject} from "lodash"
+import {isUndefined} from "lodash"
 
 export class Utils {
   static guidCounter = 0
@@ -48,7 +48,7 @@ export class Utils {
     if(ob.key){
       return ob
     }
-    let fieldValues = reject(map(fields, (field)=> ob[field]), isUndefined)
+    let fieldValues = reject(map(fields, (field: string)=> ob[field]), isUndefined)
     if(fieldValues.length > 0){
       ob.key = fieldValues.join("_")
     } else {

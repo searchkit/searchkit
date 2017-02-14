@@ -2,10 +2,10 @@ import * as React from "react";
 
 import { PureRender } from "../../../"
 
-const block = require('bem-cn')
+let block = require("bem-cn")
 
-const maxBy = require("lodash/maxBy")
-const map = require("lodash/map")
+import {maxBy} from "lodash"
+import {map} from "lodash"
 
 function computeMaxValue(items, field) {
   if (!items || items.length == 0) return 0

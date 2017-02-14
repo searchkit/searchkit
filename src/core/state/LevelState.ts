@@ -1,9 +1,9 @@
 import {State} from "./State"
-const isArray = require("lodash/isArray")
-const contains = require("lodash/includes")
-const take = require("lodash/take")
-const size = require("lodash/size")
-const without = require("lodash/without")
+import {isArray} from "lodash"
+import {take} from "lodash"
+import {size} from "lodash"
+import {without} from "lodash"
+import {indexOf} from "lodash"
 const update = require("react-addons-update")
 
 export class LevelState extends State<Array<any>> {
@@ -27,7 +27,7 @@ export class LevelState extends State<Array<any>> {
   }
 
   contains(level:number, val) {
-    return contains(this.getValue()[level], val)
+    return indexOf(this.getValue()[level], val) !== -1
   }
 
   clear(level:number=0) {

@@ -1,11 +1,11 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
-import {HierarchicalRefinementFilter} from "../src/HierarchicalRefinementFilter.tsx";
-import {SearchkitManager} from "../../../../../core";
-const bem = require("bem-cn");
-const _ = require("lodash")
-import * as sinon from "sinon";
+import {HierarchicalRefinementFilter} from "../src/HierarchicalRefinementFilter"
+import {SearchkitManager} from "../../../../../core"
+let bem = require("bem-cn")
+import * as _ from "lodash"
+import * as sinon from "sinon"
 
 describe("Refinement List Filter tests", () => {
 

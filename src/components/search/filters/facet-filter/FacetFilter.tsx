@@ -7,12 +7,10 @@ import {
   FastClick, renderComponent, FieldOptions
 } from "../../../../core"
 
-import {
-   CheckboxItemList, Panel
-} from "../../../ui"
+import {CheckboxItemList, Panel} from "../../../ui"
 
-const defaults = require("lodash/defaults")
-const identity = require("lodash/identity")
+import {defaults} from "lodash"
+import {identity} from "lodash"
 
 export class FacetFilter<T extends FacetFilterProps> extends SearchkitComponent<T, any> {
   accessor: FacetAccessor

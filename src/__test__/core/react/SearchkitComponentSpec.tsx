@@ -4,8 +4,7 @@ import {
   Accessor,
   ImmutableQuery
 } from "../../../"
-var block = require('bem-cn');
-
+let block = require("bem-cn")
 
 describe("SearchkitComponent", ()=> {
 

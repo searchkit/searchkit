@@ -6,10 +6,10 @@ import {
   SearchkitComponentProps
 } from "../../../core"
 
-const defaults = require("lodash/defaults")
-const throttle = require("lodash/throttle")
-const assign = require("lodash/assign")
-const isUndefined = require("lodash/isUndefined")
+import {defaults} from "lodash"
+import {throttle} from "lodash"
+import {assign} from "lodash"
+import {isUndefined} from "lodash"
 
 export interface SearchBoxProps extends SearchkitComponentProps {
   searchOnChange?:boolean
@@ -119,7 +119,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
       return input
     }
   }
-  
+
   getAccessorValue(){
     return (this.accessor.state.getValue() || "") + ""
   }
@@ -139,11 +139,11 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     if (!focused){
       const { input } = this.state
       if (this.props.blurAction == "search"
-        && !isUndefined(input) 
+        && !isUndefined(input)
         && input != this.getAccessorValue()){
         this.searchQuery(input)
       }
-      this.setState({ 
+      this.setState({
         focused,
         input: undefined // Flush (should use accessor's state now)
       })

@@ -1,9 +1,9 @@
-import ReactTestUtils = require('react-addons-test-utils');
-const beautifyHtml = require('js-beautify').html
-const { renderToStaticMarkup } = require('react-dom/server')
+import ReactTestUtils = require('react-addons-test-utils')
+import {html as beautifyHtml} from 'js-beautify'
+import { renderToStaticMarkup } from 'react-dom/server'
 import * as ReactDOM from "react-dom"
-const compact = require("lodash/compact")
-const map = require("lodash/map")
+import {compact} from "lodash"
+import {map} from "lodash"
 
 export const hasClass = (inst, className)=> {
   if(ReactTestUtils.isDOMComponent(inst.node)) {
@@ -19,7 +19,15 @@ export const hasClass = (inst, className)=> {
 
 
 export function jsxToHTML(Element){
-  return renderToStaticMarkup(Element).replace(/<input([^>]*)\/>/g, "<input$1>")
+  return renderToStaticMarkup(Element)
+    .replace(/<input([^>]*)\/>/g, "<input$1>")
+}
+
+export function htmlClean(html) {
+  return html
+    .replace(/<!-- react-text: \d+ -->/g, '')
+    .replace(/<!-- \/react-text -->/g, '')
+    .replace(/<!-- react-empty: \d+ -->/g, '')
 }
 
 export const printPrettyHtml = (html)=> {
@@ -29,7 +37,7 @@ export const printPrettyHtml = (html)=> {
     .replace(/readonly=""/g,"readOnly={true}")
     .replace(/font-size/g,"fontSize")
     .replace(/style="([^"]+)"+/g, (match, style)=> {
-      let reactStyle = map(compact(style.split(";")), (keyvalue)=> {
+      let reactStyle = map(compact(style.split(";")), (keyvalue: string)=> {
         let [key, value] = keyvalue.split(":")
         return `${key}:"${value}"`
       }).join(",")

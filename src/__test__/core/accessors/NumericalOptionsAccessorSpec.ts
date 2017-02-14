@@ -5,7 +5,7 @@ import {
   RangeBucket, FilterBucket,SearchkitManager, Utils
 } from "../../../"
 
-const _ = require("lodash")
+import * as _ from "lodash"
 
 describe("NumericOptionsAccessor", ()=> {
 

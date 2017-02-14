@@ -1,9 +1,9 @@
 import * as React from 'react'
 
 import {PureRender} from "./pure-render"
-const omitBy = require('lodash/omitBy')
-const isUndefined = require('lodash/isUndefined')
-const defaults = require('lodash/defaults')
+import {omitBy} from 'lodash'
+import {isUndefined} from 'lodash'
+import {defaults} from 'lodash'
 
 export type RenderFunction = (props?:any, children?:any) => Element
 export type Element = React.ReactElement<any>
@@ -11,7 +11,9 @@ export type RenderComponentType<P> = React.ComponentClass<P> | React.ClassicComp
 
 export const RenderComponentPropType = React.PropTypes.oneOfType([
   function(props:any, propName: string, componentName: string) {
-    return isUndefined(props[propName]) || (props[propName]["prototype"] instanceof React.Component)
+     if(isUndefined(props[propName]) || (props[propName]["prototype"] instanceof React.Component)) {
+       return null
+     }
   },
   React.PropTypes.element,
   React.PropTypes.func,

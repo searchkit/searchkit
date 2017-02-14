@@ -4,7 +4,7 @@ import {
   RangeHistogram, RangeSlider, RangeInput
 } from './'
 import { PureRender } from "../../../core"
-const defaults = require("lodash/defaults")
+import {defaults} from "lodash"
 
 @PureRender
 export class RangeComponent extends React.Component<any, {}> {

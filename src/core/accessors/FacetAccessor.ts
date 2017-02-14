@@ -6,14 +6,14 @@ import {
   FilterBucket,  FieldContextFactory, FieldContext,
   FieldOptions
 } from "../query";
-const assign = require("lodash/assign")
-const map = require("lodash/map")
-const omitBy = require("lodash/omitBy")
-const isUndefined = require("lodash/isUndefined")
-const keyBy = require("lodash/keyBy")
-const reject = require("lodash/reject")
-const each = require("lodash/each")
-const identity = require("lodash/identity")
+import {assign} from "lodash"
+import {map} from "lodash"
+import {omitBy} from "lodash"
+import {isUndefined} from "lodash"
+import {keyBy} from "lodash"
+import {reject} from "lodash"
+import {each} from "lodash"
+import {identity} from "lodash"
 
 
 export interface FacetAccessorOptions {
@@ -66,7 +66,7 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     }
     this.options.fieldOptions = this.options.fieldOptions || {type:"embedded"}
     this.options.fieldOptions.field = this.key
-    this.fieldContext = FieldContextFactory(this.options.fieldOptions)    
+    this.fieldContext = FieldContextFactory(this.options.fieldOptions)
   }
 
   getRawBuckets(){
@@ -81,12 +81,13 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     let keyIndex = keyBy(rawBuckets, "key")
     let inIndex = (filter)=> !!keyIndex[filter]
     let missingFilters = []
-    each(this.state.getValue(), (filter)=> {
-      if(keyIndex[filter]) {
-        keyIndex[filter].selected = true
+    each(this.state.getValue(), (filterKey)=> {
+      if(keyIndex[filterKey]) {
+        const filter:any = keyIndex[filterKey]
+        filter.selected = true
       } else {
         missingFilters.push({
-          key:filter, missing:true, selected:true
+          key:filterKey, missing:true, selected:true
         })
       }
     })

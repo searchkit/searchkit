@@ -4,7 +4,7 @@ import {
   TopHitsMetric
 } from "../../../"
 
-const _ = require("lodash")
+import * as _ from "lodash"
 
 describe("NoFiltersHitCountAccessor", ()=> {
 

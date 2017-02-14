@@ -1,4 +1,4 @@
-const assign = require("lodash/assign")
+import {assign} from "lodash"
 import {AggsContainer} from "./AggsContainer"
 
 export interface TermsBucketOptions {

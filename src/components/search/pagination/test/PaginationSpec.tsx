@@ -1,6 +1,6 @@
 import * as React from "react";
 import {mount} from "enzyme";
-import {Pagination, PaginationSelect} from "../src/Pagination.tsx";
+import {Pagination, PaginationSelect} from "../src/Pagination";
 import {SearchkitManager, ImmutableQuery} from "../../../../core";
 import {Select} from "../../../ui";
 import {
@@ -208,7 +208,7 @@ describe("Pagination tests", () => {
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div className="sk-pagination-select is-numbered">
         <div className="sk-select">
-          <select defaultValue="1">
+          <select>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>

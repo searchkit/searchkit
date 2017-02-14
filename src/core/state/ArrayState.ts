@@ -1,6 +1,6 @@
 import {State} from "./State"
-const contains = require("lodash/includes")
-const without = require("lodash/without")
+import {indexOf} from "lodash"
+import {without} from "lodash"
 
 export class ArrayState extends State<Array<string|number>> {
   getValue() {
@@ -23,6 +23,6 @@ export class ArrayState extends State<Array<string|number>> {
     return this.create(this.getValue().concat(val))
   }
   contains(val) {
-    return contains(this.value, val)
+    return indexOf(this.value, val) !== -1
   }
 }

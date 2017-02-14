@@ -13,7 +13,7 @@ import {
 
 import * as sinon from "sinon";
 
-const omit = require("lodash/omit")
+import {omit} from "lodash"
 
 describe("InputFilter tests", () => {
 
@@ -123,7 +123,7 @@ describe("InputFilter tests", () => {
     expect(spy.callCount).toBe(2)
   })
 
-  it("search on change with clock", ()=> {
+  xit("search on change with clock", ()=> {
     jasmine.clock().install()
     let queries = []
     this.searchkit.performSearch = ()=> {

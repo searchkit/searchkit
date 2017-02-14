@@ -1,7 +1,9 @@
-import {Component, field, defaults, List} from "xenon";
+import {Component, field, defaults, List} from "xenon"
 import {
   Searchbox, FacetFilter, HitsStats
-}from "../../../src/components/pageobjects";
+}from "../../../src/components/pageobjects"
+
+import {browser} from 'protractor'
 
 class Hit extends Component {
 
@@ -35,7 +37,7 @@ var searchPage:SearchPage = null;
 describe("example", () => {
 
   beforeEach(() => {
-    searchPage = new SearchPage();
+    searchPage = new SearchPage()
     browser.get("http://localhost:4000/movie-app");
   })
 

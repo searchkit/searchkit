@@ -5,7 +5,7 @@ import {
   NestedBucket,SignificantTermsBucket,
   GeohashBucket, HistogramBucket
 } from "../../../../../"
-const _ = require("lodash")
+import * as _ from "lodash"
 
 describe("BucketAggregations", ()=> {
 

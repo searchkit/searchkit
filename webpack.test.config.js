@@ -17,7 +17,8 @@ module.exports = {
     cheerio: 'window',
     'react/lib/ExecutionEnvironment': true,
     'react/lib/ReactContext': 'window',
-    'text-encoding': 'window'
+    'text-encoding': 'window',
+    'react/addons': true
   },
   module: {
     loaders: [

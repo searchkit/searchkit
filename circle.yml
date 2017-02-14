@@ -4,9 +4,18 @@ general:
       - gh-pages
 
 machine:
+  environment:
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+
   node:
-    version: 4.2.1
+    version: 6.9.1
 
 dependencies:
+  override:
+    - yarn
+  cache_directories:
+    - ~/.cache/yarn
+
+test:
   pre:
-   - npm install -g karma-cli
+    - npm install -g karma-cli

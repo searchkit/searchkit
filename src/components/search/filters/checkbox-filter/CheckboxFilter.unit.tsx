@@ -1,13 +1,13 @@
 import * as React from "react";;
 import {mount, render} from "enzyme";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../__test__/TestHelpers"
-import {CheckboxFilter} from "./CheckboxFilter.tsx";
+import {CheckboxFilter} from "./CheckboxFilter";
 import {SearchkitManager, Utils} from "../../../../core";
 import {Toggle, ItemComponent} from "../../../ui";
 import { TermQuery } from "../../../../core";
 
 const bem = require("bem-cn");
-const _ = require("lodash")
+import * as _ from "lodash"
 import * as sinon from "sinon";
 
 describe("CheckboxFilter tests", () => {
@@ -53,7 +53,8 @@ describe("CheckboxFilter tests", () => {
         <div className="sk-panel__header">test title</div>
         <div className="sk-panel__content">
           <div data-qa="options" className="sk-item-list">
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test label"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox"/>
+            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test label">
+              <input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox" value="on"/>
               <div data-qa="label" className="sk-item-list-option__text">test label</div>
               <div data-qa="count" className="sk-item-list-option__count">50</div>
             </div>
@@ -88,7 +89,7 @@ describe("CheckboxFilter tests", () => {
       "filter": TermQuery("test-field", "test-value")
     })
   })
-  
+
   it("can disable", () => {
     expect(hasClass(this.wrapper.find(".sk-panel"), "is-disabled")).toBe(false)
     this.searchkit.setResults({
@@ -100,12 +101,12 @@ describe("CheckboxFilter tests", () => {
       }
     })
     expect(hasClass(this.wrapper.find(".sk-panel"), "is-disabled")).toBe(true)
-    
+
     expect(this.accessor.state.getValue()).toEqual(null)
     let option = this.wrapper.find(".sk-item-list").children().at(0)
     fastClick(option)
     expect(this.accessor.state.getValue()).toEqual(true)
-    
+
     expect(hasClass(this.wrapper.find(".sk-panel"), "is-disabled")).toBe(false)
   })
 });
