@@ -1,4 +1,4 @@
-import * as axios from "axios"
+import axios, { AxiosInstance, Promise, AxiosResponse } from "axios"
 import {ImmutableQuery} from "../query"
 import {ESTransport} from "./ESTransport"
 import {defaults} from "lodash"
@@ -12,8 +12,8 @@ export interface ESTransportOptions {
 
 export class AxiosESTransport extends ESTransport{
   static timeout: number = 5000
-  axios: Axios.AxiosInstance
-  options:ESTransportOptions
+  axios: AxiosInstance
+  options: ESTransportOptions
 
   constructor(public host:string, options:ESTransportOptions={}){
     super()
@@ -36,7 +36,7 @@ export class AxiosESTransport extends ESTransport{
 
   }
 
-  search(query:Object){
+  search(query:Object): Promise<AxiosResponse> {
     return this.axios.post(this.options.searchUrlPath, query)
       .then(this.getData)
   }
