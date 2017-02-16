@@ -6,7 +6,9 @@ describe("AxiosESTransport", ()=> {
   beforeEach(()=> {
     jasmine.Ajax.install()
     this.host = "http://search:9200/"
-    this.transport = new AxiosESTransport(this.host)
+    this.transport = new AxiosESTransport(this.host, {
+      headers: {}
+    })
   })
 
   afterEach(()=> {
@@ -15,11 +17,9 @@ describe("AxiosESTransport", ()=> {
 
   it("constructor()", ()=> {
     expect(this.transport.host).toBe(this.host)
-    expect(this.transport.options.headers).toEqual({})
     let axiosConfig = this.transport.axios.defaults
     expect(axiosConfig.baseURL).toBe(this.host)
     expect(axiosConfig.timeout).toBe(AxiosESTransport.timeout)
-    expect(axiosConfig.headers).toBe(this.transport.options.headers)
     expect(this.transport instanceof ESTransport).toBe(true)
   })
 
@@ -29,12 +29,14 @@ describe("AxiosESTransport", ()=> {
         "Content-Type":"application/json",
       },
       basicAuth:"key:val",
-      searchUrlPath:"/_search/"
+      searchUrlPath:"/_search/",
+      timeout: 10000
     })
     expect(transport.options.headers).toEqual({
       "Content-Type":"application/json",
       "Authorization":"Basic " + btoa("key:val")
     })
+    expect(transport.options.timeout).toEqual(10000)
     expect(transport.options.searchUrlPath).toBe("/_search/")
   })
 

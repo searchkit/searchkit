@@ -6,11 +6,12 @@ import {defaults} from "lodash"
 export interface ESTransportOptions {
   headers?:Object,
   basicAuth?:string,
-  searchUrlPath?:string
+  searchUrlPath?:string,
+  timeout?: number
 }
 
 export class AxiosESTransport extends ESTransport{
-  static timeout = 5000
+  static timeout: number = 5000
   axios: Axios.AxiosInstance
   options:ESTransportOptions
 
@@ -18,17 +19,21 @@ export class AxiosESTransport extends ESTransport{
     super()
     this.options = defaults(options, {
       headers:{},
-      searchUrlPath:"/_search"
+      searchUrlPath:"/_search",
+      timeout: AxiosESTransport.timeout
     })
+
     if(this.options.basicAuth){
       this.options.headers["Authorization"] = (
         "Basic " + btoa(this.options.basicAuth))
     }
+
     this.axios = axios.create({
       baseURL:this.host,
-      timeout:AxiosESTransport.timeout,
+      timeout:this.options.timeout,
       headers:this.options.headers
     })
+
   }
 
   search(query:Object){
