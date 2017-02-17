@@ -1,14 +1,13 @@
 import {AxiosESTransport, ESTransport} from "../../../"
 import "jasmine-ajax"
+import axios from "axios"
 
 describe("AxiosESTransport", ()=> {
 
   beforeEach(()=> {
     jasmine.Ajax.install()
     this.host = "http://search:9200/"
-    this.transport = new AxiosESTransport(this.host, {
-      headers: {}
-    })
+    this.transport = new AxiosESTransport(this.host)
   })
 
   afterEach(()=> {
@@ -17,9 +16,11 @@ describe("AxiosESTransport", ()=> {
 
   it("constructor()", ()=> {
     expect(this.transport.host).toBe(this.host)
+    expect(this.transport.options.headers).toEqual({})
     let axiosConfig = this.transport.axios.defaults
     expect(axiosConfig.baseURL).toBe(this.host)
     expect(axiosConfig.timeout).toBe(AxiosESTransport.timeout)
+    expect(axiosConfig.headers).toEqual(axios.defaults.headers)
     expect(this.transport instanceof ESTransport).toBe(true)
   })
 
