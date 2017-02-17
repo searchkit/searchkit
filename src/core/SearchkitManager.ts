@@ -25,7 +25,8 @@ export interface SearchkitOptions {
   httpHeaders?:Object,
   basicAuth?:string,
   transport?:ESTransport,
-  searchUrlPath?:string
+  searchUrlPath?:string,
+  timeout?: number
 }
 
 export class SearchkitManager {
@@ -71,7 +72,8 @@ export class SearchkitManager {
     this.transport = this.options.transport || new AxiosESTransport(host, {
       headers:this.options.httpHeaders,
       basicAuth:this.options.basicAuth,
-      searchUrlPath:this.options.searchUrlPath
+      searchUrlPath:this.options.searchUrlPath,
+      timeout: this.options.timeout
     })
     this.accessors = new AccessorManager()
 		this.registrationCompleted = new Promise((resolve)=>{

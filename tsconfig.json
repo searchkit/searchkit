@@ -322,7 +322,7 @@
     "./node_modules/protractor/node_modules/@types/selenium-webdriver/remote.d.ts",
     "./node_modules/protractor/node_modules/@types/selenium-webdriver/safari.d.ts",
     "./node_modules/protractor/node_modules/@types/selenium-webdriver/testing.d.ts",
-    "./node_modules/@types/axios/index.d.ts",
+    "./node_modules/axios/index.d.ts",
     "./node_modules/@types/cheerio/index.d.ts",
     "./node_modules/@types/classnames/index.d.ts",
     "./node_modules/@types/enzyme/index.d.ts",
@@ -676,6 +676,7 @@
     "./test/e2e/**/*.tsx",
     "./theming/*.ts",
     "./node_modules/protractor/**/*.d.ts",
+    "./node_modules/axios/**/*.d.ts",
     "./node_modules/@types/**/*.d.ts"
   ],
   "exclude": [],
