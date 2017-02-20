@@ -1,5 +1,6 @@
 import {AxiosESTransport, ESTransport} from "../../../"
 import "jasmine-ajax"
+import axios from "axios"
 
 describe("AxiosESTransport", ()=> {
 
@@ -19,7 +20,7 @@ describe("AxiosESTransport", ()=> {
     let axiosConfig = this.transport.axios.defaults
     expect(axiosConfig.baseURL).toBe(this.host)
     expect(axiosConfig.timeout).toBe(AxiosESTransport.timeout)
-    expect(axiosConfig.headers).toBe(this.transport.options.headers)
+    expect(axiosConfig.headers).toEqual(axios.defaults.headers)
     expect(this.transport instanceof ESTransport).toBe(true)
   })
 
@@ -29,12 +30,14 @@ describe("AxiosESTransport", ()=> {
         "Content-Type":"application/json",
       },
       basicAuth:"key:val",
-      searchUrlPath:"/_search/"
+      searchUrlPath:"/_search/",
+      timeout: 10000
     })
     expect(transport.options.headers).toEqual({
       "Content-Type":"application/json",
       "Authorization":"Basic " + btoa("key:val")
     })
+    expect(transport.options.timeout).toEqual(10000)
     expect(transport.options.searchUrlPath).toBe("/_search/")
   })
 

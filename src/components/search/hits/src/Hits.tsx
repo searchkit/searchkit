@@ -5,6 +5,7 @@ import {
 	PageSizeAccessor,
 	ImmutableQuery,
 	HighlightAccessor,
+	CustomHighlightAccessor,
 	SearchkitComponentProps,
 	ReactComponentType,
 	PureRender,
@@ -84,6 +85,7 @@ export class HitsList extends React.Component<HitsListProps, any>{
 export interface HitsProps extends SearchkitComponentProps{
 	hitsPerPage: number
 	highlightFields?:Array<string>
+	customHighlight?:any
 	sourceFilter?:SourceFilterType
 	itemComponent?:ReactComponentType<HitItemProps>
 	listComponent?:ReactComponentType<HitsListProps>
@@ -119,6 +121,9 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 			this.searchkit.addAccessor(
 				new HighlightAccessor(this.props.highlightFields))
 		}
+		if (this.props.customHighlight) {
+			this.searchkit.addAccessor(new CustomHighlightAccessor(this.props.customHighlight))
+		}		
 		if(this.props.sourceFilter){
 			this.searchkit.addAccessor(
 				new SourceFilterAccessor(this.props.sourceFilter)

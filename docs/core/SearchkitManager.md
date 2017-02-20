@@ -32,6 +32,9 @@ const searchkit = new SearchkitManager(host, {
 ## Default Queries
 Sometimes we need to apply a default query which affects the entire search and is not serialized to the browser url.
 
+* **timeout** - A number value to override the default 5000ms response timeout. Optional.
+
+
 `SearchkitManager` allows ability to add these
 
 ```js
