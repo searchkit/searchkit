@@ -3,9 +3,7 @@ const qs = require("qs")
 const qsUtils = require("qs/lib/utils")
 
 export const encodeObjUrl = (obj) => {
-  return qs.stringify(obj, { encode: true, encoder: (str, isPrefix) => {
-    return isPrefix ? str : qsUtils.encode(str)
-  }})
+  return qs.stringify(obj, { encode: true, encodeValuesOnly: true })
 }
 
 export const decodeObjString = (str) => {
