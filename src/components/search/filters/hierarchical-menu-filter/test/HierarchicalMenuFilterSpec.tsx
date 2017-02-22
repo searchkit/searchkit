@@ -42,7 +42,7 @@ describe("MenuFilter tests", () => {
     expect(this.accessor.key).toBe("categories")
     expect(this.accessor.options).toEqual({
       id: 'categories', title: 'Categories',
-      fields: ['lvl1', 'lvl2'], size: 0,
+      fields: ['lvl1', 'lvl2'], size: 20,
       orderKey:"_term", orderDirection:"asc"
     })
   })
