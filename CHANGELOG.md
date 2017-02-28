@@ -1,5 +1,6 @@
 ## 1.0.0 - Beta 7 (23th Feb, 2017)
 - fix: Set default size to 20 for `HierarchicalMenuFilter` #398
+- Abort axios requests which will not be used. E.g. search as you type
 
 ## 1.0.0 - Beta 6 (19th Feb, 2017)
 - new feature: Ability for custom highlighting options #355
