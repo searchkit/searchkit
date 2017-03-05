@@ -6,6 +6,7 @@ import {defaults} from "lodash"
 export interface ESTransportOptions {
   headers?:Object,
   basicAuth?:string,
+  withCredentials?:boolean,
   searchUrlPath?:string,
   timeout?: number
 }
@@ -23,8 +24,8 @@ export class AxiosESTransport extends ESTransport{
       timeout: AxiosESTransport.timeout
     })
 
-    const auth = this.options.basicAuth ? AxiosESTransport.parseAuth(this.options.basicAuth) : {}
-    const config = defaults(auth, {
+    const credentials = AxiosESTransport.parseCredentials(this.options)
+    const config = defaults(credentials, {
       baseURL:this.host,
       timeout:this.options.timeout,
       headers:this.options.headers
@@ -41,8 +42,16 @@ export class AxiosESTransport extends ESTransport{
     return response.data
   }
 
-  private static parseAuth(basicAuth: string): any {
-    const credentials = basicAuth.split(":")
-    return { username: credentials[0], password: credentials[1] }
+  private static parseCredentials(options: ESTransportOptions): any {
+    let credentials = {}
+    if (options.basicAuth !== undefined) {
+       const parsed = options.basicAuth.split(":")
+       const auth = { username: parsed[0], parsed: credentials[1] }
+       credentials['auth'] = auth
+    }
+    if (options.withCredentials !== undefined) {
+       credentials['withCredentials'] = options.withCredentials
+    }
+    return credentials
   }
 }
