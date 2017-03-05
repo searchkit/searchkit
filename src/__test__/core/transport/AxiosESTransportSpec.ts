@@ -34,9 +34,10 @@ describe("AxiosESTransport", ()=> {
       timeout: 10000
     })
     expect(transport.options.headers).toEqual({
-      "Content-Type":"application/json",
-      "Authorization":"Basic " + btoa("key:val")
+      "Content-Type":"application/json"
     })
+    expect(transport.axios.defaults.auth.username).toBe("key")
+    expect(transport.axios.defaults.auth.password).toBe("value")
     expect(transport.options.timeout).toEqual(10000)
     expect(transport.options.searchUrlPath).toBe("/_search/")
   })

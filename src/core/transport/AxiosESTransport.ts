@@ -23,17 +23,13 @@ export class AxiosESTransport extends ESTransport{
       timeout: AxiosESTransport.timeout
     })
 
-    if(this.options.basicAuth){
-      this.options.headers["Authorization"] = (
-        "Basic " + btoa(this.options.basicAuth))
-    }
-
-    this.axios = axios.create({
+    const auth = this.options.basicAuth ? AxiosESTransport.parseAuth(this.options.basicAuth) : {}
+    const config = defaults(auth, {
       baseURL:this.host,
       timeout:this.options.timeout,
       headers:this.options.headers
     })
-
+    this.axios = axios.create(config)
   }
 
   search(query:Object): Promise<AxiosResponse> {
@@ -45,4 +41,8 @@ export class AxiosESTransport extends ESTransport{
     return response.data
   }
 
+  private static parseAuth(basicAuth: string): any {
+    const credentials = basicAuth.split(":")
+    return { username: credentials[0], password: credentials[1] }
+  }
 }
