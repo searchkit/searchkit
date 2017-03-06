@@ -65,7 +65,7 @@ class App extends SearchkitComponent {
 - `orderKey` *(string)*: Order key either using an intrinsic sortable key `_count` `_term`
 - `orderDirection` *(string)*: `asc` or `desc`
 - `countFormatter` *((count:number)=> number|string)* A optional function to format the doc counts
-
+- `size` *(number)*: size of options shown
 
 ## Demo
 [](codepen://searchkit/jWyWmw?height=800&theme=0)

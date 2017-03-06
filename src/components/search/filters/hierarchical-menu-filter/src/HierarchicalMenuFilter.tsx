@@ -25,7 +25,8 @@ export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuF
 	public accessor:HierarchicalFacetAccessor
 
 	static defaultProps = {
-		countFormatter:identity
+		countFormatter:identity,
+		size: 20
 	}
 	static propTypes = defaults({
 		id:React.PropTypes.string.isRequired,
@@ -45,7 +46,7 @@ export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuF
 	}
 
 	defineAccessor() {
-		const {id, title, fields, size=0, orderKey, orderDirection} = this.props
+		const {id, title, fields, size, orderKey, orderDirection} = this.props
 		return new HierarchicalFacetAccessor(id, {
 			id, title, fields, size, orderKey, orderDirection
 		})

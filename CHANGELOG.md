@@ -1,3 +1,39 @@
+## 1.0.0 - Beta 7 (23th Feb, 2017)
+- fix: Set default size to 20 for `HierarchicalMenuFilter` #398
+- Abort axios requests which will not be used. E.g. search as you type
+
+## 1.0.0 - Beta 6 (19th Feb, 2017)
+- new feature: Ability for custom highlighting options #355
+
+## 1.0.0 - Beta 5 (17th Feb, 2017)
+- new feature: Axios upgrade, expose timeout #396
+- updated dev guide
+
+## 1.0.0 - Beta 4 (14th Feb, 2017)
+- fix: Elasticsearch 5 compat fix
+
+## 1.0.0 - Beta 3 (14th Feb, 2017)
+- fix: Typo in error message
+- fix: fix typo on indexing documentation
+- fix: small fix on checkbox filters when filter option name is too long #335
+
+## 1.0.0 - Beta 2 (13th Feb, 2017)
+- fix: Circle CI build
+
+## 1.0.0 - Beta 1 (13th Feb, 2017)
+- fix: `ViewSwitcherHits` mutating props. React 15 gives warning.
+- fix: `Pagination` works. Lodash regression issue
+
+## 1.0.0 - Beta 0 (4rd Feb, 2017)
+### Dependencies Updates
+- Added React 15 to peer dependencies + fix tests for react 15.4
+- history to 2.1.1
+- typescript to 2.1.4
+- type definitions managed by npm
+- lodash to 4.14
+- rc-slider to 5.4.3
+- protractor to 4.0.0
+
 ## 0.10.1 (10th August, 2016)
 - fix pagination regression due to lodash change of api
 
