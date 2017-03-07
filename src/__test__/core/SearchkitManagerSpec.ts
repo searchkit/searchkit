@@ -47,8 +47,13 @@ describe("SearchkitManager", ()=> {
       .toEqual(jasmine.any(AxiosESTransport))
     expect(this.searchkit.transport.options.headers).toEqual(
       jasmine.objectContaining({
-        "Content-Type":"application/json",
-        "Authorization":jasmine.any(String)
+        "Content-Type":"application/json"
+      })
+    )
+    expect(this.searchkit.transport.axios.defaults.auth).toEqual(
+      jasmine.objectContaining({
+        "username":"key",
+        "password":"val"
       })
     )
     expect(this.searchkit.query).toEqual(new ImmutableQuery())
