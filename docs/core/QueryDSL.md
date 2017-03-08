@@ -13,16 +13,32 @@ TermQuery("color", "red")
 import {TermsQuery} from "searchkit"
 TermsQuery("color", ["red", "orange"])
 ```
-#### `RangeQuery(field, from to)`
+#### `RangeQuery(field, options)`
+
+Available options: lt, lte, gt, gte, boost, format, time_zone
+
+Numeric Range:
+
 ```js
 import {RangeQuery} from "searchkit"
-RangeQuery("rating", 1, 11])
+RangeQuery("rating",  {gte: 1, lt: 11 })
 /* {
   range:{
-    rating:{ gte:1, lt:11}
+    rating: { gte:1, lt:11 }
   }
-}
-}*/
+} */
+```
+
+Date Range:
+
+```js
+import {RangeQuery} from "searchkit"
+RangeQuery("date_received", { gte: "2005||/y" })
+/* {
+  range: {
+    date_received: { gte: "2005||/y" }
+  }
+} */
 ```
 
 ## Compound queries
