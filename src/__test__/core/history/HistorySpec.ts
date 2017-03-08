@@ -1,6 +1,6 @@
 import { encodeObjUrl, decodeObjString } from '../../../core/history'
 
-describe("qs", () => {
+describe("History", () => {
 
   it("encode / decode searchkit obj", () => {
     const obj = {q: "test", categories: [["movie"],["Crime"]], actors: ["a", 'b-c', 'd & e', 'f=g'], writers: ['d'] }
