@@ -34,9 +34,10 @@ describe("AxiosESTransport", ()=> {
       timeout: 10000
     })
     expect(transport.options.headers).toEqual({
-      "Content-Type":"application/json",
-      "Authorization":"Basic " + btoa("key:val")
+      "Content-Type":"application/json"
     })
+    expect(transport.axios.defaults.auth.username).toBe("key")
+    expect(transport.axios.defaults.auth.password).toBe("val")
     expect(transport.options.timeout).toEqual(10000)
     expect(transport.options.searchUrlPath).toBe("/_search/")
   })
@@ -63,7 +64,49 @@ describe("AxiosESTransport", ()=> {
     })
   })
 
+  it("search - basicAuth", (done)=> {
+    let mockResults = {hits:[1,2,3]}
+    this.host = "http://search:9200/"
+    this.transport = new AxiosESTransport(this.host, {
+      searchUrlPath:"/search",
+      basicAuth: 'user:pass'
+    })
+    jasmine.Ajax.stubRequest(this.host + "search").andReturn({
+      "responseText": JSON.stringify(mockResults)
+    });
+    this.transport.search({
+      size:10,
+      from:0
+    }).then((result)=> {
+      expect(result.hits).toEqual([1,2,3])
+      let request = jasmine.Ajax.requests.mostRecent()
+      expect(request.requestHeaders['Authorization'])
+        .toEqual("Basic " + btoa("user:pass"))
+      done()
+    })
+  })
 
+  it("search - withCredentials", (done)=> {
+    document.cookie = axios.defaults.xsrfCookieName + '=12345';
+    let mockResults = {hits:[1,2,3]}
+    this.host = "http://search:9200/"
+    this.transport = new AxiosESTransport(this.host, {
+      searchUrlPath:"/search",
+      withCredentials: true
+    })
+    jasmine.Ajax.stubRequest(this.host + "search").andReturn({
+      "responseText": JSON.stringify(mockResults)
+    });
+    this.transport.search({
+      size:10,
+      from:0
+    }).then((result)=> {
+      expect(result.hits).toEqual([1,2,3])
+      let request = jasmine.Ajax.requests.mostRecent()
+      expect(request.requestHeaders[axios.defaults.xsrfHeaderName]).toEqual('12345');
+      done()
+    })
+  })
 
   it("test timeout", ()=> {
     AxiosESTransport.timeout = 10
