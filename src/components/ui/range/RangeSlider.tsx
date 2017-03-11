@@ -11,7 +11,7 @@ import { PureRender } from "../../../core/react/pure-render"
 export interface RangeSliderProps extends RangeProps {
   step?: number
   marks?: Object
-  rangeFormatter?:(number)=> number | string
+  rangeFormatter?:(n: number)=> number | string
 }
 
 @PureRender
