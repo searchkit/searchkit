@@ -69,7 +69,7 @@
     "es6-promise": "^3.1.2",
     "history": "^2.1.1",
     "lodash": "4.14.2",
-    "qs": "ssetem/qs",
+    "qs": "6.4.0",
     "rc-slider": "5.4.3",
     "react-addons-update": "^15.4.0"
   },
