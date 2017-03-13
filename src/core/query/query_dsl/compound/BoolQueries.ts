@@ -32,8 +32,7 @@ function boolHelper(val, operator){
     // Remove empty filters
     val = filter(val, f => !isEmpty(f))
     if (val.length === 1) {
-      if (operator != "must_not") return val[0]
-      else val = val[0] // Unbox array
+      val = val[0] // Unbox array
     } else if (val.length === 0) {
       return {}
     } else if ((operator == "must" || operator == "should")
