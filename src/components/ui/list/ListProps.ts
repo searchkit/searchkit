@@ -10,7 +10,7 @@ export interface ListProps {
   mod?: string
   className?: string
   showCount?: boolean
-  translate?: (string) => string
+  translate?: (s: string) => string
   multiselect?: boolean // if true, uses toggleItem, else uses setItems
 }
 

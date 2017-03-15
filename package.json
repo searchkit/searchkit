@@ -56,8 +56,6 @@
     "@types/enzyme": "^2.7.1",
     "@types/es6-promise": "0.0.32",
     "@types/history": "^2.0.43",
-    "@types/jasmine": "^2.5.40",
-    "@types/jasmine-ajax": "^3.1.32",
     "@types/lodash": "^4.14.50",
     "@types/react": "0.0.0",
     "@types/react-addons-create-fragment": "^0.14.15",
@@ -71,7 +69,7 @@
     "es6-promise": "^3.1.2",
     "history": "^2.1.1",
     "lodash": "4.14.2",
-    "qs": "ssetem/qs",
+    "qs": "6.4.0",
     "rc-slider": "5.4.3",
     "react-addons-update": "^15.4.0"
   },
@@ -79,6 +77,8 @@
     "react": "^0.14.0 || ^15.0.0-0"
   },
   "devDependencies": {
+    "@types/jasmine": "^2.5.40",
+    "@types/jasmine-ajax": "^3.1.32",
     "autoprefixer": "^6.3.3",
     "chalk": "^1.1.1",
     "css-loader": "^0.23.1",

@@ -13,7 +13,7 @@ export interface RangeProps {
   disabled?: boolean
   mod?: string
   className?: string
-  translate?: (string) => string
+  translate?: (s: string) => string
 }
 
 export const RangePropTypes = {
