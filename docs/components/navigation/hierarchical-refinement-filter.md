@@ -69,6 +69,7 @@ class App extends SearchkitComponent {
 - `id` *(string)*: id of component. Must be unique. Used as key for url serialization
 - `startLevel` *(number)*: Optional. Can specify the root level to start from.
 - `orderKey` *(string)*: Order key either using default sortable keys `_count` `_term` or using the `order` field e.g. `color.order`
+- `size` *(number)*: Optional. Number of buckets to return. Default value is Number.MAX_VALUE
 - `orderDirection` *(string)*: `asc` or `desc`
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
 - `mod` *(string)*: Optional. A custom BEM container class.

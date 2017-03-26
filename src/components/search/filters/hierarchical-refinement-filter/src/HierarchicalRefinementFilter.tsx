@@ -7,17 +7,16 @@ import {
 	SearchkitComponentProps
 } from "../../../../../core"
 
-import {defaults} from "lodash"
-import {map} from "lodash"
-import {identity} from "lodash"
+import { defaults, map, identity } from "lodash"
 
 export interface HierarchicalRefinementFilterProps extends SearchkitComponentProps {
 	field:string
 	id:string
 	title:string
+	size?:number
   orderKey?:string
   orderDirection?:string
-  startLevel?:number,
+  startLevel?:number
 	countFormatter?:(count:number)=> number | string
 }
 
@@ -47,10 +46,24 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<Hierarchica
 	}
 
 	defineAccessor() {
-		const {field, id, title, orderKey, orderDirection, startLevel} = this.props
+		const {
+			field,
+			id,
+			title,
+			size,
+			orderKey,
+			orderDirection,
+			startLevel } = this.props;
+
 		return new NestedFacetAccessor(id, {
-			field, id, title, orderKey, orderDirection, startLevel
-		})
+			field,
+			id,
+			title,
+			size,
+			orderKey,
+			orderDirection,
+			startLevel
+		});
 	}
 
 	addFilter(level, option) {
