@@ -146,7 +146,7 @@ export class SearchkitManager {
 
   _searchWhenCompleted(location){
     this.registrationCompleted.then(()=> {
-      this.searchFromUrlQuery(decodeObjString(location.search))
+      this.searchFromUrlQuery(decodeObjString(location.search.replace(/^\?/, "")))
     }).catch((e)=> {
       console.error(e.stack)
     })
@@ -173,7 +173,6 @@ export class SearchkitManager {
         this.history.replace : this.history.push
 
       let url = window.location.pathname + "?" + encodeObjUrl(this.state)
-      console.log(url)
       historyMethod.call(this.history, url)
     }
   }
