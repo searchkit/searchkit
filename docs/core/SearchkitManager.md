@@ -28,6 +28,8 @@ const searchkit = new SearchkitManager(host, {
 
 * **useHistory** - A boolean to enable url history support, defaults to `true`
 
+* **createHistory** - A function which returns an instance of a history obj, defaults to `createBrowserHistory from history@4.6.1`
+
 * **searchUrlPath** - A the search endpoint name, defaults to `/_search`. Used if your server proxy endpoint needs a different url convention.
 ## Default Queries
 Sometimes we need to apply a default query which affects the entire search and is not serialized to the browser url.

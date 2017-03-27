@@ -1,12 +1,11 @@
 import {ImmutableQuery} from "./query";
 import {Accessor, BaseQueryAccessor, AnonymousAccessor} from "./accessors"
 import {AccessorManager} from "./AccessorManager"
-import {createHistoryInstance} from "./history";
 import {ESTransport, AxiosESTransport, MockESTransport} from "./transport"
 import {SearchRequest} from "./SearchRequest"
 import {Utils, EventEmitter} from "./support"
 import {VERSION} from "./SearchkitVersion"
-import {encodeObjUrl, decodeObjString} from "./history"
+import {createHistoryInstance, encodeObjUrl, decodeObjString} from "./history"
 
 import {defaults} from "lodash"
 import {constant} from "lodash"
@@ -22,6 +21,7 @@ import {after} from "lodash"
 
 export interface SearchkitOptions {
   useHistory?:boolean,
+  createHistory?:Function,
   searchOnLoad?:boolean,
   httpHeaders?:Object,
   basicAuth?:string,
@@ -66,7 +66,8 @@ export class SearchkitManager {
     this.options = defaults(options, {
       useHistory:true,
       httpHeaders:{},
-      searchOnLoad:true
+      searchOnLoad:true,
+      createHistory:createHistoryInstance
     })
     this.host = host
 
@@ -92,7 +93,7 @@ export class SearchkitManager {
     this.initialLoading = true
     if(this.options.useHistory) {
       this.unlistenHistory()
-      this.history = createHistoryInstance()
+      this.history = this.options.createHistory()
       this.listenToHistory()
     }
     this.runInitialSearch()
