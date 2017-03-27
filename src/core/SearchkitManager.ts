@@ -180,9 +180,8 @@ export class SearchkitManager {
   }
 
   buildSearchUrl(extraParams = {}){
-    const params = defaults(extraParams, this.state || this.accessors.getState())
-    const queryString = qs.stringify(params, { encode: true })
-    return this.options.getLocation().pathname + '?' + queryString
+    const params = defaults(extraParams, this.state || this.accessors.getState())    
+    return this.options.getLocation().pathname + '?' + encodeObjUrl(params)
   }
 
   reloadSearch(){
