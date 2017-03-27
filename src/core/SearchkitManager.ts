@@ -6,6 +6,7 @@ import {ESTransport, AxiosESTransport, MockESTransport} from "./transport"
 import {SearchRequest} from "./SearchRequest"
 import {Utils, EventEmitter} from "./support"
 import {VERSION} from "./SearchkitVersion"
+import {encodeObjUrl, decodeObjString} from "./history"
 
 import {defaults} from "lodash"
 import {constant} from "lodash"
@@ -93,9 +94,8 @@ export class SearchkitManager {
       this.unlistenHistory()
       this.history = createHistoryInstance()
       this.listenToHistory()
-    } else {
-      this.runInitialSearch()
     }
+    this.runInitialSearch()
   }
   addAccessor(accessor){
     accessor.setSearchkitManager(this)
@@ -136,25 +136,24 @@ export class SearchkitManager {
     }
   }
   listenToHistory(){
-    let callsBeforeListen = (this.options.searchOnLoad) ? 1: 2
-
-    this._unlistenHistory = this.history.listen(after(callsBeforeListen,(location)=>{
-      //action is POP when the browser modified
-      if(location.action === "POP") {
-        this.registrationCompleted.then(()=>{
-          this.searchFromUrlQuery(location.query)
-        }).catch((e)=> {
-          console.error(e.stack)
-        })
+    this._unlistenHistory = this.history.listen((location, action)=>{
+      if(action === "POP") {
+        this._searchWhenCompleted(location)
       }
-    }))
+    })
+  }
+
+  _searchWhenCompleted(location){
+    this.registrationCompleted.then(()=> {
+      this.searchFromUrlQuery(decodeObjString(location.search))
+    }).catch((e)=> {
+      console.error(e.stack)
+    })
   }
 
   runInitialSearch(){
     if(this.options.searchOnLoad) {
-      this.registrationCompleted.then(()=> {
-        this._search()
-      })
+      this._searchWhenCompleted(window.location)
     }
   }
 
@@ -171,7 +170,10 @@ export class SearchkitManager {
     if(this.options.useHistory){
       const historyMethod = (replaceState) ?
         this.history.replace : this.history.push
-      historyMethod({pathname: window.location.pathname, query:this.state})
+
+      let url = window.location.pathname + "?" + encodeObjUrl(this.state)
+      console.log(url)
+      historyMethod.call(this.history, url)
     }
   }
 
