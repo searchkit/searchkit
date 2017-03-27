@@ -22,6 +22,7 @@ import {after} from "lodash"
 export interface SearchkitOptions {
   useHistory?:boolean,
   createHistory?:Function,
+  getLocation?:Function,
   searchOnLoad?:boolean,
   httpHeaders?:Object,
   basicAuth?:string,
@@ -67,7 +68,8 @@ export class SearchkitManager {
       useHistory:true,
       httpHeaders:{},
       searchOnLoad:true,
-      createHistory:createHistoryInstance
+      createHistory:createHistoryInstance,
+      getLocation:()=> window.location
     })
     this.host = host
 
@@ -154,7 +156,7 @@ export class SearchkitManager {
 
   runInitialSearch(){
     if(this.options.searchOnLoad) {
-      this._searchWhenCompleted(window.location)
+      this._searchWhenCompleted(this.options.getLocation())
     }
   }
 
@@ -172,7 +174,7 @@ export class SearchkitManager {
       const historyMethod = (replaceState) ?
         this.history.replace : this.history.push
 
-      let url = window.location.pathname + "?" + encodeObjUrl(this.state)
+      let url = this.options.getLocation().pathname + "?" + encodeObjUrl(this.state)
       historyMethod.call(this.history, url)
     }
   }
@@ -180,7 +182,7 @@ export class SearchkitManager {
   buildSearchUrl(extraParams = {}){
     const params = defaults(extraParams, this.state || this.accessors.getState())
     const queryString = qs.stringify(params, { encode: true })
-    return window.location.pathname + '?' + queryString
+    return this.options.getLocation().pathname + '?' + queryString
   }
 
   reloadSearch(){
