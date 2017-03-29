@@ -1,8 +1,8 @@
-## Beta Release 1.0.0-7
+## Beta Release 2.0.0-8
 
 We're working towards releasing 1.0 and currently releasing betas to reach that goal. Notable changes include React 15 compatibility (completed), Typescript 2.2 updates (completed), Elasticsearch 5 support (in progress).
 
-Please help us test 1.0.0 by using the beta releases. 1.0.0-7 is the latest release.
+Please help us test 1.0.0 by using the beta releases. 2.0.0-8 is the latest release.
 
 ## What is Searchkit?
 Searchkit is a suite of UI components built in react. The aim is to rapidly create beautiful search applications using declarative components, and without being an ElasticSearch expert.
