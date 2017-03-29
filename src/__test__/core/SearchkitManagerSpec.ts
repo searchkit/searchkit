@@ -123,9 +123,7 @@ describe("SearchkitManager", ()=> {
 
   it("listenToHistory()", (done)=> {
     const history = createHistoryInstance()
-    history.push({pathname: window.location.pathname, query:{
-      q:"foo"
-    }})
+    history.push(window.location.pathname + "?q=foo")
     SearchkitManager.prototype.unlistenHistory = jasmine.createSpy("unlisten")
     const searchkit = new SearchkitManager("/", {
       useHistory:true
@@ -147,34 +145,32 @@ describe("SearchkitManager", ()=> {
 
   it("listenToHistory() - searchOnLoad false", (done)=> {
     const history = createHistoryInstance()
-    history.push({pathname: window.location.pathname, query: {
-      q:"foo-previous"
-    }})
-
-    const searchkit = new SearchkitManager("/", {
-      useHistory:true,
-      searchOnLoad:false
-    })
-    searchkit.setupListeners()
-    spyOn(searchkit.accessors, "setState")
-    spyOn(searchkit, "_search")
-    searchkit.completeRegistration()
+    history.push(window.location.pathname + "?q=foo-previous")
+    history.push(window.location.pathname + "?q=foo-now")
     setTimeout(()=> {
-      expect(searchkit._search).not.toHaveBeenCalled()
-      history.goBack()
+      const searchkit = new SearchkitManager("/", {
+        useHistory:true,
+        searchOnLoad:false
+      })
+      searchkit.setupListeners()
+      spyOn(searchkit.accessors, "setState")
+      spyOn(searchkit, "searchFromUrlQuery")
+      searchkit.completeRegistration()
       setTimeout(()=> {
-        expect(searchkit._search).toHaveBeenCalled()
-        searchkit.unlistenHistory()
-        done()
+        history.goBack()
+        setTimeout(()=> {
+          expect(searchkit.searchFromUrlQuery).toHaveBeenCalledWith({q:"foo-previous"})
+          searchkit.unlistenHistory()
+          done()
+        },0)
       },0)
-    },0)
+    }, 0)
+
   })
 
   it("listenToHistory() - handle error", (done)=> {
     const history = createHistoryInstance()
-    history.push({pathname: window.location.pathname, query: {
-      q:"foo"
-    }})
+    history.push(window.location.pathname + "?q=foo")
     const searchkit = new SearchkitManager("/", {
       useHistory:true
     })
@@ -206,7 +202,7 @@ describe("SearchkitManager", ()=> {
     spyOn(searchkit.history, "push")
     searchkit.performSearch()
     expect(searchkit.history.push).toHaveBeenCalledWith(
-      {pathname:"/context.html", query: {q:"foo"}}
+      "/context.html?q=foo"
     )
     expect(searchkit.accessors.notifyStateChange)
       .toHaveBeenCalledWith(searchkit.state)
