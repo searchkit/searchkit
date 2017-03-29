@@ -1,6 +1,6 @@
 {
   "name": "searchkit",
-  "version": "2.0.0-8",
+  "version": "2.0.0-9",
   "description": "A suite of react components to help create a UI quickly for elasticsearch ",
   "main": "lib/src/index.js",
   "keywords": [
@@ -55,7 +55,7 @@
     "@types/classnames": "0.0.32",
     "@types/enzyme": "^2.7.1",
     "@types/es6-promise": "0.0.32",
-    "@types/history": "4.6.1",
+    "@types/history": "4.5.0",
     "@types/lodash": "^4.14.50",
     "@types/react": "0.0.0",
     "@types/react-addons-create-fragment": "^0.14.15",
