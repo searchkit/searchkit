@@ -1,0 +1,18 @@
+@import "../vars.scss";
+
+.sk-date-box {
+  display: flex;
+  margin: 0 0 10px;
+
+  &__text {
+    font-size:$sk-list-font-size;
+    width:100%;
+    border:none;
+    height: initial;
+    line-height: initial;
+
+    &:focus {
+      outline:0;
+    }
+  }
+}

@@ -1,0 +1,2356 @@
+[
+  {
+    "event_date": {
+      "from": "2017-04-04T14:00:00+03:00",
+      "to": "2017-04-04T15:30:00+03:00"
+    },
+    "title": "Finnish Discussion Group",
+    "event_date_pretty": "4.4.2017 14:00",
+    "lead_paragraph": "Easy conversation in Finnish\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "keywords": [
+      "kielikurssi"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "For beginners",
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Language courses",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-04T17:00:00+03:00",
+      "to": "2017-04-04T18:30:00+03:00"
+    },
+    "title": "Eternal or transient city? St. Petersburg/Leningrad in Russian and Finnish literature",
+    "event_date_pretty": "4.4.2017 17:00",
+    "lead_paragraph": "Lecture.",
+    "keywords": [
+      "change2017 kirjasto"
+    ],
+    "event_types": [
+      "Music",
+      "Lectures",
+      "Finland 100"
+    ],
+    "hobby_details": [
+      "Free of charge",
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-04T18:00:00+03:00",
+      "to": "2017-04-04T18:00:00+03:00"
+    },
+    "title": "Pippi Longstocking",
+    "event_date_pretty": "4.4.2017 18:00",
+    "lead_paragraph": "Pippi Longstocking is back to Turun Nuori Teatteri after ten years of absence!\\n",
+    "district": [
+      "Keskusta"
+    ],
+    "keywords": [
+      "teatteri",
+      "Peppi Pitkätossu"
+    ],
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-04T19:00:00+03:00",
+      "to": "2017-04-04T19:00:00+03:00"
+    },
+    "title": "TOM OF FINLAND",
+    "event_date_pretty": "4.4.2017 19:00",
+    "lead_paragraph": "What cannot be said out loud must be drawn. What cannot be drawn must be sung.Premiere on January 27th, 2017. Limited run in the spring of 2017.Subtitled in English!",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-04T20:00:00+03:00",
+      "to": "2017-04-04T20:00:00+03:00"
+    },
+    "title": "Karaoke Night",
+    "event_date_pretty": "4.4.2017 20:00",
+    "lead_paragraph": "Come to The WaterLoo for karaoke hosted by Laura Eriksson. Choose from 25,000 songs!\\n",
+    "district": [
+      "Keskusta"
+    ],
+    "keywords": [
+      "karaoke"
+    ],
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "For beginners",
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Music",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-03-24T10:00:00+02:00",
+      "to": "2017-04-16T18:00:00+03:00"
+    },
+    "title": "Kaisa Rautaheimo / Boys",
+    "event_date_pretty": "24.3.–16.4.2017",
+    "lead_paragraph": "Welcome to the exhibition opening in the presence of the artist Thursday 23.3 March from 6 to 8 pm.\\n",
+    "keywords": [
+      "valokuva",
+      "valokuvanäyttely"
+    ],
+    "event_types": [
+      "Exhibits"
+    ],
+    "hobby_details": [
+      "Free of charge",
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2016-05-16T00:00:00+03:00",
+      "to": "2017-05-15T00:00:00+03:00"
+    },
+    "title": "Piano Studio Kaskenmäki",
+    "event_date_pretty": "16.–15.5.2017",
+    "lead_paragraph": "Piano teaching: individual and pair lessons in the heart of Turku\\n",
+    "district": [
+      "Keskusta"
+    ],
+    "event_types": [
+      null,
+      null
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-02-17T11:00:00+02:00",
+      "to": "2017-05-21T17:00:00+03:00"
+    },
+    "title": "Elina Brotherus: Works 1998–2015",
+    "event_date_pretty": "17.2.–21.5.2017",
+    "lead_paragraph": "Elina Brotherus (b. 1972, Helsinki) is one of the most internationally acclaimed photographic artists in Finland.\\n",
+    "district": [
+      "I (Keskusta)"
+    ],
+    "keywords": [
+      "Turun taidemuseo",
+      "näyttely",
+      "valokuva",
+      "taidenäyttely"
+    ],
+    "event_types": [
+      "Museum",
+      "Exhibits"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-02-14T10:00:00+02:00",
+      "to": "2017-05-27T18:00:00+03:00"
+    },
+    "title": "Citizen Space - a pop up space, open for all",
+    "event_date_pretty": "14.2.–27.5.2017",
+    "lead_paragraph": "The space functions as a platform for new ideas, interaction, creative workshops, community based events, and exhibitions.\\n",
+    "district": [
+      "I (Keskusta)"
+    ],
+    "keywords": [
+      "unelmien museo",
+      "Suomi100",
+      "Pop up",
+      "kansalistila"
+    ],
+    "event_types": [
+      "Lectures",
+      "Finland 100",
+      "Others"
+    ],
+    "hobby_details": [
+      "Free of charge",
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2016-11-25T11:00:00+02:00",
+      "to": "2017-12-31T17:00:00+02:00"
+    },
+    "title": "Desires granted or denied",
+    "event_date_pretty": "25.11.2016–31.12.2017",
+    "lead_paragraph": "New collection exhibition presents acquisitions and donations from the time of the museum’s first director, landscape artist Victor Westerholm. Westerholm’s tenure from 1891–1919 also coincides with Finland’s pursuit of independence from Russia. Comprising just under a hundred works, the exhibition will be on show throughout the centenary of the Finnish independence 2017.\\n",
+    "district": [
+      "I (Keskusta)"
+    ],
+    "keywords": [
+      "Turun taidemuseo",
+      "kokoelmanäyttely",
+      "Suomi 100"
+    ],
+    "event_types": [
+      "Museum",
+      "Exhibits",
+      "Finland 100"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-02-23T11:00:00+02:00",
+      "to": "2017-08-13T19:00:00+03:00"
+    },
+    "title": "Behind the Scenes: Tom of Finland Movie",
+    "event_date_pretty": "23.2.–13.8.2017",
+    "lead_paragraph": "Behind the Scenes: Tom of Finland Movie exhibition allows visitors to take a glimpse behind the scenes of a film shoot and opens the door to the fascinating world of filmmaking.",
+    "keywords": [
+      "Tom of Finland",
+      "elokuva",
+      "näyttely"
+    ],
+    "event_types": [
+      "Exhibits",
+      "Finland 100"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-03-20T08:16:00+02:00",
+      "to": "2017-09-01T20:16:00+03:00"
+    },
+    "title": "Smilingstones",
+    "event_date_pretty": "20.3.–1.9.2017",
+    "lead_paragraph": "Look for colorful, smiling stones on the streets of Turku! Share positivity with them by taking a picture and using a hashtag #smilingstones (or #kivatkivet in finnish).\\n",
+    "keywords": [
+      "multiculturalism",
+      "environmental art",
+      "outdoor sports"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "Free of charge",
+      "Accessible",
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Sports and outdoors",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Nature and camping",
+        "ancestors": [
+          "Sports and outdoors"
+        ]
+      },
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 1,
+        "value": "Community and volunteering",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Multiculturalism",
+        "ancestors": [
+          "Community and volunteering"
+        ]
+      },
+      {
+        "level": 2,
+        "value": "Other cultural activities",
+        "ancestors": [
+          null
+        ]
+      },
+      {
+        "level": 2,
+        "value": "Other sports",
+        "ancestors": [
+          null
+        ]
+      },
+      {
+        "level": 2,
+        "value": "Outdoor games",
+        "ancestors": [
+          null
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-02-17T10:00:00+02:00",
+      "to": "2018-03-04T18:00:00+02:00"
+    },
+    "title": "Game of Power – Reformation in Finland",
+    "event_date_pretty": "17.2.2017–4.3.2018",
+    "lead_paragraph": "Gustav Vasa became King of Sweden in 1523 and started the Reformation.  The Reformation was the first move in a political and religious game of power that transformed the kingdom over the next 100 years",
+    "district": [
+      "Satama"
+    ],
+    "keywords": [
+      "Turku Castle",
+      "reformation",
+      "game of power",
+      "exhibition"
+    ],
+    "event_types": [
+      "Museum",
+      "Exhibits"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2016-10-28T11:00:00+03:00",
+      "to": "2019-12-31T19:00:00+02:00"
+    },
+    "title": "Bony Tales",
+    "event_date_pretty": "28.10.2016–31.12.2019",
+    "lead_paragraph": "In the excavations carried out over the years on the site of Aboa Vetus &amp; Ars Nova museum, more than a tonne of animal bones have been discovered. The exhibition Bony Tales illustrates the interesting history of animals.\\n",
+    "keywords": [
+      "näyttely"
+    ],
+    "event_types": [
+      "Museum",
+      "Exhibits"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-05T19:00:00+03:00",
+      "to": "2017-04-05T19:00:00+03:00"
+    },
+    "title": "KÄYTTÖOHJE KAHDELLE",
+    "event_date_pretty": "5.4.2017 19:00",
+    "lead_paragraph": "Musikaali Käyttöohje kahdelle kertoo kaiken mitä olet koskaan halunnut tietää rakkaudesta, hyvässä ja pahassa.",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-05T19:00:00+03:00",
+      "to": "2017-04-05T19:00:00+03:00"
+    },
+    "title": "TOM OF FINLAND",
+    "event_date_pretty": "5.4.2017 19:00",
+    "lead_paragraph": "What cannot be said out loud must be drawn. What cannot be drawn must be sung.Premiere on January 27th, 2017. Limited run in the spring of 2017.Subtitled in English!",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-05T19:00:00+03:00",
+      "to": "2017-04-05T20:30:00+03:00"
+    },
+    "title": "Lied evening",
+    "event_date_pretty": "5.4.2017 19:00",
+    "lead_paragraph": "Tove Åman, soprano, Jari Hiekkapelto, piano\\nSchumann: Frauenliebe- und leben\\n",
+    "district": [
+      "Keskusta"
+    ],
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-06T11:00:00+03:00",
+      "to": "2017-08-13T19:00:00+03:00"
+    },
+    "title": "Behind the Scenes: Star Makers",
+    "event_date_pretty": "6.4.–13.8.2017",
+    "lead_paragraph": "Star Makers charts the golden era of Finnish cinema and highlights the role played by the behind-the-scenes staff in the making of films starring some of Finland’s best loved actors.",
+    "district": [
+      "Keskusta"
+    ],
+    "keywords": [
+      "näyttely",
+      "elokuvat"
+    ],
+    "event_types": [
+      "Exhibits",
+      "Finland 100"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-06T15:00:00+03:00",
+      "to": "2017-04-06T17:00:00+03:00"
+    },
+    "title": "English Continuation Course",
+    "event_date_pretty": "6.4.2017 15:00",
+    "lead_paragraph": "For those who know the basics of English\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "keywords": [
+      "kielikurssi"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Language courses",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-06T18:00:00+03:00",
+      "to": "2017-04-06T18:00:00+03:00"
+    },
+    "title": "Pippi Longstocking",
+    "event_date_pretty": "6.4.2017 18:00",
+    "lead_paragraph": "Pippi Longstocking is back to Turun Nuori Teatteri after ten years of absence!\\n",
+    "district": [
+      "Keskusta"
+    ],
+    "keywords": [
+      "teatteri",
+      "Peppi Pitkätossu"
+    ],
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-06T18:30:00+03:00",
+      "to": "2017-04-06T20:00:00+03:00"
+    },
+    "title": "Finnish Language Groups",
+    "event_date_pretty": "6.4.2017 18:30",
+    "lead_paragraph": "Basics, reading and writing\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "keywords": [
+      "kielikurssi",
+      "suomen kieli"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "For beginners",
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Language courses",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-06T19:00:00+03:00",
+      "to": "2017-04-06T19:00:00+03:00"
+    },
+    "title": "KÄYTTÖOHJE KAHDELLE",
+    "event_date_pretty": "6.4.2017 19:00",
+    "lead_paragraph": "Musikaali Käyttöohje kahdelle kertoo kaiken mitä olet koskaan halunnut tietää rakkaudesta, hyvässä ja pahassa.",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-06T19:00:00+03:00",
+      "to": "2017-04-06T19:00:00+03:00"
+    },
+    "title": "TOM OF FINLAND",
+    "event_date_pretty": "6.4.2017 19:00",
+    "lead_paragraph": "What cannot be said out loud must be drawn. What cannot be drawn must be sung.Premiere on January 27th, 2017. Limited run in the spring of 2017.Subtitled in English!",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-06T19:00:00+03:00",
+      "to": "2017-04-06T19:00:00+03:00"
+    },
+    "title": "TFO: LENINGRAD",
+    "event_date_pretty": "6.4.2017 19:00",
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-07T14:00:00+03:00",
+      "to": "2017-04-07T14:00:00+03:00"
+    },
+    "title": "TOM OF FINLAND",
+    "event_date_pretty": "7.4.2017 14:00",
+    "lead_paragraph": "What cannot be said out loud must be drawn. What cannot be drawn must be sung.Premiere on January 27th, 2017. Limited run in the spring of 2017.Subtitled in English!",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-07T19:00:00+03:00",
+      "to": "2017-04-07T19:00:00+03:00"
+    },
+    "title": "KÄYTTÖOHJE KAHDELLE",
+    "event_date_pretty": "7.4.2017 19:00",
+    "lead_paragraph": "Musikaali Käyttöohje kahdelle kertoo kaiken mitä olet koskaan halunnut tietää rakkaudesta, hyvässä ja pahassa.",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-07T19:00:00+03:00",
+      "to": "2017-04-07T21:00:00+03:00"
+    },
+    "title": "The stargazing evenings",
+    "event_date_pretty": "7.4.2017 19:00",
+    "lead_paragraph": "The stargazing evenings in Iso-Heikkilä observatory will be held on clear evenings from 7pm to 9pm.\\n",
+    "district": [
+      "Iso-Heikkilä"
+    ],
+    "keywords": [
+      "Turun Ursa",
+      "tähtitorni",
+      "tähtinäytös"
+    ],
+    "event_types": [
+      "Trips, cruises and tours",
+      "Guided tours and sightseeing tours"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-07T19:00:00+03:00",
+      "to": "2017-04-07T19:00:00+03:00"
+    },
+    "title": "KISSA KUUMALLA KATOLLA",
+    "event_date_pretty": "7.4.2017 19:00",
+    "lead_paragraph": "Tennessee Williamsin vahva moderni klassikko vuodelta 1955. Sini Pesosen ohjaus nostaa esille teemoja, jotka ovat nyt aivan yhtä ajankohtaisia kuin 60 vuotta sitten. Tarinan keskiössä ovat perhesuhteet, valheet, identiteetti ja rakkaus.",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-07T19:00:00+03:00",
+      "to": "2017-04-07T19:00:00+03:00"
+    },
+    "title": "TFO: LENINGRAD",
+    "event_date_pretty": "7.4.2017 19:00",
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-08T14:00:00+03:00",
+      "to": "2017-04-08T14:00:00+03:00"
+    },
+    "title": "SUORAA PUHETTA",
+    "event_date_pretty": "8.4.2017 14:00",
+    "lead_paragraph": "Puheella voi muuttaa maailmaa. Joskus unohtumattomia puheita ovat pitäneet yhteiskunnalliset vaikuttajat, joskus maailman voi muuttaa isän puhe tyttärelle.",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-08T15:00:00+03:00",
+      "to": "2017-04-08T15:00:00+03:00"
+    },
+    "title": "Pippi Longstocking",
+    "event_date_pretty": "8.4.2017 15:00",
+    "lead_paragraph": "Pippi Longstocking is back to Turun Nuori Teatteri after ten years of absence!\\n",
+    "district": [
+      "Keskusta"
+    ],
+    "keywords": [
+      "teatteri",
+      "Peppi Pitkätossu"
+    ],
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-08T19:00:00+03:00",
+      "to": "2017-04-08T19:00:00+03:00"
+    },
+    "title": "TOC TOC - KOMEDIA NEUROOSEISTA",
+    "event_date_pretty": "8.4.2017 19:00",
+    "lead_paragraph": "Ranskalainen komedia Toc Toc nauraa neurooseille.",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-08T19:00:00+03:00",
+      "to": "2017-04-08T19:00:00+03:00"
+    },
+    "title": "KÄYTTÖOHJE KAHDELLE",
+    "event_date_pretty": "8.4.2017 19:00",
+    "lead_paragraph": "Musikaali Käyttöohje kahdelle kertoo kaiken mitä olet koskaan halunnut tietää rakkaudesta, hyvässä ja pahassa.",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-10T12:30:00+03:00",
+      "to": "2017-04-10T13:30:00+03:00"
+    },
+    "title": "Finglish - Easy Finnish and English",
+    "event_date_pretty": "10.4.2017 12:30",
+    "lead_paragraph": "Gentle introduction to Finnish and English.\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-10T15:00:00+03:00",
+      "to": "2017-04-10T16:30:00+03:00"
+    },
+    "title": "English Conversation Club",
+    "event_date_pretty": "10.4.2017 15:00",
+    "lead_paragraph": "Rentoa keskustelua englanniksi\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "keywords": [
+      "kielikurssi"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Language courses",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-10T19:00:00+03:00",
+      "to": "2017-04-10T20:00:00+03:00"
+    },
+    "title": "Easy Dance Aerobic for Women",
+    "event_date_pretty": "10.4.2017 19:00",
+    "lead_paragraph": "Helppoa tanssillista jumppaa ja lihaskuntoa\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "keywords": [
+      "jumppa",
+      "liikunta"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "For beginners",
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Sports and outdoors",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Wellness",
+        "ancestors": [
+          "Sports and outdoors"
+        ]
+      },
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Dance",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-11T14:00:00+03:00",
+      "to": "2017-04-11T15:30:00+03:00"
+    },
+    "title": "Finnish Discussion Group",
+    "event_date_pretty": "11.4.2017 14:00",
+    "lead_paragraph": "Easy conversation in Finnish\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "keywords": [
+      "kielikurssi"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "For beginners",
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Language courses",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-11T18:00:00+03:00",
+      "to": "2017-04-11T18:00:00+03:00"
+    },
+    "title": "Pippi Longstocking",
+    "event_date_pretty": "11.4.2017 18:00",
+    "lead_paragraph": "Pippi Longstocking is back to Turun Nuori Teatteri after ten years of absence!\\n",
+    "district": [
+      "Keskusta"
+    ],
+    "keywords": [
+      "teatteri",
+      "Peppi Pitkätossu"
+    ],
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-11T18:00:00+03:00",
+      "to": "2017-04-11T21:00:00+03:00"
+    },
+    "title": "StartingUp Dropout: Performance Skills",
+    "event_date_pretty": "11.4.2017 18:00",
+    "keywords": [
+      "SparkUp"
+    ],
+    "event_types": [
+      "Meetings and congress"
+    ],
+    "hobby_details": [
+      "Free of charge",
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-11T19:00:00+03:00",
+      "to": "2017-04-11T19:00:00+03:00"
+    },
+    "title": "Passio – the Easter tragedy in powerful pictures",
+    "event_date_pretty": "11.4.2017 19:00",
+    "lead_paragraph": "On the audience&#039;s request, Tiina Lindfors&#039; masterpiece Passio is back on the ERI stage.\\n",
+    "keywords": [
+      "tanssiteatteri ERI"
+    ],
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-11T19:00:00+03:00",
+      "to": "2017-04-11T19:00:00+03:00"
+    },
+    "title": "The Finnish Navy Band: Thought for do",
+    "event_date_pretty": "11.4.2017 19:00",
+    "keywords": [
+      "musiikki",
+      "Laivaston soittokunta"
+    ],
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-11T20:00:00+03:00",
+      "to": "2017-04-11T20:00:00+03:00"
+    },
+    "title": "Karaoke Night",
+    "event_date_pretty": "11.4.2017 20:00",
+    "lead_paragraph": "Come to The WaterLoo for karaoke hosted by Laura Eriksson. Choose from 25,000 songs!\\n",
+    "district": [
+      "Keskusta"
+    ],
+    "keywords": [
+      "karaoke"
+    ],
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "For beginners",
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Music",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-12T19:00:00+03:00",
+      "to": "2017-04-12T20:30:00+03:00"
+    },
+    "title": "Svalan",
+    "event_date_pretty": "12.4.2017 19:00",
+    "lead_paragraph": "Maria Kalaniemi &amp; Eero Grundström\\nRecord release\\n",
+    "district": [
+      "Keskusta"
+    ],
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-13T09:00:00+03:00",
+      "to": "2017-04-13T11:00:00+03:00"
+    },
+    "title": "StartingUp Business: Rahoitus ja toimintasuunnitelma",
+    "event_date_pretty": "13.4.2017 09:00",
+    "district": [
+      "Kupittaa"
+    ],
+    "keywords": [
+      "SparkUp"
+    ],
+    "event_types": [
+      "Meetings and congress",
+      "Lectures",
+      "Participation"
+    ],
+    "hobby_details": [
+      "Free of charge",
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-13T15:00:00+03:00",
+      "to": "2017-04-13T17:00:00+03:00"
+    },
+    "title": "English Continuation Course",
+    "event_date_pretty": "13.4.2017 15:00",
+    "lead_paragraph": "For those who know the basics of English\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "keywords": [
+      "kielikurssi"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Language courses",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-13T18:30:00+03:00",
+      "to": "2017-04-13T20:00:00+03:00"
+    },
+    "title": "Finnish Language Groups",
+    "event_date_pretty": "13.4.2017 18:30",
+    "lead_paragraph": "Basics, reading and writing\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "keywords": [
+      "kielikurssi",
+      "suomen kieli"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "For beginners",
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Language courses",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-13T19:00:00+03:00",
+      "to": "2017-04-13T19:00:00+03:00"
+    },
+    "title": "Passio – the Easter tragedy in powerful pictures",
+    "event_date_pretty": "13.4.2017 19:00",
+    "lead_paragraph": "On the audience&#039;s request, Tiina Lindfors&#039; masterpiece Passio is back on the ERI stage.\\n",
+    "keywords": [
+      "tanssiteatteri ERI"
+    ],
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-14T18:00:00+03:00",
+      "to": "2017-04-14T18:00:00+03:00"
+    },
+    "title": "TFO: PÄÄSIÄISKONSERTTI",
+    "event_date_pretty": "14.4.2017 18:00",
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-14T19:00:00+03:00",
+      "to": "2017-04-14T19:00:00+03:00"
+    },
+    "title": "Passio – the Easter tragedy in powerful pictures",
+    "event_date_pretty": "14.4.2017 19:00",
+    "lead_paragraph": "On the audience&#039;s request, Tiina Lindfors&#039; masterpiece Passio is back on the ERI stage.\\n",
+    "keywords": [
+      "tanssiteatteri ERI"
+    ],
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-15T19:00:00+03:00",
+      "to": "2017-04-15T19:00:00+03:00"
+    },
+    "title": "Passio – the Easter tragedy in powerful pictures",
+    "event_date_pretty": "15.4.2017 19:00",
+    "lead_paragraph": "On the audience&#039;s request, Tiina Lindfors&#039; masterpiece Passio is back on the ERI stage.\\n",
+    "keywords": [
+      "tanssiteatteri ERI"
+    ],
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-16T19:00:00+03:00",
+      "to": "2017-04-16T19:00:00+03:00"
+    },
+    "title": "Passio – the Easter tragedy in powerful pictures",
+    "event_date_pretty": "16.4.2017 19:00",
+    "lead_paragraph": "On the audience&#039;s request, Tiina Lindfors&#039; masterpiece Passio is back on the ERI stage.\\n",
+    "keywords": [
+      "tanssiteatteri ERI"
+    ],
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-17T12:30:00+03:00",
+      "to": "2017-04-17T13:30:00+03:00"
+    },
+    "title": "Finglish - Easy Finnish and English",
+    "event_date_pretty": "17.4.2017 12:30",
+    "lead_paragraph": "Gentle introduction to Finnish and English.\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-18T14:00:00+03:00",
+      "to": "2017-04-18T15:30:00+03:00"
+    },
+    "title": "Finnish Discussion Group",
+    "event_date_pretty": "18.4.2017 14:00",
+    "lead_paragraph": "Easy conversation in Finnish\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "keywords": [
+      "kielikurssi"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "For beginners",
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Language courses",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-18T18:00:00+03:00",
+      "to": "2017-04-18T18:00:00+03:00"
+    },
+    "title": "Pippi Longstocking",
+    "event_date_pretty": "18.4.2017 18:00",
+    "lead_paragraph": "Pippi Longstocking is back to Turun Nuori Teatteri after ten years of absence!\\n",
+    "district": [
+      "Keskusta"
+    ],
+    "keywords": [
+      "teatteri",
+      "Peppi Pitkätossu"
+    ],
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-18T18:00:00+03:00",
+      "to": "2017-04-18T21:00:00+03:00"
+    },
+    "title": "StartingUp Dropout: Funding",
+    "event_date_pretty": "18.4.2017 18:00",
+    "keywords": [
+      "SparkUp"
+    ],
+    "event_types": [
+      "Meetings and congress"
+    ],
+    "hobby_details": [
+      "Free of charge",
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-18T19:00:00+03:00",
+      "to": "2017-04-18T19:00:00+03:00"
+    },
+    "title": "TOC TOC - KOMEDIA NEUROOSEISTA",
+    "event_date_pretty": "18.4.2017 19:00",
+    "lead_paragraph": "Ranskalainen komedia Toc Toc nauraa neurooseille.",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-18T20:00:00+03:00",
+      "to": "2017-04-18T20:00:00+03:00"
+    },
+    "title": "Karaoke Night",
+    "event_date_pretty": "18.4.2017 20:00",
+    "lead_paragraph": "Come to The WaterLoo for karaoke hosted by Laura Eriksson. Choose from 25,000 songs!\\n",
+    "district": [
+      "Keskusta"
+    ],
+    "keywords": [
+      "karaoke"
+    ],
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "For beginners",
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Music",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-19T14:00:00+03:00",
+      "to": "2017-04-19T14:00:00+03:00"
+    },
+    "title": "TOC TOC - KOMEDIA NEUROOSEISTA",
+    "event_date_pretty": "19.4.2017 14:00",
+    "lead_paragraph": "Ranskalainen komedia Toc Toc nauraa neurooseille.",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-19T19:00:00+03:00",
+      "to": "2017-04-19T19:00:00+03:00"
+    },
+    "title": "SUORAA PUHETTA",
+    "event_date_pretty": "19.4.2017 19:00",
+    "lead_paragraph": "Puheella voi muuttaa maailmaa. Joskus unohtumattomia puheita ovat pitäneet yhteiskunnalliset vaikuttajat, joskus maailman voi muuttaa isän puhe tyttärelle.",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-19T19:00:00+03:00",
+      "to": "2017-04-19T20:30:00+03:00"
+    },
+    "title": "Cosmopolitans",
+    "event_date_pretty": "19.4.2017 19:00",
+    "lead_paragraph": "Pasi Eerikäinen, violin, Emil Holmström, piano\\nStravinsky – Whittall – Page – Busoni\\nA collaboration with Suomen solistiyhdistys ry.\\n",
+    "district": [
+      "Keskusta"
+    ],
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-20T15:00:00+03:00",
+      "to": "2017-04-20T17:00:00+03:00"
+    },
+    "title": "English Continuation Course",
+    "event_date_pretty": "20.4.2017 15:00",
+    "lead_paragraph": "For those who know the basics of English\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "keywords": [
+      "kielikurssi"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Language courses",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-20T18:30:00+03:00",
+      "to": "2017-04-20T20:00:00+03:00"
+    },
+    "title": "Finnish Language Groups",
+    "event_date_pretty": "20.4.2017 18:30",
+    "lead_paragraph": "Basics, reading and writing\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "keywords": [
+      "kielikurssi",
+      "suomen kieli"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "For beginners",
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Language courses",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-20T19:00:00+03:00",
+      "to": "2017-04-20T19:00:00+03:00"
+    },
+    "title": "TOM OF FINLAND",
+    "event_date_pretty": "20.4.2017 19:00",
+    "lead_paragraph": "What cannot be said out loud must be drawn. What cannot be drawn must be sung.Premiere on January 27th, 2017. Limited run in the spring of 2017.Subtitled in English!",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-20T19:00:00+03:00",
+      "to": "2017-04-20T19:00:00+03:00"
+    },
+    "title": "TFO: GRAN PARTITA",
+    "event_date_pretty": "20.4.2017 19:00",
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-21T19:00:00+03:00",
+      "to": "2017-04-21T19:00:00+03:00"
+    },
+    "title": "TFO: GRAN PARTITA",
+    "event_date_pretty": "21.4.2017 19:00",
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-21T19:00:00+03:00",
+      "to": "2017-04-21T19:00:00+03:00"
+    },
+    "title": "TOM OF FINLAND",
+    "event_date_pretty": "21.4.2017 19:00",
+    "lead_paragraph": "What cannot be said out loud must be drawn. What cannot be drawn must be sung.Premiere on January 27th, 2017. Limited run in the spring of 2017.Subtitled in English!",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-22T10:00:00+03:00",
+      "to": "2017-04-22T12:00:00+03:00"
+    },
+    "title": "Contemporary art space Kutomo: Yoshi Omori: Qi gong | weekend classes",
+    "event_date_pretty": "22.4.2017 10:00",
+    "lead_paragraph": "Yoshi Omori’s Qi gong classes at Kutomo in two separate weekend sessions on 18-19 February and 22-23 April 2017!\\n",
+    "event_types": [
+      null,
+      null
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-22T12:00:00+03:00",
+      "to": "2017-04-22T18:00:00+03:00"
+    },
+    "title": "Ajattelen - koska voin!",
+    "event_date_pretty": "22.4.2017 12:00",
+    "lead_paragraph": "Ajattelen - koska voin! (I think - because I can!) is a phiilosophy event to youth from 13 to 19 years. It is from the youth and to the youth, action based and activating event. Directed to the youth and their teachers, the event is free and takes place 22.4.2017 12:00-18:00 in Vimma, house of arts and activities, in central Turku (Aurakatu 16).\\n",
+    "district": [
+      "I (Keskusta)"
+    ],
+    "keywords": [
+      "Vimma",
+      "youth",
+      "education"
+    ],
+    "event_types": [
+      "Others"
+    ],
+    "hobby_details": [
+      "Free of charge",
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-22T14:00:00+03:00",
+      "to": "2017-04-22T14:00:00+03:00"
+    },
+    "title": "TOM OF FINLAND",
+    "event_date_pretty": "22.4.2017 14:00",
+    "lead_paragraph": "What cannot be said out loud must be drawn. What cannot be drawn must be sung.Premiere on January 27th, 2017. Limited run in the spring of 2017.Subtitled in English!",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-22T19:00:00+03:00",
+      "to": "2017-04-22T19:00:00+03:00"
+    },
+    "title": "NELJÄNSUORA - KEVÄTKONSERTTI 2017",
+    "event_date_pretty": "22.4.2017 19:00",
+    "lead_paragraph": "Neljänsuoran ystäviä hemmotellaan parintuntisella setillä, jossa kuullaan energisiä menobiisejä, koskettavia iskelmäkappaleita ja mahtipontisia balladeita.\\nKonsertti Domino-teatterissa la 22.4. klo 19.00\\n",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-22T19:00:00+03:00",
+      "to": "2017-04-22T19:00:00+03:00"
+    },
+    "title": "POSMK 2017 GAALAKONSERTTI 100V.",
+    "event_date_pretty": "22.4.2017 19:00",
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-22T19:00:00+03:00",
+      "to": "2017-04-22T19:00:00+03:00"
+    },
+    "title": "TOM OF FINLAND",
+    "event_date_pretty": "22.4.2017 19:00",
+    "lead_paragraph": "What cannot be said out loud must be drawn. What cannot be drawn must be sung.Premiere on January 27th, 2017. Limited run in the spring of 2017.Subtitled in English!",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-23T10:00:00+03:00",
+      "to": "2017-04-23T12:00:00+03:00"
+    },
+    "title": "Contemporary art space Kutomo: Yoshi Omori: Qi gong | weekend classes",
+    "event_date_pretty": "23.4.2017 10:00",
+    "lead_paragraph": "Yoshi Omori’s Qi gong classes at Kutomo in two separate weekend sessions on 18-19 February and 22-23 April 2017!\\n",
+    "event_types": [
+      null,
+      null
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-23T15:00:00+03:00",
+      "to": "2017-04-23T15:00:00+03:00"
+    },
+    "title": "Pippi Longstocking",
+    "event_date_pretty": "23.4.2017 15:00",
+    "lead_paragraph": "Pippi Longstocking is back to Turun Nuori Teatteri after ten years of absence!\\n",
+    "district": [
+      "Keskusta"
+    ],
+    "keywords": [
+      "teatteri",
+      "Peppi Pitkätossu"
+    ],
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-24T12:30:00+03:00",
+      "to": "2017-04-24T13:30:00+03:00"
+    },
+    "title": "Finglish - Easy Finnish and English",
+    "event_date_pretty": "24.4.2017 12:30",
+    "lead_paragraph": "Gentle introduction to Finnish and English.\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-24T15:00:00+03:00",
+      "to": "2017-04-24T16:30:00+03:00"
+    },
+    "title": "English Conversation Club",
+    "event_date_pretty": "24.4.2017 15:00",
+    "lead_paragraph": "Rentoa keskustelua englanniksi\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "keywords": [
+      "kielikurssi"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Language courses",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-24T19:00:00+03:00",
+      "to": "2017-04-24T20:00:00+03:00"
+    },
+    "title": "Easy Dance Aerobic for Women",
+    "event_date_pretty": "24.4.2017 19:00",
+    "lead_paragraph": "Helppoa tanssillista jumppaa ja lihaskuntoa\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "keywords": [
+      "jumppa",
+      "liikunta"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "For beginners",
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Sports and outdoors",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Wellness",
+        "ancestors": [
+          "Sports and outdoors"
+        ]
+      },
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Dance",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-24T19:00:00+03:00",
+      "to": "2017-04-24T19:00:00+03:00"
+    },
+    "title": "TOC TOC - KOMEDIA NEUROOSEISTA",
+    "event_date_pretty": "24.4.2017 19:00",
+    "lead_paragraph": "Ranskalainen komedia Toc Toc nauraa neurooseille.",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-24T19:00:00+03:00",
+      "to": "2017-04-24T19:00:00+03:00"
+    },
+    "title": "SINIVALKOINEN ÄÄNI - KARI TAPIO",
+    "event_date_pretty": "24.4.2017 19:00",
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-25T14:00:00+03:00",
+      "to": "2017-04-25T14:00:00+03:00"
+    },
+    "title": "TOC TOC - KOMEDIA NEUROOSEISTA",
+    "event_date_pretty": "25.4.2017 14:00",
+    "lead_paragraph": "Ranskalainen komedia Toc Toc nauraa neurooseille.",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-25T14:00:00+03:00",
+      "to": "2017-04-25T15:30:00+03:00"
+    },
+    "title": "Finnish Discussion Group",
+    "event_date_pretty": "25.4.2017 14:00",
+    "lead_paragraph": "Easy conversation in Finnish\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "keywords": [
+      "kielikurssi"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "For beginners",
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Language courses",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-25T18:00:00+03:00",
+      "to": "2017-04-25T18:00:00+03:00"
+    },
+    "title": "Pippi Longstocking",
+    "event_date_pretty": "25.4.2017 18:00",
+    "lead_paragraph": "Pippi Longstocking is back to Turun Nuori Teatteri after ten years of absence!\\n",
+    "district": [
+      "Keskusta"
+    ],
+    "keywords": [
+      "teatteri",
+      "Peppi Pitkätossu"
+    ],
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-25T18:00:00+03:00",
+      "to": "2017-04-25T21:00:00+03:00"
+    },
+    "title": "StartingUp Dropout: Guerilla Marketing",
+    "event_date_pretty": "25.4.2017 18:00",
+    "keywords": [
+      "SparkUp"
+    ],
+    "event_types": [
+      "Meetings and congress"
+    ],
+    "hobby_details": [
+      "Free of charge",
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-25T19:00:00+03:00",
+      "to": "2017-04-25T19:00:00+03:00"
+    },
+    "title": "TOC TOC - KOMEDIA NEUROOSEISTA",
+    "event_date_pretty": "25.4.2017 19:00",
+    "lead_paragraph": "Ranskalainen komedia Toc Toc nauraa neurooseille.",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-25T20:00:00+03:00",
+      "to": "2017-04-25T20:00:00+03:00"
+    },
+    "title": "Karaoke Night",
+    "event_date_pretty": "25.4.2017 20:00",
+    "lead_paragraph": "Come to The WaterLoo for karaoke hosted by Laura Eriksson. Choose from 25,000 songs!\\n",
+    "district": [
+      "Keskusta"
+    ],
+    "keywords": [
+      "karaoke"
+    ],
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "For beginners",
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Music",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-26T12:00:00+03:00",
+      "to": "2017-04-26T12:00:00+03:00"
+    },
+    "title": "SUORAA PUHETTA",
+    "event_date_pretty": "26.4.2017 12:00",
+    "lead_paragraph": "Puheella voi muuttaa maailmaa. Joskus unohtumattomia puheita ovat pitäneet yhteiskunnalliset vaikuttajat, joskus maailman voi muuttaa isän puhe tyttärelle.",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-26T19:00:00+03:00",
+      "to": "2017-04-26T19:00:00+03:00"
+    },
+    "title": "TFO: JUKKA PERKO GOES DIZZY!",
+    "event_date_pretty": "26.4.2017 19:00",
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-26T19:00:00+03:00",
+      "to": "2017-04-26T19:00:00+03:00"
+    },
+    "title": "TOM OF FINLAND",
+    "event_date_pretty": "26.4.2017 19:00",
+    "lead_paragraph": "What cannot be said out loud must be drawn. What cannot be drawn must be sung.Premiere on January 27th, 2017. Limited run in the spring of 2017.Subtitled in English!",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-26T19:00:00+03:00",
+      "to": "2017-04-26T20:30:00+03:00"
+    },
+    "title": "Turku Arts Academy debutant",
+    "event_date_pretty": "26.4.2017 19:00",
+    "lead_paragraph": "A collaboration with Turku Arts Academy\\n",
+    "district": [
+      "Keskusta"
+    ],
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-26T19:00:00+03:00",
+      "to": "2017-04-26T19:00:00+03:00"
+    },
+    "title": "One Hundred in the Glass – Wounds of Love",
+    "event_date_pretty": "26.4.2017 19:00",
+    "lead_paragraph": "One Hundred in the Glass – Wounds of Love is part of the programme for the centenary of Finland’s independence in 2017.\\n",
+    "keywords": [
+      "Suomi 100",
+      "tanssiteatteri",
+      "tanssi"
+    ],
+    "event_types": [
+      "Theatre and other perfomance art",
+      "Finland 100"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-27T09:00:00+03:00",
+      "to": "2017-04-27T11:00:00+03:00"
+    },
+    "title": "StartingUp Business: Idea ja asiakkaat",
+    "event_date_pretty": "27.4.2017 09:00",
+    "district": [
+      "Kupittaa"
+    ],
+    "keywords": [
+      "SparkUp"
+    ],
+    "event_types": [
+      "Meetings and congress",
+      "Lectures",
+      "Participation"
+    ],
+    "hobby_details": [
+      "Free of charge",
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-27T15:00:00+03:00",
+      "to": "2017-04-27T17:00:00+03:00"
+    },
+    "title": "English Continuation Course",
+    "event_date_pretty": "27.4.2017 15:00",
+    "lead_paragraph": "For those who know the basics of English\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "keywords": [
+      "kielikurssi"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Language courses",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-27T18:30:00+03:00",
+      "to": "2017-04-27T20:00:00+03:00"
+    },
+    "title": "Finnish Language Groups",
+    "event_date_pretty": "27.4.2017 18:30",
+    "lead_paragraph": "Basics, reading and writing\\n",
+    "district": [
+      "Varissuo"
+    ],
+    "keywords": [
+      "kielikurssi",
+      "suomen kieli"
+    ],
+    "event_types": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "hobby_details": [
+      "For beginners",
+      "No sign-up required"
+    ],
+    "hobby_category": [
+      {
+        "level": 1,
+        "value": "Arts and culture",
+        "ancestors": []
+      },
+      {
+        "level": 2,
+        "value": "Language courses",
+        "ancestors": [
+          "Arts and culture"
+        ]
+      }
+    ]
+  },
+  {
+    "event_date": {
+      "from": "2017-04-27T19:00:00+03:00",
+      "to": "2017-04-27T19:00:00+03:00"
+    },
+    "title": "KDC VÅRSHOW 2017",
+    "event_date_pretty": "27.4.2017 19:00",
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-27T19:00:00+03:00",
+      "to": "2017-04-27T19:00:00+03:00"
+    },
+    "title": "TOM OF FINLAND",
+    "event_date_pretty": "27.4.2017 19:00",
+    "lead_paragraph": "What cannot be said out loud must be drawn. What cannot be drawn must be sung.Premiere on January 27th, 2017. Limited run in the spring of 2017.Subtitled in English!",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-28T19:00:00+03:00",
+      "to": "2017-04-28T19:00:00+03:00"
+    },
+    "title": "TOM OF FINLAND",
+    "event_date_pretty": "28.4.2017 19:00",
+    "lead_paragraph": "What cannot be said out loud must be drawn. What cannot be drawn must be sung.Premiere on January 27th, 2017. Limited run in the spring of 2017.Subtitled in English!",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-29T14:00:00+03:00",
+      "to": "2017-04-29T14:00:00+03:00"
+    },
+    "title": "TOM OF FINLAND",
+    "event_date_pretty": "29.4.2017 14:00",
+    "lead_paragraph": "What cannot be said out loud must be drawn. What cannot be drawn must be sung.Premiere on January 27th, 2017. Limited run in the spring of 2017.Subtitled in English!",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-29T15:00:00+03:00",
+      "to": "2017-04-29T15:00:00+03:00"
+    },
+    "title": "Pippi Longstocking",
+    "event_date_pretty": "29.4.2017 15:00",
+    "lead_paragraph": "Pippi Longstocking is back to Turun Nuori Teatteri after ten years of absence!\\n",
+    "district": [
+      "Keskusta"
+    ],
+    "keywords": [
+      "teatteri",
+      "Peppi Pitkätossu"
+    ],
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-29T16:00:00+03:00",
+      "to": "2017-04-29T16:00:00+03:00"
+    },
+    "title": "TURUN YLIOPISTON KUORON 30-VUOTISJUHLAKONSERTTI",
+    "event_date_pretty": "29.4.2017 16:00",
+    "event_types": [
+      "Music"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  },
+  {
+    "event_date": {
+      "from": "2017-04-29T19:00:00+03:00",
+      "to": "2017-04-29T19:00:00+03:00"
+    },
+    "title": "MISS DIVET",
+    "event_date_pretty": "29.4.2017 19:00",
+    "event_types": [
+      "Theatre and other perfomance art"
+    ],
+    "hobby_details": [
+      "No sign-up required"
+    ],
+    "hobby_category": []
+  }
+]

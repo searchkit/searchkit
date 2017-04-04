@@ -17,5 +17,6 @@ export * from "./search/filters/range-filter/src/RangeFilter";
 export * from "./search/filters/facet-filter";
 export * from "./search/filters/tag-filter";
 export * from "./search/filters/dynamic-range-filter/DynamicRangeFilter";
+export * from "./search/filters/date-range-filter/DateRangeFilter";
 export * from "./display";
 export * from "./ui";

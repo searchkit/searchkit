@@ -1,0 +1,40 @@
+{
+  "mappings": {
+    "event": {
+      "properties": {
+        "district": {
+          "type": "string",
+          "analyzer": "keyword"
+        },
+        "event_types": {
+          "type": "string",
+          "analyzer": "keyword"
+        },
+        "keywords": {
+          "type": "string",
+          "analyzer": "keyword"
+        },
+        "hobby_details": {
+          "type": "string",
+          "analyzer": "keyword"
+        },
+        "hobby_category": {
+          "type": "nested",
+          "properties": {
+            "ancestors": {
+              "type": "string"
+            },
+            "level": {
+              "type": "long"
+            },
+            "value": {
+             "type": "string",
+              "analyzer": "keyword"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
