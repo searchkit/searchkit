@@ -14,24 +14,6 @@ describe("SearchkitComponent", ()=> {
     this.component.context = {}
   })
 
-  // https://facebook.github.io/react/warnings/dont-call-proptypes.html#dont-call-proptypes-directly
-  // it("SearchkitComponent.translatePropType", ()=> {
-  //   let translations = {
-  //     continueButton:"Continue",
-  //     cancelButton:"Cancel"
-  //   }
-  //
-  //   let handler = SearchkitComponent
-  //     .translationsPropType(translations)
-  //
-  //   expect(handler(
-  //     {translations:{
-  //       continueButton:"Continue..."
-  //     }},
-  //     "translations", "MyComponent"
-  //   )).toEqual(null)
-  // })
-
   it("translate()", ()=> {
     let searchkit = SearchkitManager.mock()
     searchkit.translateFunction = (key)=> {
