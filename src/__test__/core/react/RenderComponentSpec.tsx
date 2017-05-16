@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PropTypes from "prop-types";
 import {mount} from "enzyme";
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
@@ -22,7 +23,7 @@ describe("RenderComponent", ()=> {
     this.SubPanelElement = <Panel title="PanelElement"/>
     this.PanelReactClass = React.createClass({
       contextTypes:{
-        color:React.PropTypes.string
+        color:PropTypes.string
       },
       render(){
         return (<Panel title={"PanelReactClass " + this.context.color} {...this.props}>
@@ -39,12 +40,12 @@ describe("RenderComponent", ()=> {
       )
     }
     this.PanelFunction.contextTypes = {
-      color:React.PropTypes.string
+      color:PropTypes.string
     }
 
     class Provider extends React.Component<any, any>{
       static childContextTypes = {
-        color: React.PropTypes.string
+        color: PropTypes.string
       }
       getChildContext(){
         return {color:"purple"}

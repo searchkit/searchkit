@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PropTypes from "prop-types";
 import {
   SearchkitComponent,
   SearchkitComponentProps,
@@ -28,8 +29,8 @@ export class PageSizeSelector extends SearchkitComponent<PageSizeSelectorProps, 
 
   static propTypes = defaults({
     listComponent:RenderComponentPropType,
-    options:React.PropTypes.arrayOf(
-      React.PropTypes.number
+    options:PropTypes.arrayOf(
+      PropTypes.number
     ).isRequired
   },SearchkitComponent.propTypes)
 
@@ -55,7 +56,7 @@ export class PageSizeSelector extends SearchkitComponent<PageSizeSelectorProps, 
       let options = map(this.props.options, (option)=> {
         return {key:option, label:option}
       })
-      let selectedSize = pageSizeAccessor.getSize()      
+      let selectedSize = pageSizeAccessor.getSize()
       const {mod, className} = this.props
       return renderComponent(this.props.listComponent, {
         mod, className,

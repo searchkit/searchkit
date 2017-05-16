@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PropTypes from "prop-types";
 
 import {
 	SearchkitComponent,
@@ -39,7 +40,7 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	translations = NoHits.translations
 
 	static propTypes = defaults({
-		suggestionsField:React.PropTypes.string,
+		suggestionsField:PropTypes.string,
 		translations:SearchkitComponent.translationsPropType(
 			NoHits.translations
 		)

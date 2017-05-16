@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PropTypes from "prop-types";
 
 import {
 	SearchkitComponent,
@@ -29,12 +30,12 @@ export class HierarchicalMenuFilter extends SearchkitComponent<HierarchicalMenuF
 		size: 20
 	}
 	static propTypes = defaults({
-		id:React.PropTypes.string.isRequired,
-		fields:React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-		title:React.PropTypes.string.isRequired,
-		orderKey:React.PropTypes.string,
-		orderDirection:React.PropTypes.oneOf(["asc", "desc"]),
-		countFormatter:React.PropTypes.func
+		id:PropTypes.string.isRequired,
+		fields:PropTypes.arrayOf(PropTypes.string).isRequired,
+		title:PropTypes.string.isRequired,
+		orderKey:PropTypes.string,
+		orderDirection:PropTypes.oneOf(["asc", "desc"]),
+		countFormatter:PropTypes.func
 	}, SearchkitComponent.propTypes)
 
 	defineBEMBlocks() {

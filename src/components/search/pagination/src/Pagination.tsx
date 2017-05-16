@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PropTypes from "prop-types";
 
 import {
   SearchkitComponent,
@@ -47,10 +48,10 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
       Pagination.translations
     ),
     listComponent: RenderComponentPropType,
-    pageScope: React.PropTypes.number,
-    showNumbers:React.PropTypes.bool,
-    showText:React.PropTypes.bool,
-    showLast:React.PropTypes.bool,
+    pageScope: PropTypes.number,
+    showNumbers:PropTypes.bool,
+    showText:PropTypes.bool,
+    showLast:PropTypes.bool,
   }, SearchkitComponent.propTypes)
 
   static defaultProps = {

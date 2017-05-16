@@ -1,4 +1,5 @@
 import * as React from "react"
+import * as PropTypes from "prop-types"
 
 import {
 	SearchkitComponent,
@@ -29,13 +30,13 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<Hierarchica
 	}
 
 	static propTypes = defaults({
-		field:React.PropTypes.string.isRequired,
-		id:React.PropTypes.string.isRequired,
-		title:React.PropTypes.string.isRequired,
-		orderKey:React.PropTypes.string,
-		orderDirection:React.PropTypes.oneOf(["asc", "desc"]),
-		startLevel:React.PropTypes.number,
-		countFormatter:React.PropTypes.func
+		field:PropTypes.string.isRequired,
+		id:PropTypes.string.isRequired,
+		title:PropTypes.string.isRequired,
+		orderKey:PropTypes.string,
+		orderDirection:PropTypes.oneOf(["asc", "desc"]),
+		startLevel:PropTypes.number,
+		countFormatter:PropTypes.func
 	}, SearchkitComponent.propTypes)
 
 	defineBEMBlocks() {
