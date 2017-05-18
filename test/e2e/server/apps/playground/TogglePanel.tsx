@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PropTypes from "prop-types";
 
 let bemBlock = require("bem-cn")
 
@@ -15,11 +16,11 @@ export interface TogglePanelProps extends React.Props<TogglePanel> {
 export class TogglePanel extends React.Component<TogglePanelProps, {collapsed: boolean}> {
 
   static propTypes = {
-      title: React.PropTypes.string,
-      disabled: React.PropTypes.bool,
-      mod: React.PropTypes.string,
-      className: React.PropTypes.string,
-      collapsable: React.PropTypes.bool,
+      title: PropTypes.string,
+      disabled: PropTypes.bool,
+      mod: PropTypes.string,
+      className: PropTypes.string,
+      collapsable: PropTypes.bool,
   }
 
   static defaultProps = {
