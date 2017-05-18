@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PropTypes from "prop-types";
 
 import {
 	SearchkitManager,
@@ -56,8 +57,8 @@ export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
 		translations:SearchkitComponent.translationsPropType(
 			ResetFilters.translations
 		),
-		component:React.PropTypes.func,
-		options:React.PropTypes.object
+		component:PropTypes.func,
+		options:PropTypes.object
 	}, SearchkitComponent.propTypes)
 
 	static defaultProps = {
