@@ -73,9 +73,6 @@
     "rc-slider": "5.4.3",
     "react-addons-update": "^15.4.0"
   },
-  "peerDependencies": {
-    "react": "^0.14.0 || ^15.0.0-0"
-  },
   "devDependencies": {
     "@types/jasmine": "^2.5.40",
     "@types/jasmine-ajax": "^3.1.32",

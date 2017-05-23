@@ -6,7 +6,7 @@ you might need to do a clean npm install.
 
 ## RangeQuery api changed
 
-```tsx
+```typescript
   import {RangeQuery} from "searchkit"
 
   //before
