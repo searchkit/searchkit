@@ -1,6 +1,5 @@
 import * as React from "react";
-
-const PropTypes = React.PropTypes
+import * as PropTypes from "prop-types";
 
 export interface RangeProps {
   onChange: (range:{min: number, max: number}) => void

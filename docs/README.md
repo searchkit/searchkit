@@ -41,6 +41,7 @@
       * [ListComponents](./components/ui/list-components.md)
       * [RangeComponents](./components/ui/range-components.md)
 
+<<<<<<< HEAD
 * [Theming](./theming/README.md)
   * [Using Theme](./theming/using-searchkit-theme.md)
   * [Extending Theme](./theming/extending-searchkit-theme.md)
@@ -64,6 +65,7 @@
   * [Migrating from 0.7](./upgrading/migrating_from_0.7.md)
   * [Migrating from 0.8](./upgrading/migrating_from_0.8.md)
   * [Migrating from 0.9](./upgrading/migrating_from_0.9.md)
+  * [Migrating from 0.10](./upgrading/migrating_from_0.10.md)
 * [Using Express](./server/searchkit_express.md)
 * [Indexing & Mapping Guide](./server/indexing.md)
 * [Examples](./examples/README.md)

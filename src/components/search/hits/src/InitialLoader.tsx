@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PropTypes from "prop-types";
 
 import {
 	SearchkitComponent,
@@ -35,7 +36,7 @@ export class InitialLoader extends SearchkitComponent<InitialLoaderprops, any> {
 		component:InitialViewDisplay
 	}
 	static propTypes = defaults({
-		component:React.PropTypes.func
+		component:PropTypes.func
 	}, SearchkitComponent.propTypes)
 
 	defineBEMBlocks() {

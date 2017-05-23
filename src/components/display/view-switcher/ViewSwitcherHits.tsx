@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PropTypes from "prop-types"
 import {defaults} from "lodash"
 
 import {
@@ -27,13 +28,13 @@ export class ViewSwitcherHits extends SearchkitComponent<ViewSwitcherHitsProps, 
   accessor:ViewOptionsAccessor
 
 	static propTypes = defaults({
-		hitComponents:React.PropTypes.arrayOf(
-			React.PropTypes.shape({
-				key:React.PropTypes.string.isRequired,
-				title:React.PropTypes.string.isRequired,
+		hitComponents:PropTypes.arrayOf(
+			PropTypes.shape({
+				key:PropTypes.string.isRequired,
+				title:PropTypes.string.isRequired,
 				itemComponent:RenderComponentPropType,
 				listComponent:RenderComponentPropType,
-				defaultOption:React.PropTypes.bool
+				defaultOption:PropTypes.bool
 			})
 		)
 	}, Hits.propTypes)

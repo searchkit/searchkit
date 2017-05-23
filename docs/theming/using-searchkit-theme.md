@@ -10,7 +10,7 @@ To use Searchkit's theme, add the `theme.css` file onto your site. You can use e
 
 ```html
 
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/searchkit/0.9.0/theme.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/searchkit/2.0.0/theme.css">
 
 ```
 
