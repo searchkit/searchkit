@@ -55,7 +55,7 @@
     "@types/classnames": "0.0.32",
     "@types/enzyme": "^2.7.1",
     "@types/es6-promise": "0.0.32",
-    "@types/history": "4.6.1",
+    "@types/history": "4.5.1",
     "@types/lodash": "^4.14.50",
     "@types/react": "0.0.0",
     "@types/react-addons-create-fragment": "^0.14.15",
@@ -72,6 +72,9 @@
     "qs": "6.4.0",
     "rc-slider": "5.4.3",
     "react-addons-update": "^15.4.0"
+  },
+  "peerDependencies": {
+    "react": "^0.14.0 || ^15.0.0-0"
   },
   "devDependencies": {
     "@types/jasmine": "^2.5.40",
