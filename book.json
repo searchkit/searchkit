@@ -6,7 +6,7 @@
     "summary": "README.md",
     "glossary":"glossary.md"
   },
-  "plugins": ["mermaid-2", "prism", "-highlight", "versions"],
+  "plugins": ["mermaid-2", "prism", "-highlight", "-search", "versions"],
   "pluginsConfig": {
     "versions": {
       "type": "tags"
