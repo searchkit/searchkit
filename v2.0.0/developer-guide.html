@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title> · GitBook</title>
+        <title>Contributing Guide · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -61,6 +61,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    
+    <link rel="prev" href="examples/" />
     
 
     </head>
@@ -1022,7 +1024,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" data-path="developer-guide.html">
+        <li class="chapter active" data-level="1.10" data-path="developer-guide.html">
             
                 <a href="developer-guide.html">
             
@@ -1065,7 +1067,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." ></a>
+        <a href="." >Contributing Guide</a>
     </h1>
 </div>
 
@@ -1077,11 +1079,20 @@
                             
                                 <section class="normal markdown-section">
                                 
-                                <!-- # Searchkit
-A suite of Search UI Components build in React
-
-# ElasticSearch
-A Distributed scalable search API -->
+                                <h2 id="developer-guide">Developer Guide</h2>
+<h3 id="setup">setup</h3>
+<ul>
+<li>checkout project on the <code>develop</code> branch</li>
+<li><code>yarn</code> to install dependencies</li>
+</ul>
+<h3 id="developing">Developing</h3>
+<ul>
+<li><code>npm run test:watch</code> to run searchkit&apos;s tests</li>
+<li><code>npm run test:serve</code> to serve the test apps on <code>localhost:4000</code>. The Apps are in <code>test/e2e/server/apps</code> folder. Any updates to src are immediately reflected in the test apps.</li>
+<li><code>npm run build</code> to build the <code>lib</code> folder (es5) and standalone release.</li>
+</ul>
+<h3 id="running-e2es">Running E2Es</h3>
+<p><strong>experimental</strong> <code>npm run test:e2e-standalone</code> to run e2es. Requires protractor v4 to be installed globally (npm i -g protractor ) and selenium webdriver to be running.</p>
 
                                 
                                 </section>
@@ -1093,6 +1104,10 @@ A Distributed scalable search API -->
 
             
                 
+                <a href="examples/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Examples">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
                 
             
         
@@ -1101,7 +1116,7 @@ A Distributed scalable search API -->
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"dir":"ltr"},"config":{"plugins":["mermaid-2","prism","-highlight","-search","versions"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/searchkit/searchkit/gh-pages/book.json","options":[{"value":"https://searchkit.github.io/searchkit/v2.0.0","text":"Version 2.0.0","selected":true},{"value":"https://searchkit.github.io/searchkit/v0.8.3","text":"Version 0.8.3"},{"value":"https://searchkit.github.io/searchkit/v0.7.0","text":"Version 0.7.0"},{"value":"https://searchkit.github.io/searchkit/v0.6.2","text":"Version 0.6.2"},{"value":"https://searchkit.github.io/searchkit/v0.5.1","text":"Version 0.5.1"},{"value":"https://searchkit.github.io/searchkit/v0.4.0","text":"Version 0.4.0"},{"value":"https://searchkit.github.io/searchkit/v0.3.5","text":"Version 0.3.5"},{"value":"https://searchkit.github.io/searchkit/v0.2.0/","text":"Version 0.2.0"},{"value":"https://searchkit.github.io/searchkit/v0.1.13/","text":"Version 0.1.13"}]},"mermaid-2":{},"prism":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"introduction.md","glossary":"glossary.md","summary":"README.md"},"variables":{},"gitbook":"3.x.x"},"file":{"path":"GLOSSARY.md","mtime":"2017-05-24T10:18:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-05-24T10:18:53.355Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Contributing Guide","level":"1.10","depth":1,"previous":{"title":"Examples","level":"1.9","depth":1,"path":"examples/README.md","ref":"./examples/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["mermaid-2","prism","-highlight","-search","versions"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/searchkit/searchkit/gh-pages/book.json","options":[{"value":"https://searchkit.github.io/searchkit/v2.0.0","text":"Version 2.0.0","selected":true},{"value":"https://searchkit.github.io/searchkit/v0.8.3","text":"Version 0.8.3"},{"value":"https://searchkit.github.io/searchkit/v0.7.0","text":"Version 0.7.0"},{"value":"https://searchkit.github.io/searchkit/v0.6.2","text":"Version 0.6.2"},{"value":"https://searchkit.github.io/searchkit/v0.5.1","text":"Version 0.5.1"},{"value":"https://searchkit.github.io/searchkit/v0.4.0","text":"Version 0.4.0"},{"value":"https://searchkit.github.io/searchkit/v0.3.5","text":"Version 0.3.5"},{"value":"https://searchkit.github.io/searchkit/v0.2.0/","text":"Version 0.2.0"},{"value":"https://searchkit.github.io/searchkit/v0.1.13/","text":"Version 0.1.13"}]},"mermaid-2":{},"prism":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"introduction.md","glossary":"glossary.md","summary":"README.md"},"variables":{},"gitbook":"3.x.x"},"file":{"path":"developer-guide.md","mtime":"2017-05-24T10:18:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-05-24T10:18:53.355Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -1,0 +1,1221 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Indexing & Mapping Guide · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-mermaid-2/bower_components/mermaid/dist/mermaid.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-versions/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../examples/" />
+    
+    
+    <link rel="prev" href="searchkit_express.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../setup/">
+            
+                <a href="../setup/">
+            
+                    
+                    Getting Started
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../setup/project-setup.html">
+            
+                <a href="../setup/project-setup.html">
+            
+                    
+                    Project Setup & use
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../setup/elasticsearch.html">
+            
+                <a href="../setup/elasticsearch.html">
+            
+                    
+                    Connecting Elasticsearch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../setup/indexing.html">
+            
+                <a href="../setup/indexing.html">
+            
+                    
+                    Indexing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../setup/using-components.html">
+            
+                <a href="../setup/using-components.html">
+            
+                    
+                    Using components
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../setup/default-query.html">
+            
+                <a href="../setup/default-query.html">
+            
+                    
+                    Setting a Default Query
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="../setup/extending-components.html">
+            
+                <a href="../setup/extending-components.html">
+            
+                    
+                    Extending components
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../components/">
+            
+                <a href="../components/">
+            
+                    
+                    Components
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../components/basics/">
+            
+                <a href="../components/basics/">
+            
+                    
+                    Basics
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../components/basics/search-box.html">
+            
+                <a href="../components/basics/search-box.html">
+            
+                    
+                    Search box
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../components/basics/hits.html">
+            
+                <a href="../components/basics/hits.html">
+            
+                    
+                    Hits
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.3" data-path="../components/basics/nohits.html">
+            
+                <a href="../components/basics/nohits.html">
+            
+                    
+                    No Hits
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.4" data-path="../components/basics/initial-loader.html">
+            
+                <a href="../components/basics/initial-loader.html">
+            
+                    
+                    Initial Loader
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../components/navigation/">
+            
+                <a href="../components/navigation/">
+            
+                    
+                    Navigation
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../components/navigation/pagination.html">
+            
+                <a href="../components/navigation/pagination.html">
+            
+                    
+                    Pagination
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../components/navigation/refinement-list.html">
+            
+                <a href="../components/navigation/refinement-list.html">
+            
+                    
+                    Refinement List
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="../components/navigation/numeric-refinement-list.html">
+            
+                <a href="../components/navigation/numeric-refinement-list.html">
+            
+                    
+                    Numeric Refinement List
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.4" data-path="../components/navigation/menu.html">
+            
+                <a href="../components/navigation/menu.html">
+            
+                    
+                    Menu
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.5" data-path="../components/navigation/range-filter.html">
+            
+                <a href="../components/navigation/range-filter.html">
+            
+                    
+                    Range Filter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.6" data-path="../components/navigation/dynamic-range-filter.html">
+            
+                <a href="../components/navigation/dynamic-range-filter.html">
+            
+                    
+                    Dynamic Range Filter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.7" data-path="../components/navigation/input-filter.html">
+            
+                <a href="../components/navigation/input-filter.html">
+            
+                    
+                    Input Filter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.8" data-path="../components/navigation/checkbox-filter.html">
+            
+                <a href="../components/navigation/checkbox-filter.html">
+            
+                    
+                    Checkbox Filter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.9" data-path="../components/navigation/tag-filter.html">
+            
+                <a href="../components/navigation/tag-filter.html">
+            
+                    
+                    Tag Filter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.10" data-path="../components/navigation/selected-filters.html">
+            
+                <a href="../components/navigation/selected-filters.html">
+            
+                    
+                    Selected Filters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.11" data-path="../components/navigation/grouped-selected-filters.html">
+            
+                <a href="../components/navigation/grouped-selected-filters.html">
+            
+                    
+                    Grouped Selected Filters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.12" data-path="../components/navigation/reset.html">
+            
+                <a href="../components/navigation/reset.html">
+            
+                    
+                    Reset
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.13" data-path="../components/navigation/hierarchical-menu.html">
+            
+                <a href="../components/navigation/hierarchical-menu.html">
+            
+                    
+                    Hierarchical Menu
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.14" data-path="../components/navigation/hierarchical-refinement-filter.html">
+            
+                <a href="../components/navigation/hierarchical-refinement-filter.html">
+            
+                    
+                    Hierarchical Refinement
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../components/display/README.md">
+            
+                <span>
+            
+                    
+                    Display
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="../components/display/switcher.html">
+            
+                <a href="../components/display/switcher.html">
+            
+                    
+                    View Switcher
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="../components/display/page-size-selector.html">
+            
+                <a href="../components/display/page-size-selector.html">
+            
+                    
+                    Page Size Selector
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../components/sorting/README.md">
+            
+                <span>
+            
+                    
+                    Sorting
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="../components/sorting/sort.html">
+            
+                <a href="../components/sorting/sort.html">
+            
+                    
+                    Sorting
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../components/metadata/README.md">
+            
+                <span>
+            
+                    
+                    Metadata
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.5.1" data-path="../components/metadata/stats.html">
+            
+                <a href="../components/metadata/stats.html">
+            
+                    
+                    Stats
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" >
+            
+                <span>
+            
+                    
+                    UI
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.6.1" data-path="../components/ui/layout-components.html">
+            
+                <a href="../components/ui/layout-components.html">
+            
+                    
+                    Layout
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6.2" data-path="../components/ui/panel.html">
+            
+                <a href="../components/ui/panel.html">
+            
+                    
+                    Panel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6.3" data-path="../components/ui/list-components.html">
+            
+                <a href="../components/ui/list-components.html">
+            
+                    
+                    ListComponents
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6.4" data-path="../components/ui/range-components.html">
+            
+                <a href="../components/ui/range-components.html">
+            
+                    
+                    RangeComponents
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../theming/">
+            
+                <a href="../theming/">
+            
+                    
+                    Theming
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../theming/using-searchkit-theme.html">
+            
+                <a href="../theming/using-searchkit-theme.html">
+            
+                    
+                    Using Theme
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../theming/extending-searchkit-theme.html">
+            
+                <a href="../theming/extending-searchkit-theme.html">
+            
+                    
+                    Extending Theme
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../theming/building-your-own.html">
+            
+                <a href="../theming/building-your-own.html">
+            
+                    
+                    Building Your own CSS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../core/">
+            
+                <a href="../core/">
+            
+                    
+                    Core
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../core/Architecture.html">
+            
+                <a href="../core/Architecture.html">
+            
+                    
+                    Architecture
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../core/SearchkitManager.html">
+            
+                <a href="../core/SearchkitManager.html">
+            
+                    
+                    SearchkitManager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../core/Accessors.html">
+            
+                <a href="../core/Accessors.html">
+            
+                    
+                    Accessors
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../core/ImmutableQuery.html">
+            
+                <a href="../core/ImmutableQuery.html">
+            
+                    
+                    ImmutableQuery
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../core/FieldOptions.html">
+            
+                <a href="../core/FieldOptions.html">
+            
+                    
+                    FieldOptions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../core/QueryDSL.html">
+            
+                <a href="../core/QueryDSL.html">
+            
+                    
+                    QueryDSL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="../core/SearchkitProvider.html">
+            
+                <a href="../core/SearchkitProvider.html">
+            
+                    
+                    SearchkitProvider
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="../core/SearchkitComponent.html">
+            
+                <a href="../core/SearchkitComponent.html">
+            
+                    
+                    SearchkitComponent
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.9" data-path="../core/Translate.html">
+            
+                <a href="../core/Translate.html">
+            
+                    
+                    Translation
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../upgrading/">
+            
+                <a href="../upgrading/">
+            
+                    
+                    Migrating
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../upgrading/migrating_from_0_2.html">
+            
+                <a href="../upgrading/migrating_from_0_2.html">
+            
+                    
+                    Migrating from 0.2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../upgrading/migrating_from_0_3.html">
+            
+                <a href="../upgrading/migrating_from_0_3.html">
+            
+                    
+                    Migrating from 0.3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../upgrading/migrating_from_0.4.html">
+            
+                <a href="../upgrading/migrating_from_0.4.html">
+            
+                    
+                    Migrating from 0.4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../upgrading/migrating_from_0.5.html">
+            
+                <a href="../upgrading/migrating_from_0.5.html">
+            
+                    
+                    Migrating from 0.5
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../upgrading/migrating_from_0.6.html">
+            
+                <a href="../upgrading/migrating_from_0.6.html">
+            
+                    
+                    Migrating from 0.6
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.6" data-path="../upgrading/migrating_from_0.7.html">
+            
+                <a href="../upgrading/migrating_from_0.7.html">
+            
+                    
+                    Migrating from 0.7
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.7" data-path="../upgrading/migrating_from_0.8.html">
+            
+                <a href="../upgrading/migrating_from_0.8.html">
+            
+                    
+                    Migrating from 0.8
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.8" data-path="../upgrading/migrating_from_0.9.html">
+            
+                <a href="../upgrading/migrating_from_0.9.html">
+            
+                    
+                    Migrating from 0.9
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="searchkit_express.html">
+            
+                <a href="searchkit_express.html">
+            
+                    
+                    Using Express
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.8" data-path="indexing.html">
+            
+                <a href="indexing.html">
+            
+                    
+                    Indexing & Mapping Guide
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../examples/">
+            
+                <a href="../examples/">
+            
+                    
+                    Examples
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../developer-guide.html">
+            
+                <a href="../developer-guide.html">
+            
+                    
+                    Contributing Guide
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Indexing & Mapping Guide</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="indexing--mapping-guide">Indexing &amp; Mapping Guide</h1>
+<p><code>Elasticsearch</code> querying is very sophisticated, and many of the features rely on an appropriate <code>mapping</code> configured.</p>
+<h2 id="updating-index">Updating index</h2>
+<p>Straightforward to update the index. See <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html" target="_blank">Updating indices</a>.</p>
+<h3 id="analyzer-extensions">Analyzer extensions</h3>
+<p>Out the box, elasticsearch uses the default <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-standard-analyzer.html" target="_blank">standard analyzer</a>. We extend the default analyzer to offer <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-word-delimiter-tokenfilter.html" target="_blank">word delimiter</a>, <a href="https://www.elastic.co/guide/en/elasticsearch/reference/1.4/analysis-htmlstrip-charfilter.html" target="_blank">html strip</a> and <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-mapping-charfilter.html" target="_blank">char mapping</a>.</p>
+<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;analysis&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;char_filter&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+       <span class="token property">&quot;replace&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;mapping&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;mappings&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token string">&quot;&amp;=&gt; and &quot;</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;filter&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;word_delimiter&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;word_delimiter&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;split_on_numerics&quot;</span> <span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;split_on_case_change&quot;</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;generate_word_parts&quot;</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;generate_number_parts&quot;</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;catenate_all&quot;</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;preserve_original&quot;</span><span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;catenate_numbers&quot;</span><span class="token operator">:</span><span class="token boolean">true</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;analyzer&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;default&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;custom&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;char_filter&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token string">&quot;html_strip&quot;</span><span class="token punctuation">,</span>
+          <span class="token string">&quot;replace&quot;</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;tokenizer&quot;</span><span class="token operator">:</span> <span class="token string">&quot;whitespace&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;filter&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token string">&quot;lowercase&quot;</span><span class="token punctuation">,</span>
+            <span class="token string">&quot;word_delimiter&quot;</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="searchkit-mapping-best-practices">Searchkit Mapping best practices</h2>
+<h3 id="indexing-fields-for-filtering--searching">Indexing fields for filtering &amp; searching</h3>
+<p>Often you will want a field to be both <code>searchable</code> and appear as <code>filters</code>. A field will need to be indexed in 2 ways to achieve this, and we can make use of multi fields</p>
+<h4 id="mapping-example">Mapping example</h4>
+<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;movie&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;properties&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;genres&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;string&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;fields&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>          
+          <span class="token property">&quot;raw&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;string&quot;</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;index&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;not_analyzed&quot;</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>This mapping will mean the <code>genres</code> field is indexed in 2 ways. The <code>genres</code> path will be analyzed by elastic search meaning it will be tokenized and have the standard stop words removed which is ideal for a free text search.
+The <code>genres.raw</code> path will be left untouched by <code>Elasticsearch</code>, <code>Searchkit</code> would use <code>not_analyzed</code> paths to power aggregated search components.</p>
+<h4 id="component-examples">Component examples</h4>
+<p>Using the <code>genres.raw</code> field</p>
+<pre class="language-"><code class="lang-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>RefinementListFilter</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>genres<span class="token punctuation">&quot;</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Genres<span class="token punctuation">&quot;</span></span> <span class="token attr-name">field</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>genres.raw<span class="token punctuation">&quot;</span></span> <span class="token attr-name">operator</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>AND<span class="token punctuation">&quot;</span>/</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>Using the field for searching using prefix</p>
+<pre class="language-"><code class="lang-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SearchBox</span> <span class="token attr-name">prefixQueryFields</span><span class="token script language-javascript"><span class="token punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token string">&quot;genres^1&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;name^10&quot;</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span><span class="token punctuation">/&gt;</span></span>
+</code></pre>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="searchkit_express.html" class="navigation navigation-prev " aria-label="Previous page: Using Express">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../examples/" class="navigation navigation-next " aria-label="Next page: Examples">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Indexing & Mapping Guide","level":"1.8","depth":1,"next":{"title":"Examples","level":"1.9","depth":1,"path":"examples/README.md","ref":"./examples/README.md","articles":[]},"previous":{"title":"Using Express","level":"1.7","depth":1,"path":"server/searchkit_express.md","ref":"./server/searchkit_express.md","articles":[]},"dir":"ltr"},"config":{"plugins":["mermaid-2","prism","-highlight","-search","versions"],"root":"docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"versions":{"type":"branches","gitbookConfigURL":"https://raw.githubusercontent.com/searchkit/searchkit/gh-pages/book.json","options":[{"value":"https://searchkit.github.io/searchkit/v2.0.0","text":"Version 2.0.0","selected":true},{"value":"https://searchkit.github.io/searchkit/v0.8.3","text":"Version 0.8.3"},{"value":"https://searchkit.github.io/searchkit/v0.7.0","text":"Version 0.7.0"},{"value":"https://searchkit.github.io/searchkit/v0.6.2","text":"Version 0.6.2"},{"value":"https://searchkit.github.io/searchkit/v0.5.1","text":"Version 0.5.1"},{"value":"https://searchkit.github.io/searchkit/v0.4.0","text":"Version 0.4.0"},{"value":"https://searchkit.github.io/searchkit/v0.3.5","text":"Version 0.3.5"},{"value":"https://searchkit.github.io/searchkit/v0.2.0/","text":"Version 0.2.0"},{"value":"https://searchkit.github.io/searchkit/v0.1.13/","text":"Version 0.1.13"}]},"mermaid-2":{},"prism":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"introduction.md","glossary":"glossary.md","summary":"README.md"},"variables":{},"gitbook":"3.x.x"},"file":{"path":"server/indexing.md","mtime":"2017-05-24T10:18:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-05-24T10:18:53.355Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-mermaid-2/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-versions/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
