@@ -1,7 +1,6 @@
 # Sorting Selector
 This component lets you reorder your results. Each option requires a sortable Elasticsearch field and the order of which you want to sort by.
 
-
 <img src="./assets/sorting.png"/>
 
 `Select` and `Toggle` example side by side.

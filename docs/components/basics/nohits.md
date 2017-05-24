@@ -17,8 +17,6 @@ If `suggestionsField` prop is specified, it will use `elasticsearch`'s suggestio
 
 ```jsx
 
-import * as _ from "lodash";
-
 import {
   Hits,
   NoHits,
@@ -49,7 +47,6 @@ const App = ()=> (
 If you need to override the display of No Hits, you can pass in a React component into either `component` or `errorComponent` to override the default display.
 
 ```jsx
-import * as _ from "lodash";
 
 import {
   Hits,

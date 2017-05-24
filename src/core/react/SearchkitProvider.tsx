@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PropTypes from "prop-types";
 import {SearchkitManager} from "../SearchkitManager"
 
 export interface SearchkitProps {
@@ -9,12 +10,12 @@ export interface SearchkitProps {
 export class SearchkitProvider extends React.Component<SearchkitProps,any> {
 
 	static childContextTypes = {
-		searchkit:React.PropTypes.instanceOf(SearchkitManager)
+		searchkit:PropTypes.instanceOf(SearchkitManager)
 	}
 
 	static propTypes = {
-		searchkit:React.PropTypes.instanceOf(SearchkitManager).isRequired,
-		children:React.PropTypes.element.isRequired
+		searchkit:PropTypes.instanceOf(SearchkitManager).isRequired,
+		children:PropTypes.element.isRequired
 	}
 
 	componentWillMount() {
