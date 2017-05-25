@@ -48,7 +48,9 @@ export class MenuFilter extends FacetFilter<FacetFilterProps> {
       label: allItem.label,
       doc_count: this.accessor.getDocCount()
     }
-    return concat([all], this.accessor.getBuckets())
+    // return concat([all], this.accessor.getBuckets())
+    return concat([all], super.getItems())
+
   }
 
 
