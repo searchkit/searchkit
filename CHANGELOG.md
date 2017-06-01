@@ -1,5 +1,8 @@
+# 2.0.1 - Public Release (22th May, 2017)
+- MenuFilter bucketsTransform fix (#459)
+
 # 2.0.0 - Public Release (22th May, 2017)
-- Public release of 2.0.0 beta
+- Public release of 2.0.0
 
 # 2.0.0 - Beta 11 (20th May, 2017)
 - replace React.PropTypes with prop-types package (#453)
