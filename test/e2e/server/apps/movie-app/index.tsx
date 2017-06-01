@@ -4,9 +4,10 @@ const {
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
   ViewSwitcherHits, ViewSwitcherToggle, DynamicRangeFilter,
-  InputFilter, GroupedSelectedFilters
+  InputFilter, GroupedSelectedFilters, FastClick, FastClickComponent
 } = require("../../../../../src")
 
+FastClick.component = FastClickComponent
 const {
   Layout, TopBar, LayoutBody, LayoutResults,
   ActionBar, ActionBarRow, SideBar
