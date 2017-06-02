@@ -9,6 +9,10 @@ export interface TermsBucketOptions {
   min_doc_count?:number
 }
 
+// Emulates the maximum value an integer can have in Java
+// See: https://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html#MAX_VALUE
+export const DefaultNumberBuckets = Math.pow(2, 31) - 1;
+
 export function TermsBucket(key, field, options:TermsBucketOptions={}, ...childAggs){
   return AggsContainer(key, {
     terms:assign({field}, options)
