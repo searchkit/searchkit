@@ -2,7 +2,7 @@ import {
   FacetAccessor, ImmutableQuery,
   BoolMust, BoolShould, ArrayState, NestedFacetAccessor,
   NestedQuery, TermQuery, FilterBucket, NestedBucket, MinMetric,
-  TermsBucket
+  TermsBucket, DefaultNumberBuckets
 } from "../../../"
 
 import * as _ from "lodash"
@@ -59,7 +59,7 @@ describe("NestedFacetAccessor", ()=> {
       TermsBucket(
         "children",
         "taxonomy.value",
-        {size:0, order:{taxonomy_order:"desc"}},
+        {size:DefaultNumberBuckets, order:{taxonomy_order:"desc"}},
         MinMetric("taxonomy_order", "taxonomy.order")
       )
     )
@@ -69,7 +69,7 @@ describe("NestedFacetAccessor", ()=> {
     expect(this.accessor.getTermAggs()).toEqual(
       TermsBucket(
         "children", "taxonomy.value",
-        {size:0, order:{"_count":"asc"}}
+        {size:DefaultNumberBuckets, order:{"_count":"asc"}}
       )
     )
 
@@ -79,7 +79,7 @@ describe("NestedFacetAccessor", ()=> {
     expect(this.accessor.getTermAggs()).toEqual(
       TermsBucket(
         "children", "taxonomy.value",
-        {size:0, order:undefined}
+        {size:DefaultNumberBuckets, order:undefined}
       )
     )
 
@@ -128,7 +128,7 @@ describe("NestedFacetAccessor", ()=> {
     let termsBucket = TermsBucket(
       "children",
       "taxonomy.value",
-      {size:0, order:{taxonomy_order:"desc"}},
+      {size:DefaultNumberBuckets, order:{taxonomy_order:"desc"}},
       MinMetric("taxonomy_order", "taxonomy.order")
     )
     let expected = FilterBucket(
