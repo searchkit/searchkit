@@ -57,30 +57,23 @@ import {
 
 const searchkit = new SearchkitManager(<somehost>)
 
-const NoHitsDisplay = (props) => {
-  const {bemBlocks, query, suggestion, noResultsLabel} = this.props
-  return (
-    <div data-qa="no-hits" className={bemBlocks.container()}>
-      <div className={bemBlocks.container("info")}>
-        no results for {query}!
-      </div>
+const NoHitsDisplay = ({bemBlocks, query, suggestion, noResultsLabel}) => (
+  <div data-qa="no-hits" className={bemBlocks.container()}>
+    <div className={bemBlocks.container("info")}>
+      no results for {query}!
     </div>
-  );
-}
+  </div>
+)
 
-const NoHitsErrorDisplay = (props) => {
-  const {errorLabel, bemBlocks, resetSearchFn, tryAgainLabel} = props
-
-  return (
-    <div data-qa="no-hits" className={bemBlocks.container()}>
-      <div className={bemBlocks.container("info")}>
-        An error has occurred!
-      </div>
+const NoHitsErrorDisplay = ({errorLabel, bemBlocks, resetSearchFn, tryAgainLabel}) => (
+  <div data-qa="no-hits" className={bemBlocks.container()}>
+    <div className={bemBlocks.container("info")}>
+      An error has occurred!
     </div>
-  )
-}
+  </div>
+)
 
-const App = ()=> (
+const App = () => (
   <SearchkitProvider searchkit={searchkit}>
     <div>
       <Hits hitsPerPage={10} sourceFilter={["title"]}/>
