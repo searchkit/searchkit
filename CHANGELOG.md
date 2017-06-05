@@ -1,3 +1,7 @@
+# 2.1.0 (6th June, 2017)
+- FastClick switched off by default (#464)
+- Elasticsearch 5.x + Hierarchical refinement filter issue fix (#465)
+
 # 2.0.1 - Public Release (22th May, 2017)
 - MenuFilter bucketsTransform fix (#459)
 
