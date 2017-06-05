@@ -1,23 +1,30 @@
-import {LevelState} from "../state"
-import {FilterBasedAccessor} from "./FilterBasedAccessor"
+import { LevelState } from "../state"
+import { FilterBasedAccessor } from "./FilterBasedAccessor"
 import {
-  TermQuery, TermsBucket, FilterBucket,
-  BoolShould, BoolMust, NestedQuery,
-  NestedBucket, MinMetric
+  TermQuery,
+  TermsBucket,
+  FilterBucket,
+  BoolShould,
+  BoolMust,
+  NestedQuery,
+  NestedBucket,
+  MinMetric,
+  DefaultNumberBuckets
 } from "../query";
 
-import {map} from "lodash"
-import {get} from "lodash"
-import {includes} from "lodash"
-import {startsWith} from "lodash"
-import {each} from "lodash"
-import {take} from "lodash"
-
+import {
+  map,
+  get,
+  includes,
+  startsWith,
+  each,
+  take } from "lodash"
 
 export interface NestedFacetAccessorOptions {
 	field:string
 	id:string
 	title:string
+  size?:number
   orderKey?:string
   orderDirection?:string
   startLevel?:number
@@ -44,7 +51,6 @@ export class NestedFacetAccessor extends FilterBasedAccessor<LevelState> {
 	}
 
 	buildSharedQuery(query) {
-
 		let levelFilters = this.state.getValue()
 		let lastIndex = levelFilters.length - 1
 		var filterTerms = map(levelFilters, (filter,i) => {
@@ -73,9 +79,7 @@ export class NestedFacetAccessor extends FilterBasedAccessor<LevelState> {
       query = query.addFilter(this.uuid,
 				NestedQuery(this.options.field, BoolMust(filterTerms))
       ).addSelectedFilter(selectedFilter)
-
     }
-
     return query
   }
 
@@ -97,18 +101,18 @@ export class NestedFacetAccessor extends FilterBasedAccessor<LevelState> {
         }
       }
     }
-    let valueField = this.options.field+".value"
+
+    let valueField = this.options.field+".value";
+    let nBuckets = this.options.size || DefaultNumberBuckets;
 
     return TermsBucket(
       "children", valueField,
-      {size:0, order:orderMetric},
+      { size:nBuckets, order:orderMetric },
       subAggs
     )
-
   }
 
   buildOwnQuery(query){
-
     let aggs = {}
     let levelField = this.options.field+".level"
     let ancestorsField = this.options.field+".ancestors"
@@ -128,15 +132,12 @@ export class NestedFacetAccessor extends FilterBasedAccessor<LevelState> {
     addLevel(0)
 
 		let levels = this.state.getValue()
-
 		each(levels, (level,i) => {
-
 			let ancestors = map(take(levels, i+1), (level)=>{
 				return TermQuery(ancestorsField, level[0])
 			})
 
       addLevel(i+1, ancestors)
-
     })
 
     return query.setAggs(
@@ -150,7 +151,5 @@ export class NestedFacetAccessor extends FilterBasedAccessor<LevelState> {
         )
       )
     )
-
   }
-
 }

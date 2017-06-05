@@ -10,7 +10,6 @@ import * as sinon from "sinon"
 describe("Refinement List Filter tests", () => {
 
   beforeEach(() => {
-
     this.searchkit = SearchkitManager.mock()
     spyOn(this.searchkit, "performSearch")
     this.wrapper = mount(
@@ -57,7 +56,6 @@ describe("Refinement List Filter tests", () => {
         return container;
       }
     }
-
   });
 
   it("should configure accessor correctly", ()=> {
@@ -67,6 +65,7 @@ describe("Refinement List Filter tests", () => {
       "id": "testid",
       "title": "test title",
       "field":"test",
+      "size": undefined,
       "orderKey":undefined,
       "orderDirection":undefined,
       "startLevel":undefined
