@@ -1,3 +1,30 @@
+# 2.1.0 (6th June, 2017)
+- FastClick switched off by default (#464)
+- Elasticsearch 5.x + Hierarchical refinement filter issue fix (#465)
+
+# 2.0.1 - Public Release (22th May, 2017)
+- MenuFilter bucketsTransform fix (#459)
+
+# 2.0.0 - Public Release (22th May, 2017)
+- Public release of 2.0.0
+
+# 2.0.0 - Beta 11 (20th May, 2017)
+- replace React.PropTypes with prop-types package (#453)
+
+# 2.0.0 - Beta 10 (18th May, 2017)
+-	Issue 443: Replace React.PropTypes with prop-types package (#450)
+
+# 2.0.0 - Beta 9 (29th March, 2017)
+- fixing history types to correct version
+
+# 2.0.0 - Beta 8 (29th March, 2017)
+- fix: Elasticsearch 5.1 parsing exception #413
+- Fix inline parameters declaration syntax. #412
+- Move jasmine types to devDependencies. (#411)
+- qs upgrade to latest released version (#409)
+- History updates (#430)
+- Add withCredentials support (#403)
+
 ## 1.0.0 - Beta 7 (23th Feb, 2017)
 - fix: Set default size to 20 for `HierarchicalMenuFilter` #398
 - Abort axios requests which will not be used. E.g. search as you type

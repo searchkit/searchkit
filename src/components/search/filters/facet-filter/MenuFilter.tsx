@@ -17,11 +17,11 @@ const allItem = {
 export class MenuFilter extends FacetFilter<FacetFilterProps> {
 
   static propTypes = defaults({
-  },FacetFilterPropTypes.propTypes)
+  }, FacetFilterPropTypes.propTypes)
 
   static defaultProps = defaults({
     listComponent: ItemList,
-    operator:"OR"
+    operator: "OR"
   }, FacetFilter.defaultProps)
 
   toggleFilter(option) {
@@ -48,8 +48,7 @@ export class MenuFilter extends FacetFilter<FacetFilterProps> {
       label: allItem.label,
       doc_count: this.accessor.getDocCount()
     }
-    return concat([all], this.accessor.getBuckets())
+    return concat([all], super.getItems())
   }
-
 
 }

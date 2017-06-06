@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PropTypes from "prop-types";
 
 import {
 	SearchkitComponent,
@@ -47,7 +48,7 @@ export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 		translations:SearchkitComponent.translationsPropType(
 			HitsStats.translations
 		),
-		countFormatter:React.PropTypes.func
+		countFormatter:PropTypes.func
 	}, SearchkitComponent.propTypes)
 
 	static defaultProps = {

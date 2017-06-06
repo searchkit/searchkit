@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PropTypes from "prop-types";
 
 import {
 	SearchkitComponent,
@@ -58,10 +59,10 @@ export class HitsList extends React.Component<HitsListProps, any>{
 	}
 
 	static propTypes = {
-		mod:React.PropTypes.string,
-		className:React.PropTypes.string,
+		mod:PropTypes.string,
+		className:PropTypes.string,
 		itemComponent:RenderComponentPropType,
-		hits:React.PropTypes.any
+		hits:PropTypes.any
 	}
 
 	render(){
@@ -97,14 +98,14 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 	hitsAccessor:HitsAccessor
 
 	static propTypes = defaults({
-		hitsPerPage:React.PropTypes.number.isRequired,
-		highlightFields:React.PropTypes.arrayOf(
-			React.PropTypes.string
+		hitsPerPage:PropTypes.number.isRequired,
+		highlightFields:PropTypes.arrayOf(
+			PropTypes.string
 		),
-		sourceFilterType:React.PropTypes.oneOf([
-			React.PropTypes.string,
-			React.PropTypes.arrayOf(React.PropTypes.string),
-			React.PropTypes.bool
+		sourceFilterType:PropTypes.oneOf([
+			PropTypes.string,
+			PropTypes.arrayOf(PropTypes.string),
+			PropTypes.bool
 		]),
 		itemComponent:RenderComponentPropType,
 		listComponent:RenderComponentPropType
@@ -123,7 +124,7 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		}
 		if (this.props.customHighlight) {
 			this.searchkit.addAccessor(new CustomHighlightAccessor(this.props.customHighlight))
-		}		
+		}
 		if(this.props.sourceFilter){
 			this.searchkit.addAccessor(
 				new SourceFilterAccessor(this.props.sourceFilter)

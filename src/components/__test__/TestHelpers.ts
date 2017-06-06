@@ -48,5 +48,5 @@ export const printPrettyHtml = (html)=> {
 
 
 export const fastClick = (el)=>{
-  el.simulate("mouseDown", {button:0})
+  el.simulate("click")
 }

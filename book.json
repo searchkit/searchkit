@@ -1,14 +1,20 @@
 {
-  "gitbook": "2.5.2",
+  "gitbook": "3.x.x",
+  "root":"docs",
   "structure": {
-    "introduction":"docs/introduction.md",
-    "summary": "docs/README.md",
-    "glossary":"docs/GLOSSARY.md"
+    "readme": "introduction.md",
+    "summary": "README.md",
+    "glossary":"glossary.md"
   },
-  "plugins": ["mermaid-2", "prism", "-highlight", "codepen", "versions"],
+  "plugins": ["mermaid-2", "prism", "-highlight", "-search", "versions"],
   "pluginsConfig": {
     "versions": {
       "type": "tags"
-    }
+    },
+    "prism": {
+       "lang": [
+         "flow","typescript"
+       ]
+     }
   }
 }

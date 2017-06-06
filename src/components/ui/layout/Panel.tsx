@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PropTypes from "prop-types";
 let bemBlock = require("bem-cn")
 import {PureRender} from "../../../core"
 export interface PanelProps extends React.Props<Panel> {
@@ -15,12 +16,12 @@ export interface PanelProps extends React.Props<Panel> {
 export class Panel extends React.Component<PanelProps, {collapsed: boolean}> {
 
   static propTypes = {
-    title: React.PropTypes.string,
-    disabled: React.PropTypes.bool,
-    mod: React.PropTypes.string,
-    className: React.PropTypes.string,
-    collapsable: React.PropTypes.bool,
-    defaultCollapsed:React.PropTypes.bool
+    title: PropTypes.string,
+    disabled: PropTypes.bool,
+    mod: PropTypes.string,
+    className: PropTypes.string,
+    collapsable: PropTypes.bool,
+    defaultCollapsed:PropTypes.bool
   }
 
   static defaultProps = {

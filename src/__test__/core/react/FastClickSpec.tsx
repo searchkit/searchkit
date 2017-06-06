@@ -2,12 +2,15 @@ import * as React from "react";
 
 import {
   SearchkitManager,
-  FastClick
+  FastClick,
+  FastClickComponent,
+  NormalClickComponent
 } from "../../../"
 
 import {mount} from "enzyme";
+FastClick.component = FastClickComponent
 
-describe("FastClick", ()=> {
+describe("FastClick - fast", ()=> {
 
   beforeEach(()=> {
     this.handler = jasmine.createSpy("fastclick handler")
@@ -34,7 +37,7 @@ describe("FastClick", ()=> {
   describe("Touch events", ()=> {
 
     beforeEach(()=> {
-      this.fastClick = this.wrapper.node
+      this.fastClick = this.wrapper.find('FastClickComponent').node
       this.simulateTouch = (event, x, y)=> {
         this.wrapper.simulate(event, {
           changedTouches:[ {pageX:x, pageY:y} ]
@@ -84,6 +87,18 @@ describe("FastClick", ()=> {
       expect(event.preventDefault).toHaveBeenCalled()
     })
 
+  })
+
+  it("Supports normal click", ()=> {
+    FastClick.component = NormalClickComponent
+    this.handler = jasmine.createSpy("fastclick handler")
+    this.wrapper = mount(
+      <FastClick handler={this.handler}>
+        <button>click me</button>
+      </FastClick>
+    )
+    this.wrapper.simulate("click", event)
+    expect(this.handler).toHaveBeenCalled()
   })
 
 

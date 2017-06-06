@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PropTypes from "prop-types";
 
 import {
   QueryAccessor,
@@ -44,21 +45,21 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
   }
 
   static propTypes = defaults({
-    id:React.PropTypes.string,
-    searchOnChange:React.PropTypes.bool,
-    searchThrottleTime:React.PropTypes.number,
-    queryBuilder:React.PropTypes.func,
-    queryFields:React.PropTypes.arrayOf(React.PropTypes.string),
-    autofocus:React.PropTypes.bool,
-    queryOptions:React.PropTypes.object,
-    prefixQueryFields:React.PropTypes.arrayOf(React.PropTypes.string),
-    prefixQueryOptions:React.PropTypes.object,
+    id:PropTypes.string,
+    searchOnChange:PropTypes.bool,
+    searchThrottleTime:PropTypes.number,
+    queryBuilder:PropTypes.func,
+    queryFields:PropTypes.arrayOf(PropTypes.string),
+    autofocus:PropTypes.bool,
+    queryOptions:PropTypes.object,
+    prefixQueryFields:PropTypes.arrayOf(PropTypes.string),
+    prefixQueryOptions:PropTypes.object,
     translations:SearchkitComponent.translationsPropType(
       SearchBox.translations
     ),
-    mod: React.PropTypes.string,
-    placeholder: React.PropTypes.string,
-    blurAction: React.PropTypes.string
+    mod: PropTypes.string,
+    placeholder: PropTypes.string,
+    blurAction: PropTypes.string
   }, SearchkitComponent.propTypes)
 
   constructor (props:SearchBoxProps) {
