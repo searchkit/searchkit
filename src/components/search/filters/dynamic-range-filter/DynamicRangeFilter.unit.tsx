@@ -54,14 +54,16 @@ describe("Dynamic Range Filter tests", () => {
               <div className="rc-slider-rail"></div>
               <div className="rc-slider-track rc-slider-track-1" style={{visibility:" visible", " left":" 0%", " width":" 100%"}}></div>
               <div className="rc-slider-step"><span className="rc-slider-dot rc-slider-dot-active" style={{left:" 0%"}}></span><span className="rc-slider-dot rc-slider-dot-active" style={{left:" 100%"}}></span></div>
-              <div className="rc-slider-handle rc-slider-handle-1 rc-slider-handle-lower" style={{left:" 0%"}}></div>
-              <div className="rc-slider-handle rc-slider-handle-2 rc-slider-handle-upper" style={{left:" 100%"}}></div>
-              <div className="rc-slider-mark"><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:" 90%", " margin-left":" -45%", " left":" 0%"}}>1 score</span><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:" 90%", " margin-left":" -45%", " left":" 100%"}}>120 score</span></div>
+              <div role="slider" aria-valuemin="1" aria-valuemax="120" aria-valuenow="1" aria-disabled="false"
+                className="rc-slider-handle rc-slider-handle-1" style={{left:" 0%"}}></div>
+              <div role="slider" aria-valuemin="1" aria-valuemax="120" aria-valuenow="120" aria-disabled="false" className="rc-slider-handle rc-slider-handle-2" style={{left:" 100%"}}></div>
+              <div className="rc-slider-mark"><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:" 90%", " marginLeft":" -45%", " left":" 0%"}}>1 score</span><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:" 90%", " marginLeft":" -45%", " left":" 100%"}}>120 score</span></div>
             </div>
           </div>
         </div>
       </div>
-    ))
+      )
+    )
   })
 
   it("accessor has correct config", () => {
