@@ -63,4 +63,4 @@ class App extends SearchkitComponent {
 - `translations` *(Object)*: An object of translations you wish to override. For more information on translations see [translate](../../core/Translate.md) page.
 
 ## Translations
-- `hitstats.results_found` - "{numberResults} results found in {timeTaken}"
+- `hitstats.results_found` - "{hitCount} results found in {timeTaken}"
