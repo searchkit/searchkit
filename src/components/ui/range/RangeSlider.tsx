@@ -3,7 +3,9 @@ import * as React from "react";
 import { RangeProps } from './RangeProps'
 
 import { identity } from "lodash"
-let Rcslider = require("rc-slider")
+const Slider = require('rc-slider')
+const createSliderWithTooltip = Slider.createSliderWithTooltip
+const Range = createSliderWithTooltip(Slider.Range)
 
 let block = require("bem-cn")
 import { PureRender } from "../../../core/react/pure-render"
@@ -46,7 +48,7 @@ export class RangeSlider extends React.Component<RangeSliderProps, {}> {
 
     return (
       <div className={bemBlocks.container().mix(className)}>
-        <Rcslider
+        <Range
           min={min}
           max={max}
           marks={marks || {
@@ -58,7 +60,8 @@ export class RangeSlider extends React.Component<RangeSliderProps, {}> {
           step={step}
           value={[minValue, maxValue]}
           onChange={this.onChange}
-          onAfterChange={this.onFinished}/>
+          onAfterChange={this.onFinished}
+          />
       </div>
     )
   }

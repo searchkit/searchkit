@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as PropTypes from "prop-types";
-const Rcslider = require("rc-slider")
 
 import {
 	SearchkitManager,

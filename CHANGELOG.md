@@ -1,4 +1,7 @@
 # 2.1.0 (6th June, 2017)
+- Updated rc-slider library to 8.1.2
+
+# 2.1.0 (6th June, 2017)
 - FastClick switched off by default (#464)
 - Elasticsearch 5.x + Hierarchical refinement filter issue fix (#465)
 

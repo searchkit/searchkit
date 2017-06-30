@@ -1,6 +1,6 @@
 {
   "name": "searchkit",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "A suite of react components to help create a UI quickly for elasticsearch",
   "main": "lib/src/index.js",
   "keywords": [
@@ -71,7 +71,7 @@
     "lodash": "4.14.2",
     "prop-types": "^15.5.8",
     "qs": "6.4.0",
-    "rc-slider": "5.4.3",
+    "rc-slider": "8.1.2",
     "react-addons-update": "^15.4.0"
   },
   "peerDependencies": {
