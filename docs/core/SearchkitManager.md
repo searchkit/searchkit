@@ -24,6 +24,8 @@ const searchkit = new SearchkitManager(host, {
 
 * **basicAuth** - A string containing "key:val" for authenticating on each request, useful if using cloud providers such as [searchly.com](http://searchly.com)
 
+* **withCredentials** - A boolean to pass to Axios to indicate whether or not cross-site Access-Control requests should be made using credentials
+
 * **searchOnLoad** - A boolean to search on load, defaults to `true`
 
 * **useHistory** - A boolean to enable url history support, defaults to `true`
