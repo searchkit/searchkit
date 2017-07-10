@@ -36,7 +36,7 @@ const SelectedFilter = (props) => (
   <div className={props.bemBlocks.option()
     .mix(props.bemBlocks.container("item"))
     .mix(`selected-filter--${props.filterId}`)()}>
-    <div className={props.bemBlocks.option("name")}>{props.labelKey)}: {props.labelValue}</div>
+    <div className={props.bemBlocks.option("name")}>{props.labelKey}: {props.labelValue}</div>
     <div className={props.bemBlocks.option("remove-action")} onClick={props.removeFilter}>x</div>
   </div>
 )
