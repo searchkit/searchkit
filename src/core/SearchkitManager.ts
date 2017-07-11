@@ -28,7 +28,8 @@ export interface SearchkitOptions {
   basicAuth?:string,
   transport?:ESTransport,
   searchUrlPath?:string,
-  timeout?: number
+  timeout?: number,
+  withCredentials? : boolean
 }
 
 export class SearchkitManager {
@@ -77,7 +78,8 @@ export class SearchkitManager {
       headers:this.options.httpHeaders,
       basicAuth:this.options.basicAuth,
       searchUrlPath:this.options.searchUrlPath,
-      timeout: this.options.timeout
+      timeout: this.options.timeout,
+      withCredentials: this.options.withCredentials
     })
     this.accessors = new AccessorManager()
 		this.registrationCompleted = new Promise((resolve)=>{
@@ -180,7 +182,7 @@ export class SearchkitManager {
   }
 
   buildSearchUrl(extraParams = {}){
-    const params = defaults(extraParams, this.state || this.accessors.getState())    
+    const params = defaults(extraParams, this.state || this.accessors.getState())
     return this.options.getLocation().pathname + '?' + encodeObjUrl(params)
   }
 
