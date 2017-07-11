@@ -62,8 +62,22 @@ describe("SearchkitManager", ()=> {
     )
     expect(this.searchkit.options.searchOnLoad).toBe(false)
     expect(this.searchkit.initialLoading).toBe(true)
+    expect(this.searchkit.options.withCredentials).toBeFalsy()
     //check queryProcessor is an identity function
     expect(this.searchkit.queryProcessor("query")).toBe("query")
+  })
+
+  it('constructor - withCredentials', () => {
+    this.searchkit = new SearchkitManager(this.host, {
+      useHistory:false,
+      httpHeaders:{
+        "Content-Type":"application/json"
+      },
+      withCredentials: true,
+      searchUrlPath:"/search",
+      searchOnLoad:false
+    })
+    expect(this.searchkit.options.withCredentials).toEqual(true)
   })
 
   it("SearchkitManager.mock()", ()=> {
