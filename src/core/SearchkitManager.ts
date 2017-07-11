@@ -77,7 +77,8 @@ export class SearchkitManager {
       headers:this.options.httpHeaders,
       basicAuth:this.options.basicAuth,
       searchUrlPath:this.options.searchUrlPath,
-      timeout: this.options.timeout
+      timeout: this.options.timeout,
+      withCredentials: this.options.withCredentials
     })
     this.accessors = new AccessorManager()
 		this.registrationCompleted = new Promise((resolve)=>{
