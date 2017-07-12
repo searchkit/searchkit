@@ -2,7 +2,7 @@ import {Accessor} from "./Accessor";
 import * as offset from "document-offset";
 
 export interface HitsOptions{
-  scrollTo:string|boolean
+  scrollTo:string|boolean|Function
 }
 
 export class HitsAccessor extends Accessor {
@@ -19,8 +19,13 @@ export class HitsAccessor extends Accessor {
   scrollIfNeeded(){
     if (!this.searchkit.initialLoading && this.searchkit.hasHitsChanged()) {
       if (this.options.scrollTo) {
-        let searchkitOffset = offset(document.querySelector(this.getScrollSelector()))
-        document.body.scrollTop = searchkitOffset.top;
+        if (typeof this.options.scrollTo == "function") {
+          this.options.scrollTo();
+        }
+        else {
+          let searchkitOffset = offset(document.querySelector(this.getScrollSelector()))
+          document.body.scrollTop = searchkitOffset.top;
+        }
       }
     }
   }

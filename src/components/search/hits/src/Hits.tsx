@@ -89,7 +89,7 @@ export interface HitsProps extends SearchkitComponentProps{
 	sourceFilter?:SourceFilterType
 	itemComponent?:ReactComponentType<HitItemProps>
 	listComponent?:ReactComponentType<HitsListProps>
-	scrollTo?: boolean|string
+	scrollTo?: boolean|string|Function
 }
 
 
@@ -123,7 +123,7 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		}
 		if (this.props.customHighlight) {
 			this.searchkit.addAccessor(new CustomHighlightAccessor(this.props.customHighlight))
-		}		
+		}
 		if(this.props.sourceFilter){
 			this.searchkit.addAccessor(
 				new SourceFilterAccessor(this.props.sourceFilter)
