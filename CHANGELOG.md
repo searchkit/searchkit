@@ -1,3 +1,6 @@
+# 2.2.0 (20th August, 2017)
+- Passing credentials in the request (#481)
+
 # 2.1.0 (6th June, 2017)
 - Updated rc-slider library to 8.1.2
 
