@@ -57,7 +57,7 @@
     "@types/es6-promise": "0.0.32",
     "@types/history": "4.5.0",
     "@types/lodash": "^4.14.50",
-    "@types/react": "0.0.0",
+    "@types/react": "^16.0.5",
     "@types/react-addons-create-fragment": "^0.14.15",
     "@types/react-dom": "^0.14.20",
     "@types/react-router": "^2.0.41",
