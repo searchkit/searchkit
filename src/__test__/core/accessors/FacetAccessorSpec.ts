@@ -1,5 +1,5 @@
 import {
-  FacetAccessor, ImmutableQuery,Utils,
+  FacetAccessor, ImmutableQuery, SearchkitManager,
   BoolMust, BoolShould, ArrayState, TermQuery,
   FilterBucket, TermsBucket, CardinalityMetric,
   NestedFieldContext, NestedQuery, NestedBucket
@@ -9,7 +9,6 @@ import {
 describe("FacetAccessor", ()=> {
 
   beforeEach(()=> {
-    Utils.guidCounter = 0
     this.options = {
       operator:"OR",
       title:"Genres",
@@ -22,6 +21,7 @@ describe("FacetAccessor", ()=> {
       }
     }
     this.accessor = new FacetAccessor("genre", this.options)
+    this.accessor.setSearchkitManager(SearchkitManager.mock())
   })
 
   it("constructor()", ()=> {
@@ -58,7 +58,7 @@ describe("FacetAccessor", ()=> {
         {key:"c", missing:true, selected:true},
         {key:"a", doc_count:1, selected:true},
         {key:"b", doc_count:2}
-      ])    
+      ])
   })
 
   it("getCount()", ()=> {
@@ -294,9 +294,10 @@ describe("FacetAccessor", ()=> {
           }
         }
         this.accessor = new FacetAccessor("genre", this.options)
+        this.accessor.setSearchkitManager(SearchkitManager.mock())
         this.accessor.results = {
           aggregations:{
-            genre2:{
+            genre1:{
               inner:{
                 genre:{buckets:[1,2]}
               }
@@ -319,7 +320,7 @@ describe("FacetAccessor", ()=> {
         this.query = new ImmutableQuery()
           .addFilter("rating_uuid", BoolShould(["PG"]))
         this.query = this.accessor.buildSharedQuery(this.query)
-        expect(this.query.index.filtersMap["genre2"]).toEqual(
+        expect(this.query.index.filtersMap["genre1"]).toEqual(
           BoolShould([
             NestedQuery("tags", TermQuery("genre", "1")),
             NestedQuery("tags", TermQuery("genre", "2"))
@@ -336,7 +337,7 @@ describe("FacetAccessor", ()=> {
           .addFilter("rating_uuid", BoolShould(["PG"]))
         this.query = this.accessor.buildOwnQuery(this.query)
         expect(this.query.query.aggs).toEqual(
-          FilterBucket("genre2",
+          FilterBucket("genre1",
             BoolShould(["PG"]),
             NestedBucket("inner","tags",
               TermsBucket("genre", "genre", {size:20}),

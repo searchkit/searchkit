@@ -3,7 +3,7 @@ import {Accessor, BaseQueryAccessor, AnonymousAccessor} from "./accessors"
 import {AccessorManager} from "./AccessorManager"
 import {ESTransport, AxiosESTransport, MockESTransport} from "./transport"
 import {SearchRequest} from "./SearchRequest"
-import {Utils, EventEmitter} from "./support"
+import {Utils, EventEmitter, GuidGenerator} from "./support"
 import {VERSION} from "./SearchkitVersion"
 import {createHistoryInstance, encodeObjUrl, decodeObjString} from "./history"
 
@@ -40,6 +40,7 @@ export class SearchkitManager {
   translateFunction:Function
   currentSearchRequest:SearchRequest
   history
+  guidGenerator:GuidGenerator
   _unlistenHistory:Function
   options:SearchkitOptions
   transport:ESTransport
@@ -73,6 +74,7 @@ export class SearchkitManager {
       getLocation:()=> window.location
     })
     this.host = host
+    this.guidGenerator = new GuidGenerator()
 
     this.transport = this.options.transport || new AxiosESTransport(host, {
       headers:this.options.httpHeaders,
@@ -228,6 +230,10 @@ export class SearchkitManager {
       results.hits.hasChanged = !(ids && ids === previousIds)
     }
 
+  }
+
+  guid(prefix){
+    return this.guidGenerator.guid(prefix)
   }
 
   getHits(){

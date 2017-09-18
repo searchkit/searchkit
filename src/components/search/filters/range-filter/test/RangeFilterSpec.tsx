@@ -31,7 +31,7 @@ describe("Range Filter tests", () => {
 
       this.searchkit.setResults({
         "aggregations": {
-          "m": {
+          "m1": {
             "m": {
               "buckets": [
                 {key:"10", doc_count:1},

@@ -12,7 +12,6 @@ export class Accessor {
   translations:Object
   refCount:number
   constructor(){
-    this.uuid = Utils.guid()
     this.active = true
     this.translations = {}
     this.refCount = 0
@@ -33,6 +32,7 @@ export class Accessor {
 
   setSearchkitManager(searchkit){
     this.searchkit = searchkit
+    this.uuid = searchkit.guid()
   }
 
 

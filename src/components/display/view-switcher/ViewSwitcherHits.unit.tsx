@@ -158,7 +158,7 @@ describe("View Switcher Hits component", () => {
       ))
     })
 
-    fit("Works with ViewSwitcherConfig", ()=> {
+    it("Works with ViewSwitcherConfig", ()=> {
       this.wrapper = mount(
         <div>
           <ViewSwitcherConfig searchkit={this.searchkit}

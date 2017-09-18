@@ -9,14 +9,12 @@ describe("Accessor", ()=> {
 
   beforeEach(()=> {
     this.searchkit = SearchkitManager.mock()
-    spyOn(Utils, "guid").and.returnValue("some_uuid")
     this.accessor = new Accessor()
     this.query = new ImmutableQuery()
   })
 
   it("constructor()", ()=> {
     expect(this.accessor.active).toBe(true)
-    expect(this.accessor.uuid).toBe("some_uuid")
     expect(this.accessor.refCount).toBe(0)
   })
 
@@ -36,6 +34,7 @@ describe("Accessor", ()=> {
   it("setSearchkitManager()", ()=> {
     this.accessor.setSearchkitManager(this.searchkit)
     expect(this.accessor.searchkit).toBe(this.searchkit)
+    expect(this.accessor.uuid).toEqual("1")
   })
 
   it("translate()", ()=> {

@@ -1,5 +1,5 @@
 import {
-  FacetAccessor, ImmutableQuery,
+  FacetAccessor, ImmutableQuery,SearchkitManager,
   BoolMust, BoolShould, ArrayState, HierarchicalFacetAccessor,
   TermQuery, FilterBucket, TermsBucket
 } from "../../../"
@@ -17,7 +17,7 @@ describe("HierarchicalFacetAccessor", ()=> {
       orderKey:"_term",
       orderDirection:"asc"
     })
-    this.accessor.uuid = "999"
+    this.accessor.setSearchkitManager(SearchkitManager.mock())
     this.accessor.computeUuids()
     this.query = new ImmutableQuery()
     this.toPlainObject = (ob)=> {
@@ -109,7 +109,7 @@ describe("HierarchicalFacetAccessor", ()=> {
     let query = this.accessor.buildSharedQuery(this.query)
     query = this.accessor.buildOwnQuery(query)
     expect(_.keys(query.index.filtersMap)).toEqual([
-      'other', '999lvl1', '999lvl2', '999lvl3'
+      'other', 'categories1lvl1', 'categories1lvl2', 'categories1lvl3'
     ])
 
     let order = {_term:"asc"}

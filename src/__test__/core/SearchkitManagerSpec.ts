@@ -390,6 +390,10 @@ describe("SearchkitManager", ()=> {
 
 
   })
+  it("guid()", ()=> {
+    expect(this.searchkit.guid("foo")).toEqual("foo1")
+    expect(this.searchkit.guid("bar")).toEqual("bar2")
+  })
 
   it("getHits()", ()=> {
     expect(this.searchkit.getHits()).toEqual([])

@@ -23,7 +23,6 @@ describe("NumericOptionsAccessor", ()=> {
       ]
     }
     this.accessor = new NumericOptionsAccessor("categories", this.options)
-    this.accessor.uuid = "9999"
     this.searchkit.addAccessor(this.accessor)
     spyOn(this.searchkit, "performSearch")
     this.query = new ImmutableQuery()
@@ -45,7 +44,7 @@ describe("NumericOptionsAccessor", ()=> {
   it("getBuckets()", ()=> {
     this.accessor.results = {
       aggregations:{
-        "9999":{
+        "categories1":{
           categories:{
             buckets:[
               {key:1, doc_count:1},
@@ -150,7 +149,7 @@ describe("NumericOptionsAccessor", ()=> {
     ])
     expect(query.query.post_filter).toEqual(expected)
     expect(_.keys(query.index.filtersMap))
-      .toEqual(["9999"])
+      .toEqual(["categories1"])
 
     let selectedFilters = query.getSelectedFilters()
     expect(selectedFilters.length).toEqual(2)
@@ -172,7 +171,7 @@ describe("NumericOptionsAccessor", ()=> {
     query = this.accessor.buildOwnQuery(query)
     expect(query.query.aggs).toEqual(
       FilterBucket(
-        "9999",
+        "categories1",
         BoolMust([BoolShould(["foo"])]),
         RangeBucket(
           "categories",
@@ -224,7 +223,7 @@ describe("NumericOptionsAccessor", ()=> {
         }
       }
       this.accessor = new NumericOptionsAccessor("categories", this.options)
-      this.accessor.uuid = "9999"
+      this.accessor.setSearchkitManager(SearchkitManager.mock())
     })
 
     it("buildSharedQuery()", ()=> {
@@ -245,7 +244,7 @@ describe("NumericOptionsAccessor", ()=> {
       query = this.accessor.buildOwnQuery(query)
       expect(query.query.aggs).toEqual(
         FilterBucket(
-          "9999",
+          "categories1",
           BoolMust([BoolShould(["foo"])]),
           NestedBucket(
             "inner", "nestedPrice",
@@ -281,7 +280,7 @@ describe("NumericOptionsAccessor", ()=> {
     it("getBuckets()", ()=> {
       this.accessor.results = {
         aggregations:{
-          "9999":{
+          "categories1":{
             inner:{
               categories:{
                 buckets:[

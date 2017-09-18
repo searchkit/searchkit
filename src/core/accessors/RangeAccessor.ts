@@ -55,7 +55,7 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 			}
 
 			return query
-				.addFilter(this.key, rangeFilter)
+				.addFilter(this.uuid, rangeFilter)
 				.addSelectedFilter(selectedFilter)
 
 		}
@@ -65,7 +65,7 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 
 	getBuckets(){
     return this.getAggregations([
-			this.key,
+			this.uuid,
 			this.fieldContext.getAggregationPath(),
 			this.key, "buckets"], [])
   }
@@ -76,7 +76,7 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 			return maxValue === 0
 		} else {
 			return this.getAggregations([
-				this.key,
+				this.uuid,
 				this.fieldContext.getAggregationPath(),
 				this.key, "value"], 0) === 0
 		}
@@ -90,10 +90,10 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
   }
 
   buildOwnQuery(query) {
-			let otherFilters = query.getFiltersWithoutKeys(this.key)
+			let otherFilters = query.getFiltersWithoutKeys(this.uuid)
 			let filters = BoolMust([
 				otherFilters,
-				this.fieldContext.wrapFilter(					
+				this.fieldContext.wrapFilter(
 					RangeQuery(this.options.field,{
 						gte:this.options.min, lte:this.options.max
 					})
@@ -116,7 +116,7 @@ export class RangeAccessor extends FilterBasedAccessor<ObjectState> {
 			}
 
 			return query.setAggs(FilterBucket(
-				this.key,
+				this.uuid,
 				filters,
 				...this.fieldContext.wrapAggregations(metric)
 			))
