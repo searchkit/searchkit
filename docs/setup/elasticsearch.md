@@ -6,6 +6,7 @@ Searchkit can use a cloud based elasticsearch instance. If using in production, 
 
 ### Hosting providers
 
+- [Bonsai.io](https://bonsai.io)
 - [qbox.io](https://qbox.io)
 - [Elastic Cloud](https://www.elastic.co/cloud)
 - [search.ly](http://searchly.com)
