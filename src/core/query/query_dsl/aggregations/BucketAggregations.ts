@@ -50,3 +50,11 @@ export function GeohashBucket(key, field, options, ...childAggs){
 export function HistogramBucket(key, field, options={}, ...childAggs){
   return AggsContainer(key, {histogram:assign({field}, options)}, childAggs)
 }
+
+export function GeoboundsBucket(key, field, options = {}, ...childAggs) {
+  return AggsContainer(key, { geo_bounds: assign({ field }, options) }, childAggs);
+}
+
+export function DateHistogramBucket(key, field, options = {}, ...childAggs) {
+  return AggsContainer(key, { date_histogram: assign({ field }, options) }, childAggs);
+}
