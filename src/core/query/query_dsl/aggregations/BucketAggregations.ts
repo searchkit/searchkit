@@ -1,4 +1,5 @@
 import {assign} from "lodash"
+import {isEmpty} from "lodash"
 import {AggsContainer} from "./AggsContainer"
 
 export interface TermsBucketOptions {
@@ -32,6 +33,9 @@ export function ChildrenBucket(key, type, ...childAggs){
 }
 
 export function FilterBucket(key, filter, ...childAggs){
+  if (isEmpty(filter)) {
+    return AggsContainer(key, {filter: {match_all:{}}}, childAggs)
+  }
   return AggsContainer(key, {filter}, childAggs)
 }
 

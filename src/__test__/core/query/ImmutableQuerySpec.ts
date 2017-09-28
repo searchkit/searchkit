@@ -148,7 +148,7 @@ describe("ImmutableQuery", ()=> {
     let query = this.query.setAggs(genreAggs).setAggs(authorAggs)
     expect(query.query.aggs).toEqual({
       "genre_filter": {
-        "filter": {},
+        "filter": {"match_all": {}},
         "aggs": {
           "genre_terms": {
             "terms": {
@@ -158,7 +158,7 @@ describe("ImmutableQuery", ()=> {
         }
       },
       "author_filter": {
-        "filter": {},
+        "filter": {"match_all": {}},
         "aggs": {
           "author_terms": {
             "terms": {
