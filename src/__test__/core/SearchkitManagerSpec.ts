@@ -20,6 +20,10 @@ describe("SearchkitManager", ()=> {
       searchUrlPath:"/search",
       searchOnLoad:false
     })
+    spyOn(SearchRequest.prototype, "run")
+      .and.returnValue(this.resolved)
+    this.resolved = new Promise((resolve)=> resolve())
+
     this.searchkit.setupListeners()
     this.emitterSpy = jasmine.createSpy("emitter")
     this.searchkit.emitter.addListener(this.emitterSpy)
@@ -168,9 +172,10 @@ describe("SearchkitManager", ()=> {
         useHistory:true,
         searchOnLoad:false
       })
-      searchkit.setupListeners()
       spyOn(searchkit.accessors, "setState")
       spyOn(searchkit, "searchFromUrlQuery")
+      spyOn(searchkit, "_search")
+      searchkit.setupListeners()
       searchkit.completeRegistration()
       setTimeout(()=> {
         history.goBack()
@@ -216,7 +221,7 @@ describe("SearchkitManager", ()=> {
     spyOn(searchkit.accessors, "notifyStateChange")
     spyOn(searchkit, "_search").and.returnValue(true)
     spyOn(searchkit.history, "push")
-    searchkit.performSearch()
+    expect(searchkit.performSearch()).toEqual(true)
     expect(searchkit.history.push).toHaveBeenCalledWith(
       "/context.html?q=foo"
     )
@@ -261,7 +266,7 @@ describe("SearchkitManager", ()=> {
     spyOn(searchkit.accessors, "notifyStateChange")
     spyOn(searchkit, "_search").and.returnValue(true)
     spyOn(searchkit.history, "replace")
-    searchkit.performSearch(true)
+    expect(searchkit.performSearch(true)).toEqual(true)
     expect(searchkit.history.replace)
       .toHaveBeenCalled()
     expect(searchkit.accessors.notifyStateChange)
@@ -278,13 +283,13 @@ describe("SearchkitManager", ()=> {
 
   it("search()", ()=> {
     spyOn(this.searchkit, "performSearch")
-    this.searchkit.search()
+      .and.returnValue(true)
+    expect(this.searchkit.search()).toEqual(true)
     expect(this.searchkit.performSearch)
       .toHaveBeenCalled()
   })
 
-  it("_search()", ()=> {
-    spyOn(SearchRequest.prototype, "run")
+  it("_search()", (done)=> {
     this.accessor = new PageSizeAccessor(10)
     this.searchkit.setQueryProcessor((query)=> {
       query.source=true
@@ -294,8 +299,15 @@ describe("SearchkitManager", ()=> {
       this.searchkit.currentSearchRequest = new SearchRequest(this.host, null, this.searchkit)
     this.searchkit.addAccessor(
       this.accessor)
-
+    this.searchkit.results = {}
     this.searchkit._search()
+      .then((resultsObject)=> {
+        expect(resultsObject).toEqual({
+          results:{},
+          state:{}
+        })
+        done()
+      })
     expect(initialSearchRequest.active).toBe(false)
     expect(this.searchkit.currentSearchRequest.transport.host)
       .toBe(this.host)
@@ -308,7 +320,6 @@ describe("SearchkitManager", ()=> {
   })
 
   it("_search() should not search with same query", ()=> {
-    spyOn(SearchRequest.prototype, "run")
     this.searchkit.query = new ImmutableQuery().setSize(20).setSort([{"created":"desc"}])
     this.searchkit.buildQuery = ()=> new ImmutableQuery().setSize(20).setSort([{"created":"desc"}])
     this.searchkit.results = {}
@@ -329,7 +340,6 @@ describe("SearchkitManager", ()=> {
   })
 
   it("reloadSearch()", ()=> {
-    spyOn(SearchRequest.prototype, "run")
     this.searchkit.query = new ImmutableQuery().setSize(20).setSort([{"created":"desc"}])
     this.searchkit.buildQuery = ()=> new ImmutableQuery().setSize(20).setSort([{"created":"desc"}])
     this.searchkit.results = {}

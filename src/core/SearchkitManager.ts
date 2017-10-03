@@ -173,14 +173,14 @@ export class SearchkitManager {
   searchFromUrlQuery(query){
     query = decodeObjString(query.replace(/^\?/, ""))
     this.accessors.setState(query)
-    this._search()
+    return this._search()
   }
 
   performSearch(replaceState=false, notifyState=true){
     if(notifyState && !isEqual(this.accessors.getState(), this.state)){
       this.accessors.notifyStateChange(this.state)
     }
-    this._search()
+    let searchPromise = this._search()
     if(this.options.useHistory){
       const historyMethod = (replaceState) ?
         this.history.replace : this.history.push
@@ -188,6 +188,7 @@ export class SearchkitManager {
       let url = this.options.getLocation().pathname + "?" + encodeObjUrl(this.state)
       historyMethod.call(this.history, url)
     }
+    return searchPromise
   }
 
   buildSearchUrl(extraParams = {}){
@@ -197,11 +198,11 @@ export class SearchkitManager {
 
   reloadSearch(){
     delete this.query
-    this.performSearch()
+    return this.performSearch()
   }
 
   search(replaceState=false){
-    this.performSearch(replaceState)
+    return this.performSearch(replaceState)
   }
 
   _search(){
@@ -217,7 +218,13 @@ export class SearchkitManager {
     this.currentSearchRequest && this.currentSearchRequest.deactivate()
     this.currentSearchRequest = new SearchRequest(
       this.transport, queryObject, this)
-    this.currentSearchRequest.run()
+    return this.currentSearchRequest.run()
+      .then(()=> {
+        return {
+          results:this.results,
+          state:this.state
+        }
+      })
   }
 
   setResults(results){
