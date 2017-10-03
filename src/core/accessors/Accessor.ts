@@ -33,6 +33,7 @@ export class Accessor {
   setSearchkitManager(searchkit){
     this.searchkit = searchkit
     this.uuid = searchkit.guid()
+    this.results = this.searchkit.results    
   }
 
 

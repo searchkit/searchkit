@@ -62,6 +62,8 @@ describe("SearchkitManager", ()=> {
     )
     expect(this.searchkit.options.searchOnLoad).toBe(false)
     expect(this.searchkit.initialLoading).toBe(true)
+    expect(this.searchkit.results).toEqual(undefined)
+    expect(this.searchkit.state).toEqual({})
     expect(this.searchkit.options.withCredentials).toBeFalsy()
     //check queryProcessor is an identity function
     expect(this.searchkit.queryProcessor("query")).toBe("query")
@@ -173,7 +175,7 @@ describe("SearchkitManager", ()=> {
       setTimeout(()=> {
         history.goBack()
         setTimeout(()=> {
-          expect(searchkit.searchFromUrlQuery).toHaveBeenCalledWith({q:"foo-previous"})
+          expect(searchkit.searchFromUrlQuery).toHaveBeenCalledWith("?q=foo-previous")
           searchkit.unlistenHistory()
           done()
         },0)
@@ -309,11 +311,18 @@ describe("SearchkitManager", ()=> {
     spyOn(SearchRequest.prototype, "run")
     this.searchkit.query = new ImmutableQuery().setSize(20).setSort([{"created":"desc"}])
     this.searchkit.buildQuery = ()=> new ImmutableQuery().setSize(20).setSort([{"created":"desc"}])
+    this.searchkit.results = {}
     this.searchkit._search()
+
     expect(SearchRequest.prototype.run)
       .not.toHaveBeenCalled()
 
+    delete this.searchkit.results
+    this.searchkit._search()
+    expect(SearchRequest.prototype.run)
+      .toHaveBeenCalled()
     this.searchkit.query = new ImmutableQuery().setSize(21)
+    this.searchkit.results = {}
     this.searchkit._search()
     expect(SearchRequest.prototype.run)
       .toHaveBeenCalled()
@@ -323,6 +332,7 @@ describe("SearchkitManager", ()=> {
     spyOn(SearchRequest.prototype, "run")
     this.searchkit.query = new ImmutableQuery().setSize(20).setSort([{"created":"desc"}])
     this.searchkit.buildQuery = ()=> new ImmutableQuery().setSize(20).setSort([{"created":"desc"}])
+    this.searchkit.results = {}
     this.searchkit._search()
     expect(SearchRequest.prototype.run)
       .not.toHaveBeenCalled()

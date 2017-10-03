@@ -1,7 +1,11 @@
 import {
   ResetSearchAccessor, ImmutableQuery, SearchkitManager,
-  FilterBasedAccessor, PaginationAccessor, QueryAccessor
+  FilterBasedAccessor, PaginationAccessor, QueryAccessor, ObjectState
 } from "../../../"
+
+class FilterAccessor extends FilterBasedAccessor<ObjectState> {
+  state = new ObjectState()
+}
 
 describe("ResetSearchAccessor", ()=> {
 
@@ -46,18 +50,18 @@ describe("ResetSearchAccessor", ()=> {
   it("performReset()", ()=> {
     let queryAccessor = this.searchkit.getQueryAccessor()
     spyOn(queryAccessor, "resetState")
-    let filterAccessor1 = new FilterBasedAccessor("f1")
+    let filterAccessor1 = new FilterAccessor("f1")
     spyOn(filterAccessor1, "resetState")
-    let filterAccessor2 = new FilterBasedAccessor("f2")
+    let filterAccessor2 = new FilterAccessor("f2")
     spyOn(filterAccessor2, "resetState")
     let searchInputAccessor = new QueryAccessor("s", {addToFilters:true})
-    searchInputAccessor.state = searchInputAccessor.state.setValue("foo")
     let paginationAccessor = new PaginationAccessor("p")
     spyOn(paginationAccessor, "resetState")
     this.searchkit.addAccessor(filterAccessor1)
     this.searchkit.addAccessor(filterAccessor2)
     this.searchkit.addAccessor(searchInputAccessor)
     this.searchkit.addAccessor(paginationAccessor)
+    searchInputAccessor.state = searchInputAccessor.state.setValue("foo")
     this.searchkit.query = this.searchkit.buildQuery()
     this.accessor.options = {query:false, filter:false}
     this.accessor.performReset()

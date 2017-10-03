@@ -32,6 +32,11 @@ export interface SearchkitOptions {
   withCredentials? : boolean
 }
 
+export interface InitialState {
+  results?:Object,
+  state?:Object
+}
+
 export class SearchkitManager {
   host:string
   private registrationCompleted:Promise<any>
@@ -65,7 +70,7 @@ export class SearchkitManager {
     return searchkit
   }
 
-  constructor(host:string, options:SearchkitOptions = {}){
+  constructor(host:string, options:SearchkitOptions = {}, initialState:InitialState = {}){
     this.options = defaults(options, {
       useHistory:true,
       httpHeaders:{},
@@ -75,7 +80,8 @@ export class SearchkitManager {
     })
     this.host = host
     this.guidGenerator = new GuidGenerator()
-
+    this.results = initialState.results
+    this.state = initialState.state || {}
     this.transport = this.options.transport || new AxiosESTransport(host, {
       headers:this.options.httpHeaders,
       basicAuth:this.options.basicAuth,
@@ -96,7 +102,7 @@ export class SearchkitManager {
   }
 
   setupListeners() {
-    this.initialLoading = true
+    this.initialLoading = !this.results
     if(this.options.useHistory) {
       this.unlistenHistory()
       this.history = this.options.createHistory()
@@ -152,7 +158,7 @@ export class SearchkitManager {
 
   _searchWhenCompleted(location){
     this.registrationCompleted.then(()=> {
-      this.searchFromUrlQuery(decodeObjString(location.search.replace(/^\?/, "")))
+      this.searchFromUrlQuery(location.search)
     }).catch((e)=> {
       console.error(e.stack)
     })
@@ -165,6 +171,7 @@ export class SearchkitManager {
   }
 
   searchFromUrlQuery(query){
+    query = decodeObjString(query.replace(/^\?/, ""))
     this.accessors.setState(query)
     this._search()
   }
@@ -200,7 +207,7 @@ export class SearchkitManager {
   _search(){
     this.state = this.accessors.getState()
     let query = this.buildQuery()
-    if(this.query && isEqual(query.getJSON(), this.query.getJSON())) {
+    if(this.results && this.query && isEqual(query.getJSON(), this.query.getJSON())) {
       return
     }
     this.query = query
