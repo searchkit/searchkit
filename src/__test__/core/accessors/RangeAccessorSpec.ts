@@ -9,7 +9,8 @@ import {
   HistogramBucket,
   CardinalityMetric,
   NestedQuery,
-  NestedBucket
+  NestedBucket,
+  SearchkitManager
 } from "../../../"
 
 describe("RangeAccessor", ()=> {
@@ -23,13 +24,15 @@ describe("RangeAccessor", ()=> {
       field:"metaScore",
       loadHistogram:true
     })
+
+    this.accessor.setSearchkitManager(SearchkitManager.mock())
   })
 
   it("getBuckets()", ()=> {
     expect(this.accessor.getBuckets()).toEqual([])
     this.accessor.results = {
       aggregations:{
-        metascore:{
+        metascore1:{
           metascore:{buckets:[1,2]}
         }
       }
@@ -43,7 +46,7 @@ describe("RangeAccessor", ()=> {
 
     this.accessor.results = {
       aggregations:{
-        metascore:{
+        metascore1:{
           metascore:{buckets:[{key:1, doc_count:0}, {key:2, doc_count:0}]}
         }
       }
@@ -52,7 +55,7 @@ describe("RangeAccessor", ()=> {
 
     this.accessor.results = {
       aggregations:{
-        metascore:{
+        metascore1:{
           metascore:{buckets:[{key:1, doc_count:0}, {key:2, doc_count:1}]}
         }
       }
@@ -66,7 +69,7 @@ describe("RangeAccessor", ()=> {
 
     this.accessor.results = {
       aggregations:{
-        metascore:{
+        metascore1:{
           metascore:{value:0}
         }
       }
@@ -75,7 +78,7 @@ describe("RangeAccessor", ()=> {
 
     this.accessor.results = {
       aggregations:{
-        metascore:{
+        metascore1:{
           metascore:{value:1}
         }
       }
@@ -119,8 +122,9 @@ describe("RangeAccessor", ()=> {
 
     it("build own query", ()=> {
       let query = this.accessor.buildOwnQuery(this.query)
+
       expect(query.query.aggs).toEqual(
-        FilterBucket("metascore",
+        FilterBucket("metascore1",
           BoolMust([
             BoolMust([
               BoolShould(["PG"])
@@ -148,7 +152,7 @@ describe("RangeAccessor", ()=> {
       let query = this.accessor.buildOwnQuery(this.query)
       // expect(query).toBe(this.query)
       expect(query.query.aggs).toEqual(
-        FilterBucket("metascore",
+        FilterBucket("metascore1",
           BoolMust([
             BoolMust([
               BoolShould(["PG"])
@@ -183,6 +187,7 @@ describe("RangeAccessor", ()=> {
           }
         }
       })
+      this.accessor.setSearchkitManager(SearchkitManager.mock())
     })
 
     it("buildSharedQuery()", ()=> {
@@ -204,7 +209,7 @@ describe("RangeAccessor", ()=> {
     it("build own query", ()=> {
       let query = this.accessor.buildOwnQuery(this.query)
       expect(query.query.aggs).toEqual(
-        FilterBucket("metascore",
+        FilterBucket("metascore1",
           BoolMust([
             BoolMust([
               BoolShould(["PG"])
@@ -216,7 +221,7 @@ describe("RangeAccessor", ()=> {
                   gte:0, lte:100
                 }
               }}
-            )            
+            )
           ]),
           NestedBucket(
             "inner",
@@ -239,7 +244,7 @@ describe("RangeAccessor", ()=> {
       expect(this.accessor.getBuckets()).toEqual([])
       this.accessor.results = {
         aggregations:{
-          metascore:{
+          metascore1:{
             inner:{
               metascore:{buckets:[1,2]}
             }

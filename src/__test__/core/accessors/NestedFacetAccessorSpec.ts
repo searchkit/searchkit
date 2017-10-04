@@ -1,5 +1,5 @@
 import {
-  FacetAccessor, ImmutableQuery,
+  FacetAccessor, ImmutableQuery,SearchkitManager,
   BoolMust, BoolShould, ArrayState, NestedFacetAccessor,
   NestedQuery, TermQuery, FilterBucket, NestedBucket, MinMetric,
   TermsBucket, DefaultNumberBuckets
@@ -18,7 +18,7 @@ describe("NestedFacetAccessor", ()=> {
       orderDirection:"desc"
     }
     this.accessor = new NestedFacetAccessor("categories", this.options)
-    this.accessor.uuid = "999"
+    this.accessor.setSearchkitManager(SearchkitManager.mock())
     this.query = new ImmutableQuery()
     this.toPlainObject = (ob)=> {
       return JSON.parse(JSON.stringify(ob))
@@ -124,7 +124,7 @@ describe("NestedFacetAccessor", ()=> {
     this.query = this.query.addFilter("other", BoolShould(["foo"]))
     let query = this.accessor.buildSharedQuery(this.query)
     query = this.accessor.buildOwnQuery(query)
-    expect(_.keys(query.index.filtersMap).sort()).toEqual(['999', 'other'])
+    expect(_.keys(query.index.filtersMap).sort()).toEqual(['categories1', 'other'])
     let termsBucket = TermsBucket(
       "children",
       "taxonomy.value",

@@ -11,7 +11,6 @@ export class StatefulAccessor<T extends State<any>> extends Accessor {
   constructor(key, urlString?){
     super()
     this.key = key
-    this.uuid = this.key+this.uuid
     this.urlKey = urlString || key && key.replace(/\./g, "_")
     this.urlWithState = this.urlWithState.bind(this)
   }
@@ -34,6 +33,9 @@ export class StatefulAccessor<T extends State<any>> extends Accessor {
 
   setSearchkitManager(searchkit){
     super.setSearchkitManager(searchkit)
+    this.uuid = this.key+this.uuid
+    this.fromQueryObject(searchkit.state)
+    searchkit.query = searchkit.buildQuery()
     this.setResultsState()
   }
 

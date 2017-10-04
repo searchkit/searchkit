@@ -2,6 +2,7 @@ import * as React from "react";
 import * as PropTypes from "prop-types"
 import {defaults} from "lodash"
 
+
 import {
 	SearchkitComponent,
 	SearchkitComponentProps,
@@ -14,8 +15,8 @@ import {
 	Hits, HitsProps, HitItemProps, HitsListProps
 } from "../../"
 
-export interface ViewSwitcherHitsProps extends HitsProps {
-	hitComponents?:[{
+export interface ViewSwitcherConfigProps extends SearchkitComponentProps {
+	hitComponents:[{
 		key:string,
 		title:string,
 		itemComponent?:RenderComponentType<HitItemProps>,
@@ -24,7 +25,7 @@ export interface ViewSwitcherHitsProps extends HitsProps {
 	}]
 }
 
-export class ViewSwitcherHits extends SearchkitComponent<ViewSwitcherHitsProps, any> {
+export class ViewSwitcherConfig extends SearchkitComponent<ViewSwitcherConfigProps, any> {
   accessor:ViewOptionsAccessor
 
 	static propTypes = defaults({
@@ -37,21 +38,12 @@ export class ViewSwitcherHits extends SearchkitComponent<ViewSwitcherHitsProps, 
 				defaultOption:PropTypes.bool
 			})
 		)
-	}, Hits.propTypes)
+	}, SearchkitComponent.propTypes)
 
   defineAccessor(){
     return new ViewOptionsAccessor("view", this.props.hitComponents)
   }
   render(){
-    const selectedOption = this.accessor.getSelectedOption()
-    const props = {
-      ...this.props,
-      itemComponent: selectedOption.itemComponent,
-      listComponent: selectedOption.listComponent,
-      mod: 'sk-hits-'+selectedOption.key
-    }
-    return (
-      <Hits {...props} />
-    )
+    return null
   }
 }

@@ -1,7 +1,7 @@
 import {
-  CheckboxFilterAccessor, ImmutableQuery,Utils,
+  CheckboxFilterAccessor, ImmutableQuery,
   BoolMust, BoolShould, ArrayState, TermQuery,
-  CardinalityMetric, FilterBucket
+  CardinalityMetric, FilterBucket, SearchkitManager
 } from "../../../"
 
 
@@ -12,7 +12,6 @@ function toPlainObject(ob) {
 describe("CheckboxFilterAccessor", ()=> {
 
   beforeEach(()=> {
-    Utils.guidCounter = 0
     this.options = {
       id: "movie-filter",
       filter: TermQuery("type", "movie"),
@@ -20,6 +19,7 @@ describe("CheckboxFilterAccessor", ()=> {
       label: "Movie"
     }
     this.accessor = new CheckboxFilterAccessor("movie-filter-key", this.options)
+    this.accessor.setSearchkitManager(SearchkitManager.mock())
   })
 
   it("constructor()", ()=> {
@@ -46,7 +46,7 @@ describe("CheckboxFilterAccessor", ()=> {
     query = this.accessor.buildSharedQuery(query)
     let filters = query.getFilters()
     expect(toPlainObject(filters)).toEqual({})
-    
+
     this.accessor.state = this.accessor.state.create(true)
     query = new ImmutableQuery()
     query = this.accessor.buildSharedQuery(query)
@@ -56,10 +56,10 @@ describe("CheckboxFilterAccessor", ()=> {
         type: "movie"
       }
     })
-    
+
     let selectedFilters = query.getSelectedFilters()
     expect(selectedFilters.length).toEqual(1)
-    
+
     expect(this.accessor.state.getValue()).toEqual(true)
     selectedFilters[0].remove()
     expect(this.accessor.state.getValue()).toEqual(false)

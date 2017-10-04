@@ -11,7 +11,7 @@ describe("EventEmitter", ()=> {
     expect(this.emitter.listeners).toEqual([])
   })
 
-  it("add, trigger, remove", ()=> {
+  it("add, trigger, remove, clear", ()=> {
     let argsStr = ""
     let fn = (...args)=> {
       argsStr = args.join("")
@@ -23,6 +23,10 @@ describe("EventEmitter", ()=> {
     expect(argsStr).toEqual("abc")
 
     removeFn()
+    expect(this.emitter.listeners).toEqual([])
+    this.emitter.addListener(fn)
+    expect(this.emitter.listeners).toEqual([fn])
+    this.emitter.clear()
     expect(this.emitter.listeners).toEqual([])
 
   })

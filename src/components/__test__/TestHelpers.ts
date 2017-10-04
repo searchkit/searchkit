@@ -1,6 +1,6 @@
 import ReactTestUtils = require('react-addons-test-utils')
 import {html as beautifyHtml} from 'js-beautify'
-import { renderToStaticMarkup } from 'react-dom/server'
+import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import * as ReactDOM from "react-dom"
 import {compact} from "lodash"
 import {map} from "lodash"
