@@ -16,4 +16,8 @@ export class EventEmitter {
       fn.apply(null, args)
     })
   }
+
+  clear(){
+    this.listeners = []
+  }
 }
