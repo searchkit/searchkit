@@ -7,17 +7,15 @@ Sometimes we need to apply a default query which affects the entire search and i
   import {
     SearchkitManager,
     TermQuery,
-    FilteredQuery,
-    BoolShould
+    BoolMust
   }
   const searchkit = new SearchkitManager("/")
   searchkit.addDefaultQuery((query)=> {
-    return query.addQuery(FilteredQuery({
-      filter:BoolShould([
+    return query.addQuery(BoolMust([
         TermQuery("colour", "red"),
         TermQuery("colour", "orange")
       ])
-    }))
+    );
   })
 ```
 

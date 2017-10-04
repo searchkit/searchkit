@@ -1,9 +1,10 @@
 import {
   AggsContainer,
+  DateHistogramBucket,
   TermsBucket, RangeBucket,
   ChildrenBucket, FilterBucket,
   NestedBucket,SignificantTermsBucket,
-  GeohashBucket, HistogramBucket
+  GeohashBucket, GeoboundsBucket, HistogramBucket
 } from "../../../../../"
 import * as _ from "lodash"
 
@@ -105,4 +106,27 @@ describe("BucketAggregations", ()=> {
     this.expectAggs({histogram:{field:"price", interval:1}})
   })
 
+  it("GeoboundsBucket", ()=> {
+    this.aggs = GeoboundsBucket(
+      this.aggsKey, "location",
+      {precision:5},
+      this.childBucket
+    )
+    this.expectAggs({geo_bounds:{field:"location", precision:5}})
+  })
+
+  it("DateHistogramBucket", ()=> {
+    expect(DateHistogramBucket(this.aggsKey, "date_field")).toEqual({
+      [this.aggsKey]:{
+        date_histogram:{field:"date_field"}
+      }
+    })
+    this.aggs = DateHistogramBucket(
+      this.aggsKey,
+      "date_field",
+      {interval:"year"},
+      this.childBucket
+    )
+    this.expectAggs({date_histogram:{field:"date_field", interval:"year"}})
+  })
 })

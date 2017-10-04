@@ -33,10 +33,11 @@ describe("BoolQueries", ()=> {
         BoolMust([ "filter2", "filter3" ]),
         "filter4",
         BoolMust(["filter5", "filter6"]),
+        BoolMust("filter7"),
       ])
       expect(query).toEqual({
         bool: {
-          must: ["filter1", "filter2", "filter3", "filter4", "filter5", "filter6"]
+          must: ["filter1", "filter2", "filter3", "filter4", "filter5", "filter6", "filter7"]
         }
       })
   })

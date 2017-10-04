@@ -50,7 +50,7 @@ class App extends SearchkitComponent {
 
  render(){
     <div>
-      <HierarchicalMenuFilter fields={["categories_lvl1", "categories_lvl2", "categories_lvl3"]} title="Categories" id="categories"/>
+      <HierarchicalMenuFilter fields={["category.lvl1", "category.lvl2", "category.lvl3"]} title="Categories" id="categories"/>
     </div>
   }
 }

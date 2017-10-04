@@ -1,4 +1,5 @@
 import {assign} from "lodash"
+import {isEmpty} from "lodash"
 import {AggsContainer} from "./AggsContainer"
 
 export interface TermsBucketOptions {
@@ -32,6 +33,9 @@ export function ChildrenBucket(key, type, ...childAggs){
 }
 
 export function FilterBucket(key, filter, ...childAggs){
+  if (isEmpty(filter)) {
+    return AggsContainer(key, {filter: {match_all:{}}}, childAggs)
+  }
   return AggsContainer(key, {filter}, childAggs)
 }
 
@@ -49,4 +53,12 @@ export function GeohashBucket(key, field, options, ...childAggs){
 
 export function HistogramBucket(key, field, options={}, ...childAggs){
   return AggsContainer(key, {histogram:assign({field}, options)}, childAggs)
+}
+
+export function GeoboundsBucket(key, field, options = {}, ...childAggs) {
+  return AggsContainer(key, { geo_bounds: assign({ field }, options) }, childAggs);
+}
+
+export function DateHistogramBucket(key, field, options = {}, ...childAggs) {
+  return AggsContainer(key, { date_histogram: assign({ field }, options) }, childAggs);
 }

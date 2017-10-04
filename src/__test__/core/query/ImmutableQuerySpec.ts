@@ -73,6 +73,40 @@ describe("ImmutableQuery", ()=> {
       .toBe(unchangedQuery)
   })
 
+  it("supports multiple queries added", ()=> {
+    let query = this.addQuery()
+    query = query.addQuery(BoolMust(TermQuery("active", true)))
+    query = query.addQuery(BoolMust([
+      TermQuery("published", true),
+      TermQuery("archived", false)
+    ]))
+    expect(query.query.query).toEqual({
+      "bool": {
+        "must": [
+          {
+            "simple_query_string": {
+              "query": "foo"
+            }
+          },
+          {
+            "term": {
+              "active": true
+            }
+          },
+          {
+            "term": {
+              "published": true
+            }
+          },
+          {
+            "term": {
+              "archived": false
+            }
+          }
+        ]
+      }})
+  })
+
   it("setQueryString()", ()=> {
     let query = this.query.setQueryString("foo")
     expect(query.index.queryString).toBe("foo")
@@ -148,7 +182,7 @@ describe("ImmutableQuery", ()=> {
     let query = this.query.setAggs(genreAggs).setAggs(authorAggs)
     expect(query.query.aggs).toEqual({
       "genre_filter": {
-        "filter": {},
+        "filter": {"match_all": {}},
         "aggs": {
           "genre_terms": {
             "terms": {
@@ -158,7 +192,7 @@ describe("ImmutableQuery", ()=> {
         }
       },
       "author_filter": {
-        "filter": {},
+        "filter": {"match_all": {}},
         "aggs": {
           "author_terms": {
             "terms": {

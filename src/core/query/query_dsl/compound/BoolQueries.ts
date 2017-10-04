@@ -18,7 +18,7 @@ function flattenBool(operator, arr) {
   var newArr = []
   forEach(arr, node => {
     if (isBoolOp(operator, node)) {
-      newArr.push(...node.bool[operator])
+      newArr = newArr.concat(node.bool[operator])
     } else {
       newArr.push(node)
     }
