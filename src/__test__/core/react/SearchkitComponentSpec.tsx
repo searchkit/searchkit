@@ -2,9 +2,9 @@ import {
   SearchkitComponent,
   SearchkitManager,
   Accessor,
-  ImmutableQuery
+  ImmutableQuery,
+  block
 } from "../../../"
-let block = require("bem-cn")
 
 describe("SearchkitComponent", ()=> {
 

@@ -5,12 +5,12 @@ import {
   ReactComponentType,
   PureRender,
   renderComponent,
+  block
 } from "../../../"
 
 import { ItemComponent } from './ItemComponents'
 import { ListProps, ItemProps } from './ListProps'
 
-let block = require("bem-cn")
 
 import {map} from "lodash"
 import {includes} from "lodash"
@@ -50,8 +50,8 @@ export class TagCloud extends React.Component<TagCloudProps, any> {
     const { mod, className, disabled, items, translate } = this.props
 
     const bemBlocks = {
-      container: block(mod),
-      option: block(`${mod}-option`)
+      container: block(mod).el,
+      option: block(`${mod}-option`).el
     }
 
     const sortedItems = sortBy(items, it => translate(it.title || it.label || it.key).toLowerCase())

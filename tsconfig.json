@@ -333,7 +333,7 @@
     "./node_modules/@types/history/index.d.ts",
     "./node_modules/@types/history/createBrowserHistory.d.ts",
     "./node_modules/@types/history/createHashHistory.d.ts",
-    "./node_modules/@types/history/createMemoryHistory.d.ts",    
+    "./node_modules/@types/history/createMemoryHistory.d.ts",
     "./node_modules/@types/jasmine-ajax/index.d.ts",
     "./node_modules/@types/jasmine/index.d.ts",
     "./node_modules/@types/lodash/add/index.d.ts",

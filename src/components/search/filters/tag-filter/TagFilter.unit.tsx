@@ -4,7 +4,7 @@ import {fastClick, hasClass, jsxToHTML, printPrettyHtml, htmlClean} from "../../
 import { TagFilter, TagFilterConfig } from "./";
 import {SearchkitManager, Utils} from "../../../../core";
 
-const bem = require("bem-cn");
+;
 import * as _ from "lodash"
 import * as sinon from "sinon";
 

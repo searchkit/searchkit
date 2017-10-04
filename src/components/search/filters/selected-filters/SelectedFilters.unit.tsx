@@ -1,8 +1,8 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {SelectedFilters, FilterItemProps} from "./SelectedFilters";
-import {SearchkitManager, ImmutableQuery, FastClick} from "../../../../core";
-const bem = require("bem-cn");
+import {SearchkitManager, ImmutableQuery, FastClick, block} from "../../../../core";
+
 import * as _ from "lodash"
 import * as sinon from "sinon";
 import {
@@ -13,8 +13,8 @@ describe("SelectedFilters tests", () => {
 
   beforeEach(() => {
 
-    this.bemContainer = bem("sk-selected-filters")
-    this.bemOption = bem("sk-selected-filters-option")
+    this.bemContainer = block("sk-selected-filters").el
+    this.bemOption = block("sk-selected-filters-option").el
 
     this.searchkit = SearchkitManager.mock()
 

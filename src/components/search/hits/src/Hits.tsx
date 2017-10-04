@@ -68,8 +68,8 @@ export class HitsList extends React.Component<HitsListProps, any>{
 	render(){
 		const {hits, mod, className, itemComponent} = this.props
 		const bemBlocks = {
-			container: block(mod),
-			item: block(`${mod}-hit`)
+			container: block(mod).el,
+			item: block(`${mod}-hit`).el
 		}
 		return (
 			<div data-qa="hits" className={bemBlocks.container().mix(className)}>

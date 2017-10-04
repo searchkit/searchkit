@@ -6,7 +6,6 @@ import {SearchkitManager, Utils} from "../../../../core";
 import {Toggle, ItemComponent} from "../../../ui";
 import { TermQuery } from "../../../../core";
 
-const bem = require("bem-cn");
 import * as _ from "lodash"
 import * as sinon from "sinon";
 

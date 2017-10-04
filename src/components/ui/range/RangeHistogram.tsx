@@ -1,8 +1,7 @@
 import * as React from "react";
 
-import { PureRender } from "../../../"
+import { PureRender, block } from "../../../"
 
-let block = require("bem-cn")
 
 import {maxBy} from "lodash"
 import {map} from "lodash"
@@ -23,7 +22,7 @@ export class RangeHistogram extends React.Component<any, {}> {
     const { mod, className, min, max, minValue, maxValue, items = []} = this.props
 
     const bemBlocks = {
-      container: block(mod)
+      container: block(mod).el
     }
 
     const maxCount = computeMaxValue(items, "doc_count")

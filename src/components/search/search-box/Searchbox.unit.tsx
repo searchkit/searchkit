@@ -2,7 +2,7 @@ import * as React from "react";
 import {mount} from "enzyme";
 import {SearchBox} from "./SearchBox";
 import {SearchkitManager, QueryString } from "../../../core";
-const bem = require("bem-cn");
+;
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
 } from "../../__test__/TestHelpers"

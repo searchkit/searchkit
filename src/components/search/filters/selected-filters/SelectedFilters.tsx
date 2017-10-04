@@ -23,7 +23,7 @@ export class FilterItem extends React.Component<FilterItemProps, any> {
 		return (
 			<div className={props.bemBlocks.option()
 				.mix(props.bemBlocks.container("item"))
-				.mix(`selected-filter--${props.filterId}`)()}>
+				.mix(`selected-filter--${props.filterId}`)}>
 				<div className={props.bemBlocks.option("name")}>{props.labelKey}: {props.labelValue}</div>
 				<FastClick handler={props.removeFilter}>
 					<div className={props.bemBlocks.option("remove-action")}>x</div>

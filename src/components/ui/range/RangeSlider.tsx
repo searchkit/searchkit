@@ -7,8 +7,7 @@ const Slider = require('rc-slider')
 const createSliderWithTooltip = Slider.createSliderWithTooltip
 const Range = createSliderWithTooltip(Slider.Range)
 
-let block = require("bem-cn")
-import { PureRender } from "../../../core/react/pure-render"
+import { PureRender, block } from "../../../core"
 
 export interface RangeSliderProps extends RangeProps {
   step?: number
@@ -43,7 +42,7 @@ export class RangeSlider extends React.Component<RangeSliderProps, {}> {
       min, max, minValue, maxValue } = this.props
 
     const bemBlocks = {
-      container: block(mod)
+      container: block(mod).el
     }
 
     return (

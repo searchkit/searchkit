@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { RangeProps } from './RangeProps'
 
-let block = require("bem-cn")
+import {block} from "../../../"
 
 import {defaults} from "lodash"
 import {get} from "lodash"
@@ -100,7 +100,7 @@ export class RangeInput extends React.Component<RangeInputProps, {}> {
     const { mod, className, minValue, maxValue, translate, minPlaceholder, maxPlaceholder } = this.props
 
     const bemBlocks = {
-      container: block(mod)
+      container: block(mod).el
     }
 
     return (
