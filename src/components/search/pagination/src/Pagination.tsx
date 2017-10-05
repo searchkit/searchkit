@@ -9,7 +9,8 @@ import {
   PureRender,
   RenderComponentType,
   RenderComponentPropType,
-  renderComponent
+  renderComponent,
+  block
 } from "../../../../core"
 
 import {
@@ -22,7 +23,7 @@ import {assign} from "lodash"
 import {map} from "lodash"
 import {compact} from "lodash"
 import {isNaN} from "lodash"
-const bem = require("bem-cn")
+
 
 import { Paginator } from "./PaginationUtils"
 
@@ -121,7 +122,7 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
 
   render() {
     if (!this.hasHits()) return null;
-    const className = bem(this.props.mod).state({numbered:this.props.showNumbers})
+    const className = block(this.props.mod).state({numbered:this.props.showNumbers})
 
     const view = renderComponent(this.props.listComponent, {
       items: this.getPages(),

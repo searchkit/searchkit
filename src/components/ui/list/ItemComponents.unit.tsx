@@ -1,19 +1,23 @@
 import * as React from "react"
 import {mount} from "enzyme"
-let bemBlock = require("bem-cn")
 
 import {
   ItemComponent,
-  CheckboxItemComponent
+  CheckboxItemComponent,
 } from "./ItemComponents"
+
+import {
+  block
+} from "../../../"
+
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../__test__/TestHelpers"
 
 describe("ItemComponents", ()=> {
 
   beforeEach(()=> {
     this.bemBlocks = {
-      container:bemBlock("sk-item-container"),
-      option:bemBlock("sk-item-option")
+      container:block("sk-item-container").el,
+      option:block("sk-item-option").el
     }
     this.onClick = jasmine.createSpy("toggleItem")
 

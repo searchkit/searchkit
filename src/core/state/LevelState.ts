@@ -4,7 +4,7 @@ import {take} from "lodash"
 import {size} from "lodash"
 import {without} from "lodash"
 import {indexOf} from "lodash"
-const update = require("react-addons-update")
+const update = require("immutability-helper")
 
 export class LevelState extends State<Array<any>> {
   value:Array<any>

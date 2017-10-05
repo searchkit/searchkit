@@ -4,9 +4,9 @@ import {
   ReactComponentType,
   PureRender,
   FastClick,
+  block
 } from "../../../"
 
-let bemBlock = require("bem-cn")
 import {size} from 'lodash'
 import {toArray} from 'lodash'
 import {map} from 'lodash'
@@ -79,8 +79,8 @@ export class FilterGroup extends React.Component<FilterGroupProps, any> {
     const { mod, className, title, filters, removeFilters, removeFilter } = this.props
 
     const bemBlocks = {
-        container: bemBlock(mod),
-        items: bemBlock (`${mod}-items`)
+        container: block(mod).el,
+        items: block (`${mod}-items`).el
     }
 
     return (

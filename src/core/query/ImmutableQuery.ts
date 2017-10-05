@@ -1,4 +1,4 @@
-const update = require("react-addons-update")
+const update = require("immutability-helper")
 import {BoolMust} from "./query_dsl"
 import {Utils} from "../support/Utils"
 import {SelectedFilter} from "./SelectedFilter"

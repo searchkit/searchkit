@@ -2,7 +2,7 @@ import * as React from "react";
 import {mount} from "enzyme";
 import {GroupedSelectedFilters} from "./GroupedSelectedFilters";
 import {SearchkitManager, ImmutableQuery, FastClick} from "../../../../core";
-const bem = require("bem-cn");
+;
 import * as _ from "lodash"
 import * as sinon from "sinon";
 import {

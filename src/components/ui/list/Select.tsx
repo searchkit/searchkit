@@ -3,8 +3,8 @@ import * as React from "react";
 import { ItemComponent, CheckboxItemComponent } from "./ItemComponents"
 import { ListProps } from "./ListProps"
 
-import {PureRender} from "../../../core"
-let block = require("bem-cn")
+import {PureRender, block} from "../../../core"
+
 import {map} from "lodash"
 import {filter} from "lodash"
 import {transform} from "lodash"
@@ -43,7 +43,7 @@ export class Select extends React.Component<ListProps, any> {
       disabled, showCount, translate, countFormatter } = this.props
 
     const bemBlocks = {
-      container: block(mod)
+      container: block(mod).el
     }
 
     return (

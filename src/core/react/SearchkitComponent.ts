@@ -4,10 +4,10 @@ import {SearchkitManager} from "../SearchkitManager"
 import {ImmutableQuery} from "../query"
 import {Accessor} from "../accessors/Accessor"
 import {Utils} from "../support"
-let block = require("bem-cn")
 import {keys} from "lodash"
 import {without} from "lodash"
 import {mapValues} from "lodash"
+import {block} from "./block"
 
 export interface SearchkitComponentProps {
   mod?:string
@@ -63,7 +63,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
 
   get bemBlocks(): any {
     return mapValues(this.defineBEMBlocks(), (cssClass) => {
-      return block(cssClass)
+      return block(cssClass).el
     })
   }
   _getSearchkit(){

@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {HierarchicalMenuFilter} from "../src/HierarchicalMenuFilter";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
 import {SearchkitManager} from "../../../../../core";
-const bem = require("bem-cn");
+;
 import * as sinon from "sinon";
 import * as _ from "lodash"
 

@@ -4,7 +4,7 @@ import {NumericRefinementListFilter} from "../src/NumericRefinementListFilter";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
 import {SearchkitManager, Utils} from "../../../../../core";
 import {Select} from "../../../../ui";
-const bem = require("bem-cn");
+;
 import * as sinon from "sinon";
 import * as _ from "lodash"
 

@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {SortingSelector} from "../src/SortingSelector";
 import {SearchkitManager } from "../../../../core";
 import {Toggle} from "../../../ui";
-const bem = require("bem-cn");
+;
 import * as sinon from "sinon";
 import * as _ from "lodash"
 import {

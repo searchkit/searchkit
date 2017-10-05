@@ -101,9 +101,9 @@ describe("Range Filter tests", () => {
                 <div className="rc-slider-rail"></div>
                 <div className="rc-slider-track rc-slider-track-1" style={{visibility:" visible", " left":" 0%", " width":" 100%"}}></div>
                 <div className="rc-slider-step"><span className="rc-slider-dot rc-slider-dot-active" style={{left:" 0%"}}></span><span className="rc-slider-dot rc-slider-dot-active" style={{left:" 100%"}}></span></div>
-                <div role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-disabled="false"
+                <div role="slider" tabIndex={0} aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-disabled="false"
                   className="rc-slider-handle rc-slider-handle-1" style={{left:" 0%"}}></div>
-                <div role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" aria-disabled="false" className="rc-slider-handle rc-slider-handle-2" style={{left:" 100%"}}></div>
+                <div role="slider" tabIndex={0} aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" aria-disabled="false" className="rc-slider-handle rc-slider-handle-2" style={{left:" 100%"}}></div>
                 <div className="rc-slider-mark"><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:" 90%", " margin-left":" -45%", " left":" 0%"}}>0 score</span><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:" 90%", " margin-left":" -45%", " left":" 100%"}}>100 score</span></div>
               </div>
             </div>

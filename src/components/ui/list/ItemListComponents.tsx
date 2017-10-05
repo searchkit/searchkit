@@ -2,9 +2,7 @@ import * as React from "react";
 
 import { ItemComponent, CheckboxItemComponent } from "./ItemComponents"
 import { ListProps } from "./ListProps"
-import { PureRender } from "../../../core/react/pure-render"
-
-let block = require("bem-cn")
+import { PureRender, block } from "../../../core"
 
 import {map} from "lodash"
 import {includes} from "lodash"
@@ -45,8 +43,8 @@ export class AbstractItemList extends React.Component<ItemListProps, {}> {
     } = this.props
 
     const bemBlocks = {
-      container: block(mod),
-      option: block(`${mod}-option`)
+      container: block(mod).el,
+      option: block(`${mod}-option`).el
     }
 
     const toggleFunc = multiselect ? toggleItem : (key => setItems([key]))
