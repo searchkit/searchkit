@@ -83,7 +83,7 @@ export class ImmutableQuery {
     })
   }
 
-  getSelectedFilters(){
+  getSelectedFilters() : Array<SelectedFilter> {
     return this.index.selectedFilters
   }
   addAnonymousFilter(bool){

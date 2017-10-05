@@ -5,7 +5,8 @@ import {
   SearchkitComponentProps,
   ReactComponentType,
   PureRender,
-  renderComponent
+  renderComponent,
+  SelectedFilter
 } from "../../../../core"
 
 import {
@@ -51,7 +52,7 @@ export class GroupedSelectedFilters extends SearchkitComponent<GroupedSelectedFi
     }
   }
 
-  getFilters(): Array<any> {
+  getFilters() {
     return this.getQuery().getSelectedFilters()
   }
 
@@ -70,7 +71,7 @@ export class GroupedSelectedFilters extends SearchkitComponent<GroupedSelectedFi
     this.searchkit.performSearch()
   }
 
-  removeFilters(filters) {
+  removeFilters(filters:Array<SelectedFilter>) {
     forEach(filters, filter => filter.remove())
     this.searchkit.performSearch()
   }

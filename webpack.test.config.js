@@ -24,7 +24,7 @@ module.exports = {
     loaders: [
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader?instance=jsx',
+        loaders: ['ts'],
         include: path.join(__dirname, "src")
       },
       { test: /\.json$/, loader: 'json-loader' },
