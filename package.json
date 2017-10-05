@@ -71,6 +71,7 @@
     "@types/enzyme": "^2.8.11",
     "@types/jasmine": "^2.5.40",
     "@types/jasmine-ajax": "^3.1.32",
+    "@types/jasminewd2": "^2.0.3",
     "@types/react": "^15.0.0",
     "@types/react-dom": "^15.0.0",
     "@types/react-router": "^2.0.51",
