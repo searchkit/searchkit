@@ -1,4 +1,4 @@
-import ReactTestUtils = require('react-addons-test-utils')
+import ReactTestUtils = require('react-dom/test-utils')
 import {html as beautifyHtml} from 'js-beautify'
 import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import * as ReactDOM from "react-dom"

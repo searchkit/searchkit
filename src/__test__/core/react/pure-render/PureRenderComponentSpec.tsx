@@ -11,8 +11,6 @@ describe("PureRenderComponent", ()=> {
 
     }
     let comp = new MyComponent()
-    expect(comp.shouldComponentUpdate).toBe(shouldPureComponentUpdate)
-
     comp.props = {p:1}
     comp.state= {s:1}
     expect(comp.shouldComponentUpdate({p:1}, {s:1})).toBe(false)

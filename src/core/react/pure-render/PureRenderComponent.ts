@@ -4,6 +4,6 @@ import {PureRender} from "./PureRender"
 
 export class PureRenderComponent<T> extends React.Component<T, any> {
   shouldComponentUpdate(nextProps, nextState) {
-    return shouldPureComponentUpdate(nextProps, nextState)
+    return shouldPureComponentUpdate.call(this, nextProps, nextState)
   }
 }

@@ -9,7 +9,8 @@ module.exports = {
   resolve: {
     extensions:[".js", ".ts", ".tsx","", ".webpack.js", ".web.js"],
     alias: {
-      sinon: 'sinon/pkg/sinon'
+      sinon: 'sinon/pkg/sinon',
+      'react-addons-test-utils':'react-dom/test-utils'
     }
   },
   externals: {
@@ -19,6 +20,7 @@ module.exports = {
     'react/lib/ReactContext': 'window',
     'text-encoding': 'window',
     'react/addons': true
+
   },
   module: {
     loaders: [

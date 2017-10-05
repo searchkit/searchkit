@@ -8,17 +8,22 @@ import {
 } from "../../../"
 
 import {mount} from "enzyme";
-FastClick.component = FastClickComponent
 
 describe("FastClick - fast", ()=> {
 
   beforeEach(()=> {
+    FastClick.component = FastClickComponent
+
     this.handler = jasmine.createSpy("fastclick handler")
     this.wrapper = mount(
       <FastClick handler={this.handler}>
         <button>click me</button>
       </FastClick>
     )
+  })
+
+  afterEach(()=> {
+    FastClick.component = NormalClickComponent
   })
 
   it("should render children", ()=> {

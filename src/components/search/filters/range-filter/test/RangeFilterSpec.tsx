@@ -104,7 +104,7 @@ describe("Range Filter tests", () => {
                 <div role="slider" tabIndex={0} aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-disabled="false"
                   className="rc-slider-handle rc-slider-handle-1" style={{left:" 0%"}}></div>
                 <div role="slider" tabIndex={0} aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" aria-disabled="false" className="rc-slider-handle rc-slider-handle-2" style={{left:" 100%"}}></div>
-                <div className="rc-slider-mark"><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:" 90%", " margin-left":" -45%", " left":" 0%"}}>0 score</span><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:" 90%", " margin-left":" -45%", " left":" 100%"}}>100 score</span></div>
+                <div className="rc-slider-mark"><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:" 90%", " marginLeft":" -45%", " left":" 0%"}}>0 score</span><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:" 90%", " marginLeft":" -45%", " left":" 100%"}}>100 score</span></div>
               </div>
             </div>
           </div>

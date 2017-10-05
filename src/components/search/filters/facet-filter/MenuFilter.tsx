@@ -14,7 +14,7 @@ const allItem = {
   key:"$all", label: "All"
 }
 
-export class MenuFilter extends FacetFilter<FacetFilterProps> {
+export class MenuFilter extends FacetFilter {
 
   static propTypes = defaults({
   }, FacetFilterPropTypes.propTypes)

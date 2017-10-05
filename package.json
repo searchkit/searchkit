@@ -68,7 +68,7 @@
     "react-dom": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0"
   },
   "devDependencies": {
-    "@types/enzyme": "^2.7.1",
+    "@types/enzyme": "^2.8.11",
     "@types/jasmine": "^2.5.40",
     "@types/jasmine-ajax": "^3.1.32",
     "@types/react": "^15.0.0",
@@ -80,7 +80,7 @@
     "autoprefixer": "^6.3.3",
     "css-loader": "^0.23.1",
     "ejs": "^2.4.1",
-    "enzyme": "^2.0.0",
+    "enzyme": "2.9.1",
     "es6-promise": "^4.1.1",
     "express": "^4.13.4",
     "extract-text-webpack-plugin": "^1.0.1",
@@ -111,9 +111,9 @@
     "postcss-loader": "^0.8.2",
     "protractor": "^4.0.0",
     "react": "^15.6.0",
-    "react-addons-test-utils": "^15.6.0",
     "react-dom": "15.6.0",
     "react-router": "^2.4.0",
+    "react-test-renderer": "^15.6.2",
     "sass-loader": "^3.1.2",
     "serve-favicon": "^2.3.0",
     "sinon": "^1.17.2",
