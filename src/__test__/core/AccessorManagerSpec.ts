@@ -111,6 +111,14 @@ describe("AccessorManager", ()=> {
     expect(accessors.statefulAccessors).toEqual({})
   })
 
+  it("add() incompatible access with same key", ()=> {
+    let queryAccessor = new QueryAccessor("q")
+    expect(this.accessors.add(queryAccessor)).toBe(queryAccessor)
+    expect(()=> this.accessors.add(new PaginationAccessor("q"))).toThrow(
+      new Error("Multiple imcompatible components with id='q' existing on the page")
+    )
+  })
+
   it("add() - QueryAccessor and then remove", ()=> {
     let accessors = new AccessorManager()
     let queryAccessor = new QueryAccessor("q")

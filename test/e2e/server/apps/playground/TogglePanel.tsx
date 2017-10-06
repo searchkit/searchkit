@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as PropTypes from "prop-types";
-import {block} from "../../../../../src"
+import { block } from "../../../../../src"
 
 export interface TogglePanelProps extends React.Props<TogglePanel> {
   key?: any
@@ -52,14 +52,14 @@ export class TogglePanel extends React.Component<TogglePanelProps, {collapsed: b
   render() {
       const { title, mod, className, disabled, children, collapsable, rightComponent } = this.props
       const { collapsed } = this.state
-
       const bemBlocks = {
           container: block(mod)
       }
 
-      var block = bemBlocks.container
-      var containerClass = block()
-          .mix(className)
+    
+      var containerBlock = bemBlocks.container.el
+          
+      var containerClass = containerBlock().mix(className)
           .state({ disabled })
 
       var titleDiv

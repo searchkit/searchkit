@@ -34,21 +34,27 @@ describe("HierarchicalFacetAccessor", ()=> {
         categories_id:{
           lvl2:{
             lvl2:{
-              buckets:[1,2,3]
+              buckets:[
+                {key:1}, {key:2,}, {key:3}
+              ]
             }
           },
           lvl3:{
             lvl3:{
-              buckets:[4,5,6]
+              buckets:[
+                { key: 4 }, { key: 5, }, { key: 6 }
+              ]
             }
           }
         }
       }
     }
-    expect(this.accessor.getBuckets(1))
-      .toEqual([1,2,3])
-    expect(this.accessor.getBuckets(2))
-      .toEqual([4,5,6])
+    expect(this.accessor.getBuckets(1)).toEqual([
+      {key:"1"}, {key:"2"}, {key:"3"}
+    ])
+    expect(this.accessor.getBuckets(2)).toEqual([
+      { key: "4" }, { key: "5" }, { key: "6" }
+    ])
     expect(this.accessor.getBuckets(4))
       .toEqual([])
   })

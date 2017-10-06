@@ -44,10 +44,14 @@ export class NestedFacetAccessor extends FilterBasedAccessor<LevelState> {
   }
 
 	getBuckets(level) {
-    return this.getAggregations(
+    let buckets:Array<any> = this.getAggregations(
       [this.key, "children", "lvl"+level, "children", "buckets"],
       []
     )
+    return map(buckets, (item)=> {
+      item.key = String(item.key)
+      return item
+    })
 	}
 
 	buildSharedQuery(query) {

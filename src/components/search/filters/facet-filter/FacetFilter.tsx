@@ -43,7 +43,7 @@ export class FacetFilter extends SearchkitComponent<FacetFilterProps, any> {
   }
   defineAccessor() {
     return new FacetAccessor(
-      this.props.field, this.getAccessorOptions())
+      this.props.id, this.getAccessorOptions())
   }
 
   defineBEMBlocks() {

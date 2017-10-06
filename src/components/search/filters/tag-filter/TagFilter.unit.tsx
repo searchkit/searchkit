@@ -47,9 +47,9 @@ describe("TagFilter tests", () => {
 
     this.createWrapper(
       <div>
-        <TagFilterConfig field="test" id="test id" title="test title" operator="OR" searchkit={this.searchkit} />
-        <TagFilter field="test" value="test option 1" searchkit={this.searchkit} />
-        <TagFilter field="test" value="test option 2" searchkit={this.searchkit} />
+        <TagFilterConfig field="test" id="testId" title="test title" operator="OR" searchkit={this.searchkit} />
+        <TagFilter field="testId" value="test option 1" searchkit={this.searchkit} />
+        <TagFilter field="testId" value="test option 2" searchkit={this.searchkit} />
       </div>
     )
 
@@ -66,8 +66,8 @@ describe("TagFilter tests", () => {
 
     this.createWrapper(
       <div>
-        <TagFilterConfig field="test" id="test id" title="test title" operator="OR" searchkit={this.searchkit} />
-        <TagFilter field="test" value="test option 1" searchkit={this.searchkit} >
+        <TagFilterConfig field="test" id="testId" title="test title" operator="OR" searchkit={this.searchkit} />
+        <TagFilter field="testId" value="test option 1" searchkit={this.searchkit} >
           <div className="custom-element">test option</div>
         </TagFilter>
       </div>
@@ -87,9 +87,9 @@ describe("TagFilter tests", () => {
 
     this.createWrapper(
       <div>
-        <TagFilterConfig field="test" id="test id" title="test title" operator="OR" searchkit={this.searchkit} />
-        <TagFilter field="test" value="test option 1" searchkit={this.searchkit} />
-        <TagFilter field="test" value="test option 2" searchkit={this.searchkit} />
+        <TagFilterConfig field="test" id="testId" title="test title" operator="OR" searchkit={this.searchkit} />
+        <TagFilter field="testId" value="test option 1" searchkit={this.searchkit} />
+        <TagFilter field="testId" value="test option 2" searchkit={this.searchkit} />
       </div>
     )
 
