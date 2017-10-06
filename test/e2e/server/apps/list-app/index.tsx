@@ -55,13 +55,12 @@ class App extends React.Component<any, any> {
 
             <div className="sk-layout__filters">
               <div className="sk-layout__filters-row">
-                <MenuFilter translations={{"All":"All options"}} field={"type.raw"} title="ItemList" id="item-list" listComponent={ItemList} />
-                <MenuFilter field={"type.raw"} title="CheckboxItemList" id="checkbox-item-list" listComponent={CheckboxItemList} />
-                <MenuFilter field={"type.raw"} title="ItemHistogramList" id="histogram-list" listComponent={ItemHistogramList} />
-                <MenuFilter field={"type.raw"} title="TagCloud" id="tag-cloud" listComponent={TagCloud} />
-                <MenuFilter field={"type.raw"} title="Toggle" id="toggle" listComponent={Toggle} />
-                <MenuFilter field={"type.raw"} title="Tabs" id="tabs" listComponent={Tabs} />
-                <MenuFilter countFormatter={(count)=> "#"+count} field={"type.raw"} title="Select" id="select" listComponent={Select} />
+                <MenuFilter translations={{"All":"All options"}} field={"type.raw"} title="ItemList" id="typeList" listComponent={ItemList} />
+                <MenuFilter field={"type.raw"} title="CheckboxItemList" id="typeList" listComponent={CheckboxItemList} />
+                <MenuFilter field={"type.raw"} title="ItemHistogramList" id="typeList" listComponent={ItemHistogramList} />
+                <MenuFilter field={"type.raw"} title="TagCloud" id="typeList" listComponent={TagCloud} />
+                <MenuFilter field={"type.raw"} title="Tabs" id="typeList" listComponent={Tabs} />
+                <MenuFilter countFormatter={(count)=> "#"+count} field={"type.raw"} title="Select" id="typeList" listComponent={Select} />
 
               </div>
             </div>

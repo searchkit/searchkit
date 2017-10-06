@@ -54,8 +54,13 @@ export class AccessorManager {
       }
       let existingAccessor = this.statefulAccessors[accessor.key]
       if(existingAccessor){
-        existingAccessor.incrementRef()
-        return existingAccessor
+        if(existingAccessor.constructor === accessor.constructor){
+          existingAccessor.incrementRef()
+          return existingAccessor
+        } else {
+          throw new Error(`Multiple imcompatible components with id='${accessor.key}' existing on the page`)          
+        }
+        
       } else {
         this.statefulAccessors[accessor.key] = accessor
       }

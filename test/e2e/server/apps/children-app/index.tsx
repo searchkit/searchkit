@@ -35,7 +35,7 @@ export class App extends React.Component<any, any> {
 
   constructor() {
     super()
-    const host = "http://localhost:9200/taxonomynested/locations"
+    const host = "http://demo.searchkit.co/api/taxonomy"
     this.searchkit = new SearchkitManager(host)
   }
 
@@ -61,7 +61,7 @@ export class App extends React.Component<any, any> {
   			<div className="sk-layout__filters">
           <RefinementListFilter
             field="level"
-            fieldOptions={{type:'children', options:{childrenType:"nodes"}}}
+            fieldOptions={{type:'children', options:{childType:"nodes"}}}
             size={10}
             id="NestedTest" title="Nested Test"/>
   			</div>

@@ -10,7 +10,6 @@ import {assign} from "lodash"
 import {map} from "lodash"
 import {omitBy} from "lodash"
 import {isUndefined} from "lodash"
-import {keyBy} from "lodash"
 import {reject} from "lodash"
 import {each} from "lodash"
 import {identity} from "lodash"
@@ -78,8 +77,12 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
   }
 
   getBuckets(){
-    let rawBuckets = this.getRawBuckets()
-    let keyIndex = keyBy(rawBuckets, "key")
+    let rawBuckets:Array<any> = this.getRawBuckets()
+    let keyIndex = {}
+    each(rawBuckets, (item)=> {
+      item.key = String(item.key)
+      keyIndex[item.key] = item
+    })
     let inIndex = (filter)=> !!keyIndex[filter]
     let missingFilters = []
     each(this.state.getValue(), (filterKey)=> {
@@ -192,7 +195,7 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
               exclude: this.options.exclude,
               min_doc_count:this.options.min_doc_count
             }, isUndefined)),
-            CardinalityMetric(this.key+"_count", this.key)
+            CardinalityMetric(this.options.field+"_count", this.options.field)
           )
         ))
     }

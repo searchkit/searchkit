@@ -50,7 +50,6 @@ const filterGroupProps = {
   }
 }
 
-
 class App extends React.Component<any, any> {
   render(){
     return (
@@ -92,7 +91,7 @@ class App extends React.Component<any, any> {
               <MockRange title="Container Component" containerComponent={Panel}/>
               <MockRange title="Container Element" containerComponent={<Panel />}/>
               <MockRange title="Container Element with props" containerComponent={<Panel collapsable={true}/>}/>
-              <MockRange title="Container Function" containerComponent={(props, children) => <Panel {...props} collapsable={true}>{children}</Panel>}/>
+              <MockRange title="Container Function" containerComponent={props => <Panel {...props } collapsable={true}></Panel >}/>
               <hr />
               <MockRange title="RangeSlider" rangeComponent={RangeSlider}/>
               <MockRange title="RangeHistogram" rangeComponent={RangeHistogram}/>

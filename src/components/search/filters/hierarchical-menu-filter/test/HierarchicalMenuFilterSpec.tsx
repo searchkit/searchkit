@@ -7,7 +7,7 @@ import {SearchkitManager} from "../../../../../core";
 import * as sinon from "sinon";
 import * as _ from "lodash"
 
-describe("MenuFilter tests", () => {
+describe("HierarchicalMenuFilter tests", () => {
 
   beforeEach(()=> {
     this.searchkit = SearchkitManager.mock()

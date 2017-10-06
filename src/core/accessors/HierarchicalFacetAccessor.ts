@@ -42,8 +42,12 @@ export class HierarchicalFacetAccessor extends FilterBasedAccessor<LevelState> {
   }
 
   getBuckets(level){
-    var field = this.options.fields[level]
-    return this.getAggregations([this.options.id, field, field, "buckets"], [])
+    let field = this.options.fields[level]
+    let buckets:Array<any> = this.getAggregations([this.options.id, field, field, "buckets"], [])
+    return map(buckets, (item)=> {
+      item.key = String(item.key)
+      return item
+    })
   }
 
 
