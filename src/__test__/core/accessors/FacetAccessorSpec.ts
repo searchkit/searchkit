@@ -13,6 +13,7 @@ describe("FacetAccessor", ()=> {
       operator:"OR",
       title:"Genres",
       id:"GenreId",
+      field:"genre",
       size:20,
       orderKey:"_term",
       orderDirection:"asc",
@@ -287,6 +288,7 @@ describe("FacetAccessor", ()=> {
           operator:"OR",
           title:"Genres",
           id:"GenreId",
+          field:"genre",
           size:20,
           fieldOptions:{
             type:"nested",

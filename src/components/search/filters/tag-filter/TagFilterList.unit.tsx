@@ -45,8 +45,8 @@ describe("TagFilterList tests", () => {
 
     this.createWrapper(
       <div>
-        <TagFilterConfig field="test" id="test id" title="test title" operator="OR" searchkit={this.searchkit} />
-        <TagFilterList field="test" values={["test option 1", "test option 2"]} searchkit={this.searchkit} />
+        <TagFilterConfig field="test" id="testId" title="test title" operator="OR" searchkit={this.searchkit} />
+        <TagFilterList field="testId" values={["test option 1", "test option 2"]} searchkit={this.searchkit} />
       </div>
     )
   });

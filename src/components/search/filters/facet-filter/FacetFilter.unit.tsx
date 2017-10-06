@@ -15,7 +15,7 @@ describe("Facet Filter tests", () => {
 
     this.searchkit.setResults({
       aggregations: {
-        test1: {
+        testId1: {
           test: {
             buckets: [
               { key: "test option 1", doc_count: 1 },
@@ -46,7 +46,7 @@ describe("Facet Filter tests", () => {
 
     this.createWrapper(
       <FacetFilter
-        field="test" id="test id" title="test title" size={3} countFormatter={(count)=>"#"+count}
+        field="test" id="testId" title="test title" size={3} countFormatter={(count)=>"#"+count}
         include={"title"} exclude={["bad", "n/a"]} operator="OR"
         orderKey="_count" orderDirection="desc" translations={{"facets.view_all":"View all facets"}}
         searchkit={this.searchkit} bucketsTransform={_.identity}/>
@@ -59,7 +59,7 @@ describe("Facet Filter tests", () => {
 
   it('renders correctly', () => {
     let output = jsxToHTML(
-      <div className="sk-panel filter--test id">
+      <div className="sk-panel filter--testId">
         <div className="sk-panel__header">test title</div>
         <div className="sk-panel__content">
           <div data-qa="options" className="sk-item-list">
@@ -117,11 +117,11 @@ describe("Facet Filter tests", () => {
   })
 
   it("should configure accessor correctly", () => {
-    expect(this.accessor.key).toBe("test")
+    expect(this.accessor.key).toBe("testId")
     let options = this.accessor.options
 
     expect(options).toEqual(jasmine.objectContaining({
-      "id": "test id",
+      "id": "testId",
       "field":"test",
       "title": "test title",
       "size": 3,
@@ -143,7 +143,7 @@ describe("Facet Filter tests", () => {
     this.createWrapper(
       <FacetFilter
         itemComponent = {({ label, count }) => <div className="option">{label} ({count})</div>}
-        field="test" id="test id" title="test title"
+        field="test" id="testId" title="test title"
         searchkit={this.searchkit} />
     )
     expect(this.wrapper.find(".sk-panel__header").text()).toBe("test title")
@@ -176,13 +176,13 @@ describe("Facet Filter tests", () => {
         containerComponent={container}
         listComponent={Toggle}
         itemComponent={(props)=> <ItemComponent {...props} showCount={true}/>}
-        field="test" id="test id" title="test title"
+        field="test" id="testId" title="test title"
         bucketsTransform={(buckets)=> _.reverse(buckets)}
         searchkit={this.searchkit} />
     )
 
     expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div title="test title" className="filter--test id">
+      <div title="test title" className="filter--testId">
         <div data-qa="options" className="sk-toggle">
           <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 3">
             <div data-qa="label" className="sk-toggle-option__text">test option 3</div>
