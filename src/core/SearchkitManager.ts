@@ -15,8 +15,6 @@ import {isEqual} from "lodash"
 import {get} from "lodash"
 import qs from "qs"
 
-require('es6-promise').polyfill()
-
 import {after} from "lodash"
 
 export interface SearchkitOptions {

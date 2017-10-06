@@ -21,16 +21,19 @@ describe("RenderComponent", ()=> {
     }
     this.SubPanel.defaultProps.title = "SubPanel"
     this.SubPanelElement = <Panel title="PanelElement"/>
-    this.PanelReactClass = React.createClass({
-      contextTypes:{
+
+    this.PanelReactClass = class PanelReactClass extends React.Component {
+      static contextTypes = {
         color:PropTypes.string
-      },
+      }
       render(){
         return (<Panel title={"PanelReactClass " + this.context.color} {...this.props}>
           {this.props.children}
         </Panel>)
       }
-    })
+    }
+
+
 
     this.PanelFunction = (props, context)=> {
       return (

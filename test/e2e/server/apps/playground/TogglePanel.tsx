@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as PropTypes from "prop-types";
-
-let bemBlock = require("bem-cn")
+import {block} from "../../../../../src"
 
 export interface TogglePanelProps extends React.Props<TogglePanel> {
   key?: any
@@ -55,7 +54,7 @@ export class TogglePanel extends React.Component<TogglePanelProps, {collapsed: b
       const { collapsed } = this.state
 
       const bemBlocks = {
-          container: bemBlock(mod)
+          container: block(mod)
       }
 
       var block = bemBlocks.container

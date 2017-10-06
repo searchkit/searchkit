@@ -56,7 +56,7 @@ describe("AxiosESTransport", ()=> {
       from:0
     }).then((result)=> {
       expect(result.hits).toEqual([1,2,3])
-      let request = jasmine.Ajax.requests.mostRecent()
+      let request:any = jasmine.Ajax.requests.mostRecent()
       expect(request.method).toBe("POST")
       expect(request["data"]()).toEqual(
         {size:10, from:0})

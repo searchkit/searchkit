@@ -21,7 +21,7 @@ describe("RangeSlider", () => {
           <div role="slider" tabIndex={0} aria-valuemin="0" aria-valuemax="10" aria-valuenow="2" aria-disabled="false" className="rc-slider-handle rc-slider-handle-1"
             style={{left:" 20%"}}></div>
           <div role="slider" tabIndex={0} aria-valuemin="0" aria-valuemax="10" aria-valuenow="5" aria-disabled="false" className="rc-slider-handle rc-slider-handle-2" style={{left:" 50%"}}></div>
-          <div className="rc-slider-mark"><span className="rc-slider-mark-text" style={{width:" 90%", " margin-left":" -45%", " left":" 0%"}}>0</span><span className="rc-slider-mark-text" style={{width:" 90%", " margin-left":" -45%", " left":" 100%"}}>10</span></div>
+          <div className="rc-slider-mark"><span className="rc-slider-mark-text" style={{width:" 90%", " marginLeft":" -45%", " left":" 0%"}}>0</span><span className="rc-slider-mark-text" style={{width:" 90%", " marginLeft":" -45%", " left":" 100%"}}>10</span></div>
         </div>
       </div>
     ))

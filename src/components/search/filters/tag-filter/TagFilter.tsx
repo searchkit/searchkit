@@ -11,7 +11,6 @@ FastClick,
 export interface TagFilterProps extends SearchkitComponentProps {
   field: string
   value: string
-  children?: React.ReactChildren
 }
 
 
@@ -21,7 +20,7 @@ export class TagFilter extends SearchkitComponent<TagFilterProps, any> {
     super()
     this.handleClick = this.handleClick.bind(this)
   }
-  
+
   isActive(){
     const { field, value } = this.props
     const accessor = this.searchkit.accessors.statefulAccessors[field]
@@ -45,10 +44,10 @@ export class TagFilter extends SearchkitComponent<TagFilterProps, any> {
 
   render() {
     const { value, children } = this.props
-    
+
     var className = "sk-tag-filter"
     if (this.isActive()) className += " is-active"
-    
+
     if (children){
       return (
         <FastClick handler={this.handleClick}>
