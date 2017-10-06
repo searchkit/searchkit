@@ -55,12 +55,12 @@ The `TagFilterConfig` will not render anything, and will just provide configurat
 
 ## TagFilterList
 TagFilterList renders a list of tags with add/remove behaviour
-- `filter` *(string)*: Required. The field name which should also map to a `RefinementListFilter` or `MenuFilter` or `TagFilterConfig` component within the page.
+- `filter` *(string)*: Required. The field id which should also map to the `id` of `RefinementListFilter` or `MenuFilter` or `TagFilterConfig` component within the page.
 - `values` *(Array<string>)*: The array of values per result, often read from the `_source` of each document
 
 ## TagFilter
 A Low level component to render each Tag, used if you want to full control the surrounding list.
-- `filter` *(string)*: Required. The field name which should also map to a `RefinementListFilter` or `MenuFilter` or `TagFilterConfig` component within the page.
+- `filter` *(string)*: Required. The field id which should also map to the `id` of `RefinementListFilter` or `MenuFilter` or `TagFilterConfig` component within the page.
 - `value` *(string)*: The value of the tag
 
 ## TagFilterConfig
