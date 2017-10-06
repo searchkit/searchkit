@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 import {mount, render} from "enzyme";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../__test__/TestHelpers"
 import {MenuFilter} from "./MenuFilter";
-import {SearchkitManager, Utils, ArrayState} from "../../../../core";
+import {SearchkitManager, Utils, ArrayState, FacetAccessor} from "../../../../core";
 import {Toggle, ItemComponent, ItemList} from "../../../ui";
 ;
 import * as _ from "lodash"
@@ -27,7 +27,7 @@ describe("MenuFilter", ()=> {
       return this.wrapper.find(".sk-item-list")
         .children().at(at)
     }
-    this.accessor = this.searchkit.accessors.accessors[0]
+    this.accessor = this.searchkit.getAccessorByType(FacetAccessor)
     this.searchkit.setResults({
       aggregations:{
         color1:{

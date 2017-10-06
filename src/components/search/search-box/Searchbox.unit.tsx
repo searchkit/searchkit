@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {SearchBox} from "./SearchBox";
-import {SearchkitManager, QueryString } from "../../../core";
+import {SearchkitManager, QueryString, QueryAccessor } from "../../../core";
 ;
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
@@ -35,7 +35,7 @@ describe("Searchbox tests", () => {
           {...options}
         />
       );
-      this.accessor = this.searchkit.accessors.getAccessors()[0]
+      this.accessor = this.searchkit.getAccessorByType(QueryAccessor)
     }
 
     this.typeSearch = (value)=> {

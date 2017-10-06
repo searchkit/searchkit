@@ -2,7 +2,7 @@ import * as React from "react";
 import {mount} from "enzyme";
 import {HierarchicalMenuFilter} from "../src/HierarchicalMenuFilter";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
-import {SearchkitManager} from "../../../../../core";
+import { SearchkitManager, HierarchicalFacetAccessor} from "../../../../../core";
 ;
 import * as sinon from "sinon";
 import * as _ from "lodash"
@@ -19,7 +19,7 @@ describe("HierarchicalMenuFilter tests", () => {
         fields={["lvl1", "lvl2"]}
       />
     )
-    this.accessor = this.searchkit.accessors.accessors[0]
+    this.accessor = this.searchkit.getAccessorByType(HierarchicalFacetAccessor)
     this.setResults = ()=> {
       this.searchkit.setResults({
         aggregations:{

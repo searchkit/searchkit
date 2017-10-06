@@ -21,8 +21,7 @@ describe("SearchkitManager", ()=> {
       searchOnLoad:false
     })
     spyOn(SearchRequest.prototype, "run")
-      .and.returnValue(this.resolved)
-    this.resolved = new Promise((resolve)=> resolve())
+      .and.returnValue(Promise.resolve())    
 
     this.searchkit.setupListeners()
     this.emitterSpy = jasmine.createSpy("emitter")
@@ -95,7 +94,17 @@ describe("SearchkitManager", ()=> {
     )
   })
 
+  it("defaultSize", ()=> {
+    let searchkit = SearchkitManager.mock()
+    expect(searchkit.buildQuery().getSize()).toEqual(20)
+    
+    searchkit = SearchkitManager.mock({defaultSize:12})    
+    expect(searchkit.buildQuery().getSize()).toEqual(12)
+    expect(searchkit.getAccessorByType(PageSizeAccessor).defaultSize).toEqual(12)
+  })
+
   it("addAccessor(), removeAddAccessor()", ()=> {
+    this.searchkit.accessors = new AccessorManager()
     const accessor = new PageSizeAccessor(10)
     this.searchkit.addAccessor(accessor)
     expect(this.searchkit.accessors.accessors).toEqual([
@@ -124,6 +133,7 @@ describe("SearchkitManager", ()=> {
   })
 
   it("buildQuery()", ()=> {
+    this.searchkit.accessors = new AccessorManager()
     const defaultQueryFn = (query)=> {
       return query.setFrom(20)
     }
@@ -289,37 +299,35 @@ describe("SearchkitManager", ()=> {
       .toHaveBeenCalled()
   })
 
-  it("_search()", (done)=> {
-    this.accessor = new PageSizeAccessor(10)
+  it("_search()", async ()=> {
     this.searchkit.setQueryProcessor((query)=> {
       query.source=true
       return query
     })
     let initialSearchRequest  =
       this.searchkit.currentSearchRequest = new SearchRequest(this.host, null, this.searchkit)
-    this.searchkit.addAccessor(
-      this.accessor)
+
     this.searchkit.results = {}
-    this.searchkit._search()
-      .then((resultsObject)=> {
-        expect(resultsObject).toEqual({
-          results:{},
-          state:{}
-        })
-        done()
-      })
+    let resultsObject = await this.searchkit._search()
+  
+    expect(resultsObject).toEqual({
+      results:{},
+      state:{}
+    })
+
     expect(initialSearchRequest.active).toBe(false)
     expect(this.searchkit.currentSearchRequest.transport.host)
       .toBe(this.host)
     expect(this.searchkit.currentSearchRequest.query).toEqual({
-      size: 10, source: true
+      size: 20, source: true
     })
     expect(this.searchkit.currentSearchRequest.run)
       .toHaveBeenCalled()
     expect(this.searchkit.loading).toBe(true)
   })
 
-  it("_search() should not search with same query", ()=> {
+  it("_search() should not search with same query", async ()=> {
+
     this.searchkit.query = new ImmutableQuery().setSize(20).setSort([{"created":"desc"}])
     this.searchkit.buildQuery = ()=> new ImmutableQuery().setSize(20).setSort([{"created":"desc"}])
     this.searchkit.results = {}
@@ -329,14 +337,38 @@ describe("SearchkitManager", ()=> {
       .not.toHaveBeenCalled()
 
     delete this.searchkit.results
-    this.searchkit._search()
+    let searchResult = await this.searchkit._search()
+    expect(searchResult).toEqual({results:undefined, state:{}})
     expect(SearchRequest.prototype.run)
       .toHaveBeenCalled()
     this.searchkit.query = new ImmutableQuery().setSize(21)
     this.searchkit.results = {}
-    this.searchkit._search()
+    searchResult = await this.searchkit._search()
+    expect(searchResult).toEqual({ results: {}, state: {} })
     expect(SearchRequest.prototype.run)
       .toHaveBeenCalled()
+  })
+
+  it("_search() should use shouldSearch check", async ()=> {
+    this.searchkit.buildQuery = () =>  new ImmutableQuery().setSize(20).setSort([{ "created": "desc" }])
+    this.searchkit.results = {}
+    this.searchkit.shouldPerformSearch = (query)=> {
+      return !!query.getQueryString()
+    }
+    let searchResult = await this.searchkit._search()
+    expect(searchResult).toEqual({results:{}, state:{}})
+    expect(SearchRequest.prototype.run)
+      .not.toHaveBeenCalled()
+
+    this.searchkit.buildQuery = () =>  new ImmutableQuery()
+      .setSize(20).setSort([{ "created": "desc" }])
+      .setQueryString("somequery")
+
+    searchResult = await this.searchkit._search()
+    expect(searchResult).toEqual({ results: {}, state: {} })
+    expect(SearchRequest.prototype.run)
+      .toHaveBeenCalled()
+
   })
 
   it("reloadSearch()", ()=> {

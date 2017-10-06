@@ -3,6 +3,7 @@ import {
   SearchkitManager,
   Accessor,
   ImmutableQuery,
+  AccessorManager,
   block
 } from "../../../"
 
@@ -74,6 +75,7 @@ describe("SearchkitComponent", ()=> {
   it("componentWillMount()", ()=> {
     spyOn(this.component, "forceUpdate")
     let searchkit = SearchkitManager.mock()
+    searchkit.accessors = new AccessorManager()
     let accessor = new Accessor()
     this.component.defineAccessor = ()=> accessor
     spyOn(console, "warn")

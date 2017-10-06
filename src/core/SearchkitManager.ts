@@ -1,5 +1,5 @@
 import {ImmutableQuery} from "./query";
-import {Accessor, BaseQueryAccessor, AnonymousAccessor} from "./accessors"
+import { Accessor, BaseQueryAccessor, AnonymousAccessor, PageSizeAccessor} from "./accessors"
 import {AccessorManager} from "./AccessorManager"
 import {ESTransport, AxiosESTransport, MockESTransport} from "./transport"
 import {SearchRequest} from "./SearchRequest"
@@ -18,16 +18,17 @@ import qs from "qs"
 import {after} from "lodash"
 
 export interface SearchkitOptions {
-  useHistory?:boolean,
-  createHistory?:Function,
-  getLocation?:Function,
-  searchOnLoad?:boolean,
-  httpHeaders?:Object,
-  basicAuth?:string,
-  transport?:ESTransport,
-  searchUrlPath?:string,
-  timeout?: number,
+  useHistory?:boolean
+  createHistory?:Function
+  getLocation?:Function
+  searchOnLoad?:boolean
+  httpHeaders?:Object
+  basicAuth?:string
+  transport?:ESTransport
+  searchUrlPath?:string
+  timeout?: number
   withCredentials? : boolean
+  defaultSize?:number
 }
 
 export interface InitialState {
@@ -51,6 +52,7 @@ export class SearchkitManager {
   resultsEmitter:EventEmitter
   accessors:AccessorManager
   queryProcessor:Function
+  shouldPerformSearch:Function
   query:ImmutableQuery
   loading:boolean
   initialLoading:boolean
@@ -59,11 +61,12 @@ export class SearchkitManager {
   VERSION = VERSION
   static VERSION = VERSION
 
-  static mock() {
+  static mock(options = {}):SearchkitManager {
     let searchkit = new SearchkitManager("/", {
       useHistory:false,
-      transport:new MockESTransport()
-    })
+      transport:new MockESTransport(),      
+      ...options
+    })    
     searchkit.setupListeners()
     return searchkit
   }
@@ -73,6 +76,7 @@ export class SearchkitManager {
       useHistory:true,
       httpHeaders:{},
       searchOnLoad:true,
+      defaultSize:20,
       createHistory:createHistoryInstance,
       getLocation:()=> window.location
     })
@@ -88,12 +92,13 @@ export class SearchkitManager {
       withCredentials: this.options.withCredentials
     })
     this.accessors = new AccessorManager()
+    this.accessors.add(new PageSizeAccessor(this.options.defaultSize))
 		this.registrationCompleted = new Promise((resolve)=>{
 			this.completeRegistration = resolve
 		})
     this.translateFunction = constant(undefined)
     this.queryProcessor = identity
-    // this.primarySearcher = this.createSearcher()
+    this.shouldPerformSearch = (query)=> true 
     this.query = new ImmutableQuery()
     this.emitter = new EventEmitter()
     this.resultsEmitter = new EventEmitter()
@@ -203,11 +208,20 @@ export class SearchkitManager {
     return this.performSearch(replaceState)
   }
 
+  getResultsAndState(){
+    return {
+      results: this.results,
+      state: this.state
+    }
+  }
   _search(){
     this.state = this.accessors.getState()
     let query = this.buildQuery()
+    if(!this.shouldPerformSearch(query)){
+      return Promise.resolve(this.getResultsAndState())
+    }
     if(this.results && this.query && isEqual(query.getJSON(), this.query.getJSON())) {
-      return
+      return Promise.resolve(this.getResultsAndState())
     }
     this.query = query
     this.loading = true
@@ -218,10 +232,7 @@ export class SearchkitManager {
       this.transport, queryObject, this)
     return this.currentSearchRequest.run()
       .then(()=> {
-        return {
-          results:this.results,
-          state:this.state
-        }
+        return this.getResultsAndState()
       })
   }
 

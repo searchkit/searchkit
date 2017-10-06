@@ -84,7 +84,7 @@ export class HitsList extends React.Component<HitsListProps, any>{
 }
 
 export interface HitsProps extends SearchkitComponentProps{
-	hitsPerPage: number
+	hitsPerPage?: number
 	highlightFields?:Array<string>
 	customHighlight?:any
 	sourceFilter?:SourceFilterType
@@ -98,7 +98,7 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 	hitsAccessor:HitsAccessor
 
 	static propTypes = defaults({
-		hitsPerPage:PropTypes.number.isRequired,
+		hitsPerPage:PropTypes.number,
 		highlightFields:PropTypes.arrayOf(
 			PropTypes.string
 		),
@@ -118,6 +118,10 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 
 	componentWillMount() {
 		super.componentWillMount()
+		if(this.props.hitsPerPage){
+			this.searchkit.getAccessorByType(PageSizeAccessor)
+				.defaultSize = this.props.hitsPerPage
+		}
 		if(this.props.highlightFields) {
 			this.searchkit.addAccessor(
 				new HighlightAccessor(this.props.highlightFields))
@@ -134,9 +138,6 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		this.searchkit.addAccessor(this.hitsAccessor)
 	}
 
-	defineAccessor(){
-		return new PageSizeAccessor(this.props.hitsPerPage)
-	}
 
 	render() {
 		let hits:Array<Object> = this.getHits()

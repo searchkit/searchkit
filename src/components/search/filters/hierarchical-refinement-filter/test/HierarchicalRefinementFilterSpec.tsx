@@ -2,7 +2,7 @@ import * as React from "react";
 import {mount} from "enzyme";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
 import {HierarchicalRefinementFilter} from "../src/HierarchicalRefinementFilter"
-import {SearchkitManager} from "../../../../../core"
+import {SearchkitManager, NestedFacetAccessor} from "../../../../../core"
 import * as _ from "lodash"
 import * as sinon from "sinon"
 
@@ -17,8 +17,7 @@ describe("Refinement List Filter tests", () => {
         field="test" id="testid" title="test title"
         searchkit={this.searchkit} />
     );
-    this.accessor = this.searchkit.accessors.getAccessors()[0]
-
+    this.accessor = this.searchkit.getAccessorByType(NestedFacetAccessor)
     this.setResults = ()=> {
       this.searchkit.setResults({
         aggregations: {

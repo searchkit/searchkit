@@ -12,7 +12,7 @@ import {find} from "lodash"
 type StatefulAccessors = Array<StatefulAccessor<any>>
 
 export class AccessorManager {
-
+  
   accessors:Array<Accessor>
   statefulAccessors:{}
   queryAccessor:BaseQueryAccessor

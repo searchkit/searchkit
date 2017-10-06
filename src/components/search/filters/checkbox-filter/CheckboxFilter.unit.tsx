@@ -4,7 +4,7 @@ import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../__test__
 import {CheckboxFilter} from "./CheckboxFilter";
 import {SearchkitManager, Utils} from "../../../../core";
 import {Toggle, ItemComponent} from "../../../ui";
-import { TermQuery } from "../../../../core";
+import { TermQuery, CheckboxFilterAccessor } from "../../../../core";
 
 import * as _ from "lodash"
 import * as sinon from "sinon";
@@ -25,7 +25,7 @@ describe("CheckboxFilter tests", () => {
       }
     })
 
-    this.accessor = this.searchkit.accessors.getAccessors()[0]
+    this.accessor = this.searchkit.getAccessorByType(CheckboxFilterAccessor)
   }
 
   beforeEach(() => {

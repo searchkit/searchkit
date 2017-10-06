@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {RangeFilter} from "../src/RangeFilter";
-import {SearchkitManager} from "../../../../../core";
+import {SearchkitManager, RangeAccessor} from "../../../../../core";
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
 } from "../../../../__test__/TestHelpers"
@@ -52,7 +52,7 @@ describe("Range Filter tests", () => {
       })
 
       this.wrapper.update()
-      this.accessor = this.searchkit.accessors.getAccessors()[0]
+      this.accessor = this.searchkit.getAccessorByType(RangeAccessor)
     }
 
 

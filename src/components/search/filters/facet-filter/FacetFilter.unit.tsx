@@ -3,7 +3,7 @@ import {mount, render} from "enzyme"
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../__test__/TestHelpers"
 import {FacetFilter} from "./FacetFilter"
 import {RefinementListFilter} from "./RefinementListFilter"
-import {SearchkitManager, Utils, FieldOptions} from "../../../../core"
+import {SearchkitManager, Utils, FieldOptions, FacetAccessor} from "../../../../core"
 import {Toggle, ItemComponent} from "../../../ui"
 
 import * as _ from "lodash"
@@ -30,7 +30,7 @@ describe("Facet Filter tests", () => {
       }
     })
 
-    this.accessor = this.searchkit.accessors.getAccessors()[0]
+    this.accessor = this.searchkit.getAccessorByType(FacetAccessor)
   }
 
   beforeEach(() => {
