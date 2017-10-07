@@ -38,6 +38,8 @@ const searchkit = new SearchkitManager(host, {
 
 * **timeout** - A number value to override the default 5000ms response timeout. Optional.
 
+* **defaultSize** - Default size for elastic results, defaults to `20`
+
 ## Default Queries
 
 Sometimes we need to apply a default query which affects the entire search and is not serialized to the browser url.
@@ -88,4 +90,14 @@ let removalFn = searchkit.addResultsListener((results)=>{
 })
 
 //removalFn() if you want to stop listening
+```
+
+## shouldPerformSearch
+If you want to control whether Searchkit performs a search, you can provide a custom check function
+The `shouldPerformSearch` function is called with an instance of `ImmutableQuery`
+```typescript
+  //only search when there is a query string
+  this.searchkit.shouldPerformSearch = (query)=> {
+    return !!query.getQueryString()
+  }
 ```

@@ -4,7 +4,7 @@ const {
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
   ViewSwitcherHits, ViewSwitcherToggle, DynamicRangeFilter,MenuFilter ,
-  InputFilter, GroupedSelectedFilters, FastClick, FastClickComponent
+  InputFilter, GroupedSelectedFilters, FastClick, FastClickComponent, PageSizeSelector
 } = require("../../../../../src")
 
 FastClick.component = FastClickComponent
@@ -17,6 +17,10 @@ const host = "http://demo.searchkit.co/api/movies"
 import * as ReactDOM from "react-dom";
 import * as React from "react";
 const searchkit = new SearchkitManager(host)
+
+searchkit.shouldPeformSearch = (query) => {
+  return !!query.getQueryString()
+}
 
 import * as _ from "lodash"
 
@@ -93,11 +97,12 @@ class App extends React.Component<any, any> {
                   "hitstats.results_found":"{hitCount} results found"
                 }}/>
                 <ViewSwitcherToggle/>
+                <PageSizeSelector options={[10, 20, 30]} />
                 <SortingSelector options={[
                   {label:"Relevance", field:"_score", order:"desc"},
                   {label:"Latest Releases", field:"released", order:"desc"},
                   {label:"Earliest Releases", field:"released", order:"asc"}
-                ]}/>
+                ]}/>                
               </ActionBarRow>
 
               <ActionBarRow>
@@ -107,7 +112,7 @@ class App extends React.Component<any, any> {
 
             </ActionBar>
             <ViewSwitcherHits
-                hitsPerPage={12} highlightFields={["title","plot"]}
+                highlightFields={["title","plot"]}
                 sourceFilter={["plot", "title", "poster", "imdbId", "imdbRating", "year"]}
                 hitComponents = {[
                   {key:"grid", title:"Grid", itemComponent:MovieHitsGridItem, defaultOption:true},

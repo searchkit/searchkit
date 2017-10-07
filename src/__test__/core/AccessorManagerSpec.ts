@@ -15,23 +15,21 @@ class StatelessPageAccessor extends Accessor {
 describe("AccessorManager", ()=> {
 
   beforeEach(()=> {
-    this.searchkit = SearchkitManager.mock()
-
+    this.accessors = new AccessorManager()
     this.accessor1 = new PaginationAccessor("p1")
     this.accessor2 = new PaginationAccessor("p2")
-    this.searchkit.addAccessor(this.accessor1)
-    this.searchkit.addAccessor(this.accessor2)
+    this.accessors.add(this.accessor1)
+    this.accessors.add(this.accessor2)
 
     this.accessor3 = new PaginationAccessor("p3")
     this.accessor4 = new PaginationAccessor("p4")
     this.accessor4b = new PaginationAccessor("p4")
-    this.searchkit.addAccessor(this.accessor3)
-    this.searchkit.addAccessor(this.accessor4)
-    this.searchkit.addAccessor(this.accessor4b)
+    this.accessors.add(this.accessor3)
+    this.accessors.add(this.accessor4)
+    this.accessors.add(this.accessor4b)
 
     this.accessor5 = new StatelessPageAccessor(50)
-    this.searchkit.addAccessor(this.accessor5)
-    this.accessors = this.searchkit.accessors
+    this.accessors.add(this.accessor5)    
   })
 
   it("constructor()", ()=> {
@@ -39,7 +37,7 @@ describe("AccessorManager", ()=> {
       this.accessor1, this.accessor2,
       this.accessor3, this.accessor4,
       this.accessor5
-    ])
+    ])    
     expect(new AccessorManager().accessors)
       .toEqual([])
   })
@@ -188,8 +186,7 @@ describe("AccessorManager", ()=> {
       .toBe(5)
 
     this.accessor5.setActive(false)
-    expect(this.accessors.buildQuery().getSize())
-      .toBe(0)
+    expect(this.accessors.buildQuery().getSize())     
 
   })
 

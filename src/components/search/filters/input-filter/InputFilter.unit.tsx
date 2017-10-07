@@ -1,8 +1,10 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import { InputFilter } from "./InputFilter";
-import { SearchkitManager, SimpleQueryString, QueryString } from "../../../../core";
-;
+import { 
+  SearchkitManager, SimpleQueryString, QueryString, QueryAccessor
+} from "../../../../core";
+
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
 } from "../../../__test__/TestHelpers"
@@ -38,7 +40,7 @@ describe("InputFilter tests", () => {
                    prefixQueryFields={prefixQueryFields}
                    {...otherProps} />
       );
-      this.accessor = this.searchkit.accessors.getAccessors()[0]
+      this.accessor = this.searchkit.getAccessorByType(QueryAccessor)
     }
 
     this.setResults = ()=> {

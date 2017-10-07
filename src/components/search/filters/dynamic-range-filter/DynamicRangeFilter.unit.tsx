@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {DynamicRangeFilter} from "./DynamicRangeFilter";
-import {SearchkitManager} from "../../../../core";
+import {SearchkitManager, DynamicRangeAccessor} from "../../../../core";
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
 } from "../../../__test__/TestHelpers"
@@ -38,7 +38,7 @@ describe("Dynamic Range Filter tests", () => {
       })
 
       this.wrapper.update()
-      this.accessor = this.searchkit.accessors.getAccessors()[0]
+      this.accessor = this.searchkit.getAccessorByType(DynamicRangeAccessor)
     }
 
   });

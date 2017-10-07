@@ -2,7 +2,7 @@ import * as React from "react";;
 import {mount, render} from "enzyme";
 import {fastClick, hasClass, jsxToHTML, printPrettyHtml, htmlClean} from "../../../__test__/TestHelpers"
 import { TagFilterList, TagFilterConfig } from "./";
-import {SearchkitManager, Utils} from "../../../../core";
+import { SearchkitManager, Utils, FacetAccessor} from "../../../../core";
 
 ;
 import * as _ from "lodash"
@@ -29,7 +29,7 @@ describe("TagFilterList tests", () => {
       }
     })
 
-    this.accessor = this.searchkit.accessors.getAccessors()[0]
+    this.accessor = this.searchkit.getAccessorByType(FacetAccessor)
   }
 
   beforeEach(() => {

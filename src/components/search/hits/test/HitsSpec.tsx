@@ -1,7 +1,10 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {Hits} from "../src/Hits";
-import {SearchkitManager} from "../../../../core";
+import {
+  SearchkitManager, PageSizeAccessor, HighlightAccessor, 
+  CustomHighlightAccessor, SourceFilterAccessor
+} from "../../../../core";
 import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml
 } from "../../../__test__/TestHelpers"
@@ -24,10 +27,10 @@ describe("Hits component", () => {
               sourceFilter={["title"]}/>
       )
 
-      this.pageSizeAccessor = this.searchkit.accessors.accessors[0]
-      this.highlightAccessor = this.searchkit.accessors.accessors[1]
-      this.customHighlightAccessor = this.searchkit.accessors.accessors[2]
-      this.sourceFilterAccessor = this.searchkit.accessors.accessors[3]
+      this.pageSizeAccessor = this.searchkit.getAccessorByType(PageSizeAccessor)
+      this.highlightAccessor = this.searchkit.getAccessorByType(HighlightAccessor)
+      this.customHighlightAccessor = this.searchkit.getAccessorByType(CustomHighlightAccessor)
+      this.sourceFilterAccessor = this.searchkit.getAccessorByType(SourceFilterAccessor)
 
       this.hasRendered = () => {
         return this.wrapper.find(".sk-hits").length == 1
