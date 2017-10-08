@@ -22,6 +22,7 @@ describe("Searchbox tests", () => {
     this.searchkit.translateFunction = (key)=> {
       return {
         "searchbox.placeholder":"search movies",
+        "searchbox.button":"Go"
       }[key]
     }
 
@@ -48,6 +49,7 @@ describe("Searchbox tests", () => {
   it("render", () => {
     this.createWrapper()
     expect(this.wrapper.find(".sk-search-box__text").get(0).placeholder).toBe("search movies")
+    expect(this.wrapper.find(".sk-search-box__action").get(0).value).toEqual("Go")
   })
 
   it("search on change", () => {

@@ -31,8 +31,7 @@ export interface DynamicRangeFilterProps extends SearchkitComponentProps {
 	containerComponent?: RenderComponentType<any>
   rangeComponent?: RenderComponentType<RangeProps>
 	rangeFormatter?:(count:number)=> number | string
-	fieldOptions?:FieldOptions
-
+	fieldOptions?:FieldOptions	
 }
 
 export class DynamicRangeFilter extends SearchkitComponent<DynamicRangeFilterProps, any> {
@@ -64,9 +63,12 @@ export class DynamicRangeFilter extends SearchkitComponent<DynamicRangeFilterPro
 	}
 
 	defineAccessor() {
-		const { id, title, field, fieldOptions } = this.props
+		const { 
+			id, title, field, fieldOptions, 
+			rangeFormatter, translations  } = this.props
 		return new DynamicRangeAccessor(id,{
-			id, title, field, fieldOptions
+			id, title, field, fieldOptions, 
+			rangeFormatter, translations
 		})
 	}
 

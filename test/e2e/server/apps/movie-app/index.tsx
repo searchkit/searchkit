@@ -74,7 +74,7 @@ class App extends React.Component<any, any> {
           <SideBar>
             <HierarchicalMenuFilter fields={["type.raw", "genres.raw"]} title="Categories" id="categories"/>
             <DynamicRangeFilter field="metaScore" id="metascore" title="Metascore" rangeFormatter={(count)=> count + "*"}/>
-            <RangeFilter min={0} max={10} field="imdbRating" id="imdbRating" title="IMDB Rating" showHistogram={true}/>
+            <RangeFilter min={0} max={10} translations={{"range.divider":" to "}} field="imdbRating" id="imdbRating" title="IMDB Rating" showHistogram={true} rangeFormatter={(count) => count + "*"}/>
             <InputFilter id="writers" searchThrottleTime={500} title="Writers" placeholder="Search writers" searchOnChange={true} queryFields={["writers"]} />
             <MenuFilter id="metascoreMenu" title="Metascore" field="metaScore" size={10}/>
             <RefinementListFilter id="ratingFacet" title="Raiting" field="imdbRating" operator="OR" size={10}/>

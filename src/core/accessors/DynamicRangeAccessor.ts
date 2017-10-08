@@ -11,29 +11,47 @@ import {
 	FieldContextFactory
 } from "../query";
 
-import {maxBy} from "lodash"
-import {get} from "lodash"
+import {maxBy, get, assign, identity} from "lodash"
 
 export interface DynamicRangeAccessorOptions {
 	title:string
 	id:string
 	field:string
 	fieldOptions?:FieldOptions
-
+	rangeFormatter?: Function
+	translations?: Object
 }
 
 export class DynamicRangeAccessor extends FilterBasedAccessor<ObjectState> {
 	options:any
 	fieldContext:FieldContext
 	state = new ObjectState({})
-
+	
+	static translations: any = {
+		"range.divider": " - "
+	}
+	translations = DynamicRangeAccessor.translations
+	
 	constructor(key, options:DynamicRangeAccessorOptions){
     super(key, options.id)
     this.options = options
 		this.options.fieldOptions = this.options.fieldOptions || {type:"embedded"}
     this.options.fieldOptions.field = this.options.field
-    this.fieldContext = FieldContextFactory(this.options.fieldOptions)
-  }
+		this.fieldContext = FieldContextFactory(this.options.fieldOptions)
+		this.options.rangeFormatter = this.options.rangeFormatter || identity
+		if (options.translations) {
+			this.translations = assign({}, this.translations, options.translations)
+		}
+	}
+	
+	getSelectedValue(value) {
+		let divider = this.translate("range.divider")
+		return [
+			this.options.rangeFormatter(value.min),
+			divider,
+			this.options.rangeFormatter(value.max),
+		].join("")
+	}
 
 	buildSharedQuery(query) {
 		if (this.state.hasValue()) {
@@ -43,7 +61,7 @@ export class DynamicRangeAccessor extends FilterBasedAccessor<ObjectState> {
       }))
 			let selectedFilter = {
 				name:this.translate(this.options.title),
-				value:`${val.min} - ${val.max}`,
+				value:this.getSelectedValue(val),
 				id:this.options.id,
 				remove:()=> {
 					this.state = this.state.clear()
