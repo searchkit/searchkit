@@ -12,6 +12,7 @@ describe("Dynamic Range Filter tests", () => {
 
     this.searchkit = SearchkitManager.mock()
     spyOn(this.searchkit, "performSearch")
+    this.rangeFormatter = (count) => count + " score"
     this.createWrapper = () => {
       this.wrapper = mount(
         <DynamicRangeFilter
@@ -19,7 +20,8 @@ describe("Dynamic Range Filter tests", () => {
           searchkit={this.searchkit}
           field="metascore"
           title="metascore"
-          rangeFormatter={(count)=> count + " score"}
+          rangeFormatter={this.rangeFormatter}
+          translations = {{"range.divider":" TO "}}
         />
       );
 
@@ -75,7 +77,9 @@ describe("Dynamic Range Filter tests", () => {
       fieldOptions:{
         type:"embedded",
         field:"metascore"
-      }
+      },
+      rangeFormatter:this.rangeFormatter,
+      translations:{"range.divider":" TO "}
     })
   })
 

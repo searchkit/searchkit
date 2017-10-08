@@ -15,6 +15,7 @@ describe("Range Filter tests", () => {
 
     this.searchkit = SearchkitManager.mock()
     spyOn(this.searchkit, "performSearch")
+    this.rangeFormatter = (count) => count + " score"
     this.createWrapper = (withHistogram, interval=undefined) => {
       this.wrapper = mount(
         <RangeFilter
@@ -25,7 +26,8 @@ describe("Range Filter tests", () => {
           max={100}
           title="metascore"
           interval={interval}
-          rangeFormatter={(count)=> count + " score"}
+          translations={{"range.divider":" to "}}
+          rangeFormatter={this.rangeFormatter}
           showHistogram={withHistogram}/>
       );
 
@@ -72,7 +74,9 @@ describe("Range Filter tests", () => {
       fieldOptions:{
         type:'embedded',
         field:'metascore'
-      }
+      },
+      rangeFormatter:this.rangeFormatter,
+      translations:{"range.divider": " to "}
     })
   })
 
@@ -132,7 +136,8 @@ describe("Range Filter tests", () => {
       min:40, max:60
     })
     expect(this.searchkit.performSearch).toHaveBeenCalled()
-
+    let query = this.searchkit.buildQuery()
+    expect(query.getSelectedFilters()[0].value).toEqual('40 score to 60 score')
     // min/max should clear
     this.wrapper.node.sliderUpdateAndSearch({min:0,max:100})
     expect(this.accessor.state.getValue()).toEqual({})

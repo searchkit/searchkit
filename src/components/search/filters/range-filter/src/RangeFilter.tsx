@@ -72,9 +72,9 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 
 	defineAccessor() {
 		const { id, title, min, max, field, fieldOptions,
-			interval, showHistogram } = this.props
+			interval, showHistogram, rangeFormatter, translations } = this.props
 		return new RangeAccessor(id,{
-			id, min, max, title, field,
+			id, min, max, title, field, rangeFormatter, translations,
 			interval, loadHistogram:showHistogram, fieldOptions
 		})
 	}

@@ -22,7 +22,8 @@ describe("RangeAccessor", ()=> {
       min:0,
       max:100,
       field:"metaScore",
-      loadHistogram:true
+      loadHistogram:true,
+      rangeFormatter:(count)=> count +" stars" 
     })
 
     this.accessor.setSearchkitManager(SearchkitManager.mock())
@@ -96,7 +97,7 @@ describe("RangeAccessor", ()=> {
       expect(query.query.post_filter).toEqual(RangeQuery("metaScore", {gte:20, lte:70}))
       let selectedFilter = query.getSelectedFilters()[0]
       expect(selectedFilter).toEqual(jasmine.objectContaining({
-        name:"Metascore", value:"20 - 70", id:"metascore"
+        name:"Metascore", value:"20 stars - 70 stars", id:"metascore"
       }))
       selectedFilter.remove()
       expect(this.accessor.state.getValue()).toEqual({})

@@ -43,6 +43,7 @@ class App extends SearchkitComponent {
 
 ## Translations
 - `searchbox.placeholder` - "Search"
+- `searchbox.button` - "search"
 
 ## Demo
 [](codepen://searchkit/zrNrGW?height=800&theme=0)
