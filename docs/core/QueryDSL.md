@@ -13,6 +13,13 @@ TermQuery("color", "red")
 import {TermsQuery} from "searchkit"
 TermsQuery("color", ["red", "orange"])
 ```
+
+#### `ExistsQuery(field)`
+```js
+import {ExistsQuery} from "searchkit"
+ExistsQuery("color")
+```
+
 #### `RangeQuery(field, options)`
 
 Available options: lt, lte, gt, gte, boost, format, time_zone
