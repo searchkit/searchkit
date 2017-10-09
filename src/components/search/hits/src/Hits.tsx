@@ -9,7 +9,6 @@ import {
 	CustomHighlightAccessor,
 	SearchkitComponentProps,
 	ReactComponentType,
-	PureRender,
 	SourceFilterType,
 	SourceFilterAccessor,
 	HitsAccessor,
@@ -30,8 +29,7 @@ export interface HitItemProps {
 	result:any
 }
 
-@PureRender
-export class HitItem extends React.Component<HitItemProps, any> {
+export class HitItem extends React.PureComponent<HitItemProps, any> {
 
 	render(){
 		return (
@@ -50,8 +48,7 @@ export interface HitsListProps{
 	hits:Array<Object>
 }
 
-@PureRender
-export class HitsList extends React.Component<HitsListProps, any>{
+export class HitsList extends React.PureComponent<HitsListProps, any>{
 
 	static defaultProps={
 		mod:"sk-hits",

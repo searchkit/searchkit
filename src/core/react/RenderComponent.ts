@@ -1,7 +1,6 @@
 import * as React from 'react'
 import * as PropTypes from "prop-types"
 
-import {PureRender} from "./pure-render"
 import {omitBy} from 'lodash'
 import {isUndefined} from 'lodash'
 import {defaults} from 'lodash'

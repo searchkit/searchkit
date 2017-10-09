@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as PropTypes from "prop-types";
-import {PureRender, block} from "../../../core"
+import {block} from "../../../core"
 export interface PanelProps extends React.Props<Panel> {
   key?: any
   title?: string
@@ -11,8 +11,7 @@ export interface PanelProps extends React.Props<Panel> {
   defaultCollapsed?:boolean
 }
 
-@PureRender
-export class Panel extends React.Component<PanelProps, {collapsed: boolean}> {
+export class Panel extends React.PureComponent<PanelProps, {collapsed: boolean}> {
 
   static propTypes = {
     title: PropTypes.string,

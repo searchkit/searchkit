@@ -6,7 +6,6 @@ import {
   PaginationAccessor,
   FastClick,
   SearchkitComponentProps,
-  PureRender,
   RenderComponentType,
   RenderComponentPropType,
   renderComponent,

@@ -8,7 +8,6 @@ import {
 	FastClick,
 	SearchkitComponentProps,
 	ReactComponentType,
-	PureRender,
 	ResetSearchOptions,
 	ResetSearchAccessor,
   renderComponent
@@ -24,8 +23,7 @@ export interface ResetFiltersDisplayProps {
 	translate:Function
 }
 
-@PureRender
-export class ResetFiltersDisplay extends React.Component<ResetFiltersDisplayProps, any>{
+export class ResetFiltersDisplay extends React.PureComponent<ResetFiltersDisplayProps, any>{
 	render(){
 		const {bemBlock, hasFilters, translate, resetFilters, clearAllLabel} = this.props
 		return (

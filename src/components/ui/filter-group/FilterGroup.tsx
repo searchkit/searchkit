@@ -2,7 +2,6 @@ import * as React from 'react'
 
 import {
   ReactComponentType,
-  PureRender,
   FastClick,
   block
 } from "../../../"
@@ -20,8 +19,7 @@ export interface FilterGroupItemProps {
   removeFilter: Function
 }
 
-@PureRender
-export class FilterGroupItem extends React.Component<FilterGroupItemProps, any> {
+export class FilterGroupItem extends React.PureComponent<FilterGroupItemProps, any> {
 
   constructor(props){
     super(props)

@@ -7,7 +7,7 @@ const Slider = require('rc-slider')
 const createSliderWithTooltip = Slider.createSliderWithTooltip
 const Range = createSliderWithTooltip(Slider.Range)
 
-import { PureRender, block } from "../../../core"
+import { block } from "../../../core"
 
 export interface RangeSliderProps extends RangeProps {
   step?: number
@@ -15,8 +15,7 @@ export interface RangeSliderProps extends RangeProps {
   rangeFormatter?:(n: number)=> number | string
 }
 
-@PureRender
-export class RangeSlider extends React.Component<RangeSliderProps, {}> {
+export class RangeSlider extends React.PureComponent<RangeSliderProps, {}> {
 
   static defaultProps = {
     mod: "sk-range-slider",

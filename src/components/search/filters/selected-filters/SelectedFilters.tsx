@@ -7,7 +7,6 @@ import {
 	FastClick,
 	SearchkitComponentProps,
 	ReactComponentType,
-	PureRender,
 	renderComponent
 } from "../../../../core"
 
@@ -15,8 +14,7 @@ import {defaults} from "lodash"
 import {size} from "lodash"
 import {map} from "lodash"
 
-@PureRender
-export class FilterItem extends React.Component<FilterItemProps, any> {
+export class FilterItem extends React.PureComponent<FilterItemProps, any> {
 
 	render(){
 		let props = this.props

@@ -1,12 +1,10 @@
 import * as React from "react";
-import {PureRender} from "./pure-render"
 import {renderComponent} from "./RenderComponent"
 export interface Point {
   x:number, y :number
 }
 
-@PureRender
-export class NormalClickComponent extends React.Component<any, any>{
+export class NormalClickComponent extends React.PureComponent<any, any>{
 
   render(){
     return React.cloneElement(this.props.children, {
@@ -16,8 +14,7 @@ export class NormalClickComponent extends React.Component<any, any>{
 }
 
 
-@PureRender
-export class FastClickComponent extends React.Component<any, any>{
+export class FastClickComponent extends React.PureComponent<any, any>{
 
   startPoint:Point
   threshold = 20
