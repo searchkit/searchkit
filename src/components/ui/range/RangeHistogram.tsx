@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { PureRender, block } from "../../../"
+import { block } from "../../../"
 
 
 import {maxBy} from "lodash"
@@ -11,8 +11,7 @@ function computeMaxValue(items, field) {
   return maxBy(items, field)[field]
 }
 
-@PureRender
-export class RangeHistogram extends React.Component<any, {}> {
+export class RangeHistogram extends React.PureComponent<any, {}> {
 
   static defaultProps = {
     mod: 'sk-range-histogram'

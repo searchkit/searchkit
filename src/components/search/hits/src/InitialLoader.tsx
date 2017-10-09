@@ -5,7 +5,6 @@ import {
 	SearchkitComponent,
 	SearchkitComponentProps,
 	ReactComponentType,
-	PureRender,
   renderComponent
 } from "../../../../core"
 
@@ -15,8 +14,7 @@ export interface InitialViewDisplayProps {
 	bemBlocks:any
 }
 
-@PureRender
-export class  InitialViewDisplay extends React.Component<InitialViewDisplayProps, any>{
+export class InitialViewDisplay extends React.PureComponent<InitialViewDisplayProps, any>{
 	render(){
 		return (
 	 		<div className={this.props.bemBlocks.container()}>

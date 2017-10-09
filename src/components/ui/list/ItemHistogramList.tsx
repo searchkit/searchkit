@@ -4,7 +4,6 @@ import { AbstractItemList, ItemListProps } from "./ItemListComponents"
 import {
   FastClick,
   ReactComponentType,
-  PureRender
 } from "../../../"
 
 import { ItemProps } from './ListProps'
@@ -15,8 +14,7 @@ export interface ItemHistogramComponentProps extends ItemProps {
   showCheckbox: boolean
 }
 
-@PureRender
-export class ItemHistogramComponent extends React.Component<ItemHistogramComponentProps, {}> {
+export class ItemHistogramComponent extends React.PureComponent<ItemHistogramComponentProps, {}> {
 
   getCountRatio(){
     const { rawCount, listDocCount } = this.props

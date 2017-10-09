@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { ItemComponent, CheckboxItemComponent } from "./ItemComponents"
 import { ListProps } from "./ListProps"
-import { PureRender, block } from "../../../core"
+import { block } from "../../../core"
 
 import {map} from "lodash"
 import {includes} from "lodash"
@@ -13,8 +13,7 @@ export interface ItemListProps extends ListProps {
   itemComponent?: any
 }
 
-@PureRender
-export class AbstractItemList extends React.Component<ItemListProps, {}> {
+export class AbstractItemList extends React.PureComponent<ItemListProps, {}> {
   static defaultProps: any = {
     mod: "sk-item-list",
     showCount: true,

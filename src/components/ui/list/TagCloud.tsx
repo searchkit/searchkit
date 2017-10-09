@@ -3,7 +3,6 @@ import * as React from "react";
 import {
   FastClick,
   ReactComponentType,
-  PureRender,
   renderComponent,
   block
 } from "../../../"
@@ -33,8 +32,7 @@ export interface TagCloudProps extends ListProps {
   itemComponent?: ReactComponentType<ItemProps>
 }
 
-@PureRender
-export class TagCloud extends React.Component<TagCloudProps, any> {
+export class TagCloud extends React.PureComponent<TagCloudProps, any> {
 
   static defaultProps: any = {
     mod: "sk-tag-cloud",

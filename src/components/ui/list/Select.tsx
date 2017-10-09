@@ -3,7 +3,7 @@ import * as React from "react";
 import { ItemComponent, CheckboxItemComponent } from "./ItemComponents"
 import { ListProps } from "./ListProps"
 
-import {PureRender, block} from "../../../core"
+import {block} from "../../../core"
 
 import {map} from "lodash"
 import {filter} from "lodash"
@@ -11,8 +11,7 @@ import {transform} from "lodash"
 import {find} from "lodash"
 import {identity} from "lodash"
 
-@PureRender
-export class Select extends React.Component<ListProps, any> {
+export class Select extends React.PureComponent<ListProps, any> {
 
   static defaultProps: any = {
     mod: "sk-select",

@@ -4,7 +4,6 @@ import {
   SearchkitComponent,
   SearchkitComponentProps,
   ReactComponentType,
-  PureRender,
   renderComponent,
   SelectedFilter
 } from "../../../../core"
