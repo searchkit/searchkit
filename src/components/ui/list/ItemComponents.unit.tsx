@@ -10,7 +10,7 @@ import {
   block
 } from "../../../"
 
-import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../__test__/TestHelpers"
+import {fastClick, jsxToHTML} from "../../__test__/TestHelpers"
 
 describe("ItemComponents", ()=> {
 

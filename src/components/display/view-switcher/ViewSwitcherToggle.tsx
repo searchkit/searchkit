@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
 	SearchkitComponent,
 	SearchkitComponentProps,
@@ -8,7 +7,6 @@ import {
 	renderComponent
 } from "../../../core"
 
-import {Hits} from "../../../"
 import {Toggle, ListProps} from "../../ui"
 
 import {defaults} from "lodash"

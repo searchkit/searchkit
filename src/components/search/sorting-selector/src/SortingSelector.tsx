@@ -1,11 +1,8 @@
-import * as React from "react";
 import * as PropTypes from "prop-types";
 
 import {
 	SearchkitComponent,
 	SortingAccessor,
-	FastClick,
-	SortingOptions,
 	SearchkitComponentProps,
 	SortingOption,
 	renderComponent,
@@ -18,7 +15,6 @@ import {
 } from "../../../ui"
 
 import {defaults} from "lodash"
-import {map} from "lodash"
 
 export interface SortingProps extends SearchkitComponentProps {
   options:Array<SortingOption>

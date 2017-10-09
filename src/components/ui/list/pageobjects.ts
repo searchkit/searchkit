@@ -1,4 +1,4 @@
-import {Component,  field, defaults, List} from "xenon";
+import {Component, field, List} from "xenon";
 
 export class ItemComponent extends Component {
   @field(Component, {qa:"checkbox"})

@@ -4,12 +4,11 @@ import {FacetFilterProps, FacetFilterPropTypes} from "./FacetFilterProps"
 
 import {
   FacetAccessor, SearchkitComponent, ISizeOption,
-  FastClick, renderComponent, FieldOptions
+  FastClick, renderComponent
 } from "../../../../core"
 
 import {CheckboxItemList, Panel} from "../../../ui"
 
-import {defaults} from "lodash"
 import {identity} from "lodash"
 
 export class FacetFilter extends SearchkitComponent<FacetFilterProps, any> {

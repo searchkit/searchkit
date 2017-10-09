@@ -1,10 +1,9 @@
-import {map} from "lodash"
 import {head} from "lodash"
 import {find} from "lodash"
-import {omit} from "lodash"
+
 
 import {StatefulAccessor} from "./StatefulAccessor"
-import {ValueState, SearchkitComponent} from "../../core"
+import {ValueState} from "../../core"
 
 export class ViewOptionsAccessor extends StatefulAccessor<ValueState>{
   state = new ValueState()

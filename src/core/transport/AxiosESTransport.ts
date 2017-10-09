@@ -1,5 +1,4 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios"
-import {ImmutableQuery} from "../query"
 import {ESTransport} from "./ESTransport"
 import {defaults} from "lodash"
 

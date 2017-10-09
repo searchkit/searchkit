@@ -4,7 +4,7 @@ import {mount} from "enzyme";
 import { RangeSlider } from './RangeSlider'
 import { MockRange } from './MockRange'
 
-import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../__test__/TestHelpers"
+import {jsxToHTML} from "../../__test__/TestHelpers"
 
 describe("RangeSlider", () => {
 

@@ -4,7 +4,6 @@ import {defaults} from "lodash"
 
 import {
 	SearchkitComponent,
-	SearchkitComponentProps,
 	ViewOptionsAccessor,
 	RenderComponentType,
 	RenderComponentPropType

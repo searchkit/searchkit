@@ -4,9 +4,6 @@ import { RangeProps } from './RangeProps'
 
 import {block} from "../../../"
 
-import {defaults} from "lodash"
-import {get} from "lodash"
-import {clamp} from "lodash"
 import {omit} from 'lodash'
 
 /*
@@ -70,7 +67,7 @@ export class RangeInput extends React.Component<RangeInputProps, {}> {
 
   static defaultProps = {
     mod: "sk-range-input",
-    translate: (str) => undefined,
+    translate: (_str) => undefined,
     minPlaceholder: 'min',
     maxPlaceholder: 'max'
   }
@@ -81,7 +78,7 @@ export class RangeInput extends React.Component<RangeInputProps, {}> {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleInputChange(value, key) {
+  handleInputChange(_value, _key) {
     // const { min, max, minValue, maxValue, onFinished } = this.props
     // const values = defaults({
     //   [key]: clamp(value, min, max)

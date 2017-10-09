@@ -1,7 +1,6 @@
 import {
   ViewOptionsAccessor,
-  SearchkitManager,
-  ImmutableQuery
+  SearchkitManager
 } from "../../../"
 
 describe("ViewOptionsAccessor", ()=> {

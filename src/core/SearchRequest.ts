@@ -1,5 +1,4 @@
 import {ESTransport} from "./transport"
-import {ImmutableQuery} from "./query"
 import {SearchkitManager} from "./SearchkitManager";
 
 export class SearchRequest {

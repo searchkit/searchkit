@@ -1,8 +1,7 @@
-import * as React from "react";
 import * as PropTypes from "prop-types";
 
 import {
-  ReactComponentType, SearchkitComponentProps,
+  SearchkitComponentProps,
   SearchkitComponent, FacetAccessor,
   RenderComponentPropType, RenderComponentType,
   FieldOptions

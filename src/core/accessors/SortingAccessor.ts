@@ -4,7 +4,6 @@ import {Utils} from "../support"
 import {find} from "lodash"
 import {head} from "lodash"
 import {map} from "lodash"
-import {compact} from "lodash"
 
 export interface SortingField {
   field:string

@@ -1,19 +1,17 @@
-import * as React from "react";
-
 import { ItemList, Panel, CheckboxItemList } from '../../../ui'
 import { FacetFilter} from "./FacetFilter"
 
 import {defaults} from "lodash"
-import {map} from "lodash"
 import {concat} from "lodash"
 import {isUndefined} from "lodash"
 
-import {FacetFilterProps, FacetFilterPropTypes} from "./FacetFilterProps"
+import { FacetFilterPropTypes} from "./FacetFilterProps"
+
+export {Panel, CheckboxItemList}
 
 const allItem = {
   key:"$all", label: "All"
 }
-
 export class MenuFilter extends FacetFilter {
 
   static propTypes = defaults({

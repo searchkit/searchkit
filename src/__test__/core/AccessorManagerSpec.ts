@@ -1,6 +1,6 @@
 import {
-  EventEmitter,ImmutableQuery,AccessorManager, QueryAccessor, FacetAccessor, RangeAccessor,
-  SearchkitManager, ValueState, PaginationAccessor, noopQueryAccessor, Accessor
+  ImmutableQuery,AccessorManager, QueryAccessor,  RangeAccessor,
+  ValueState, PaginationAccessor, noopQueryAccessor, Accessor
 } from "../../"
 
 class StatelessPageAccessor extends Accessor {
@@ -155,7 +155,6 @@ describe("AccessorManager", ()=> {
   })
 
   it("notifyStateChange", ()=> {
-    let stateChanges = []
     let oldState = {}
     spyOn(PaginationAccessor.prototype, "onStateChange")
     this.accessors.notifyStateChange(oldState)
@@ -167,7 +166,6 @@ describe("AccessorManager", ()=> {
 
   it("buildSharedQuery()", ()=> {
     let query = new ImmutableQuery()
-    let sharedQuery = this.accessors.buildSharedQuery(query)
     this.accessor1.buildSharedQuery = query => query.setSize(25)
     this.accessor2.buildSharedQuery = query => query.setSize(26)
     this.accessor2.setActive(false)

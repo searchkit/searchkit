@@ -1,6 +1,5 @@
-import {Component,  field, defaults} from "xenon";
+import {Component} from "xenon";
 
 export class SortingSelector extends Component {
 
-  
 }

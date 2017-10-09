@@ -4,24 +4,19 @@ import * as PropTypes from "prop-types";
 import {
   SearchkitComponent,
   PaginationAccessor,
-  FastClick,
   SearchkitComponentProps,
-  RenderComponentType,
   RenderComponentPropType,
   renderComponent,
   block
 } from "../../../../core"
 
 import {
-  Toggle, ListProps, Select
+  Toggle, Select
 } from "../../../ui"
 
 import {defaults} from "lodash"
 import {get} from "lodash"
-import {assign} from "lodash"
-import {map} from "lodash"
-import {compact} from "lodash"
-import {isNaN} from "lodash"
+import { isNaN } from "lodash"
 
 
 import { Paginator } from "./PaginationUtils"

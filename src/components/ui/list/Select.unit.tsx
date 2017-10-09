@@ -4,7 +4,7 @@ import {mount} from "enzyme";
 import { Select } from "./Select"
 import { MockList} from "./MockList"
 
-import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../__test__/TestHelpers"
+import {jsxToHTML} from "../../__test__/TestHelpers"
 
 describe("Select", ()=> {
 

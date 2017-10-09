@@ -4,14 +4,13 @@ import {ObjectState} from "../state";
 import {
 	FilterBucket,
 	RangeQuery,
-	BoolMust,
 	StatsMetric,
 	FieldOptions,
 	FieldContext,
 	FieldContextFactory
 } from "../query";
 
-import {maxBy, get, assign, identity} from "lodash"
+import {assign, identity} from "lodash"
 
 export interface DynamicRangeAccessorOptions {
 	title:string

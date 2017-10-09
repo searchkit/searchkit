@@ -1,7 +1,6 @@
 import {
   CheckboxFilterAccessor, ImmutableQuery,
-  BoolMust, BoolShould, ArrayState, TermQuery,
-  CardinalityMetric, FilterBucket, SearchkitManager
+  TermQuery, FilterBucket, SearchkitManager
 } from "../../../"
 
 

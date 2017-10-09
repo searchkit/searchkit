@@ -1,7 +1,5 @@
-import * as React from "react";
 import * as PropTypes from "prop-types"
 import {defaults} from "lodash"
-
 
 import {
 	SearchkitComponent,
@@ -12,7 +10,7 @@ import {
 } from "../../../core"
 
 import {
-	Hits, HitsProps, HitItemProps, HitsListProps
+	HitItemProps, HitsListProps
 } from "../../"
 
 export interface ViewSwitcherConfigProps extends SearchkitComponentProps {

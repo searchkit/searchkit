@@ -1,8 +1,7 @@
 import * as React from "react";
 
 import {
-  FastClick,
-  ReactComponentType,
+  RenderComponentType,
   renderComponent,
   block
 } from "../../../"
@@ -29,7 +28,7 @@ function computeMinMax(items, field) {
 export interface TagCloudProps extends ListProps {
   minFontSize?: number
   maxFontSize?: number
-  itemComponent?: ReactComponentType<ItemProps>
+  itemComponent?: RenderComponentType<ItemProps>
 }
 
 export class TagCloud extends React.PureComponent<TagCloudProps, any> {

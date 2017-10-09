@@ -5,7 +5,7 @@ import { ItemHistogramList } from "./ItemHistogramList"
 
 import {MockList} from "./MockList";
 
-import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../__test__/TestHelpers"
+import {fastClick, jsxToHTML} from "../../__test__/TestHelpers"
 
 describe("ItemHistogramList Components", ()=> {
 
@@ -14,7 +14,6 @@ describe("ItemHistogramList Components", ()=> {
       <MockList listComponent={ItemHistogramList}/>
     )
 
-    const total = 10+11+12+15
     expect(this.wrapper.html()).toEqual(jsxToHTML(
       <div data-qa="options" className="sk-item-list">
         <div className="sk-item-list-option sk-item-list__item is-active is-histogram" data-qa="option" data-key="a">

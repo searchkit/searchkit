@@ -4,11 +4,9 @@ import * as PropTypes from "prop-types";
 import {
 	SearchkitComponent,
 	PageSizeAccessor,
-	ImmutableQuery,
 	HighlightAccessor,
 	CustomHighlightAccessor,
 	SearchkitComponentProps,
-	ReactComponentType,
 	SourceFilterType,
 	SourceFilterAccessor,
 	HitsAccessor,
@@ -85,8 +83,8 @@ export interface HitsProps extends SearchkitComponentProps{
 	highlightFields?:Array<string>
 	customHighlight?:any
 	sourceFilter?:SourceFilterType
-	itemComponent?:ReactComponentType<HitItemProps>
-	listComponent?:ReactComponentType<HitsListProps>
+	itemComponent?: RenderComponentType<HitItemProps>
+	listComponent?: RenderComponentType<HitsListProps>
 	scrollTo?: boolean|string
 }
 

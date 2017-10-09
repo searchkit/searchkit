@@ -1,6 +1,6 @@
 import {
-  FacetAccessor, ImmutableQuery,SearchkitManager,
-  BoolMust, BoolShould, ArrayState, HierarchicalFacetAccessor,
+  ImmutableQuery,SearchkitManager,
+  BoolMust, BoolShould,  HierarchicalFacetAccessor,
   TermQuery, FilterBucket, TermsBucket
 } from "../../../"
 import * as _ from "lodash"

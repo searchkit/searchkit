@@ -1,8 +1,7 @@
 import * as React from "react";
 
 import {
-  FastClick,
-  ReactComponentType,
+  FastClick
 } from "../../../"
 
 import { ItemProps } from './ListProps'

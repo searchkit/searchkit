@@ -1,8 +1,8 @@
-import {State, ArrayState} from "../state"
+import {ArrayState} from "../state"
 import {FilterBasedAccessor} from "./FilterBasedAccessor"
 import {Utils} from "../support"
 import {
-  RangeQuery, BoolShould, CardinalityMetric,
+  RangeQuery, BoolShould,
   RangeBucket, FilterBucket, SelectedFilter,
   FieldOptions, FieldContext, FieldContextFactory
 } from "../";

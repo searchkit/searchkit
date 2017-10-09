@@ -1,47 +1,45 @@
-import * as React from "react";
 import * as PropTypes from "prop-types";
 
 import {
 	SearchkitComponent,
 	SearchkitComponentProps,
-	FastClick,
 	NoFiltersHitCountAccessor,
 	SuggestionsAccessor,
-	ReactComponentType,
-  renderComponent
+	RenderComponentType,
+	renderComponent
 } from "../../../../core"
 
-import {NoHitsErrorDisplay, NoHitsErrorDisplayProps} from "./NoHitsErrorDisplay"
-import {NoHitsDisplay, NoHitsDisplayProps} from "./NoHitsDisplay"
+import { NoHitsErrorDisplay, NoHitsErrorDisplayProps } from "./NoHitsErrorDisplay"
+import { NoHitsDisplay, NoHitsDisplayProps } from "./NoHitsDisplay"
 
-import {defaults} from "lodash"
+import { defaults } from "lodash"
 
 export interface NoHitsProps extends SearchkitComponentProps {
-	suggestionsField?:string
-	errorComponent?: ReactComponentType<NoHitsErrorDisplayProps>
-	component?: ReactComponentType<NoHitsDisplayProps>
+	suggestionsField?: string
+	errorComponent?: RenderComponentType<NoHitsErrorDisplayProps>
+	component?: RenderComponentType<NoHitsDisplayProps>
 }
 
 export class NoHits extends SearchkitComponent<NoHitsProps, any> {
-	noFiltersAccessor:NoFiltersHitCountAccessor
-	suggestionsAccessor:SuggestionsAccessor
-  bemBlocks: {
-    container: Function
-  }
+	noFiltersAccessor: NoFiltersHitCountAccessor
+	suggestionsAccessor: SuggestionsAccessor
+	bemBlocks: {
+		container: Function
+	}
 
 	static translations = {
-		"NoHits.NoResultsFound":"No results found for {query}.",
-		"NoHits.NoResultsFoundDidYouMean":"No results found for {query}. Did you mean {suggestion}?",
-		"NoHits.DidYouMean":"Search for {suggestion} instead",
-		"NoHits.SearchWithoutFilters":"Search for {query} without filters",
-		"NoHits.Error":"We're sorry, an issue occurred when fetching your results. Please try again.",
-		"NoHits.ResetSearch":"Reset Search"
+		"NoHits.NoResultsFound": "No results found for {query}.",
+		"NoHits.NoResultsFoundDidYouMean": "No results found for {query}. Did you mean {suggestion}?",
+		"NoHits.DidYouMean": "Search for {suggestion} instead",
+		"NoHits.SearchWithoutFilters": "Search for {query} without filters",
+		"NoHits.Error": "We're sorry, an issue occurred when fetching your results. Please try again.",
+		"NoHits.ResetSearch": "Reset Search"
 	}
 	translations = NoHits.translations
 
 	static propTypes = defaults({
-		suggestionsField:PropTypes.string,
-		translations:SearchkitComponent.translationsPropType(
+		suggestionsField: PropTypes.string,
+		translations: SearchkitComponent.translationsPropType(
 			NoHits.translations
 		)
 	}, SearchkitComponent.propTypes)
@@ -51,12 +49,12 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 		component: NoHitsDisplay
 	}
 
-	componentWillMount(){
+	componentWillMount() {
 		super.componentWillMount()
 		this.noFiltersAccessor = this.searchkit.addAccessor(
 			new NoFiltersHitCountAccessor()
 		)
-		if(this.props.suggestionsField){
+		if (this.props.suggestionsField) {
 			this.suggestionsAccessor = this.searchkit.addAccessor(
 				new SuggestionsAccessor(this.props.suggestionsField)
 			)
@@ -94,11 +92,11 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 	}
 
 	render() {
-    if ((this.hasHits() || this.isInitialLoading() || this.isLoading()) && !this.getError()) return null
+		if ((this.hasHits() || this.isInitialLoading() || this.isLoading()) && !this.getError()) return null
 
 		if (this.getError()) {
-			const props:NoHitsErrorDisplayProps = {
-				errorLabel:this.translate("NoHits.Error"),
+			const props: NoHitsErrorDisplayProps = {
+				errorLabel: this.translate("NoHits.Error"),
 				resetSearchFn: this.resetSearch.bind(this),
 				translate: this.translate,
 				bemBlocks: this.bemBlocks,
@@ -112,9 +110,9 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 		const query = this.getQuery().getQueryString()
 		let infoKey = suggestion ? "NoHits.NoResultsFoundDidYouMean" : "NoHits.NoResultsFound"
 
-		const props:NoHitsDisplayProps = {
-			noResultsLabel:this.translate(infoKey, {query:query, suggestion:suggestion}),
-		  translate: this.translate,
+		const props: NoHitsDisplayProps = {
+			noResultsLabel: this.translate(infoKey, { query: query, suggestion: suggestion }),
+			translate: this.translate,
 			bemBlocks: this.bemBlocks,
 			suggestion: suggestion,
 			query: query,

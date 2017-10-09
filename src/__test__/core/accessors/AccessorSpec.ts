@@ -1,6 +1,5 @@
 import {
   Accessor,
-  Utils,
   SearchkitManager,
   ImmutableQuery
 } from "../../../"
