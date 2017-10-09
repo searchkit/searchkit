@@ -11,10 +11,21 @@ machine:
     version: 6.9.1
 
 dependencies:
+  pre: 
+    - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
   override:
     - yarn
   cache_directories:
     - ~/.cache/yarn
+
+deployment:
+  npm:
+    tag: /^v\d+\.\d+\.\d+\-\d+$/
+      commands:
+        - npm publish --tag beta
+    # tag: /^v\d+\.\d+\.\d+\$/
+    #   commands:
+    #     - npm publish      
 
 test:
   pre:

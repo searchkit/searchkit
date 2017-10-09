@@ -1,6 +1,6 @@
 {
   "name": "searchkit",
-  "version": "2.3.0-0",
+  "version": "2.3.0-1",
   "description": "A suite of react components to help create a UI quickly for elasticsearch",
   "main": "lib/src/index.js",
   "keywords": [
@@ -25,13 +25,14 @@
   },
   "typings": "lib/src/index.d.ts",
   "scripts": {
-    "test": "./node_modules/.bin/karma start --single-run --reporters progress,junit,coverage",
-    "test:watch": "./node_modules/.bin/karma start karma.conf.js --auto-watch",
-    "build": "./node_modules/.bin/tsc; ./node_modules/.bin/webpack; rm release/ignore.js",
-    "build:watch": "./node_modules/.bin/tsc -w",
-    "prepublish": "rm -rf lib; rm -rf release; npm run-script build;",
-    "test:e2e": "./node_modules/.bin/protractor test/e2e/conf/protractor.conf.js",
-    "test:e2e-standalone": "./node_modules/.bin/protractor test/e2e/conf/protractor.standalone.conf.js",
+    "writeVersion":"node ./scripts/writeVersion.js",
+    "test": "karma start --single-run --reporters progress,junit,coverage",
+    "build": "node ./scripts/writeVersion; tsc; webpack; rm release/ignore.js",
+    "test:watch": "karma start karma.conf.js --auto-watch",
+    "build:watch": "tsc -w",
+    "prepublishOnly": "rm -rf lib; rm -rf release; npm run-script build;",
+    "test:e2e": ".protractor test/e2e/conf/protractor.conf.js",
+    "test:e2e-standalone": "protractor test/e2e/conf/protractor.standalone.conf.js",
     "test:serve": "node test/e2e/server/start.js"
   },
   "authors": [
