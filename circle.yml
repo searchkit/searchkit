@@ -13,10 +13,6 @@ machine:
 dependencies:
   pre: 
     - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-  override:
-    - yarn
-  cache_directories:
-    - ~/.cache/yarn
 
 deployment:
   beta:
