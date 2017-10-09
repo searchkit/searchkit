@@ -29,3 +29,4 @@ deployment:
 test:
   pre:
     - npm install -g karma-cli
+    - npm run build
