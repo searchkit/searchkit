@@ -22,7 +22,7 @@ deployment:
   npm:
     tag: /^v\d+\.\d+\.\d+\-\d+$/
       commands:
-        - npm publish --tag beta
+      - npm publish --tag beta
     # tag: /^v\d+\.\d+\.\d+\$/
     #   commands:
     #     - npm publish      
