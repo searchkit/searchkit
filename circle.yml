@@ -19,13 +19,16 @@ dependencies:
     - ~/.cache/yarn
 
 deployment:
-  npm:
+  beta:
     tag: /^v\d+\.\d+\.\d+\-\d+$/
-      commands:
+    commands:
       - npm publish --tag beta
-    # tag: /^v\d+\.\d+\.\d+\$/
-    #   commands:
-    #     - npm publish      
+  # beta:
+  #   tag: /^v\d+\.\d+\.\d+\+$/
+  #   commands:
+  #     - npm publish
+  #     - gitbook stuff
+
 
 test:
   pre:
