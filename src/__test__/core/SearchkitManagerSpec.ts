@@ -1,7 +1,7 @@
 import {
-  SearchkitManager, AccessorManager, ESTransport, AxiosESTransport,
+  SearchkitManager, AccessorManager, AxiosESTransport,
   ImmutableQuery, createHistoryInstance, PageSizeAccessor, SearchRequest,
-  EventEmitter, QueryAccessor, AnonymousAccessor, MockESTransport
+  EventEmitter, QueryAccessor, MockESTransport
 } from "../../"
 
 import * as _ from "lodash"

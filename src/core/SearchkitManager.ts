@@ -1,9 +1,9 @@
 import {ImmutableQuery} from "./query";
-import { Accessor, BaseQueryAccessor, AnonymousAccessor, PageSizeAccessor} from "./accessors"
+import { BaseQueryAccessor, AnonymousAccessor, PageSizeAccessor} from "./accessors"
 import {AccessorManager} from "./AccessorManager"
 import {ESTransport, AxiosESTransport, MockESTransport} from "./transport"
 import {SearchRequest} from "./SearchRequest"
-import {Utils, EventEmitter, GuidGenerator} from "./support"
+import {EventEmitter, GuidGenerator} from "./support"
 import {VERSION} from "./SearchkitVersion"
 import {createHistoryInstance, encodeObjUrl, decodeObjString} from "./history"
 
@@ -13,9 +13,7 @@ import {identity} from "lodash"
 import {map} from "lodash"
 import {isEqual} from "lodash"
 import {get} from "lodash"
-import qs from "qs"
 
-import {after} from "lodash"
 
 export interface SearchkitOptions {
   useHistory?:boolean
@@ -98,7 +96,7 @@ export class SearchkitManager {
 		})
     this.translateFunction = constant(undefined)
     this.queryProcessor = identity
-    this.shouldPerformSearch = (query)=> true 
+    this.shouldPerformSearch = ()=> true 
     this.query = new ImmutableQuery()
     this.emitter = new EventEmitter()
     this.resultsEmitter = new EventEmitter()

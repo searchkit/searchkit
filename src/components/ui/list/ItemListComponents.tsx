@@ -36,7 +36,7 @@ export class AbstractItemList extends React.PureComponent<ItemListProps, {}> {
 
   render() {
     const {
-      mod, itemComponent, items, selectedItems = [], translate,
+      mod, itemComponent, items = [], translate,
       toggleItem, setItems, multiselect, countFormatter,
       disabled, showCount, className, docCount
     } = this.props

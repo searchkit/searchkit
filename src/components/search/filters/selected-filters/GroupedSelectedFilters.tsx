@@ -57,7 +57,6 @@ export class GroupedSelectedFilters extends SearchkitComponent<GroupedSelectedFi
 
   getGroupedFilters(): Array<any> {
     const filters = this.getFilters();
-    const groupedFilters = []
     return toArray(groupBy(filters, 'id'))
   }
 

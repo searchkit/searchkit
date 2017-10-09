@@ -1,9 +1,8 @@
 import * as React from "react";
 
-import { AbstractItemList, ItemListProps } from "./ItemListComponents"
+import { AbstractItemList} from "./ItemListComponents"
 import {
   FastClick,
-  ReactComponentType,
 } from "../../../"
 
 import { ItemProps } from './ListProps'
@@ -28,7 +27,7 @@ export class ItemHistogramComponent extends React.PureComponent<ItemHistogramCom
   render(){
     const {
       bemBlocks, onClick, active, disabled, style, itemKey,
-      label, count, showCount, showCheckbox, listDocCount } = this.props
+      label, count, showCount, showCheckbox } = this.props
     const block = bemBlocks.option
     const className = block()
       .state({ active, disabled, histogram: true })

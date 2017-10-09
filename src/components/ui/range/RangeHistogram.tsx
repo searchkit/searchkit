@@ -18,7 +18,7 @@ export class RangeHistogram extends React.PureComponent<any, {}> {
   }
 
   render() {
-    const { mod, className, min, max, minValue, maxValue, items = []} = this.props
+    const { mod, className, minValue, maxValue, items = []} = this.props
 
     const bemBlocks = {
       container: block(mod).el

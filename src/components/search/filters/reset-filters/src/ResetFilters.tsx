@@ -2,9 +2,7 @@ import * as React from "react";
 import * as PropTypes from "prop-types";
 
 import {
-	SearchkitManager,
 	SearchkitComponent,
-	FacetAccessor,
 	FastClick,
 	SearchkitComponentProps,
 	ReactComponentType,
@@ -25,7 +23,7 @@ export interface ResetFiltersDisplayProps {
 
 export class ResetFiltersDisplay extends React.PureComponent<ResetFiltersDisplayProps, any>{
 	render(){
-		const {bemBlock, hasFilters, translate, resetFilters, clearAllLabel} = this.props
+		const { bemBlock, hasFilters, resetFilters, clearAllLabel } = this.props
 		return (
 			<div>
 				<FastClick handler={resetFilters}>

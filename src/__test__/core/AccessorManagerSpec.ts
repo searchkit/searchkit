@@ -1,6 +1,6 @@
 import {
-  EventEmitter,ImmutableQuery,AccessorManager, QueryAccessor, FacetAccessor, RangeAccessor,
-  SearchkitManager, ValueState, PaginationAccessor, noopQueryAccessor, Accessor
+  ImmutableQuery,AccessorManager, QueryAccessor,  RangeAccessor,
+  ValueState, PaginationAccessor, noopQueryAccessor, Accessor
 } from "../../"
 
 class StatelessPageAccessor extends Accessor {

@@ -4,7 +4,6 @@ import * as PropTypes from "prop-types"
 import {
   RangeHistogram, RangeSlider, RangeInput
 } from './'
-import {defaults} from "lodash"
 
 export class RangeComponent extends React.PureComponent<any, {}> {
   static propTypes = {

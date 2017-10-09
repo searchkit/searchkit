@@ -1,14 +1,11 @@
 import * as React from 'react'
 
 import {
-  ReactComponentType,
   FastClick,
   block
 } from "../../../"
 
-import {size} from 'lodash'
-import {toArray} from 'lodash'
-import {map} from 'lodash'
+import { map } from 'lodash'
 
 export interface FilterGroupItemProps {
   key: string
@@ -74,7 +71,7 @@ export class FilterGroup extends React.Component<FilterGroupProps, any> {
   }
 
   render() {
-    const { mod, className, title, filters, removeFilters, removeFilter } = this.props
+    const { mod, className, title, filters } = this.props
 
     const bemBlocks = {
         container: block(mod).el,

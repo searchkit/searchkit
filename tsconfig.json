@@ -9,6 +9,9 @@
     "sourceMap": true,
     "moduleResolution": "node",
     "noEmitOnError": true,
+    "noUnusedLocals":true,
+    "noUnusedParameters":true,
+    "noImplicitUseStrict":true,
     "jsx": "react",
     "lib":[
       "es5", "es2015", "dom"
