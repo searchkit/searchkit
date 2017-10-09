@@ -12,7 +12,7 @@ import {
 
 import {MockList} from "./MockList";
 
-import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../__test__/TestHelpers"
+import {fastClick, jsxToHTML} from "../../__test__/TestHelpers"
 
 describe("ItemList Components", ()=> {
 
@@ -66,12 +66,6 @@ describe("ItemList Components", ()=> {
   })
 
   it("mod + classname can be updated", () => {
-    let props = {
-      items: this.items, selectedItems: this.selectedItems,
-      toggleItem: this.toggleItem, setItems: this.setItems,
-      translate: this.translate,
-      mod: "sk-item-list-updated", className: "my-custom-class"
-    }
     this.wrapper = mount(
       <MockList listComponent={ItemList} mod="sk-item-list-updated" className="my-custom-class"/>
     )

@@ -1,11 +1,10 @@
-import * as React from "react";
 import * as PropTypes from "prop-types";
 
 import {
   SearchkitComponent,
   SearchkitComponentProps,
   CheckboxFilterAccessor,
-  ReactComponentType,
+  RenderComponentType,
   renderComponent
 } from "../../../../core";
 
@@ -14,15 +13,14 @@ import {
 } from "../../../ui"
 
 import {defaults} from 'lodash'
-import {map} from 'lodash'
 
 export interface CheckboxFilterProps extends SearchkitComponentProps {
   id: string
   filter: any
   title: string
   label: string
-  containerComponent?: ReactComponentType<any>
-  listComponent?: ReactComponentType<any>
+  containerComponent?: RenderComponentType<any>
+  listComponent?: RenderComponentType<any>
   showCount?: boolean
 }
 
@@ -59,7 +57,7 @@ export class CheckboxFilter extends SearchkitComponent<CheckboxFilterProps, any>
     })
   }
 
-  toggleFilter(key) {
+  toggleFilter() {
     this.accessor.state = this.accessor.state.create(!this.accessor.state.getValue())
     this.searchkit.performSearch()
   }

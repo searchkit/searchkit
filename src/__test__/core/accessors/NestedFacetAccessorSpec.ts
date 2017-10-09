@@ -1,6 +1,6 @@
 import {
-  FacetAccessor, ImmutableQuery,SearchkitManager,
-  BoolMust, BoolShould, ArrayState, NestedFacetAccessor,
+  ImmutableQuery,SearchkitManager,
+  BoolMust, BoolShould, NestedFacetAccessor,
   NestedQuery, TermQuery, FilterBucket, NestedBucket, MinMetric,
   TermsBucket, DefaultNumberBuckets
 } from "../../../"

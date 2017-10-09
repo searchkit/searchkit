@@ -3,7 +3,7 @@ import * as React from "react";
 import {
   SearchkitComponent,
   SearchkitComponentProps,
-  ReactComponentType,
+  RenderComponentType,
   renderComponent,
   SelectedFilter
 } from "../../../../core"
@@ -22,7 +22,7 @@ import {map} from 'lodash'
 
 
 export interface GroupedSelectedFiltersProps extends SearchkitComponentProps {
-  groupComponent?: ReactComponentType<any>
+  groupComponent?: RenderComponentType<any>
 }
 
 export class GroupedSelectedFilters extends SearchkitComponent<GroupedSelectedFiltersProps, any> {

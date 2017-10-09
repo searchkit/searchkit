@@ -1,5 +1,4 @@
 import {State} from "../state"
-import {ImmutableQuery} from "../query/ImmutableQuery";
 import {Accessor} from "./Accessor"
 
 export class StatefulAccessor<T extends State<any>> extends Accessor {
@@ -15,7 +14,7 @@ export class StatefulAccessor<T extends State<any>> extends Accessor {
     this.urlWithState = this.urlWithState.bind(this)
   }
 
-  onStateChange(oldState){
+  onStateChange(_oldState){
 
   }
 

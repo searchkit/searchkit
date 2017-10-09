@@ -7,7 +7,7 @@ import {Toggle} from "../../../ui";
 import * as sinon from "sinon";
 import * as _ from "lodash"
 import {
-  fastClick, hasClass, jsxToHTML, printPrettyHtml
+  jsxToHTML
 } from "../../../__test__/TestHelpers"
 
 describe("SortingSelector tests", () => {

@@ -9,6 +9,6 @@ export const decodeObjString = (str) => {
   return qs.parse(str)
 }
 
-export const createHistoryInstance = function(){
+export const createHistoryInstance = function():History{
   return createBrowserHistory()
 }

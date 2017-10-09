@@ -1,9 +1,7 @@
 import * as React from "react"
 
 import {
-  SearchkitComponent,
-  SearchkitComponentProps,
-  FastClick,
+  SearchkitComponentProps
 } from "../../../../core"
 
 import { TagFilter } from "./TagFilter"

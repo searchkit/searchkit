@@ -120,7 +120,6 @@ describe("SearchkitManager", ()=> {
       return query.setSize(11)
     }
     this.searchkit.addDefaultQuery(queryFn)
-    let anonymousAccessor = this.searchkit.accessors.accessors[0]
     expect(this.searchkit.buildQuery().getSize()).toBe(11)
   })
 
@@ -207,7 +206,7 @@ describe("SearchkitManager", ()=> {
     })
     searchkit.setupListeners()
 
-    searchkit.searchFromUrlQuery = (query)=> {
+    searchkit.searchFromUrlQuery = () => {
       throw new Error("oh no")
     }
     spyOn(console, "error")

@@ -10,9 +10,7 @@ import {assign} from "lodash"
 import {map} from "lodash"
 import {omitBy} from "lodash"
 import {isUndefined} from "lodash"
-import {reject} from "lodash"
 import {each} from "lodash"
-import {identity} from "lodash"
 
 
 export interface FacetAccessorOptions {
@@ -83,7 +81,6 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
       item.key = String(item.key)
       keyIndex[item.key] = item
     })
-    let inIndex = (filter)=> !!keyIndex[filter]
     let missingFilters = []
     each(this.state.getValue(), (filterKey)=> {
       if(keyIndex[filterKey]) {
@@ -181,7 +178,6 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     if (!this.loadAggregations){
       return query
     } else {
-      var filters = this.state.getValue()
       let excludedKey = (this.isOrOperator()) ? this.uuid : undefined
       return query
         .setAggs(FilterBucket(

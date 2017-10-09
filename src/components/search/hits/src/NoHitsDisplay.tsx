@@ -47,7 +47,7 @@ export class NoHitsDisplay extends React.Component<NoHitsDisplayProps, any> {
 	}
 
   render() {
-		const {bemBlocks, query, suggestion, noResultsLabel} = this.props
+		const {bemBlocks, noResultsLabel} = this.props
 		return (
 			<div data-qa="no-hits" className={bemBlocks.container()}>
 				<div className={bemBlocks.container("info")}>

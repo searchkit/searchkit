@@ -1,11 +1,8 @@
-import * as React from "react";
 import * as PropTypes from "prop-types";
 
 import {
-	SearchkitManager,
 	SearchkitComponent,
-	SearchkitComponentProps,
-	FastClick,
+	SearchkitComponentProps,	
 	RangeAccessor,
 	RenderComponentType,
 	RenderComponentPropType,
@@ -14,12 +11,11 @@ import {
 } from "../../../../../core"
 
 import {
-	RangeProps, Panel, RangeComponentBuilder,
+	RangeProps, Panel,
 	RangeSliderHistogram, RangeSlider
 } from "../../../../ui"
 
 import {defaults} from "lodash"
-import {map} from "lodash"
 import {get} from "lodash"
 
 export interface RangeFilterProps extends SearchkitComponentProps {

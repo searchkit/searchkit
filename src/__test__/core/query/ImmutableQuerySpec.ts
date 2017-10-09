@@ -6,7 +6,6 @@ import {
   TermsBucket,
   FilterBucket,
   SimpleQueryString,
-  SelectedFilter,
   Utils
 } from "../../../"
 
@@ -119,7 +118,7 @@ describe("ImmutableQuery", ()=> {
 
   it("addAnonymousFilter()", ()=> {
     let mockId = "123"
-    let spy = spyOn(Utils, "guid").and.returnValue(mockId)
+    spyOn(Utils, "guid").and.returnValue(mockId)
     let filter = BoolShould([1])
     let query = this.query.addAnonymousFilter(filter)
 

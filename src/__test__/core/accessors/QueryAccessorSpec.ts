@@ -1,5 +1,5 @@
 import {
-  QueryAccessor, ImmutableQuery, MatchPhrasePrefix,
+  QueryAccessor, ImmutableQuery,
   SimpleQueryString, ValueState, BoolShould, BoolMust,
   MultiMatchQuery,QueryString
 } from "../../../"

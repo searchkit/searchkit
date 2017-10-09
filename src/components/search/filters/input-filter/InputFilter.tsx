@@ -5,7 +5,7 @@ import {
   QueryAccessor,
   SearchkitComponent,
   SearchkitComponentProps,
-  ReactComponentType,
+  RenderComponentType,
   renderComponent
 } from "../../../../core";
 
@@ -30,7 +30,7 @@ export interface InputFilterProps extends SearchkitComponentProps {
   prefixQueryOptions?:any
   placeholder?: string
   blurAction?:"search"|"restore"
-  containerComponent?: ReactComponentType<any>
+  containerComponent?: RenderComponentType<any>
 }
 
 export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
@@ -94,7 +94,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
   defineAccessor(){
     const {
       id, title, prefixQueryFields, queryFields, queryBuilder,
-      searchOnChange, queryOptions, prefixQueryOptions } = this.props
+      queryOptions, prefixQueryOptions } = this.props
     return new QueryAccessor(id, {
       title,
       addToFilters: true,

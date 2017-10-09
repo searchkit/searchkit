@@ -5,7 +5,7 @@ import {
 	SearchkitComponent,
 	FastClick,
 	SearchkitComponentProps,
-	ReactComponentType,
+	RenderComponentType,
 	ResetSearchOptions,
 	ResetSearchAccessor,
   renderComponent
@@ -37,7 +37,7 @@ export class ResetFiltersDisplay extends React.PureComponent<ResetFiltersDisplay
 }
 
 export interface ResetFiltersProps extends SearchkitComponentProps {
-	component?:ReactComponentType<ResetFiltersDisplayProps>,
+	component?: RenderComponentType<ResetFiltersDisplayProps>,
 	options?:ResetSearchOptions
 }
 

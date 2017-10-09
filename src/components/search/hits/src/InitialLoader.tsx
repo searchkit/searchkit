@@ -4,7 +4,7 @@ import * as PropTypes from "prop-types";
 import {
 	SearchkitComponent,
 	SearchkitComponentProps,
-	ReactComponentType,
+	RenderComponentType,
   renderComponent
 } from "../../../../core"
 
@@ -26,7 +26,7 @@ export class InitialViewDisplay extends React.PureComponent<InitialViewDisplayPr
 
 
 export interface InitialLoaderprops extends SearchkitComponentProps{
-	component?:ReactComponentType<InitialViewDisplayProps>
+	component?: RenderComponentType<InitialViewDisplayProps>
 }
 
 export class InitialLoader extends SearchkitComponent<InitialLoaderprops, any> {

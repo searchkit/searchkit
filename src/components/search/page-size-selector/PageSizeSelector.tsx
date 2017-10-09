@@ -1,11 +1,8 @@
-import * as React from "react";
 import * as PropTypes from "prop-types";
 import {
   SearchkitComponent,
   SearchkitComponentProps,
   PageSizeAccessor,
-  FastClick,
-  PaginationAccessor,
   RenderComponentType,
   RenderComponentPropType,
   renderComponent
@@ -65,7 +62,7 @@ export class PageSizeSelector extends SearchkitComponent<PageSizeSelectorProps, 
         selectedItems: [selectedSize],
         toggleItem: this.setSize.bind(this),
         setItems:this.setItems.bind(this),
-        urlBuilder: (item) => {},
+        urlBuilder: (_item) => {},
         translate:this.translate
       })
     }

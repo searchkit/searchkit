@@ -30,7 +30,7 @@ export class NoopQueryAccessor extends BaseQueryAccessor {
     console.warn("keepOnlyQueryState called, No Query Accessor exists")
   }
 
-  setQueryString(queryString, withReset=false){
+  setQueryString(_queryString, _withReset=false){
     console.warn("setQueryString called, No Query Accessor exists")
   }
 

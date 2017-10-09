@@ -4,12 +4,11 @@ import * as PropTypes from "prop-types";
 import {
 	SearchkitComponent,
 	SearchkitComponentProps,
-	ReactComponentType,
+	RenderComponentType,
   renderComponent
 } from "../../../../core"
 
 import {defaults} from "lodash"
-import {get} from "lodash"
 import {identity} from "lodash"
 
 export interface HitsStatsDisplayProps {
@@ -33,7 +32,7 @@ const HitsStatsDisplay = (props:HitsStatsDisplayProps) => {
 
 
 export interface HitsStatsProps extends SearchkitComponentProps {
-	component?: ReactComponentType<HitsStatsDisplayProps>
+	component?: RenderComponentType<HitsStatsDisplayProps>
 	countFormatter?:(count:number)=> number | string
 }
 

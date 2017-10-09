@@ -1,8 +1,8 @@
 import {
   NumericOptionsAccessor, ImmutableQuery,
   BoolMust, BoolShould, ArrayState, RangeQuery,
-  CardinalityMetric, NestedQuery,NestedBucket,
-  RangeBucket, FilterBucket,SearchkitManager, Utils
+  NestedQuery,NestedBucket,
+  RangeBucket, FilterBucket,SearchkitManager
 } from "../../../"
 
 import * as _ from "lodash"

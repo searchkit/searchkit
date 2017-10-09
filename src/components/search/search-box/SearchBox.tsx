@@ -83,7 +83,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
   defineAccessor(){
     const {
       id, prefixQueryFields, queryFields, queryBuilder,
-      searchOnChange, queryOptions, prefixQueryOptions
+      queryOptions, prefixQueryOptions
     } = this.props
     return new QueryAccessor(id, {
       prefixQueryFields,

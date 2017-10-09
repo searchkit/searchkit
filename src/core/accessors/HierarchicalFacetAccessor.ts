@@ -1,8 +1,8 @@
-import {State, LevelState} from "../state"
+import {LevelState} from "../state"
 import {FilterBasedAccessor} from "./FilterBasedAccessor";
 import {
   TermQuery, TermsBucket, FilterBucket,
-  BoolShould, BoolMust
+  BoolShould
 } from "../query/";
 import {map} from "lodash"
 import {each} from "lodash"
@@ -93,8 +93,6 @@ export class HierarchicalFacetAccessor extends FilterBasedAccessor<LevelState> {
   }
 
   buildOwnQuery(query){
-    var filters = this.state.getValue()
-    var field = this.options.fields[0]
     let lvlAggs = compact(map(this.options.fields, (field:string, i:number) => {
       if (this.state.levelHasFilters(i-1) || i == 0) {
         return FilterBucket(

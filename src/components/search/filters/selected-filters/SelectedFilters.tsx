@@ -1,12 +1,10 @@
 import * as React from "react";
 
 import {
-	SearchkitManager,
 	SearchkitComponent,
-	FacetAccessor,
 	FastClick,
 	SearchkitComponentProps,
-	ReactComponentType,
+	RenderComponentType,
 	renderComponent
 } from "../../../../core"
 
@@ -42,7 +40,7 @@ export interface FilterItemProps {
 }
 
 export interface SelectedFiltersProps extends SearchkitComponentProps {
-	itemComponent?:ReactComponentType<FilterItemProps>
+	itemComponent?: RenderComponentType<FilterItemProps>
 }
 
 export class SelectedFilters extends SearchkitComponent<SelectedFiltersProps, any> {

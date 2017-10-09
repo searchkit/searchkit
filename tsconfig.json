@@ -9,7 +9,6 @@
     "sourceMap": true,
     "moduleResolution": "node",
     "noEmitOnError": true,
-    "noUnusedLocals":true,
     "noUnusedParameters":true,
     "noImplicitUseStrict":true,
     "jsx": "react",
@@ -20,6 +19,7 @@
 
   "include":[
     "./src/**/*.ts",
+    "./src/**/*.tsx",
     "./test/**/*.ts"
   ],
   "exclude": [

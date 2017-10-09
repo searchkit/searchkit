@@ -4,7 +4,7 @@ import {mount} from "enzyme";
 import { TagCloud } from "./TagCloud"
 import { MockList } from "./MockList"
 
-import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../__test__/TestHelpers"
+import {fastClick, jsxToHTML} from "../../__test__/TestHelpers"
 
 describe("TagCloud", ()=> {
 
