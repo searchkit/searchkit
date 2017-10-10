@@ -37,10 +37,11 @@ module.exports = function (config) {
   if(needsCoverage){
     webpack = webpack.merge({
       module:{
-        postLoaders: [{
+        loaders: [{
+          enforce:"post",
           test: /\.(js|tsx?)/,
           exclude: /(test|node_modules|bower_components)/,
-          loader: 'istanbul-instrumenter'
+          loader: 'istanbul-instrumenter-loader'
         }]
       }
     })

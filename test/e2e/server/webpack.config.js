@@ -23,22 +23,21 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
   ],
   resolve: {
     alias: {
       react: path.resolve(__dirname + '/../../../node_modules/react'),
       searchkit:path.resolve(__dirname + "/../../../src")
     },
-    extensions:[".js", ".ts", ".tsx","", ".webpack.js", ".web.js"],
-    fallback: path.join(__dirname, "node_modules")
+    extensions:[".js", ".ts", ".tsx", ".webpack.js", ".web.js"]
   },
 
   module: {
     loaders: [
       {
         test: /\.tsx?$/,
-        loaders: ['ts']
+        loaders: ['ts-loader']
       },
       {
         test: /\.(scss|css)$/,

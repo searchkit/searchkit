@@ -3,11 +3,16 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool:"inline-source-map",
+  entry: {
+    "tests": ['./webpack.tests.js'],
+    "bundle": ['./src/index.ts']
+  },
   output: {
-    path: path.join(__dirname, 'dist')
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].js',
   },
   resolve: {
-    extensions:[".js", ".ts", ".tsx","", ".webpack.js", ".web.js"],
+    extensions:[".js", ".ts", ".tsx", ".webpack.js", ".web.js"],
     alias: {
       sinon: 'sinon/pkg/sinon',
       'react-addons-test-utils':'react-dom/test-utils'
@@ -26,7 +31,7 @@ module.exports = {
     loaders: [
       {
         test: /\.tsx?$/,
-        loaders: ['ts'],
+        loaders: ['ts-loader'],
         include: path.join(__dirname, "src")
       },
       { test: /\.json$/, loader: 'json-loader' },
@@ -37,7 +42,7 @@ module.exports = {
       },
       {
         test: /sinon\.js$/,
-        loader: 'imports?define=>false,require=>false'
+        loader: 'imports-loader?define=>false,require=>false'
       },
       {
         test: /\.(jpg|png|svg)$/,
@@ -45,6 +50,9 @@ module.exports = {
         include: path.join(__dirname, 'src')
       }
     ],
-    node : { fs: 'empty' }
+  },
+  node: { 
+    fs: 'empty' 
   }
+
 };
