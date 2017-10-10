@@ -4,7 +4,7 @@ import { RangeProps } from './RangeProps'
 
 import {block} from "../../../"
 
-import {omit} from 'lodash'
+import omit = require("lodash/omit")
 
 /*
  * Input validates input and only calls onChange for valid values

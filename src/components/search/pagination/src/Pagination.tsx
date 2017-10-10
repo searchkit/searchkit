@@ -14,9 +14,9 @@ import {
   Toggle, Select
 } from "../../../ui"
 
-import {defaults} from "lodash"
-import {get} from "lodash"
-import { isNaN } from "lodash"
+import defaults = require("lodash/defaults")
+import get = require("lodash/get")
+import isNaN = require("lodash/isNaN")
 
 
 import { Paginator } from "./PaginationUtils"

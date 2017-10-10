@@ -1,5 +1,5 @@
-import {head} from "lodash"
-import {find} from "lodash"
+import head = require("lodash/head")
+import find = require("lodash/find")
 
 
 import {StatefulAccessor} from "./StatefulAccessor"

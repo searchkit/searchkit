@@ -9,7 +9,7 @@ import {
 
 import {CheckboxItemList, Panel} from "../../../ui"
 
-import {identity} from "lodash"
+import identity = require("lodash/identity")
 
 export class FacetFilter extends SearchkitComponent<FacetFilterProps, any> {
   accessor: FacetAccessor

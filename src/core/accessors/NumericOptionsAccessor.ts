@@ -7,13 +7,13 @@ import {
   FieldOptions, FieldContext, FieldContextFactory
 } from "../";
 
-import {find} from "lodash"
-import {compact} from "lodash"
-import {map} from "lodash"
-import {filter} from "lodash"
-import {omitBy} from "lodash"
-import {isUndefined} from "lodash"
-import {includes} from "lodash"
+import find = require("lodash/find")
+import compact = require("lodash/compact")
+import map = require("lodash/map")
+import filter = require("lodash/filter")
+import omitBy = require("lodash/omitBy")
+import isUndefined = require("lodash/isUndefined")
+import includes = require("lodash/includes")
 
 export interface RangeOption {
   title:string, from?:number, to?:number, key?:string

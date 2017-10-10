@@ -1,5 +1,5 @@
 import * as React from "react";
-import {assign} from "lodash"
+import assign = require("lodash/assign")
 
 export class MockList extends React.Component<any, any> {
 

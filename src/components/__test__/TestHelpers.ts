@@ -2,8 +2,8 @@ import ReactTestUtils = require('react-dom/test-utils')
 import {html as beautifyHtml} from 'js-beautify'
 import { renderToStaticMarkup } from 'react-dom/server'
 import * as ReactDOM from "react-dom"
-import {compact} from "lodash"
-import {map} from "lodash"
+import compact = require("lodash/compact")
+import map = require("lodash/map")
 
 export const hasClass = (inst, className)=> {
   if(ReactTestUtils.isDOMComponent(inst.node)) {

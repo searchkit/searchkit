@@ -5,7 +5,7 @@ import {
   block
 } from "../../../"
 
-import { map } from 'lodash'
+import map = require("lodash/map")
 
 export interface FilterGroupItemProps {
   key: string

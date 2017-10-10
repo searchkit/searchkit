@@ -1,8 +1,11 @@
 import {FilterBasedAccessor} from "./FilterBasedAccessor";
 import {ObjectState} from "../state";
-import {
-	identity, maxBy, get, assign
-} from "lodash"
+
+import identity = require("lodash/identity")
+import maxBy = require("lodash/maxBy")
+import get = require("lodash/get")
+import assign = require("lodash/assign")
+
 
 import {
 	FilterBucket,

@@ -4,12 +4,12 @@ import {
   TermQuery, TermsBucket, FilterBucket,
   BoolShould
 } from "../query/";
-import {map} from "lodash"
-import {each} from "lodash"
-import {compact} from "lodash"
-import {take} from "lodash"
-import {omitBy} from "lodash"
-import {isUndefined} from "lodash"
+import map = require("lodash/map")
+import each = require("lodash/each")
+import compact = require("lodash/compact")
+import take = require("lodash/take")
+import omitBy = require("lodash/omitBy")
+import isUndefined = require("lodash/isUndefined")
 
 export interface HierarchicalFacetAccessorOptions{
   fields:Array<string>

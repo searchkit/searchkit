@@ -3,8 +3,8 @@ import * as React from "react";
 import { block } from "../../../"
 
 
-import {maxBy} from "lodash"
-import {map} from "lodash"
+import maxBy = require("lodash/maxBy")
+import map = require("lodash/map")
 
 function computeMaxValue(items, field) {
   if (!items || items.length == 0) return 0

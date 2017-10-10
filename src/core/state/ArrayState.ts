@@ -1,6 +1,6 @@
 import {State} from "./State"
-import {indexOf} from "lodash"
-import {without} from "lodash"
+import indexOf = require("lodash/indexOf")
+import without = require("lodash/without")
 
 export class ArrayState extends State<Array<string|number>> {
   getValue() {

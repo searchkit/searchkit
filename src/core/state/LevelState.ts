@@ -1,9 +1,9 @@
 import {State} from "./State"
-import {isArray} from "lodash"
-import {take} from "lodash"
-import {size} from "lodash"
-import {without} from "lodash"
-import {indexOf} from "lodash"
+import isArray = require("lodash/isArray")
+import take = require("lodash/take")
+import size = require("lodash/size")
+import without = require("lodash/without")
+import indexOf = require("lodash/indexOf")
 const update = require("immutability-helper")
 
 export class LevelState extends State<Array<any>> {

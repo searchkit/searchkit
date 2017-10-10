@@ -8,7 +8,9 @@ import {
 	SearchkitComponentProps
 } from "../../../../../core"
 
-import { defaults, map, identity } from "lodash"
+import defaults = require("lodash/defaults")
+import map = require("lodash/map")
+import identity = require("lodash/identity")
 
 export interface HierarchicalRefinementFilterProps extends SearchkitComponentProps {
 	field:string

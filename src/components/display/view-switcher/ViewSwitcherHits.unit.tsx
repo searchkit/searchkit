@@ -10,7 +10,7 @@ import {
   fastClick, hasClass, jsxToHTML, printPrettyHtml, htmlClean
 } from "../../__test__/TestHelpers"
 
-import {map} from "lodash"
+import map = require("lodash/map")
 
 const MovieHitsGridItem = (props) => {
   return (

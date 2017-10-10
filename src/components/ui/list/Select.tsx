@@ -4,8 +4,8 @@ import { ListProps } from "./ListProps"
 
 import {block} from "../../../core"
 
-import {map} from "lodash"
-import {identity} from "lodash"
+import map = require("lodash/map")
+import identity = require("lodash/identity")
 
 export class Select extends React.PureComponent<ListProps, any> {
 

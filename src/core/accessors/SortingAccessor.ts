@@ -1,9 +1,9 @@
 import {ValueState} from "../state"
 import {StatefulAccessor} from "./StatefulAccessor";
 import {Utils} from "../support"
-import {find} from "lodash"
-import {head} from "lodash"
-import {map} from "lodash"
+import find = require("lodash/find")
+import head = require("lodash/head")
+import map = require("lodash/map")
 
 export interface SortingField {
   field:string

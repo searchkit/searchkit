@@ -11,6 +11,7 @@
     "noEmitOnError": true,
     "noUnusedParameters":true,
     "noImplicitUseStrict":true,
+    "allowSyntheticDefaultImports":true,
     "jsx": "react",
     "lib":[
       "es5", "es2015", "dom"

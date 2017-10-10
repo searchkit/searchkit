@@ -8,9 +8,9 @@ import {
 	SearchkitComponentProps
 } from "../../../../../core"
 
-import {defaults} from "lodash"
-import {map} from "lodash"
-import {identity} from "lodash"
+import defaults = require("lodash/defaults")
+import map = require("lodash/map")
+import identity = require("lodash/identity")
 
 export interface HierarchicalMenuFilterProps extends SearchkitComponentProps{
 	id:string

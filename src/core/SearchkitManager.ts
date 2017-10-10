@@ -7,12 +7,12 @@ import {EventEmitter, GuidGenerator} from "./support"
 import {VERSION} from "./SearchkitVersion"
 import {createHistoryInstance, encodeObjUrl, decodeObjString} from "./history"
 
-import {defaults} from "lodash"
-import {constant} from "lodash"
-import {identity} from "lodash"
-import {map} from "lodash"
-import {isEqual} from "lodash"
-import {get} from "lodash"
+import defaults = require("lodash/defaults")
+import constant = require("lodash/constant")
+import identity = require("lodash/identity")
+import map = require("lodash/map")
+import isEqual = require("lodash/isEqual")
+import get = require("lodash/get")
 
 
 export interface SearchkitOptions {

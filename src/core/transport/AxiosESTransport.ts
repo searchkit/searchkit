@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios"
 import {ESTransport} from "./ESTransport"
-import {defaults} from "lodash"
+import defaults = require("lodash/defaults")
 
 export interface ESTransportOptions {
   headers?:Object,

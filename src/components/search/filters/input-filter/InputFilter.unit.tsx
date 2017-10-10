@@ -15,7 +15,7 @@ import {
 
 import * as sinon from "sinon";
 
-import {omit} from "lodash"
+import omit = require("lodash/omit")
 
 describe("InputFilter tests", () => {
 

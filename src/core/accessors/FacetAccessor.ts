@@ -6,11 +6,11 @@ import {
   FilterBucket,  FieldContextFactory, FieldContext,
   FieldOptions
 } from "../query";
-import {assign} from "lodash"
-import {map} from "lodash"
-import {omitBy} from "lodash"
-import {isUndefined} from "lodash"
-import {each} from "lodash"
+import assign = require("lodash/assign")
+import map = require("lodash/map")
+import omitBy = require("lodash/omitBy")
+import isUndefined = require("lodash/isUndefined")
+import each = require("lodash/each")
 
 
 export interface FacetAccessorOptions {

@@ -10,12 +10,12 @@ import { ItemComponent } from './ItemComponents'
 import { ListProps, ItemProps } from './ListProps'
 
 
-import {map} from "lodash"
-import {includes} from "lodash"
-import {sortBy} from "lodash"
-import {minBy} from "lodash"
-import {maxBy} from "lodash"
-import {identity} from "lodash"
+import map = require("lodash/map")
+import includes = require("lodash/includes")
+import sortBy = require("lodash/sortBy")
+import minBy = require("lodash/minBy")
+import maxBy = require("lodash/maxBy")
+import identity = require("lodash/identity")
 
 function computeMinMax(items, field) {
   if (!items || items.length == 0) return { min: 0, max: 0 }

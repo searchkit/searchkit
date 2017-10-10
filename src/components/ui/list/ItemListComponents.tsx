@@ -4,10 +4,10 @@ import { ItemComponent, CheckboxItemComponent } from "./ItemComponents"
 import { ListProps } from "./ListProps"
 import { block } from "../../../core"
 
-import {map} from "lodash"
-import {includes} from "lodash"
-import {defaults} from "lodash"
-import {identity} from "lodash"
+import map = require("lodash/map")
+import includes = require("lodash/includes")
+import defaults = require("lodash/defaults")
+import identity = require("lodash/identity")
 
 export interface ItemListProps extends ListProps {
   itemComponent?: any
