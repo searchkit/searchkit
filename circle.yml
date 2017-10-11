@@ -27,6 +27,7 @@ deployment:
 
 
 test:
-  pre:
-    - npm install -g karma-cli
+  override:
+    - npm run jest:coverage
+  pre:    
     - npm run build

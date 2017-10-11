@@ -1,8 +1,8 @@
 import * as React from 'react'
 import * as PropTypes from "prop-types"
 
-import omitBy = require("lodash/omitBy")
-import isUndefined = require("lodash/isUndefined")
+const omitBy = require("lodash/omitBy")
+const isUndefined = require("lodash/isUndefined")
 
 export type RenderFunction = (props?:any, children?:any) => Element
 export type Element = React.ReactElement<any>

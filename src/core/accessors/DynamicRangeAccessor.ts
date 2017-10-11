@@ -10,8 +10,8 @@ import {
 	FieldContextFactory
 } from "../query";
 
-import assign = require("lodash/assign")
-import identity = require("lodash/identity")
+const assign = require("lodash/assign")
+const identity = require("lodash/identity")
 
 export interface DynamicRangeAccessorOptions {
 	title:string

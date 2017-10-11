@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TagCloud should render and behave correctly 1`] = `
+<div class="sk-tag-cloud">
+  <div class="sk-tag-cloud-option sk-tag-cloud__item is-active" data-qa="option" data-key="a" style="font-size: 1em;">
+    <div data-qa="label" class="sk-tag-cloud-option__text">A translated</div>
+  </div>
+  <div class="sk-tag-cloud-option sk-tag-cloud__item is-disabled" data-qa="option" data-key="b" style="font-size: 1.1em;">
+    <div data-qa="label" class="sk-tag-cloud-option__text">B translated</div>
+  </div>
+  <div class="sk-tag-cloud-option sk-tag-cloud__item is-active" data-qa="option" data-key="c" style="font-size: 1.2em;">
+    <div data-qa="label" class="sk-tag-cloud-option__text">C translated</div>
+  </div>
+  <div class="sk-tag-cloud-option sk-tag-cloud__item" data-qa="option" data-key="d" style="font-size: 1.5em;">
+    <div data-qa="label" class="sk-tag-cloud-option__text">d translated</div>
+  </div>
+</div>
+`;
+
+exports[`TagCloud should sort items 1`] = `
+<div class="sk-tag-cloud">
+  <div class="sk-tag-cloud-option sk-tag-cloud__item is-active" data-qa="option" data-key="a" style="font-size: 1em;">
+    <div data-qa="label" class="sk-tag-cloud-option__text">a translated</div>
+  </div>
+  <div class="sk-tag-cloud-option sk-tag-cloud__item" data-qa="option" data-key="b" style="font-size: 1.1em;">
+    <div data-qa="label" class="sk-tag-cloud-option__text">B translated</div>
+  </div>
+  <div class="sk-tag-cloud-option sk-tag-cloud__item is-active" data-qa="option" data-key="c" style="font-size: 1.2em;">
+    <div data-qa="label" class="sk-tag-cloud-option__text">C translated</div>
+  </div>
+  <div class="sk-tag-cloud-option sk-tag-cloud__item" data-qa="option" data-key="d" style="font-size: 1.5em;">
+    <div data-qa="label" class="sk-tag-cloud-option__text">d translated</div>
+  </div>
+</div>
+`;

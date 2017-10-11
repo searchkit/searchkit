@@ -5,7 +5,7 @@ import {
   SimpleQueryString
 } from "../query";
 
-import assign = require("lodash/assign")
+const assign = require("lodash/assign")
 
 export interface SearchOptions {
   queryFields?:Array<string>

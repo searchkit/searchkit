@@ -11,12 +11,12 @@ import {
   DefaultNumberBuckets
 } from "../query";
 
-import map = require("lodash/map")
-import get = require("lodash/get")
-import includes = require("lodash/includes")
-import startsWith = require("lodash/startsWith")
-import each = require("lodash/each")
-import take = require("lodash/take")  
+const map = require("lodash/map")
+const get = require("lodash/get")
+const includes = require("lodash/includes")
+const startsWith = require("lodash/startsWith")
+const each = require("lodash/each")
+const take = require("lodash/take")  
 
 export interface NestedFacetAccessorOptions {
 	field:string

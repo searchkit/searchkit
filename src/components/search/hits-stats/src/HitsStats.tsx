@@ -8,8 +8,8 @@ import {
   renderComponent
 } from "../../../../core"
 
-import defaults = require("lodash/defaults")
-import identity = require("lodash/identity")
+const defaults = require("lodash/defaults")
+const identity = require("lodash/identity")
 
 export interface HitsStatsDisplayProps {
 	bemBlocks:{container: Function}

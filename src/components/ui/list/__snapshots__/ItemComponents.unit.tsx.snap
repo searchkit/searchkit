@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemComponents should render and behave correctly 1`] = `
+<div class="sk-item-option sk-item-container__item" data-qa="option" data-key="images">
+  <div data-qa="label" class="sk-item-option__text">Images</div>
+  <div data-qa="count" class="sk-item-option__count">10</div>
+</div>
+`;
+
+exports[`ItemComponents should render and behave correctly 2`] = `
+<div class="sk-item-option sk-item-container__item" data-qa="option" data-key="images"><input type="checkbox" data-qa="checkbox" readonly="" class="sk-item-option__checkbox">
+  <div data-qa="label" class="sk-item-option__text">Images</div>
+</div>
+`;
+
+exports[`ItemComponents should render and behave correctly 3`] = `
+<div class="sk-item-option sk-item-container__item" data-qa="option" data-key="images">
+  <div data-qa="label" class="sk-item-option__text">Images</div>
+</div>
+`;

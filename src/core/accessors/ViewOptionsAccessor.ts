@@ -1,5 +1,5 @@
-import head = require("lodash/head")
-import find = require("lodash/find")
+const head = require("lodash/head")
+const find = require("lodash/find")
 
 
 import {StatefulAccessor} from "./StatefulAccessor"

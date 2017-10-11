@@ -1,6 +1,6 @@
 import * as React from "react"
 import {mount, render} from "enzyme"
-import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../__test__/TestHelpers"
+import {fastClick, hasClass} from "../../../__test__/TestHelpers"
 import {FacetFilter} from "./FacetFilter"
 import {RefinementListFilter} from "./RefinementListFilter"
 import {SearchkitManager, Utils, FieldOptions, FacetAccessor} from "../../../../core"
@@ -57,32 +57,8 @@ describe("Facet Filter tests", () => {
 
   });
 
-  it('renders correctly', () => {
-    let output = jsxToHTML(
-      <div className="sk-panel filter--testId">
-        <div className="sk-panel__header">test title</div>
-        <div className="sk-panel__content">
-          <div data-qa="options" className="sk-item-list">
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 1"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox" value="on"/>
-              <div data-qa="label" className="sk-item-list-option__text">test option 1 translated</div>
-              <div data-qa="count" className="sk-item-list-option__count">#1</div>
-            </div>
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 2"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox" value="on"/>
-              <div data-qa="label" className="sk-item-list-option__text">test option 2</div>
-              <div data-qa="count" className="sk-item-list-option__count">#2</div>
-            </div>
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 3"><input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox" value="on"/>
-              <div data-qa="label" className="sk-item-list-option__text">test option 3</div>
-              <div data-qa="count" className="sk-item-list-option__count">#3</div>
-            </div>
-          </div>
-          <div data-qa="show-more" className="sk-refinement-list__view-more-action">View all facets</div>
-        </div>
-      </div>
-    )
-
-    expect(this.wrapper.html()).toEqual(output)
-
+  it('renders correctly', () => {    
+    expect(this.wrapper).toMatchSnapshot()    
   });
 
   it('clicks options', () => {
@@ -180,26 +156,7 @@ describe("Facet Filter tests", () => {
         bucketsTransform={(buckets)=> _.reverse(buckets)}
         searchkit={this.searchkit} />
     )
-
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div title="test title" className="filter--testId">
-        <div data-qa="options" className="sk-toggle">
-          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 3">
-            <div data-qa="label" className="sk-toggle-option__text">test option 3</div>
-            <div data-qa="count" className="sk-toggle-option__count">3</div>
-          </div>
-          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 2">
-            <div data-qa="label" className="sk-toggle-option__text">test option 2</div>
-            <div data-qa="count" className="sk-toggle-option__count">2</div>
-          </div>
-          <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 1">
-            <div data-qa="label" className="sk-toggle-option__text">test option 1 translated</div>
-            <div data-qa="count" className="sk-toggle-option__count">1</div>
-          </div>
-        </div>
-        <div data-qa="show-more" className="sk-refinement-list__view-more-action">View all facets</div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()   
   })
 
 });

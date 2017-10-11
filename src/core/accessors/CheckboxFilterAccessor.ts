@@ -4,7 +4,7 @@ import {
   BoolMust, FilterBucket
 } from "../query";
 
-import assign = require("lodash/assign")
+const assign = require("lodash/assign")
 
 export interface CheckboxFilterAccessorOptions {
   id:string

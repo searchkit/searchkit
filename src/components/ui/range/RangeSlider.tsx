@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { RangeProps } from './RangeProps'
 
-import identity = require("lodash/identity")
+const identity = require("lodash/identity")
 const Slider = require('rc-slider')
 const createSliderWithTooltip = Slider.createSliderWithTooltip
 const Range = createSliderWithTooltip(Slider.Range)

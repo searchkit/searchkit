@@ -6,7 +6,7 @@ import {SearchkitManager, ImmutableQuery, FastClick, block} from "../../../../co
 import * as _ from "lodash"
 import * as sinon from "sinon";
 import {
-  fastClick, hasClass, jsxToHTML, printPrettyHtml, htmlClean
+  fastClick, hasClass, printPrettyHtml, htmlClean
 } from "../../../__test__/TestHelpers"
 
 describe("SelectedFilters tests", () => {
@@ -55,26 +55,7 @@ describe("SelectedFilters tests", () => {
 
     this.createWrapper()
 
-    expect(htmlClean(this.wrapper.html())).toEqual(jsxToHTML(
-      <div className="sk-selected-filters">
-        <div className="sk-selected-filters-option sk-selected-filters__item selected-filter--test">
-          <div className="sk-selected-filters-option__name">
-            {'test name'}
-            {': '}
-            {'test value'}
-          </div>
-          <div className="sk-selected-filters-option__remove-action">x</div>
-        </div>
-        <div className="sk-selected-filters-option sk-selected-filters__item selected-filter--test2">
-          <div className="sk-selected-filters-option__name">
-            {'test name 2 translated'}
-            {': '}
-            {'test value 2 translated'}
-          </div>
-          <div className="sk-selected-filters-option__remove-action">x</div>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
 
 
   });
@@ -99,18 +80,7 @@ describe("SelectedFilters tests", () => {
 
     this.createWrapper({itemComponent:FilterItem})
 
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-selected-filters">
-        <div className="sk-selected-filters-option">
-          <div className="sk-selected-filters-option__override-name">test value</div>
-          <div className="sk-selected-filters-option__remove-action">x</div>
-        </div>
-        <div className="sk-selected-filters-option">
-          <div className="sk-selected-filters-option__override-name">test value 2 translated</div>
-          <div className="sk-selected-filters-option__remove-action">x</div>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
 
     // click element to be removed
 

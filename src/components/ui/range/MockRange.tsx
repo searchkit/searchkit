@@ -1,5 +1,5 @@
 import * as React from "react";
-import assign = require("lodash/assign")
+const assign = require("lodash/assign")
 
 export class MockRange extends React.Component<any, any> {
 

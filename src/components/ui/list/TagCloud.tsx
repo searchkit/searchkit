@@ -4,18 +4,18 @@ import {
   RenderComponentType,
   renderComponent,
   block
-} from "../../../"
+} from "../../../core/react"
 
 import { ItemComponent } from './ItemComponents'
 import { ListProps, ItemProps } from './ListProps'
 
 
-import map = require("lodash/map")
-import includes = require("lodash/includes")
-import sortBy = require("lodash/sortBy")
-import minBy = require("lodash/minBy")
-import maxBy = require("lodash/maxBy")
-import identity = require("lodash/identity")
+const map = require("lodash/map")
+const includes = require("lodash/includes")
+const sortBy = require("lodash/sortBy")
+const minBy = require("lodash/minBy")
+const maxBy = require("lodash/maxBy")
+const identity = require("lodash/identity")
 
 function computeMinMax(items, field) {
   if (!items || items.length == 0) return { min: 0, max: 0 }

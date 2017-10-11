@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {DynamicRangeFilter} from "./DynamicRangeFilter";
 import {SearchkitManager, DynamicRangeAccessor} from "../../../../core";
 import {
-  fastClick, hasClass, jsxToHTML, printPrettyHtml
+  fastClick, hasClass, printPrettyHtml
 } from "../../../__test__/TestHelpers"
 
 describe("Dynamic Range Filter tests", () => {
@@ -47,25 +47,7 @@ describe("Dynamic Range Filter tests", () => {
 
   it("renders correctly", () => {
     this.createWrapper()
-    expect(this.wrapper.html()).toBe(jsxToHTML(
-      <div className="sk-panel filter--m">
-        <div className="sk-panel__header">metascore</div>
-        <div className="sk-panel__content">
-          <div className="sk-range-slider">
-            <div className="rc-slider rc-slider-with-marks">
-              <div className="rc-slider-rail"></div>
-              <div className="rc-slider-track rc-slider-track-1" style={{visibility:" visible", " left":" 0%", " width":" 100%"}}></div>
-              <div className="rc-slider-step"><span className="rc-slider-dot rc-slider-dot-active" style={{left:" 0%"}}></span><span className="rc-slider-dot rc-slider-dot-active" style={{left:" 100%"}}></span></div>
-              <div role="slider" tabIndex={0} aria-valuemin="1" aria-valuemax="120" aria-valuenow="1" aria-disabled="false"
-                className="rc-slider-handle rc-slider-handle-1" style={{left:" 0%"}}></div>
-              <div role="slider" tabIndex={0} aria-valuemin="1" aria-valuemax="120" aria-valuenow="120" aria-disabled="false" className="rc-slider-handle rc-slider-handle-2" style={{left:" 100%"}}></div>
-              <div className="rc-slider-mark"><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:" 90%", " marginLeft":" -45%", " left":" 0%"}}>1 score</span><span className="rc-slider-mark-text rc-slider-mark-text-active" style={{width:" 90%", " marginLeft":" -45%", " left":" 100%"}}>120 score</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      )
-    )
+    expect(this.wrapper).toMatchSnapshot()
   })
 
   it("accessor has correct config", () => {

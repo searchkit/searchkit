@@ -1,7 +1,6 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {Panel} from "./Panel"
-import {jsxToHTML} from "../../__test__/TestHelpers"
 
 describe("Panel", ()=> {
   beforeEach(()=> {
@@ -12,14 +11,7 @@ describe("Panel", ()=> {
     )
   })
   it("should render correctly", ()=> {
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-panel">
-        <div className="sk-panel__header">My Panel</div>
-        <div className="sk-panel__content">
-          <p>panel content...</p>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()    
   })
 
   it("should be collapsable", ()=> {
@@ -28,17 +20,8 @@ describe("Panel", ()=> {
         <p>panel content...</p>
       </Panel>
     )
-    //this markup will change in react 15.x
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-panel">
-        <div className="sk-panel__header is-collapsable is-collapsed">
-          My Panel
-        </div>
-        <div className="sk-panel__content is-collapsed">
-          <p>panel content...</p>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()    
+
 
     let expectIsCollapsed = (shouldBeCollapsed)=> {
       expect(this.wrapper.find(".sk-panel__content").hasClass("is-collapsed"))
@@ -55,7 +38,7 @@ describe("Panel", ()=> {
     expectIsCollapsed(true)
     this.wrapper.setProps({defaultCollapsed:false})
     expectIsCollapsed(false)
-
+  })
   it("can be disabled", ()=> {
     expect(this.wrapper.find(".sk-panel").hasClass("is-disabled")).toBe(false)
     this.wrapper.setProps({disabled:true})
@@ -81,8 +64,5 @@ describe("Panel", ()=> {
 
   })
 
-
-
-  })
 
 })

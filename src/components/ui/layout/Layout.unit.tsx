@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {Layout, LayoutBody, SideBar, ActionBar, ActionBarRow, TopBar, LayoutResults } from "./Layout"
-import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../__test__/TestHelpers"
+import {fastClick, hasClass, printPrettyHtml} from "../../__test__/TestHelpers"
 
 describe("Layout components", ()=> {
 
@@ -30,25 +30,8 @@ describe("Layout components", ()=> {
       </div>
     )
 
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div>
-        <div className="sk-layout sk-layout__size-m">
-          <div className="sk-layout__top-bar sk-top-bar">
-            <div className="sk-top-bar__content">search bar</div>
-          </div>
-          <div className="sk-layout__body">
-            <div className="sk-layout__filters">filters</div>
-            <div className="sk-layout__results sk-results-list">
-              <div className="sk-results-list__action-bar sk-action-bar">
-                <div className="sk-action-bar-row">row 1</div>
-                <div className="sk-action-bar-row">row 2</div>
-              </div>
-              <p>hits</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
+
   })
 
   it("layout - no size prop", () => {
@@ -60,13 +43,8 @@ describe("Layout components", ()=> {
       </div>
     )
 
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div>
-        <div className="sk-layout">
-          content
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
+
   })
 
 

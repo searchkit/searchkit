@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MenuFilter should render correctly 1`] = `
+<div class="sk-panel filter--color">
+  <div class="sk-panel__header">Color</div>
+  <div class="sk-panel__content">
+    <div data-qa="options" class="sk-item-list">
+      <div class="sk-item-list-option sk-item-list__item is-active" data-qa="option" data-key="$all">
+        <div data-qa="label" class="sk-item-list-option__text">All</div>
+        <div data-qa="count" class="sk-item-list-option__count">33</div>
+      </div>
+      <div class="sk-item-list-option sk-item-list__item" data-qa="option" data-key="Red">
+        <div data-qa="label" class="sk-item-list-option__text">Red Translated</div>
+        <div data-qa="count" class="sk-item-list-option__count">10</div>
+      </div>
+      <div class="sk-item-list-option sk-item-list__item" data-qa="option" data-key="Blue">
+        <div data-qa="label" class="sk-item-list-option__text">Blue</div>
+        <div data-qa="count" class="sk-item-list-option__count">11</div>
+      </div>
+      <div class="sk-item-list-option sk-item-list__item" data-qa="option" data-key="Green">
+        <div data-qa="label" class="sk-item-list-option__text">Green</div>
+        <div data-qa="count" class="sk-item-list-option__count">12</div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoHits component suggestions render error 1`] = `
+<div data-qa="no-hits" class="sk-no-hits">
+  <div class="sk-no-hits__info">error</div>
+  <div class="sk-no-hits__steps">
+    <div class="sk-no-hits__step-action">Reset Search</div>
+  </div>
+</div>
+`;

@@ -1,10 +1,10 @@
 import {FilterBasedAccessor} from "./FilterBasedAccessor";
 import {ObjectState} from "../state";
 
-import identity = require("lodash/identity")
-import maxBy = require("lodash/maxBy")
-import get = require("lodash/get")
-import assign = require("lodash/assign")
+const identity = require("lodash/identity")
+const maxBy = require("lodash/maxBy")
+const get = require("lodash/get")
+const assign = require("lodash/assign")
 
 
 import {

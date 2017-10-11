@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {NumericRefinementListFilter} from "../src/NumericRefinementListFilter";
-import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
+import {fastClick, hasClass, printPrettyHtml} from "../../../../__test__/TestHelpers"
 import {SearchkitManager, Utils, NumericOptionsAccessor} from "../../../../../core";
 import {Select} from "../../../../ui";
 ;
@@ -64,27 +64,7 @@ describe("NumericRefinementListFilter tests", () => {
   it("should render correctly()", ()=> {
     this.setWrapper()
     this.setResults()
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-panel filter--score">
-        <div className="sk-panel__header">Score</div>
-        <div className="sk-panel__content">
-          <div data-qa="options" className="sk-item-list">
-            <div className="sk-item-list-option sk-item-list__item is-active" data-qa="option" data-key="All">
-              <div data-qa="label" className="sk-item-list-option__text">All</div>
-              <div data-qa="count" className="sk-item-list-option__count">30</div>
-            </div>
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="up to 20">
-              <div data-qa="label" className="sk-item-list-option__text">up to 20</div>
-              <div data-qa="count" className="sk-item-list-option__count">10</div>
-            </div>
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="21 to 40">
-              <div data-qa="label" className="sk-item-list-option__text">21 to 40</div>
-              <div data-qa="count" className="sk-item-list-option__count">20</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
 
   })
 
@@ -124,20 +104,7 @@ describe("NumericRefinementListFilter tests", () => {
 
     })
     this.setResults()
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-panel filter--score">
-        <div className="sk-panel__header">Score</div>
-        <div className="sk-panel__content">
-          <div className="my-numeric my-class">
-            <select>
-              <option value="All">Everything (#30)</option>
-              <option value="up to 20">up to 20 (#10)</option>
-              <option value="21 to 40">21 to 40 (#20)</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
   })
 
 })

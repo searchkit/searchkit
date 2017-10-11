@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GroupedSelectedFilters tests renders correctly 1`] = `
+<div class="sk-filter-groups">
+  <div class="sk-filter-group filter-group-test">
+    <div class="sk-filter-group-items">
+      <div class="sk-filter-group-items__title">test name</div>
+      <div class="sk-filter-group-items__list">
+        <div class="sk-filter-group-items__value" data-key="test value">test value</div>
+        <div class="sk-filter-group-items__value" data-key="test value 3">test value 3</div>
+      </div>
+    </div>
+    <div class="sk-filter-group__remove-action">X</div>
+  </div>
+  <div class="sk-filter-group filter-group-test2">
+    <div class="sk-filter-group-items">
+      <div class="sk-filter-group-items__title">test name 2 translated</div>
+      <div class="sk-filter-group-items__list">
+        <div class="sk-filter-group-items__value" data-key="test value 2">test value 2 translated</div>
+      </div>
+    </div>
+    <div class="sk-filter-group__remove-action">X</div>
+  </div>
+</div>
+`;

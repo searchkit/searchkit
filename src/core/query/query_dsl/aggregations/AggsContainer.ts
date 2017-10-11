@@ -1,6 +1,6 @@
-import assign = require("lodash/assign")
-import reduce = require("lodash/reduce")
-import compact = require("lodash/compact")
+const assign = require("lodash/assign")
+const reduce = require("lodash/reduce")
+const compact = require("lodash/compact")
 
 export function AggsContainer(key:string, inner, aggsArray:Array<any>=[]){
   aggsArray = compact(aggsArray)

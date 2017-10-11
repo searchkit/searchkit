@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SortingSelector tests custom mod, className, listComponent 1`] = `"<div data-qa=\\"options\\" class=\\"my-select custom-class is-disabled\\"><div class=\\"my-select-option my-select__item is-active\\" data-qa=\\"option\\" data-key=\\"none\\"><div data-qa=\\"label\\" class=\\"my-select-option__text\\">Relevance</div></div><div class=\\"my-select-option my-select__item\\" data-qa=\\"option\\" data-key=\\"released_desc\\"><div data-qa=\\"label\\" class=\\"my-select-option__text\\">Latest Releases</div></div><div class=\\"my-select-option my-select__item\\" data-qa=\\"option\\" data-key=\\"earliest\\"><div data-qa=\\"label\\" class=\\"my-select-option__text\\">Earliest Releases</div></div></div>"`;
+
+exports[`SortingSelector tests handle prop reload without breaking computed keys 1`] = `"<div class=\\"sk-select\\"><select><option value=\\"none\\">Relevance translated</option><option value=\\"released_desc\\">Latest Releases</option><option value=\\"earliest\\">Earliest Releases</option></select></div>"`;
+
+exports[`SortingSelector tests is disabled when no results 1`] = `"<div class=\\"sk-select is-disabled\\"><select><option value=\\"none\\">Relevance translated</option><option value=\\"released_desc\\">Latest Releases</option><option value=\\"earliest\\">Earliest Releases</option></select></div>"`;
+
+exports[`SortingSelector tests renders with defaultOption 1`] = `"<div class=\\"sk-select\\"><select><option value=\\"none\\">Relevance translated</option><option value=\\"released_desc\\">Latest Releases</option><option value=\\"earliest\\">Earliest Releases</option></select></div>"`;
+
+exports[`SortingSelector tests renders with results 1`] = `"<div class=\\"sk-select\\"><select><option value=\\"none\\">Relevance translated</option><option value=\\"released_desc\\">Latest Releases</option><option value=\\"earliest\\">Earliest Releases</option></select></div>"`;
+
+exports[`SortingSelector tests renders with selected value 1`] = `"<div class=\\"sk-select\\"><select><option value=\\"none\\">Relevance translated</option><option value=\\"released_desc\\">Latest Releases</option><option value=\\"earliest\\">Earliest Releases</option></select></div>"`;

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Reset Filter tests renders correctly 1`] = `
+<div>
+  <div class="sk-reset-filters">
+    <div class="sk-reset-filters__reset">reset filters</div>
+  </div>
+</div>
+`;

@@ -10,7 +10,7 @@ import {
   block
 } from "../../../"
 
-import {fastClick, jsxToHTML} from "../../__test__/TestHelpers"
+import { fastClick} from "../../__test__/TestHelpers"
 
 describe("ItemComponents", ()=> {
 
@@ -35,29 +35,16 @@ describe("ItemComponents", ()=> {
     this.wrapper = mount(
       <ItemComponent {...this.props}/>
     )
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-item-option sk-item-container__item" data-qa="option" data-key="images">
-        <div data-qa="label" className="sk-item-option__text">Images</div>
-        <div data-qa="count" className="sk-item-option__count">10</div>
-      </div>
-    ))
-
+        
+    expect(this.wrapper).toMatchSnapshot()
     this.wrapper.setProps({showCount:false, showCheckbox:true})
 
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-item-option sk-item-container__item" data-qa="option" data-key="images">
-        <input type="checkbox" data-qa="checkbox" readOnly className="sk-item-option__checkbox" value="on"/>
-        <div data-qa="label" className="sk-item-option__text">Images</div>
-      </div>
-    ).replace(/checkbox"\/>/, `checkbox">`))
-
+    expect(this.wrapper).toMatchSnapshot()
+    
     this.wrapper.setProps({showCount:true, showCheckbox:false, count: undefined})
 
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-item-option sk-item-container__item" data-qa="option" data-key="images">
-        <div data-qa="label" className="sk-item-option__text">Images</div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
+
 
     this.wrapper.setProps({active:true})
 

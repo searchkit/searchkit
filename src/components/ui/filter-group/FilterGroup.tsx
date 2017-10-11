@@ -3,9 +3,9 @@ import * as React from 'react'
 import {
   FastClick,
   block
-} from "../../../"
+} from "../../../core/react"
 
-import map = require("lodash/map")
+const map = require("lodash/map")
 
 export interface FilterGroupItemProps {
   key: string

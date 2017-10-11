@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemHistogramList Components should render and behave correctly 1`] = `
+<div data-qa="options" class="sk-item-list">
+  <div class="sk-item-list-option sk-item-list__item is-active is-histogram" data-qa="option" data-key="a">
+    <div class="sk-item-list-option__bar-container">
+      <div class="sk-item-list-option__bar" style="width: 20.833333333333336%;"></div>
+    </div>
+    <div data-qa="label" class="sk-item-list-option__text">A translated</div>
+    <div data-qa="count" class="sk-item-list-option__count">#10</div>
+  </div>
+  <div class="sk-item-list-option sk-item-list__item is-disabled is-histogram" data-qa="option" data-key="b">
+    <div class="sk-item-list-option__bar-container">
+      <div class="sk-item-list-option__bar" style="width: 22.916666666666664%;"></div>
+    </div>
+    <div data-qa="label" class="sk-item-list-option__text">B translated</div>
+    <div data-qa="count" class="sk-item-list-option__count">#11</div>
+  </div>
+  <div class="sk-item-list-option sk-item-list__item is-active is-histogram" data-qa="option" data-key="c">
+    <div class="sk-item-list-option__bar-container">
+      <div class="sk-item-list-option__bar" style="width: 25%;"></div>
+    </div>
+    <div data-qa="label" class="sk-item-list-option__text">C translated</div>
+    <div data-qa="count" class="sk-item-list-option__count">#12</div>
+  </div>
+  <div class="sk-item-list-option sk-item-list__item is-histogram" data-qa="option" data-key="d">
+    <div class="sk-item-list-option__bar-container">
+      <div class="sk-item-list-option__bar" style="width: 31.25%;"></div>
+    </div>
+    <div data-qa="label" class="sk-item-list-option__text">d translated</div>
+    <div data-qa="count" class="sk-item-list-option__count">#15</div>
+  </div>
+</div>
+`;

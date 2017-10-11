@@ -8,9 +8,9 @@ import {
 	renderComponent
 } from "../../../../core"
 
-import defaults = require("lodash/defaults")
-import size = require("lodash/size")
-import map = require("lodash/map")
+const defaults = require("lodash/defaults")
+const size = require("lodash/size")
+const map = require("lodash/map")
 
 export class FilterItem extends React.PureComponent<FilterItemProps, any> {
 

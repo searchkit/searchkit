@@ -176,7 +176,7 @@ describe("SearchkitManager", ()=> {
     const history = createHistoryInstance()
     history.push(window.location.pathname + "?q=foo-previous")
     history.push(window.location.pathname + "?q=foo-now")
-    setTimeout(()=> {
+    setTimeout(()=> {      
       const searchkit = new SearchkitManager("/", {
         useHistory:true,
         searchOnLoad:false
@@ -185,16 +185,16 @@ describe("SearchkitManager", ()=> {
       spyOn(searchkit, "searchFromUrlQuery")
       spyOn(searchkit, "_search")
       searchkit.setupListeners()
-      searchkit.completeRegistration()
+      searchkit.completeRegistration()    
       setTimeout(()=> {
         history.goBack()
         setTimeout(()=> {
           expect(searchkit.searchFromUrlQuery).toHaveBeenCalledWith("?q=foo-previous")
           searchkit.unlistenHistory()
           done()
+        },10)      
         },0)
-      },0)
-    }, 0)
+      }, 0)
 
   })
 

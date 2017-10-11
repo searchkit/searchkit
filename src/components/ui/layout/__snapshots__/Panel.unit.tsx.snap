@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Panel should be collapsable 1`] = `
+<div class="sk-panel">
+  <div class="sk-panel__header is-collapsable is-collapsed">My Panel</div>
+  <div class="sk-panel__content is-collapsed">
+    <p>panel content...</p>
+  </div>
+</div>
+`;
+
+exports[`Panel should render correctly 1`] = `
+<div class="sk-panel">
+  <div class="sk-panel__header">My Panel</div>
+  <div class="sk-panel__content">
+    <p>panel content...</p>
+  </div>
+</div>
+`;

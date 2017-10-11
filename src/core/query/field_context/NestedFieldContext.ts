@@ -1,6 +1,6 @@
 import {FieldContext} from './FieldContext';
 import {NestedBucket, NestedQuery} from "../query_dsl"
-import get = require("lodash/get")
+const get = require("lodash/get")
 
 export class NestedFieldContext extends FieldContext {
 

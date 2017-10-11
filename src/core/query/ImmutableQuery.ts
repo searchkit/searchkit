@@ -2,12 +2,12 @@ const update = require("immutability-helper")
 import {BoolMust} from "./query_dsl"
 import {Utils} from "../support/Utils"
 import {SelectedFilter} from "./SelectedFilter"
-import omitBy = require("lodash/omitBy")
-import omit = require("lodash/omit")
-import values = require("lodash/values")
-import pick = require("lodash/pick")
-import merge = require("lodash/merge")
-import isUndefined = require("lodash/isUndefined")
+const omitBy = require("lodash/omitBy")
+const omit = require("lodash/omit")
+const values = require("lodash/values")
+const pick = require("lodash/pick")
+const merge = require("lodash/merge")
+const isUndefined = require("lodash/isUndefined")
 
 export type SourceFilterType = string|Array<string>|boolean
 

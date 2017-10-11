@@ -3,13 +3,13 @@ import {mount} from "enzyme";
 import {SearchBox} from "./SearchBox";
 import {SearchkitManager, QueryString, QueryAccessor } from "../../../core"
 import {
-  fastClick, hasClass, jsxToHTML, printPrettyHtml
+  fastClick, hasClass, printPrettyHtml
 } from "../../__test__/TestHelpers"
 
-import throttle from 'lodash/throttle'
+const throttle = require('lodash/throttle')
 
 
-import omit = require("lodash/omit")
+const omit = require("lodash/omit")
 
 describe("Searchbox tests", () => {
 

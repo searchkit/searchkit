@@ -7,10 +7,10 @@ import {
   SearchkitComponentProps
 } from "../../../core"
 
-import defaults = require("lodash/defaults")
-import throttle = require("lodash/throttle")
-import assign = require("lodash/assign")
-import isUndefined = require("lodash/isUndefined")
+const defaults = require("lodash/defaults")
+const throttle = require("lodash/throttle")
+const assign = require("lodash/assign")
+const isUndefined = require("lodash/isUndefined")
 
 export interface SearchBoxProps extends SearchkitComponentProps {
   searchOnChange?:boolean

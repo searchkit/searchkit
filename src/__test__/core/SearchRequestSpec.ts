@@ -4,6 +4,7 @@ import {
   AxiosESTransport,
   ImmutableQuery
 } from "../../"
+import * as sinon from "sinon"
 
 describe("SearchRequest", ()=> {
 
@@ -43,11 +44,13 @@ describe("SearchRequest", ()=> {
 
   it("run() - error", (done)=> {
     let error = new Error("oh no")
+    sinon.stub(console, "error")
     spyOn(this.request.transport, "search")
       .and.returnValue(Promise.reject(error))
     this.request.run().then(()=> {
       expect(this.searchkit.error).toBe(error)
-      done()
+      console.error["restore"]()
+      done()    
     })
   })
 
@@ -66,6 +69,7 @@ describe("SearchRequest", ()=> {
   })
 
   it("setError()", ()=> {
+    sinon.stub(console, "error")
     let error = new Error("oh no")
     this.request.setError(error)
     expect(this.searchkit.error).toBe(error)
@@ -73,6 +77,7 @@ describe("SearchRequest", ()=> {
     this.request.deactivate()
     this.request.setError(error)
     expect(this.searchkit.error).toBe(undefined)
+    console.error["restore"]()
   })
 
 })

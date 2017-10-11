@@ -1,6 +1,4 @@
 import {MockESTransport, ESTransport} from "../../../"
-import "jasmine-ajax"
-
 
 describe("MockESTransport", ()=> {
 

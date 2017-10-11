@@ -1,6 +1,6 @@
 import * as React from "react"
 import {mount, render} from "enzyme";
-import {fastClick, hasClass, jsxToHTML, printPrettyHtml, htmlClean} from "../../../__test__/TestHelpers"
+import {fastClick, hasClass, printPrettyHtml, htmlClean} from "../../../__test__/TestHelpers"
 import { TagFilter, TagFilterConfig } from "./";
 import {SearchkitManager, Utils, FacetAccessor} from "../../../../core";
 
@@ -53,13 +53,7 @@ describe("TagFilter tests", () => {
       </div>
     )
 
-    let output = jsxToHTML(
-      <div>
-        <div className="sk-tag-filter">test option 1</div>
-        <div className="sk-tag-filter">test option 2</div>
-      </div>
-    )
-    expect(htmlClean(this.wrapper.html())).toEqual(output)
+    expect(this.wrapper).toMatchSnapshot()
   });
 
   it('renders with custom children', () => {
@@ -73,14 +67,7 @@ describe("TagFilter tests", () => {
       </div>
     )
 
-    let output = jsxToHTML(
-      <div>
-        <div className="sk-tag-filter">
-          <div className="custom-element">test option</div>
-        </div>
-      </div>
-    )
-    expect(htmlClean(this.wrapper.html())).toEqual(output)
+    expect(this.wrapper).toMatchSnapshot()
   })
 
   it('handles click', () => {

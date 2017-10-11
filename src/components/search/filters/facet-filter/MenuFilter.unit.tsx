@@ -1,11 +1,11 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {mount, render} from "enzyme";
-import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../__test__/TestHelpers"
-import {MenuFilter} from "./MenuFilter";
+import {fastClick, hasClass} from "../../../__test__/TestHelpers"
 import {SearchkitManager, Utils, ArrayState, FacetAccessor} from "../../../../core";
 import {Toggle, ItemComponent, ItemList} from "../../../ui";
-;
+import {MenuFilter} from "./MenuFilter";
+
 import * as _ from "lodash"
 import * as sinon from "sinon";
 
@@ -71,31 +71,7 @@ describe("MenuFilter", ()=> {
   })
 
   it("should render correctly", ()=> {
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-panel filter--color">
-        <div className="sk-panel__header">Color</div>
-        <div className="sk-panel__content">
-          <div data-qa="options" className="sk-item-list">
-            <div className="sk-item-list-option sk-item-list__item is-active" data-qa="option" data-key="$all">
-              <div data-qa="label" className="sk-item-list-option__text">All</div>
-              <div data-qa="count" className="sk-item-list-option__count">33</div>
-            </div>
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="Red">
-              <div data-qa="label" className="sk-item-list-option__text">Red Translated</div>
-              <div data-qa="count" className="sk-item-list-option__count">10</div>
-            </div>
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="Blue">
-              <div data-qa="label" className="sk-item-list-option__text">Blue</div>
-              <div data-qa="count" className="sk-item-list-option__count">11</div>
-            </div>
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="Green">
-              <div data-qa="label" className="sk-item-list-option__text">Green</div>
-              <div data-qa="count" className="sk-item-list-option__count">12</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()    
   })
 
   it("should handle selection correctly", ()=> {

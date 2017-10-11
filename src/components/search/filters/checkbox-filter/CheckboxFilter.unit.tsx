@@ -1,6 +1,6 @@
 import * as React from "react";;
 import {mount, render} from "enzyme";
-import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../__test__/TestHelpers"
+import { fastClick, hasClass} from "../../../__test__/TestHelpers"
 import {CheckboxFilter} from "./CheckboxFilter";
 import {SearchkitManager, Utils} from "../../../../core";
 import {Toggle, ItemComponent} from "../../../ui";
@@ -47,23 +47,7 @@ describe("CheckboxFilter tests", () => {
   });
 
   it('renders correctly', () => {
-    let output = jsxToHTML(
-      <div className="sk-panel filter--test id">
-        <div className="sk-panel__header">test title</div>
-        <div className="sk-panel__content">
-          <div data-qa="options" className="sk-item-list">
-            <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test label">
-              <input type="checkbox" data-qa="checkbox" readOnly={true} className="sk-item-list-option__checkbox" value="on"/>
-              <div data-qa="label" className="sk-item-list-option__text">test label</div>
-              <div data-qa="count" className="sk-item-list-option__count">50</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-
-    expect(this.wrapper.html()).toEqual(output)
-
+    expect(this.wrapper).toMatchSnapshot()
   });
 
   it('clicks options', () => {

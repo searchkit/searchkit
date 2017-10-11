@@ -113,7 +113,7 @@ describe("AccessorManager", ()=> {
     let queryAccessor = new QueryAccessor("q")
     expect(this.accessors.add(queryAccessor)).toBe(queryAccessor)
     expect(()=> this.accessors.add(new PaginationAccessor("q"))).toThrow(
-      new Error("Multiple imcompatible components with id='q' existing on the page")
+      "Multiple imcompatible components with id='q' existing on the page"
     )
   })
 
@@ -124,7 +124,7 @@ describe("AccessorManager", ()=> {
     expect(accessors.getQueryAccessor()).toBe(queryAccessor)
     expect(accessors.getAccessors()).toEqual([queryAccessor])
     expect(()=>accessors.add(queryAccessor)).toThrow(
-      new Error("Only a single instance of BaseQueryAccessor is allowed")
+      "Only a single instance of BaseQueryAccessor is allowed"
     )
 
     accessors.remove(queryAccessor)

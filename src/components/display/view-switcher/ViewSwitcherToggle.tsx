@@ -9,7 +9,7 @@ import {
 
 import {Toggle, ListProps} from "../../ui"
 
-import defaults = require("lodash/defaults")
+const defaults = require("lodash/defaults")
 
 
 export interface ViewSwitcherProps extends SearchkitComponentProps {

@@ -2,7 +2,7 @@ import * as React from "react";
 import * as PropTypes from "prop-types";
 import {mount} from "enzyme";
 import {
-  fastClick, hasClass, jsxToHTML, printPrettyHtml
+  fastClick, hasClass, printPrettyHtml
 } from "../../../components/__test__/TestHelpers"
 
 import {Panel} from "../../../components"
@@ -73,50 +73,23 @@ describe("RenderComponent", ()=> {
 
   it("React.Component class", ()=> {
     this.mount(this.SubPanel)
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-panel">
-        <div className="sk-panel__header">SubPanel</div>
-        <div className="sk-panel__content">
-          <p>content..</p>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
+
   })
 
   it("React Element", ()=> {
     this.mount(this.SubPanelElement)
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-panel">
-        <div className="sk-panel__header">PanelElement</div>
-        <div className="sk-panel__content">
-          <p>content..</p>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
   })
 
   it("React Class", ()=> {
     this.mount(this.PanelReactClass)
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-panel">
-        <div className="sk-panel__header">PanelReactClass purple</div>
-        <div className="sk-panel__content">
-          <p>content..</p>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
   })
 
   it("Render function", ()=> {
     this.mount(this.PanelFunction)
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-panel">
-        <div className="sk-panel__header">PanelFunction purple</div>
-        <div className="sk-panel__content">
-          <p>content..</p>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
   })
 
   it("Invalid component", ()=> {

@@ -1,9 +1,9 @@
-import isArray = require("lodash/isArray")
-import findIndex = require("lodash/findIndex")
-import forEach = require("lodash/forEach")
-import isEmpty = require("lodash/isEmpty")
-import filter = require("lodash/filter")
-import keys = require("lodash/keys")
+const isArray = require("lodash/isArray")
+const findIndex = require("lodash/findIndex")
+const forEach = require("lodash/forEach")
+const isEmpty = require("lodash/isEmpty")
+const filter = require("lodash/filter")
+const keys = require("lodash/keys")
 
 function isBoolOp(operator, val) {
   // Has {bool: must: []} ?

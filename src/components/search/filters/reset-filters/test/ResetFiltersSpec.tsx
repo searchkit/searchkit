@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {ResetFilters} from "../src/ResetFilters";
 import {SearchkitManager, ImmutableQuery, ResetSearchAccessor} from "../../../../../core";
 import {
-  fastClick, hasClass, jsxToHTML, printPrettyHtml
+  fastClick, hasClass, printPrettyHtml
 } from "../../../../__test__/TestHelpers"
 
 import * as sinon from "sinon";
@@ -46,6 +46,7 @@ describe("Reset Filter tests", () => {
     expect(elem.hasClass("is-disabled")).toBe(false)
 
     expect(elem.text()).toBe("reset filters")
+    expect(this.wrapper).toMatchSnapshot()
   });
 
   it("handles reset click", () => {

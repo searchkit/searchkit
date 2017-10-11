@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {
   FilterGroup
 } from "./FilterGroup"
-import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../__test__/TestHelpers"
+import {fastClick, hasClass, printPrettyHtml} from "../../__test__/TestHelpers"
 
 describe("FilterGroup", ()=> {
 
@@ -29,20 +29,8 @@ describe("FilterGroup", ()=> {
                    filters={this.filters} />
     )
 
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-filter-group filter-group-1">
-        <div className="sk-filter-group-items">
-          <div className="sk-filter-group-items__title">GroupTitle</div>
-          <div className="sk-filter-group-items__list">
-            <div className="sk-filter-group-items__value" data-key="A">A translated</div>
-            <div className="sk-filter-group-items__value" data-key="B">B translated</div>
-            <div className="sk-filter-group-items__value" data-key="C">C translated</div>
-            <div className="sk-filter-group-items__value" data-key="D">D translated</div>
-          </div>
-        </div>
-        <div className="sk-filter-group__remove-action">X</div>
-      </div>
-    ))
+    expect(this.wrapper.html()).toMatchSnapshot()
+
 
     expect(this.removeFilters).not.toHaveBeenCalled()
     fastClick(this.wrapper.find(".sk-filter-group__remove-action"))

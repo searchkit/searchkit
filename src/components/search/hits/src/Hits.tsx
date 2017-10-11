@@ -16,8 +16,8 @@ import {
 	block
 } from "../../../../core"
 
-import map = require("lodash/map")
-import defaults = require("lodash/defaults")
+const map = require("lodash/map")
+const defaults = require("lodash/defaults")
 
 
 

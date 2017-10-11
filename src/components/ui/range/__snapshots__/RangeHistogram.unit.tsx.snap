@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RangeHistogram should render and behave correctly 1`] = `
+<div class="sk-range-histogram">
+  <div class="sk-range-histogram__bar is-out-of-bounds" style="height: 0%;"></div>
+  <div class="sk-range-histogram__bar is-out-of-bounds" style="height: 0%;"></div>
+  <div class="sk-range-histogram__bar" style="height: 0%;"></div>
+  <div class="sk-range-histogram__bar" style="height: 60%;"></div>
+  <div class="sk-range-histogram__bar" style="height: 70%;"></div>
+  <div class="sk-range-histogram__bar" style="height: 80%;"></div>
+  <div class="sk-range-histogram__bar is-out-of-bounds" style="height: 0%;"></div>
+  <div class="sk-range-histogram__bar is-out-of-bounds" style="height: 100%;"></div>
+  <div class="sk-range-histogram__bar is-out-of-bounds" style="height: 0%;"></div>
+  <div class="sk-range-histogram__bar is-out-of-bounds" style="height: 0%;"></div>
+  <div class="sk-range-histogram__bar is-out-of-bounds" style="height: 0%;"></div>
+</div>
+`;

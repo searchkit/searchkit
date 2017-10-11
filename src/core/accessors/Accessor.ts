@@ -1,8 +1,8 @@
 import {ImmutableQuery} from "../query/ImmutableQuery";
 import {SearchkitManager} from "../SearchkitManager";
 import {Utils} from "../support"
-import get = require("lodash/get")
-import compact = require("lodash/compact")
+const get = require("lodash/get")
+const compact = require("lodash/compact")
 
 export class Accessor {
   searchkit:SearchkitManager

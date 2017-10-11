@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {NoHits} from "../src/NoHits";
 import {SearchkitManager} from "../../../../core";
 import {
-  fastClick, hasClass, jsxToHTML, printPrettyHtml
+  fastClick, hasClass, printPrettyHtml
 } from "../../../__test__/TestHelpers"
 
 import * as sinon from "sinon";
@@ -144,14 +144,7 @@ describe("NoHits component", () => {
       this.searchkit.query = this.searchkit.query.addFilter({}).setQueryString("matrix")
       this.searchkit.setError("simulated error")
       this.wrapper.update()
-      expect(this.wrapper.html()).toEqual(jsxToHTML(
-<div data-qa="no-hits" className="sk-no-hits">
-  <div className="sk-no-hits__info">error</div>
-  <div className="sk-no-hits__steps">
-    <div className="sk-no-hits__step-action">Reset Search</div>
-  </div>
-</div>
-      ))
+      expect(this.wrapper).toMatchSnapshot()
 
 
     })

@@ -8,7 +8,7 @@ import {
   renderComponent
 } from "../../../../core"
 
-import defaults = require("lodash/defaults")
+const defaults = require("lodash/defaults")
 
 export interface InitialViewDisplayProps {
 	bemBlocks:any
