@@ -37,7 +37,7 @@
     "jest": "jest",
     "jest:watch": "jest --watch",
     "jest:coverage": "jest --coverage",
-    "jest:ci": "jest --coverage ----forceExit --ci"
+    "jest:ci": "jest --coverage --forceExit --ci"
   },
   "authors": [
     {
