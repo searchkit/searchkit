@@ -34,10 +34,10 @@
     "test:e2e": ".protractor test/e2e/conf/protractor.conf.js",
     "test:e2e-standalone": "protractor test/e2e/conf/protractor.standalone.conf.js",
     "test:serve": "node test/e2e/server/start.js",
-    "jest": "jest",
-    "jest:watch": "jest --watch",
-    "jest:coverage": "jest --coverage",
-    "jest:ci": "jest --coverage --forceExit --ci"
+    "jest": "jest -c jest.json",
+    "jest:watch": "jest -c jest.json --watch",
+    "jest:coverage": "jest -c jest.json --coverage",
+    "jest:ci": "jest -c jest.json --coverage --forceExit --ci -w 2"
   },
   "authors": [
     {
@@ -130,23 +130,5 @@
     "webpack-config": "^4.0.0",
     "webpack-hot-middleware": "^2.9.1",
     "xenon": "^0.1.5"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "testURL": "http://localhost:3000/context.html",
-    "transform": {
-      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "testMatch": [
-      "<rootDir>/src/__test__/**/*?(.)(Spec|unit).(tsx|ts)",
-      "<rootDir>/src/components/**/*?(.)(Spec|unit).(tsx|ts)"
-    ],
-    "snapshotSerializers": [
-      "<rootDir>/src/components/__test__/JestEnzymeSerializer.js"
-    ]
   }
 }
