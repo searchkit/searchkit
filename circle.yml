@@ -28,6 +28,6 @@ deployment:
 
 test:
   override:
-    - npm run jest:coverage
+    - npm run jest:ci
   pre:    
     - npm run build

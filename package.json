@@ -36,7 +36,8 @@
     "test:serve": "node test/e2e/server/start.js",
     "jest": "jest",
     "jest:watch": "jest --watch",
-    "jest:coverage": "jest --coverage"
+    "jest:coverage": "jest --coverage",
+    "jest:ci": "jest --coverage ----forceExit --ci"
   },
   "authors": [
     {
