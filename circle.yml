@@ -39,5 +39,6 @@ test:
   post:
     - cat ./coverage/lcov.info | coveralls
   pre:    
+    - mkdir -p \$CIRCLE_TEST_REPORTS/{unit-tests,e2e-tests}
     - npm run build
     - npm run build:e2e    
