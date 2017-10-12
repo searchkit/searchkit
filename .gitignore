@@ -8,3 +8,4 @@ coverage
 lib
 stats.json
 dist
+test-report.xml
