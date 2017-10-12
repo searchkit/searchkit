@@ -34,7 +34,7 @@
     "test": "jest -c jest.json",
     "test:watch": "jest -c jest.json --watch",
     "test:coverage": "jest -c jest.json --coverage",
-    "test:ci": "TEST_REPORT_PATH=./\\$CIRCLE_TEST_REPORTS/unit-tests jest -c jest.json --coverage --testResultsProcessor=jest-junit-reporter --forceExit --ci -w 2",
+    "test:ci": "TEST_REPORT_FILENAME=unit-results.xml jest -c jest.json --coverage --testResultsProcessor=jest-junit-reporter --forceExit --ci -w 2",
     "build:e2e": "NODE_ENV=production webpack --config test/e2e/server/webpack.config.js",
     "cypress:ci": "npm run test:serve:compiled & cypress run cypress.json && kill $!",
     "cypress:open": "npm run test:serve & cypress open && kill $!"
