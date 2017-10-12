@@ -40,5 +40,4 @@ test:
     - cat ./coverage/lcov.info | coveralls
   pre:    
     - npm run build
-    - npm run build:e2e
-    - npm install cypress -g
+    - npm run build:e2e    
