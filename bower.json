@@ -3,7 +3,7 @@
   "description": "A suite of react components to help create a UI quickly for elasticsearch",
   "main": [
     "release/bundle.js",
-    "release/styles.css"
+    "release/theme.css"
   ],
   "dependencies": {},
   "devDependencies": {},

@@ -141,12 +141,12 @@ describe("NoHits component", () => {
 
     it("render error", () => {
       this.createWrapper()
+      sinon.stub(console, "error")
       this.searchkit.query = this.searchkit.query.addFilter({}).setQueryString("matrix")
       this.searchkit.setError("simulated error")
       this.wrapper.update()
       expect(this.wrapper).toMatchSnapshot()
-
-
+      console.error["restore"]()
     })
 
 

@@ -17,7 +17,7 @@ import {fastClick} from "../../__test__/TestHelpers"
 
 describe("ItemList Components", ()=> {
 
-  fit("ItemList should render and behave correctly", ()=> {
+  it("ItemList should render and behave correctly", ()=> {
 
     this.wrapper = mount(
       <MockList listComponent={ItemList}/>
