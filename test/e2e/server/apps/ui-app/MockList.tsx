@@ -4,7 +4,9 @@ const {
   renderComponent
 } = require("../../../../../src")
 
-import * as _ from "lodash"
+const includes = require("lodash/includes")
+const without = require("lodash/without")
+
 
 export class MockList extends React.Component<any, any>{
 
@@ -20,8 +22,8 @@ export class MockList extends React.Component<any, any>{
       ],
       selectedItems:["a", "c"],
       toggleItem(key){
-        if(_.includes(self.state.selectedItems, key)){
-          self.setState({selectedItems:_.without(self.state.selectedItems, key)})
+        if(includes(self.state.selectedItems, key)){
+          self.setState({selectedItems:without(self.state.selectedItems, key)})
         } else {
           self.setState({selectedItems:self.state.selectedItems.concat([key])})
         }
@@ -38,7 +40,7 @@ export class MockList extends React.Component<any, any>{
   render(){
     return (
       <Panel title={this.props.title}>
-        {renderComponent(this.props.listComponent, _.assign({},  this.state, this.props))}
+        {renderComponent(this.props.listComponent, Object.assign({},  this.state, this.props))}
      </Panel>
     )
   }

@@ -10,7 +10,7 @@ import * as ReactDOM from "react-dom";
 import * as React from "react";
 const searchkit = new SearchkitManager(host)
 
-import * as _ from "lodash"
+
 
 require("../../../../../theming/theme.scss")
 require("./customisations.scss")
@@ -18,7 +18,7 @@ require("./customisations.scss")
 const MovieHitsGridItem = (props)=> {
   const {bemBlocks, result} = props
   let url = "http://www.imdb.com/title/" + result._source.imdbId
-  const source:any = _.extend({}, result._source, result.highlight)
+  const source:any = Object.assign({}, result._source, result.highlight)
   return (
     <div className={bemBlocks.item().mix(bemBlocks.container("item"))} data-qa="hit">
       <a href={url} target="_blank">
@@ -33,7 +33,7 @@ const MovieHitsGridItem = (props)=> {
 const MovieHitsListItem = (props)=> {
   const {bemBlocks, result} = props
   let url = "http://www.imdb.com/title/" + result._source.imdbId
-  const source:any = _.extend({}, result._source, result.highlight)
+  const source:any = Object.assign({}, result._source, result.highlight)
   return (
     <div className={bemBlocks.item().mix(bemBlocks.container("item"))} data-qa="hit">
       <div className={bemBlocks.item("poster")}>

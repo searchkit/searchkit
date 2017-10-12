@@ -3,13 +3,15 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var apps = require("./apps")
 
+const isProduction = process.env.NODE_ENV === 'production'
 var entries = {
 }
 apps.forEach(function(app){
   entries[app] = [
-    'webpack-hot-middleware/client?reload=true',
     path.join(__dirname, '/apps/'+app)
-  ]
+  ]  
+  !isProduction && entries[app].unshift(
+    'webpack-hot-middleware/client?reload=true')  
 })
 console.log(entries)
 
@@ -21,7 +23,13 @@ module.exports = {
     filename: '[name].bundle.js',
     publicPath: '/static'
   },
-  plugins: [
+  plugins: isProduction ? [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      },
+    }),
+  ] : [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ],
@@ -36,7 +44,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.tsx?$/,
+        test: /\.tsx?$/,        
         loaders: ['ts-loader']
       },
       {

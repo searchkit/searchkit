@@ -9,3 +9,5 @@ lib
 stats.json
 dist
 test-report.xml
+cypress/videos
+cypress/screenshots

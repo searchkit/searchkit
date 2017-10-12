@@ -29,13 +29,15 @@
     "build": "node ./scripts/writeVersion; tsc; webpack; rm release/ignore.js",
     "build:watch": "tsc -w",
     "prepublishOnly": "rm -rf lib; rm -rf release; npm run-script build;",
-    "test:e2e": ".protractor test/e2e/conf/protractor.conf.js",
-    "test:e2e-standalone": "protractor test/e2e/conf/protractor.standalone.conf.js",
     "test:serve": "node test/e2e/server/start.js",
+    "test:serve:compiled": "NODE_ENV=production node test/e2e/server/start.js",
     "test": "jest -c jest.json",
     "test:watch": "jest -c jest.json --watch",
     "test:coverage": "jest -c jest.json --coverage",
-    "test:ci": "jest -c jest.json --coverage --testResultsProcessor=jest-junit-reporter --forceExit --ci -w 2"
+    "test:ci": "jest -c jest.json --coverage --testResultsProcessor=jest-junit-reporter --forceExit --ci -w 2",
+    "build:e2e": "NODE_ENV=production webpack --config test/e2e/server/webpack.config.js",
+    "cypress:ci": "npm run test:serve:compiled & cypress run cypress.json && kill $!",
+    "cypress:open": "npm run test:serve & cypress open && kill $!"
   },
   "authors": [
     {
@@ -72,6 +74,7 @@
   "devDependencies": {
     "@types/enzyme": "^2.8.11",
     "@types/jest": "^21.1.2",
+    "@types/node": "^8.0.34",
     "@types/react": "^15.0.0",
     "@types/react-dom": "^15.0.0",
     "@types/react-router": "^2.0.51",
@@ -81,6 +84,7 @@
     "autoprefixer": "^6.3.3",
     "coveralls": "^3.0.0",
     "css-loader": "^0.28.7",
+    "cypress": "^1.0.1",
     "ejs": "^2.4.1",
     "enzyme": "2.9.1",
     "es6-promise": "^4.1.1",
@@ -89,8 +93,6 @@
     "file-loader": "^1.1.5",
     "html-webpack-plugin": "^2.9.0",
     "imports-loader": "^0.7.1",
-    "istanbul": "^0.4.2",
-    "istanbul-instrumenter-loader": "^0.2.0",
     "jest": "^21.2.1",
     "jest-junit-reporter": "^1.1.0",
     "js-beautify": "^1.5.10",
@@ -113,6 +115,7 @@
     "ts-loader": "^2.3.7",
     "typescript": "^2.5.3",
     "webpack": "^3.6.0",
+    "webpack-dev-middleware": "^1.12.0",
     "webpack-hot-middleware": "^2.9.1",
     "xenon": "^0.1.5"
   }

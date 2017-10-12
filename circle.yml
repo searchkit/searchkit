@@ -13,6 +13,8 @@ machine:
 general:
   artifacts:
     - coverage
+    - cypress/video
+    - cypress/screenshots
 
 dependencies:
   pre: 
@@ -33,7 +35,10 @@ deployment:
 test:
   override:
     - npm run test:ci
+    - npm run cypress:ci
   post:
     - cat ./coverage/lcov.info | coveralls
   pre:    
     - npm run build
+    - npm run build:e2e
+    - npm install cypress -g

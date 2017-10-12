@@ -10,7 +10,7 @@ import * as ReactDOM from "react-dom"
 import * as React from "react"
 import {Router, Route, browserHistory, Link, IndexRoute} from 'react-router'
 
-import * as _ from "lodash"
+
 
 import "../../../../../theming/theme.scss"
 import "./customisations.scss"
@@ -18,7 +18,7 @@ import "./customisations.scss"
 const MovieHitsListItem = (props)=> {
   const {bemBlocks, result} = props
   let url = "http://www.imdb.com/title/" + result._source.imdbId
-  const source:any = _.extend({}, result._source, result.highlight)
+  const source:any = Object.assign({}, result._source, result.highlight)
   return (
     <div className={bemBlocks.item().mix(bemBlocks.container("item"))} data-qa="hit">
       <div className={bemBlocks.item("poster")}>
