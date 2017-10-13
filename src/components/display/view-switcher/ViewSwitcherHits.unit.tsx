@@ -112,6 +112,19 @@ describe("View Switcher Hits component", () => {
       )
 
       expect(this.wrapper).toMatchSnapshot()
+      fastClick(this.wrapper.find("div[data-key='list']"))
+      expect(this.wrapper.find("div[data-key='list']").hasClass("is-active")).toBe(true)      
+      expect(this.wrapper).toMatchSnapshot()
+      
+    })
+
+    it("renders null when no accessor available", ()=> {
+      this.wrapper = mount(
+        <div> 
+          <ViewSwitcherToggle searchkit={this.searchkit} translations={{ "Grid": "My Grid" }} />
+        </div>
+      )      
+      expect(this.wrapper).toMatchSnapshot()
     })
 
 

@@ -94,4 +94,22 @@ describe("TagFilter tests", () => {
     fastClick(option2)
     expect(this.accessor.state.getValue()).toEqual([])
   })
+
+  it("test console warning for missing accessor", ()=> {
+    spyOn(console, "warn")
+    spyOn(console, "error")
+    this.createWrapper(
+      <div>
+        <TagFilter field="testId" value="test option 1" searchkit={this.searchkit} />        
+      </div>
+    )
+    expect(console.warn).toHaveBeenCalledWith(
+      'Missing accessor for', 'testId', 'in TagFilter, add TagFilterConfig if needed')
+    expect(console.error).not.toHaveBeenCalled()
+
+    fastClick(this.wrapper.find(".sk-tag-filter").at(0))
+    
+    expect(console.error).toHaveBeenCalledWith(
+      'Missing accessor for', 'testId', 'in TagFilter, add TagFilterConfig if needed')
+  })
 });

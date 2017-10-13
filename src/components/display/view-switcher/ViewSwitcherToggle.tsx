@@ -45,9 +45,8 @@ export class ViewSwitcherToggle extends SearchkitComponent<ViewSwitcherProps, an
 				disabled:!this.hasHits(),
 				items:options,
 				selectedItems:[selectedOption],
-				toggleItem:this.setView.bind(this),
+				toggleItem:this.setView.bind(this),	
 				setItems: ([item]) => this.setView(item),
-				urlBuilder: (item) => this.getViewOptionsSwitcherAccessor().urlWithState(item.key),
 				translate:this.translate
 			})
     }
