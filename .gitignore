@@ -6,3 +6,10 @@ $CIRCLE_TEST_REPORTS
 _book
 coverage
 lib
+stats.json
+dist
+test-report.xml
+e2e-results.xml
+unit-results.xml
+cypress/videos
+cypress/screenshots

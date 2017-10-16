@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputFilter tests should allow custom mod and className 1`] = `
+<div class="sk-panel filter--test_id">
+  <div class="sk-panel__header">Test title</div>
+  <div class="sk-panel__content">
+    <div class="my-input">
+      <form>
+        <div class="my-input__icon"></div><input type="text" data-qa="input-filter" class="my-input__text" placeholder="search placeholder" value=""><input type="submit" value="submit" class="my-input__action" data-qa="submit">
+        <div data-qa="remove" class="my-input__remove is-hidden"></div>
+      </form>
+    </div>
+  </div>
+</div>
+`;

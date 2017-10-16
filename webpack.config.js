@@ -14,20 +14,21 @@ module.exports = {
     filename: '[name].js',
     library:["Searchkit"],
     libraryTarget:"umd",
-    publicPath: '',
-    css: 'theme.css'
+    publicPath: ''
   },
   resolve: {
-    extensions:[".js", ".ts", ".tsx","", ".webpack.js", ".web.js", ".scss"]
+    extensions:[".js", ".ts", ".tsx", ".webpack.js", ".web.js", ".scss"]
   },
-  postcss: function () {
-    return [autoprefixer]
-  },
+
   plugins: [
-    new webpack.BannerPlugin(copyrightBanner, {entryOnly:true}),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.BannerPlugin({banner:copyrightBanner, entryOnly:true}),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new ExtractTextPlugin("theme.css", {allChunks:true}),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production'),
+      },
+    }),
     new webpack.optimize.UglifyJsPlugin({
       mangle: {
         except: ['require', 'export', '$super']
@@ -53,12 +54,32 @@ module.exports = {
     loaders: [
       {
         test: /\.tsx?$/,
-        loaders: ['ts'],
+        loaders: ['ts-loader'],
         include: [path.join(__dirname, 'src'),path.join(__dirname, 'theming')]
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract(require.resolve("style-loader"),require.resolve("css-loader")+"!"+require.resolve("postcss-loader")+"!"+require.resolve("sass-loader")),
+        loader: ExtractTextPlugin.extract({
+          fallback:"style-loader",
+          use:[
+            {
+              loader:"css-loader",
+              options: { 
+                sourceMap:true,
+                minimize:true,
+                importLoaders:2
+              }
+            },
+            {
+              loader:"postcss-loader"             
+            },
+            {
+              loader:"sass-loader", 
+              options:{sourceMap:true}
+            }
+          ]
+
+        }),          
         include: path.join(__dirname, 'theming')
       },
       {

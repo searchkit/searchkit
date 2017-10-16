@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TagFilterList tests renders correctly 1`] = `
+<div>
+  <!-- react-empty: 2 -->
+  <div class="sk-tag-filter-list">
+    <div class="sk-tag-filter">test option 1</div>
+    <div class="sk-tag-filter">test option 2</div>
+  </div>
+</div>
+`;

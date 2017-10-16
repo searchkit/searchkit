@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as PropTypes from "prop-types"
-import {defaults} from "lodash"
+const defaults = require("lodash/defaults")
 
 import {
 	SearchkitComponent,

@@ -2,16 +2,18 @@ import * as PropTypes from "prop-types";
 
 import {
   SearchkitComponentProps,
-  SearchkitComponent, FacetAccessor,
+  FacetAccessor,
   RenderComponentPropType, RenderComponentType,
   FieldOptions
 } from "../../../../core"
+
+import { SearchkitComponent } from "../../../../core/react"
 
 import {
   ItemProps, ListProps
 } from "../../../"
 
-import {defaults} from "lodash"
+const defaults = require("lodash/defaults")
 export interface FacetFilterProps extends SearchkitComponentProps {
   field: string
   operator?: string

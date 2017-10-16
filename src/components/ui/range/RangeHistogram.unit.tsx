@@ -4,7 +4,6 @@ import {mount} from "enzyme";
 import { RangeHistogram } from './RangeHistogram'
 import { MockRange } from './MockRange'
 
-import {jsxToHTML} from "../../__test__/TestHelpers"
 
 describe("RangeHistogram", () => {
 
@@ -12,22 +11,7 @@ describe("RangeHistogram", () => {
     this.wrapper = mount(
       <MockRange rangeComponent={RangeHistogram}/>
     )
-
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-range-histogram">
-        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: ' 0%'}}/>
-        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: ' 0%'}}/>
-        <div className="sk-range-histogram__bar" style={{height: ' 0%'}}/>
-        <div className="sk-range-histogram__bar" style={{height: ' 60%'}}/>
-        <div className="sk-range-histogram__bar" style={{height: ' 70%'}}/>
-        <div className="sk-range-histogram__bar" style={{height: ' 80%'}}/>
-        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: ' 0%'}}/>
-        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: ' 100%'}}/>
-        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: ' 0%'}}/>
-        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: ' 0%'}}/>
-        <div className="sk-range-histogram__bar is-out-of-bounds" style={{height: ' 0%'}}/>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
   })
 
   it("mod + classname can be updated", () => {

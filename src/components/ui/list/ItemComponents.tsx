@@ -2,7 +2,7 @@ import * as React from "react";
 
 import {
   FastClick
-} from "../../../"
+} from "../../../core/react/FastClick"
 
 import { ItemProps } from './ListProps'
 

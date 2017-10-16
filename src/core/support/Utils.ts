@@ -1,7 +1,7 @@
-import {reduce} from "lodash"
-import {map} from "lodash"
-import {reject} from "lodash"
-import {isUndefined} from "lodash"
+const reduce = require("lodash/reduce")
+const map = require("lodash/map")
+const reject = require("lodash/reject")
+const isUndefined = require("lodash/isUndefined")
 
 export class Utils {
   static guidCounter = 0

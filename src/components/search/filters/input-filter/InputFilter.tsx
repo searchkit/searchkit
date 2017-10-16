@@ -15,7 +15,10 @@ import {
   Panel
 } from "../../../ui"
 
-import {defaults, throttle, assign, isUndefined} from 'lodash'
+const defaults = require("lodash/defaults")
+const throttle = require("lodash/throttle")
+const assign = require("lodash/assign")
+const isUndefined = require("lodash/isUndefined")
 
 export interface InputFilterProps extends SearchkitComponentProps {
   id: string

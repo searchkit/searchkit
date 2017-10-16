@@ -10,6 +10,12 @@ machine:
   node:
     version: 8.6.0
 
+general:
+  artifacts:
+    - coverage
+    - cypress/video
+    - cypress/screenshots
+
 dependencies:
   pre: 
     - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
@@ -27,6 +33,14 @@ deployment:
 
 
 test:
-  pre:
-    - npm install -g karma-cli
+  override:
+    - npm run test:ci
+    - npm run cypress:ci
+  post:
+    - cat ./coverage/lcov.info | coveralls
+    - cp e2e-results.xml $CIRCLE_TEST_REPORTS/cypress
+    - cp unit-results.xml $CIRCLE_TEST_REPORTS/jest
+  pre:    
+    - mkdir -p $CIRCLE_TEST_REPORTS/{jest,cypress}
     - npm run build
+    - npm run build:e2e    

@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Select should render and behave correctly 1`] = `<div class="sk-select"><select><option value="a">A translated (#10)</option><option value="b" disabled="">B translated (#11)</option><option value="c">C translated (#12)</option><option value="d">d translated (#15)</option></select></div>`;

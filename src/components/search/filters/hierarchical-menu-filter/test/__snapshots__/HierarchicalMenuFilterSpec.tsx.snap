@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HierarchicalMenuFilter tests should render 2nd level correctly with selected 3rd level 1`] = `
+<div class="sk-hierarchical-menu-list filter--categories">
+  <div class="sk-hierarchical-menu-list__header">Categories</div>
+  <div class="sk-hierarchical-menu-list__root">
+    <div class="sk-hierarchical-menu-list__hierarchical-options">
+      <div>
+        <div class="sk-hierarchical-menu-option is-selected">
+          <div class="sk-hierarchical-menu-option__text">Red</div>
+          <div class="sk-hierarchical-menu-option__count">#10</div>
+        </div>
+        <div class="sk-hierarchical-menu-list__hierarchical-options">
+          <div>
+            <div class="sk-hierarchical-menu-option">
+              <div class="sk-hierarchical-menu-option__text">Crimson</div>
+              <div class="sk-hierarchical-menu-option__count">#10</div>
+            </div>
+          </div>
+          <div>
+            <div class="sk-hierarchical-menu-option is-selected">
+              <div class="sk-hierarchical-menu-option__text">Maroon</div>
+              <div class="sk-hierarchical-menu-option__count">#12</div>
+            </div>
+            <div class="sk-hierarchical-menu-list__hierarchical-options"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sk-hierarchical-menu-option">
+          <div class="sk-hierarchical-menu-option__text">Green</div>
+          <div class="sk-hierarchical-menu-option__count">#20</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`HierarchicalMenuFilter tests should render first level correctly 1`] = `
+<div class="sk-hierarchical-menu-list filter--categories">
+  <div class="sk-hierarchical-menu-list__header">Categories</div>
+  <div class="sk-hierarchical-menu-list__root">
+    <div class="sk-hierarchical-menu-list__hierarchical-options">
+      <div>
+        <div class="sk-hierarchical-menu-option">
+          <div class="sk-hierarchical-menu-option__text">Red</div>
+          <div class="sk-hierarchical-menu-option__count">#10</div>
+        </div>
+      </div>
+      <div>
+        <div class="sk-hierarchical-menu-option">
+          <div class="sk-hierarchical-menu-option__text">Green</div>
+          <div class="sk-hierarchical-menu-option__count">#20</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

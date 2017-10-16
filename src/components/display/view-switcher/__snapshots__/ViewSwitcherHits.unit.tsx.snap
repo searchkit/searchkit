@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`View Switcher Hits component renders correctly View Switcher Hits 1`] = `
+<div>
+  <div data-qa="hits" class="sk-hits-grid">
+    <div class="grid-item">1</div>
+    <div class="grid-item">2</div>
+  </div>
+  <div data-qa="options" class="sk-toggle">
+    <div class="sk-toggle-option sk-toggle__item is-active" data-qa="option" data-key="grid">
+      <div data-qa="label" class="sk-toggle-option__text">My Grid</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="list">
+      <div data-qa="label" class="sk-toggle-option__text">List</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="custom-list">
+      <div data-qa="label" class="sk-toggle-option__text">Custom List</div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`View Switcher Hits component renders correctly View Switcher Hits 2`] = `
+<div>
+  <div data-qa="hits" class="sk-hits-list">
+    <div class="list-item">1</div>
+    <div class="list-item">2</div>
+  </div>
+  <div data-qa="options" class="sk-toggle">
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="grid">
+      <div data-qa="label" class="sk-toggle-option__text">My Grid</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item is-active" data-qa="option" data-key="list">
+      <div data-qa="label" class="sk-toggle-option__text">List</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="custom-list">
+      <div data-qa="label" class="sk-toggle-option__text">Custom List</div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`View Switcher Hits component renders correctly View Switcher Hits 3`] = `
+<div>
+  <div class="custom-list">1,2</div>
+  <div data-qa="options" class="sk-toggle">
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="grid">
+      <div data-qa="label" class="sk-toggle-option__text">My Grid</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="list">
+      <div data-qa="label" class="sk-toggle-option__text">List</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item is-active" data-qa="option" data-key="custom-list">
+      <div data-qa="label" class="sk-toggle-option__text">Custom List</div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`View Switcher Hits component renders correctly Works with ViewSwitcherConfig 1`] = `
+<div>
+  <!-- react-empty: 2 -->
+  <div data-qa="hits" class="sk-hits-grid">
+    <div class="grid-item">1</div>
+    <div class="grid-item">2</div>
+  </div>
+  <div data-qa="options" class="sk-toggle">
+    <div class="sk-toggle-option sk-toggle__item is-active" data-qa="option" data-key="grid">
+      <div data-qa="label" class="sk-toggle-option__text">My Grid</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="list">
+      <div data-qa="label" class="sk-toggle-option__text">List</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="custom-list">
+      <div data-qa="label" class="sk-toggle-option__text">Custom List</div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`View Switcher Hits component renders correctly Works with ViewSwitcherConfig 2`] = `
+<div>
+  <!-- react-empty: 2 -->
+  <div data-qa="hits" class="sk-hits-list">
+    <div class="list-item">1</div>
+    <div class="list-item">2</div>
+  </div>
+  <div data-qa="options" class="sk-toggle">
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="grid">
+      <div data-qa="label" class="sk-toggle-option__text">My Grid</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item is-active" data-qa="option" data-key="list">
+      <div data-qa="label" class="sk-toggle-option__text">List</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="custom-list">
+      <div data-qa="label" class="sk-toggle-option__text">Custom List</div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`View Switcher Hits component renders correctly custom mod, className, listComponent 1`] = `
+<div>
+  <div data-qa="hits" class="sk-hits-grid">
+    <div class="grid-item">1</div>
+    <div class="grid-item">2</div>
+  </div>
+  <div class="my-view-switcher customClass"><select><option value="grid">My Grid</option><option value="list">List</option><option value="custom-list">Custom List</option></select></div>
+</div>
+`;
+
+exports[`View Switcher Hits component renders correctly renders null when no accessor available 1`] = `
+<div>
+  <!-- react-empty: 2 -->
+</div>
+`;

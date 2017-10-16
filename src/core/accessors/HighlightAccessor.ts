@@ -1,7 +1,7 @@
 import {Accessor} from "./Accessor";
-import {mapValues} from "lodash"
-import {zipObject} from "lodash"
-import {constant} from "lodash"
+const mapValues = require("lodash/mapValues")
+const zipObject = require("lodash/zipObject")
+const constant = require("lodash/constant")
 
 
 export class HighlightAccessor extends Accessor {

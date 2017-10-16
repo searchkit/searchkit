@@ -12,7 +12,7 @@ import {
   Panel, CheckboxItemList
 } from "../../../ui"
 
-import {defaults} from 'lodash'
+const defaults = require("lodash/defaults")
 
 export interface CheckboxFilterProps extends SearchkitComponentProps {
   id: string

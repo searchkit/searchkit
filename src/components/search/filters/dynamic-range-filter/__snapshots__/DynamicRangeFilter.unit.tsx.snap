@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dynamic Range Filter tests renders correctly 1`] = `
+<div class="sk-panel filter--m">
+  <div class="sk-panel__header">metascore</div>
+  <div class="sk-panel__content">
+    <div class="sk-range-slider">
+      <div class="rc-slider rc-slider-with-marks">
+        <div class="rc-slider-rail"></div>
+        <div class="rc-slider-track rc-slider-track-1" style="visibility: visible; left: 0%; width: 100%;"></div>
+        <div class="rc-slider-step"><span class="rc-slider-dot rc-slider-dot-active" style="left: 0%;"></span><span class="rc-slider-dot rc-slider-dot-active" style="left: 100%;"></span></div>
+        <div role="slider" tabindex="0" aria-valuemin="1" aria-valuemax="120" aria-valuenow="1"
+          aria-disabled="false" class="rc-slider-handle rc-slider-handle-1" style="left: 0%;"></div>
+        <div role="slider" tabindex="0" aria-valuemin="1" aria-valuemax="120" aria-valuenow="120" aria-disabled="false" class="rc-slider-handle rc-slider-handle-2" style="left: 100%;"></div>
+        <div class="rc-slider-mark"><span class="rc-slider-mark-text rc-slider-mark-text-active" style="width: 90%; margin-left: -45%; left: 0%;">1 score</span><span class="rc-slider-mark-text rc-slider-mark-text-active" style="width: 90%; margin-left: -45%; left: 100%;">120 score</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

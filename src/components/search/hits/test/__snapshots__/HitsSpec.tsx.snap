@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hits component renders correctly custom higher order component 1`] = `
+<div data-qa="hits" class="sk-hits">
+  <div data-qa="hit" class="sk-hits-hit sk-hits__item">1</div>
+  <div data-qa="hit" class="sk-hits-hit sk-hits__item">2</div>
+</div>
+`;
+
+exports[`Hits component renders correctly does render 1`] = `
+<div data-qa="hits" class="sk-hits">
+  <div data-qa="hit" class="sk-hits-hit sk-hits__item">1</div>
+  <div data-qa="hit" class="sk-hits-hit sk-hits__item">2</div>
+</div>
+`;

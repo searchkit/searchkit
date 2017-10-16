@@ -1,5 +1,5 @@
-import {assign} from "lodash"
-import {isEmpty} from "lodash"
+const assign = require("lodash/assign")
+const isEmpty = require("lodash/isEmpty")
 import {AggsContainer} from "./AggsContainer"
 
 export interface TermsBucketOptions {

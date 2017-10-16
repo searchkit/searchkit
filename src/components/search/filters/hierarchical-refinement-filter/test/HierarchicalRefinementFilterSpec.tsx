@@ -1,6 +1,6 @@
 import * as React from "react";
 import {mount} from "enzyme";
-import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
+import {fastClick, hasClass, printPrettyHtml} from "../../../../__test__/TestHelpers"
 import {HierarchicalRefinementFilter} from "../src/HierarchicalRefinementFilter"
 import {SearchkitManager, NestedFacetAccessor} from "../../../../../core"
 import * as _ from "lodash"
@@ -72,27 +72,7 @@ describe("Refinement List Filter tests", () => {
   })
   it("should render correctly", () => {
     this.setResults()
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div data-qa="filter--testid" className="sk-hierarchical-refinement-list filter--testid">
-        <div data-qa="title" className="sk-hierarchical-refinement-list__header">test title</div>
-        <div data-qa="options" className="sk-hierarchical-refinement-list__root">
-          <div className="sk-hierarchical-refinement-list__hierarchical-options">
-            <div>
-              <div className="sk-hierarchical-refinement-option">
-                <div className="sk-hierarchical-refinement-option__text">option1</div>
-                <div className="sk-hierarchical-refinement-option__count">#1</div>
-              </div>
-            </div>
-            <div>
-              <div className="sk-hierarchical-refinement-option">
-                <div className="sk-hierarchical-refinement-option__text">option2</div>
-                <div className="sk-hierarchical-refinement-option__count">#2</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
   })
 
   it("should render 2nd level and have 1 levels selected correctly", ()=> {
@@ -100,42 +80,7 @@ describe("Refinement List Filter tests", () => {
       ["option2"], ["option2child2"]
     ])
     this.setResults()
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div data-qa="filter--testid" className="sk-hierarchical-refinement-list filter--testid">
-        <div data-qa="title" className="sk-hierarchical-refinement-list__header">test title</div>
-        <div data-qa="options" className="sk-hierarchical-refinement-list__root">
-          <div className="sk-hierarchical-refinement-list__hierarchical-options">
-            <div>
-              <div className="sk-hierarchical-refinement-option">
-                <div className="sk-hierarchical-refinement-option__text">option1</div>
-                <div className="sk-hierarchical-refinement-option__count">#1</div>
-              </div>
-            </div>
-            <div>
-              <div className="sk-hierarchical-refinement-option is-selected">
-                <div className="sk-hierarchical-refinement-option__text">option2</div>
-                <div className="sk-hierarchical-refinement-option__count">#2</div>
-              </div>
-              <div className="sk-hierarchical-refinement-list__hierarchical-options">
-                <div>
-                  <div className="sk-hierarchical-refinement-option">
-                    <div className="sk-hierarchical-refinement-option__text">option2child1</div>
-                    <div className="sk-hierarchical-refinement-option__count">#1</div>
-                  </div>
-                </div>
-                <div>
-                  <div className="sk-hierarchical-refinement-option is-selected">
-                    <div className="sk-hierarchical-refinement-option__text">option2child2</div>
-                    <div className="sk-hierarchical-refinement-option__count">#1</div>
-                  </div>
-                  <div className="sk-hierarchical-refinement-list__hierarchical-options"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
   })
 
   it("handle clicking an option", ()=> {
@@ -151,14 +96,7 @@ describe("Refinement List Filter tests", () => {
   })
 
   it("should add disabled state when no results", ()=> {
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div data-qa="filter--testid" className="sk-hierarchical-refinement-list filter--testid is-disabled">
-        <div data-qa="title" className="sk-hierarchical-refinement-list__header">test title</div>
-        <div data-qa="options" className="sk-hierarchical-refinement-list__root">
-          <div className="sk-hierarchical-refinement-list__hierarchical-options"></div>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
   })
 
 });

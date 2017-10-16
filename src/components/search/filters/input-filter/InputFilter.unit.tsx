@@ -6,7 +6,7 @@ import {
 } from "../../../../core";
 
 import {
-  fastClick, hasClass, jsxToHTML, printPrettyHtml
+  fastClick, hasClass, printPrettyHtml
 } from "../../../__test__/TestHelpers"
 
 import {
@@ -15,7 +15,7 @@ import {
 
 import * as sinon from "sinon";
 
-import {omit} from "lodash"
+const omit = require("lodash/omit")
 
 describe("InputFilter tests", () => {
 
@@ -96,21 +96,7 @@ describe("InputFilter tests", () => {
       mod: "my-input", className: "my-class"
     })
     this.setResults()
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-panel filter--test_id">
-        <div className="sk-panel__header">Test title</div>
-        <div className="sk-panel__content">
-          <div className="my-input">
-            <form>
-              <div className="my-input__icon" />
-              <input type="text" data-qa="input-filter" className="my-input__text" placeholder="search placeholder" value=""/>
-              <input type="submit" value="submit" className="my-input__action" data-qa="submit" />
-              <div data-qa="remove" className="my-input__remove is-hidden"></div>
-            </form>
-          </div>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
   })
 
   it("search on change", () => {

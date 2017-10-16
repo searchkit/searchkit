@@ -12,7 +12,7 @@ export interface TagFilterListProps extends SearchkitComponentProps {
   children?: React.ReactChildren
 }
 
-import {map} from "lodash"
+const map = require("lodash/map")
 
 export class TagFilterList extends React.Component<TagFilterListProps, any> {
 

@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Facet Filter tests renders correctly 1`] = `
+<div class="sk-panel filter--testId">
+  <div class="sk-panel__header">test title</div>
+  <div class="sk-panel__content">
+    <div data-qa="options" class="sk-item-list">
+      <div class="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 1"><input type="checkbox" data-qa="checkbox" readonly="" class="sk-item-list-option__checkbox">
+        <div data-qa="label" class="sk-item-list-option__text">test option 1 translated</div>
+        <div data-qa="count" class="sk-item-list-option__count">#1</div>
+      </div>
+      <div class="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 2"><input type="checkbox" data-qa="checkbox" readonly="" class="sk-item-list-option__checkbox">
+        <div data-qa="label" class="sk-item-list-option__text">test option 2</div>
+        <div data-qa="count" class="sk-item-list-option__count">#2</div>
+      </div>
+      <div class="sk-item-list-option sk-item-list__item" data-qa="option" data-key="test option 3"><input type="checkbox" data-qa="checkbox" readonly="" class="sk-item-list-option__checkbox">
+        <div data-qa="label" class="sk-item-list-option__text">test option 3</div>
+        <div data-qa="count" class="sk-item-list-option__count">#3</div>
+      </div>
+    </div>
+    <div data-qa="show-more" class="sk-refinement-list__view-more-action">View all facets</div>
+  </div>
+</div>
+`;
+
+exports[`Facet Filter tests should work with custom components 1`] = `
+<div title="test title" class="filter--testId">
+  <div data-qa="options" class="sk-toggle">
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 3">
+      <div data-qa="label" class="sk-toggle-option__text">test option 3</div>
+      <div data-qa="count" class="sk-toggle-option__count">3</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 2">
+      <div data-qa="label" class="sk-toggle-option__text">test option 2</div>
+      <div data-qa="count" class="sk-toggle-option__count">2</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="test option 1">
+      <div data-qa="label" class="sk-toggle-option__text">test option 1 translated</div>
+      <div data-qa="count" class="sk-toggle-option__count">1</div>
+    </div>
+  </div>
+  <div data-qa="show-more" class="sk-refinement-list__view-more-action">View all facets</div>
+</div>
+`;

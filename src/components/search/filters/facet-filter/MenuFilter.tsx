@@ -1,9 +1,9 @@
 import { ItemList, Panel, CheckboxItemList } from '../../../ui'
 import { FacetFilter} from "./FacetFilter"
 
-import {defaults} from "lodash"
-import {concat} from "lodash"
-import {isUndefined} from "lodash"
+const defaults = require("lodash/defaults")
+const concat = require("lodash/concat")
+const isUndefined = require("lodash/isUndefined")
 
 import { FacetFilterPropTypes} from "./FacetFilterProps"
 

@@ -17,24 +17,29 @@ module.exports = {
     app.use(bodyParser.urlencoded({ extended: false }))
     app.use(bodyParser.json())
     app.use(methodOverride())
-    var config = require("./webpack.config.js");
-    var compiler = webpack(config);
 
     app.use(favicon(__dirname + "/search.ico"))
-    app.use(webpackMiddleware(compiler, {
-      publicPath: config.output.publicPath,
-      contentBase: 'src',
-      stats: {
-        colors: true,
-        hash: false,
-        timings: true,
-        chunks: false,
-        chunkModules: false,
-        modules: false
-      }
-    }));
+    if (process.env.NODE_ENV === 'production'){
+      app.use('/static', express.static(path.join(__dirname, "dist")))
+    } else {
+      var config = require("./webpack.config.js");
+      var compiler = webpack(config);
+      app.use(webpackMiddleware(compiler, {
+        publicPath: config.output.publicPath,
+        contentBase: 'src',
+        stats: {
+          colors: true,
+          hash: false,
+          timings: true,
+          chunks: false,
+          chunkModules: false,
+          modules: false
+        }
+      }));
 
-    app.use(webpackHotMiddleware(compiler));
+      app.use(webpackHotMiddleware(compiler));
+    }
+
 
     app.get("/", function(req, res){
       res.render("index", {

@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pagination tests PaginationSelect 1`] = `
+<div class="sk-pagination-select is-numbered">
+  <div class="sk-select"><select><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></div>
+</div>
+`;
+
+exports[`Pagination tests rendering renders text 1`] = `
+<div class="sk-pagination-navigation is-numbered">
+  <div data-qa="options" class="sk-toggle">
+    <div class="sk-toggle-option sk-toggle__item is-disabled" data-qa="option" data-key="previous">
+      <div data-qa="label" class="sk-toggle-option__text">Previous Page</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item is-active" data-qa="option" data-key="1">
+      <div data-qa="label" class="sk-toggle-option__text">1</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="2">
+      <div data-qa="label" class="sk-toggle-option__text">2</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="3">
+      <div data-qa="label" class="sk-toggle-option__text">3</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="4">
+      <div data-qa="label" class="sk-toggle-option__text">4</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item is-disabled" data-qa="option" data-key="ellipsis-5">
+      <div data-qa="label" class="sk-toggle-option__text">...</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="next">
+      <div data-qa="label" class="sk-toggle-option__text">Next</div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Pagination tests rendering renders with pages 1`] = `
+<div class="sk-pagination-navigation">
+  <div data-qa="options" class="sk-toggle">
+    <div class="sk-toggle-option sk-toggle__item is-disabled" data-qa="option" data-key="previous">
+      <div data-qa="label" class="sk-toggle-option__text">Previous Page</div>
+    </div>
+    <div class="sk-toggle-option sk-toggle__item" data-qa="option" data-key="next">
+      <div data-qa="label" class="sk-toggle-option__text">Next</div>
+    </div>
+  </div>
+</div>
+`;

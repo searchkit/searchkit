@@ -1,17 +1,15 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {SearchBox} from "./SearchBox";
-import {SearchkitManager, QueryString, QueryAccessor } from "../../../core";
-;
+import {SearchkitManager, QueryString, QueryAccessor } from "../../../core"
 import {
-  fastClick, hasClass, jsxToHTML, printPrettyHtml
+  fastClick, hasClass, printPrettyHtml
 } from "../../__test__/TestHelpers"
-import {
-  throttle
-} from 'lodash'
+
+const throttle = require('lodash/throttle')
 
 
-import {omit} from "lodash"
+const omit = require("lodash/omit")
 
 describe("Searchbox tests", () => {
 

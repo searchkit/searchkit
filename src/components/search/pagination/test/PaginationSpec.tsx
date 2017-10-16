@@ -4,7 +4,7 @@ import {Pagination, PaginationSelect} from "../src/Pagination";
 import {SearchkitManager, ImmutableQuery} from "../../../../core";
 import {Select} from "../../../ui";
 import {
-  fastClick, hasClass, jsxToHTML, printPrettyHtml
+  fastClick, hasClass, printPrettyHtml
 } from "../../../__test__/TestHelpers"
 import * as sinon from "sinon";
 
@@ -59,49 +59,12 @@ describe("Pagination tests", () => {
 
     it("renders text", () => {
       this.createWrapper()
-      expect(this.wrapper.html()).toEqual(jsxToHTML(
-        <div className="sk-pagination-navigation is-numbered">
-          <div data-qa="options" className="sk-toggle">
-            <div className="sk-toggle-option sk-toggle__item is-disabled" data-qa="option" data-key="previous">
-              <div data-qa="label" className="sk-toggle-option__text">Previous Page</div>
-            </div>
-            <div className="sk-toggle-option sk-toggle__item is-active" data-qa="option" data-key="1">
-              <div data-qa="label" className="sk-toggle-option__text">1</div>
-            </div>
-            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="2">
-              <div data-qa="label" className="sk-toggle-option__text">2</div>
-            </div>
-            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="3">
-              <div data-qa="label" className="sk-toggle-option__text">3</div>
-            </div>
-            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="4">
-              <div data-qa="label" className="sk-toggle-option__text">4</div>
-            </div>
-            <div className="sk-toggle-option sk-toggle__item is-disabled" data-qa="option" data-key="ellipsis-5">
-              <div data-qa="label" className="sk-toggle-option__text">...</div>
-            </div>
-            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="next">
-              <div data-qa="label" className="sk-toggle-option__text">Next</div>
-            </div>
-          </div>
-        </div>
-      ))
+      expect(this.wrapper).toMatchSnapshot()
     })
 
     it("renders with pages", () => {
       this.createWrapper(false)
-      expect(this.wrapper.html()).toEqual(jsxToHTML(
-        <div className="sk-pagination-navigation">
-          <div data-qa="options" className="sk-toggle">
-            <div className="sk-toggle-option sk-toggle__item is-disabled" data-qa="option" data-key="previous">
-              <div data-qa="label" className="sk-toggle-option__text">Previous Page</div>
-            </div>
-            <div className="sk-toggle-option sk-toggle__item" data-qa="option" data-key="next">
-              <div data-qa="label" className="sk-toggle-option__text">Next</div>
-            </div>
-          </div>
-        </div>
-      ))
+      expect(this.wrapper).toMatchSnapshot()
     })
 
     it('renders first page options', () => {
@@ -205,18 +168,7 @@ describe("Pagination tests", () => {
       <PaginationSelect searchkit={this.searchkit} />
     );
     this.wrapper.update()
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-pagination-select is-numbered">
-        <div className="sk-select">
-          <select>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-          </select>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
   })
 
 });

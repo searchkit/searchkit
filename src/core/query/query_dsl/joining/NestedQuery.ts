@@ -1,5 +1,5 @@
-import {assign} from "lodash"
-import {pick} from "lodash"
+const assign = require("lodash/assign")
+const pick = require("lodash/pick")
 const allowedOptions = ["score_mode", "inner_hits"]
 
 export function NestedQuery(path, query, options={}){

@@ -1,5 +1,5 @@
 
-import {defaults} from 'lodash'
+const defaults = require("lodash/defaults")
 
 export class PaginationHelper {
   
@@ -68,51 +68,6 @@ export class PaginationHelper {
 }
 
 export const Paginator = {
-  
-  full(currentPage, totalPages, translate, pageScope=3){
-    const builder = new PaginationHelper({
-      currentPage, totalPages, translate
-    })
-    builder.previous()
-    
-    // First
-    if (currentPage > pageScope + 1) builder.page(1)
-    if (currentPage > pageScope + 2) builder.ellipsis()
-    
-    // Pages
-    builder.range(currentPage - pageScope, currentPage-1)
-    builder.page(currentPage, {active: true})
-    builder.range(currentPage+1, currentPage + pageScope)
-    
-    // Last ellipsis
-    if (currentPage < totalPages - pageScope) builder.ellipsis()
-    
-    builder.next()
-    return builder.pages
-  },
-  
-  relativePages(currentPage, totalPages, translate, pageScope=3){
-    const builder = new PaginationHelper({
-      currentPage, totalPages, translate
-    })
-    
-    builder.range(currentPage - pageScope, currentPage-1)
-    builder.page(currentPage, {active: true})
-    builder.range(currentPage+1, currentPage + pageScope)
-    
-    return builder.pages
-  },
-  
-  previousNext(currentPage, totalPages, translate){
-    const builder = new PaginationHelper({
-      currentPage, totalPages, translate
-    })
-    
-    builder.previous()
-    builder.next()
-    
-    return builder.pages
-  },
   
   build({
       showNumbers=true,

@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {HierarchicalMenuFilter} from "../src/HierarchicalMenuFilter";
-import {fastClick, hasClass, jsxToHTML, printPrettyHtml} from "../../../../__test__/TestHelpers"
+import {fastClick, hasClass, printPrettyHtml} from "../../../../__test__/TestHelpers"
 import { SearchkitManager, HierarchicalFacetAccessor} from "../../../../../core";
 ;
 import * as sinon from "sinon";
@@ -49,27 +49,7 @@ describe("HierarchicalMenuFilter tests", () => {
 
   it("should render first level correctly", ()=> {
     this.setResults()
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-hierarchical-menu-list filter--categories">
-        <div className="sk-hierarchical-menu-list__header">Categories</div>
-        <div className="sk-hierarchical-menu-list__root">
-          <div className="sk-hierarchical-menu-list__hierarchical-options">
-            <div>
-              <div className="sk-hierarchical-menu-option">
-                <div className="sk-hierarchical-menu-option__text">Red</div>
-                <div className="sk-hierarchical-menu-option__count">#10</div>
-              </div>
-            </div>
-            <div>
-              <div className="sk-hierarchical-menu-option">
-                <div className="sk-hierarchical-menu-option__text">Green</div>
-                <div className="sk-hierarchical-menu-option__count">#20</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()    
   })
 
   it("should render 2nd level correctly with selected 3rd level", ()=> {
@@ -77,42 +57,7 @@ describe("HierarchicalMenuFilter tests", () => {
       ["Red"], ["Maroon"]
     ])
     this.setResults()
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-hierarchical-menu-list filter--categories">
-        <div className="sk-hierarchical-menu-list__header">Categories</div>
-        <div className="sk-hierarchical-menu-list__root">
-          <div className="sk-hierarchical-menu-list__hierarchical-options">
-            <div>
-              <div className="sk-hierarchical-menu-option is-selected">
-                <div className="sk-hierarchical-menu-option__text">Red</div>
-                <div className="sk-hierarchical-menu-option__count">#10</div>
-              </div>
-              <div className="sk-hierarchical-menu-list__hierarchical-options">
-                <div>
-                  <div className="sk-hierarchical-menu-option">
-                    <div className="sk-hierarchical-menu-option__text">Crimson</div>
-                    <div className="sk-hierarchical-menu-option__count">#10</div>
-                  </div>
-                </div>
-                <div>
-                  <div className="sk-hierarchical-menu-option is-selected">
-                    <div className="sk-hierarchical-menu-option__text">Maroon</div>
-                    <div className="sk-hierarchical-menu-option__count">#12</div>
-                  </div>
-                  <div className="sk-hierarchical-menu-list__hierarchical-options"></div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="sk-hierarchical-menu-option">
-                <div className="sk-hierarchical-menu-option__text">Green</div>
-                <div className="sk-hierarchical-menu-option__count">#20</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
   })
 
   it("should handle selecting an option", ()=> {

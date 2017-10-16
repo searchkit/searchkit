@@ -22,14 +22,12 @@ searchkit.shouldPeformSearch = (query) => {
   return !!query.getQueryString()
 }
 
-import * as _ from "lodash"
-
 require("./styles.scss")
 
 const MovieHitsGridItem = (props)=> {
   const {bemBlocks, result} = props
   let url = "http://www.imdb.com/title/" + result._source.imdbId
-  const source:any = _.extend({}, result._source, result.highlight)
+  const source:any = Object.assign({}, result._source, result.highlight)
   return (
     <div className={bemBlocks.item().mix(bemBlocks.container("item"))} data-qa="hit">
       <a href={url} target="_blank">
@@ -44,7 +42,7 @@ const MovieHitsGridItem = (props)=> {
 const MovieHitsListItem = (props)=> {
   const {bemBlocks, result} = props
   let url = "http://www.imdb.com/title/" + result._source.imdbId
-  const source:any = _.extend({}, result._source, result.highlight)
+  const source:any = Object.assign({}, result._source, result.highlight)
   return (
     <div className={bemBlocks.item().mix(bemBlocks.container("item"))} data-qa="hit">
       <div className={bemBlocks.item("poster")}>
@@ -78,7 +76,6 @@ class App extends React.Component<any, any> {
             <InputFilter id="writers" searchThrottleTime={500} title="Writers" placeholder="Search writers" searchOnChange={true} queryFields={["writers"]} />
             <MenuFilter id="metascoreMenu" title="Metascore" field="metaScore" size={10}/>
             <RefinementListFilter id="ratingFacet" title="Raiting" field="imdbRating" operator="OR" size={10}/>
-            <RefinementListFilter id="actorsFacet" title="Actors" field="actors.raw" size={10}/>
             <RefinementListFilter id="actorsFacet" title="Actors" field="actors.raw" size={10}/>
             <RefinementListFilter id="writersFacet" translations={{"facets.view_more":"View more writers"}} title="Writers" field="writers.raw" operator="OR" size={10}/>
             <RefinementListFilter id="countries" title="Countries" field="countries.raw" operator="OR" size={10}/>

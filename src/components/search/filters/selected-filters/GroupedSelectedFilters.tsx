@@ -13,12 +13,12 @@ import {
 } from "../../../ui"
 
 
-import {defaults} from 'lodash'
-import {groupBy} from 'lodash'
-import {size} from 'lodash'
-import {toArray} from 'lodash'
-import {forEach} from 'lodash'
-import {map} from 'lodash'
+const defaults = require("lodash/defaults")
+const groupBy = require("lodash/groupBy")
+const size = require("lodash/size")
+const toArray = require("lodash/toArray")
+const forEach = require("lodash/forEach")
+const map = require("lodash/map")
 
 
 export interface GroupedSelectedFiltersProps extends SearchkitComponentProps {

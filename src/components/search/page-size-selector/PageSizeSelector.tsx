@@ -8,8 +8,8 @@ import {
   renderComponent
 } from "../../../core"
 
-import {map} from "lodash"
-import {defaults} from "lodash"
+const map = require("lodash/map")
+const defaults = require("lodash/defaults")
 
 import { Select, ListProps } from "../../ui"
 

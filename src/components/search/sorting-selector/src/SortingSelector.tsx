@@ -14,7 +14,7 @@ import {
 	Select, ListProps
 } from "../../../ui"
 
-import {defaults} from "lodash"
+const defaults = require("lodash/defaults")
 
 export interface SortingProps extends SearchkitComponentProps {
   options:Array<SortingOption>

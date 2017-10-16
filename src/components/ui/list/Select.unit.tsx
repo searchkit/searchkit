@@ -4,7 +4,6 @@ import {mount} from "enzyme";
 import { Select } from "./Select"
 import { MockList} from "./MockList"
 
-import {jsxToHTML} from "../../__test__/TestHelpers"
 
 describe("Select", ()=> {
 
@@ -15,16 +14,7 @@ describe("Select", ()=> {
   })
 
   it("should render and behave correctly", ()=> {
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-select">
-        <select>
-          <option value="a">A translated (#10)</option>
-          <option value="b" disabled={true}>B translated (#11)</option>
-          <option value="c">C translated (#12)</option>
-          <option value="d">d translated (#15)</option>
-        </select>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
 
     const optionC = this.wrapper.find("select").children().at(2)
     optionC.simulate("change")

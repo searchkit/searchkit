@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Layout components layout - no size prop 1`] = `
+<div>
+  <div class="sk-layout">content</div>
+</div>
+`;
+
+exports[`Layout components should render correctly 1`] = `
+<div>
+  <div class="sk-layout sk-layout__size-m">
+    <div class="sk-layout__top-bar sk-top-bar">
+      <div class="sk-top-bar__content">search bar</div>
+    </div>
+    <div class="sk-layout__body">
+      <div class="sk-layout__filters">filters</div>
+      <div class="sk-layout__results sk-results-list">
+        <div class="sk-results-list__action-bar sk-action-bar">
+          <div class="sk-action-bar-row">row 1</div>
+          <div class="sk-action-bar-row">row 2</div>
+        </div>
+        <p>hits</p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

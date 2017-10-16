@@ -3,13 +3,16 @@ import * as React from "react";
 import {FacetFilterProps, FacetFilterPropTypes} from "./FacetFilterProps"
 
 import {
-  FacetAccessor, SearchkitComponent, ISizeOption,
-  FastClick, renderComponent
+  FacetAccessor, ISizeOption
 } from "../../../../core"
+
+import {
+  FastClick, renderComponent, SearchkitComponent
+} from "../../../../core/react"
 
 import {CheckboxItemList, Panel} from "../../../ui"
 
-import {identity} from "lodash"
+const identity = require("lodash/identity")
 
 export class FacetFilter extends SearchkitComponent<FacetFilterProps, any> {
   accessor: FacetAccessor

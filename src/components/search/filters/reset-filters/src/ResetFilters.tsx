@@ -10,7 +10,7 @@ import {
 	ResetSearchAccessor,
   renderComponent
 } from "../../../../../core"
-import {defaults} from "lodash"
+const defaults = require("lodash/defaults")
 
 
 export interface ResetFiltersDisplayProps {

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectedFilters tests overrides 1`] = `
+<div class="sk-selected-filters">
+  <div class="sk-selected-filters-option">
+    <div class="sk-selected-filters-option__override-name">test value</div>
+    <div class="sk-selected-filters-option__remove-action">x</div>
+  </div>
+  <div class="sk-selected-filters-option">
+    <div class="sk-selected-filters-option__override-name">test value 2 translated</div>
+    <div class="sk-selected-filters-option__remove-action">x</div>
+  </div>
+</div>
+`;
+
+exports[`SelectedFilters tests renders correctly 1`] = `
+<div class="sk-selected-filters">
+  <div class="sk-selected-filters-option sk-selected-filters__item selected-filter--test">
+    <div class="sk-selected-filters-option__name">
+      <!-- react-text: 4 -->test name
+      <!-- /react-text -->
+      <!-- react-text: 5 -->:
+      <!-- /react-text -->
+      <!-- react-text: 6 -->test value
+      <!-- /react-text -->
+    </div>
+    <div class="sk-selected-filters-option__remove-action">x</div>
+  </div>
+  <div class="sk-selected-filters-option sk-selected-filters__item selected-filter--test2">
+    <div class="sk-selected-filters-option__name">
+      <!-- react-text: 10 -->test name 2 translated
+      <!-- /react-text -->
+      <!-- react-text: 11 -->:
+      <!-- /react-text -->
+      <!-- react-text: 12 -->test value 2 translated
+      <!-- /react-text -->
+    </div>
+    <div class="sk-selected-filters-option__remove-action">x</div>
+  </div>
+</div>
+`;

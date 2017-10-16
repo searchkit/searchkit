@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {NoHits} from "../src/NoHits";
 import {SearchkitManager} from "../../../../core";
 import {
-  fastClick, hasClass, jsxToHTML, printPrettyHtml
+  fastClick, hasClass, printPrettyHtml
 } from "../../../__test__/TestHelpers"
 
 import {InitialLoader} from "../src/InitialLoader";
@@ -18,11 +18,7 @@ describe("InitialLoader", ()=> {
   })
 
   it("should render correctly", ()=> {
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-initial-loader">
-        <div data-qa="initial-loading" className="sk-initial-loader__initial-loading"></div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
     this.searchkit.initialLoading = false
     this.wrapper.update()
     expect(this.wrapper.children().length).toBe(0)
@@ -33,9 +29,7 @@ describe("InitialLoader", ()=> {
       <p className={bemBlocks.container("foo")}>Loading</p>
     )
     let wrapper = mount(<InitialLoader searchkit={this.searchkit} component={higherOrderComp}/>)
-    expect(wrapper.html()).toEqual(jsxToHTML(
-      <p className="sk-initial-loader__foo">Loading</p>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
   })
 
 

@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NumericRefinementListFilter tests should allow custom mod, className, listComponent, translations 1`] = `
+<div class="sk-panel filter--score">
+  <div class="sk-panel__header">Score</div>
+  <div class="sk-panel__content">
+    <div class="my-numeric my-class"><select><option value="All">Everything (#30)</option><option value="up to 20">up to 20 (#10)</option><option value="21 to 40">21 to 40 (#20)</option></select></div>
+  </div>
+</div>
+`;
+
+exports[`NumericRefinementListFilter tests should render correctly() 1`] = `
+<div class="sk-panel filter--score">
+  <div class="sk-panel__header">Score</div>
+  <div class="sk-panel__content">
+    <div data-qa="options" class="sk-item-list">
+      <div class="sk-item-list-option sk-item-list__item is-active" data-qa="option" data-key="All">
+        <div data-qa="label" class="sk-item-list-option__text">All</div>
+        <div data-qa="count" class="sk-item-list-option__count">30</div>
+      </div>
+      <div class="sk-item-list-option sk-item-list__item" data-qa="option" data-key="up to 20">
+        <div data-qa="label" class="sk-item-list-option__text">up to 20</div>
+        <div data-qa="count" class="sk-item-list-option__count">10</div>
+      </div>
+      <div class="sk-item-list-option sk-item-list__item" data-qa="option" data-key="21 to 40">
+        <div data-qa="label" class="sk-item-list-option__text">21 to 40</div>
+        <div data-qa="count" class="sk-item-list-option__count">20</div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

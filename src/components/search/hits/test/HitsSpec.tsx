@@ -6,7 +6,7 @@ import {
   CustomHighlightAccessor, SourceFilterAccessor
 } from "../../../../core";
 import {
-  fastClick, hasClass, jsxToHTML, printPrettyHtml
+  fastClick, hasClass, printPrettyHtml
 } from "../../../__test__/TestHelpers"
 import * as sinon from "sinon";
 
@@ -58,12 +58,7 @@ describe("Hits component", () => {
       })
       this.wrapper.update()
       expect(this.hasRendered()).toBeTruthy()
-      expect(this.wrapper.html()).toEqual(jsxToHTML(
-        <div data-qa="hits" className="sk-hits">
-          <div data-qa="hit" className="sk-hits-hit sk-hits__item">1</div>
-          <div data-qa="hit" className="sk-hits-hit sk-hits__item">2</div>
-        </div>
-      ))
+      expect(this.wrapper).toMatchSnapshot()
     })
 
     it("does not render on no hits", () => {
@@ -98,12 +93,7 @@ describe("Hits component", () => {
       let wrapper = mount(
         <Hits searchkit={this.searchkit} itemComponent={hit} hitsPerPage={10}/>
       )
-      expect(wrapper.html()).toEqual(jsxToHTML(
-        <div data-qa="hits" className="sk-hits">
-          <div className="sk-hits-hit">1</div>
-          <div className="sk-hits-hit">2</div>
-        </div>
-      ))
+      expect(this.wrapper).toMatchSnapshot()
     })
   })
 

@@ -3,11 +3,11 @@ import * as React from "react";
 import { AbstractItemList} from "./ItemListComponents"
 import {
   FastClick,
-} from "../../../"
+} from "../../../core/react/FastClick"
 
 import { ItemProps } from './ListProps'
 
-import {defaults} from 'lodash'
+const defaults = require("lodash/defaults")
 
 export interface ItemHistogramComponentProps extends ItemProps {
   showCheckbox: boolean

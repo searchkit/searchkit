@@ -1,5 +1,5 @@
 import {State} from "./State"
-import {isEmpty} from "lodash"
+const isEmpty = require("lodash/isEmpty")
 
 export class ObjectState extends State<Object>{
 

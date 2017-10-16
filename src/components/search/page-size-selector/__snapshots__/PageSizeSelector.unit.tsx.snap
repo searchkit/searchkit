@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageSizeSelector should render and behave correctly 1`] = `
+<div>
+  <div class="sk-select"><select><option value="4">4</option><option value="12">12</option><option value="24">24</option></select></div>
+  <div data-qa="hits" class="sk-hits">
+    <div data-qa="hit" class="sk-hits-hit sk-hits__item">1</div>
+    <div data-qa="hit" class="sk-hits-hit sk-hits__item">2</div>
+  </div>
+</div>
+`;
+
+exports[`PageSizeSelector should set mod, className, custom listComponent 1`] = `
+<div>
+  <div data-qa="options" class="my-page-selector my-class">
+    <div class="my-page-selector-option my-page-selector__item" data-qa="option" data-key="4">
+      <div data-qa="label" class="my-page-selector-option__text">4</div>
+    </div>
+    <div class="my-page-selector-option my-page-selector__item is-active" data-qa="option" data-key="12">
+      <div data-qa="label" class="my-page-selector-option__text">12</div>
+    </div>
+    <div class="my-page-selector-option my-page-selector__item" data-qa="option" data-key="24">
+      <div data-qa="label" class="my-page-selector-option__text">24</div>
+    </div>
+  </div>
+  <div data-qa="hits" class="sk-hits">
+    <div data-qa="hit" class="sk-hits-hit sk-hits__item">1</div>
+    <div data-qa="hit" class="sk-hits-hit sk-hits__item">2</div>
+  </div>
+</div>
+`;

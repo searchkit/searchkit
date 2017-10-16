@@ -1,6 +1,6 @@
 import {FieldContext} from './FieldContext';
 import {ChildrenBucket, HasChildQuery} from "../query_dsl"
-import {get} from "lodash"
+const get = require("lodash/get")
 
 export class ChildrenFieldContext extends FieldContext {
 

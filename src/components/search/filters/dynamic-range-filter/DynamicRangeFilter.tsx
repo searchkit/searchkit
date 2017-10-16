@@ -15,9 +15,9 @@ import {
 	RangeSlider
 } from "../../../ui"
 
-import {defaults} from "lodash"
-import {get} from "lodash"
-import {identity} from "lodash"
+const defaults = require("lodash/defaults")
+const get = require("lodash/get")
+const identity = require("lodash/identity")
 
 export interface DynamicRangeFilterProps extends SearchkitComponentProps {
 	field:string

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TagFilter tests renders correctly 1`] = `
+<div>
+  <!-- react-empty: 2 -->
+  <div class="sk-tag-filter">test option 1</div>
+  <div class="sk-tag-filter">test option 2</div>
+</div>
+`;
+
+exports[`TagFilter tests renders with custom children 1`] = `
+<div>
+  <!-- react-empty: 2 -->
+  <div class="sk-tag-filter">
+    <div class="custom-element">test option</div>
+  </div>
+</div>
+`;

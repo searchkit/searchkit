@@ -102,7 +102,7 @@ describe("FastClick - fast", ()=> {
         <button>click me</button>
       </FastClick>
     )
-    this.wrapper.simulate("click", event)
+    this.wrapper.simulate("click")
     expect(this.handler).toHaveBeenCalled()
   })
 

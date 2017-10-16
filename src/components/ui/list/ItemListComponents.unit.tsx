@@ -2,17 +2,18 @@ import * as React from "react";
 import {mount} from "enzyme";
 import {
   ItemList,
-  CheckboxItemList,
+  CheckboxItemList
 } from "./ItemListComponents"
+
 
 import {
   ItemComponent,
-  CheckboxItemComponent,
+  CheckboxItemComponent
 } from "./ItemComponents"
 
 import {MockList} from "./MockList";
 
-import {fastClick, jsxToHTML} from "../../__test__/TestHelpers"
+import {fastClick} from "../../__test__/TestHelpers"
 
 describe("ItemList Components", ()=> {
 
@@ -21,26 +22,7 @@ describe("ItemList Components", ()=> {
     this.wrapper = mount(
       <MockList listComponent={ItemList}/>
     )
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div data-qa="options" className="sk-item-list">
-        <div className="sk-item-list-option sk-item-list__item is-active" data-qa="option" data-key="a">
-          <div data-qa="label" className="sk-item-list-option__text">A translated</div>
-          <div data-qa="count" className="sk-item-list-option__count">#10</div>
-        </div>
-        <div className="sk-item-list-option sk-item-list__item is-disabled" data-qa="option" data-key="b">
-          <div data-qa="label" className="sk-item-list-option__text">B translated</div>
-          <div data-qa="count" className="sk-item-list-option__count">#11</div>
-        </div>
-        <div className="sk-item-list-option sk-item-list__item is-active" data-qa="option" data-key="c">
-          <div data-qa="label" className="sk-item-list-option__text">C translated</div>
-          <div data-qa="count" className="sk-item-list-option__count">#12</div>
-        </div>
-        <div className="sk-item-list-option sk-item-list__item" data-qa="option" data-key="d">
-          <div data-qa="label" className="sk-item-list-option__text">d translated</div>
-          <div data-qa="count" className="sk-item-list-option__count">#15</div>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
 
     this.wrapper.setProps({disabled:true})
     expect(this.wrapper.find(".sk-item-list").hasClass("is-disabled")).toBe(true)
@@ -65,7 +47,7 @@ describe("ItemList Components", ()=> {
     expect(ItemList.defaultProps.itemComponent).toBe(ItemComponent)
   })
 
-  it("mod + classname can be updated", () => {
+  it("mod + classname can be updated", () => {   
     this.wrapper = mount(
       <MockList listComponent={ItemList} mod="sk-item-list-updated" className="my-custom-class"/>
     )

@@ -6,7 +6,7 @@ const {
   ViewSwitcherHits, ViewSwitcherToggle
 } = require("../../../../../src")
 
-import * as _ from "lodash"
+
 
 const {
   Layout, TopBar, LayoutBody, LayoutResults,
@@ -20,7 +20,7 @@ require("../../../../../theming/theme.scss")
 const MovieHitsGridItem = (props)=> {
   const {bemBlocks, result} = props
   let url = "http://www.imdb.com/title/" + result._source.imdbId
-  const source:any = _.extend({}, result._source, result.highlight)
+  const source:any = Object.assign({}, result._source, result.highlight)
   return (
     <div className={bemBlocks.item().mix(bemBlocks.container("item"))} data-qa="hit">
       <a href={url} target="_blank">

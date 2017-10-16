@@ -1,5 +1,5 @@
 import * as React from "react";
-import {compact} from "lodash"
+const compact = require("lodash/compact")
 
 const mixClasses = (...classes) => {
   return compact(classes).join(" ")

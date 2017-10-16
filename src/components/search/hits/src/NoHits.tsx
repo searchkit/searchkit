@@ -12,7 +12,7 @@ import {
 import { NoHitsErrorDisplay, NoHitsErrorDisplayProps } from "./NoHitsErrorDisplay"
 import { NoHitsDisplay, NoHitsDisplayProps } from "./NoHitsDisplay"
 
-import { defaults } from "lodash"
+const defaults = require("lodash/defaults")
 
 export interface NoHitsProps extends SearchkitComponentProps {
 	suggestionsField?: string

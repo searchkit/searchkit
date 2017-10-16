@@ -1,0 +1,8 @@
+{
+    "baseUrl": "http://localhost:4000",
+    "reporter": "junit",
+    "reporterOptions": {
+        "mochaFile": "e2e-results.xml",
+        "toConsole": true
+    }   
+}

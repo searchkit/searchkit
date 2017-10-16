@@ -4,7 +4,6 @@ import {mount} from "enzyme";
 import { RangeInput } from './RangeInput'
 import { MockRange } from './MockRange'
 
-import {jsxToHTML} from "../../__test__/TestHelpers"
 
 describe("RangeInput", () => {
 
@@ -12,15 +11,7 @@ describe("RangeInput", () => {
     this.wrapper = mount(
         <MockRange rangeComponent={RangeInput}/>
     )
-
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <form className="sk-range-input">
-        <input type="number" className="sk-range-input__input" value="2" placeholder="min" onChange={() => {}}/>
-        <div className="sk-range-input__to-label">-</div>
-        <input type="number" className="sk-range-input__input" value="5" placeholder="max" onChange={() => {}}/>
-        <button type="submit" className="sk-range-input__submit">Go</button>
-      </form>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
   })
 
   it("mod + classname can be updated", () => {

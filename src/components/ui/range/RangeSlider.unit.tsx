@@ -4,7 +4,6 @@ import {mount} from "enzyme";
 import { RangeSlider } from './RangeSlider'
 import { MockRange } from './MockRange'
 
-import {jsxToHTML} from "../../__test__/TestHelpers"
 
 describe("RangeSlider", () => {
 
@@ -12,19 +11,7 @@ describe("RangeSlider", () => {
     this.wrapper = mount(
       <MockRange rangeComponent={RangeSlider}/>
     )
-    expect(this.wrapper.html()).toEqual(jsxToHTML(
-      <div className="sk-range-slider">
-        <div className="rc-slider rc-slider-with-marks">
-          <div className="rc-slider-rail"></div>
-          <div className="rc-slider-track rc-slider-track-1" style={{visibility:" visible", " left":" 20%", " width":" 30%"}}></div>
-          <div className="rc-slider-step"><span className="rc-slider-dot" style={{left:" 0%"}}></span><span className="rc-slider-dot" style={{left:" 100%"}}></span></div>
-          <div role="slider" tabIndex={0} aria-valuemin="0" aria-valuemax="10" aria-valuenow="2" aria-disabled="false" className="rc-slider-handle rc-slider-handle-1"
-            style={{left:" 20%"}}></div>
-          <div role="slider" tabIndex={0} aria-valuemin="0" aria-valuemax="10" aria-valuenow="5" aria-disabled="false" className="rc-slider-handle rc-slider-handle-2" style={{left:" 50%"}}></div>
-          <div className="rc-slider-mark"><span className="rc-slider-mark-text" style={{width:" 90%", " marginLeft":" -45%", " left":" 0%"}}>0</span><span className="rc-slider-mark-text" style={{width:" 90%", " marginLeft":" -45%", " left":" 100%"}}>10</span></div>
-        </div>
-      </div>
-    ))
+    expect(this.wrapper).toMatchSnapshot()
 
   })
 

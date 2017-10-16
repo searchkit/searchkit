@@ -1,4 +1,4 @@
-import {assign} from "lodash"
+const assign = require("lodash/assign")
 
 export interface MultiMatchOptions {
   fields:Array<string>,

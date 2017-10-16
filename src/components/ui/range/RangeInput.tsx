@@ -2,9 +2,9 @@ import * as React from "react";
 
 import { RangeProps } from './RangeProps'
 
-import {block} from "../../../"
+import {block} from "../../../core/react"
 
-import {omit} from 'lodash'
+const omit = require("lodash/omit")
 
 /*
  * Input validates input and only calls onChange for valid values

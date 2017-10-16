@@ -3,13 +3,15 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var apps = require("./apps")
 
+const isProduction = process.env.NODE_ENV === 'production'
 var entries = {
 }
 apps.forEach(function(app){
   entries[app] = [
-    'webpack-hot-middleware/client?reload=true',
     path.join(__dirname, '/apps/'+app)
-  ]
+  ]  
+  !isProduction && entries[app].unshift(
+    'webpack-hot-middleware/client?reload=true')  
 })
 console.log(entries)
 
@@ -21,24 +23,29 @@ module.exports = {
     filename: '[name].bundle.js',
     publicPath: '/static'
   },
-  plugins: [
+  plugins: isProduction ? [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      },
+    }),
+  ] : [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
   ],
   resolve: {
     alias: {
       react: path.resolve(__dirname + '/../../../node_modules/react'),
       searchkit:path.resolve(__dirname + "/../../../src")
     },
-    extensions:[".js", ".ts", ".tsx","", ".webpack.js", ".web.js"],
-    fallback: path.join(__dirname, "node_modules")
+    extensions:[".js", ".ts", ".tsx", ".webpack.js", ".web.js"]
   },
 
   module: {
     loaders: [
       {
-        test: /\.tsx?$/,
-        loaders: ['ts']
+        test: /\.tsx?$/,        
+        loaders: ['ts-loader']
       },
       {
         test: /\.(scss|css)$/,

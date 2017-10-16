@@ -4,7 +4,7 @@ import {SearchkitManager} from "../SearchkitManager"
 import {ImmutableQuery} from "../query"
 import {Accessor} from "../accessors/Accessor"
 import {Utils} from "../support"
-import {mapValues} from "lodash"
+const mapValues = require("lodash/mapValues")
 import {block} from "./block"
 
 export interface SearchkitComponentProps {

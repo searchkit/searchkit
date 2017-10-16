@@ -1,5 +1,5 @@
-import {without} from "lodash"
-import {each} from "lodash"
+const without = require("lodash/without")
+const each = require("lodash/each")
 
 export class EventEmitter {
   listeners = []

@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RenderComponent React Class 1`] = `
+<div class="sk-panel">
+  <div class="sk-panel__header">PanelReactClass purple</div>
+  <div class="sk-panel__content">
+    <p>content..</p>
+  </div>
+</div>
+`;
+
+exports[`RenderComponent React Element 1`] = `
+<div class="sk-panel">
+  <div class="sk-panel__header">PanelElement</div>
+  <div class="sk-panel__content">
+    <p>content..</p>
+  </div>
+</div>
+`;
+
+exports[`RenderComponent React.Component class 1`] = `
+<div class="sk-panel">
+  <div class="sk-panel__header">SubPanel</div>
+  <div class="sk-panel__content">
+    <p>content..</p>
+  </div>
+</div>
+`;
+
+exports[`RenderComponent Render function 1`] = `
+<div class="sk-panel">
+  <div class="sk-panel__header">PanelFunction purple</div>
+  <div class="sk-panel__content">
+    <p>content..</p>
+  </div>
+</div>
+`;

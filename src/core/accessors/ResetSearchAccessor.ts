@@ -1,5 +1,5 @@
 import {Accessor, FilterBasedAccessor, PaginationAccessor} from "./";
-import {each} from "lodash"
+const each = require("lodash/each")
 
 export interface ResetSearchOptions {
   query?:boolean

@@ -3,5 +3,8 @@ test/e2e/generated
 npm-debug.log
 lib/__test__
 $CIRCLE_TEST_REPORTS
+dist
+cypress
 _book
 coverage
+test-report.xml
