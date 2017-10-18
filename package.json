@@ -1,8 +1,8 @@
 {
   "name": "searchkit",
-  "version": "2.3.0-4",
+  "version": "2.3.0-5",
   "description": "A suite of react components to help create a UI quickly for elasticsearch",
-  "main": "lib/src/index.js",
+  "main": "lib/index.js",
   "keywords": [
     "elasticsearch",
     "elastic search",
@@ -23,7 +23,7 @@
     "type": "git",
     "url": "https://github.com/searchkit/searchkit.git"
   },
-  "typings": "lib/src/index.d.ts",
+  "typings": "lib/index.d.ts",
   "scripts": {
     "writeVersion": "node ./scripts/writeVersion.js",
     "build": "node ./scripts/writeVersion; tsc; webpack; rm release/ignore.js",
