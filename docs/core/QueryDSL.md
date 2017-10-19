@@ -68,7 +68,7 @@ See BoolMust
 #### `FilteredQuery(filteredOb)`
 ```js
 import {FilteredQuery, MatchQuery, TermQuery} from "searchkit"
-Filtered({
+FilteredQuery({
   query:MatchQuery("title", "Star Wars"),
   filter:TermQuery("genre", "Action")
 })
