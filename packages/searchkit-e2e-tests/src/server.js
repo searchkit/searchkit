@@ -16,7 +16,7 @@ module.exports = {
 
     app.use(favicon(__dirname + "/search.ico"))
     if (process.env.NODE_ENV === 'production'){
-      app.use('/static', express.static(path.join(__dirname, "dist")))
+      app.use('/static', express.static(path.join(__dirname, "../dist")))
     } else {
       var config = require("../webpack.config.js");
       var compiler = webpack(config);
