@@ -40,5 +40,5 @@ test:
   pre:    
     - mkdir -p $CIRCLE_TEST_REPORTS/{jest,cypress}
     - npm install lerna -g
-    - lerna bootstrap --loglevel verbose
+    - lerna bootstrap --concurrency 1 --loglevel verbose
     - lerna run build
