@@ -36,7 +36,7 @@ deployment:
 
 test:
   override:
-    - lerna run --parallel test:ci
+    - lerna run test:ci
   post:
     - cat ./coverage/lcov.info | coveralls
     - cp packages/searchkit-e2e-tests/e2e-results.xml $CIRCLE_TEST_REPORTS/cypress
