@@ -32,7 +32,7 @@
     "test": "jest -c jest.json",
     "test:watch": "jest -c jest.json --watch",
     "test:coverage": "jest -c jest.json --coverage",
-    "test:ci": "jest -c jest.json --coverage"
+    "test:ci": "TEST_REPORT_FILENAME=unit-results.xml jest -c jest.json --coverage --testResultsProcessor=jest-junit-reporter --forceExit --ci -w 2"
   },
   "authors": [
     {
