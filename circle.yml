@@ -27,17 +27,11 @@ deployment:
     tag: /^v\d+\.\d+\.\d+\-\d+$/
     commands:
       - npm publish --tag beta
-  # beta:
-  #   tag: /^v\d+\.\d+\.\d+\+$/
-  #   commands:
-  #     - npm publish
-  #     - gitbook stuff
 
 
 test:
   override:
-    - (cd ./packages/searchkit && npm run build && npm run test:ci)
-    - (cd ./packages/searchkit-e2e-tests && npm run build && npm run test:ci)
+    - lerna run test:ci --parallel
   post:
     - (cd ./packages/searchkit && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls)
     - cp packages/searchkit-e2e-tests/e2e-results.xml $CIRCLE_TEST_REPORTS/cypress
@@ -45,4 +39,5 @@ test:
   pre:    
     - mkdir -p $CIRCLE_TEST_REPORTS/{jest,cypress}
     - npm install lerna -g
-    - lerna bootstrap
+    - lerna bootstrap --loglevel verbose
+    - lerna run build
