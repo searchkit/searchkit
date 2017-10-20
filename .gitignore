@@ -13,3 +13,4 @@ e2e-results.xml
 unit-results.xml
 cypress/videos
 cypress/screenshots
+lerna-debug

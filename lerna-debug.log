@@ -1,0 +1,17 @@
+0 silly input [ 'build' ]
+1 silly flags { _: [ 'run' ], scope: 'searckit', script: 'build', args: [] }
+2 verbose rootPath /Users/ssetem/Projects/searchkit/searchkit
+3 info version 2.4.0
+4 silly existsSync /Users/ssetem/Projects/searchkit/searchkit/VERSION
+5 info scope searckit
+6 error EPACKAGES Errored while collecting packages and package graph
+7 error Error: No packages found that match scope 'searckit'
+7 error     at Function.filterPackages (/usr/local/lib/node_modules/lerna/lib/PackageUtilities.js:217:17)
+7 error     at RunCommand.runPreparations (/usr/local/lib/node_modules/lerna/lib/Command.js:320:60)
+7 error     at /usr/local/lib/node_modules/lerna/lib/Command.js:219:18
+7 error     at new Promise (<anonymous>)
+7 error     at RunCommand.run (/usr/local/lib/node_modules/lerna/lib/Command.js:207:14)
+7 error     at Object.handler (/usr/local/lib/node_modules/lerna/lib/commands/RunCommand.js:45:88)
+7 error     at Object.self.runCommand (/usr/local/lib/node_modules/lerna/node_modules/yargs/lib/command.js:233:22)
+7 error     at Object.Yargs.self._parseArgs (/usr/local/lib/node_modules/lerna/node_modules/yargs/yargs.js:990:30)
+7 error     at Object.Yargs.self.parse (/usr/local/lib/node_modules/lerna/node_modules/yargs/yargs.js:532:23)

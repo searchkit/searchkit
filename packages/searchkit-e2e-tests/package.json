@@ -1,0 +1,36 @@
+{
+    "private": true,
+    "name": "searchkit-e2e-tests",
+    "scripts": {
+        "start": "node src/start.js",
+        "start:prod": "NODE_ENV=production node src/start.js",
+        "build": "NODE_ENV=production webpack --config ./webpack.config.js",
+        "test:ci": "npm run start:prod & cypress run cypress.json && kill $!",        
+        "cypress:open": "npm run start & cypress open && kill $!"
+    },
+    "dependencies": {
+        "@types/node": "^8.0.46",
+        "@types/react": "^15.6.4",
+        "css-loader": "^0.28.7",
+        "cypress": "^1.0.2",
+        "ejs": "^2.5.7",
+        "express": "^4.16.2",
+        "html-webpack-plugin": "^2.30.1",
+        "lodash": "^4.17.4",
+        "node-sass": "^4.5.3",
+        "react": "^15.6.2",
+        "react-dom": "^15.6.2",
+        "react-router": "^4.2.0",
+        "sass-loader": "^6.0.6",
+        "searchkit": "2.3.0-6",
+        "serve-favicon": "^2.4.5",
+        "style-loader": "^0.19.0",
+        "ts-loader": "^3.0.5",
+        "typescript": "^2.5.3",
+        "webpack": "^3.8.1",
+        "webpack-hot-middleware": "^2.20.0"
+    },
+    "devDependencies": {
+        "webpack-dev-middleware": "^1.12.0"
+    }
+}

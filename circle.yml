@@ -12,11 +12,11 @@ machine:
 
 general:
   artifacts:
-    - coverage
-    - cypress/video
-    - cypress/screenshots
-    - lib
-    - release
+    - packages/searchkit/coverage
+    - packages/searchkit/lib
+    - packages/searchkit/release
+    - packages/searchkit-e2e-tests/cypress/video
+    - packages/searchkit-e2e-tests/cypress/screenshots    
 
 dependencies:
   pre: 
@@ -36,13 +36,13 @@ deployment:
 
 test:
   override:
-    - npm run test:ci
-    - npm run cypress:ci
+    - lerna run --parallel test:ci
   post:
     - cat ./coverage/lcov.info | coveralls
-    - cp e2e-results.xml $CIRCLE_TEST_REPORTS/cypress
-    - cp unit-results.xml $CIRCLE_TEST_REPORTS/jest
+    - cp packages/searchkit-e2e-tests/e2e-results.xml $CIRCLE_TEST_REPORTS/cypress
+    - cp packages/searchkit/unit-results.xml $CIRCLE_TEST_REPORTS/jest
   pre:    
     - mkdir -p $CIRCLE_TEST_REPORTS/{jest,cypress}
-    - npm run build
-    - npm run build:e2e    
+    - npm install lerna -g
+    - lerna bootstrap
+    - lerna run build    
