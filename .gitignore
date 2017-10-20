@@ -13,4 +13,6 @@ e2e-results.xml
 unit-results.xml
 cypress/videos
 cypress/screenshots
-lerna-debug
+lerna-debug.log
+package
+packages/searchkit/release
