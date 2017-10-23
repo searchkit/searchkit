@@ -1,6 +1,5 @@
 {
   "lerna": "2.4.0",
-  "independent":true,
   "packages": [
     "packages/*"
   ],
