@@ -52,7 +52,8 @@ Sometimes we need to apply a default query which affects the entire search and i
     TermQuery,
     FilteredQuery,
     BoolShould
-  }
+  } from "searchkit"
+  
   const searchkit = new SearchkitManager("/")
   searchkit.addDefaultQuery((query)=> {
     return query.addQuery(FilteredQuery({
