@@ -8,8 +8,8 @@ Sometimes we need to apply a default query which affects the entire search and i
     SearchkitManager,
     TermQuery,
     BoolMust
-  }
-  const searchkit = new SearchkitManager("/")
+  } from "searchkit";
+  const searchkit = new SearchkitManager("/");
   searchkit.addDefaultQuery((query)=> {
     return query.addQuery(BoolMust([
         TermQuery("colour", "red"),
