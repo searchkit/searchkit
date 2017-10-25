@@ -4,13 +4,11 @@ const {
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
   ViewSwitcherHits, ViewSwitcherToggle, DynamicRangeFilter,
-  InputFilter, GroupedSelectedFilters
-} = require("searchkit")
-
-const {
+  InputFilter, GroupedSelectedFilters,
   Layout, TopBar, LayoutBody, LayoutResults,
   ActionBar, ActionBarRow, SideBar
-} = require("searchkit")
+} = require("searchkit/release/bundle.js") //test UMD module include
+
 
 const host = "http://demo.searchkit.co/api/movies"
 import * as ReactDOM from "react-dom";

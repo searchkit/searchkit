@@ -1,20 +1,31 @@
+import * as ReactDOM from "react-dom";
+import * as React from "react";
+
+//Simulate script include of searchkit
+window['ReactDOM'] = ReactDOM
+window['React'] = React
+let searchkitRaw = require("raw-loader!searchkit/release/bundle.js")
+let script = document.createElement("script")
+script.type = "text/javascript"
+script.innerHTML = searchkitRaw
+document.getElementsByTagName("head")[0].appendChild(script)
+
+
 const {
   SearchkitManager,SearchkitProvider,
   SearchBox, Hits, RefinementListFilter, Pagination,
   HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
   SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
   ViewSwitcherHits, ViewSwitcherToggle
-} = require("searchkit")
+} = window["Searchkit"]
 
 
 
 const {
   Layout, TopBar, LayoutBody, LayoutResults,
   ActionBar, ActionBarRow, SideBar
-} = require("searchkit")
+} = window["Searchkit"]
 
-import * as ReactDOM from "react-dom";
-import * as React from "react";
 require("searchkit/release/theme.css")
 const MovieHitsGridItem = (props)=> {
   const {bemBlocks, result} = props
