@@ -30,7 +30,7 @@
     "build:watch": "tsc -w",
     "prepublishOnly": "rm -rf lib; rm -rf release; npm run-script build;",
     "test": "jest -c jest.json",
-    "test:watch": "jest -c jest.json --watch",
+    "test:watch": "jest -c jest.json --watchAll",
     "test:coverage": "jest -c jest.json --coverage",
     "test:ci": "TEST_REPORT_FILENAME=unit-results.xml jest -c jest.json --coverage --testResultsProcessor=jest-junit-reporter --forceExit --ci -w 2"
   },
