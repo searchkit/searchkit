@@ -26,7 +26,7 @@ deployment:
   beta:
     tag: /^v\d+\.\d+\.\d+\-\d+$/
     commands:
-      - npm publish --tag beta
+      - (cd ./packages/searchkit && npm publish --tag beta)
 
 
 test:
