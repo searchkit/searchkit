@@ -23,7 +23,7 @@
         "react-dom": "^15.6.2",
         "react-router": "^4.2.0",
         "sass-loader": "^6.0.6",
-        "searchkit": "2.3.0-6",
+        "searchkit": "^2.3.0-6",
         "serve-favicon": "^2.4.5",
         "style-loader": "^0.19.0",
         "ts-loader": "^3.0.5",
