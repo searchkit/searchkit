@@ -1,5 +1,4 @@
 node_modules
-test/e2e/generated
 npm-debug.log
 lib/__test__
 $CIRCLE_TEST_REPORTS
@@ -11,5 +10,7 @@ dist
 test-report.xml
 e2e-results.xml
 unit-results.xml
-cypress/videos
-cypress/screenshots
+**/cypress/videos
+**/cypress/screenshots
+lerna-debug.log
+packages/searchkit/release

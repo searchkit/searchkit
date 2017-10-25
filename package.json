@@ -1,122 +1,48 @@
 {
-  "name": "searchkit",
-  "version": "2.3.0-6",
-  "description": "A suite of react components to help create a UI quickly for elasticsearch",
-  "main": "lib/index.js",
-  "keywords": [
-    "elasticsearch",
-    "elastic search",
-    "react",
-    "ui components",
-    "search",
-    "library",
-    "client-side",
-    "widgets",
-    "react components",
-    "react-component"
-  ],
-  "homepage": "http://www.searchkit.co",
-  "bugs": {
-    "url": "https://github.com/searchkit/searchkit/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/searchkit/searchkit.git"
-  },
-  "typings": "lib/index.d.ts",
-  "scripts": {
-    "writeVersion": "node ./scripts/writeVersion.js",
-    "build": "node ./scripts/writeVersion; tsc; webpack; rm release/ignore.js",
-    "build:watch": "tsc -w",
-    "prepublishOnly": "rm -rf lib; rm -rf release; npm run-script build;",
-    "test:serve": "node test/e2e/server/start.js",
-    "test:serve:compiled": "NODE_ENV=production node test/e2e/server/start.js",
-    "test": "jest -c jest.json",
-    "test:watch": "jest -c jest.json --watch",
-    "test:coverage": "jest -c jest.json --coverage",
-    "test:ci": "TEST_REPORT_FILENAME=unit-results.xml jest -c jest.json --coverage --testResultsProcessor=jest-junit-reporter --forceExit --ci -w 2",
-    "build:e2e": "NODE_ENV=production webpack --config test/e2e/server/webpack.config.js",
-    "cypress:ci": "npm run test:serve:compiled & cypress run cypress.json && kill $!",
-    "cypress:open": "npm run test:serve & cypress open && kill $!"
-  },
-  "authors": [
-    {
-      "name": "Joseph McElroy",
-      "email": "phoey1@gmail.com"
+    "private": true,
+    "name": "searchkit",
+    "keywords": [
+        "elasticsearch",
+        "elastic search",
+        "react",
+        "ui components",
+        "search",
+        "library",
+        "client-side",
+        "widgets",
+        "react components",
+        "react-component"
+    ],
+    "homepage": "http://www.searchkit.co",
+    "bugs": {
+        "url": "https://github.com/searchkit/searchkit/issues"
     },
-    {
-      "name": "Siavash Etemadieh",
-      "email": "ssetem@gmail.com"
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/searchkit/searchkit.git"
+    },
+    "scripts": {
+        "lerna": "lerna"
+    },
+    "authors": [
+        {
+            "name": "Joseph McElroy",
+            "email": "phoey1@gmail.com"
+        },
+        {
+            "name": "Siavash Etemadieh",
+            "email": "ssetem@gmail.com"
+        }
+    ],
+    "contributors": [
+        {
+            "name": "Gregory Potdevin",
+            "email": "gregory.potdevin@gmail.com"
+        }
+    ],
+    "license": "Apache-2.0",
+    "dependencies": {},
+    "devDependencies": {
+        "lerna": "2.4.0"
     }
-  ],
-  "contributors": [
-    {
-      "name": "Gregory Potdevin",
-      "email": "gregory.potdevin@gmail.com"
-    }
-  ],
-  "license": "Apache-2.0",
-  "dependencies": {
-    "@types/history": "^4.6.0",
-    "@types/lodash": "^4.14.77",
-    "axios": "^0.16.2",
-    "history": "4.7.2",
-    "immutability-helper": "^2.4.0",
-    "lodash": "4.17.4",
-    "prop-types": "^15.5.8",
-    "qs": "6.4.0",
-    "rc-slider": "^8.3.1"
-  },
-  "peerDependencies": {
-    "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0",
-    "react-dom": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0"
-  },
-  "devDependencies": {
-    "@types/enzyme": "^2.8.11",
-    "@types/jest": "^21.1.2",
-    "@types/node": "^8.0.34",
-    "@types/react": "^15.0.0",
-    "@types/react-dom": "^15.0.0",
-    "@types/react-router": "^2.0.51",
-    "@types/selenium-webdriver": "^2.53.39",
-    "@types/sinon": "^1.16.34",
-    "@types/source-map": "^0.5.0",
-    "autoprefixer": "^6.3.3",
-    "coveralls": "^3.0.0",
-    "css-loader": "^0.28.7",
-    "cypress": "^1.0.1",
-    "ejs": "^2.4.1",
-    "enzyme": "2.9.1",
-    "es6-promise": "^4.1.1",
-    "express": "^4.13.4",
-    "extract-text-webpack-plugin": "^3.0.1",
-    "file-loader": "^1.1.5",
-    "html-webpack-plugin": "^2.9.0",
-    "imports-loader": "^0.7.1",
-    "jest": "^21.2.1",
-    "jest-junit-reporter": "^1.1.0",
-    "js-beautify": "^1.5.10",
-    "json-loader": "^0.5.7",
-    "method-override": "^2.3.5",
-    "node-sass": "^4.5.3",
-    "node-static": "^0.7.7",
-    "null-loader": "^0.1.1",
-    "postcss-loader": "^0.8.2",
-    "protractor": "^4.0.0",
-    "react": "^15.6.0",
-    "react-dom": "15.6.0",
-    "react-router": "^2.4.0",
-    "react-test-renderer": "^15.6.2",
-    "sass-loader": "^6.0.6",
-    "serve-favicon": "^2.3.0",
-    "sinon": "^1.17.2",
-    "style-loader": "^0.19.0",
-    "ts-jest": "^21.1.2",
-    "ts-loader": "^2.3.7",
-    "typescript": "^2.5.3",
-    "webpack": "^3.6.0",
-    "webpack-dev-middleware": "^1.12.0",
-    "webpack-hot-middleware": "^2.9.1",
-    "xenon": "^0.1.5"
-  }
 }

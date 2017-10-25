@@ -1,0 +1,32 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Jest Searchkit",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/packages/searchkit/node_modules/jest/bin/jest.js",
+            "stopOnEntry": false,
+            "args": [
+                "-c",                
+                "./jest.json",
+                "--watch",
+                "--runInBand"
+            ],
+            "cwd": "${workspaceRoot}/packages/searchkit",
+            "preLaunchTask": null,
+            "runtimeExecutable": null,
+            "runtimeArgs": [
+                "--nolazy"
+            ],
+            "env": {
+                "NODE_ENV": "test"
+            },
+            "console": "integratedTerminal",
+            "sourceMaps": true
+        }
+    ]
+}

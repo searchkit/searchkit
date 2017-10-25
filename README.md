@@ -6,7 +6,7 @@
 
 Searchkit is a suite of UI components built in react. The aim is to rapidly create beautiful search applications using declarative components, and without being an ElasticSearch expert.
 
-<img src="./docs/assets/codepreview.png"/>
+<img src="./packages/searchkit-docs/docs/assets/codepreview.png"/>
 
 ## Quick Start
 Checkout Searchkit starter app (https://github.com/searchkit/searchkit-starter-app). Based off Facebook's Create-react-app project. Clone repo and add your changes!

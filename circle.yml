@@ -12,11 +12,11 @@ machine:
 
 general:
   artifacts:
-    - coverage
-    - cypress/video
-    - cypress/screenshots
-    - lib
-    - release
+    - packages/searchkit/coverage
+    - packages/searchkit/lib
+    - packages/searchkit/release
+    - packages/searchkit-e2e-tests/cypress/video
+    - packages/searchkit-e2e-tests/cypress/screenshots    
 
 dependencies:
   pre: 
@@ -27,22 +27,18 @@ deployment:
     tag: /^v\d+\.\d+\.\d+\-\d+$/
     commands:
       - npm publish --tag beta
-  # beta:
-  #   tag: /^v\d+\.\d+\.\d+\+$/
-  #   commands:
-  #     - npm publish
-  #     - gitbook stuff
 
 
 test:
   override:
-    - npm run test:ci
-    - npm run cypress:ci
+    - (cd ./packages/searchkit && npm run test:ci)
+    - (cd ./packages/searchkit-e2e-tests && npm run test:ci)
   post:
-    - cat ./coverage/lcov.info | coveralls
-    - cp e2e-results.xml $CIRCLE_TEST_REPORTS/cypress
-    - cp unit-results.xml $CIRCLE_TEST_REPORTS/jest
+    - (cd ./packages/searchkit && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls)
+    - cp packages/searchkit-e2e-tests/e2e-results.xml $CIRCLE_TEST_REPORTS/cypress
+    - cp packages/searchkit/unit-results.xml $CIRCLE_TEST_REPORTS/jest
   pre:    
     - mkdir -p $CIRCLE_TEST_REPORTS/{jest,cypress}
-    - npm run build
-    - npm run build:e2e    
+    - npm install lerna -g
+    - lerna bootstrap --concurrency 1 --loglevel verbose
+    - lerna run build
