@@ -1,4 +1,4 @@
-import { createBrowserHistory, History } from 'history'
+import { createBrowserHistory, createMemoryHistory,  History } from 'history'
 const qs = require("qs")
 
 export const encodeObjUrl = (obj) => {
@@ -9,6 +9,10 @@ export const decodeObjString = (str) => {
   return qs.parse(str)
 }
 
+export const supportsHistory = ()=> {
+  return !!window.history
+}
+
 export const createHistoryInstance = function():History{
-  return createBrowserHistory()
+  return supportsHistory() ? createBrowserHistory() : createMemoryHistory()
 }

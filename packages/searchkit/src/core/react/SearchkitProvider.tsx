@@ -27,7 +27,9 @@ export class SearchkitProvider extends React.Component<SearchkitProps,any> {
 	}
 
 	componentWillUnmount(){
-		this.props.searchkit.unlistenHistory()
+		const {searchkit} = this.props
+		searchkit.unlistenHistory()
+		searchkit.guidGenerator.reset()
 	}
 
 	getChildContext(){

@@ -36,9 +36,12 @@ describe("SearchkitProvider", ()=> {
     expect(this.searchkit.setupListeners).not.toHaveBeenCalled()
     this.wrapper.node.componentWillMount()
     expect(this.searchkit.setupListeners).toHaveBeenCalled()
+    this.searchkit.guidGenerator.counter = 10
     this.searchkit.unlistenHistory = jasmine.createSpy("unlisten")
     this.wrapper.node.componentWillUnmount()
     expect(this.searchkit.unlistenHistory).toHaveBeenCalled()
+    expect(this.searchkit.guidGenerator.counter).toEqual(0)
+
   })
 
 
