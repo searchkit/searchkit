@@ -39,7 +39,11 @@ module.exports = {
       "node_modules",
       path.resolve(__dirname, "./node_modules"),
       path.resolve(__dirname, "./node_modules/searchkit/node_modules")     
-    ]
+    ],
+    alias:{
+        react:path.resolve("./node_modules/react"),
+        'react-dom':path.resolve("./node_modules/react-dom")
+    }
   },
 
   
