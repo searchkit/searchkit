@@ -3,6 +3,11 @@ const hitStats = () => cy.get(`${qa('hits-stats')} > ${qa('info')}`)
 const hits = () => cy.get("[data-qa=hits] > div")
 const searchInput = () => cy.get("[data-qa=query]")    
 
+const texts = ($p)=> {
+    return $p.map((i, el) => {
+        return Cypress.$(el).text()
+    }).get()  
+}
 describe('Searchkit movie test', function () {
  
     beforeEach(()=> {
@@ -40,6 +45,20 @@ describe('Searchkit movie test', function () {
         hitStats().should('contain', '73 results found')
         hits().first().find(qa('title'))
             .should('contain', 'Lost')
+    })
+
+    it("should display hierachical menu correctly", ()=> {
+        cy.get(".sk-hierarchical-menu-list__root [data-qa='option']")
+            .should(($p)=> {                                   
+                expect(texts($p)).to.deep.eq(["Movie3120", "Episode521", "Series473", "Game48"])
+            })
+        searchInput().type("batman")
+        cy.wait("@search")
+        cy.get("[data-key='Game']").click()
+        cy.wait("@search")
+        cy.get("[data-key='Game']+div [data-qa='option']").should(($p)=> {
+            expect(texts($p)).to.deep.eq(["Action2", "Crime2", "Fantasy2"])
+        })
     })
   
 })
