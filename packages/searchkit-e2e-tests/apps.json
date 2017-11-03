@@ -6,5 +6,6 @@
   "ui-app",
   "taxonomy-app",
   "readme-app",
-  "theme-app"
+  "theme-app",
+  "autosuggest-app"
 ]

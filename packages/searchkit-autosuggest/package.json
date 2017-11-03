@@ -1,0 +1,28 @@
+{
+  "name": "@searchkit/autosuggest",
+  "version": "1.0.0-0",
+  "description": "",
+  "main": "es/index.js",
+  "module": "es/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "searchkit": "^2.3.0-8",
+    "react": ">15.0.0-0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.80",
+    "@types/node": "^8.0.47",
+    "@types/react": "^15.6.5",
+    "react": "^15.6.2",
+    "searchkit": "^2.3.0-9",
+    "typescript": "^2.6.1"
+  },
+  "dependencies": {
+    "@types/react-autosuggest": "^9.3.1",
+    "react-autosuggest": "^9.3.2"
+  }
+}

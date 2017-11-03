@@ -36,10 +36,13 @@ module.exports = {
   resolve: {
     extensions:[".js", ".ts", ".tsx", ".webpack.js", ".web.js"],
     modules:[
+      "node_modules",
       path.resolve(__dirname, "./node_modules"),
-      path.resolve(__dirname, "./node_modules/searchkit/node_modules")
+      path.resolve(__dirname, "./node_modules/searchkit/node_modules")     
     ]
   },
+
+  
 
   module: {
     loaders: [
