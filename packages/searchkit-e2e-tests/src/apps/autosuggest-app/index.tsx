@@ -22,7 +22,7 @@ import { MovieHitsGridItem, MovieHitsListItem } from "../../components"
 require("searchkit/release/theme.css")
 
 
-const searchkitMovies = new SearchkitManager("http://localhost:9200/movies/")
+const searchkitMovies = new SearchkitManager("http://demo.searchkit.co/api/movies/");
 const searchkitTaxonomy = new SearchkitManager("http://demo.searchkit.co/api/taxonomy/")
 import "./styles.scss"
 
