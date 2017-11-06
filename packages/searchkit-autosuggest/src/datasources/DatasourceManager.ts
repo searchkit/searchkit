@@ -1,7 +1,7 @@
 import { SearchkitDatasourceManager } from "./SearchkitDatasourceManager"
 import { SearchkitManager } from "searchkit"
 
-import { Source, DataSource, SuggestGroup } from "./Types"
+import { Source, DataSource, SuggestGroup, SearchkitDatasource } from "./Types"
 import each from "lodash/each"
 import flatten from "lodash/flatten"
 

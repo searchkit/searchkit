@@ -1,4 +1,4 @@
-import {ImmutableQuery} from "searchkit"
+import { ImmutableQuery, SearchkitManager } from "searchkit"
 export interface SuggestGroup {
     title: String,
     results: Array<Object>
@@ -14,4 +14,6 @@ export interface DataSource {
 export interface SearchkitDatasource {
     isSearchkitSource(): boolean
     search(query:ImmutableQuery, queryString:String):ImmutableQuery
+    getGroupedResult(results:Object):SuggestGroup
+    configure(searchkit:SearchkitManager):void
 }

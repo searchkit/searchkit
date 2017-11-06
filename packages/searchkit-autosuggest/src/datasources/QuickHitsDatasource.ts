@@ -2,6 +2,8 @@ import {
     MultiMatchQuery, TopHitsMetric, FilterBucket, SearchkitManager
 } from "searchkit"
 
+import { SearchkitDatasource } from "./Types"
+
 import map from "lodash/map"
 import get from "lodash/get"
 import defaults from "lodash/defaults"
@@ -15,7 +17,7 @@ export type QuickHitsDatasourceOptions = {
     onSelect:Function
     itemRenderer?:Function
 }
-export class QuickHitsDatasource {
+export class QuickHitsDatasource implements SearchkitDatasource {
     options:QuickHitsDatasourceOptions
     searchkit:SearchkitManager
     constructor(options) {

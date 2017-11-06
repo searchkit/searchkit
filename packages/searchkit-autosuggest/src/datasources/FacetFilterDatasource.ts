@@ -1,14 +1,16 @@
 import { FacetAccessor, SearchkitManager, FacetAccessorOptions, encodeObjUrl } from "searchkit"
 import { createRegexQuery } from "../Utils"
+import { SearchkitDatasource } from "./Types"
 
 const map = require("lodash/map")
+
 export type FacetFilterDatasourceOptions = {
     accessorId?: string
     onSelect?:Function    
     itemRenderer?:Function
 } & FacetAccessorOptions
 
-export class FacetFilterDatasource {
+export class FacetFilterDatasource implements SearchkitDatasource {
     options: FacetFilterDatasourceOptions
     searchkit: SearchkitManager
     originalAccessor: FacetAccessor
@@ -58,7 +60,7 @@ export class FacetFilterDatasource {
         let state = this.originalAccessor.state.toggle(item.key)
         if(this.options.onSelect){
             this.options.onSelect(item, state.getValue())
-        }  else if (this.options.accessorId) {
+        }  else {
             this.originalAccessor.state = state
             this.searchkit.performSearch()
         }        

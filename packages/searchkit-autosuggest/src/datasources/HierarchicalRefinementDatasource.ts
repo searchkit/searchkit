@@ -3,6 +3,8 @@ import {
     FilterBucket, NestedQuery, NestedBucket, TermsBucket, LevelState, SearchkitManager
 } from "searchkit"
 
+import { SearchkitDatasource } from "./Types"
+
 import { createRegexQuery } from "../Utils"
 import get from "lodash/get"
 import last from "lodash/last"
@@ -13,7 +15,7 @@ export type HierarchicalRefinementDatasourceOptions = {
     itemRenderer?: Function
 } & NestedFacetAccessorOptions
 
-export class HierarchicalRefinementDatasource {
+export class HierarchicalRefinementDatasource implements SearchkitDatasource {
     options: HierarchicalRefinementDatasourceOptions
     searchkit: SearchkitManager
     originalAccessor: NestedFacetAccessor

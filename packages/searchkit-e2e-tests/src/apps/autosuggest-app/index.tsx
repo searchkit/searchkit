@@ -3,7 +3,7 @@ import * as React from "react";
 
 import { 
     SearchkitAutosuggest, HierarchicalRefinementDatasource, 
-    FacetFilterDatasource, QuickHitsDatasource 
+    FacetFilterDatasource, QuickHitsDatasource, SuggesterDatasource
 } from "@searchkit/autosuggest"
 
 import {
@@ -22,7 +22,7 @@ import { MovieHitsGridItem, MovieHitsListItem } from "../../components"
 require("searchkit/release/theme.css")
 
 
-const searchkitMovies = new SearchkitManager("http://demo.searchkit.co/api/movies/")
+const searchkitMovies = new SearchkitManager("http://localhost:9200/movies/")
 const searchkitTaxonomy = new SearchkitManager("http://demo.searchkit.co/api/taxonomy/")
 import "./styles.scss"
 
@@ -53,7 +53,7 @@ const App = () => (
                     <Heading>Movies</Heading>
                     <SearchkitAutosuggest 
                         autofocus={true}
-                        sources={[
+                        sources={[      
                             new FacetFilterDatasource({ 
                                 accessorId:"actors", 
                                 size:5,
@@ -63,6 +63,12 @@ const App = () => (
                                     })
                                 }
                                 
+                            }), 
+                            new FacetFilterDatasource({                                
+                                id: "writers",
+                                title:"Writiers",
+                                field:"writers.raw",
+                                size: 5
                             }), 
                             new QuickHitsDatasource({
                                 title:"Quick Hits",

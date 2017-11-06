@@ -3,7 +3,7 @@ import {
     SearchkitManager, ESTransport
 } from "searchkit"
 
-import { Source, SuggestGroup } from "./Types"
+import { Source, SuggestGroup, DataSource } from "./Types"
 import { createRegexQuery } from "../Utils"
 
 import reduce from "lodash/reduce"
@@ -12,7 +12,7 @@ import orderBy from "lodash/orderBy"
 import filter from "lodash/filter"
 import get from "lodash/get"
 
-export class SearchkitDatasourceManager {
+export class SearchkitDatasourceManager implements DataSource {
     searchkit: SearchkitManager
     transport: ESTransport
     sources: Array<any>
