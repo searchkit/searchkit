@@ -4,16 +4,24 @@ import {
 
 import map from "lodash/map"
 import get from "lodash/get"
+import defaults from "lodash/defaults"
 
 export type QuickHitsDatasourceOptions = {
     title:string
     id:string
+    searchFields:Array<string>
+    sourceFields:Array<string>
+    size:number
+    onSelect:Function
+    itemRenderer?:Function
 }
 export class QuickHitsDatasource {
     options:QuickHitsDatasourceOptions
     searchkit:SearchkitManager
     constructor(options) {
-        this.options = options
+        this.options = defaults(options, {
+            size:3
+        })
     }
     isSearchkitSource() {
         return true
@@ -28,11 +36,11 @@ export class QuickHitsDatasource {
             FilterBucket(
                 this.options.id, MultiMatchQuery(queryString, {
                     type: "phrase_prefix",
-                    fields: ["title"]
+                    fields: this.options.searchFields
                 }),
                 TopHitsMetric('tophits', {
-                    size: 3,
-                    _source: ['title', 'imdbId']
+                    size: this.options.size,
+                    _source: this.options.searchFields
                 })
             )
         )
@@ -44,13 +52,18 @@ export class QuickHitsDatasource {
             this.options.id, 'tophits', 'hits', 'hits'
         ]
         let items = map(get(results, path, []), (item:any) => {
-            return {
+            let result:Object = {
                 key: item._source.title,
-                select() {
-                    let url = "http://www.imdb.com/title/" + item._source.imdbId
-                    window.open(url, '_blank')
+                select:()=> {
+                    return this.options.onSelect(item)                    
                 }
             }
+            if(this.options.itemRenderer){
+                result['render'] = ()=> {
+                    return this.options.itemRenderer(item)
+                }
+            }
+            return result
         })
         return {
             title: this.options.title,

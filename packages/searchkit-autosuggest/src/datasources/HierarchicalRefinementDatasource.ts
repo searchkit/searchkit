@@ -8,7 +8,9 @@ import get from "lodash/get"
 import last from "lodash/last"
 
 export type HierarchicalRefinementDatasourceOptions = {
-    accessorId?: string
+    accessorId?: string,
+    onSelect?: Function
+    itemRenderer?: Function
 } & NestedFacetAccessorOptions
 
 export class HierarchicalRefinementDatasource {
@@ -76,7 +78,7 @@ export class HierarchicalRefinementDatasource {
                         }
                     ]),
                     TermsBucket("terms", field + ".value", {
-                        size: 5
+                        size: this.options.size
                     },
                         TopHitsMetric("hits", {
                             _source: [field + ".ancestors"],
@@ -89,17 +91,21 @@ export class HierarchicalRefinementDatasource {
 
     onSelect(item) {
         const { startLevel } = this.delegateAccessor.options
-
-        // this.originalAccessor.state = new LevelState()
         let levels = item.ancestors.slice(startLevel - 1).concat(item._key).map((key) => {
             return [key]
         })
-        this.originalAccessor.state = new LevelState(levels)
-        this.searchkit.performSearch()
-
+        if(this.options.onSelect){
+            this.options.onSelect(item, levels)
+        } else {
+            this.originalAccessor.state = new LevelState(levels)
+            this.searchkit.performSearch()        
+        }
+        
     }
 
     getGroupedResult(results) {
+        const { field } = this.delegateAccessor.options
+
         let buckets = get(results, [
             "aggregations", this.delegateAccessor.uuid,
             "children", "filtered", "terms",
@@ -109,7 +115,7 @@ export class HierarchicalRefinementDatasource {
             item.select = () => {
                 this.onSelect(item)
             }
-            item.ancestors = get(item, "hits.hits.hits[0]._source.taxonomy.ancestors", [])
+            item.ancestors = get(item, `hits.hits.hits[0]._source.${field}.ancestors`, [])
             item._key = item.key
             if (item.ancestors.length > 1) {
                 item.key += " - " + last(item.ancestors)
@@ -118,7 +124,6 @@ export class HierarchicalRefinementDatasource {
         })
         return {
             title: this.delegateAccessor.options.title,
-            onSelect: () => { },
             results: buckets
         }
     }

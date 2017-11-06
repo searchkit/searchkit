@@ -90,7 +90,7 @@ body {
 
 .react-autosuggest__suggestions-container--open {
     top:40px;
-    z-index: 101;
+    z-index: 102;
 }
 
 .sk-search-box {
