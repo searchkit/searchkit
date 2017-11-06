@@ -3,7 +3,7 @@ import { SearchkitComponent } from "searchkit"
 const Autosuggest = require("react-autosuggest")
 import { DatasourceManager } from "./datasources/DatasourceManager"
 
-// import "./styles.css"
+import "../styles/styles.css"
 
 const trim = require("lodash/trim")
 const each = require("lodash/each")

@@ -14,3 +14,4 @@ unit-results.xml
 **/cypress/screenshots
 lerna-debug.log
 packages/searchkit/release
+**/es
