@@ -13,7 +13,7 @@ import {
     SelectedFilters, ResetFilters, RangeFilter, NumericRefinementListFilter,
     ViewSwitcherHits, ViewSwitcherToggle,
     Layout, TopBar, LayoutBody, LayoutResults,
-    ActionBar, ActionBarRow, SideBar, encodeObjUrl
+    ActionBar, ActionBarRow, SideBar, encodeObjUrl, QueryAccessor
 } from "searchkit"
 
 import { MovieHitsGridItem, MovieHitsListItem } from "../../components"
@@ -53,6 +53,11 @@ const App = () => (
                     <Heading>Movies</Heading>
                     <SearchkitAutosuggest 
                         autofocus={true}
+                        queryHandler={
+                            new QueryAccessor("q",{
+                                                    
+                            })
+                        }
                         sources={[      
                             new FacetFilterDatasource({ 
                                 accessorId:"actors", 
@@ -75,8 +80,9 @@ const App = () => (
                                 searchFields:['title'],
                                 sourceFields:['title'],
                                 onSelect:(item)=> {
-                                    let url = 'http://www.imdb.com/title/' + item._id
-                                    window.open(url, '_blank')
+                                    // let url = 'http://www.imdb.com/title/' + item._id
+                                    // window.open(url, '_blank')
+                                    return item._source.title
                                 },
                                 itemRenderer:(item)=>{
                                     return <span>{item._source.title}</span>

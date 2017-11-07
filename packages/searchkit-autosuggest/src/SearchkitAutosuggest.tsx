@@ -4,7 +4,7 @@ const Autosuggest = require("react-autosuggest")
 import { DatasourceManager } from "./datasources/DatasourceManager"
 import { Source } from "./datasources/Types"
 import "../styles/styles.css"
-
+import { QueryHandler, queryDelegateFactory, QueryDelegate} from "./QueryDelegates"
 import trim  from "lodash/trim"
 import each  from "lodash/each"
 import prop  from "lodash/property"
@@ -25,29 +25,38 @@ function renderSectionTitle(section) {
         <strong>{ section.title } </strong>
     );
 }
+
+
 export interface SearchkitAutosuggestProps extends SearchkitComponentProps{
     sources: Array<Source>,
-    autofocus:Boolean
+    autofocus:Boolean,
+    queryHandler:QueryHandler    
 }
+
+
 
 export class SearchkitAutosuggest extends SearchkitComponent<SearchkitAutosuggestProps, any> {
     datasourceManager:DatasourceManager
-
+    queryDelegate:QueryDelegate
     static defaultProps = {
         sources: [],
-        autofocus:false
+        autofocus:false,
+        queryHandler:()=> {}
     }
     constructor(props) {
         super(props);
         this.state = {
-            value: '',
             isLoading: false,
             suggestions: [],
             onFocus: false
         };
-
+        this.queryDelegate = queryDelegateFactory(this.props.queryHandler)
+        
     }
-
+    componentWillMount(){
+        super.componentWillMount()
+        this.queryDelegate.register(this.searchkit)
+    }
     componentDidMount() {
         this.datasourceManager = new DatasourceManager(
             this.searchkit, this.props.sources)
@@ -55,12 +64,19 @@ export class SearchkitAutosuggest extends SearchkitComponent<SearchkitAutosugges
 
     onChange = (_event, { newValue, method }) => {
         if (method === 'type') {
-            this.setState({
-                value: newValue
-            });
+            this.queryDelegate.update(newValue)       
         }
 
     };
+
+    updateQueryHandler(value){
+        this.queryDelegate.update(value)        
+    }
+
+    onSubmit = (e)=> {
+        e.preventDefault()
+        this.queryDelegate.submit()
+    }
 
     renderInputComponent = (inputProps) => {
         let props = {
@@ -70,7 +86,9 @@ export class SearchkitAutosuggest extends SearchkitComponent<SearchkitAutosugges
         return (
             <div className="sk-search-box">
             <div className="sk-search-box__icon"> </div>
-                < input {...props } />
+                <form onSubmit={this.onSubmit}>
+                    <input {...props }/>
+                </form>
                 { this.state.loading && (
                     <div data-qa="loader"
                     className="sk-search-box__loader sk-spinning-loader is-hidden" > </div>
@@ -86,7 +104,7 @@ export class SearchkitAutosuggest extends SearchkitComponent<SearchkitAutosugges
                 isLoading: true
             })
             let suggestions = await this.datasourceManager.search(value)
-            if (value === this.state.value) {
+            if (value === this.queryDelegate.getValue()) {
                 this.setState({ suggestions, isLoading: false })
             }
         } else {
@@ -96,9 +114,8 @@ export class SearchkitAutosuggest extends SearchkitComponent<SearchkitAutosugges
     };
 
     onSuggestionSelected = (_e, { suggestion }) => {
-        this.setState({
-            value: suggestion.select() || ""
-        })
+        let newValue = suggestion.select() || ""
+        this.queryDelegate.submit(newValue)   
     }
 
     onSuggestionsClearRequested = () => {
@@ -108,9 +125,10 @@ export class SearchkitAutosuggest extends SearchkitComponent<SearchkitAutosugges
     };
 
     render() {
-        const { value, suggestions } = this.state;
+        const { suggestions } = this.state;
         const { autofocus } = this.props
         // Autosuggest will pass through all these props to the input.
+        let value = this.queryDelegate.getValue()
         const inputProps = {
             placeholder: 'search',
             value,
