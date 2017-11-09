@@ -3,7 +3,8 @@ import * as React from "react";
 
 import { 
     SearchkitAutosuggest, HierarchicalRefinementDatasource, 
-    FacetFilterDatasource, QuickHitsDatasource, SuggesterDatasource
+    FacetFilterDatasource, QuickHitsDatasource, SuggesterDatasource,
+    SuggestQuerySource
 } from "@searchkit/autosuggest"
 
 import {
@@ -59,6 +60,7 @@ const App = () => (
                             })
                         }
                         sources={[      
+                            new SuggestQuerySource(),
                             new FacetFilterDatasource({ 
                                 accessorId:"actors", 
                                 size:5,

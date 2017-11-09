@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "baseUrl": ".",
         "declaration": true,
         "module": "commonjs",
         "target": "es5",
@@ -17,7 +18,10 @@
             "es5",
             "es2015",
             "dom"
-        ]
+        ],
+        "paths": {
+            "*": [ "node_modules/*", "*" ]
+        }
     },
     "include": [
         "./src/**/*.ts",

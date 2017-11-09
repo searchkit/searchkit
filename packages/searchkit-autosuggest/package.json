@@ -1,9 +1,10 @@
 {
   "name": "@searchkit/autosuggest",
-  "version": "1.0.0-0",
+  "version": "0.0.1-0",
   "description": "",
   "main": "es/index.js",
   "module": "es/index.js",
+  "typings":"es/index.d.ts",
   "scripts": {
     "build": "tsc",
     "build:watch":"tsc --watch"

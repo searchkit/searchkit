@@ -1,6 +1,7 @@
 import {ValueState, SearchkitManager, QueryAccessor} from "searchkit"
 
-export type QueryHandler = (queryString: string) => any | QueryAccessor
+export type QueryFunction = (query: String) => any
+export type QueryHandler = QueryAccessor | QueryFunction
 
 export interface QueryDelegate {
     register(searchkit)
