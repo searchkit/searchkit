@@ -3,7 +3,7 @@
   "version": "0.0.1-0",
   "description": "",
   "main": "umd/bundle.js",
-  "module": "umd/index.js",
+  "module": "es/index.js",
   "jsnext": "es/index.js",
   "typings": "es/index.d.ts",
   "scripts": {
