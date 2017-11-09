@@ -3,6 +3,9 @@
   "version": "2.3.0-9",
   "description": "A suite of react components to help create a UI quickly for elasticsearch",
   "main": "lib/index.js",
+  "module":"lib/index.js",
+  "jsnext":"es/index.js",
+  "typings": "lib/index.d.ts",    
   "keywords": [
     "elasticsearch",
     "elastic search",
@@ -23,10 +26,10 @@
     "type": "git",
     "url": "https://github.com/searchkit/searchkit.git"
   },
-  "typings": "lib/index.d.ts",
   "scripts": {
     "writeVersion": "node ./scripts/writeVersion.js",
-    "build": "node ./scripts/writeVersion; tsc; webpack; rm release/ignore.js",
+    "build": "node ./scripts/writeVersion; tsc; npm run build:es; webpack; rm release/ignore.js",
+    "build:es":"tsc --target es2015 --module es2015 --outDir es",
     "build:watch": "tsc -w",
     "prepublishOnly": "rm -rf lib; rm -rf release; npm run-script build;",
     "test": "jest -c jest.json",

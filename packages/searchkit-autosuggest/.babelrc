@@ -1,0 +1,23 @@
+{
+    "presets": [
+        [
+            "env",
+            {
+                "targets": {
+                    "browsers": [
+                        "last 2 versions",
+                        "safari >= 7"
+                    ]
+                },
+                "modules": false
+            }
+        ],
+        "es2015-rollup"
+    ],
+    "plugins":[
+        [ "transform-runtime", {
+            "polyfill": false,
+            "regenerator": true
+        }]
+    ]
+}
