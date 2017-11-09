@@ -1,6 +1,6 @@
 import { ImmutableQuery, SearchkitManager } from "searchkit"
 export interface SuggestGroup {
-    title: String,
+    title?: String,
     results: Array<Object>
 }
 

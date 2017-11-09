@@ -27,10 +27,12 @@ function renderSectionTitle(section) {
 }
 
 
-export interface SearchkitAutosuggestProps extends SearchkitComponentProps{
+export interface SearchkitAutosuggestProps extends SearchkitComponentProps {
     sources: Array<Source>,
     autofocus:Boolean,
-    queryHandler:QueryHandler    
+    queryHandler?:QueryHandler,
+    placeholder?:String,
+    highlightFirst?:Boolean
 }
 
 
@@ -41,7 +43,9 @@ export class SearchkitAutosuggest extends SearchkitComponent<SearchkitAutosugges
     static defaultProps = {
         sources: [],
         autofocus:false,
-        queryHandler:()=> {}
+        queryHandler:()=> {},
+        placeholder:"search",
+        highlightFirst:false
     }
     constructor(props) {
         super(props);
@@ -126,11 +130,11 @@ export class SearchkitAutosuggest extends SearchkitComponent<SearchkitAutosugges
 
     render() {
         const { suggestions } = this.state;
-        const { autofocus } = this.props
+        const { autofocus, placeholder, highlightFirst } = this.props
         // Autosuggest will pass through all these props to the input.
         let value = this.queryDelegate.getValue()
         const inputProps = {
-            placeholder: 'search',
+            placeholder,
             value,
             onChange: this.onChange,
             autoFocus:autofocus
@@ -144,7 +148,7 @@ export class SearchkitAutosuggest extends SearchkitComponent<SearchkitAutosugges
                 onSuggestionsFetchRequested = { this.onSuggestionsFetchRequested }
                 onSuggestionsClearRequested = { this.onSuggestionsClearRequested }
                 onSuggestionSelected = { this.onSuggestionSelected }
-                highlightFirstSuggestion = { false}
+                highlightFirstSuggestion = { highlightFirst }
                 getSuggestionValue = { prop("key") }
                 getSectionSuggestions = { prop("results") }
                 renderSectionTitle = { renderSectionTitle }

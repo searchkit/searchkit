@@ -14,7 +14,7 @@ export class DatasourceManager {
         this.searchkit = searchkit
         this.searchkitDatasource = new SearchkitDatasourceManager(searchkit)
 
-        this.sources = [this.searchkitDatasource]
+        this.sources = []
         each(sources, (source) => {
             if (source.isSearchkitSource()) {
                 this.searchkitDatasource.addSource(source)
@@ -22,6 +22,7 @@ export class DatasourceManager {
                 this.sources.push(source as DataSource)
             }
         })
+        this.sources.push(this.searchkitDatasource)
     }
 
 

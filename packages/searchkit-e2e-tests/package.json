@@ -11,7 +11,7 @@
     "dependencies": {
         "@types/node": "^8.0.46",
         "@types/react": "^15.6.4",
-        "@searchkit/autosuggest":"^1.0.0-0",
+        "@searchkit/autosuggest":"^0.0.1-0",
         "css-loader": "^0.28.7",
         "cypress": "^1.0.2",
         "ejs": "^2.5.7",
