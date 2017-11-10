@@ -2,16 +2,16 @@ import path from "path"
 import postCss from "rollup-plugin-postcss"
 import resolve from "rollup-plugin-node-resolve"
 import commonjs from "rollup-plugin-commonjs"
-import json from "rollup-plugin-json"
-import babel from "rollup-plugin-babel"
 import uglify from "rollup-plugin-uglify"
 import license from "rollup-plugin-license"
+import typescriptPlugin from "rollup-plugin-typescript2"
+import typescript from "typescript"
 
 let pkg = require("./package.json")
 
 export default {
     name:"SearchkitAutosuggest",
-    input:pkg.module,    
+    input:"src/index.ts",    
     output:{        
         file:pkg.main,
         format:'umd'
@@ -28,14 +28,16 @@ export default {
     plugins:[
         postCss(),   
         commonjs(),         
-        resolve({
-            main:true,
-            jsnext:true
-        }),
-        json(),
-        babel({
-            runtimeHelpers: true,
-            exclude: 'node_modules/**',
+        resolve(),
+        typescriptPlugin({
+            cacheRoot: `${require('temp-dir')} /.rpt2_cache`,
+            typescript,
+            tsconfigOverride:{
+                compilerOptions:{
+                    target:"es5",
+                    declaration:false
+                }
+            }
         }),
         uglify(),
         license({

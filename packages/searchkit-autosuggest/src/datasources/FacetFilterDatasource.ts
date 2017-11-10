@@ -2,8 +2,6 @@ import { FacetAccessor, SearchkitManager, FacetAccessorOptions, encodeObjUrl } f
 import { createRegexQuery } from "../Utils"
 import { SearchkitDatasource } from "./Types"
 
-const map = require("lodash/map")
-
 export type FacetFilterDatasourceOptions = {
     accessorId?: string
     onSelect?:Function    
@@ -69,7 +67,7 @@ export class FacetFilterDatasource implements SearchkitDatasource {
 
     getGroupedResult(results) {
         this.delegateAccessor.setResults(results)
-        let items = map(this.delegateAccessor.getBuckets(), (item) => {
+        let items = this.delegateAccessor.getBuckets().map((item) => {
             item.select = () => {
                 return this.onSelect(item)
             }

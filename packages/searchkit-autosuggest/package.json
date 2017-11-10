@@ -3,7 +3,7 @@
   "version": "0.0.1-0",
   "description": "",
   "main": "umd/bundle.js",
-  "module": "es/index.js",
+  "module": "umd/bundle.js",
   "jsnext": "es/index.js",
   "typings": "es/index.d.ts",
   "scripts": {
@@ -20,24 +20,21 @@
     "@types/lodash": "^4.14.80",
     "@types/node": "^8.0.47",
     "@types/react": "^15.6.5",
-    "babel-core": "^6.26.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-es2015-rollup": "^3.0.0",
     "react": "^15.6.2",
     "rollup": "^0.51.2",
-    "rollup-plugin-babel": "^3.0.2",
-    "rollup-plugin-commonjs": "^8.2.6",
-    "rollup-plugin-json": "^2.3.0",
+    "rollup-plugin-commonjs": "^8.2.6",    
     "rollup-plugin-license": "^0.5.0",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-postcss": "^0.5.5",
+    "rollup-plugin-postcss": "^0.5.5",    
+    "rollup-plugin-typescript2": "^0.8.0",
     "rollup-plugin-uglify": "^2.0.1",
     "searchkit": "^2.3.0-9",
+    "temp-dir": "^1.0.0",
     "typescript": "^2.6.1"
   },
   "dependencies": {
     "@types/react-autosuggest": "^9.3.1",
+    "lodash": "^4.17.4",
     "react-autosuggest": "^9.3.2"
   }
 }
