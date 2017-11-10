@@ -1,9 +1,9 @@
 {
     "name": "@searchkit/refinement-autosuggest",
-    "version": "0.0.1-2",
+    "version": "0.0.1-3",
     "description": "",
-    "main": "umd/bundle.js",
-    "module": "umd/bundle.js",
+    "main": "es/index.js",
+    "module": " es/index.js",
     "jsnext:main": "es/index.js",
     "typings": "es/index.d.ts",
     "scripts": {

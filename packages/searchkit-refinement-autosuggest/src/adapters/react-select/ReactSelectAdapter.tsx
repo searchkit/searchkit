@@ -8,8 +8,12 @@ import map from "lodash/map"
 import {AdapterProps} from "../AdapterProps"
 
 export class ReactSelectAdapter extends React.Component<AdapterProps, any> {
-
+    select:SelectAsync
+    lastEvent:String
     loadOptions = async (value) => {
+        if(this.lastEvent === 'blur'){
+            return {options:[]}
+        }
         let options = await this.props.loadOptions(value)
         
         options = options.map((item)=> {
@@ -25,6 +29,14 @@ export class ReactSelectAdapter extends React.Component<AdapterProps, any> {
         this.props.onSelect(map(selectedItems, 'value'))
     }
 
+    onFocus = (_e)=> {
+        this.lastEvent = "focus"
+        this.select['onInputChange']('')
+    }
+    onBlur = (_e)=> {
+        this.lastEvent = "blur"
+        console.log('blur', _e)
+    }
     render() {
         let { selectedValues, multi, itemComponent } = this.props
         let value: Options | Option
@@ -35,16 +47,19 @@ export class ReactSelectAdapter extends React.Component<AdapterProps, any> {
         } else {
             value = {value:selectedValues[0]}
         }        
-        console.log(value)
         return (  
             <SelectAsync
-                multi={multi}
-                autoload={true}
-                value={value}                
+                multi={multi}                
+                value={value} 
+                cache={false} 
+                autoload={false}              
                 valueRenderer={(item) => <span>{item.value}</span>}
                 optionRenderer={itemComponent}
                 onChange = { this.onSelect }
                 loadOptions={this.loadOptions}
+                ref={(ref)=> this.select = ref}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
             />
         )
     }
