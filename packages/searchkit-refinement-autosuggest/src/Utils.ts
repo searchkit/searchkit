@@ -12,6 +12,6 @@ export const createRegexQuery = (queryString) => {
     if (queryString.length > 2) {
         query = `([a-zA-Z]+ )+?${query}`
     }
-    return query
+    return query    
 }
 

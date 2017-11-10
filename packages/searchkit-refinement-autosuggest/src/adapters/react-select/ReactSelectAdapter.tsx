@@ -7,13 +7,17 @@ import property from "lodash/property"
 import map from "lodash/map"
 import {AdapterProps} from "../AdapterProps"
 
-
-
 export class ReactSelectAdapter extends React.Component<AdapterProps, any> {
 
     loadOptions = async (value) => {
         let options = await this.props.loadOptions(value)
-        return { options }
+        
+        options = options.map((item)=> {
+            item.label = item.key
+            item.value = item.key
+            return item
+        })
+        return {options}
     }
 
     onSelect = (selectedItems) => {
@@ -22,7 +26,7 @@ export class ReactSelectAdapter extends React.Component<AdapterProps, any> {
     }
 
     render() {
-        let { selectedValues, multi } = this.props
+        let { selectedValues, multi, itemComponent } = this.props
         let value: Options | Option
         if(multi){
             value = selectedValues.map((value) => {
@@ -31,15 +35,17 @@ export class ReactSelectAdapter extends React.Component<AdapterProps, any> {
         } else {
             value = {value:selectedValues[0]}
         }        
+        console.log(value)
         return (  
             <SelectAsync
                 multi={multi}
                 autoload={true}
-                value={value}
+                value={value}                
                 valueRenderer={(item) => <span>{item.value}</span>}
+                optionRenderer={itemComponent}
                 onChange = { this.onSelect }
                 loadOptions={this.loadOptions}
-                />
+            />
         )
     }
 }

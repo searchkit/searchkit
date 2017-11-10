@@ -3,23 +3,9 @@ import {
 } from "searchkit"
 import map from "lodash/map"
 import get from "lodash/get"
+import { createRegexQuery } from "./Utils"
 
 export class RefinementSuggestAccessor extends FacetAccessor {
-
-    sanitizeQuery(query) {
-        return query.replace(/[^\w\s]/g, "").toLowerCase()
-    }
-
-    createRegexQuery(query) {
-        query = this.sanitizeQuery(query)
-        query = map(query, (char:string) => {
-            if (/[a-z]/.test(char)) {
-                return `[${char}${char.toUpperCase()}]`
-            }
-            return char
-        }).join("")
-        return `.*${query}.*`
-    }
 
     buildOwnQuery(query) {
         return query
@@ -27,7 +13,7 @@ export class RefinementSuggestAccessor extends FacetAccessor {
 
     async search(query) {
         let sharedQuery = this.searchkit.accessors.buildSharedQuery(new ImmutableQuery())
-        this.options.include = this.createRegexQuery(query)
+        this.options.include = createRegexQuery(query)
         let searchQuery = super.buildOwnQuery(sharedQuery)
             .setSize(0)
 

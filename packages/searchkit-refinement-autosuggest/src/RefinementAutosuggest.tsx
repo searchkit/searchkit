@@ -4,10 +4,21 @@ import { RefinementSuggestAccessor } from "./RefinementAutosuggestAccessor"
 
 import { ReactSelectAdapter, AdapterProps } from "./adapters"
 
+export const RefinementAutosuggestItem = ({ key, doc_count }) => {
+    return (
+        <div className="sk-item-list-option sk-item-list__item" >
+            <div data-qa="label" className="sk-item-list-option__text">{key}</div>
+            <div data-qa="count" className="sk-item-list-option__count">{doc_count}</div>
+        </div>
+    )
+}
+
+
 export interface RefinementAutosuggestProps extends Partial<FacetAccessorOptions> {
     multi:boolean
     autosuggestComponent?: RenderComponentType<AdapterProps>,
     containerComponent?:RenderComponentType<any>
+    itemComponent?:RenderComponentType<any>
     size?:number
 }
 
@@ -16,6 +27,7 @@ export class RefinementAutosuggest extends SearchkitComponent<RefinementAutosugg
     static defaultProps = {
         containerComponent: Panel,
         autosuggestComponent: ReactSelectAdapter,
+        itemComponent: RefinementAutosuggestItem,
         multi: false,
         size:5
     }
@@ -29,12 +41,7 @@ export class RefinementAutosuggest extends SearchkitComponent<RefinementAutosugg
 
     search = async (query) => {
         let options = await this.accessor.search(query)
-        options = options.map((item) => {
-            return {
-                value: item.key,
-                label: `${item.key} ${item.doc_count}`
-            }
-        })
+            
         return options
     }
 
@@ -46,7 +53,7 @@ export class RefinementAutosuggest extends SearchkitComponent<RefinementAutosugg
     render() {
         let {
             containerComponent, autosuggestComponent,
-            id, title, multi
+            id, title, multi, itemComponent
         } = this.props
         let selectedValues = this.accessor.state.getValue()
 
@@ -58,7 +65,8 @@ export class RefinementAutosuggest extends SearchkitComponent<RefinementAutosugg
                     multi,
                     loadOptions: this.search,
                     onSelect: this.select,
-                    selectedValues
+                    selectedValues,
+                    itemComponent
                 })
             ))
     }

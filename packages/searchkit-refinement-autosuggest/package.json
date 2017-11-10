@@ -1,6 +1,6 @@
 {
     "name": "@searchkit/refinement-autosuggest",
-    "version": "0.0.1-0",
+    "version": "0.0.1-2",
     "description": "",
     "main": "umd/bundle.js",
     "module": "umd/bundle.js",
