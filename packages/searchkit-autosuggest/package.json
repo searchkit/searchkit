@@ -22,14 +22,13 @@
     "@types/react": "^15.6.5",
     "react": "^15.6.2",
     "rollup": "^0.51.2",
-    "rollup-plugin-commonjs": "^8.2.6",    
+    "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-license": "^0.5.0",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-postcss": "^0.5.5",    
+    "rollup-plugin-postcss": "^0.5.5",
     "rollup-plugin-typescript2": "^0.8.0",
     "rollup-plugin-uglify": "^2.0.1",
     "searchkit": "^2.3.0-9",
-    "temp-dir": "^1.0.0",
     "typescript": "^2.6.1"
   },
   "dependencies": {

@@ -16,3 +16,4 @@ unit-results.xml
 lerna-debug.log
 packages/searchkit/release
 **umd
+.rpt2_cache

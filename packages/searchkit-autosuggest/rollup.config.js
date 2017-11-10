@@ -30,7 +30,6 @@ export default {
         commonjs(),         
         resolve(),
         typescriptPlugin({
-            cacheRoot: `${require('temp-dir')} /.rpt2_cache`,
             typescript,
             tsconfigOverride:{
                 compilerOptions:{
