@@ -21,6 +21,11 @@ module.exports = {
         new webpack.BannerPlugin({ banner: copyrightBanner, entryOnly: true }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.ModuleConcatenationPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production'),
+            },
+        }),
         new webpack.optimize.UglifyJsPlugin({
             mangle: {
                 except: ['require', 'export', '$super']

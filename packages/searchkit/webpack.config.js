@@ -23,6 +23,7 @@ module.exports = {
   plugins: [
     new webpack.BannerPlugin({banner:copyrightBanner, entryOnly:true}),
     new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new ExtractTextPlugin("theme.css", {allChunks:true}),
     new webpack.DefinePlugin({
       'process.env': {
@@ -63,10 +64,15 @@ module.exports = {
     }
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.tsx?$/,
-        loaders: ['ts-loader'],
+        loader: 'ts-loader',
+        options:{
+          compilerOptions:{
+            declaration:false
+          }
+        },
         include: [path.join(__dirname, 'src'),path.join(__dirname, 'theming')]
       },
       {
