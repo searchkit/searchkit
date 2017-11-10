@@ -41,7 +41,7 @@ export default {
         uglify(),
         license({
             banner:{
-                file:path.join(__dirname, "BANNER")
+                file:path.join(__dirname, "../../BANNER")
             }
         })
     ]

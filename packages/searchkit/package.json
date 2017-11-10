@@ -4,7 +4,7 @@
   "description": "A suite of react components to help create a UI quickly for elasticsearch",
   "main": "lib/index.js",
   "module":"lib/index.js",
-  "jsnext":"es/index.js",
+  "jsnext:main":"es/index.js",
   "typings": "lib/index.d.ts",    
   "keywords": [
     "elasticsearch",

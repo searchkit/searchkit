@@ -8,6 +8,10 @@ import {
 } from "@searchkit/autosuggest"
 
 import {
+    RefinementAutosuggest
+} from "@searchkit/refinement-autosuggest"
+
+import {
   SearchkitManager, SearchkitProvider,
     SearchBox, Hits, RefinementListFilter, Pagination,
     HierarchicalMenuFilter, HitsStats, SortingSelector, NoHits,
@@ -98,12 +102,18 @@ const App = () => (
                             fields={["type.raw", "genres.raw"]}
                             title="Categories"
                             id="categories" />
-                        <RefinementListFilter
+                        {/*<RefinementListFilter
                             id="actors"
                             title="Actors"
                             field="actors.raw"
                             operator="AND"
-                            size={10} />
+                        size={10} />*/}
+                        <RefinementAutosuggest
+                            id="actors"
+                            title="Actors"
+                            field="actors.raw"
+                            multi={true}
+                            />
                     </SideBar>
                     <LayoutResults>
                         <ActionBar>
