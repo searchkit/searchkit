@@ -35,7 +35,6 @@ export class ReactSelectAdapter extends React.Component<AdapterProps, any> {
     }
     onBlur = (_e)=> {
         this.lastEvent = "blur"
-        console.log('blur', _e)
     }
     render() {
         let { selectedValues, multi, itemComponent } = this.props
@@ -53,6 +52,8 @@ export class ReactSelectAdapter extends React.Component<AdapterProps, any> {
                 value={value} 
                 cache={false} 
                 autoload={false}              
+                openOnFocus={true}
+                tabSelectsValue={false}
                 valueRenderer={(item) => <span>{item.value}</span>}
                 optionRenderer={itemComponent}
                 onChange = { this.onSelect }
