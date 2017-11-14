@@ -6,3 +6,4 @@ $CIRCLE_TEST_REPORTS
 _book
 coverage
 lib
+.idea
