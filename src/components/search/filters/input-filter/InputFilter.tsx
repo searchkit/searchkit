@@ -176,13 +176,13 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
   render() {
     const { containerComponent, title, id } = this.props
     const block = this.bemBlocks.container
-    const value = this.getValue()    
+    const value = this.getValue()
     return renderComponent(containerComponent, {
       title,
       className: id ? `filter--${id}` : undefined,
       disabled: (this.searchkit.getHitsCount() == 0) && (this.getAccessorValue() == "")
     },
-      <div className={block().state({focused:this.state.focused})}>
+      <div className={block().state({focused:this.state.focused}).toString()}>
         <form onSubmit={this.onSubmit.bind(this)}>
           <div className={block("icon")}></div>
           <input type="text"
