@@ -119,7 +119,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
       return input
     }
   }
-  
+
   getAccessorValue(){
     return (this.accessor.state.getValue() || "") + ""
   }
@@ -139,11 +139,11 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     if (!focused){
       const { input } = this.state
       if (this.props.blurAction == "search"
-        && !isUndefined(input) 
+        && !isUndefined(input)
         && input != this.getAccessorValue()){
         this.searchQuery(input)
       }
-      this.setState({ 
+      this.setState({
         focused,
         input: undefined // Flush (should use accessor's state now)
       })
@@ -156,7 +156,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
     let block = this.bemBlocks.container
 
     return (
-      <div className={block().state({focused:this.state.focused})}>
+      <div className={block().state({focused:this.state.focused}).toString()}>
         <form onSubmit={this.onSubmit.bind(this)}>
           <div className={block("icon")}></div>
           <input type="text"
