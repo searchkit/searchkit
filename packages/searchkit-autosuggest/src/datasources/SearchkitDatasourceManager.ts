@@ -33,7 +33,7 @@ export class SearchkitDatasourceManager implements DataSource {
     }
 
     async search(query = "") {
-        let sharedQuery = this.searchkit.accessors.buildSharedQuery(new ImmutableQuery())
+        let sharedQuery = new ImmutableQuery()
             .setSize(0)
         let searchQuery = reduce(this.sources, (searchQuery, source) => {
             return source.search(searchQuery, query)

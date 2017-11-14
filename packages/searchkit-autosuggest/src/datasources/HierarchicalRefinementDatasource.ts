@@ -64,7 +64,6 @@ export class HierarchicalRefinementDatasource implements SearchkitDatasource {
         return query.setAggs(FilterBucket(
             this.delegateAccessor.uuid,
             BoolMust([
-                // query.getFilters(),
                 NestedQuery(field, regexpQuery)
             ]),
             NestedBucket("children", field,
@@ -83,7 +82,7 @@ export class HierarchicalRefinementDatasource implements SearchkitDatasource {
                         size: this.options.size
                     },
                         TopHitsMetric("hits", {
-                            _source: [field + ".ancestors"],
+                            _source: [field + ".ancestors", "ancestors"],
                             size: 1
                         }))
                 )
@@ -117,7 +116,8 @@ export class HierarchicalRefinementDatasource implements SearchkitDatasource {
             item.select = () => {
                 this.onSelect(item)
             }
-            item.ancestors = get(item, `hits.hits.hits[0]._source.${field}.ancestors`, [])
+            item.hitSource = get(item, `hits.hits.hits[0]._source`, {});
+            item.ancestors = get(item.hitSource, `${field}.ancestors`, null) || item.hitSource['ancestors'] || []
             item._key = item.key
             if (item.ancestors.length > 1) {
                 item.key += " - " + last(item.ancestors)
