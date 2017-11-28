@@ -23,6 +23,11 @@ dependencies:
     - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
 
 deployment:
+  release:
+    tag: /^v[0-9]+(\.[0-9]+)$/
+    commands:
+      - (cd ./packages/searchkit && npm publish)
+
   beta:
     tag: /^v\d+\.\d+\.\d+\-\d+$/
     commands:
