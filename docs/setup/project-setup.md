@@ -51,4 +51,4 @@ Requires React, ReactDOM to be included before searchkit. Within the release fol
 
 ### Use
 
-[](codepen://searchkit/vLgLOw?height=800&defaultTab=js)
+[](https://codepen.io/searchkit/pen/vLgLOw)
