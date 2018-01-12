@@ -83,4 +83,4 @@ class App extends SearchkitComponent {
 
 
 ## Demo
-[Sample](http://codepen.io/searchkit/pen/zrNrzL)
+<iframe height='800' scrolling='no' src='//codepen.io/searchkit/embed/zrNrzL/?height=800&theme-id=0&default-tab=js,result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'></iframe>
