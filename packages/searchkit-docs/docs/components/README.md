@@ -4,8 +4,8 @@ To use searchkit, we need to instantiate a `SearchkitManager` with a elastic lik
 We then wrap a searchkit app and render to the page.
 
 ```js
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
 
 import {
   SearchkitManager, SearchkitProvider
