@@ -1,7 +1,7 @@
 # Table of Contents
 
 * [Getting Started](./setup/README.md)
-  * [Project Setup & use](./setup/project-setup.md)
+  * [Project Setup & Use](./setup/project-setup.md)
   * [Connecting Elasticsearch](./setup/elasticsearch.md)
   * [Indexing](./setup/indexing.md)
   * [Using components](./setup/using-components.md)
