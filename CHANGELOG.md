@@ -164,7 +164,7 @@
 <link href="//cdn.jsdelivr.net/searchkit/0.7.0/theme.css" rel="stylesheet"/>
 ```
 - [Example pull request to update to 0.7.0](https://github.com/PAK90/Gatherer2/pull/2/files)
-- [Searchkit Theming documentation](http://docs.searchkit.co/stable/docs/theming/using-searchkit-theme.html)
+- [Searchkit Theming documentation](http://docs.searchkit.co/stable/theming/using-searchkit-theme.html)
 
 
 ### Notable Changes
@@ -271,7 +271,7 @@ if you previously extended HitStats, you will need to change your code to use th
 ## 0.2.0 (11 Jan, 2016)
 
 ### New
-* New [Hierarchical Filter Component](http://docs.searchkit.co/stable/docs/components/navigation/hierarchical-refinement-filter.html)
+* New [Hierarchical Filter Component](http://docs.searchkit.co/stable/components/navigation/hierarchical-refinement-filter.html)
 
 ### Improvements
 * `Searchbox`: `prefixQueryFields` uses `queryFields` if not specified and `searchOnChange` prop is enabled
