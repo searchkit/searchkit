@@ -1,14 +1,6 @@
 @import "vars.scss";
 @import "components.scss";
 
-body {
-  margin:0;
-}
-
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
 .sk-layout {
   box-sizing: border-box;
   background: $sk-layout-background;
