@@ -14,13 +14,13 @@ import {
 } from "../../"
 
 export interface ViewSwitcherConfigProps extends SearchkitComponentProps {
-	hitComponents:[{
+	hitComponents:Array<{
 		key:string,
 		title:string,
 		itemComponent?:RenderComponentType<HitItemProps>,
 		listComponent?:RenderComponentType<HitsListProps>,
 		defaultOption?:boolean
-	}]
+	}>
 }
 
 export class ViewSwitcherConfig extends SearchkitComponent<ViewSwitcherConfigProps, any> {
