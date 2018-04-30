@@ -207,7 +207,7 @@ class App extends React.Component<any, any> {
                 <SelectedFilters/>
               </Panel>
               <CheckboxFilter id="rated-r" title="Rating" label="Rated R" filter={TermQuery("rated.raw", 'R')} />
-              <CheckboxFilter id="recent" title="Date" label="Recent" filter={RangeQuery("year", {gt: 2012})} />
+              <CheckboxFilter id="recent" title="Date" label={<i>Recent</i>} filter={RangeQuery("year", {gt: 2012})} />
               <CheckboxFilter id="old-movies" title="Movile filter" label="Old movies" filter={
                 BoolMust([
                   RangeQuery("year", {lt: 1970}),
