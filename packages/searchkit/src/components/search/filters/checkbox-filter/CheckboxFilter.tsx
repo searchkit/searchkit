@@ -1,3 +1,4 @@
+import * as React from 'react'
 import * as PropTypes from "prop-types";
 
 import {
@@ -13,12 +14,13 @@ import {
 } from "../../../ui"
 
 const defaults = require("lodash/defaults")
+const isUndefined = require("lodash/isUndefined")
 
 export interface CheckboxFilterProps extends SearchkitComponentProps {
   id: string
   filter: any
   title: string
-  label: string
+  label: string | Element | RenderComponentType<any>
   containerComponent?: RenderComponentType<any>
   listComponent?: RenderComponentType<any>
   showCount?: boolean
@@ -30,7 +32,16 @@ export class CheckboxFilter extends SearchkitComponent<CheckboxFilterProps, any>
   static propTypes = defaults({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
+    label: PropTypes.oneOfType([
+      PropTypes.string,
+      function(props:any, propName: string) {
+         if(isUndefined(props[propName]) || (props[propName]["prototype"] instanceof React.Component)) {
+           return null
+         }
+      },
+      PropTypes.element,
+      PropTypes.func
+    ]),
     filter: PropTypes.object.isRequired,
     translations: SearchkitComponent.translationsPropType(
         CheckboxFilterAccessor.translations
