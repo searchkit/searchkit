@@ -24,6 +24,15 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
       - run: "yarn"
       - run: "yarn workspace searchkit test:ci"
+  features_test:
+    docker:
+      - image: cypress/base:6
+    working_directory: ~/searchkit
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run: "yarn"
       - run: "yarn workspace searchkit-e2e-tests test:ci"
 workflows:
   version: 2
@@ -31,6 +40,9 @@ workflows:
     jobs:
       - build
       - test:
+          requires:
+            - build
+      - features_test:
           requires:
             - build
         
