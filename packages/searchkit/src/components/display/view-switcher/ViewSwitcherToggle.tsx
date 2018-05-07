@@ -34,7 +34,7 @@ export class ViewSwitcherToggle extends SearchkitComponent<ViewSwitcherProps, an
     this.getViewOptionsSwitcherAccessor().setView(view)
   }
 
-  render() {
+  render(): React.ReactElement<any> {
     let viewOptionsAccessor = this.getViewOptionsSwitcherAccessor()
     if(viewOptionsAccessor){
       let options = viewOptionsAccessor.options

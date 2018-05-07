@@ -22,7 +22,8 @@
         "url": "https://github.com/searchkit/searchkit.git"
     },
     "scripts": {
-        "lerna": "lerna"
+        "build": "lerna run build",
+        "clean": "lerna clean"
     },
     "authors": [
         {
@@ -43,6 +44,9 @@
     "license": "Apache-2.0",
     "dependencies": {},
     "devDependencies": {
-        "lerna": "2.4.0"
-    }
+        "lerna": "^2.11.0"
+    },
+    "workspaces": [
+      "packages/*"
+    ]
 }

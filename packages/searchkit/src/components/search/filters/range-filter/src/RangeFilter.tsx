@@ -106,7 +106,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	  }
 	}
 
-	render() {
+  render() : React.ReactElement<any> {
     const { id, title, containerComponent } = this.props
 
     return renderComponent(containerComponent, {
@@ -116,7 +116,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
     }, this.renderRangeComponent(this.getRangeComponent()))
   }
 
-  renderRangeComponent(component: RenderComponentType<any>) {
+  renderRangeComponent(component: RenderComponentType<any>) : React.ReactElement<any> {
     const { min, max, rangeFormatter, marks } = this.props
     const state = this.accessor.state.getValue()
     return renderComponent(component, {

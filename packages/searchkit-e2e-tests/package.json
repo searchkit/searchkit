@@ -1,6 +1,7 @@
 {
     "private": true,
     "name": "searchkit-e2e-tests",
+    "version": "0.0.1",
     "scripts": {
         "start": "node src/start.js",
         "start:prod": "NODE_ENV=production node src/start.js",
@@ -10,7 +11,7 @@
     },
     "dependencies": {
         "@types/node": "^8.0.46",
-        "@types/react": "^15.6.4",
+        "@types/react": "^16.0.0",
         "css-loader": "^0.28.7",
         "cypress": "^1.0.2",
         "ejs": "^2.5.7",
@@ -19,8 +20,8 @@
         "lodash": "^4.17.4",
         "node-sass": "^4.5.3",
         "raw-loader": "^0.5.1",
-        "react": "^15.6.2",
-        "react-dom": "^15.6.2",
+        "react": "^16.3.2",
+        "react-dom": "^16.3.2",
         "react-router": "^4.2.0",
         "sass-loader": "^6.0.6",
         "searchkit": "^2.3.0-6",
@@ -32,6 +33,7 @@
         "webpack-hot-middleware": "^2.20.0"
     },
     "devDependencies": {
-        "webpack-dev-middleware": "^1.12.0"
+        "webpack-dev-middleware": "^1.12.0",
+        "webpack-node-externals":"~1.7.2"
     }
 }

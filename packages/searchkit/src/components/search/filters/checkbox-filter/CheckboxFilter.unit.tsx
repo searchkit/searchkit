@@ -1,6 +1,6 @@
 import * as React from "react";;
 import {mount, render} from "enzyme";
-import { fastClick, hasClass} from "../../../__test__/TestHelpers"
+import { fastClick} from "../../../__test__/TestHelpers"
 import {CheckboxFilter} from "./CheckboxFilter";
 import {SearchkitManager, Utils} from "../../../../core";
 import {Toggle, ItemComponent} from "../../../ui";
@@ -53,8 +53,9 @@ describe("CheckboxFilter tests", () => {
   it('clicks options', () => {
     expect(this.accessor.state.getValue()).toEqual(null)
     let option = this.wrapper.find(".sk-item-list").children().at(0)
+    expect(this.wrapper).toMatchSnapshot("option is not active")
     fastClick(option)
-    expect(hasClass(option, "is-active")).toBe(true)
+    expect(this.wrapper).toMatchSnapshot("option is active")
     expect(this.accessor.state.getValue()).toEqual(true)
     fastClick(option)
     expect(this.accessor.state.getValue()).toEqual(false) // Back to null ?
@@ -74,7 +75,8 @@ describe("CheckboxFilter tests", () => {
   })
 
   it("can disable", () => {
-    expect(hasClass(this.wrapper.find(".sk-panel"), "is-disabled")).toBe(false)
+    expect(this.wrapper).toMatchSnapshot("panel is not disabled")
+
     this.searchkit.setResults({
       hits:{ total:0 },
       aggregations: {
@@ -83,13 +85,14 @@ describe("CheckboxFilter tests", () => {
         }
       }
     })
-    expect(hasClass(this.wrapper.find(".sk-panel"), "is-disabled")).toBe(true)
+    expect(this.wrapper).toMatchSnapshot("panel is disabled")
 
     expect(this.accessor.state.getValue()).toEqual(null)
     let option = this.wrapper.find(".sk-item-list").children().at(0)
     fastClick(option)
     expect(this.accessor.state.getValue()).toEqual(true)
 
-    expect(hasClass(this.wrapper.find(".sk-panel"), "is-disabled")).toBe(false)
+    expect(this.wrapper).toMatchSnapshot("panel is not disabled again")
+
   })
 });

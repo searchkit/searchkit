@@ -2,7 +2,7 @@ import * as React from "react";
 import * as PropTypes from "prop-types";
 import {mount} from "enzyme";
 import {
-  fastClick, hasClass, printPrettyHtml
+  fastClick
 } from "../../../components/__test__/TestHelpers"
 
 import {Panel} from "../../../components"
@@ -96,7 +96,6 @@ describe("RenderComponent", ()=> {
     spyOn(console, "warn")
     try{
       this.mount(10)
-      // printPrettyHtml(this.wrapper.html())
     } catch (e){
 
     }

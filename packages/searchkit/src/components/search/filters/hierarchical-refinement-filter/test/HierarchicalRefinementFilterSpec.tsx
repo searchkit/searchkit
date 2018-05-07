@@ -1,6 +1,6 @@
 import * as React from "react";
 import {mount} from "enzyme";
-import {fastClick, hasClass, printPrettyHtml} from "../../../../__test__/TestHelpers"
+import {fastClick} from "../../../../__test__/TestHelpers"
 import {HierarchicalRefinementFilter} from "../src/HierarchicalRefinementFilter"
 import {SearchkitManager, NestedFacetAccessor} from "../../../../../core"
 import * as _ from "lodash"
@@ -11,12 +11,15 @@ describe("Refinement List Filter tests", () => {
   beforeEach(() => {
     this.searchkit = SearchkitManager.mock()
     spyOn(this.searchkit, "performSearch")
-    this.wrapper = mount(
-      <HierarchicalRefinementFilter
-        countFormatter={(count)=> "#"+count}
-        field="test" id="testid" title="test title"
-        searchkit={this.searchkit} />
-    );
+    this.mount = () => {
+      this.wrapper = mount(
+        <HierarchicalRefinementFilter
+          countFormatter={(count)=> "#"+count}
+          field="test" id="testid" title="test title"
+          searchkit={this.searchkit} />
+      );
+    }
+    this.mount()
     this.accessor = this.searchkit.getAccessorByType(NestedFacetAccessor)
     this.setResults = ()=> {
       this.searchkit.setResults({
@@ -85,6 +88,8 @@ describe("Refinement List Filter tests", () => {
 
   it("handle clicking an option", ()=> {
     this.setResults()
+    this.wrapper = this.wrapper.update()
+
     let option2 = this.wrapper
       .find(".sk-hierarchical-refinement-list__hierarchical-options")
       .children().at(1)
@@ -92,7 +97,6 @@ describe("Refinement List Filter tests", () => {
     fastClick(option2)
     expect(this.accessor.state.getValue())
       .toEqual([ ["option2"] ])
-
   })
 
   it("should add disabled state when no results", ()=> {

@@ -18,7 +18,7 @@ describe("Select", ()=> {
 
     const optionC = this.wrapper.find("select").children().at(2)
     optionC.simulate("change")
-    expect(this.wrapper.node.state.setItems).toHaveBeenCalledWith(["c"])
+    expect(this.wrapper.instance().state.setItems).toHaveBeenCalledWith(["c"])
     this.wrapper.setProps({disabled:true})
     expect(this.wrapper.find(".sk-select").hasClass("is-disabled")).toBe(true)
   })

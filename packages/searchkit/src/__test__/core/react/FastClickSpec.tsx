@@ -27,8 +27,8 @@ describe("FastClick - fast", ()=> {
   })
 
   it("should render children", ()=> {
-    expect(this.wrapper.html())
-      .toEqual("<button>click me</button>")
+    expect(this.wrapper)
+      .toMatchSnapshot()
   })
 
   it("test mousedown", ()=> {
@@ -42,7 +42,7 @@ describe("FastClick - fast", ()=> {
   describe("Touch events", ()=> {
 
     beforeEach(()=> {
-      this.fastClick = this.wrapper.find('FastClickComponent').node
+      this.fastClick = this.wrapper.find('FastClickComponent').instance()
       this.simulateTouch = (event, x, y)=> {
         this.wrapper.simulate(event, {
           changedTouches:[ {pageX:x, pageY:y} ]

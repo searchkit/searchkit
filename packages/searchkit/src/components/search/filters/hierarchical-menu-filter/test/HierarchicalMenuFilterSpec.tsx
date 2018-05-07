@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {HierarchicalMenuFilter} from "../src/HierarchicalMenuFilter";
-import {fastClick, hasClass, printPrettyHtml} from "../../../../__test__/TestHelpers"
+import {fastClick} from "../../../../__test__/TestHelpers"
 import { SearchkitManager, HierarchicalFacetAccessor} from "../../../../../core";
 ;
 import * as sinon from "sinon";
@@ -12,13 +12,16 @@ describe("HierarchicalMenuFilter tests", () => {
   beforeEach(()=> {
     this.searchkit = SearchkitManager.mock()
     spyOn(this.searchkit, "performSearch")
-    this.wrapper = mount(
-      <HierarchicalMenuFilter searchkit={this.searchkit}
-        title="Categories" id="categories" orderKey="_term" orderDirection="asc"
-        countFormatter={(count)=> "#"+count}
-        fields={["lvl1", "lvl2"]}
-      />
-    )
+    this.mount = () => {
+      this.wrapper = mount(
+        <HierarchicalMenuFilter searchkit={this.searchkit}
+          title="Categories" id="categories" orderKey="_term" orderDirection="asc"
+          countFormatter={(count)=> "#"+count}
+          fields={["lvl1", "lvl2"]}
+        />
+      )
+    }
+    this.mount()
     this.accessor = this.searchkit.getAccessorByType(HierarchicalFacetAccessor)
     this.setResults = ()=> {
       this.searchkit.setResults({
@@ -57,11 +60,13 @@ describe("HierarchicalMenuFilter tests", () => {
       ["Red"], ["Maroon"]
     ])
     this.setResults()
+    this.wrapper = this.wrapper.update()
     expect(this.wrapper).toMatchSnapshot()
   })
 
   it("should handle selecting an option", ()=> {
     this.setResults()
+    this.wrapper = this.wrapper.update()
     let redOption = this.wrapper.find(".sk-hierarchical-menu-list__hierarchical-options")
       .children().at(0).find(".sk-hierarchical-menu-option")
     fastClick(redOption)

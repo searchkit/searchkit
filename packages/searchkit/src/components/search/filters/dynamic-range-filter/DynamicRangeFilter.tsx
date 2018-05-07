@@ -99,7 +99,7 @@ export class DynamicRangeFilter extends SearchkitComponent<DynamicRangeFilterPro
 		this.searchkit.performSearch()
 	}
 
-	render() {
+	render(): React.ReactElement<any> {
     const { id, title, containerComponent } = this.props
 
     return renderComponent(containerComponent, {
@@ -109,7 +109,7 @@ export class DynamicRangeFilter extends SearchkitComponent<DynamicRangeFilterPro
     }, this.renderRangeComponent(this.props.rangeComponent))
   }
 
-  renderRangeComponent(component: RenderComponentType<any>) {
+  renderRangeComponent(component: RenderComponentType<any>) : React.ReactElement<any> {
     const {min, max} = this.getMinMax()
 		const {rangeFormatter} = this.props
     const state = this.accessor.state.getValue()

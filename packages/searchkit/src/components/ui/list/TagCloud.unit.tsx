@@ -18,9 +18,9 @@ describe("TagCloud", ()=> {
     this.wrapper.setProps({disabled:true})
     expect(this.wrapper.find(".sk-tag-cloud").hasClass("is-disabled")).toBe(true)
 
-    expect(this.wrapper.node.state.toggleItem).not.toHaveBeenCalled()
+    expect(this.wrapper.instance().state.toggleItem).not.toHaveBeenCalled()
     fastClick(this.wrapper.find(".sk-tag-cloud__item").at(2))
-    expect(this.wrapper.node.state.toggleItem).toHaveBeenCalledWith("c")
+    expect(this.wrapper.instance().state.toggleItem).toHaveBeenCalledWith("c")
   })
 
   it("should sort items", () => {

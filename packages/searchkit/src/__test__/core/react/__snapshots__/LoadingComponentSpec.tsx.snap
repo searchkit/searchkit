@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchkitProvider display children when loading 1`] = `<p>loading...</p>`;
+
+exports[`SearchkitProvider display nothing when not loading 1`] = `<div></div>`;
