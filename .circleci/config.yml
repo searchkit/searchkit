@@ -7,10 +7,10 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: searchkit-cache-{{ checksum "package.json" }}
       - run: "yarn"
       - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: searchkit-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
             - packages/searchkit/node_modules
@@ -24,7 +24,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: searchkit-cache-{{ checksum "package.json" }}
       - run: "yarn"
       - run: "yarn workspace searchkit test:ci"
   features_test:
@@ -34,7 +34,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: searchkit-cache-{{ checksum "package.json" }}
       - run: "npm install -g yarn"
       - run: "yarn"
       - run: "yarn workspace searchkit-e2e-tests test:ci"
