@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {SearchBox} from "./SearchBox";
 import {SearchkitManager, QueryString, QueryAccessor } from "../../../core"
 import {
-  fastClick, hasClass, printPrettyHtml
+  fastClick
 } from "../../__test__/TestHelpers"
 
 const throttle = require('lodash/throttle')
@@ -46,8 +46,7 @@ describe("Searchbox tests", () => {
 
   it("render", () => {
     this.createWrapper()
-    expect(this.wrapper.find(".sk-search-box__text").get(0).placeholder).toBe("search movies")
-    expect(this.wrapper.find(".sk-search-box__action").get(0).value).toEqual("Go")
+    expect(this.wrapper).toMatchSnapshot()
   })
 
   it("search on change", () => {
@@ -58,7 +57,7 @@ describe("Searchbox tests", () => {
     this.typeSearch("ma")
     expect(this.accessor.state.getValue()).toBe("ma")
     expect(this.searchkit.performSearch.calls.count()).toEqual(1)
-    this.wrapper.node.throttledSearch.flush()
+    this.wrapper.instance().throttledSearch.flush()
     expect(this.searchkit.performSearch.calls.count()).toEqual(2)
   })
 
@@ -70,14 +69,14 @@ describe("Searchbox tests", () => {
         queries.push(this.searchkit.buildQuery())
       }
       this.createWrapper(true)
-      expect(this.wrapper.node.props.searchThrottleTime).toBe(200)
+      expect(this.wrapper.instance().props.searchThrottleTime).toBe(200)
       this.typeSearch("m")
-      this.wrapper.node.throttledSearch.flush()
+      this.wrapper.instance().throttledSearch.flush()
       expect(queries.length).toBe(1)
       expect(queries[0].getQueryString()).toBe("m")
       this.typeSearch("ma")
       expect(queries.length).toBe(1)
-      this.wrapper.node.throttledSearch.flush()
+      this.wrapper.instance().throttledSearch.flush()
       expect(queries.length).toBe(2)
       expect(queries[1].getQueryString()).toBe("ma")
     })
@@ -148,11 +147,11 @@ describe("Searchbox tests", () => {
       this.wrapper.find(".sk-search-box")
         .hasClass("is-focused")
     ).toBe(false)
-    expect(this.wrapper.node.state)
+    expect(this.wrapper.instance().state)
       .toEqual({ focused:false, input: undefined })
     this.wrapper.find(".sk-search-box__text")
       .simulate("focus")
-    expect(this.wrapper.node.state)
+    expect(this.wrapper.instance().state)
       .toEqual({ focused:true, input: undefined })
     this.wrapper.update()
     expect(
@@ -170,19 +169,19 @@ describe("Searchbox tests", () => {
         blurAction:"restore"
       })
       this.typeSearch("la")
-      expect(this.wrapper.node.getValue() ).toEqual("la")
+      expect(this.wrapper.instance().getValue() ).toEqual("la")
       this.accessor.fromQueryObject({
         q:"foo"
       })
-      expect(this.wrapper.node.getValue() ).toEqual("foo")
+      expect(this.wrapper.instance().getValue() ).toEqual("foo")
 
       this.typeSearch("bar")
-      expect(this.wrapper.node.getValue()).toEqual("bar")
+      expect(this.wrapper.instance().getValue()).toEqual("bar")
       this.wrapper.find(".sk-search-box__text")
         .simulate("blur")
 
       // should be restored to previous value
-      expect(this.wrapper.node.getValue()).toEqual("foo")
+      expect(this.wrapper.instance().getValue()).toEqual("foo")
       expect(this.searchkit.performSearch).not.toHaveBeenCalled()
 
     })
@@ -192,19 +191,19 @@ describe("Searchbox tests", () => {
         blurAction:"search"
       })
       this.typeSearch("la")
-      expect(this.wrapper.node.getValue() ).toEqual("la")
+      expect(this.wrapper.instance().getValue() ).toEqual("la")
       this.accessor.fromQueryObject({
         q:"foo"
       })
-      expect(this.wrapper.node.getValue() ).toEqual("foo")
+      expect(this.wrapper.instance().getValue() ).toEqual("foo")
 
       this.typeSearch("bar")
-      expect(this.wrapper.node.getValue()).toEqual("bar")
+      expect(this.wrapper.instance().getValue()).toEqual("bar")
       this.wrapper.find(".sk-search-box__text")
         .simulate("blur")
 
       // should flush value + search
-      expect(this.wrapper.node.getValue()).toEqual("bar")
+      expect(this.wrapper.instance().getValue()).toEqual("bar")
       expect(this.searchkit.performSearch).toHaveBeenCalled()
 
     })

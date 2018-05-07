@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {NumericRefinementListFilter} from "../src/NumericRefinementListFilter";
-import {fastClick, hasClass, printPrettyHtml} from "../../../../__test__/TestHelpers"
+import {fastClick} from "../../../../__test__/TestHelpers"
 import {SearchkitManager, Utils, NumericOptionsAccessor} from "../../../../../core";
 import {Select} from "../../../../ui";
 ;
@@ -72,13 +72,15 @@ describe("NumericRefinementListFilter tests", () => {
     this.setWrapper()
     this.accessor.state = this.accessor.state.setValue(["21_41"])
     this.setResults()
+    this.wrapper = this.wrapper.update()
     let lastOption = this.getOptionAt(2)
-    expect(hasClass(lastOption, "is-active")).toBe(true)
+    expect(lastOption.hasClass("is-active")).toBe(true)
   })
 
   it("should handle clicking an option", () => {
     this.setWrapper()
     this.setResults()
+    this.wrapper = this.wrapper.update()
     let secondOption = this.getOptionAt(1)
     let thirdOption = this.getOptionAt(2)
     fastClick(secondOption)

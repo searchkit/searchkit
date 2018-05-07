@@ -6,7 +6,7 @@ import {
 } from "../../../../core";
 
 import {
-  fastClick, hasClass, printPrettyHtml
+  fastClick
 } from "../../../__test__/TestHelpers"
 
 import {
@@ -70,8 +70,7 @@ describe("InputFilter tests", () => {
 
   it("render", () => {
     this.createWrapper()
-    expect(this.wrapper.find(".sk-input-filter__text").get(0).placeholder).toBe("search placeholder")
-    expect(this.wrapper.find(".sk-input-filter__action").get(0).value).toBe("submit")
+    expect(this.wrapper).toMatchSnapshot()
   })
 
   it("toggles visibility", () => {
@@ -80,15 +79,17 @@ describe("InputFilter tests", () => {
     this.createWrapper(true)
 
     this.setEmptyResults()
-    expect(hasClass(this.wrapper.find(".sk-panel"), "is-disabled")).toBe(true)
+    this.wrapper = this.wrapper.update()
+    expect(this.wrapper.find(".sk-panel").hasClass("is-disabled")).toBe(true)
 
     this.setResults()
-    expect(hasClass(this.wrapper.find(".sk-panel"), "is-disabled")).toBe(false)
+    this.wrapper = this.wrapper.update()
+    expect(this.wrapper.find(".sk-panel").hasClass("is-disabled")).toBe(false)
 
     // Don't hide if active filter
     this.typeSearch("noresults")
     this.setEmptyResults()
-    expect(hasClass(this.wrapper.find(".sk-panel"), "is-disabled")).toBe(false)
+    expect(this.wrapper.find(".sk-panel").hasClass("is-disabled")).toBe(false)
   })
 
   it("should allow custom mod and className", () => {
@@ -109,7 +110,7 @@ describe("InputFilter tests", () => {
     this.typeSearch("ma")
     expect(this.accessor.state.getValue()).toBe("ma")
     expect(spy.callCount).toBe(1) // throttling should block it
-    this.wrapper.node.throttledSearch.flush()
+    this.wrapper.instance().throttledSearch.flush()
     expect(spy.callCount).toBe(2)
   })
 
@@ -119,14 +120,14 @@ describe("InputFilter tests", () => {
       queries.push(this.searchkit.buildQuery())
     }
     this.createWrapper(true)
-    expect(this.wrapper.node.props.searchThrottleTime).toBe(200)
+    expect(this.wrapper.instance().props.searchThrottleTime).toBe(200)
     this.typeSearch("m")
-    this.wrapper.node.throttledSearch.flush()
+    this.wrapper.instance().throttledSearch.flush()
     expect(queries.length).toBe(1)
     expect(queries[0].getSelectedFilters()[0].value).toBe("m")
     this.typeSearch("ma")
     expect(queries.length).toBe(1)
-    this.wrapper.node.throttledSearch.flush()
+    this.wrapper.instance().throttledSearch.flush()
     expect(queries.length).toBe(2)
     expect(queries[1].getSelectedFilters()[0].value).toBe("ma")
   })
@@ -153,16 +154,16 @@ describe("InputFilter tests", () => {
     this.createWrapper(false)
     this.setResults()
 
-    expect(hasClass(this.wrapper.find(".sk-input-filter__remove"), "is-hidden")).toBe(true)
+    expect(this.wrapper.find(".sk-input-filter__remove").hasClass("is-hidden")).toBe(true)
     this.typeSearch('ma')
-    expect(hasClass(this.wrapper.find(".sk-input-filter__remove"), "is-hidden")).toBe(false)
+    expect(this.wrapper.find(".sk-input-filter__remove").hasClass("is-hidden")).toBe(false)
     expect(spy.callCount).toBe(0)
     this.wrapper.find("form").simulate("submit")
     expect(spy.callCount).toBe(1)
     this.wrapper.find(".sk-input-filter__remove").simulate("click")
     expect(this.accessor.state.getValue()).toBe(null)
     expect(spy.callCount).toBe(2)
-    expect(hasClass(this.wrapper.find(".sk-input-filter__remove"), "is-hidden")).toBe(true)
+    expect(this.wrapper.find(".sk-input-filter__remove").hasClass("is-hidden")).toBe(true)
   })
 
   it("should configure accessor defaults correctly", ()=> {
@@ -226,7 +227,7 @@ describe("InputFilter tests", () => {
     this.createWrapper(true, ["title"], ["prefix"], {
       containerComponent: <Panel collapsable={true} />
     })
-    expect(hasClass(this.wrapper.find(".sk-panel__header"), "is-collapsable")).toBe(true)
+    expect(this.wrapper.find(".sk-panel__header").hasClass("is-collapsable")).toBe(true)
   })
 
   describe("url change + blurAction", ()=> {
@@ -236,19 +237,19 @@ describe("InputFilter tests", () => {
         blurAction:"restore"
       })
       this.typeSearch("la")
-      expect(this.wrapper.node.getValue() ).toEqual("la")
+      expect(this.wrapper.instance().getValue() ).toEqual("la")
       this.accessor.fromQueryObject({
         test_id:"foo"
       })
-      expect(this.wrapper.node.getValue() ).toEqual("foo")
+      expect(this.wrapper.instance().getValue() ).toEqual("foo")
 
       this.typeSearch("bar")
-      expect(this.wrapper.node.getValue()).toEqual("bar")
+      expect(this.wrapper.instance().getValue()).toEqual("bar")
       this.wrapper.find(".sk-input-filter__text")
         .simulate("blur")
 
       // should be restored to previous value
-      expect(this.wrapper.node.getValue()).toEqual("foo")
+      expect(this.wrapper.instance().getValue()).toEqual("foo")
       expect(this.searchkit.performSearch).not.toHaveBeenCalled()
 
     })
@@ -258,19 +259,19 @@ describe("InputFilter tests", () => {
         blurAction:"search"
       })
       this.typeSearch("la")
-      expect(this.wrapper.node.getValue() ).toEqual("la")
+      expect(this.wrapper.instance().getValue() ).toEqual("la")
       this.accessor.fromQueryObject({
         test_id:"foo"
       })
-      expect(this.wrapper.node.getValue() ).toEqual("foo")
+      expect(this.wrapper.instance().getValue() ).toEqual("foo")
 
       this.typeSearch("bar")
-      expect(this.wrapper.node.getValue()).toEqual("bar")
+      expect(this.wrapper.instance().getValue()).toEqual("bar")
       this.wrapper.find(".sk-input-filter__text")
         .simulate("blur")
 
       // should flush value + search
-      expect(this.wrapper.node.getValue()).toEqual("bar")
+      expect(this.wrapper.instance().getValue()).toEqual("bar")
       expect(this.searchkit.performSearch).toHaveBeenCalled()
 
     })

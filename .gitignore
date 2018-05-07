@@ -14,3 +14,6 @@ unit-results.xml
 **/cypress/screenshots
 lerna-debug.log
 packages/searchkit/release
+yarn-error.log
+package-lock.json
+.DS_Store

@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {ResetFilters} from "../src/ResetFilters";
 import {SearchkitManager, ImmutableQuery, ResetSearchAccessor} from "../../../../../core";
 import {
-  fastClick, hasClass, printPrettyHtml
+  fastClick
 } from "../../../../__test__/TestHelpers"
 
 import * as sinon from "sinon";
@@ -33,20 +33,14 @@ describe("Reset Filter tests", () => {
   })
 
   it('renders correctly', () => {
-    this.createWrapper()
     this.searchkit.query.getSelectedFilters = () => {return []}
-    let elem = this.wrapper.find(".sk-reset-filters")
+    this.wrapper = this.wrapper.update()
 
-    this.wrapper.update()
-    expect(elem.hasClass("is-disabled")).toBe(true)
+    expect(this.wrapper).toMatchSnapshot("filter disabled");
 
     this.searchkit.query.getSelectedFilters = () => {return [1]}
-
-    this.wrapper.update()
-    expect(elem.hasClass("is-disabled")).toBe(false)
-
-    expect(elem.text()).toBe("reset filters")
-    expect(this.wrapper).toMatchSnapshot()
+    this.createWrapper()
+    expect(this.wrapper).toMatchSnapshot("filter enabled");
   });
 
   it("handles reset click", () => {

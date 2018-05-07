@@ -8,7 +8,7 @@ import { TagFilter } from "./TagFilter"
 
 export interface TagFilterListProps extends SearchkitComponentProps {
   field: string
-  values: [string]
+  values: Array<string>
   children?: React.ReactChildren
 }
 

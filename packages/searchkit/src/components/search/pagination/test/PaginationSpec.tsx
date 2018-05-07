@@ -4,7 +4,7 @@ import {Pagination, PaginationSelect} from "../src/Pagination";
 import {SearchkitManager, ImmutableQuery} from "../../../../core";
 import {Select} from "../../../ui";
 import {
-  fastClick, hasClass, printPrettyHtml
+  fastClick
 } from "../../../__test__/TestHelpers"
 import * as sinon from "sinon";
 
@@ -43,17 +43,9 @@ describe("Pagination tests", () => {
 
     beforeEach(() => {
 
-      this.checkActionStates = (page, prevDisabled, nextDisabled, pages) => {
+      this.checkActionStates = (page) => {
         this.accessor.state = this.accessor.state.setValue(page)
-        this.wrapper.update()
-        expect(this.wrapper.find(".sk-toggle__item").first()
-          .hasClass("is-disabled")).toBe(prevDisabled)
-        expect(this.wrapper.find(".sk-toggle__item").last()
-          .hasClass("is-disabled")).toBe(nextDisabled)
-        const pageNumbers = this.wrapper.find(".sk-toggle__item");
-        const pageNumberTexts = pageNumbers.map(e => e.text())
-        expect(pageNumberTexts).toEqual(pages);
-
+        this.wrapper.update();
       }
     })
 
@@ -70,40 +62,43 @@ describe("Pagination tests", () => {
     it('renders first page options', () => {
       this.createWrapper()
       this.checkActionStates(
-        null,true,  false,
-        ['Previous Page','1', '2', '3', '4', '...', 'Next']
+        null
       )
+      this.createWrapper()
+      expect(this.wrapper).toMatchSnapshot("first page options")
     })
 
     it('renders second page options', () => {
       this.createWrapper()
       this.checkActionStates(
-        2, false, false,
-        ['Previous Page', '1', '2', '3', '4', '5', '...', 'Next']
-      )
+        2)
+      this.createWrapper()
+      expect(this.wrapper).toMatchSnapshot("second page options")
     })
 
     it('renders eighth page options', () => {
       this.createWrapper()
       this.checkActionStates(
-        8, false, true,
-        ['Previous Page', '1', '...', '5', '6', '7', '8', 'Next']
+        8
       )
+      this.createWrapper()
+      expect(this.wrapper).toMatchSnapshot("eighth page options")
     })
 
     it("handles showNumbers prop", () => {
       this.createWrapper(false)
-      this.checkActionStates(4, false, false, [
-        'Previous Page', 'Next'
-      ])
+      this.checkActionStates(4)
+      this.createWrapper(false)
+      expect(this.wrapper).toMatchSnapshot("show numbers props")
     })
 
     it("handles pageScope prop", () => {
       this.createWrapper(true, 1)
       this.checkActionStates(
-        4, false, false,
-        ['Previous Page', '1', '...', '3', '4', '5', '...', 'Next']
+        4
       )
+      this.createWrapper(true, 1)
+      expect(this.wrapper).toMatchSnapshot("page scope prop")
     })
 
     it("renders no pagination on no results", () => {
@@ -115,7 +110,8 @@ describe("Pagination tests", () => {
     it("both disabled on only one total page", () => {
       this.searchkit.setResults({ hits: { total: 10 } })
       this.createWrapper()
-      this.checkActionStates(1, true, true, ['Previous Page','1', 'Next'])
+      this.checkActionStates(1)
+      expect(this.wrapper).toMatchSnapshot("both disabled on only one total page")
 
     })
 
@@ -156,6 +152,7 @@ describe("Pagination tests", () => {
       this.createWrapper()
       this.accessor.state = this.accessor.state.setValue(2)
       this.wrapper.update()
+      this.createWrapper()      
       fastClick(this.wrapper.find("[data-key='ellipsis-6']"))
       //this was NaN before bug fix
       expect(this.accessor.state.getValue()).toBe(2)

@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {mount, render} from "enzyme";
-import {fastClick, hasClass} from "../../../__test__/TestHelpers"
+import {fastClick} from "../../../__test__/TestHelpers"
 import {SearchkitManager, Utils, ArrayState, FacetAccessor} from "../../../../core";
 import {Toggle, ItemComponent, ItemList} from "../../../ui";
 import {MenuFilter} from "./MenuFilter";
@@ -45,7 +45,7 @@ describe("MenuFilter", ()=> {
   })
 
   it("expect accessor options to be correct", ()=> {
-    expect(this.wrapper.node.props.listComponent).toBe(ItemList)
+    expect(this.wrapper.instance().props.listComponent).toBe(ItemList)
     expect(this.accessor.options).toEqual(jasmine.objectContaining({
       id:"color", field:"color", title:"Color", operator:"OR",
       translations:{"Red":"Red Translated"},
@@ -60,13 +60,13 @@ describe("MenuFilter", ()=> {
 
   it("getSelectedItems", ()=> {
     this.accessor.state = new ArrayState([])
-    expect(this.wrapper.node.getSelectedItems())
+    expect(this.wrapper.instance().getSelectedItems())
       .toEqual(['$all'])
     this.accessor.state = new ArrayState([false])
-    expect(this.wrapper.node.getSelectedItems())
+    expect(this.wrapper.instance().getSelectedItems())
       .toEqual([false])
     this.accessor.state = new ArrayState(["foo", "bar"])
-    expect(this.wrapper.node.getSelectedItems())
+    expect(this.wrapper.instance().getSelectedItems())
       .toEqual(["foo"])
   })
 
@@ -75,6 +75,7 @@ describe("MenuFilter", ()=> {
   })
 
   it("should handle selection correctly", ()=> {
+    this.wrapper = this.wrapper.update()
     let all = this.getOptionAt(0)
     let blue = this.getOptionAt(2)
     let green = this.getOptionAt(3)

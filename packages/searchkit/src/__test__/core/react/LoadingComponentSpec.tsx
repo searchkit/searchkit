@@ -19,13 +19,13 @@ describe("SearchkitProvider", ()=> {
   })
 
   it("display nothing when not loading", ()=> {
-    expect(this.wrapper.html()).toBe("<div></div>")
+    expect(this.wrapper).toMatchSnapshot()
   })
 
   it("display children when loading", ()=> {
     this.searchkit.loading = true
-    this.wrapper.update()
-    expect(this.wrapper.html()).toBe("<p>loading...</p>")
+    this.wrapper.instance().forceUpdate()
+    expect(this.wrapper).toMatchSnapshot()
   })
 
 

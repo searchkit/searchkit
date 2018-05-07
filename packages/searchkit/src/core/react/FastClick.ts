@@ -6,8 +6,9 @@ export interface Point {
 
 export class NormalClickComponent extends React.PureComponent<any, any>{
 
-  render(){
-    return React.cloneElement(this.props.children, {
+  render() {
+    const children: any = this.props.children;
+    return React.cloneElement(children, {
       onClick:this.props.handler
     })
   }
@@ -70,7 +71,8 @@ export class FastClickComponent extends React.PureComponent<any, any>{
   }
 
   render(){
-    return React.cloneElement(this.props.children, {
+    const children: any = this.props.children;
+    return React.cloneElement(children, {
       onMouseDown:this.handleMouseDown.bind(this),
       onTouchStart:this.handleTouchStart.bind(this),
       onTouchEnd:this.handleTouchEnd.bind(this),

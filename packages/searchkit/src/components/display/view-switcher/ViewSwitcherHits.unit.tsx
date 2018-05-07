@@ -7,7 +7,7 @@ import {Select} from "../../ui";
 
 import {SearchkitManager} from "../../../core";
 import {
-  fastClick, hasClass, printPrettyHtml, htmlClean
+  fastClick
 } from "../../__test__/TestHelpers"
 
 const map = require("lodash/map")

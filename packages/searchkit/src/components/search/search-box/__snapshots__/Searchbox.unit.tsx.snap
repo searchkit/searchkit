@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Searchbox tests render 1`] = `
+<div class="sk-search-box">
+  <form>
+    <div class="sk-search-box__icon"></div><input type="text" data-qa="query" class="sk-search-box__text" placeholder="search movies" value=""><input type="submit" class="sk-search-box__action" data-qa="submit" value="Go">
+    <div data-qa="loader" class="sk-search-box__loader sk-spinning-loader is-hidden"></div>
+  </form>
+</div>
+`;

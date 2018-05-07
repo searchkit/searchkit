@@ -6,7 +6,7 @@ import {SearchkitManager, ImmutableQuery, FastClick, block} from "../../../../co
 import * as _ from "lodash"
 import * as sinon from "sinon";
 import {
-  fastClick, hasClass, printPrettyHtml, htmlClean
+  fastClick
 } from "../../../__test__/TestHelpers"
 
 describe("SelectedFilters tests", () => {

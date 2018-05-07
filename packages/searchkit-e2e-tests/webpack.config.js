@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var nodeExternals = require('webpack-node-externals');
 var apps = require("./apps")
 
 const isProduction = process.env.NODE_ENV === 'production'
@@ -34,13 +35,13 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin()
   ],
   resolve: {
-    extensions:[".js", ".ts", ".tsx", ".webpack.js", ".web.js"],
-    modules:[
-      path.resolve(__dirname, "./node_modules"),
-      path.resolve(__dirname, "./node_modules/searchkit/node_modules")
-    ]
+    extensions:[".js", ".ts", ".tsx", ".webpack.js", ".web.js"]
   },
-
+  // externals: [
+  //   nodeExternals(),
+  //   nodeExternals({
+  //     modulesDir: path.resolve(__dirname, '../../node_modules')
+  // })],
   module: {
     loaders: [
       {

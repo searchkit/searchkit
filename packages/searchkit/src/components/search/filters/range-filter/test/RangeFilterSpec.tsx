@@ -4,7 +4,7 @@ import {RangeFilter} from "../src/RangeFilter";
 import { RangeSliderHistogram, RangeInput } from "../../../../../components"
 import {SearchkitManager, RangeAccessor} from "../../../../../core";
 import {
-  fastClick, hasClass, printPrettyHtml
+  fastClick
 } from "../../../../__test__/TestHelpers"
 
 
@@ -106,13 +106,13 @@ describe("Range Filter tests", () => {
 
   it("handle slider events correctly", ()=> {
     this.createWrapper(true)
-    this.wrapper.node.sliderUpdate({min:30,max:70})
+    this.wrapper.instance().sliderUpdate({min:30,max:70})
     expect(this.accessor.state.getValue()).toEqual({
       min:30, max:70
     })
     expect(this.searchkit.performSearch).not.toHaveBeenCalled()
 
-    this.wrapper.node.sliderUpdateAndSearch({min:40,max:60})
+    this.wrapper.instance().sliderUpdateAndSearch({min:40,max:60})
     expect(this.accessor.state.getValue()).toEqual({
       min:40, max:60
     })
@@ -122,7 +122,7 @@ describe("Range Filter tests", () => {
     expect(this.wrapper).toMatchSnapshot()
 
     // min/max should clear
-    this.wrapper.node.sliderUpdateAndSearch({min:0,max:100})
+    this.wrapper.instance().sliderUpdateAndSearch({min:0,max:100})
     expect(this.accessor.state.getValue()).toEqual({})
     expect(this.wrapper).toMatchSnapshot()
 
@@ -141,7 +141,7 @@ describe("Range Filter tests", () => {
   it("renders limited range correctly", ()=> {
     this.createWrapper({ withHistogram: true })
 
-    this.wrapper.node.sliderUpdate({min:30,max:70})
+    this.wrapper.instance().sliderUpdate({min:30,max:70})
     expect(this.wrapper).toMatchSnapshot()
   })
 
