@@ -13,6 +13,9 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
+            - packages/searchkit/node_modules
+            - packages/searchkit-e2e-docs/node_modules
+            - packages/searchkit-docs/node_modules
       - run: "yarn build"
   test:
     docker:
