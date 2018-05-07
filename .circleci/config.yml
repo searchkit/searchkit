@@ -20,6 +20,8 @@ jobs:
     working_directory: ~/searchkit
     steps:
       - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
       - run: "yarn workspace searchkit test:ci"
       - run: "yarn workspace searchkit-e2e-tests test:ci"
 workflows:

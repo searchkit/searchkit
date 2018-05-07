@@ -15,7 +15,7 @@
     "mapCoverage": true,        
     "coveragePathIgnorePatterns":[
         "<rootDir>/src/components/__test__/TestHelpers.ts",
-        "<rootDir>/node_modules/*"
+        "node_modules/*"
     ],
     "snapshotSerializers": [
         "<rootDir>/src/components/__test__/JestEnzymeSerializer.js"
