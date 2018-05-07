@@ -13,8 +13,19 @@ jobs:
           paths:
             - node_modules
       - run: "yarn build"
+  test:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - run: "yarn workspace searchkit test:ci"
+      - run: "yarn workspace searchkit-e2e-tests test:ci"
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
+      - test:
+      requires:
+        - build
+        
