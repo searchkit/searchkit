@@ -22,6 +22,7 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
+      - run: "yarn"
       - run: "yarn workspace searchkit test:ci"
       - run: "yarn workspace searchkit-e2e-tests test:ci"
 workflows:
