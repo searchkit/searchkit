@@ -29,7 +29,7 @@ jobs:
       - run: "yarn workspace searchkit test:ci"
   features_test:
     docker:
-      - image: cypress/base:6
+      - image: cypress/base:8
     working_directory: ~/searchkit
     steps:
       - checkout
