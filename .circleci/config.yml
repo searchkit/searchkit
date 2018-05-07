@@ -5,7 +5,6 @@ jobs:
       - image: circleci/node:8
     steps:
       - checkout
-      - run: "mkdir -p $CIRCLE_TEST_REPORTS/{jest,cypress}"
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run: "yarn"
