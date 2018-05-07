@@ -1,21 +1,17 @@
 version: 2
 
-general:
-  branches:
-    ignore:
-      - gh-pages
+# general:
+#   branches:
+#     ignore:
+#       - gh-pages
 
-machine:
-  node:
-    version: 8.6.0
-
-general:
-  artifacts:
-    - packages/searchkit/coverage
-    - packages/searchkit/lib
-    - packages/searchkit/release
-    - packages/searchkit-e2e-tests/cypress/video
-    - packages/searchkit-e2e-tests/cypress/screenshots    
+# general:
+#   artifacts:
+#     - packages/searchkit/coverage
+#     - packages/searchkit/lib
+#     - packages/searchkit/release
+#     - packages/searchkit-e2e-tests/cypress/video
+#     - packages/searchkit-e2e-tests/cypress/screenshots    
 
 jobs:
   build:
