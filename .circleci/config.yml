@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:8
+    working_directory: ~/searchkit
     steps:
       - checkout
       - restore_cache:
@@ -16,6 +17,7 @@ jobs:
   test:
     docker:
       - image: circleci/node:8
+    working_directory: ~/searchkit
     steps:
       - checkout
       - run: "yarn workspace searchkit test:ci"
