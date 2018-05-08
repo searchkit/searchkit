@@ -22,7 +22,7 @@ jobs:
           paths:
             - packages/searchkit/lib
             - packages/searchkit/release
-
+            - packages/searchkit-e2e-tests/dist
   test:
     docker:
       - image: circleci/node:8
