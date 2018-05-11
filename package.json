@@ -22,7 +22,8 @@
         "url": "https://github.com/searchkit/searchkit.git"
     },
     "scripts": {
-        "lerna": "lerna"
+        "lerna": "lerna",
+        "postinstall": "opencollective postinstall"
     },
     "authors": [
         {
@@ -41,8 +42,14 @@
         }
     ],
     "license": "Apache-2.0",
-    "dependencies": {},
+    "dependencies": {
+        "opencollective": "^1.0.3"
+    },
     "devDependencies": {
         "lerna": "2.4.0"
+    },
+    "collective": {
+        "type": "opencollective",
+        "url": "https://opencollective.com/searchkit"
     }
 }
