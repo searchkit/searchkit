@@ -6,7 +6,7 @@ export const encodeObjUrl = (obj) => {
 }
 
 export const decodeObjString = (str) => {
-  return qs.parse(str)
+  return qs.parse(str, { arrayLimit: 1000 })
 }
 
 export const supportsHistory = ()=> {
