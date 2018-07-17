@@ -30,6 +30,7 @@ export class TagFilterConfig extends SearchkitComponent<TagFilterConfigProps, {}
   }
   
   render(){
+    this.initAccessor();
     return null
   }
 }

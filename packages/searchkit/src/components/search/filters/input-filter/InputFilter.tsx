@@ -86,8 +86,8 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
     }, props.searchThrottleTime)
   }
 
-  componentWillMount() {
-    super.componentWillMount()
+  componentDidMount() {
+    super.componentDidMount()
   }
 
   defineBEMBlocks() {

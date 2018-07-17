@@ -72,14 +72,14 @@ describe("SearchkitComponent", ()=> {
       .toBe("searchkit_via_props")
   })
 
-  it("componentWillMount()", ()=> {
+  it("componentDidMount()", ()=> {
     spyOn(this.component, "forceUpdate")
     let searchkit = SearchkitManager.mock()
     searchkit.accessors = new AccessorManager()
     let accessor = new Accessor()
     this.component.defineAccessor = ()=> accessor
     spyOn(console, "warn")
-    this.component.componentWillMount()
+    this.component.componentDidMount()
     expect(this.component.searchkit).toBe(undefined)
     expect(this.component.accessor).toBe(undefined)
     expect(console.warn).toHaveBeenCalledWith(
@@ -87,7 +87,7 @@ describe("SearchkitComponent", ()=> {
     )
 
     this.component.props = {searchkit}
-    this.component.componentWillMount()
+    this.component.componentDidMount()
     expect(this.component.searchkit).toBe(searchkit)
     expect(this.component.accessor).toBe(accessor)
     expect(searchkit.accessors.accessors)
