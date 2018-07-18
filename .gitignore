@@ -1,10 +1,9 @@
 node_modules
 npm-debug.log
-lib/__test__
+**/lib/**/__test__
 $CIRCLE_TEST_REPORTS
 _book
 coverage
-lib
 stats.json
 dist
 test-report.xml
