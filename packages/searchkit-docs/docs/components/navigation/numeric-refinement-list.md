@@ -49,4 +49,5 @@ class App extends SearchkitComponent {
 
 
 ## Demo
-<iframe height='800' scrolling='no' src='//codepen.io/searchkit/embed/bEgERB/?height=800&theme-id=0&default-tab=js,result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'></iframe>
+
+[Sample](https://codepen.io/searchkit/pen/bEgERB)
