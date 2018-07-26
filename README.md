@@ -1,4 +1,5 @@
 ## What is Searchkit?
+
 [<img src="https://circleci.com/gh/searchkit/searchkit.png?style=shield"/>](https://circleci.com/gh/searchkit/searchkit)
 [![npm version](https://badge.fury.io/js/searchkit.svg)](https://badge.fury.io/js/searchkit)
 [![jsDelivr Hits](https://data.jsdelivr.com/v1/package/npm/searchkit/badge?style=rounded)](https://www.jsdelivr.com/package/npm/searchkit)
@@ -10,11 +11,13 @@ Searchkit is a suite of UI components built in react. The aim is to rapidly crea
 <img src="./packages/searchkit-docs/docs/assets/codepreview.png"/>
 
 ## Quick Start
+
 Checkout Searchkit starter app (https://github.com/searchkit/searchkit-starter-app). Based off Facebook's Create-react-app project. Clone repo and add your changes!
 
-See full [Documentation](http://docs.searchkit.co/stable) or [Getting Started](http://docs.searchkit.co/stable/setup/project-setup.html)
+See full [Documentation](http://docs.searchkit.co/stable) or [Getting Started](http://docs.searchkit.co/stable/setup/project-setup.html).
 
 ## Quick Intro
+
 [Live demo](http://demo.searchkit.co)
 
 ```jsx
