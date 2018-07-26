@@ -69,3 +69,7 @@ ReactDOM.render(<App/>, document.getElementById('root'))
 
 
 ```
+
+## Community
+
+Need help? Want to discuss about Searchkit? Do not hesitate to chat with us on [Gitter](https://gitter.im/searchkit/searchkit).
