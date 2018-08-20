@@ -90,6 +90,8 @@ jobs:
 
   e2e:
     <<: *job-defaults
+    docker:
+      - image: cypress/base:8
     steps:
       - checkout
 
