@@ -171,9 +171,7 @@ workflows:
       - e2e:
           requires:
             - build
-          filters:
-            branches:
-              only: develop
+
       # - docs:
       #     requires:
       #       - build
