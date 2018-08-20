@@ -55,7 +55,7 @@ jobs:
           at: ~/searchkit
     
       - run:
-          command: cat packages/searckit-*/package.json > packages_checksum
+          command: cat packages/searchkit-*/package.json > packages_checksum
           name: Creating checksum file for searchkit-* packages
 
       - restore_cache: *restore-monorepo-cache
