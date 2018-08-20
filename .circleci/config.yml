@@ -63,6 +63,7 @@ jobs:
       - restore_cache: *restore-searchkit-cache
 
       - run: yarn
+      - run: yarn build
 
       - save_cache: *save-monorepo-cache
       - save_cache: *save-searchkit-main-cache
@@ -73,16 +74,6 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: .
-
-  build:
-    <<: *job-defaults
-    steps:
-      - attach_workspace:
-          at: ~/searchkit
-
-      - checkout
-      - run: yarn
-      - run: yarn build
   
   test:
     <<: *job-defaults
