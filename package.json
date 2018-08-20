@@ -23,7 +23,11 @@
     },
     "scripts": {
         "build": "lerna run build",
-        "clean": "lerna clean"
+        "clean": "lerna clean",
+        "docs:clean": "rm -rf packages/searchkit-docs/_book",
+        "docs:prepare": "gitbook install",
+        "docs:watch": "npm run docs:prepare && gitbook serve",
+        "docs:build": "npm run docs:prepare && gitbook build -g ssetem/searchkit"
     },
     "authors": [
         {
