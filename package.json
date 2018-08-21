@@ -22,6 +22,7 @@
         "url": "https://github.com/searchkit/searchkit.git"
     },
     "scripts": {
+        "lerna": "lerna",
         "build": "lerna run build",
         "clean": "lerna clean",
         "publish": "node ./scripts/deploy.js"
