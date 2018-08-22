@@ -25,7 +25,6 @@
         "lerna": "lerna",
         "build": "lerna run build",
         "clean": "lerna clean",
-        "prepublish": "yarn workspace searchkit build",
         "publish": "node ./scripts/deploy.js"
     },
     "authors": [
