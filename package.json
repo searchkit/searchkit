@@ -22,6 +22,7 @@
         "url": "https://github.com/searchkit/searchkit.git"
     },
     "scripts": {
+        "lerna": "lerna",
         "build": "lerna run build",
         "clean": "lerna clean",
         "publish": "node ./scripts/deploy.js"
@@ -45,10 +46,13 @@
     "license": "Apache-2.0",
     "dependencies": {},
     "devDependencies": {
-        "lerna": "^2.11.0",
+        "lerna": "^3.1.4",
         "cross-spawn": "^6.0.5"
     },
     "workspaces": [
       "packages/*"
-    ]
+    ],
+    "resolutions": {
+      "@types/react": "^16.4.12"
+    }
 }

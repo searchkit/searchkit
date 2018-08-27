@@ -23,7 +23,9 @@ spawnWithErrorHandling('npm', [
   'run',
   'lerna',
   'publish',
-  '--scope=searchkit, @searchkit/*'
+  '--scope=searchkit, @searchkit/*',
+  '--conventional-commits',
+  '-cd-version prerelease'
 ], { stdio: 'inherit' });
 
 // console.log('Pushing commit...');
