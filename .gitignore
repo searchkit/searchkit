@@ -20,3 +20,4 @@ package-lock.json
 .DS_Store
 **/bundle.js
 package-lock.json
+**/.rpt2_cache/**
