@@ -172,4 +172,6 @@ workflows:
             - build
           filters:
             branches:
-              only: staging, master
+              only: 
+                - staging
+                - master
