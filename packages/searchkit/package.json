@@ -8,16 +8,12 @@
   "typings": "lib/index.d.ts",
   "keywords": [
     "elasticsearch",
-    "elastic search",
     "react",
     "ui components",
     "search",
     "framework",
     "library",
-    "client-side",
-    "widgets",
-    "react components",
-    "react-component"
+    "widgets"
   ],
   "homepage": "http://www.searchkit.co",
   "bugs": {
