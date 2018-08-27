@@ -1,11 +1,11 @@
 {
   "name": "searchkit",
-  "version": "2.3.0",
+  "version": "2.3.1-alpha.0",
   "description": "A suite of react components to help create a UI quickly for elasticsearch",
   "main": "lib/index.js",
-  "module":"lib/index.js",
-  "jsnext:main":"es/index.js",
-  "typings": "lib/index.d.ts",    
+  "module": "lib/index.js",
+  "jsnext:main": "es/index.js",
+  "typings": "lib/index.d.ts",
   "keywords": [
     "elasticsearch",
     "elastic search",
@@ -28,7 +28,7 @@
   },
   "scripts": {
     "build": "tsc; npm run build:es; webpack; rm release/ignore.js",
-    "build:es":"tsc --target es2015 --module es2015 --outDir es",
+    "build:es": "tsc --target es2015 --module es2015 --outDir es",
     "build:watch": "tsc -w",
     "test": "jest -c jest.json",
     "test:watch": "jest -c jest.json --watch",
@@ -68,11 +68,10 @@
     "react-dom": "^15.0.0-0 || ^16.0.0-0"
   },
   "devDependencies": {
-    "enzyme-adapter-react-16": "^1.1.1",
-    "@types/prop-types": "^15.5.2",
     "@types/enzyme": "^2.8.11",
     "@types/jest": "^21.1.2",
     "@types/node": "^8.0.34",
+    "@types/prop-types": "^15.5.2",
     "@types/react": "^16.4.12",
     "@types/react-dom": "^16.0.0",
     "@types/react-router": "^2.0.51",
@@ -82,6 +81,7 @@
     "coveralls": "^3.0.0",
     "css-loader": "^0.28.7",
     "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "es6-promise": "^4.1.1",
     "extract-text-webpack-plugin": "^3.0.1",
     "file-loader": "^1.1.5",
