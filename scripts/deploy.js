@@ -11,17 +11,15 @@ const spawnWithErrorHandling = (...args) => {
 };
 
 // Set dist-tag
-let tagname = 'latest'; // stable
 const tasks = [
   'run',
   'lerna',
   'publish',
+  '--',
   '--yes'
 ]
 
 if (!isProdRelease) { // pre-release
-  tagname = 'pre'
-  tasks.push('--')
   tasks.push('--canary')
 }
 
