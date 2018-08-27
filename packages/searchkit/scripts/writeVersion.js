@@ -1,4 +1,4 @@
-if (process.env.BRANCH) {
+if (process.env.BRANCH && process.env.BRANCH.match(/v\d+\.\d+\.\d+(\-.+)?/)) {
 
   const version = process.env.BRANCH.replace('v', '');
 
