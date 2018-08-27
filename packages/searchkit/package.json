@@ -28,7 +28,6 @@
     "build": "rm -rf lib; rm -rf release; node ./scripts/writeVersion; tsc; webpack; rm release/ignore.js",
     "build:watch": "tsc -w",
     "test": "jest -c jest.json",
-    "prepublish": "yarn run build",
     "test:watch": "jest -c jest.json --watch",
     "test:coverage": "jest -c jest.json --coverage",
     "test:ci": "TEST_REPORT_FILENAME=unit-results.xml jest -c jest.json --coverage --testResultsProcessor=jest-junit-reporter --forceExit --ci -w 2"
