@@ -20,7 +20,8 @@ const tasks = [
 ]
 
 if (!isProdRelease) { // pre-release
-  tasks.push('--skip-git --cd-version=prerelease --preid=beta+`git rev-parse --short HEAD` --npm-tag next --exact')
+  tasks.push('--skip-git')
+  tasks.push('--cd-version=prerelease')
 }
 
 // Publish packages to npm registry
