@@ -23,7 +23,7 @@ export class SuggestionsAccessor extends Accessor {
             max_errors : 1,
             gram_size : 4,
             direct_generator : [{
-              field : "_all",
+              field :this.field,
               suggest_mode : "always",
               min_word_length : 1
             }]

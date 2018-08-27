@@ -43,11 +43,6 @@ export class MockRange extends React.Component<any, any>{
       rangeComponent: RangeSlider,
       containerComponent: Panel,
   }
-  
-  static propTypes = {
-    containerComponent: RenderComponentPropType,
-    rangeComponent: RenderComponentPropType,
-  }
 
   render():React.ReactElement<any> {
       const { title, containerComponent, rangeComponent } = this.props

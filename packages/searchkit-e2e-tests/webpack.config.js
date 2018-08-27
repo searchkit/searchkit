@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var nodeExternals = require('webpack-node-externals');
 var apps = require("./apps")
 
 const isProduction = process.env.NODE_ENV === 'production'
@@ -13,7 +14,6 @@ apps.forEach(function (app) {
   !isProduction && entries[app].unshift(
     'webpack-hot-middleware/client?reload=true')
 })
-console.log(entries)
 
 module.exports = {
   devtool: "eval",
@@ -36,18 +36,10 @@ module.exports = {
   resolve: {
     extensions: [".js", ".ts", ".tsx", ".webpack.js", ".web.js"],
     modules: [
-      "node_modules",
       path.resolve(__dirname, "./node_modules"),
-      path.resolve(__dirname, "./node_modules/searchkit/node_modules")
-    ],
-    alias: {
-      react: path.resolve("./node_modules/react"),
-      'react-dom': path.resolve("./node_modules/react-dom")
-    }
+      path.resolve(__dirname, "../../node_modules")
+    ]
   },
-
-
-
   module: {
     loaders: [
       {

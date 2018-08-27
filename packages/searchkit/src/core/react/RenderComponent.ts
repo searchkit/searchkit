@@ -18,7 +18,7 @@ export const RenderComponentPropType = PropTypes.oneOfType([
   PropTypes.func,
 ])
 
-export function renderComponent(component:RenderComponentType<any>, props={}, children=null){
+export function renderComponent(component:RenderComponentType<any>, props={}, children=null): React.ReactElement<any> {
   let isReactComponent = (
     component["prototype"] instanceof React.Component ||
     (component["prototype"] && component["prototype"].isReactComponent) ||

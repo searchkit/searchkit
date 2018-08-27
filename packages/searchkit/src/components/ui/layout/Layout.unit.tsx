@@ -1,7 +1,7 @@
 import * as React from "react";
 import {mount} from "enzyme";
 import {Layout, LayoutBody, SideBar, ActionBar, ActionBarRow, TopBar, LayoutResults } from "./Layout"
-import {fastClick, hasClass, printPrettyHtml} from "../../__test__/TestHelpers"
+import {fastClick} from "../../__test__/TestHelpers"
 
 describe("Layout components", ()=> {
 

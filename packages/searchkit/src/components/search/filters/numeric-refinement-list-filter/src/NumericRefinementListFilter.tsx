@@ -96,7 +96,7 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
     return this.accessor.getBuckets().length != 0
   }
 
-  render() {
+  render() : React.ReactElement<any> {
     const {
 			listComponent, containerComponent, itemComponent,
 			showCount, title, id, mod, className, countFormatter

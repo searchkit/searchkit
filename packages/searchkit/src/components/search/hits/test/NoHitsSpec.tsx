@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {NoHits} from "../src/NoHits";
 import {SearchkitManager} from "../../../../core";
 import {
-  fastClick, hasClass, printPrettyHtml
+  fastClick
 } from "../../../__test__/TestHelpers"
 
 import * as sinon from "sinon";
@@ -99,7 +99,7 @@ describe("NoHits component", () => {
         }
       })
 
-      this.wrapper.update()
+      this.wrapper = this.wrapper.update()
       expect(this.wrapper.find(".sk-no-hits__info").text())
         .toEqual("No results found for matrixx. Did you mean matrix?")
       expect(this.wrapper.find('.sk-no-hits__steps').text())
@@ -130,7 +130,7 @@ describe("NoHits component", () => {
         }
       })
 
-      this.wrapper.update()
+      this.wrapper = this.wrapper.update()
       expect(this.wrapper.find('.sk-no-hits__steps').text())
         .toBe("Search for matrix without filters")
       fastClick(this.wrapper.find(".sk-no-hits__step-action"))

@@ -1,3 +1,24 @@
+# 2.3.0 (28th November, 2017)
+
+- Breaking change in FacetFilter in commit: [d7f9eab70bc9b87f91f2122ecf1667a13f1b6a0e](https://github.com/searchkit/searchkit/commit/d7f9eab70bc9b87f91f2122ecf1667a13f1b6a0e)
+  ```
+    Non String agg type fix (#536)
+
+    * make FacetAccessor namespaced by id like all others
+
+    * Fix numeric/boolean values for aggs
+
+    - cast bucket keys to strings
+    - fix FacetFilter use of field as key(breaking change)
+    - Accessor throws better error when using same id on imcompatible component
+    - fix e2e apps
+
+    * gen bundle
+
+    * add id change to TagFilter docs
+    ```
+    the key used was changed from `filter` to `id` here: https://github.com/searchkit/searchkit/commit/d7f9eab70bc9b87f91f2122ecf1667a13f1b6a0e#diff-f172a23508b6de00b38c007df825d91a
+
 # 2.2.0 (20th August, 2017)
 - Passing credentials in the request (#481)
 
@@ -164,7 +185,7 @@
 <link href="//cdn.jsdelivr.net/searchkit/0.7.0/theme.css" rel="stylesheet"/>
 ```
 - [Example pull request to update to 0.7.0](https://github.com/PAK90/Gatherer2/pull/2/files)
-- [Searchkit Theming documentation](http://docs.searchkit.co/stable/docs/theming/using-searchkit-theme.html)
+- [Searchkit Theming documentation](http://docs.searchkit.co/stable/theming/using-searchkit-theme.html)
 
 
 ### Notable Changes
@@ -271,7 +292,7 @@ if you previously extended HitStats, you will need to change your code to use th
 ## 0.2.0 (11 Jan, 2016)
 
 ### New
-* New [Hierarchical Filter Component](http://docs.searchkit.co/stable/docs/components/navigation/hierarchical-refinement-filter.html)
+* New [Hierarchical Filter Component](http://docs.searchkit.co/stable/components/navigation/hierarchical-refinement-filter.html)
 
 ### Improvements
 * `Searchbox`: `prefixQueryFields` uses `queryFields` if not specified and `searchOnChange` prop is enabled

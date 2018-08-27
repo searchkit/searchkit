@@ -68,4 +68,4 @@ class App extends SearchkitComponent {
 - `size` *(number)*: size of options shown
 
 ## Demo
-[](codepen://searchkit/jWyWmw?height=800&theme=0)
+<iframe height='800' scrolling='no' src='//codepen.io/searchkit/embed/jWyWmw/?height=800&theme-id=0&default-tab=js,result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'></iframe>

@@ -15,5 +15,6 @@ unit-results.xml
 **/cypress/screenshots
 lerna-debug.log
 packages/searchkit/release
-**umd
-.rpt2_cache
+yarn-error.log
+package-lock.json
+.DS_Store

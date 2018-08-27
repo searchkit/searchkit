@@ -1,4 +1,5 @@
 import * as PropTypes from "prop-types";
+import * as React from 'react';
 
 import {
 	SearchkitComponent,
@@ -53,7 +54,7 @@ export class SortingSelector extends SearchkitComponent<SortingProps, any> {
 		this.toggleItem(keys[0])
 	}
 
-  render() {
+  render(): React.ReactElement<any> {
     const { listComponent } = this.props
 		const options = this.accessor.options.options
     const selected = [this.accessor.getSelectedOption().key]

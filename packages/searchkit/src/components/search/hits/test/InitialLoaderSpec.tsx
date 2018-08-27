@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {NoHits} from "../src/NoHits";
 import {SearchkitManager} from "../../../../core";
 import {
-  fastClick, hasClass, printPrettyHtml
+  fastClick
 } from "../../../__test__/TestHelpers"
 
 import {InitialLoader} from "../src/InitialLoader";
@@ -18,10 +18,12 @@ describe("InitialLoader", ()=> {
   })
 
   it("should render correctly", ()=> {
-    expect(this.wrapper).toMatchSnapshot()
+    expect(this.wrapper).toMatchSnapshot("initial loading")
     this.searchkit.initialLoading = false
-    this.wrapper.update()
-    expect(this.wrapper.children().length).toBe(0)
+    this.wrapper = mount(
+      <InitialLoader searchkit={this.searchkit} />
+    )
+    expect(this.wrapper).toMatchSnapshot("no initial loader")
   })
 
   it("should render a custom component", ()=> {
