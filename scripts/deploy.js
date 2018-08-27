@@ -15,7 +15,8 @@ let tagname = 'latest'; // stable
 const tasks = [
   'run',
   'lerna',
-  'publish'
+  'publish',
+  '--yes'
 ]
 
 if (!isProdRelease) { // pre-release
