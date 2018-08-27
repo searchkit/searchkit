@@ -24,9 +24,8 @@ if (!isProdRelease) { // pre-release
   tasks.push('--canary')
 }
 
-console.log(tasks)
 // Publish packages to npm registry
-// spawnWithErrorHandling('npm', tasks, { stdio: 'inherit' });
+spawnWithErrorHandling('npm', tasks, { stdio: 'inherit' });
 
 // console.log('Pushing commit...');
 // exec('git checkout staging');
