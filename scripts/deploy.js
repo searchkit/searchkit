@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const isPreRelease = process.env.BRANCH && process.env.BRANCH === "staging"
+const isProdRelease = process.env.BRANCH && process.env.BRANCH === "master"
 const spawn = require('cross-spawn');
 const exec = require('child_process').execSync;
 
@@ -12,20 +12,21 @@ const spawnWithErrorHandling = (...args) => {
 
 // Set dist-tag
 let tagname = 'latest'; // stable
-
-if (isPreRelease) { // pre-release
-  tagname = 'pre'
-}
-
-// Publish packages to npm registry
-spawnWithErrorHandling('npm', [
+const tasks = [
   'run',
   'lerna',
-  'publish',
-  '--scope=searchkit, @searchkit/*',
-  '--conventional-commits',
-  '-cd-version prerelease'
-], { stdio: 'inherit' });
+  'publish'
+]
+
+if (!isProdRelease) { // pre-release
+  tagname = 'pre'
+  tasks.push('--')
+  tasks.push('--canary')
+}
+
+console.log(tasks)
+// Publish packages to npm registry
+// spawnWithErrorHandling('npm', tasks, { stdio: 'inherit' });
 
 // console.log('Pushing commit...');
 // exec('git checkout staging');

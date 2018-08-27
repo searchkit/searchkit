@@ -115,7 +115,7 @@ jobs:
       - run: git config --global user.name "CircleCI"
       - run: ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-      - run: BRANCH=$CIRCLE_BRANCH npm run publish -- $CIRCLE_TAG  
+      - run: BRANCH=$CIRCLE_BRANCH npm run publish 
 
   # docs:
   #   <<: *job-defaults
