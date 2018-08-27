@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 const isPreRelease = process.env.BRANCH && process.env.BRANCH === "staging"
-const isPublishStep = process.env.COMMIT_MESSAGE && process.env.COMMIT_MESSAGE.indexOf("publishing packages") != -1
 const spawn = require('cross-spawn');
 const exec = require('child_process').execSync;
 
