@@ -24,6 +24,7 @@
     "scripts": {
         "lerna": "lerna",
         "clean": "lerna clean",
+        "build": "lerna yarn build",
         "publish": "node ./scripts/deploy.js"
     },
     "authors": [
