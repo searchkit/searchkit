@@ -20,7 +20,7 @@ const tasks = [
 ]
 
 if (!isProdRelease) { // pre-release
-  tasks.push('--canary')
+  tasks.push('--skip-git --cd-version=prerelease --preid=beta+`git rev-parse --short HEAD` --npm-tag next --exact')
 }
 
 // Publish packages to npm registry
