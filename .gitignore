@@ -18,3 +18,4 @@ packages/searchkit/release
 yarn-error.log
 package-lock.json
 .DS_Store
+**/bundle.js

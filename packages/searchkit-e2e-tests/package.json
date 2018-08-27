@@ -11,7 +11,7 @@
     },
     "dependencies": {
         "@types/node": "^8.0.46",
-        "@types/react": "^16.0.0",
+        "@types/react": "^16.4.12",
         "@searchkit/autosuggest": "^0.0.1-0",
         "@searchkit/refinement-autosuggest": "^0.0.1-0",
         "css-loader": "^0.28.7",

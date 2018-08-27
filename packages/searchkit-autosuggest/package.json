@@ -28,8 +28,8 @@
   "devDependencies": {
     "@types/lodash": "^4.14.80",
     "@types/node": "^8.0.47",
-    "@types/react": "^15.6.5",
-    "react": "^15.6.2",
+    "@types/react": "^16.4.12",
+    "react": "^16.4.2",
     "rollup": "^0.51.2",
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-license": "^0.5.0",
@@ -38,7 +38,7 @@
     "rollup-plugin-typescript2": "^0.8.0",
     "rollup-plugin-uglify": "^2.0.1",
     "searchkit": "^2.3.0-9",
-    "typescript": "^2.6.1"
+    "typescript": "^3.0.1"
   },
   "dependencies": {
     "@types/react-autosuggest": "^9.3.1",
