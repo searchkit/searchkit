@@ -171,7 +171,5 @@ workflows:
           requires:
             - build
           filters:
-            tags:
-              only: /v\d+\.\d+\.\d+.*/
             branches:
-              only: staging
+              only: staging, master
