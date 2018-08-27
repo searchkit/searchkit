@@ -2,16 +2,13 @@
     "private": true,
     "name": "searchkit",
     "keywords": [
-        "elasticsearch",
-        "elastic search",
-        "react",
-        "ui components",
-        "search",
-        "library",
-        "client-side",
-        "widgets",
-        "react components",
-        "react-component"
+      "elasticsearch",
+      "react",
+      "ui components",
+      "search",
+      "framework",
+      "library",
+      "widgets"
     ],
     "homepage": "http://www.searchkit.co",
     "bugs": {
