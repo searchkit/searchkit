@@ -20,7 +20,7 @@ const tasks = [
 ]
 
 if (!isProdRelease) { // pre-release
-  tasks.push('--skip-git')
+  // tasks.push('--skip-git')
   tasks.push('--cd-version=prerelease')
 }
 
