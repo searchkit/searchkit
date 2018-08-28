@@ -20,8 +20,9 @@ const tasks = [
 ]
 
 if (!isProdRelease) { // pre-release
-  // tasks.push('--skip-git')
   tasks.push('--cd-version=prerelease')
+} else {
+  tasks.push('--conventional-commits')
 }
 
 // Publish packages to npm registry
