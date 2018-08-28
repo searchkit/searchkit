@@ -158,7 +158,7 @@ export class SearchkitManager {
     this.registrationCompleted.then(()=> {
       this.searchFromUrlQuery(location.search)
     }).catch((e)=> {
-      console.error(e.stack)
+      console.error(e)
     })
   }
 
