@@ -203,14 +203,15 @@ describe("SearchkitManager", ()=> {
     })
     searchkit.setupListeners()
 
+    const error = new Error("oh no")
     searchkit.searchFromUrlQuery = () => {
-      throw new Error("oh no")
+      throw error
     }
     spyOn(console, "error")
     searchkit.completeRegistration()
     setTimeout(()=> {
-      expect(console.error["calls"].argsFor(0)[0])
-        .toContain("searchFromUrlQuery")
+      const consoleErrorCallArg = console.error["calls"].argsFor(0)[0]
+      expect(consoleErrorCallArg).toBe(error)
       searchkit.unlistenHistory()
       done()
     }, 0)
