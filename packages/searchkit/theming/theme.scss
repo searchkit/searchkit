@@ -164,12 +164,12 @@ body {
     -webkit-box-shadow: none;
     box-shadow: none;
     background:transparent;
-    color:#fff;
+    color:$sk-search-color;
     font-size:16px;
     padding-left:10px;
     
     &::-webkit-input-placeholder  {
-      color:rgba(255,255,255,1);
+      color:$sk-search-placeholder-color;
       font-weight:100;
     }
   }
