@@ -5,6 +5,7 @@ export interface SimpleQueryStringOptions {
   fields?:Array<string>
   default_operator?:string
   flags?:string
+  lenient?:boolean
   [str:string]:any
 }
 
