@@ -21,7 +21,6 @@ var ViewSwitcherConfig = /** @class */ (function (_super) {
         return new core_1.ViewOptionsAccessor("view", this.props.hitComponents);
     };
     ViewSwitcherConfig.prototype.render = function () {
-        this.initAccessor();
         return null;
     };
     ViewSwitcherConfig.propTypes = defaults({

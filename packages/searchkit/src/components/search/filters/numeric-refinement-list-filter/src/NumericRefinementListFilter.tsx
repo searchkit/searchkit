@@ -97,6 +97,7 @@ export class NumericRefinementListFilter extends SearchkitComponent<NumericRefin
   }
 
   render() {
+    if (!this.accessor) return null;
     const {
 			listComponent, containerComponent, itemComponent,
 			showCount, title, id, mod, className, countFormatter

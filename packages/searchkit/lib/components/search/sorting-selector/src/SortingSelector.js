@@ -30,6 +30,8 @@ var SortingSelector = /** @class */ (function (_super) {
     };
     SortingSelector.prototype.render = function () {
         var _this = this;
+        if (!this.accessor)
+            return null;
         var listComponent = this.props.listComponent;
         var options = this.accessor.options.options;
         var selected = [this.accessor.getSelectedOption().key];

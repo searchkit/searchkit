@@ -19,7 +19,7 @@ export class SearchkitComponent<
   P extends SearchkitComponentProps,
   S
 > extends React.Component<P, S> {
-  _accessor: Accessor;
+  accessor: Accessor;
   _searchkit: SearchkitManager;
   stateListenerUnsubscribe: Function;
   translations: Object = {};
@@ -81,7 +81,7 @@ export class SearchkitComponent<
   }
 
   componentDidMount() {
-    this.initAccessor();
+    this._initAccessor();
     if (this.searchkit) {
       this.stateListenerUnsubscribe = this.searchkit.emitter.addListener(() => {
         if (!this.unmounted) {
@@ -89,28 +89,23 @@ export class SearchkitComponent<
         }
       });
     }
+    this.forceUpdate();
   }
-
-  /**
-   * This method should not be called before render() (to avoid conflicts between mounting and unmounting components due to asynchronous nature of React 16)
-   * Call explicitly in render() if accessor is needed in other components at their render() (see TagFilterConfig and ViewSwitcherConfig)
-   */
-  initAccessor() {
-    if (this.searchkit && !this._accessor) {
-      this._accessor = this.defineAccessor();
-      if (this._accessor) {
-        this._accessor = this.searchkit.addAccessor(this._accessor);
+  
+  _initAccessor() {
+    if (this.searchkit && !this.accessor) {
+      this.accessor = this.defineAccessor();
+      if (this.accessor) {
+        this.accessor = this.searchkit.addAccessor(this.accessor);
+        return true;
       }
-    } else if (!this.searchkit) {
+    }
+    if (!this.searchkit) {
       console.warn(
         "No searchkit found in props or context for " + this.constructor["name"]
       );
     }
-  }
-
-  get accessor(): Accessor {
-    this.initAccessor();
-    return this._accessor;
+    return false;
   }
 
   componentWillUnmount() {

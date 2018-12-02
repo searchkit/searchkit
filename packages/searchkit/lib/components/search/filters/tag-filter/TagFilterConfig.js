@@ -28,7 +28,6 @@ var TagFilterConfig = /** @class */ (function (_super) {
         }
     };
     TagFilterConfig.prototype.render = function () {
-        this.initAccessor();
         return null;
     };
     return TagFilterConfig;

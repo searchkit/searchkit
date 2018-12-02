@@ -71,6 +71,8 @@ var Pagination = /** @class */ (function (_super) {
     };
     Pagination.prototype.render = function () {
         var _this = this;
+        if (!this.accessor)
+            return null;
         if (!this.hasHits())
             return null;
         var className = core_1.block(this.props.mod).state({ numbered: this.props.showNumbers });

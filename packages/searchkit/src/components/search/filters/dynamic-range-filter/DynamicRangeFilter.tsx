@@ -100,6 +100,7 @@ export class DynamicRangeFilter extends SearchkitComponent<DynamicRangeFilterPro
 	}
 
 	render() {
+		if (!this.accessor) return null;
     const { id, title, containerComponent } = this.props
 
     return renderComponent(containerComponent, {

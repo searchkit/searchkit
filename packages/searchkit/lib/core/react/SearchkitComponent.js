@@ -61,7 +61,7 @@ var SearchkitComponent = /** @class */ (function (_super) {
     };
     SearchkitComponent.prototype.componentDidMount = function () {
         var _this = this;
-        this.initAccessor();
+        this._initAccessor();
         if (this.searchkit) {
             this.stateListenerUnsubscribe = this.searchkit.emitter.addListener(function () {
                 if (!_this.unmounted) {
@@ -69,30 +69,21 @@ var SearchkitComponent = /** @class */ (function (_super) {
                 }
             });
         }
+        this.forceUpdate();
     };
-    /**
-     * This method should not be called before render() (to avoid conflicts between mounting and unmounting components due to asynchronous nature of React 16)
-     * Call explicitly in render() if accessor is needed in other components at their render() (see TagFilterConfig and ViewSwitcherConfig)
-     */
-    SearchkitComponent.prototype.initAccessor = function () {
-        if (this.searchkit && !this._accessor) {
-            this._accessor = this.defineAccessor();
-            if (this._accessor) {
-                this._accessor = this.searchkit.addAccessor(this._accessor);
+    SearchkitComponent.prototype._initAccessor = function () {
+        if (this.searchkit && !this.accessor) {
+            this.accessor = this.defineAccessor();
+            if (this.accessor) {
+                this.accessor = this.searchkit.addAccessor(this.accessor);
+                return true;
             }
         }
-        else if (!this.searchkit) {
+        if (!this.searchkit) {
             console.warn("No searchkit found in props or context for " + this.constructor["name"]);
         }
+        return false;
     };
-    Object.defineProperty(SearchkitComponent.prototype, "accessor", {
-        get: function () {
-            this.initAccessor();
-            return this._accessor;
-        },
-        enumerable: true,
-        configurable: true
-    });
     SearchkitComponent.prototype.componentWillUnmount = function () {
         if (this.stateListenerUnsubscribe) {
             this.stateListenerUnsubscribe();

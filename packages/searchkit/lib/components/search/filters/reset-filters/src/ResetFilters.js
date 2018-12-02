@@ -49,6 +49,8 @@ var ResetFilters = /** @class */ (function (_super) {
         this.searchkit.performSearch();
     };
     ResetFilters.prototype.render = function () {
+        if (!this.accessor)
+            return null;
         var props = {
             bemBlock: this.bemBlocks.container,
             resetFilters: this.resetFilters,

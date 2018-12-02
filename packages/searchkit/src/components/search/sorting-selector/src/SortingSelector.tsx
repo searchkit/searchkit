@@ -54,6 +54,7 @@ export class SortingSelector extends SearchkitComponent<SortingProps, any> {
 	}
 
   render() {
+    if (!this.accessor) return null;
     const { listComponent } = this.props
 		const options = this.accessor.options.options
     const selected = [this.accessor.getSelectedOption().key]

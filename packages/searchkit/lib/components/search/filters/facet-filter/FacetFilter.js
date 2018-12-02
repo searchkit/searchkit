@@ -67,6 +67,8 @@ var FacetFilter = /** @class */ (function (_super) {
         return this.props.bucketsTransform(this.accessor.getBuckets());
     };
     FacetFilter.prototype.render = function () {
+        if (!this.accessor)
+            return null;
         var _a = this.props, listComponent = _a.listComponent, containerComponent = _a.containerComponent, showCount = _a.showCount, title = _a.title, id = _a.id, countFormatter = _a.countFormatter;
         return react_1.renderComponent(containerComponent, {
             title: title,

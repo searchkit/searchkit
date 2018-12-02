@@ -10,7 +10,7 @@ export interface SearchkitComponentProps {
     key?: string;
 }
 export declare class SearchkitComponent<P extends SearchkitComponentProps, S> extends React.Component<P, S> {
-    _accessor: Accessor;
+    accessor: Accessor;
     _searchkit: SearchkitManager;
     stateListenerUnsubscribe: Function;
     translations: Object;
@@ -26,12 +26,7 @@ export declare class SearchkitComponent<P extends SearchkitComponentProps, S> ex
     searchkit: SearchkitManager;
     _getSearchkit(): SearchkitManager;
     componentDidMount(): void;
-    /**
-     * This method should not be called before render() (to avoid conflicts between mounting and unmounting components due to asynchronous nature of React 16)
-     * Call explicitly in render() if accessor is needed in other components at their render() (see TagFilterConfig and ViewSwitcherConfig)
-     */
-    initAccessor(): void;
-    readonly accessor: Accessor;
+    _initAccessor(): boolean;
     componentWillUnmount(): void;
     getResults(): any;
     getHits(): any;

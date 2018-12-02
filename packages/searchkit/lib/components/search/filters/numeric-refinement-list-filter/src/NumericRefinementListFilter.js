@@ -42,6 +42,8 @@ var NumericRefinementListFilter = /** @class */ (function (_super) {
         return this.accessor.getBuckets().length != 0;
     };
     NumericRefinementListFilter.prototype.render = function () {
+        if (!this.accessor)
+            return null;
         var _a = this.props, listComponent = _a.listComponent, containerComponent = _a.containerComponent, itemComponent = _a.itemComponent, showCount = _a.showCount, title = _a.title, id = _a.id, mod = _a.mod, className = _a.className, countFormatter = _a.countFormatter;
         return core_1.renderComponent(containerComponent, {
             title: title,

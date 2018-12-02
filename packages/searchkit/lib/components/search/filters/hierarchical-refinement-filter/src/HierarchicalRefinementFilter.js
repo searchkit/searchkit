@@ -60,6 +60,8 @@ var HierarchicalRefinementFilter = /** @class */ (function (_super) {
         return (React.createElement("div", { className: block("hierarchical-options") }, map(this.accessor.getBuckets(level), this.renderOption.bind(this, level))));
     };
     HierarchicalRefinementFilter.prototype.render = function () {
+        if (!this.accessor)
+            return null;
         var block = this.bemBlocks.container;
         var _a = this.props, id = _a.id, title = _a.title, containerComponent = _a.containerComponent;
         return core_1.renderComponent(containerComponent, {

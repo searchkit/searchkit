@@ -116,6 +116,8 @@ var InputFilter = /** @class */ (function (_super) {
         }
     };
     InputFilter.prototype.render = function () {
+        if (!this.accessor)
+            return null;
         var _a = this.props, containerComponent = _a.containerComponent, title = _a.title, id = _a.id;
         var block = this.bemBlocks.container;
         var value = this.getValue();

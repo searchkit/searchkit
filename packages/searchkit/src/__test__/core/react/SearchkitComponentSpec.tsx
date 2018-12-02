@@ -92,9 +92,9 @@ describe("SearchkitComponent", ()=> {
     expect(this.component.accessor).toBe(accessor)
     expect(searchkit.accessors.accessors)
       .toEqual([accessor])
-    expect(this.component.forceUpdate).not.toHaveBeenCalled()
+    expect(this.component.forceUpdate).toHaveBeenCalledTimes(2)
     searchkit.emitter.trigger()
-    expect(this.component.forceUpdate).toHaveBeenCalled()
+    expect(this.component.forceUpdate).toHaveBeenCalledTimes(3)
 
     expect(searchkit.emitter.listeners.length).toBe(1)
     this.component.componentWillUnmount()

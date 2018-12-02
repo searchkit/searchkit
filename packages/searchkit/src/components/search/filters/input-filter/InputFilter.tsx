@@ -176,6 +176,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
   }
 
   render() {
+    if (!this.accessor) return null;
     const { containerComponent, title, id } = this.props
     const block = this.bemBlocks.container
     const value = this.getValue()

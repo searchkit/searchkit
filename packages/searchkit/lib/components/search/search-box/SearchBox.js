@@ -103,6 +103,8 @@ var SearchBox = /** @class */ (function (_super) {
         }
     };
     SearchBox.prototype.render = function () {
+        if (!this.accessor)
+            return null;
         var block = this.bemBlocks.container;
         return (React.createElement("div", { className: block().state({ focused: this.state.focused }) },
             React.createElement("form", { onSubmit: this.onSubmit.bind(this) },

@@ -31,6 +31,8 @@ var ViewSwitcherHits = /** @class */ (function (_super) {
         return new core_1.ViewOptionsAccessor("view", this.props.hitComponents);
     };
     ViewSwitcherHits.prototype.render = function () {
+        if (!this.accessor)
+            return null;
         var selectedOption = this.accessor.getSelectedOption();
         var props = __assign({}, this.props, { itemComponent: selectedOption.itemComponent, listComponent: selectedOption.listComponent, mod: 'sk-hits-' + selectedOption.key });
         return (React.createElement(_1.Hits, __assign({}, props)));

@@ -82,6 +82,7 @@ export class ResetFilters extends SearchkitComponent<ResetFiltersProps, any> {
 	}
 
   render() {
+	if(!this.accessor) return null;
 		const props:ResetFiltersDisplayProps = {
 			bemBlock:this.bemBlocks.container,
 			resetFilters:this.resetFilters,

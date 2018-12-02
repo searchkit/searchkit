@@ -43,6 +43,8 @@ var CheckboxFilter = /** @class */ (function (_super) {
         }
     };
     CheckboxFilter.prototype.render = function () {
+        if (!this.accessor)
+            return null;
         var _a = this.props, listComponent = _a.listComponent, containerComponent = _a.containerComponent, showCount = _a.showCount, title = _a.title, id = _a.id, label = _a.label;
         var disabled = (this.searchkit.getHitsCount() == 0) && !this.accessor.state.getValue();
         return core_1.renderComponent(containerComponent, {

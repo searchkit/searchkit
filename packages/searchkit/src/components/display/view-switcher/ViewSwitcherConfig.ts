@@ -42,7 +42,6 @@ export class ViewSwitcherConfig extends SearchkitComponent<ViewSwitcherConfigPro
     return new ViewOptionsAccessor("view", this.props.hitComponents)
   }
   render(){
-		this.initAccessor();
     return null
   }
 }

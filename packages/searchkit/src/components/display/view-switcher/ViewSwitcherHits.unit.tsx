@@ -107,7 +107,6 @@ describe("View Switcher Hits component", () => {
             hitsPerPage={12}
             sourceFilter={["title"]}/>
           <ViewSwitcherToggle searchkit={this.searchkit} translations={{"Grid":"My Grid"}}/>
-
         </div>
       )
 

@@ -76,6 +76,7 @@ export class CheckboxFilter extends SearchkitComponent<CheckboxFilterProps, any>
   }
 
   render() {
+    if(!this.accessor) return null;
     const { listComponent, containerComponent, showCount, title, id, label } = this.props
 
     const disabled =  (this.searchkit.getHitsCount() == 0) && !this.accessor.state.getValue()

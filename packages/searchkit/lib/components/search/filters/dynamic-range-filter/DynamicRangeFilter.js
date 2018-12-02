@@ -58,6 +58,8 @@ var DynamicRangeFilter = /** @class */ (function (_super) {
         this.searchkit.performSearch();
     };
     DynamicRangeFilter.prototype.render = function () {
+        if (!this.accessor)
+            return null;
         var _a = this.props, id = _a.id, title = _a.title, containerComponent = _a.containerComponent;
         return core_1.renderComponent(containerComponent, {
             title: title,
