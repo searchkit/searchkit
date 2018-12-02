@@ -155,6 +155,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
   }
 
   render() {
+    if (!this.accessor) return null;
     let block = this.bemBlocks.container
 
     return (

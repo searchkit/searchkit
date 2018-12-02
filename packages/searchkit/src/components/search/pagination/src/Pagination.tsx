@@ -115,6 +115,7 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
   }
 
   render() {
+    if (!this.accessor) return null;
     if (!this.hasHits()) return null;
     const className = block(this.props.mod).state({numbered:this.props.showNumbers})
 

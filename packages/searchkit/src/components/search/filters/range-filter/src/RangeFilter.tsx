@@ -107,6 +107,7 @@ export class RangeFilter extends SearchkitComponent<RangeFilterProps, any> {
 	}
 
   render() : React.ReactElement<any> {
+    if(!this.accessor) return null;
     const { id, title, containerComponent } = this.props
 
     return renderComponent(containerComponent, {
