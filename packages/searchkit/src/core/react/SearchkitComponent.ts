@@ -16,7 +16,7 @@ export interface SearchkitComponentProps {
 }
 
 export class SearchkitComponent<P extends SearchkitComponentProps,S> extends React.Component<P,S> {
-  searchkit:SearchkitManager
+  _searchkit:SearchkitManager
   accessor:Accessor
   stateListenerUnsubscribe:Function
   translations:Object = {}
