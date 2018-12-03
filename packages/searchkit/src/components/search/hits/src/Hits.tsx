@@ -111,8 +111,8 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		scrollTo: "body"
 	}
 
-	componentWillMount() {
-		super.componentWillMount()
+	componentDidMount() {
+		super.componentDidMount()
 		if(this.props.hitsPerPage){
 			this.searchkit.getAccessorByType(PageSizeAccessor)
 				.defaultSize = this.props.hitsPerPage

@@ -42,6 +42,7 @@ export class ViewSwitcherHits extends SearchkitComponent<ViewSwitcherHitsProps, 
     return new ViewOptionsAccessor("view", this.props.hitComponents)
   }
   render(){
+		if (!this.accessor) return null;
     const selectedOption = this.accessor.getSelectedOption()
     const props = {
       ...this.props,

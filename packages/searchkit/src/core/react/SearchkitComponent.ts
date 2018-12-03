@@ -16,7 +16,7 @@ export interface SearchkitComponentProps {
 }
 
 export class SearchkitComponent<P extends SearchkitComponentProps,S> extends React.Component<P,S> {
-  searchkit:SearchkitManager
+  _searchkit:SearchkitManager
   accessor:Accessor
   stateListenerUnsubscribe:Function
   translations:Object = {}
@@ -64,24 +64,45 @@ export class SearchkitComponent<P extends SearchkitComponentProps,S> extends Rea
       return block(cssClass).el
     })
   }
-  _getSearchkit(){
-    return this.props.searchkit || this.context["searchkit"]
+
+  get searchkit(): SearchkitManager {
+    return this._searchkit || (this._searchkit = this._getSearchkit());
   }
-  componentWillMount(){
-    this.searchkit = this._getSearchkit()
-    if(this.searchkit){
-      this.accessor  = this.defineAccessor()
-      if(this.accessor){
-        this.accessor = this.searchkit.addAccessor(this.accessor)
-      }
-      this.stateListenerUnsubscribe = this.searchkit.emitter.addListener(()=> {
-        if(!this.unmounted){
+
+  _getSearchkit(): SearchkitManager {
+    return this.props.searchkit || this.context["searchkit"];
+  }
+
+  set searchkit(value: SearchkitManager) {
+    this._searchkit = value;
+  }
+
+  componentDidMount() {
+    this._initAccessor();
+    if (this.searchkit) {
+      this.stateListenerUnsubscribe = this.searchkit.emitter.addListener(() => {
+        if (!this.unmounted) {
           this.forceUpdate();
         }
-      })
-    } else {
-      console.warn("No searchkit found in props or context for " + this.constructor["name"])
+      });
     }
+    this.forceUpdate();
+  }
+  
+  _initAccessor() {
+    if (this.searchkit && !this.accessor) {
+      this.accessor = this.defineAccessor();
+      if (this.accessor) {
+        this.accessor = this.searchkit.addAccessor(this.accessor);
+        return true;
+      }
+    }
+    if (!this.searchkit) {
+      console.warn(
+        "No searchkit found in props or context for " + this.constructor["name"]
+      );
+    }
+    return false;
   }
 
   componentWillUnmount(){

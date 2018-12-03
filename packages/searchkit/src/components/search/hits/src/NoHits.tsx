@@ -49,8 +49,8 @@ export class NoHits extends SearchkitComponent<NoHitsProps, any> {
 		component: NoHitsDisplay
 	}
 
-	componentWillMount() {
-		super.componentWillMount()
+	componentDidMount() {
+		super.componentDidMount()
 		this.noFiltersAccessor = this.searchkit.addAccessor(
 			new NoFiltersHitCountAccessor()
 		)

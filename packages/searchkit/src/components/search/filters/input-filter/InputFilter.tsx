@@ -86,8 +86,8 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
     }, props.searchThrottleTime)
   }
 
-  componentWillMount() {
-    super.componentWillMount()
+  componentDidMount() {
+    super.componentDidMount()
   }
 
   defineBEMBlocks() {
@@ -176,6 +176,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
   }
 
   render() {
+    if (!this.accessor) return null;
     const { containerComponent, title, id } = this.props
     const block = this.bemBlocks.container
     const value = this.getValue()
