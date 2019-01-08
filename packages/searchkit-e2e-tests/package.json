@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "searchkit-e2e-tests",
-    "version": "0.0.4-alpha.3",
+    "version": "0.0.4-alpha.4",
     "scripts": {
         "start": "node src/start.js",
         "start:prod": "NODE_ENV=production node src/start.js",
@@ -10,8 +10,8 @@
         "cypress:open": "npm run start & cypress open && kill $!"
     },
     "dependencies": {
-        "@searchkit/autosuggest": "^0.1.2-alpha.3",
-        "@searchkit/refinement-autosuggest": "^0.1.2-alpha.3",
+        "@searchkit/autosuggest": "^0.1.2-alpha.4",
+        "@searchkit/refinement-autosuggest": "^0.1.2-alpha.4",
         "@types/node": "^8.0.46",
         "@types/react": "^16.4.12",
         "css-loader": "^0.28.7",
@@ -26,7 +26,7 @@
         "react-dom": "^16.4.0",
         "react-router": "^4.2.0",
         "sass-loader": "^6.0.6",
-        "searchkit": "^2.3.1-alpha.5",
+        "searchkit": "^2.3.1-alpha.6",
         "serve-favicon": "^2.4.5",
         "style-loader": "^0.19.0",
         "ts-loader": "^3.0.5",
