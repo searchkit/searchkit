@@ -39,7 +39,7 @@
     },
     "dependencies": {
         "@types/react-select": "^1.0.59",
-        "lodash": "^4.17.4",
+        "lodash": "^4.17.5",
         "react-select": "^1.0.0-rc.10"
     }
 }
