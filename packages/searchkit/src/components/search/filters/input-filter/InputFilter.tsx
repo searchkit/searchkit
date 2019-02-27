@@ -197,7 +197,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
             onBlur={this.setFocusState.bind(this, false)}
             ref="queryField"
             autoFocus={false}
-            onInput={this.onChange.bind(this)}/>
+            onChange={this.onChange.bind(this)}/>
           <input type="submit" value={this.translate("searchbox.button")} className={block("action")} data-qa="submit"/>
           <div data-qa="remove"
                onClick={this.onClear}
