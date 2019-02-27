@@ -63,7 +63,7 @@ describe("InputFilter tests", () => {
 
     this.typeSearch = (value)=> {
       this.wrapper.find(".sk-input-filter__text")
-        .simulate("input", {target:{value}})
+        .simulate("change", {target:{value}})
     }
 
   });
