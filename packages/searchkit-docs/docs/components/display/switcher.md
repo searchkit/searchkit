@@ -1,5 +1,5 @@
 # View Switcher
-Searchkit's view switcher components come in 2 seperate components. `ViewSwitcherHits` which toggles the hits display and `ViewSwitcherToggle` which is the actual toggle button to switch views.
+Searchkit's view switcher components come in 2 separate components. `ViewSwitcherHits` which toggles the hits display and `ViewSwitcherToggle` which is the actual toggle button to switch views.
 
 <img src="./assets/view-switch-grid.png" height="200px"/>
 <img src="./assets/view-switch-list.png" height="200px"/>
