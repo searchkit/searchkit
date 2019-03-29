@@ -1,9 +1,8 @@
 import * as React from "react"
-import { Async as SelectAsync, OptionValues, Option, Options } from 'react-select'
+import { Async as SelectAsync, Option, Options } from 'react-select'
 import 'react-select/dist/react-select.css';
 import compact from "lodash/compact"
 import flatten from "lodash/flatten"
-import property from "lodash/property"
 import map from "lodash/map"
 import {AdapterProps} from "../AdapterProps"
 
