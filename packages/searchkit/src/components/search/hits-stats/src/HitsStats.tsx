@@ -72,7 +72,7 @@ export class HitsStats extends SearchkitComponent<HitsStatsProps, any> {
 			hitsCount: hitsCount,
 			resultsFoundLabel: this.translate("hitstats.results_found", {
 				timeTaken:timeTaken,
-				hitCount:hitsCount
+				hitCount:hitsCount.value
 			})
 		}
 		return renderComponent(this.props.component, props)
