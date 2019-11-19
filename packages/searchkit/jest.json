@@ -6,7 +6,7 @@
     ],
     "testURL": "http://localhost:3000/context.html",
     "transform": {
-        "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+        "^.+\\.tsx?$": "ts-jest"
     },
     "testMatch": [
         "<rootDir>/src/__test__/**/*?(.)(Spec|unit).(tsx|ts)",
@@ -15,9 +15,10 @@
     "mapCoverage": true,        
     "coveragePathIgnorePatterns":[
         "<rootDir>/src/components/__test__/TestHelpers.ts",
-        "<rootDir>/node_modules/*"
+        "node_modules/*"
     ],
     "snapshotSerializers": [
         "<rootDir>/src/components/__test__/JestEnzymeSerializer.js"
-    ]
+    ],
+    "setupTestFrameworkScriptFile": "./src/__test__/helpers/setupEnzyme.ts"
 }

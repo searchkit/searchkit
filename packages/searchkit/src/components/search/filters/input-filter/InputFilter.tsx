@@ -86,8 +86,8 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
     }, props.searchThrottleTime)
   }
 
-  componentWillMount() {
-    super.componentWillMount()
+  componentDidMount() {
+    super.componentDidMount()
   }
 
   defineBEMBlocks() {
@@ -176,6 +176,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
   }
 
   render() {
+    if (!this.accessor) return null;
     const { containerComponent, title, id } = this.props
     const block = this.bemBlocks.container
     const value = this.getValue()
@@ -196,7 +197,7 @@ export class InputFilter extends SearchkitComponent<InputFilterProps, any> {
             onBlur={this.setFocusState.bind(this, false)}
             ref="queryField"
             autoFocus={false}
-            onInput={this.onChange.bind(this)}/>
+            onChange={this.onChange.bind(this)}/>
           <input type="submit" value={this.translate("searchbox.button")} className={block("action")} data-qa="submit"/>
           <div data-qa="remove"
                onClick={this.onClear}

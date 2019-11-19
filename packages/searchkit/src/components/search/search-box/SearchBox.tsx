@@ -155,6 +155,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
   }
 
   render() {
+    if (!this.accessor) return null;
     let block = this.bemBlocks.container
 
     return (
@@ -170,7 +171,7 @@ export class SearchBox extends SearchkitComponent<SearchBoxProps, any> {
           onBlur={this.setFocusState.bind(this, false)}
           ref="queryField"
           autoFocus={this.props.autofocus}
-          onInput={this.onChange.bind(this)}/>
+          onChange={this.onChange.bind(this)}/>
           <input type="submit" value={this.translate("searchbox.button")} className={block("action")} data-qa="submit"/>
           <div data-qa="loader" className={block("loader").mix("sk-spinning-loader").state({hidden:!this.isLoading()})}></div>
         </form>

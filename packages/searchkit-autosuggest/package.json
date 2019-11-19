@@ -1,0 +1,48 @@
+{
+  "name": "@searchkit/autosuggest",
+  "version": "0.1.2-alpha.6",
+  "description": "",
+  "main": "umd/bundle.js",
+  "module": "umd/bundle.js",
+  "jsnext:main": "es/index.js",
+  "typings": "es/index.d.ts",
+  "scripts": {
+    "build": "tsc; rollup -c rollup.config.js",
+    "build:watch": "tsc --watch"
+  },
+  "authors": [
+    {
+      "name": "Joseph McElroy",
+      "email": "phoey1@gmail.com"
+    },
+    {
+      "name": "Siavash Etemadieh",
+      "email": "ssetem@gmail.com"
+    }
+  ],
+  "license": "Apache-2.0",
+  "peerDependencies": {
+    "react": ">15.0.0-0",
+    "searchkit": "^2.3.0-8"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.80",
+    "@types/node": "^8.0.47",
+    "@types/react": "^16.4.12",
+    "react": "^16.4.2",
+    "rollup": "^0.51.2",
+    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-license": "^0.5.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-postcss": "^0.5.5",
+    "rollup-plugin-typescript2": "^0.8.0",
+    "rollup-plugin-uglify": "^2.0.1",
+    "searchkit": "^2.3.1-alpha.8",
+    "typescript": "^3.0.1"
+  },
+  "dependencies": {
+    "@types/react-autosuggest": "^9.3.1",
+    "lodash": "^4.17.4",
+    "react-autosuggest": "^9.3.2"
+  }
+}

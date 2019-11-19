@@ -1,5 +1,5 @@
 {
-  "compilerOptions": {
+  "compilerOptions": {          
     "declaration": true,
     "module": "commonjs",
     "target": "es5",
@@ -26,7 +26,9 @@
     "./src/**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "./src/**/__test__/*",
+    "./src/**/*.unit.tsx?"
   ],
   "atom": {
     "rewriteTsconfig": false

@@ -6,7 +6,7 @@ import {
   CustomHighlightAccessor, SourceFilterAccessor
 } from "../../../../core";
 import {
-  fastClick, hasClass, printPrettyHtml
+  fastClick
 } from "../../../__test__/TestHelpers"
 import * as sinon from "sinon";
 

@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {DynamicRangeFilter} from "./DynamicRangeFilter";
 import {SearchkitManager, DynamicRangeAccessor} from "../../../../core";
 import {
-  fastClick, hasClass, printPrettyHtml
+  fastClick
 } from "../../../__test__/TestHelpers"
 
 describe("Dynamic Range Filter tests", () => {
@@ -67,20 +67,20 @@ describe("Dynamic Range Filter tests", () => {
 
   it("handle slider events correctly", ()=> {
     this.createWrapper(true)
-    this.wrapper.node.sliderUpdate({min:30,max:70})
+    this.wrapper.instance().sliderUpdate({min:30,max:70})
     expect(this.accessor.state.getValue()).toEqual({
       min:30, max:70
     })
     expect(this.searchkit.performSearch).not.toHaveBeenCalled()
 
-    this.wrapper.node.sliderUpdateAndSearch({min:40,max:60})
+    this.wrapper.instance().sliderUpdateAndSearch({min:40,max:60})
     expect(this.accessor.state.getValue()).toEqual({
       min:40, max:60
     })
     expect(this.searchkit.performSearch).toHaveBeenCalled()
 
     // min/max should clear
-    this.wrapper.node.sliderUpdateAndSearch({min:1,max:120})
+    this.wrapper.instance().sliderUpdateAndSearch({min:1,max:120})
     expect(this.accessor.state.getValue()).toEqual({})
   })
 

@@ -1,22 +1,22 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var nodeExternals = require('webpack-node-externals');
 var apps = require("./apps")
 
 const isProduction = process.env.NODE_ENV === 'production'
 var entries = {
 }
-apps.forEach(function(app){
+apps.forEach(function (app) {
   entries[app] = [
-    path.join(__dirname, '/src/apps/'+app)
-  ]  
+    path.join(__dirname, '/src/apps/' + app)
+  ]
   !isProduction && entries[app].unshift(
-    'webpack-hot-middleware/client?reload=true')  
+    'webpack-hot-middleware/client?reload=true')
 })
-console.log(entries)
 
 module.exports = {
-  devtool:"eval",
+  devtool: "eval",
   entry: entries,
   output: {
     path: path.join(__dirname, 'dist'),
@@ -30,29 +30,28 @@ module.exports = {
       },
     }),
   ] : [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
-  ],
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoEmitOnErrorsPlugin()
+    ],
   resolve: {
-    extensions:[".js", ".ts", ".tsx", ".webpack.js", ".web.js"],
-    modules:[
+    extensions: [".js", ".ts", ".tsx", ".webpack.js", ".web.js"],
+    modules: [
       path.resolve(__dirname, "./node_modules"),
-      path.resolve(__dirname, "./node_modules/searchkit/node_modules")
+      path.resolve(__dirname, "../../node_modules")
     ]
   },
-
   module: {
     loaders: [
       {
-        test: /\.tsx?$/,        
+        test: /\.tsx?$/,
         loaders: ['ts-loader']
       },
       {
         test: /\.(scss|css)$/,
         loaders: [
-          "style-loader", 
+          "style-loader",
           "css-loader",
-          "sass-loader"                    
+          "sass-loader"
         ]
       },
       {

@@ -1,6 +1,6 @@
 import * as React from "react";;
 import {mount, render} from "enzyme";
-import {fastClick, hasClass, printPrettyHtml} from "../../__test__/TestHelpers"
+import {fastClick} from "../../__test__/TestHelpers"
 
 import {
   SearchkitComponent, ISizeOption,PageSizeAccessor,

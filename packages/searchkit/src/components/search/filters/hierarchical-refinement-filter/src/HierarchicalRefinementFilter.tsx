@@ -112,6 +112,7 @@ export class HierarchicalRefinementFilter extends SearchkitComponent<Hierarchica
 	}
 
 	render() {
+		if(!this.accessor) return null;
 		const block = this.bemBlocks.container
 		const { id, title, containerComponent } = this.props
 		return renderComponent(

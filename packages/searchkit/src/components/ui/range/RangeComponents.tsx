@@ -4,21 +4,24 @@ import * as PropTypes from "prop-types"
 import {
   RangeHistogram, RangeSlider, RangeInput
 } from './'
+import { RangePropTypes, RangeProps } from './RangeProps';
 
 export class RangeComponent extends React.PureComponent<any, {}> {
   static propTypes = {
     showHistogram:PropTypes.bool,
     showSlider:PropTypes.bool,
-    showInput:PropTypes.bool
+    showInput:PropTypes.bool,
+    ...RangePropTypes
   }
 
   render() {
-    const { showHistogram, showSlider, showInput } = this.props
+    const props: any = this.props
+    const { showHistogram, showSlider, showInput } = props
     return (
       <div>
-        {showHistogram ? <RangeHistogram {...this.props} /> : undefined}
-        {showSlider ? <RangeSlider {...this.props} /> : undefined}
-        {showInput ? <RangeInput {...this.props} /> : undefined}
+        {showHistogram ? <RangeHistogram {...props} /> : undefined}
+        {showSlider ? <RangeSlider {...props} /> : undefined}
+        {showInput ? <RangeInput {...props} /> : undefined}
       </div>
     )
   }

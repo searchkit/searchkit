@@ -2,16 +2,13 @@
     "private": true,
     "name": "searchkit",
     "keywords": [
-        "elasticsearch",
-        "elastic search",
-        "react",
-        "ui components",
-        "search",
-        "library",
-        "client-side",
-        "widgets",
-        "react components",
-        "react-component"
+      "elasticsearch",
+      "react",
+      "ui components",
+      "search",
+      "framework",
+      "library",
+      "widgets"
     ],
     "homepage": "http://www.searchkit.co",
     "bugs": {
@@ -22,7 +19,10 @@
         "url": "https://github.com/searchkit/searchkit.git"
     },
     "scripts": {
-        "lerna": "lerna"
+        "lerna": "lerna",
+        "build": "lerna run build",
+        "clean": "lerna clean",
+        "publish": "node ./scripts/deploy.js"
     },
     "authors": [
         {
@@ -43,6 +43,19 @@
     "license": "Apache-2.0",
     "dependencies": {},
     "devDependencies": {
-        "lerna": "2.4.0"
+        "cross-spawn": "^6.0.5",
+        "cz-conventional-changelog": "^2.1.0",
+        "lerna": "^3.1.4"
+    },
+    "workspaces": [
+        "packages/*"
+    ],
+    "resolutions": {
+        "@types/react": "^16.4.12"
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
     }
 }

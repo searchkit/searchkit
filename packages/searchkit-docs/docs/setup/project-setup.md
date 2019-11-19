@@ -26,29 +26,19 @@ import {
 	HierarchicalMenuFilter,
 	Pagination,
 	ResetFilters
-	} from "searchkit";
+} from "searchkit";
 
 ```
 
 ## Using library script
-Searchkit library script is available from bower or from [jsdelivr CDN](https://www.jsdelivr.com/?query=searchkit).
-
-### Installing via bower
-Requires React, ReactDOM to be included before searchkit. Within the release folder, the src `bundle.js`, the css `theme.css` and static file assets.
-
-```sh
-  bower install searchkit --save
-```
+Searchkit library script is available from bower or from [jsdelivr CDN](https://www.jsdelivr.com/package/npm/searchkit?path=release).
 
 ### CDN Script include
 
 ```html
-  <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react.min.js"></script>
-  <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react-dom.min.js"></script>
-  <script type="text/javascript" src="//cdn.jsdelivr.net/searchkit/0.10.0/bundle.js"></script>
-  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+	<link href="//cdn.jsdelivr.net/npm/searchkit@2.3.0-9/release/theme.css" rel="stylesheet"/>
+	<script src="//cdn.jsdelivr.net/npm/react@16.0.0/umd/react.production.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/react-dom@16.0.0/umd/react-dom.production.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/searchkit@2.3.0-9/release/bundle.js"></script>
 ```
 
-### Use
-
-[](https://codepen.io/searchkit/pen/vLgLOw)

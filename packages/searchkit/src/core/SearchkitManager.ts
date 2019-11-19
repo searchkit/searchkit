@@ -4,7 +4,6 @@ import {AccessorManager} from "./AccessorManager"
 import {ESTransport, AxiosESTransport, MockESTransport} from "./transport"
 import {SearchRequest} from "./SearchRequest"
 import {EventEmitter, GuidGenerator} from "./support"
-import {VERSION} from "./SearchkitVersion"
 import {createHistoryInstance, encodeObjUrl, decodeObjString} from "./history"
 
 const defaults = require("lodash/defaults")
@@ -56,8 +55,6 @@ export class SearchkitManager {
   initialLoading:boolean
   error:any
   results:any
-  VERSION = VERSION
-  static VERSION = VERSION
 
   static mock(options = {}):SearchkitManager {
     let searchkit = new SearchkitManager("/", {
@@ -161,7 +158,7 @@ export class SearchkitManager {
     this.registrationCompleted.then(()=> {
       this.searchFromUrlQuery(location.search)
     }).catch((e)=> {
-      console.error(e.stack)
+      console.error(e)
     })
   }
 

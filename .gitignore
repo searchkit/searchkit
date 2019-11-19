@@ -1,3 +1,4 @@
+**/es
 node_modules
 npm-debug.log
 lib/__test__
@@ -14,3 +15,9 @@ unit-results.xml
 **/cypress/screenshots
 lerna-debug.log
 packages/searchkit/release
+yarn-error.log
+package-lock.json
+.DS_Store
+**/bundle.js
+package-lock.json
+**/.rpt2_cache/**

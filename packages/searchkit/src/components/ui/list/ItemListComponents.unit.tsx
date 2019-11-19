@@ -37,9 +37,9 @@ describe("ItemList Components", ()=> {
     this.wrapper.setProps({mod:"my-item-list"})
     expect(this.wrapper.find(".my-item-list").length).toBe(1)
 
-    expect(this.wrapper.node.state.toggleItem).not.toHaveBeenCalled()
+    expect(this.wrapper.instance().state.toggleItem).not.toHaveBeenCalled()
     fastClick(this.wrapper.find(".my-item-list-option").at(2))
-    expect(this.wrapper.node.state.toggleItem).toHaveBeenCalledWith("c")
+    expect(this.wrapper.instance().state.toggleItem).toHaveBeenCalledWith("c")
   })
 
   it("check default props are set correctly", ()=> {

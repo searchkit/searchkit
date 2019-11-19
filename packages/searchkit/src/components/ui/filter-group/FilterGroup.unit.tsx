@@ -3,7 +3,7 @@ import {mount} from "enzyme";
 import {
   FilterGroup
 } from "./FilterGroup"
-import {fastClick, hasClass, printPrettyHtml} from "../../__test__/TestHelpers"
+import {fastClick} from "../../__test__/TestHelpers"
 
 describe("FilterGroup", ()=> {
 

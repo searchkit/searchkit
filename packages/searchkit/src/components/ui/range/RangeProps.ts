@@ -12,11 +12,13 @@ export interface RangeProps {
   mod?: string
   className?: string
   translate?: (s: string) => string
+  [x: string]: any,
+  children? : any
 }
 
 export const RangePropTypes = {
   onChange:PropTypes.func.isRequired,
-  onFinishd:PropTypes.func.isRequired,
+  onFinished:PropTypes.func.isRequired,
   min:PropTypes.number.isRequired,
   max:PropTypes.number.isRequired,
   minValue:PropTypes.number,

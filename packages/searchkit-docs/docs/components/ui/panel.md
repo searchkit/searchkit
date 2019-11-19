@@ -4,7 +4,7 @@ This is a titled Panel component which can be collapsed, it is the default `cont
 <img src="./assets/panel.png" height="150px"/>
 
 ```jsx
-import  {Panel} from "Searchkit"
+import  {Panel} from "searchkit"
 
 const PanelExample ()=> (
   <Panel title="My Panel" collapsable={true} defaultCollapsed={false}>

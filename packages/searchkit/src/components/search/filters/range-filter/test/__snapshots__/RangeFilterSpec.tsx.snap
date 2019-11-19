@@ -20,7 +20,7 @@ exports[`Range Filter tests handle slider events correctly 1`] = `
       <div class="sk-range-slider">
         <div class="rc-slider rc-slider-with-marks">
           <div class="rc-slider-rail"></div>
-          <div class="rc-slider-track rc-slider-track-1" style="visibility: visible; left: 40%; width: 20%;"></div>
+          <div class="rc-slider-track rc-slider-track-1" style="left: 40%; width: 20%;"></div>
           <div class="rc-slider-step"><span class="rc-slider-dot" style="left: 0%;"></span><span class="rc-slider-dot" style="left: 100%;"></span></div>
           <div role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" aria-disabled="false" class="rc-slider-handle rc-slider-handle-1"
             style="left: 40%;"></div>
@@ -53,7 +53,7 @@ exports[`Range Filter tests handle slider events correctly 2`] = `
       <div class="sk-range-slider">
         <div class="rc-slider rc-slider-with-marks">
           <div class="rc-slider-rail"></div>
-          <div class="rc-slider-track rc-slider-track-1" style="visibility: visible; left: 0%; width: 100%;"></div>
+          <div class="rc-slider-track rc-slider-track-1" style="left: 0%; width: 100%;"></div>
           <div class="rc-slider-step"><span class="rc-slider-dot rc-slider-dot-active" style="left: 0%;"></span><span class="rc-slider-dot rc-slider-dot-active" style="left: 100%;"></span></div>
           <div role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
             aria-disabled="false" class="rc-slider-handle rc-slider-handle-1" style="left: 0%;"></div>
@@ -86,7 +86,7 @@ exports[`Range Filter tests renders correctly 1`] = `
       <div class="sk-range-slider">
         <div class="rc-slider rc-slider-with-marks">
           <div class="rc-slider-rail"></div>
-          <div class="rc-slider-track rc-slider-track-1" style="visibility: visible; left: 0%; width: 100%;"></div>
+          <div class="rc-slider-track rc-slider-track-1" style="left: 0%; width: 100%;"></div>
           <div class="rc-slider-step"><span class="rc-slider-dot rc-slider-dot-active" style="left: 0%;"></span><span class="rc-slider-dot rc-slider-dot-active" style="left: 100%;"></span></div>
           <div role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
             aria-disabled="false" class="rc-slider-handle rc-slider-handle-1" style="left: 0%;"></div>
@@ -119,7 +119,7 @@ exports[`Range Filter tests renders limited range correctly 1`] = `
       <div class="sk-range-slider">
         <div class="rc-slider rc-slider-with-marks">
           <div class="rc-slider-rail"></div>
-          <div class="rc-slider-track rc-slider-track-1" style="visibility: visible; left: 30%; width: 40%;"></div>
+          <div class="rc-slider-track rc-slider-track-1" style="left: 30%; width: 40%;"></div>
           <div class="rc-slider-step"><span class="rc-slider-dot" style="left: 0%;"></span><span class="rc-slider-dot" style="left: 100%;"></span></div>
           <div role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="30" aria-disabled="false" class="rc-slider-handle rc-slider-handle-1"
             style="left: 30%;"></div>
@@ -136,8 +136,8 @@ exports[`Range Filter tests renders with range input component 1`] = `
 <div class="sk-panel filter--m">
   <div class="sk-panel__header">metascore</div>
   <div class="sk-panel__content">
-    <form class="sk-range-input"><input type="number" class="sk-range-input__input" value="0" placeholder="min">
-      <div class="sk-range-input__to-label">-</div><input type="number" class="sk-range-input__input" value="100" placeholder="max"><button type="submit" class="sk-range-input__submit">Go</button></form>
+    <form class="sk-range-input"><input type="number" class="sk-range-input__input" placeholder="min" value="0">
+      <div class="sk-range-input__to-label">-</div><input type="number" class="sk-range-input__input" placeholder="max" value="100"><button type="submit" class="sk-range-input__submit">Go</button></form>
   </div>
 </div>
 `;
@@ -149,7 +149,7 @@ exports[`Range Filter tests renders without histogram 1`] = `
     <div class="sk-range-slider">
       <div class="rc-slider rc-slider-with-marks">
         <div class="rc-slider-rail"></div>
-        <div class="rc-slider-track rc-slider-track-1" style="visibility: visible; left: 0%; width: 100%;"></div>
+        <div class="rc-slider-track rc-slider-track-1" style="left: 0%; width: 100%;"></div>
         <div class="rc-slider-step"><span class="rc-slider-dot rc-slider-dot-active" style="left: 0%;"></span><span class="rc-slider-dot rc-slider-dot-active" style="left: 100%;"></span></div>
         <div role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
           aria-disabled="false" class="rc-slider-handle rc-slider-handle-1" style="left: 0%;"></div>

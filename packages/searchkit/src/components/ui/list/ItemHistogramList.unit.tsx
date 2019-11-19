@@ -25,9 +25,9 @@ describe("ItemHistogramList Components", ()=> {
     this.wrapper.setProps({mod:"my-item-list"})
     expect(this.wrapper.find(".my-item-list").length).toBe(1)
 
-    expect(this.wrapper.node.state.toggleItem).not.toHaveBeenCalled()
+    expect(this.wrapper.instance().state.toggleItem).not.toHaveBeenCalled()
     fastClick(this.wrapper.find(".my-item-list-option").at(2))
-    expect(this.wrapper.node.state.toggleItem).toHaveBeenCalledWith("c")
+    expect(this.wrapper.instance().state.toggleItem).toHaveBeenCalledWith("c")
   })
 
   it("should handle multiselect={false}", () => {
@@ -35,11 +35,11 @@ describe("ItemHistogramList Components", ()=> {
       <MockList listComponent={ItemHistogramList} multiselect={false}/>
     )
 
-    expect(this.wrapper.node.state.toggleItem).not.toHaveBeenCalled()
-    expect(this.wrapper.node.state.setItems).not.toHaveBeenCalled()
+    expect(this.wrapper.instance().state.toggleItem).not.toHaveBeenCalled()
+    expect(this.wrapper.instance().state.setItems).not.toHaveBeenCalled()
     fastClick(this.wrapper.find(".sk-item-list-option").at(2))
-    expect(this.wrapper.node.state.toggleItem).not.toHaveBeenCalled()
-    expect(this.wrapper.node.state.setItems).toHaveBeenCalledWith(["c"])
+    expect(this.wrapper.instance().state.toggleItem).not.toHaveBeenCalled()
+    expect(this.wrapper.instance().state.setItems).toHaveBeenCalledWith(["c"])
   })
 
   it("mod + classname can be updated", () => {

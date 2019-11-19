@@ -18,11 +18,8 @@ export class SearchkitProvider extends React.Component<SearchkitProps,any> {
 		children:PropTypes.element.isRequired
 	}
 
-	componentWillMount() {
-		this.props.searchkit.setupListeners()
-	}
-
 	componentDidMount(){
+		this.props.searchkit.setupListeners()
 		this.props.searchkit.completeRegistration()
 	}
 

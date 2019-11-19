@@ -1,6 +1,6 @@
 import * as React from "react"
 import {mount, render} from "enzyme";
-import {fastClick, hasClass, printPrettyHtml, htmlClean} from "../../../__test__/TestHelpers"
+import {fastClick} from "../../../__test__/TestHelpers"
 import { TagFilter, TagFilterConfig } from "./";
 import {SearchkitManager, Utils, FacetAccessor} from "../../../../core";
 
@@ -83,14 +83,13 @@ describe("TagFilter tests", () => {
     let option = this.wrapper.find(".sk-tag-filter").at(0)
     let option2 = this.wrapper.find(".sk-tag-filter").at(1)
     fastClick(option)
-    expect(hasClass(option, "is-active")).toBe(true)
-    expect(hasClass(option2, "is-active")).toBe(false)
+    expect(this.wrapper).toMatchSnapshot("option 1 active, option 2 not active");
     expect(this.accessor.state.getValue()).toEqual(['test option 1'])
     fastClick(option2)
-    expect(hasClass(option, "is-active")).toBe(true)
-    expect(hasClass(option2, "is-active")).toBe(true)
+    expect(this.wrapper).toMatchSnapshot("option 1 active, option 2 active");
+
     fastClick(option)
-    expect(hasClass(option, "is-active")).toBe(false)
+    expect(this.wrapper).toMatchSnapshot("option 1 not active");
     fastClick(option2)
     expect(this.accessor.state.getValue()).toEqual([])
   })
