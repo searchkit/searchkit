@@ -16,7 +16,7 @@
         "ejs": "^2.5.7",
         "express": "^4.16.2",
         "html-webpack-plugin": "^2.30.1",
-        "lodash": "^4.17.4",
+        "lodash": "^4.17.15",
         "node-sass": "^4.5.3",
         "raw-loader": "^0.5.1",
         "react": "^15.6.2",

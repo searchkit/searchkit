@@ -57,7 +57,7 @@
     "axios": "^0.16.2",
     "history": "4.7.2",
     "immutability-helper": "^2.4.0",
-    "lodash": "4.17.4",
+    "lodash": "4.17.15",
     "prop-types": "^15.5.8",
     "qs": "6.4.0",
     "rc-slider": "^8.3.1"
