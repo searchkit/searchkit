@@ -2,11 +2,11 @@ import { createBrowserHistory, createMemoryHistory,  History } from 'history'
 const qs = require("qs")
 
 export const encodeObjUrl = (obj) => {
-  return qs.stringify(obj, { encode: true, encodeValuesOnly: true })
+  return encodeURI(qs.stringify(obj, { encode: true, encodeValuesOnly: false }))
 }
 
 export const decodeObjString = (str) => {
-  return qs.parse(str)
+  return qs.parse(decodeURI(str))
 }
 
 export const supportsHistory = ()=> {
