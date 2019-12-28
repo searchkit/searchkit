@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const isProdRelease = process.env.BRANCH && process.env.BRANCH === "master"
+const isPublishCommit = process.env.PUBLISH_COMMIT && process.env.PUBLISH_COMMIT === "Publish"
 const spawn = require('cross-spawn');
 const exec = require('child_process').execSync;
 
@@ -23,6 +24,10 @@ if (!isProdRelease) { // pre-release
   tasks.push('--cd-version=prerelease')
 } else {
   tasks.push('--conventional-commits')
+}
+
+if (isPublishCommit) {
+  console.log("publishing")
 }
 
 // Publish packages to npm registry

@@ -114,9 +114,7 @@ jobs:
       - run: git config --global user.email phoey1@gmail.com
       - run: git config --global user.name "CircleCI"
       - run: ssh-keyscan github.com >> ~/.ssh/known_hosts
-      - run: export COMMIT_MESSAGE=$(git log --format=oneline -n 1 $CIRCLE_SHA1)
-      - run: echo $COMMIT_MESSAGE
-      - run: BRANCH=$CIRCLE_BRANCH npm run publish 
+      - run: PUBLISH_COMMIT=$(git log -1 --pretty=%B | cat | grep Publish) BRANCH=$CIRCLE_BRANCH npm run publish 
 
   # docs:
   #   <<: *job-defaults
@@ -170,8 +168,8 @@ workflows:
       #         only: develop
       - deploy:
           requires:
-            - build
-            - e2e
+            # - build
+            # - e2e
           filters:
             branches:
               only: 
