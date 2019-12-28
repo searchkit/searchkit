@@ -146,19 +146,19 @@ workflows:
   version: 2
   default:
     jobs:
-      - build:
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              only: /.*/
-      - test:
-          filters:
-            branches:
-              ignore: staging
-      - e2e:
-          requires:
-            - build
+      # - build:
+      #     filters:
+      #       tags:
+      #         only: /.*/
+      #       branches:
+      #         only: /.*/
+      # - test:
+      #     filters:
+      #       branches:
+      #         ignore: staging
+      # - e2e:
+      #     requires:
+      #       - build
 
       # - docs:
       #     requires:
