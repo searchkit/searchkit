@@ -114,7 +114,8 @@ jobs:
       - run: git config --global user.email phoey1@gmail.com
       - run: git config --global user.name "CircleCI"
       - run: ssh-keyscan github.com >> ~/.ssh/known_hosts
-
+      - run: export GIT_COMMIT_DESC=git log --format=oneline -n 1 $CIRCLE_SHA1
+      - run: echo $GIT_COMMIT_DESC
       - run: BRANCH=$CIRCLE_BRANCH npm run publish 
 
   # docs:
@@ -174,5 +175,6 @@ workflows:
           filters:
             branches:
               only: 
-                - staging
-                - master
+                - publishing-test
+                # - staging
+                # - master
