@@ -168,8 +168,8 @@ workflows:
               only: develop
       - deploy:
           requires:
-            # - build
-            # - e2e
+            - build
+            - e2e
           filters:
             branches:
               only: 
