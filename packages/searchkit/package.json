@@ -1,6 +1,6 @@
 {
   "name": "searchkit",
-  "version": "2.3.2",
+  "version": "2.3.1-alpha.10",
   "description": "A suite of react components to help create a UI quickly for elasticsearch",
   "main": "lib/index.js",
   "module": "lib/index.js",
@@ -52,10 +52,10 @@
   "dependencies": {
     "@types/history": "^4.6.0",
     "@types/lodash": "^4.14.77",
-    "axios": "^0.16.2",
+    "axios": "^0.18.1",
     "history": "4.7.2",
     "immutability-helper": "^2.4.0",
-    "lodash": "4.17.5",
+    "lodash": "^4.17.5",
     "prop-types": "^15.5.8",
     "qs": "6.4.0",
     "rc-slider": "^8.3.1"

@@ -78,7 +78,7 @@ export class FacetAccessor extends FilterBasedAccessor<ArrayState> {
     let rawBuckets:Array<any> = this.getRawBuckets()
     let keyIndex = {}
     each(rawBuckets, (item)=> {
-      item.key = String(item.key)
+      item.key = item.key_as_string || String(item.key);
       keyIndex[item.key] = item
     })
     let missingFilters = []

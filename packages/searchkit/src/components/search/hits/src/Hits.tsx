@@ -70,7 +70,7 @@ export class HitsList extends React.PureComponent<HitsListProps, any>{
 			<div data-qa="hits" className={bemBlocks.container().mix(className)}>
 				{map(hits, (result: any, index)=> {
 					return renderComponent(itemComponent, {
-						key:result._id, result, bemBlocks, index
+						key: `${result._id}_${result._index}`, result, bemBlocks, index
 					})
 				})}
 			</div>
@@ -111,8 +111,8 @@ export class Hits extends SearchkitComponent<HitsProps, any> {
 		scrollTo: "body"
 	}
 
-	componentWillMount() {
-		super.componentWillMount()
+	componentDidMount() {
+		super.componentDidMount()
 		if(this.props.hitsPerPage){
 			this.searchkit.getAccessorByType(PageSizeAccessor)
 				.defaultSize = this.props.hitsPerPage

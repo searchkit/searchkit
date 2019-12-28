@@ -39,7 +39,7 @@ describe("Searchbox tests", () => {
 
     this.typeSearch = (value)=> {
       this.wrapper.find(".sk-search-box__text")
-        .simulate("input", {target:{value}})
+        .simulate("change", {target:{value}})
     }
 
   });

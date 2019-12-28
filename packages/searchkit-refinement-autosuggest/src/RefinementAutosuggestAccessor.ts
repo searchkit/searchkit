@@ -1,7 +1,6 @@
 import {
     ImmutableQuery, FacetAccessor
 } from "searchkit"
-import map from "lodash/map"
 import get from "lodash/get"
 import { createRegexQuery } from "./Utils"
 
