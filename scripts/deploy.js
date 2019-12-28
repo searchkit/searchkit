@@ -26,13 +26,12 @@ if (!isProdRelease) { // pre-release
   tasks.push('--conventional-commits')
 }
 
-if (isPublishCommit) {
+if (!isPublishCommit) {
 
   // Publish packages to npm registry
   spawnWithErrorHandling('npm', tasks, { stdio: 'inherit' });
 
   console.log('Pushing commit...');
-  exec('git checkout staging');
   exec('git add .');
   exec(`git commit -m 'Publish'`);
   exec(`git push origin ${process.env.BRANCH}`);
