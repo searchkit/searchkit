@@ -114,8 +114,8 @@ jobs:
       - run: git config --global user.email phoey1@gmail.com
       - run: git config --global user.name "CircleCI"
       - run: ssh-keyscan github.com >> ~/.ssh/known_hosts
-      - run: echo "export COMMIT_MESSAGE=\"$(git log --format=oneline -n 1 $CIRCLE_SHA1)\"" >> ~/.bashrc
-      - run: echo $GIT_COMMIT_DESC
+      - run: export COMMIT_MESSAGE=$(git log --format=oneline -n 1 $CIRCLE_SHA1)
+      - run: echo $COMMIT_MESSAGE
       - run: BRANCH=$CIRCLE_BRANCH npm run publish 
 
   # docs:
