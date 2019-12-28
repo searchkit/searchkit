@@ -52,7 +52,7 @@
   "dependencies": {
     "@types/history": "^4.6.0",
     "@types/lodash": "^4.14.77",
-    "axios": "^0.16.2",
+    "axios": "^0.18.1",
     "history": "4.7.2",
     "immutability-helper": "^2.4.0",
     "lodash": "^4.17.5",
