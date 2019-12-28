@@ -31,10 +31,14 @@ if (!isPublishCommit) {
   // Publish packages to npm registry
   spawnWithErrorHandling('npm', tasks, { stdio: 'inherit' });
 
-  console.log('Pushing commit...');
-  exec('git add .');
-  exec(`git commit -m 'Publish'`);
-  exec(`git push origin ${process.env.BRANCH}`);
+  try {
+
+    console.log('Pushing commit...');
+    exec('git add .');
+    exec(`git commit -m 'Publish'`);
+    exec(`git push origin ${process.env.BRANCH}`);
+  
+  } catch () {}
 
   console.log('Done!');
 
