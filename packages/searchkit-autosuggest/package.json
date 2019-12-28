@@ -1,6 +1,6 @@
 {
   "name": "@searchkit/autosuggest",
-  "version": "0.1.2-alpha.8",
+  "version": "0.2.0",
   "description": "",
   "main": "umd/bundle.js",
   "module": "umd/bundle.js",
@@ -37,7 +37,7 @@
     "rollup-plugin-postcss": "^0.5.5",
     "rollup-plugin-typescript2": "^0.8.0",
     "rollup-plugin-uglify": "^2.0.1",
-    "searchkit": "^2.3.1-alpha.10",
+    "searchkit": "^2.4.0",
     "typescript": "^3.0.1"
   },
   "dependencies": {
