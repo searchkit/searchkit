@@ -173,6 +173,5 @@ workflows:
           filters:
             branches:
               only: 
-                - publishing-test
-                # - staging
-                # - master
+                - staging
+                - master
