@@ -38,7 +38,7 @@ if (!isPublishCommit) {
     exec(`git commit -m 'Publish'`);
     exec(`git push origin ${process.env.BRANCH}`);
   
-  } catch () {}
+  } catch (e) {}
 
   console.log('Done!');
 
