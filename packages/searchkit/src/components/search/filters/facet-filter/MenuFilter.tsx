@@ -7,8 +7,6 @@ const isUndefined = require("lodash/isUndefined")
 
 import { FacetFilterPropTypes} from "./FacetFilterProps"
 
-export {Panel, CheckboxItemList}
-
 const allItem = {
   key:"$all", label: "All"
 }
