@@ -36,6 +36,7 @@ aliases:
   - &save-repo-cache
     paths:
       - ~/searchkit
+      - ~/.cache
     key: repo-{{ .Environment.CIRCLE_SHA1 }}
 
 defaults:
@@ -73,7 +74,9 @@ jobs:
 
       - persist_to_workspace:
           root: .
-          paths: .
+          paths:
+            - .
+            - .cache/Cypress
   
   test:
     <<: *job-defaults
@@ -91,14 +94,14 @@ jobs:
   e2e:
     <<: *job-defaults
     docker:
-      - image: cypress/base:8
+      - image: cypress/browsers:chrome67
     steps:
       - checkout
-
       - attach_workspace:
           at: ~/searchkit
 
-      - run: yarn
+      - run: yarn --ci
+      - run: cypress install
       - run: yarn workspace searchkit-e2e-tests test:ci
 
   deploy:
