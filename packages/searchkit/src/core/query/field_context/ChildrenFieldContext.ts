@@ -1,32 +1,22 @@
-import {FieldContext} from './FieldContext';
-import {ChildrenBucket, HasChildQuery} from "../query_dsl"
-const get = require("lodash/get")
+import { ChildrenBucket, HasChildQuery } from '../query_dsl'
+import { FieldContext } from './FieldContext'
+const get = require('lodash/get')
 
 export class ChildrenFieldContext extends FieldContext {
-
-  constructor(fieldOptions){
+  constructor(fieldOptions) {
     super(fieldOptions)
-    if(!get(this.fieldOptions, "options.childType")){
-      throw new Error("fieldOptions type:children requires options.childType")
+    if (!get(this.fieldOptions, 'options.childType')) {
+      throw new Error('fieldOptions type:children requires options.childType')
     }
   }
 
-
-  getAggregationPath(){
-    return "inner"
+  getAggregationPath() {
+    return 'inner'
   }
-  wrapAggregations(...aggregations){
-    return [ChildrenBucket(
-      "inner",
-      this.fieldOptions.options.childType,
-      ...aggregations
-    )]
+  wrapAggregations(...aggregations) {
+    return [ChildrenBucket('inner', this.fieldOptions.options.childType, ...aggregations)]
   }
-  wrapFilter(filter){
-    return HasChildQuery(
-      this.fieldOptions.options.childType,
-      filter,
-      this.fieldOptions.options
-    )
+  wrapFilter(filter) {
+    return HasChildQuery(this.fieldOptions.options.childType, filter, this.fieldOptions.options)
   }
 }

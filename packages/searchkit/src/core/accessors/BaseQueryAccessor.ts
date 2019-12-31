@@ -1,42 +1,40 @@
-import {ValueState} from "../state"
-import {StatefulAccessor} from "./StatefulAccessor"
+import { ValueState } from '../state'
+import { StatefulAccessor } from './StatefulAccessor'
 
 export class BaseQueryAccessor extends StatefulAccessor<ValueState> {
-
-  constructor(key){
+  constructor(key) {
     super(key)
     this.state = new ValueState()
   }
 
-  keepOnlyQueryState(){
+  keepOnlyQueryState() {
     this.setQueryString(this.getQueryString(), true)
   }
 
-  setQueryString(queryString, withReset=false){
-    if(withReset){
+  setQueryString(queryString, withReset = false) {
+    if (withReset) {
       this.searchkit.resetState()
     }
     this.state = this.state.setValue(queryString)
   }
 
-  getQueryString(){
+  getQueryString() {
     return this.state.getValue()
   }
-
 }
 
 export class NoopQueryAccessor extends BaseQueryAccessor {
-  keepOnlyQueryState(){
-    console.warn("keepOnlyQueryState called, No Query Accessor exists")
+  keepOnlyQueryState() {
+    console.warn('keepOnlyQueryState called, No Query Accessor exists')
   }
 
-  setQueryString(_queryString, _withReset=false){
-    console.warn("setQueryString called, No Query Accessor exists")
+  setQueryString() {
+    console.warn('setQueryString called, No Query Accessor exists')
   }
 
-  getQueryString(){
-    console.warn("getQueryString called, No Query Accessor exists")
-    return ""
+  getQueryString() {
+    console.warn('getQueryString called, No Query Accessor exists')
+    return ''
   }
 }
 

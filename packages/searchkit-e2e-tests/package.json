@@ -30,7 +30,7 @@
         "serve-favicon": "^2.4.5",
         "style-loader": "^0.19.0",
         "ts-loader": "^3.0.5",
-        "typescript": "^3.0.0",
+        "typescript": "^3.7.4",
         "webpack": "^3.8.1",
         "webpack-hot-middleware": "^2.20.0"
     },

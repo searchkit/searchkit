@@ -1,1 +1,1 @@
-export * from "./view-switcher"
+export * from './view-switcher'

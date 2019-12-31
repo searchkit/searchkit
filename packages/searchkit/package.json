@@ -99,7 +99,7 @@
     "style-loader": "^0.19.0",
     "ts-jest": "^21.1.2",
     "ts-loader": "^2.3.7",
-    "typescript": "^3.0.1",
+    "typescript": "^3.7.4",
     "webpack": "^3.6.0"
   }
 }

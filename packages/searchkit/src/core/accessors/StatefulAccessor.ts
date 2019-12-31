@@ -1,58 +1,57 @@
-import {State} from "../state"
-import {Accessor} from "./Accessor"
+import { State } from '../state'
+import { Accessor } from './Accessor'
 
 export class StatefulAccessor<T extends State<any>> extends Accessor {
-  key:string
-  urlKey:string
-  state:T
-  resultsState:T
+  key: string
+  urlKey: string
+  state: T
+  resultsState: T
 
-  constructor(key, urlString?){
+  constructor(key, urlString?) {
     super()
     this.key = key
-    this.urlKey = urlString || key && key.replace(/\./g, "_")
+    this.urlKey = urlString || (key && key.replace(/\./g, '_'))
     this.urlWithState = this.urlWithState.bind(this)
   }
 
-  onStateChange(_oldState){
+  onStateChange() {}
 
-  }
-
-  fromQueryObject(ob){
-    let value = ob[this.urlKey]
+  fromQueryObject(ob) {
+    const value = ob[this.urlKey]
     this.state = this.state.setValue(value)
   }
 
-  getQueryObject(){
-    let val = this.state.getValue()
-    return (val) ? {
-      [this.urlKey]:val
-    } : {}
+  getQueryObject() {
+    const val = this.state.getValue()
+    return val
+      ? {
+          [this.urlKey]: val
+        }
+      : {}
   }
 
-  setSearchkitManager(searchkit){
+  setSearchkitManager(searchkit) {
     super.setSearchkitManager(searchkit)
-    this.uuid = this.key+this.uuid
+    this.uuid = this.key + this.uuid
     this.fromQueryObject(searchkit.state)
     searchkit.query = searchkit.buildQuery()
     this.setResultsState()
   }
 
-  setResults(results){
+  setResults(results) {
     super.setResults(results)
     this.setResultsState()
   }
 
-  setResultsState(){
+  setResultsState() {
     this.resultsState = this.state
   }
 
-  resetState(){
+  resetState() {
     this.state = this.state.clear()
   }
 
-  urlWithState(state:T) {
+  urlWithState(state: T) {
     return this.searchkit.buildSearchUrl({ [this.urlKey]: state })
   }
-
 }

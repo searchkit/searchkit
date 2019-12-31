@@ -1,2 +1,2 @@
-export * from "./MovieHitsGridItem"
-export * from "./MovieHitsListItem"
+export * from './MovieHitsGridItem'
+export * from './MovieHitsListItem'

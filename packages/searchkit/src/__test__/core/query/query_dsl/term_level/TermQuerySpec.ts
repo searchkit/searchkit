@@ -1,11 +1,9 @@
-import {
-  TermQuery
-} from "../../../../../"
+import { TermQuery } from '../../../../../'
 
-it("TermQuery", ()=> {
-  expect(TermQuery("color", "red")).toEqual({
-    term:{
-      color:"red"
+it('TermQuery', () => {
+  expect(TermQuery('color', 'red')).toEqual({
+    term: {
+      color: 'red'
     }
   })
 })

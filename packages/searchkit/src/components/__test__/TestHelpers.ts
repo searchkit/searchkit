@@ -1,3 +1,3 @@
-export const fastClick = (el)=>{
-  el.simulate("click")
+export const fastClick = (el) => {
+  el.simulate('click')
 }

@@ -1,34 +1,33 @@
 const path = require('path')
+const copyrightBanner = require('fs').readFileSync('../../COPYRIGHT', 'utf-8')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const copyrightBanner = require("fs").readFileSync("../../COPYRIGHT", "utf-8")
-const autoprefixer = require('autoprefixer')
 
 module.exports = {
   entry: {
-    "ignore":['./theming/index.ts'],
-    "bundle":['./src/index.ts']
+    ignore: ['./theming/index.ts'],
+    bundle: ['./src/index.ts']
   },
   output: {
     path: path.join(__dirname, 'release'),
     filename: '[name].js',
-    library:["Searchkit"],
-    libraryTarget:"umd",
+    library: ['Searchkit'],
+    libraryTarget: 'umd',
     publicPath: ''
   },
   resolve: {
-    extensions:[".js", ".ts", ".tsx", ".webpack.js", ".web.js", ".scss"]
+    extensions: ['.js', '.ts', '.tsx', '.webpack.js', '.web.js', '.scss']
   },
 
   plugins: [
-    new webpack.BannerPlugin({banner:copyrightBanner, entryOnly:true}),
+    new webpack.BannerPlugin({ banner: copyrightBanner, entryOnly: true }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.ModuleConcatenationPlugin(),
-    new ExtractTextPlugin("theme.css", {allChunks:true}),
+    new ExtractTextPlugin('theme.css', { allChunks: true }),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production'),
-      },
+        NODE_ENV: JSON.stringify('production')
+      }
     }),
     new webpack.optimize.UglifyJsPlugin({
       mangle: {
@@ -53,14 +52,14 @@ module.exports = {
       commonjs2: 'react',
       commonjs: 'react',
       amd: 'react',
-      umd: 'react',
+      umd: 'react'
     },
     'react-dom': {
       root: 'ReactDOM',
       commonjs2: 'react-dom',
       commonjs: 'react-dom',
       amd: 'react-dom',
-      umd: 'react-dom',
+      umd: 'react-dom'
     }
   },
   module: {
@@ -68,45 +67,42 @@ module.exports = {
       {
         test: /\.tsx?$/,
         loader: 'ts-loader',
-        options:{
-          compilerOptions:{
-            declaration:false
+        options: {
+          compilerOptions: {
+            declaration: false
           }
         },
-        include: [path.join(__dirname, 'src'),path.join(__dirname, 'theming')]
+        include: [path.join(__dirname, 'src'), path.join(__dirname, 'theming')]
       },
       {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract({
-          fallback:"style-loader",
-          use:[
+          fallback: 'style-loader',
+          use: [
             {
-              loader:"css-loader",
-              options: { 
-                sourceMap:true,
-                minimize:true,
-                importLoaders:2
+              loader: 'css-loader',
+              options: {
+                sourceMap: true,
+                minimize: true,
+                importLoaders: 2
               }
             },
             {
-              loader:"postcss-loader"             
+              loader: 'postcss-loader'
             },
             {
-              loader:"sass-loader", 
-              options:{sourceMap:true}
+              loader: 'sass-loader',
+              options: { sourceMap: true }
             }
           ]
-
-        }),          
+        }),
         include: path.join(__dirname, 'theming')
       },
       {
         test: /\.(jpg|png|svg)$/,
-        loaders: [
-            'file-loader?name=[path][name].[ext]'
-        ],
+        loaders: ['file-loader?name=[path][name].[ext]'],
         include: path.join(__dirname, 'theming')
       }
     ]
   }
-};
+}

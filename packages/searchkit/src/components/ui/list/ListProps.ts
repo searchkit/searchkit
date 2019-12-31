@@ -1,9 +1,8 @@
-
 export interface ListProps {
-  toggleItem: (key:string)=>void
-  setItems: (keys:Array<string>)=>void
+  toggleItem: (key: string) => void
+  setItems: (keys: Array<string>) => void
   items: Array<any>
-  countFormatter?:(count:number)=> string|number,
+  countFormatter?: (count: number) => string | number
   selectedItems: Array<string>
   docCount?: number // number of documents for this list
   disabled?: boolean
@@ -15,15 +14,15 @@ export interface ListProps {
 }
 
 export interface ItemProps {
-  bemBlocks: { container: any, option: any }
+  bemBlocks: { container: any; option: any }
   onClick: Function
   label: string
   count: number | string
-  rawCount:number
+  rawCount: number
   active?: boolean
   disabled?: boolean
   showCount: boolean
   style?: any
   listDocCount?: number // number of documents for this list
-  itemKey?:string
+  itemKey?: string
 }

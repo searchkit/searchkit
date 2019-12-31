@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
 
 import {
   SearchBox,
@@ -15,83 +15,85 @@ import {
   SearchkitProvider,
   NoHits,
   InitialLoader
-} from "searchkit"
+} from 'searchkit'
 
-require("./customisations.scss");
-require("~searchkit/release/theme.css")
+require('./customisations.scss')
+require('~searchkit/release/theme.css')
 
-const TaxonomyHitsItem = (props)=> {
-  const {result, bemBlocks} = props
+const TaxonomyHitsItem = (props) => {
+  const { result, bemBlocks } = props
   return (
-    <div className={bemBlocks.item().mix(bemBlocks.container("item"))}>
-      {result._source.path}
-    </div>
+    <div className={bemBlocks.item().mix(bemBlocks.container('item'))}>{result._source.path}</div>
   )
 }
 
 export class App extends React.Component<any, any> {
-
-  searchkit:SearchkitManager
+  searchkit: SearchkitManager
 
   constructor(props) {
     super(props)
-    const host = "http://demo.searchkit.co/api/taxonomy"
+    const host = 'http://demo.searchkit.co/api/taxonomy'
     this.searchkit = new SearchkitManager(host)
   }
 
-  render(){ return (
-    <div>
-    <SearchkitProvider searchkit={this.searchkit}>
-    <div className="sk-layout">
-
-      <div className="sk-layout__top-bar sk-top-bar">
-        <div className="sk-top-bar__content">
-          <div className="my-logo">Searchkit Acme co</div>
-          <SearchBox
-            translations={{"searchbox.placeholder":"search regions"}}
-            queryOptions={{"minimum_should_match":"70%"}}
-            autofocus={true}
-            searchOnChange={true}
-            queryFields={["title^5"]}/>
-        </div>
-      </div>
-
-      <div className="sk-layout__body">
-
-  			<div className="sk-layout__filters">
-          <RefinementListFilter
-            field="level"
-            fieldOptions={{type:'children', options:{childType:"nodes"}}}
-            size={10}
-            id="NestedTest" title="Nested Test"/>
-  			</div>
-
-        <div className="sk-layout__results sk-results-list">
-
-          <div className="sk-results-list__action-bar sk-action-bar">
-
-            <div className="sk-action-bar__info">
-              <HitsStats/>
+  render() {
+    return (
+      <div>
+        <SearchkitProvider searchkit={this.searchkit}>
+          <div className="sk-layout">
+            <div className="sk-layout__top-bar sk-top-bar">
+              <div className="sk-top-bar__content">
+                <div className="my-logo">Searchkit Acme co</div>
+                <SearchBox
+                  translations={{ 'searchbox.placeholder': 'search regions' }}
+                  queryOptions={{ minimum_should_match: '70%' }}
+                  autofocus={true}
+                  searchOnChange={true}
+                  queryFields={['title^5']}
+                />
+              </div>
             </div>
 
-            <div className="sk-action-bar__filters">
-              <SelectedFilters/>
-              <ResetFilters/>
+            <div className="sk-layout__body">
+              <div className="sk-layout__filters">
+                <RefinementListFilter
+                  field="level"
+                  fieldOptions={{ type: 'children', options: { childType: 'nodes' } }}
+                  size={10}
+                  id="NestedTest"
+                  title="Nested Test"
+                />
+              </div>
+
+              <div className="sk-layout__results sk-results-list">
+                <div className="sk-results-list__action-bar sk-action-bar">
+                  <div className="sk-action-bar__info">
+                    <HitsStats />
+                  </div>
+
+                  <div className="sk-action-bar__filters">
+                    <SelectedFilters />
+                    <ResetFilters />
+                  </div>
+                </div>
+
+                <Hits hitsPerPage={10} mod="sk-hits-list" itemComponent={TaxonomyHitsItem} />
+                <NoHits />
+                <InitialLoader />
+                <Pagination showNumbers={true} />
+              </div>
             </div>
+            <a
+              className="view-src-link"
+              href="https://github.com/searchkit/searchkit-demo/blob/master/src/app/src/TaxonomyApp.tsx"
+            >
+              View source »
+            </a>
           </div>
-
-  				<Hits hitsPerPage={10} mod="sk-hits-list" itemComponent={TaxonomyHitsItem}/>
-          <NoHits/>
-          <InitialLoader/>
-  				<Pagination showNumbers={true}/>
-        </div>
-			</div>
-			<a className="view-src-link" href="https://github.com/searchkit/searchkit-demo/blob/master/src/app/src/TaxonomyApp.tsx">View source »</a>
-		</div>
-    </SearchkitProvider>
-    </div>
-	)}
-
+        </SearchkitProvider>
+      </div>
+    )
+  }
 }
 
-ReactDOM.render(<App/>, document.getElementById("root"))
+ReactDOM.render(<App />, document.getElementById('root'))

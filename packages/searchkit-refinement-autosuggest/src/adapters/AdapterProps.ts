@@ -1,8 +1,8 @@
-import { RenderComponentType } from "searchkit"
+import { RenderComponentType } from 'searchkit'
 export type AdapterProps = {
-    multi:boolean,
-    loadOptions:Function,
-    onSelect:Function,
-    selectedValues:Array<string>
-    itemComponent: RenderComponentType<any>
+  multi: boolean
+  loadOptions: Function
+  onSelect: Function
+  selectedValues: Array<string>
+  itemComponent: RenderComponentType<any>
 }

@@ -1,1 +1,1 @@
-export * from "./ReactSelectAdapter"
+export * from './ReactSelectAdapter'

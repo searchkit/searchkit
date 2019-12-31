@@ -1,15 +1,10 @@
-import * as React from "react";
+import * as React from 'react'
 
-import {
-  SearchkitManager,
-  LoadingComponent
-} from "../../../"
+import { mount } from 'enzyme'
+import { SearchkitManager, LoadingComponent } from '../../../'
 
-import {mount} from "enzyme";
-
-describe("SearchkitProvider", ()=> {
-
-  beforeEach(()=> {
+describe('SearchkitProvider', () => {
+  beforeEach(() => {
     this.searchkit = SearchkitManager.mock()
     this.wrapper = mount(
       <LoadingComponent searchkit={this.searchkit}>
@@ -18,15 +13,13 @@ describe("SearchkitProvider", ()=> {
     )
   })
 
-  it("display nothing when not loading", ()=> {
+  it('display nothing when not loading', () => {
     expect(this.wrapper).toMatchSnapshot()
   })
 
-  it("display children when loading", ()=> {
+  it('display children when loading', () => {
     this.searchkit.loading = true
     this.wrapper.instance().forceUpdate()
     expect(this.wrapper).toMatchSnapshot()
   })
-
-
 })

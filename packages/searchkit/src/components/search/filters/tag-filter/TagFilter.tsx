@@ -1,27 +1,19 @@
-import * as React from "react";
+import * as React from 'react'
 
-import {
-SearchkitComponent,
-SearchkitComponentProps,
-FastClick,
-} from "../../../../core"
-
-
+import { SearchkitComponent, SearchkitComponentProps, FastClick } from '../../../../core'
 
 export interface TagFilterProps extends SearchkitComponentProps {
   field: string
   value: string
 }
 
-
 export class TagFilter extends SearchkitComponent<TagFilterProps, any> {
-
-  constructor(){
+  constructor() {
     super()
     this.handleClick = this.handleClick.bind(this)
   }
 
-  isActive(){
+  isActive() {
     const { field, value } = this.props
     const accessor = this.searchkit.accessors.statefulAccessors[field]
     if (!accessor) {
@@ -45,22 +37,25 @@ export class TagFilter extends SearchkitComponent<TagFilterProps, any> {
   render() {
     const { value, children } = this.props
 
-    var className = "sk-tag-filter"
-    if (this.isActive()) className += " is-active"
+    let className = 'sk-tag-filter'
+    if (this.isActive()) className += ' is-active'
 
-    if (children){
+    if (children) {
       return (
         <FastClick handler={this.handleClick}>
-          <div key={value} className={className}>{this.props.children}</div>
-        </FastClick>
-      )
-    } else {
-      // No children, use the value instead
-      return (
-        <FastClick handler={this.handleClick}>
-          <div key={value} className={className}>{value}</div>
+          <div key={value} className={className}>
+            {this.props.children}
+          </div>
         </FastClick>
       )
     }
+    // No children, use the value instead
+    return (
+      <FastClick handler={this.handleClick}>
+        <div key={value} className={className}>
+          {value}
+        </div>
+      </FastClick>
+    )
   }
 }

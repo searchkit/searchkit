@@ -1,36 +1,38 @@
-import * as React from "react"
-import { RenderComponentType, renderComponent } from "searchkit"
-import { DataSource } from "./Types"
+import * as React from 'react'
+import { RenderComponentType, renderComponent } from 'searchkit'
+import { DataSource } from './Types'
 
 export type SuggestQuerySourceOptions = {
-    component?: RenderComponentType<{query:String}>
+  component?: RenderComponentType<{ query: string }>
 }
 
-const defaultComponent = ({query})=> {
-    return <span>Search for "{query}"</span>
-}
+const defaultComponent = ({ query }) => <span>Search for &quot;{query}&quot;</span>
 
 export class SuggestQuerySource implements DataSource {
-    options:SuggestQuerySourceOptions
-    constructor(options={}){
-        this.options = options
-    }
-    isSearchkitSource(){
-        return false        
-    }
+  options: SuggestQuerySourceOptions
+  constructor(options = {}) {
+    this.options = options
+  }
+  isSearchkitSource() {
+    return false
+  }
 
-    async search(query){
-        let {component=defaultComponent} = this.options
-        return [{
-            results:[{
-                key:query,
-                render(){
-                    return renderComponent(component, {query})                    
-                },
-                select(){
-                    return query
-                }
-            }]
-        }]
-    }
+  async search(query) {
+    const { component = defaultComponent } = this.options
+    return [
+      {
+        results: [
+          {
+            key: query,
+            render() {
+              return renderComponent(component, { query })
+            },
+            select() {
+              return query
+            }
+          }
+        ]
+      }
+    ]
+  }
 }

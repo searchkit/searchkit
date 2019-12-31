@@ -1,24 +1,23 @@
-import {ObjectState} from "../../../";
+import { ObjectState } from '../../../'
 
-describe("ObjectState", ()=> {
-  beforeEach(()=> {
-    this.state = new ObjectState({a:"b"})
+describe('ObjectState', () => {
+  beforeEach(() => {
+    this.state = new ObjectState({ a: 'b' })
   })
 
-  afterEach(()=> {
+  afterEach(() => {
     //test immutability
-    expect(this.state.value).toEqual({a:"b"})
+    expect(this.state.value).toEqual({ a: 'b' })
   })
 
-  it("value state", ()=> {
-    expect(this.state.getValue()).toEqual({a:"b"})
+  it('value state', () => {
+    expect(this.state.getValue()).toEqual({ a: 'b' })
     expect(this.state.clear().getValue()).toEqual({})
   })
 
-  it("hasValue()", ()=> {
+  it('hasValue()', () => {
     expect(this.state.hasValue()).toBe(true)
-    let state = this.state.clear()
+    const state = this.state.clear()
     expect(state.hasValue()).toBe(false)
-
   })
 })

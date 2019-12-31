@@ -1,2 +1,2 @@
-export * from "./react-select"
-export * from "./AdapterProps"
+export * from './react-select'
+export * from './AdapterProps'

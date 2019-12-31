@@ -1,20 +1,20 @@
-const assign = require("lodash/assign")
+const assign = require('lodash/assign')
 
 export interface MultiMatchOptions {
-  fields:Array<string>,
-  type?:string,
-  tie_breaker?:number,
-  operator?:string,
-  minimum_should_match?:string,
-  analyzer?:string
+  fields: Array<string>
+  type?: string
+  tie_breaker?: number
+  operator?: string
+  minimum_should_match?: string
+  analyzer?: string
 }
 
-export function MultiMatchQuery(query, options:MultiMatchOptions){
-  if(!query){
+export function MultiMatchQuery(query, options: MultiMatchOptions) {
+  if (!query) {
     return
   }
 
   return {
-    multi_match:assign({query}, options)
+    multi_match: assign({ query }, options)
   }
 }
