@@ -1,4 +1,4 @@
-const map = require('lodash/map')
+import map from 'lodash/map'
 
 export const createRegexQuery = (queryString) => {
   let query = queryString.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')

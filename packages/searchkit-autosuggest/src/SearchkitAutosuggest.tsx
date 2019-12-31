@@ -132,21 +132,22 @@ export class SearchkitAutosuggest extends SearchkitComponent<SearchkitAutosugges
     }
 
     return (
-      <Autosuggest
-        className="sk-searchbox"
-        multiSection={true}
-        suggestions={suggestions}
-        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-        onSuggestionSelected={this.onSuggestionSelected}
-        highlightFirstSuggestion={highlightFirst}
-        getSuggestionValue={prop('key')}
-        getSectionSuggestions={prop('results')}
-        renderSectionTitle={renderSectionTitle}
-        renderInputComponent={this.renderInputComponent}
-        renderSuggestion={renderSuggestion}
-        inputProps={inputProps}
-      />
+      <div className="sk-searchbox">
+        <Autosuggest
+          multiSection={true}
+          suggestions={suggestions}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          onSuggestionSelected={this.onSuggestionSelected}
+          highlightFirstSuggestion={highlightFirst}
+          getSuggestionValue={prop('key')}
+          getSectionSuggestions={prop('results')}
+          renderSectionTitle={renderSectionTitle}
+          renderInputComponent={this.renderInputComponent}
+          renderSuggestion={renderSuggestion}
+          inputProps={inputProps}
+        />
+      </div>
     )
   }
 }
