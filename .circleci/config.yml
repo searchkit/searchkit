@@ -95,7 +95,7 @@ jobs:
   e2e:
     <<: *job-defaults
     docker:
-      - image: cypress/browsers:node10.16.0-chrome76
+      - image: cypress/base:8
     steps:
       - checkout
       - attach_workspace:
