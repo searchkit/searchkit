@@ -74,9 +74,10 @@ jobs:
       - save_cache: *save-repo-cache
 
       - persist_to_workspace:
+          root: ~/
           paths:
             - .
-            - "~/.cache/Cypress"
+            - ".cache/Cypress"
   
   test:
     <<: *job-defaults
