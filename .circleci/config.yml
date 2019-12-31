@@ -37,6 +37,7 @@ aliases:
     paths:
       - ~/searchkit
       - ~/.cache
+      - ~/.cache/Cypress
     key: repo-{{ .Environment.CIRCLE_SHA1 }}
 
 defaults:
@@ -76,7 +77,7 @@ jobs:
           root: .
           paths:
             - .
-            - .cache/Cypress
+            - "~/.cache/Cypress"
   
   test:
     <<: *job-defaults
