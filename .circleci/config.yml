@@ -101,7 +101,6 @@ jobs:
           at: ~/searchkit
 
       - run: yarn --ci
-      - run: cypress install
       - run: yarn workspace searchkit-e2e-tests test:ci
 
   deploy:
