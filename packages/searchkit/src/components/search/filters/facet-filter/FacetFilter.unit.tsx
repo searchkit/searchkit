@@ -48,7 +48,7 @@ describe('Facet Filter tests', () => {
           title="test title"
           size={3}
           countFormatter={(count) => '#' + count}
-          include={'title'}
+          include="title"
           exclude={['bad', 'n/a']}
           operator="OR"
           orderKey="_count"

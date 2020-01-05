@@ -66,8 +66,9 @@
     "no-useless-escape": "off",
     "prettier/prettier": "error",
     "react/display-name": "off",
-    "react/prop-types": "off",
-    "react/no-string-refs": "off"
+    "react/jsx-curly-brace-presence": "error",
+    "react/no-string-refs": "off",
+    "react/prop-types": "off"
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {

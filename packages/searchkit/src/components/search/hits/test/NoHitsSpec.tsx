@@ -17,7 +17,7 @@ describe('NoHits component', () => {
         <NoHits
           searchkit={this.searchkit}
           translations={{ 'NoHits.NoResultsFound': 'no movies', 'NoHits.Error': 'error' }}
-          suggestionsField={'title'}
+          suggestionsField="title"
         />
       )
     }
