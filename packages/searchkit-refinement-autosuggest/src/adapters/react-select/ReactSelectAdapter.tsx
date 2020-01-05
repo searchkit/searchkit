@@ -13,14 +13,14 @@ export class ReactSelectAdapter extends React.Component<AdapterProps, any> {
     if (this.lastEvent === 'blur') {
       return { options: [] }
     }
-    let options = await this.props.loadOptions(value)
+    const rawOptions = await this.props.loadOptions(value)
 
-    options = options.map((item) => {
-      item.label = item.key
-      item.value = item.key
-      return item
-    })
-    return { options }
+    return {
+      options: rawOptions.map((item) => ({
+        label: item.key,
+        value: item.key
+      }))
+    }
   }
 
   onSelect = (selectedItems) => {
