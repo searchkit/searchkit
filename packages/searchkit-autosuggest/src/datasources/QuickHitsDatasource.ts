@@ -54,7 +54,7 @@ export class QuickHitsDatasource implements SearchkitDatasource {
         select: () => this.options.onSelect(item)
       }
       if (this.options.itemRenderer) {
-        result['render'] = () => this.options.itemRenderer(item)
+        result.render = () => this.options.itemRenderer(item)
       }
       return result
     })

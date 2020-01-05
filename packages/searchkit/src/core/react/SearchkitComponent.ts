@@ -74,7 +74,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps, S> extends Re
   }
 
   _getSearchkit(): SearchkitManager {
-    return this.props.searchkit || this.context['searchkit']
+    return this.props.searchkit || this.context.searchkit
   }
 
   componentDidMount() {
@@ -98,7 +98,7 @@ export class SearchkitComponent<P extends SearchkitComponentProps, S> extends Re
       }
     }
     if (!this.searchkit) {
-      console.warn('No searchkit found in props or context for ' + this.constructor['name'])
+      console.warn('No searchkit found in props or context for ' + this.constructor.name)
     }
     return false
   }

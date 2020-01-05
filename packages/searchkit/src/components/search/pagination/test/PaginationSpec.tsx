@@ -18,7 +18,7 @@ describe('Pagination tests', () => {
           translations={{ 'pagination.previous': 'Previous Page' }}
         />
       )
-      this.accessor = this.searchkit.accessors.statefulAccessors['p']
+      this.accessor = this.searchkit.accessors.statefulAccessors.p
     }
 
     this.searchkit.query = new ImmutableQuery().setSize(10)

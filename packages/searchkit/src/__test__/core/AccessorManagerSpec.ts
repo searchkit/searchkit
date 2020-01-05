@@ -168,8 +168,9 @@ describe('AccessorManager', () => {
     const oldState = {}
     spyOn(PaginationAccessor.prototype, 'onStateChange')
     this.accessors.notifyStateChange(oldState)
-    expect(PaginationAccessor.prototype.onStateChange).toHaveBeenCalledWith(oldState)
-    expect(PaginationAccessor.prototype.onStateChange['calls'].count()).toBe(4)
+    const onStateChangeStub = PaginationAccessor.prototype.onStateChange as jasmine.Spy
+    expect(onStateChangeStub).toHaveBeenCalledWith(oldState)
+    expect(onStateChangeStub.calls.count()).toBe(4)
   })
 
   it('buildSharedQuery()', () => {
@@ -185,9 +186,10 @@ describe('AccessorManager', () => {
 
   it('buildQuery()', () => {
     spyOn(Accessor.prototype, 'beforeBuildQuery')
+    const beforeBuildQuerySpy = Accessor.prototype.beforeBuildQuery as jasmine.Spy
     expect(this.accessors.buildQuery().getSize()).toEqual(50)
 
-    expect(Accessor.prototype.beforeBuildQuery['calls'].count()).toBe(5)
+    expect(beforeBuildQuerySpy.calls.count()).toBe(5)
 
     this.accessor5.setActive(false)
     expect(this.accessors.buildQuery().getSize()).toBe(0)

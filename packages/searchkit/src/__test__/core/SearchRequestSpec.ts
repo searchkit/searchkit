@@ -1,4 +1,3 @@
-import * as sinon from 'sinon'
 import { SearchRequest, SearchkitManager, AxiosESTransport, ImmutableQuery } from '../../'
 
 describe('SearchRequest', () => {
@@ -28,11 +27,10 @@ describe('SearchRequest', () => {
 
   it('run() - error', (done) => {
     const error = new Error('oh no')
-    sinon.stub(console, 'error')
-    spyOn(this.request.transport, 'search').and.returnValue(Promise.reject(error))
+    jest.spyOn(console, 'error').mockImplementation(() => {})
+    jest.spyOn(this.request.transport, 'search').mockReturnValue(Promise.reject(error))
     this.request.run().then(() => {
       expect(this.searchkit.error).toBe(error)
-      console.error['restore']()
       done()
     })
   })
@@ -52,7 +50,7 @@ describe('SearchRequest', () => {
   })
 
   it('setError()', () => {
-    sinon.stub(console, 'error')
+    jest.spyOn(console, 'error').mockImplementation(() => {})
     const error = new Error('oh no')
     this.request.setError(error)
     expect(this.searchkit.error).toBe(error)
@@ -60,6 +58,5 @@ describe('SearchRequest', () => {
     this.request.deactivate()
     this.request.setError(error)
     expect(this.searchkit.error).toBe(undefined)
-    console.error['restore']()
   })
 })

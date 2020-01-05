@@ -137,7 +137,7 @@ export class HierarchicalRefinementDatasource implements SearchkitDatasource {
       }
       item.hitSource = get(item, `hits.hits.hits[0]._source`, {})
       item.ancestors =
-        get(item.hitSource, `${field}.ancestors`, null) || item.hitSource['ancestors'] || []
+        get(item.hitSource, `${field}.ancestors`, null) || item.hitSource.ancestors || []
       item._key = item.key
       if (item.ancestors.length > 1) {
         item.key += ' - ' + last(item.ancestors)

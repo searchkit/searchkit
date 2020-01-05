@@ -41,14 +41,17 @@ export class AxiosESTransport extends ESTransport {
   }
 
   private static parseCredentials(options: ESTransportOptions): any {
-    const credentials = {}
+    const credentials: {
+      auth?: any
+      withCredentials?: any
+    } = {}
     if (options.basicAuth !== undefined) {
       const parsed = options.basicAuth.split(':')
       const auth = { username: parsed[0], password: parsed[1] }
-      credentials['auth'] = auth
+      credentials.auth = auth
     }
     if (options.withCredentials) {
-      credentials['withCredentials'] = true
+      credentials.withCredentials = true
     }
     return credentials
   }

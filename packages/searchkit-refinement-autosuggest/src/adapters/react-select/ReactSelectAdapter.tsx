@@ -7,7 +7,7 @@ import map from 'lodash/map'
 import { AdapterProps } from '../AdapterProps'
 
 export class ReactSelectAdapter extends React.Component<AdapterProps, any> {
-  select: SelectAsync
+  select: SelectAsync | any
   lastEvent: string
   loadOptions = async (value) => {
     if (this.lastEvent === 'blur') {
@@ -30,7 +30,7 @@ export class ReactSelectAdapter extends React.Component<AdapterProps, any> {
 
   onFocus = () => {
     this.lastEvent = 'focus'
-    this.select['onInputChange']('')
+    this.select.onInputChange('')
   }
   onBlur = () => {
     this.lastEvent = 'blur'

@@ -29,8 +29,8 @@ export function renderComponent(
   children = null
 ): React.ReactElement<any> {
   const isReactComponent =
-    component['prototype'] instanceof React.Component ||
-    (component['prototype'] && component['prototype'].isReactComponent) ||
+    component.prototype instanceof React.Component ||
+    (component.prototype && component.prototype.isReactComponent) ||
     typeof component === 'function'
   if (isReactComponent) {
     return React.createElement(component as React.ComponentClass<any>, props, children)

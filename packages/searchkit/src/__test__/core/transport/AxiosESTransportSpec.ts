@@ -75,7 +75,7 @@ describe('AxiosESTransport', () => {
     })
     expect(result).toEqual(this.mockResults)
     const request = this.server.requests[0]
-    expect(request.requestHeaders['Authorization']).toEqual('Basic ' + btoa('user:pass'))
+    expect(request.requestHeaders.Authorization).toEqual('Basic ' + btoa('user:pass'))
   })
 
   it('search - withCredentials', async () => {

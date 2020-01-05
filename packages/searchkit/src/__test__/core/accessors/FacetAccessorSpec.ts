@@ -330,7 +330,7 @@ describe('FacetAccessor', () => {
 
         this.query = new ImmutableQuery().addFilter('rating_uuid', BoolShould(['PG']))
         this.query = this.accessor.buildSharedQuery(this.query)
-        expect(this.query.index.filtersMap['genreKey1']).toEqual(
+        expect(this.query.index.filtersMap.genreKey1).toEqual(
           BoolShould([
             NestedQuery('tags', TermQuery('genre', '1')),
             NestedQuery('tags', TermQuery('genre', '2'))

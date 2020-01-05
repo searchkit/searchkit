@@ -12,7 +12,8 @@
         "<rootDir>/src/__test__/**/*?(.)(Spec|unit).(tsx|ts)",
         "<rootDir>/src/components/**/*?(.)(Spec|unit).(tsx|ts)"
     ],
-    "mapCoverage": true,        
+    "mapCoverage": true,
+    "restoreMocks": true,        
     "coveragePathIgnorePatterns":[
         "<rootDir>/src/components/__test__/TestHelpers.ts",
         "node_modules/*"

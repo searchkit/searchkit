@@ -187,9 +187,10 @@ describe('SearchkitManager', () => {
       throw error
     }
     spyOn(console, 'error')
+    const consoleErrorSpy = console.error as jasmine.Spy
     searchkit.completeRegistration()
     setTimeout(() => {
-      const consoleErrorCallArg = console.error['calls'].argsFor(0)[0]
+      const consoleErrorCallArg = consoleErrorSpy.calls.argsFor(0)[0]
       expect(consoleErrorCallArg).toBe(error)
       searchkit.unlistenHistory()
       done()
