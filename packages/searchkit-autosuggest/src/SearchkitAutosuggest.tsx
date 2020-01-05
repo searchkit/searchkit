@@ -85,9 +85,10 @@ export class SearchkitAutosuggest extends SearchkitComponent<SearchkitAutosugges
           <input {...props} />
         </form>
         {this.state.loading && (
-          <div data-qa="loader" className="sk-search-box__loader sk-spinning-loader is-hidden">
-            {' '}
-          </div>
+          <div
+            data-qa="loader"
+            className="sk-search-box__loader sk-spinning-loader is-hidden"
+          ></div>
         )}
       </div>
     )
