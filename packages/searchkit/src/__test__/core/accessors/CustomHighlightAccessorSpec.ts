@@ -1,19 +1,16 @@
-import {
-  CustomHighlightAccessor, ImmutableQuery
-} from "../../../"
+import { CustomHighlightAccessor, ImmutableQuery } from '../../../'
 
-describe("CustomHighlightAccessor", () => {
-
+describe('CustomHighlightAccessor', () => {
   beforeEach(() => {
     this.accessor = new CustomHighlightAccessor({})
   })
 
-  it("constructor(), computeHighlightedFields()", () => {
+  it('constructor(), computeHighlightedFields()', () => {
     expect(this.accessor.highlightRequest).toEqual({})
   })
 
-  it("buildOwnQuery()", () => {
-    let query = this.accessor.buildOwnQuery(new ImmutableQuery())
+  it('buildOwnQuery()', () => {
+    const query = this.accessor.buildOwnQuery(new ImmutableQuery())
     expect(query.query.highlight).toEqual({})
   })
 })

@@ -1,2 +1,2 @@
-export * from "./BoolQueries"
-export * from "./FilteredQuery"
+export * from './BoolQueries'
+export * from './FilteredQuery'

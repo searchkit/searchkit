@@ -1,38 +1,41 @@
-import * as React from "react";
-import {mount} from "enzyme";
-import {NumericRefinementListFilter} from "../src/NumericRefinementListFilter";
-import {fastClick} from "../../../../__test__/TestHelpers"
-import {SearchkitManager, Utils, NumericOptionsAccessor} from "../../../../../core";
-import {Select} from "../../../../ui";
-;
-import * as sinon from "sinon";
-import * as _ from "lodash"
+import * as React from 'react'
+import { mount } from 'enzyme'
+import { NumericRefinementListFilter } from '../src/NumericRefinementListFilter'
+import { fastClick } from '../../../../__test__/TestHelpers'
+import { SearchkitManager, Utils, NumericOptionsAccessor } from '../../../../../core'
+import { Select } from '../../../../ui'
 
-describe("NumericRefinementListFilter tests", () => {
-
-  beforeEach(()=> {
+describe('NumericRefinementListFilter tests', () => {
+  beforeEach(() => {
     Utils.guidCounter = 0
     this.searchkit = SearchkitManager.mock()
-    spyOn(this.searchkit, "performSearch")
-    this.setWrapper = (props={})=>{
+    spyOn(this.searchkit, 'performSearch')
+    this.setWrapper = (props = {}) => {
       this.wrapper = mount(
-        <NumericRefinementListFilter {...props} searchkit={this.searchkit} id="score" title="Score" field="score" options={[
-          {title:"All", key:"everything"},
-          {title:"up to 20", from:0, to:21},
-          {title:"21 to 40", from:21, to:41}
-        ]}/>
+        <NumericRefinementListFilter
+          {...props}
+          searchkit={this.searchkit}
+          id="score"
+          title="Score"
+          field="score"
+          options={[
+            { title: 'All', key: 'everything' },
+            { title: 'up to 20', from: 0, to: 21 },
+            { title: '21 to 40', from: 21, to: 41 }
+          ]}
+        />
       )
       this.accessor = this.searchkit.getAccessorByType(NumericOptionsAccessor)
     }
-    this.setResults = ()=> {
+    this.setResults = () => {
       this.searchkit.setResults({
-        aggregations:{
-          score1:{
-            score:{
-              buckets:[
-                {key:"All", doc_count:30},
-                {key:"up to 20", doc_count:10},
-                {key:"21 to 40", doc_count:20}
+        aggregations: {
+          score1: {
+            score: {
+              buckets: [
+                { key: 'All', doc_count: 30 },
+                { key: 'up to 20', doc_count: 10 },
+                { key: '21 to 40', doc_count: 20 }
               ]
             }
           }
@@ -40,51 +43,52 @@ describe("NumericRefinementListFilter tests", () => {
       })
     }
 
-    this.getOptionAt = (index)=> {
-      return this.wrapper.find(".sk-item-list-option").at(index)
-    }
+    this.getOptionAt = (index) => this.wrapper.find('.sk-item-list-option').at(index)
   })
 
-  it("should set accessor options correctly", ()=> {
+  it('should set accessor options correctly', () => {
     this.setWrapper()
-    expect(this.accessor.key).toBe("score")
+    expect(this.accessor.key).toBe('score')
     expect(this.accessor.options).toEqual({
-      id:'score', field:"score", title:"Score", options:[
-        {title:"All", key:"everything"},
-        {title:"up to 20", from:0, to:21, key:"0_21"},
-        {title:"21 to 40", from:21, to:41, key:"21_41"}
+      id: 'score',
+      field: 'score',
+      title: 'Score',
+      options: [
+        { title: 'All', key: 'everything' },
+        { title: 'up to 20', from: 0, to: 21, key: '0_21' },
+        { title: '21 to 40', from: 21, to: 41, key: '21_41' }
       ],
-      multiselect:false,
-      fieldOptions:{
-        type:'embedded', field:'score'
+      multiselect: false,
+      fieldOptions: {
+        type: 'embedded',
+        field: 'score'
       }
     })
   })
 
-  it("should render correctly()", ()=> {
+  it('should render correctly()', () => {
     this.setWrapper()
     this.setResults()
     expect(this.wrapper).toMatchSnapshot()
-
   })
 
-  it("should select correctly", ()=> {
+  it('should select correctly', () => {
     this.setWrapper()
-    this.accessor.state = this.accessor.state.setValue(["21_41"])
+    this.accessor.state = this.accessor.state.setValue(['21_41'])
     this.setResults()
     this.wrapper = this.wrapper.update()
-    let lastOption = this.getOptionAt(2)
-    expect(lastOption.hasClass("is-active")).toBe(true)
+    const lastOption = this.getOptionAt(2)
+    expect(lastOption.hasClass('is-active')).toBe(true)
   })
 
-  it("should handle clicking an option", () => {
+  it('should handle clicking an option', () => {
     this.setWrapper()
     this.setResults()
     this.wrapper = this.wrapper.update()
-    let secondOption = this.getOptionAt(1)
-    let thirdOption = this.getOptionAt(2)
+    const secondOption = this.getOptionAt(1)
+    const thirdOption = this.getOptionAt(2)
     fastClick(secondOption)
-    expect(this.accessor.state.getValue()).toEqual(["0_21"])
+    expect(this.accessor.state.getValue()).toEqual(['0_21'])
     expect(this.searchkit.performSearch).toHaveBeenCalled()
     this.accessor.options.multiselect = true
     fastClick(thirdOption)
@@ -93,20 +97,20 @@ describe("NumericRefinementListFilter tests", () => {
     expect(this.accessor.state.getValue()).toEqual(['21_41'])
   })
 
-  it("should be disabled for empty buckets", () => {
+  it('should be disabled for empty buckets', () => {
     this.setWrapper()
-    expect(this.wrapper.find(".sk-panel.is-disabled").length).toBe(1)
+    expect(this.wrapper.find('.sk-panel.is-disabled')).toHaveLength(1)
   })
 
-  it("should allow custom mod, className, listComponent, translations", ()=> {
+  it('should allow custom mod, className, listComponent, translations', () => {
     this.setWrapper({
-      mod:"my-numeric", className:"my-class",
-      listComponent:Select, translations:{"All":"Everything"},
-      countFormatter:(count)=>"#"+count
-
+      mod: 'my-numeric',
+      className: 'my-class',
+      listComponent: Select,
+      translations: { All: 'Everything' },
+      countFormatter: (count) => '#' + count
     })
     this.setResults()
     expect(this.wrapper).toMatchSnapshot()
   })
-
 })

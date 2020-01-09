@@ -1,11 +1,11 @@
-let beautify = require('js-beautify')
+const beautify = require('js-beautify')
 
 module.exports = {
-    test:function(wrapper) {
-        return wrapper && wrapper.html
-    },
+  test: function(wrapper) {
+    return wrapper && wrapper.html
+  },
 
-    print(wrapper) {
-        return beautify.html(wrapper.html(), { "indent_size": 2 })         
-    }
+  print(wrapper) {
+    return beautify.html(wrapper.html(), { indent_size: 2 })
+  }
 }

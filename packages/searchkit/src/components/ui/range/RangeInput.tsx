@@ -1,16 +1,14 @@
-import * as React from "react";
+import * as React from 'react'
 
+import { block } from '../../../core/react'
 import { RangeProps } from './RangeProps'
 
-import {block} from "../../../core/react"
-
-const omit = require("lodash/omit")
+const omit = require('lodash/omit')
 
 /*
  * Input validates input and only calls onChange for valid values
  */
 export class NumberInput extends React.Component<any, any> {
-
   constructor(props) {
     super(props)
     this.onChange = this.onChange.bind(this)
@@ -24,7 +22,7 @@ export class NumberInput extends React.Component<any, any> {
     value: ''
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setState({ value: nextProps.value })
     }
@@ -33,7 +31,7 @@ export class NumberInput extends React.Component<any, any> {
   isValid(value) {
     value = '' + value // ensure string
     // Weird number check, please do something else
-    return ('' + parseInt(value, 10) == value)
+    return '' + parseInt(value, 10) == value
   }
 
   onChange(e) {
@@ -57,17 +55,16 @@ export interface RangeInputProps extends RangeProps {
   maxPlaceholder?: string
 }
 
-
 export class RangeInput extends React.Component<RangeInputProps, {}> {
   refs: {
-    [key: string]: any;
-    min: (NumberInput);
-    max: (NumberInput);
+    [key: string]: any
+    min: NumberInput
+    max: NumberInput
   }
 
   static defaultProps = {
-    mod: "sk-range-input",
-    translate: (_str) => undefined,
+    mod: 'sk-range-input',
+    translate: () => undefined,
     minPlaceholder: 'min',
     maxPlaceholder: 'max'
   }
@@ -78,44 +75,47 @@ export class RangeInput extends React.Component<RangeInputProps, {}> {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleInputChange(_value, _key) {
-    // const { min, max, minValue, maxValue, onFinished } = this.props
-    // const values = defaults({
-    //   [key]: clamp(value, min, max)
-    // }, {
-    //   min: minValue, max: maxValue
-    // })
-    // onFinished(values)
-  }
-
-  handleSubmit(e){
+  handleSubmit(e) {
     e.preventDefault()
     this.props.onFinished({ min: this.refs.min.state.value, max: this.refs.max.state.value })
   }
 
   render() {
-    const { mod, className, minValue, maxValue, translate, minPlaceholder, maxPlaceholder } = this.props
+    const {
+      mod,
+      className,
+      minValue,
+      maxValue,
+      translate,
+      minPlaceholder,
+      maxPlaceholder
+    } = this.props
 
     const bemBlocks = {
       container: block(mod).el
     }
 
     return (
-      <form className={bemBlocks.container().mix(className) } onSubmit={this.handleSubmit}>
-        <NumberInput ref="min" className={bemBlocks.container("input") }
-               value={minValue}
-               field="min"
-               onChange={this.handleInputChange}
-               placeholder={translate('range.min') || minPlaceholder} />
-        <div className={bemBlocks.container("to-label")}>{translate('range.to') || '-'}</div>
-        <NumberInput ref="max" className={bemBlocks.container("input")}
-               value={maxValue}
-               field="max"
-               onChange={this.handleInputChange}
-               placeholder={translate('range.max') || maxPlaceholder } />
-        <button type="submit" className={bemBlocks.container("submit")}>{ translate('range.submit') || 'Go'}</button>
+      <form className={bemBlocks.container().mix(className)} onSubmit={this.handleSubmit}>
+        <NumberInput
+          ref="min"
+          className={bemBlocks.container('input')}
+          value={minValue}
+          field="min"
+          placeholder={translate('range.min') || minPlaceholder}
+        />
+        <div className={bemBlocks.container('to-label')}>{translate('range.to') || '-'}</div>
+        <NumberInput
+          ref="max"
+          className={bemBlocks.container('input')}
+          value={maxValue}
+          field="max"
+          placeholder={translate('range.max') || maxPlaceholder}
+        />
+        <button type="submit" className={bemBlocks.container('submit')}>
+          {translate('range.submit') || 'Go'}
+        </button>
       </form>
     )
   }
-
 }

@@ -1,95 +1,84 @@
-import * as React from "react";
-import {renderComponent} from "./RenderComponent"
+import * as React from 'react'
+import { renderComponent } from './RenderComponent'
 export interface Point {
-  x:number, y :number
+  x: number
+  y: number
 }
 
-export class NormalClickComponent extends React.PureComponent<any, any>{
-
+export class NormalClickComponent extends React.PureComponent<any, any> {
   render() {
-    const children: any = this.props.children;
+    const children: any = this.props.children
     return React.cloneElement(children, {
-      onClick:this.props.handler
+      onClick: this.props.handler
     })
   }
 }
 
-
-export class FastClickComponent extends React.PureComponent<any, any>{
-
-  startPoint:Point
+export class FastClickComponent extends React.PureComponent<any, any> {
+  startPoint: Point
   threshold = 20
-  supportsTouch:boolean
+  supportsTouch: boolean
 
-  handleMouseDown(event){
+  handleMouseDown(event) {
     if (this.supportsTouch) return
-    if(event.button === 0){
+    if (event.button === 0) {
       this.props.handler()
     }
   }
 
-  cleanupTouch(){
+  cleanupTouch() {
     delete this.startPoint
   }
 
-  getSinglePoint(event):Point{
-    let touches = event.changedTouches
-    if(touches.length === 1){
+  getSinglePoint(event): Point {
+    const touches = event.changedTouches
+    if (touches.length === 1) {
       return {
-        x:touches[0].pageX,
-        y:touches[0].pageY
+        x: touches[0].pageX,
+        y: touches[0].pageY
       }
     }
     return null
   }
 
-  handleTouchStart(event){
+  handleTouchStart(event) {
     this.supportsTouch = true
     this.startPoint = this.getSinglePoint(event)
   }
 
-  pointsWithinThreshold(p1, p2){
-    return(
-      Math.abs(p1.x - p2.x) < this.threshold &&
-      Math.abs(p1.y - p2.y) < this.threshold
-    )
+  pointsWithinThreshold(p1, p2) {
+    return Math.abs(p1.x - p2.x) < this.threshold && Math.abs(p1.y - p2.y) < this.threshold
   }
 
-  handleTouchEnd(event){
-    if(this.startPoint){
-      let endPoint = this.getSinglePoint(event)
-      if(this.pointsWithinThreshold(this.startPoint, endPoint)){
+  handleTouchEnd(event) {
+    if (this.startPoint) {
+      const endPoint = this.getSinglePoint(event)
+      if (this.pointsWithinThreshold(this.startPoint, endPoint)) {
         this.props.handler()
       }
       this.cleanupTouch()
     }
-
   }
 
-  handleClick(event){
+  handleClick(event) {
     event.preventDefault()
   }
 
-  render(){
-    const children: any = this.props.children;
+  render() {
+    const children: any = this.props.children
     return React.cloneElement(children, {
-      onMouseDown:this.handleMouseDown.bind(this),
-      onTouchStart:this.handleTouchStart.bind(this),
-      onTouchEnd:this.handleTouchEnd.bind(this),
-      onClick:this.handleClick.bind(this)
+      onMouseDown: this.handleMouseDown.bind(this),
+      onTouchStart: this.handleTouchStart.bind(this),
+      onTouchEnd: this.handleTouchEnd.bind(this),
+      onClick: this.handleClick.bind(this)
     })
   }
-
 }
 
-export class FastClick extends React.Component<any, any>{
+export class FastClick extends React.Component<any, any> {
   static component = NormalClickComponent
 
-  render(){
-    return renderComponent(
-      FastClick.component,
-      this.props,
-      this.props.children
-    )
+  render() {
+    return renderComponent(FastClick.component, this.props, this.props.children)
   }
 }

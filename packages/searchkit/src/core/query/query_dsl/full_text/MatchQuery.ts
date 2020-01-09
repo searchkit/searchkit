@@ -1,22 +1,22 @@
-const assign = require("lodash/assign")
+const assign = require('lodash/assign')
 
 export interface MatchQueryOptions {
-  operator?:string,
-  zero_terms_query?:string,
-  analyzer?:string,
-  type?:string,
-  cutoff_frequency?:number,
-  max_expansions?:number
+  operator?: string
+  zero_terms_query?: string
+  analyzer?: string
+  type?: string
+  cutoff_frequency?: number
+  max_expansions?: number
 }
 
-export function MatchQuery(field, query, options:MatchQueryOptions={}){
-  if(!query || !field){
+export function MatchQuery(field, query, options: MatchQueryOptions = {}) {
+  if (!query || !field) {
     return
   }
 
   return {
-    match:{
-      [field]:assign({query}, options)
+    match: {
+      [field]: assign({ query }, options)
     }
   }
 }

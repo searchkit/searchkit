@@ -36,6 +36,8 @@ aliases:
   - &save-repo-cache
     paths:
       - ~/searchkit
+      - ~/.cache
+      - ~/.cache/Cypress
     key: repo-{{ .Environment.CIRCLE_SHA1 }}
 
 defaults:
@@ -94,11 +96,10 @@ jobs:
       - image: cypress/base:8
     steps:
       - checkout
-
       - attach_workspace:
           at: ~/searchkit
 
-      - run: yarn
+      - run: yarn global add cypress
       - run: yarn workspace searchkit-e2e-tests test:ci
 
   deploy:

@@ -1,6 +1,4 @@
-import { 
-  SearchkitComponent, SearchkitComponentProps, FacetAccessor 
-} from "../../../../core"
+import { SearchkitComponent, SearchkitComponentProps, FacetAccessor } from '../../../../core'
 
 export interface TagFilterConfigProps extends SearchkitComponentProps {
   field: string
@@ -13,12 +11,15 @@ export class TagFilterConfig extends SearchkitComponent<TagFilterConfigProps, {}
   accessor: FacetAccessor
 
   defineAccessor() {
-    const {
-      field, id, operator, title
-    } = this.props
+    const { field, id, operator, title } = this.props
 
     return new FacetAccessor(id, {
-      id, operator, title, size: 1, loadAggregations: false, field
+      id,
+      operator,
+      title,
+      size: 1,
+      loadAggregations: false,
+      field
     })
   }
 
@@ -28,8 +29,8 @@ export class TagFilterConfig extends SearchkitComponent<TagFilterConfigProps, {}
       this.searchkit.performSearch()
     }
   }
-  
-  render(){
+
+  render() {
     return null
   }
 }

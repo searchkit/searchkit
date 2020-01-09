@@ -3,82 +3,72 @@ import {
   SearchkitManager,
   Accessor,
   ImmutableQuery,
-  AccessorManager,
-  block
-} from "../../../"
+  AccessorManager
+} from '../../../'
 
-describe("SearchkitComponent", ()=> {
-
-  beforeEach(()=> {
+describe('SearchkitComponent', () => {
+  beforeEach(() => {
     this.component = new SearchkitComponent({})
     this.component.props = {}
     this.component.context = {}
   })
 
-  it("translate()", ()=> {
-    let searchkit = SearchkitManager.mock()
-    searchkit.translateFunction = (key)=> {
-      return {"searchkit":"searchkit level"}[key]
-    }
+  it('translate()', () => {
+    const searchkit = SearchkitManager.mock()
+    searchkit.translateFunction = (key) => ({ searchkit: 'searchkit level' }[key])
     this.component.searchkit = searchkit
     this.component.props = {
-      translations:{
-        "prop":"prop level"
+      translations: {
+        prop: 'prop level'
       }
     }
     this.component.translations = {
-      "component":"component level {interpolation}"
+      component: 'component level {interpolation}'
     }
     //detach to test self binding
-    let componentTranslate = this.component.translate
-    expect(componentTranslate("searchkit"))
-      .toEqual("searchkit level")
-    expect(componentTranslate("prop"))
-      .toEqual("prop level")
-    expect(componentTranslate("component", {
-      interpolation:"foo"
-    })).toEqual("component level foo")
-    expect(componentTranslate("missing key"))
-      .toEqual("missing key")
+    const componentTranslate = this.component.translate
+    expect(componentTranslate('searchkit')).toEqual('searchkit level')
+    expect(componentTranslate('prop')).toEqual('prop level')
+    expect(
+      componentTranslate('component', {
+        interpolation: 'foo'
+      })
+    ).toEqual('component level foo')
+    expect(componentTranslate('missing key')).toEqual('missing key')
   })
 
-  it("bemBlocks()", ()=> {
-    expect(this.component.bemBlocks)
-      .toEqual({})
+  it('bemBlocks()', () => {
+    expect(this.component.bemBlocks).toEqual({})
 
-    this.component.defineBEMBlocks = ()=> {
-      let block = "hits"
+    this.component.defineBEMBlocks = () => {
+      const block = 'hits'
       return {
-  			container: block,
-  			item: `${block}-hit`
-  		}
+        container: block,
+        item: `${block}-hit`
+      }
     }
 
-    expect(this.component.bemBlocks.container().toString())
-      .toBe("hits")
-    expect(this.component.bemBlocks.container("loading").toString())
-      .toBe("hits__loading")
+    expect(this.component.bemBlocks.container().toString()).toBe('hits')
+    expect(this.component.bemBlocks.container('loading').toString()).toBe('hits__loading')
   })
 
-  it("_getSearchkit()", ()=> {
+  it('_getSearchkit()', () => {
     expect(this.component._getSearchkit()).toBe(undefined)
-    this.component.context.searchkit ="searchkit_via_context"
+    this.component.context.searchkit = 'searchkit_via_context'
 
-    expect(this.component._getSearchkit())
-      .toBe("searchkit_via_context")
+    expect(this.component._getSearchkit()).toBe('searchkit_via_context')
 
-    this.component.props.searchkit ="searchkit_via_props"
-    expect(this.component._getSearchkit())
-      .toBe("searchkit_via_props")
+    this.component.props.searchkit = 'searchkit_via_props'
+    expect(this.component._getSearchkit()).toBe('searchkit_via_props')
   })
 
-  it("componentDidMount()", ()=> {
-    spyOn(this.component, "forceUpdate")
-    let searchkit = SearchkitManager.mock()
+  it('componentDidMount()', () => {
+    spyOn(this.component, 'forceUpdate')
+    const searchkit = SearchkitManager.mock()
     searchkit.accessors = new AccessorManager()
-    let accessor = new Accessor()
-    this.component.defineAccessor = ()=> accessor
-    spyOn(console, "warn")
+    const accessor = new Accessor()
+    this.component.defineAccessor = () => accessor
+    spyOn(console, 'warn')
     this.component.componentDidMount()
     expect(this.component.searchkit).toBe(undefined)
     expect(this.component.accessor).toBe(undefined)
@@ -86,32 +76,29 @@ describe("SearchkitComponent", ()=> {
       'No searchkit found in props or context for SearchkitComponent'
     )
 
-    this.component.props = {searchkit}
+    this.component.props = { searchkit }
     this.component.componentDidMount()
     expect(this.component.searchkit).toBe(searchkit)
     expect(this.component.accessor).toBe(accessor)
-    expect(searchkit.accessors.accessors)
-      .toEqual([accessor])
+    expect(searchkit.accessors.accessors).toEqual([accessor])
     expect(this.component.forceUpdate).toHaveBeenCalledTimes(2)
     searchkit.emitter.trigger()
     expect(this.component.forceUpdate).toHaveBeenCalledTimes(3)
 
-    expect(searchkit.emitter.listeners.length).toBe(1)
+    expect(searchkit.emitter.listeners).toHaveLength(1)
     this.component.componentWillUnmount()
-    expect(searchkit.emitter.listeners.length).toBe(0)
+    expect(searchkit.emitter.listeners).toHaveLength(0)
     //should removeAccessor
     expect(searchkit.accessors.accessors).toEqual([])
-
   })
 
-  describe("getters", ()=> {
-
-    beforeEach(()=> {
+  describe('getters', () => {
+    beforeEach(() => {
       this.searchkit = SearchkitManager.mock()
       this.results = {
-        hits:{
-          hits:[1,2,3],
-          total:3
+        hits: {
+          hits: [1, 2, 3],
+          total: 3
         }
       }
       this.searchkit.setResults(this.results)
@@ -120,42 +107,40 @@ describe("SearchkitComponent", ()=> {
       this.component.searchkit = this.searchkit
     })
 
-    it("getResults()", ()=> {
+    it('getResults()', () => {
       expect(this.component.getResults()).toBe(this.results)
     })
 
-    it("getHits()", ()=> {
-      expect(this.component.getHits()).toEqual([1,2,3])
+    it('getHits()', () => {
+      expect(this.component.getHits()).toEqual([1, 2, 3])
     })
 
-    it("getHitsCount()", ()=> {
+    it('getHitsCount()', () => {
       expect(this.component.getHitsCount()).toEqual(3)
     })
 
-    it("hasHits()", ()=> {
+    it('hasHits()', () => {
       expect(this.component.hasHits()).toBe(true)
     })
 
-    it("hasHitsChanged()", ()=> {
+    it('hasHitsChanged()', () => {
       expect(this.component.hasHitsChanged()).toBe(true)
     })
 
-    it("getQuery()", ()=> {
+    it('getQuery()', () => {
       expect(this.component.getQuery()).toBe(this.query)
     })
 
-    it("isInitialLoading()", ()=> {
+    it('isInitialLoading()', () => {
       expect(this.component.isInitialLoading()).toBe(false)
     })
 
-    it("isLoading()", ()=> {
+    it('isLoading()', () => {
       expect(this.component.isLoading()).toBe(false)
     })
 
-    it("getError()", ()=> {
+    it('getError()', () => {
       expect(this.component.getError()).toBe(null)
     })
-
   })
-
 })

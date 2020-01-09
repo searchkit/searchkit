@@ -1,61 +1,88 @@
 {
-    "private": true,
-    "name": "searchkit",
-    "keywords": [
-      "elasticsearch",
-      "react",
-      "ui components",
-      "search",
-      "framework",
-      "library",
-      "widgets"
-    ],
-    "homepage": "http://www.searchkit.co",
-    "bugs": {
-        "url": "https://github.com/searchkit/searchkit/issues"
+  "private": true,
+  "name": "searchkit",
+  "keywords": [
+    "elasticsearch",
+    "react",
+    "ui components",
+    "search",
+    "framework",
+    "library",
+    "widgets"
+  ],
+  "homepage": "http://www.searchkit.co",
+  "bugs": {
+    "url": "https://github.com/searchkit/searchkit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/searchkit/searchkit.git"
+  },
+  "scripts": {
+    "lerna": "lerna",
+    "build": "lerna run build",
+    "test": "lerna run test",
+    "clean": "lerna clean",
+    "publish": "node ./scripts/deploy.js",
+    "lint": "eslint . --ext js,ts,tsx --fix",
+    "prettier": "prettier --write **/*.ts, **/*.tsx"
+  },
+  "authors": [
+    {
+      "name": "Joseph McElroy",
+      "email": "phoey1@gmail.com"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/searchkit/searchkit.git"
-    },
-    "scripts": {
-        "lerna": "lerna",
-        "build": "lerna run build",
-        "clean": "lerna clean",
-        "publish": "node ./scripts/deploy.js"
-    },
-    "authors": [
-        {
-            "name": "Joseph McElroy",
-            "email": "phoey1@gmail.com"
-        },
-        {
-            "name": "Siavash Etemadieh",
-            "email": "ssetem@gmail.com"
-        }
-    ],
-    "contributors": [
-        {
-            "name": "Gregory Potdevin",
-            "email": "gregory.potdevin@gmail.com"
-        }
-    ],
-    "license": "Apache-2.0",
-    "dependencies": {},
-    "devDependencies": {
-        "cross-spawn": "^6.0.5",
-        "cz-conventional-changelog": "^2.1.0",
-        "lerna": "^3.1.4"
-    },
-    "workspaces": [
-        "packages/*"
-    ],
-    "resolutions": {
-        "@types/react": "^16.4.12"
-    },
-    "config": {
-        "commitizen": {
-            "path": "./node_modules/cz-conventional-changelog"
-        }
+    {
+      "name": "Siavash Etemadieh",
+      "email": "ssetem@gmail.com"
     }
+  ],
+  "contributors": [
+    {
+      "name": "Gregory Potdevin",
+      "email": "gregory.potdevin@gmail.com"
+    }
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.9.0",
+    "@typescript-eslint/parser": "^2.9.0",
+    "cross-spawn": "^6.0.5",
+    "cz-conventional-changelog": "^2.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^23.1.1",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.1.0",
+    "husky": "^3.1.0",
+    "lerna": "^3.1.4",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "resolutions": {
+    "@types/react": "^16.4.12"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "yarn lint",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn test"
+    }
+  }
 }

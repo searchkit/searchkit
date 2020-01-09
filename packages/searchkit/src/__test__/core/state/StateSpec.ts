@@ -1,38 +1,36 @@
-import {State} from "../../../";
+import { State } from '../../../'
 
-describe("State", ()=> {
-  beforeEach(()=> {
-    class ExampleState extends State<number>{
-
-    }
+describe('State', () => {
+  beforeEach(() => {
+    class ExampleState extends State<number> {}
     this.state = new ExampleState(1)
   })
 
-  afterEach(()=> {
+  afterEach(() => {
     //test immutability
     expect(this.state.value).toEqual(1)
   })
 
-  it("getValue()", ()=> {
+  it('getValue()', () => {
     expect(this.state.getValue()).toEqual(1)
   })
 
-  it("create()", ()=> {
+  it('create()', () => {
     expect(this.state.value).toEqual(1)
     expect(this.state.create(2).value).toEqual(2)
   })
 
-  it("setValue()", ()=> {
+  it('setValue()', () => {
     expect(this.state.setValue(2).value).toEqual(2)
   })
 
-  it("hasValue()", ()=> {
+  it('hasValue()', () => {
     expect(this.state.hasValue()).toBe(true)
-    let state = this.state.clear()
+    const state = this.state.clear()
     expect(state.hasValue()).toBe(false)
   })
 
-  it("clear()", ()=> {
+  it('clear()', () => {
     expect(this.state.clear().value).toEqual(null)
   })
 })

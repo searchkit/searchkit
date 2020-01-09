@@ -1,4 +1,4 @@
-import * as PropTypes from "prop-types";
+import * as PropTypes from 'prop-types'
 import {
   SearchkitComponent,
   SearchkitComponentProps,
@@ -6,68 +6,64 @@ import {
   RenderComponentType,
   RenderComponentPropType,
   renderComponent
-} from "../../../core"
+} from '../../../core'
 
-const map = require("lodash/map")
-const defaults = require("lodash/defaults")
-
-import { Select, ListProps } from "../../ui"
+import { Select, ListProps } from '../../ui'
+const map = require('lodash/map')
+const defaults = require('lodash/defaults')
 
 export interface PageSizeSelectorProps extends SearchkitComponentProps {
-  listComponent?:RenderComponentType<ListProps>
-  options:Array<Number>
+  listComponent?: RenderComponentType<ListProps>
+  options: Array<number>
 }
 
 export class PageSizeSelector extends SearchkitComponent<PageSizeSelectorProps, any> {
-
   static defaultProps = {
     listComponent: Select
   }
 
-  static propTypes = defaults({
-    listComponent:RenderComponentPropType,
-    options:PropTypes.arrayOf(
-      PropTypes.number
-    ).isRequired
-  },SearchkitComponent.propTypes)
+  static propTypes = defaults(
+    {
+      listComponent: RenderComponentPropType,
+      options: PropTypes.arrayOf(PropTypes.number).isRequired
+    },
+    SearchkitComponent.propTypes
+  )
 
-  getPageSizeAccessor(){
+  getPageSizeAccessor() {
     return this.searchkit.getAccessorByType(PageSizeAccessor)
   }
 
-  setSize(size){
-    let pageSizeAccessor = this.getPageSizeAccessor()
-    if(size){
+  setSize(size) {
+    const pageSizeAccessor = this.getPageSizeAccessor()
+    if (size) {
       pageSizeAccessor.setSize(Number(size))
       this.searchkit.performSearch()
     }
   }
 
-  setItems(sizes){
+  setItems(sizes) {
     this.setSize(sizes[0])
   }
 
   render(): React.ReactElement<any> {
-    let pageSizeAccessor = this.getPageSizeAccessor()
-    if(pageSizeAccessor){
-      let options = map(this.props.options, (option)=> {
-        return {key:option, label:option}
-      })
-      let selectedSize = pageSizeAccessor.getSize()
-      const {mod, className} = this.props
+    const pageSizeAccessor = this.getPageSizeAccessor()
+    if (pageSizeAccessor) {
+      const options = map(this.props.options, (option) => ({ key: option, label: option }))
+      const selectedSize = pageSizeAccessor.getSize()
+      const { mod, className } = this.props
       return renderComponent(this.props.listComponent, {
-        mod, className,
+        mod,
+        className,
         disabled: !this.hasHits(),
         items: options,
         selectedItems: [selectedSize],
         toggleItem: this.setSize.bind(this),
-        setItems:this.setItems.bind(this),
-        urlBuilder: (_item) => {},
-        translate:this.translate
+        setItems: this.setItems.bind(this),
+        urlBuilder: () => {},
+        translate: this.translate
       })
     }
     return null
-
   }
-
 }

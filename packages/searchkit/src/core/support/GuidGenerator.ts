@@ -1,16 +1,15 @@
-
 export class GuidGenerator {
-  counter:number
-  constructor(){
+  counter: number
+  constructor() {
     this.counter = 0
   }
 
-  reset(){
+  reset() {
     this.counter = 0
   }
 
-  guid(prefix=""){
-    let id = ++this.counter
+  guid(prefix = '') {
+    const id = ++this.counter
     return prefix.toString() + id
   }
 }

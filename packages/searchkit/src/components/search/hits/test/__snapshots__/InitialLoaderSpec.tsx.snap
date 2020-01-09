@@ -1,10 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`InitialLoader should render a custom component 1`] = `
-<div class="sk-initial-loader">
-  <div data-qa="initial-loading" class="sk-initial-loader__initial-loading"></div>
-</div>
-`;
+exports[`InitialLoader should render a custom component 1`] = `<p class="sk-initial-loader__foo">Loading</p>`;
 
 exports[`initial loading 1`] = `
 <div class="sk-initial-loader">

@@ -23,11 +23,11 @@
   "license": "Apache-2.0",
   "peerDependencies": {
     "react": ">15.0.0-0",
-    "searchkit": "^2.3.0-8"
+    "searchkit": ">2.4.0"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.80",
-    "@types/node": "^8.0.47",
+    "@types/node": "^13.1.2",
     "@types/react": "^16.4.12",
     "react": "^16.4.2",
     "rollup": "^0.51.2",
@@ -38,7 +38,7 @@
     "rollup-plugin-typescript2": "^0.8.0",
     "rollup-plugin-uglify": "^2.0.1",
     "searchkit": "^2.4.1-alpha.0",
-    "typescript": "^3.0.1"
+    "typescript": "^3.7.4"
   },
   "dependencies": {
     "@types/react-autosuggest": "^9.3.1",
