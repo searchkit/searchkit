@@ -11,7 +11,6 @@ import {
   Pagination,
   ResetFilters,
   SelectedFilters,
-  SearchkitComponent,
   HitsStats,
   SearchkitManager,
   SearchkitProvider,

@@ -1,7 +1,5 @@
 var path = require('path');
 var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var nodeExternals = require('webpack-node-externals');
 var apps = require("./apps")
 
 const isProduction = process.env.NODE_ENV === 'production'
