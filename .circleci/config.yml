@@ -99,7 +99,7 @@ jobs:
       - attach_workspace:
           at: ~/searchkit
 
-      - run: yarn global add cypress
+      - run: cypress install
       - run: yarn workspace searchkit-e2e-tests test:ci
 
   deploy:
