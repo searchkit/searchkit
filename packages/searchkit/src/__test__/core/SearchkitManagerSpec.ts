@@ -423,6 +423,23 @@ describe('SearchkitManager', () => {
     expect(this.searchkit.hasHits()).toBe(true)
   })
 
+  it('getHitsCount(), hasHits() ES7', () => {
+    expect(this.searchkit.getHitsCount()).toEqual(0)
+    expect(this.searchkit.hasHits()).toBe(false)
+    this.searchkit.results = {
+      hits: {
+        total: {
+          relation: 'eq',
+          value: 99
+        }
+      },
+      took: 1
+    }
+    expect(this.searchkit.getHitsCount()).toBe(99)
+    expect(this.searchkit.getTime()).toBe(1)
+    expect(this.searchkit.hasHits()).toBe(true)
+  })
+
   it('getQueryAccessor()', () => {
     const queryAccessor = new QueryAccessor('q')
     this.searchkit.addAccessor(queryAccessor)
