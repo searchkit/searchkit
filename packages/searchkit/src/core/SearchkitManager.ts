@@ -256,7 +256,11 @@ export class SearchkitManager {
   }
 
   getHitsCount() {
-    return get(this.results, ['hits', 'total'], 0)
+    const hitsCount = get(this.results, ['hits', 'total'], 0)
+    if (typeof hitsCount === 'object') {
+      return hitsCount.value
+    }
+    return hitsCount
   }
 
   getTime() {
