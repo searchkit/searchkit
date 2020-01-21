@@ -1,6 +1,6 @@
 {
     "name": "@searchkit/refinement-autosuggest",
-    "version": "0.2.1-alpha.1",
+    "version": "0.2.1-alpha.2",
     "description": "",
     "main": "umd/bundle.js",
     "module": " umd/bundle.js",
@@ -31,7 +31,7 @@
         "@types/react": "^16.4.12",
         "css-loader": "^0.28.7",
         "react": "^15.6.2",
-        "searchkit": "^2.4.1-alpha.1",
+        "searchkit": "^2.4.1-alpha.2",
         "style-loader": "^0.19.0",
         "ts-loader": "^3.5.0",
         "typescript": "^3.7.4",
