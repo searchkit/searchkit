@@ -1,5 +1,5 @@
 export function ExistsQuery(field) {
-    return {
-        exists: { field }            
-    }
+  return {
+    exists: { field }
+  }
 }

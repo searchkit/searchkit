@@ -1,3 +1,3 @@
 export interface Newable<T> {
-	new(...args):T;
+  new (...args): T
 }

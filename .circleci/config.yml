@@ -36,6 +36,8 @@ aliases:
   - &save-repo-cache
     paths:
       - ~/searchkit
+      - ~/.cache
+      - ~/.cache/Cypress
     key: repo-{{ .Environment.CIRCLE_SHA1 }}
 
 defaults:
@@ -94,11 +96,10 @@ jobs:
       - image: cypress/base:8
     steps:
       - checkout
-
       - attach_workspace:
           at: ~/searchkit
 
-      - run: yarn
+      - run: yarn global add cypress@3.8.1
       - run: yarn workspace searchkit-e2e-tests test:ci
 
   deploy:
@@ -114,8 +115,7 @@ jobs:
       - run: git config --global user.email phoey1@gmail.com
       - run: git config --global user.name "CircleCI"
       - run: ssh-keyscan github.com >> ~/.ssh/known_hosts
-
-      - run: BRANCH=$CIRCLE_BRANCH npm run publish 
+      - run: PUBLISH_COMMIT=$(git log -1 --pretty=%B | cat | grep Publish) BRANCH=$CIRCLE_BRANCH npm run publish 
 
   # docs:
   #   <<: *job-defaults
@@ -161,12 +161,12 @@ workflows:
           requires:
             - build
 
-      # - docs:
-      #     requires:
-      #       - build
-      #     filters:
-      #       branches:
-      #         only: develop
+      - docs:
+          requires:
+            - build
+          filters:
+            branches:
+              only: develop
       - deploy:
           requires:
             - build

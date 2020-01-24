@@ -1,46 +1,45 @@
-import { ItemList, Panel, CheckboxItemList } from '../../../ui'
-import { FacetFilter} from "./FacetFilter"
+import { ItemList } from '../../../ui'
+import { FacetFilter } from './FacetFilter'
 
-const defaults = require("lodash/defaults")
-const concat = require("lodash/concat")
-const isUndefined = require("lodash/isUndefined")
-
-import { FacetFilterPropTypes} from "./FacetFilterProps"
-
-export {Panel, CheckboxItemList}
+import { FacetFilterPropTypes } from './FacetFilterProps'
+const defaults = require('lodash/defaults')
+const concat = require('lodash/concat')
+const isUndefined = require('lodash/isUndefined')
 
 const allItem = {
-  key:"$all", label: "All"
+  key: '$all',
+  label: 'All'
 }
 export class MenuFilter extends FacetFilter {
+  static propTypes = defaults({}, FacetFilterPropTypes.propTypes)
 
-  static propTypes = defaults({
-  }, FacetFilterPropTypes.propTypes)
-
-  static defaultProps = defaults({
-    listComponent: ItemList,
-    operator: "OR"
-  }, FacetFilter.defaultProps)
+  static defaultProps = defaults(
+    {
+      listComponent: ItemList,
+      operator: 'OR'
+    },
+    FacetFilter.defaultProps
+  )
 
   toggleFilter(option) {
-    if (option === allItem.key || this.accessor.state.contains(option)){
+    if (option === allItem.key || this.accessor.state.contains(option)) {
       this.accessor.state = this.accessor.state.clear()
     } else {
-      this.accessor.state = this.accessor.state.setValue([option]);
+      this.accessor.state = this.accessor.state.setValue([option])
     }
     this.searchkit.performSearch()
   }
 
-  setFilters(options){
+  setFilters(options) {
     this.toggleFilter(options[0])
   }
 
   getSelectedItems() {
-    let selectedValue = this.accessor.state.getValue()[0]
-    return [!isUndefined(selectedValue) ? selectedValue:allItem.key]
+    const selectedValue = this.accessor.state.getValue()[0]
+    return [!isUndefined(selectedValue) ? selectedValue : allItem.key]
   }
 
-  getItems(){
+  getItems() {
     const all = {
       key: allItem.key,
       label: allItem.label,
@@ -48,5 +47,4 @@ export class MenuFilter extends FacetFilter {
     }
     return concat([all], super.getItems())
   }
-
 }

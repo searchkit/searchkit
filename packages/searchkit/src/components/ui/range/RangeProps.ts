@@ -1,8 +1,8 @@
-import * as PropTypes from "prop-types";
+import * as PropTypes from 'prop-types'
 
 export interface RangeProps {
-  onChange: (range:{min: number, max: number}) => void
-  onFinished: (range:{min: number, max: number}) => void
+  onChange: (range: { min: number; max: number }) => void
+  onFinished: (range: { min: number; max: number }) => void
   min: number
   max: number
   minValue?: number
@@ -12,20 +12,20 @@ export interface RangeProps {
   mod?: string
   className?: string
   translate?: (s: string) => string
-  [x: string]: any,
-  children? : any
+  [x: string]: any
+  children?: any
 }
 
 export const RangePropTypes = {
-  onChange:PropTypes.func.isRequired,
-  onFinished:PropTypes.func.isRequired,
-  min:PropTypes.number.isRequired,
-  max:PropTypes.number.isRequired,
-  minValue:PropTypes.number,
-  maxValue:PropTypes.number,
-  items:PropTypes.array,
-  disabled:PropTypes.bool,
-  mod:PropTypes.string,
-  className:PropTypes.string,
-  translate:PropTypes.func
+  onChange: PropTypes.func.isRequired,
+  onFinished: PropTypes.func.isRequired,
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+  minValue: PropTypes.number,
+  maxValue: PropTypes.number,
+  items: PropTypes.array,
+  disabled: PropTypes.bool,
+  mod: PropTypes.string,
+  className: PropTypes.string,
+  translate: PropTypes.func
 }

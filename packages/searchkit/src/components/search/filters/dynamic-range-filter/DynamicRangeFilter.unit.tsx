@@ -1,18 +1,13 @@
-import * as React from "react";
-import {mount} from "enzyme";
-import {DynamicRangeFilter} from "./DynamicRangeFilter";
-import {SearchkitManager, DynamicRangeAccessor} from "../../../../core";
-import {
-  fastClick
-} from "../../../__test__/TestHelpers"
+import * as React from 'react'
+import { mount } from 'enzyme'
+import { SearchkitManager, DynamicRangeAccessor } from '../../../../core'
+import { DynamicRangeFilter } from './DynamicRangeFilter'
 
-describe("Dynamic Range Filter tests", () => {
-
+describe('Dynamic Range Filter tests', () => {
   beforeEach(() => {
-
     this.searchkit = SearchkitManager.mock()
-    spyOn(this.searchkit, "performSearch")
-    this.rangeFormatter = (count) => count + " score"
+    spyOn(this.searchkit, 'performSearch')
+    this.rangeFormatter = (count) => count + ' score'
     this.createWrapper = () => {
       this.wrapper = mount(
         <DynamicRangeFilter
@@ -21,19 +16,19 @@ describe("Dynamic Range Filter tests", () => {
           field="metascore"
           title="metascore"
           rangeFormatter={this.rangeFormatter}
-          translations = {{"range.divider":" TO "}}
+          translations={{ 'range.divider': ' TO ' }}
         />
-      );
+      )
 
       this.searchkit.setResults({
-        "aggregations": {
-          "m": {
-            "m": {
+        aggregations: {
+          m: {
+            m: {
               avg: 20,
-              count:1,
-              max:120,
-              min:1,
-              sum:100000
+              count: 1,
+              max: 120,
+              min: 1,
+              sum: 100000
             }
           }
         }
@@ -42,47 +37,46 @@ describe("Dynamic Range Filter tests", () => {
       this.wrapper.update()
       this.accessor = this.searchkit.getAccessorByType(DynamicRangeAccessor)
     }
+  })
 
-  });
-
-  it("renders correctly", () => {
+  it('renders correctly', () => {
     this.createWrapper()
     expect(this.wrapper).toMatchSnapshot()
   })
 
-  it("accessor has correct config", () => {
+  it('accessor has correct config', () => {
     this.createWrapper()
     expect(this.accessor.options).toEqual({
-      id:"m",
-      field:"metascore",
-      title:"metascore",
-      fieldOptions:{
-        type:"embedded",
-        field:"metascore"
+      id: 'm',
+      field: 'metascore',
+      title: 'metascore',
+      fieldOptions: {
+        type: 'embedded',
+        field: 'metascore'
       },
-      rangeFormatter:this.rangeFormatter,
-      translations:{"range.divider":" TO "}
+      rangeFormatter: this.rangeFormatter,
+      translations: { 'range.divider': ' TO ' }
     })
   })
 
-  it("handle slider events correctly", ()=> {
+  it('handle slider events correctly', () => {
     this.createWrapper(true)
-    this.wrapper.instance().sliderUpdate({min:30,max:70})
+    this.wrapper.instance().sliderUpdate({ min: 30, max: 70 })
     expect(this.accessor.state.getValue()).toEqual({
-      min:30, max:70
+      min: 30,
+      max: 70
     })
     expect(this.searchkit.performSearch).not.toHaveBeenCalled()
 
-    this.wrapper.instance().sliderUpdateAndSearch({min:40,max:60})
+    this.wrapper.instance().sliderUpdateAndSearch({ min: 40, max: 60 })
     expect(this.accessor.state.getValue()).toEqual({
-      min:40, max:60
+      min: 40,
+      max: 60
     })
     expect(this.searchkit.performSearch).toHaveBeenCalled()
 
     // min/max should clear
-    this.wrapper.instance().sliderUpdateAndSearch({min:1,max:120})
+    this.wrapper.instance().sliderUpdateAndSearch({ min: 1, max: 120 })
     expect(this.accessor.state.getValue()).toEqual({})
   })
-
-
-});
+})

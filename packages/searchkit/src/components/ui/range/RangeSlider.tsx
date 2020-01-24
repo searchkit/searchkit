@@ -1,28 +1,26 @@
-import * as React from "react";
+import * as React from 'react'
 
+import { block } from '../../../core'
 import { RangeProps } from './RangeProps'
 
-const identity = require("lodash/identity")
+const identity = require('lodash/identity')
 const Slider = require('rc-slider')
 const createSliderWithTooltip = Slider.createSliderWithTooltip
 const Range = createSliderWithTooltip(Slider.Range)
 
-import { block } from "../../../core"
-
 export interface RangeSliderProps extends RangeProps {
   step?: number
-  marks?: Object
-  rangeFormatter?:(n: number)=> number | string
+  marks?: Record<string, any>
+  rangeFormatter?: (n: number) => number | string
 }
 
 export class RangeSlider extends React.PureComponent<RangeSliderProps, {}> {
-
   static defaultProps = {
-    mod: "sk-range-slider",
-    rangeFormatter:identity
+    mod: 'sk-range-slider',
+    rangeFormatter: identity
   }
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.onChange = this.onChange.bind(this)
     this.onFinished = this.onFinished.bind(this)
@@ -37,8 +35,7 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps, {}> {
   }
 
   render() {
-    const { mod, className, step, marks,rangeFormatter,
-      min, max, minValue, maxValue } = this.props
+    const { mod, className, step, marks, rangeFormatter, min, max, minValue, maxValue } = this.props
 
     const bemBlocks = {
       container: block(mod).el
@@ -49,17 +46,19 @@ export class RangeSlider extends React.PureComponent<RangeSliderProps, {}> {
         <Range
           min={min}
           max={max}
-          marks={marks || {
-            [min]: rangeFormatter(min),
-            [max]: rangeFormatter(max)
-          }}
+          marks={
+            marks || {
+              [min]: rangeFormatter(min),
+              [max]: rangeFormatter(max)
+            }
+          }
           tipFormatter={rangeFormatter}
           range={true}
           step={step}
           value={[minValue, maxValue]}
           onChange={this.onChange}
           onAfterChange={this.onFinished}
-          />
+        />
       </div>
     )
   }

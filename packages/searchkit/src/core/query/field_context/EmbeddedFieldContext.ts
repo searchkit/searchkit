@@ -1,15 +1,14 @@
-import {FieldContext} from "./FieldContext"
+import { FieldContext } from './FieldContext'
 
 export class EmbeddedFieldContext extends FieldContext {
-
-  getAggregationPath(){
+  getAggregationPath() {
     return undefined
   }
 
-  wrapAggregations(...aggregations){
+  wrapAggregations(...aggregations) {
     return aggregations
   }
-  wrapFilter(filter){
+  wrapFilter(filter) {
     return filter
   }
 }

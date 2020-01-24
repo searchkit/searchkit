@@ -1,0 +1,151 @@
+{
+  "name": "@searchkit/autosuggest",
+  "version": "0.2.0",
+  "description": "",
+  "main": "umd/bundle.js",
+  "module": "umd/bundle.js",
+  "jsnext:main": "es/index.js",
+  "typings": "es/index.d.ts",
+  "scripts": {
+    "build": "tsc; rollup -c rollup.config.js",
+    "build:watch": "tsc --watch"
+  },
+  "authors": [
+    {
+      "name": "Joseph McElroy",
+      "email": "phoey1@gmail.com"
+    },
+    {
+      "name": "Siavash Etemadieh",
+      "email": "ssetem@gmail.com"
+    }
+  ],
+  "license": "Apache-2.0",
+  "peerDependencies": {
+    "react": ">15.0.0-0",
+    "searchkit": "^2.3.0-8"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.80",
+    "@types/node": "^8.0.47",
+    "@types/react": "^16.4.12",
+    "react": "^16.4.2",
+    "rollup": "^0.51.2",
+    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-license": "^0.5.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-postcss": "^0.5.5",
+    "rollup-plugin-typescript2": "^0.8.0",
+    "rollup-plugin-uglify": "^2.0.1",
+    "searchkit": "^2.4.0",
+    "typescript": "^3.0.1"
+  },
+  "dependencies": {
+    "@types/react-autosuggest": "^9.3.1",
+    "lodash": "^4.17.5",
+    "react-autosuggest": "^9.3.2"
+  }
+}
+{
+  "private": true,
+  "name": "searchkit-docs",
+  "version": "2.3.0",
+  "description": "Searchkit gitbook documentation",
+  "scripts": {
+    "install": "gitbook install",
+    "serve": "gitbook serve"
+  },
+  "devDependencies": {
+    "gitbook-cli": "^2.3.2"
+  },
+  "dependencies": {
+    "gitbook-plugin-prism": "^2.3.0",
+    "gitbook-plugin-versions": "^2.1.4"
+  }
+}
+{
+    "private": true,
+    "name": "searchkit-e2e-tests",
+    "version": "0.1.0",
+    "scripts": {
+        "start": "node src/start.js",
+        "start:prod": "NODE_ENV=production node src/start.js",
+        "build": "NODE_ENV=production webpack --config ./webpack.config.js",
+        "test:ci": "npm run start:prod & cypress run cypress.json && kill $!",
+        "cypress:open": "npm run start & cypress open && kill $!"
+    },
+    "dependencies": {
+        "@searchkit/autosuggest": "^0.2.0",
+        "@searchkit/refinement-autosuggest": "^0.2.0",
+        "@types/node": "^8.0.46",
+        "@types/react": "^16.4.12",
+        "css-loader": "^0.28.7",
+        "cypress": "^1.0.2",
+        "ejs": "^2.5.7",
+        "express": "^4.16.2",
+        "html-webpack-plugin": "^2.30.1",
+        "lodash": "^4.17.5",
+        "node-sass": "^4.5.3",
+        "raw-loader": "^0.5.1",
+        "react": "^16.4.2",
+        "react-dom": "^16.4.0",
+        "react-router": "^4.2.0",
+        "sass-loader": "^6.0.6",
+        "searchkit": "^2.4.0",
+        "serve-favicon": "^2.4.5",
+        "style-loader": "^0.19.0",
+        "ts-loader": "^3.0.5",
+        "typescript": "^3.0.0",
+        "webpack": "^3.8.1",
+        "webpack-hot-middleware": "^2.20.0"
+    },
+    "devDependencies": {
+        "webpack-dev-middleware": "^1.12.0",
+        "webpack-node-externals": "~1.7.2"
+    }
+}
+{
+    "name": "@searchkit/refinement-autosuggest",
+    "version": "0.2.0",
+    "description": "",
+    "main": "umd/bundle.js",
+    "module": " umd/bundle.js",
+    "jsnext:main": "es/index.js",
+    "typings": "es/index.d.ts",
+    "scripts": {
+        "build": "tsc; webpack",
+        "build:watch": "tsc --watch"
+    },
+    "authors": [
+        {
+            "name": "Joseph McElroy",
+            "email": "phoey1@gmail.com"
+        },
+        {
+            "name": "Siavash Etemadieh",
+            "email": "ssetem@gmail.com"
+        }
+    ],
+    "license": "Apache-2.0",
+    "peerDependencies": {
+        "react": ">15.0.0-0",
+        "searchkit": "^2.3.0-8"
+    },
+    "devDependencies": {
+        "@types/lodash": "^4.14.80",
+        "@types/node": "^8.0.50",
+        "@types/react": "^16.4.12",
+        "css-loader": "^0.28.7",
+        "react": "^15.6.2",
+        "searchkit": "^2.4.0",
+        "style-loader": "^0.19.0",
+        "ts-loader": "^3.5.0",
+        "typescript": "^3.0.1",
+        "webpack": "^3.8.1"
+    },
+    "dependencies": {
+        "@types/react-select": "^1.0.59",
+        "lodash": "^4.17.5",
+        "react-select": "^1.0.0-rc.10"
+    }
+}

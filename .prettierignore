@@ -1,0 +1,6 @@
+packages/**/**/coverage/**/**
+packages/**/**/es/**/**
+packages/**/**/lib/**/**
+packages/**/**/release/**/**
+packages/**/**/umd/**/**
+packages/**/**/dist/**/**

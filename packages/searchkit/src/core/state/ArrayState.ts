@@ -1,19 +1,18 @@
-import {State} from "./State"
-const indexOf = require("lodash/indexOf")
-const without = require("lodash/without")
+import { State } from './State'
+const indexOf = require('lodash/indexOf')
+const without = require('lodash/without')
 
-export class ArrayState extends State<Array<string|number>> {
+export class ArrayState extends State<Array<string | number>> {
   getValue() {
     return this.value || []
   }
   toggle(val) {
     if (this.contains(val)) {
       return this.remove(val)
-    } else {
-      return this.add(val)
     }
+    return this.add(val)
   }
-  clear(){
+  clear() {
     return this.create([])
   }
   remove(val) {

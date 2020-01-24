@@ -1,19 +1,15 @@
-import {
-  FilteredQuery
-} from "../../../../../"
+import { FilteredQuery } from '../../../../../'
 
-it("FilteredQuery", ()=> {
-  let filtered = {
-    filter:{
-      term:{color:"red"}
+it('FilteredQuery', () => {
+  const filtered = {
+    filter: {
+      term: { color: 'red' }
     },
-    query:{
-      match:{
-        keywords:"sky"
+    query: {
+      match: {
+        keywords: 'sky'
       }
     }
   }
-  expect(FilteredQuery(filtered))
-    .toEqual({filtered:filtered})
-
+  expect(FilteredQuery(filtered)).toEqual({ filtered: filtered })
 })

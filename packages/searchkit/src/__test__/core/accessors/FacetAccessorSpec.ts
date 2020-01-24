@@ -1,405 +1,364 @@
 import {
-  FacetAccessor, ImmutableQuery, SearchkitManager,
-  BoolMust, BoolShould, ArrayState, TermQuery,
-  FilterBucket, TermsBucket, CardinalityMetric,
-  NestedFieldContext, NestedQuery, NestedBucket
-} from "../../../"
+  FacetAccessor,
+  ImmutableQuery,
+  SearchkitManager,
+  BoolMust,
+  BoolShould,
+  ArrayState,
+  TermQuery,
+  FilterBucket,
+  TermsBucket,
+  CardinalityMetric,
+  NestedFieldContext,
+  NestedQuery,
+  NestedBucket
+} from '../../../'
 
-
-describe("FacetAccessor", ()=> {
-
-  beforeEach(()=> {
+describe('FacetAccessor', () => {
+  beforeEach(() => {
     this.options = {
-      operator:"OR",
-      title:"Genres",
-      id:"GenreId",
-      field:"genre",
-      size:20,
-      orderKey:"_term",
-      orderDirection:"asc",
-      translations:{
-        "facets.view_more":"View more genres"
+      operator: 'OR',
+      title: 'Genres',
+      id: 'GenreId',
+      field: 'genre',
+      size: 20,
+      orderKey: '_term',
+      orderDirection: 'asc',
+      translations: {
+        'facets.view_more': 'View more genres'
       }
     }
-    this.accessor = new FacetAccessor("genreKey", this.options)
+    this.accessor = new FacetAccessor('genreKey', this.options)
     this.accessor.setSearchkitManager(SearchkitManager.mock())
   })
 
-  it("constructor()", ()=> {
+  it('constructor()', () => {
     expect(this.accessor.options).toBe(this.options)
-    expect(this.accessor.urlKey).toBe("GenreId")
-    expect(this.accessor.key).toBe("genreKey")
+    expect(this.accessor.urlKey).toBe('GenreId')
+    expect(this.accessor.key).toBe('genreKey')
   })
 
-  it("getBuckets()", ()=> {
+  it('getBuckets()', () => {
     expect(this.accessor.getBuckets()).toEqual([])
     this.accessor.results = {
-      aggregations:{
-        genreKey1:{
-          genre:{buckets:[
-            {key:"a", doc_count:1},
-            {key:"b", doc_count:2}
-          ]}
-        }
-      }
-    }
-    expect(this.accessor.getBuckets())
-      .toEqual([
-        {key:"a", doc_count:1},
-        {key:"b", doc_count:2}
-      ])
-
-    // test raw buckets referential equality
-    expect(this.accessor.getBuckets())
-      .toBe(this.accessor.getRawBuckets())
-
-    this.accessor.state = this.accessor.state.setValue(["a", "c"])
-    expect(this.accessor.getBuckets())
-      .toEqual([
-        {key:"c", missing:true, selected:true},
-        {key:"a", doc_count:1, selected:true},
-        {key:"b", doc_count:2}
-      ])
-  })
-
-  it("getBuckets() - non string keys", ()=> {
-    expect(this.accessor.getBuckets()).toEqual([])
-    this.accessor.results = {
-      aggregations:{
-        genreKey1:{
-          genre:{buckets:[
-            {key:1, doc_count:1},
-            {key:2, doc_count:2},
-            {key:3, doc_count:3},
-            {key:true, doc_count:4},
-            {key:false, doc_count:5},
-          ]}
-        }
-      }
-    }
-    expect(this.accessor.getBuckets())
-      .toEqual([
-        {key:"1", doc_count:1},
-        {key:"2", doc_count:2},
-        {key:"3", doc_count:3},
-        {key:"true", doc_count:4},
-        {key:"false", doc_count:5},
-      ])
-
-    // test raw buckets referential equality
-    expect(this.accessor.getBuckets())
-      .toBe(this.accessor.getRawBuckets())
-
-    this.accessor.state = this.accessor.state.setValue(["1", "true", "6"])
-    expect(this.accessor.getBuckets())
-      .toEqual([
-        { "key": "6", "missing": true, "selected": true },
-        { "key": "1", "doc_count": 1, "selected": true },
-        { "key": "2", "doc_count": 2 },
-        { "key": "3", "doc_count": 3 },
-        { "key": "true", "doc_count": 4, "selected": true },
-        { "key": "false", "doc_count": 5 }
-      ])
-  })
-
-  it("getCount()", ()=> {
-    expect(this.accessor.getCount()).toEqual(0)
-    this.accessor.results = {
-      aggregations:{
-        genreKey1:{
-          genre_count:{
-            value:99
+      aggregations: {
+        genreKey1: {
+          genre: {
+            buckets: [
+              { key: 'a', doc_count: 1 },
+              { key: 'b', doc_count: 2 }
+            ]
           }
         }
       }
     }
-    expect(this.accessor.getCount())
-      .toEqual(99)
+    expect(this.accessor.getBuckets()).toEqual([
+      { key: 'a', doc_count: 1 },
+      { key: 'b', doc_count: 2 }
+    ])
+
+    // test raw buckets referential equality
+    expect(this.accessor.getBuckets()).toBe(this.accessor.getRawBuckets())
+
+    this.accessor.state = this.accessor.state.setValue(['a', 'c'])
+    expect(this.accessor.getBuckets()).toEqual([
+      { key: 'c', missing: true, selected: true },
+      { key: 'a', doc_count: 1, selected: true },
+      { key: 'b', doc_count: 2 }
+    ])
   })
 
-  it("getDocCount()", ()=> {
-    expect(this.accessor.getDocCount()).toEqual(0)
+  it('getBuckets() - non string keys', () => {
+    expect(this.accessor.getBuckets()).toEqual([])
     this.accessor.results = {
-      aggregations:{
-        genreKey1:{
-          genre_count:{
-            value:99
-          },
-          doc_count:50
+      aggregations: {
+        genreKey1: {
+          genre: {
+            buckets: [
+              { key: 1, doc_count: 1 },
+              { key: 2, doc_count: 2 },
+              { key: 3, doc_count: 3 },
+              { key: true, doc_count: 4 },
+              { key: false, doc_count: 5 }
+            ]
+          }
         }
       }
     }
-    expect(this.accessor.getDocCount())
-      .toEqual(50)
+    expect(this.accessor.getBuckets()).toEqual([
+      { key: '1', doc_count: 1 },
+      { key: '2', doc_count: 2 },
+      { key: '3', doc_count: 3 },
+      { key: 'true', doc_count: 4 },
+      { key: 'false', doc_count: 5 }
+    ])
+
+    // test raw buckets referential equality
+    expect(this.accessor.getBuckets()).toBe(this.accessor.getRawBuckets())
+
+    this.accessor.state = this.accessor.state.setValue(['1', 'true', '6'])
+    expect(this.accessor.getBuckets()).toEqual([
+      { key: '6', missing: true, selected: true },
+      { key: '1', doc_count: 1, selected: true },
+      { key: '2', doc_count: 2 },
+      { key: '3', doc_count: 3 },
+      { key: 'true', doc_count: 4, selected: true },
+      { key: 'false', doc_count: 5 }
+    ])
   })
 
-
-  it("isOrOperator()", ()=> {
-    expect(this.accessor.isOrOperator())
-      .toBe(true)
-    this.options.operator = "AND"
-    expect(this.accessor.isOrOperator())
-      .toBe(false)
+  it('getCount()', () => {
+    expect(this.accessor.getCount()).toEqual(0)
+    this.accessor.results = {
+      aggregations: {
+        genreKey1: {
+          genre_count: {
+            value: 99
+          }
+        }
+      }
+    }
+    expect(this.accessor.getCount()).toEqual(99)
   })
 
-  it("getBoolBuilder()", ()=> {
-    expect(this.accessor.getBoolBuilder())
-      .toBe(BoolShould)
-    this.options.operator = "AND"
-    expect(this.accessor.getBoolBuilder())
-      .toBe(BoolMust)
+  it('getDocCount()', () => {
+    expect(this.accessor.getDocCount()).toEqual(0)
+    this.accessor.results = {
+      aggregations: {
+        genreKey1: {
+          genre_count: {
+            value: 99
+          },
+          doc_count: 50
+        }
+      }
+    }
+    expect(this.accessor.getDocCount()).toEqual(50)
   })
 
-  describe("view more options", () => {
+  it('isOrOperator()', () => {
+    expect(this.accessor.isOrOperator()).toBe(true)
+    this.options.operator = 'AND'
+    expect(this.accessor.isOrOperator()).toBe(false)
+  })
 
-    it("setViewMoreOption", () => {
-      this.accessor.setViewMoreOption({size:30})
+  it('getBoolBuilder()', () => {
+    expect(this.accessor.getBoolBuilder()).toBe(BoolShould)
+    this.options.operator = 'AND'
+    expect(this.accessor.getBoolBuilder()).toBe(BoolMust)
+  })
+
+  describe('view more options', () => {
+    it('setViewMoreOption', () => {
+      this.accessor.setViewMoreOption({ size: 30 })
       expect(this.accessor.size).toBe(30)
     })
 
-    it("getMoreSizeOption - view more", () => {
-      this.accessor.getCount = () => {
-        return 100
-      }
-      expect(this.accessor.getMoreSizeOption()).toEqual({size:70, label:"View more genres"})
+    it('getMoreSizeOption - view more', () => {
+      this.accessor.getCount = () => 100
+      expect(this.accessor.getMoreSizeOption()).toEqual({ size: 70, label: 'View more genres' })
     })
 
-    it("getMoreSizeOption - view all", () => {
-      this.accessor.getCount = () => {
-        return 30
-      }
-      expect(this.accessor.getMoreSizeOption()).toEqual({size:30, label:"View all"})
+    it('getMoreSizeOption - view all', () => {
+      this.accessor.getCount = () => 30
+      expect(this.accessor.getMoreSizeOption()).toEqual({ size: 30, label: 'View all' })
     })
 
-    it("getMoreSizeOption - view all page size equals total", () => {
-      this.accessor.getCount = () => {
-        return 70
-      }
-      expect(this.accessor.getMoreSizeOption()).toEqual({size:70, label:"View all"})
+    it('getMoreSizeOption - view all page size equals total', () => {
+      this.accessor.getCount = () => 70
+      expect(this.accessor.getMoreSizeOption()).toEqual({ size: 70, label: 'View all' })
     })
 
-    it("getMoreSizeOption - view less", () => {
-      this.accessor.getCount = () => {
-        return 30
-      }
+    it('getMoreSizeOption - view less', () => {
+      this.accessor.getCount = () => 30
       this.accessor.size = 30
-      expect(this.accessor.getMoreSizeOption()).toEqual({size:20, label:"View less"})
+      expect(this.accessor.getMoreSizeOption()).toEqual({ size: 20, label: 'View less' })
     })
 
-    it("getMoreSizeOption - no option", () => {
-      this.accessor.getCount = () => {
-        return 15
-      }
+    it('getMoreSizeOption - no option', () => {
+      this.accessor.getCount = () => 15
       this.accessor.size = 20
       expect(this.accessor.getMoreSizeOption()).toEqual(null)
     })
   })
 
-  describe("buildSharedQuery", ()=> {
-    beforeEach(()=> {
-      this.accessor.translate = (key)=> {
-        return {
-          "1":"Games", "2":"Action",
-          "3":"Comedy", "4":"Horror"
-        }[key]
-      }
-      this.toPlainObject = (ob)=> {
-        return JSON.parse(JSON.stringify(ob))
-      }
-      this.accessor.state = new ArrayState([
-        "1", "2"
-      ])
+  describe('buildSharedQuery', () => {
+    beforeEach(() => {
+      this.accessor.translate = (key) =>
+        ({
+          '1': 'Games',
+          '2': 'Action',
+          '3': 'Comedy',
+          '4': 'Horror'
+        }[key])
+      this.toPlainObject = (ob) => JSON.parse(JSON.stringify(ob))
+      this.accessor.state = new ArrayState(['1', '2'])
       this.query = new ImmutableQuery()
     })
 
-    it("filter test", ()=> {
+    it('filter test', () => {
       this.query = this.accessor.buildSharedQuery(this.query)
-      let filters = this.query.getFilters().bool.should
+      const filters = this.query.getFilters().bool.should
       expect(this.toPlainObject(filters)).toEqual([
         {
-          "term": {
-            "genre": "1"
+          term: {
+            genre: '1'
           }
         },
         {
-          "term": {
-            "genre": "2"
+          term: {
+            genre: '2'
           }
         }
       ])
-      let selectedFilters = this.query.getSelectedFilters()
-      expect(selectedFilters.length).toEqual(2)
+      const selectedFilters = this.query.getSelectedFilters()
+      expect(selectedFilters).toHaveLength(2)
       //
-      expect(this.accessor.state.getValue()).toEqual(["1","2"])
+      expect(this.accessor.state.getValue()).toEqual(['1', '2'])
       selectedFilters[0].remove()
-      expect(this.accessor.state.getValue()).toEqual(["2"])
+      expect(this.accessor.state.getValue()).toEqual(['2'])
       selectedFilters[1].remove()
       expect(this.accessor.state.getValue()).toEqual([])
     })
 
-    it("AND filter", ()=> {
-      this.options.operator = "AND"
+    it('AND filter', () => {
+      this.options.operator = 'AND'
       this.query = this.accessor.buildSharedQuery(this.query)
       expect(this.query.getFilters().bool.should).toBeFalsy()
       expect(this.query.getFilters().bool.must).toBeTruthy()
     })
 
-    it("Empty state", ()=> {
+    it('Empty state', () => {
       this.accessor.state = new ArrayState([])
-      let query = this.accessor.buildSharedQuery(this.query)
+      const query = this.accessor.buildSharedQuery(this.query)
       expect(query).toBe(this.query)
     })
-
   })
 
-  describe("buildOwnQuery", ()=> {
-
-    beforeEach(()=> {
-
-      this.accessor.state = new ArrayState([
-        "1", "2"
-      ])
-      this.query = new ImmutableQuery()
-        .addFilter("rating_uuid", BoolShould(["PG"]))
+  describe('buildOwnQuery', () => {
+    beforeEach(() => {
+      this.accessor.state = new ArrayState(['1', '2'])
+      this.query = new ImmutableQuery().addFilter('rating_uuid', BoolShould(['PG']))
       this.query = this.accessor.buildSharedQuery(this.query)
     })
 
-    it("build own query - or", ()=> {
-      let query = this.accessor.buildOwnQuery(this.query)
+    it('build own query - or', () => {
+      const query = this.accessor.buildOwnQuery(this.query)
       expect(query.query.aggs).toEqual(
-        FilterBucket("genreKey1",
-          BoolMust([
-            BoolShould(["PG"])
-          ]),
-          TermsBucket("genre", "genre", {size:20, order:{_term:"asc"}}),
-          CardinalityMetric("genre_count", "genre")
+        FilterBucket(
+          'genreKey1',
+          BoolMust([BoolShould(['PG'])]),
+          TermsBucket('genre', 'genre', { size: 20, order: { _term: 'asc' } }),
+          CardinalityMetric('genre_count', 'genre')
         )
       )
     })
 
-    it("build own query - and", ()=> {
-      this.options.operator = "AND"
-      let query = this.accessor.buildOwnQuery(this.query)
+    it('build own query - and', () => {
+      this.options.operator = 'AND'
+      const query = this.accessor.buildOwnQuery(this.query)
       expect(query.query.aggs).toEqual(
-        FilterBucket("genreKey1",
+        FilterBucket(
+          'genreKey1',
           BoolMust([
-            BoolShould(["PG"]),
-            BoolShould([
-              TermQuery("genre", "1"),
-              TermQuery("genre", "2")
-            ])
+            BoolShould(['PG']),
+            BoolShould([TermQuery('genre', '1'), TermQuery('genre', '2')])
           ]),
-          TermsBucket("genre", "genre", {size:20, order:{_term:"asc"}}),
-          CardinalityMetric("genre_count", "genre")
+          TermsBucket('genre', 'genre', { size: 20, order: { _term: 'asc' } }),
+          CardinalityMetric('genre_count', 'genre')
         )
       )
     })
 
-    it("build own query - include/exclude/min_doc_count", ()=> {
-      this.options.operator = "AND"
-      this.options.include = ["one", "two"]
-      this.options.exclude = ["three"]
+    it('build own query - include/exclude/min_doc_count', () => {
+      this.options.operator = 'AND'
+      this.options.include = ['one', 'two']
+      this.options.exclude = ['three']
       this.options.min_doc_count = 0
-      let query = this.accessor.buildOwnQuery(this.query)
+      const query = this.accessor.buildOwnQuery(this.query)
       expect(query.query.aggs).toEqual(
-        FilterBucket("genreKey1",
+        FilterBucket(
+          'genreKey1',
           BoolMust([
-            BoolShould(["PG"]),
-            BoolShould([
-              TermQuery("genre", "1"),
-              TermQuery("genre", "2")
-            ])
+            BoolShould(['PG']),
+            BoolShould([TermQuery('genre', '1'), TermQuery('genre', '2')])
           ]),
-          TermsBucket("genre", "genre", {
-            size:20,
-            include: ["one", "two"],
-            exclude: ["three"],
-            min_doc_count:0,
-            order:{_term:"asc"}
+          TermsBucket('genre', 'genre', {
+            size: 20,
+            include: ['one', 'two'],
+            exclude: ['three'],
+            min_doc_count: 0,
+            order: { _term: 'asc' }
           }),
-          CardinalityMetric("genre_count", "genre")
+          CardinalityMetric('genre_count', 'genre')
         )
       )
     })
 
-    describe("NestedFieldContext", ()=> {
-      beforeEach(()=> {
+    describe('NestedFieldContext', () => {
+      beforeEach(() => {
         this.options = {
-          operator:"OR",
-          title:"Genres",
-          id:"GenreId",
-          field:"genre",
-          size:20,
-          fieldOptions:{
-            type:"nested",
-            options:{ path:"tags" }
+          operator: 'OR',
+          title: 'Genres',
+          id: 'GenreId',
+          field: 'genre',
+          size: 20,
+          fieldOptions: {
+            type: 'nested',
+            options: { path: 'tags' }
           }
         }
-        this.accessor = new FacetAccessor("genreKey", this.options)
+        this.accessor = new FacetAccessor('genreKey', this.options)
         this.accessor.setSearchkitManager(SearchkitManager.mock())
         this.accessor.results = {
-          aggregations:{
-            genreKey1:{
-              inner:{
-                genre:{buckets:[
-                  {key:1},
-                  {key:2}
-                ]}
+          aggregations: {
+            genreKey1: {
+              inner: {
+                genre: { buckets: [{ key: 1 }, { key: 2 }] }
               }
             }
           }
         }
       })
 
-      it("constructor", ()=> {
-        expect(this.accessor.fieldContext)
-          .toEqual(jasmine.any(NestedFieldContext))
-
+      it('constructor', () => {
+        expect(this.accessor.fieldContext).toEqual(jasmine.any(NestedFieldContext))
       })
 
-      it("buildSharedQuery", ()=> {
-        this.accessor.state = new ArrayState([
-          "1", "2"
-        ])
+      it('buildSharedQuery', () => {
+        this.accessor.state = new ArrayState(['1', '2'])
 
-        this.query = new ImmutableQuery()
-          .addFilter("rating_uuid", BoolShould(["PG"]))
+        this.query = new ImmutableQuery().addFilter('rating_uuid', BoolShould(['PG']))
         this.query = this.accessor.buildSharedQuery(this.query)
-        expect(this.query.index.filtersMap["genreKey1"]).toEqual(
+        expect(this.query.index.filtersMap.genreKey1).toEqual(
           BoolShould([
-            NestedQuery("tags", TermQuery("genre", "1")),
-            NestedQuery("tags", TermQuery("genre", "2"))
+            NestedQuery('tags', TermQuery('genre', '1')),
+            NestedQuery('tags', TermQuery('genre', '2'))
           ])
         )
-
       })
 
-      it("buildOwnQuery", ()=> {
-        this.accessor.state = new ArrayState([
-          "1", "2"
-        ])
-        this.query = new ImmutableQuery()
-          .addFilter("rating_uuid", BoolShould(["PG"]))
+      it('buildOwnQuery', () => {
+        this.accessor.state = new ArrayState(['1', '2'])
+        this.query = new ImmutableQuery().addFilter('rating_uuid', BoolShould(['PG']))
         this.query = this.accessor.buildOwnQuery(this.query)
         expect(this.query.query.aggs).toEqual(
-          FilterBucket("genreKey1",
-            BoolShould(["PG"]),
-            NestedBucket("inner","tags",
-              TermsBucket("genre", "genre", {size:20}),
-              CardinalityMetric("genre_count", "genre")
+          FilterBucket(
+            'genreKey1',
+            BoolShould(['PG']),
+            NestedBucket(
+              'inner',
+              'tags',
+              TermsBucket('genre', 'genre', { size: 20 }),
+              CardinalityMetric('genre_count', 'genre')
             )
           )
         )
       })
 
-      it("getBuckets()", ()=> {
-        expect(this.accessor.getBuckets()).toEqual([
-          {key:'1'},{key:'2'}
-        ])
+      it('getBuckets()', () => {
+        expect(this.accessor.getBuckets()).toEqual([{ key: '1' }, { key: '2' }])
       })
     })
-
   })
-
-
 })

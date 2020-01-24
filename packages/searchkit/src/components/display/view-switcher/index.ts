@@ -1,3 +1,3 @@
-export * from  "./ViewSwitcherHits"
-export * from  "./ViewSwitcherToggle"
-export * from  "./ViewSwitcherConfig"
+export * from './ViewSwitcherHits'
+export * from './ViewSwitcherToggle'
+export * from './ViewSwitcherConfig'

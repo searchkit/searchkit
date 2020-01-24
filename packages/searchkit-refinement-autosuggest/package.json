@@ -1,6 +1,6 @@
 {
     "name": "@searchkit/refinement-autosuggest",
-    "version": "0.2.0",
+    "version": "0.2.1-alpha.2",
     "description": "",
     "main": "umd/bundle.js",
     "module": " umd/bundle.js",
@@ -27,14 +27,14 @@
     },
     "devDependencies": {
         "@types/lodash": "^4.14.80",
-        "@types/node": "^8.0.50",
+        "@types/node": "^13.1.2",
         "@types/react": "^16.4.12",
         "css-loader": "^0.28.7",
         "react": "^15.6.2",
-        "searchkit": "^2.4.0",
+        "searchkit": "^2.4.1-alpha.2",
         "style-loader": "^0.19.0",
         "ts-loader": "^3.5.0",
-        "typescript": "^3.0.1",
+        "typescript": "^3.7.4",
         "webpack": "^3.8.1"
     },
     "dependencies": {

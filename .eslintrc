@@ -1,0 +1,78 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/typescript",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:react/recommended",
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "jest",
+    "prettier",
+    "react"
+  ],
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "settings": {
+    "react": {
+      "version": "16"
+    }
+  },
+  "rules": {
+    "@typescript-eslint/ban-ts-ignore": "warn",
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/no-empty-interface": "warn",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "arrow-body-style": [
+      "error",
+      "as-needed"
+    ],
+    "arrow-parens": [
+      "error",
+      "always"
+    ],
+    "dot-notation":"error",
+    "import/namespace": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "parent",
+          "sibling",
+          "index"
+        ]
+      }
+    ],
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error",
+    "no-else-return": "error",
+    "no-empty": "off",
+    "no-empty-pattern": "warn",
+    "no-undef": "off",
+    "no-unused-vars": "warn",
+    "no-useless-escape": "off",
+    "prettier/prettier": "error",
+    "react/display-name": "off",
+    "react/jsx-curly-brace-presence": "error",
+    "react/no-string-refs": "off",
+    "react/prop-types": "off"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 10
+  }
+}

@@ -5,7 +5,6 @@ var webpackMiddleware = require("webpack-dev-middleware");
 var webpackHotMiddleware = require('webpack-hot-middleware');
 var favicon = require('serve-favicon');
 var apps = require("../apps")
-var _ = require("lodash")
 
 module.exports = {
   start:function(port){

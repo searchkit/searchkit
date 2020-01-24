@@ -1,23 +1,18 @@
-import {MockESTransport, ESTransport} from "../../../"
+import { MockESTransport, ESTransport } from '../../../'
 
-describe("MockESTransport", ()=> {
-
-  beforeEach(()=> {
+describe('MockESTransport', () => {
+  beforeEach(() => {
     this.transport = new MockESTransport()
   })
 
-  it("contructed correctly", ()=> {
-    expect(this.transport).toEqual(
-      jasmine.any(ESTransport)
-    )
+  it('contructed correctly', () => {
+    expect(this.transport).toEqual(jasmine.any(ESTransport))
   })
 
-  it("search()", (done)=> {
-    this.transport.search("query").then((returnValue)=> {
-      expect(returnValue).toEqual("query")
+  it('search()', (done) => {
+    this.transport.search('query').then((returnValue) => {
+      expect(returnValue).toEqual('query')
       done()
     })
-
   })
-
 })

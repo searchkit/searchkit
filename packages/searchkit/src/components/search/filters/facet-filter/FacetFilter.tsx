@@ -1,18 +1,13 @@
-import * as React from "react";
+import * as React from 'react'
 
-import {FacetFilterProps, FacetFilterPropTypes} from "./FacetFilterProps"
+import { FacetAccessor, ISizeOption } from '../../../../core'
 
-import {
-  FacetAccessor, ISizeOption
-} from "../../../../core"
+import { FastClick, renderComponent, SearchkitComponent } from '../../../../core/react'
 
-import {
-  FastClick, renderComponent, SearchkitComponent
-} from "../../../../core/react"
+import { CheckboxItemList, Panel } from '../../../ui'
+import { FacetFilterProps, FacetFilterPropTypes } from './FacetFilterProps'
 
-import {CheckboxItemList, Panel} from "../../../ui"
-
-const identity = require("lodash/identity")
+const identity = require('lodash/identity')
 
 export class FacetFilter extends SearchkitComponent<FacetFilterProps, any> {
   accessor: FacetAccessor
@@ -26,30 +21,47 @@ export class FacetFilter extends SearchkitComponent<FacetFilterProps, any> {
     collapsable: false,
     showCount: true,
     showMore: true,
-    bucketsTransform:identity
+    bucketsTransform: identity
   }
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.toggleViewMoreOption = this.toggleViewMoreOption.bind(this)
   }
-  getAccessorOptions(){
+  getAccessorOptions() {
     const {
-      field, id, operator, title, include, exclude,
-      size, translations, orderKey, orderDirection, fieldOptions
+      field,
+      id,
+      operator,
+      title,
+      include,
+      exclude,
+      size,
+      translations,
+      orderKey,
+      orderDirection,
+      fieldOptions
     } = this.props
     return {
-      id, operator, title, size, include, exclude, field,
-      translations, orderKey, orderDirection, fieldOptions
+      id,
+      operator,
+      title,
+      size,
+      include,
+      exclude,
+      field,
+      translations,
+      orderKey,
+      orderDirection,
+      fieldOptions
     }
   }
   defineAccessor() {
-    return new FacetAccessor(
-      this.props.id, this.getAccessorOptions())
+    return new FacetAccessor(this.props.id, this.getAccessorOptions())
   }
 
   defineBEMBlocks() {
-    var blockName = this.props.mod || "sk-refinement-list"
+    const blockName = this.props.mod || 'sk-refinement-list'
     return {
       container: blockName,
       option: `${blockName}-option`
@@ -74,7 +86,7 @@ export class FacetFilter extends SearchkitComponent<FacetFilterProps, any> {
   }
 
   toggleViewMoreOption(option: ISizeOption) {
-    this.accessor.setViewMoreOption(option);
+    this.accessor.setViewMoreOption(option)
     this.searchkit.performSearch()
   }
 
@@ -82,49 +94,53 @@ export class FacetFilter extends SearchkitComponent<FacetFilterProps, any> {
     return this.accessor.getBuckets().length != 0
   }
 
-  getSelectedItems(){
+  getSelectedItems() {
     return this.accessor.state.getValue()
   }
 
-  getItems(){
+  getItems() {
     return this.props.bucketsTransform(this.accessor.getBuckets())
   }
 
   render() {
-    if (!this.accessor) return null;
+    if (!this.accessor) return null
     const { listComponent, containerComponent, showCount, title, id, countFormatter } = this.props
-    return renderComponent(containerComponent, {
-      title,
-      className: id ? `filter--${id}` : undefined,
-      disabled: !this.hasOptions()
-    }, [
-      renderComponent(listComponent, {
-        key:"listComponent",
-        items: this.getItems(),
-        itemComponent:this.props.itemComponent,
-        selectedItems: this.getSelectedItems(),
-        toggleItem: this.toggleFilter.bind(this),
-        setItems: this.setFilters.bind(this),
-        docCount: this.accessor.getDocCount(),
-        showCount,
-        translate:this.translate,
-        countFormatter
-      }),
-      this.renderShowMore()
-    ]);
+    return renderComponent(
+      containerComponent,
+      {
+        title,
+        className: id ? `filter--${id}` : undefined,
+        disabled: !this.hasOptions()
+      },
+      [
+        renderComponent(listComponent, {
+          key: 'listComponent',
+          items: this.getItems(),
+          itemComponent: this.props.itemComponent,
+          selectedItems: this.getSelectedItems(),
+          toggleItem: this.toggleFilter.bind(this),
+          setItems: this.setFilters.bind(this),
+          docCount: this.accessor.getDocCount(),
+          showCount,
+          translate: this.translate,
+          countFormatter
+        }),
+        this.renderShowMore()
+      ]
+    )
   }
 
   renderShowMore() {
     const option = this.accessor.getMoreSizeOption()
 
     if (!option || !this.props.showMore) {
-        return null;
+      return null
     }
 
     return (
-      <FastClick handler={() => this.toggleViewMoreOption(option) } key="showMore">
-        <div data-qa="show-more" className={this.bemBlocks.container("view-more-action") }>
-          {this.translate(option.label) }
+      <FastClick handler={() => this.toggleViewMoreOption(option)} key="showMore">
+        <div data-qa="show-more" className={this.bemBlocks.container('view-more-action')}>
+          {this.translate(option.label)}
         </div>
       </FastClick>
     )

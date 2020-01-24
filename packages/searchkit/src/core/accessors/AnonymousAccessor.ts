@@ -1,10 +1,9 @@
-import {Accessor} from "./Accessor";
+import { Accessor } from './Accessor'
 
 export class AnonymousAccessor extends Accessor {
-
-  constructor(buildSharedQuery){
+  constructor(buildSharedQuery) {
     super()
-    if(buildSharedQuery){
+    if (buildSharedQuery) {
       this.buildSharedQuery = buildSharedQuery
     }
   }

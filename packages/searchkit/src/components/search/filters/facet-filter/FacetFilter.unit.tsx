@@ -1,16 +1,13 @@
-import * as React from "react"
-import {mount} from "enzyme"
-import {fastClick} from "../../../__test__/TestHelpers"
-import {FacetFilter} from "./FacetFilter"
-import {RefinementListFilter} from "./RefinementListFilter"
-import {SearchkitManager, Utils, FieldOptions, FacetAccessor} from "../../../../core"
-import {Toggle, ItemComponent} from "../../../ui"
+import * as React from 'react'
+import { mount } from 'enzyme'
+import * as _ from 'lodash'
+import { fastClick } from '../../../__test__/TestHelpers'
+import { SearchkitManager, Utils, FacetAccessor } from '../../../../core'
+import { Toggle, ItemComponent } from '../../../ui'
+import { FacetFilter } from './FacetFilter'
+import { RefinementListFilter } from './RefinementListFilter'
 
-import * as _ from "lodash"
-import * as sinon from "sinon"
-
-describe("Facet Filter tests", () => {
-
+describe('Facet Filter tests', () => {
   this.createWrapper = (component) => {
     this.wrapper = mount(component)
 
@@ -19,12 +16,12 @@ describe("Facet Filter tests", () => {
         testId1: {
           test: {
             buckets: [
-              { key: "test option 1", doc_count: 1 },
-              { key: "test option 2", doc_count: 2 },
-              { key: "test option 3", doc_count: 3 }
+              { key: 'test option 1', doc_count: 1 },
+              { key: 'test option 2', doc_count: 2 },
+              { key: 'test option 3', doc_count: 3 }
             ]
           },
-          "test_count": {
+          test_count: {
             value: 4
           }
         }
@@ -35,132 +32,155 @@ describe("Facet Filter tests", () => {
   }
 
   beforeEach(() => {
-
     Utils.guidCounter = 0
 
-
     this.searchkit = SearchkitManager.mock()
-    this.searchkit.translateFunction = (key) => {
-      return {
-        "test option 1": "test option 1 translated"
-      }[key]
-    }
-  
+    this.searchkit.translateFunction = (key) =>
+      ({
+        'test option 1': 'test option 1 translated'
+      }[key])
+
     this.mountComponent = () => {
       this.createWrapper(
         <FacetFilter
-          field="test" id="testId" title="test title" size={3} countFormatter={(count)=>"#"+count}
-          include={"title"} exclude={["bad", "n/a"]} operator="OR"
-          orderKey="_count" orderDirection="desc" translations={{"facets.view_all":"View all facets"}}
-          searchkit={this.searchkit} bucketsTransform={_.identity}/>
+          field="test"
+          id="testId"
+          title="test title"
+          size={3}
+          countFormatter={(count) => '#' + count}
+          include="title"
+          exclude={['bad', 'n/a']}
+          operator="OR"
+          orderKey="_count"
+          orderDirection="desc"
+          translations={{ 'facets.view_all': 'View all facets' }}
+          searchkit={this.searchkit}
+          bucketsTransform={_.identity}
+        />
       )
-    };
+    }
     this.mountComponent()
 
-    this.getViewMore = ()=> this.wrapper.find(".sk-refinement-list__view-more-action")
+    this.getViewMore = () => this.wrapper.find('.sk-refinement-list__view-more-action')
+  })
 
-  });
-
-  it('renders correctly', () => {    
-    expect(this.wrapper).toMatchSnapshot()    
-  });
+  it('renders correctly', () => {
+    expect(this.wrapper).toMatchSnapshot()
+  })
 
   it('clicks options', () => {
     this.wrapper.update()
-    let option = this.wrapper.find(".sk-item-list").children().at(0)
-    let option2 = this.wrapper.find(".sk-item-list").children().at(1)
+    const option = this.wrapper
+      .find('.sk-item-list')
+      .children()
+      .at(0)
+    const option2 = this.wrapper
+      .find('.sk-item-list')
+      .children()
+      .at(1)
     fastClick(option)
     fastClick(option2)
-    expect(this.wrapper).toMatchSnapshot();
+    expect(this.wrapper).toMatchSnapshot()
     expect(this.accessor.state.getValue()).toEqual(['test option 1', 'test option 2'])
     fastClick(option2)
-    expect(this.wrapper).toMatchSnapshot();
+    expect(this.wrapper).toMatchSnapshot()
     expect(this.accessor.state.getValue()).toEqual(['test option 1'])
   })
 
-  it("show more options", () => {
-    let option = { label: "view more", size: 20 }
-    this.accessor.getMoreSizeOption = jest.fn(() => { return option })
+  it('show more options', () => {
+    const option = { label: 'view more', size: 20 }
+    this.accessor.getMoreSizeOption = jest.fn(() => option)
     this.accessor.setViewMoreOption = jest.fn()
     this.mountComponent()
-    let viewMore = this.getViewMore()
-    expect(viewMore.text()).toBe("view more")
+    const viewMore = this.getViewMore()
+    expect(viewMore.text()).toBe('view more')
     fastClick(viewMore)
     this.wrapper.update()
-    expect(this.accessor.setViewMoreOption).toBeCalledWith(option);
+    expect(this.accessor.setViewMoreOption).toBeCalledWith(option)
   })
 
-  it("show no options", () => {
-    this.accessor.getMoreSizeOption = () => {return null}
+  it('show no options', () => {
+    this.accessor.getMoreSizeOption = () => null
     this.mountComponent()
-    expect(this.getViewMore().length).toBe(0)
+    expect(this.getViewMore()).toHaveLength(0)
   })
 
-  it("should configure accessor correctly", () => {
-    expect(this.accessor.key).toBe("testId")
-    let options = this.accessor.options
+  it('should configure accessor correctly', () => {
+    expect(this.accessor.key).toBe('testId')
+    const options = this.accessor.options
 
-    expect(options).toEqual(jasmine.objectContaining({
-      "id": "testId",
-      "field":"test",
-      "title": "test title",
-      "size": 3,
-      "facetsPerPage": 50,
-      "operator": "OR",
-      "translations": {"facets.view_all":"View all facets"},
-      "orderKey":"_count",
-      "orderDirection":"desc",
-      "include":"title",
-      "exclude":["bad","n/a"],
-      "fieldOptions":{
-        type:"embedded",
-        field:"test"
-      }
-    }))
+    expect(options).toEqual(
+      jasmine.objectContaining({
+        id: 'testId',
+        field: 'test',
+        title: 'test title',
+        size: 3,
+        facetsPerPage: 50,
+        operator: 'OR',
+        translations: { 'facets.view_all': 'View all facets' },
+        orderKey: '_count',
+        orderDirection: 'desc',
+        include: 'title',
+        exclude: ['bad', 'n/a'],
+        fieldOptions: {
+          type: 'embedded',
+          field: 'test'
+        }
+      })
+    )
   })
 
-  it("should work with a custom itemComponent", () => {
+  it('should work with a custom itemComponent', () => {
     this.createWrapper(
       <FacetFilter
-        itemComponent = {({ label, count }) => <div className="option">{label} ({count})</div>}
-        field="test" id="testId" title="test title"
-        searchkit={this.searchkit} />
+        itemComponent={({ label, count }) => (
+          <div className="option">
+            {label} ({count})
+          </div>
+        )}
+        field="test"
+        id="testId"
+        title="test title"
+        searchkit={this.searchkit}
+      />
     )
-    expect(this.wrapper.find(".sk-panel__header").text()).toBe("test title")
-    expect(this.wrapper.find(".option").map(e => e.text()))
-      .toEqual(["test option 1 translated (1)", "test option 2 (2)", "test option 3 (3)"])
-
+    expect(this.wrapper.find('.sk-panel__header').text()).toBe('test title')
+    expect(this.wrapper.find('.option').map((e) => e.text())).toEqual([
+      'test option 1 translated (1)',
+      'test option 2 (2)',
+      'test option 3 (3)'
+    ])
   })
 
-  it("operator can be updated", ()=> {
-    spyOn(this.searchkit, "performSearch")
-    this.wrapper.setProps({operator:"AND"})
-    expect(this.accessor.options.operator).toBe("AND")
+  it('operator can be updated', () => {
+    spyOn(this.searchkit, 'performSearch')
+    this.wrapper.setProps({ operator: 'AND' })
+    expect(this.accessor.options.operator).toBe('AND')
     expect(this.searchkit.performSearch).toHaveBeenCalled()
   })
 
-  it("setFilters", ()=> {
-    spyOn(this.searchkit, "performSearch")
-    this.wrapper.instance().setFilters(["foo"])
-    expect(this.accessor.state.getValue()).toEqual(["foo"])
+  it('setFilters', () => {
+    spyOn(this.searchkit, 'performSearch')
+    this.wrapper.instance().setFilters(['foo'])
+    expect(this.accessor.state.getValue()).toEqual(['foo'])
     expect(this.searchkit.performSearch).toHaveBeenCalled()
   })
 
-  it("should work with custom components", () => {
-    let container = (props)=> (
-      <div {...props}>{props.children}</div>
-    )
+  it('should work with custom components', () => {
+    const container = (props) => <div {...props}>{props.children}</div>
 
     this.createWrapper(
       <RefinementListFilter
         containerComponent={container}
         listComponent={Toggle}
-        itemComponent={(props)=> <ItemComponent {...props} showCount={true}/>}
-        field="test" id="testId" title="test title"
-        bucketsTransform={(buckets)=> _.reverse(buckets)}
-        searchkit={this.searchkit} />
+        itemComponent={(props) => <ItemComponent {...props} showCount={true} />}
+        field="test"
+        id="testId"
+        title="test title"
+        bucketsTransform={(buckets) => _.reverse(buckets)}
+        searchkit={this.searchkit}
+      />
     )
-    expect(this.wrapper).toMatchSnapshot()   
+    expect(this.wrapper).toMatchSnapshot()
   })
-
-});
+})

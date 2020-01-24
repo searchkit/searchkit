@@ -1,23 +1,23 @@
-const without = require("lodash/without")
-const each = require("lodash/each")
+const without = require('lodash/without')
+const each = require('lodash/each')
 
 export class EventEmitter {
   listeners = []
 
-  addListener(fn){
+  addListener(fn) {
     this.listeners.push(fn)
-    return ()=>{
+    return () => {
       this.listeners = without(this.listeners, fn)
     }
   }
 
-  trigger(...args){
-    each(this.listeners, (fn)=> {
-      fn.apply(null, args)
+  trigger(...args) {
+    each(this.listeners, (fn) => {
+      fn(...args)
     })
   }
 
-  clear(){
+  clear() {
     this.listeners = []
   }
 }

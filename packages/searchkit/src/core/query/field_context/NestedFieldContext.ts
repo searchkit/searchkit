@@ -1,32 +1,23 @@
-import {FieldContext} from './FieldContext';
-import {NestedBucket, NestedQuery} from "../query_dsl"
-const get = require("lodash/get")
+import { NestedBucket, NestedQuery } from '../query_dsl'
+import { FieldContext } from './FieldContext'
+const get = require('lodash/get')
 
 export class NestedFieldContext extends FieldContext {
-
-  constructor(fieldOptions){
+  constructor(fieldOptions) {
     super(fieldOptions)
-    if(!get(this.fieldOptions, "options.path")){
-      throw new Error("fieldOptions type:nested requires options.path")
+    if (!get(this.fieldOptions, 'options.path')) {
+      throw new Error('fieldOptions type:nested requires options.path')
     }
   }
 
-  getAggregationPath(){
-    return "inner"
+  getAggregationPath() {
+    return 'inner'
   }
 
-  wrapAggregations(...aggregations){
-    return [NestedBucket(
-      "inner",
-      this.fieldOptions.options.path,
-      ...aggregations
-    )]
+  wrapAggregations(...aggregations) {
+    return [NestedBucket('inner', this.fieldOptions.options.path, ...aggregations)]
   }
-  wrapFilter(filter){
-    return NestedQuery(
-      this.fieldOptions.options.path,
-      filter,
-      this.fieldOptions.options
-    )
+  wrapFilter(filter) {
+    return NestedQuery(this.fieldOptions.options.path, filter, this.fieldOptions.options)
   }
 }

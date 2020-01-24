@@ -1,9 +1,8 @@
-import * as React from "react";
-const assign = require("lodash/assign")
+import * as React from 'react'
+const assign = require('lodash/assign')
 
 export class MockRange extends React.Component<any, any> {
-
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       items: [
@@ -17,19 +16,18 @@ export class MockRange extends React.Component<any, any> {
         { key: 7, doc_count: 10 },
         { key: 8, doc_count: 0 },
         { key: 9, doc_count: 0 },
-        { key: 10, doc_count: 0 },
+        { key: 10, doc_count: 0 }
       ],
-      min: 0, max: 10,
-      minValue: 2, maxValue: 5,
-      onChange: jasmine.createSpy("onChange"),
-      onFinished: jasmine.createSpy("onFinished")
+      min: 0,
+      max: 10,
+      minValue: 2,
+      maxValue: 5,
+      onChange: jasmine.createSpy('onChange'),
+      onFinished: jasmine.createSpy('onFinished')
     }
   }
 
-  render(){
-    return React.createElement(
-      this.props.rangeComponent,
-      assign({}, this.state, this.props)
-    )
+  render() {
+    return React.createElement(this.props.rangeComponent, assign({}, this.state, this.props))
   }
 }

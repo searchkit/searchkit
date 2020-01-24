@@ -1,152 +1,129 @@
+import * as _ from 'lodash'
 import {
-  ImmutableQuery,SearchkitManager,
-  BoolMust, BoolShould,  HierarchicalFacetAccessor,
-  TermQuery, FilterBucket, TermsBucket
-} from "../../../"
-import * as _ from "lodash"
+  ImmutableQuery,
+  SearchkitManager,
+  BoolMust,
+  BoolShould,
+  HierarchicalFacetAccessor,
+  TermQuery,
+  FilterBucket,
+  TermsBucket
+} from '../../../'
 
-
-describe("HierarchicalFacetAccessor", ()=> {
-
-  beforeEach(()=> {
-    this.accessor = new HierarchicalFacetAccessor("categories", {
-      fields:["lvl1", "lvl2", "lvl3"],
-      id:"categories_id",
-      title:"Categories",
-      size:20,
-      orderKey:"_term",
-      orderDirection:"asc"
+describe('HierarchicalFacetAccessor', () => {
+  beforeEach(() => {
+    this.accessor = new HierarchicalFacetAccessor('categories', {
+      fields: ['lvl1', 'lvl2', 'lvl3'],
+      id: 'categories_id',
+      title: 'Categories',
+      size: 20,
+      orderKey: '_term',
+      orderDirection: 'asc'
     })
     this.accessor.setSearchkitManager(SearchkitManager.mock())
     this.accessor.computeUuids()
     this.query = new ImmutableQuery()
-    this.toPlainObject = (ob)=> {
-      return JSON.parse(JSON.stringify(ob))
-    }
+    this.toPlainObject = (ob) => JSON.parse(JSON.stringify(ob))
   })
 
-
-
-
-  it("getBuckets()", ()=> {
+  it('getBuckets()', () => {
     this.accessor.results = {
-      aggregations:{
-        categories_id:{
-          lvl2:{
-            lvl2:{
-              buckets:[
-                {key:1}, {key:2,}, {key:3}
-              ]
+      aggregations: {
+        categories_id: {
+          lvl2: {
+            lvl2: {
+              buckets: [{ key: 1 }, { key: 2 }, { key: 3 }]
             }
           },
-          lvl3:{
-            lvl3:{
-              buckets:[
-                { key: 4 }, { key: 5, }, { key: 6 }
-              ]
+          lvl3: {
+            lvl3: {
+              buckets: [{ key: 4 }, { key: 5 }, { key: 6 }]
             }
           }
         }
       }
     }
-    expect(this.accessor.getBuckets(1)).toEqual([
-      {key:"1"}, {key:"2"}, {key:"3"}
-    ])
-    expect(this.accessor.getBuckets(2)).toEqual([
-      { key: "4" }, { key: "5" }, { key: "6" }
-    ])
-    expect(this.accessor.getBuckets(4))
-      .toEqual([])
+    expect(this.accessor.getBuckets(1)).toEqual([{ key: '1' }, { key: '2' }, { key: '3' }])
+    expect(this.accessor.getBuckets(2)).toEqual([{ key: '4' }, { key: '5' }, { key: '6' }])
+    expect(this.accessor.getBuckets(4)).toEqual([])
   })
 
-  it("buildSharedQuery", ()=> {
+  it('buildSharedQuery', () => {
     this.accessor.state = this.accessor.state
-      .add(0, "lvl1val")
-      .add(1, "lvl2val")
-      .add(2, "lvl3val")
-      .add(2, "lvl3val2")
-    expect(this.accessor.state.getValue())
-      .toEqual([["lvl1val"], ['lvl2val'], ["lvl3val", "lvl3val2"]])
+      .add(0, 'lvl1val')
+      .add(1, 'lvl2val')
+      .add(2, 'lvl3val')
+      .add(2, 'lvl3val2')
+    expect(this.accessor.state.getValue()).toEqual([
+      ['lvl1val'],
+      ['lvl2val'],
+      ['lvl3val', 'lvl3val2']
+    ])
 
-    let query = this.accessor.buildSharedQuery(this.query)
+    const query = this.accessor.buildSharedQuery(this.query)
     // console.log(JSON.stringify(query.query.post_filter, null, 2 ))
 
     expect(query.query.post_filter).toEqual(
       BoolMust([
-        TermQuery("lvl1", "lvl1val"),
-        TermQuery("lvl2", "lvl2val"),
-        BoolShould([
-          TermQuery("lvl3", "lvl3val"),
-          TermQuery("lvl3", "lvl3val2")
-        ])
+        TermQuery('lvl1', 'lvl1val'),
+        TermQuery('lvl2', 'lvl2val'),
+        BoolShould([TermQuery('lvl3', 'lvl3val'), TermQuery('lvl3', 'lvl3val2')])
       ])
     )
 
-    let selectedFilters = query.getSelectedFilters()
+    const selectedFilters = query.getSelectedFilters()
     expect(this.toPlainObject(selectedFilters)).toEqual([
       {
-        "id": "categories_id",
-        "name": "lvl2val",
-        "value": "lvl3val"
+        id: 'categories_id',
+        name: 'lvl2val',
+        value: 'lvl3val'
       },
       {
-        "id": "categories_id",
-        "name": "lvl2val",
-        "value": "lvl3val2"
+        id: 'categories_id',
+        name: 'lvl2val',
+        value: 'lvl3val2'
       }
     ])
     // console.log(JSON.stringify(selectedFilters, null, 2 ))
     selectedFilters[0].remove()
-    expect(this.accessor.state.getValue())
-      .toEqual([["lvl1val"], ['lvl2val'], ["lvl3val2"]])
+    expect(this.accessor.state.getValue()).toEqual([['lvl1val'], ['lvl2val'], ['lvl3val2']])
     selectedFilters[1].remove()
-    expect(this.accessor.state.getValue())
-      .toEqual([["lvl1val"], ['lvl2val'], []])
+    expect(this.accessor.state.getValue()).toEqual([['lvl1val'], ['lvl2val'], []])
   })
 
-
-  it("buildOwnQuery()", ()=> {
-
+  it('buildOwnQuery()', () => {
     this.accessor.state = this.accessor.state
-      .add(0, "lvl1val")
-      .add(1, "lvl2val")
-      .add(2, "lvl3val")
-    this.query = this.query.addFilter("other", BoolShould(["foo"]))
+      .add(0, 'lvl1val')
+      .add(1, 'lvl2val')
+      .add(2, 'lvl3val')
+    this.query = this.query.addFilter('other', BoolShould(['foo']))
     let query = this.accessor.buildSharedQuery(this.query)
     query = this.accessor.buildOwnQuery(query)
     expect(_.keys(query.index.filtersMap)).toEqual([
-      'other', 'categories1lvl1', 'categories1lvl2', 'categories1lvl3'
+      'other',
+      'categories1lvl1',
+      'categories1lvl2',
+      'categories1lvl3'
     ])
 
-    let order = {_term:"asc"}
+    const order = { _term: 'asc' }
     // console.log(JSON.stringify(query.query.aggs, null, 2))
-    var expected = FilterBucket(
-      "categories_id", BoolMust([BoolShould(["foo"])]),
+    const expected = FilterBucket(
+      'categories_id',
+      BoolMust([BoolShould(['foo'])]),
+      FilterBucket('lvl1', BoolMust([]), TermsBucket('lvl1', 'lvl1', { size: 20, order })),
       FilterBucket(
-        "lvl1",
-        BoolMust([]),
-        TermsBucket("lvl1", "lvl1", {size:20, order})
+        'lvl2',
+        BoolMust([TermQuery('lvl1', 'lvl1val')]),
+        TermsBucket('lvl2', 'lvl2', { size: 20, order })
       ),
       FilterBucket(
-        "lvl2",
-        BoolMust([
-          TermQuery("lvl1", "lvl1val")
-        ]),
-        TermsBucket("lvl2", "lvl2", {size:20,order})
-      ),
-      FilterBucket(
-        "lvl3",
-        BoolMust([
-          TermQuery("lvl1", "lvl1val"),
-          TermQuery("lvl2", "lvl2val")
-        ]),
-        TermsBucket("lvl3", "lvl3", {size:20, order})
+        'lvl3',
+        BoolMust([TermQuery('lvl1', 'lvl1val'), TermQuery('lvl2', 'lvl2val')]),
+        TermsBucket('lvl3', 'lvl3', { size: 20, order })
       )
     )
     // console.log(JSON.stringify(expected, null, 2))
     expect(query.query.aggs).toEqual(expected)
-
-
   })
-
 })

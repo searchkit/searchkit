@@ -1,11 +1,8 @@
 import * as React from 'react'
 
-import {
-  FastClick,
-  block
-} from "../../../core/react"
+import { FastClick, block } from '../../../core/react'
 
-const map = require("lodash/map")
+const map = require('lodash/map')
 
 export interface FilterGroupItemProps {
   key: string
@@ -17,15 +14,14 @@ export interface FilterGroupItemProps {
 }
 
 export class FilterGroupItem extends React.PureComponent<FilterGroupItemProps, any> {
-
-  constructor(props){
+  constructor(props) {
     super(props)
     this.removeFilter = this.removeFilter.bind(this)
   }
 
-  removeFilter(){
+  removeFilter() {
     const { removeFilter, filter } = this.props
-    if (removeFilter){
+    if (removeFilter) {
       removeFilter(filter)
     }
   }
@@ -35,7 +31,9 @@ export class FilterGroupItem extends React.PureComponent<FilterGroupItemProps, a
 
     return (
       <FastClick handler={this.removeFilter}>
-        <div className={bemBlocks.items("value") } data-key={itemKey}>{label}</div>
+        <div className={bemBlocks.items('value')} data-key={itemKey}>
+          {label}
+        </div>
       </FastClick>
     )
   }
@@ -52,20 +50,19 @@ export interface FilterGroupProps {
 }
 
 export class FilterGroup extends React.Component<FilterGroupProps, any> {
-
-  constructor(props){
+  constructor(props) {
     super(props)
     this.removeFilters = this.removeFilters.bind(this)
   }
 
   static defaultProps = {
-    mod: "sk-filter-group",
+    mod: 'sk-filter-group',
     translate: (str) => str
   }
 
-  removeFilters(){
+  removeFilters() {
     const { removeFilters, filters } = this.props
-    if (removeFilters){
+    if (removeFilters) {
       removeFilters(filters)
     }
   }
@@ -74,16 +71,16 @@ export class FilterGroup extends React.Component<FilterGroupProps, any> {
     const { mod, className, title, filters } = this.props
 
     const bemBlocks = {
-        container: block(mod).el,
-        items: block (`${mod}-items`).el
+      container: block(mod).el,
+      items: block(`${mod}-items`).el
     }
 
     return (
       <div key={title} className={bemBlocks.container().mix(className)}>
         <div className={bemBlocks.items()}>
-          <div className={bemBlocks.items("title")}>{title}</div>
-          <div className={bemBlocks.items("list")}>
-            {map(filters, filter => this.renderFilter(filter, bemBlocks))}
+          <div className={bemBlocks.items('title')}>{title}</div>
+          <div className={bemBlocks.items('list')}>
+            {map(filters, (filter) => this.renderFilter(filter, bemBlocks))}
           </div>
         </div>
         {this.renderRemove(bemBlocks)}
@@ -95,21 +92,25 @@ export class FilterGroup extends React.Component<FilterGroupProps, any> {
     const { translate, removeFilter } = this.props
 
     return (
-      <FilterGroupItem key={filter.value}
-                  itemKey={filter.value}
-                  bemBlocks={bemBlocks}
-                  filter={filter}
-                  label={translate(filter.value)}
-                  removeFilter={removeFilter} />
+      <FilterGroupItem
+        key={filter.value}
+        itemKey={filter.value}
+        bemBlocks={bemBlocks}
+        filter={filter}
+        label={translate(filter.value)}
+        removeFilter={removeFilter}
+      />
     )
   }
 
-  renderRemove(bemBlocks){
+  renderRemove(bemBlocks) {
     if (!this.props.removeFilters) return null
 
     return (
       <FastClick handler={this.removeFilters}>
-        <div className={bemBlocks.container("remove-action") } onClick={this.removeFilters}>X</div>
+        <div className={bemBlocks.container('remove-action')} onClick={this.removeFilters}>
+          X
+        </div>
       </FastClick>
     )
   }

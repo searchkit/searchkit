@@ -1,5 +1,3 @@
-import {FacetFilter} from "./FacetFilter"
+import { FacetFilter } from './FacetFilter'
 
-export class RefinementListFilter extends FacetFilter {
-
-}
+export class RefinementListFilter extends FacetFilter {}

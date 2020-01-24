@@ -1,11 +1,9 @@
-import {
-    ExistsQuery
-} from "../../../../../"
+import { ExistsQuery } from '../../../../../'
 
-it("RangeQuery", () => {
-    expect(ExistsQuery("prices")).toEqual({
-        exists: {
-            field: "prices"                
-        }
-    })
+it('RangeQuery', () => {
+  expect(ExistsQuery('prices')).toEqual({
+    exists: {
+      field: 'prices'
+    }
+  })
 })

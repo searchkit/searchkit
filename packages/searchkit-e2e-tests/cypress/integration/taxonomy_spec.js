@@ -1,7 +1,5 @@
 const qa = (val) => `[data-qa='${val}']`
-const hitStats = () => cy.get(`${qa('hits-stats')} > ${qa('info')}`)
 const hits = () => cy.get("[data-qa=hits] > div")
-const searchInput = () => cy.get("[data-qa=query]")
 const texts = ($p) => {
     return $p.map((i, el) => {
         return Cypress.$(el).text()

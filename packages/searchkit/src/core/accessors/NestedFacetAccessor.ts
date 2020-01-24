@@ -1,5 +1,4 @@
-import { LevelState } from "../state"
-import { FilterBasedAccessor } from "./FilterBasedAccessor"
+import { LevelState } from '../state'
 import {
   TermQuery,
   TermsBucket,
@@ -9,122 +8,119 @@ import {
   NestedBucket,
   MinMetric,
   DefaultNumberBuckets
-} from "../query";
+} from '../query'
+import { FilterBasedAccessor } from './FilterBasedAccessor'
 
-const map = require("lodash/map")
-const get = require("lodash/get")
-const includes = require("lodash/includes")
-const startsWith = require("lodash/startsWith")
-const each = require("lodash/each")
-const take = require("lodash/take")  
+const map = require('lodash/map')
+const get = require('lodash/get')
+const includes = require('lodash/includes')
+const startsWith = require('lodash/startsWith')
+const each = require('lodash/each')
+const take = require('lodash/take')
 
 export interface NestedFacetAccessorOptions {
-	field:string
-	id:string
-	title:string
-  size?:number
-  orderKey?:string
-  orderDirection?:string
-  startLevel?:number
+  field: string
+  id: string
+  title: string
+  size?: number
+  orderKey?: string
+  orderDirection?: string
+  startLevel?: number
 }
 
 export class NestedFacetAccessor extends FilterBasedAccessor<LevelState> {
-	state = new LevelState()
-	options:any
+  state = new LevelState()
+  options: any
 
-	constructor(key, options:NestedFacetAccessorOptions){
-		super(key, options.id)
-		this.options = options
-	}
+  constructor(key, options: NestedFacetAccessorOptions) {
+    super(key, options.id)
+    this.options = options
+  }
 
-  onResetFilters(){
+  onResetFilters() {
     this.resetState()
   }
 
-	getBuckets(level) {
-    let buckets:Array<any> = this.getAggregations(
-      [this.key, "children", "lvl"+level, "children", "buckets"],
+  getBuckets(level) {
+    const buckets: Array<any> = this.getAggregations(
+      [this.key, 'children', 'lvl' + level, 'children', 'buckets'],
       []
     )
-    return map(buckets, (item)=> {
+    return map(buckets, (item) => {
       item.key = String(item.key)
       return item
     })
-	}
+  }
 
-	buildSharedQuery(query) {
-		let levelFilters = this.state.getValue()
-		let lastIndex = levelFilters.length - 1
-		var filterTerms = map(levelFilters, (filter,i) => {
-			let value = filter[0]
-			let isLeaf = i === lastIndex
-			let subField = isLeaf ? ".value" : ".ancestors"
-			return TermQuery(this.options.field + subField, value)
-		})
+  buildSharedQuery(query) {
+    const levelFilters = this.state.getValue()
+    const lastIndex = levelFilters.length - 1
+    const filterTerms = map(levelFilters, (filter, i) => {
+      const value = filter[0]
+      const isLeaf = i === lastIndex
+      const subField = isLeaf ? '.value' : '.ancestors'
+      return TermQuery(this.options.field + subField, value)
+    })
 
-		if(filterTerms.length > 0){
-      let leafFilter = get(levelFilters, [levelFilters.length - 1, 0], "")
-      let parentOfleaf = get(
+    if (filterTerms.length > 0) {
+      const leafFilter = get(levelFilters, [levelFilters.length - 1, 0], '')
+      const parentOfleaf = get(
         levelFilters,
         [levelFilters.length - 2, 0],
         this.options.title || this.key
       )
-      let selectedFilter = {
-        id:this.key,
-        name:this.translate(parentOfleaf),
-        value:leafFilter,
-        remove:()=> {
-          this.state = this.state.clear(levelFilters.length-1)
+      const selectedFilter = {
+        id: this.key,
+        name: this.translate(parentOfleaf),
+        value: leafFilter,
+        remove: () => {
+          this.state = this.state.clear(levelFilters.length - 1)
         }
       }
 
-      query = query.addFilter(this.uuid,
-				NestedQuery(this.options.field, BoolMust(filterTerms))
-      ).addSelectedFilter(selectedFilter)
+      query = query
+        .addFilter(this.uuid, NestedQuery(this.options.field, BoolMust(filterTerms)))
+        .addSelectedFilter(selectedFilter)
     }
     return query
   }
 
-  getTermAggs(){
+  getTermAggs() {
     let subAggs = undefined
     let orderMetric = undefined
-    if(this.options.orderKey){
-      let orderDirection = this.options.orderDirection || "asc"
-      let orderKey = this.options.orderKey
-      if(includes(["_count", "_term"], orderKey)) {
-        orderMetric = {[orderKey]:orderDirection}
+    if (this.options.orderKey) {
+      const orderDirection = this.options.orderDirection || 'asc'
+      const orderKey = this.options.orderKey
+      if (includes(['_count', '_term'], orderKey)) {
+        orderMetric = { [orderKey]: orderDirection }
       } else {
-        if(startsWith(orderKey, this.options.field + ".")){
-          const subAggName = this.options.field + "_order"
+        if (startsWith(orderKey, this.options.field + '.')) {
+          const subAggName = this.options.field + '_order'
           orderMetric = {
-            [subAggName]:orderDirection
+            [subAggName]: orderDirection
           }
           subAggs = MinMetric(subAggName, orderKey)
         }
       }
     }
 
-    let valueField = this.options.field+".value";
-    let nBuckets = this.options.size || DefaultNumberBuckets;
+    const valueField = this.options.field + '.value'
+    const nBuckets = this.options.size || DefaultNumberBuckets
 
-    return TermsBucket(
-      "children", valueField,
-      { size:nBuckets, order:orderMetric },
-      subAggs
-    )
+    return TermsBucket('children', valueField, { size: nBuckets, order: orderMetric }, subAggs)
   }
 
-  buildOwnQuery(query){
-    let levelField = this.options.field+".level"
-    let ancestorsField = this.options.field+".ancestors"
-    let startLevel = this.options.startLevel || 1
-    let termAggs = this.getTermAggs()
-    let lvlAggs = []
-    var addLevel = (level, ancestors=[]) => {
+  buildOwnQuery(query) {
+    const levelField = this.options.field + '.level'
+    const ancestorsField = this.options.field + '.ancestors'
+    const startLevel = this.options.startLevel || 1
+    const termAggs = this.getTermAggs()
+    const lvlAggs = []
+    const addLevel = (level, ancestors = []) => {
       lvlAggs.push(
         FilterBucket(
-          "lvl"+level,
-          BoolMust([TermQuery(levelField, level+startLevel), ...ancestors]),
+          'lvl' + level,
+          BoolMust([TermQuery(levelField, level + startLevel), ...ancestors]),
           termAggs
         )
       )
@@ -132,24 +128,18 @@ export class NestedFacetAccessor extends FilterBasedAccessor<LevelState> {
 
     addLevel(0)
 
-		let levels = this.state.getValue()
-		each(levels, (_level,i) => {
-			let ancestors = map(take(levels, i+1), (level)=>{
-				return TermQuery(ancestorsField, level[0])
-			})
+    const levels = this.state.getValue()
+    each(levels, (_level, i) => {
+      const ancestors = map(take(levels, i + 1), (level) => TermQuery(ancestorsField, level[0]))
 
-      addLevel(i+1, ancestors)
+      addLevel(i + 1, ancestors)
     })
 
     return query.setAggs(
       FilterBucket(
         this.key,
         query.getFiltersWithoutKeys(this.uuid),
-        NestedBucket(
-          "children",
-          this.options.field,
-          ...lvlAggs
-        )
+        NestedBucket('children', this.options.field, ...lvlAggs)
       )
     )
   }

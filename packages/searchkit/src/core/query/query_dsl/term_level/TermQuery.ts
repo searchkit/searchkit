@@ -1,7 +1,7 @@
-export function TermQuery(key, value){
+export function TermQuery(key, value) {
   return {
-    term:{
-      [key]:value
+    term: {
+      [key]: value
     }
   }
 }
