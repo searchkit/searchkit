@@ -2,7 +2,6 @@ const {
   SearchkitManager,
   SearchkitProvider,
   SearchBox,
-  Hits,
   RefinementListFilter,
   Pagination,
   CheckboxFilter,
@@ -32,8 +31,6 @@ const {
   PaginationSelect,
 
   InputFilter,
-  TagFilter,
-  TagFilterList,
   TagFilterConfig,
 
   TermQuery,
@@ -99,7 +96,6 @@ export class HitsTable extends React.Component<any, {}> {
     const { cellComponent } = this.props
 
     const key = typeof column === 'string' ? column : column.key
-    let element
     if (cellComponent) {
       return renderComponent(cellComponent, { hit, columnKey: key, key, column, columnIdx: idx })
     }

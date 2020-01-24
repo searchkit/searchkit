@@ -3,25 +3,22 @@ import {
   SearchkitProvider,
   SearchBox,
   Hits,
-  RefinementListFilter,
   Pagination,
   MenuFilter,
   HitsStats,
-  SortingSelector,
   NoHits,
   ItemList,
   CheckboxItemList,
   ItemHistogramList,
   Tabs,
   TagCloud,
-  Toggle,
   Select
 } from 'searchkit'
 const host = 'http://demo.searchkit.co/api/movies'
 import * as ReactDOM from 'react-dom'
 import * as React from 'react'
 import { Router, Route, browserHistory, Link, IndexRoute } from 'react-router'
-import { MovieHitsGridItem, MovieHitsListItem } from '../../components'
+import { MovieHitsListItem } from '../../components'
 
 require('searchkit/release/theme.css')
 require('./customisations.scss')

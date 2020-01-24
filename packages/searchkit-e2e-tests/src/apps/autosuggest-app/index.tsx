@@ -6,7 +6,6 @@ import {
   HierarchicalRefinementDatasource,
   FacetFilterDatasource,
   QuickHitsDatasource,
-  SuggesterDatasource,
   SuggestQuerySource
 } from '@searchkit/autosuggest'
 
@@ -15,20 +14,12 @@ import { RefinementAutosuggest } from '@searchkit/refinement-autosuggest'
 import {
   SearchkitManager,
   SearchkitProvider,
-  SearchBox,
   Hits,
-  RefinementListFilter,
-  Pagination,
   HierarchicalMenuFilter,
   HitsStats,
-  SortingSelector,
   NoHits,
   SelectedFilters,
   ResetFilters,
-  RangeFilter,
-  NumericRefinementListFilter,
-  ViewSwitcherHits,
-  ViewSwitcherToggle,
   Layout,
   TopBar,
   LayoutBody,
@@ -40,7 +31,7 @@ import {
   QueryAccessor
 } from 'searchkit'
 
-import { MovieHitsGridItem, MovieHitsListItem } from '../../components'
+import { MovieHitsGridItem } from '../../components'
 
 // require("@searchkit/autosuggest/src/styles.css")
 require('searchkit/release/theme.css')

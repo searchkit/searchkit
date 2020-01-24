@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Panel, RangeSlider, renderComponent, RenderComponentPropType } from 'searchkit'
+import { Panel, RangeSlider, renderComponent } from 'searchkit'
 
 export class MockRange extends React.Component<any, any> {
   constructor(props) {

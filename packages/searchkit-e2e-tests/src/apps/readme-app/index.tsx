@@ -4,7 +4,7 @@ import * as React from 'react'
 //Simulate script include of searchkit
 window['ReactDOM'] = ReactDOM
 window['React'] = React
-import { MovieHitsGridItem, MovieHitsListItem } from '../../components'
+import { MovieHitsGridItem } from '../../components'
 const searchkitRaw = require('raw-loader!searchkit/release/bundle.js')
 const script = document.createElement('script')
 script.type = 'text/javascript'
@@ -17,17 +17,11 @@ const {
   SearchBox,
   Hits,
   RefinementListFilter,
-  Pagination,
   HierarchicalMenuFilter,
   HitsStats,
-  SortingSelector,
   NoHits,
   SelectedFilters,
-  ResetFilters,
-  RangeFilter,
-  NumericRefinementListFilter,
-  ViewSwitcherHits,
-  ViewSwitcherToggle
+  ResetFilters
 } = window['Searchkit']
 
 const { Layout, TopBar, LayoutBody, LayoutResults, ActionBar, ActionBarRow, SideBar } = window[

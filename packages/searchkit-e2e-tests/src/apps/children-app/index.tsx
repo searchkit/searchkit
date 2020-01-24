@@ -4,12 +4,10 @@ import * as ReactDOM from 'react-dom'
 import {
   SearchBox,
   Hits,
-  HierarchicalRefinementFilter,
   RefinementListFilter,
   Pagination,
   ResetFilters,
   SelectedFilters,
-  SearchkitComponent,
   HitsStats,
   SearchkitManager,
   SearchkitProvider,

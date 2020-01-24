@@ -1,7 +1,6 @@
 const qa = (val) => `[data-qa='${val}']`
 const hitStats = () => cy.get(`${qa('hits-stats')} > ${qa('info')}`)
 const hits = () => cy.get("[data-qa=hits] > div")
-const searchInput = () => cy.get("[data-qa=query]")
 
 describe('Searchkit window import test', function () {
 

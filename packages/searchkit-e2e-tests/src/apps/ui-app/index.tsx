@@ -1,25 +1,21 @@
 const {
   SearchkitManager,
   SearchkitProvider,
-  SearchBox,
   Hits,
   RefinementListFilter,
   Pagination,
-  HierarchicalMenuFilter,
   HitsStats,
   SortingSelector,
   NoHits,
   SelectedFilters,
   ResetFilters,
-  RangeFilter,
-  NumericRefinementListFilter,
   Panel,
   TagCloud,
   Toggle,
   Select,
   Tabs,
   ItemList,
-  CheckboxItemList /*CheckboxFilter,*/,
+  CheckboxItemList,
   MenuFilter,
   RangeSlider,
   RangeHistogram,
@@ -32,7 +28,7 @@ const host = 'http://demo.searchkit.co/api/movies'
 import * as ReactDOM from 'react-dom'
 import * as React from 'react'
 const searchkit = new SearchkitManager(host, { searchOnLoad: true })
-import { MovieHitsGridItem, MovieHitsListItem } from '../../components'
+import { MovieHitsGridItem } from '../../components'
 import { MockRange } from './MockRange'
 import { MockList } from './MockList'
 

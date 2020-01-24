@@ -3,11 +3,9 @@ const {
   SearchkitProvider,
   SearchBox,
   Hits,
-  RefinementListFilter,
   Pagination,
   RangeFilter,
   HitsStats,
-  SortingSelector,
   NoHits,
   RangeHistogram,
   RangeSlider,
@@ -20,7 +18,7 @@ const {
 const host = 'http://demo.searchkit.co/api/movies'
 import * as ReactDOM from 'react-dom'
 import * as React from 'react'
-import { MovieHitsGridItem, MovieHitsListItem } from '../../components'
+import { MovieHitsGridItem } from '../../components'
 
 const searchkit = new SearchkitManager(host)
 

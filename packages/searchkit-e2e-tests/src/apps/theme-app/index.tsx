@@ -2,7 +2,6 @@ const {
   SearchkitManager,
   SearchkitProvider,
   SearchBox,
-  Hits,
   RefinementListFilter,
   Pagination,
   HierarchicalMenuFilter,
