@@ -88,7 +88,7 @@
     "jest-junit-reporter": "^1.1.0",
     "js-beautify": "^1.5.10",
     "json-loader": "^0.5.7",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.13.1",
     "null-loader": "^0.1.1",
     "postcss-loader": "^0.8.2",
     "react": "^16.4.0",
