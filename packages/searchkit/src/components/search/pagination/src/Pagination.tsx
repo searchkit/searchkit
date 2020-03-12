@@ -70,9 +70,7 @@ export class Pagination extends SearchkitComponent<PaginationProps, any> {
   }
 
   getTotalPages(): number {
-    return Math.ceil(
-      get(this.getResults(), 'hits.total', 1) / get(this.getQuery(), 'query.size', 10)
-    )
+    return Math.ceil(this.getHitsCount() / get(this.getQuery(), 'query.size', 10))
   }
 
   isDisabled(pageNumber: number): boolean {
