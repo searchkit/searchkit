@@ -32,7 +32,7 @@ defaults to `true`
 - `listComponent` *(React Component)*: Used to change the rendering.
 
 ## PaginationSelect
-If you would like a more compact rendering, you can use Searchkit's `PaginationSelect component instead`
+If you would like a more compact rendering, you can use Searchkit's `PaginationSelect` component instead.
 
 ```jsx
 <PaginationSelect/>
