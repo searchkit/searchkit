@@ -1,3 +1,1 @@
-export default () => {
-  return "hello world 6"
-}
+export default () => 'hello world 6'

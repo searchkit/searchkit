@@ -1,10 +1,10 @@
-import Server from '../../server'
 import { SearchkitConfig } from '@searchkit/apollo-resolvers'
+import Server from '../../server'
 
 const searchkitConfig: SearchkitConfig = {
-  host: process.env.ES_HOST || "http://localhost:9200/movies/_search",
+  host: process.env.ES_HOST || 'http://localhost:9200/movies/_search',
   hits: {
-    fields: ["actors", "writers"]
+    fields: ['actors', 'writers']
   }
   // query: new QueryFilter({ fields: ['actors', 'writers', 'title^4', 'plot'] }),
   // facets: [
@@ -29,7 +29,7 @@ const searchkitConfig: SearchkitConfig = {
   //     visibility: [OnFilterSelection({ filterId: 'type' })]
   //   })
   // ]
-};
+}
 
 export const config = {
   api: {

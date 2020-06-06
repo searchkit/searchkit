@@ -1,19 +1,19 @@
 import QueryManager from '../QueryManager'
 
-describe("QueryManager", () => {
-  it("hasFilters()", () => {
+describe('QueryManager', () => {
+  it('hasFilters()', () => {
     let qm = new QueryManager([], null)
     expect(qm.hasFilters()).toEqual(false)
-    qm = new QueryManager([{id: "test", selected: ["bob"]}], null)
+    qm = new QueryManager([{ id: 'test', selected: ['bob'] }], null)
     expect(qm.hasFilters()).toEqual(true)
   })
 
-  it("hasQuery()", () => {
+  it('hasQuery()', () => {
     let qm = new QueryManager([], null)
     expect(qm.hasQuery()).toEqual(false)
-    qm = new QueryManager([], "")
+    qm = new QueryManager([], '')
     expect(qm.hasQuery()).toEqual(false)
-    qm = new QueryManager([], "test")
+    qm = new QueryManager([], 'test')
     expect(qm.hasQuery()).toEqual(true)
   })
 })

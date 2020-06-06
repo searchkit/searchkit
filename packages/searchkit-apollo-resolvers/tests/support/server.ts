@@ -1,21 +1,21 @@
-import { ApolloServer, gql } from "apollo-server-micro";
-import { HitsResolver, ResultsResolver } from "../../src/index";
+import { ApolloServer, gql } from 'apollo-server-micro'
+import { HitsResolver, ResultsResolver } from '../../src/index'
 // import { ResultsResolver } from
 
 const resolvers = (config) => ({
   ResultSet: {
-    hits: HitsResolver,
+    hits: HitsResolver
     // facets: FacetsResolver,
     // facet: FacetResolver,
     // summary: SummaryResolver
   },
   Query: {
-    results: ResultsResolver(config),
+    results: ResultsResolver(config)
   },
   FacetSet: {
-    __resolveType: (e) => e.type,
-  },
-});
+    __resolveType: (e) => e.type
+  }
+})
 
 const typeDefs = [
   gql`
@@ -92,14 +92,14 @@ const typeDefs = [
     extend type Query {
       results(query: String, filters: [FiltersSet]): ResultSet
     }
-  `,
-];
+  `
+]
 
 class Server {
-  logger;
+  logger
 
   constructor(config) {
-    this.config = config;
+    this.config = config
   }
 
   setupApolloServer() {
@@ -108,9 +108,9 @@ class Server {
       resolvers: resolvers(this.config),
       introspection: true,
       playground: true,
-      context: {},
-    });
-    return server.createHandler({ path: "/api/graphql" });
+      context: {}
+    })
+    return server.createHandler({ path: '/api/graphql' })
   }
 }
-export default Server;
+export default Server

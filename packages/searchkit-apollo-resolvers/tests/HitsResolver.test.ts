@@ -1,9 +1,9 @@
-import { setupTestServer, callQuery } from "./support/helper";
-import { SearchkitConfig } from "@searchkit/apollo-resolvers";
+import { SearchkitConfig } from '@searchkit/apollo-resolvers'
+import { setupTestServer, callQuery } from './support/helper'
 
-describe("Hits Resolver", () => {
-  describe("should return as expected", () => {
-    const runQuery = async (query = "") => {
+describe('Hits Resolver', () => {
+  describe('should return as expected', () => {
+    const runQuery = async (query = '') => {
       const gql = `
         {
           results(query: "${query}") {
@@ -16,17 +16,16 @@ describe("Hits Resolver", () => {
             }
           }
         }
-      `;
-      const response = await callQuery({ gql });
-      return response;
-    };
+      `
+      const response = await callQuery({ gql })
+      return response
+    }
 
-    it("should return correct Results", async () => {
-
+    it('should return correct Results', async () => {
       const config: SearchkitConfig = {
-        host: "http://localhost:9200/movies/_search",
+        host: 'http://localhost:9200/movies/_search',
         hits: {
-          fields: ["actors", "writers"],
+          fields: ['actors', 'writers']
         }
       }
 
@@ -35,8 +34,6 @@ describe("Hits Resolver", () => {
       const response = await runQuery()
       expect(response.body.data).toMatchSnapshot()
       expect(response.status).toEqual(200)
-    });
-  
-  });
-
-});
+    })
+  })
+})

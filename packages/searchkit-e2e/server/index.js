@@ -1,10 +1,10 @@
 import { ApolloServer, gql } from 'apollo-server-micro'
 import { HitsResolver, ResultsResolver } from '@searchkit/apollo-resolvers'
-// import { ResultsResolver } from 
+// import { ResultsResolver } from
 
 const resolvers = (config) => ({
   ResultSet: {
-    hits: HitsResolver,
+    hits: HitsResolver
     // facets: FacetsResolver,
     // facet: FacetResolver,
     // summary: SummaryResolver
@@ -92,8 +92,8 @@ const typeDefs = [
     extend type Query {
       results(query: String, filters: [FiltersSet]): ResultSet
     }
-  `,
-];
+  `
+]
 
 class Server {
   logger

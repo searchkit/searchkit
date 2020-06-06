@@ -5,7 +5,9 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "lerna run dev"
+    "dev": "lerna run dev",
+    "lint": "eslint . --ext js,ts,tsx --fix",
+    "prettier": "prettier --write **/*.ts, **/*.tsx"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "1.15.0",
