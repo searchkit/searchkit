@@ -1,12 +1,20 @@
 {
-  "lerna": "3.1.4",
+  "npmClient": "yarn",
+  "useWorkspaces": true,
   "packages": [
     "packages/*"
   ],
-  "version": "independent",
-  "npmClient": "yarn",
-  "useWorkspaces": true,
-  "publish": {
-    "conventionalCommits": true
-  }
+  "command": {
+    "version": {
+      "exact": true
+    },
+    "publish": {
+      "npmClient": "npm",
+      "allowBranch": [
+        "next"
+      ],
+      "registry": "https://registry.npmjs.org/"
+    }
+  },
+  "version": "3.0.0-canary.1"
 }

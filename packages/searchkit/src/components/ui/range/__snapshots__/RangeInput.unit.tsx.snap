@@ -1,6 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`RangeInput should render and behave correctly 1`] = `
-<form class="sk-range-input"><input type="number" class="sk-range-input__input" placeholder="min" value="2">
-  <div class="sk-range-input__to-label">-</div><input type="number" class="sk-range-input__input" placeholder="max" value="5"><button type="submit" class="sk-range-input__submit">Go</button></form>
-`;

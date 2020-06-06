@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hits Resolver should return as expected should return correct Results 1`] = `
+Object {
+  "results": Object {
+    "hits": null,
+  },
+}
+`;
+
+exports[`Resolvers Hits Resolver should return correct Results 1`] = `
+Object {
+  "results": Object {
+    "hits": null,
+  },
+}
+`;

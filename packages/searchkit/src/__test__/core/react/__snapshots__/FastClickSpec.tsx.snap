@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`FastClick - fast should render children 1`] = `<button>click me</button>`;

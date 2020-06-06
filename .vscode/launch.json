@@ -8,15 +8,13 @@
             "name": "Jest Searchkit",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/packages/searchkit/node_modules/jest/bin/jest.js",
+            "program": "${workspaceRoot}/packages/searchkit-apollo-resolvers/node_modules/jest/bin/jest.js",
             "stopOnEntry": false,
             "args": [
-                "-c",                
-                "./jest.json",
                 "--watch",
                 "--runInBand"
             ],
-            "cwd": "${workspaceRoot}/packages/searchkit",
+            "cwd": "${workspaceRoot}/packages/searchkit-apollo-resolvers",
             "preLaunchTask": null,
             "runtimeExecutable": null,
             "runtimeArgs": [
