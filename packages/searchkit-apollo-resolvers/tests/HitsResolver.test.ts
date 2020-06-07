@@ -1,5 +1,6 @@
-import { SearchkitConfig } from '@searchkit/apollo-resolvers'
+import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
 import { setupTestServer, callQuery } from './support/helper'
+import { MultiMatchQuery } from '../src'
 
 describe('Hits Resolver', () => {
   describe('should return as expected', () => {
@@ -26,7 +27,8 @@ describe('Hits Resolver', () => {
         host: 'http://localhost:9200/movies/_search',
         hits: {
           fields: ['actors', 'writers']
-        }
+        },
+        query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] })
       }
 
       setupTestServer(config)

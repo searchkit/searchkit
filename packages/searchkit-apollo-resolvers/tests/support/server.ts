@@ -1,11 +1,11 @@
 import { ApolloServer, gql } from 'apollo-server-micro'
-import { HitsResolver, ResultsResolver } from '../../src/index'
+import { HitsResolver, ResultsResolver, FacetsResolver } from '../../src/index'
 // import { ResultsResolver } from
 
 const resolvers = (config) => ({
   ResultSet: {
-    hits: HitsResolver
-    // facets: FacetsResolver,
+    hits: HitsResolver,
+    facets: FacetsResolver
     // facet: FacetResolver,
     // summary: SummaryResolver
   },
@@ -82,7 +82,14 @@ const typeDefs = [
       isSelected: Boolean
     }
 
-    type RefinementFacet implements FacetSet {
+    type RefinementSelectFacet implements FacetSet {
+      id: String
+      label: String
+      type: String
+      entries: [FacetSetEntry]
+    }
+
+    type MultipleSelectFacet implements FacetSet {
       id: String
       label: String
       type: String

@@ -1,11 +1,15 @@
 import QueryManager, { FilterSet } from '../core/QueryManager'
 import SearchkitRequest from '../core/SearchkitRequest'
+import BaseQuery from '../query/BaseQuery'
+import { BaseFacet } from '../facets/BaseFacet'
 
 export interface SearchkitConfig {
   host: string
   hits: {
     fields: string[]
   }
+  query?: BaseQuery
+  facets?: Array<BaseFacet>
 }
 
 export interface ResultsResolverParameters {
@@ -14,10 +18,16 @@ export interface ResultsResolverParameters {
 }
 
 export default (config: SearchkitConfig) => async (parent, parameters, ctx) => {
-  const queryManager = new QueryManager(parameters.filters, parameters.query)
-  const skRequest = new SearchkitRequest(queryManager)
+  try {
+    const queryManager = new QueryManager(parameters.filters, parameters.query)
+    const skRequest = new SearchkitRequest(queryManager, config)
 
-  ctx.skRequest = skRequest
+    ctx.skRequest = skRequest
+    ctx.queryManager = queryManager
+    ctx.config = config
 
-  return {}
+    return {}
+  } catch (e) {
+    console.log(e)
+  }
 }

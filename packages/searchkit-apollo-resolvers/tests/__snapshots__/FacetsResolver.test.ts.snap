@@ -1,0 +1,324 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hits Resolver should return as expected should return correct Results 1`] = `
+Object {
+  "results": Object {
+    "facets": Array [
+      Object {
+        "entries": Array [
+          Object {
+            "count": 83,
+            "id": "J.J. Abrams",
+            "label": "J.J. Abrams",
+          },
+          Object {
+            "count": 74,
+            "id": "Jeffrey Lieber",
+            "label": "Jeffrey Lieber",
+          },
+          Object {
+            "count": 73,
+            "id": "Damon Lindelof",
+            "label": "Damon Lindelof",
+          },
+          Object {
+            "count": 53,
+            "id": "James Manos Jr.",
+            "label": "James Manos Jr.",
+          },
+          Object {
+            "count": 53,
+            "id": "Jeff Lindsay",
+            "label": "Jeff Lindsay",
+          },
+        ],
+        "id": "writers",
+        "label": "Writers",
+        "type": "MultipleSelectFacet",
+      },
+      Object {
+        "entries": Array [
+          Object {
+            "count": 73,
+            "id": "Naveen Andrews",
+            "label": "Naveen Andrews",
+          },
+          Object {
+            "count": 56,
+            "id": "Jennifer Carpenter",
+            "label": "Jennifer Carpenter",
+          },
+          Object {
+            "count": 56,
+            "id": "Michael C. Hall",
+            "label": "Michael C. Hall",
+          },
+          Object {
+            "count": 53,
+            "id": "Emilie de Ravin",
+            "label": "Emilie de Ravin",
+          },
+          Object {
+            "count": 49,
+            "id": "Jared Padalecki",
+            "label": "Jared Padalecki",
+          },
+        ],
+        "id": "actors",
+        "label": "Actors",
+        "type": "RefinementSelectFacet",
+      },
+      Object {
+        "entries": Array [
+          Object {
+            "count": 3120,
+            "id": "Movie",
+            "label": "Movie",
+          },
+          Object {
+            "count": 521,
+            "id": "Episode",
+            "label": "Episode",
+          },
+          Object {
+            "count": 473,
+            "id": "Series",
+            "label": "Series",
+          },
+          Object {
+            "count": 48,
+            "id": "Game",
+            "label": "Game",
+          },
+        ],
+        "id": "type",
+        "label": "Type",
+        "type": "RefinementSelectFacet",
+      },
+      Object {
+        "entries": Array [
+          Object {
+            "count": 2529,
+            "id": "Drama",
+            "label": "Drama",
+          },
+          Object {
+            "count": 1274,
+            "id": "Comedy",
+            "label": "Comedy",
+          },
+          Object {
+            "count": 786,
+            "id": "Crime",
+            "label": "Crime",
+          },
+          Object {
+            "count": 725,
+            "id": "Action",
+            "label": "Action",
+          },
+          Object {
+            "count": 666,
+            "id": "Adventure",
+            "label": "Adventure",
+          },
+        ],
+        "id": "genres",
+        "label": "Genres",
+        "type": "RefinementSelectFacet",
+      },
+    ],
+    "hits": Array [
+      Object {
+        "id": "tt0111161",
+      },
+      Object {
+        "id": "tt0068646",
+      },
+      Object {
+        "id": "tt0468569",
+      },
+      Object {
+        "id": "tt0944947",
+      },
+      Object {
+        "id": "tt0110912",
+      },
+      Object {
+        "id": "tt0137523",
+      },
+      Object {
+        "id": "tt0167260",
+      },
+      Object {
+        "id": "tt1375666",
+      },
+      Object {
+        "id": "tt0120737",
+      },
+      Object {
+        "id": "tt0133093",
+      },
+    ],
+  },
+}
+`;
+
+exports[`Hits Resolver should return as expected should return correct results with one filter 1`] = `
+Object {
+  "results": Object {
+    "facets": Array [
+      Object {
+        "entries": Array [
+          Object {
+            "count": 83,
+            "id": "J.J. Abrams",
+            "label": "J.J. Abrams",
+          },
+          Object {
+            "count": 74,
+            "id": "Jeffrey Lieber",
+            "label": "Jeffrey Lieber",
+          },
+          Object {
+            "count": 73,
+            "id": "Damon Lindelof",
+            "label": "Damon Lindelof",
+          },
+          Object {
+            "count": 53,
+            "id": "James Manos Jr.",
+            "label": "James Manos Jr.",
+          },
+          Object {
+            "count": 53,
+            "id": "Jeff Lindsay",
+            "label": "Jeff Lindsay",
+          },
+        ],
+        "id": "writers",
+        "label": "Writers",
+        "type": "MultipleSelectFacet",
+      },
+      Object {
+        "entries": Array [
+          Object {
+            "count": 70,
+            "id": "Naveen Andrews",
+            "label": "Naveen Andrews",
+          },
+          Object {
+            "count": 51,
+            "id": "Emilie de Ravin",
+            "label": "Emilie de Ravin",
+          },
+          Object {
+            "count": 36,
+            "id": "Henry Ian Cusick",
+            "label": "Henry Ian Cusick",
+          },
+          Object {
+            "count": 34,
+            "id": "Matthew Fox",
+            "label": "Matthew Fox",
+          },
+          Object {
+            "count": 20,
+            "id": "Jorge Garcia",
+            "label": "Jorge Garcia",
+          },
+        ],
+        "id": "actors",
+        "label": "Actors",
+        "type": "RefinementSelectFacet",
+      },
+      Object {
+        "entries": Array [
+          Object {
+            "count": 69,
+            "id": "Episode",
+            "label": "Episode",
+          },
+          Object {
+            "count": 3,
+            "id": "Movie",
+            "label": "Movie",
+          },
+          Object {
+            "count": 1,
+            "id": "Series",
+            "label": "Series",
+          },
+        ],
+        "id": "type",
+        "label": "Type",
+        "type": "RefinementSelectFacet",
+      },
+      Object {
+        "entries": Array [
+          Object {
+            "count": 73,
+            "id": "Adventure",
+            "label": "Adventure",
+          },
+          Object {
+            "count": 70,
+            "id": "Drama",
+            "label": "Drama",
+          },
+          Object {
+            "count": 70,
+            "id": "Fantasy",
+            "label": "Fantasy",
+          },
+          Object {
+            "count": 2,
+            "id": "Action",
+            "label": "Action",
+          },
+          Object {
+            "count": 2,
+            "id": "Sci-Fi",
+            "label": "Sci-Fi",
+          },
+        ],
+        "id": "genres",
+        "label": "Genres",
+        "type": "RefinementSelectFacet",
+      },
+    ],
+    "hits": Array [
+      Object {
+        "id": "tt0411008",
+      },
+      Object {
+        "id": "tt1408101",
+      },
+      Object {
+        "id": "tt1446714",
+      },
+      Object {
+        "id": "tt0816711",
+      },
+      Object {
+        "id": "tt0636272",
+      },
+      Object {
+        "id": "tt0994359",
+      },
+      Object {
+        "id": "tt1453335",
+      },
+      Object {
+        "id": "tt0636275",
+      },
+      Object {
+        "id": "tt1321692",
+      },
+      Object {
+        "id": "tt0636277",
+      },
+    ],
+  },
+}
+`;

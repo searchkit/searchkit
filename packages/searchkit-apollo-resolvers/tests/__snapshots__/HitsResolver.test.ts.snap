@@ -3,15 +3,163 @@
 exports[`Hits Resolver should return as expected should return correct Results 1`] = `
 Object {
   "results": Object {
-    "hits": null,
-  },
-}
-`;
-
-exports[`Resolvers Hits Resolver should return correct Results 1`] = `
-Object {
-  "results": Object {
-    "hits": null,
+    "hits": Array [
+      Object {
+        "fields": Object {
+          "actors": Array [
+            "Tim Robbins",
+            "Morgan Freeman",
+            "Bob Gunton",
+            "William Sadler",
+          ],
+          "writers": Array [
+            "Stephen King",
+            "Frank Darabont",
+          ],
+        },
+        "id": "tt0111161",
+      },
+      Object {
+        "fields": Object {
+          "actors": Array [
+            "Marlon Brando",
+            "Al Pacino",
+            "James Caan",
+            "Richard S. Castellano",
+          ],
+          "writers": Array [
+            "Mario Puzo",
+            "Francis Ford Coppola",
+          ],
+        },
+        "id": "tt0068646",
+      },
+      Object {
+        "fields": Object {
+          "actors": Array [
+            "Christian Bale",
+            "Heath Ledger",
+            "Aaron Eckhart",
+            "Michael Caine",
+          ],
+          "writers": Array [
+            "Jonathan Nolan",
+            "Christopher Nolan",
+            "David S. Goyer",
+            "Bob Kane",
+          ],
+        },
+        "id": "tt0468569",
+      },
+      Object {
+        "fields": Object {
+          "actors": Array [
+            "Peter Dinklage",
+            "Lena Headey",
+            "Maisie Williams",
+            "Emilia Clarke",
+          ],
+          "writers": Array [
+            "David Benioff",
+            "D.B. Weiss",
+          ],
+        },
+        "id": "tt0944947",
+      },
+      Object {
+        "fields": Object {
+          "actors": Array [
+            "Tim Roth",
+            "Amanda Plummer",
+            "Laura Lovelace",
+            "John Travolta",
+          ],
+          "writers": Array [
+            "Quentin Tarantino",
+            "Roger Avary",
+          ],
+        },
+        "id": "tt0110912",
+      },
+      Object {
+        "fields": Object {
+          "actors": Array [
+            "Edward Norton",
+            "Brad Pitt",
+            "Helena Bonham Carter",
+            "Meat Loaf",
+          ],
+          "writers": Array [
+            "Chuck Palahniuk",
+            "Jim Uhls",
+          ],
+        },
+        "id": "tt0137523",
+      },
+      Object {
+        "fields": Object {
+          "actors": Array [
+            "Noel Appleby",
+            "Alexandra Astin",
+            "Sean Astin",
+            "David Aston",
+          ],
+          "writers": Array [
+            "J.R.R. Tolkien",
+            "Fran Walsh",
+            "Philippa Boyens",
+            "Peter Jackson",
+          ],
+        },
+        "id": "tt0167260",
+      },
+      Object {
+        "fields": Object {
+          "actors": Array [
+            "Leonardo DiCaprio",
+            "Joseph Gordon-Levitt",
+            "Ellen Page",
+            "Tom Hardy",
+          ],
+          "writers": Array [
+            "Christopher Nolan",
+          ],
+        },
+        "id": "tt1375666",
+      },
+      Object {
+        "fields": Object {
+          "actors": Array [
+            "Alan Howard",
+            "Elijah Wood",
+            "Noel Appleby",
+            "Sean Astin",
+          ],
+          "writers": Array [
+            "J.R.R. Tolkien",
+            "Fran Walsh",
+            "Philippa Boyens",
+            "Peter Jackson",
+          ],
+        },
+        "id": "tt0120737",
+      },
+      Object {
+        "fields": Object {
+          "actors": Array [
+            "Keanu Reeves",
+            "Laurence Fishburne",
+            "Carrie-Anne Moss",
+            "Hugo Weaving",
+          ],
+          "writers": Array [
+            "Andy Wachowski",
+            "Lana Wachowski",
+          ],
+        },
+        "id": "tt0133093",
+      },
+    ],
   },
 }
 `;

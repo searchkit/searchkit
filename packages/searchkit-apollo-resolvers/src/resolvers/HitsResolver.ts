@@ -10,13 +10,17 @@ interface HitsParameters {
 export default async (parent, parameters: HitsParameters, ctx: { skRequest: SearchkitRequest }) => {
   const { skRequest } = ctx
 
-  const { hits } = await skRequest.search({
-    from: parameters.page ? parameters.page.start : 0,
-    size: parameters.page ? parameters.page.rows : 10
-  })
+  try {
+    const { hits } = await skRequest.search({
+      from: parameters.page ? parameters.page.start : 0,
+      size: parameters.page ? parameters.page.rows : 10
+    })
 
-  return hits.hits.map((hit) => ({
-    id: hit._id,
-    fields: hit._source
-  }))
+    return hits.hits.map((hit) => ({
+      id: hit._id,
+      fields: hit._source
+    }))
+  } catch (e) {
+    console.log(e)
+  }
 }
