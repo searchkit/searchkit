@@ -1,7 +1,7 @@
 import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
-import { setupTestServer, callQuery } from './support/helper'
 import { MultiMatchQuery } from '../src'
 import { MultipleSelectFacet, RefinementSelectFacet } from '../src/facets'
+import { setupTestServer, callQuery } from './support/helper'
 
 describe('Hits Resolver', () => {
   describe('should return as expected', () => {

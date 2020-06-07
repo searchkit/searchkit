@@ -1,6 +1,6 @@
 import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
-import { setupTestServer, callQuery } from './support/helper'
 import { MultiMatchQuery } from '../src'
+import { setupTestServer, callQuery } from './support/helper'
 
 describe('Hits Resolver', () => {
   describe('should return as expected', () => {

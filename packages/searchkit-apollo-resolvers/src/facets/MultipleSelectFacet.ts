@@ -1,5 +1,5 @@
-import { BaseFacet } from './BaseFacet'
 import { FilterSet } from '../core/QueryManager'
+import { BaseFacet } from './BaseFacet'
 
 interface MultipleSelectFacetConfig {
   id: string
