@@ -50,5 +50,5 @@
 
 import React from 'react'
 
-import Resolvers from '@searchkit/client'
-export default () => <div>hello world {Resolvers()}</div>
+// import Resolvers from '@searchkit/client'
+export default () => <div>hello world</div>
