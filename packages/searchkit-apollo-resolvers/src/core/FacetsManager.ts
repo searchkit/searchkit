@@ -4,7 +4,7 @@ import QueryManager from './QueryManager'
 import { filterTransform } from './transformers'
 
 class FacetsManager {
-  constructor(private queryManager: QueryManager, private facetsConfig: Array<BaseFacet>) {}
+  constructor(private queryManager: QueryManager, private facetsConfig: Array<BaseFacet> = []) {}
 
   public getAggregations() {
     const aggBuckets = this.facetsConfig.reduce(

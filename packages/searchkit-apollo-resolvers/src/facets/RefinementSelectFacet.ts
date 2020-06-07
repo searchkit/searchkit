@@ -38,7 +38,7 @@ class RefinementSelectFacet implements BaseFacet {
   getFilter(filter: FilterSet) {
     return {
       bool: {
-        should: filter.selected.map((term) => ({ term: { [this.config.field]: term } }))
+        must: filter.selected.map((term) => ({ term: { [this.config.field]: term } }))
       }
     }
   }

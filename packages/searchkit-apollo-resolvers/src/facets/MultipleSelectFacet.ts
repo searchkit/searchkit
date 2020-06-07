@@ -24,7 +24,7 @@ class MultipleSelectFacet implements BaseFacet {
   getFilter(filter: FilterSet) {
     return {
       bool: {
-        must: filter.selected.map((term) => ({ term: { [this.config.field]: term } }))
+        should: filter.selected.map((term) => ({ term: { [this.config.field]: term } }))
       }
     }
   }

@@ -10,6 +10,7 @@
     "prettier": "prettier --write **/*.ts, **/*.tsx"
   },
   "devDependencies": {
+    "@babel/core": "7.10.2",
     "@babel/preset-env": "^7.10.2",
     "@graphql-codegen/cli": "1.15.0",
     "@graphql-codegen/fragment-matcher": "^1.15.0",
