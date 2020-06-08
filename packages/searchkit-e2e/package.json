@@ -6,9 +6,8 @@
   "author": "Joseph McElroy <phoey1@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "next",
     "build": "next build",
-    "start": "next start -p 8080",
+    "start": "next",
     "codegen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
@@ -29,7 +28,10 @@
     "node-fetch": "^2.6.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "@elastic/eui": "^25.0.0",
+    "@elastic/datemath": "^5.0.3",
+    "moment": "^2.26.0"
   },
   "devDependencies": {
     "jest": "^25.1.0",

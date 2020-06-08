@@ -1,1 +1,2 @@
-export default () => 'hello world 6'
+export * from './searchkit'
+export { default as withSearchkit } from './withSearchkit'

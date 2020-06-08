@@ -1,4 +1,8 @@
+import { ApolloServer, gql } from 'apollo-server-micro'
 import {
+  HitsResolver,
+  ResultsResolver,
+  FacetsResolver,
   MultiMatchQuery,
   MultipleSelectFacet,
   RefinementSelectFacet
@@ -32,10 +36,6 @@ const searchkitConfig = {
     })
   ]
 }
-
-import { ApolloServer, gql } from 'apollo-server-micro'
-import { HitsResolver, ResultsResolver, FacetsResolver } from '@searchkit/apollo-resolvers'
-// import { ResultsResolver } from
 
 const resolvers = () => ({
   ResultSet: {
