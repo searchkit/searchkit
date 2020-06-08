@@ -9,7 +9,7 @@ class FacetsManager {
   public getAggregations() {
     const aggBuckets = this.facetsConfig.reduce(
       (buckets, facet) => {
-        if (facet.SELECTOR === 'OR') {
+        if (facet.SELECTOR === 'OR' && this.queryManager.hasFilters()) {
           buckets.push({
             name: `facet_bucket_${facet.getId()}`,
             aggs: [facet],
