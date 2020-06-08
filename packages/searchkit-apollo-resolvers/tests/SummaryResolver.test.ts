@@ -24,25 +24,31 @@ describe('Hits Resolver', () => {
       ]
     }
 
-    it('should return correct Results', async () => {
+    it('should return correct summary', async () => {
       setupTestServer(config)
 
       const gql = `
         {
-          results(query: "") {
+          results(query: "", filters: [{ id: "writers", selected:["Jeff Lindsay"]}]) {
+            summary {
+              total
+              appliedFilters {
+                id
+                label
+                value
+              }
+              query
+            }
             hits(page: {size: 10, from: 0 }) {
               items {
                 id
               }
-            }
-            facets {
-              id
-              type
-              label
-              entries {
-                id
-                count
-                label
+              page {
+                total
+                totalPages
+                pageNumber
+                from
+                size
               }
             }
           }
@@ -50,43 +56,6 @@ describe('Hits Resolver', () => {
       `
 
       const response = await runQuery(gql)
-      expect(response.body.data).toMatchSnapshot()
-      expect(response.status).toEqual(200)
-    })
-
-    it('should return correct results with one filter', async () => {
-      setupTestServer(config)
-
-      const gql = `
-        {
-          results(
-            query: "",
-            filters: [
-              { id: "writers", selected: ["Damon Lindelof"]},
-              { id: "actors", selected: ["Damon Lindelof"]},
-            ]
-            ) {
-            hits(page: {size: 10, from: 0 }) {
-              items {
-                id
-              }
-            }
-            facets {
-              id
-              type
-              label
-              entries {
-                id
-                count
-                label
-              }
-            }
-          }
-        }
-      `
-
-      const response = await runQuery(gql)
-
       expect(response.body.data).toMatchSnapshot()
       expect(response.status).toEqual(200)
     })

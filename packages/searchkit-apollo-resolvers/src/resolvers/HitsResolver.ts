@@ -2,24 +2,38 @@ import SearchkitRequest from '../core/SearchkitRequest'
 
 interface HitsParameters {
   page: {
-    start: number
-    rows: number
+    from: number
+    size: number
   }
 }
 
 export default async (parent, parameters: HitsParameters, ctx: { skRequest: SearchkitRequest }) => {
   const { skRequest } = ctx
 
+  console.log(parameters)
+
   try {
+    const from = parameters.page?.from || 0
+    const size = parameters.page?.size || 10
+
     const { hits } = await skRequest.search({
-      from: parameters.page ? parameters.page.start : 0,
-      size: parameters.page ? parameters.page.rows : 10
+      from: from,
+      size: size
     })
 
-    return hits.hits.map((hit) => ({
-      id: hit._id,
-      fields: hit._source
-    }))
+    return {
+      items: hits.hits.map((hit) => ({
+        id: hit._id,
+        fields: hit._source
+      })),
+      page: {
+        total: hits.total.value,
+        totalPages: Math.ceil(hits.total.value / size),
+        pageNumber: from / size,
+        from: from,
+        size: size
+      }
+    }
   } catch (e) {
     console.log(e)
   }

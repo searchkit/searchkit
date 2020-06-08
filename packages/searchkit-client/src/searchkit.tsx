@@ -11,19 +11,34 @@ export interface FilterSet {
   selected: Array<string>
 }
 
+export interface PageOptions {
+  size: number
+  from: number
+}
+
 interface SearchkitQueryVariables {
   query: string
   filters: Array<FilterSet>
+  page: PageOptions
+}
+
+export interface SearchkitClientConfig {
+  itemsPerPage?: number
 }
 
 export class Searchkit {
   private query: string
   private filters: Array<Filter>
+  private page: PageOptions
   private onSearch: Function
 
-  constructor() {
+  constructor(config: SearchkitClientConfig = {}) {
     this.query = ''
     this.filters = []
+    this.page = {
+      size: config.itemsPerPage || 10,
+      from: 0
+    }
     this.onSearch = null
   }
 
@@ -40,7 +55,7 @@ export class Searchkit {
       filterGroup.selected.push(filter.value)
       return [...sum]
     }, [])
-    if (this.onSearch) this.onSearch({ query: this.query, filters: filters })
+    if (this.onSearch) this.onSearch({ query: this.query, filters, page: this.page })
   }
 
   setCallbackFn(callback: (variables: SearchkitQueryVariables) => any) {
@@ -52,6 +67,10 @@ export class Searchkit {
     this.filters = []
   }
 
+  setPage(page: PageOptions) {
+    this.page = page
+  }
+
   search() {
     this.performSearch()
   }
@@ -60,11 +79,19 @@ export class Searchkit {
     return this.filters
   }
 
-  toggleFilter(filter) {
+  canResetSearch() {
+    return !(this.filters.length === 0 && !this.query)
+  }
+
+  isFilterSelected(filter) {
     const filterExists = this.filters.find(
       ({ id, value }) => id === filter.id && filter.value === value
     )
-    if (filterExists) {
+    return !!filterExists
+  }
+
+  toggleFilter(filter) {
+    if (this.isFilterSelected(filter)) {
       this.filters = this.filters.filter(
         ({ id, value }) => !(id === filter.id && filter.value === value)
       )
@@ -100,8 +127,9 @@ export function useSearchkitQuery(query) {
   return useQuery(query, {
     variables: {
       query: variables?.query,
-      filters: variables?.filters
-    },
-    fetchPolicy: 'network-only'
+      filters: variables?.filters,
+      page: variables?.page
+    }
+    // fetchPolicy: 'network-only'
   })
 }

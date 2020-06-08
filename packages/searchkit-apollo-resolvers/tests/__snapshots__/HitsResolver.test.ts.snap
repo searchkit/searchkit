@@ -163,3 +163,5 @@ Object {
   },
 }
 `;
+
+exports[`Hits Resolver should return as expected should return correct Results on page 2 1`] = `undefined`;

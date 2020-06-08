@@ -20,7 +20,7 @@ class RefinementSelectFacet implements BaseFacet {
       label: this.getLabel(),
       type: this.TYPE,
       entries: response.buckets.map((entry) => ({
-        id: entry.key,
+        id: `${this.getId()}_${entry.key}`,
         label: entry.key,
         count: entry.doc_count
       }))

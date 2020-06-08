@@ -5,13 +5,14 @@ import {
   FacetsResolver,
   MultiMatchQuery,
   MultipleSelectFacet,
-  RefinementSelectFacet
+  RefinementSelectFacet,
+  SummaryResolver
 } from '@searchkit/apollo-resolvers'
 
 const searchkitConfig = {
   host: 'http://localhost:9200/movies/_search',
   hits: {
-    fields: ['actors', 'writers']
+    fields: ['actors', 'writers', 'plot', 'poster']
   },
   query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] }),
   facets: [
@@ -40,9 +41,9 @@ const searchkitConfig = {
 const resolvers = () => ({
   ResultSet: {
     hits: HitsResolver,
-    facets: FacetsResolver
+    facets: FacetsResolver,
     // facet: FacetResolver,
-    // summary: SummaryResolver
+    summary: SummaryResolver
   },
   Query: {
     results: ResultsResolver(searchkitConfig)
@@ -71,31 +72,45 @@ const typeDefs = [
       title: String
       writers: [String]
       actors: [String]
+      plot: String
+      poster: String
     }
 
     type Summary {
       total: Float
-      time: Float
-      filters: [SelectedFilters]
+      appliedFilters: [SelectedFilter]
       query: String
     }
 
-    type SelectedFilters {
+    type SelectedFilter {
       id: String
       label: String
-      selected: [String]
+      value: String
     }
 
     type ResultSet {
       summary: Summary
-      hits(page: PageInput): [Hit]
+      hits(page: PageInput): HitResults
       facets: [FacetSet]
       facet(id: String!, query: String, page: PageInput): FacetSet
     }
 
+    type PageInfo {
+      total: Float
+      totalPages: Float
+      pageNumber: Float
+      from: Float
+      size: Float
+    }
+
+    type HitResults {
+      items: [Hit]
+      page: PageInfo
+    }
+
     input PageInput {
-      start: Float
-      rows: Float
+      from: Float
+      size: Float
     }
 
     input FiltersSet {
@@ -132,7 +147,7 @@ const typeDefs = [
     }
 
     extend type Query {
-      results(query: String, filters: [FiltersSet]): ResultSet
+      results(query: String, filters: [FiltersSet], page: PageInput): ResultSet
     }
   `
 ]

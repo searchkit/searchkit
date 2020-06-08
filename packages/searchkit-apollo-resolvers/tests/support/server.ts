@@ -1,13 +1,13 @@
 import { ApolloServer, gql } from 'apollo-server-micro'
-import { HitsResolver, ResultsResolver, FacetsResolver } from '../../src/index'
+import { HitsResolver, ResultsResolver, FacetsResolver, SummaryResolver } from '../../src/index'
 // import { ResultsResolver } from
 
 const resolvers = (config) => ({
   ResultSet: {
     hits: HitsResolver,
-    facets: FacetsResolver
+    facets: FacetsResolver,
     // facet: FacetResolver,
-    // summary: SummaryResolver
+    summary: SummaryResolver
   },
   Query: {
     results: ResultsResolver(config)
@@ -40,27 +40,39 @@ const typeDefs = [
 
     type Summary {
       total: Float
-      time: Float
-      filters: [SelectedFilters]
+      appliedFilters: [SelectedFilter]
       query: String
     }
 
-    type SelectedFilters {
+    type SelectedFilter {
       id: String
       label: String
-      selected: [String]
+      value: String
     }
 
     type ResultSet {
       summary: Summary
-      hits(page: PageInput): [Hit]
+      hits(page: PageInput): HitResults
       facets: [FacetSet]
       facet(id: String!, query: String, page: PageInput): FacetSet
     }
 
+    type PageInfo {
+      total: Float
+      totalPages: Float
+      pageNumber: Float
+      from: Float
+      size: Float
+    }
+
+    type HitResults {
+      items: [Hit]
+      page: PageInfo
+    }
+
     input PageInput {
-      start: Float
-      rows: Float
+      from: Float
+      size: Float
     }
 
     input FiltersSet {

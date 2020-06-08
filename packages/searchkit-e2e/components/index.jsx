@@ -1,5 +1,13 @@
 import { useSearchkitQuery } from '@searchkit/client'
 import { gql } from '@apollo/client'
+import { FacetsContainer } from './searchkit/facets/FacetsContainer'
+import { SearchBar } from './searchkit/SearchBar'
+import { SelectedFilters } from './searchkit/SelectedFilters'
+import { HitsList, HitsGrid } from './searchkit/Hits'
+import { ResetSearchButton } from './searchkit/ResetSearchButton'
+import { Pagination } from './searchkit/Pagination'
+
+import React, { useState } from 'react'
 
 import {
   EuiPage,
@@ -11,20 +19,42 @@ import {
   EuiPageHeader,
   EuiPageHeaderSection,
   EuiPageSideBar,
-  EuiTitle
+  EuiTitle,
+  EuiHorizontalRule,
+  EuiButtonGroup,
+  EuiFlexGroup
 } from '@elastic/eui'
 
 export default () => {
   const query = gql`
-    query resultSet($query: String, $filters: [FiltersSet]) {
+    query resultSet($query: String, $filters: [FiltersSet], $page: PageInput) {
       results(query: $query, filters: $filters) {
         summary {
           total
+          appliedFilters {
+            id
+            label
+            value
+          }
+          query
         }
-        hits {
-          id
-          fields {
-            title
+        hits(page: $page) {
+          page {
+            total
+            totalPages
+            pageNumber
+            from
+            size
+          }
+          items {
+            id
+            fields {
+              title
+              writers
+              actors
+              plot
+              poster
+            }
           }
         }
         facets {
@@ -41,29 +71,57 @@ export default () => {
     }
   `
 
-  const { data } = useSearchkitQuery(query)
+  const { data, loading } = useSearchkitQuery(query)
+  const [viewType, setViewType] = useState('list')
+  const Facets = FacetsContainer([])
   return (
     <EuiPage>
-      <EuiPageSideBar>SideBar nav</EuiPageSideBar>
+      <EuiPageSideBar>
+        <SearchBar loading={loading} />
+        <EuiHorizontalRule margin="m" />
+        <Facets data={data?.results} loading={loading} />
+      </EuiPageSideBar>
       <EuiPageBody component="div">
         <EuiPageHeader>
           <EuiPageHeaderSection>
             <EuiTitle size="l">
-              <h1>Page title</h1>
+              <SelectedFilters data={data?.results} loading={loading} />
             </EuiTitle>
           </EuiPageHeaderSection>
-          <EuiPageHeaderSection>Page abilities</EuiPageHeaderSection>
+          <EuiPageHeaderSection>
+            <ResetSearchButton loading={loading} />
+          </EuiPageHeaderSection>
         </EuiPageHeader>
         <EuiPageContent>
           <EuiPageContentHeader>
             <EuiPageContentHeaderSection>
-              <EuiTitle>
-                <h2>Content title</h2>
+              <EuiTitle size="s">
+                <h2>{data?.results.summary.total} Results</h2>
               </EuiTitle>
             </EuiPageContentHeaderSection>
-            <EuiPageContentHeaderSection>Content abilities</EuiPageContentHeaderSection>
+            <EuiPageContentHeaderSection>
+              <EuiButtonGroup
+                options={[
+                  {
+                    id: `grid`,
+                    label: 'Grid'
+                  },
+                  {
+                    id: `list`,
+                    label: 'List'
+                  }
+                ]}
+                idSelected={viewType}
+                onChange={(id) => setViewType(id)}
+              />
+            </EuiPageContentHeaderSection>
           </EuiPageContentHeader>
-          <EuiPageContentBody>Content body</EuiPageContentBody>
+          <EuiPageContentBody>
+            {viewType === 'grid' ? <HitsGrid data={data} /> : <HitsList data={data} />}
+            <EuiFlexGroup justifyContent="spaceAround">
+              <Pagination data={data?.results} />
+            </EuiFlexGroup>
+          </EuiPageContentBody>
         </EuiPageContent>
       </EuiPageBody>
     </EuiPage>

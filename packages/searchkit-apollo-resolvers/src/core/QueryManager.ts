@@ -1,5 +1,3 @@
-import { SearchkitConfig } from '../resolvers/ResultsResolver'
-
 export interface FilterSet {
   id: string
   selected: [string]
@@ -22,6 +20,10 @@ export default class QueryManager {
 
   getQuery(): string {
     return this.query
+  }
+
+  getFilters(): Array<FilterSet> {
+    return this.hasFilters() ? this.filters : []
   }
 
   getFilterById(id: string): FilterSet {

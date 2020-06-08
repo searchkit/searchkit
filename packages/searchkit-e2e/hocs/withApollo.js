@@ -6,6 +6,11 @@ import { InMemoryCache, ApolloProvider, ApolloClient } from '@apollo/client'
 export default withApollo(
   ({ initialState }) => {
     const cache = new InMemoryCache({
+      typePolicies: {
+        FacetSetEntry: {
+          keyFields: false
+        }
+      }
       // possibleTypes: introspectionResult.possibleTypes
     }).restore(initialState || {})
 

@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hits Resolver should return as expected should return correct summary 1`] = `
+Object {
+  "results": Object {
+    "hits": Object {
+      "items": Array [
+        Object {
+          "id": "tt1790076",
+        },
+        Object {
+          "id": "tt0866569",
+        },
+        Object {
+          "id": "tt1444429",
+        },
+        Object {
+          "id": "tt1615586",
+        },
+        Object {
+          "id": "tt1013980",
+        },
+        Object {
+          "id": "tt2403521",
+        },
+        Object {
+          "id": "tt0866568",
+        },
+        Object {
+          "id": "tt1013988",
+        },
+        Object {
+          "id": "tt1013977",
+        },
+        Object {
+          "id": "tt0836899",
+        },
+      ],
+      "page": Object {
+        "from": 0,
+        "pageNumber": 1,
+        "size": 10,
+        "total": 53,
+        "totalPages": 6,
+      },
+    },
+    "summary": Object {
+      "appliedFilters": Array [
+        Object {
+          "id": "writers",
+          "label": "Writers",
+          "value": "Jeff Lindsay",
+        },
+      ],
+      "query": "",
+      "total": 53,
+    },
+  },
+}
+`;
