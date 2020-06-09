@@ -1,16 +1,14 @@
+import fetch from 'node-fetch'
 import SearchkitRequest from '../SearchkitRequest'
 import QueryManager from '../QueryManager'
-import fetch from 'node-fetch'
 
-jest.mock('node-fetch', () => {
-  return jest.fn().mockImplementation(() => {
-    return {
-      json: jest.fn(() => ({
-        response: 'ES'
-      }))
-    }
-  })
-})
+jest.mock('node-fetch', () =>
+  jest.fn().mockImplementation(() => ({
+    json: jest.fn(() => ({
+      response: 'ES'
+    }))
+  }))
+)
 
 describe('SearchkitRequest', () => {
   it('should', async () => {

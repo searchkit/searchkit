@@ -5,8 +5,8 @@ import { SearchkitConfig } from '../resolvers'
 import QueryManager from './QueryManager'
 import { filterTransform } from './FacetsFns'
 
-export const mergeESQueries = (queries) => {
-  return queries.reduce(
+export const mergeESQueries = (queries) =>
+  queries.reduce(
     (combinedQuery, partial) => ({
       ...combinedQuery,
       ...partial,
@@ -17,7 +17,6 @@ export const mergeESQueries = (queries) => {
     }),
     {}
   )
-}
 
 export default class SearchkitRequest {
   private dataloader: any
