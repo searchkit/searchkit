@@ -38,7 +38,7 @@ Object {
       ],
       "page": Object {
         "from": 0,
-        "pageNumber": 1,
+        "pageNumber": 0,
         "size": 10,
         "total": 53,
         "totalPages": 6,

@@ -1,6 +1,6 @@
 export interface FilterSet {
   id: string
-  selected: [string]
+  selected: string[]
 }
 
 export default class QueryManager {
@@ -28,6 +28,6 @@ export default class QueryManager {
 
   getFilterById(id: string): FilterSet {
     if (!this.hasFilters()) return null
-    return this.filters.find((filter) => filter.id === id)
+    return this.filters.find((filter) => filter.id === id) || null
   }
 }
