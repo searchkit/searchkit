@@ -6,6 +6,7 @@
   ],
   "scripts": {
     "dev": "lerna run dev",
+    "test": "lerna run test",
     "lint": "eslint . --ext js,ts,tsx --fix",
     "prettier": "prettier --write **/*.ts, **/*.tsx"
   },
