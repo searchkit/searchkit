@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Hits Resolver should return as expected should return correct Results 1`] = `
+exports[`Facets Resolver should return as expected should return correct Results 1`] = `
 Object {
   "results": Object {
     "facets": Array [
@@ -166,7 +166,7 @@ Object {
 }
 `;
 
-exports[`Hits Resolver should return as expected should return correct results with one filter 1`] = `
+exports[`Facets Resolver should return as expected should return correct results with one filter 1`] = `
 Object {
   "results": Object {
     "facets": Array [

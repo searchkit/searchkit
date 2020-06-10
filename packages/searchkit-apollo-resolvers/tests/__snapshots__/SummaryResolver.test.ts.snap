@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Hits Resolver should return as expected should return correct summary 1`] = `
+exports[`Summary Resolver should return as expected should return correct summary 1`] = `
 Object {
   "results": Object {
     "hits": Object {

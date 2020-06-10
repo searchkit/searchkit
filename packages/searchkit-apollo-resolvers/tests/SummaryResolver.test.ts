@@ -3,7 +3,7 @@ import { MultiMatchQuery } from '../src'
 import { MultipleSelectFacet, RefinementSelectFacet } from '../src/facets'
 import { setupTestServer, callQuery } from './support/helper'
 
-describe('Hits Resolver', () => {
+describe('Summary Resolver', () => {
   describe('should return as expected', () => {
     const runQuery = async (gql) => {
       const response = await callQuery({ gql })
