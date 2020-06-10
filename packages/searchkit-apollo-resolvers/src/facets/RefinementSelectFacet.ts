@@ -10,7 +10,7 @@ interface RefinementSelectFacetConfig {
 
 class RefinementSelectFacet implements BaseFacet {
   public TYPE = 'RefinementSelectFacet'
-  public SELECTOR = 'AND'
+  public excludeOwnFilters = false
 
   constructor(private config: RefinementSelectFacetConfig) {}
 

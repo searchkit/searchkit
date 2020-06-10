@@ -2,7 +2,7 @@ import { FilterSet, RangeFilter } from '../core/QueryManager'
 
 export interface BaseFacet {
   TYPE: string
-  SELECTOR: string
+  excludeOwnFilters: boolean
   getId(): string
   getLabel(): string
   getAggregation(): any

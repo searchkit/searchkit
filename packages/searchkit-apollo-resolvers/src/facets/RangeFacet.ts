@@ -16,7 +16,7 @@ interface RangeFacetConfig {
 
 class RangeFacet implements BaseFacet {
   public TYPE = 'RangeFacet'
-  public SELECTOR = 'OR'
+  public excludeOwnFilters = true
 
   constructor(public config: RangeFacetConfig) {}
   getLabel(): string {

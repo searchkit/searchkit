@@ -10,7 +10,7 @@ interface MultipleSelectFacetConfig {
 
 class MultipleSelectFacet implements BaseFacet {
   public TYPE = 'MultipleSelectFacet'
-  public SELECTOR = 'OR'
+  public excludeOwnFilters = true
 
   constructor(public config: MultipleSelectFacetConfig) {}
   getLabel(): string {

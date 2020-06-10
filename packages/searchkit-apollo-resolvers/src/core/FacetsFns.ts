@@ -24,7 +24,7 @@ export const getAggregationsFromFacets = (
 ) => {
   const aggBuckets = facetsConfig.reduce(
     (buckets, facet) => {
-      if (facet.SELECTOR === 'OR' && queryManager.hasFilters()) {
+      if (facet.excludeOwnFilters && queryManager.hasFilters()) {
         buckets.push({
           name: `facet_bucket_${facet.getId()}`,
           aggs: [facet],
