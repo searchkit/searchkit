@@ -11,16 +11,14 @@
             "program": "${workspaceRoot}/packages/searchkit-apollo-resolvers/node_modules/jest/bin/jest.js",
             "stopOnEntry": false,
             "args": [
-                "--watch",
-                "--runInBand"
+                 "--runInBand", "--forceExit", "--detectOpenHandles", "--watch"
             ],
             "cwd": "${workspaceRoot}/packages/searchkit-apollo-resolvers",
+            "runtimeVersion": "12.8.0",
             "preLaunchTask": null,
             "runtimeExecutable": null,
-            "runtimeArgs": [
-                "--nolazy"
-            ],
             "env": {
+                "POLLY_MODE": "replay",
                 "NODE_ENV": "test"
             },
             "console": "integratedTerminal",
