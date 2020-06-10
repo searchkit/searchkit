@@ -3,15 +3,17 @@ export interface FilterSet {
   selected: string[]
 }
 
+export interface RangeFilter {
+  id: string
+  min: number
+  max: number
+}
+
 export default class QueryManager {
-  constructor(private filters: Array<FilterSet>, private query: string) {}
+  constructor(private filters: Array<FilterSet | RangeFilter>, private query: string) {}
 
   hasFilters(): boolean {
-    return (
-      this.filters &&
-      this.filters.length > 0 &&
-      !!this.filters.find((filter) => filter.selected.length > 0)
-    )
+    return this.filters && this.filters.length > 0
   }
 
   hasQuery(): boolean {
@@ -22,11 +24,11 @@ export default class QueryManager {
     return this.query
   }
 
-  getFilters(): Array<FilterSet> {
+  getFilters(): Array<FilterSet | RangeFilter> {
     return this.hasFilters() ? this.filters : []
   }
 
-  getFilterById(id: string): FilterSet {
+  getFilterById(id: string): FilterSet | RangeFilter {
     if (!this.hasFilters()) return null
     return this.filters.find((filter) => filter.id === id) || null
   }

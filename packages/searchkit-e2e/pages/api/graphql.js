@@ -3,6 +3,7 @@ import {
   MultiMatchQuery,
   MultipleSelectFacet,
   RefinementSelectFacet,
+  RangeFacet,
   SearchkitResolvers,
   SearchkitSchema
 } from '@searchkit/apollo-resolvers'
@@ -14,6 +15,16 @@ const searchkitConfig = {
   },
   query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] }),
   facets: [
+    new RangeFacet({
+      field: 'metaScore',
+      id: 'metascore',
+      label: 'Metascore',
+      range: {
+        min: 0,
+        max: 100,
+        interval: 5
+      }
+    }),
     new RefinementSelectFacet({ field: 'type.raw', id: 'type', label: 'Type' }),
     new RefinementSelectFacet({
       field: 'actors.raw',

@@ -1,4 +1,4 @@
-import { FilterSet } from '../core/QueryManager'
+import { FilterSet, RangeFilter } from '../core/QueryManager'
 
 export interface BaseFacet {
   TYPE: string
@@ -6,6 +6,6 @@ export interface BaseFacet {
   getId(): string
   getLabel(): string
   getAggregation(): any
-  getFilter(filter: FilterSet): any
+  getFilter(filter: FilterSet | RangeFilter): any
   transformResponse(response: any): any
 }

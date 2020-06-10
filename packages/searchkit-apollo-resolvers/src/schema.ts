@@ -46,6 +46,8 @@ export default gql`
   input FiltersSet {
     id: String
     selected: [String]
+    min: Float
+    max: Float
   }
 
   interface FacetSet {
@@ -70,6 +72,13 @@ export default gql`
   }
 
   type MultipleSelectFacet implements FacetSet {
+    id: String
+    label: String
+    type: String
+    entries: [FacetSetEntry]
+  }
+
+  type RangeFacet implements FacetSet {
     id: String
     label: String
     type: String
