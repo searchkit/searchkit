@@ -48,12 +48,15 @@ export default gql`
     selected: [String]
     min: Float
     max: Float
+    dateMin: String
+    dateMax: String
   }
 
   interface FacetSet {
     id: String
     label: String
     type: String
+    display: String
     entries: [FacetSetEntry]
   }
 
@@ -68,6 +71,7 @@ export default gql`
     id: String
     label: String
     type: String
+    display: String
     entries: [FacetSetEntry]
   }
 
@@ -75,6 +79,7 @@ export default gql`
     id: String
     label: String
     type: String
+    display: String
     entries: [FacetSetEntry]
   }
 
@@ -82,6 +87,23 @@ export default gql`
     id: String
     label: String
     type: String
+    display: String
+    entries: [FacetSetEntry]
+  }
+
+  type ComboBoxSelectFacet implements FacetSet {
+    id: String
+    label: String
+    type: String
+    display: String
+    entries: [FacetSetEntry]
+  }
+
+  type DateRangeFacet implements FacetSet {
+    id: String
+    label: String
+    type: String
+    display: String
     entries: [FacetSetEntry]
   }
 

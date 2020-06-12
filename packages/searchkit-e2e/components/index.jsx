@@ -61,6 +61,7 @@ export default () => {
           id
           type
           label
+          display
           entries {
             id
             label

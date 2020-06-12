@@ -20,6 +20,7 @@ export const filterTransform = (queryManager: QueryManager, facets: Array<BaseFa
 
 export const getAggregationsFromFacets = (
   queryManager: QueryManager,
+  overrides: any,
   facetsConfig: Array<BaseFacet>
 ) => {
   const aggBuckets = facetsConfig.reduce(
@@ -43,7 +44,7 @@ export const getAggregationsFromFacets = (
     const subAggs = bucket.aggs.reduce(
       (subAggs, subAgg: BaseFacet) => ({
         ...subAggs,
-        ...subAgg.getAggregation()
+        ...subAgg.getAggregation(overrides[subAgg.getId()])
       }),
       {}
     )

@@ -4,6 +4,7 @@ exports[`Facet Resolver should return as expected should return correct Results 
 Object {
   "results": Object {
     "facet": Object {
+      "display": "List",
       "entries": Array [
         Object {
           "count": 83,
@@ -33,7 +34,7 @@ Object {
       ],
       "id": "writers",
       "label": "Writers",
-      "type": "MultipleSelectFacet",
+      "type": "RefinementSelectFacet",
     },
   },
 }

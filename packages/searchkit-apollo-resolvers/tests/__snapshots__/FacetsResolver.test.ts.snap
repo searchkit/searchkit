@@ -5,6 +5,7 @@ Object {
   "results": Object {
     "facets": Array [
       Object {
+        "display": "override",
         "entries": Array [
           Object {
             "count": 83,
@@ -34,9 +35,10 @@ Object {
         ],
         "id": "writers",
         "label": "Writers",
-        "type": "MultipleSelectFacet",
+        "type": "RefinementSelectFacet",
       },
       Object {
+        "display": "List",
         "entries": Array [
           Object {
             "count": 73,
@@ -69,6 +71,7 @@ Object {
         "type": "RefinementSelectFacet",
       },
       Object {
+        "display": "List",
         "entries": Array [
           Object {
             "count": 3120,
@@ -96,6 +99,7 @@ Object {
         "type": "RefinementSelectFacet",
       },
       Object {
+        "display": "List",
         "entries": Array [
           Object {
             "count": 2529,
@@ -171,24 +175,28 @@ Object {
   "results": Object {
     "facets": Array [
       Object {
+        "display": "override",
         "entries": Array [],
         "id": "writers",
         "label": "Writers",
-        "type": "MultipleSelectFacet",
+        "type": "RefinementSelectFacet",
       },
       Object {
+        "display": "List",
         "entries": Array [],
         "id": "actors",
         "label": "Actors",
         "type": "RefinementSelectFacet",
       },
       Object {
+        "display": "List",
         "entries": Array [],
         "id": "type",
         "label": "Type",
         "type": "RefinementSelectFacet",
       },
       Object {
+        "display": "List",
         "entries": Array [],
         "id": "genres",
         "label": "Genres",

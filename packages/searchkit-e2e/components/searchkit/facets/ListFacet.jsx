@@ -2,7 +2,7 @@ import React from 'react'
 import { EuiFacetGroup, EuiTitle, EuiFacetButton } from '@elastic/eui'
 import { useSearchkit } from '@searchkit/client'
 
-export const MultiSelectFacet = ({ facet, loading }) => {
+export const ListFacet = ({ facet, loading }) => {
   const api = useSearchkit()
 
   const entries = facet.entries.map((entry) => {
@@ -33,4 +33,4 @@ export const MultiSelectFacet = ({ facet, loading }) => {
   )
 }
 
-MultiSelectFacet.TYPE = 'MultipleSelectFacet'
+ListFacet.DISPLAY = 'List'

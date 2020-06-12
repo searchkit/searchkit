@@ -1,7 +1,7 @@
 import { SearchResponse } from 'elasticsearch'
 import { filterTransform, getAggregationsFromFacets, getFacetsFromResponse } from '../FacetsFns'
 import QueryManager from '../QueryManager'
-import { MultipleSelectFacet, RefinementSelectFacet } from '../../facets'
+import { RefinementSelectFacet } from '../../facets'
 
 describe('Facet Fns', () => {
   describe('getAggregationsFromFacets', () => {
@@ -9,7 +9,7 @@ describe('Facet Fns', () => {
       const qm = new QueryManager([{ id: 'test', selected: ['testValue'] }], '')
       const facetConfig = [new RefinementSelectFacet({ field: 'test', id: 'test', label: 'Test' })]
 
-      expect(getAggregationsFromFacets(qm, facetConfig)).toEqual({
+      expect(getAggregationsFromFacets(qm, {}, facetConfig)).toEqual({
         aggs: {
           facet_bucket_all: {
             aggs: { test: { terms: { field: 'test', size: 5 } } },
@@ -30,13 +30,18 @@ describe('Facet Fns', () => {
       const facetConfig = [
         new RefinementSelectFacet({ field: 'test', id: 'test', label: 'Test' }),
         new RefinementSelectFacet({ field: 'test2', id: 'test2', label: 'Test 2' }),
-        new MultipleSelectFacet({ field: 'test3', id: 'test3', label: 'Test 3' })
+        new RefinementSelectFacet({
+          field: 'test3',
+          id: 'test3',
+          label: 'Test 3',
+          multipleSelect: true
+        })
       ]
 
       /*
         test 3 aggregrations are excluded from its own filters. 
       */
-      expect(getAggregationsFromFacets(qm, facetConfig)).toEqual({
+      expect(getAggregationsFromFacets(qm, {}, facetConfig)).toEqual({
         aggs: {
           facet_bucket_all: {
             aggs: {
@@ -164,7 +169,12 @@ describe('Facet Fns', () => {
       const facetConfig = [
         new RefinementSelectFacet({ field: 'test', id: 'test', label: 'Test 1' }),
         new RefinementSelectFacet({ field: 'test2', id: 'test2', label: 'Test 2' }),
-        new MultipleSelectFacet({ field: 'test3', id: 'test3', label: 'Test 3' })
+        new RefinementSelectFacet({
+          field: 'test3',
+          id: 'test3',
+          label: 'Test 3',
+          multipleSelect: true
+        })
       ]
       expect(getFacetsFromResponse(facetConfig, response)).toEqual([
         {
@@ -176,6 +186,7 @@ describe('Facet Fns', () => {
           ],
           id: 'test',
           label: 'Test 1',
+          display: 'List',
           type: 'RefinementSelectFacet'
         },
         {
@@ -188,6 +199,7 @@ describe('Facet Fns', () => {
           ],
           id: 'test2',
           label: 'Test 2',
+          display: 'List',
           type: 'RefinementSelectFacet'
         },
         {
@@ -200,7 +212,8 @@ describe('Facet Fns', () => {
           ],
           id: 'test3',
           label: 'Test 3',
-          type: 'MultipleSelectFacet'
+          display: 'List',
+          type: 'RefinementSelectFacet'
         }
       ])
     })
@@ -210,7 +223,12 @@ describe('Facet Fns', () => {
     it('should get filter for test', () => {
       const qm = new QueryManager([{ id: 'test', selected: ['testValue'] }], '')
       const facetConfig = [
-        new MultipleSelectFacet({ field: 'test', id: 'test', label: 'Test' }),
+        new RefinementSelectFacet({
+          field: 'test',
+          id: 'test',
+          label: 'Test',
+          multipleSelect: true
+        }),
         new RefinementSelectFacet({ field: 'test2', id: 'test2', label: 'Test 2' })
       ]
       expect(filterTransform(qm, facetConfig)).toEqual({
@@ -227,7 +245,12 @@ describe('Facet Fns', () => {
         ''
       )
       const facetConfig = [
-        new MultipleSelectFacet({ field: 'test', id: 'test', label: 'Test' }),
+        new RefinementSelectFacet({
+          field: 'test',
+          id: 'test',
+          label: 'Test',
+          multipleSelect: true
+        }),
         new RefinementSelectFacet({ field: 'test2', id: 'test2', label: 'Test 2' })
       ]
       expect(filterTransform(qm, facetConfig)).toEqual({
@@ -248,7 +271,14 @@ describe('Facet Fns', () => {
         ],
         ''
       )
-      const facetConfig = [new MultipleSelectFacet({ field: 'test', id: 'test', label: 'Test' })]
+      const facetConfig = [
+        new RefinementSelectFacet({
+          field: 'test',
+          id: 'test',
+          label: 'Test',
+          multipleSelect: true
+        })
+      ]
       expect(filterTransform(qm, facetConfig)).toEqual({
         bool: {
           must: [{ bool: { should: [{ term: { test: 'testValue' } }] } }]

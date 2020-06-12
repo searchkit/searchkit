@@ -1,11 +1,12 @@
 import { ApolloServer, gql } from 'apollo-server-micro'
 import {
   MultiMatchQuery,
-  MultipleSelectFacet,
+  ComboBoxSelectFacet,
   RefinementSelectFacet,
   RangeFacet,
   SearchkitResolvers,
-  SearchkitSchema
+  SearchkitSchema,
+  DateRangeFacet
 } from '@searchkit/apollo-resolvers'
 
 const searchkitConfig = {
@@ -31,18 +32,28 @@ const searchkitConfig = {
       id: 'actors',
       label: 'Actors'
     }),
-    new MultipleSelectFacet({
+    new RefinementSelectFacet({
       field: 'writers.raw',
       id: 'writers',
       label: 'Writers',
-      selector: 'OR'
+      multipleSelect: true
     }),
-    new RefinementSelectFacet({ field: 'countries.raw', id: 'countries', label: 'Countries' }),
+    new ComboBoxSelectFacet({
+      field: 'countries.raw',
+      id: 'countries',
+      label: 'Countries',
+      display: 'ComboBox'
+    }),
     new RefinementSelectFacet({ field: 'genres.raw', id: 'genres', label: 'Genres' }),
     new RefinementSelectFacet({
       field: 'rated.raw',
       id: 'rated',
       label: 'Rated'
+    }),
+    new DateRangeFacet({
+      field: 'released',
+      id: 'released',
+      label: 'Released'
     })
   ]
 }

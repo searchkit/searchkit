@@ -10,7 +10,7 @@ describe('Multiple Select Facet', () => {
   })
 
   it('getAggregation', () => {
-    expect(msf.getAggregation()).toEqual({ testId: { terms: { field: 'testField', size: 5 } } })
+    expect(msf.getAggregation(null)).toEqual({ testId: { terms: { field: 'testField', size: 5 } } })
   })
 
   it('transformResponse', () => {
@@ -28,6 +28,7 @@ describe('Multiple Select Facet', () => {
       ],
       id: 'testId',
       label: 'Test',
+      display: 'List',
       type: 'RefinementSelectFacet'
     })
   })

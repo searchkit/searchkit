@@ -1,6 +1,6 @@
 import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
 import { MultiMatchQuery } from '../src'
-import { MultipleSelectFacet, RefinementSelectFacet } from '../src/facets'
+import { RefinementSelectFacet } from '../src/facets'
 import { setupTestServer, callQuery } from './support/helper'
 
 describe('Summary Resolver', () => {
@@ -17,7 +17,12 @@ describe('Summary Resolver', () => {
       },
       query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] }),
       facets: [
-        new MultipleSelectFacet({ id: 'writers', field: 'writers.raw', label: 'Writers' }),
+        new RefinementSelectFacet({
+          id: 'writers',
+          field: 'writers.raw',
+          label: 'Writers',
+          multipleSelect: true
+        }),
         new RefinementSelectFacet({ id: 'actors', field: 'actors.raw', label: 'Actors' }),
         new RefinementSelectFacet({ id: 'type', field: 'type.raw', label: 'Type' }),
         new RefinementSelectFacet({ id: 'genres', field: 'genres.raw', label: 'Genres' })

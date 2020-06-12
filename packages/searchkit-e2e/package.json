@@ -31,7 +31,8 @@
     "supertest": "^4.0.2",
     "@elastic/eui": "^25.0.0",
     "@elastic/datemath": "^5.0.3",
-    "moment": "^2.26.0"
+    "moment": "^2.26.0",
+    "use-debounce": "^3.4.2"
   },
   "devDependencies": {
     "jest": "^25.1.0",

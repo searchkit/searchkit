@@ -11,7 +11,7 @@ export const SelectedFilters = ({ loading }) => {
         <EuiFlexItem grow={false} key={`${filter.id}_${filter.value}`}>
           <EuiButton
             onClick={() => {
-              api.toggleFilter(filter)
+              api.removeFilter(filter)
               api.search()
             }}
             iconSide="right"

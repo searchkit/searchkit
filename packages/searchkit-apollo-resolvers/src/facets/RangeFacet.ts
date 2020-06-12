@@ -6,6 +6,7 @@ interface RangeFacetConfig {
   field: string
   label: string
   size?: number
+  display?: 'Slider' | string
   range: {
     min: number
     max: number
@@ -49,6 +50,7 @@ class RangeFacet implements BaseFacet {
       id: this.getId(),
       label: this.getLabel(),
       type: this.TYPE,
+      display: this.config.display || 'RangeSlider',
       entries: response.buckets.map((entry) => ({
         id: `${this.getId()}_${entry.key}`,
         label: entry.key,

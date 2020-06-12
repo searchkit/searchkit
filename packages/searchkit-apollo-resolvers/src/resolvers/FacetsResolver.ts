@@ -7,7 +7,7 @@ export default async (parent, {}, ctx) => {
   if (!config.facets) return null
 
   try {
-    const aggs = getAggregationsFromFacets(queryManager, config.facets)
+    const aggs = getAggregationsFromFacets(queryManager, {}, config.facets)
     const results = await skRequest.search(aggs)
     const facets = getFacetsFromResponse(config.facets, results)
 

@@ -2,20 +2,19 @@ import { FilterSet } from '../core/QueryManager'
 import { BaseFacet, FacetOptions } from './BaseFacet'
 import { createRegexQuery } from './utils'
 
-interface RefinementSelectFacetConfig {
+interface ComboBoxSelectFacetConfig {
   id: string
   field: string
-  size?: number
   label: string
-  display?: 'List' | 'Combo' | string
+  display?: 'Combo' | string
   multipleSelect?: boolean
 }
 
-class RefinementSelectFacet implements BaseFacet {
-  public TYPE = 'RefinementSelectFacet'
+class ComboBoxSelectFacet implements BaseFacet {
+  public TYPE = 'ComboBoxSelectFacet'
   public excludeOwnFilters = false
 
-  constructor(public config: RefinementSelectFacetConfig) {
+  constructor(public config: ComboBoxSelectFacetConfig) {
     this.excludeOwnFilters = this.config.multipleSelect
   }
   getLabel(): string {
@@ -36,11 +35,14 @@ class RefinementSelectFacet implements BaseFacet {
   }
 
   getAggregation(overrides: FacetOptions) {
+    if (!overrides) {
+      return {}
+    }
     return {
       [this.config.id]: {
         terms: {
           field: this.config.field,
-          size: overrides?.size || this.config.size || 5,
+          size: overrides?.size || 10,
           ...(overrides?.query ? { include: createRegexQuery(overrides.query) } : {})
         }
       }
@@ -53,13 +55,14 @@ class RefinementSelectFacet implements BaseFacet {
       label: this.getLabel(),
       type: this.TYPE,
       display: this.config.display || 'List',
-      entries: response.buckets.map((entry) => ({
-        id: `${this.getId()}_${entry.key}`,
-        label: entry.key,
-        count: entry.doc_count
-      }))
+      entries:
+        response?.buckets.map((entry) => ({
+          id: `${this.getId()}_${entry.key}`,
+          label: entry.key,
+          count: entry.doc_count
+        })) || []
     }
   }
 }
 
-export default RefinementSelectFacet
+export default ComboBoxSelectFacet

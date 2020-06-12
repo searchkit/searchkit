@@ -1,6 +1,6 @@
 import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
 import { MultiMatchQuery } from '../src'
-import { MultipleSelectFacet } from '../src/facets'
+import { RefinementSelectFacet } from '../src/facets'
 import { setupTestServer, callQuery } from './support/helper'
 
 describe('Facet Resolver', () => {
@@ -16,7 +16,14 @@ describe('Facet Resolver', () => {
         fields: ['actors', 'writers']
       },
       query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] }),
-      facets: [new MultipleSelectFacet({ id: 'writers', field: 'writers.raw', label: 'Writers' })]
+      facets: [
+        new RefinementSelectFacet({
+          id: 'writers',
+          field: 'writers.raw',
+          label: 'Writers',
+          multipleSelect: true
+        })
+      ]
     }
 
     it('should return correct Results', async () => {
@@ -29,6 +36,7 @@ describe('Facet Resolver', () => {
               id
               type
               label
+              display
               entries {
                 id
                 count
