@@ -117,9 +117,7 @@ export class Searchkit {
   }
 
   setFilter(filter) {
-    const filterId = this.filters.find(({ id }) => {
-      return id === filter.id
-    })
+    const filterId = this.filters.find(({ id }) => id === filter.id)
     if (!filterId) {
       return this.filters.push(filter)
     }
