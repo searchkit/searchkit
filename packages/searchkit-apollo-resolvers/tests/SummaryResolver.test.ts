@@ -34,7 +34,7 @@ describe('Summary Resolver', () => {
 
       const gql = `
         {
-          results(query: "", filters: [{ id: "writers", selected:["Jeff Lindsay"]}]) {
+          results(query: "", filters: [{ id: "writers", value: "Jeff Lindsay" }]) {
             summary {
               total
               appliedFilters {

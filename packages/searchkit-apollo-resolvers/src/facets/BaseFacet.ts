@@ -1,5 +1,4 @@
-import { FilterSet, RangeFilter } from '../core/QueryManager'
-import DateRangeFacet from './DateRangeFacet'
+import { MixedFilter } from '../core/QueryManager'
 
 export interface FacetOptions {
   size: number
@@ -12,6 +11,6 @@ export interface BaseFacet {
   getId(): string
   getLabel(): string
   getAggregation(overrides: FacetOptions): any
-  getFilter(filter: FilterSet | RangeFilter | DateRangeFacet): any
+  getFilters(filters: Array<MixedFilter>): any
   transformResponse(response: any): any
 }

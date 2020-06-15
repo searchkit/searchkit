@@ -45,7 +45,7 @@ export default gql`
 
   input FiltersSet {
     id: String
-    selected: [String]
+    value: String
     min: Float
     max: Float
     dateMin: String

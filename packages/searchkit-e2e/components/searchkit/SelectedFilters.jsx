@@ -18,7 +18,7 @@ export const SelectedFilters = ({ loading }) => {
             iconType="cross"
             isLoading={loading}
           >
-            {filter.id}: {filter.value}
+            {filter.id}: {filter.value} {filter.min} {filter.max}
           </EuiButton>
         </EuiFlexItem>
       ))}

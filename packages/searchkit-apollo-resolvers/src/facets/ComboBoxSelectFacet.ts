@@ -1,4 +1,4 @@
-import { FilterSet } from '../core/QueryManager'
+import { MixedFilter, ValueFilter } from '../core/QueryManager'
 import { BaseFacet, FacetOptions } from './BaseFacet'
 import { createRegexQuery } from './utils'
 
@@ -25,11 +25,11 @@ class ComboBoxSelectFacet implements BaseFacet {
     return this.config.id
   }
 
-  getFilter(filter: FilterSet) {
+  getFilters(filters: Array<ValueFilter>) {
     const condition = this.excludeOwnFilters ? 'should' : 'must'
     return {
       bool: {
-        [condition]: filter.selected.map((term) => ({ term: { [this.config.field]: term } }))
+        [condition]: filters.map((term) => ({ term: { [this.config.field]: term.value } }))
       }
     }
   }

@@ -4,7 +4,12 @@ describe('Multiple Select Facet', () => {
   const msf = new RefinementSelectFacet({ id: 'testId', label: 'Test', field: 'testField' })
 
   it('getFilter', () => {
-    expect(msf.getFilter({ id: 'test', selected: ['testValue', 'testValue2'] })).toEqual({
+    expect(
+      msf.getFilters([
+        { id: 'test', value: 'testValue' },
+        { id: 'test', value: 'testValue2' }
+      ])
+    ).toEqual({
       bool: { must: [{ term: { testField: 'testValue' } }, { term: { testField: 'testValue2' } }] }
     })
   })

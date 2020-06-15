@@ -65,8 +65,13 @@ export const ComboBoxFacet = ({ facet }) => {
 
   const items =
     data?.results?.facet.entries.map((entry) => {
-      return { name: entry.label }
+      return {
+        name: entry.label,
+        checked: api.isFilterSelected({ id: facet.id, value: entry.label })
+      }
     }) || []
+
+  const filtersSelected = api.getFiltersById(facet.id)
 
   const button = (
     <EuiFilterButton
@@ -75,8 +80,8 @@ export const ComboBoxFacet = ({ facet }) => {
       onClick={onButtonClick}
       isSelected={isPopoverOpen}
       numFilters={items.length}
-      hasActiveFilters={true}
-      numActiveFilters={2}
+      hasActiveFilters={filtersSelected?.length > 0}
+      numActiveFilters={filtersSelected && filtersSelected.length}
     >
       {facet.label}
     </EuiFilterButton>
@@ -103,7 +108,14 @@ export const ComboBoxFacet = ({ facet }) => {
         <div className="euiFilterSelect__items">
           {items.length > 0 &&
             items.map((item, index) => (
-              <EuiFilterSelectItem checked={item.checked} key={index}>
+              <EuiFilterSelectItem
+                onClick={() => {
+                  api.toggleFilter({ id: facet.id, value: item.name })
+                  api.search()
+                }}
+                checked={item.checked}
+                key={index}
+              >
                 {item.name}
               </EuiFilterSelectItem>
             ))}

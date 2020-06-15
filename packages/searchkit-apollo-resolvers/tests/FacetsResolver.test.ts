@@ -69,8 +69,8 @@ describe('Facets Resolver', () => {
           results(
             query: "",
             filters: [
-              { id: "writers", selected: ["Damon Lindelof"]},
-              { id: "actors", selected: ["Damon Lindelof"]},
+              { id: "writers", value: "Damon Lindelof" },
+              { id: "actors", value: "Damon Lindelof" },
             ]
             ) {
             hits(page: {size: 10, from: 0 }) {

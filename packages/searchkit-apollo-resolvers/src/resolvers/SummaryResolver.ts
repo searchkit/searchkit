@@ -12,16 +12,13 @@ export default async (parent, {}, ctx) => {
     return {
       total: results.hits.total.value,
       query: queryManager.getQuery(),
-      appliedFilters: queryManager.getFilters().reduce((facetFilters, filterSet) => {
+      appliedFilters: queryManager.getFilters().map((filterSet) => {
         const facetConfig = config.facets.find((facet) => facet.getId() === filterSet.id)
-        return [
-          ...facetFilters,
-          ...filterSet.selected.map((value) => ({
-            label: facetConfig.getLabel(),
-            id: facetConfig.getId(),
-            value
-          }))
-        ]
+        return {
+          label: facetConfig.getLabel(),
+          id: facetConfig.getId(),
+          value: filterSet.value
+        }
       }, [])
     }
   } catch (e) {

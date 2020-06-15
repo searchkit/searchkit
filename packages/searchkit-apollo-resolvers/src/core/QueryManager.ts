@@ -1,6 +1,6 @@
-export interface FilterSet {
+export interface ValueFilter {
   id: string
-  selected: string[]
+  value: string
 }
 
 export interface RangeFilter {
@@ -15,11 +15,10 @@ export interface DateRangeFilter {
   dateMax: string
 }
 
+export type MixedFilter = ValueFilter | RangeFilter | DateRangeFilter
+
 export default class QueryManager {
-  constructor(
-    private filters: Array<FilterSet | RangeFilter | DateRangeFilter>,
-    private query: string
-  ) {}
+  constructor(private filters: Array<MixedFilter>, private query: string) {}
 
   hasFilters(): boolean {
     return this.filters && this.filters.length > 0
@@ -33,12 +32,13 @@ export default class QueryManager {
     return this.query
   }
 
-  getFilters(): Array<FilterSet | RangeFilter | DateRangeFilter> {
+  getFilters(): Array<MixedFilter> {
     return this.hasFilters() ? this.filters : []
   }
 
-  getFilterById(id: string): FilterSet | RangeFilter | DateRangeFilter {
+  getFiltersById(id: string): Array<MixedFilter> {
     if (!this.hasFilters()) return null
-    return this.filters.find((filter) => filter.id === id) || null
+    const idFilters = this.filters.filter((filter) => filter.id === id)
+    return idFilters.length > 0 ? idFilters : null
   }
 }

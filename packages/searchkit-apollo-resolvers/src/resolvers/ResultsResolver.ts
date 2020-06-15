@@ -1,4 +1,4 @@
-import QueryManager, { FilterSet } from '../core/QueryManager'
+import QueryManager, { MixedFilter } from '../core/QueryManager'
 import SearchkitRequest from '../core/SearchkitRequest'
 import BaseQuery from '../query/BaseQuery'
 import { BaseFacet } from '../facets/BaseFacet'
@@ -13,7 +13,7 @@ export interface SearchkitConfig {
 }
 
 export interface ResultsResolverParameters {
-  filters: Array<FilterSet>
+  filters: Array<MixedFilter>
   query: string
 }
 

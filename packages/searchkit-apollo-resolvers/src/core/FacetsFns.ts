@@ -4,9 +4,9 @@ import QueryManager from './QueryManager'
 
 export const filterTransform = (queryManager: QueryManager, facets: Array<BaseFacet> = []) => {
   const subFilters = facets.reduce((subFilters, facet) => {
-    const facetSubFilter = queryManager.getFilterById(facet.getId())
+    const facetSubFilter = queryManager.getFiltersById(facet.getId())
     if (facetSubFilter) {
-      return [...subFilters, facet.getFilter(facetSubFilter)]
+      return [...subFilters, facet.getFilters(facetSubFilter)]
     }
     return subFilters
   }, [])

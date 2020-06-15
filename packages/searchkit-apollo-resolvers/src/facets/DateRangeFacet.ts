@@ -28,8 +28,8 @@ class DateRangeFacet implements BaseFacet {
     return this.config.id
   }
 
-  getFilter(filter: DateRangeFilter) {
-    return { range: { [this.config.field]: { gte: filter.dateMin, lte: filter.dateMax } } }
+  getFilters(filters: Array<DateRangeFilter>) {
+    return { range: { [this.config.field]: { gte: filters[0].dateMin, lte: filters[0].dateMax } } }
   }
 
   getAggregation() {

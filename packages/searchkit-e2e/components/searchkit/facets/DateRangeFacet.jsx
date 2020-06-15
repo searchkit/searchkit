@@ -6,11 +6,16 @@ export const DateRangeFacet = ({ facet, loading }) => {
   const api = useSearchkit()
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
+  const selectedOptions = api.getFiltersById(facet.id)
+  const selectedOption = selectedOptions && selectedOptions[0]
 
   useEffect(() => {
     if (startDate && endDate) {
-      console.log(startDate, endDate)
-      api.setFilter({ id: facet.id, dateMin: startDate, dateMax: endDate })
+      if (selectedOption) {
+        api.removeFilter(selectedOption)
+      }
+
+      api.addFilter({ id: facet.id, dateMin: startDate, dateMax: endDate })
       api.search()
     }
   }, [startDate, endDate])
@@ -26,6 +31,7 @@ export const DateRangeFacet = ({ facet, loading }) => {
             selected={startDate}
             onChange={setStartDate}
             startDate={startDate}
+            value={selectedOption && selectedOption.dateMin}
             endDate={endDate}
             placeholder="from"
             isInvalid={startDate > endDate}
@@ -37,6 +43,7 @@ export const DateRangeFacet = ({ facet, loading }) => {
             selected={endDate}
             onChange={setEndDate}
             startDate={startDate}
+            value={selectedOption && selectedOption.dateMax}
             endDate={endDate}
             isInvalid={startDate > endDate}
             aria-label="End date"

@@ -16,25 +16,26 @@ export const getLevels = (entries) => {
   return { min: 0, max: 0 }
 }
 
-export const RangeSliderFacet = ({ facet, loading }) => {
+export const RangeSliderFacet = ({ facet }) => {
   const api = useSearchkit()
   const [dualValue, setDualValue] = useState([0, 100])
-  const selectedOptions = api.getFilterById(facet.id)
+  const selectedOptions = api.getFiltersById(facet.id)
+  const selectedOption = selectedOptions && selectedOptions[0]
 
   const [debouncedCallback] = useDebouncedCallback((value) => {
-    api.setFilter({
-      id: facet.id,
-      min: value[0],
-      max: value[1]
-    })
+    if (selectedOption) {
+      api.removeFilter(selectedOption)
+    }
+
+    api.addFilter({ id: facet.id, min: value[0], max: value[1] })
     api.search()
   }, 400)
 
   useEffect(() => {
-    if (selectedOptions) {
-      setDualValue([selectedOptions.min, selectedOptions.max])
+    if (selectedOption) {
+      setDualValue([selectedOptions[0].min, selectedOptions[0].max])
     }
-  }, [selectedOptions])
+  }, [selectedOption])
 
   const range = getLevels(facet.entries)
 

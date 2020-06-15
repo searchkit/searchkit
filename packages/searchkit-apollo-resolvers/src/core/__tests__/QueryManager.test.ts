@@ -6,15 +6,15 @@ describe('QueryManager', () => {
       const qm = new QueryManager([], null)
       expect(qm.hasFilters()).toEqual(false)
       expect(qm.getFilters()).toEqual([])
-      expect(qm.getFilterById('nomatch')).toBeNull()
+      expect(qm.getFiltersById('nomatch')).toBeNull()
     })
 
     it('query manager with test filter', () => {
-      const qm = new QueryManager([{ id: 'test', selected: ['bob'] }], null)
+      const qm = new QueryManager([{ id: 'test', value: 'bob' }], null)
       expect(qm.hasFilters()).toEqual(true)
-      expect(qm.getFilters()).toEqual([{ id: 'test', selected: ['bob'] }])
-      expect(qm.getFilterById('test')).toEqual({ id: 'test', selected: ['bob'] })
-      expect(qm.getFilterById('nomatch')).toBeNull()
+      expect(qm.getFilters()).toEqual([{ id: 'test', value: 'bob' }])
+      expect(qm.getFiltersById('test')).toEqual([{ id: 'test', value: 'bob' }])
+      expect(qm.getFiltersById('nomatch')).toBeNull()
     })
   })
 

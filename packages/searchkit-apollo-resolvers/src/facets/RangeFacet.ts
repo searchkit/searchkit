@@ -28,8 +28,8 @@ class RangeFacet implements BaseFacet {
     return this.config.id
   }
 
-  getFilter(filter: RangeFilter) {
-    return { range: { [this.config.field]: { gte: filter.min, lte: filter.max } } }
+  getFilters(filters: Array<RangeFilter>) {
+    return { range: { [this.config.field]: { gte: filters[0].min, lte: filters[0].max } } }
   }
 
   getAggregation() {
