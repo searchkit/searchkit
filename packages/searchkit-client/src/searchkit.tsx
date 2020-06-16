@@ -104,6 +104,10 @@ export class Searchkit {
     }, [])
   }
 
+  removeFiltersById(id) {
+    this.filters = this.filters.filter((f) => f.id !== id)
+  }
+
   addFilter(filter) {
     this.filters = [{ ...filter }, ...this.filters]
   }

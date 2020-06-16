@@ -23,10 +23,7 @@ export const RangeSliderFacet = ({ facet }) => {
   const selectedOption = selectedOptions && selectedOptions[0]
 
   const [debouncedCallback] = useDebouncedCallback((value) => {
-    if (selectedOption) {
-      api.removeFilter(selectedOption)
-    }
-
+    api.removeFiltersById(facet.id)
     api.addFilter({ id: facet.id, min: value[0], max: value[1] })
     api.search()
   }, 400)
