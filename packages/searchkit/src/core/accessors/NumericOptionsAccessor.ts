@@ -88,6 +88,8 @@ export class NumericOptionsAccessor extends FilterBasedAccessor<ArrayState> {
         this.state = this.state.clear()
       } else if (this.options.multiselect) {
         this.state = this.state.toggle(option.key)
+      } else if (includes(this.state.getValue(), option.key)) {
+        this.state = this.state.clear()
       } else {
         this.state = this.state.setValue([option.key])
       }
