@@ -123,6 +123,14 @@ describe('NumericOptionsAccessor', () => {
       expect(this.searchkit.performSearch).toHaveBeenCalled()
       expect(this.accessor.state.getValue()).toEqual(['11_21'])
     })
+
+    it('should deselect already selected option - single select', () => {
+      this.options.multiselect = false
+      this.accessor.state = new ArrayState(['11_21'])
+      this.accessor.toggleOption('Affordable')
+      expect(this.searchkit.performSearch).toHaveBeenCalled()
+      expect(this.accessor.state.getValue()).toEqual([])
+    })
   })
 
   it('getRanges()', () => {

@@ -93,8 +93,23 @@ describe('NumericRefinementListFilter tests', () => {
     this.accessor.options.multiselect = true
     fastClick(thirdOption)
     this.accessor.options.multiselect = false
+    fastClick(secondOption)
     fastClick(thirdOption)
     expect(this.accessor.state.getValue()).toEqual(['21_41'])
+  })
+
+  it('should deselect already selected option for single select', () => {
+    this.setWrapper()
+    this.setResults()
+    this.wrapper = this.wrapper.update()
+    const secondOption = this.getOptionAt(1)
+    this.accessor.options.multiselect = false
+    fastClick(secondOption)
+    expect(this.accessor.state.getValue()).toEqual(['0_21'])
+    expect(this.searchkit.performSearch).toHaveBeenCalled()
+    fastClick(secondOption)
+    expect(this.accessor.state.getValue()).toEqual([])
+    expect(this.searchkit.performSearch).toHaveBeenCalled()
   })
 
   it('should be disabled for empty buckets', () => {
