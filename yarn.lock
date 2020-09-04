@@ -2726,7 +2726,7 @@ cyclist@~0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-0.2.2.tgz#1b33792e11e914a2fd6d6ed6447464444e5fa640"
 
-cypress@^3.8.1:
+cypress@3.8.1:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/cypress/-/cypress-3.8.1.tgz#7821084e0ead81d35ffa29f2141c977dfdfc2343"
   integrity sha512-eLk5OpL/ZMDfQx9t7ZaDUAGVcvSOPTi7CG1tiUnu9BGk7caBiDhuFi3Tz/D5vWqH/Dl6Uh4X+Au4W+zh0xzbXw==
@@ -6436,8 +6436,9 @@ lodash.memoize@^4.1.2:
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
 
 lodash.merge@^4.4.0:
-  version "4.6.1"
-  resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.1.tgz#adc25d9cb99b9391c59624f379fbba60d7111d54"
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
+  integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
 
 lodash.once@^4.1.1:
   version "4.1.1"
