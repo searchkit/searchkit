@@ -1,43 +1,94 @@
-name: CD
-
+name: publish
 on:
+  # When Release Pull Request is merged
+  # pull_request:
+  #   branches:
+  #     - next
+  #   types: [closed]
   push:
     branches:
       - next
 
+env:
+  CI: true
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  publish:
+    name: Publish Packages
+    runs-on: ubuntu-18.04
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Configure CI Git User
+      - name: Setup Node ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
+        with:
+          node_version: 12
+          registry-url: "https://npm.pkg.github.com"
+      - name: Git Identity
         run: |
-          git config --global user.name 'searchkit'
-          git config --global user.email 'searchkit@users.noreply.github.com'
-          git remote set-url origin https://$GITHUB_ACTOR:$GITHUB_PAT@github.com/$GITHUB_REPOSITORY
+          git config --global user.name 'searchkit[bot]'
+          git config --global user.email 'searchkit[bot]@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/$GITHUB_REPOSITORY
         env:
-          GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
-
-      - name: Checkout and pull branch
-        run: git checkout "${GITHUB_REF:11}" && git pull
-
-      - name: Install Packages
-        run: yarn install
-
-      - name: Authenticate with Registry
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install
+        run: yarn install --frozen-lockfile
+      # Define ${CURRENT_VERSION}
+      - name: Set Current Version
+        shell: bash -ex {0}
         run: |
-          yarn logout
-          echo "registry=http://registry.npmjs.org/" >> .npmrc
-          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
-          npm whoami
+          CURRENT_VERSION=$(node -p 'require("./lerna.json").version')
+          echo "::set-env name=CURRENT_VERSION::${CURRENT_VERSION}"
+      - name: Tag Check
+        id: tag_check
+        shell: bash -ex {0}
+        run: |
+          GET_API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/git/ref/tags/v${CURRENT_VERSION}"
+          http_status_code=$(curl -LI $GET_API_URL -o /dev/null -w '%{http_code}\n' -s \
+            -H "Authorization: token ${GITHUB_TOKEN}")
+          if [ "$http_status_code" -ne "404" ] ; then
+            echo "::set-output name=exists_tag::true"
+          else
+            echo "::set-output name=exists_tag::false"
+          fi
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish package
-        run: lerna publish --yes --message 'chore: release'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Git Tag
+        if: steps.tag_check.outputs.exists_tag == 'false'
+        uses: pkgdeps/action-package-version-to-git-tag@v1
+        with:
+          version: ${{ env.CURRENT_VERSION }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_repo: ${{ github.repository }}
+          git_commit_sha: ${{ github.sha }}
+          git_tag_prefix: "v"
+      - name: Create Release
+        id: create_release
+        if: steps.tag_check.outputs.exists_tag == 'false' && github.event.pull_request.merged == true
+        uses: actions/create-release@v1
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_PAT }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.CURRENT_VERSION }}
+          # Copy Pull Request's tile and body to Release Note
+          release_name: ${{ github.event.pull_request.title }}
+          body: |
+            ${{ github.event.pull_request.body }}
+          draft: false
+          prerelease: false
+      - name: Publish
+        if: steps.tag_check.outputs.exists_tag == 'false'
+        run: |
+          yarn lerna publish from-package --yes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/github-script@0.8.0
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'https://github.com/${{ github.repository }}/releases/tag/v${{ env.CURRENT_VERSION }} is released 🎉'
+            })
