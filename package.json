@@ -12,7 +12,8 @@
     "versionup:pre": "lerna version prerelease --conventional-commits --no-git-tag-version",
     "release": "lerna publish from-package",
     "test": "lerna run test --stream",
-    "build-docs": "lerna run build-docs"
+    "build-docs": "lerna run build-docs",
+    "lint": "eslint . --ext js,ts,tsx --fix"
   },
   "devDependencies": {
     "@babel/core": "7.10.2",
