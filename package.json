@@ -4,6 +4,10 @@
   "workspaces": [
     "packages/*"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/searchkit/searchkit.git"
+  },
   "scripts": {
     "versionup": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version",
     "versionup:patch": "lerna version patch --conventional-commits --conventional-graduate --no-git-tag-version",

@@ -11,6 +11,8 @@
     "codegen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
+    "@searchkit/apollo-resolvers": "3.0.0-canary.1",
+    "@searchkit/client": "3.0.0-canary.1",
     "next-transpile-modules": "^3.3.0",
     "@apollo/client": "^3.0.0-beta.50",
     "@apollo/react-ssr": "^3.1.3",
