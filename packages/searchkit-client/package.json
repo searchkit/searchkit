@@ -8,6 +8,11 @@
     "build": "rm -rf lib; tsc",
     "dev": "rm -rf lib; tsc --watch"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/searchkit/searchkit.git",
+    "directory": "packages/searchkit-client"
+  },
   "dependencies": {
     "@apollo/client": "^3.0.0-beta.50",
     "@apollo/react-ssr": "^3.1.3",

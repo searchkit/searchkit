@@ -4,6 +4,11 @@
   "main": "lib/index.js",
   "author": "Joseph McElroy <phoey1@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/searchkit/searchkit.git",
+    "directory": "packages/searchkit-apollo-resolvers"
+  },
   "scripts": {
     "build": "rm -rf lib; tsc",
     "dev": "rm -rf lib; tsc --watch",
