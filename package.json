@@ -5,10 +5,14 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "lerna run dev",
-    "test": "lerna run test",
-    "lint": "eslint . --ext js,ts,tsx --fix",
-    "prettier": "prettier --write **/*.ts, **/*.tsx"
+    "versionup": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version",
+    "versionup:patch": "lerna version patch --conventional-commits --conventional-graduate --no-git-tag-version",
+    "versionup:minor": "lerna version minor --conventional-commits --conventional-graduate --no-git-tag-version",
+    "versionup:major": "lerna version major --conventional-commits --conventional-graduate --no-git-tag-version",
+    "versionup:pre": "lerna version prerelease --conventional-commits --no-git-tag-version",
+    "release": "lerna publish from-package",
+    "test": "lerna run test --stream",
+    "build-docs": "lerna run build-docs"
   },
   "devDependencies": {
     "@babel/core": "7.10.2",

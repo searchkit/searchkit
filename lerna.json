@@ -1,20 +1,12 @@
 {
-  "npmClient": "yarn",
-  "useWorkspaces": true,
   "packages": [
     "packages/*"
   ],
+  "version": "3.0.0",
+  "includeMergedTags": true,
   "command": {
-    "version": {
-      "exact": true
-    },
     "publish": {
-      "npmClient": "npm",
-      "allowBranch": [
-        "next"
-      ],
-      "registry": "https://registry.npmjs.org/"
+      "registry": "https://npm.pkg.github.com"
     }
-  },
-  "version": "3.0.0-canary.1"
+  }
 }

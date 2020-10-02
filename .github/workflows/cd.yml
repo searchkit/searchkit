@@ -1,0 +1,43 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - next
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Configure CI Git User
+        run: |
+          git config --global user.name 'searchkit'
+          git config --global user.email 'searchkit@users.noreply.github.com'
+          git remote set-url origin https://$GITHUB_ACTOR:$GITHUB_PAT@github.com/$GITHUB_REPOSITORY
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
+
+      - name: Checkout and pull branch
+        run: git checkout "${GITHUB_REF:11}" && git pull
+
+      - name: Install Packages
+        run: yarn install
+
+      - name: Authenticate with Registry
+        run: |
+          yarn logout
+          echo "registry=http://registry.npmjs.org/" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+          npm whoami
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish package
+        run: lerna publish --yes --message 'chore: release new versions'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
