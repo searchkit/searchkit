@@ -29,7 +29,7 @@ jobs:
           git config --global user.email 'searchkit[bot]@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/$GITHUB_REPOSITORY
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT }}
       - name: Install
         run: yarn install --frozen-lockfile
       # Define ${CURRENT_VERSION}
@@ -51,13 +51,13 @@ jobs:
             echo "::set-output name=exists_tag::false"
           fi
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT }}
       - name: Create Git Tag
         if: steps.tag_check.outputs.exists_tag == 'false'
         uses: pkgdeps/action-package-version-to-git-tag@v1
         with:
           version: ${{ env.CURRENT_VERSION }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.PUBLISH_PAT }}
           github_repo: ${{ github.repository }}
           git_commit_sha: ${{ github.sha }}
           git_tag_prefix: "v"
@@ -66,7 +66,7 @@ jobs:
         if: steps.tag_check.outputs.exists_tag == 'false' && github.event.pull_request.merged == true
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT }}
         with:
           tag_name: v${{ env.CURRENT_VERSION }}
           # Copy Pull Request's tile and body to Release Note
@@ -80,11 +80,11 @@ jobs:
         run: |
           yarn lerna publish from-package --yes
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PUBLISH_PAT }}
+          NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_PAT }}
       - uses: actions/github-script@0.8.0
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{secrets.PUBLISH_PAT}}
           script: |
             github.issues.createComment({
               issue_number: context.issue.number,
