@@ -1,6 +1,6 @@
 import SearchkitRequest from '../core/SearchkitRequest'
 
-interface HitsParameters {
+export interface HitsParameters {
   page: {
     from: number
     size: number

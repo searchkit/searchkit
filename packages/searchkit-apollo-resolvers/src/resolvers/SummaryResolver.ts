@@ -15,9 +15,10 @@ export default async (parent, {}, ctx) => {
       appliedFilters: queryManager.getFilters().map((filterSet) => {
         const facetConfig = config.facets.find((facet) => facet.getId() === filterSet.id)
         return {
+          type: filterSet.type,
           label: facetConfig.getLabel(),
           id: facetConfig.getId(),
-          value: filterSet.value
+          value: filterSet.type === 'Value' && filterSet.value
         }
       }, [])
     }

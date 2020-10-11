@@ -2,7 +2,7 @@ import SearchkitRequest from '../core/SearchkitRequest'
 import { getAggregationsFromFacets, getFacetsFromResponse } from '../core/FacetsFns'
 import { SearchkitConfig } from './ResultsResolver'
 
-interface FacetResolverParameters {
+export interface FacetResolverParameters {
   id: string
   query: string
   size: number
@@ -27,8 +27,8 @@ export default async (parent, parameters: FacetResolverParameters, ctx) => {
       },
       [facet]
     )
-    const results = await skRequest.search(aggs)
-    const facets = getFacetsFromResponse([facet], results)
+    const response = await skRequest.search(aggs)
+    const facets = getFacetsFromResponse([facet], response)
 
     return facets[0]
   } catch (e) {

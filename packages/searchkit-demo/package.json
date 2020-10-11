@@ -1,5 +1,5 @@
 {
-  "name": "searchkit-e2e",
+  "name": "@searchkit/searchkit-demo",
   "private": true,
   "version": "1.0.0",
   "main": "index.js",

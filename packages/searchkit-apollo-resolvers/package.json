@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.0.0-beta.50",
-    "elasticsearch": "^16.7.1",
+    "@elastic/elasticsearch": "^7.9.1",
     "@apollo/react-ssr": "^3.1.3",
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^10.0.1",
@@ -41,7 +41,6 @@
     "@graphql-codegen/typescript": "1.15.0",
     "@graphql-codegen/typescript-operations": "1.15.0",
     "@graphql-codegen/typescript-react-apollo": "1.15.0",
-    "@spotify/polly-jest-presets": "^3.1.0",
     "@types/node": "^13.9.1",
     "@types/react": "^16.9.23",
     "@typescript-eslint/eslint-plugin": "^2.24.0",
@@ -63,7 +62,11 @@
     "stylelint-config-standard": "^19.0.0",
     "stylelint-order": "^3.1.0",
     "stylelint-prettier": "^1.1.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "@pollyjs/core": "^5.0.0",
+    "@pollyjs/adapter-node-http": "^5.0.0",
+    "@pollyjs/persister-fs": "^5.0.0",
+    "setup-polly-jest": "^0.9.1"
   },
   "husky": {
     "hooks": {

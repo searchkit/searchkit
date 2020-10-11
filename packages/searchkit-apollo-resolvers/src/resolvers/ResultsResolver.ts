@@ -5,6 +5,7 @@ import { BaseFacet } from '../facets/BaseFacet'
 
 export interface SearchkitConfig {
   host: string
+  index: string
   hits: {
     fields: string[]
   }

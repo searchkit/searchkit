@@ -1,15 +1,18 @@
-export interface ValueFilter {
+export type ValueFilter = {
+  type: 'Value'
   id: string
   value: string
 }
 
-export interface RangeFilter {
+export type RangeFilter = {
+  type: 'Range'
   id: string
   min: number
   max: number
 }
 
-export interface DateRangeFilter {
+export type DateRangeFilter = {
+  type: 'DateRange'
   id: string
   dateMin: string
   dateMax: string

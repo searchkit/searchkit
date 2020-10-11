@@ -1,13 +1,10 @@
 name: Package Publish
 on:
   # When Release Pull Request is merged
-  # pull_request:
-  #   branches:
-  #     - next
-  #   types: [closed]
-  push:
+  pull_request:
     branches:
       - next
+    types: [closed]
 
 env:
   CI: true
@@ -23,6 +20,10 @@ jobs:
         with:
           node_version: 12
           registry-url: "https://npm.pkg.github.com"
+      - name: Install modules
+        run: yarn
+      - name: build packages
+        run: yarn 
       - name: Git Identity
         run: |
           git config --global user.name 'searchkit[bot]'

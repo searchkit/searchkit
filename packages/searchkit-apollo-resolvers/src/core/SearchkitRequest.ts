@@ -1,9 +1,29 @@
 import dataloader from 'dataloader'
-import fetch from 'node-fetch'
-import { SearchResponse } from 'elasticsearch'
+import { Client } from '@elastic/elasticsearch'
 import { SearchkitConfig } from '../resolvers'
 import QueryManager from './QueryManager'
 import { filterTransform } from './FacetsFns'
+
+export interface SearchResponse<T> {
+  took: number
+  timed_out: boolean
+  hits: {
+    total: {
+      value: number
+    }
+    max_score: number
+    hits: Array<{
+      _id: number
+      _source: any
+      fields?: any
+      highlight?: any
+      inner_hits?: any
+      matched_queries?: string[]
+      sort?: string[]
+    }>
+  }
+  aggregations?: any
+}
 
 export const mergeESQueries = (queries) =>
   queries.reduce(
@@ -45,17 +65,20 @@ export default class SearchkitRequest {
     try {
       console.log({
         host: this.config.host,
+        index: this.config.index,
         query: JSON.stringify(esQuery)
       })
-      const response = await fetch(this.config.host, {
-        body: JSON.stringify(esQuery),
-        method: 'POST',
-        headers: {
-          'Content-Type': 'Application/json'
-        }
+
+      const client = new Client({
+        node: this.config.host
       })
-      const results = await response.json()
-      return results
+
+      const response = await client.search<SearchResponse<any>>({
+        index: this.config.index,
+        body: esQuery
+      })
+
+      return response.body
     } catch (e) {
       console.log(e)
     }

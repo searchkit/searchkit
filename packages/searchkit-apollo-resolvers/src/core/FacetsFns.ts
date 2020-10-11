@@ -1,6 +1,6 @@
-import { SearchResponse } from 'elasticsearch'
 import { BaseFacet } from '../facets/BaseFacet'
 import QueryManager from './QueryManager'
+import { SearchResponse } from './SearchkitRequest'
 
 export const filterTransform = (queryManager: QueryManager, facets: Array<BaseFacet> = []) => {
   const subFilters = facets.reduce((subFilters, facet) => {
