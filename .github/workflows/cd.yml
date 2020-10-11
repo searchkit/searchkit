@@ -26,7 +26,7 @@ jobs:
       - name: Install modules
         run: yarn
       - name: build packages
-        run: yarn 
+        run: yarn build
       - name: Git Identity
         run: |
           git config --global user.name 'searchkit[bot]'
