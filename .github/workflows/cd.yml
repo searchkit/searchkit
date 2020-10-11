@@ -5,8 +5,9 @@ on:
   #   branches:
   #     - next
   #   types: [closed]
-  branches:
-    - next
+  push:
+    branches:
+      - next
 
 env:
   CI: true
