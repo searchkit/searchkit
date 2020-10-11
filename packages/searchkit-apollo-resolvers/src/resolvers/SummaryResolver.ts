@@ -18,7 +18,7 @@ export default async (parent, {}, ctx) => {
           type: filterSet.type,
           label: facetConfig.getLabel(),
           id: facetConfig.getId(),
-          value: filterSet.type === 'Value' && filterSet.value
+          value: filterSet.value
         }
       }, [])
     }

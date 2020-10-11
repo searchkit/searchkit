@@ -6,7 +6,7 @@ import { SearchResponse } from '../SearchkitRequest'
 describe('Facet Fns', () => {
   describe('getAggregationsFromFacets', () => {
     it('create aggregations for one facet ', () => {
-      const qm = new QueryManager([{ type: 'Value', id: 'test', value: 'testValue' }], '')
+      const qm = new QueryManager([{ id: 'test', value: 'testValue' }], '')
       const facetConfig = [new RefinementSelectFacet({ field: 'test', id: 'test', label: 'Test' })]
 
       expect(getAggregationsFromFacets(qm, {}, facetConfig)).toEqual({
@@ -22,8 +22,8 @@ describe('Facet Fns', () => {
     it('create aggregations for two facets in all and one for Multiple select', () => {
       const qm = new QueryManager(
         [
-          { type: 'Value', id: 'test', value: 'testValue' },
-          { type: 'Value', id: 'test3', value: 'testValue' }
+          { id: 'test', value: 'testValue' },
+          { id: 'test3', value: 'testValue' }
         ],
         ''
       )
@@ -217,7 +217,7 @@ describe('Facet Fns', () => {
 
   describe('filterTransform', () => {
     it('should get filter for test', () => {
-      const qm = new QueryManager([{ type: 'Value', id: 'test', value: 'testValue' }], '')
+      const qm = new QueryManager([{ id: 'test', value: 'testValue' }], '')
       const facetConfig = [
         new RefinementSelectFacet({
           field: 'test',
@@ -235,8 +235,8 @@ describe('Facet Fns', () => {
     it('should get 2 filters for test', () => {
       const qm = new QueryManager(
         [
-          { type: 'Value', id: 'test', value: 'testValue' },
-          { type: 'Value', id: 'test2', value: 'testValue2' }
+          { id: 'test', value: 'testValue' },
+          { id: 'test2', value: 'testValue2' }
         ],
         ''
       )
@@ -262,8 +262,8 @@ describe('Facet Fns', () => {
     it('should get 1 filters for test, missing test 2 facet config is omitted', () => {
       const qm = new QueryManager(
         [
-          { type: 'Value', id: 'test', value: 'testValue' },
-          { type: 'Value', id: 'test2', value: 'testValue2' }
+          { id: 'test', value: 'testValue' },
+          { id: 'test2', value: 'testValue2' }
         ],
         ''
       )

@@ -1,19 +1,18 @@
 export type ValueFilter = {
-  type: 'Value'
   id: string
   value: string
 }
 
 export type RangeFilter = {
-  type: 'Range'
   id: string
+  value?: string
   min: number
   max: number
 }
 
 export type DateRangeFilter = {
-  type: 'DateRange'
   id: string
+  value?: string
   dateMin: string
   dateMax: string
 }
