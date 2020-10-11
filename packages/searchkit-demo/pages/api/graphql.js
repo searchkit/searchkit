@@ -10,7 +10,8 @@ import {
 } from '@searchkit/apollo-resolvers'
 
 const searchkitConfig = {
-  host: 'http://localhost:9200/movies/_search',
+  host: 'http://demo.searchkit.co/api/',
+  index: 'movies',
   hits: {
     fields: ['actors', 'writers', 'plot', 'poster']
   },
