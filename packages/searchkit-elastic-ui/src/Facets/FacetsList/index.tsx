@@ -1,11 +1,11 @@
 import React from 'react'
 import { EuiSpacer } from '@elastic/eui'
-import { ComboBoxFacet } from './ComboBoxFacet'
-import { ListFacet } from './ListFacet'
-import { RangeSliderFacet } from './RangeSliderFacet'
-import { DateRangeFacet } from './DateRangeFacet'
+import { ComboBoxFacet } from '../ComboBoxFacet'
+import { ListFacet } from '../ListFacet'
+import { RangeSliderFacet } from '../RangeSliderFacet'
+import { DateRangeFacet } from '../DateRangeFacet'
 
-export const FacetsContainer = (components = []) => {
+export const FacetsList = (components = []) => {
   const componentTypeMap = [
     ...components,
     ListFacet,
@@ -26,7 +26,9 @@ export const FacetsContainer = (components = []) => {
         return (
           <div key={facet.id}>
             <Component facet={facet} loading={loading} />
-            <EuiSpacer size="l" />
+            <div>
+              <EuiSpacer size="l" />
+            </div>
           </div>
         )
       })}

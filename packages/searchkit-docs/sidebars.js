@@ -9,7 +9,22 @@
 
 module.exports = {
   someSidebar: {
-    Docusaurus: ['doc1', 'doc2', 'doc3'],
-    Features: ['mdx'],
+    'Getting Started': [
+      'overview',
+      'api-setup',
+      {
+        'UI setup': [
+          'base-ui-setup',
+          'ui-setup-eui',
+          'ui-setup-own-components',
+        ],
+      },
+      'customise-searchkit',
+    ],
+    Reference: [
+      'searchkit-apollo-resolver',
+      'searchkit-client',
+      'searchkit-elastic-ui',
+    ],
   },
 };

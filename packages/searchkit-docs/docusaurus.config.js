@@ -8,21 +8,18 @@
  */
 
 module.exports = {
-  title: 'My Site',
-  tagline: 'The tagline of my site',
-  url: 'https://your-docusaurus-test-site.com',
+  title: 'Searchkit',
+  tagline: 'Search, made easy',
+  url: 'https://searchkit.co',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'searchkit', // Usually your GitHub org/user name.
+  projectName: 'searchkit', // Usually your repo name.
+  stylesheets: ['https://unpkg.com/tailwindcss@1.9.2/dist/tailwind.min.css'],
   themeConfig: {
     navbar: {
-      title: 'My Facebook Project',
-      logo: {
-        alt: 'My Facebook Project Logo',
-        src: 'img/logo.svg',
-      },
+      title: 'Searchkit',
       items: [
         {
           to: 'docs/',
@@ -30,10 +27,8 @@ module.exports = {
           label: 'Docs',
           position: 'left',
         },
-        {to: 'blog', label: 'Blog', position: 'left'},
-        // Please keep GitHub link to the right for consistency.
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/searchkit/searchkit',
           label: 'GitHub',
           position: 'right',
         },

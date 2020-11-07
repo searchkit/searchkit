@@ -46,7 +46,7 @@ export const ComboBoxFacet = ({ facet }) => {
       query: facetRefinementSearchQuery,
       variables: {
         facetId: facet.id,
-        query: api.query,
+        query: api.getQuery(),
         filters: api.getFilters(),
         facetQuery: searchValue
       }
@@ -78,4 +78,4 @@ export const ComboBoxFacet = ({ facet }) => {
   )
 }
 
-ComboBoxFacet.DISPLAY = 'ComboBox'
+ComboBoxFacet.DISPLAY = 'ComboBoxFacet'

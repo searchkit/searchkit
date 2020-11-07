@@ -16,7 +16,6 @@ interface DateRangeFacetConfig {
 }
 
 class DateRangeFacet implements BaseFacet {
-  public TYPE = 'DateRangeFacet'
   public excludeOwnFilters = true
 
   constructor(public config: DateRangeFacetConfig) {}
@@ -40,8 +39,8 @@ class DateRangeFacet implements BaseFacet {
     return {
       id: this.getId(),
       label: this.getLabel(),
-      type: this.TYPE,
-      display: this.config.display || 'DateRange',
+      type: 'DateRangeFacet',
+      display: this.config.display || 'DateRangeFacet',
       entries: []
     }
   }

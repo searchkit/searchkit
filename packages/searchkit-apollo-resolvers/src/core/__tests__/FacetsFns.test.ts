@@ -182,7 +182,7 @@ describe('Facet Fns', () => {
           ],
           id: 'test',
           label: 'Test 1',
-          display: 'List',
+          display: 'ListFacet',
           type: 'RefinementSelectFacet'
         },
         {
@@ -195,7 +195,7 @@ describe('Facet Fns', () => {
           ],
           id: 'test2',
           label: 'Test 2',
-          display: 'List',
+          display: 'ListFacet',
           type: 'RefinementSelectFacet'
         },
         {
@@ -208,7 +208,7 @@ describe('Facet Fns', () => {
           ],
           id: 'test3',
           label: 'Test 3',
-          display: 'List',
+          display: 'ListFacet',
           type: 'RefinementSelectFacet'
         }
       ])

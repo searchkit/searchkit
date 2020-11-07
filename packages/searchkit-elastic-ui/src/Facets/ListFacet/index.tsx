@@ -33,4 +33,4 @@ export const ListFacet = ({ facet, loading }) => {
   )
 }
 
-ListFacet.DISPLAY = 'List'
+ListFacet.DISPLAY = 'ListFacet'

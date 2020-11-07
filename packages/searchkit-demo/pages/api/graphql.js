@@ -1,7 +1,6 @@
 import { ApolloServer, gql } from 'apollo-server-micro'
 import {
   MultiMatchQuery,
-  ComboBoxSelectFacet,
   RefinementSelectFacet,
   RangeFacet,
   SearchkitResolvers,
@@ -13,10 +12,11 @@ const searchkitConfig = {
   host: 'http://demo.searchkit.co/api/',
   index: 'movies',
   hits: {
-    fields: ['actors', 'writers', 'plot', 'poster']
+    fields: ['title', 'actors', 'writers', 'plot', 'poster']
   },
   query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] }),
   facets: [
+    new RefinementSelectFacet({ field: 'type.raw', id: 'type', label: 'Type' }),
     new RangeFacet({
       field: 'metaScore',
       id: 'metascore',
@@ -27,7 +27,6 @@ const searchkitConfig = {
         interval: 5
       }
     }),
-    new RefinementSelectFacet({ field: 'type.raw', id: 'type', label: 'Type' }),
     new RefinementSelectFacet({
       field: 'actors.raw',
       id: 'actors',
@@ -39,11 +38,11 @@ const searchkitConfig = {
       label: 'Writers',
       multipleSelect: true
     }),
-    new ComboBoxSelectFacet({
+    new RefinementSelectFacet({
       field: 'countries.raw',
       id: 'countries',
       label: 'Countries',
-      display: 'ComboBox'
+      display: 'ComboBoxFacet'
     }),
     new RefinementSelectFacet({ field: 'genres.raw', id: 'genres', label: 'Genres' }),
     new RefinementSelectFacet({
@@ -77,9 +76,9 @@ const typeDefs = [
       poster: String
     }
 
-    extend type Hit {
-      exampleCustomField: String
-    }
+    # extend type Hit {
+    #   exampleCustomField: String
+    # }
   `,
   SearchkitSchema
 ]
@@ -93,10 +92,10 @@ export const config = {
 const server = new ApolloServer({
   typeDefs,
   resolvers: {
-    ...SearchkitResolvers(searchkitConfig),
-    Hit: {
-      exampleCustomField: (parent) => `Example Return Value for ${parent.id}`
-    }
+    ...SearchkitResolvers(searchkitConfig)
+    // Hit: {
+    //   exampleCustomField: (parent) => `Example Return Value for ${parent.id}`
+    // }
   },
   introspection: true,
   playground: true,

@@ -17,6 +17,7 @@
     "@elastic/eui": "^25.0.0",
     "@searchkit/apollo-resolvers": "^3.0.0-canary.3",
     "@searchkit/client": "^3.0.0-canary.3",
+    "@searchkit/elastic-ui": "^3.0.0-canary.3",
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^10.0.1",
     "apollo-server-micro": "^2.11.0",

@@ -33,7 +33,7 @@ describe('Multiple Select Facet', () => {
       ],
       id: 'testId',
       label: 'Test',
-      display: 'List',
+      display: 'ListFacet',
       type: 'RefinementSelectFacet'
     })
   })

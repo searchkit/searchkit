@@ -55,4 +55,4 @@ export const DateRangeFacet = ({ facet, loading }) => {
   )
 }
 
-DateRangeFacet.DISPLAY = 'DateRange'
+DateRangeFacet.DISPLAY = 'DateRangeFacet'

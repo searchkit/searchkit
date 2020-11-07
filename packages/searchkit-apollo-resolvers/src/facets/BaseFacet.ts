@@ -6,7 +6,6 @@ export interface FacetOptions {
 }
 
 export interface BaseFacet {
-  TYPE: string
   excludeOwnFilters: boolean
   getId(): string
   getLabel(): string

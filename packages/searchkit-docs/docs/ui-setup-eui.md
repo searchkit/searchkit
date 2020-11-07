@@ -1,5 +1,23 @@
-import { useSearchkitQuery } from '@searchkit/client'
-import { gql } from '@apollo/client'
+---
+id: ui-setup-eui
+title: With EUI Components
+sidebar_label: With EUI Components
+slug: /quick-start/ui/eui
+---
+
+This guide will step you through how to use the out the box searchkit UI components. Once you've completed the [initial setup](../initial-setup), start by adding the @searchkit/elastic-ui and @elastic/eui dependency via yarn
+
+```yarn add @searchkit/elastic-ui @elastic/eui```
+
+Next (if you have been following the guide with NextJS) go to pages/index.js and:
+- import the components from searchkit and EUI
+- Update the GQL query to include all fields required by searchkit's components
+- Add Searchkit components to the page
+
+Below is an example of a typical Searchkit page which uses EUI and searchkit EUI. 
+
+```javascript
+
 import {
   FacetsList,
   SearchBar,
@@ -7,9 +25,6 @@ import {
   ResetSearchButton,
   SelectedFilters
 } from '@searchkit/elastic-ui'
-import { HitsList, HitsGrid } from './searchkit/Hits'
-
-import React, { useState } from 'react'
 
 import {
   EuiPage,
@@ -73,9 +88,27 @@ const query = gql`
   }
 `
 
-const Page = () => {
+export const HitsList = ({ data }) => (
+  <>
+    {data?.results.hits.items.map((hit) => (
+      <EuiFlexGroup gutterSize="xl" key={hit.id}>
+        <EuiFlexItem>
+          <EuiFlexGroup>
+            <EuiFlexItem grow={4}>
+              <EuiTitle size="xs">
+                <h6>{hit.id}</h6>
+              </EuiTitle>
+            </EuiFlexItem>
+          </EuiFlexGroup>
+        </EuiFlexItem>
+      </EuiFlexGroup>
+    ))}
+  </>
+)
+
+export default () => {
+
   const { data, loading } = useSearchkitQuery(query)
-  const [viewType, setViewType] = useState('list')
   const Facets = FacetsList([])
   return (
     <EuiPage>
@@ -102,25 +135,9 @@ const Page = () => {
                 <h2>{data?.results.summary.total} Results</h2>
               </EuiTitle>
             </EuiPageContentHeaderSection>
-            <EuiPageContentHeaderSection>
-              <EuiButtonGroup
-                options={[
-                  {
-                    id: `grid`,
-                    label: 'Grid'
-                  },
-                  {
-                    id: `list`,
-                    label: 'List'
-                  }
-                ]}
-                idSelected={viewType}
-                onChange={(id) => setViewType(id)}
-              />
-            </EuiPageContentHeaderSection>
           </EuiPageContentHeader>
           <EuiPageContentBody>
-            {viewType === 'grid' ? <HitsGrid data={data} /> : <HitsList data={data} />}
+            <HitsList data={data} />
             <EuiFlexGroup justifyContent="spaceAround">
               <Pagination data={data?.results} />
             </EuiFlexGroup>
@@ -130,5 +147,4 @@ const Page = () => {
     </EuiPage>
   )
 }
-
-export default Page
+```

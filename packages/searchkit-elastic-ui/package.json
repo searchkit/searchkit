@@ -1,0 +1,32 @@
+{
+  "name": "@searchkit/elastic-ui",
+  "version": "3.0.0-canary.3",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "author": "Joseph McElroy <phoey1@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf lib; tsc",
+    "dev": "rm -rf lib; tsc --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/searchkit/searchkit.git",
+    "directory": "packages/searchkit-elastic-ui"
+  },
+  "dependencies": {
+    "@searchkit/client": "3.0.0-canary.3",
+    "@elastic/eui": "^30.1.1",
+    "@apollo/client":"^3.2.5"
+  },
+  "devDependencies": {
+    "typescript": "4.0.5",
+    "@types/react": "^16.9.55"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint",
+      "pre-push": "yarn test"
+    }
+  }
+}

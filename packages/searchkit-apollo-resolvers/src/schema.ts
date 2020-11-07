@@ -75,23 +75,7 @@ export default gql`
     entries: [FacetSetEntry]
   }
 
-  type MultipleSelectFacet implements FacetSet {
-    id: String
-    label: String
-    type: String
-    display: String
-    entries: [FacetSetEntry]
-  }
-
   type RangeFacet implements FacetSet {
-    id: String
-    label: String
-    type: String
-    display: String
-    entries: [FacetSetEntry]
-  }
-
-  type ComboBoxSelectFacet implements FacetSet {
     id: String
     label: String
     type: String

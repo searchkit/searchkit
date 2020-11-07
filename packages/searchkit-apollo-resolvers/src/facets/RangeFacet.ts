@@ -16,7 +16,6 @@ interface RangeFacetConfig {
 }
 
 class RangeFacet implements BaseFacet {
-  public TYPE = 'RangeFacet'
   public excludeOwnFilters = true
 
   constructor(public config: RangeFacetConfig) {}
@@ -49,8 +48,8 @@ class RangeFacet implements BaseFacet {
     return {
       id: this.getId(),
       label: this.getLabel(),
-      type: this.TYPE,
-      display: this.config.display || 'RangeSlider',
+      display: this.config.display || 'RangeSliderFacet',
+      type: 'RangeFacet',
       entries: response.buckets.map((entry) => ({
         id: `${this.getId()}_${entry.key}`,
         label: entry.key,

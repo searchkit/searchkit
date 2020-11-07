@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { useQuery } from '@apollo/client'
+import { useQuery, WatchQueryFetchPolicy } from '@apollo/client'
 
 export interface Filter {
   id: string
-  value: string
-  min: number
-  max: number
-  dateMin: string
-  dateMax: string
+  value?: string
+  min?: number
+  max?: number
+  dateMin?: string
+  dateMax?: string
 }
 
 export interface PageOptions {
@@ -23,6 +23,11 @@ interface SearchkitQueryVariables {
 
 export interface SearchkitClientConfig {
   itemsPerPage?: number
+  apolloOptions?: SearchkitClientApolloOptionsConfig
+}
+
+export interface SearchkitClientApolloOptionsConfig {
+  fetchPolicy: WatchQueryFetchPolicy
 }
 
 const filterSelector = (filter) => (f) => {
@@ -39,11 +44,12 @@ const filterSelector = (filter) => (f) => {
   return false
 }
 
-export class Searchkit {
+export class SearchkitClient {
   private query: string
   private filters: Array<Filter>
   private page: PageOptions
   private onSearch: Function
+  public apolloOptions: SearchkitClientApolloOptionsConfig
 
   constructor(config: SearchkitClientConfig = {}) {
     this.query = ''
@@ -53,9 +59,10 @@ export class Searchkit {
       from: 0
     }
     this.onSearch = null
+    this.apolloOptions = config.apolloOptions
   }
 
-  performSearch() {
+  private performSearch() {
     if (this.onSearch) this.onSearch({ query: this.query, filters: this.filters, page: this.page })
   }
 
@@ -63,10 +70,14 @@ export class Searchkit {
     this.onSearch = callback
   }
 
-  setQuery(query) {
+  setQuery(query): void {
     this.query = query
     this.filters = []
     this.setPage({ from: 0, size: 10 })
+  }
+
+  getQuery(): string {
+    return this.query
   }
 
   setPage(page: PageOptions) {
@@ -77,7 +88,7 @@ export class Searchkit {
     this.performSearch()
   }
 
-  getFilters() {
+  getFilters(): Filter[] {
     return this.filters
   }
 
@@ -90,7 +101,7 @@ export class Searchkit {
     return !!foundFilter
   }
 
-  getFiltersById(id) {
+  getFiltersById(id): Filter[] | null {
     const filters = this.filters.filter((filter) => id === filter.id)
     return filters.length > 0 ? filters : null
   }
@@ -130,8 +141,8 @@ export function SearchkitProvider({ client, children }) {
   return <SearchkitContext.Provider value={client}>{children}</SearchkitContext.Provider>
 }
 
-export function useSearchkit(): Searchkit {
-  const sk = useContext(SearchkitContext) as Searchkit
+export function useSearchkit(): SearchkitClient {
+  const sk = useContext(SearchkitContext) as SearchkitClient
   return sk
 }
 
@@ -150,6 +161,6 @@ export function useSearchkitQuery(query) {
       filters: variables?.filters,
       page: variables?.page
     },
-    fetchPolicy: 'network-only'
+    fetchPolicy: sk.apolloOptions?.fetchPolicy || 'network-only'
   })
 }

@@ -1,7 +1,7 @@
 import React from 'react'
-import { SearchkitProvider, Searchkit } from './searchkit'
+import { SearchkitProvider, SearchkitClient } from './searchkit'
 
-const defaultSearchkitClient = () => new Searchkit()
+const defaultSearchkitClient = () => new SearchkitClient()
 
 export default (Page, createSearchkitClient = defaultSearchkitClient) => {
   const client = createSearchkitClient()

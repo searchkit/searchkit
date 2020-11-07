@@ -38,7 +38,7 @@ Object {
         "type": "RefinementSelectFacet",
       },
       Object {
-        "display": "List",
+        "display": "ListFacet",
         "entries": Array [
           Object {
             "count": 73,
@@ -71,7 +71,7 @@ Object {
         "type": "RefinementSelectFacet",
       },
       Object {
-        "display": "List",
+        "display": "ListFacet",
         "entries": Array [
           Object {
             "count": 3120,
@@ -99,7 +99,7 @@ Object {
         "type": "RefinementSelectFacet",
       },
       Object {
-        "display": "List",
+        "display": "ListFacet",
         "entries": Array [
           Object {
             "count": 2529,
@@ -182,21 +182,21 @@ Object {
         "type": "RefinementSelectFacet",
       },
       Object {
-        "display": "List",
+        "display": "ListFacet",
         "entries": Array [],
         "id": "actors",
         "label": "Actors",
         "type": "RefinementSelectFacet",
       },
       Object {
-        "display": "List",
+        "display": "ListFacet",
         "entries": Array [],
         "id": "type",
         "label": "Type",
         "type": "RefinementSelectFacet",
       },
       Object {
-        "display": "List",
+        "display": "ListFacet",
         "entries": Array [],
         "id": "genres",
         "label": "Genres",

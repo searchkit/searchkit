@@ -14,7 +14,7 @@
     "versionup:minor": "lerna version minor --conventional-commits --conventional-graduate --no-git-tag-version",
     "versionup:major": "lerna version major --conventional-commits --conventional-graduate --no-git-tag-version",
     "versionup:pre": "lerna version prerelease --conventional-commits --no-git-tag-version",
-    "build": "lerna run build --stream --scope '{@searchkit/apollo-resolvers,@searchkit/client}'",
+    "build": "lerna run build --stream --scope '{@searchkit/apollo-resolvers,@searchkit/client,@searchkit/elastic-ui}'",
     "release": "lerna publish from-package",
     "test": "lerna run test --stream",
     "build-docs": "lerna run build-docs",

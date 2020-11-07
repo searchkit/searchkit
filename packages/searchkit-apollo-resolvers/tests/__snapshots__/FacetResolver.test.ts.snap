@@ -4,7 +4,7 @@ exports[`Facet Resolver should return as expected should return correct Results 
 Object {
   "results": Object {
     "facet": Object {
-      "display": "List",
+      "display": "ListFacet",
       "entries": Array [
         Object {
           "count": 10,

@@ -7,12 +7,11 @@ interface RefinementSelectFacetConfig {
   field: string
   size?: number
   label: string
-  display?: 'List' | 'Combo' | string
+  display?: 'ListFacet' | 'ComboFacet' | string
   multipleSelect?: boolean
 }
 
 class RefinementSelectFacet implements BaseFacet {
-  public TYPE = 'RefinementSelectFacet'
   public excludeOwnFilters = false
 
   constructor(public config: RefinementSelectFacetConfig) {
@@ -51,8 +50,8 @@ class RefinementSelectFacet implements BaseFacet {
     return {
       id: this.getId(),
       label: this.getLabel(),
-      type: this.TYPE,
-      display: this.config.display || 'List',
+      display: this.config.display || 'ListFacet',
+      type: 'RefinementSelectFacet',
       entries: response.buckets.map((entry) => ({
         id: `${this.getId()}_${entry.key}`,
         label: entry.key,
