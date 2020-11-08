@@ -28,6 +28,7 @@ export const DateRangeFacet = ({ facet, loading }) => {
       <EuiDatePickerRange
         startDateControl={
           <EuiDatePicker
+            isLoading={loading}
             selected={startDate}
             onChange={setStartDate}
             startDate={startDate}
@@ -40,6 +41,7 @@ export const DateRangeFacet = ({ facet, loading }) => {
         }
         endDateControl={
           <EuiDatePicker
+            isLoading={loading}
             selected={endDate}
             onChange={setEndDate}
             startDate={startDate}

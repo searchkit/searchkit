@@ -31,9 +31,7 @@ export const ComboBoxFacet = ({ facet }) => {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  const options = data?.results?.facet.entries.map((entry) => {
-    return { label: entry.label }
-  })
+  const options = data?.results?.facet.entries.map((entry) => ({ label: entry.label }))
 
   const selectedOptions =
     api.getFiltersById(facet.id)?.map((filter) => ({

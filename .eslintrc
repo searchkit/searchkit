@@ -59,6 +59,7 @@
     "jest/no-identical-title": "error",
     "jest/prefer-to-have-length": "warn",
     "jest/valid-expect": "error",
+    "jsx-a11y/anchor-is-valid": "off",
     "no-else-return": "error",
     "no-empty": "off",
     "no-empty-pattern": "warn",

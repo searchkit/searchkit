@@ -1,2 +1,4 @@
 packages/**/**/node_modules/**/**
 packages/**/lib
+packages/**/**/build
+packages/searchkit-docs/**

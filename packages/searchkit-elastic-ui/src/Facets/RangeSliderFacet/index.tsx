@@ -2,7 +2,6 @@ import React, { ReactText, useEffect, useState } from 'react'
 import { EuiTitle, EuiDualRange } from '@elastic/eui'
 import { useSearchkit } from '@searchkit/client'
 import { useDebouncedCallback } from 'use-debounce'
-import { EuiRangeLevel } from '@elastic/eui/src/components/form/range/range_levels'
 
 export const getLevels = (entries) => {
   const counts = entries.reduce((sum, entry) => {
@@ -37,24 +36,6 @@ export const RangeSliderFacet = ({ facet }) => {
 
   const range = getLevels(facet.entries)
 
-  const levels: EuiRangeLevel[] = [
-    {
-      min: 0,
-      max: range.min,
-      color: 'warning'
-    },
-    {
-      min: range.min,
-      max: range.max,
-      color: 'primary'
-    },
-    {
-      min: range.max,
-      max: 100,
-      color: 'warning'
-    }
-  ]
-
   return (
     <>
       <EuiTitle size="xxs">
@@ -67,7 +48,23 @@ export const RangeSliderFacet = ({ facet }) => {
           setDualValue(value)
           debouncedCallback(value)
         }}
-        levels={levels}
+        levels={[
+          {
+            min: 0,
+            max: range.min,
+            color: 'warning'
+          },
+          {
+            min: range.min,
+            max: range.max,
+            color: 'primary'
+          },
+          {
+            min: range.max,
+            max: 100,
+            color: 'warning'
+          }
+        ]}
       />
     </>
   )
