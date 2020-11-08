@@ -83,7 +83,6 @@ jobs:
       - name: Publish
         if: steps.tag_check.outputs.exists_tag == 'false'
         run: |
-          npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
           yarn lerna publish from-package --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
