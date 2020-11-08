@@ -5,7 +5,12 @@
   "version": "3.0.0-canary.4",
   "includeMergedTags": true,
   "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org"
+    "access": "public"
+  },
+  "command": {
+    "publish": {
+      "npmClient": "npm",
+      "registry": "https://registry.npmjs.org"
+    }
   }
 }
