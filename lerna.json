@@ -3,10 +3,5 @@
     "packages/*"
   ],
   "version": "3.0.0-canary.4",
-  "includeMergedTags": true,
-  "command": {
-    "publish": {
-      "registry": "https://npm.pkg.github.com"
-    }
-  }
+  "includeMergedTags": true
 }
