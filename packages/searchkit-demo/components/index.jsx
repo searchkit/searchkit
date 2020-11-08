@@ -1,5 +1,6 @@
 import { useSearchkitQuery } from '@searchkit/client'
 import { gql } from '@apollo/client'
+import { HitsList, HitsGrid } from './searchkit/Hits'
 import {
   FacetsList,
   SearchBar,
@@ -7,7 +8,6 @@ import {
   ResetSearchButton,
   SelectedFilters
 } from '@searchkit/elastic-ui'
-import { HitsList, HitsGrid } from './searchkit/Hits'
 
 import React, { useState } from 'react'
 
