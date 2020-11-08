@@ -22,6 +22,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node_version: 12
+          registry-url: 'https://registry.npmjs.org'
+
       - name: Install modules
         run: yarn
       - name: build packages
@@ -81,10 +83,10 @@ jobs:
       - name: Publish
         if: steps.tag_check.outputs.exists_tag == 'false'
         run: |
-          npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
+          npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
           yarn lerna publish from-package --yes
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - uses: actions/github-script@0.8.0
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
