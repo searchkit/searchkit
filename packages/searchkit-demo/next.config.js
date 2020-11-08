@@ -1,10 +1,4 @@
-const withTM = require('next-transpile-modules')([
-  '@searchkit/apollo-resolvers',
-  '@searchkit/client',
-  '@searchkit/elastic-ui'
-])
-
-module.exports = withTM({
+module.exports = {
   webpack(config, { isServer }) {
     // EUI uses some libraries and features that don't work outside of a
     // browser by default. We need to configure the build so that these
@@ -44,4 +38,4 @@ module.exports = withTM({
 
     return config
   }
-})
+}
