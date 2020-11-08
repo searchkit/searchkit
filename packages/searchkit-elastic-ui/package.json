@@ -1,6 +1,6 @@
 {
   "name": "@searchkit/elastic-ui",
-  "version": "3.0.0-canary.4",
+  "version": "3.0.0-canary.5",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "lib/esm/index.d.ts",
@@ -21,7 +21,7 @@
   "dependencies": {
     "@apollo/client": "^3.2.5",
     "@elastic/eui": "^30.1.1",
-    "@searchkit/client": "^3.0.0-canary.4"
+    "@searchkit/client": "^3.0.0-canary.5"
   },
   "devDependencies": {
     "@types/react": "^16.9.55",
