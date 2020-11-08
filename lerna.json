@@ -3,5 +3,8 @@
     "packages/*"
   ],
   "version": "3.0.0-canary.4",
-  "includeMergedTags": true
+  "includeMergedTags": true,
+  "publishConfig": {
+    "access": "public"
+  }
 }
