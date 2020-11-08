@@ -3,10 +3,7 @@
     "packages/*"
   ],
   "version": "3.0.0-canary.4",
-  "includeMergedTags": true,
-  "publishConfig": {
-    "access": "public"
-  },
+  "includeMergedTags": true
   "command": {
     "publish": {
       "npmClient": "npm",

@@ -9,6 +9,9 @@
     "build": "rm -rf lib; tsc",
     "dev": "rm -rf lib; tsc --watch"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/searchkit/searchkit.git",

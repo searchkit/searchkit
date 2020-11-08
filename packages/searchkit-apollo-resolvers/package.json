@@ -9,6 +9,9 @@
     "url": "https://github.com/searchkit/searchkit.git",
     "directory": "packages/searchkit-apollo-resolvers"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "rm -rf lib; tsc",
     "dev": "rm -rf lib; tsc --watch",

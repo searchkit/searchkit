@@ -14,6 +14,9 @@
     "url": "https://github.com/searchkit/searchkit.git",
     "directory": "packages/searchkit-elastic-ui"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@apollo/client": "^3.2.5",
     "@elastic/eui": "^30.1.1",
