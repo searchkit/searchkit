@@ -22,7 +22,7 @@ export const RangeSliderFacet = ({ facet }) => {
   const selectedOptions = api.getFiltersById(facet.id)
   const selectedOption = selectedOptions && selectedOptions[0]
 
-  const [debouncedCallback] = useDebouncedCallback((value) => {
+  const debouncedCallback = useDebouncedCallback((value) => {
     api.removeFiltersById(facet.id)
     api.addFilter({ id: facet.id, min: value[0], max: value[1] })
     api.search()
@@ -46,7 +46,7 @@ export const RangeSliderFacet = ({ facet }) => {
         value={dualValue}
         onChange={(value) => {
           setDualValue(value)
-          debouncedCallback(value)
+          debouncedCallback.callback(value)
         }}
         levels={[
           {

@@ -20954,6 +20954,11 @@ use-debounce@^3.4.2:
   resolved "https://registry.yarnpkg.com/use-debounce/-/use-debounce-3.4.2.tgz#f4333cca59504244b916159600427bf977ec4c46"
   integrity sha512-rW44wZaFPh3XiwUzGBA0JRuklpbfKO/szU/5CYD2Q/erLmCem63lJ650p3a+NJE6S+g0rulKtBOfa/3rw/GN+Q==
 
+use-debounce@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/use-debounce/-/use-debounce-5.0.3.tgz#62842b25afc4054eef9349abef2fdeb86d9ede17"
+  integrity sha512-0V8HONUYV4gb4f08UTERaKiaojjzgxDB0pf8c9olAlPvm0Lr/3CGFbdzCktBP5dHGKtRkAReU1UuFcSpPMxrCg==
+
 use-isomorphic-layout-effect@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/use-isomorphic-layout-effect/-/use-isomorphic-layout-effect-1.0.0.tgz#f56b4ed633e1c21cd9fc76fe249002a1c28989fb"

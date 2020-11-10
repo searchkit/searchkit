@@ -11,7 +11,6 @@ module.exports = {
 
         return (context, request, callback) => {
           if (request.indexOf('elastic/eui') > -1 || request.indexOf('react-ace') > -1) {
-            console.log(request)
             return callback()
           }
 
@@ -23,7 +22,7 @@ module.exports = {
       // https://webpack.js.org/loaders/null-loader/
       config.module.rules.push({
         test: /react-ace/,
-        use: 'null-loader'
+        use: ['null-loader']
       })
 
       // Mock HTMLElement on the server-side
