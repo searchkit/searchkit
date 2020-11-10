@@ -1,6 +1,6 @@
 {
   "name": "@searchkit/apollo-resolvers",
-  "version": "3.0.0-canary.5",
+  "version": "3.0.0-canary.6",
   "main": "lib/index.js",
   "author": "Joseph McElroy <phoey1@gmail.com>",
   "license": "MIT",
@@ -18,32 +18,11 @@
     "test": "NODE_ENV=test jest --runInBand --forceExit --detectOpenHandles"
   },
   "dependencies": {
-    "@apollo/client": "^3.0.0-beta.50",
-    "@apollo/react-ssr": "^3.1.3",
     "@elastic/elasticsearch": "^7.9.1",
-    "@testing-library/jest-dom": "^5.1.1",
-    "@testing-library/react": "^10.0.1",
-    "apollo-server-micro": "^2.11.0",
-    "babel-jest": "^25.1.0",
     "dataloader": "^2.0.0",
-    "graphql": "^14.6.0",
-    "graphql-anywhere": "^4.2.7",
-    "graphql-tag": "^2.10.3",
-    "jest": "^25.1.0",
-    "next": "^9.4.0",
-    "next-with-apollo": "^5.0.0",
-    "node-fetch": "^2.6.0",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
-    "supertest": "^4.0.2"
+    "graphql-tag": "^2.10.3"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "1.15.0",
-    "@graphql-codegen/fragment-matcher": "^1.15.0",
-    "@graphql-codegen/introspection": "1.15.0",
-    "@graphql-codegen/typescript": "1.15.0",
-    "@graphql-codegen/typescript-operations": "1.15.0",
-    "@graphql-codegen/typescript-react-apollo": "1.15.0",
     "@pollyjs/adapter-node-http": "^5.0.0",
     "@pollyjs/core": "^5.0.0",
     "@pollyjs/persister-fs": "^5.0.0",
@@ -51,6 +30,8 @@
     "@types/react": "^16.9.23",
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "@typescript-eslint/parser": "^2.24.0",
+    "apollo-server-micro": "^2.19.0",
+    "babel-jest": "^25.1.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.7.0",
     "eslint-import-resolver-typescript": "^2.0.0",
@@ -60,16 +41,11 @@
     "eslint-plugin-react": "^7.1.0",
     "express": "^4.17.1",
     "husky": "^3.0.8",
-    "lodash": "^4.17.15",
-    "nock": "^12.0.3",
+    "jest": "^25.1.0",
     "prettier": "^1.19.1",
     "setup-polly-jest": "^0.9.1",
-    "stylelint": "^11.0.0",
-    "stylelint-config-prettier": "^6.0.0",
-    "stylelint-config-standard": "^19.0.0",
-    "stylelint-order": "^3.1.0",
-    "stylelint-prettier": "^1.1.1",
-    "typescript": "^3.8.3"
+    "supertest": "^4.0.2",
+    "typescript": "^4.0.5"
   },
   "husky": {
     "hooks": {

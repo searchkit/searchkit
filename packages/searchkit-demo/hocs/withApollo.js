@@ -1,7 +1,6 @@
 import React from 'react'
 import withApollo from 'next-with-apollo'
 import { InMemoryCache, ApolloProvider, ApolloClient } from '@apollo/client'
-// import introspectionResult from './introspection'
 
 export default withApollo(
   ({ initialState }) => {

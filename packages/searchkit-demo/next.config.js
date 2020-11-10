@@ -10,7 +10,8 @@ module.exports = {
         }
 
         return (context, request, callback) => {
-          if (request.indexOf('@elastic/eui') > -1 || request.indexOf('react-ace') > -1) {
+          if (request.indexOf('elastic/eui') > -1 || request.indexOf('react-ace') > -1) {
+            console.log(request)
             return callback()
           }
 
