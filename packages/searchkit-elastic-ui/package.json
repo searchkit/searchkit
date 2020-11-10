@@ -1,6 +1,6 @@
 {
   "name": "@searchkit/elastic-ui",
-  "version": "3.0.0-canary.6",
+  "version": "3.0.0-canary.7",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "lib/esm/index.d.ts",
@@ -19,7 +19,7 @@
     "access": "public"
   },
   "dependencies": {
-    "use-debounce":"^5.0.3"
+    "use-debounce": "^5.0.3"
   },
   "devDependencies": {
     "@types/react": "^16.9.55",
