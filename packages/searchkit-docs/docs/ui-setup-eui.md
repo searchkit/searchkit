@@ -9,14 +9,21 @@ This guide will step you through how to use the out the box searchkit UI compone
 
 ```yarn add @searchkit/elastic-ui @elastic/eui```
 
-Next (if you have been following the guide with NextJS) go to pages/index.js and:
-- import the components from searchkit and EUI
-- Update the GQL query to include all fields required by searchkit's components
-- Add Searchkit components to the page
+Next (if you have been following the guide with NextJS) has an issue with EUI and SSR so we are going to [dynamicly import](https://nextjs.org/docs/advanced-features/dynamic-import) the component.
+
+First create a JS file called search.js in components folder which will be the search page.
+
+The search page will contain the following:
+- components from searchkit client, elastic-ui and elastic's EUI
+- A GQL query using all fields required by searchkit's components
 
 Below is an example of a typical Searchkit page which uses EUI and searchkit EUI. 
 
 ```javascript
+# components/search.js
+
+import { useSearchkitQuery } from '@searchkit/client'
+import { gql } from '@apollo/client'
 
 import {
   FacetsList,
@@ -39,7 +46,8 @@ import {
   EuiTitle,
   EuiHorizontalRule,
   EuiButtonGroup,
-  EuiFlexGroup
+  EuiFlexGroup,
+  EuiFlexItem
 } from '@elastic/eui'
 
 const query = gql`
@@ -68,8 +76,6 @@ const query = gql`
             title
             writers
             actors
-            plot
-            poster
           }
         }
       }
@@ -147,4 +153,24 @@ export default () => {
     </EuiPage>
   )
 }
+
+```
+
+then go to pages/index.js and update
+
+```javascript
+import { withSearchkit } from "@searchkit/client";
+import withApollo from "../lib/withApollo";
+import dynamic from 'next/dynamic'
+const Search = dynamic(
+  () => import('../components/Search'),
+  { ssr: false }
+)
+
+
+const Index = () => {
+  return <Search />
+}
+
+export default withApollo(withSearchkit(Index));
 ```
