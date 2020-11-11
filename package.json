@@ -21,15 +21,6 @@
     "lint": "eslint . --ext js,ts,tsx --fix"
   },
   "devDependencies": {
-    "@babel/core": "7.10.2",
-    "@babel/preset-env": "^7.10.2",
-    "@graphql-codegen/cli": "1.15.0",
-    "@graphql-codegen/fragment-matcher": "^1.15.0",
-    "@graphql-codegen/introspection": "1.15.0",
-    "@graphql-codegen/typescript": "1.15.0",
-    "@graphql-codegen/typescript-operations": "1.15.0",
-    "@graphql-codegen/typescript-react-apollo": "1.15.0",
-    "@spotify/polly-jest-presets": "^3.1.0",
     "@types/elasticsearch": "^5.0.36",
     "@types/node": "^13.9.1",
     "@types/react": "^16.9.23",
@@ -42,11 +33,7 @@
     "eslint-plugin-jest": "^23.1.1",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.1.0",
-    "express": "^4.17.1",
     "husky": "^3.0.8",
-    "jest": "^26.0.1",
-    "lodash": "^4.17.15",
-    "nock": "^12.0.3",
     "prettier": "^1.19.1",
     "stylelint": "^11.0.0",
     "stylelint-config-prettier": "^6.0.0",
@@ -54,7 +41,7 @@
     "stylelint-order": "^3.1.0",
     "stylelint-prettier": "^1.1.1",
     "ts-jest": "^26.1.0",
-    "typescript": "^3.8.3"
+    "typescript": "^4.0.5"
   },
   "husky": {
     "hooks": {
