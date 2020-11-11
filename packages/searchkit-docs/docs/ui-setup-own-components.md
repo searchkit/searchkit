@@ -81,7 +81,7 @@ const FacetsList = ({ data, loading }) => {
 
 ```javascript
 
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import { useSearchkitQuery, useSearchkit } from '@searchkit/client'
 import withApollo from '../lib/withApollo';
 import { useState } from 'react'

@@ -11,17 +11,16 @@ This section we will be setting up the UI part of searchkit.
 
 First we need to setup Apollo client. In this guide we will be using [nextjs](https://nextjs.org/) & [withApollo HOC](https://github.com/lfades/next-with-apollo)
 
-We add the apollo-boost & next-with-apollo dependencies via yarn
+We add the @apollo/client & next-with-apollo dependencies via yarn
 
-```yarn add next-with-apollo apollo-boost```
+```yarn add next-with-apollo @apollo/client```
 
 Then we configure apollo with next.
 
 ```javascript
 // lib/withApollo.js
 import withApollo from 'next-with-apollo';
-import ApolloClient, { InMemoryCache } from 'apollo-boost';
-import { ApolloProvider } from '@apollo/react-hooks';
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 
 export default withApollo(
   ({ initialState }) => {
@@ -43,8 +42,7 @@ export default withApollo(
 
 // pages/index.js
 
-import gql from 'graphql-tag';
-import { useQuery } from '@apollo/react-hooks';
+import { gql, useQuery } from '@apollo/client';
 import withApollo from '../lib/withApollo';
 
 const query = gql`
@@ -94,7 +92,7 @@ then update the root page to use the searchkit HOC
 ```javascript
 // pages/index.js
 
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import { useSearchkitQuery, useSearchkit } from '@searchkit/client'
 import withApollo from '../lib/withApollo';
 import { useState } from 'react'
