@@ -16,5 +16,5 @@ jobs:
           vercel-args: "--prod" #Optional
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}} #Required
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required
-          working-directory: ./packages/searchkit-docs
+          working-directory: ./docs
           vercel-project-name: searchkit-docs

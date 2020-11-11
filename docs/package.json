@@ -1,6 +1,6 @@
 {
-  "name": "@searchkit/searchkit-docs",
-  "version": "3.0.0-canary.8",
+  "name": "searchkit-docs",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
