@@ -48,7 +48,7 @@ export class SearchkitClient {
   private query: string
   private filters: Array<Filter>
   private page: PageOptions
-  private onSearch: Function
+  private onSearch: (variables: SearchkitQueryVariables) => void
   public apolloOptions: SearchkitClientApolloOptionsConfig
 
   constructor(config: SearchkitClientConfig = {}) {
@@ -66,7 +66,7 @@ export class SearchkitClient {
     if (this.onSearch) this.onSearch({ query: this.query, filters: this.filters, page: this.page })
   }
 
-  setCallbackFn(callback: (variables: SearchkitQueryVariables) => any) {
+  setCallbackFn(callback: (variables: SearchkitQueryVariables) => void) {
     this.onSearch = callback
   }
 
