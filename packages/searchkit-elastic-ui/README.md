@@ -2,7 +2,7 @@
 
 ## Searchkit Elastic UI
 
-[![npm version](https://badge.fury.io/js/%40searchkit%2Fclient.svg)](https://badge.fury.io/js/%40searchkit%2Fclient)
+[![npm version](https://badge.fury.io/js/%40searchkit%2Felastic-ui.svg)](https://badge.fury.io/js/%40searchkit%2Felastic-ui)
 
 Searchkit Elastic UI is a suite of React Components based on @elastic/eui UI framework which integrates with Searchkit's API to provide a great search experience.
 
