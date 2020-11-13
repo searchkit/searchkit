@@ -39,10 +39,10 @@ const Navigation = () => (
   </div>
 )
 
-const HeroImage = ({ src='img/m/search.jpeg', width="530px", height="400px" }) => {
+const HeroImage = ({ src='img/m/search.jpeg', width="580px", height="450px" }) => {
 
   return (
-    <div className="rounded-lg overflow-hidden shadow-xl inline-block border-black border mx-auto lg:mx-0" style={{
+    <div className="flex rounded-lg overflow-hidden shadow-xl border-black border rounded-b-none" style={{
         backgroundImage: `url(${useBaseUrl(src)})`,
         backgroundSize: 'cover',
         width,
@@ -54,7 +54,7 @@ const HeroImage = ({ src='img/m/search.jpeg', width="530px", height="400px" }) =
 
 const Hero = () => (
   <div className="relative bg-gray-900 overflow-hidden">
-    <div className="py-24 mx-auto container px-4 sm:mt-8 relative">
+    <div className="py-24 mx-auto container px-4 sm:mt-8 relative lg:pb-0">
       <div className="grid grid-cols-12 gap-12">
 
         <div className="col-span-12 lg:col-span-5">
@@ -231,11 +231,11 @@ const code2 = `
                 <div className="flex flex-col justify-between w-4/5 sm:ml-10">
                   <div className="flex flex-col justify-between mt-20 sm:mt-0">
                     <h3 className="text-xl font-bold mt-1">Client Friendly</h3>
-                    <p className="mt-1">All the heavy lifting is done by the API, making it easy to integrate on your React website or Swift iOS App.</p>
+                    <p className="mt-1">All the heavy lifting is done by the API, making it easy to integrate your React website or Swift iOS App.</p>
                   </div>
                   <div className="flex flex-col justify-between mt-20">
                     <h3 className="text-xl font-bold mt-1">Flexible Customisation</h3>
-                    <p className="mt-1">Easily extend and add your own facets. Write your own resolvers to provide information not just from elasticsearch.</p>
+                    <p className="mt-1">Easily extend and add your own facets. Write your own resolvers to provide information that comes from other sources, not just from elasticsearch.</p>
                   </div>
                 </div>
               </div>
