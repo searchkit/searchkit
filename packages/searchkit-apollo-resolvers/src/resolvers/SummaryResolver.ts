@@ -10,7 +10,7 @@ export default async (parent, {}, ctx) => {
   try {
     const results = await skRequest.search({})
     return {
-      total: results.hits.total.value,
+      total: results.hits.total.value ? results.hits.total.value : results.hits.total,
       query: queryManager.getQuery(),
       appliedFilters: queryManager.getFilters().map((filterSet) => {
         const facetConfig = config.facets.find((facet) => facet.getId() === filterSet.id)
