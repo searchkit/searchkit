@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-canary.10](https://github.com/searchkit/searchkit/compare/v2.3.0...v3.0.0-canary.10) (2020-11-13)
+
+**Note:** Version bump only for package @searchkit/apollo-resolvers
+
+
+
+
+
 # [3.0.0-canary.9](https://github.com/searchkit/searchkit/compare/v2.3.0...v3.0.0-canary.9) (2020-11-13)
 
 **Note:** Version bump only for package @searchkit/apollo-resolvers
