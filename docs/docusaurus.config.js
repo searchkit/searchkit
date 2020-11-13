@@ -12,7 +12,7 @@ module.exports = {
   tagline: 'Search, made easy',
   url: 'https://searchkit.co',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'searchkit', // Usually your GitHub org/user name.
   projectName: 'searchkit', // Usually your repo name.
