@@ -9,7 +9,7 @@ Searchkit Elastic UI is a suite of React Components based on @elastic/eui UI fra
 ## Documentation
 
 All Searchkit Elastic UI documentation can be found at: <br/>
-[https://www.searchkit.co/docs/](https://www.searchkit.co/docs/)
+[https://searchkit.co/docs/](https://searchkit.co/docs/)
 
 The Searchkit Elastic UI API reference can be found at: <br/>
-[https://www.searchkit.co/docs/docs/reference/searchkit-elastic-ui](https://www.searchkit.co/docs/docs/reference/searchkit-elastic-ui/)
+[https://searchkit.co/docs/docs/reference/searchkit-elastic-ui](https://searchkit.co/docs/docs/reference/searchkit-elastic-ui/)

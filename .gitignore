@@ -22,5 +22,6 @@ package-lock.json
 package-lock.json
 **/.rpt2_cache/**
 .next
+.vercel
 
 

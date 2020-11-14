@@ -1,4 +1,4 @@
-# <a href="https://www.searchkit.co/">Searchkit</a>
+# <a href="https://searchkit.co/">Searchkit</a>
 
 ## Searchkit Apollo Resolvers
 
@@ -9,7 +9,7 @@ Searchkit Apollo Resolvers is a library which allows you to build a Search API d
 ## Documentation
 
 All Searchkit documentation can be found at: <br/>
-[https://www.searchkit.co/docs/](https://www.searchkit.co/docs/)
+[https://searchkit.co/docs/](https://searchkit.co/docs/)
 
 The Searchkit Apollo Resolvers API reference can be found at: <br/>
-[https://www.searchkit.co/docs/docs/reference/apollo-resolvers](https://www.searchkit.co/docs/docs/reference/reference/apollo-resolvers/)
+[https://searchkit.co/docs/reference/apollo-resolvers](https://searchkit.co/docs/reference/apollo-resolvers)

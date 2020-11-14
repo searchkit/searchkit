@@ -9,7 +9,7 @@ Searchkit Client is a client that manages search state (query, filters and pagin
 ## Documentation
 
 All Searchkit Client documentation can be found at: <br/>
-[https://www.searchkit.co/docs/](https://www.searchkit.co/docs/)
+[https://searchkit.co/docs/](https://searchkit.co/docs/)
 
 The Searchkit Client API reference can be found at: <br/>
-[https://www.searchkit.co/docs/docs/reference/searchkit-client](https://www.searchkit.co/docs/docs/reference/searchkit-client/)
+[https://searchkit.co/docs/docs/reference/searchkit-client](https://searchkit.co/docs/docs/reference/searchkit-client/)

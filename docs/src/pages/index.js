@@ -11,6 +11,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import Highlight, { defaultProps } from "prism-react-renderer";
 import theme from "prism-react-renderer/themes/nightOwl";
+import Head from '@docusaurus/Head'
 
 const Navigation = () => (
   <div className="z-10 fixed top-0 left-0 right-0">
@@ -281,7 +282,20 @@ const FrontendIntro = () => {
 function Home() {
   const context = useDocusaurusContext();
   const {siteConfig = {}} = context;
+
+  useEffect(() => {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-Y1LWVCFZQK');
+  }, [])
+
   return (
+    <div>
+      <Head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y1LWVCFZQK"></script>
+      </Head>
     <div className="font-sans antialiased text-gray-900">
       <div className="h-full min-h-full">
         <Navigation />
@@ -289,6 +303,7 @@ function Home() {
       </div>
       <ConfigIntro />
       <FrontendIntro />
+    </div>
     </div>
   );
 }
