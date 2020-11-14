@@ -18,6 +18,9 @@ module.exports = {
   projectName: 'searchkit', // Usually your repo name.
   stylesheets: ['https://unpkg.com/tailwindcss@1.9.2/dist/tailwind.min.css'],
   themeConfig: {
+    gtag: {
+      trackingID: 'G-Y1LWVCFZQK',
+    },
     navbar: {
       title: 'Searchkit',
       items: [
@@ -37,63 +40,9 @@ module.exports = {
     footer: {
       style: 'dark',
       links: [
-        {
-          title: 'Learn',
-          items: [
-            {
-              label: 'Style Guide',
-              to: 'docs/',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'Blog',
-              to: 'blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'Legal',
-          // Please do not remove the privacy and terms, it's a legal requirement.
-          items: [
-            {
-              label: 'Privacy',
-              href: 'https://opensource.facebook.com/legal/privacy/',
-            },
-            {
-              label: 'Terms',
-              href: 'https://opensource.facebook.com/legal/terms/',
-            },
-          ],
-        },
+        
+      
+        
       ],
       logo: {
         alt: 'Facebook Open Source Logo',
@@ -101,7 +50,7 @@ module.exports = {
         href: 'https://opensource.facebook.com',
       },
       // Please do not remove the credits, help to publicize Docusaurus :)
-      copyright: `Copyright © ${new Date().getFullYear()} Facebook, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Ten Eleven, Inc. Built with Docusaurus.`,
     },
   },
   presets: [
@@ -126,4 +75,5 @@ module.exports = {
       },
     ],
   ],
+  plugins: []
 };
