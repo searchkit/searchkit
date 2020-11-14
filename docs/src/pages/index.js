@@ -55,7 +55,7 @@ const HeroImage = ({ src='img/m/search.jpeg', width="580px", height="450px" }) =
 
 const Hero = () => (
   <div className="relative bg-gray-900 overflow-hidden">
-    <div className="py-24 mx-auto container px-4 sm:mt-8 relative lg:pb-0">
+    <div className="py-24 mx-auto container px-4 mt-12 relative lg:pb-0">
       <div className="grid grid-cols-12 gap-12">
 
         <div className="col-span-12 lg:col-span-5">
