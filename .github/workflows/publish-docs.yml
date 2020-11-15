@@ -1,9 +1,8 @@
 name: deploy docs
 on:
-  push
-  # push:
-  #   branches:
-  #     - next
+  push:
+    branches:
+      - next
 jobs:
   deploy:
     runs-on: ubuntu-latest

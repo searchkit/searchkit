@@ -24,8 +24,14 @@ const Navigation = () => (
           <div className="md:col-span-9 items-center flex justify-between md:justify-end  space-x-6 h-16">
             <div className="flex justify-between md:justify-end items-center flex-1 md:space-x-2">
               <div>
+                <a href="https://blog.searchkit.co" className="rounded-md py-2 px-3 inline-flex items-center leading-5 font-medium text-gray-100 betterhover:hover:bg-gray-100 hover:text-gray-100 hover:bg-gray-800 focus:outline-none focus:text-gray-900 focus:bg-gray-200 transition duration-150 ease-in-out">
+                  Blog
+                </a>
                 <a href="/docs" className="rounded-md py-2 px-3 inline-flex items-center leading-5 font-medium text-gray-100 betterhover:hover:bg-gray-100 hover:text-gray-100 hover:bg-gray-800 focus:outline-none focus:text-gray-900 focus:bg-gray-200 transition duration-150 ease-in-out">
                   Docs
+                </a>
+                <a href="https://demo.searchkit.co" className="rounded-md py-2 px-3 inline-flex items-center leading-5 font-medium text-gray-100 betterhover:hover:bg-gray-100 hover:text-gray-100 hover:bg-gray-800 focus:outline-none focus:text-gray-900 focus:bg-gray-200 transition duration-150 ease-in-out">
+                  Demo
                 </a>
               </div>
               <div>
@@ -55,8 +61,8 @@ const HeroImage = ({ src='img/m/search.jpeg', width="580px", height="450px" }) =
 
 const Hero = () => (
   <div className="relative bg-gray-900 overflow-hidden">
-    <div className="py-24 mx-auto container px-4 mt-12 relative lg:pb-0">
-      <div className="grid grid-cols-12 gap-12">
+    <div className="py-24 mx-auto container px-4 mt-20 lg:mt-14 relative lg:pb-0">
+      <div className="grid grid-cols-12">
 
         <div className="col-span-12 lg:col-span-5">
           <div className="text-center lg:text-left md:max-w-2xl md:mx-auto">
@@ -65,7 +71,7 @@ const Hero = () => (
           <p className="mt-3 text-base text-gray-400 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">Searchkit is an open source library which helps you build a great search experience with Elasticsearch.</p>
           <div className="mt-5  mx-auto sm:flex sm:justify-center lg:justify-start lg:mx-0 md:mt-8">
             <div className="rounded-md shadow">
-              <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:border-gray-500 focus:shadow-outline-white transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10" href="/docs/overview">Get Started</a>
+              <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:border-gray-500 focus:shadow-outline-white transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10" href="/docs">Get Started</a>
             </div>
             <div className="rounded-md shadow ml-3">
               <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-100 bg-gray-900 hover:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-blue transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10 border-gray-900" href="https://demo.searchkit.co">View Demo</a>
@@ -264,10 +270,10 @@ const FrontendIntro = () => {
             </div>
             <div className="mt-5 mx-auto sm:flex justify-center md:mt-8">
               <div className="rounded-md shadow">
-                <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:border-gray-500 focus:shadow-outline-white transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10" href="/docs/overview">View Demo</a>
+                <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:border-gray-500 focus:shadow-outline-white transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10" href="https://demo.searchkit.co">View Demo</a>
               </div>
               <div className="rounded-md shadow ml-3">
-                <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-100 bg-gray-900 hover:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-blue transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10 border-gray-900" href="/docs/overview">View Code</a>
+                <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-100 bg-gray-900 hover:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-blue transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10 border-gray-900" href="https://github.com/searchkit/searchkit/blob/next/examples/next/components/index.jsx#L81">View Code</a>
               </div>
             </div>
           </div>
@@ -281,20 +287,20 @@ const FrontendIntro = () => {
 
 function Home() {
   const context = useDocusaurusContext();
-  const {siteConfig = {}} = context;
-
-  useEffect(() => {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-Y1LWVCFZQK');
-  }, [])
 
   return (
     <div>
       <Head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y1LWVCFZQK"></script>
+        <title>Searchkit | Search UI with elasticsearch, made easy. </title>
+        <description>Search UI toolkit powered by Elasticsearch and Apollo GraphQL. Out the box React components using Elastic EUI.</description>
+        <meta property="og:title" content="Searchkit - Search, made easy"/>
+        <meta property="og:description" content="Search UI toolkit powered by Elasticsearch and Apollo GraphQL. Out the box React components using Elastic EUI."/>
+        <meta property="og:image" content={useBaseUrl('img/m/search.jpeg')}/>
+        <meta property="og:url" content="https://searchkit.co"/>
+        <meta property="twitter:title" content="Searchkit - Search, made easy"/>
+        <meta property="twitter:description" content="Search UI toolkit powered by Elasticsearch and Apollo GraphQL. Out the box React components using Elastic EUI."/>
+        <meta property="twitter:image" content={useBaseUrl('img/m/search.jpeg')}/>
+        <meta property="twitter:url" content="summary_large_image"/>
       </Head>
     <div className="font-sans antialiased text-gray-900">
       <div className="h-full min-h-full">
