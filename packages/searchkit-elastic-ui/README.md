@@ -12,4 +12,4 @@ All Searchkit Elastic UI documentation can be found at: <br/>
 [https://searchkit.co/docs/](https://searchkit.co/docs/)
 
 The Searchkit Elastic UI API reference can be found at: <br/>
-[https://searchkit.co/docs/docs/reference/searchkit-elastic-ui](https://searchkit.co/docs/docs/reference/searchkit-elastic-ui/)
+[https://searchkit.co/docs/reference/searchkit-elastic-ui](https://searchkit.co/docs/reference/searchkit-elastic-ui/)

@@ -12,4 +12,4 @@ All Searchkit Client documentation can be found at: <br/>
 [https://searchkit.co/docs/](https://searchkit.co/docs/)
 
 The Searchkit Client API reference can be found at: <br/>
-[https://searchkit.co/docs/docs/reference/searchkit-client](https://searchkit.co/docs/docs/reference/searchkit-client/)
+[https://searchkit.co/docs/reference/searchkit-client](https://searchkit.co/docs/reference/searchkit-client/)
