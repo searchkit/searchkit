@@ -63,11 +63,6 @@ export default class SearchkitRequest {
 
   private async executeQuery(esQuery): Promise<SearchResponse<any>> {
     try {
-      console.log({
-        host: this.config.host,
-        index: this.config.index,
-        query: JSON.stringify(esQuery)
-      })
 
       const client = new Client({
         node: this.config.host
