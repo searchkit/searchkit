@@ -23,8 +23,6 @@
     "graphql-tag": "^2.10.3"
   },
   "devDependencies": {
-    "@babel/preset-env": "7.11.5",
-    "@babel/preset-typescript": "7.10.4",
     "@pollyjs/adapter-node-http": "^5.0.0",
     "@pollyjs/core": "^5.0.0",
     "@pollyjs/persister-fs": "^5.0.0",
@@ -33,17 +31,8 @@
     "apollo-server-micro": "^2.19.0",
     "babel-jest": "^25.1.0",
     "express": "^4.17.1",
-    "husky": "^3.0.8",
-    "jest": "^25.1.0",
-    "prettier": "^1.19.1",
     "setup-polly-jest": "^0.9.1",
     "supertest": "^4.0.2",
     "typescript": "^4.0.5"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint",
-      "pre-push": "yarn test"
-    }
   }
 }

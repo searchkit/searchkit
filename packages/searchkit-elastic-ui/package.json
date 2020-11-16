@@ -32,11 +32,5 @@
     "@apollo/client": "^3.2.5",
     "@elastic/eui": "^30.0.0",
     "@searchkit/client": "^3.x.x"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint",
-      "pre-push": "yarn test"
-    }
   }
 }

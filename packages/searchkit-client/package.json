@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf lib; tsc && tsc -p tsconfig-cjs.json",
-    "dev": "rm -rf lib; tsc --watch"
+    "dev": "rm -rf lib; tsc --watch",
+    "test": "jest"
   },
   "publishConfig": {
     "access": "public"
@@ -19,23 +20,19 @@
     "directory": "packages/searchkit-client"
   },
   "devDependencies": {
+    "@testing-library/react-hooks": "^3.4.2",
     "@types/node": "^13.9.1",
     "@types/react": "^16.9.23",
-    "babel-jest": "^25.1.0",
     "husky": "^3.0.8",
-    "jest": "^25.1.0",
+    "jest": "^26.6.3",
     "prettier": "^1.19.1",
+    "react-test-renderer": "^17.0.1",
+    "ts-jest": "^26.4.4",
     "typescript": "^4.0.5"
   },
   "peerDependencies": {
     "@apollo/client": "*",
     "react": "*",
     "react-dom": "*"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint",
-      "pre-push": "yarn test"
-    }
   }
 }
