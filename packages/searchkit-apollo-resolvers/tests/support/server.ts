@@ -1,5 +1,5 @@
 import { ApolloServer, gql } from 'apollo-server-micro'
-import { SearchkitResolvers, SearchkitSchema } from '../../src/index'
+import { SearchkitResolvers, SearchkitSchema, SearchkitConfig } from '../../src/index'
 
 const typeDefs = [
   gql`
@@ -23,9 +23,9 @@ const typeDefs = [
 ]
 
 class Server {
-  logger
+  config: SearchkitConfig
 
-  constructor(config) {
+  constructor(config: SearchkitConfig) {
     this.config = config
   }
 

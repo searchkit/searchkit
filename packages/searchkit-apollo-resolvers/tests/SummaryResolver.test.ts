@@ -11,7 +11,8 @@ describe('Summary Resolver', () => {
     }
 
     const config: SearchkitConfig = {
-      host: 'http://localhost:9200/movies/_search',
+      host: 'http://localhost:9200',
+      index: 'movies',
       hits: {
         fields: ['actors', 'writers']
       },

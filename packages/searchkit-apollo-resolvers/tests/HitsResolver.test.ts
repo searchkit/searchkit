@@ -26,7 +26,8 @@ describe('Hits Resolver', () => {
 
     it('should return correct Results', async () => {
       const config: SearchkitConfig = {
-        host: 'http://localhost:9200/movies/_search',
+        host: 'http://localhost:9200',
+        index: 'movies',
         hits: {
           fields: ['actors', 'writers']
         },
@@ -42,7 +43,8 @@ describe('Hits Resolver', () => {
 
     it('should return correct Results on page 2', async () => {
       const config: SearchkitConfig = {
-        host: 'http://localhost:9200/movies/_search',
+        host: 'http://localhost:9200',
+        index: 'movies',
         hits: {
           fields: ['actors', 'writers']
         },

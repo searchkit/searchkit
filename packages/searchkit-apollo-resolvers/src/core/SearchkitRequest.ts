@@ -63,7 +63,6 @@ export default class SearchkitRequest {
 
   private async executeQuery(esQuery): Promise<SearchResponse<any>> {
     try {
-
       const client = new Client({
         node: this.config.host
       })
