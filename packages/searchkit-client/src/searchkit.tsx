@@ -103,7 +103,7 @@ export class SearchkitClient {
 
   getFiltersById(id): Filter[] | null {
     const filters = this.filters.filter((filter) => id === filter.id)
-    return filters.length > 0 ? filters : null
+    return filters.length > 0 ? filters : []
   }
 
   removeFilter(filter) {
