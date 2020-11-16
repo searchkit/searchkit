@@ -5,7 +5,7 @@
   "module": "./lib/esm/index.js",
   "types": "./lib/esm/index.d.ts",
   "author": "Joseph McElroy <phoey1@gmail.com>",
-  "license": "MIT",
+  "license": "Apache-2.0",  
   "scripts": {
     "build": "rm -rf lib; tsc && tsc -p tsconfig-cjs.json",
     "dev": "rm -rf lib; tsc --watch",
