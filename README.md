@@ -13,7 +13,7 @@ Seachkit is Graph QL / React UI Component framework to:
 ### Quick Intro
 From a configuration
 
-```javascipt
+```js
 const searchkitConfig = {
   host: 'http://demo.searchkit.co/api/',
   index: 'movies',
@@ -157,11 +157,11 @@ See [quickstart guide](https://searchkit.co/docs/quick-start/ui/eui)
 * @searchkit/elastic-ui [Documentation](https://searchkit.co/docs/reference/searchkit-elastic-ui)
 
 ### FAQ
-*Q: Can I upgrade from searchkit v2?
-*A: Searchkit has undergone a total rewrite so whilst it should be straightforward to move onto, any code written for searchkit legacy wouldn't work on Searchkit v3.
+#### Can I upgrade from Searchkit v2?
+Searchkit has undergone a total rewrite so whilst it should be straightforward to move onto, any code written for searchkit legacy wouldn't work on Searchkit v3.
 
-*Q: Do I need to expose my elasticsearch instance to the browser?
-*A: No! You dont expose your elasticsearch cluster to the browser, Search API sits in between elasticsearch and the browser.
+#### Do I need to expose my Elasticsearch instance to the browser?
+No! You dont expose your elasticsearch cluster to the browser, Search API sits in between elasticsearch and the browser.
 
-*Q: Im building a Native App / use angular. Do I need to use the Searchkit UI components?
-A: No! Searchkit API provides a dev friendly search API. Searchkit simplifies using elasticsearch for search so that you can build your own UI components very easily. If your apps dont use react or you are building a native mobile app, you can just use the searchkit API. [See our blog article for more information](https://blog.searchkit.co/searchkit-why-graphql-aa886603b698)
+#### I'm building a Native App / use angular. Do I need to use the Searchkit UI components?
+No! Searchkit API provides a dev friendly search API. Searchkit simplifies using elasticsearch for search so that you can build your own UI components very easily. If your apps dont use react or you are building a native mobile app, you can just use the searchkit API. [See our blog article for more information](https://blog.searchkit.co/searchkit-why-graphql-aa886603b698)
