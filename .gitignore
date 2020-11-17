@@ -23,5 +23,8 @@ package-lock.json
 **/.rpt2_cache/**
 .next
 .vercel
+jspm_packages
 
+# Serverless directories
+.serverless
 
