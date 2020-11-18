@@ -5,8 +5,9 @@ on:
   #   branches:
   #     - next
   #   types: [closed]
-  branches:
-    - fix-ci
+  push:
+    branches:
+      - fix-ci
 
 env:
   CI: true
