@@ -1,11 +1,19 @@
 {
   "name": "@searchkit/client",
-  "version": "3.0.0-canary.12",
+  "version": "3.0.0-canary.13",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./lib/esm/index.d.ts",
   "author": "Joseph McElroy <phoey1@gmail.com>",
-  "license": "Apache-2.0",  
+  "license": "Apache-2.0",
+  "keywords": [
+    "graphql",
+    "elasticsearch",
+    "apollo",
+    "search",
+    "react",
+    "ui components"
+  ],
   "scripts": {
     "build": "rm -rf lib; tsc && tsc -p tsconfig-cjs.json",
     "dev": "rm -rf lib; tsc --watch",
