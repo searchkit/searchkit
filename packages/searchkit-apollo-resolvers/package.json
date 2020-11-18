@@ -4,6 +4,7 @@
   "main": "lib/index.js",
   "author": "Joseph McElroy <phoey1@gmail.com>",
   "license": "Apache-2.0",
+  "keywords": ["graphql", "elasticsearch", "apollo", "search"],
   "repository": {
     "type": "git",
     "url": "https://github.com/searchkit/searchkit.git",

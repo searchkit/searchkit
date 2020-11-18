@@ -6,6 +6,14 @@
   "types": "./lib/esm/index.d.ts",
   "author": "Joseph McElroy <phoey1@gmail.com>",
   "license": "Apache-2.0",  
+  "keywords": [
+    "graphql",
+    "elasticsearch",
+    "apollo",
+    "search",
+    "react",
+    "ui components"
+  ],
   "scripts": {
     "build": "rm -rf lib; tsc && tsc -p tsconfig-cjs.json",
     "dev": "rm -rf lib; tsc --watch",
