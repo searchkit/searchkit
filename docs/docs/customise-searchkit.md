@@ -224,7 +224,7 @@ then you should be able to query for facet
   query {
     results {
     	facets {
-        ... on RefinementSelectFacet {
+        ... on CustomFacet {
           id
           label
           type

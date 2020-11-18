@@ -27,6 +27,9 @@ const Navigation = () => (
                 <a href="https://blog.searchkit.co" className="rounded-md py-2 px-3 inline-flex items-center leading-5 font-medium text-gray-100 betterhover:hover:bg-gray-100 hover:text-gray-100 hover:bg-gray-800 focus:outline-none focus:text-gray-900 focus:bg-gray-200 transition duration-150 ease-in-out">
                   Blog
                 </a>
+                <a href="https://discord.gg/CRuWmSQZQx" className="rounded-md py-2 px-3 inline-flex items-center leading-5 font-medium text-gray-100 betterhover:hover:bg-gray-100 hover:text-gray-100 hover:bg-gray-800 focus:outline-none focus:text-gray-900 focus:bg-gray-200 transition duration-150 ease-in-out">
+                  Discord
+                </a>
                 <a href="/docs" className="rounded-md py-2 px-3 inline-flex items-center leading-5 font-medium text-gray-100 betterhover:hover:bg-gray-100 hover:text-gray-100 hover:bg-gray-800 focus:outline-none focus:text-gray-900 focus:bg-gray-200 transition duration-150 ease-in-out">
                   Docs
                 </a>
