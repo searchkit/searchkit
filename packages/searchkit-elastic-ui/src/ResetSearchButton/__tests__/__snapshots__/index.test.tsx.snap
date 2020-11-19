@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResetSearchButton renders 1`] = `
+<button
+  className="euiButtonEmpty euiButtonEmpty--primary euiButtonEmpty-isDisabled"
+  disabled={true}
+  onClick={[Function]}
+  type="button"
+>
+  <span
+    className="euiButtonContent euiButtonEmpty__content"
+  >
+    <span
+      className="euiButtonEmpty__text"
+    >
+      Reset Search
+    </span>
+  </span>
+</button>
+`;
