@@ -26,6 +26,7 @@ module.exports = {
       'searchkit-client',
       'searchkit-elastic-ui',
     ],
-    Examples: ['example-apps-next', 'example-apps-aws-lambda']
+    Examples: ['example-apps-next', 'example-apps-aws-lambda'],
+    Guides: ['v2-v3-migration']
   },
 };
