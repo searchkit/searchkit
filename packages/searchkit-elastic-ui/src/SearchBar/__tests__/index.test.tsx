@@ -5,7 +5,6 @@ jest.mock('@searchkit/client', () => {
   // Require the original module to not be mocked...
   const originalModule = jest.requireActual('@searchkit/client')
   const api = new originalModule.SearchkitClient()
-  api.onSearch = jest.fn()
   return {
     __esModule: true,
     ...originalModule,
@@ -19,12 +18,15 @@ import renderer from 'react-test-renderer'
 import { SearchBar } from '../index'
 
 describe('SearchBar', () => {
-  it("renders", () => {
-    const x = renderer.create(<SearchBar />)
+  it('renders', () => {
+    const x = renderer.create(<SearchBar loading={false} />)
     expect(x.toJSON()).toMatchSnapshot()
   })
 
   it('Provide search term to api via setQuery', async () => {
+    const mockApi: SearchkitClient = SearchkitClient as any
+    const searchCall = jest.fn()
+    mockApi.setCallbackFn(searchCall)
     render(<SearchBar loading={false} />)
     expect(screen.getByLabelText('Search')).toBeVisible()
     fireEvent.change(screen.getByLabelText('Search'), { target: { value: 'test' } })
@@ -36,9 +38,8 @@ describe('SearchBar', () => {
       code: 13,
       charCode: 13
     })
-    const mockApi: SearchkitClient = SearchkitClient as any
     expect(mockApi.getQuery()).toBe('test')
-    expect(mockApi.onSearch).toHaveBeenCalledWith({
+    expect(searchCall).toHaveBeenCalledWith({
       filters: [],
       page: { from: 0, size: 10 },
       query: 'test'

@@ -20,7 +20,7 @@ import { ResetSearchButton } from '../index'
 
 describe('ResetSearchButton', () => {
   it('renders', () => {
-    const x = renderer.create(<ResetSearchButton />)
+    const x = renderer.create(<ResetSearchButton loading={false} />)
     expect(x.toJSON()).toMatchSnapshot()
   })
 
