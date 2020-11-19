@@ -21,10 +21,10 @@
     "lint": "eslint . --ext js,ts,tsx --fix"
   },
   "devDependencies": {
-    "@testing-library/dom": "^7.26.6",
+    "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.1.2",
     "@types/elasticsearch": "^5.0.36",
-    "@types/jest": "22.2.3",
+    "@types/jest": "^26.0.15",
     "@types/node": "^13.9.1",
     "@types/react": "^16.9.23",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
