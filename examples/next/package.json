@@ -19,6 +19,7 @@
     "@searchkit/elastic-ui": "latest",
     "apollo-server-micro": "^2.11.0",
     "graphql": "^14.6.0",
+    "micro-cors": "^0.1.1",
     "moment": "^2.26.0",
     "next": "^10.0.1",
     "next-with-apollo": "^5.0.0",
