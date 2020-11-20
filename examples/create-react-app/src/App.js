@@ -1,32 +1,6 @@
----
-id: ui-setup-eui
-title: With EUI Components
-sidebar_label: With EUI Components
-slug: /quick-start/ui/eui
----
-
-This guide will step you through how to use the out the box searchkit UI components. We will be using Next JS. Also see [Create React App](https://searchkit.co/docs/examples/create-react-app) if you're not using NextJS.
-
-Once you've completed the [initial setup](../initial-setup), start by adding the @searchkit/elastic-ui and @elastic/eui dependency via yarn
-
-```yarn add @searchkit/elastic-ui @elastic/eui```
-
-Next (if you have been following the guide with NextJS) has an issue with EUI and SSR so we are going to [dynamicly import](https://nextjs.org/docs/advanced-features/dynamic-import) the component.
-
-First create a JS file called search.js in components folder which will be the search page.
-
-The search page will contain the following:
-- components from searchkit client, elastic-ui and elastic's EUI
-- A GQL query using all fields required by searchkit's components
-
-Below is an example of a typical Searchkit page which uses EUI and searchkit EUI. 
-
-```javascript
-# components/search.js
-
+import {  gql } from '@apollo/client';
 import { useSearchkitQuery } from '@searchkit/client'
-import { gql } from '@apollo/client'
-
+import { HitsList, HitsGrid } from './Hits'
 import {
   FacetsList,
   SearchBar,
@@ -34,6 +8,10 @@ import {
   ResetSearchButton,
   SelectedFilters
 } from '@searchkit/elastic-ui'
+import '@elastic/eui/dist/eui_theme_light.css'
+
+import React, { useState } from 'react'
+
 
 import {
   EuiPage,
@@ -48,8 +26,7 @@ import {
   EuiTitle,
   EuiHorizontalRule,
   EuiButtonGroup,
-  EuiFlexGroup,
-  EuiFlexItem
+  EuiFlexGroup
 } from '@elastic/eui'
 
 const query = gql`
@@ -78,6 +55,8 @@ const query = gql`
             title
             writers
             actors
+            plot
+            poster
           }
         }
       }
@@ -96,27 +75,10 @@ const query = gql`
   }
 `
 
-export const HitsList = ({ data }) => (
-  <>
-    {data?.results.hits.items.map((hit) => (
-      <EuiFlexGroup gutterSize="xl" key={hit.id}>
-        <EuiFlexItem>
-          <EuiFlexGroup>
-            <EuiFlexItem grow={4}>
-              <EuiTitle size="xs">
-                <h6>{hit.id}</h6>
-              </EuiTitle>
-            </EuiFlexItem>
-          </EuiFlexGroup>
-        </EuiFlexItem>
-      </EuiFlexGroup>
-    ))}
-  </>
-)
-
-export default () => {
+function App() {
 
   const { data, loading } = useSearchkitQuery(query)
+  const [viewType, setViewType] = useState('list')
   const Facets = FacetsList([])
   return (
     <EuiPage>
@@ -143,9 +105,26 @@ export default () => {
                 <h2>{data?.results.summary.total} Results</h2>
               </EuiTitle>
             </EuiPageContentHeaderSection>
+            <EuiPageContentHeaderSection>
+              <EuiButtonGroup
+                legend=""
+                options={[
+                  {
+                    id: `grid`,
+                    label: 'Grid'
+                  },
+                  {
+                    id: `list`,
+                    label: 'List'
+                  }
+                ]}
+                idSelected={viewType}
+                onChange={(id) => setViewType(id)}
+              />
+            </EuiPageContentHeaderSection>
           </EuiPageContentHeader>
           <EuiPageContentBody>
-            <HitsList data={data} />
+            {viewType === 'grid' ? <HitsGrid data={data} /> : <HitsList data={data} />}
             <EuiFlexGroup justifyContent="spaceAround">
               <Pagination data={data?.results} />
             </EuiFlexGroup>
@@ -156,34 +135,4 @@ export default () => {
   )
 }
 
-```
-
-then go to pages/index.js and update
-
-```javascript
-import { withSearchkit } from "@searchkit/client";
-import withApollo from "../lib/withApollo";
-import dynamic from 'next/dynamic'
-const Search = dynamic(
-  () => import('../components/Search'),
-  { ssr: false }
-)
-
-
-const Index = () => {
-  return <Search />
-}
-
-export default withApollo(withSearchkit(Index));
-```
-and add EUI CSS globally via adding the css file to pages/_app.js
-
-```
-import '@elastic/eui/dist/eui_theme_light.css'
-
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
-}
-
-export default MyApp
-```
+export default App;

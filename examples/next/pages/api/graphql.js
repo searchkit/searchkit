@@ -1,4 +1,6 @@
 import { ApolloServer, gql } from 'apollo-server-micro'
+import cors from 'micro-cors'
+
 import {
   MultiMatchQuery,
   RefinementSelectFacet,
@@ -102,4 +104,6 @@ const server = new ApolloServer({
   context: {}
 })
 
-export default server.createHandler({ path: '/api/graphql' })
+const handler = server.createHandler({ path: '/api/graphql' })
+
+export default cors()((req, res) => req.method === 'OPTIONS' ? res.end() : handler(req, res))

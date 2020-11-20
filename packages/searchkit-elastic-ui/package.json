@@ -14,6 +14,11 @@
     "react",
     "ui components"
   ],
+  "description": "React UI components for elasticsearch. Integrates with Elastic UI",
+  "bugs": {
+    "url": "https://github.com/searchkit/searchkit/issues"
+  },
+  "homepage": "https://www.searchkit.co",
   "scripts": {
     "build": "rm -rf lib; tsc && tsc -p tsconfig-cjs.json",
     "dev": "rm -rf lib; tsc --watch",

@@ -7,6 +7,8 @@ slug: /quick-start/ui/setup
 
 This section we will be setting up the UI part of searchkit.
 
+Also see [Create React App](https://searchkit.co/docs/examples/create-react-app) if you're not using NextJS.
+
 ## Setup Apollo Client
 
 First we need to setup Apollo client. In this guide we will be using [nextjs](https://nextjs.org/) & [withApollo HOC](https://github.com/lfades/next-with-apollo)
