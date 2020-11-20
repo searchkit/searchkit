@@ -10,6 +10,11 @@
     "apollo",
     "search"
   ],
+  "description": "Elasticsearch GraphQL Resolvers for Apollo Server",
+  "bugs": {
+    "url": "https://github.com/searchkit/searchkit/issues"
+  },
+  "homepage": "https://www.searchkit.co",
   "repository": {
     "type": "git",
     "url": "https://github.com/searchkit/searchkit.git",
