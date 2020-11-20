@@ -5,7 +5,9 @@ sidebar_label: With EUI Components
 slug: /quick-start/ui/eui
 ---
 
-This guide will step you through how to use the out the box searchkit UI components. Once you've completed the [initial setup](../initial-setup), start by adding the @searchkit/elastic-ui and @elastic/eui dependency via yarn
+This guide will step you through how to use the out the box searchkit UI components. We will be using Next JS. Also see [Create React App](https://searchkit.co/docs/examples/create-react-app) if you're not using NextJS.
+
+Once you've completed the [initial setup](../initial-setup), start by adding the @searchkit/elastic-ui and @elastic/eui dependency via yarn
 
 ```yarn add @searchkit/elastic-ui @elastic/eui```
 

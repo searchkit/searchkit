@@ -8,6 +8,8 @@ slug: /quick-start/api-setup
 ## Setup Apollo Server
 First step is to setup Apollo Server within our app. We are using [Next](https://github.com/vercel/next.js/) & [Apollo Server Micro](https://www.apollographql.com/docs/apollo-server/v1/servers/micro/) where we will use [API routes](https://nextjs.org/docs/api-routes/introduction) for our app. 
 
+Also see [AWS lambda example](https://searchkit.co/docs/examples/aws-lambda) if you're not using NextJS.
+
 First install `apollo-server-micro`
 
 ``` yarn add apollo-server-micro ```

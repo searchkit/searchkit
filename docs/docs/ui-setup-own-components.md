@@ -7,6 +7,8 @@ slug: /quick-start/ui/your-components
 
 This guide will step you through how to use the searchkit client API to build your own UI components, for those who want to integrate searchkit into their own UI.
 
+Also see [Create React App](https://searchkit.co/docs/examples/create-react-app) if you're not using NextJS.
+
 ### Search Input Component
 
 Below example of how a simple search query component can be built using the searchkit client API. When search is invoked, the API will perform a new query.  
