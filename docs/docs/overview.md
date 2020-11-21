@@ -11,7 +11,9 @@ Searchkit is an open source search toolkit. It mainly consists of the following 
 + Client: Works in tandem with Searchkit's Search API to manage your search query state
 + Elastic UI: Out the box UI search components based on Elastic UI framework
 
-### Why Searchkit?
-Our vision is to for you to build a great search experience without needing to be an expert in elasticsearch & React. 
+### Key Areas
+- See [examples](https://github.com/searchkit/searchkit/tree/next/examples)  
+- [API Quick Start Guide](https://searchkit.co/docs/quick-start/api-setup)
+- [UI Quick Start Guide](https://searchkit.co/docs/quick-start/ui/setup)
+- [Customising Searchkit](https://searchkit.co/docs/quick-start/customise-searchkit)
 
-### What advantages does Searchkit has over Searchkit Classic?

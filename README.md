@@ -1,6 +1,8 @@
 ## Search, made easy
 Searchkit is an open source toolkit which helps you build a great search experience with Elasticsearch.
 
+![api-setup-2](./docs/static/img/m/search.jpeg)
+
 Seachkit is Graph QL / React UI Component framework to:
   - Quickly build a GraphQL API focused on search UI
   - Out the box React components
@@ -144,6 +146,64 @@ import {
   ResetSearchButton,
   SelectedFilters
 } from '@searchkit/elastic-ui'
+
+const Page = () => {
+  const { data, loading } = useSearchkitQuery(query)
+  const [viewType, setViewType] = useState('list')
+  const Facets = FacetsList([])
+  return (
+    <EuiPage>
+      <EuiPageSideBar>
+        <SearchBar loading={loading} />
+        <EuiHorizontalRule margin="m" />
+        <Facets data={data?.results} loading={loading} />
+      </EuiPageSideBar>
+      <EuiPageBody component="div">
+        <EuiPageHeader>
+          <EuiPageHeaderSection>
+            <EuiTitle size="l">
+              <SelectedFilters data={data?.results} loading={loading} />
+            </EuiTitle>
+          </EuiPageHeaderSection>
+          <EuiPageHeaderSection>
+            <ResetSearchButton loading={loading} />
+          </EuiPageHeaderSection>
+        </EuiPageHeader>
+        <EuiPageContent>
+          <EuiPageContentHeader>
+            <EuiPageContentHeaderSection>
+              <EuiTitle size="s">
+                <h2>{data?.results.summary.total} Results</h2>
+              </EuiTitle>
+            </EuiPageContentHeaderSection>
+            <EuiPageContentHeaderSection>
+              <EuiButtonGroup
+                options={[
+                  {
+                    id: `grid`,
+                    label: 'Grid'
+                  },
+                  {
+                    id: `list`,
+                    label: 'List'
+                  }
+                ]}
+                idSelected={viewType}
+                onChange={(id) => setViewType(id)}
+              />
+            </EuiPageContentHeaderSection>
+          </EuiPageContentHeader>
+          <EuiPageContentBody>
+            {viewType === 'grid' ? <HitsGrid data={data} /> : <HitsList data={data} />}
+            <EuiFlexGroup justifyContent="spaceAround">
+              <Pagination data={data?.results} />
+            </EuiFlexGroup>
+          </EuiPageContentBody>
+        </EuiPageContent>
+      </EuiPageBody>
+    </EuiPage>
+  )
+}
 ```
 
 See [quickstart guide](https://searchkit.co/docs/quick-start/ui/eui)
