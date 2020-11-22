@@ -295,7 +295,8 @@ function Home() {
     <div>
       <Head>
         <title>Searchkit | Search UI with elasticsearch, made easy. </title>
-        <description>Search UI toolkit powered by Elasticsearch and Apollo GraphQL. Out the box React components using Elastic EUI.</description>
+        <meta name="description" content="Search UI toolkit powered by Elasticsearch and Apollo GraphQL. Out the box React components using Elastic EUI."/>
+        <meta name="keywords" content="Elasticsearch, GraphQL, graph QL, React, framework, UI components" />
         <meta property="og:title" content="Searchkit - Search, made easy"/>
         <meta property="og:description" content="Search UI toolkit powered by Elasticsearch and Apollo GraphQL. Out the box React components using Elastic EUI."/>
         <meta property="og:image" content={useBaseUrl('img/m/search.jpeg')}/>
@@ -304,6 +305,7 @@ function Home() {
         <meta property="twitter:description" content="Search UI toolkit powered by Elasticsearch and Apollo GraphQL. Out the box React components using Elastic EUI."/>
         <meta property="twitter:image" content={useBaseUrl('img/m/search.jpeg')}/>
         <meta property="twitter:url" content="summary_large_image"/>
+        <meta name="google-site-verification" content="nYA9IOgFmYP8znklDbiAGOx8fRXGvpQBX6NQmIKRwMA" />
       </Head>
     <div className="font-sans antialiased text-gray-900">
       <div className="h-full min-h-full">
