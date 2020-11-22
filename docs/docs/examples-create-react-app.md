@@ -5,7 +5,6 @@ sidebar_label: Create React App
 slug: /examples/create-react-app
 ---
 
-### Create React App Example
 Technologies: Searchkit + CRA + Apollo
 
 [See Project](https://github.com/searchkit/searchkit/tree/next/examples/create-react-app)
