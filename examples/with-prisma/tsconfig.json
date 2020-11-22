@@ -1,0 +1,34 @@
+{
+  "baseUrl": "types",
+  "typeRoots": ["types"],
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es2017",
+    "esModuleInterop": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration":false,
+    "noLib":false,
+    "sourceMap":true,
+    "pretty":true,
+    "allowUnreachableCode":true,
+    "allowUnusedLabels":true,
+    "noImplicitAny":false,
+    "noImplicitReturns":false,
+    "noImplicitUseStrict":false,
+    "outDir":"dist/",
+    "baseUrl":"src/",
+    "listFiles":false,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "tests/**/*"
+  ]
+}
