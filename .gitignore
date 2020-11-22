@@ -24,7 +24,8 @@ package-lock.json
 .next
 .vercel
 jspm_packages
-
+dev.db
+**/with-prisma/src/generated
 # Serverless directories
 .serverless
 
