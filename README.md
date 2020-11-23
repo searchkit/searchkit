@@ -216,6 +216,9 @@ See [quickstart guide](https://searchkit.co/docs/quick-start/ui/eui)
 * @searchkit/client [Documentation](https://searchkit.co/docs/reference/searchkit-client)
 * @searchkit/elastic-ui [Documentation](https://searchkit.co/docs/reference/searchkit-elastic-ui)
 
+### Sponsors
+[*QBOX*](www.qbox.io?ref=searchkit) Elasticsearch hosting. They have kindly provided us an elasticsearch instance for our demo site.
+
 ### FAQ
 #### Can I upgrade from Searchkit v2?
 Searchkit has undergone a total rewrite so whilst it should be straightforward to move onto, any code written for searchkit legacy wouldn't work on Searchkit v3.
