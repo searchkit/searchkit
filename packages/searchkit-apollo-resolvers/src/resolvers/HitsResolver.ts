@@ -18,7 +18,11 @@ function getSortOptionField(id, sortOptions: SortingOption[]) {
   return Array.isArray(sortField) ? sortField : [sortField]
 }
 
-export default async (parent, parameters: HitsParameters, ctx: { skRequest: SearchkitRequest, config: SearchkitConfig }) => {
+export default async (
+  parent,
+  parameters: HitsParameters,
+  ctx: { skRequest: SearchkitRequest; config: SearchkitConfig }
+) => {
   const { skRequest, config } = ctx
 
   try {
