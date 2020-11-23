@@ -12,6 +12,10 @@ export default async (parent, {}, ctx) => {
     return {
       total: results.hits.total.value ? results.hits.total.value : results.hits.total,
       query: queryManager.getQuery(),
+      sortOptions: config.sortOptions.map((sortOption) => ({
+        id: sortOption.id,
+        label: sortOption.label
+      })),
       appliedFilters: queryManager.getFilters().map((filterSet) => {
         const facetConfig = config.facets.find((facet) => facet.getId() === filterSet.id)
         return {

@@ -6,10 +6,16 @@ export default gql`
     fields: HitFields
   }
 
+  type SortOption {
+    id: String
+    label: String
+  }
+
   type Summary {
     total: Float
     appliedFilters: [SelectedFilter]
     query: String
+    sortOptions: [SortOption]
   }
 
   type SelectedFilter {
@@ -20,7 +26,7 @@ export default gql`
 
   type ResultSet {
     summary: Summary
-    hits(page: PageInput): HitResults
+    hits(page: PageInput, sortBy: String): HitResults
     facets: [FacetSet]
     facet(id: String!, query: String, page: PageInput): FacetSet
   }

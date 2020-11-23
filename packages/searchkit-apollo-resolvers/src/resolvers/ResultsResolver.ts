@@ -3,9 +3,16 @@ import SearchkitRequest from '../core/SearchkitRequest'
 import BaseQuery from '../query/BaseQuery'
 import { BaseFacet } from '../facets/BaseFacet'
 
+export interface SortingOption {
+  id: string
+  label: string
+  field: any
+}
+
 export interface SearchkitConfig {
   host: string
   index: string
+  sortOptions?: SortingOption[]
   hits: {
     fields: string[]
   }

@@ -46,6 +46,70 @@ Query will be applied to results & facets
 | :------------- | :----------- |
 | fields          | fields to be queried. See elasticsearch documentation for more information on options  |
 
+## Sorting
+```javascript
+const searchkitConfig = {
+  sortOptions: [
+    { id: 'relevance', label: 'Relevance', field: '_score' },
+    { id: 'released', label: 'Recent Releases', field: { released: 'desc' } },
+    { id: 'multiple_sort', label: 'Multiple sort', field: [
+      { "post_date" : {"order" : "asc"}},
+      "user",
+      { "name" : "desc" },
+      { "age" : "desc" },
+      "_score"
+    ]},
+  ]
+}
+```
+
+Within SearchkitConfig, declare all the available sorting options that you want your search to support, each with a unique id. Above is an example of how sorting option fields can be declared. Field is provided to elasticsearch so supports all the options that elasticsearch supports. See [Elasticsearch sorting options](https://www.elastic.co/guide/en/elasticsearch/reference/7.x/sort-search-results.html) for available options.
+
+#### GraphQL Query Example
+Once configured, you are able to query available sort options within the summary node
+
+```gql
+query {
+  results(query: "") {
+    summary {
+      total
+      sortOptions {
+        id
+        label
+      }
+    }
+  }
+}
+
+
+```
+
+then you will be able to specify how you want hits to be sorted by within the hits node using the id
+
+```gql
+{
+  results(query: "bla") {
+    hits(sorting: "relevance") {
+      items {
+        id
+        fields {
+          writers
+          actors
+        }
+      }
+    }
+  }
+}
+```
+
+#### Options
+| Option        | Description      |
+| :------------- | :----------- |
+| id          | Unique id. Used to specify what to sort by  |
+| label          | label to be displayed in frontend  |
+
+
+
 ## Facets
 Facets are configured together on the Searchkit Config within the facets array. Each facet can support a range of experiences from a simple list to date filtering
 

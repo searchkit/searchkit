@@ -1,22 +1,37 @@
 import SearchkitRequest from '../core/SearchkitRequest'
+import { SearchkitConfig, SortingOption } from './ResultsResolver'
 
 export interface HitsParameters {
   page: {
     from: number
     size: number
   }
+  sortBy?: string
 }
 
-export default async (parent, parameters: HitsParameters, ctx: { skRequest: SearchkitRequest }) => {
-  const { skRequest } = ctx
+function getSortOptionField(id, sortOptions: SortingOption[]) {
+  const selectedSortOption = sortOptions.find((sortOption) => sortOption.id === id)
+  if (!selectedSortOption) {
+    throw new Error(`Sort Option: sorting option ${id} not found`)
+  }
+  const sortField = selectedSortOption.field
+  return Array.isArray(sortField) ? sortField : [sortField]
+}
+
+export default async (parent, parameters: HitsParameters, ctx: { skRequest: SearchkitRequest, config: SearchkitConfig }) => {
+  const { skRequest, config } = ctx
 
   try {
     const from = parameters.page?.from || 0
     const size = parameters.page?.size || 10
+    const sortByField = parameters.sortBy
+      ? getSortOptionField(parameters.sortBy, config.sortOptions)
+      : ['_score']
 
     const { hits } = await skRequest.search({
       from: from,
-      size: size
+      size: size,
+      sort: sortByField
     })
 
     return {
