@@ -217,7 +217,7 @@ See [quickstart guide](https://searchkit.co/docs/quick-start/ui/eui)
 * @searchkit/elastic-ui [Documentation](https://searchkit.co/docs/reference/searchkit-elastic-ui)
 
 ### Sponsors
-[*QBOX*](www.qbox.io?ref=searchkit) Elasticsearch hosting. They have kindly provided us an elasticsearch instance for our demo site.
+[*QBOX*](https://www.qbox.io?ref=searchkit) Elasticsearch hosting. They have kindly provided us an elasticsearch instance for our demo site.
 
 ### FAQ
 #### Can I upgrade from Searchkit v2?
