@@ -17,11 +17,7 @@ function getSortOption(id, sortOptions: SortingOption[]) {
   return selectedSortOption
 }
 
-export default async (
-  parent,
-  parameters: HitsParameters,
-  ctx
-) => {
+export default async (parent, parameters: HitsParameters, ctx) => {
   const config: SearchkitConfig = ctx.searchkit.config
   const skRequest: SearchkitRequest = ctx.searchkit.skRequest
   try {
@@ -30,12 +26,13 @@ export default async (
     const defaultSortOption = config.sortOptions.find((so) => so.defaultOption)
 
     const chosenSortOption = parameters.sortBy
-      ? getSortOption(parameters.sortBy, config.sortOptions) : defaultSortOption
+      ? getSortOption(parameters.sortBy, config.sortOptions)
+      : defaultSortOption
 
     const { hits } = await skRequest.search({
       from: from,
       size: size,
-      sort: chosenSortOption ? chosenSortOption.field : [{ "_score": "desc" }]
+      sort: chosenSortOption ? chosenSortOption.field : [{ _score: 'desc' }]
     })
 
     return {
