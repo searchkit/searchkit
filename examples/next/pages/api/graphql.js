@@ -16,6 +16,10 @@ const searchkitConfig = {
   hits: {
     fields: ['title', 'actors', 'writers', 'plot', 'poster']
   },
+  sortOptions: [
+    { id: 'relevance', label: "Relevance", field: [{"_score": "desc"}], defaultOption: true},
+    { id: 'released', label: "Released", field: [{"released": "desc"}]},    
+  ],
   query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] }),
   facets: [
     new RefinementSelectFacet({ field: 'type.raw', id: 'type', label: 'Type' }),

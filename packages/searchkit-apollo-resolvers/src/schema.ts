@@ -42,6 +42,7 @@ export default gql`
   type HitResults {
     items: [Hit]
     page: PageInfo
+    sortedBy: String
   }
 
   input PageInput {

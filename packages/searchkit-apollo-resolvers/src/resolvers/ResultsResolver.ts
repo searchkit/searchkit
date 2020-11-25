@@ -7,6 +7,7 @@ export interface SortingOption {
   id: string
   label: string
   field: any
+  defaultOption: boolean
 }
 
 export interface SearchkitConfig {
@@ -27,12 +28,18 @@ export interface ResultsResolverParameters {
 
 export default (config: SearchkitConfig) => async (parent, parameters, ctx) => {
   try {
+    const skConfig = {
+      sortOptions: [],
+      ...config
+    }
     const queryManager = new QueryManager(parameters.filters, parameters.query)
-    const skRequest = new SearchkitRequest(queryManager, config)
+    const skRequest = new SearchkitRequest(queryManager, skConfig)
 
-    ctx.skRequest = skRequest
-    ctx.queryManager = queryManager
-    ctx.config = config
+    ctx.searchkit = {
+      skRequest: skRequest,
+      queryManager: queryManager,
+      config: skConfig
+    }
 
     return {}
   } catch (e) {

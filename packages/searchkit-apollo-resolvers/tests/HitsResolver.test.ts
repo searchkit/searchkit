@@ -11,6 +11,7 @@ describe('Hits Resolver', () => {
             hits(page: {size: ${page.size}, from: ${page.from}} ${
         sorting ? `, sortBy: "${sorting}"` : ''
       }) {
+              sortedBy
               items {
                 id
                 fields {
