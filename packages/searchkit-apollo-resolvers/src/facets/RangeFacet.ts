@@ -23,7 +23,7 @@ class RangeFacet implements BaseFacet {
     return this.config.label
   }
 
-  getId() {
+  getId(): string {
     return this.config.id
   }
 

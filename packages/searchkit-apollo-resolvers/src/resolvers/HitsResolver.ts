@@ -9,33 +9,30 @@ export interface HitsParameters {
   sortBy?: string
 }
 
-function getSortOptionField(id, sortOptions: SortingOption[]) {
+function getSortOption(id, sortOptions: SortingOption[]) {
   const selectedSortOption = sortOptions.find((sortOption) => sortOption.id === id)
   if (!selectedSortOption) {
     throw new Error(`Sort Option: sorting option ${id} not found`)
   }
-  const sortField = selectedSortOption.field
-  return Array.isArray(sortField) ? sortField : [sortField]
+  return selectedSortOption
 }
 
-export default async (
-  parent,
-  parameters: HitsParameters,
-  ctx: { skRequest: SearchkitRequest; config: SearchkitConfig }
-) => {
-  const { skRequest, config } = ctx
-
+export default async (parent, parameters: HitsParameters, ctx) => {
+  const config: SearchkitConfig = ctx.searchkit.config
+  const skRequest: SearchkitRequest = ctx.searchkit.skRequest
   try {
     const from = parameters.page?.from || 0
     const size = parameters.page?.size || 10
-    const sortByField = parameters.sortBy
-      ? getSortOptionField(parameters.sortBy, config.sortOptions)
-      : ['_score']
+    const defaultSortOption = config.sortOptions.find((so) => so.defaultOption)
+
+    const chosenSortOption = parameters.sortBy
+      ? getSortOption(parameters.sortBy, config.sortOptions)
+      : defaultSortOption
 
     const { hits } = await skRequest.search({
       from: from,
       size: size,
-      sort: sortByField
+      sort: chosenSortOption ? chosenSortOption.field : [{ _score: 'desc' }]
     })
 
     return {
@@ -49,7 +46,8 @@ export default async (
         pageNumber: from / size,
         from: from,
         size: size
-      }
+      },
+      sortedBy: chosenSortOption?.id
     }
   } catch (e) {
     console.log(e)

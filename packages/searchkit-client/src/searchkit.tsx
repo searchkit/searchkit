@@ -19,6 +19,7 @@ interface SearchkitQueryVariables {
   query: string
   filters: Array<Filter>
   page: PageOptions
+  sortBy: string
 }
 
 export interface SearchkitClientConfig {
@@ -48,6 +49,7 @@ export class SearchkitClient {
   private query: string
   private filters: Array<Filter>
   private page: PageOptions
+  private sortBy: string
   private onSearch: (variables: SearchkitQueryVariables) => void
   public apolloOptions: SearchkitClientApolloOptionsConfig
 
@@ -58,19 +60,26 @@ export class SearchkitClient {
       size: config.itemsPerPage || 10,
       from: 0
     }
+    this.sortBy = null
     this.onSearch = null
     this.apolloOptions = config.apolloOptions
   }
 
   private performSearch() {
-    if (this.onSearch) this.onSearch({ query: this.query, filters: this.filters, page: this.page })
+    if (this.onSearch)
+      this.onSearch({
+        query: this.query,
+        filters: this.filters,
+        page: this.page,
+        sortBy: this.sortBy
+      })
   }
 
   setCallbackFn(callback: (variables: SearchkitQueryVariables) => void) {
     this.onSearch = callback
   }
 
-  setQuery(query): void {
+  setQuery(query: string): void {
     this.query = query
     this.filters = []
     this.setPage({ from: 0, size: 10 })
@@ -80,11 +89,11 @@ export class SearchkitClient {
     return this.query
   }
 
-  setPage(page: PageOptions) {
+  setPage(page: PageOptions): void {
     this.page = page
   }
 
-  search() {
+  search(): void {
     this.performSearch()
   }
 
@@ -92,21 +101,21 @@ export class SearchkitClient {
     return this.filters
   }
 
-  canResetSearch() {
+  canResetSearch(): boolean {
     return !(this.filters.length === 0 && !this.query)
   }
 
-  isFilterSelected(filter: Filter) {
+  isFilterSelected(filter: Filter): boolean {
     const foundFilter = this.filters.find(filterSelector(filter))
     return !!foundFilter
   }
 
-  getFiltersById(id): Filter[] | null {
+  getFiltersById(id: string): Filter[] | null {
     const filters = this.filters.filter((filter) => id === filter.id)
     return filters.length > 0 ? filters : []
   }
 
-  removeFilter(filter) {
+  removeFilter(filter: Filter): void {
     this.filters = this.filters.reduce((filters, f) => {
       if (filterSelector(filter)(f)) {
         return [...filters]
@@ -115,20 +124,24 @@ export class SearchkitClient {
     }, [])
   }
 
-  removeFiltersById(id) {
+  removeFiltersById(id: string): void {
     this.filters = this.filters.filter((f) => f.id !== id)
   }
 
-  addFilter(filter) {
+  addFilter(filter: Filter): void {
     this.filters = [{ ...filter }, ...this.filters]
   }
 
-  toggleFilter(filter) {
+  toggleFilter(filter: Filter): void {
     if (this.isFilterSelected(filter)) {
       this.removeFilter(filter)
     } else {
       this.addFilter(filter)
     }
+  }
+
+  setSortBy(sort: string): void {
+    this.sortBy = sort
   }
 }
 
@@ -159,7 +172,8 @@ export function useSearchkitQuery(query) {
     variables: {
       query: variables?.query,
       filters: variables?.filters,
-      page: variables?.page
+      page: variables?.page,
+      sortBy: variables?.sortBy
     },
     fetchPolicy: sk.apolloOptions?.fetchPolicy || 'network-only'
   })

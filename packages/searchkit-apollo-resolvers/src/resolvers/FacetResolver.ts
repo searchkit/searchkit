@@ -1,5 +1,6 @@
 import SearchkitRequest from '../core/SearchkitRequest'
 import { getAggregationsFromFacets, getFacetsFromResponse } from '../core/FacetsFns'
+import QueryManager from '../core/QueryManager'
 import { SearchkitConfig } from './ResultsResolver'
 
 export interface FacetResolverParameters {
@@ -9,9 +10,9 @@ export interface FacetResolverParameters {
 }
 
 export default async (parent, parameters: FacetResolverParameters, ctx) => {
-  const { queryManager } = ctx
-  const config: SearchkitConfig = ctx.config
-  const skRequest: SearchkitRequest = ctx.skRequest
+  const queryManager: QueryManager = ctx.searchkit.queryManager
+  const config: SearchkitConfig = ctx.searchkit.config
+  const skRequest: SearchkitRequest = ctx.searchkit.skRequest
 
   const facet = config.facets && config.facets.find((facet) => facet.getId() === parameters.id)
   if (!facet) return null

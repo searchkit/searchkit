@@ -159,6 +159,7 @@ Object {
           "id": "tt0099685",
         },
       ],
+      "sortedBy": "relevance",
     },
   },
 }
@@ -327,6 +328,7 @@ Object {
           "id": "tt2262532",
         },
       ],
+      "sortedBy": "released",
     },
   },
 }
@@ -493,6 +495,7 @@ Object {
           "id": "tt0133093",
         },
       ],
+      "sortedBy": null,
     },
   },
 }
@@ -657,6 +660,7 @@ Object {
           "id": "tt0099685",
         },
       ],
+      "sortedBy": null,
     },
   },
 }
