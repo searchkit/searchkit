@@ -42,6 +42,7 @@
     ],
     "dot-notation":"error",
     "import/namespace": "off",
+    "import/no-cycle": "off",
     "import/order": [
       "error",
       {
