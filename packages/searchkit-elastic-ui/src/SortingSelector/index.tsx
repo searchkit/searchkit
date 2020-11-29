@@ -1,24 +1,36 @@
 import { useSearchkit } from '@searchkit/client'
 import { EuiSuperSelect } from '@elastic/eui'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export const SortingSelector = ({ data, loading }) => {
   const api = useSearchkit()
+  const [value, setValue] = useState(() => data?.hits.sortedBy)
 
-  const options = data.summmary?.sortOptions?.map((sortOption) => ({
-    value: sortOption.id,
-    inputDisplay: sortOption.label
-  }))
+  useEffect(() => {
+    if (data?.hits.sortedBy) {
+      const selectedOptionId = data?.hits.sortedBy
+      setValue(selectedOptionId)
+    }
+  }, [data])
 
-  const selectedOptionId = data.results?.hits.sortedBy
+  useEffect(() => {
+    api.setSortBy(value)
+    api.search()
+  }, [value])
+
+  const options =
+    data?.summary?.sortOptions?.map((sortOption) => ({
+      value: sortOption.id,
+      inputDisplay: sortOption.label
+    })) || []
 
   return (
     <EuiSuperSelect
       options={options}
-      valueOfSelected={selectedOptionId}
+      valueOfSelected={value}
+      isLoading={loading}
       onChange={(value) => {
-        api.setSortBy(value)
-        api.search()
+        setValue(value)
       }}
     />
   )
