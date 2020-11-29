@@ -1,5 +1,6 @@
 import { useSearchkitQuery } from '@searchkit/client'
 import { gql } from '@apollo/client'
+import { useState } from 'react'
 import { HitsList, HitsGrid } from './searchkit/Hits'
 import {
   FacetsList,
@@ -7,6 +8,7 @@ import {
   Pagination,
   ResetSearchButton,
   SelectedFilters,
+  SortingSelector
 } from '@searchkit/elastic-ui'
 
 import {
@@ -77,41 +79,6 @@ const query = gql`
   }
 `
 
-import { useSearchkit } from '@searchkit/client'
-import { EuiSuperSelect } from '@elastic/eui'
-import React, { useState, useEffect } from 'react'
-
-export const SortingSelector = ({ data, loading }) => {
-  const api = useSearchkit()
-  const [value, setValue] = useState("")
-  const [options, setOptions] = useState([])
-
-  useEffect(() => {
-    const selectedOptionId = data?.hits.sortedBy
-    setValue(selectedOptionId)
-  }, [data?.hits.sortedBy])
-
-  useEffect(() => {
-    const options = data?.summary?.sortOptions?.map((sortOption) => ({
-      value: sortOption.id,
-      inputDisplay: sortOption.label
-    })) || []
-    setOptions(options)
-  }, [data?.summary?.sortOptions])
-
-  return (
-    <EuiSuperSelect
-      options={options}
-      valueOfSelected={value}
-      onChange={(value) => {
-        api.setSortBy(value)
-        api.search()
-      }}
-    />
-  )
-}
-
-
 const Page = () => {
   const { data, loading } = useSearchkitQuery(query)
   const [viewType, setViewType] = useState('list')
@@ -144,10 +111,11 @@ const Page = () => {
             <EuiPageContentHeaderSection>
               <EuiFlexGroup>
                 <EuiFlexItem grow={1}>
-                  <SortingSelector data={data?.results} />
+                  <SortingSelector data={data?.results} loading={loading} />
                 </EuiFlexItem>
                 <EuiFlexItem grow={2}>
                 <EuiButtonGroup
+                  legend=""
                   options={[
                     {
                       id: `grid`,
