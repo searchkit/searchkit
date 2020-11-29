@@ -7,7 +7,7 @@ export interface SortingOption {
   id: string
   label: string
   field: any
-  defaultOption: boolean
+  defaultOption?: boolean
 }
 
 export interface SearchkitConfig {
