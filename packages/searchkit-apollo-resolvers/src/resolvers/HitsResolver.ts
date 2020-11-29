@@ -35,14 +35,16 @@ export default async (parent, parameters: HitsParameters, ctx) => {
       sort: chosenSortOption ? chosenSortOption.field : [{ _score: 'desc' }]
     })
 
+    const hitsTotal = (hits.total.value || hits.total) as number
+
     return {
       items: hits.hits.map((hit) => ({
         id: hit._id,
         fields: hit._source
       })),
       page: {
-        total: hits.total.value,
-        totalPages: Math.ceil(hits.total.value / size),
+        total: hitsTotal,
+        totalPages: Math.ceil(hitsTotal / size),
         pageNumber: from / size,
         from: from,
         size: size
