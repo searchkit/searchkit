@@ -99,11 +99,13 @@ describe('Searchkit Client', () => {
     api.setQuery('test')
     api.addFilter({ id: 'type', value: 'Movies' })
     api.setPage({ from: 10, size: 20 })
+    api.setSortBy('released')
     api.search()
     expect(callback).toBeCalledWith({
       filters: [{ id: 'type', value: 'Movies' }],
       page: { from: 10, size: 20 },
-      query: 'test'
+      query: 'test',
+      sortBy: 'released'
     })
   })
 
@@ -122,6 +124,7 @@ describe('Searchkit Client', () => {
     const api = new SearchkitClient()
     api.setQuery('test')
     api.addFilter({ id: 'type', value: 'Movies' })
+    api.setSortBy('released')
     const wrapper = ({ children }) => <SearchkitProvider client={api}>{children}</SearchkitProvider>
 
     renderHook(() => useSearchkitQuery('gqlQuery'), { wrapper })
@@ -133,7 +136,8 @@ describe('Searchkit Client', () => {
       variables: {
         filters: [{ id: 'type', value: 'Movies' }],
         page: { from: 0, size: 10 },
-        query: 'test'
+        query: 'test',
+        sortBy: 'released'
       }
     })
   })
