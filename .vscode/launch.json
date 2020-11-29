@@ -14,7 +14,6 @@
                  "--runInBand", "--forceExit", "--detectOpenHandles", "--watch"
             ],
             "cwd": "${workspaceRoot}/packages/searchkit-apollo-resolvers",
-            "runtimeVersion": "12.8.0",
             "preLaunchTask": null,
             "runtimeExecutable": null,
             "env": {
@@ -34,7 +33,6 @@
                  "--runInBand", "--forceExit", "--detectOpenHandles", "--watch"
             ],
             "cwd": "${workspaceRoot}/packages/searchkit-elastic-ui",
-            "runtimeVersion": "12.8.0",
             "preLaunchTask": null,
             "runtimeExecutable": null,
             "env": {
