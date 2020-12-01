@@ -66,7 +66,9 @@ const searchkitConfig = {
 Within SearchkitConfig, declare all the available sorting options that you want your search to support, each with a unique id. Above is an example of how sorting option fields can be declared. Field is provided to elasticsearch so supports all the options that elasticsearch supports. See [Elasticsearch sorting options](https://www.elastic.co/guide/en/elasticsearch/reference/7.x/sort-search-results.html) for available options.
 
 #### GraphQL Query Example
-Once configured, you are able to query available sort options within the summary node
+Once configured, you are able to:
+1. query available sort options via `sortOptions` within the summary node
+2. sortedBy will tell you the current sort option for hits 
 
 ```gql
 query {
@@ -77,6 +79,9 @@ query {
         id
         label
       }
+    }
+    hits(sortBy: "relevance") {
+      sortedBy  <--- the current sortId
     }
   }
 }
@@ -89,7 +94,8 @@ then you will be able to specify how you want hits to be sorted by within the hi
 ```gql
 {
   results(query: "bla") {
-    hits(sorting: "relevance") {
+    hits(sortBy: "relevance") {
+      sortedBy
       items {
         id
         fields {

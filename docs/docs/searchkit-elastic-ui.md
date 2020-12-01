@@ -163,6 +163,47 @@ import {
 | :------------- | :----------- |
 | data          | Boolean. Loading value from GQL query   |
 
+### Sorting Selector
+Pagination.mov
+
+#### Usage
+Requires sorting configuration within the resolvers. See [sorting documentation](/docs/reference/apollo-resolvers#sorting).
+
+```javascipt
+import {
+  SortingSelector
+} from '@searchkit/elastic-ui'
+```
+
+```javascript
+  <SortingSelector data={data?.results} loading={loading} />
+```
+
+### GraphQL Query
+Relies on GraphQL query
+
+```
+  results(query: "") {
+    summary {
+      total
+      sortOptions {  <--- Required: sortOptions
+        id
+        label
+      }
+    }
+    hits(sortBy: "relevance") {
+      sortedBy  <--- Required: the current sortId
+    }
+  }
+
+```
+
+#### Options
+| Option        | Description      |
+| :------------- | :----------- |
+| data          | data response from graphql request   |
+| loading          | Boolean.   |
+
 ## Facets
 
 ### FacetsList
