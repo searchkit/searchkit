@@ -1,4 +1,4 @@
-import { RangeFilter, DateRangeFilter } from '../core/QueryManager'
+import { DateRangeFilter } from '../core/QueryManager'
 import { BaseFacet } from './BaseFacet'
 
 interface DateRangeFacetConfig {

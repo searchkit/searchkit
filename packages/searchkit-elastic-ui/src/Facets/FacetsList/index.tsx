@@ -26,9 +26,7 @@ export const FacetsList = (components = []) => {
         return (
           <div key={facet.id}>
             <Component facet={facet} loading={loading} />
-            <div>
-              <EuiSpacer size="l" />
-            </div>
+            <EuiSpacer size="l" />
           </div>
         )
       })}

@@ -53,6 +53,16 @@ Object {
         },
       ],
       "query": "",
+      "sortOptions": Array [
+        Object {
+          "id": "relevance",
+          "label": "Relevance",
+        },
+        Object {
+          "id": "released",
+          "label": "Recent Releases",
+        },
+      ],
       "total": 53,
     },
   },

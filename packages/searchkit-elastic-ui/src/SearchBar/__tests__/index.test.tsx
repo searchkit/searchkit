@@ -2,7 +2,6 @@ import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 
 jest.mock('@searchkit/client', () => {
-  // Require the original module to not be mocked...
   const originalModule = jest.requireActual('@searchkit/client')
   const api = new originalModule.SearchkitClient()
   return {
@@ -42,7 +41,8 @@ describe('SearchBar', () => {
     expect(searchCall).toHaveBeenCalledWith({
       filters: [],
       page: { from: 0, size: 10 },
-      query: 'test'
+      query: 'test',
+      sortBy: null
     })
   })
 })

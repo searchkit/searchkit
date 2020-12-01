@@ -28,15 +28,11 @@ export const ComboBoxFacet = ({ facet }) => {
   const api = useSearchkit()
   const client = useApolloClient()
 
-  const [data, setData] = useState(null)
+  const [data, setData] = useState(() => facet.entries.map((entry) => ({ label: entry.label })))
   const [loading, setLoading] = useState(false)
-
-  const options = data?.results?.facet.entries.map((entry) => ({ label: entry.label }))
-
-  const selectedOptions =
-    api.getFiltersById(facet.id)?.map((filter) => ({
-      label: filter.value
-    })) || []
+  const [filters, setFilters] = useState(() =>
+    api.getFiltersById(facet.id).map((filter) => ({ label: filter.value }))
+  )
 
   const onSearchChange = async (searchValue) => {
     setLoading(true)
@@ -49,28 +45,32 @@ export const ComboBoxFacet = ({ facet }) => {
         facetQuery: searchValue
       }
     })
-    setData(result.data)
+    const options = result.data.results.facet.entries.map((entry) => ({ label: entry.label }))
+    setData(options)
     setLoading(false)
   }
 
   useEffect(() => {
-    onSearchChange('')
-  }, [])
+    const apiFilters = api.getFiltersById(facet.id)
+    if (apiFilters.length != filters.length) {
+      api.removeFiltersById(facet.id)
+      filters.forEach((f) => {
+        api.addFilter({ id: facet.id, value: f.label })
+      })
+      api.search()
+    }
+  }, [filters])
 
   return (
     <EuiComboBox
       placeholder={`Search ${facet.label}`}
       async
-      options={options}
-      selectedOptions={selectedOptions}
+      options={data}
+      selectedOptions={filters}
       onSearchChange={onSearchChange}
       isLoading={loading}
       onChange={(filters) => {
-        api.removeFiltersById(facet.id)
-        filters.forEach((f) => {
-          api.addFilter({ id: facet.id, value: f.label })
-        })
-        api.search()
+        setFilters(filters)
       }}
     />
   )

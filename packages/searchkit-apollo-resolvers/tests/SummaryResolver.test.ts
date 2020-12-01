@@ -16,6 +16,10 @@ describe('Summary Resolver', () => {
       hits: {
         fields: ['actors', 'writers']
       },
+      sortOptions: [
+        { id: 'relevance', label: 'Relevance', field: '_score' },
+        { id: 'released', label: 'Recent Releases', field: { released: 'desc' } }
+      ],
       query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] }),
       facets: [
         new RefinementSelectFacet({
@@ -42,6 +46,10 @@ describe('Summary Resolver', () => {
                 id
                 label
                 value
+              }
+              sortOptions {
+                id
+                label
               }
               query
             }

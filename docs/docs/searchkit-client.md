@@ -80,6 +80,9 @@ Adds filter to applied filters
 #### toggleFilter(filter: Filter): void
 If the filter already exists in applied filters then it will remove the filter. If doesn't exist, will add the filter
 
+#### setSortBy(id: string): void
+Set sorting id. Sort field is returned in the query variables
+
 ## withSeachkit HOC
 Wraps component with Searchkit Provider with an instantiated SearchkitClient. Useful for NextJS Pages. 
 
@@ -102,7 +105,7 @@ Provides to child components access to the shared SearchkitClient instance
 ### Usage
 
 ```javascript
-  import { SearchkitClient, SearchkitProvider } from '@searchkit/client
+  import { SearchkitClient, SearchkitProvider } from '@searchkit/client'
 
   const client = new SearchkitClient()
 
@@ -152,7 +155,7 @@ Query contains all data requirements needed to power the search.
 import { useSearchkitQuery } from '@searchkit/client'
 
 const query = gql`
-  query resultSet($query: String, $filters: [FiltersSet], $page: PageInput) {
+  query resultSet($query: String, $filters: [FiltersSet], $page: PageInput, $sortBy: String) {
     results(query: $query, filters: $filters) {
       hits(page: $page) {
         items {
@@ -175,4 +178,4 @@ const Index = () => {
 ### Options
 | Option        | Description      |
 | :------------- | :----------- |
-| query          | GQL query that has query, filters and page variables |
+| query          | GQL query that has query, filters, sorting & page variables |

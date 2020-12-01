@@ -1,5 +1,339 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Hits Resolver should return as expected should provide sorting options 1`] = `
+Object {
+  "results": Object {
+    "hits": Object {
+      "items": Array [
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Al Pacino",
+              "Robert Duvall",
+              "Diane Keaton",
+              "Robert De Niro",
+            ],
+            "writers": Array [
+              "Francis Ford Coppola",
+              "Mario Puzo",
+            ],
+          },
+          "id": "tt0071562",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Liam Neeson",
+              "Ben Kingsley",
+              "Ralph Fiennes",
+              "Caroline Goodall",
+            ],
+            "writers": Array [
+              "Thomas Keneally",
+              "Steven Zaillian",
+            ],
+          },
+          "id": "tt0108052",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Tom Hanks",
+              "Rebecca Williams",
+              "Sally Field",
+              "Michael Conner Humphreys",
+            ],
+            "writers": Array [
+              "Winston Groom",
+              "Eric Roth",
+            ],
+          },
+          "id": "tt0109830",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Bryan Cranston",
+              "Anna Gunn",
+              "Aaron Paul",
+              "Dean Norris",
+            ],
+            "writers": Array [
+              "Vince Gilligan",
+            ],
+          },
+          "id": "tt0903747",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Bruce Allpress",
+              "Sean Astin",
+              "John Bach",
+              "Sala Baker",
+            ],
+            "writers": Array [
+              "J.R.R. Tolkien",
+              "Fran Walsh",
+              "Philippa Boyens",
+              "Stephen Sinclair",
+              "Peter Jackson",
+            ],
+          },
+          "id": "tt0167261",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Mark Hamill",
+              "Harrison Ford",
+              "Carrie Fisher",
+              "Peter Cushing",
+            ],
+            "writers": Array [
+              "George Lucas",
+            ],
+          },
+          "id": "tt0076759",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Morgan Freeman",
+              "Andrew Kevin Walker",
+              "Daniel Zacapa",
+              "Brad Pitt",
+            ],
+            "writers": Array [
+              "Andrew Kevin Walker",
+            ],
+          },
+          "id": "tt0114369",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Mark Hamill",
+              "Harrison Ford",
+              "Carrie Fisher",
+              "Billy Dee Williams",
+            ],
+            "writers": Array [
+              "Leigh Brackett",
+              "Lawrence Kasdan",
+              "George Lucas",
+            ],
+          },
+          "id": "tt0080684",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Christian Bale",
+              "Gary Oldman",
+              "Tom Hardy",
+              "Joseph Gordon-Levitt",
+            ],
+            "writers": Array [
+              "Jonathan Nolan",
+              "Christopher Nolan",
+              "David S. Goyer",
+              "Bob Kane",
+            ],
+          },
+          "id": "tt1345836",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Robert De Niro",
+              "Ray Liotta",
+              "Joe Pesci",
+              "Lorraine Bracco",
+            ],
+            "writers": Array [
+              "Nicholas Pileggi",
+              "Martin Scorsese",
+            ],
+          },
+          "id": "tt0099685",
+        },
+      ],
+      "sortedBy": "relevance",
+    },
+  },
+}
+`;
+
+exports[`Hits Resolver should return as expected should provide sorting options 2`] = `
+Object {
+  "results": Object {
+    "hits": Object {
+      "items": Array [
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Channing Tatum",
+              "Jamie Foxx",
+              "Maggie Gyllenhaal",
+              "Jason Clarke",
+            ],
+            "writers": Array [
+              "James Vanderbilt",
+            ],
+          },
+          "id": "tt2334879",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Brad Pitt",
+              "Mireille Enos",
+              "Daniella Kertesz",
+              "James Badge Dale",
+            ],
+            "writers": Array [
+              "Matthew Michael Carnahan",
+              "Drew Goddard",
+              "Damon Lindelof",
+              "J. Michael Straczynski",
+              "Max Brooks",
+            ],
+          },
+          "id": "tt0816711",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Greta Gerwig",
+              "Mickey Sumner",
+              "Michael Esper",
+              "Adam Driver",
+            ],
+            "writers": Array [
+              "Noah Baumbach",
+              "Greta Gerwig",
+            ],
+          },
+          "id": "tt2347569",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Henry Cavill",
+              "Amy Adams",
+              "Michael Shannon",
+              "Diane Lane",
+            ],
+            "writers": Array [
+              "David S. Goyer",
+              "Christopher Nolan",
+              "Jerry Siegel",
+              "Joe Shuster",
+            ],
+          },
+          "id": "tt0770828",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Amy Acker",
+              "Alexis Denisof",
+              "Nathan Fillion",
+              "Clark Gregg",
+            ],
+            "writers": Array [
+              "Joss Whedon",
+              "William Shakespeare",
+            ],
+          },
+          "id": "tt2094064",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "James Franco",
+              "Jonah Hill",
+              "Seth Rogen",
+              "Jay Baruchel",
+            ],
+            "writers": Array [
+              "Seth Rogen",
+              "Evan Goldberg",
+              "Jason Stone",
+            ],
+          },
+          "id": "tt1245492",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Matt Damon",
+              "Scott Bakula",
+              "Eric Zuckerman",
+              "Eddie Jemison",
+            ],
+            "writers": Array [
+              "Richard LaGravenese",
+              "Scott Thorson",
+              "Alex Thorleifson",
+            ],
+          },
+          "id": "tt1291580",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Vince Vaughn",
+              "Owen Wilson",
+              "Rose Byrne",
+              "Aasif Mandvi",
+            ],
+            "writers": Array [
+              "Vince Vaughn",
+              "Jared Stern",
+            ],
+          },
+          "id": "tt2234155",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Emilia Clarke",
+              "Kit Harington",
+              "Richard Madden",
+              "Iain Glen",
+            ],
+            "writers": Array [
+              "George R.R. Martin",
+              "David Benioff",
+              "D.B. Weiss",
+            ],
+          },
+          "id": "tt2178784",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Sherri Saum",
+              "Teri Polo",
+              "Jake T. Austin",
+              "David Lambert",
+            ],
+            "writers": Array [
+              "Brad Bredeweg",
+              "Peter Paige",
+            ],
+          },
+          "id": "tt2262532",
+        },
+      ],
+      "sortedBy": "released",
+    },
+  },
+}
+`;
+
 exports[`Hits Resolver should return as expected should return correct Results 1`] = `
 Object {
   "results": Object {
@@ -161,6 +495,7 @@ Object {
           "id": "tt0133093",
         },
       ],
+      "sortedBy": null,
     },
   },
 }
@@ -325,6 +660,7 @@ Object {
           "id": "tt0099685",
         },
       ],
+      "sortedBy": null,
     },
   },
 }
