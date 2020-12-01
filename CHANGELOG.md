@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-canary.14](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.12...v3.0.0-canary.14) (2020-12-01)
+
+
+### Bug Fixes
+
+* link ([#783](https://github.com/searchkit/searchkit/issues/783)) ([55f6f6f](https://github.com/searchkit/searchkit/commit/55f6f6f541f274f4c9249da63f98088be3f6ba4e))
+
+
+
+
+
 # [3.0.0-canary.13](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.12...v3.0.0-canary.13) (2020-11-18)
 
 **Note:** Version bump only for package searchkit
