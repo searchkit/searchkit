@@ -178,4 +178,4 @@ const Index = () => {
 ### Options
 | Option        | Description      |
 | :------------- | :----------- |
-| query          | GQL query that has query, filters and page variables |
+| query          | GQL query that has query, filters, sorting & page variables |
