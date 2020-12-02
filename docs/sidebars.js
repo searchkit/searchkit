@@ -27,6 +27,6 @@ module.exports = {
       'searchkit-elastic-ui',
     ],
     Examples: ['example-apps-next', 'example-apps-prisma', 'example-apps-aws-lambda', 'example-apps-create-react-app'],
-    Guides: ['v2-v3-migration']
+    Guides: ['v2-v3-migration', 'guides-graphql-schema-cheat-sheet']
   },
 };
