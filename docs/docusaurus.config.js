@@ -18,6 +18,7 @@ module.exports = {
   projectName: 'searchkit', // Usually your repo name.
   stylesheets: ['https://unpkg.com/tailwindcss@1.9.2/dist/tailwind.min.css'],
   themeConfig: {
+    sidebarCollapsible: false,
     gtag: {
       trackingID: 'G-Y1LWVCFZQK',
     },

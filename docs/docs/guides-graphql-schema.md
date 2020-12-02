@@ -1,0 +1,170 @@
+---
+id: guides-graphql-schema-cheat-sheet
+title: GQL Schema Queries Cheatsheet 
+sidebar_label: GQL Queries Cheatsheet
+slug: /guides/graphql-schema-queries-cheatsheet
+---
+
+Try these examples on the [Demo GraphQL Playground](https://demo.searchkit.co/api/graphql)
+
+
+### Simple Hits
+
+```graphql
+query {
+  results {
+    hits {
+      items {
+        id
+        fields { <--- Add your fields via HitFields type
+          title
+        }
+      }
+    }
+  }
+}
+```
+
+### Hit Querying
+
+```graphql
+query {
+  results(query: "heat") {
+    hits {
+      items {
+        id
+        fields {
+          title
+        }
+      }
+    }
+  }
+}
+```
+
+### Hit Filtering
+
+```graphql
+query {
+  results(
+	  filters: [
+		  {id: "type", value: "Movie"},
+		  {id: "rangeExample", min: 0, max: 100 },
+		  {id: "dateExample", dateMin: "2020-12-01T00:00:00.000Z", dateMax: "2020-12-11T00:00:00.000Z" }
+	  ] 
+	) {
+    hits {
+      items {
+        id
+      }
+    }
+  }
+}
+```
+
+### Facet list
+```graphql
+query {
+  results {
+    facets { <-- array of all facets configured
+      id 
+      label
+      display <-- Used by client on how to display the facet. Can be configured in Facet configuration
+      type <-- facet class type
+      entries {
+        id
+        label
+        count
+      }
+    }
+  }
+}
+```
+
+### Single Facet
+Used for facet interactions such as for search or for when displaying more facet options. 
+```graphql
+	query {
+		results {
+			facet(
+				id: "actors",
+				query: "a", <-- query prefix to filter entries
+				page: { from: 0, size: 20 } <--- pagination options on facet
+			) {
+				id
+				label
+				type
+				display
+				entries {
+					id
+					label
+					count
+				}
+			}
+		}
+	}
+```
+
+### Pagination
+```graphql
+query {
+  results {
+    hits(
+      page: {from: 100, size: 100 } <-- used to control page
+    ) {
+      items {
+        id
+      }
+      page { <-- used for pagination display
+        total
+        totalPages
+        pageNumber
+        from
+        size
+      }
+    }
+  }
+}
+```
+
+### Sorting Results
+```graphql
+query {
+  results {
+    summary {
+      sortOptions { <--- all available sort options
+        id
+        label
+      }
+    }
+    hits(
+			sortBy: "<id>" <--- Wish to sort by, the sort id
+		) {
+      sortedBy <--- the selected sort, the sort id 
+    }
+  }
+}
+```
+
+### Filter Summary
+
+```graphql
+query {
+  results {
+    summary {
+      query <-- the query value
+      appliedFilters { <-- array of filters applied to search
+        id
+        label
+        value
+      }
+    }
+    hits(page: {from: 100, size: 0 }) {
+      items {
+        id
+      }
+    }
+  }
+}
+```
+
