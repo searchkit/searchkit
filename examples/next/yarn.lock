@@ -1203,24 +1203,24 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@searchkit/apollo-resolvers@latest":
-  version "3.0.0-canary.13"
-  resolved "https://registry.yarnpkg.com/@searchkit/apollo-resolvers/-/apollo-resolvers-3.0.0-canary.13.tgz#3026c64bd499ac7d6f7b9ea75c5b03a513b1634f"
-  integrity sha512-u8vJpOZkJJ042TxsWwcytkdWQ1tn0/kRzjnyNO5pgMI1JWiH8SnLje7yNrpNEmOi7Os48KP86gPJDFn0syA3mg==
+"@searchkit/apollo-resolvers@^3.0.0-canary.14":
+  version "3.0.0-canary.14"
+  resolved "https://registry.yarnpkg.com/@searchkit/apollo-resolvers/-/apollo-resolvers-3.0.0-canary.14.tgz#cb1508919fedc1d20b6d7fd729b1ecc16fea4cd0"
+  integrity sha512-7/+xpKVqxlSWnmayCP5qeL5GMMKtBAtcfDMG/B0b5a5ZO+xf0GDL9EUznzbQCVUipolxMtvOAACZEBsSijmH4A==
   dependencies:
     "@elastic/elasticsearch" "^7.9.1"
     dataloader "^2.0.0"
     graphql-tag "^2.10.3"
 
-"@searchkit/client@latest":
-  version "3.0.0-canary.13"
-  resolved "https://registry.yarnpkg.com/@searchkit/client/-/client-3.0.0-canary.13.tgz#5bd224ef3242be53f89e75adf371da71264b04e8"
-  integrity sha512-oRiIck4QiR0shUDx4nQpx2ugldDObPFy66YbrAJQn84STojPuAaU0IZBZ9S2SdGr8FwqQ4Lo2GMYXsCtm6g78g==
+"@searchkit/client@^3.0.0-canary.14":
+  version "3.0.0-canary.14"
+  resolved "https://registry.yarnpkg.com/@searchkit/client/-/client-3.0.0-canary.14.tgz#dc088018313d3fc5d43a0783338a3423c0f1ac0b"
+  integrity sha512-/HuEVgm1Z0z9z9zx9rusKdKe5gf3/IkOFrSujMW6EIdqLQM/Bu8uS8MkqVbMQqraHa0BCIbNiU9vMpCuLO8dTg==
 
-"@searchkit/elastic-ui@latest":
-  version "3.0.0-canary.13"
-  resolved "https://registry.yarnpkg.com/@searchkit/elastic-ui/-/elastic-ui-3.0.0-canary.13.tgz#9ed4b7b16d5c8262919faa26af6cb4fb332989fd"
-  integrity sha512-OMtDhIQu093Cwlq7YviWj+G0HDKmb4b9SvwbEN0UcutrVdP0BwzehH7pYL+j3r6ygBcdGNMC7cJAyMYZ1wGtZg==
+"@searchkit/elastic-ui@^3.0.0-canary.14":
+  version "3.0.0-canary.14"
+  resolved "https://registry.yarnpkg.com/@searchkit/elastic-ui/-/elastic-ui-3.0.0-canary.14.tgz#acc4d426b879dc7d0a9f2342c9dfcbb20c64b0d3"
+  integrity sha512-y27HikG6BTam29Wl93e7RFXIJJReG59ku7FYtPOVCIwD9fuiO3ut38H0ZHA4YBDQPx5atX9V0msk6RZGE89FmQ==
   dependencies:
     use-debounce "^5.0.3"
 
