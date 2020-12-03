@@ -7,6 +7,22 @@ slug: /reference/apollo-resolvers
 
 ## Query
 
+Query will be applied to results & facets. You need to configure a Query handler for this to work.
+
+```gql
+ 
+ {
+  results(query: "heat") {
+    hits {
+      items {
+        id
+      }
+    }
+  }
+}
+    
+```
+
 ### MultiMatchQuery
 Uses [elasticsearch multi-match](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html) query.
 
@@ -23,28 +39,47 @@ const searchkitConfig = {
 
 ```
 
-#### GraphQL Query Example
-Query will be applied to results & facets
+#### Options
 
-```gql
- 
- {
-  results(query: "heat") {
-    hits {
-      items {
-        id
+| Option        | Description      |
+| :------------- | :----------- |
+| fields          | fields to be queried. See elasticsearch documentation for more information on options  |
+
+
+### CustomQuery
+Allows you to pass a function which will return an elasticsearch query filter. 
+See [Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html) for what options are available. This is great for when you have a query in mind to use.
+
+#### Usage
+
+```javascript
+import {
+  CustomQuery
+} from '@searchkit/apollo-resolvers'
+
+const searchkitConfig = {
+  query: new CustomQuery({ 
+    queryFn: (query, qm) => {
+      return {
+        wildcard: {
+          field: {
+            value: query + '*',
+            boost: 1.0,
+            rewrite: 'constant_score'
+          }
+        }
       }
     }
-  }
+  })
 }
-    
+
 ```
 
 #### Options
 
 | Option        | Description      |
 | :------------- | :----------- |
-| fields          | fields to be queried. See elasticsearch documentation for more information on options  |
+| queryFn(query, queryManager)         | Function. Query argument is the query string. queryManager argument is a class that keeps the query and filters that have been applied to search. For example you may want to adjust the query DSL based on what filters have been selected  |
 
 ## Sorting
 ```javascript

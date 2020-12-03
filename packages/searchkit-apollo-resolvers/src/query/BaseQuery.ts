@@ -1,7 +1,7 @@
 import QueryManager from '../core/QueryManager'
 
 interface BaseQuery {
-  getFilter(queryManager: QueryManager): any
+  getFilter(queryManager: QueryManager): Record<string, unknown>
 }
 
 export default BaseQuery
