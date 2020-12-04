@@ -2,6 +2,8 @@ import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
 import { MultiMatchQuery } from '../src'
 import { RefinementSelectFacet } from '../src/facets'
 import { setupTestServer, callQuery } from './support/helper'
+import nock from 'nock'
+import HitsMock from './__mock-data__/FacetsResolver/results.json'
 
 describe('Facets Resolver', () => {
   describe('should return as expected', () => {
@@ -57,6 +59,63 @@ describe('Facets Resolver', () => {
         }
       `
 
+      const scope = nock('http://localhost:9200')
+        .post('/movies/_search')
+        .reply((uri, body) => {
+          expect(body).toMatchInlineSnapshot(`
+            Object {
+              "aggs": Object {
+                "facet_bucket_all": Object {
+                  "aggs": Object {
+                    "actors": Object {
+                      "terms": Object {
+                        "field": "actors.raw",
+                        "size": 5,
+                      },
+                    },
+                    "genres": Object {
+                      "terms": Object {
+                        "field": "genres.raw",
+                        "size": 5,
+                      },
+                    },
+                    "type": Object {
+                      "terms": Object {
+                        "field": "type.raw",
+                        "size": 5,
+                      },
+                    },
+                    "writers": Object {
+                      "terms": Object {
+                        "field": "writers.raw",
+                        "size": 5,
+                      },
+                    },
+                  },
+                  "filter": Object {
+                    "bool": Object {
+                      "must": Array [],
+                    },
+                  },
+                },
+              },
+              "from": 0,
+              "post_filter": Object {
+                "bool": Object {
+                  "must": Array [],
+                },
+              },
+              "size": 10,
+              "sort": Array [
+                Object {
+                  "_score": "desc",
+                },
+              ],
+            }
+          `)
+          return [200, HitsMock]
+        })
+
       const response = await runQuery(gql)
       expect(response.body.data).toMatchSnapshot()
       expect(response.status).toEqual(200)
@@ -93,6 +152,130 @@ describe('Facets Resolver', () => {
           }
         }
       `
+
+      const scope = nock('http://localhost:9200')
+        .post('/movies/_search')
+        .reply((uri, body) => {
+          expect(body).toMatchInlineSnapshot(`
+            Object {
+              "aggs": Object {
+                "facet_bucket_all": Object {
+                  "aggs": Object {
+                    "actors": Object {
+                      "terms": Object {
+                        "field": "actors.raw",
+                        "size": 5,
+                      },
+                    },
+                    "genres": Object {
+                      "terms": Object {
+                        "field": "genres.raw",
+                        "size": 5,
+                      },
+                    },
+                    "type": Object {
+                      "terms": Object {
+                        "field": "type.raw",
+                        "size": 5,
+                      },
+                    },
+                  },
+                  "filter": Object {
+                    "bool": Object {
+                      "must": Array [
+                        Object {
+                          "bool": Object {
+                            "should": Array [
+                              Object {
+                                "term": Object {
+                                  "writers.raw": "Damon Lindelof",
+                                },
+                              },
+                            ],
+                          },
+                        },
+                        Object {
+                          "bool": Object {
+                            "must": Array [
+                              Object {
+                                "term": Object {
+                                  "actors.raw": "Damon Lindelof",
+                                },
+                              },
+                            ],
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+                "facet_bucket_writers": Object {
+                  "aggs": Object {
+                    "writers": Object {
+                      "terms": Object {
+                        "field": "writers.raw",
+                        "size": 5,
+                      },
+                    },
+                  },
+                  "filter": Object {
+                    "bool": Object {
+                      "must": Array [
+                        Object {
+                          "bool": Object {
+                            "must": Array [
+                              Object {
+                                "term": Object {
+                                  "actors.raw": "Damon Lindelof",
+                                },
+                              },
+                            ],
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+              },
+              "from": 0,
+              "post_filter": Object {
+                "bool": Object {
+                  "must": Array [
+                    Object {
+                      "bool": Object {
+                        "should": Array [
+                          Object {
+                            "term": Object {
+                              "writers.raw": "Damon Lindelof",
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    Object {
+                      "bool": Object {
+                        "must": Array [
+                          Object {
+                            "term": Object {
+                              "actors.raw": "Damon Lindelof",
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              "size": 10,
+              "sort": Array [
+                Object {
+                  "_score": "desc",
+                },
+              ],
+            }
+          `)
+          return [200, HitsMock]
+        })
 
       const response = await runQuery(gql)
 

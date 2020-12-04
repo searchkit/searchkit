@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-canary.16](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.12...v3.0.0-canary.16) (2020-12-04)
+
+
+### Bug Fixes
+
+* better compatibility support for es6 / es7 over total ([ce6a92c](https://github.com/searchkit/searchkit/commit/ce6a92cf6e9a3f14f46f08fe9f75b38561e511b2)), closes [#792](https://github.com/searchkit/searchkit/issues/792)
+* link ([#783](https://github.com/searchkit/searchkit/issues/783)) ([55f6f6f](https://github.com/searchkit/searchkit/commit/55f6f6f541f274f4c9249da63f98088be3f6ba4e))
+
+
+
+
+
 # [3.0.0-canary.15](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.12...v3.0.0-canary.15) (2020-12-03)
 
 

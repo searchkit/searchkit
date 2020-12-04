@@ -17,7 +17,6 @@
             "preLaunchTask": null,
             "runtimeExecutable": null,
             "env": {
-                "POLLY_MODE": "replay",
                 "NODE_ENV": "test"
             },
             "console": "integratedTerminal",
