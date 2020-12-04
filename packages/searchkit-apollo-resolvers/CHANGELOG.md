@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-canary.16](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.12...v3.0.0-canary.16) (2020-12-04)
+
+
+### Bug Fixes
+
+* better compatibility support for es6 / es7 over total ([ce6a92c](https://github.com/searchkit/searchkit/commit/ce6a92cf6e9a3f14f46f08fe9f75b38561e511b2)), closes [#792](https://github.com/searchkit/searchkit/issues/792)
+
+
+
+
+
 # [3.0.0-canary.15](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.12...v3.0.0-canary.15) (2020-12-03)
 
 **Note:** Version bump only for package @searchkit/apollo-resolvers
