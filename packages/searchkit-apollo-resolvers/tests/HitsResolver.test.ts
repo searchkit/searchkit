@@ -1,6 +1,10 @@
 import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
 import { MultiMatchQuery } from '../src'
 import { setupTestServer, callQuery } from './support/helper'
+import nock from 'nock'
+import HitsMock from './__mock-data__/HitResolver/Hits.json'
+import NoHitsES7Mock from './__mock-data__/HitResolver/NoHitsES7.json'
+import NoHitsMock from './__mock-data__/HitResolver/NoHits.json'
 
 describe('Hits Resolver', () => {
   describe('should return as expected', () => {
@@ -39,6 +43,29 @@ describe('Hits Resolver', () => {
 
       setupTestServer(config)
 
+      const scope = nock('http://localhost:9200')
+        .post('/movies/_search')
+        .reply((uri, body) => {
+          expect(body).toMatchInlineSnapshot(`
+            Object {
+              "aggs": Object {},
+              "from": 0,
+              "post_filter": Object {
+                "bool": Object {
+                  "must": Array [],
+                },
+              },
+              "size": 10,
+              "sort": Array [
+                Object {
+                  "_score": "desc",
+                },
+              ],
+            }
+          `)
+          return [200, HitsMock]
+        })
+
       const response = await runQuery()
       expect(response.body.data).toMatchSnapshot()
       expect(response.status).toEqual(200)
@@ -53,6 +80,29 @@ describe('Hits Resolver', () => {
         },
         query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] })
       }
+
+      const scope = nock('http://localhost:9200')
+        .post('/movies/_search')
+        .reply((uri, body) => {
+          expect(body).toMatchInlineSnapshot(`
+              Object {
+                "aggs": Object {},
+                "from": 10,
+                "post_filter": Object {
+                  "bool": Object {
+                    "must": Array [],
+                  },
+                },
+                "size": 10,
+                "sort": Array [
+                  Object {
+                    "_score": "desc",
+                  },
+                ],
+              }
+          `)
+          return [200, HitsMock]
+        })
 
       setupTestServer(config)
 
@@ -77,13 +127,51 @@ describe('Hits Resolver', () => {
 
       setupTestServer(config)
 
+      const scope = nock('http://localhost:9200')
+        .post('/movies/_search')
+        .reply((uri, body) => {
+          expect(body).toMatchInlineSnapshot(`
+            Object {
+              "aggs": Object {},
+              "from": 10,
+              "post_filter": Object {
+                "bool": Object {
+                  "must": Array [],
+                },
+              },
+              "size": 10,
+              "sort": "_score",
+            }
+          `)
+          return [200, HitsMock]
+        })
+
       let response = await runQuery('', { size: 10, from: 10 }, 'relevance')
       expect(response.body.data).toMatchSnapshot()
+
+      scope.post('/movies/_search').reply((uri, body) => {
+        expect(body).toMatchInlineSnapshot(`
+          Object {
+            "aggs": Object {},
+            "from": 10,
+            "post_filter": Object {
+              "bool": Object {
+                "must": Array [],
+              },
+            },
+            "size": 10,
+            "sort": Object {
+              "released": "desc",
+            },
+          }
+        `)
+        return [200, HitsMock]
+      })
 
       response = await runQuery('', { size: 10, from: 10 }, 'released')
       expect(response.body.data).toMatchSnapshot()
 
       expect(response.status).toEqual(200)
     })
-  })
+
 })

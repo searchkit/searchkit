@@ -2,6 +2,8 @@ import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
 import { MultiMatchQuery } from '../src'
 import { RefinementSelectFacet } from '../src/facets'
 import { setupTestServer, callQuery } from './support/helper'
+import nock from 'nock'
+import HitsMock from './__mock-data__/HitResolver/Hits.json'
 
 describe('Summary Resolver', () => {
   describe('should return as expected', () => {
@@ -68,6 +70,41 @@ describe('Summary Resolver', () => {
           }
         }
       `
+
+      const scope = nock('http://localhost:9200')
+        .post('/movies/_search')
+        .reply((uri, body) => {
+          expect(body).toMatchInlineSnapshot(`
+            Object {
+              "aggs": Object {},
+              "from": 0,
+              "post_filter": Object {
+                "bool": Object {
+                  "must": Array [
+                    Object {
+                      "bool": Object {
+                        "should": Array [
+                          Object {
+                            "term": Object {
+                              "writers.raw": "Jeff Lindsay",
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+              "size": 10,
+              "sort": Array [
+                Object {
+                  "_score": "desc",
+                },
+              ],
+            }
+          `)
+          return [200, HitsMock]
+        })
 
       const response = await runQuery(gql)
       expect(response.body.data).toMatchSnapshot()

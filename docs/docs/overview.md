@@ -13,10 +13,10 @@ Searchkit is an open source search toolkit. It mainly consists of the following 
 
 #### Quick Start Guide
 - [Example Apps](https://github.com/searchkit/searchkit/tree/next/examples)  
-- [API Quick Start Guide](./quick-start/api-setup)
-- [UI Quick Start Guide](./quick-start/ui/setup)
+- [API Quick Start Guide](docs/quick-start/api-setup)
+- [UI Quick Start Guide](docs/quick-start/ui/setup)
 
 #### Using Searchkit
-- [GraphQL Schema Query Cheatsheet](./guides/graphql-schema-queries-cheatsheet)
-- [Customising Searchkit](./quick-start/customise-searchkit)
+- [GraphQL Schema Query Cheatsheet](docs/guides/graphql-schema-queries-cheatsheet)
+- [Customising Searchkit](docs/quick-start/customise-searchkit)
 

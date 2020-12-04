@@ -2,6 +2,8 @@ import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
 import { MultiMatchQuery } from '../src'
 import { RefinementSelectFacet } from '../src/facets'
 import { setupTestServer, callQuery } from './support/helper'
+import nock from 'nock'
+import FacetMock from './__mock-data__/FacetResolver/Facet.json'
 
 describe('Facet Resolver', () => {
   describe('should return as expected', () => {
@@ -47,6 +49,40 @@ describe('Facet Resolver', () => {
           }
         }
       `
+
+      const scope = nock('http://localhost:9200')
+        .post('/movies/_search')
+        .reply((uri, body) => {
+          expect(body).toMatchInlineSnapshot(`
+            Object {
+              "aggs": Object {
+                "facet_bucket_all": Object {
+                  "aggs": Object {
+                    "writers": Object {
+                      "terms": Object {
+                        "field": "writers.raw",
+                        "include": "[tT][eE].*",
+                        "size": 5,
+                      },
+                    },
+                  },
+                  "filter": Object {
+                    "bool": Object {
+                      "must": Array [],
+                    },
+                  },
+                },
+              },
+              "post_filter": Object {
+                "bool": Object {
+                  "must": Array [],
+                },
+              },
+              "size": 0,
+            }
+          `)
+          return [200, FacetMock]
+        })
 
       const response = await runQuery(gql)
       expect(response.body.data).toMatchSnapshot()

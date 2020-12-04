@@ -1,47 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Summary Resolver should return as expected should return correct summary 1`] = `
+exports[`Summary Resolver should return as expected should return correct summary 2`] = `
 Object {
   "results": Object {
     "hits": Object {
       "items": Array [
         Object {
-          "id": "tt1790076",
+          "id": "tt0468569",
         },
         Object {
-          "id": "tt0866569",
+          "id": "tt0110912",
         },
         Object {
-          "id": "tt1444429",
+          "id": "tt0167260",
         },
         Object {
-          "id": "tt1615586",
+          "id": "tt0114369",
         },
         Object {
-          "id": "tt1013980",
+          "id": "tt0073486",
         },
         Object {
-          "id": "tt2403521",
+          "id": "tt0172495",
         },
         Object {
-          "id": "tt0866568",
+          "id": "tt1520211",
         },
         Object {
-          "id": "tt1013988",
+          "id": "tt0338013",
         },
         Object {
-          "id": "tt1013977",
+          "id": "tt0078788",
         },
         Object {
-          "id": "tt0836899",
+          "id": "tt0180093",
         },
       ],
       "page": Object {
         "from": 0,
         "pageNumber": 0,
         "size": 10,
-        "total": 53,
-        "totalPages": 6,
+        "total": 4162,
+        "totalPages": 417,
       },
     },
     "summary": Object {
@@ -63,7 +63,7 @@ Object {
           "label": "Recent Releases",
         },
       ],
-      "total": 53,
+      "total": 4162,
     },
   },
 }
