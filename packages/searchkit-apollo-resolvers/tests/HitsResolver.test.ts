@@ -3,8 +3,6 @@ import { MultiMatchQuery } from '../src'
 import { setupTestServer, callQuery } from './support/helper'
 import nock from 'nock'
 import HitsMock from './__mock-data__/HitResolver/Hits.json'
-import NoHitsES7Mock from './__mock-data__/HitResolver/NoHitsES7.json'
-import NoHitsMock from './__mock-data__/HitResolver/NoHits.json'
 
 describe('Hits Resolver', () => {
   describe('should return as expected', () => {
@@ -173,5 +171,6 @@ describe('Hits Resolver', () => {
 
       expect(response.status).toEqual(200)
     })
+  })
 
 })
