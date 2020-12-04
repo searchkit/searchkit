@@ -10,7 +10,7 @@ export default async (parent, {}, ctx) => {
   try {
     const results = await skRequest.search({})
     return {
-      total: results.hits.total.value ? results.hits.total.value : results.hits.total,
+      total: typeof results.hits.total.value === "number" ? results.hits.total.value : results.hits.total,
       query: queryManager.getQuery(),
       sortOptions: config.sortOptions.map((sortOption) => ({
         id: sortOption.id,
