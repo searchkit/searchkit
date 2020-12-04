@@ -28,7 +28,7 @@ export default gql`
     summary: Summary
     hits(page: PageInput, sortBy: String): HitResults
     facets: [FacetSet]
-    facet(id: String!, query: String, page: PageInput): FacetSet
+    facet(id: String!, query: String, size: Float): FacetSet
   }
 
   type PageInfo {

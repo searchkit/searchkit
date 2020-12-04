@@ -234,7 +234,7 @@ Supports facet values querying via the facet node. Great for UIs where you have 
 ```gql
  {
   results(query: "heat", filters: []) {
-    facet(id: "type", query: "movi") {
+    facet(id: "type", query: "movi", size: 10) {
       id
       entries {
         id

@@ -89,7 +89,7 @@ Used for facet interactions such as for search or for when displaying more facet
 			facet(
 				id: "actors",
 				query: "a", <-- query prefix to filter entries
-				page: { from: 0, size: 20 } <--- pagination options on facet
+				size: 20 <--- size options on facet
 			) {
 				id
 				label

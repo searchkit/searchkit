@@ -88,5 +88,80 @@ describe('Facet Resolver', () => {
       expect(response.body.data).toMatchSnapshot()
       expect(response.status).toEqual(200)
     })
+
+    it('Adjust size at query time', async () => {
+      setupTestServer(config)
+
+      const gql = `
+        {
+          results(query: "") {
+            facet(id: "writers", size: 20) {
+              id
+              type
+              label
+              display
+              entries {
+                id
+                count
+                label
+              }
+            }
+          }
+        }
+      `
+
+      const scope = nock('http://localhost:9200')
+        .post('/movies/_search')
+        .reply((uri, body: any) => {
+          expect(body.aggs.facet_bucket_all.aggs.writers.terms.size).toEqual(20)
+          return [200, FacetMock]
+        })
+
+      const response = await runQuery(gql)
+      expect(response.status).toEqual(200)
+    })
+
+    it('Adjust size at configuration', async () => {
+      setupTestServer({
+        ...config,
+        facets: [
+          new RefinementSelectFacet({
+            id: 'writers',
+            field: 'writers.raw',
+            label: 'Writers',
+            multipleSelect: true,
+            size: 30
+          })
+        ]
+      })
+
+      const gql = `
+        {
+          results(query: "") {
+            facet(id: "writers") {
+              id
+              type
+              label
+              display
+              entries {
+                id
+                count
+                label
+              }
+            }
+          }
+        }
+      `
+
+      const scope = nock('http://localhost:9200')
+        .post('/movies/_search')
+        .reply((uri, body: any) => {
+          expect(body.aggs.facet_bucket_all.aggs.writers.terms.size).toEqual(30)
+          return [200, FacetMock]
+        })
+
+      const response = await runQuery(gql)
+      expect(response.status).toEqual(200)
+    })
   })
 })
