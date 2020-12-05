@@ -103,7 +103,7 @@ const server = new ApolloServer({
     //   exampleCustomField: (parent) => `Example Return Value for ${parent.id}`
     // }
   },
-  introspection: false,
+  introspection: true,
   playground: true,
   context: {}
 })
