@@ -7,7 +7,9 @@ describe('Facet Fns', () => {
   describe('getAggregationsFromFacets', () => {
     it('create aggregations for one facet ', () => {
       const qm = new QueryManager([{ identifier: 'test', value: 'testValue' }], '')
-      const facetConfig = [new RefinementSelectFacet({ field: 'test', identifier: 'test', label: 'Test' })]
+      const facetConfig = [
+        new RefinementSelectFacet({ field: 'test', identifier: 'test', label: 'Test' })
+      ]
 
       expect(getAggregationsFromFacets(qm, {}, facetConfig)).toMatchInlineSnapshot(`
         Object {

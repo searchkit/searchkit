@@ -1,7 +1,7 @@
+import nock from 'nock'
 import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
 import { MultiMatchQuery } from '../src'
 import { setupTestServer, callQuery } from './support/helper'
-import nock from 'nock'
 import HitsMock from './__mock-data__/HitResolver/Hits.json'
 
 describe('Hits Resolver', () => {
@@ -172,5 +172,4 @@ describe('Hits Resolver', () => {
       expect(response.status).toEqual(200)
     })
   })
-
 })

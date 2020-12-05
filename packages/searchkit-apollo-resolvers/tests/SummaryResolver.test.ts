@@ -1,8 +1,8 @@
+import nock from 'nock'
 import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
 import { MultiMatchQuery } from '../src'
 import { RefinementSelectFacet } from '../src/facets'
 import { setupTestServer, callQuery } from './support/helper'
-import nock from 'nock'
 import HitsMock from './__mock-data__/HitResolver/Hits.json'
 
 describe('Summary Resolver', () => {

@@ -35,7 +35,9 @@ export default async (parent, parameters: HitsParameters, ctx) => {
       sort: chosenSortOption ? chosenSortOption.field : [{ _score: 'desc' }]
     })
 
-    const hitsTotal = (typeof hits.total.value === "number" ? hits.total.value : hits.total) as number
+    const hitsTotal = (typeof hits.total.value === 'number'
+      ? hits.total.value
+      : hits.total) as number
 
     return {
       items: hits.hits.map((hit) => ({
