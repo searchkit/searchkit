@@ -34,8 +34,8 @@ const searchkitConfig = {
     // known as RefinementListFilter component
     // for OR operator, use multipleSelect boolean
     new RefinementSelectFacet({ 
+      identifier: 'type', 
       field: 'type.raw', 
-      id: 'type', 
       label: 'Type', 
       multipleSelect: false,
       display: "ListFacet" // component display. Currently support a ListFacet or ComboBoxFacet
@@ -45,7 +45,7 @@ const searchkitConfig = {
     // showHistogram is currently always enabled, design slightly different
     new RangeFacet({
       field: 'metaScore',
-      id: 'metascore',
+      identifier: 'metascore',
       label: 'Metascore',
       range: {
         min: 0,

@@ -1,17 +1,17 @@
 export type ValueFilter = {
-  id: string
+  identifier: string
   value: string
 }
 
 export type RangeFilter = {
-  id: string
+  identifier: string
   value?: string
   min: number
   max: number
 }
 
 export type DateRangeFilter = {
-  id: string
+  identifier: string
   value?: string
   dateMin: string
   dateMax: string
@@ -40,7 +40,7 @@ export default class QueryManager {
 
   getFiltersById(id: string): Array<MixedFilter> {
     if (!this.hasFilters()) return null
-    const idFilters = this.filters.filter((filter) => filter.id === id)
+    const idFilters = this.filters.filter((filter) => filter.identifier === id)
     return idFilters.length > 0 ? idFilters : null
   }
 }

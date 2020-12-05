@@ -21,15 +21,15 @@ describe('Facets Resolver', () => {
       query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] }),
       facets: [
         new RefinementSelectFacet({
-          id: 'writers',
+          identifier: 'writers',
           field: 'writers.raw',
           label: 'Writers',
           display: 'override',
           multipleSelect: true
         }),
-        new RefinementSelectFacet({ id: 'actors', field: 'actors.raw', label: 'Actors' }),
-        new RefinementSelectFacet({ id: 'type', field: 'type.raw', label: 'Type' }),
-        new RefinementSelectFacet({ id: 'genres', field: 'genres.raw', label: 'Genres' })
+        new RefinementSelectFacet({ identifier: 'actors', field: 'actors.raw', label: 'Actors' }),
+        new RefinementSelectFacet({ identifier: 'type', field: 'type.raw', label: 'Type' }),
+        new RefinementSelectFacet({ identifier: 'genres', field: 'genres.raw', label: 'Genres' })
       ]
     }
 
@@ -45,7 +45,7 @@ describe('Facets Resolver', () => {
               }
             }
             facets {
-              id
+              identifier
               type
               label
               display
@@ -129,8 +129,8 @@ describe('Facets Resolver', () => {
           results(
             query: "",
             filters: [
-              { id: "writers", value: "Damon Lindelof" },
-              { id: "actors", value: "Damon Lindelof" },
+              { identifier: "writers", value: "Damon Lindelof" },
+              { identifier: "actors", value: "Damon Lindelof" },
             ]
             ) {
             hits(page: {size: 10, from: 0 }) {
@@ -139,7 +139,7 @@ describe('Facets Resolver', () => {
               }
             }
             facets {
-              id
+              identifier
               type
               label
               display

@@ -7,7 +7,7 @@ export interface FacetOptions {
 
 export interface BaseFacet {
   excludeOwnFilters: boolean
-  getId(): string
+  getIdentifier(): string
   getLabel(): string
   getAggregation(overrides: FacetOptions): any
   getFilters(filters: Array<MixedFilter>): any

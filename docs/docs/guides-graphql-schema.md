@@ -48,9 +48,9 @@ query {
 query {
   results(
 	  filters: [
-		  {id: "type", value: "Movie"},
-		  {id: "rangeExample", min: 0, max: 100 },
-		  {id: "dateExample", dateMin: "2020-12-01T00:00:00.000Z", dateMax: "2020-12-11T00:00:00.000Z" }
+		  {identifier: "type", value: "Movie"},
+		  {identifier: "rangeExample", min: 0, max: 100 },
+		  {identifier: "dateExample", dateMin: "2020-12-01T00:00:00.000Z", dateMax: "2020-12-11T00:00:00.000Z" }
 	  ] 
 	) {
     hits {
@@ -67,7 +67,7 @@ query {
 query {
   results {
     facets { <-- array of all facets configured
-      id 
+      identifier 
       label
       display <-- Used by client on how to display the facet. Can be configured in Facet configuration
       type <-- facet class type
@@ -87,11 +87,11 @@ Used for facet interactions such as for search or for when displaying more facet
 	query {
 		results {
 			facet(
-				id: "actors",
+				identifier: "actors",
 				query: "a", <-- query prefix to filter entries
 				size: 20 <--- size options on facet
 			) {
-				id
+				identifier
 				label
 				type
 				display
@@ -154,7 +154,7 @@ query {
     summary {
       query <-- the query value
       appliedFilters { <-- array of filters applied to search
-        id
+        identifier
         label
         value
       }

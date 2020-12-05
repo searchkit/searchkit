@@ -125,18 +125,18 @@ const searchkitConfig = {
   facets: [
     new RefinementSelectFacet({ 
       field: 'type.raw',
-      id: 'type',
+      identifier: 'type',
       label: 'Type'
     }),
     new RefinementSelectFacet({
       field: 'writers.raw',
-      id: 'writers',
+      identifier: 'writers',
       label: 'Writers',
       multipleSelect: true
     }),
     new RangeFacet({
       field: 'metaScore',
-      id: 'metascore',
+      identifier: 'metascore',
       label: 'Metascore',
       range: {
         min: 0,
@@ -146,7 +146,7 @@ const searchkitConfig = {
     }),
     new DateRangeFacet({
       field: 'released',
-      id: 'released',
+      identifier: 'released',
       label: 'Released'
     })
   ]
@@ -164,7 +164,7 @@ const code2 = `
       }
     ]) {
     facets {
-      id
+      identifier
       label
       type
       display

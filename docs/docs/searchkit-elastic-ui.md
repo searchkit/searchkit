@@ -20,7 +20,7 @@ const query = gql`
       summary {
         total
         appliedFilters {
-          id
+          identifier
           label
           value
         }
@@ -42,7 +42,7 @@ const query = gql`
         }
       }
       facets {
-        id
+        identifier
         type
         label
         display

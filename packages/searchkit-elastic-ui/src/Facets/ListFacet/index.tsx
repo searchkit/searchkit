@@ -10,9 +10,9 @@ export const ListFacet = ({ facet, loading }) => {
       style={{ height: '28px', marginTop: 0, marginBottom: 0 }}
       key={entry.id}
       quantity={entry.count}
-      isSelected={api.isFilterSelected({ id: facet.id, value: entry.label })}
+      isSelected={api.isFilterSelected({ identifier: facet.identifier, value: entry.label })}
       onClick={() => {
-        api.toggleFilter({ id: facet.id, value: entry.label })
+        api.toggleFilter({ identifier: facet.identifier, value: entry.label })
         api.search()
       }}
       isLoading={loading}

@@ -14,7 +14,7 @@ const searchkitConfig = {
   },
   query: new MultiMatchQuery({ fields: ['title'] }),
   facets: [
-    new RefinementSelectFacet({ field: 'type.raw', id: 'type', label: 'Type' })
+    new RefinementSelectFacet({ field: 'type.raw', identifier: 'type', label: 'Type' })
   ]
 }
 

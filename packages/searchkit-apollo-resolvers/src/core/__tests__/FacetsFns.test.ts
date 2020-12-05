@@ -6,33 +6,58 @@ import { SearchResponse } from '../SearchkitRequest'
 describe('Facet Fns', () => {
   describe('getAggregationsFromFacets', () => {
     it('create aggregations for one facet ', () => {
-      const qm = new QueryManager([{ id: 'test', value: 'testValue' }], '')
-      const facetConfig = [new RefinementSelectFacet({ field: 'test', id: 'test', label: 'Test' })]
+      const qm = new QueryManager([{ identifier: 'test', value: 'testValue' }], '')
+      const facetConfig = [new RefinementSelectFacet({ field: 'test', identifier: 'test', label: 'Test' })]
 
-      expect(getAggregationsFromFacets(qm, {}, facetConfig)).toEqual({
-        aggs: {
-          facet_bucket_all: {
-            aggs: { test: { terms: { field: 'test', size: 5 } } },
-            filter: { bool: { must: [{ bool: { must: [{ term: { test: 'testValue' } }] } }] } }
-          }
+      expect(getAggregationsFromFacets(qm, {}, facetConfig)).toMatchInlineSnapshot(`
+        Object {
+          "aggs": Object {
+            "facet_bucket_all": Object {
+              "aggs": Object {
+                "test": Object {
+                  "terms": Object {
+                    "field": "test",
+                    "size": 5,
+                  },
+                },
+              },
+              "filter": Object {
+                "bool": Object {
+                  "must": Array [
+                    Object {
+                      "bool": Object {
+                        "must": Array [
+                          Object {
+                            "term": Object {
+                              "test": "testValue",
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          },
         }
-      })
+      `)
     })
 
     it('create aggregations for two facets in all and one for Multiple select', () => {
       const qm = new QueryManager(
         [
-          { id: 'test', value: 'testValue' },
-          { id: 'test3', value: 'testValue' }
+          { identifier: 'test', value: 'testValue' },
+          { identifier: 'test3', value: 'testValue' }
         ],
         ''
       )
       const facetConfig = [
-        new RefinementSelectFacet({ field: 'test', id: 'test', label: 'Test' }),
-        new RefinementSelectFacet({ field: 'test2', id: 'test2', label: 'Test 2' }),
+        new RefinementSelectFacet({ field: 'test', identifier: 'test', label: 'Test' }),
+        new RefinementSelectFacet({ field: 'test2', identifier: 'test2', label: 'Test 2' }),
         new RefinementSelectFacet({
           field: 'test3',
-          id: 'test3',
+          identifier: 'test3',
           label: 'Test 3',
           multipleSelect: true
         })
@@ -163,11 +188,11 @@ describe('Facet Fns', () => {
       }
 
       const facetConfig = [
-        new RefinementSelectFacet({ field: 'test', id: 'test', label: 'Test 1' }),
-        new RefinementSelectFacet({ field: 'test2', id: 'test2', label: 'Test 2' }),
+        new RefinementSelectFacet({ field: 'test', identifier: 'test', label: 'Test 1' }),
+        new RefinementSelectFacet({ field: 'test2', identifier: 'test2', label: 'Test 2' }),
         new RefinementSelectFacet({
           field: 'test3',
-          id: 'test3',
+          identifier: 'test3',
           label: 'Test 3',
           multipleSelect: true
         })
@@ -180,7 +205,7 @@ describe('Facet Fns', () => {
             { count: 2, id: 'test_PG', label: 'PG' },
             { count: 2, id: 'test_PG-13', label: 'PG-13' }
           ],
-          id: 'test',
+          identifier: 'test',
           label: 'Test 1',
           display: 'ListFacet',
           type: 'RefinementSelectFacet'
@@ -193,7 +218,7 @@ describe('Facet Fns', () => {
             { count: 34, id: 'test2_Matthew Fox', label: 'Matthew Fox' },
             { count: 23, id: 'test2_Michael Emerson', label: 'Michael Emerson' }
           ],
-          id: 'test2',
+          identifier: 'test2',
           label: 'Test 2',
           display: 'ListFacet',
           type: 'RefinementSelectFacet'
@@ -206,7 +231,7 @@ describe('Facet Fns', () => {
             { count: 53, id: 'test3_James Manos Jr.', label: 'James Manos Jr.' },
             { count: 53, id: 'test3_Jeff Lindsay', label: 'Jeff Lindsay' }
           ],
-          id: 'test3',
+          identifier: 'test3',
           label: 'Test 3',
           display: 'ListFacet',
           type: 'RefinementSelectFacet'
@@ -217,15 +242,15 @@ describe('Facet Fns', () => {
 
   describe('filterTransform', () => {
     it('should get filter for test', () => {
-      const qm = new QueryManager([{ id: 'test', value: 'testValue' }], '')
+      const qm = new QueryManager([{ identifier: 'test', value: 'testValue' }], '')
       const facetConfig = [
         new RefinementSelectFacet({
           field: 'test',
-          id: 'test',
+          identifier: 'test',
           label: 'Test',
           multipleSelect: true
         }),
-        new RefinementSelectFacet({ field: 'test2', id: 'test2', label: 'Test 2' })
+        new RefinementSelectFacet({ field: 'test2', identifier: 'test2', label: 'Test 2' })
       ]
       expect(filterTransform(qm, facetConfig)).toEqual({
         bool: { must: [{ bool: { should: [{ term: { test: 'testValue' } }] } }] }
@@ -235,19 +260,19 @@ describe('Facet Fns', () => {
     it('should get 2 filters for test', () => {
       const qm = new QueryManager(
         [
-          { id: 'test', value: 'testValue' },
-          { id: 'test2', value: 'testValue2' }
+          { identifier: 'test', value: 'testValue' },
+          { identifier: 'test2', value: 'testValue2' }
         ],
         ''
       )
       const facetConfig = [
         new RefinementSelectFacet({
           field: 'test',
-          id: 'test',
+          identifier: 'test',
           label: 'Test',
           multipleSelect: true
         }),
-        new RefinementSelectFacet({ field: 'test2', id: 'test2', label: 'Test 2' })
+        new RefinementSelectFacet({ field: 'test2', identifier: 'test2', label: 'Test 2' })
       ]
       expect(filterTransform(qm, facetConfig)).toEqual({
         bool: {
@@ -262,15 +287,15 @@ describe('Facet Fns', () => {
     it('should get 1 filters for test, missing test 2 facet config is omitted', () => {
       const qm = new QueryManager(
         [
-          { id: 'test', value: 'testValue' },
-          { id: 'test2', value: 'testValue2' }
+          { identifier: 'test', value: 'testValue' },
+          { identifier: 'test2', value: 'testValue2' }
         ],
         ''
       )
       const facetConfig = [
         new RefinementSelectFacet({
           field: 'test',
-          id: 'test',
+          identifier: 'test',
           label: 'Test',
           multipleSelect: true
         })

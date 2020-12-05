@@ -17,10 +17,10 @@ export default async (parent, {}, ctx) => {
         label: sortOption.label
       })),
       appliedFilters: queryManager.getFilters().map((filterSet) => {
-        const facetConfig = config.facets.find((facet) => facet.getId() === filterSet.id)
+        const facetConfig = config.facets.find((facet) => facet.getIdentifier() === filterSet.identifier)
         return {
           label: facetConfig.getLabel(),
-          id: facetConfig.getId(),
+          identifier: facetConfig.getIdentifier(),
           value: filterSet.value
         }
       }, [])

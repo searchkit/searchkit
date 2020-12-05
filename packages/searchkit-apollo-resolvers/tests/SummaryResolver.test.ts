@@ -25,14 +25,14 @@ describe('Summary Resolver', () => {
       query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] }),
       facets: [
         new RefinementSelectFacet({
-          id: 'writers',
+          identifier: 'writers',
           field: 'writers.raw',
           label: 'Writers',
           multipleSelect: true
         }),
-        new RefinementSelectFacet({ id: 'actors', field: 'actors.raw', label: 'Actors' }),
-        new RefinementSelectFacet({ id: 'type', field: 'type.raw', label: 'Type' }),
-        new RefinementSelectFacet({ id: 'genres', field: 'genres.raw', label: 'Genres' })
+        new RefinementSelectFacet({ identifier: 'actors', field: 'actors.raw', label: 'Actors' }),
+        new RefinementSelectFacet({ identifier: 'type', field: 'type.raw', label: 'Type' }),
+        new RefinementSelectFacet({ identifier: 'genres', field: 'genres.raw', label: 'Genres' })
       ]
     }
 
@@ -41,11 +41,11 @@ describe('Summary Resolver', () => {
 
       const gql = `
         {
-          results(query: "", filters: [{ id: "writers", value: "Jeff Lindsay" }]) {
+          results(query: "", filters: [{ identifier: "writers", value: "Jeff Lindsay" }]) {
             summary {
               total
               appliedFilters {
-                id
+                identifier
                 label
                 value
               }

@@ -2,7 +2,7 @@ import { DateRangeFilter } from '../core/QueryManager'
 import { BaseFacet } from './BaseFacet'
 
 interface DateRangeFacetConfig {
-  id: string
+  identifier: string
   field: string
   label: string
   size?: number
@@ -23,8 +23,8 @@ class DateRangeFacet implements BaseFacet {
     return this.config.label
   }
 
-  getId() {
-    return this.config.id
+  getIdentifier() {
+    return this.config.identifier
   }
 
   getFilters(filters: Array<DateRangeFilter>) {
@@ -37,7 +37,7 @@ class DateRangeFacet implements BaseFacet {
 
   transformResponse() {
     return {
-      id: this.getId(),
+      identifier: this.getIdentifier(),
       label: this.getLabel(),
       type: 'DateRangeFacet',
       display: this.config.display || 'DateRangeFacet',

@@ -11,7 +11,7 @@ import {
 } from '@searchkit/apollo-resolvers'
 
 const searchkitConfig = {
-  host: process.env.ES_HOST || 'http://localhost:9200',
+  host: process.env.ES_HOST || 'https://eb965132df6664d4a121:a7a3e7689a@6773f6bc.qb0x.com:32359' || 'http://localhost:9200',
   index: 'movies',
   hits: {
     fields: ['title', 'actors', 'writers', 'plot', 'poster']
@@ -22,10 +22,10 @@ const searchkitConfig = {
   ],
   query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] }),
   facets: [
-    new RefinementSelectFacet({ field: 'type.raw', id: 'type', label: 'Type' }),
+    new RefinementSelectFacet({ field: 'type.raw', identifier: 'type', label: 'Type' }),
     new RangeFacet({
       field: 'metaScore',
-      id: 'metascore',
+      identifier: 'metascore',
       label: 'Metascore',
       range: {
         min: 0,
@@ -35,30 +35,30 @@ const searchkitConfig = {
     }),
     new RefinementSelectFacet({
       field: 'actors.raw',
-      id: 'actors',
+      identifier: 'actors',
       label: 'Actors'
     }),
     new RefinementSelectFacet({
       field: 'writers.raw',
-      id: 'writers',
+      identifier: 'writers',
       label: 'Writers',
       multipleSelect: true
     }),
     new RefinementSelectFacet({
       field: 'countries.raw',
-      id: 'countries',
+      identifier: 'countries',
       label: 'Countries',
       display: 'ComboBoxFacet'
     }),
-    new RefinementSelectFacet({ field: 'genres.raw', id: 'genres', label: 'Genres' }),
+    new RefinementSelectFacet({ field: 'genres.raw', identifier: 'genres', label: 'Genres' }),
     new RefinementSelectFacet({
       field: 'rated.raw',
-      id: 'rated',
+      identifier: 'rated',
       label: 'Rated'
     }),
     new DateRangeFacet({
       field: 'released',
-      id: 'released',
+      identifier: 'released',
       label: 'Released'
     })
   ]
@@ -103,7 +103,7 @@ const server = new ApolloServer({
     //   exampleCustomField: (parent) => `Example Return Value for ${parent.id}`
     // }
   },
-  introspection: true,
+  introspection: false,
   playground: true,
   context: {}
 })

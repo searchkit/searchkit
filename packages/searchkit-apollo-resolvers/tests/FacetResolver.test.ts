@@ -35,8 +35,8 @@ describe('Facet Resolver', () => {
       const gql = `
         {
           results(query: "") {
-            facet(id: "writers", query: "te") {
-              id
+            facet(identifier: "writers", query: "te") {
+              identifier
               type
               label
               display
@@ -95,8 +95,8 @@ describe('Facet Resolver', () => {
       const gql = `
         {
           results(query: "") {
-            facet(id: "writers", size: 20) {
-              id
+            facet(identifier: "writers", size: 20) {
+              identifier
               type
               label
               display
@@ -138,8 +138,8 @@ describe('Facet Resolver', () => {
       const gql = `
         {
           results(query: "") {
-            facet(id: "writers") {
-              id
+            facet(identifier: "writers") {
+              identifier
               type
               label
               display

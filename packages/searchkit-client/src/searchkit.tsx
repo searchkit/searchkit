@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import { useQuery, WatchQueryFetchPolicy } from '@apollo/client'
 
 export interface Filter {
-  id: string
+  identifier: string
   value?: string
   min?: number
   max?: number
@@ -31,8 +31,8 @@ export interface SearchkitClientApolloOptionsConfig {
   fetchPolicy: WatchQueryFetchPolicy
 }
 
-const filterSelector = (filter) => (f) => {
-  if (filter.id !== f.id) return false
+const filterSelector = (filter: Filter) => (f: Filter) => {
+  if (filter.identifier !== f.identifier) return false
   if (filter.min && filter.max && filter.min === f.min && filter.max === f.max) return true
   if (
     filter.dateMin &&
@@ -110,8 +110,8 @@ export class SearchkitClient {
     return !!foundFilter
   }
 
-  getFiltersById(id: string): Filter[] | null {
-    const filters = this.filters.filter((filter) => id === filter.id)
+  getFiltersByIdentifier(identifier: string): Array<Filter> | null {
+    const filters = this.filters.filter((filter) => identifier === filter.identifier)
     return filters.length > 0 ? filters : []
   }
 
@@ -124,8 +124,8 @@ export class SearchkitClient {
     }, [])
   }
 
-  removeFiltersById(id: string): void {
-    this.filters = this.filters.filter((f) => f.id !== id)
+  removeFiltersByIdentifier(identifier: string): void {
+    this.filters = this.filters.filter((f) => f.identifier !== identifier)
   }
 
   addFilter(filter: Filter): void {
@@ -175,6 +175,6 @@ export function useSearchkitQuery(query) {
       page: variables?.page,
       sortBy: variables?.sortBy
     },
-    fetchPolicy: sk.apolloOptions?.fetchPolicy || 'network-only'
+    fetchPolicy: sk.apolloOptions?.fetchPolicy || 'cache-first'
   })
 }

@@ -4,7 +4,7 @@ import QueryManager from '../core/QueryManager'
 import { SearchkitConfig } from './ResultsResolver'
 
 export interface FacetResolverParameters {
-  id: string
+  identifier: string
   query: string
   size: number
 }
@@ -14,14 +14,14 @@ export default async (parent, parameters: FacetResolverParameters, ctx) => {
   const config: SearchkitConfig = ctx.searchkit.config
   const skRequest: SearchkitRequest = ctx.searchkit.skRequest
 
-  const facet = config.facets && config.facets.find((facet) => facet.getId() === parameters.id)
+  const facet = config.facets && config.facets.find((facet) => facet.getIdentifier() === parameters.identifier)
   if (!facet) return null
 
   try {
     const aggs = getAggregationsFromFacets(
       queryManager,
       {
-        [facet.getId()]: {
+        [facet.getIdentifier()]: {
           query: parameters.query,
           size: parameters.size
         }
