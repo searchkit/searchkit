@@ -1,9 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Facet Resolver should return as expected should return correct Results 1`] = `
+exports[`Facet Resolver should return as expected should return correct Results 2`] = `
 Object {
   "results": Object {
-    "facet": null,
+    "facet": Object {
+      "display": "ListFacet",
+      "entries": Array [
+        Object {
+          "count": 10,
+          "id": "writers_Terry Nation",
+          "label": "Terry Nation",
+        },
+        Object {
+          "count": 9,
+          "id": "writers_Terry Rossio",
+          "label": "Terry Rossio",
+        },
+        Object {
+          "count": 8,
+          "id": "writers_Ted Elliott",
+          "label": "Ted Elliott",
+        },
+        Object {
+          "count": 7,
+          "id": "writers_Terry Gilliam",
+          "label": "Terry Gilliam",
+        },
+        Object {
+          "count": 5,
+          "id": "writers_Terry George",
+          "label": "Terry George",
+        },
+      ],
+      "identifier": "writers",
+      "label": "Writers",
+      "type": "RefinementSelectFacet",
+    },
   },
 }
 `;

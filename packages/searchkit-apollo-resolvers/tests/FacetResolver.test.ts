@@ -21,7 +21,7 @@ describe('Facet Resolver', () => {
       query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] }),
       facets: [
         new RefinementSelectFacet({
-          id: 'writers',
+          identifier: 'writers',
           field: 'writers.raw',
           label: 'Writers',
           multipleSelect: true
@@ -126,7 +126,7 @@ describe('Facet Resolver', () => {
         ...config,
         facets: [
           new RefinementSelectFacet({
-            id: 'writers',
+            identifier: 'writers',
             field: 'writers.raw',
             label: 'Writers',
             multipleSelect: true,
