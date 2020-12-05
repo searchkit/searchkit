@@ -1203,22 +1203,25 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@searchkit/apollo-resolvers@^3.0.0-canary.14":
-  version "3.0.0-canary.14"
-  resolved "https://registry.yarnpkg.com/@searchkit/apollo-resolvers/-/apollo-resolvers-3.0.0-canary.14.tgz#cb1508919fedc1d20b6d7fd729b1ecc16fea4cd0"
-  integrity sha512-7/+xpKVqxlSWnmayCP5qeL5GMMKtBAtcfDMG/B0b5a5ZO+xf0GDL9EUznzbQCVUipolxMtvOAACZEBsSijmH4A==
+"@searchkit/apollo-resolvers@latest":
+  version "3.0.0-canary.16"
+  resolved "https://registry.yarnpkg.com/@searchkit/apollo-resolvers/-/apollo-resolvers-3.0.0-canary.16.tgz#722905b1e6b97dcf9bba731aa5ea1c069d2b71de"
+  integrity sha512-EZ5ZezV489DAnaP7U/44F20Mw1vA7ExiaCRGbWti/Q4SS57VUxMB78UPZDycP3nES+ln17uvyt6aLrDcmoYP3Q==
   dependencies:
     "@elastic/elasticsearch" "^7.9.1"
     dataloader "^2.0.0"
     graphql-tag "^2.10.3"
 
-"@searchkit/client@^3.0.0-canary.16", "@searchkit/client@file:../../packages/searchkit-client":
+"@searchkit/client@latest":
   version "3.0.0-canary.16"
+  resolved "https://registry.yarnpkg.com/@searchkit/client/-/client-3.0.0-canary.16.tgz#bb200f7f133a97ff52c1cc53148f1c04bd54b493"
+  integrity sha512-oyEPEli+OdEgW++FxTVOKND4lDiZe+8z2E6uHuqPYMRCmxR2aUCJfNRwSjXRW21kCYRoDCWl0GRFbKjZnsxneA==
 
-"@searchkit/elastic-ui@file:../../packages/searchkit-elastic-ui":
+"@searchkit/elastic-ui@latest":
   version "3.0.0-canary.16"
+  resolved "https://registry.yarnpkg.com/@searchkit/elastic-ui/-/elastic-ui-3.0.0-canary.16.tgz#93cadc8224cf00dc9b857615acec0438d444e926"
+  integrity sha512-+2ljLYNWTA6CK8KSHPGthweyJ3B6DBpnfhZfXV/xe8BZKno4zcyKoyX6fl8Z1x+R0O1F+e1MnwdfzowxK23CfA==
   dependencies:
-    "@searchkit/client" "^3.0.0-canary.16"
     use-debounce "^5.0.3"
 
 "@types/accepts@*":
