@@ -1212,16 +1212,13 @@
     dataloader "^2.0.0"
     graphql-tag "^2.10.3"
 
-"@searchkit/client@^3.0.0-canary.14":
-  version "3.0.0-canary.14"
-  resolved "https://registry.yarnpkg.com/@searchkit/client/-/client-3.0.0-canary.14.tgz#dc088018313d3fc5d43a0783338a3423c0f1ac0b"
-  integrity sha512-/HuEVgm1Z0z9z9zx9rusKdKe5gf3/IkOFrSujMW6EIdqLQM/Bu8uS8MkqVbMQqraHa0BCIbNiU9vMpCuLO8dTg==
+"@searchkit/client@^3.0.0-canary.16", "@searchkit/client@file:../../packages/searchkit-client":
+  version "3.0.0-canary.16"
 
-"@searchkit/elastic-ui@^3.0.0-canary.14":
-  version "3.0.0-canary.14"
-  resolved "https://registry.yarnpkg.com/@searchkit/elastic-ui/-/elastic-ui-3.0.0-canary.14.tgz#acc4d426b879dc7d0a9f2342c9dfcbb20c64b0d3"
-  integrity sha512-y27HikG6BTam29Wl93e7RFXIJJReG59ku7FYtPOVCIwD9fuiO3ut38H0ZHA4YBDQPx5atX9V0msk6RZGE89FmQ==
+"@searchkit/elastic-ui@file:../../packages/searchkit-elastic-ui":
+  version "3.0.0-canary.16"
   dependencies:
+    "@searchkit/client" "^3.0.0-canary.16"
     use-debounce "^5.0.3"
 
 "@types/accepts@*":

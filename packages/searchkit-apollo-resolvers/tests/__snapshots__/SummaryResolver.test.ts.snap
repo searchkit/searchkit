@@ -47,7 +47,7 @@ Object {
     "summary": Object {
       "appliedFilters": Array [
         Object {
-          "id": "writers",
+          "identifier": "writers",
           "label": "Writers",
           "value": "Jeff Lindsay",
         },

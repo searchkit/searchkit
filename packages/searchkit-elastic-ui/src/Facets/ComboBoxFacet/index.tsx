@@ -11,8 +11,8 @@ const facetRefinementSearchQuery = gql`
     $facetId: String!
   ) {
     results(query: $query, filters: $filters) {
-      facet(id: $facetId, query: $facetQuery) {
-        id
+      facet(identifier: $facetId, query: $facetQuery) {
+        identifier
         label
         entries {
           id
@@ -31,7 +31,7 @@ export const ComboBoxFacet = ({ facet }) => {
   const [data, setData] = useState(() => facet.entries.map((entry) => ({ label: entry.label })))
   const [loading, setLoading] = useState(false)
   const [filters, setFilters] = useState(() =>
-    api.getFiltersById(facet.id).map((filter) => ({ label: filter.value }))
+    api.getFiltersByIdentifier(facet.id).map((filter) => ({ label: filter.value }))
   )
 
   const onSearchChange = async (searchValue) => {
@@ -39,7 +39,7 @@ export const ComboBoxFacet = ({ facet }) => {
     const result = await client.query({
       query: facetRefinementSearchQuery,
       variables: {
-        facetId: facet.id,
+        facetId: facet.identifier,
         query: api.getQuery(),
         filters: api.getFilters(),
         facetQuery: searchValue
@@ -51,11 +51,11 @@ export const ComboBoxFacet = ({ facet }) => {
   }
 
   useEffect(() => {
-    const apiFilters = api.getFiltersById(facet.id)
+    const apiFilters = api.getFiltersByIdentifier(facet.identifier)
     if (apiFilters.length != filters.length) {
-      api.removeFiltersById(facet.id)
+      api.removeFiltersByIdentifier(facet.identifier)
       filters.forEach((f) => {
-        api.addFilter({ id: facet.id, value: f.label })
+        api.addFilter({ identifier: facet.identifier, value: f.label })
       })
       api.search()
     }

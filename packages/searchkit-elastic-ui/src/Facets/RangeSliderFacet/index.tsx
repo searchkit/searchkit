@@ -19,12 +19,12 @@ export const getLevels = (entries) => {
 export const RangeSliderFacet = ({ facet }) => {
   const api = useSearchkit()
   const [dualValue, setDualValue] = useState<[ReactText, ReactText]>([0, 100])
-  const selectedOptions = api.getFiltersById(facet.id)
+  const selectedOptions = api.getFiltersByIdentifier(facet.id)
   const selectedOption = selectedOptions && selectedOptions[0]
 
   const debouncedCallback = useDebouncedCallback((value) => {
-    api.removeFiltersById(facet.id)
-    api.addFilter({ id: facet.id, min: value[0], max: value[1] })
+    api.removeFiltersByIdentifier(facet.identifier)
+    api.addFilter({ identifier: facet.id, min: value[0], max: value[1] })
     api.search()
   }, 400)
 

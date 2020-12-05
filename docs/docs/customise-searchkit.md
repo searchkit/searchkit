@@ -70,7 +70,7 @@ For each facet in the configuration, there is a field called display.
 ```javascript
     new RefinementSelectFacet({
       field: 'colour.raw',
-      id: 'colour',
+      identifier: 'colour',
       label: 'Colour',
       display: 'ColourPickerFacet'
     })
@@ -82,7 +82,7 @@ Display field is used to indicate what presentation should be for facet within t
 {
   results(query: "heat") {
     facets {
-      id
+      identifier
       label
       type
       display
@@ -108,9 +108,9 @@ export const ColourPickerFacet = ({ facet, loading }) => {
 
   const entries = facet.entries.map((entry) => (
     <li
-      style={{ backgroundColor: entry, border: api.isFilterSelected({ id: facet.id, value: entry.label }) ? '1px solid red' : none }}
+      style={{ backgroundColor: entry, border: api.isFilterSelected({ identifier: facet.identifier, value: entry.label }) ? '1px solid red' : none }}
       onClick={() => {
-        api.toggleFilter({ id: facet.id, value: entry.label })
+        api.toggleFilter({ identifier: facet.identifier, value: entry.label })
         api.search()
       }}
     >
@@ -171,8 +171,8 @@ Create a Facet Class by implementing the BaseFacet interface.
     }
     
     // unique to facet
-    getId() {
-      return this.config.id
+    getIdentifier() {
+      return this.config.identifier
     }
 
     // return label for facet
@@ -195,7 +195,7 @@ Create a Facet Class by implementing the BaseFacet interface.
     // transform ES response into an object that matches the Facet Schema type 
     transformResponse(response) {
       return {
-        id: this.getId(),
+        identifier: this.getIdentifier(),
         label: this.getLabel(),
         type: 'CustomFacet',
         display: 'listFacet',
@@ -210,7 +210,7 @@ Then add a Facet type to the schema
 
 ```gql
   type CustomFacet implements FacetSet {
-    id: String
+    identifier: String
     label: String
     type: String
     display: String
@@ -225,7 +225,7 @@ then you should be able to query for facet
     results {
     	facets {
         ... on CustomFacet {
-          id
+          identifier
           label
           type
           display

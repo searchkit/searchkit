@@ -1,14 +1,13 @@
+import nock from 'nock'
 import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
 import { MultiMatchQuery } from '../src'
 import { setupTestServer, callQuery } from './support/helper'
-import nock from 'nock'
 import HitsMock from './__mock-data__/HitResolver/Hits.json'
 import NoHitsES7Mock from './__mock-data__/HitResolver/NoHitsES7.json'
 import NoHitsMock from './__mock-data__/HitResolver/NoHits.json'
 
 describe('Pagination', () => {
   describe('should return as expected', () => {
-
     const config: SearchkitConfig = {
       host: 'http://localhost:9200',
       index: 'movies',
@@ -45,14 +44,11 @@ describe('Pagination', () => {
     }
 
     it('Pagination results', async () => {
-
       setupTestServer(config)
 
       const scope = nock('http://localhost:9200')
         .post('/movies/_search')
-        .reply((uri, body) => {
-          return [200, HitsMock]
-        })
+        .reply((uri, body) => [200, HitsMock])
 
       let response = await runQuery()
       expect(response.body.data.results.hits.page).toMatchInlineSnapshot(`
@@ -64,14 +60,12 @@ describe('Pagination', () => {
           "totalPages": 417,
         }
       `)
-      expect(response.body.data.results.hits.items.length).toEqual(10)
+      expect(response.body.data.results.hits.items).toHaveLength(10)
       expect(response.status).toEqual(200)
 
       nock('http://localhost:9200')
         .post('/movies/_search')
-        .reply((uri, body) => {
-          return [200, HitsMock]
-        })
+        .reply((uri, body) => [200, HitsMock])
 
       response = await runQuery({ from: 20, size: 10 })
       expect(response.body.data.results.hits.page).toMatchInlineSnapshot(`
@@ -87,16 +81,13 @@ describe('Pagination', () => {
     })
 
     it('No Results es7', async () => {
-
       setupTestServer(config)
 
       const scope = nock('http://localhost:9200')
         .post('/movies/_search')
-        .reply((uri, body) => {
-          return [200, NoHitsES7Mock]
-        })
+        .reply((uri, body) => [200, NoHitsES7Mock])
 
-      let response = await runQuery()
+      const response = await runQuery()
       expect(response.body.data.results.hits.page).toMatchInlineSnapshot(`
         Object {
           "from": 0,
@@ -106,22 +97,19 @@ describe('Pagination', () => {
           "totalPages": 0,
         }
       `)
-      expect(response.body.data.results.hits.items.length).toEqual(0)
+      expect(response.body.data.results.hits.items).toHaveLength(0)
       expect(response.body.data.results.summary.total).toEqual(0)
       expect(response.status).toEqual(200)
     })
 
     it('No Results es6', async () => {
-
       setupTestServer(config)
 
       const scope = nock('http://localhost:9200')
         .post('/movies/_search')
-        .reply((uri, body) => {
-          return [200, NoHitsMock]
-        })
+        .reply((uri, body) => [200, NoHitsMock])
 
-      let response = await runQuery()
+      const response = await runQuery()
       expect(response.body.data.results.hits.page).toMatchInlineSnapshot(`
         Object {
           "from": 0,
@@ -132,7 +120,7 @@ describe('Pagination', () => {
         }
       `)
       expect(response.body.data.results.summary.total).toEqual(0)
-      expect(response.body.data.results.hits.items.length).toEqual(0)
+      expect(response.body.data.results.hits.items).toHaveLength(0)
       expect(response.status).toEqual(200)
     })
   })

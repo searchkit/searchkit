@@ -25,7 +25,7 @@ describe('Searchkit Client', () => {
     const api = new SearchkitClient()
     expect(api.getQuery()).toBe('')
     expect(api.getFilters()).toEqual([])
-    expect(api.getFiltersById('anId')).toEqual([])
+    expect(api.getFiltersByIdentifier('anId')).toEqual([])
     expect(api.canResetSearch()).toBe(false)
   })
 
@@ -42,10 +42,10 @@ describe('Searchkit Client', () => {
   it('should be able to manipulate filters', () => {
     const api = new SearchkitClient()
     expect(api.getFilters()).toEqual([])
-    api.addFilter({ id: 'type', value: 'Movie' })
-    expect(api.getFilters()).toEqual([{ id: 'type', value: 'Movie' }])
-    expect(api.getFiltersById('type')).toEqual([{ id: 'type', value: 'Movie' }])
-    expect(api.getFiltersById('missing')).toEqual([])
+    api.addFilter({ identifier: 'type', value: 'Movie' })
+    expect(api.getFilters()).toEqual([{ identifier: 'type', value: 'Movie' }])
+    expect(api.getFiltersByIdentifier('type')).toEqual([{ identifier: 'type', value: 'Movie' }])
+    expect(api.getFiltersByIdentifier('missing')).toEqual([])
     expect(api.canResetSearch()).toBeTruthy()
 
     // setting the query should reset filters
@@ -61,35 +61,35 @@ describe('Searchkit Client', () => {
 
   it('should toggle filter and keep order', () => {
     const api = new SearchkitClient()
-    api.addFilter({ id: 'type', value: 'Movies' })
-    api.addFilter({ id: 'type', value: 'Games' })
+    api.addFilter({ identifier: 'type', value: 'Movies' })
+    api.addFilter({ identifier: 'type', value: 'Games' })
     expect(api.getFilters()).toEqual([
-      { id: 'type', value: 'Games' },
-      { id: 'type', value: 'Movies' }
+      { identifier: 'type', value: 'Games' },
+      { identifier: 'type', value: 'Movies' }
     ])
-    api.toggleFilter({ id: 'type', value: 'Movies' })
-    expect(api.getFilters()).toEqual([{ id: 'type', value: 'Games' }])
-    api.toggleFilter({ id: 'type', value: 'Movies' })
+    api.toggleFilter({ identifier: 'type', value: 'Movies' })
+    expect(api.getFilters()).toEqual([{ identifier: 'type', value: 'Games' }])
+    api.toggleFilter({ identifier: 'type', value: 'Movies' })
     expect(api.getFilters()).toEqual([
-      { id: 'type', value: 'Movies' },
-      { id: 'type', value: 'Games' }
+      { identifier: 'type', value: 'Movies' },
+      { identifier: 'type', value: 'Games' }
     ])
   })
 
   it('should remove multiple filters by id', () => {
     const api = new SearchkitClient()
-    api.addFilter({ id: 'type', value: 'Movies' })
-    api.addFilter({ id: 'type', value: 'Games' })
-    api.removeFiltersById('type')
+    api.addFilter({ identifier: 'type', value: 'Movies' })
+    api.addFilter({ identifier: 'type', value: 'Games' })
+    api.removeFiltersByIdentifier('type')
     expect(api.getFilters()).toEqual([])
   })
 
   it('should determine whether a filter has been applied or not', () => {
     const api = new SearchkitClient()
-    api.addFilter({ id: 'type', value: 'Movies' })
-    api.addFilter({ id: 'type', value: 'Games' })
-    expect(api.isFilterSelected({ id: 'type', value: 'Movies' })).toBeTruthy()
-    expect(api.isFilterSelected({ id: 'type', value: 'no match' })).toBeFalsy()
+    api.addFilter({ identifier: 'type', value: 'Movies' })
+    api.addFilter({ identifier: 'type', value: 'Games' })
+    expect(api.isFilterSelected({ identifier: 'type', value: 'Movies' })).toBeTruthy()
+    expect(api.isFilterSelected({ identifier: 'type', value: 'no match' })).toBeFalsy()
   })
 
   it('should pass state within callback', () => {
@@ -97,12 +97,12 @@ describe('Searchkit Client', () => {
     const api = new SearchkitClient()
     api.setCallbackFn(callback)
     api.setQuery('test')
-    api.addFilter({ id: 'type', value: 'Movies' })
+    api.addFilter({ identifier: 'type', value: 'Movies' })
     api.setPage({ from: 10, size: 20 })
     api.setSortBy('released')
     api.search()
     expect(callback).toBeCalledWith({
-      filters: [{ id: 'type', value: 'Movies' }],
+      filters: [{ identifier: 'type', value: 'Movies' }],
       page: { from: 10, size: 20 },
       query: 'test',
       sortBy: 'released'
@@ -123,7 +123,7 @@ describe('Searchkit Client', () => {
   it('useSearchQuery', () => {
     const api = new SearchkitClient()
     api.setQuery('test')
-    api.addFilter({ id: 'type', value: 'Movies' })
+    api.addFilter({ identifier: 'type', value: 'Movies' })
     api.setSortBy('released')
     const wrapper = ({ children }) => <SearchkitProvider client={api}>{children}</SearchkitProvider>
 
@@ -132,9 +132,9 @@ describe('Searchkit Client', () => {
       api.search()
     })
     expect(useQuery).toHaveBeenCalledWith('gqlQuery', {
-      fetchPolicy: 'network-only',
+      fetchPolicy: 'cache-first',
       variables: {
-        filters: [{ id: 'type', value: 'Movies' }],
+        filters: [{ identifier: 'type', value: 'Movies' }],
         page: { from: 0, size: 10 },
         query: 'test',
         sortBy: 'released'

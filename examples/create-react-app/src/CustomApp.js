@@ -9,7 +9,7 @@ const query = gql`
       summary {
         total
         appliedFilters {
-          id
+          identifier
           label
           value
         }
@@ -35,7 +35,7 @@ const query = gql`
         }
       }
       facets {
-        id
+        identifier
         type
         label
         display
@@ -71,7 +71,7 @@ const Facet = ({facet}) =>{
     <ul>
       {facet.entries.map((entry) => (
         <li onClick={() => {
-          api.toggleFilter({ id: facet.id, value: entry.label })
+          api.toggleFilter({ identifier: facet.id, value: entry.label })
           api.search()
         }}>{entry.label} - {entry.count}</li>
       ))}

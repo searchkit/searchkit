@@ -3,7 +3,7 @@ import { BaseFacet, FacetOptions } from './BaseFacet'
 import { createRegexQuery } from './utils'
 
 interface RefinementSelectFacetConfig {
-  id: string
+  identifier: string
   field: string
   size?: number
   label: string
@@ -21,8 +21,8 @@ class RefinementSelectFacet implements BaseFacet {
     return this.config.label
   }
 
-  getId() {
-    return this.config.id
+  getIdentifier() {
+    return this.config.identifier
   }
 
   getFilters(filters: Array<ValueFilter>) {
@@ -36,7 +36,7 @@ class RefinementSelectFacet implements BaseFacet {
 
   getAggregation(overrides: FacetOptions) {
     return {
-      [this.config.id]: {
+      [this.getIdentifier()]: {
         terms: {
           field: this.config.field,
           size: overrides?.size || this.config.size || 5,
@@ -48,12 +48,12 @@ class RefinementSelectFacet implements BaseFacet {
 
   transformResponse(response: any) {
     return {
-      id: this.getId(),
+      identifier: this.getIdentifier(),
       label: this.getLabel(),
       display: this.config.display || 'ListFacet',
       type: 'RefinementSelectFacet',
       entries: response.buckets.map((entry) => ({
-        id: `${this.getId()}_${entry.key}`,
+        id: `${this.getIdentifier()}_${entry.key}`,
         label: entry.key,
         count: entry.doc_count
       }))

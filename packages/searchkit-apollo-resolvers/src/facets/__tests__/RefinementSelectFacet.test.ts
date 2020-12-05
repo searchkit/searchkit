@@ -1,21 +1,45 @@
 import RefinementSelectFacet from '../RefinementSelectFacet'
 
 describe('Multiple Select Facet', () => {
-  const msf = new RefinementSelectFacet({ id: 'testId', label: 'Test', field: 'testField' })
+  const msf = new RefinementSelectFacet({ identifier: 'testId', label: 'Test', field: 'testField' })
 
   it('getFilter', () => {
     expect(
       msf.getFilters([
-        { id: 'test', value: 'testValue' },
-        { id: 'test', value: 'testValue2' }
+        { identifier: 'test', value: 'testValue' },
+        { identifier: 'test', value: 'testValue2' }
       ])
-    ).toEqual({
-      bool: { must: [{ term: { testField: 'testValue' } }, { term: { testField: 'testValue2' } }] }
-    })
+    ).toMatchInlineSnapshot(`
+      Object {
+        "bool": Object {
+          "must": Array [
+            Object {
+              "term": Object {
+                "testField": "testValue",
+              },
+            },
+            Object {
+              "term": Object {
+                "testField": "testValue2",
+              },
+            },
+          ],
+        },
+      }
+    `)
   })
 
   it('getAggregation', () => {
-    expect(msf.getAggregation(null)).toEqual({ testId: { terms: { field: 'testField', size: 5 } } })
+    expect(msf.getAggregation(null)).toMatchInlineSnapshot(`
+      Object {
+        "testId": Object {
+          "terms": Object {
+            "field": "testField",
+            "size": 5,
+          },
+        },
+      }
+    `)
   })
 
   it('transformResponse', () => {
@@ -26,15 +50,27 @@ describe('Multiple Select Facet', () => {
           { key: 'da', doc_count: 1 }
         ]
       })
-    ).toEqual({
-      entries: [
-        { count: 1, id: 'testId_bla', label: 'bla' },
-        { count: 1, id: 'testId_da', label: 'da' }
-      ],
-      id: 'testId',
-      label: 'Test',
-      display: 'ListFacet',
-      type: 'RefinementSelectFacet'
-    })
+    ).toMatchInlineSnapshot(
+      `
+      Object {
+        "display": "ListFacet",
+        "entries": Array [
+          Object {
+            "count": 1,
+            "id": "testId_bla",
+            "label": "bla",
+          },
+          Object {
+            "count": 1,
+            "id": "testId_da",
+            "label": "da",
+          },
+        ],
+        "identifier": "testId",
+        "label": "Test",
+        "type": "RefinementSelectFacet",
+      }
+    `
+    )
   })
 })

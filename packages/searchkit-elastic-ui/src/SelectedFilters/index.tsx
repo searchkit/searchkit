@@ -8,7 +8,7 @@ export const SelectedFilters = ({ loading }) => {
   return (
     <EuiFlexGroup gutterSize="s" alignItems="center">
       {api.getFilters().map((filter) => (
-        <EuiFlexItem grow={false} key={`${filter.id}_${filter.value}`}>
+        <EuiFlexItem grow={false} key={`${filter.identifier}_${filter.value}`}>
           <EuiButton
             onClick={() => {
               api.removeFilter(filter)
@@ -18,7 +18,7 @@ export const SelectedFilters = ({ loading }) => {
             iconType="cross"
             isLoading={loading}
           >
-            {filter.id}: {filter.value} {filter.min} {filter.max}
+            {filter.identifier}: {filter.value} {filter.min} {filter.max}
           </EuiButton>
         </EuiFlexItem>
       ))}

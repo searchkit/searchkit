@@ -21,7 +21,7 @@ import { SearchkitClient } from '@searchkit/client'
 const client = new SearchkitClient({
   itemsPerPage: 12,
   apolloOptions: {
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'cache-first'
   }
 })
 
@@ -65,13 +65,13 @@ Returns true when there has been a query or filter applied to the search
 #### isFilterSelected(filter: Filter): Boolean
 Returns true if the filter has been applied to the search.
 
-#### getFiltersById(id): Filter[] | null
+#### getFiltersByIdentifier(identifier): Filter[] | null
 Returns all filters that match id. If no filters have been found, will return null
 
 #### removeFilter(filter: Filter): void
 Removes filter from applied filters
 
-#### removeFiltersById(id): void
+#### removeFiltersByIdentifier(identifier): void
 Removes all filters from applied filters that match id
 
 #### addFilter(filter: Filter): void
