@@ -12,6 +12,11 @@ Searchkit is a Graph QL / React UI Component framework to:
 
 [Read our blog post about Searchkit V3](https://blog.searchkit.co/searchkit-v3-enter-graphql-330e1aa5752d)
 
+### Searchkit Classic
+For those who currently use Searchkit Classic, here are quicklinks to codebase & Docs
+- [Codebase](https://github.com/searchkit/searchkit/tree/master)
+- [Searchkit v2 Docs](http://searchkit.github.io/searchkit/stable/)
+
 ### Quick Intro
 From a configuration
 

@@ -18,38 +18,35 @@ module.exports = {
   projectName: 'searchkit', // Usually your repo name.
   stylesheets: ['https://unpkg.com/tailwindcss@1.9.2/dist/tailwind.min.css'],
   themeConfig: {
+    announcementBar: {
+      id: 'searchkit_classic', // Any value that will identify this message.
+      content:
+        'Searchkit V2 Docs are accessible <a href="http://searchkit.github.io/searchkit/stable/">here</a>',
+      backgroundColor: 'rgb(26,32,44)', // Defaults to `#fff`.
+      textColor: '#fff', // Defaults to `#000`.
+      isCloseable: false, // Defaults to `true`.
+    },
     sidebarCollapsible: false,
+    disableSwitch: true,
+    respectPrefersColorScheme: false,
     gtag: {
       trackingID: 'G-Y1LWVCFZQK',
     },
     navbar: {
-      title: 'Searchkit',
+      title: 'Searchkit Docs',
       items: [
-        {
-          to: 'docs/',
-          activeBasePath: 'docs',
-          label: 'Docs',
-          position: 'left',
-        },
         {
           href: 'https://github.com/searchkit/searchkit',
           label: 'GitHub',
           position: 'right',
-        },
+        }
       ],
     },
     footer: {
       style: 'dark',
       links: [
-        
-      
-        
+
       ],
-      logo: {
-        alt: 'Facebook Open Source Logo',
-        src: 'img/oss_logo.png',
-        href: 'https://opensource.facebook.com',
-      },
       // Please do not remove the credits, help to publicize Docusaurus :)
       copyright: `Copyright © ${new Date().getFullYear()} Ten Eleven, Inc. Built with Docusaurus.`,
     },
