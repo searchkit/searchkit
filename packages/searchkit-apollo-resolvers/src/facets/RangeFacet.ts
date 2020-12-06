@@ -2,7 +2,7 @@ import { RangeFilter } from '../core/QueryManager'
 import { BaseFacet } from './BaseFacet'
 
 interface RangeFacetConfig {
-  id: string
+  identifier: string
   field: string
   label: string
   size?: number
@@ -23,8 +23,8 @@ class RangeFacet implements BaseFacet {
     return this.config.label
   }
 
-  getId(): string {
-    return this.config.id
+  getIdentifier(): string {
+    return this.config.identifier
   }
 
   getFilters(filters: Array<RangeFilter>) {
@@ -33,7 +33,7 @@ class RangeFacet implements BaseFacet {
 
   getAggregation() {
     return {
-      [this.config.id]: {
+      [this.getIdentifier()]: {
         histogram: {
           field: this.config.field,
           interval: this.config.range.interval,
@@ -46,12 +46,12 @@ class RangeFacet implements BaseFacet {
 
   transformResponse(response: any) {
     return {
-      id: this.getId(),
+      identifier: this.getIdentifier(),
       label: this.getLabel(),
       display: this.config.display || 'RangeSliderFacet',
       type: 'RangeFacet',
       entries: response.buckets.map((entry) => ({
-        id: `${this.getId()}_${entry.key}`,
+        id: `${this.getIdentifier()}_${entry.key}`,
         label: entry.key,
         count: entry.doc_count
       }))

@@ -6,7 +6,7 @@ export const DateRangeFacet = ({ facet, loading }) => {
   const api = useSearchkit()
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
-  const selectedOptions = api.getFiltersById(facet.id)
+  const selectedOptions = api.getFiltersByIdentifier(facet.identifier)
   const selectedOption = selectedOptions && selectedOptions[0]
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export const DateRangeFacet = ({ facet, loading }) => {
         api.removeFilter(selectedOption)
       }
 
-      api.addFilter({ id: facet.id, dateMin: startDate, dateMax: endDate })
+      api.addFilter({ identifier: facet.identifier, dateMin: startDate, dateMax: endDate })
       api.search()
     }
   }, [startDate, endDate])

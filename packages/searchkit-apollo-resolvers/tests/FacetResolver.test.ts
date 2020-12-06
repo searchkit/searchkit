@@ -1,8 +1,8 @@
+import nock from 'nock'
 import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
 import { MultiMatchQuery } from '../src'
 import { RefinementSelectFacet } from '../src/facets'
 import { setupTestServer, callQuery } from './support/helper'
-import nock from 'nock'
 import FacetMock from './__mock-data__/FacetResolver/Facet.json'
 
 describe('Facet Resolver', () => {
@@ -21,7 +21,7 @@ describe('Facet Resolver', () => {
       query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] }),
       facets: [
         new RefinementSelectFacet({
-          id: 'writers',
+          identifier: 'writers',
           field: 'writers.raw',
           label: 'Writers',
           multipleSelect: true
@@ -35,8 +35,8 @@ describe('Facet Resolver', () => {
       const gql = `
         {
           results(query: "") {
-            facet(id: "writers", query: "te") {
-              id
+            facet(identifier: "writers", query: "te") {
+              identifier
               type
               label
               display
@@ -95,8 +95,8 @@ describe('Facet Resolver', () => {
       const gql = `
         {
           results(query: "") {
-            facet(id: "writers", size: 20) {
-              id
+            facet(identifier: "writers", size: 20) {
+              identifier
               type
               label
               display
@@ -126,7 +126,7 @@ describe('Facet Resolver', () => {
         ...config,
         facets: [
           new RefinementSelectFacet({
-            id: 'writers',
+            identifier: 'writers',
             field: 'writers.raw',
             label: 'Writers',
             multipleSelect: true,
@@ -138,8 +138,8 @@ describe('Facet Resolver', () => {
       const gql = `
         {
           results(query: "") {
-            facet(id: "writers") {
-              id
+            facet(identifier: "writers") {
+              identifier
               type
               label
               display

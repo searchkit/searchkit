@@ -22,10 +22,10 @@ const searchkitConfig = {
   ],
   query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] }),
   facets: [
-    new RefinementSelectFacet({ field: 'type.raw', id: 'type', label: 'Type' }),
+    new RefinementSelectFacet({ field: 'type.raw', identifier: 'type', label: 'Type' }),
     new RangeFacet({
       field: 'metaScore',
-      id: 'metascore',
+      identifier: 'metascore',
       label: 'Metascore',
       range: {
         min: 0,
@@ -35,30 +35,30 @@ const searchkitConfig = {
     }),
     new RefinementSelectFacet({
       field: 'actors.raw',
-      id: 'actors',
+      identifier: 'actors',
       label: 'Actors'
     }),
     new RefinementSelectFacet({
       field: 'writers.raw',
-      id: 'writers',
+      identifier: 'writers',
       label: 'Writers',
       multipleSelect: true
     }),
     new RefinementSelectFacet({
       field: 'countries.raw',
-      id: 'countries',
+      identifier: 'countries',
       label: 'Countries',
       display: 'ComboBoxFacet'
     }),
-    new RefinementSelectFacet({ field: 'genres.raw', id: 'genres', label: 'Genres' }),
+    new RefinementSelectFacet({ field: 'genres.raw', identifier: 'genres', label: 'Genres' }),
     new RefinementSelectFacet({
       field: 'rated.raw',
-      id: 'rated',
+      identifier: 'rated',
       label: 'Rated'
     }),
     new DateRangeFacet({
       field: 'released',
-      id: 'released',
+      identifier: 'released',
       label: 'Released'
     })
   ]

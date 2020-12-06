@@ -2,25 +2,25 @@ import gql from 'graphql-tag'
 
 export default gql`
   type Hit {
-    id: String
+    id: ID!
     fields: HitFields
   }
 
   type SortOption {
-    id: String
-    label: String
+    id: ID!
+    label: String!
   }
 
   type Summary {
-    total: Float
+    total: Float!
     appliedFilters: [SelectedFilter]
     query: String
     sortOptions: [SortOption]
   }
 
   type SelectedFilter {
-    id: String
-    label: String
+    identifier: String!
+    label: String!
     value: String
   }
 
@@ -28,7 +28,7 @@ export default gql`
     summary: Summary
     hits(page: PageInput, sortBy: String): HitResults
     facets: [FacetSet]
-    facet(id: String!, query: String, size: Float): FacetSet
+    facet(identifier: String!, query: String, size: Float): FacetSet
   }
 
   type PageInfo {
@@ -51,7 +51,7 @@ export default gql`
   }
 
   input FiltersSet {
-    id: String
+    identifier: String!
     value: String
     min: Float
     max: Float
@@ -60,7 +60,7 @@ export default gql`
   }
 
   interface FacetSet {
-    id: String
+    identifier: String
     label: String
     type: String
     display: String
@@ -68,14 +68,14 @@ export default gql`
   }
 
   type FacetSetEntry {
-    id: String
+    id: ID!
     label: String
     count: Float
     isSelected: Boolean
   }
 
   type RefinementSelectFacet implements FacetSet {
-    id: String
+    identifier: String
     label: String
     type: String
     display: String
@@ -83,7 +83,7 @@ export default gql`
   }
 
   type RangeFacet implements FacetSet {
-    id: String
+    identifier: String
     label: String
     type: String
     display: String
@@ -91,7 +91,7 @@ export default gql`
   }
 
   type DateRangeFacet implements FacetSet {
-    id: String
+    identifier: String
     label: String
     type: String
     display: String

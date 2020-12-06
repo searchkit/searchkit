@@ -32,7 +32,7 @@ Object {
           "label": "Terry George",
         },
       ],
-      "id": "writers",
+      "identifier": "writers",
       "label": "Writers",
       "type": "RefinementSelectFacet",
     },

@@ -27,19 +27,19 @@ const searchkitConfig = {
   }),
   facets: [
     new RefinementSelectFacet({ 
+      identifier: 'type',
       field: 'type.raw',
-      id: 'type',
       label: 'Type'
     }),
     new RefinementSelectFacet({
+      identifier: 'writers',
       field: 'writers.raw',
-      id: 'writers',
       label: 'Writers',
       multipleSelect: true
     }),
     new RangeFacet({
+      identifier: 'metascore',
       field: 'metaScore',
-      id: 'metascore',
       label: 'Metascore',
       range: {
         min: 0,
@@ -48,8 +48,8 @@ const searchkitConfig = {
       }
     }),
     new DateRangeFacet({
+      identifier: 'released',
       field: 'released',
-      id: 'released',
       label: 'Released'
     })
   ]
@@ -83,7 +83,7 @@ Will provide a GraphQL API where you can perform queries like:
 {
   results(query: "heat") {
     facets {
-      id
+      identifier
       label
       type
       display
@@ -109,9 +109,9 @@ Will provide a GraphQL API where you can perform queries like:
 [Try it out](https://demo.searchkit.co/api/graphql)
 ```graphql
 {
-  results(filters: [{id: "type", value: "Movie"}, {id: "metascore", min: 30}]) {
+  results(filters: [{identifier: "type", value: "Movie"}, {identifier: "metascore", min: 30}]) {
     facets {
-      id
+      identifier
       label
       type
       display
@@ -132,6 +132,8 @@ Will provide a GraphQL API where you can perform queries like:
   }
 }
 ```
+
+See [Schema Query Guide](https://searchkit.co/docs/guides/graphql-schema-queries-cheatsheet) for more examples.
 
 #### React Integration
 We provide a thin [React client](https://searchkit.co/docs/reference/searchkit-client) which integrates with Searchkit's API, Apollo Client. It maintains search state (pagination, filtering and querying) and calls Apollo client to fetch.

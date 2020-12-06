@@ -10,10 +10,10 @@ describe('QueryManager', () => {
     })
 
     it('query manager with test filter', () => {
-      const qm = new QueryManager([{ id: 'test', value: 'bob' }], null)
+      const qm = new QueryManager([{ identifier: 'test', value: 'bob' }], null)
       expect(qm.hasFilters()).toEqual(true)
-      expect(qm.getFilters()).toEqual([{ id: 'test', value: 'bob' }])
-      expect(qm.getFiltersById('test')).toEqual([{ id: 'test', value: 'bob' }])
+      expect(qm.getFilters()).toEqual([{ identifier: 'test', value: 'bob' }])
+      expect(qm.getFiltersById('test')).toEqual([{ identifier: 'test', value: 'bob' }])
       expect(qm.getFiltersById('nomatch')).toBeNull()
     })
   })

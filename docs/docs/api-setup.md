@@ -208,9 +208,9 @@ const searchkitConfig = {
   index: 'my_index',
   query: new MultiMatchQuery({ fields: [] }),
   facets: [
-    new RefinementSelectFacet({ field: 'type.raw', id: 'type', label: 'Type' }),
-    new RefinementSelectFacet({ field: 'writers.raw', id: 'writers', label: 'Writers' }),
-    new RefinementSelectFacet({ field: 'actors.raw', id: 'actors', label: 'Actors' })
+    new RefinementSelectFacet({ field: 'type.raw', identifier: 'type', label: 'Type' }),
+    new RefinementSelectFacet({ field: 'writers.raw', identifier: 'writers', label: 'Writers' }),
+    new RefinementSelectFacet({ field: 'actors.raw', identifier: 'actors', label: 'Actors' })
   ]
 }
 
@@ -224,7 +224,7 @@ Once configured, API will return all facets values for fields that have aggregat
 {
   results(query: "heat") {
     facets {
-      id
+      identifier
       label
       type
       entries {
@@ -247,9 +247,9 @@ When the user chooses to filter by movies, you can add the filter like so
 
 ```gql
 {
-  results(query: "heat", filters: [{id: "type", value: "Movie"}]) {
+  results(query: "heat", filters: [{identifier: "type", value: "Movie"}]) {
     facets {
-      id
+      identifier
       label
       type
       entries {

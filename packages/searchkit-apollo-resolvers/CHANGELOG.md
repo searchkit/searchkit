@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-canary.17](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.12...v3.0.0-canary.17) (2020-12-05)
+
+
+### Bug Fixes
+
+* facet size can be configured / changed at query time ([#796](https://github.com/searchkit/searchkit/issues/796)) ([beb567f](https://github.com/searchkit/searchkit/commit/beb567f931ffe7013d11251e7d8beeaf4a473f35)), closes [#791](https://github.com/searchkit/searchkit/issues/791)
+* fix apollo client cache issues ([da9191b](https://github.com/searchkit/searchkit/commit/da9191b4528fc72f73ffdbf3e1f92de3f88231fc)), closes [#797](https://github.com/searchkit/searchkit/issues/797)
+
+
+### BREAKING CHANGES
+
+* For all facets, id now is identifier. Apollo client network policy is now the
+default cache-first strategy
+
+
+
+
+
 # [3.0.0-canary.16](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.12...v3.0.0-canary.16) (2020-12-04)
 
 

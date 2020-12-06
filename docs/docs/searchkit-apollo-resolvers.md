@@ -158,9 +158,9 @@ When configured, a GraphQL query using the facets node like below will bring bac
 
 ```gql
  {
-  results(filters: [{id: "type", value: "movie" }]) {
+  results(filters: [{identifier: "type", value: "movie" }]) {
     facets {
-      id
+      identifier
       label
       type
       display
@@ -180,8 +180,8 @@ The resolver also supports returning facet options for one particular facet via 
 ```gql
  {
   results(query: "heat") {
-    facet(id: "type") {
-      id
+    facet(identifier: "type") {
+      identifier
       label
       type
       display
@@ -208,7 +208,7 @@ Returns a list of facet options that can be applied to refine the result set.
 const searchkitConfig = {
   ...
   facets: [
-    new RefinementSelectFacet({ field: 'type.raw', id: 'type', label: 'Type' })
+    new RefinementSelectFacet({ field: 'type.raw', identifier: 'type', label: 'Type' })
   ]
 }
 ```
@@ -216,9 +216,11 @@ const searchkitConfig = {
 #### Selected Filter Example
 ```graphql
 {
-  results(filters: [{id: "type", value: "movie" }]) {
-    facets {
-      id
+  results(filters: [{identifier: "type", value: "movie" }]) {
+    hits {
+      items {
+        id
+      }
     }
   }
 }
@@ -234,7 +236,7 @@ Supports facet values querying via the facet node. Great for UIs where you have 
 ```gql
  {
   results(query: "heat", filters: []) {
-    facet(id: "type", query: "movi", size: 10) {
+    facet(identifier: "type", query: "movi", size: 10) {
       id
       entries {
         id
@@ -270,7 +272,7 @@ const searchkitConfig = {
   facets: [
     new RangeFacet({
       field: 'metaScore',
-      id: 'metascore',
+      identifier: 'metascore',
       label: 'Metascore',
       range: {
         min: 0,
@@ -285,9 +287,11 @@ const searchkitConfig = {
 #### Selected Filter Example
 ```graphql
 {
-  results(filters: [{id: "metascore", min: 0, max: 100 }]) {
-    facets {
-      id
+  results(filters: [{identifier: "metascore", min: 0, max: 100 }]) {
+    hits {
+      items {
+        id
+      }
     }
   }
 }
@@ -317,8 +321,8 @@ const searchkitConfig = {
   ...
   facets: [
     new DateRangeFacet({
+      identifier: 'released',
       field: 'released',
-      id: 'released',
       label: 'Released'
     })
   ]
@@ -328,9 +332,11 @@ const searchkitConfig = {
 #### Selected Filter Example
 ```graphql
 {
-  results(filters: [{id: "released", dateMin: "10/12/2020", dateMax: "10/12/2021" }]) {
-    facets {
-      id
+  results(filters: [{identifier: "released", dateMin: "10/12/2020", dateMax: "10/12/2021" }]) {
+    hits {
+      items {
+        id
+      }
     }
   }
 }

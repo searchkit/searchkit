@@ -24,7 +24,7 @@ export const FacetsList = (components = []) => {
           throw new Error(facet.display + ' not available')
         }
         return (
-          <div key={facet.id}>
+          <div key={facet.identifier}>
             <Component facet={facet} loading={loading} />
             <EuiSpacer size="l" />
           </div>
