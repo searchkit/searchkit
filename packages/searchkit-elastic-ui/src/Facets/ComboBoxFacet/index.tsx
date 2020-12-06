@@ -31,7 +31,7 @@ export const ComboBoxFacet = ({ facet }) => {
   const [data, setData] = useState(() => facet.entries.map((entry) => ({ label: entry.label })))
   const [loading, setLoading] = useState(false)
   const [filters, setFilters] = useState(() =>
-    api.getFiltersByIdentifier(facet.id).map((filter) => ({ label: filter.value }))
+    api.getFiltersByIdentifier(facet.identifier).map((filter) => ({ label: filter.value }))
   )
 
   const onSearchChange = async (searchValue) => {

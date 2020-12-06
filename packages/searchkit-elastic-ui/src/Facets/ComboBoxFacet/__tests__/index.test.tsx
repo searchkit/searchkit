@@ -43,14 +43,14 @@ import { ComboBoxFacet } from '../index'
 describe('ComboBox Facet', () => {
   it('Interaction', async () => {
     const data = {
-      id: 'countries',
+      identifier: 'countries',
       label: 'Countries',
       entries: [
-        { id: 'usa', label: 'usa', count: 20 },
-        { id: 'turkey', label: 'turkey', count: 10 },
-        { id: 'UK', label: 'UK', count: 50 },
-        { id: 'Canada', label: 'Canada', count: 30 },
-        { id: 'Vietnam', label: 'Vietnam', count: 2 }
+        { id: 'countries_usa', label: 'usa', count: 20 },
+        { id: 'countries_turkey', label: 'turkey', count: 10 },
+        { id: 'countries_UK', label: 'UK', count: 50 },
+        { id: 'countries_Canada', label: 'Canada', count: 30 },
+        { id: 'countries_Vietnam', label: 'Vietnam', count: 2 }
       ]
     }
 
@@ -59,8 +59,8 @@ describe('ComboBox Facet', () => {
         results: {
           facet: {
             entries: [
-              { id: 'turkey', label: 'turkey', count: 10 },
-              { id: 'Tunisa', label: 'Tunisa', count: 50 }
+              { id: 'countries_turkey', label: 'turkey', count: 10 },
+              { id: 'countries_Tunisa', label: 'Tunisa', count: 50 }
             ]
           }
         }

@@ -26,6 +26,7 @@ package-lock.json
 jspm_packages
 dev.db
 **/with-prisma/src/generated
+examples/**/yarn.lock
 # Serverless directories
 .serverless
 
