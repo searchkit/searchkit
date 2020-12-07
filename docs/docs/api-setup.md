@@ -93,6 +93,7 @@ const typeDefs = [
     }
 
     type HitFields {
+      root: String
     }
   `,
   SearchkitSchema
