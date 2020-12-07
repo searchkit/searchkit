@@ -47,7 +47,7 @@ export default withApollo(
 import { gql, useQuery } from '@apollo/client';
 import withApollo from '../lib/withApollo';
 
-const query = gql`
+const QUERY = gql`
   query resultSet {
     results {
       hits {
