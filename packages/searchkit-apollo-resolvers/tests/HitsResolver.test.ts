@@ -69,6 +69,45 @@ describe('Hits Resolver', () => {
       expect(response.status).toEqual(200)
     })
 
+    it('should return correct Results with https', async () => {
+      const config: SearchkitConfig = {
+        host: 'https://localhost:9200',
+        index: 'movies',
+        hits: {
+          fields: ['actors', 'writers']
+        },
+        query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] })
+      }
+
+      setupTestServer(config)
+
+      const scope = nock('https://localhost:9200')
+        .post('/movies/_search')
+        .reply((uri, body) => {
+          expect(body).toMatchInlineSnapshot(`
+            Object {
+              "aggs": Object {},
+              "from": 0,
+              "post_filter": Object {
+                "bool": Object {
+                  "must": Array [],
+                },
+              },
+              "size": 10,
+              "sort": Array [
+                Object {
+                  "_score": "desc",
+                },
+              ],
+            }
+          `)
+          return [200, HitsMock]
+        })
+
+      const response = await runQuery()
+      expect(response.status).toEqual(200)
+    })
+
     it('should return correct Results on page 2', async () => {
       const config: SearchkitConfig = {
         host: 'http://localhost:9200',
