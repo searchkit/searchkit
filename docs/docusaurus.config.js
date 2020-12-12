@@ -59,7 +59,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/searchkit/searchkit/tree/next/docs/docs/',
+            'https://github.com/searchkit/searchkit/tree/next/docs/',
         },
         blog: {
           showReadingTime: true,
