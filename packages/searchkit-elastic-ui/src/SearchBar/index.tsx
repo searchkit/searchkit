@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 
 export const SearchBar = ({ loading }) => {
   const api = useSearchkit()
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState(api.getQuery())
 
   return (
     <EuiFieldSearch
