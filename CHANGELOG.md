@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-canary.20](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.19...v3.0.0-canary.20) (2020-12-13)
+
+
+### Bug Fixes
+
+* fix error where input was uncontrolled ([9f474ff](https://github.com/searchkit/searchkit/commit/9f474ffdad59262d85433ee332799cd5046cd467))
+
+
+### Features
+
+* allow query to be adjusted ([407384f](https://github.com/searchkit/searchkit/commit/407384fea64c6a7c2e7651934d7ae080798734ce)), closes [#806](https://github.com/searchkit/searchkit/issues/806)
+* **searchbar:** if query is set, use it as default value ([b7543aa](https://github.com/searchkit/searchkit/commit/b7543aaf4c1ac2d5cb0c8b33ae6b9cf6c1aff30e)), closes [#809](https://github.com/searchkit/searchkit/issues/809)
+
+
+
+
+
 # [3.0.0-canary.19](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.12...v3.0.0-canary.19) (2020-12-07)
 
 
