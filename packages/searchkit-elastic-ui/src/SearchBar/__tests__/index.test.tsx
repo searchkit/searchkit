@@ -45,4 +45,14 @@ describe('SearchBar', () => {
       sortBy: null
     })
   })
+
+  it('api has a query in state', async () => {
+    const mockApi: SearchkitClient = SearchkitClient as any
+    const searchCall = jest.fn()
+    mockApi.setCallbackFn(searchCall)
+    mockApi.setQuery('heat')
+    render(<SearchBar loading={false} />)
+    expect(screen.getByLabelText('Search')).toBeVisible()
+    expect(screen.getByLabelText('Search')).toHaveDisplayValue('heat')
+  })
 })

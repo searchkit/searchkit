@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { useQuery, WatchQueryFetchPolicy } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 
 export interface Filter {
   identifier: string
@@ -24,11 +24,7 @@ interface SearchkitQueryVariables {
 
 export interface SearchkitClientConfig {
   itemsPerPage?: number
-  apolloOptions?: SearchkitClientApolloOptionsConfig
-}
-
-export interface SearchkitClientApolloOptionsConfig {
-  fetchPolicy: WatchQueryFetchPolicy
+  searchOnLoad?: boolean
 }
 
 const filterSelector = (filter: Filter) => (f: Filter) => {
@@ -50,29 +46,32 @@ export class SearchkitClient {
   private filters: Array<Filter>
   private page: PageOptions
   private sortBy: string
+  public searchOnLoad: boolean
   private onSearch: (variables: SearchkitQueryVariables) => void
-  public apolloOptions: SearchkitClientApolloOptionsConfig
 
-  constructor(config: SearchkitClientConfig = {}) {
+  constructor({ searchOnLoad = true, itemsPerPage = 10 }: SearchkitClientConfig = {}) {
     this.query = ''
     this.filters = []
     this.page = {
-      size: config.itemsPerPage || 10,
+      size: itemsPerPage,
       from: 0
     }
     this.sortBy = null
     this.onSearch = null
-    this.apolloOptions = config.apolloOptions
+    this.searchOnLoad = searchOnLoad
   }
 
   private performSearch() {
-    if (this.onSearch)
-      this.onSearch({
-        query: this.query,
-        filters: this.filters,
-        page: this.page,
-        sortBy: this.sortBy
-      })
+    if (this.onSearch) this.onSearch(this.getVariables())
+  }
+
+  getVariables() {
+    return {
+      query: this.query,
+      filters: this.filters,
+      page: this.page,
+      sortBy: this.sortBy
+    }
   }
 
   setCallbackFn(callback: (variables: SearchkitQueryVariables) => void) {
@@ -147,10 +146,13 @@ export class SearchkitClient {
 
 export const SearchkitContext = createContext({})
 
-export function SearchkitProvider({ client, children }) {
-  useEffect(() => {
-    client.search()
-  }, [])
+export function SearchkitProvider({
+  client,
+  children
+}: {
+  client: SearchkitClient
+  children: React.ReactElement
+}) {
   return <SearchkitContext.Provider value={client}>{children}</SearchkitContext.Provider>
 }
 
@@ -164,17 +166,23 @@ export function useSearchkitQuery(query) {
   const [variables, setVariables]: [
     SearchkitQueryVariables,
     React.Dispatch<SearchkitQueryVariables>
-  ] = useState(null)
-  sk.setCallbackFn((variables) => {
-    setVariables(variables)
-  })
-  return useQuery(query, {
+  ] = useState(sk.getVariables())
+  const [execute, state] = useLazyQuery(query, {
     variables: {
       query: variables?.query,
       filters: variables?.filters,
       page: variables?.page,
       sortBy: variables?.sortBy
-    },
-    fetchPolicy: sk.apolloOptions?.fetchPolicy || 'cache-first'
+    }
   })
+  useEffect(() => {
+    if (sk.searchOnLoad) {
+      sk.search()
+    }
+  }, [])
+  sk.setCallbackFn((variables) => {
+    setVariables(variables)
+    execute()
+  })
+  return state
 }

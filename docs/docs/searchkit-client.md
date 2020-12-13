@@ -20,9 +20,7 @@ import { SearchkitClient } from '@searchkit/client'
 
 const client = new SearchkitClient({
   itemsPerPage: 12,
-  apolloOptions: {
-    fetchPolicy: 'cache-first'
-  }
+  searchOnLoad: true
 })
 
 ```
@@ -32,7 +30,7 @@ const client = new SearchkitClient({
 | Option        |      Description      |
 | :------------- | :----------- |
 | itemsPerPage         | Optional. Default number of items per page. |
-| apolloOptions | optional. |
+| searchOnLoad | A boolean to search on load, defaults to true |
 
 ### SearchkitClient Methods
 

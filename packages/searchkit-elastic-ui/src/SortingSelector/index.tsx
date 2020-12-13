@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 
 export const SortingSelector = ({ data, loading }) => {
   const api = useSearchkit()
-  const [value, setValue] = useState(() => data?.hits.sortedBy)
+  const [value, setValue] = useState('')
 
   useEffect(() => {
     if (data?.hits.sortedBy) {
@@ -12,11 +12,6 @@ export const SortingSelector = ({ data, loading }) => {
       setValue(selectedOptionId)
     }
   }, [data])
-
-  useEffect(() => {
-    api.setSortBy(value)
-    api.search()
-  }, [value])
 
   const options =
     data?.summary?.sortOptions?.map((sortOption) => ({
@@ -31,6 +26,8 @@ export const SortingSelector = ({ data, loading }) => {
       isLoading={loading}
       onChange={(value) => {
         setValue(value)
+        api.setSortBy(value)
+        api.search()
       }}
     />
   )

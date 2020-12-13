@@ -33,8 +33,16 @@ module.exports = {
       trackingID: 'G-Y1LWVCFZQK',
     },
     navbar: {
-      title: 'Searchkit Docs',
+      title: 'Searchkit',
       items: [
+        {
+          href: '/docs',
+          label: "Docs",
+        },
+        {
+          href: '/docs/guides',
+          label: "Guides",
+        },
         {
           href: 'https://github.com/searchkit/searchkit',
           label: 'GitHub',

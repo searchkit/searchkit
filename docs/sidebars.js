@@ -8,7 +8,7 @@
  */
 
 module.exports = {
-  someSidebar: {
+  docs: {
     'Getting Started': [
       'overview',
       'api-setup',
@@ -27,6 +27,6 @@ module.exports = {
       'searchkit-elastic-ui',
     ],
     Examples: ['example-apps-next', 'example-apps-prisma', 'example-apps-aws-lambda', 'example-apps-create-react-app', 'example-apps-express'],
-    Guides: ['v2-v3-migration', 'guides-graphql-schema-cheat-sheet']
   },
+  Guides:  ['guides', 'guides-graphql-schema-cheat-sheet', 'guides-setting-query-search', 'v2-v3-migration']
 };
