@@ -7,7 +7,7 @@ export default ({ Component, pageProps }) => {
   const router = useRouter()
   useEffect(() => {
     const handleRouteChange = (url) => {
-      gtag.pageview(url)
+      if (gtag && gtag.pageview) gtag.pageview(url)
     }
     router.events.on('routeChangeComplete', handleRouteChange)
     return () => {
