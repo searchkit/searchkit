@@ -42,7 +42,8 @@
     "@elastic/eui": "^30.0.0",
     "@types/react": "^16.9.55",
     "moment": "^2.29.1",
-    "typescript": "4.0.5"
+    "typescript": "4.0.5",
+    "react": "^17.0.1"
   },
   "peerDependencies": {
     "@apollo/client": "^3.2.5",

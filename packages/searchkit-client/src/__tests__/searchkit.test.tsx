@@ -1,6 +1,6 @@
 import { renderHook, act } from '@testing-library/react-hooks'
 import React from 'react'
-import { useQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 import {
   SearchkitClient,
   SearchkitContext,
@@ -10,7 +10,7 @@ import {
 } from '../searchkit'
 
 jest.mock('@apollo/client', () => ({
-  useQuery: jest.fn()
+  useLazyQuery: jest.fn().mockReturnValue([jest.fn(), {}])
 }))
 
 describe('Searchkit Client', () => {
@@ -121,18 +121,16 @@ describe('Searchkit Client', () => {
   })
 
   it('useSearchQuery', () => {
-    const api = new SearchkitClient()
+    const api = new SearchkitClient({ searchOnLoad: true })
     api.setQuery('test')
     api.addFilter({ identifier: 'type', value: 'Movies' })
     api.setSortBy('released')
+    api.search = jest.fn()
     const wrapper = ({ children }) => <SearchkitProvider client={api}>{children}</SearchkitProvider>
 
     renderHook(() => useSearchkitQuery('gqlQuery'), { wrapper })
-    act(() => {
-      api.search()
-    })
-    expect(useQuery).toHaveBeenCalledWith('gqlQuery', {
-      fetchPolicy: 'cache-first',
+
+    expect(useLazyQuery).toHaveBeenCalledWith('gqlQuery', {
       variables: {
         filters: [{ identifier: 'type', value: 'Movies' }],
         page: { from: 0, size: 10 },
@@ -140,5 +138,20 @@ describe('Searchkit Client', () => {
         sortBy: 'released'
       }
     })
+    expect(api.search).toBeCalled()
+  })
+
+  it('searchOnLoad', () => {
+    ;(useLazyQuery as any).mockReset()
+    const api = new SearchkitClient({ searchOnLoad: false })
+    api.setQuery('test')
+    api.addFilter({ identifier: 'type', value: 'Movies' })
+    api.setSortBy('released')
+    api.search = jest.fn()
+    const wrapper = ({ children }) => <SearchkitProvider client={api}>{children}</SearchkitProvider>
+
+    renderHook(() => useSearchkitQuery('gqlQuery'), { wrapper })
+    expect(useLazyQuery).toHaveBeenCalled()
+    expect(api.search).not.toBeCalled()
   })
 })
