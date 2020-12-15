@@ -14,24 +14,30 @@ Also see [Create React App](https://searchkit.co/docs/examples/create-react-app)
 Below example of how a simple search query component can be built using the searchkit client API. When search is invoked, the API will perform a new query.  
 
 ```javascript
-import React, { useState } from 'react'
-import { useSearchkit } from '@searchkit/client'
+import React, { useState } from 'react';
+import { useSearchkit } from '@searchkit/client';
 
 const SearchInput = () => {
-  const api = useSearchkit()
-  const [value, setValue] = useState('')
+  const api = useSearchkit();
+  const [value, setValue] = useState('');
   return (
-    <form onSubmit={(e) => {
-      e.preventDefault()
-      api.setQuery(value)
-      api.search()
-    }} >
-      <input type="text" value={value} onChange={(e) => {
-        const inputValue = e.target.value
-        setValue(inputValue)
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        api.setQuery(value);
+        api.search();
       }}>
-  </form>
-}
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => {
+          const inputValue = e.target.value;
+          setValue(inputValue);
+        }}
+      />
+    </form>
+  );
+};
 ```
 
 ### Facet Component
