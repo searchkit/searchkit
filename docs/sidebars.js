@@ -28,5 +28,5 @@ module.exports = {
     ],
     Examples: ['example-apps-next', 'example-apps-prisma', 'example-apps-aws-lambda', 'example-apps-create-react-app', 'example-apps-express'],
   },
-  Guides:  ['guides', 'guides-graphql-schema-cheat-sheet', 'guides-setting-query-search', 'v2-v3-migration']
+  Guides:  ['guides', 'guides-elasticsearch-setup-indexing', 'guides-graphql-schema-cheat-sheet', 'guides-setting-query-search', 'v2-v3-migration']
 };
