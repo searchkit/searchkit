@@ -14,6 +14,7 @@ Searchkit is an open source search toolkit. It mainly consists of the following 
 
 #### Quick Start Guide
 - [Example Apps](https://github.com/searchkit/searchkit/tree/next/examples)  
+- [Setting up Elasticsearch & Indexing Guide](https://searchkit.co/docs/guides/elasticsearch-setup-indexing)
 - [API Quick Start Guide](https://searchkit.co/docs/quick-start/api-setup)
 - [UI Quick Start Guide](https://searchkit.co/docs/quick-start/ui/setup)
 
