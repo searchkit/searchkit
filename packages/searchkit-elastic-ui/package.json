@@ -22,7 +22,7 @@
   "scripts": {
     "build": "rm -rf lib; tsc && tsc -p tsconfig-cjs.json",
     "dev": "rm -rf lib; tsc --watch",
-    "test": "echo no-tests"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
