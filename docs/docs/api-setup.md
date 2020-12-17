@@ -5,6 +5,9 @@ sidebar_label: API Setup
 slug: /quick-start/api-setup
 ---
 
+## Setting up Elasticsearch & Indexing
+See [Setting up Elasticsearch & Indexing Guide](https://searchkit.co/docs/guides/elasticsearch-setup-indexing) to use searchkit's CLI to setup indexing the data needed for searchkit. 
+
 ## Setup Apollo Server
 First step is to setup Apollo Server within our app. We are using [Next](https://github.com/vercel/next.js/) & [Apollo Server Micro](https://www.apollographql.com/docs/apollo-server/v1/servers/micro/) where we will use [API routes](https://nextjs.org/docs/api-routes/introduction) for our app. 
 

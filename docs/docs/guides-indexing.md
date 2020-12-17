@@ -1,7 +1,7 @@
 ---
 id: guides-elasticsearch-setup-indexing
 title: Elasticsearch Setup and Indexing 
-sidebar_label: Elasticsearch Setup
+sidebar_label: Elasticsearch Setup & Indexing
 slug: /guides/elasticsearch-setup-indexing
 ---
 
