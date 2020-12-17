@@ -93,7 +93,7 @@ Then setup Searchkit. Below is a configuration based on your settings.
 
 ```javascript
   const searchkitConfig = {
-    host: 'https://eb965132df6664d4a121:a7a3e7689a@6773f6bc.qb0x.com:32359/',
+    host: 'http://localhost:9200',
     index: 'imdb_movies',
     hits: {
       fields: ['type','title','year','rated','released','genres','directors','writers','actors','countries','plot','poster','id','metascore']
