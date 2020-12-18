@@ -97,7 +97,7 @@ import { SearchInput, Facets } from './components'
 
 const QUERY = gql`
     query resultSet($query: String, $filters: [FiltersSet]) {
-      results(query: $query, filters: $filters) {
+      results($query: String, $filters: [FiltersSet], $page: PageInput, $sortBy: String) {
         hits {
           items {
             id
