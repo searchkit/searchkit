@@ -18,10 +18,10 @@ export interface SearchkitField {
   stored?: boolean
   fieldName: string
   searchable?: boolean
-  type?: 'integer' | 'date'
+  type?: 'integer' | 'date' | 'float'
   sourceOptions?: {
     path: string
-    transform?: (str: string) => string
+    transform?: (str: string) => string | number
   }
 }
 

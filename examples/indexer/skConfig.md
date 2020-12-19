@@ -83,6 +83,9 @@ PUT /imdb_movies/_mapping
       },
       "metascore": {
         "type": "integer"
+      },
+      "imdbrating": {
+        "type": "float"
       }
     }
   }
@@ -93,7 +96,7 @@ Then setup Searchkit. Below is a configuration based on your settings.
 
 ```javascript
   const searchkitConfig = {
-    host: 'http://localhost:9200',
+    host: 'http://localhost:9200/',
     index: 'imdb_movies',
     hits: {
       fields: ['type','title','year','rated','released','genres','directors','writers','actors','countries','plot','poster','id','metascore']
@@ -150,6 +153,28 @@ Then setup Searchkit. Below is a configuration based on your settings.
         field: 'countries.keyword',
         identifier: 'countries',
         label: 'countries'
+      }),
+          
+      new RangeFacet({
+        field: 'metascore',
+        identifier: 'metascore',
+        label: 'metascore'
+        range: {
+          min: <MIN>,
+          max: <MAX>,
+          interval: <internal>
+        }
+      }),
+          
+      new RangeFacet({
+        field: 'imdbrating',
+        identifier: 'imdbrating',
+        label: 'imdbrating'
+        range: {
+          min: <MIN>,
+          max: <MAX>,
+          interval: <internal>
+        }
       }),
           
     ]

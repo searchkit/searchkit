@@ -5,7 +5,7 @@ withConfig({
 	index: 'imdb_movies',
 	host: "http://localhost:9200/",
   source: movies,
-  type: 'movie',
+  // type: 'movie',
 	fields: [
 		{
 			fieldName: 'type',
@@ -132,6 +132,19 @@ withConfig({
       sourceOptions: {
         path: 'Metascore',
         transform: toNumber
+      }
+    },
+    {
+      fieldName: 'imdbrating',
+      stored: false,
+      facet: true,
+      type: 'float',
+      sourceOptions: {
+        path: 'imdbRating',
+        transform: (str) => {
+          if (!str || parseFloat(str) === NaN) return null
+          return parseFloat(str)
+        }
       }
     }
 	]
