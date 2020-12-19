@@ -85,7 +85,17 @@ const searchkitConfig = {
       identifier: 'countries',
       label: 'Countries',
       display: 'ComboBoxFacet'
+    }),
 
+    new RangeFacet({
+      field: 'imdbrating',
+      identifier: 'imdbrating',
+      label: 'IMDB Rating',
+      range: {
+        interval: 1,
+        max: 10,
+        min: 1
+      }
     })
   ]
 }
