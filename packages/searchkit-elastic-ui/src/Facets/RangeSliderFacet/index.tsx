@@ -3,9 +3,9 @@ import { EuiTitle, EuiDualRange, colorPalette } from '@elastic/eui'
 import { useSearchkit } from '@searchkit/client'
 import { useDebouncedCallback } from 'use-debounce'
 
-export const getLevels = (entries: Array<{ label: string, count: number }>) : any => {
-  return entries.reduce((levels, entry, index, entries) => {
-    const lastLevel = levels[levels.length-1]
+export const getLevels = (entries: Array<{ label: string; count: number }>): any =>
+  entries.reduce((levels, entry, index, entries) => {
+    const lastLevel = levels[levels.length - 1]
     const isLast = entries.length === index + 1
     if (!lastLevel || lastLevel.max) {
       levels.push({
@@ -13,11 +13,12 @@ export const getLevels = (entries: Array<{ label: string, count: number }>) : an
         hasResults: entry.count === 0 ? false : true
       })
     } else if (
-      lastLevel && !lastLevel.max
-      && (
-        (entry.count > 0 && !lastLevel.hasResults) ||
+      lastLevel &&
+      !lastLevel.max &&
+      ((entry.count > 0 && !lastLevel.hasResults) ||
         (entry.count === 0 && lastLevel.hasResults) ||
-        (isLast && !lastLevel.max))) {
+        (isLast && !lastLevel.max))
+    ) {
       lastLevel.max = parseFloat(entry.label)
       if (!isLast) {
         levels.push({
@@ -28,13 +29,12 @@ export const getLevels = (entries: Array<{ label: string, count: number }>) : an
     }
     return levels
   }, [])
-}
 
 export const RangeSliderFacet = ({ facet }) => {
   const api = useSearchkit()
   const levels = getLevels(facet.entries)
   const minBoundary = levels[0].min
-  const maxBoundary = levels[levels.length-1].max
+  const maxBoundary = levels[levels.length - 1].max
   const [dualValue, setDualValue] = useState<[ReactText, ReactText]>([minBoundary, maxBoundary])
   const selectedOptions = api.getFiltersByIdentifier(facet.identifier)
   const selectedOption = selectedOptions && selectedOptions[0]
@@ -65,13 +65,11 @@ export const RangeSliderFacet = ({ facet }) => {
           setDualValue(value)
           debouncedCallback.callback(value)
         }}
-        levels={levels.map((level) => {
-          return {
-            min: level.min,
-            max: level.max,
-            color: level.hasResults ? 'primary' : 'warning'
-          }
-        })}
+        levels={levels.map((level) => ({
+          min: level.min,
+          max: level.max,
+          color: level.hasResults ? 'primary' : 'warning'
+        }))}
       />
     </>
   )
