@@ -76,6 +76,14 @@ describe('Searchkit Client', () => {
     ])
   })
 
+  it('should toggle range filters', () => {
+    const api = new SearchkitClient()
+    api.addFilter({ identifier: 'type', min: 0, max: 100 })
+    expect(api.getFilters()).toEqual([{ identifier: 'type', min: 0, max: 100 }])
+    api.toggleFilter({ identifier: 'type', min: 0, max: 100 })
+    expect(api.getFilters()).toEqual([])
+  })
+
   it('should remove multiple filters by id', () => {
     const api = new SearchkitClient()
     api.addFilter({ identifier: 'type', value: 'Movies' })

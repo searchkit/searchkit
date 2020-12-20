@@ -1,24 +1,41 @@
 import React, { ReactText, useEffect, useState } from 'react'
-import { EuiTitle, EuiDualRange } from '@elastic/eui'
+import { EuiTitle, EuiDualRange, colorPalette } from '@elastic/eui'
 import { useSearchkit } from '@searchkit/client'
 import { useDebouncedCallback } from 'use-debounce'
 
-export const getLevels = (entries) => {
-  const counts = entries.reduce((sum, entry) => {
-    if (entry.count > 0) {
-      return [...sum, parseInt(entry.label)]
+export const getLevels = (entries: Array<{ label: string; count: number }>): any =>
+  entries.reduce((levels, entry, index, entries) => {
+    const lastLevel = levels[levels.length - 1]
+    const isLast = entries.length === index + 1
+    if (!lastLevel || lastLevel.max) {
+      levels.push({
+        min: lastLevel ? lastLevel.max : parseFloat(entry.label),
+        hasResults: entry.count === 0 ? false : true
+      })
+    } else if (
+      lastLevel &&
+      !lastLevel.max &&
+      ((entry.count > 0 && !lastLevel.hasResults) ||
+        (entry.count === 0 && lastLevel.hasResults) ||
+        (isLast && !lastLevel.max))
+    ) {
+      lastLevel.max = parseFloat(entry.label)
+      if (!isLast) {
+        levels.push({
+          min: parseFloat(entry.label),
+          hasResults: entry.count === 0 ? false : true
+        })
+      }
     }
-    return sum
+    return levels
   }, [])
-  if (counts.length > 0) {
-    return { min: Math.min(...counts), max: Math.max(...counts) }
-  }
-  return { min: 0, max: 0 }
-}
 
 export const RangeSliderFacet = ({ facet }) => {
   const api = useSearchkit()
-  const [dualValue, setDualValue] = useState<[ReactText, ReactText]>([0, 100])
+  const levels = getLevels(facet.entries)
+  const minBoundary = levels[0].min
+  const maxBoundary = levels[levels.length - 1].max
+  const [dualValue, setDualValue] = useState<[ReactText, ReactText]>([minBoundary, maxBoundary])
   const selectedOptions = api.getFiltersByIdentifier(facet.identifier)
   const selectedOption = selectedOptions && selectedOptions[0]
 
@@ -34,8 +51,6 @@ export const RangeSliderFacet = ({ facet }) => {
     }
   }, [selectedOption])
 
-  const range = getLevels(facet.entries)
-
   return (
     <>
       <EuiTitle size="xxs">
@@ -44,27 +59,17 @@ export const RangeSliderFacet = ({ facet }) => {
       <EuiDualRange
         id={facet.id}
         value={dualValue}
+        min={minBoundary}
+        max={maxBoundary}
         onChange={(value) => {
           setDualValue(value)
           debouncedCallback.callback(value)
         }}
-        levels={[
-          {
-            min: 0,
-            max: range.min,
-            color: 'warning'
-          },
-          {
-            min: range.min,
-            max: range.max,
-            color: 'primary'
-          },
-          {
-            min: range.max,
-            max: 100,
-            color: 'warning'
-          }
-        ]}
+        levels={levels.map((level) => ({
+          min: level.min,
+          max: level.max,
+          color: level.hasResults ? 'primary' : 'warning'
+        }))}
       />
     </>
   )

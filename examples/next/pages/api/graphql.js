@@ -41,12 +41,6 @@ const searchkitConfig = {
       }
     }),
 
-    new RefinementSelectFacet({
-      field: 'rated',
-      identifier: 'rated',
-      label: 'Rated',
-      multipleSelect: true
-    }),
 
     new DateRangeFacet({
       field: 'released',
@@ -61,6 +55,18 @@ const searchkitConfig = {
       multipleSelect: true
     }),
 
+    new RefinementSelectFacet({
+      field: 'countries.keyword',
+      identifier: 'countries',
+      label: 'Countries',
+      display: 'ComboBoxFacet'
+    }),
+    new RefinementSelectFacet({
+      field: 'rated',
+      identifier: 'rated',
+      label: 'Rated',
+      multipleSelect: true
+    }),
     new RefinementSelectFacet({
       field: 'directors.keyword',
       identifier: 'directors',
@@ -80,13 +86,6 @@ const searchkitConfig = {
       multipleSelect: true
     }),
 
-    new RefinementSelectFacet({
-      field: 'countries.keyword',
-      identifier: 'countries',
-      label: 'Countries',
-      display: 'ComboBoxFacet'
-    }),
-
     new RangeFacet({
       field: 'imdbrating',
       identifier: 'imdbrating',
@@ -96,7 +95,9 @@ const searchkitConfig = {
         max: 10,
         min: 1
       }
-    })
+    }),
+
+
   ]
 }
 
