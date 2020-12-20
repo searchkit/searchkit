@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-canary.23](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.19...v3.0.0-canary.23) (2020-12-20)
+
+
+### Bug Fixes
+
+* **rangeslider:** fix slider when boundaries are not 0-100 ([ee22887](https://github.com/searchkit/searchkit/commit/ee2288780702a6799c2f27b87c2f2721983181ca)), closes [#827](https://github.com/searchkit/searchkit/issues/827)
+* **searchkit/cli:** fix issue with cli not working ([#826](https://github.com/searchkit/searchkit/issues/826)) ([1a9784d](https://github.com/searchkit/searchkit/commit/1a9784d634fe6331b42b0af63a4dbe37a95269f3))
+
+
+
+
+
 # [3.0.0-canary.22](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.19...v3.0.0-canary.22) (2020-12-19)
 
 **Note:** Version bump only for package @searchkit/elastic-ui
