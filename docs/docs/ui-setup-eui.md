@@ -5,21 +5,21 @@ sidebar_label: With EUI Components
 slug: /quick-start/ui/eui
 ---
 
-This guide will step you through how to use the out the box searchkit UI components. We will be using Next JS. Also see [Create React App](https://searchkit.co/docs/examples/create-react-app) if you're not using NextJS.
+This guide will step you through how to use the out-of-the-box Searchkit UI components. We will be using Next JS. Also see [Create React App](https://searchkit.co/docs/examples/create-react-app) if you're not using NextJS.
 
 Once you've completed the [initial setup](../initial-setup), start by adding the @searchkit/elastic-ui and @elastic/eui dependency via yarn
 
 ```yarn add @searchkit/elastic-ui @elastic/eui```
 
-Next (if you have been following the guide with NextJS) has an issue with EUI and SSR so we are going to [dynamicly import](https://nextjs.org/docs/advanced-features/dynamic-import) the component.
+NextJS (if you have been following the guide with NextJS) has an issue with EUI and SSR so we are going to [dynamically import](https://nextjs.org/docs/advanced-features/dynamic-import) the component.
 
-First create a JS file called search.js in components folder which will be the search page.
+First create a JS file called search.js in the components folder which will be the search page.
 
 The search page will contain the following:
 - components from searchkit client, elastic-ui and elastic's EUI
 - A GQL query using all fields required by searchkit's components
 
-Below is an example of a typical Searchkit page which uses EUI and searchkit EUI. 
+Below is an example of a typical Searchkit page which uses EUI and Searchkit EUI. 
 
 ```javascript
 # components/search.js
@@ -158,7 +158,7 @@ export default () => {
 
 ```
 
-then go to pages/index.js and update
+then go to the pages/index.js and update
 
 ```javascript
 import { withSearchkit } from "@searchkit/client";
