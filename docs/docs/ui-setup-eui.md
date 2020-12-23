@@ -9,7 +9,7 @@ This guide will step you through how to use the out-of-the-box Searchkit UI comp
 
 Once you've completed the [initial setup](../initial-setup), start by adding the @searchkit/elastic-ui and @elastic/eui dependency via yarn
 
-```yarn add @searchkit/elastic-ui @elastic/eui```
+```yarn add @searchkit/elastic-ui @elastic/eui @elastic/datemath moment```
 
 NextJS (if you have been following the guide with NextJS) has an issue with EUI and SSR so we are going to [dynamically import](https://nextjs.org/docs/advanced-features/dynamic-import) the component.
 

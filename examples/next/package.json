@@ -12,19 +12,19 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.6",
+    "@elastic/datemath": "^5.0.3",
     "@elastic/eui": "^31.0.0",
     "@searchkit/apollo-resolvers": "^3.0.0-canary.23",
     "@searchkit/client": "^3.0.0-canary.23",
     "@searchkit/elastic-ui": "^3.0.0-canary.23",
     "apollo-server-micro": "^2.19.0",
+    "graphql": "^15.4.0",
+    "micro-cors": "^0.1.1",
+    "moment": "^2.29.1",
     "next": "^10.0.4",
     "next-with-apollo": "^5.1.0",
     "react": "17.0.1",
-    "react-dom": "17.0.1",
-    "graphql": "^14.6.0",
-    "micro-cors": "^0.1.1"
-
-
+    "react-dom": "17.0.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "1.15.0",
