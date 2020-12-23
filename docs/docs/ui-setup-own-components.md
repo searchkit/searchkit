@@ -98,7 +98,7 @@ import { SearchInput, Facets } from './components'
 const QUERY = gql`
     query resultSet($query: String, $filters: [FiltersSet]) {
       results($query: String, $filters: [FiltersSet], $page: PageInput, $sortBy: String) {
-        hits {
+         hits(page: $page, sortBy: $sortBy) {
           items {
             id
             fields {
