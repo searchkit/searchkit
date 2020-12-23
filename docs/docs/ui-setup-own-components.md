@@ -81,7 +81,7 @@ const RefinementFacet = ({ facet }) => {
 const FacetsList = ({ data, loading }) => {
   return (
     <div>
-      {data.facet.map((facet) => {
+      {data.facets.map((facet) => {
         return <RefinementFacet facet={facet} loading={loading} />
       })}
     </div>
@@ -100,9 +100,9 @@ import { useState } from 'react'
 import { SearchInput, Facets } from './components'
 
 const QUERY = gql`
-    query resultSet($query: String, $filters: [FiltersSet], $page: PageInput) {
-      results(query: $query, filters: $filters) {
-        hits() {
+    query resultSet($query: String, $filters: [FiltersSet], $page: PageInput, $sortBy: String) {
+      results($query: String, $filters: [FiltersSet], $page: PageInput, $sortBy: String) {
+         hits(page: $page, sortBy: $sortBy) {
           items {
             id
             fields {
@@ -135,7 +135,7 @@ const Index = () => {
     <div>
       <SearchInput />
       <div className="facets">
-        <Facets data={data} loading={loading} />
+        <Facets data={data.results} loading={loading} />
       </div>
       <div className="results">
         {data.results.hits.items.map((item) => {
