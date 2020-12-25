@@ -36,7 +36,7 @@ class DateRangeFacet implements BaseFacet {
       label: this.getLabel(),
       dateMin: filterSet.dateMin,
       dateMax: filterSet.dateMax,
-      display: this.config.display || 'DateRangeFacet',
+      display: this.config.display || 'DateRangeFacet'
     }
   }
 
