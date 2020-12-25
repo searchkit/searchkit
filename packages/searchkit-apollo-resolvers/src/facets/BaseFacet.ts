@@ -12,4 +12,5 @@ export interface BaseFacet {
   getAggregation(overrides: FacetOptions): any
   getFilters(filters: Array<MixedFilter>): any
   transformResponse(response: any): any
+  getSelectedFilter(filterSet: any): any
 }

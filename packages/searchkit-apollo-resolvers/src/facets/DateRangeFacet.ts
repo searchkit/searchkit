@@ -7,12 +7,6 @@ interface DateRangeFacetConfig {
   label: string
   size?: number
   display?: 'DateRange' | string
-  range: {
-    min: number
-    max: number
-    interval: number
-    min_doc_count?: number
-  }
 }
 
 class DateRangeFacet implements BaseFacet {
@@ -33,6 +27,17 @@ class DateRangeFacet implements BaseFacet {
 
   getAggregation() {
     return {}
+  }
+
+  getSelectedFilter(filterSet) {
+    return {
+      type: 'DateRangeSelectedFilter',
+      identifier: this.getIdentifier(),
+      label: this.getLabel(),
+      dateMin: filterSet.dateMin,
+      dateMax: filterSet.dateMax,
+      display: this.config.display || 'DateRangeFacet',
+    }
   }
 
   transformResponse() {

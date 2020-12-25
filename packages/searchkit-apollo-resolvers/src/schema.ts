@@ -18,10 +18,33 @@ export default gql`
     sortOptions: [SortOption]
   }
 
-  type SelectedFilter {
+  interface SelectedFilter {
     identifier: String!
     label: String!
+    display: String!
+  }
+
+  type ValueSelectedFilter implements SelectedFilter {
+    identifier: String!
+    display: String!
+    label: String!
     value: String
+  }
+
+  type NumericRangeSelectedFilter implements SelectedFilter {
+    identifier: String!
+    label: String!
+    display: String!
+    min: Float
+    max: Float
+  }
+
+  type DateRangeSelectedFilter implements SelectedFilter {
+    identifier: String!
+    label: String!
+    display: String!
+    dateMin: String
+    dateMax: String
   }
 
   type ResultSet {
