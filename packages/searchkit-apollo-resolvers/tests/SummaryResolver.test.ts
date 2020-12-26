@@ -62,28 +62,22 @@ describe('Summary Resolver', () => {
             summary {
               total
               appliedFilters {
-
+                id
+                identifier
+                label
+                display
                 ... on DateRangeSelectedFilter {
-                  identifier
-                  label
                   dateMin
                   dateMax
-                  display
                 }
 
                 ... on NumericRangeSelectedFilter {
-                  identifier
-                  label
                   min
                   max
-                  display
                 }
 
                 ... on ValueSelectedFilter {
-                  identifier
-                  label
                   value
-                  display
                 }
               }
               sortOptions {

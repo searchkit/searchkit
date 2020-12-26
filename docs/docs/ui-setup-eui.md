@@ -58,27 +58,22 @@ const query = gql`
       summary {
         total
         appliedFilters {
+          id
+          identifier
+          display
+          label
           ... on DateRangeSelectedFilter {
-            identifier
-            label
             dateMin
             dateMax
-            display
           }
 
           ... on NumericRangeSelectedFilter {
-            identifier
-            label
             min
             max
-            display
           }
 
           ... on ValueSelectedFilter {
-            identifier
-            label
             value
-            display
           }
         }
         query

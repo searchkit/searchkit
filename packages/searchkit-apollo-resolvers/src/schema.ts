@@ -19,32 +19,36 @@ export default gql`
   }
 
   interface SelectedFilter {
+    id: String!
     identifier: String!
     label: String!
     display: String!
   }
 
   type ValueSelectedFilter implements SelectedFilter {
+    id: String!
     identifier: String!
     display: String!
     label: String!
-    value: String
+    value: String!
   }
 
   type NumericRangeSelectedFilter implements SelectedFilter {
+    id: String!
     identifier: String!
     label: String!
     display: String!
-    min: Float
-    max: Float
+    min: Float!
+    max: Float!
   }
 
   type DateRangeSelectedFilter implements SelectedFilter {
+    id: String!
     identifier: String!
     label: String!
     display: String!
-    dateMin: String
-    dateMax: String
+    dateMin: String!
+    dateMax: String!
   }
 
   type ResultSet {
