@@ -9,9 +9,28 @@ const query = gql`
       summary {
         total
         appliedFilters {
-          identifier
-          label
-          value
+          ... on DateRangeSelectedFilter {
+            identifier
+            label
+            dateMin
+            dateMax
+            display
+          }
+
+          ... on NumericRangeSelectedFilter {
+            identifier
+            label
+            min
+            max
+            display
+          }
+
+          ... on ValueSelectedFilter {
+            identifier
+            label
+            value
+            display
+          }
         }
         query
       }

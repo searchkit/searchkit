@@ -44,6 +44,17 @@ class RangeFacet implements BaseFacet {
     }
   }
 
+  getSelectedFilter(filterSet) {
+    return {
+      identifier: this.getIdentifier(),
+      label: this.getLabel(),
+      display: this.config.display || 'RangeSliderFacet',
+      type: 'NumericRangeSelectedFilter',
+      min: filterSet.min,
+      max: filterSet.max
+    }
+  }
+
   transformResponse(response: any) {
     return {
       identifier: this.getIdentifier(),

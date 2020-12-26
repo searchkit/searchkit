@@ -47,9 +47,24 @@ Object {
     "summary": Object {
       "appliedFilters": Array [
         Object {
-          "identifier": "writers",
-          "label": "Writers",
+          "display": "ListFacet",
+          "identifier": "actors",
+          "label": "Actors",
           "value": "Jeff Lindsay",
+        },
+        Object {
+          "display": "RangeSliderFacet",
+          "identifier": "imdbrating",
+          "label": "IMDB Rating",
+          "max": 50,
+          "min": 0,
+        },
+        Object {
+          "dateMax": "2020-12-18T00:00:00.000Z",
+          "dateMin": "2012-12-18T00:00:00.000Z",
+          "display": "DateRangeFacet",
+          "identifier": "released",
+          "label": "Release",
         },
       ],
       "query": "",

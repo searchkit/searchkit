@@ -23,11 +23,7 @@ export default async (parent, {}, ctx) => {
         const facetConfig = config.facets.find(
           (facet) => facet.getIdentifier() === filterSet.identifier
         )
-        return {
-          label: facetConfig.getLabel(),
-          identifier: facetConfig.getIdentifier(),
-          value: filterSet.value
-        }
+        return facetConfig.getSelectedFilter(filterSet)
       }, [])
     }
   } catch (e) {

@@ -16,5 +16,8 @@ export default (config: SearchkitConfig) => ({
   },
   FacetSet: {
     __resolveType: (e) => e.type
+  },
+  SelectedFilter: {
+    __resolveType: (e) => e.type
   }
 })

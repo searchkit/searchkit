@@ -5,14 +5,12 @@ export type ValueFilter = {
 
 export type RangeFilter = {
   identifier: string
-  value?: string
   min: number
   max: number
 }
 
 export type DateRangeFilter = {
   identifier: string
-  value?: string
   dateMin: string
   dateMax: string
 }

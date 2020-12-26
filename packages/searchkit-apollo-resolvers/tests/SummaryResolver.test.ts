@@ -1,7 +1,7 @@
 import nock from 'nock'
 import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
 import { MultiMatchQuery } from '../src'
-import { RefinementSelectFacet } from '../src/facets'
+import { RangeFacet, RefinementSelectFacet, DateRangeFacet } from '../src/facets'
 import { setupTestServer, callQuery } from './support/helper'
 import HitsMock from './__mock-data__/HitResolver/Hits.json'
 
@@ -16,23 +16,36 @@ describe('Summary Resolver', () => {
       host: 'http://localhost:9200',
       index: 'movies',
       hits: {
-        fields: ['actors', 'writers']
+        fields: ['actors']
       },
       sortOptions: [
         { id: 'relevance', label: 'Relevance', field: '_score' },
         { id: 'released', label: 'Recent Releases', field: { released: 'desc' } }
       ],
-      query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] }),
+      query: new MultiMatchQuery({ fields: ['actors', 'title^4', 'plot'] }),
       facets: [
         new RefinementSelectFacet({
-          identifier: 'writers',
-          field: 'writers.raw',
-          label: 'Writers',
-          multipleSelect: true
+          identifier: 'actors',
+          field: 'actors.keyword',
+          label: 'Actors'
         }),
-        new RefinementSelectFacet({ identifier: 'actors', field: 'actors.raw', label: 'Actors' }),
-        new RefinementSelectFacet({ identifier: 'type', field: 'type.raw', label: 'Type' }),
-        new RefinementSelectFacet({ identifier: 'genres', field: 'genres.raw', label: 'Genres' })
+        new RefinementSelectFacet({ identifier: 'type', field: 'type', label: 'Type' }),
+        new RefinementSelectFacet({
+          identifier: 'genres',
+          field: 'genres.keyword',
+          label: 'Genres'
+        }),
+        new RangeFacet({
+          identifier: 'imdbrating',
+          field: 'imdbrating',
+          label: 'IMDB Rating',
+          range: {
+            interval: 10,
+            max: 100,
+            min: 0
+          }
+        }),
+        new DateRangeFacet({ identifier: 'released', field: 'released', label: 'Release' })
       ]
     }
 
@@ -41,13 +54,37 @@ describe('Summary Resolver', () => {
 
       const gql = `
         {
-          results(query: "", filters: [{ identifier: "writers", value: "Jeff Lindsay" }]) {
+          results(query: "", filters: [
+            { identifier: "actors", value: "Jeff Lindsay" },
+            { identifier: "imdbrating", min: 0, max: 50 },
+            { identifier: "released", dateMin: "2012-12-18T00:00:00.000Z", dateMax: "2020-12-18T00:00:00.000Z" }
+          ]) {
             summary {
               total
               appliedFilters {
-                identifier
-                label
-                value
+
+                ... on DateRangeSelectedFilter {
+                  identifier
+                  label
+                  dateMin
+                  dateMax
+                  display
+                }
+
+                ... on NumericRangeSelectedFilter {
+                  identifier
+                  label
+                  min
+                  max
+                  display
+                }
+
+                ... on ValueSelectedFilter {
+                  identifier
+                  label
+                  value
+                  display
+                }
               }
               sortOptions {
                 id
@@ -83,13 +120,29 @@ describe('Summary Resolver', () => {
                   "must": Array [
                     Object {
                       "bool": Object {
-                        "should": Array [
+                        "must": Array [
                           Object {
                             "term": Object {
-                              "writers.raw": "Jeff Lindsay",
+                              "actors.keyword": "Jeff Lindsay",
                             },
                           },
                         ],
+                      },
+                    },
+                    Object {
+                      "range": Object {
+                        "imdbrating": Object {
+                          "gte": 0,
+                          "lte": 50,
+                        },
+                      },
+                    },
+                    Object {
+                      "range": Object {
+                        "released": Object {
+                          "gte": "2012-12-18T00:00:00.000Z",
+                          "lte": "2020-12-18T00:00:00.000Z",
+                        },
                       },
                     },
                   ],

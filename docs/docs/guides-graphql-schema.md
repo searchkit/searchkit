@@ -154,9 +154,28 @@ query {
     summary {
       query <-- the query value
       appliedFilters { <-- array of filters applied to search
-        identifier
-        label
-        value
+        ... on DateRangeSelectedFilter {
+          identifier
+          label
+          dateMin
+          dateMax
+          display
+        }
+
+        ... on NumericRangeSelectedFilter {
+          identifier
+          label
+          min
+          max
+          display
+        }
+
+        ... on ValueSelectedFilter {
+          identifier
+          label
+          value
+          display
+        }
       }
     }
     hits(page: {from: 100, size: 0 }) {
