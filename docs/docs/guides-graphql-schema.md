@@ -154,27 +154,22 @@ query {
     summary {
       query <-- the query value
       appliedFilters { <-- array of filters applied to search
+        id
+        identifier
+        display
+        label
         ... on DateRangeSelectedFilter {
-          identifier
-          label
           dateMin
           dateMax
-          display
         }
 
         ... on NumericRangeSelectedFilter {
-          identifier
-          label
           min
           max
-          display
         }
 
         ... on ValueSelectedFilter {
-          identifier
-          label
           value
-          display
         }
       }
     }

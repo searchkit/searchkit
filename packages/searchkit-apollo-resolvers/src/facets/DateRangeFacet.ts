@@ -32,6 +32,7 @@ class DateRangeFacet implements BaseFacet {
   getSelectedFilter(filterSet) {
     return {
       type: 'DateRangeSelectedFilter',
+      id: `${this.getIdentifier()}_${filterSet.dateMin}_${filterSet.dateMax}`,
       identifier: this.getIdentifier(),
       label: this.getLabel(),
       dateMin: filterSet.dateMin,

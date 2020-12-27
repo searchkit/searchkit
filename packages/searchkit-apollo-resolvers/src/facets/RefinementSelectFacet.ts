@@ -49,6 +49,7 @@ class RefinementSelectFacet implements BaseFacet {
   getSelectedFilter(filterSet) {
     return {
       identifier: this.getIdentifier(),
+      id: `${this.getIdentifier()}_${filterSet.value}`,
       label: this.getLabel(),
       display: this.config.display || 'ListFacet',
       type: 'ValueSelectedFilter',

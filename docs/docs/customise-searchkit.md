@@ -198,8 +198,22 @@ Create a Facet Class by implementing the BaseFacet interface.
         identifier: this.getIdentifier(),
         label: this.getLabel(),
         type: 'CustomFacet',
-        display: 'listFacet',
+        display: 'ListFacet',
         customField: "custom"
+      }
+    }
+
+    // For appliedFilters. FilterSet is the filter applied to search. The return object
+    // is used by appliedFilters for presentation
+    getSelectedFilter(filterSet) {
+      return {
+        identifier: this.getIdentifier(),
+        id: `${this.getIdentifier()}_${filterSet.value}`,
+        label: this.getLabel(),
+        display: 'ListFacet',
+        type: 'CustomSelectedFilter',
+        value: filterSet.value,
+        customField: "customField"
       }
     }
 
@@ -216,13 +230,34 @@ Then add a Facet type to the schema
     display: String
     customField: String
   }
+
+  type CustomSelectedFilter implements SelectedFilter {
+    id: String!
+    identifier: String!
+    label: String!
+    display: String!
+    value: String
+    customField: String
+  }
 ```
 
-then you should be able to query for facet
+then you should be able to query for facet + see filters applied in summary
 
 ```gql
   query {
     results {
+      summary {
+        appliedFilters {
+          id
+          identifier
+          label
+          display
+          ... on CustomSelectedFilter {
+            value
+            customField
+          }
+        }
+      }
     	facets {
         ... on CustomFacet {
           identifier

@@ -84,6 +84,19 @@ describe('Searchkit Client', () => {
     expect(api.getFilters()).toEqual([])
   })
 
+  it('should toggle date range filters', () => {
+    const api = new SearchkitClient()
+    const filter = {
+      identifier: 'type',
+      dateMin: '2012-12-26T00:00:00.000Z',
+      dateMax: '2020-12-26T00:00:00.000Z'
+    }
+    api.addFilter({ ...filter })
+    expect(api.getFilters()).toEqual([filter])
+    api.toggleFilter({ ...filter })
+    expect(api.getFilters()).toEqual([])
+  })
+
   it('should remove multiple filters by id', () => {
     const api = new SearchkitClient()
     api.addFilter({ identifier: 'type', value: 'Movies' })
