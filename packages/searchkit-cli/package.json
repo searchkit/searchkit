@@ -5,9 +5,9 @@
   "author": "Joseph McElroy <phoey1@gmail.com>",
   "license": "Apache-2.0",
   "keywords": [
-    "elasticsearch"
+    "elasticsearch", "indexing"
   ],
-  "description": "Eases configuration of elasticsearch",
+  "description": "Eases configuration and indexing of documents into elasticsearch",
   "bugs": {
     "url": "https://github.com/searchkit/searchkit/issues"
   },
