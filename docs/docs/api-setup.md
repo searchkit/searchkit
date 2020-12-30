@@ -62,7 +62,7 @@ Apollo Docs provides how to [add Apollo Server](https://www.apollographql.com/do
 
 Install the NPM module for searchkit
 
-```yarn add @searchkit/apollo-resolvers```
+```yarn add @searchkit/schema```
 
 then add searchkit schema and resolvers to apollo-server
 
@@ -71,7 +71,7 @@ then add searchkit schema and resolvers to apollo-server
 import { ApolloServer, gql } from 'apollo-server-micro'
 import {
   MultiMatchQuery,
-  SearchkitResolvers,
+  SearchkitResolver,
   SearchkitSchema
 } from '@searchkit/apollo-resolvers'
 

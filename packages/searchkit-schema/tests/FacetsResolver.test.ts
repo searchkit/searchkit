@@ -34,7 +34,7 @@ describe('Facets Resolver', () => {
     }
 
     it('should return correct Results', async () => {
-      setupTestServer(config)
+      setupTestServer({ config, addToQueryType: true, typeName: 'Result' })
 
       const gql = `
         {
@@ -122,7 +122,7 @@ describe('Facets Resolver', () => {
     })
 
     it('should return correct results with one filter', async () => {
-      setupTestServer(config)
+      setupTestServer({ config, addToQueryType: true, typeName: 'Result' })
 
       const gql = `
         {

@@ -26,8 +26,10 @@ export interface ResultsResolverParameters {
   query: string
 }
 
-export default (config: SearchkitConfig) => async (parent, parameters, ctx) => {
+export default async (parent, parameters, ctx, info) => {
   try {
+    const returnTypeName = info.returnType.name
+    const config = ctx.searchkit.configs[returnTypeName]
     const skConfig = {
       sortOptions: [],
       ...config
@@ -35,13 +37,14 @@ export default (config: SearchkitConfig) => async (parent, parameters, ctx) => {
     const queryManager = new QueryManager(parameters.filters, parameters.query)
     const skRequest = new SearchkitRequest(queryManager, skConfig)
 
-    ctx.searchkit = {
-      skRequest: skRequest,
-      queryManager: queryManager,
-      config: skConfig
+    return {
+      searchkit: {
+        skRequest: skRequest,
+        queryManager: queryManager,
+        config: skConfig,
+        hitType: ctx.searchkit.hitTypeMappings[returnTypeName]
+      }
     }
-
-    return {}
   } catch (e) {
     console.log(e)
   }

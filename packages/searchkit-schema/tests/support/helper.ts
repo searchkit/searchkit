@@ -1,10 +1,11 @@
 import express from 'express'
 import request from 'supertest'
+import { SearchkitSchemaConfig } from '../../src'
 import Server from './server'
 
 let agent
 
-export const setupTestServer = (config) => {
+export const setupTestServer = (config: SearchkitSchemaConfig | Array<SearchkitSchemaConfig>) => {
   const app = express()
   const appServer = new Server(config)
   app.use(appServer.setupApolloServer())

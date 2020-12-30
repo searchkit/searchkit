@@ -10,9 +10,9 @@ export interface FacetResolverParameters {
 }
 
 export default async (parent, parameters: FacetResolverParameters, ctx) => {
-  const queryManager: QueryManager = ctx.searchkit.queryManager
-  const config: SearchkitConfig = ctx.searchkit.config
-  const skRequest: SearchkitRequest = ctx.searchkit.skRequest
+  const queryManager: QueryManager = parent.searchkit.queryManager
+  const config: SearchkitConfig = parent.searchkit.config
+  const skRequest: SearchkitRequest = parent.searchkit.skRequest
 
   const facet =
     config.facets && config.facets.find((facet) => facet.getIdentifier() === parameters.identifier)

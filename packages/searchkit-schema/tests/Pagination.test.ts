@@ -44,7 +44,7 @@ describe('Pagination', () => {
     }
 
     it('Pagination results', async () => {
-      setupTestServer(config)
+      setupTestServer({ config, addToQueryType: true, typeName: 'Result' })
 
       const scope = nock('http://localhost:9200')
         .post('/movies/_search')
@@ -81,7 +81,7 @@ describe('Pagination', () => {
     })
 
     it('No Results es7', async () => {
-      setupTestServer(config)
+      setupTestServer({ config, addToQueryType: true, typeName: 'Result' })
 
       const scope = nock('http://localhost:9200')
         .post('/movies/_search')
@@ -103,7 +103,7 @@ describe('Pagination', () => {
     })
 
     it('No Results es6', async () => {
-      setupTestServer(config)
+      setupTestServer({ config, addToQueryType: true, typeName: 'Result' })
 
       const scope = nock('http://localhost:9200')
         .post('/movies/_search')

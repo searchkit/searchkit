@@ -1,5 +1,5 @@
 {
-  "name": "@searchkit/apollo-resolvers",
+  "name": "@searchkit/schema",
   "version": "3.0.0-canary.24",
   "main": "lib/index.js",
   "author": "Joseph McElroy <phoey1@gmail.com>",
@@ -7,10 +7,11 @@
   "keywords": [
     "graphql",
     "elasticsearch",
-    "apollo",
+    "SDL",
+    "IDL",
     "search"
   ],
-  "description": "Elasticsearch GraphQL Resolvers for Apollo Server",
+  "description": "Elasticsearch GraphQL Resolvers",
   "bugs": {
     "url": "https://github.com/searchkit/searchkit/issues"
   },
@@ -18,7 +19,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/searchkit/searchkit.git",
-    "directory": "packages/searchkit-apollo-resolvers"
+    "directory": "packages/searchkit-schema"
   },
   "publishConfig": {
     "access": "public"

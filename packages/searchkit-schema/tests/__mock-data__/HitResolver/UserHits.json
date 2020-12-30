@@ -1,0 +1,25 @@
+{
+  "took": 0,
+  "timed_out": false,
+  "_shards": {
+      "total": 4,
+      "successful": 4,
+      "skipped": 0,
+      "failed": 0
+  },
+  "hits": {
+      "total": 4162,
+      "max_score": 1.0,
+      "hits": [
+          {
+              "_index": "users",
+              "_type": "user",
+              "_id": "1",
+              "_score": 1.0,
+              "_source": {
+                  "tags": ["Admin"]
+              }
+          }
+      ]
+  }
+}

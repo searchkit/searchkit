@@ -18,8 +18,9 @@ function getSortOption(id, sortOptions: SortingOption[]) {
 }
 
 export default async (parent, parameters: HitsParameters, ctx) => {
-  const config: SearchkitConfig = ctx.searchkit.config
-  const skRequest: SearchkitRequest = ctx.searchkit.skRequest
+  const typeName = parent.searchkit.typeName
+  const config: SearchkitConfig = parent.searchkit.config
+  const skRequest: SearchkitRequest = parent.searchkit.skRequest
   try {
     const from = parameters.page?.from || 0
     const size = parameters.page?.size || 10
@@ -42,7 +43,8 @@ export default async (parent, parameters: HitsParameters, ctx) => {
     return {
       items: hits.hits.map((hit) => ({
         id: hit._id,
-        fields: hit._source
+        fields: hit._source,
+        type: parent.searchkit.hitType
       })),
       page: {
         total: hitsTotal,

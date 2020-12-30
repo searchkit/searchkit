@@ -30,7 +30,7 @@ describe('Facet Resolver', () => {
     }
 
     it('should return correct Results', async () => {
-      setupTestServer(config)
+      setupTestServer({ config, addToQueryType: true, typeName: 'Result' })
 
       const gql = `
         {
@@ -90,7 +90,7 @@ describe('Facet Resolver', () => {
     })
 
     it('Adjust size at query time', async () => {
-      setupTestServer(config)
+      setupTestServer({ config, addToQueryType: true, typeName: 'Result' })
 
       const gql = `
         {
@@ -123,16 +123,20 @@ describe('Facet Resolver', () => {
 
     it('Adjust size at configuration', async () => {
       setupTestServer({
-        ...config,
-        facets: [
-          new RefinementSelectFacet({
-            identifier: 'writers',
-            field: 'writers.raw',
-            label: 'Writers',
-            multipleSelect: true,
-            size: 30
-          })
-        ]
+        config: {
+          ...config,
+          facets: [
+            new RefinementSelectFacet({
+              identifier: 'writers',
+              field: 'writers.raw',
+              label: 'Writers',
+              multipleSelect: true,
+              size: 30
+            })
+          ]
+        },
+        typeName: 'Result',
+        addToQueryType: true
       })
 
       const gql = `

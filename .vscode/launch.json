@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Jest Apollo-resolvers",
+            "name": "Jest Schema",
             "type": "node",
             "request": "launch",
             "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
@@ -13,7 +13,7 @@
             "args": [
                  "--runInBand", "--forceExit", "--detectOpenHandles", "--watch"
             ],
-            "cwd": "${workspaceRoot}/packages/searchkit-apollo-resolvers",
+            "cwd": "${workspaceRoot}/packages/searchkit-schema",
             "preLaunchTask": null,
             "runtimeExecutable": null,
             "env": {

@@ -5,10 +5,10 @@ import {
   MultiMatchQuery,
   RefinementSelectFacet,
   RangeFacet,
-  SearchkitResolvers,
+  SearchkitResolver,
   SearchkitSchema,
   DateRangeFacet
-} from '@searchkit/apollo-resolvers'
+} from '@searchkit/schema'
 
 const searchkitConfig = {
   host: process.env.ES_HOST || 'http://localhost:9200',
@@ -22,14 +22,12 @@ const searchkitConfig = {
   ],
   query: new MultiMatchQuery({ fields: ['title','genres','directors','writers','actors','countries','plot'] }),
   facets: [
-
     new RefinementSelectFacet({
       field: 'type',
       identifier: 'type',
       label: 'Type',
       multipleSelect: true
     }),
-
     new RangeFacet({
       field: 'metascore',
       identifier: 'metascore',
@@ -40,8 +38,6 @@ const searchkitConfig = {
         interval: 5
       }
     }),
-
-
     new DateRangeFacet({
       field: 'released',
       identifier: 'released',
@@ -95,19 +91,24 @@ const searchkitConfig = {
         max: 10,
         min: 1
       }
-    }),
-
-
+    })
   ]
 }
 
-const typeDefs = [
-  gql`
-    type Query {
-      root: String
-    }
+const { typeDefs, resolvers, context } = SearchkitSchema({
+  config: searchkitConfig, typeName: 'Result', addToQueryType: true
+})
 
-    type Mutation {
+export const config = {
+  api: {
+    bodyParser: false
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs: [
+    gql`
+    type Query {
       root: String
     }
 
@@ -119,30 +120,23 @@ const typeDefs = [
       poster: String
     }
 
-    # extend type Hit {
-    #   exampleCustomField: String
-    # }
-  `,
-  SearchkitSchema
-]
-
-export const config = {
-  api: {
-    bodyParser: false
-  }
-}
-
-const server = new ApolloServer({
-  typeDefs,
+    type ResultHit implements SKHit {
+      id: ID!
+      fields: HitFields
+    }
+  `, ...typeDefs
+  ],
   resolvers: {
-    ...SearchkitResolvers(searchkitConfig)
-    // Hit: {
-    //   exampleCustomField: (parent) => `Example Return Value for ${parent.id}`
-    // }
+    ...resolvers,
+    Query: {
+      results: SearchkitResolver
+    }
   },
   introspection: true,
   playground: true,
-  context: {}
+  context: {
+    ...context
+  }
 })
 
 const handler = server.createHandler({ path: '/api/graphql' })

@@ -1,18 +1,18 @@
 # <a href="https://searchkit.co/">Searchkit</a>
 
-## Searchkit Apollo Resolvers
+## Searchkit GraphQL Schema 
 
 [![npm version](https://badge.fury.io/js/%40searchkit%2Fclient.svg)](https://badge.fury.io/js/%40searchkit%2Fclient)
 
-Searchkit Apollo Resolvers is a library which allows you to build a Search API designed for Search UI experiences on top of Apollo Server. It integrates with Elasticsearch to provide search features like full-text search, faceted filtering and query highlighting.   
+Searchkit Schema is a library which allows you to build a GraphQL Search API designed for Search UI experiences with configuration. It integrates with Elasticsearch to provide search features like full-text search, faceted filtering, sorting, relevency tweaking and query highlighting.   
 
 ## Documentation
 
 All Searchkit documentation can be found at: <br/>
 [https://searchkit.co/docs/](https://searchkit.co/docs/)
 
-The Searchkit Apollo Resolvers API reference can be found at: <br/>
-[https://searchkit.co/docs/reference/apollo-resolvers](https://searchkit.co/docs/reference/apollo-resolvers)
+The Searchkit Schema API reference can be found at: <br/>
+[https://searchkit.co/docs/reference/schema](https://searchkit.co/docs/reference/schema)
 
 ### Quick Intro
 From a configuration
@@ -68,9 +68,11 @@ Will provide a GraphQL API where you can perform queries like:
   results(query: "heat") {
     hits {
       items {
-        id
-        fields {
-          title
+        ... on ResultHit {
+          id
+          fields {
+            title
+          }
         }
       }
     }
