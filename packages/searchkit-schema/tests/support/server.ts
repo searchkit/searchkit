@@ -1,54 +1,58 @@
 import { ApolloServer, gql } from 'apollo-server-micro'
-import { SearchkitSchema, SearchkitConfig, SearchkitResolver, SearchkitSchemaConfig } from '../../src/index'
+import {
+  SearchkitSchema,
+  SearchkitConfig,
+  SearchkitResolver,
+  SearchkitSchemaConfig
+} from '../../src/index'
 
 const baseTypeDefs = gql`
-    type Query {
-      root: String
-    }
+  type Query {
+    root: String
+  }
 
-    type Mutation {
-      root: String
-    }
+  type Mutation {
+    root: String
+  }
 
-    type HitFields {
-      title: String
-      writers: [String]
-      actors: [String]
-      plot: String
-      poster: String
-    }
+  type HitFields {
+    title: String
+    writers: [String]
+    actors: [String]
+    plot: String
+    poster: String
+  }
 
-    type ResultHit implements SKHit {
-      id: ID!
-      fields: HitFields
-    }
+  type ResultHit implements SKHit {
+    id: ID!
+    fields: HitFields
+  }
+`
 
-  `
+const userTypeDefs = gql`
+  type UserResultHit implements SKHit {
+    id: ID!
+    fields: UserFields
+    profile: UserResultProfile
+  }
 
-  const userTypeDefs = gql`
-    type UserResultHit implements SKHit {
-      id: ID!
-      fields: UserFields
-      profile: UserResultProfile
-    }
+  type UserResultProfile {
+    name: String
+  }
 
-    type UserResultProfile {
-      name: String
-    }
+  type UserFields {
+    tags: [String]
+  }
 
-    type UserFields {
-      tags: [String]
-    }
+  type Account {
+    id: ID!
+    userResults(query: String, filters: [SKFiltersSet], page: SKPageInput): UserResultSet
+  }
 
-    type Account {
-      id: ID!
-      userResults(query: String, filters: [SKFiltersSet], page: SKPageInput): UserResultSet
-    }
-
-    extend type Query {
-      account(id: String): Account
-    }
-  `
+  extend type Query {
+    account(id: String): Account
+  }
+`
 
 class Server {
   config: SearchkitSchemaConfig | Array<SearchkitSchemaConfig>
@@ -68,11 +72,9 @@ class Server {
       td = [...typeDefs, baseTypeDefs, userTypeDefs]
       r = withSearchkitResolvers({
         Query: {
-          account: () => {
-            return {
-              id: 1
-            }
-          }
+          account: () => ({
+            id: 1
+          })
         },
         Account: {
           userResults: SearchkitResolver

@@ -6,13 +6,13 @@ import HitsMock from './__mock-data__/HitResolver/Hits.json'
 import UserHitsMock from './__mock-data__/HitResolver/UserHits.json'
 
 describe('customisations', () => {
-    const runQuery = async (query = '', page = { size: 10, from: 0 }, sorting?: string) => {
-      const gql = `
+  const runQuery = async (query = '', page = { size: 10, from: 0 }, sorting?: string) => {
+    const gql = `
         {
           results(query: "${query}") {
             hits(page: {size: ${page.size}, from: ${page.from}} ${
-        sorting ? `, sortBy: "${sorting}"` : ''
-      }) {
+      sorting ? `, sortBy: "${sorting}"` : ''
+    }) {
               sortedBy
               items {
                 ... on ResultHit {
@@ -45,38 +45,38 @@ describe('customisations', () => {
           }
         }
       `
-      const response = await callQuery({ gql })
-      return response
+    const response = await callQuery({ gql })
+    return response
+  }
+
+  it('should return correct Results', async () => {
+    const moviesSearchConfig: SearchkitConfig = {
+      host: 'http://localhost:9200',
+      index: 'movies',
+      hits: {
+        fields: ['actors', 'writers']
+      },
+      query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] })
     }
 
-    it('should return correct Results', async () => {
-      const moviesSearchConfig: SearchkitConfig = {
-        host: 'http://localhost:9200',
-        index: 'movies',
-        hits: {
-          fields: ['actors', 'writers']
-        },
-        query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] })
-      }
+    const userSearchConfig: SearchkitConfig = {
+      host: 'http://localhost:9200',
+      index: 'users',
+      hits: {
+        fields: ['name', 'tags']
+      },
+      query: new MultiMatchQuery({ fields: ['name', 'tags'] })
+    }
 
-      const userSearchConfig: SearchkitConfig = {
-        host: 'http://localhost:9200',
-        index: 'users',
-        hits: {
-          fields: ['name', 'tags']
-        },
-        query: new MultiMatchQuery({ fields: ['name', 'tags'] })
-      }
+    setupTestServer([
+      { typeName: 'Result', config: moviesSearchConfig, addToQueryType: true },
+      { typeName: 'UserResult', config: userSearchConfig }
+    ])
 
-      setupTestServer([
-        { typeName: 'Result', config: moviesSearchConfig, addToQueryType: true },
-        { typeName: 'UserResult', config: userSearchConfig }
-      ])
-
-      const scope = nock('http://localhost:9200')
-        .post('/movies/_search')
-        .reply((uri, body) => {
-          expect(body).toMatchInlineSnapshot(`
+    const scope = nock('http://localhost:9200')
+      .post('/movies/_search')
+      .reply((uri, body) => {
+        expect(body).toMatchInlineSnapshot(`
             Object {
               "aggs": Object {},
               "from": 0,
@@ -93,13 +93,13 @@ describe('customisations', () => {
               ],
             }
           `)
-          return [200, HitsMock]
-        })
+        return [200, HitsMock]
+      })
 
-      const scope2 = nock('http://localhost:9200')
-        .post('/users/_search')
-        .reply((uri, body) => {
-          expect(body).toMatchInlineSnapshot(`
+    const scope2 = nock('http://localhost:9200')
+      .post('/users/_search')
+      .reply((uri, body) => {
+        expect(body).toMatchInlineSnapshot(`
             Object {
               "aggs": Object {},
               "from": 0,
@@ -125,11 +125,11 @@ describe('customisations', () => {
               ],
             }
           `)
-          return [200, UserHitsMock]
-        })
+        return [200, UserHitsMock]
+      })
 
-      const response = await runQuery()
-      expect(response.body.data).toMatchSnapshot("userhits")
-      expect(response.status).toEqual(200)
-    })
+    const response = await runQuery()
+    expect(response.body.data).toMatchSnapshot('userhits')
+    expect(response.status).toEqual(200)
   })
+})

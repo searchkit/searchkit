@@ -143,7 +143,7 @@ describe('Hits Resolver', () => {
           return [200, HitsMock]
         })
 
-        setupTestServer({ config, addToQueryType: true, typeName: 'Result' })
+      setupTestServer({ config, addToQueryType: true, typeName: 'Result' })
 
       const response = await runQuery('', { size: 10, from: 10 })
       expect(response.body.data).toMatchSnapshot()

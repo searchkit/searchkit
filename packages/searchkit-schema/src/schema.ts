@@ -1,5 +1,11 @@
 import gql from 'graphql-tag'
-import { FacetsResolver, HitsResolver, SearchkitConfig, SearchkitResolver, SummaryResolver } from './resolvers'
+import {
+  FacetsResolver,
+  HitsResolver,
+  SearchkitConfig,
+  SearchkitResolver,
+  SummaryResolver
+} from './resolvers'
 import FacetResolver from './resolvers/FacetResolver'
 
 const baseSearchkitTypeDefs = gql`
@@ -127,18 +133,21 @@ export interface SearchkitSchemaConfig {
 }
 
 export default (schemaConfigs: SearchkitSchemaConfig | Array<SearchkitSchemaConfig>) => {
+  const { typeDefs, context, resolvers } = (Array.isArray(schemaConfigs)
+    ? schemaConfigs
+    : [schemaConfigs]
+  ).reduce(
+    (sum, schemaConfig) => {
+      const typeName = `${schemaConfig.typeName}Set`
 
-  const { typeDefs, context, resolvers } = (Array.isArray(schemaConfigs) ? schemaConfigs : [schemaConfigs]).reduce((sum, schemaConfig) => {
-
-    const typeName = `${schemaConfig.typeName}Set`
-
-    const extendQuery = schemaConfig.addToQueryType
-    ? `
+      const extendQuery = schemaConfig.addToQueryType
+        ? `
     extend type Query {
       results(query: String, filters: [SKFiltersSet], page: SKPageInput): ${typeName}
-    }`: ''
+    }`
+        : ''
 
-    const configTypeDefs = gql`
+      const configTypeDefs = gql`
       type ${typeName} {
         summary: SKSummary
         hits(page: SKPageInput, sortBy: String): SKHitResults
@@ -149,74 +158,74 @@ export default (schemaConfigs: SearchkitSchemaConfig | Array<SearchkitSchemaConf
       ${extendQuery}
     `
 
-    return {
-      typeDefs: [...sum.typeDefs, configTypeDefs],
-      resolvers: {
-        ...sum.resolvers,
-        [typeName]: {
-          hits: HitsResolver,
-          facets: FacetsResolver,
-          facet: FacetResolver,
-          summary: SummaryResolver
+      return {
+        typeDefs: [...sum.typeDefs, configTypeDefs],
+        resolvers: {
+          ...sum.resolvers,
+          [typeName]: {
+            hits: HitsResolver,
+            facets: FacetsResolver,
+            facet: FacetResolver,
+            summary: SummaryResolver
+          },
+          ...(schemaConfig.addToQueryType
+            ? {
+                Query: {
+                  ...sum.resolvers.Query,
+                  results: SearchkitResolver
+                }
+              }
+            : {
+                Query: sum.resolvers.Query
+              })
         },
-        ...(schemaConfig.addToQueryType ? {
-          Query: {
-            ...sum.resolvers.Query,
-            results: SearchkitResolver
+        context: {
+          searchkit: {
+            configs: {
+              ...sum.context.searchkit.configs,
+              [typeName]: schemaConfig.config
+            },
+            hitTypeMappings: {
+              ...sum.context.searchkit.hitTypeMappings,
+              [typeName]: `${schemaConfig.typeName}Hit`
+            }
           }
-        }: {
-          Query: sum.resolvers.Query
-        })
+        }
+      }
+    },
+    {
+      typeDefs: [baseSearchkitTypeDefs],
+      resolvers: {
+        SKHit: {
+          __resolveType: (e) => e.type
+        },
+        SKFacetSet: {
+          __resolveType: (e) => e.type
+        },
+        SKSelectedFilter: {
+          __resolveType: (e) => e.type
+        },
+        Query: {}
       },
       context: {
         searchkit: {
-          configs: {
-            ...sum.context.searchkit.configs,
-            [typeName]: schemaConfig.config
-          },
-          hitTypeMappings: {
-            ...sum.context.searchkit.hitTypeMappings,
-            [typeName]: `${schemaConfig.typeName}Hit`
-          }
+          configs: {},
+          hitTypeMappings: {}
         }
       }
     }
-
-  }, {
-    typeDefs: [baseSearchkitTypeDefs],
-    resolvers: {
-      SKHit: {
-        __resolveType: (e) => e.type
-      },
-      SKFacetSet: {
-        __resolveType: (e) => e.type
-      },
-      SKSelectedFilter: {
-        __resolveType: (e) => e.type
-      },
-      Query: {}
-    },
-    context: {
-      searchkit: {
-        configs: {},
-        hitTypeMappings: {}
-      }
-    }
-  })
+  )
 
   return {
     typeDefs,
-    withSearchkitResolvers: (userResolvers: any = {}) => {
-      return {
-        ...userResolvers,
-        ...resolvers,
-        Query: {
-          ...userResolvers.Query,
-          ...resolvers.Query
-        }
+    withSearchkitResolvers: (userResolvers: any = {}) => ({
+      ...userResolvers,
+      ...resolvers,
+      Query: {
+        ...userResolvers.Query,
+        ...resolvers.Query
       }
-    },
+    }),
     context
   }
-
 }
