@@ -181,7 +181,7 @@ import {
 Pagination.mov
 
 #### Usage
-Requires sorting configuration within the resolvers. See [sorting documentation](/docs/reference/apollo-resolvers#sorting).
+Requires sorting configuration within the resolvers. See [sorting documentation](/docs/reference/schema#sorting).
 
 ```javascipt
 import {

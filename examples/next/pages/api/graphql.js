@@ -95,7 +95,7 @@ const searchkitConfig = {
   ]
 }
 
-const { typeDefs, resolvers, context } = SearchkitSchema({
+const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema({
   config: searchkitConfig, typeName: 'Result', addToQueryType: true
 })
 
@@ -123,15 +123,15 @@ const server = new ApolloServer({
     type ResultHit implements SKHit {
       id: ID!
       fields: HitFields
+      customField: String
     }
   `, ...typeDefs
   ],
-  resolvers: {
-    ...resolvers,
-    Query: {
-      results: SearchkitResolver
+  resolvers: withSearchkitResolvers({
+    ResultHit: {
+      customField: (parent) => `parent id ${parent.id}`
     }
-  },
+  }),
   introspection: true,
   playground: true,
   context: {

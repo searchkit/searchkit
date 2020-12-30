@@ -7,10 +7,12 @@ slug: /quick-start/customise-searchkit
 
 ## Customise Hits via a Resolver
 
-1. Add to the schema and extend the hit type. Below is an example of adding an additional field in Hit in the schema
+1. Add to the schema and update the `ResultHit` type. Below is an example of adding an additional field in Hit in the schema
 
 ```javascript
-    extend type Hit {
+    type ResultHit implements SKHit {
+      id: ID!
+      fields: ResultFields
       exampleCustomField: String
     }
 ```
@@ -20,12 +22,11 @@ slug: /quick-start/customise-searchkit
 Then provide a resolver for the field. 
 
 ```javascript
-  resolvers: {
-    ...SearchkitResolvers(searchkitConfig)
-    Hit: {
-       exampleCustomField: (parent) => `Example Returm Value for ${parent.id}`
+  resolvers: withSearchkitResolvers({
+    ResultHit: {
+      exampleCustomField: (parent) => `Example Return Value for ${parent.id}`
     }
-  },
+  }),
 ```
 
 [see an example](https://github.com/searchkit/searchkit/blob/next/examples/next/pages/api/graphql.js#L96)
@@ -34,11 +35,13 @@ then with a GQL query like below
 
 ```gql
   query {
-    results() {
+    results {
       hits {
         items {
-          id
-          exampleCustomField
+          ... on ResultHit {
+            id
+            exampleCustomField
+          }
         }
       }
     } 
@@ -153,7 +156,7 @@ Facets component will render all the facets that come back, using the display fi
 Create a Facet Class by implementing the BaseFacet interface.
 
 ```javascript
-  import { BaseFacet } from "@searchkit/apollo-resolvers"
+  import { BaseFacet } from "@searchkit/schema"
 
   export class CustomFacet implements BaseFacet {
 
@@ -223,7 +226,7 @@ Create a Facet Class by implementing the BaseFacet interface.
 Then add a Facet type to the schema
 
 ```gql
-  type CustomFacet implements FacetSet {
+  type CustomFacet implements SKFacetSet {
     identifier: String
     label: String
     type: String
@@ -231,7 +234,7 @@ Then add a Facet type to the schema
     customField: String
   }
 
-  type CustomSelectedFilter implements SelectedFilter {
+  type CustomSelectedFilter implements SKSelectedFilter {
     id: String!
     identifier: String!
     label: String!

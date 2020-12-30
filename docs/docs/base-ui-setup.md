@@ -102,7 +102,7 @@ import { useState } from 'react'
 const QUERY = gql`
     query resultSet($query: String, $filters: [FiltersSet], $page: PageInput) {
       results(query: $query, filters: $filters) {
-        hits() {
+        hits {
           items {
             id
           }

@@ -15,9 +15,11 @@ query {
   results {
     hits {
       items {
-        id
-        fields { <--- Add your fields via HitFields type
-          title
+        ... on ResultHit {
+          id
+          fields { <--- Add your fields via HitFields type
+            title
+          }
         }
       }
     }
@@ -32,9 +34,11 @@ query {
   results(query: "heat") {
     hits {
       items {
-        id
-        fields {
-          title
+        ... on ResultHit {
+          id
+          fields {
+            title
+          }
         }
       }
     }

@@ -1,8 +1,8 @@
 ---
-id: searchkit-apollo-resolver
-title: Searchkit Apollo Resolvers
-sidebar_label: "@searchkit/apollo-resolvers"
-slug: /reference/apollo-resolvers
+id: searchkit-schema
+title: Searchkit Schema
+sidebar_label: "@searchkit/schema"
+slug: /reference/schema
 ---
 
 ## Query
@@ -31,7 +31,7 @@ Uses [elasticsearch multi-match](https://www.elastic.co/guide/en/elasticsearch/r
 ```javascript
 import {
   MultiMatchQuery
-} from '@searchkit/apollo-resolvers'
+} from '@searchkit/schema'
 
 const searchkitConfig = {
   query: new MultiMatchQuery({ fields: ['title^2', 'description']})
@@ -55,7 +55,7 @@ See [Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/
 ```javascript
 import {
   CustomQuery
-} from '@searchkit/apollo-resolvers'
+} from '@searchkit/schema'
 
 const searchkitConfig = {
   query: new CustomQuery({ 
@@ -132,10 +132,12 @@ then you will be able to specify how you want hits to be sorted by within the hi
     hits(sortBy: "relevance") {
       sortedBy
       items {
-        id
-        fields {
-          writers
-          actors
+        ... on ResultHit {
+          id
+          fields {
+            writers
+            actors
+          }
         }
       }
     }
@@ -203,7 +205,7 @@ Returns a list of facet options that can be applied to refine the result set.
 ```javascript
 {
   RefinementSelectFacet
-} from '@searchkit/apollo-resolvers'
+} from '@searchkit/schema'
 
 const searchkitConfig = {
   ...
@@ -217,6 +219,17 @@ const searchkitConfig = {
 ```graphql
 {
   results(filters: [{identifier: "type", value: "movie" }]) {
+    summary {
+      appliedFilters {
+        identifier
+        id
+        label
+        display
+        ... on ValueSelectedFilter {
+          value
+        }
+      }
+    }
     hits {
       items {
         id
@@ -265,7 +278,7 @@ Supports facet values querying via the facet node. Great for UIs where you have 
 ```javascript
 {
   RefinementSelectFacet
-} from '@searchkit/apollo-resolvers'
+} from '@searchkit/schema'
 
 const searchkitConfig = {
   ...
@@ -315,7 +328,7 @@ const searchkitConfig = {
 ```javascript
 {
   RefinementSelectFacet
-} from '@searchkit/apollo-resolvers'
+} from '@searchkit/schema'
 
 const searchkitConfig = {
   ...

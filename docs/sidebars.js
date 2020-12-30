@@ -22,7 +22,7 @@ module.exports = {
       'customise-searchkit',
     ],
     Reference: [
-      'searchkit-apollo-resolver',
+      'searchkit-schema',
       'searchkit-client',
       'searchkit-elastic-ui',
     ],
