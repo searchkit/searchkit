@@ -1,7 +1,6 @@
 const { ApolloServer, gql } = require('apollo-server-lambda');
 const {
   MultiMatchQuery,
-  SearchkitResolvers,
   SearchkitSchema,
   RefinementSelectFacet
 } = require('@searchkit/apollo-resolvers')
@@ -18,30 +17,38 @@ const searchkitConfig = {
   ]
 }
 
-const typeDefs = [
+const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema({
+  config: searchkitConfig, // searchkit configuration
+  typeName: 'Result', // base typename
+  addToQueryType: true // When true, adds a field called results to Query type
+})
+
+const combinedTypeDefs = [
   gql`
     type Query {
-      root: String
-    }
-
-    type Mutation {
       root: String
     }
 
     type HitFields {
       title: String
     }
+
+    type ResultHit implements SKHit {
+      id: ID!
+      fields: HitFields
+    }
   `,
-  SearchkitSchema
+  typeDefs
 ]
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers: {
-    ...SearchkitResolvers(searchkitConfig)
-  },
+  typeDefs: combinedTypeDefs,
+  resolvers: withSearchkitResolvers(),
   playground: true,
   introspection: true,
+  context: {
+    ...context
+  }
 });
- 
+
 exports.graphqlHandler = server.createHandler();

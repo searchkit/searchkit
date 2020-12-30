@@ -9,9 +9,12 @@ export interface Context {
 }
 
 
-export function createContext(request: Request): Context {
-  return {
-    request,
-    prisma
-  };
+export const createContext = (context) => {
+  return function createContext(request: Request): Context {
+    return {
+      request,
+      prisma,
+      ...context
+    };
+  }
 }
