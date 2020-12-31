@@ -1407,16 +1407,17 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@searchkit/client@^3.0.0-canary.13":
-  version "3.0.0-canary.13"
-  resolved "https://registry.yarnpkg.com/@searchkit/client/-/client-3.0.0-canary.13.tgz#5bd224ef3242be53f89e75adf371da71264b04e8"
-  integrity sha512-oRiIck4QiR0shUDx4nQpx2ugldDObPFy66YbrAJQn84STojPuAaU0IZBZ9S2SdGr8FwqQ4Lo2GMYXsCtm6g78g==
+"@searchkit/client@^3.0.0-canary.25":
+  version "3.0.0-canary.25"
+  resolved "https://registry.yarnpkg.com/@searchkit/client/-/client-3.0.0-canary.25.tgz#4c96d05ab2c75650f14312f2077e305cde3fd85d"
+  integrity sha512-4F4DROsmX33j2OhfASDeskGWDk81o4DxoPU2zghl5taDJel5yWZBk/5RMjp7ujbmUavKw8TepwmyNvRaV6Lw/Q==
 
-"@searchkit/elastic-ui@^3.0.0-canary.13":
-  version "3.0.0-canary.13"
-  resolved "https://registry.yarnpkg.com/@searchkit/elastic-ui/-/elastic-ui-3.0.0-canary.13.tgz#9ed4b7b16d5c8262919faa26af6cb4fb332989fd"
-  integrity sha512-OMtDhIQu093Cwlq7YviWj+G0HDKmb4b9SvwbEN0UcutrVdP0BwzehH7pYL+j3r6ygBcdGNMC7cJAyMYZ1wGtZg==
+"@searchkit/elastic-ui@^3.0.0-canary.25":
+  version "3.0.0-canary.25"
+  resolved "https://registry.yarnpkg.com/@searchkit/elastic-ui/-/elastic-ui-3.0.0-canary.25.tgz#e73f16c4414146f27e20a4a4d7410acfb6481403"
+  integrity sha512-RzW+tEuVhKwU0EnVJqT93AMMEeF5PqMy38dBf8FN39oB+mmFq6zngo84mSR6GfBj4xBs6p+g+GXM4b7xAsajrg==
   dependencies:
+    "@searchkit/client" "^3.0.0-canary.25"
     use-debounce "^5.0.3"
 
 "@sinonjs/commons@^1.7.0":

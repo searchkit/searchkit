@@ -3,11 +3,11 @@ const {
   MultiMatchQuery,
   SearchkitSchema,
   RefinementSelectFacet
-} = require('@searchkit/apollo-resolvers')
+} = require('@searchkit/schema')
 
 const searchkitConfig = {
-  host: "https://user:pass@6773f6bc.qb0x.com:32359",
-  index: 'movies',
+  host: "http://localhost:9200",
+  index: 'imdb_movies',
   hits: {
     fields: ['title']
   },
@@ -19,11 +19,13 @@ const searchkitConfig = {
 
 const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema({
   config: searchkitConfig, // searchkit configuration
-  typeName: 'Result', // base typename
+  typeName: 'ResultSet', // base typename
+  hitTypeName: 'ResultHit',
   addToQueryType: true // When true, adds a field called results to Query type
 })
 
 const combinedTypeDefs = [
+  ...typeDefs,
   gql`
     type Query {
       root: String
@@ -37,13 +39,13 @@ const combinedTypeDefs = [
       id: ID!
       fields: HitFields
     }
-  `,
-  typeDefs
+  `
+
 ]
 
 const server = new ApolloServer({
   typeDefs: combinedTypeDefs,
-  resolvers: withSearchkitResolvers(),
+  resolvers: withSearchkitResolvers({}),
   playground: true,
   introspection: true,
   context: {

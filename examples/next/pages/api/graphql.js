@@ -95,7 +95,7 @@ const searchkitConfig = {
 }
 
 const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema({
-  config: searchkitConfig, typeName: 'Result', addToQueryType: true
+  config: searchkitConfig, typeName: 'ResultSet', hitTypeName: 'ResultHit', addToQueryType: true
 })
 
 export const config = {

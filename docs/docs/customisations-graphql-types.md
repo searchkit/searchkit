@@ -46,7 +46,7 @@ const combinedTypeDefs = [
   extend type Query {
     account(id: String): Account
   }
-  `, typeDefs
+  `, ...typeDefs
 ]
 
 const server = new ApolloServer({

@@ -114,7 +114,7 @@ const server = new ApolloServer({
       id: ID!
       fields: HitFields
     }
-  `, typeDefs
+  `, ...typeDefs
   ],
   resolvers: withSearchkitResolvers({}),
   introspection: true,
