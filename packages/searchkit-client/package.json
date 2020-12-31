@@ -1,6 +1,6 @@
 {
   "name": "@searchkit/client",
-  "version": "3.0.0-canary.24",
+  "version": "3.0.0-canary.25",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./lib/esm/index.d.ts",

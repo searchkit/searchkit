@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-canary.25](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.19...v3.0.0-canary.25) (2020-12-31)
+
+
+### Features
+
+* **schema:** customise typename for root and ([fdd8ab0](https://github.com/searchkit/searchkit/commit/fdd8ab000cca44747e6ec414909e2f614a8cbb24))
+
+
+
+
+
 # [3.0.0-canary.24](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.19...v3.0.0-canary.24) (2020-12-27)
 
 
