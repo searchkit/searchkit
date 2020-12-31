@@ -5,15 +5,25 @@ sidebar_label: RC25 Update
 slug: /guides/update-notes-rc25
 ---
 
+Majority of changes are from:
+1. changing the dependencies
+2. API for graphql side has changed
+3. The Searchkit types have now changed to minimise conflicting with your own types
+
 ## Steps
 
 First update the dependencies from `@searchkit/apollo-resolvers` to `@searchkit/schema`
 
 package.json
 
+before:
 ```
--    "@searchkit/apollo-resolvers": "^3.0.0-canary.24",
-+    "@searchkit/schema": "^3.0.0-canary.25",
+ "@searchkit/apollo-resolvers": "^3.0.0-canary.24",
+```
+
+now:
+```
+    "@searchkit/schema": "^3.0.0-canary.25",
 ```
 
 then update the imports within the api file
@@ -61,11 +71,58 @@ const combinedTypeDefs = [
 
 const server = new ApolloServer({
   typeDefs: combinedTypeDefs,
-  resolvers: withSearchkitResolvers(),
+  resolvers: withSearchkitResolvers({
+    // own resolvers here. withSearchkitResolvers will merge searchkit's and your own resolvers
+  }),
   playground: true,
   introspection: true,
   context: {
+    // searchkit context
     ...context
   }
 });
+```
+
+Then on the frontend, update the graphql query with the following changes:
+
+1. Update the types on the query variables. Right on the top of the GQL query
+before:
+```gql
+  query resultSet($query: String, $filters: [FiltersSet], $page: PageInput, $sortBy: String) {
+```
+
+now:
+```
+  query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput, $sortBy: String) {
+```
+
+2. Update the items node to specify the type
+Before:
+```
+items {
+  id
+  fields {
+    title
+    writers
+    actors
+    plot
+    poster
+  }
+}
+```
+
+After:
+```
+items {
+  ... on ResultHit {
+    id
+    fields {
+      title
+      writers
+      actors
+      plot
+      poster
+    }
+  }
+}
 ```

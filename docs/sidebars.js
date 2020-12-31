@@ -18,7 +18,9 @@ module.exports = {
     ]
   },
   Examples: ['example-apps-next', 'example-apps-prisma', 'example-apps-aws-lambda', 'example-apps-create-react-app', 'example-apps-express'],
-  Guides:  ['guides-elasticsearch-setup-indexing', 'guides-graphql-schema-cheat-sheet', 'guides-setting-query-search', 'v2-v3-migration'],
+  Guides:  [{ 'Guides': ['guides-elasticsearch-setup-indexing', 'guides-graphql-schema-cheat-sheet']}, {
+    'Upgrade Notes': ['v2-v3-migration', 'guides-upgrade-rc25']
+  }],
   Customisations: {
     'Graph QL': [ 'customisations-hit-resolver', 'customisations-graphql-multiple-configurations', 'customisations-graphql-types', 'customisations-ui-add-new-facet-class', ],
     'Components': ['customisations-ui-facet-display']
