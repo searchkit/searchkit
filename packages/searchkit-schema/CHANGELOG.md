@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-canary.26](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.19...v3.0.0-canary.26) (2020-12-31)
+
+**Note:** Version bump only for package @searchkit/schema
+
+
+
+
+
 # [3.0.0-canary.25](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.19...v3.0.0-canary.25) (2020-12-31)
 
 
