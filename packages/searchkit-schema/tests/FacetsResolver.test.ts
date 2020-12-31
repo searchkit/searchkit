@@ -34,7 +34,12 @@ describe('Facets Resolver', () => {
     }
 
     it('should return correct Results', async () => {
-      setupTestServer({ config, addToQueryType: true, typeName: 'ResultSet', hitTypeName: "ResultHit" })
+      setupTestServer({
+        config,
+        addToQueryType: true,
+        typeName: 'ResultSet',
+        hitTypeName: 'ResultHit'
+      })
 
       const gql = `
         {
@@ -122,7 +127,12 @@ describe('Facets Resolver', () => {
     })
 
     it('should return correct results with one filter', async () => {
-      setupTestServer({ config, addToQueryType: true, typeName: 'ResultSet', hitTypeName: "ResultHit" })
+      setupTestServer({
+        config,
+        addToQueryType: true,
+        typeName: 'ResultSet',
+        hitTypeName: 'ResultHit'
+      })
 
       const gql = `
         {

@@ -69,8 +69,13 @@ describe('customisations', () => {
     }
 
     setupTestServer([
-      { typeName: 'ResultSet', hitTypeName: "ResultHit", config: moviesSearchConfig, addToQueryType: true },
-      { typeName: 'UserResultSet', hitTypeName: "UserResultHit", config: userSearchConfig }
+      {
+        typeName: 'ResultSet',
+        hitTypeName: 'ResultHit',
+        config: moviesSearchConfig,
+        addToQueryType: true
+      },
+      { typeName: 'UserResultSet', hitTypeName: 'UserResultHit', config: userSearchConfig }
     ])
 
     const scope = nock('http://localhost:9200')

@@ -30,7 +30,12 @@ describe('Facet Resolver', () => {
     }
 
     it('should return correct Results', async () => {
-      setupTestServer({ config, addToQueryType: true, typeName: 'ResultSet', hitTypeName: "ResultHit" })
+      setupTestServer({
+        config,
+        addToQueryType: true,
+        typeName: 'ResultSet',
+        hitTypeName: 'ResultHit'
+      })
 
       const gql = `
         {
@@ -90,7 +95,12 @@ describe('Facet Resolver', () => {
     })
 
     it('Adjust size at query time', async () => {
-      setupTestServer({ config, addToQueryType: true, typeName: 'ResultSet', hitTypeName: "ResultHit" })
+      setupTestServer({
+        config,
+        addToQueryType: true,
+        typeName: 'ResultSet',
+        hitTypeName: 'ResultHit'
+      })
 
       const gql = `
         {
@@ -136,7 +146,7 @@ describe('Facet Resolver', () => {
           ]
         },
         typeName: 'ResultSet',
-        hitTypeName: "ResultHit",
+        hitTypeName: 'ResultHit',
         addToQueryType: true
       })
 
