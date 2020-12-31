@@ -104,9 +104,11 @@ const QUERY = gql`
       results(query: $query, filters: $filters) {
          hits(page: $page, sortBy: $sortBy) {
           items {
-            id
-            fields {
-              title
+            ... on ResultHit {
+              id
+              fields {
+                title
+              }
             }
           }
         }

@@ -7,9 +7,8 @@ import { stitchSchemas } from 'graphql-tools'
 
 import {
   MultiMatchQuery,
-  SearchkitResolvers,
   SearchkitSchema
-} from '@searchkit/apollo-resolvers'
+} from '@searchkit/schema'
 
 const searchkitConfig = {
   host: 'http://localhost:9200',
@@ -26,6 +25,12 @@ const { PORT = 5000 } = process.env;
 const app = express();
 const server = createServer(app);
 
+const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema({
+  config: searchkitConfig, // searchkit configuration
+  typeName: 'Result', // base typename.
+  addToQueryType: true // When true, adds a field called results to Query type
+})
+
 const SearchkitExecutableSchema = makeExecutableSchema(
   {
     typeDefs: [
@@ -34,17 +39,18 @@ const SearchkitExecutableSchema = makeExecutableSchema(
           root: String
         }
 
-        type Mutation {
-          root: String
-        }
-
         type HitFields {
           title: String
         }
+
+        type ResultHit implements SKHit {
+          id: ID!
+          fields: HitFields
+        }
       `,
-      SearchkitSchema
+      typeDefs
     ],
-    resolvers: SearchkitResolvers(searchkitConfig)
+    resolvers: withSearchkitResolvers({})
   }
 )
 
@@ -55,7 +61,7 @@ const apollo = new ApolloServer({
       { schema: SearchkitExecutableSchema }
     ]
   }),
-  context: createContext,
+  context: createContext(context),
   introspection: process.env.NODE_ENV !== 'production',
   playground: process.env.NODE_ENV !== 'production',
 });
@@ -64,5 +70,5 @@ apollo.applyMiddleware({ app });
 server.listen({ port: PORT }, () => {
   process.stdout.write(
     `🚀 Server ready at http://localhost:${PORT}${apollo.graphqlPath}\n`,
-  ); 
+  );
 });

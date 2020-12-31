@@ -62,18 +62,17 @@ Apollo Docs provides how to [add Apollo Server](https://www.apollographql.com/do
 
 Install the NPM module for searchkit
 
-```yarn add @searchkit/apollo-resolvers```
+```yarn add @searchkit/schema```
 
-then add searchkit schema and resolvers to apollo-server
+then add searchkit SDL schema and resolvers to graphql server. in this example, we are passing Searchkit's SDL Apollo Server.
 
 ```javascript
 
 import { ApolloServer, gql } from 'apollo-server-micro'
 import {
   MultiMatchQuery,
-  SearchkitResolvers,
   SearchkitSchema
-} from '@searchkit/apollo-resolvers'
+} from '@searchkit/schema'
 
 const searchkitConfig = {
   host: 'http://localhost:9200',
@@ -85,22 +84,13 @@ const searchkitConfig = {
   facets: []
 }
 
-const typeDefs = [
-  gql`
-    type Query {
-      root: String
-    }
-
-    type Mutation {
-      root: String
-    }
-
-    type HitFields {
-      root: String
-    }
-  `,
-  SearchkitSchema
-]
+// Returns SDL + Resolvers for searchkit, based on the Searchkit config
+const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema({
+  config: searchkitConfig, // searchkit configuration
+  typeName: 'ResultSet', // type name for Searchkit Root
+  hitTypeName: 'ResultHit', // type name for each search result
+  addToQueryType: true // When true, adds a field called results to Query type 
+})
 
 export const config = {
   api: {
@@ -109,13 +99,29 @@ export const config = {
 }
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers: {
-    ...SearchkitResolvers(searchkitConfig)
-  },
+  typeDefs: [
+    gql`
+    type Query {
+      root: String
+    }
+
+    type HitFields {
+      root: String
+    }
+
+    // Type name should match the hit typename
+    type ResultHit implements SKHit {
+      id: ID!
+      fields: HitFields
+    }
+  `, typeDefs
+  ],
+  resolvers: withSearchkitResolvers({}),
   introspection: true,
   playground: true,
-  context: {}
+  context: {
+    ...context
+  }
 })
 
 export default server.createHandler({ path: '/api/graphql' })
@@ -129,7 +135,10 @@ Make sure you replace the host, index. This will setup a basic searchkit API and
   results {
     hits {
       items {
-        id
+        // 'ResultHit' should match the hitTypename and type you implemented in SDL
+        ... on ResultHit {
+          id
+        }
       }
     }
   }
@@ -161,13 +170,15 @@ Now update your query in [graphql playground](http://localhost:3000/api/graphql)
   results {
     hits {
       items {
-        id
-        fields {
-          title
-          writers
-          actors
-          plot
-          poster
+        ... on ResultHit {
+          id
+          fields {
+            title
+            writers
+            actors
+            plot
+            poster
+          }
         }
       }
     }
@@ -191,9 +202,11 @@ Once this has been setup, you should be able to use the query param in the GQL q
   results(query: "heat") {
     hits {
       items {
-        id
-        fields {
-          title
+        ... on ResultHit {
+          id
+          fields {
+            title
+          }
         }
       }
     }

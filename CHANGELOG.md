@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-canary.25](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.19...v3.0.0-canary.25) (2020-12-31)
+
+
+### Bug Fixes
+
+* **searchkit/cli:** fix issue with cli not working ([#826](https://github.com/searchkit/searchkit/issues/826)) ([1a9784d](https://github.com/searchkit/searchkit/commit/1a9784d634fe6331b42b0af63a4dbe37a95269f3))
+
+
+### Features
+
+* **resolvers:** add id for filters ([#833](https://github.com/searchkit/searchkit/issues/833)) ([4a06d07](https://github.com/searchkit/searchkit/commit/4a06d075cb92deac013252e4c98bb6480e67e66c))
+* **schema:** customise typename for root and ([fdd8ab0](https://github.com/searchkit/searchkit/commit/fdd8ab000cca44747e6ec414909e2f614a8cbb24))
+
+
+
+
+
 # [3.0.0-canary.24](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.19...v3.0.0-canary.24) (2020-12-27)
 
 

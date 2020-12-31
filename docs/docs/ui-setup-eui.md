@@ -87,11 +87,13 @@ const query = gql`
           size
         }
         items {
-          id
-          fields {
-            title
-            writers
-            actors
+          ... on ResultHit {
+            id
+            fields {
+              title
+              writers
+              actors
+            }
           }
         }
       }
