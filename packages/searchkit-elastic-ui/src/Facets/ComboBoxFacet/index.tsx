@@ -7,7 +7,7 @@ const facetRefinementSearchQuery = gql`
   query refinementFacet(
     $facetQuery: String
     $query: String
-    $filters: [FiltersSet]
+    $filters: [SKFiltersSet]
     $facetId: String!
   ) {
     results(query: $query, filters: $filters) {

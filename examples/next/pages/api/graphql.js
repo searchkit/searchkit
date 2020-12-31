@@ -5,7 +5,6 @@ import {
   MultiMatchQuery,
   RefinementSelectFacet,
   RangeFacet,
-  SearchkitResolver,
   SearchkitSchema,
   DateRangeFacet
 } from '@searchkit/schema'
