@@ -100,7 +100,7 @@ import withApollo from '../lib/withApollo';
 import { useState } from 'react'
 
 const QUERY = gql`
-    query resultSet($query: String, $filters: [FiltersSet], $page: PageInput) {
+    query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput) {
       results(query: $query, filters: $filters) {
         hits {
           items {

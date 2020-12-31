@@ -153,7 +153,7 @@ Query contains all data requirements needed to power the search.
 import { useSearchkitQuery } from '@searchkit/client'
 
 const query = gql`
-  query resultSet($query: String, $filters: [FiltersSet], $page: PageInput, $sortBy: String) {
+  query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput, $sortBy: String) {
     results(query: $query, filters: $filters) {
       hits(page: $page) {
         items {

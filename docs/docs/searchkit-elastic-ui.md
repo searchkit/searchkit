@@ -15,7 +15,7 @@ import { useSearchkitQuery, SearchkitProvider, SearchkitClient } from '@searchki
 import { gql } from '@apollo/client'
 
 const query = gql`
-  query resultSet($query: String, $filters: [FiltersSet], $page: PageInput) {
+  query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput) {
     results(query: $query, filters: $filters) {
       summary {
         total
