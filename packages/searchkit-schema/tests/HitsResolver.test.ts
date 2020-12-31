@@ -41,7 +41,7 @@ describe('Hits Resolver', () => {
         query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] })
       }
 
-      setupTestServer({ config, addToQueryType: true, typeName: 'Result' })
+      setupTestServer({ config, addToQueryType: true, typeName: 'ResultSet', hitTypeName: "ResultHit" })
 
       const scope = nock('http://localhost:9200')
         .post('/movies/_search')
@@ -81,7 +81,7 @@ describe('Hits Resolver', () => {
         query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] })
       }
 
-      setupTestServer({ config, addToQueryType: true, typeName: 'Result' })
+      setupTestServer({ config, addToQueryType: true, typeName: 'ResultSet', hitTypeName: "ResultHit" })
 
       const scope = nock('https://localhost:9200')
         .post('/movies/_search')
@@ -143,7 +143,7 @@ describe('Hits Resolver', () => {
           return [200, HitsMock]
         })
 
-      setupTestServer({ config, addToQueryType: true, typeName: 'Result' })
+      setupTestServer({ config, addToQueryType: true, typeName: 'ResultSet', hitTypeName: "ResultHit" })
 
       const response = await runQuery('', { size: 10, from: 10 })
       expect(response.body.data).toMatchSnapshot()
@@ -164,7 +164,7 @@ describe('Hits Resolver', () => {
         query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] })
       }
 
-      setupTestServer({ config, addToQueryType: true, typeName: 'Result' })
+      setupTestServer({ config, addToQueryType: true, typeName: 'ResultSet', hitTypeName: "ResultHit" })
 
       const scope = nock('http://localhost:9200')
         .post('/movies/_search')

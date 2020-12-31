@@ -128,6 +128,7 @@ const baseSearchkitTypeDefs = gql`
 
 export interface SearchkitSchemaConfig {
   typeName: string
+  hitTypeName: string
   config: SearchkitConfig
   addToQueryType?: boolean
 }
@@ -138,7 +139,7 @@ export default (schemaConfigs: SearchkitSchemaConfig | Array<SearchkitSchemaConf
     : [schemaConfigs]
   ).reduce(
     (sum, schemaConfig) => {
-      const typeName = `${schemaConfig.typeName}Set`
+      const typeName = schemaConfig.typeName
 
       const extendQuery = schemaConfig.addToQueryType
         ? `
@@ -187,7 +188,7 @@ export default (schemaConfigs: SearchkitSchemaConfig | Array<SearchkitSchemaConf
             },
             hitTypeMappings: {
               ...sum.context.searchkit.hitTypeMappings,
-              [typeName]: `${schemaConfig.typeName}Hit`
+              [typeName]: schemaConfig.hitTypeName
             }
           }
         }

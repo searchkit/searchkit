@@ -50,7 +50,7 @@ describe('Summary Resolver', () => {
     }
 
     it('should return correct summary', async () => {
-      setupTestServer({ config, addToQueryType: true, typeName: 'Result' })
+      setupTestServer({ config, addToQueryType: true, typeName: 'ResultSet', hitTypeName: "ResultHit" })
 
       const gql = `
         {
