@@ -36,12 +36,23 @@ module.exports = {
       title: 'Searchkit',
       items: [
         {
-          href: '/docs',
+          to: 'docs',
           label: "Docs",
         },
         {
-          href: '/docs/guides',
+          to: 'docs/guides/elasticsearch-setup-indexing',
+          activeBasePath: 'docs/guides',
           label: "Guides",
+        },
+        {
+          to: 'docs/customisations/extending-hit-result',
+          activeBasePath: 'docs/customisations',
+          label: "Customisations",
+        },
+        {
+          to: 'docs/examples/next',
+          activeBasePath: 'docs/examples',
+          label: "Examples",
         },
         {
           href: 'https://github.com/searchkit/searchkit',

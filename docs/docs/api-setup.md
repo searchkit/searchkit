@@ -87,7 +87,8 @@ const searchkitConfig = {
 // Returns SDL + Resolvers for searchkit, based on the Searchkit config
 const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema({
   config: searchkitConfig, // searchkit configuration
-  typeName: 'Result', // base typename 
+  typeName: 'ResultSet', // type name for Searchkit Root
+  hitTypeName: 'ResultHit', // type name for each search result
   addToQueryType: true // When true, adds a field called results to Query type 
 })
 
@@ -108,6 +109,7 @@ const server = new ApolloServer({
       root: String
     }
 
+    // Type name should match the hit typename
     type ResultHit implements SKHit {
       id: ID!
       fields: HitFields
@@ -133,6 +135,7 @@ Make sure you replace the host, index. This will setup a basic searchkit API and
   results {
     hits {
       items {
+        // 'ResultHit' should match the hitTypename and type you implemented in SDL
         ... on ResultHit {
           id
         }
