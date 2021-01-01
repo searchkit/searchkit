@@ -7,7 +7,7 @@ slug: /reference/schema
 
 ## Initial Setup
 
-```es6
+```javascript
 
 import {
   MultiMatchQuery,
