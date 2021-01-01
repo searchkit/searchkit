@@ -386,10 +386,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
-"@searchkit/apollo-resolvers@^3.0.0-canary.12":
-  version "3.0.0-canary.19"
-  resolved "https://registry.yarnpkg.com/@searchkit/apollo-resolvers/-/apollo-resolvers-3.0.0-canary.19.tgz#0804c4fb13971e794f37defa980d6b1e3f9bcdd6"
-  integrity sha512-AXWFNTddf/6fbjRKVjWSRLbkFFdjsIioDg0zH+mR68Nty5HHkzUpeT6lx7TRbBoFNVgxAg881DSX6p4bVS/hcA==
+"@searchkit/schema@^3.0.0-canary.25":
+  version "3.0.0-canary.25"
+  resolved "https://registry.yarnpkg.com/@searchkit/schema/-/schema-3.0.0-canary.25.tgz#fa9f40629f9d00dbcaa6ac9782054c0afa02d678"
+  integrity sha512-Ymf4KyDRM9WsBAMsOHhBBYkd6Gm5iTnTQnwWDNo+XWQvFSEt9BFwf3XyuCr1/cc4K1JC74uaPXAGq/Pmib9mZg==
   dependencies:
     "@elastic/elasticsearch" "^7.9.1"
     agentkeepalive "^4.1.3"

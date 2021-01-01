@@ -100,7 +100,7 @@ import { useState } from 'react'
 import { SearchInput, Facets } from './components'
 
 const QUERY = gql`
-    query resultSet($query: String, $filters: [FiltersSet], $page: PageInput, $sortBy: String) {
+    query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput, $sortBy: String) {
       results(query: $query, filters: $filters) {
          hits(page: $page, sortBy: $sortBy) {
           items {
