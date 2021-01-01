@@ -17,7 +17,7 @@ describe('SearchkitRequest', () => {
       hits: {
         fields: ['title']
       }
-    })
+    }, [])
     const x = await sr.search({
       aggs: { field: 'term' }
     })
