@@ -10,14 +10,16 @@ class MultiMatchQuery implements BaseQuery {
 
   getFilter(queryManager: QueryManager) {
     if (queryManager.hasQuery()) {
-      return {
-        multi_match: {
-          query: queryManager.getQuery(),
-          fields: this.config.fields
+      return [
+        {
+          multi_match: {
+            query: queryManager.getQuery(),
+            fields: this.config.fields
+          }
         }
-      }
+      ]
     }
-    return {}
+    return []
   }
 }
 

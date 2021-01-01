@@ -95,7 +95,14 @@ const searchkitConfig = {
 }
 
 const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema({
-  config: searchkitConfig, typeName: 'ResultSet', hitTypeName: 'ResultHit', addToQueryType: true
+  config: searchkitConfig,
+  typeName: 'ResultSet',
+  hitTypeName: 'ResultHit',
+  addToQueryType: true,
+  getBaseFilters: (parent, parameters, ctx, info) => {
+    return [
+    ]
+  }
 })
 
 export const config = {

@@ -17,12 +17,16 @@ module.exports = {
       'searchkit-elastic-ui',
     ]
   },
-  Examples: ['example-apps-next', 'example-apps-prisma', 'example-apps-aws-lambda', 'example-apps-create-react-app', 'example-apps-express'],
+  Examples: [
+    { 'API + Frontend': ['example-apps-next'],
+     'API only': ['example-apps-prisma', 'example-apps-aws-lambda', 'example-apps-express' ],
+      'Frontend only': ['example-apps-create-react-app']
+  }],
   Guides:  [{ 'Guides': ['guides-elasticsearch-setup-indexing', 'guides-graphql-schema-cheat-sheet']}, {
     'Upgrade Notes': ['v2-v3-migration', 'guides-upgrade-rc25']
   }],
   Customisations: {
-    'Graph QL': [ 'customisations-hit-resolver', 'customisations-graphql-multiple-configurations', 'customisations-graphql-types', 'customisations-ui-add-new-facet-class', ],
+    'GraphQL API': [ 'customisations-hit-resolver', 'customisations-graphql-multiple-configurations', 'customisations-graphql-types', 'customisations-ui-add-new-facet-class', 'customisations-add-base-filters' ],
     'Components': ['customisations-ui-facet-display']
   }
 };
