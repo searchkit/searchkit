@@ -257,6 +257,8 @@ ${JSON.stringify(mappingCall, null, 2)}
 
 Then setup Searchkit. Below is a configuration based on your settings.
 
+See API Setup documentation on https://searchkit.co/docs/quick-start/api-setup
+
 \`\`\`javascript
   const searchkitConfig = {
     host: '${host}',
@@ -313,6 +315,12 @@ and update the graphql schema hitFields type. Each field type is declared as a s
 - a number
 
 \`\`\`gql
+
+type ResultHit implements SKHit {
+  id: ID!
+  fields: HitFields
+}
+
 type HitFields {
   ${storedFields
     .map(
