@@ -27,7 +27,8 @@ const server = createServer(app);
 
 const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema({
   config: searchkitConfig, // searchkit configuration
-  typeName: 'Result', // base typename.
+  typeName: 'ResultSet', // base typename.
+  hitTypeName: 'ResultHit',
   addToQueryType: true // When true, adds a field called results to Query type
 })
 
@@ -48,7 +49,7 @@ const SearchkitExecutableSchema = makeExecutableSchema(
           fields: HitFields
         }
       `,
-      typeDefs
+      ...typeDefs
     ],
     resolvers: withSearchkitResolvers({})
   }

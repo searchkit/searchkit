@@ -30,7 +30,7 @@ import {
 } from '@elastic/eui'
 
 const query = gql`
-  query resultSet($query: String, $filters: [FiltersSet], $page: PageInput) {
+  query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput) {
     results(query: $query, filters: $filters) {
       summary {
         total
@@ -65,12 +65,14 @@ const query = gql`
         }
         items {
           id
-          fields {
-            title
-            writers
-            actors
-            plot
-            poster
+          ... on ResultHit {
+            fields {
+              title
+              writers
+              actors
+              plot
+              poster
+            }
           }
         }
       }

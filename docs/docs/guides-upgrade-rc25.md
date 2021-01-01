@@ -66,7 +66,7 @@ const combinedTypeDefs = [
       fields: HitFields
     }
   `,
-  typeDefs
+  ...typeDefs
 ]
 
 const server = new ApolloServer({

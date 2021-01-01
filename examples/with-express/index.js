@@ -5,11 +5,11 @@ const {
   SearchkitResolvers,
   SearchkitSchema,
   RefinementSelectFacet
-} = require('@searchkit/apollo-resolvers')
+} = require('@searchkit/schema')
 
 const searchkitConfig = {
-  host: "https://user:pass@6773f6bc.qb0x.com:32359/",
-  index: 'movies',
+  host: "http://localhost:9200",
+  index: 'imdb_movies',
   hits: {
     fields: ['title']
   },
@@ -19,7 +19,14 @@ const searchkitConfig = {
   ]
 }
 
-const typeDefs = [
+const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema({
+  config: searchkitConfig, // searchkit configuration
+  typeName: 'ResultSet', // base typename
+  hitTypeName: 'ResultHit',
+  addToQueryType: true // When true, adds a field called results to Query type
+})
+
+const combinedTypeDefs = [
   gql`
     type Query {
       root: String
@@ -29,25 +36,31 @@ const typeDefs = [
       root: String
     }
 
+    type ResultHit implements SKHit {
+      id: ID!
+      fields: HitFields
+    }
+
     type HitFields {
       title: String
     }
   `,
-  SearchkitSchema
+  ...typeDefs
 ]
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers: {
-    ...SearchkitResolvers(searchkitConfig)
+  typeDefs: combinedTypeDefs,
+  resolvers: withSearchkitResolvers({}),
+  context: {
+    ...context
   },
   playground: true,
   introspection: true,
 });
- 
+
 const app = express();
 server.applyMiddleware({ app });
- 
+
 app.listen({ port: 4000 }, () =>
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 );
