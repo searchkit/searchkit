@@ -11,13 +11,17 @@ jest.mock('@elastic/elasticsearch', () => ({
 describe('SearchkitRequest', () => {
   it('should', async () => {
     const qm = new QueryManager([], '')
-    const sr = new SearchkitRequest(qm, {
-      host: 'http://host-url',
-      index: 'movies',
-      hits: {
-        fields: ['title']
-      }
-    }, [])
+    const sr = new SearchkitRequest(
+      qm,
+      {
+        host: 'http://host-url',
+        index: 'movies',
+        hits: {
+          fields: ['title']
+        }
+      },
+      []
+    )
     const x = await sr.search({
       aggs: { field: 'term' }
     })
