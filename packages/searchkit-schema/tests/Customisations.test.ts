@@ -82,22 +82,27 @@ describe('customisations', () => {
       .post('/movies/_search')
       .reply((uri, body) => {
         expect(body).toMatchInlineSnapshot(`
-            Object {
-              "aggs": Object {},
-              "from": 0,
-              "post_filter": Object {
-                "bool": Object {
-                  "must": Array [],
-                },
+          Object {
+            "aggs": Object {},
+            "from": 0,
+            "post_filter": Object {
+              "bool": Object {
+                "must": Array [],
               },
-              "size": 10,
-              "sort": Array [
-                Object {
-                  "_score": "desc",
-                },
-              ],
-            }
-          `)
+            },
+            "query": Object {
+              "bool": Object {
+                "filter": Array [],
+              },
+            },
+            "size": 10,
+            "sort": Array [
+              Object {
+                "_score": "desc",
+              },
+            ],
+          }
+        `)
         return [200, HitsMock]
       })
 
@@ -105,31 +110,38 @@ describe('customisations', () => {
       .post('/users/_search')
       .reply((uri, body) => {
         expect(body).toMatchInlineSnapshot(`
-            Object {
-              "aggs": Object {},
-              "from": 0,
-              "post_filter": Object {
-                "bool": Object {
-                  "must": Array [],
-                },
+          Object {
+            "aggs": Object {},
+            "from": 0,
+            "post_filter": Object {
+              "bool": Object {
+                "must": Array [],
               },
-              "query": Object {
-                "multi_match": Object {
-                  "fields": Array [
-                    "name",
-                    "tags",
-                  ],
-                  "query": "test",
-                },
+            },
+            "query": Object {
+              "bool": Object {
+                "filter": Array [],
+                "must": Array [
+                  Object {
+                    "multi_match": Object {
+                      "fields": Array [
+                        "name",
+                        "tags",
+                      ],
+                      "query": "test",
+                    },
+                  },
+                ],
               },
-              "size": 10,
-              "sort": Array [
-                Object {
-                  "_score": "desc",
-                },
-              ],
-            }
-          `)
+            },
+            "size": 10,
+            "sort": Array [
+              Object {
+                "_score": "desc",
+              },
+            ],
+          }
+        `)
         return [200, UserHitsMock]
       })
 

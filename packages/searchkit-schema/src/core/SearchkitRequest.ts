@@ -46,7 +46,11 @@ export default class SearchkitRequest {
   private dataloader: any
   private client: Client
 
-  constructor(private queryManager: QueryManager, private config: SearchkitConfig) {
+  constructor(
+    private queryManager: QueryManager,
+    private config: SearchkitConfig,
+    private baseFilters: Array<Record<string, unknown>>
+  ) {
     this.client = new Client({
       node: this.config.host,
       agent: () =>
@@ -54,11 +58,18 @@ export default class SearchkitRequest {
     })
 
     this.dataloader = new dataloader(async (partialQueries) => {
+      const query = {
+        bool: {
+          ...(this.queryManager.hasQuery() && this.config.query
+            ? { must: this.config.query.getFilter(this.queryManager) }
+            : {}),
+          filter: this.baseFilters
+        }
+      }
+
       const baseQuery = {
         size: 0,
-        ...(this.queryManager.hasQuery() && this.config.query
-          ? { query: this.config.query.getFilter(this.queryManager) }
-          : {}),
+        query,
         post_filter: filterTransform(this.queryManager, this.config.facets)
       }
 

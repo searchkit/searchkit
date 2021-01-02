@@ -83,6 +83,11 @@ describe('Facet Resolver', () => {
                   "must": Array [],
                 },
               },
+              "query": Object {
+                "bool": Object {
+                  "filter": Array [],
+                },
+              },
               "size": 0,
             }
           `)

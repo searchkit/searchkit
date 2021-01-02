@@ -73,6 +73,7 @@ Key points:
 | typeName | String. The root type name for searchkit. |
 | hitTypeName | String. The hit type that will be used for all hits. Should match a type you have implemented. See ResultHit example above |
 | addToQueryType | Boolean. Adds a `results` field to the root Query object which is handled the Searchkit resolver. Set this to false if you want to implement the searchkit root field yourself. See [Customising GraphQL field](https://www.searchkit.co/docs/customisations/changing-graphql-types) section for more information |
+| getBaseFilters | Allows you to pass an array of elasticsearch queries to filter results by. See [Adding base filters documentation](https://www.searchkit.co//docs/customisations/add-base-filters) for more information.
 
 ### Customising the Searchkit Types
 - typeName: Specifies the type name used for the Searchkit root query. Configured on SearchkitSchema options.
@@ -140,7 +141,7 @@ import {
 const searchkitConfig = {
   query: new CustomQuery({ 
     queryFn: (query, qm) => {
-      return {
+      return [{
         wildcard: {
           field: {
             value: query + '*',
@@ -148,7 +149,7 @@ const searchkitConfig = {
             rewrite: 'constant_score'
           }
         }
-      }
+      }]
     }
   })
 }
@@ -159,7 +160,7 @@ const searchkitConfig = {
 
 | Option        | Description      |
 | :------------- | :----------- |
-| queryFn(query, queryManager)         | Function. Query argument is the query string. queryManager argument is a class that keeps the query and filters that have been applied to search. For example you may want to adjust the query DSL based on what filters have been selected  |
+| queryFn(query, queryManager)         | Function. Returns an array of filters. Query argument is the query string. queryManager argument is a class that keeps the query and filters that have been applied to search. For example you may want to adjust the query DSL based on what filters have been selected  |
 
 ## Sorting
 ```javascript

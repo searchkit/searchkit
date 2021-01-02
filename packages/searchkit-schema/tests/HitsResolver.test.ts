@@ -60,6 +60,11 @@ describe('Hits Resolver', () => {
                   "must": Array [],
                 },
               },
+              "query": Object {
+                "bool": Object {
+                  "filter": Array [],
+                },
+              },
               "size": 10,
               "sort": Array [
                 Object {
@@ -105,6 +110,11 @@ describe('Hits Resolver', () => {
                   "must": Array [],
                 },
               },
+              "query": Object {
+                "bool": Object {
+                  "filter": Array [],
+                },
+              },
               "size": 10,
               "sort": Array [
                 Object {
@@ -134,21 +144,26 @@ describe('Hits Resolver', () => {
         .post('/movies/_search')
         .reply((uri, body) => {
           expect(body).toMatchInlineSnapshot(`
-              Object {
-                "aggs": Object {},
-                "from": 10,
-                "post_filter": Object {
-                  "bool": Object {
-                    "must": Array [],
-                  },
+            Object {
+              "aggs": Object {},
+              "from": 10,
+              "post_filter": Object {
+                "bool": Object {
+                  "must": Array [],
                 },
-                "size": 10,
-                "sort": Array [
-                  Object {
-                    "_score": "desc",
-                  },
-                ],
-              }
+              },
+              "query": Object {
+                "bool": Object {
+                  "filter": Array [],
+                },
+              },
+              "size": 10,
+              "sort": Array [
+                Object {
+                  "_score": "desc",
+                },
+              ],
+            }
           `)
           return [200, HitsMock]
         })
@@ -198,6 +213,11 @@ describe('Hits Resolver', () => {
                   "must": Array [],
                 },
               },
+              "query": Object {
+                "bool": Object {
+                  "filter": Array [],
+                },
+              },
               "size": 10,
               "sort": "_score",
             }
@@ -216,6 +236,11 @@ describe('Hits Resolver', () => {
             "post_filter": Object {
               "bool": Object {
                 "must": Array [],
+              },
+            },
+            "query": Object {
+              "bool": Object {
+                "filter": Array [],
               },
             },
             "size": 10,

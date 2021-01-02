@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-canary.27](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.19...v3.0.0-canary.27) (2021-01-02)
+
+
+### Bug Fixes
+
+* **searchkit/cli:** fix issue with cli not working ([#826](https://github.com/searchkit/searchkit/issues/826)) ([1a9784d](https://github.com/searchkit/searchkit/commit/1a9784d634fe6331b42b0af63a4dbe37a95269f3))
+
+
+### Features
+
+* add the ability to apply request specific base filters to the elasticsearch request ([e3aee9b](https://github.com/searchkit/searchkit/commit/e3aee9ba45d0d7ef0c73e79b2505edf320c6cbce))
+* **resolvers:** add id for filters ([#833](https://github.com/searchkit/searchkit/issues/833)) ([4a06d07](https://github.com/searchkit/searchkit/commit/4a06d075cb92deac013252e4c98bb6480e67e66c))
+
+
+
+
+
 # [3.0.0-canary.26](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.19...v3.0.0-canary.26) (2020-12-31)
 
 

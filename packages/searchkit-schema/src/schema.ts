@@ -131,6 +131,7 @@ export interface SearchkitSchemaConfig {
   hitTypeName: string
   config: SearchkitConfig
   addToQueryType?: boolean
+  getBaseFilters?: any
 }
 
 export default (schemaConfigs: SearchkitSchemaConfig | Array<SearchkitSchemaConfig>) => {
@@ -186,6 +187,10 @@ export default (schemaConfigs: SearchkitSchemaConfig | Array<SearchkitSchemaConf
               ...sum.context.searchkit.configs,
               [typeName]: schemaConfig.config
             },
+            baseFilters: {
+              ...sum.context.searchkit.baseFilters,
+              [typeName]: schemaConfig.getBaseFilters
+            },
             hitTypeMappings: {
               ...sum.context.searchkit.hitTypeMappings,
               [typeName]: schemaConfig.hitTypeName
@@ -211,6 +216,7 @@ export default (schemaConfigs: SearchkitSchemaConfig | Array<SearchkitSchemaConf
       context: {
         searchkit: {
           configs: {},
+          baseFilters: {},
           hitTypeMappings: {}
         }
       }

@@ -34,8 +34,11 @@ export default async (parent, parameters, ctx, info) => {
       sortOptions: [],
       ...config
     }
+    const baseFilters = ctx.searchkit.baseFilters[returnTypeName]
+      ? ctx.searchkit.baseFilters[returnTypeName](parent, parameters, ctx, info)
+      : []
     const queryManager = new QueryManager(parameters.filters, parameters.query)
-    const skRequest = new SearchkitRequest(queryManager, skConfig)
+    const skRequest = new SearchkitRequest(queryManager, skConfig, baseFilters)
 
     return {
       searchkit: {

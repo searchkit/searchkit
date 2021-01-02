@@ -12,7 +12,7 @@ Either pick a cloud offering for example [qbox.io](www.qbox.io?ref=searchkit) or
 
 Searchkit has a CLI which helps with figuring out your Elasticsearch schema and an example searchkit configuration to quickly get you started.
 
-Copy the project from [indexer example]](https://github.com/searchkit/searchkit/tree/next/examples/indexer)
+Copy the project from [indexer example](https://github.com/searchkit/searchkit/tree/next/examples/indexer)
 
 Then within config.ts, add your own fields. Searchkit CLI will:
 1. generate a Elasticsearch mapping file based on your configuration
@@ -22,21 +22,21 @@ Then within config.ts, add your own fields. Searchkit CLI will:
 
 ```javascript
 withConfig({
-	index: 'imdb_movies', <--- the elasticsearch index name
-	host: "http://localhost:9200", <--- host url for elasticsearch
+  index: 'imdb_movies', <--- the elasticsearch index name
+  host: "http://localhost:9200", <--- host url for elasticsearch
   source: movies, <---- Array of raw documents. Used with the field's sourceOptions. Optional
   type: 'movie' <----- required for Elasticsearch v6. If you use elasticsearch 7, do *not* specify type.
-	fields: [
-		{
-			fieldName: 'type',  <-- name of field. Must be lowercase
+  fields: [
+    {
+      fieldName: 'type',  <-- name of field. Must be lowercase
       stored: true, <-------- fields you want returned in the API. 
       facet: true,  <-------- If you want the value to be used as a facet
       searchable: true <----- If you want the field to be searchable within query
       type: 'integer' <--- Optional. Default is keyword. Can be `integer`, `date` or `float`
-			sourceOptions: { 
-				path: 'Type' <-- Used in indexing step. The key for the field value source. 
+      sourceOptions: { 
+        path: 'Type' <-- Used in indexing step. The key for the field value source. 
         transform: splitComma <-- Optional. To provide transformation from source to document field 
-			}
+      }
     }
   ]
 })

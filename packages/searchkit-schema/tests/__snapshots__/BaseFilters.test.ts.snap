@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Base Query should return correct Results: userhits 1`] = `
+Object {
+  "results": Object {
+    "hits": Object {
+      "items": Array [
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Christian Bale",
+              "Heath Ledger",
+              "Aaron Eckhart",
+              "Michael Caine",
+            ],
+            "writers": Array [
+              "Jonathan Nolan",
+              "Christopher Nolan",
+              "David S. Goyer",
+              "Bob Kane",
+            ],
+          },
+          "id": "tt0468569",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Tim Roth",
+              "Amanda Plummer",
+              "Laura Lovelace",
+              "John Travolta",
+            ],
+            "writers": Array [
+              "Quentin Tarantino",
+              "Roger Avary",
+            ],
+          },
+          "id": "tt0110912",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Noel Appleby",
+              "Alexandra Astin",
+              "Sean Astin",
+              "David Aston",
+            ],
+            "writers": Array [
+              "J.R.R. Tolkien",
+              "Fran Walsh",
+              "Philippa Boyens",
+              "Peter Jackson",
+            ],
+          },
+          "id": "tt0167260",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Morgan Freeman",
+              "Andrew Kevin Walker",
+              "Daniel Zacapa",
+              "Brad Pitt",
+            ],
+            "writers": Array [
+              "Andrew Kevin Walker",
+            ],
+          },
+          "id": "tt0114369",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Michael Berryman",
+              "Peter Brocco",
+              "Dean R. Brooks",
+              "Alonzo Brown",
+            ],
+            "writers": Array [
+              "Lawrence Hauben",
+              "Bo Goldman",
+              "Ken Kesey",
+              "Dale Wasserman",
+            ],
+          },
+          "id": "tt0073486",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Russell Crowe",
+              "Joaquin Phoenix",
+              "Connie Nielsen",
+              "Oliver Reed",
+            ],
+            "writers": Array [
+              "David Franzoni",
+              "John Logan",
+              "William Nicholson",
+            ],
+          },
+          "id": "tt0172495",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Andrew Lincoln",
+              "Steven Yeun",
+              "Chandler Riggs",
+              "Norman Reedus",
+            ],
+            "writers": Array [
+              "Frank Darabont",
+            ],
+          },
+          "id": "tt1520211",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Jim Carrey",
+              "Kate Winslet",
+              "Gerry Robert Byrne",
+              "Elijah Wood",
+            ],
+            "writers": Array [
+              "Charlie Kaufman",
+              "Michel Gondry",
+              "Pierre Bismuth",
+            ],
+          },
+          "id": "tt0338013",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Marlon Brando",
+              "Martin Sheen",
+              "Robert Duvall",
+              "Frederic Forrest",
+            ],
+            "writers": Array [
+              "John Milius",
+              "Francis Ford Coppola",
+              "Michael Herr",
+            ],
+          },
+          "id": "tt0078788",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Ellen Burstyn",
+              "Jared Leto",
+              "Jennifer Connelly",
+              "Marlon Wayans",
+            ],
+            "writers": Array [
+              "Hubert Selby Jr.",
+              "Darren Aronofsky",
+            ],
+          },
+          "id": "tt0180093",
+        },
+      ],
+    },
+  },
+}
+`;
