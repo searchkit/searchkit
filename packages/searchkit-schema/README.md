@@ -19,7 +19,7 @@ From a configuration
 
 ```js
 const searchkitConfig = {
-  host: 'https://localhost:9200',
+  host: 'http://localhost:9200/', // elasticsearch instance url
   index: 'movies',
   hits: {
     fields: [ 'title', 'plot', 'poster' ]
@@ -29,19 +29,19 @@ const searchkitConfig = {
   }),
   facets: [
     new RefinementSelectFacet({ 
-      field: 'type.raw',
       identifier: 'type',
+      field: 'type.raw',
       label: 'Type'
     }),
     new RefinementSelectFacet({
-      field: 'writers.raw',
       identifier: 'writers',
+      field: 'writers.raw',
       label: 'Writers',
       multipleSelect: true
     }),
     new RangeFacet({
-      field: 'metaScore',
       identifier: 'metascore',
+      field: 'metaScore',
       label: 'Metascore',
       range: {
         min: 0,
@@ -50,12 +50,44 @@ const searchkitConfig = {
       }
     }),
     new DateRangeFacet({
-      field: 'released',
       identifier: 'released',
+      field: 'released',
       label: 'Released'
     })
   ]
 }
+
+const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema({
+  config: searchkitConfig,
+  typeName: 'ResultSet', 
+  hitTypeName: 'ResultHit',
+  addToQueryType: true 
+})
+
+const server = new ApolloServer({
+  typeDefs: [
+    gql`
+    type Query {
+      root: String
+    }
+
+    type HitFields {
+      title: String
+    }
+
+    type ResultHit implements SKHit {
+      id: ID!
+      fields: HitFields
+    }
+  `, ...typeDefs
+  ],
+  resolvers: withSearchkitResolvers({}),
+  introspection: true,
+  playground: true,
+  context: {
+    ...context
+  }
+})
 ```
 
 Will provide a GraphQL API where you can perform queries like:
@@ -87,7 +119,7 @@ Will provide a GraphQL API where you can perform queries like:
 {
   results(query: "heat") {
     facets {
-      id
+      identifier
       label
       type
       display
@@ -113,7 +145,20 @@ Will provide a GraphQL API where you can perform queries like:
 [Try it out](https://demo.searchkit.co/api/graphql)
 ```graphql
 {
-  results(filters: [{id: "type", value: "Movie"}, {id: "metascore", min: 30}]) {
+  results(filters: [{identifier: "type", value: "Movie"}, {identifier: "metascore", min: 30}]) {
+    summary {
+      appliedFilters {
+        appliedFilters {
+          identifier
+          id
+          label
+          display
+          ... on ValueSelectedFilter {
+            value
+          }
+        }
+      }
+    }
     facets {
       identifier
       label
@@ -127,9 +172,11 @@ Will provide a GraphQL API where you can perform queries like:
     }
     hits {
       items {
-        id
-        fields {
-          title
+        ... on ResultHit {
+          id
+          fields {
+            title
+          }
         }
       }
     }
@@ -138,4 +185,3 @@ Will provide a GraphQL API where you can perform queries like:
 ```
 
 See [Schema Query Guide](https://searchkit.co/docs/guides/graphql-schema-queries-cheatsheet) for more examples.
-

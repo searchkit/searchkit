@@ -26,7 +26,7 @@ From a configuration
 
 ```js
 const searchkitConfig = {
-  host: 'http://demo.searchkit.co/api/',
+  host: 'http://localhost:9200/', // elasticsearch instance url
   index: 'movies',
   hits: {
     fields: [ 'title', 'plot', 'poster' ]
@@ -63,6 +63,38 @@ const searchkitConfig = {
     })
   ]
 }
+
+const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema({
+  config: searchkitConfig,
+  typeName: 'ResultSet', 
+  hitTypeName: 'ResultHit',
+  addToQueryType: true 
+})
+
+const server = new ApolloServer({
+  typeDefs: [
+    gql`
+    type Query {
+      root: String
+    }
+
+    type HitFields {
+      title: String
+    }
+
+    type ResultHit implements SKHit {
+      id: ID!
+      fields: HitFields
+    }
+  `, ...typeDefs
+  ],
+  resolvers: withSearchkitResolvers({}),
+  introspection: true,
+  playground: true,
+  context: {
+    ...context
+  }
+})
 ```
 
 Will provide a GraphQL API where you can perform queries like:
@@ -75,9 +107,11 @@ Will provide a GraphQL API where you can perform queries like:
   results(query: "heat") {
     hits {
       items {
-        id
-        fields {
-          title
+        ... on ResultHit {
+          id
+          fields {
+            title
+          }
         }
       }
     }
@@ -119,6 +153,19 @@ Will provide a GraphQL API where you can perform queries like:
 ```graphql
 {
   results(filters: [{identifier: "type", value: "Movie"}, {identifier: "metascore", min: 30}]) {
+    summary {
+      appliedFilters {
+        appliedFilters {
+          identifier
+          id
+          label
+          display
+          ... on ValueSelectedFilter {
+            value
+          }
+        }
+      }
+    }
     facets {
       identifier
       label
@@ -132,9 +179,11 @@ Will provide a GraphQL API where you can perform queries like:
     }
     hits {
       items {
-        id
-        fields {
-          title
+        ... on ResultHit {
+          id
+          fields {
+            title
+          }
         }
       }
     }
