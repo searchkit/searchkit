@@ -84,8 +84,10 @@ export const getFacetsFromResponse = (
     }
   }, {})
 
-  return facetsConfig.map((facet) => {
-    const aggFacetResponse = collapsedFacetAggsMap[facet.getIdentifier()]
-    return facet.transformResponse(aggFacetResponse)
-  })
+  return facetsConfig
+    .map((facet) => {
+      const aggFacetResponse = collapsedFacetAggsMap[facet.getIdentifier()]
+      return facet.transformResponse(aggFacetResponse)
+    })
+    .filter((transformedFacet) => transformedFacet !== null)
 }

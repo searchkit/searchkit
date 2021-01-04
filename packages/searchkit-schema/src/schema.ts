@@ -54,6 +54,20 @@ const baseSearchkitTypeDefs = gql`
     dateMax: String!
   }
 
+  type GeoBoundingBoxSelectedFilter implements SKSelectedFilter {
+    id: ID!
+    identifier: String!
+    label: String!
+    display: String!
+    topLeft: SKGeoPoint!
+    bottomRight: SKGeoPoint!
+  }
+
+  type SKGeoPoint {
+    lat: Float!
+    lon: Float!
+  }
+
   type SKPageInfo {
     total: Float
     totalPages: Float
@@ -84,6 +98,17 @@ const baseSearchkitTypeDefs = gql`
     max: Float
     dateMin: String
     dateMax: String
+    geoBoundingBox: SKGeoBoundingBoxInput
+  }
+
+  input SKGeoBoundingBoxInput {
+    topLeft: SKGeoPointInput!
+    bottomRight: SKGeoPointInput!
+  }
+
+  input SKGeoPointInput {
+    lat: Float!
+    lon: Float!
   }
 
   interface SKFacetSet {

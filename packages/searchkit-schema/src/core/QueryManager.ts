@@ -15,7 +15,20 @@ export type DateRangeFilter = {
   dateMax: string
 }
 
-export type MixedFilter = ValueFilter | RangeFilter | DateRangeFilter
+export type GeoPoint = {
+  lat: number
+  lon: number
+}
+
+export type GeoBoundingBoxFilter = {
+  identifier: string
+  geoBoundingBox: {
+    topLeft: GeoPoint,
+    bottomRight: GeoPoint
+  }
+}
+
+export type MixedFilter = ValueFilter | RangeFilter | DateRangeFilter | GeoBoundingBoxFilter
 
 export default class QueryManager {
   constructor(private filters: Array<MixedFilter>, private query: string) {}
