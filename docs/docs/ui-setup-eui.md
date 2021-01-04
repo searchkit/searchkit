@@ -53,7 +53,7 @@ import {
 } from '@elastic/eui'
 
 const query = gql`
-  query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput) {
+query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput, $sortBy: String) {
     results(query: $query, filters: $filters) {
       summary {
         total
@@ -76,9 +76,13 @@ const query = gql`
             value
           }
         }
+        sortOptions {
+          id
+          label
+        }
         query
       }
-      hits(page: $page) {
+      hits(page: $page, sortBy: $sortBy) {
         page {
           total
           totalPages
@@ -86,6 +90,7 @@ const query = gql`
           from
           size
         }
+        sortedBy
         items {
           ... on ResultHit {
             id
@@ -93,6 +98,8 @@ const query = gql`
               title
               writers
               actors
+              plot
+              poster
             }
           }
         }
