@@ -23,7 +23,7 @@ export type GeoPoint = {
 export type GeoBoundingBoxFilter = {
   identifier: string
   geoBoundingBox: {
-    topLeft: GeoPoint,
+    topLeft: GeoPoint
     bottomRight: GeoPoint
   }
 }
