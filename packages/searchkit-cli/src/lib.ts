@@ -182,7 +182,7 @@ export const getSearchkitConfig = (config, mapping) => {
       const fieldMapping = mapping[f.fieldName]
       let field = ''
       let fieldType = ''
-      if (['keyword', 'integer', 'date', 'float'].includes(fieldMapping.type)) {
+      if (['keyword', 'integer', 'date', 'float', 'geo_point'].includes(fieldMapping.type)) {
         field = f.fieldName
         fieldType = fieldMapping.type
       } else {
@@ -190,7 +190,8 @@ export const getSearchkitConfig = (config, mapping) => {
           'keyword',
           'integer',
           'float',
-          'date'
+          'date',
+          'geo_point'
         ])
         field = `${f.fieldName}.${subFieldKey}`
         fieldType = subFieldType

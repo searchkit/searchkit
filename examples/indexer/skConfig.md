@@ -3,7 +3,7 @@
 First setup your indices
 
 ```json
-PUT /imdb_movies
+PUT /us_parks
 
 {}
 
@@ -12,80 +12,28 @@ PUT /imdb_movies
 Then push your indices mapping file. This will define the field types within your document.
 
 ```json
-PUT /imdb_movies/_mapping
+PUT /us_parks/_mapping
 
 {
   "mappings": {
     "properties": {
-      "type": {
+      "description": {
+        "type": "text"
+      },
+      "nps_link": {
+        "type": "keyword"
+      },
+      "states": {
         "type": "keyword"
       },
       "title": {
         "type": "text"
       },
-      "year": {
-        "type": "integer"
-      },
-      "rated": {
-        "type": "keyword"
-      },
-      "released": {
-        "type": "date"
-      },
-      "genres": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword"
-          }
-        }
-      },
-      "directors": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword"
-          }
-        }
-      },
-      "writers": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword"
-          }
-        }
-      },
-      "actors": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword"
-          }
-        }
-      },
-      "countries": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword"
-          }
-        }
-      },
-      "plot": {
-        "type": "text"
-      },
-      "poster": {
-        "type": "keyword"
-      },
       "id": {
         "type": "keyword"
       },
-      "metascore": {
-        "type": "integer"
-      },
-      "imdbrating": {
-        "type": "float"
+      "location": {
+        "type": "geo_point"
       }
     }
   }
@@ -99,84 +47,20 @@ See API Setup documentation on https://searchkit.co/docs/quick-start/api-setup
 ```javascript
   const searchkitConfig = {
     host: 'http://localhost:9200/',
-    index: 'imdb_movies',
+    index: 'us_parks',
     hits: {
-      fields: ['type','title','year','rated','released','genres','directors','writers','actors','countries','plot','poster','id','metascore']
+      fields: ['description','nps_link','states','title','id','location']
     },
     sortOptions: [
       { id: 'relevance', label: "Relevance", field: [{"_score": "desc"}], defaultOption: true}
     ],
-    query: new MultiMatchQuery({ fields: ['title','genres','directors','writers','actors','countries','plot'] }),
+    query: new MultiMatchQuery({ fields: ['description','title'] }),
     facets: [
       
       new RefinementSelectFacet({
-        field: 'type',
-        identifier: 'type',
-        label: 'type'
-      }),
-          
-      new RefinementSelectFacet({
-        field: 'rated',
-        identifier: 'rated',
-        label: 'rated'
-      }),
-          
-      new DateRangeFacet({
-        field: 'released',
-        identifier: 'released',
-        label: 'released'
-      }),
-          
-      new RefinementSelectFacet({
-        field: 'genres.keyword',
-        identifier: 'genres',
-        label: 'genres'
-      }),
-          
-      new RefinementSelectFacet({
-        field: 'directors.keyword',
-        identifier: 'directors',
-        label: 'directors'
-      }),
-          
-      new RefinementSelectFacet({
-        field: 'writers.keyword',
-        identifier: 'writers',
-        label: 'writers'
-      }),
-          
-      new RefinementSelectFacet({
-        field: 'actors.keyword',
-        identifier: 'actors',
-        label: 'actors'
-      }),
-          
-      new RefinementSelectFacet({
-        field: 'countries.keyword',
-        identifier: 'countries',
-        label: 'countries'
-      }),
-          
-      new RangeFacet({
-        field: 'metascore',
-        identifier: 'metascore',
-        label: 'metascore'
-        range: {
-          min: <MIN>,
-          max: <MAX>,
-          interval: <internal>
-        }
-      }),
-          
-      new RangeFacet({
-        field: 'imdbrating',
-        identifier: 'imdbrating',
-        label: 'imdbrating'
-        range: {
-          min: <MIN>,
-          max: <MAX>,
-          interval: <internal>
-        }
+        field: 'states',
+        identifier: 'states',
+        label: 'states'
       }),
           
     ]
@@ -196,20 +80,12 @@ type ResultHit implements SKHit {
 }
 
 type HitFields {
-  type: String
+  description: String
+  nps_link: String
+  states: String
   title: String
-  year: String
-  rated: String
-  released: String
-  genres: String
-  directors: String
-  writers: String
-  actors: String
-  countries: String
-  plot: String
-  poster: String
   id: String
-  metascore: String
+  location: String
   
 }
 ```
