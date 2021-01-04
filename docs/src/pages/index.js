@@ -301,6 +301,7 @@ function Home() {
         <meta property="og:description" content="Search UI toolkit powered by Elasticsearch and Apollo GraphQL. Out the box React components using Elastic EUI."/>
         <meta property="og:image" content={useBaseUrl('img/m/search.jpeg')}/>
         <meta property="og:url" content="https://searchkit.co"/>
+        <link data-react-helmet="true" rel="shortcut icon" href="/img/favicon.ico"/>
         <meta property="twitter:title" content="Searchkit - Search, made easy"/>
         <meta property="twitter:description" content="Search UI toolkit powered by Elasticsearch and Apollo GraphQL. Out the box React components using Elastic EUI."/>
         <meta property="twitter:image" content={useBaseUrl('img/m/search.jpeg')}/>
