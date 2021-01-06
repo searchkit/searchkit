@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node config.ts",
-    "parks": "ts-node ./parks/config.ts"
+    "parks": "ts-node ./parks/config.ts",
+    "bikes": "ts-node ./bike-hire-stations/config.ts"
   },
   "author": "",
   "license": "ISC",

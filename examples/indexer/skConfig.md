@@ -3,7 +3,7 @@
 First setup your indices
 
 ```json
-PUT /us_parks
+PUT /bike_hire_stations
 
 {}
 
@@ -12,25 +12,16 @@ PUT /us_parks
 Then push your indices mapping file. This will define the field types within your document.
 
 ```json
-PUT /us_parks/_mapping
+PUT /bike_hire_stations/_mapping
 
 {
   "mappings": {
     "properties": {
-      "description": {
-        "type": "text"
-      },
-      "nps_link": {
-        "type": "keyword"
-      },
-      "states": {
-        "type": "keyword"
-      },
-      "title": {
-        "type": "text"
-      },
       "id": {
         "type": "keyword"
+      },
+      "name": {
+        "type": "text"
       },
       "location": {
         "type": "geo_point"
@@ -47,22 +38,16 @@ See API Setup documentation on https://searchkit.co/docs/quick-start/api-setup
 ```javascript
   const searchkitConfig = {
     host: 'http://localhost:9200/',
-    index: 'us_parks',
+    index: 'bike_hire_stations',
     hits: {
-      fields: ['description','nps_link','states','title','id','location']
+      fields: ['id','name','location']
     },
     sortOptions: [
       { id: 'relevance', label: "Relevance", field: [{"_score": "desc"}], defaultOption: true}
     ],
-    query: new MultiMatchQuery({ fields: ['description','title'] }),
+    query: new MultiMatchQuery({ fields: ['name'] }),
     facets: [
       
-      new RefinementSelectFacet({
-        field: 'states',
-        identifier: 'states',
-        label: 'states'
-      }),
-          
     ]
   }
 ```
@@ -80,11 +65,8 @@ type ResultHit implements SKHit {
 }
 
 type HitFields {
-  description: String
-  nps_link: String
-  states: String
-  title: String
   id: String
+  name: String
   location: String
   
 }

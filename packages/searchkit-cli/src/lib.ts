@@ -122,7 +122,7 @@ export const getDocs = (config) => {
           const value = field.sourceOptions ? doc[field.sourceOptions.path] : null
           return {
             [field.fieldName]: field.sourceOptions?.transform
-              ? field.sourceOptions.transform(value)
+              ? field.sourceOptions.transform(value, doc)
               : value
           }
         })
