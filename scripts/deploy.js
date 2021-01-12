@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-const isProdRelease = process.env.BRANCH && process.env.BRANCH === 'master'
 const isPublishCommit = process.env.PUBLISH_COMMIT && process.env.PUBLISH_COMMIT === 'Publish'
 const exec = require('child_process').execSync
 const spawn = require('cross-spawn')
@@ -12,14 +11,7 @@ const spawnWithErrorHandling = (...args) => {
 }
 
 // Set dist-tag
-const tasks = ['run', 'lerna', 'publish', '--', '--yes']
-
-if (!isProdRelease) {
-  // pre-release
-  tasks.push('--cd-version=prerelease')
-} else {
-  tasks.push('--conventional-commits')
-}
+const tasks = ['run', 'lerna', 'publish', '--', '--yes', '--conventional-graduate']
 
 if (!isPublishCommit) {
   // Publish packages to npm registry

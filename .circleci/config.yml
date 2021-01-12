@@ -1,3 +1,8 @@
+general:
+  branches:
+    only:
+     - v2
+
 aliases:
   - &restore-monorepo-cache
     keys:
@@ -27,7 +32,7 @@ aliases:
     keys:
       - dependencies-searchkit-{{ checksum "packages_checksum" }}
       - dependencies-searchkit-
-  
+
   - &save-searchkit-cache
     paths:
       - packages/searchkit-e2e-tests/node_modules
@@ -55,7 +60,7 @@ jobs:
 
       - attach_workspace:
           at: ~/searchkit
-    
+
       - run:
           command: cat packages/searchkit-*/package.json > packages_checksum
           name: Creating checksum file for searchkit-* packages
@@ -76,7 +81,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: .
-  
+
   test:
     <<: *job-defaults
     steps:
@@ -115,7 +120,7 @@ jobs:
       - run: git config --global user.email phoey1@gmail.com
       - run: git config --global user.name "CircleCI"
       - run: ssh-keyscan github.com >> ~/.ssh/known_hosts
-      - run: PUBLISH_COMMIT=$(git log -1 --pretty=%B | cat | grep Publish) BRANCH=$CIRCLE_BRANCH npm run publish 
+      - run: PUBLISH_COMMIT=$(git log -1 --pretty=%B | cat | grep Publish) BRANCH=$CIRCLE_BRANCH npm run publish
 
   # docs:
   #   <<: *job-defaults
@@ -173,6 +178,5 @@ workflows:
             - e2e
           filters:
             branches:
-              only: 
-                - staging
-                - master
+              only:
+                - v2
