@@ -162,9 +162,9 @@ workflows:
           filters:
             branches:
               ignore: staging
-      - e2e:
-          requires:
-            - build
+      # - e2e:
+      #     requires:
+      #       - build
 
       - docs:
           requires:
@@ -175,7 +175,7 @@ workflows:
       - deploy:
           requires:
             - build
-            - e2e
+            # - e2e
           filters:
             branches:
               only:
