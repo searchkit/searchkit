@@ -33,7 +33,7 @@ const {
   SideBar
 } = require('searchkit')
 
-const host = 'http://demo.searchkit.co/api/movies'
+const host = 'http://localhost:9200/imdb_movies'
 import * as ReactDOM from 'react-dom'
 import * as React from 'react'
 
