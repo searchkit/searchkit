@@ -11,7 +11,15 @@ const spawnWithErrorHandling = (...args) => {
 }
 
 // Set dist-tag
-const tasks = ['run', 'lerna', 'publish', '--', '--yes', '--conventional-graduate']
+const tasks = [
+  'run',
+  'lerna',
+  'publish',
+  '--',
+  '--yes',
+  '--conventional-commits',
+  '--conventional-graduate'
+]
 
 if (!isPublishCommit) {
   // Publish packages to npm registry
