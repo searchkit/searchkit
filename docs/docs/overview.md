@@ -23,5 +23,5 @@ Searchkit is an open source search toolkit. It mainly consists of the following 
 
 ### Searchkit Classic
 For those who currently use Searchkit Classic, here are quicklinks to codebase & Docs
-- [Codebase](https://github.com/searchkit/searchkit/tree/master)
+- [Codebase](https://github.com/searchkit/searchkit/tree/v2)
 - [Searchkit v2 Docs](http://searchkit.github.io/searchkit/stable/)
