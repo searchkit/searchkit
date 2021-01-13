@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.1.2"></a>
+## [0.1.2](https://github.com/searchkit/searchkit/compare/searchkit-e2e-tests@0.1.1...searchkit-e2e-tests@0.1.2) (2021-01-13)
+
+**Note:** Version bump only for package searchkit-e2e-tests
+
+
+
+
+
 <a name="0.1.1"></a>
 ## [0.1.1](https://github.com/searchkit/searchkit/compare/searchkit-e2e-tests@0.1.1-alpha.7...searchkit-e2e-tests@0.1.1) (2021-01-12)
 

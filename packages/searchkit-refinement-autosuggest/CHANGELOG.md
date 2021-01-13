@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.2.4"></a>
+## [0.2.4](https://github.com/searchkit/searchkit/compare/@searchkit/refinement-autosuggest@0.2.3...@searchkit/refinement-autosuggest@0.2.4) (2021-01-13)
+
+**Note:** Version bump only for package @searchkit/refinement-autosuggest
+
+
+
+
+
 <a name="0.2.3"></a>
 ## [0.2.3](https://github.com/searchkit/searchkit/compare/@searchkit/refinement-autosuggest@0.2.1-alpha.5...@searchkit/refinement-autosuggest@0.2.3) (2021-01-12)
 
