@@ -13,12 +13,12 @@ A Step guide on how to use searchkit CLI can be found at: <br/>
 
 ```javascript
 withConfig({
-	index: 'imdb_movies', <--- the elasticsearch index name
-	host: "http://localhost:9200", <--- host url for elasticsearch
+  index: 'imdb_movies', <--- the elasticsearch index name
+  host: "http://localhost:9200", <--- host url for elasticsearch
   source: movies, <---- Array of raw documents. Used with the field's sourceOptions. Optional
   type: 'movie' <----- required for Elasticsearch v6. If you use elasticsearch 7, do *not* specify type.
 	fields: [
-		{
+    {
       fieldName: 'type',  <-- name of field. Must be lowercase
       stored: true, <-------- fields you want returned in the API. 
       facet: true,  <-------- If you want the value to be used as a facet
