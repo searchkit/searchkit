@@ -19,15 +19,15 @@ withConfig({
   type: 'movie' <----- required for Elasticsearch v6. If you use elasticsearch 7, do *not* specify type.
 	fields: [
 		{
-			fieldName: 'type',  <-- name of field. Must be lowercase
+      fieldName: 'type',  <-- name of field. Must be lowercase
       stored: true, <-------- fields you want returned in the API. 
       facet: true,  <-------- If you want the value to be used as a facet
       searchable: true <----- If you want the field to be searchable within query
       type: 'integer' <--- Optional. Default is keyword. Can be `integer`, `date` or `float`
-			sourceOptions: { 
-				path: 'Type' <-- Used in indexing step. The key for the field value source. 
+      sourceOptions: { 
+        path: 'Type' <-- Used in indexing step. The key for the field value source. 
         transform: splitComma <-- Optional. To provide transformation from source to document field 
-			}
+      }
     }
   ]
 })
