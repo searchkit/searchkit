@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Facets Resolver should return as expected should return correct Results 2`] = `
+exports[`Geo Filters should return as expected should return correct Results 2`] = `
 Object {
   "results": Object {
-    "facets": Array [],
+    "facets": null,
     "hits": Object {
       "items": Array [
         Object {

@@ -1,17 +1,17 @@
-import { DateRangeFilter, GeoBoundingBoxFilter } from '../core/QueryManager'
-import { BaseFacet } from './BaseFacet'
+import { GeoBoundingBoxFilter } from '../core/QueryManager'
+import { BaseFilter } from './BaseFilter'
 
-interface GeoBoundingBoxFacetConfig {
+interface GeoBoundingBoxFilterConfig {
   identifier: string
   field: string
   label: string
-  display?: 'DateRange' | string
+  display?: 'GeoBoundingBoxFilter' | string
 }
 
-class GeoBoundingBoxFacet implements BaseFacet {
+class GeoBoundingBoxFilterClass implements BaseFilter {
   public excludeOwnFilters = false
 
-  constructor(public config: GeoBoundingBoxFacetConfig) {}
+  constructor(public config: GeoBoundingBoxFilterConfig) {}
   getLabel(): string {
     return this.config.label
   }
@@ -31,10 +31,6 @@ class GeoBoundingBoxFacet implements BaseFacet {
     }
   }
 
-  getAggregation() {
-    return {}
-  }
-
   getSelectedFilter(filterSet) {
     const c = filterSet.geoBoundingBox
     return {
@@ -50,9 +46,6 @@ class GeoBoundingBoxFacet implements BaseFacet {
     }
   }
 
-  transformResponse() {
-    return null
-  }
 }
 
-export default GeoBoundingBoxFacet
+export default GeoBoundingBoxFilterClass

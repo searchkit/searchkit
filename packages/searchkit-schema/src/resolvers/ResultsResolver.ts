@@ -2,6 +2,7 @@ import QueryManager, { MixedFilter } from '../core/QueryManager'
 import SearchkitRequest from '../core/SearchkitRequest'
 import BaseQuery from '../query/BaseQuery'
 import { BaseFacet } from '../facets/BaseFacet'
+import { BaseFilter } from '../filters/BaseFilter'
 
 export interface SortingOption {
   id: string
@@ -19,6 +20,7 @@ export interface SearchkitConfig {
   }
   query?: BaseQuery
   facets?: Array<BaseFacet>
+  filters?: Array<BaseFilter>
 }
 
 export interface ResultsResolverParameters {

@@ -1,11 +1,10 @@
 import nock from 'nock'
 import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
-import { MultiMatchQuery } from '../src'
-import { GeoBoundingBoxFacet, RefinementSelectFacet } from '../src/facets'
+import { MultiMatchQuery, GeoBoundingBoxFilter } from '../src'
 import { setupTestServer, callQuery } from './support/helper'
 import HitsMock from './__mock-data__/FacetsResolver/results.json'
 
-describe('Facets Resolver', () => {
+describe('Geo Filters', () => {
   describe('should return as expected', () => {
     const runQuery = async (gql) => {
       const response = await callQuery({ gql })
@@ -19,8 +18,8 @@ describe('Facets Resolver', () => {
         fields: ['actors', 'writers']
       },
       query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] }),
-      facets: [
-        new GeoBoundingBoxFacet({
+      filters: [
+        new GeoBoundingBoxFilter({
           field: 'location',
           identifier: 'location',
           label: 'Location'
@@ -75,31 +74,7 @@ describe('Facets Resolver', () => {
         .reply((uri, body) => {
           expect(body).toMatchInlineSnapshot(`
             Object {
-              "aggs": Object {
-                "facet_bucket_all": Object {
-                  "aggs": Object {},
-                  "filter": Object {
-                    "bool": Object {
-                      "must": Array [
-                        Object {
-                          "geo_bounding_box": Object {
-                            "location": Object {
-                              "bottom_right": Object {
-                                "lat": 40.01,
-                                "lon": -55.12,
-                              },
-                              "top_left": Object {
-                                "lat": 50.73,
-                                "lon": -75.1,
-                              },
-                            },
-                          },
-                        },
-                      ],
-                    },
-                  },
-                },
-              },
+              "aggs": Object {},
               "from": 0,
               "post_filter": Object {
                 "bool": Object {

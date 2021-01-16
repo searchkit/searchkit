@@ -4,11 +4,9 @@ import { useState } from 'react'
 import PlacesSearchInput from './PlacesSearchInput'
 import {
   FacetsList,
-  SearchBar,
   Pagination,
   ResetSearchButton,
   SelectedFilters,
-  SortingSelector
 } from '@searchkit/elastic-ui'
 
 import {
