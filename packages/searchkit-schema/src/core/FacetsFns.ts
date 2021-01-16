@@ -1,8 +1,12 @@
 import { BaseFacet } from '../facets/BaseFacet'
+import { BaseFilter } from '../filters'
 import QueryManager from './QueryManager'
 import { SearchResponse } from './SearchkitRequest'
 
-export const filterTransform = (queryManager: QueryManager, facets: Array<BaseFacet> = []) => {
+export const filterTransform = (
+  queryManager: QueryManager,
+  facets: Array<BaseFacet | BaseFilter> = []
+) => {
   const subFilters = facets.reduce((subFilters, facet) => {
     const facetSubFilter = queryManager.getFiltersById(facet.getIdentifier())
     if (facetSubFilter) {
@@ -21,7 +25,7 @@ export const filterTransform = (queryManager: QueryManager, facets: Array<BaseFa
 export const getAggregationsFromFacets = (
   queryManager: QueryManager,
   overrides: any,
-  facetsConfig: Array<BaseFacet>
+  facetsConfig: Array<BaseFacet | BaseFilter>
 ) => {
   const aggBuckets = facetsConfig.reduce(
     (buckets, facet) => {
@@ -61,7 +65,7 @@ export const getAggregationsFromFacets = (
 }
 
 export const getFacetsFromResponse = (
-  facetsConfig: Array<BaseFacet>,
+  facetsConfig: Array<BaseFacet | BaseFilter>,
   response: SearchResponse<any>
 ) => {
   const facetBucketKeys = Object.keys(response.aggregations).filter(
@@ -84,8 +88,13 @@ export const getFacetsFromResponse = (
     }
   }, {})
 
-  return facetsConfig.map((facet) => {
-    const aggFacetResponse = collapsedFacetAggsMap[facet.getIdentifier()]
-    return facet.transformResponse(aggFacetResponse)
-  })
+  return facetsConfig
+    .map((facet) => {
+      const aggFacetResponse = collapsedFacetAggsMap[facet.getIdentifier()]
+      if ('transformResponse' in facet) {
+        return facet.transformResponse(aggFacetResponse)
+      }
+      return {}
+    })
+    .filter((transformedFacet) => transformedFacet !== null)
 }

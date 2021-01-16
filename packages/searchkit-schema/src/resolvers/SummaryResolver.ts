@@ -9,6 +9,7 @@ export default async (parent, {}, ctx) => {
 
   try {
     const results = await skRequest.search({})
+    const combinedFilters = [...(config.facets || []), ...(config.filters || [])]
     return {
       total:
         typeof results.hits.total.value === 'number'
@@ -20,7 +21,7 @@ export default async (parent, {}, ctx) => {
         label: sortOption.label
       })),
       appliedFilters: queryManager.getFilters().map((filterSet) => {
-        const facetConfig = config.facets.find(
+        const facetConfig = combinedFilters.find(
           (facet) => facet.getIdentifier() === filterSet.identifier
         )
         return facetConfig.getSelectedFilter(filterSet)

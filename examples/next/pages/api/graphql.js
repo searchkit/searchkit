@@ -6,7 +6,9 @@ import {
   RefinementSelectFacet,
   RangeFacet,
   SearchkitSchema,
-  DateRangeFacet
+  DateRangeFacet,
+  SearchkitResolver,
+  GeoBoundingBoxFilter
 } from '@searchkit/schema'
 
 const searchkitConfig = {
@@ -94,16 +96,59 @@ const searchkitConfig = {
   ]
 }
 
-const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema({
+const usParksConfig = {
+  host: process.env.ES_HOST || 'http://localhost:9200',
+  index: 'us_parks',
+  hits: {
+    fields: [
+      'title',
+      'location'
+    ]
+  },
+  query: new MultiMatchQuery({ fields: ['title'] }),
+  filters: [
+    new GeoBoundingBoxFilter({
+      field: 'location',
+      label: "Location",
+      identifier: "location"
+    })
+  ]
+}
+
+const bikeHireConfig = {
+  host: process.env.ES_HOST || 'http://localhost:9200',
+  index: 'bike_hire_stations',
+  hits: {
+    fields: [
+      'name', 'location'
+    ]
+  },
+  query: new MultiMatchQuery({ fields: ['name'] }),
+  filters: [
+    new GeoBoundingBoxFilter({
+      field: 'location',
+      label: "Location",
+      identifier: "location"
+    })
+  ]
+}
+
+const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema([{
   config: searchkitConfig,
   typeName: 'ResultSet',
   hitTypeName: 'ResultHit',
-  addToQueryType: true,
-  getBaseFilters: (parent, parameters, ctx, info) => {
-    return [
-    ]
-  }
-})
+  addToQueryType: true
+}, {
+  config: bikeHireConfig,
+  typeName: 'BikeHireResultSet',
+  hitTypeName: 'BikeHireHit',
+  addToQueryType: false
+}, {
+  config: usParksConfig,
+  typeName: 'ParkResultSet',
+  hitTypeName: 'ParkResultHit',
+  addToQueryType: false
+}])
 
 export const config = {
   api: {
@@ -131,11 +176,40 @@ const server = new ApolloServer({
       fields: HitFields
       customField: String
     }
+
+    type ParkHitFields {
+      title: String
+      location: String
+    }
+
+    type BikeHireHitFields {
+      name: String
+      location: String
+    }
+
+    type ParkResultHit implements SKHit {
+      id: ID!
+      fields: ParkHitFields
+    }
+
+    type BikeHireHit implements SKHit {
+      id: ID!
+      fields: BikeHireHitFields
+    }
+
+    extend type Query {
+      usParks(query: String, filters: [SKFiltersSet], page: SKPageInput): ParkResultSet
+      bikeHireStations(query: String, filters: [SKFiltersSet], page: SKPageInput): BikeHireResultSet
+    }
   `, ...typeDefs
   ],
   resolvers: withSearchkitResolvers({
     ResultHit: {
       customField: (parent) => `parent id ${parent.id}`
+    },
+    Query: {
+      usParks: SearchkitResolver,
+      bikeHireStations: SearchkitResolver
     }
   }),
   introspection: true,

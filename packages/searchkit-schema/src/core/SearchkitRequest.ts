@@ -67,10 +67,12 @@ export default class SearchkitRequest {
         }
       }
 
+      const combinedFilterConfigs = [...(this.config.facets || []), ...(this.config.filters || [])]
+
       const baseQuery = {
         size: 0,
         query,
-        post_filter: filterTransform(this.queryManager, this.config.facets)
+        post_filter: filterTransform(this.queryManager, combinedFilterConfigs)
       }
 
       const ESQuery = mergeESQueries([baseQuery, ...(partialQueries as any[])])
