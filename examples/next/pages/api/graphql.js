@@ -7,8 +7,8 @@ import {
   RangeFacet,
   SearchkitSchema,
   DateRangeFacet,
-  GeoBoundingBoxFacet,
-  SearchkitResolver
+  SearchkitResolver,
+  GeoBoundingBoxFilter
 } from '@searchkit/schema'
 
 const searchkitConfig = {
@@ -106,8 +106,8 @@ const usParksConfig = {
     ]
   },
   query: new MultiMatchQuery({ fields: ['title'] }),
-  facets: [
-    new GeoBoundingBoxFacet({
+  filters: [
+    new GeoBoundingBoxFilter({
       field: 'location',
       label: "Location",
       identifier: "location"
@@ -124,8 +124,8 @@ const bikeHireConfig = {
     ]
   },
   query: new MultiMatchQuery({ fields: ['name'] }),
-  facets: [
-    new GeoBoundingBoxFacet({
+  filters: [
+    new GeoBoundingBoxFilter({
       field: 'location',
       label: "Location",
       identifier: "location"
