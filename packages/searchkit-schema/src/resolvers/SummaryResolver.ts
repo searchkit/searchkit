@@ -9,7 +9,7 @@ export default async (parent, {}, ctx) => {
 
   try {
     const results = await skRequest.search({})
-    const combinedFilters = [...(config.facets || []), ...(config.filters || []) ]
+    const combinedFilters = [...(config.facets || []), ...(config.filters || [])]
     return {
       total:
         typeof results.hits.total.value === 'number'

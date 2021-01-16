@@ -13,10 +13,11 @@ export default async (parent, parameters: FacetResolverParameters, ctx) => {
   const queryManager: QueryManager = parent.searchkit.queryManager
   const config: SearchkitConfig = parent.searchkit.config
   const skRequest: SearchkitRequest = parent.searchkit.skRequest
-  const combinedFilters = [...(config.facets || []), ...(config.filters || []) ]
+  const combinedFilters = [...(config.facets || []), ...(config.filters || [])]
 
   const facet =
-    combinedFilters && combinedFilters.find((facet) => facet.getIdentifier() === parameters.identifier)
+    combinedFilters &&
+    combinedFilters.find((facet) => facet.getIdentifier() === parameters.identifier)
   if (!facet) return null
 
   try {

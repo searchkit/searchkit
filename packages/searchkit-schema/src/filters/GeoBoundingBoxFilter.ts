@@ -45,7 +45,6 @@ class GeoBoundingBoxFilterClass implements BaseFilter {
       display: null
     }
   }
-
 }
 
 export default GeoBoundingBoxFilterClass
