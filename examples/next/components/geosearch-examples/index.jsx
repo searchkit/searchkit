@@ -1,7 +1,7 @@
-import { useSearchkitQuery } from '@searchkit/client'
+import { useSearchkitQuery, useSearchkit } from '@searchkit/client'
 import { gql } from '@apollo/client'
 import { useState } from 'react'
-import PlacesSearchInput from './PlacesSearchInput'
+import PlacesSearchInput from './Input'
 import {
   FacetsList,
   Pagination,
@@ -21,7 +21,7 @@ import {
   EuiPageSideBar,
   EuiTitle,
   EuiHorizontalRule,
-  EuiButtonGroup,
+  EuiButton,
   EuiFlexGroup,
   EuiFlexItem
 } from '@elastic/eui'
@@ -92,27 +92,39 @@ export const HitsList = ({ data }) => (
   <>
     {data?.usParks.hits.items.map((hit) => (
       <EuiFlexGroup gutterSize="xl" key={hit.id}>
-        BLA
-      </EuiFlexGroup>
+      <EuiFlexItem>
+        <EuiFlexGroup>
+          <EuiFlexItem grow={4}>
+            <EuiTitle size="xs">
+              <h6>{hit.fields.title}</h6>
+            </EuiTitle>
+          </EuiFlexItem>
+        </EuiFlexGroup>
+      </EuiFlexItem>
+    </EuiFlexGroup>
     ))}
   </>
 )
 
+const LocationFilter = ({ filter, loading }) => {
+  return null
+}
+
 const Page = () => {
   const { data, loading } = useSearchkitQuery(query)
-  const Facets = FacetsList([])
   return (
     <EuiPage>
       <EuiPageSideBar>
         <PlacesSearchInput />
         <EuiHorizontalRule margin="m" />
-        <Facets data={data?.usParks} loading={loading} />
       </EuiPageSideBar>
       <EuiPageBody component="div">
         <EuiPageHeader>
           <EuiPageHeaderSection>
             <EuiTitle size="l">
-              <SelectedFilters data={data?.usParks} loading={loading} />
+              <SelectedFilters data={data?.usParks} loading={loading} customFilterComponents={{
+                GeoBoundingBoxFilter: LocationFilter
+              }} />
             </EuiTitle>
           </EuiPageHeaderSection>
           <EuiPageHeaderSection>
