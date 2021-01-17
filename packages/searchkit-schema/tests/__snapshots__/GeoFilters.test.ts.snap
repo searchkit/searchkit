@@ -45,7 +45,8 @@ Object {
             "lat": 40.01,
             "lon": -55.12,
           },
-          "id": "location_50.73_-75.1_40.01_-55.12",
+          "display": "GeoBoundingBoxFilter",
+          "id": "location_{\\"topLeft\\":{\\"lat\\":50.73,\\"lon\\":-75.1},\\"bottomRight\\":{\\"lat\\":40.01,\\"lon\\":-55.12}}",
           "identifier": "location",
           "label": "Location",
           "topLeft": Object {

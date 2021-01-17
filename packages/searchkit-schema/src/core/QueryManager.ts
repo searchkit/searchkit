@@ -25,6 +25,8 @@ export type GeoBoundingBoxFilter = {
   geoBoundingBox: {
     topLeft: GeoPoint
     bottomRight: GeoPoint
+    topRight: GeoPoint
+    bottomLeft: GeoPoint
   }
 }
 

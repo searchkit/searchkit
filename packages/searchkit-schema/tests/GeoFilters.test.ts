@@ -43,6 +43,7 @@ describe('Geo Filters', () => {
                 id
                 identifier
                 label
+                display
                 ... on GeoBoundingBoxSelectedFilter {
                   topLeft {
                     lat
