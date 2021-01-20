@@ -53,7 +53,7 @@ export default server.createHandler({ path: '/api/graphql' })
 
 ```
 
-Once saved, you should be able to access the [graphql playground](http://localhost:3000/api/graphql) locally.
+Once saved and you have started the app via `yarn start`, you should be able to access the [graphql playground](http://localhost:3000/api/graphql) locally.
 
 #### Dont use Next?
 Apollo Docs provides how to [add Apollo Server](https://www.apollographql.com/docs/apollo-server/v1/servers/express/) to any Node based app such as express and AWS Lambda should you wish not to use Next.
