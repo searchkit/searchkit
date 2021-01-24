@@ -5,7 +5,7 @@ sidebar_label: Multiple Search Configurations
 slug: /customisations/multiple-searchkit-configurations
 ---
 
-For different parts of the site, you may want a different search experience (searching on a different index, different facet configurations, different query implementations). This is possible in example below:
+For different parts of the site, you may want a different search experience (searching on a different index, different facet configurations, different query implementations). SearchkitSchema function can accept multiple searchkit configurations. For each searchkit configuration, it will define the graphql schema + resolvers for SDL.  An example of this shown below:
 
 
 ```javascript
