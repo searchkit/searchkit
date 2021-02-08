@@ -15,11 +15,7 @@ export const filterTransform = (
     return subFilters
   }, [])
 
-  return {
-    bool: {
-      must: subFilters
-    }
-  }
+  return subFilters.length ? { bool: { must: subFilters } } : {}
 }
 
 export const getAggregationsFromFacets = (

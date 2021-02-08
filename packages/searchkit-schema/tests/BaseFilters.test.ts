@@ -57,11 +57,7 @@ describe('Base Query', () => {
           Object {
             "aggs": Object {},
             "from": 0,
-            "post_filter": Object {
-              "bool": Object {
-                "must": Array [],
-              },
-            },
+            "post_filter": Object {},
             "query": Object {
               "bool": Object {
                 "filter": Array [

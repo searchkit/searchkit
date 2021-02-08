@@ -55,11 +55,7 @@ describe('Hits Resolver', () => {
             Object {
               "aggs": Object {},
               "from": 0,
-              "post_filter": Object {
-                "bool": Object {
-                  "must": Array [],
-                },
-              },
+              "post_filter": Object {},
               "query": Object {},
               "size": 10,
               "sort": Array [
@@ -101,11 +97,7 @@ describe('Hits Resolver', () => {
             Object {
               "aggs": Object {},
               "from": 0,
-              "post_filter": Object {
-                "bool": Object {
-                  "must": Array [],
-                },
-              },
+              "post_filter": Object {},
               "query": Object {},
               "size": 10,
               "sort": Array [
@@ -139,11 +131,7 @@ describe('Hits Resolver', () => {
             Object {
               "aggs": Object {},
               "from": 10,
-              "post_filter": Object {
-                "bool": Object {
-                  "must": Array [],
-                },
-              },
+              "post_filter": Object {},
               "query": Object {},
               "size": 10,
               "sort": Array [
@@ -196,11 +184,7 @@ describe('Hits Resolver', () => {
             Object {
               "aggs": Object {},
               "from": 10,
-              "post_filter": Object {
-                "bool": Object {
-                  "must": Array [],
-                },
-              },
+              "post_filter": Object {},
               "query": Object {},
               "size": 10,
               "sort": "_score",
@@ -217,11 +201,7 @@ describe('Hits Resolver', () => {
           Object {
             "aggs": Object {},
             "from": 10,
-            "post_filter": Object {
-              "bool": Object {
-                "must": Array [],
-              },
-            },
+            "post_filter": Object {},
             "query": Object {},
             "size": 10,
             "sort": Object {

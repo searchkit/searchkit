@@ -71,18 +71,10 @@ describe('Facet Resolver', () => {
                       },
                     },
                   },
-                  "filter": Object {
-                    "bool": Object {
-                      "must": Array [],
-                    },
-                  },
+                  "filter": Object {},
                 },
               },
-              "post_filter": Object {
-                "bool": Object {
-                  "must": Array [],
-                },
-              },
+              "post_filter": Object {},
               "query": Object {},
               "size": 0,
             }
