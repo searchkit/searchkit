@@ -51,7 +51,7 @@ export const getAggregationsFromFacets = (
     const filter = filterTransform(queryManager, bucket.filters)
     return {
       ...sum,
-      [bucket.name]: filter ? { aggs: subAggs, filter } : { aggs: subAggs }
+      [bucket.name]: { aggs: subAggs, filter: filter || { bool: { must: [] } } }
     }
   }, {})
 

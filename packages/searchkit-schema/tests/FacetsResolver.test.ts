@@ -97,6 +97,11 @@ describe('Facets Resolver', () => {
                       },
                     },
                   },
+                  "filter": Object {
+                    "bool": Object {
+                      "must": Array [],
+                    },
+                  },
                 },
               },
               "from": 0,
