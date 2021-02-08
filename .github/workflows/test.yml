@@ -1,5 +1,10 @@
 name: Build
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - next
+  pull_request:
+
 jobs:
   build:
     runs-on: ubuntu-latest
