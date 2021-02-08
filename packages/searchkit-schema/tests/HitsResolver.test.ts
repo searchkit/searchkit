@@ -60,11 +60,7 @@ describe('Hits Resolver', () => {
                   "must": Array [],
                 },
               },
-              "query": Object {
-                "bool": Object {
-                  "filter": Array [],
-                },
-              },
+              "query": Object {},
               "size": 10,
               "sort": Array [
                 Object {
@@ -110,11 +106,7 @@ describe('Hits Resolver', () => {
                   "must": Array [],
                 },
               },
-              "query": Object {
-                "bool": Object {
-                  "filter": Array [],
-                },
-              },
+              "query": Object {},
               "size": 10,
               "sort": Array [
                 Object {
@@ -152,11 +144,7 @@ describe('Hits Resolver', () => {
                   "must": Array [],
                 },
               },
-              "query": Object {
-                "bool": Object {
-                  "filter": Array [],
-                },
-              },
+              "query": Object {},
               "size": 10,
               "sort": Array [
                 Object {
@@ -213,11 +201,7 @@ describe('Hits Resolver', () => {
                   "must": Array [],
                 },
               },
-              "query": Object {
-                "bool": Object {
-                  "filter": Array [],
-                },
-              },
+              "query": Object {},
               "size": 10,
               "sort": "_score",
             }
@@ -238,11 +222,7 @@ describe('Hits Resolver', () => {
                 "must": Array [],
               },
             },
-            "query": Object {
-              "bool": Object {
-                "filter": Array [],
-              },
-            },
+            "query": Object {},
             "size": 10,
             "sort": Object {
               "released": "desc",

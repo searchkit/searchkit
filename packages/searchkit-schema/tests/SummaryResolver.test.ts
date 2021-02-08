@@ -147,11 +147,7 @@ describe('Summary Resolver', () => {
                   ],
                 },
               },
-              "query": Object {
-                "bool": Object {
-                  "filter": Array [],
-                },
-              },
+              "query": Object {},
               "size": 10,
               "sort": Array [
                 Object {

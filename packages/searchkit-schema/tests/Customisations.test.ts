@@ -90,11 +90,7 @@ describe('customisations', () => {
                 "must": Array [],
               },
             },
-            "query": Object {
-              "bool": Object {
-                "filter": Array [],
-              },
-            },
+            "query": Object {},
             "size": 10,
             "sort": Array [
               Object {
@@ -120,7 +116,6 @@ describe('customisations', () => {
             },
             "query": Object {
               "bool": Object {
-                "filter": Array [],
                 "must": Array [
                   Object {
                     "multi_match": Object {

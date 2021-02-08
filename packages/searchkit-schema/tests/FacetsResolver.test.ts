@@ -110,11 +110,7 @@ describe('Facets Resolver', () => {
                   "must": Array [],
                 },
               },
-              "query": Object {
-                "bool": Object {
-                  "filter": Array [],
-                },
-              },
+              "query": Object {},
               "size": 10,
               "sort": Array [
                 Object {
@@ -281,11 +277,7 @@ describe('Facets Resolver', () => {
                   ],
                 },
               },
-              "query": Object {
-                "bool": Object {
-                  "filter": Array [],
-                },
-              },
+              "query": Object {},
               "size": 10,
               "sort": Array [
                 Object {

@@ -26,6 +26,20 @@ export interface SearchResponse<T> {
   aggregations?: any
 }
 
+export type Query = {
+  bool?: {
+    must?: Array<Record<string, unknown>>
+    should?: Array<Record<string, unknown>>
+    filter?: Array<Record<string, unknown>>
+  }
+}
+
+type BaseQuery = {
+  size: number
+  query: Query
+  post_filter: Query
+}
+
 export const mergeESQueries = (queries) =>
   queries.reduce(
     (combinedQuery, partial) => ({
@@ -58,32 +72,45 @@ export default class SearchkitRequest {
     })
 
     this.dataloader = new dataloader(async (partialQueries) => {
-      const query = {
-        bool: {
-          ...(this.queryManager.hasQuery() && this.config.query
-            ? { must: this.config.query.getFilter(this.queryManager) }
-            : {}),
-          filter: this.baseFilters
-        }
-      }
-
-      const combinedFilterConfigs = [...(this.config.facets || []), ...(this.config.filters || [])]
-
-      const baseQuery = {
-        size: 0,
-        query,
-        post_filter: filterTransform(this.queryManager, combinedFilterConfigs)
-      }
-
-      const ESQuery = mergeESQueries([baseQuery, ...(partialQueries as any[])])
+      const ESQuery = this.buildQuery(partialQueries)
       const response = await this.executeQuery(ESQuery)
-
       return partialQueries.map(() => response)
     })
   }
 
   public async search(partialQuery): Promise<SearchResponse<any>> {
     return this.dataloader.load(partialQuery)
+  }
+
+  private buildQuery(partialQueries): BaseQuery {
+    const queryFilter =
+      this.queryManager.hasQuery() && this.config.query
+        ? this.config.query.getFilter(this.queryManager)
+        : null
+
+    const query: Query = queryFilter || {}
+
+    if (this.baseFilters?.length) {
+      if (query.bool) {
+        Object.assign(query.bool, {
+          filter: query.bool.filter?.length
+            ? [].concat(query.bool.filter, this.baseFilters)
+            : this.baseFilters
+        })
+      } else {
+        Object.assign(query, { bool: { filter: this.baseFilters } })
+      }
+    }
+
+    const combinedFilterConfigs = [...(this.config.facets || []), ...(this.config.filters || [])]
+
+    const baseQuery = {
+      size: 0,
+      query,
+      post_filter: filterTransform(this.queryManager, combinedFilterConfigs)
+    }
+
+    return mergeESQueries([baseQuery, ...(partialQueries as any[])])
   }
 
   private async executeQuery(esQuery): Promise<SearchResponse<any>> {
