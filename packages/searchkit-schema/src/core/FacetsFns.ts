@@ -15,7 +15,7 @@ export const filterTransform = (
     return subFilters
   }, [])
 
-  return subFilters.length ? { bool: { must: subFilters } } : {}
+  return subFilters.length ? { bool: { must: subFilters } } : null
 }
 
 export const getAggregationsFromFacets = (
@@ -48,12 +48,10 @@ export const getAggregationsFromFacets = (
       }),
       {}
     )
+    const filter = filterTransform(queryManager, bucket.filters)
     return {
       ...sum,
-      [bucket.name]: {
-        aggs: subAggs,
-        filter: filterTransform(queryManager, bucket.filters)
-      }
+      [bucket.name]: filter ? { aggs: subAggs, filter } : { aggs: subAggs }
     }
   }, {})
 

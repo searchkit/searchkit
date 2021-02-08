@@ -96,7 +96,6 @@ describe('Geo Filters', () => {
                   ],
                 },
               },
-              "query": Object {},
               "size": 10,
               "sort": Array [
                 Object {

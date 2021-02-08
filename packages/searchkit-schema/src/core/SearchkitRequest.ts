@@ -36,8 +36,8 @@ export type Query = {
 
 type BaseQuery = {
   size: number
-  query: Query
-  post_filter: Query
+  query?: Query
+  post_filter?: Query
 }
 
 export const mergeESQueries = (queries) =>
@@ -88,9 +88,10 @@ export default class SearchkitRequest {
         ? this.config.query.getFilter(this.queryManager)
         : null
 
-    const query: Query = queryFilter || {}
+    const hasBaseFilters = this.baseFilters?.length
+    const query: Query = queryFilter || (hasBaseFilters ? {} : null)
 
-    if (this.baseFilters?.length) {
+    if (hasBaseFilters) {
       if (query.bool) {
         Object.assign(query.bool, {
           filter: query.bool.filter?.length
@@ -103,14 +104,18 @@ export default class SearchkitRequest {
     }
 
     const combinedFilterConfigs = [...(this.config.facets || []), ...(this.config.filters || [])]
+    const postFilter = filterTransform(this.queryManager, combinedFilterConfigs)
 
-    const baseQuery = {
-      size: 0,
-      query,
-      post_filter: filterTransform(this.queryManager, combinedFilterConfigs)
-    }
+    const baseQuery = { size: 0 }
 
-    return mergeESQueries([baseQuery, ...(partialQueries as any[])])
+    return mergeESQueries(
+      [
+        baseQuery,
+        query && { query },
+        postFilter && { post_filter: postFilter },
+        ...(partialQueries as any[])
+      ].filter(Boolean)
+    )
   }
 
   private async executeQuery(esQuery): Promise<SearchResponse<any>> {

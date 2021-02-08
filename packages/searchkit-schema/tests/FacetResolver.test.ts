@@ -71,11 +71,8 @@ describe('Facet Resolver', () => {
                       },
                     },
                   },
-                  "filter": Object {},
                 },
               },
-              "post_filter": Object {},
-              "query": Object {},
               "size": 0,
             }
           `)

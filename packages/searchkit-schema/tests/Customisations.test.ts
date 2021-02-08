@@ -85,8 +85,6 @@ describe('customisations', () => {
           Object {
             "aggs": Object {},
             "from": 0,
-            "post_filter": Object {},
-            "query": Object {},
             "size": 10,
             "sort": Array [
               Object {
@@ -105,7 +103,6 @@ describe('customisations', () => {
           Object {
             "aggs": Object {},
             "from": 0,
-            "post_filter": Object {},
             "query": Object {
               "bool": Object {
                 "must": Array [

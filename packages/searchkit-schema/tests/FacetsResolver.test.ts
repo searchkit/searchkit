@@ -97,12 +97,9 @@ describe('Facets Resolver', () => {
                       },
                     },
                   },
-                  "filter": Object {},
                 },
               },
               "from": 0,
-              "post_filter": Object {},
-              "query": Object {},
               "size": 10,
               "sort": Array [
                 Object {
@@ -269,7 +266,6 @@ describe('Facets Resolver', () => {
                   ],
                 },
               },
-              "query": Object {},
               "size": 10,
               "sort": Array [
                 Object {
