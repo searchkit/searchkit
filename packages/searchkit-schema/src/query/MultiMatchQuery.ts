@@ -23,7 +23,7 @@ class MultiMatchQuery implements BaseQuery {
         }
       }
     }
-    return {}
+    return null
   }
 }
 
