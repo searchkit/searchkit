@@ -1,7 +1,8 @@
 import QueryManager from '../core/QueryManager'
+import type { Query } from '../core/SearchkitRequest'
 
 interface BaseQuery {
-  getFilter(queryManager: QueryManager): Array<Record<string, unknown>>
+  getFilter(queryManager: QueryManager): Query | null
 }
 
 export default BaseQuery

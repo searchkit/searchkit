@@ -105,16 +105,6 @@ describe('Facets Resolver', () => {
                 },
               },
               "from": 0,
-              "post_filter": Object {
-                "bool": Object {
-                  "must": Array [],
-                },
-              },
-              "query": Object {
-                "bool": Object {
-                  "filter": Array [],
-                },
-              },
               "size": 10,
               "sort": Array [
                 Object {
@@ -279,11 +269,6 @@ describe('Facets Resolver', () => {
                       },
                     },
                   ],
-                },
-              },
-              "query": Object {
-                "bool": Object {
-                  "filter": Array [],
                 },
               },
               "size": 10,
