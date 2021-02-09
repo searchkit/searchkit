@@ -58,8 +58,9 @@ const Input = () => {
         );
         const topRightCord = resultBounds.getNorthEast()
         const bottomLeftCord = resultBounds.getSouthWest()
+        debugger
 
-        api.removeFiltersByIdentifier("location")
+        api.filters = []
         api.addFilter({
           identifier: "location",
           geoBoundingBox: {

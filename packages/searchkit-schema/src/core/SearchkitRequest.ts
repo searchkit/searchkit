@@ -3,7 +3,7 @@ import { Client, ClientOptions } from '@elastic/elasticsearch'
 import HttpAgent, { HttpsAgent } from 'agentkeepalive'
 import { SearchkitConfig } from '../resolvers'
 import QueryManager from './QueryManager'
-import { filterTransform } from './FacetsFns'
+import { facetFilterTransform, filterTransform } from './FacetsFns'
 
 export interface SearchResponse<T> {
   took: number
@@ -57,22 +57,24 @@ export default class SearchkitRequest {
         new URL(this.config.host).protocol === 'http:' ? keepaliveAgent : keepaliveHttpsAgent
     })
 
+    const baseFiltersQuery = filterTransform(queryManager, this.config.filters)
+
     this.dataloader = new dataloader(async (partialQueries) => {
       const query = {
         bool: {
           ...(this.queryManager.hasQuery() && this.config.query
             ? { must: this.config.query.getFilter(this.queryManager) }
             : {}),
-          filter: this.baseFilters
+          filter: [...this.baseFilters, ...( baseFiltersQuery.length > 0 ? baseFiltersQuery : [] )]
         }
       }
 
-      const combinedFilterConfigs = [...(this.config.facets || []), ...(this.config.filters || [])]
+      const combinedFilterConfigs = [...(this.config.facets || [])]
 
       const baseQuery = {
         size: 0,
         query,
-        post_filter: filterTransform(this.queryManager, combinedFilterConfigs)
+        post_filter: facetFilterTransform(this.queryManager, combinedFilterConfigs)
       }
 
       const ESQuery = mergeESQueries([baseQuery, ...(partialQueries as any[])])

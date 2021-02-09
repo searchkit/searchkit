@@ -1,7 +1,8 @@
-import { useSearchkitQuery, useSearchkit } from '@searchkit/client'
+import { useSearchkitQuery } from '@searchkit/client'
 import { gql } from '@apollo/client'
-import { useState } from 'react'
 import PlacesSearchInput from './Input'
+import Maps from './maps'
+
 import {
   FacetsList,
   Pagination,
@@ -22,8 +23,10 @@ import {
   EuiTitle,
   EuiHorizontalRule,
   EuiButton,
+  EuiText,
   EuiFlexGroup,
-  EuiFlexItem
+  EuiFlexItem,
+  EuiFlexGrid
 } from '@elastic/eui'
 
 const query = gql`
@@ -69,6 +72,9 @@ const query = gql`
             fields {
               title
               location
+              nps_link
+              states
+              description
             }
           }
         }
@@ -89,21 +95,29 @@ const query = gql`
 `
 
 export const HitsList = ({ data }) => (
-  <>
-    {data?.usParks.hits.items.map((hit) => (
-      <EuiFlexGroup gutterSize="xl" key={hit.id}>
-      <EuiFlexItem>
-        <EuiFlexGroup>
-          <EuiFlexItem grow={4}>
-            <EuiTitle size="xs">
-              <h6>{hit.fields.title}</h6>
-            </EuiTitle>
-          </EuiFlexItem>
-        </EuiFlexGroup>
-      </EuiFlexItem>
+  <EuiFlexGrid direction="column">
+    {data?.hits.items.map((hit) => (
+      <EuiFlexItem key={hit.id}>
+      <EuiFlexGroup gutterSize="xl" >
+        <EuiFlexItem>
+          <EuiFlexGroup>
+            <EuiFlexItem grow={4}>
+              <EuiTitle size="xs">
+                <a href={hit.fields.nps_link}><h6>{hit.fields.title} ({hit.fields.states.join(", ")})</h6></a>
+              </EuiTitle>
+              <EuiText>
+                <p>{hit.fields.description}</p>
+              </EuiText>
+              <EuiText>
+              <a href={hit.fields.nps_link}>Read more »</a>
+              </EuiText>
+            </EuiFlexItem>
+          </EuiFlexGroup>
+        </EuiFlexItem>
     </EuiFlexGroup>
+    </EuiFlexItem>
     ))}
-  </>
+  </EuiFlexGrid>
 )
 
 const LocationFilter = ({ filter, loading }) => {
@@ -112,11 +126,13 @@ const LocationFilter = ({ filter, loading }) => {
 
 const Page = () => {
   const { data, loading } = useSearchkitQuery(query)
+  const Facets = FacetsList([])
   return (
     <EuiPage>
       <EuiPageSideBar>
         <PlacesSearchInput />
         <EuiHorizontalRule margin="m" />
+        <Facets data={data?.usParks} />
       </EuiPageSideBar>
       <EuiPageBody component="div">
         <EuiPageHeader>
@@ -140,10 +156,17 @@ const Page = () => {
             </EuiPageContentHeaderSection>
           </EuiPageContentHeader>
           <EuiPageContentBody>
-            <HitsList data={data} />
-            <EuiFlexGroup justifyContent="spaceAround">
-              <Pagination data={data?.usParks} />
-            </EuiFlexGroup>
+          <EuiFlexGroup>
+            <EuiFlexItem>
+              <HitsList data={data?.usParks} />
+              <EuiFlexGroup justifyContent="spaceAround">
+                <Pagination data={data?.usParks} />
+              </EuiFlexGroup>
+            </EuiFlexItem>
+            <EuiFlexItem>
+              <Maps data={data?.usParks} />
+            </EuiFlexItem>
+          </EuiFlexGroup>
           </EuiPageContentBody>
         </EuiPageContent>
       </EuiPageBody>

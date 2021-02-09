@@ -19,6 +19,7 @@
     "@searchkit/elastic-ui": "^3.0.0-canary.25",
     "@searchkit/schema": "^3.0.0-canary.25",
     "apollo-server-micro": "^2.19.0",
+    "debounce": "^1.2.0",
     "graphql": "^15.4.0",
     "micro-cors": "^0.1.1",
     "moment": "^2.29.1",

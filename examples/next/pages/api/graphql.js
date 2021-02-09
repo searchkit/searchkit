@@ -112,6 +112,14 @@ const usParksConfig = {
       label: "Location",
       identifier: "location"
     })
+  ],
+  facets: [
+    new RefinementSelectFacet({
+      field: 'states',
+      identifier: 'states',
+      label: "States",
+      multipleSelect: true
+    })
   ]
 }
 
@@ -180,6 +188,9 @@ const server = new ApolloServer({
     type ParkHitFields {
       title: String
       location: String
+      states: [String]
+      nps_link: String
+      description: String
     }
 
     type BikeHireHitFields {

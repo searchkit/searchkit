@@ -79,7 +79,12 @@ describe('Geo Filters', () => {
               "from": 0,
               "post_filter": Object {
                 "bool": Object {
-                  "must": Array [
+                  "must": Array [],
+                },
+              },
+              "query": Object {
+                "bool": Object {
+                  "filter": Array [
                     Object {
                       "geo_bounding_box": Object {
                         "location": Object {
@@ -95,11 +100,6 @@ describe('Geo Filters', () => {
                       },
                     },
                   ],
-                },
-              },
-              "query": Object {
-                "bool": Object {
-                  "filter": Array [],
                 },
               },
               "size": 10,

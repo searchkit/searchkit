@@ -1,4 +1,4 @@
-import { filterTransform, getAggregationsFromFacets, getFacetsFromResponse } from '../FacetsFns'
+import { facetFilterTransform, getAggregationsFromFacets, getFacetsFromResponse } from '../FacetsFns'
 import QueryManager from '../QueryManager'
 import { RefinementSelectFacet } from '../../facets'
 import { SearchResponse } from '../SearchkitRequest'
@@ -66,7 +66,7 @@ describe('Facet Fns', () => {
       ]
 
       /*
-        test 3 aggregrations are excluded from its own filters. 
+        test 3 aggregrations are excluded from its own filters.
       */
       expect(getAggregationsFromFacets(qm, {}, facetConfig)).toEqual({
         aggs: {
@@ -242,7 +242,7 @@ describe('Facet Fns', () => {
     })
   })
 
-  describe('filterTransform', () => {
+  describe('facetFilterTransform', () => {
     it('should get filter for test', () => {
       const qm = new QueryManager([{ identifier: 'test', value: 'testValue' }], '')
       const facetConfig = [
@@ -254,7 +254,7 @@ describe('Facet Fns', () => {
         }),
         new RefinementSelectFacet({ field: 'test2', identifier: 'test2', label: 'Test 2' })
       ]
-      expect(filterTransform(qm, facetConfig)).toEqual({
+      expect(facetFilterTransform(qm, facetConfig)).toEqual({
         bool: { must: [{ bool: { should: [{ term: { test: 'testValue' } }] } }] }
       })
     })
@@ -276,7 +276,7 @@ describe('Facet Fns', () => {
         }),
         new RefinementSelectFacet({ field: 'test2', identifier: 'test2', label: 'Test 2' })
       ]
-      expect(filterTransform(qm, facetConfig)).toEqual({
+      expect(facetFilterTransform(qm, facetConfig)).toEqual({
         bool: {
           must: [
             { bool: { should: [{ term: { test: 'testValue' } }] } },
@@ -302,7 +302,7 @@ describe('Facet Fns', () => {
           multipleSelect: true
         })
       ]
-      expect(filterTransform(qm, facetConfig)).toEqual({
+      expect(facetFilterTransform(qm, facetConfig)).toEqual({
         bool: {
           must: [{ bool: { should: [{ term: { test: 'testValue' } }] } }]
         }
