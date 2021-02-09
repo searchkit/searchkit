@@ -1,5 +1,5 @@
 import dataloader from 'dataloader'
-import { Client, ClientOptions } from '@elastic/elasticsearch'
+import { Client } from '@elastic/elasticsearch'
 import HttpAgent, { HttpsAgent } from 'agentkeepalive'
 import { SearchkitConfig } from '../resolvers'
 import QueryManager from './QueryManager'
@@ -72,8 +72,9 @@ export default class SearchkitRequest {
     })
 
     this.dataloader = new dataloader(async (partialQueries) => {
-      const ESQuery = this.buildQuery(partialQueries)
-      const response = await this.executeQuery(ESQuery)
+      const query = this.buildQuery(partialQueries)
+      const esQuery = this.config.postProcessRequest ? this.config.postProcessRequest(query) : query
+      const response = await this.executeQuery(esQuery)
       return partialQueries.map(() => response)
     })
   }
