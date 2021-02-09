@@ -65,7 +65,7 @@ export default class SearchkitRequest {
           ...(this.queryManager.hasQuery() && this.config.query
             ? { must: this.config.query.getFilter(this.queryManager) }
             : {}),
-          filter: [...this.baseFilters, ...( baseFiltersQuery.length > 0 ? baseFiltersQuery : [] )]
+          filter: [...this.baseFilters, ...(baseFiltersQuery.length > 0 ? baseFiltersQuery : [])]
         }
       }
 

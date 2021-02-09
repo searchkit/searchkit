@@ -22,10 +22,7 @@ export const facetFilterTransform = (
   }
 }
 
-export const filterTransform = (
-  queryManager: QueryManager,
-  filters: Array<BaseFilter> = []
-) => {
+export const filterTransform = (queryManager: QueryManager, filters: Array<BaseFilter> = []) => {
   const subFilters = filters.reduce((subFilters, filter) => {
     const filterSubFilter = queryManager.getFiltersById(filter.getIdentifier())
     if (filterSubFilter) {
