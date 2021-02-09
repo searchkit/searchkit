@@ -282,6 +282,25 @@ When the user chooses to filter by movies, you can add the filter like so
 Searchkit will query elasticsearch to show only hit + facet results that have a type field value of movie.  
 
 
+## Modify Elasticsearch request body
+
+If you need to modify the request body before sending it to Elasticsearch, eg. to add `min_score`, you can add a `postProcessRequest` function to your schema config. 
+
+Every search request will pass through this function, containing the full body, and expecting a full request body back. 
+
+```javascript
+const searchkitConfig = {
+  host: 'http://localhost:9200',
+  index: 'my_index',
+  hits: {
+    fields: []
+  },
+  query: new MultiMatchQuery({ fields: [] }),
+  postProcessRequest: (body) => {
+    return { ...body, min_score: 10 };
+  }
+}
+```
 
  
 
