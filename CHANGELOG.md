@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-canary.29](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.27...v3.0.0-canary.29) (2021-02-09)
+
+
+### Features
+
+* add optional postProcessRequest ([#857](https://github.com/searchkit/searchkit/issues/857)) ([fc98800](https://github.com/searchkit/searchkit/commit/fc9880037ad04c7089af22a1bd0bc4ec3715b9c4))
+
+
+
+
+
 # [3.0.0-canary.28](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.27...v3.0.0-canary.28) (2021-02-09)
 
 **Note:** Version bump only for package searchkit
