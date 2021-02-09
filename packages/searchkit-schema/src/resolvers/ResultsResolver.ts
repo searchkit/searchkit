@@ -1,9 +1,9 @@
+import { RequestBody } from '@elastic/elasticsearch/lib/Transport'
 import QueryManager, { MixedFilter } from '../core/QueryManager'
 import SearchkitRequest from '../core/SearchkitRequest'
 import BaseQuery from '../query/BaseQuery'
 import { BaseFacet } from '../facets/BaseFacet'
 import { BaseFilter } from '../filters/BaseFilter'
-import { RequestBody } from '@elastic/elasticsearch/lib/Transport'
 
 export interface SortingOption {
   id: string

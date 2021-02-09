@@ -32,9 +32,7 @@ describe('SearchkitRequest', () => {
 
   describe('postProcessRequest', () => {
     it('should', async () => {
-      const postProcessRequest = jest.fn((body) => {
-        return { ...body, min_score: 10 }
-      })
+      const postProcessRequest = jest.fn((body) => ({ ...body, min_score: 10 }))
       const qm = new QueryManager([], '')
       const sr = new SearchkitRequest(
         qm,
