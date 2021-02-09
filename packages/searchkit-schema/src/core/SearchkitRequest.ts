@@ -71,6 +71,8 @@ export default class SearchkitRequest {
         new URL(this.config.host).protocol === 'http:' ? keepaliveAgent : keepaliveHttpsAgent
     })
 
+    const baseFiltersQuery = filterTransform(queryManager, this.config.filters)
+
     this.dataloader = new dataloader(async (partialQueries) => {
       const query = this.buildQuery(partialQueries)
       const esQuery = this.config.postProcessRequest ? this.config.postProcessRequest(query) : query

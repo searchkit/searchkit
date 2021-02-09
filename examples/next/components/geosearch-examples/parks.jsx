@@ -2,8 +2,9 @@ import { useSearchkitVariables } from '@searchkit/client'
 import { gql, useQuery } from '@apollo/client'
 import { gql } from '@apollo/client'
 import PlacesSearchInput from './Input'
+import Maps from './maps'
+
 import {
-  FacetsList,
   Pagination,
   ResetSearchButton,
   SelectedFilters,
