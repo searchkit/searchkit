@@ -243,34 +243,30 @@ describe('Facets Resolver', () => {
                 },
               },
               "from": 0,
-              "post_filter": Object {
-                "bool": Object {
-                  "must": Array [
-                    Object {
-                      "bool": Object {
-                        "should": Array [
-                          Object {
-                            "term": Object {
-                              "writers.raw": "Damon Lindelof",
-                            },
-                          },
-                        ],
+              "post_filter": Array [
+                Object {
+                  "bool": Object {
+                    "should": Array [
+                      Object {
+                        "term": Object {
+                          "writers.raw": "Damon Lindelof",
+                        },
                       },
-                    },
-                    Object {
-                      "bool": Object {
-                        "must": Array [
-                          Object {
-                            "term": Object {
-                              "actors.raw": "Damon Lindelof",
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
+                    ],
+                  },
                 },
-              },
+                Object {
+                  "bool": Object {
+                    "must": Array [
+                      Object {
+                        "term": Object {
+                          "actors.raw": "Damon Lindelof",
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
               "size": 10,
               "sort": Array [
                 Object {
