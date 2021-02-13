@@ -141,15 +141,19 @@ import {
 const searchkitConfig = {
   query: new CustomQuery({ 
     queryFn: (query, qm) => {
-      return [{
-        wildcard: {
-          field: {
-            value: query + '*',
-            boost: 1.0,
-            rewrite: 'constant_score'
-          }
+      return {
+        bool: {
+          must: [{
+            wildcard: {
+              field: {
+                value: query + '*',
+                boost: 1.0,
+                rewrite: 'constant_score'
+              }
+            }
+          }]
         }
-      }]
+      }
     }
   })
 }

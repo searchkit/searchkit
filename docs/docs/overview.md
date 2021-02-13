@@ -6,10 +6,10 @@ slug: /
 ---
 
 ### What is Searchkit?
-Searchkit is an open source search toolkit. It mainly consists of the following parts:
-+ Apollo Resolvers: Easily build a dev friendly search GraphQL API with our resolvers
-+ Client: Works in tandem with Searchkit's Search API to manage your search query state
-+ Elastic UI: Out the box UI search components based on Elastic UI framework
+Searchkit is an open source search toolkit. Searchkit is made up of the following parts:
++ @searchkit/Schema: Easily build a dev friendly search GraphQL API with our schema
++ @searchkit/client: Works in tandem with Searchkit's Search API to manage your search query state
++ @searchkit/elastic-ui: Out the box UI search components based on Elastic UI framework
 
 #### Quick Start Guide
 - [Example Apps](https://github.com/searchkit/searchkit/tree/next/examples)  

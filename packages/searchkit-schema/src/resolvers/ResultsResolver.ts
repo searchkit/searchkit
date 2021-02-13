@@ -1,3 +1,4 @@
+import { RequestBody } from '@elastic/elasticsearch/lib/Transport'
 import QueryManager, { MixedFilter } from '../core/QueryManager'
 import SearchkitRequest from '../core/SearchkitRequest'
 import BaseQuery from '../query/BaseQuery'
@@ -21,6 +22,7 @@ export interface SearchkitConfig {
   query?: BaseQuery
   facets?: Array<BaseFacet>
   filters?: Array<BaseFilter>
+  postProcessRequest?: (body: RequestBody) => RequestBody
 }
 
 export interface ResultsResolverParameters {

@@ -1,8 +1,9 @@
 import QueryManager from '../core/QueryManager'
+import type { Query } from '../core/SearchkitRequest'
 import BaseQuery from './BaseQuery'
 
 interface CustomQueryConfig {
-  queryFn(query: string, queryManager?: QueryManager): Array<Record<string, unknown>>
+  queryFn(query: string, queryManager?: QueryManager): Query | null
 }
 
 class CustomQuery implements BaseQuery {

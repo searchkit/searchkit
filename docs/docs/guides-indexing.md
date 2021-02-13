@@ -10,7 +10,7 @@ Either pick a cloud offering for example [qbox.io](www.qbox.io?ref=searchkit) or
 
 ### Setup Fields + Mappings
 
-Searchkit has a CLI which helps with figuring out your Elasticsearch schema and an example searchkit configuration to quickly get you started.
+Searchkit has a CLI which helps creating a Elasticsearch schema for your documents and an example searchkit configuration to quickly get you started.
 
 Copy the project from [indexer example](https://github.com/searchkit/searchkit/tree/next/examples/indexer)
 
