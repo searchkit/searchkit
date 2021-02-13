@@ -114,39 +114,35 @@ describe('Summary Resolver', () => {
             Object {
               "aggs": Object {},
               "from": 0,
-              "post_filter": Object {
-                "bool": Object {
-                  "must": Array [
-                    Object {
-                      "bool": Object {
-                        "must": Array [
-                          Object {
-                            "term": Object {
-                              "actors.keyword": "Jeff Lindsay",
-                            },
-                          },
-                        ],
-                      },
-                    },
-                    Object {
-                      "range": Object {
-                        "imdbrating": Object {
-                          "gte": 0,
-                          "lte": 50,
+              "post_filter": Array [
+                Object {
+                  "bool": Object {
+                    "must": Array [
+                      Object {
+                        "term": Object {
+                          "actors.keyword": "Jeff Lindsay",
                         },
                       },
-                    },
-                    Object {
-                      "range": Object {
-                        "released": Object {
-                          "gte": "2012-12-18T00:00:00.000Z",
-                          "lte": "2020-12-18T00:00:00.000Z",
-                        },
-                      },
-                    },
-                  ],
+                    ],
+                  },
                 },
-              },
+                Object {
+                  "range": Object {
+                    "imdbrating": Object {
+                      "gte": 0,
+                      "lte": 50,
+                    },
+                  },
+                },
+                Object {
+                  "range": Object {
+                    "released": Object {
+                      "gte": "2012-12-18T00:00:00.000Z",
+                      "lte": "2020-12-18T00:00:00.000Z",
+                    },
+                  },
+                },
+              ],
               "size": 10,
               "sort": Array [
                 Object {

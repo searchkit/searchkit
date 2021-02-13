@@ -67,19 +67,15 @@ describe('Range Facets', () => {
             Object {
               "aggs": Object {},
               "from": 0,
-              "post_filter": Object {
-                "bool": Object {
-                  "must": Array [
-                    Object {
-                      "range": Object {
-                        "imdbRating": Object {
-                          "gte": 0,
-                        },
-                      },
+              "post_filter": Array [
+                Object {
+                  "range": Object {
+                    "imdbRating": Object {
+                      "gte": 0,
                     },
-                  ],
+                  },
                 },
-              },
+              ],
               "size": 10,
               "sort": Array [
                 Object {
@@ -125,19 +121,15 @@ describe('Range Facets', () => {
             Object {
               "aggs": Object {},
               "from": 0,
-              "post_filter": Object {
-                "bool": Object {
-                  "must": Array [
-                    Object {
-                      "range": Object {
-                        "released": Object {
-                          "gte": "2012-12-18T00:00:00.000Z",
-                        },
-                      },
+              "post_filter": Array [
+                Object {
+                  "range": Object {
+                    "released": Object {
+                      "gte": "2012-12-18T00:00:00.000Z",
                     },
-                  ],
+                  },
                 },
-              },
+              ],
               "size": 10,
               "sort": Array [
                 Object {

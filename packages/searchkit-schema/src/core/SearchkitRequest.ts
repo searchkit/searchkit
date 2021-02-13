@@ -92,7 +92,7 @@ export default class SearchkitRequest {
     const hasBaseFilters = this.baseFilters?.length
     const query: Query = queryFilter || (hasBaseFilters ? {} : null)
     const baseFiltersQuery = filterTransform(this.queryManager, this.config.filters)
-    const combinedBaseFilters = [].concat(this.baseFilters, baseFiltersQuery)
+    const combinedBaseFilters = [].concat(this.baseFilters, (baseFiltersQuery || []))
 
     if (hasBaseFilters) {
       if (query.bool) {
@@ -106,9 +106,7 @@ export default class SearchkitRequest {
       }
     }
 
-    const combinedFilterConfigs = [...(this.config.facets || []), ...(this.config.filters || [])]
-    const postFilter = filterTransform(this.queryManager, combinedFilterConfigs)
-
+    const postFilter = filterTransform(this.queryManager, (this.config.facets || []))
     const baseQuery = { size: 0 }
 
     return mergeESQueries(

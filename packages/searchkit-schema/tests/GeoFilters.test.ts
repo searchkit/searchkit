@@ -77,31 +77,6 @@ describe('Geo Filters', () => {
             Object {
               "aggs": Object {},
               "from": 0,
-              "post_filter": Object {
-                "bool": Object {
-                  "must": Array [],
-                },
-              },
-              "query": Object {
-                "bool": Object {
-                  "filter": Array [
-                    Object {
-                      "geo_bounding_box": Object {
-                        "location": Object {
-                          "bottom_right": Object {
-                            "lat": 40.01,
-                            "lon": -55.12,
-                          },
-                          "top_left": Object {
-                            "lat": 50.73,
-                            "lon": -75.1,
-                          },
-                        },
-                      },
-                    },
-                  ],
-                },
-              },
               "size": 10,
               "sort": Array [
                 Object {

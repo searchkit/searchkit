@@ -27,7 +27,7 @@ export const filterTransform = (queryManager: QueryManager, filters: Array<BaseF
     return subFilters
   }, [])
 
-  return subFilters
+  return subFilters.length ? subFilters : null
 }
 
 export const getAggregationsFromFacets = (
