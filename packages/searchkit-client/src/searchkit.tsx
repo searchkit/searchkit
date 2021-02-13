@@ -27,7 +27,7 @@ export interface SearchkitClientConfig {
   searchOnLoad?: boolean
 }
 
-const isDefined = (str) => typeof str !== 'undefined' && str !== null
+const isDefined = (str) => typeof str !== 'undefined'
 
 const filterSelector = (filter: Filter) => (f: Filter) => {
   if (filter.identifier !== f.identifier) return false
@@ -39,8 +39,8 @@ const filterSelector = (filter: Filter) => (f: Filter) => {
   )
     return true
   if (
-    filter.dateMin &&
-    filter.dateMax &&
+    isDefined(filter.dateMin) &&
+    isDefined(filter.dateMax) &&
     filter.dateMin === f.dateMin &&
     filter.dateMax === f.dateMax
   )

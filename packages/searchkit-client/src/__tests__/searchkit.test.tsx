@@ -84,6 +84,14 @@ describe('Searchkit Client', () => {
     expect(api.getFilters()).toEqual([])
   })
 
+  it('should toggle range filters min / max optional', () => {
+    const api = new SearchkitClient()
+    api.addFilter({ identifier: 'type', min: 0, max: null })
+    expect(api.getFilters()).toEqual([{ identifier: 'type', min: 0, max: null }])
+    api.toggleFilter({ identifier: 'type', min: 0, max: null })
+    expect(api.getFilters()).toEqual([])
+  })
+
   it('should toggle date range filters', () => {
     const api = new SearchkitClient()
     const filter = {
@@ -94,6 +102,14 @@ describe('Searchkit Client', () => {
     api.addFilter({ ...filter })
     expect(api.getFilters()).toEqual([filter])
     api.toggleFilter({ ...filter })
+    expect(api.getFilters()).toEqual([])
+  })
+
+  it('should toggle date range filters min / max optional', () => {
+    const api = new SearchkitClient()
+    api.addFilter({ identifier: 'released', dateMin: "2020-12-26T00:00:00.000Z", dateMax: null })
+    expect(api.getFilters()).toEqual([{ identifier: 'released', dateMin: "2020-12-26T00:00:00.000Z", dateMax: null }])
+    api.toggleFilter({ identifier: 'released', dateMin: "2020-12-26T00:00:00.000Z", dateMax: null })
     expect(api.getFilters()).toEqual([])
   })
 

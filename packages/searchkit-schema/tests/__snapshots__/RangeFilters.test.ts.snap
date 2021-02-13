@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Range Facets should return as expected date range optional max 2`] = `
+Object {
+  "results": Object {
+    "hits": Object {
+      "items": Array [
+        Object {
+          "id": "tt0468569",
+        },
+        Object {
+          "id": "tt0110912",
+        },
+        Object {
+          "id": "tt0167260",
+        },
+        Object {
+          "id": "tt0114369",
+        },
+        Object {
+          "id": "tt0073486",
+        },
+        Object {
+          "id": "tt0172495",
+        },
+        Object {
+          "id": "tt1520211",
+        },
+        Object {
+          "id": "tt0338013",
+        },
+        Object {
+          "id": "tt0078788",
+        },
+        Object {
+          "id": "tt0180093",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`Range Facets should return as expected numeric range optional max 2`] = `
+Object {
+  "results": Object {
+    "hits": Object {
+      "items": Array [
+        Object {
+          "id": "tt0468569",
+        },
+        Object {
+          "id": "tt0110912",
+        },
+        Object {
+          "id": "tt0167260",
+        },
+        Object {
+          "id": "tt0114369",
+        },
+        Object {
+          "id": "tt0073486",
+        },
+        Object {
+          "id": "tt0172495",
+        },
+        Object {
+          "id": "tt1520211",
+        },
+        Object {
+          "id": "tt0338013",
+        },
+        Object {
+          "id": "tt0078788",
+        },
+        Object {
+          "id": "tt0180093",
+        },
+      ],
+    },
+  },
+}
+`;
