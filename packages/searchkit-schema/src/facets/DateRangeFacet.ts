@@ -1,5 +1,6 @@
 import { DateRangeFilter } from '../core/QueryManager'
 import { BaseFacet } from './BaseFacet'
+import _ from 'lodash'
 
 interface DateRangeFacetConfig {
   identifier: string
@@ -22,7 +23,10 @@ class DateRangeFacet implements BaseFacet {
   }
 
   getFilters(filters: Array<DateRangeFilter>) {
-    return { range: { [this.config.field]: { gte: filters[0].dateMin, lte: filters[0].dateMax } } }
+    const rangeFilter: {gte?: String, lte?: String } = {}
+    if (!_.isUndefined(filters[0].dateMin)) rangeFilter.gte = filters[0].dateMin
+    if (!_.isUndefined(filters[0].dateMax)) rangeFilter.lte = filters[0].dateMax
+    return { range: { [this.config.field]: rangeFilter } }
   }
 
   getAggregation() {
