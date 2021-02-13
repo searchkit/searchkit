@@ -1,6 +1,6 @@
+import _ from 'lodash'
 import { RangeFilter } from '../core/QueryManager'
 import { BaseFacet } from './BaseFacet'
-import _ from 'lodash'
 
 interface RangeFacetConfig {
   identifier: string
@@ -29,7 +29,7 @@ class RangeFacet implements BaseFacet {
   }
 
   getFilters(filters: Array<RangeFilter>) {
-    const rangeFilter: {gte?: Number, lte?: Number } = {}
+    const rangeFilter: { gte?: number; lte?: number } = {}
     if (!_.isUndefined(filters[0].min)) rangeFilter.gte = filters[0].min
     if (!_.isUndefined(filters[0].max)) rangeFilter.lte = filters[0].max
     return { range: { [this.config.field]: rangeFilter } }

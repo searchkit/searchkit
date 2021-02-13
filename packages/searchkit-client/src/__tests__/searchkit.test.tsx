@@ -107,9 +107,11 @@ describe('Searchkit Client', () => {
 
   it('should toggle date range filters min / max optional', () => {
     const api = new SearchkitClient()
-    api.addFilter({ identifier: 'released', dateMin: "2020-12-26T00:00:00.000Z", dateMax: null })
-    expect(api.getFilters()).toEqual([{ identifier: 'released', dateMin: "2020-12-26T00:00:00.000Z", dateMax: null }])
-    api.toggleFilter({ identifier: 'released', dateMin: "2020-12-26T00:00:00.000Z", dateMax: null })
+    api.addFilter({ identifier: 'released', dateMin: '2020-12-26T00:00:00.000Z', dateMax: null })
+    expect(api.getFilters()).toEqual([
+      { identifier: 'released', dateMin: '2020-12-26T00:00:00.000Z', dateMax: null }
+    ])
+    api.toggleFilter({ identifier: 'released', dateMin: '2020-12-26T00:00:00.000Z', dateMax: null })
     expect(api.getFilters()).toEqual([])
   })
 
