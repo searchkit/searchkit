@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-canary.30](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.27...v3.0.0-canary.30) (2021-02-13)
+
+
+### Features
+
+* **rangefilter:** allow min / max & dateMin / dateMax to be optional ([#859](https://github.com/searchkit/searchkit/issues/859)) ([a27e774](https://github.com/searchkit/searchkit/commit/a27e774692c9e8860fddc82334aa8910d7422fb1)), closes [#844](https://github.com/searchkit/searchkit/issues/844)
+* add optional postProcessRequest ([#857](https://github.com/searchkit/searchkit/issues/857)) ([fc98800](https://github.com/searchkit/searchkit/commit/fc9880037ad04c7089af22a1bd0bc4ec3715b9c4))
+
+
+
+
+
 # [3.0.0-canary.29](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.27...v3.0.0-canary.29) (2021-02-09)
 
 
