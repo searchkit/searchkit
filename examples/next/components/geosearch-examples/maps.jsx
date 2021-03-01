@@ -71,8 +71,9 @@ export default ({ data }) => {
     } else {
       map.fitBounds(bounds)
     }
-
-    google.maps.event.trigger(map, 'ready')
+    if (!map.getProjection()) {
+      google.maps.event.trigger(map, 'ready')
+    }
 
     setMarkers(newMarkers)
     setMapIds(itemIds)
@@ -80,16 +81,20 @@ export default ({ data }) => {
   }, [data])
 
   useEffect(() => {
-    debugger
     if (mapGeoBounds) {
       const apiLocationFilter = api.getFiltersByIdentifier("location")
       if (apiLocationFilter.length > 0) {
         const x = apiLocationFilter[0].geoBoundingBox
         const ne = mapGeoBounds.getNorthEast()
         const sw = mapGeoBounds.getSouthWest()
-        debugger
+        const filterBounds = new google.maps.LatLngBounds(
+          new google.maps.LatLng(x.bottomLeft.lat, x.bottomLeft.lon),
+          new google.maps.LatLng(x.topRight.lat, x.topRight.lon)
+        )
 
-        if (!(ne && sw && x.bottomLeft.lat === sw.lat() && x.bottomLeft.lon === sw.lng() && x.topRight.lon === ne.lng() && x.topRight.lat === ne.lat())) {
+        const boundsInMap = !(mapGeoBounds && mapGeoBounds.contains(filterBounds.getNorthEast()) && mapGeoBounds.contains(filterBounds.getSouthWest()) )
+        debugger
+        if (boundsInMap) {
           api.removeFiltersByIdentifier("location")
           api.setPage({ from: 0, size: 10 })
           api.addFilter({
@@ -123,7 +128,6 @@ export default ({ data }) => {
       )
 
       if (!map.getBounds() || !filterBounds.equals(map.getBounds())) {
-        debugger
         setMapGeoBounds(filterBounds)
       }
 
