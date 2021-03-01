@@ -51,7 +51,7 @@ Object {
 }
 `;
 
-exports[`Geo Filters should return as expected no filters applied 4`] = `
+exports[`Geo Filters should return as expected one filter applied 2`] = `
 Object {
   "results": Object {
     "facets": Array [
