@@ -58,7 +58,6 @@ const Input = () => {
         );
         const topRightCord = resultBounds.getNorthEast()
         const bottomLeftCord = resultBounds.getSouthWest()
-        debugger
 
         api.filters = []
         api.addFilter({

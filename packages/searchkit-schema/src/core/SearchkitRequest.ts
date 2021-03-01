@@ -3,7 +3,7 @@ import { Client } from '@elastic/elasticsearch'
 import HttpAgent, { HttpsAgent } from 'agentkeepalive'
 import { SearchkitConfig } from '../resolvers'
 import QueryManager from './QueryManager'
-import { facetFilterTransform, filterTransform } from './FacetsFns'
+import { filterTransform } from './FacetsFns'
 
 export interface SearchResponse<T> {
   took: number
@@ -70,8 +70,6 @@ export default class SearchkitRequest {
       agent: () =>
         new URL(this.config.host).protocol === 'http:' ? keepaliveAgent : keepaliveHttpsAgent
     })
-
-    const baseFiltersQuery = filterTransform(queryManager, this.config.filters)
 
     this.dataloader = new dataloader(async (partialQueries) => {
       const query = this.buildQuery(partialQueries)
