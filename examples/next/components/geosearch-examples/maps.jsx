@@ -23,6 +23,7 @@ export default ({ data }) => {
     const updateBoundsFilter = debounce(() => {
       const bounds = map.getBounds()
       if (bounds) {
+        console.log("bounds", JSON.stringify(bounds))
         setMapGeoBounds(bounds)
       }
     }, 100)
@@ -84,6 +85,8 @@ export default ({ data }) => {
     if (mapGeoBounds) {
       const apiLocationFilter = api.getFiltersByIdentifier("location")
       if (apiLocationFilter.length > 0) {
+        console.log("mapGeoBounds", JSON.stringify(mapGeoBounds))
+
         const x = apiLocationFilter[0].geoBoundingBox
         const ne = mapGeoBounds.getNorthEast()
         const sw = mapGeoBounds.getSouthWest()
@@ -93,7 +96,6 @@ export default ({ data }) => {
         )
 
         const boundsInMap = !(mapGeoBounds && mapGeoBounds.contains(filterBounds.getNorthEast()) && mapGeoBounds.contains(filterBounds.getSouthWest()) )
-        debugger
         if (boundsInMap) {
           api.removeFiltersByIdentifier("location")
           api.setPage({ from: 0, size: 10 })
@@ -113,6 +115,27 @@ export default ({ data }) => {
 
           api.search()
         }
+      } else {
+        const ne = mapGeoBounds.getNorthEast()
+        const sw = mapGeoBounds.getSouthWest()
+        console.log("mapGeoBounds", JSON.stringify(mapGeoBounds))
+        api.removeFiltersByIdentifier("location")
+        api.setPage({ from: 0, size: 10 })
+        api.addFilter({
+          identifier: "location",
+          geoBoundingBox: {
+            topRight: {
+              lat: ne.lat(),
+              lon: ne.lng()
+            },
+            bottomLeft: {
+              lat: sw.lat(),
+              lon: sw.lng()
+            }
+          }
+        })
+
+        api.search()
       }
     }
 
