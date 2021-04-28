@@ -104,7 +104,6 @@ export const addMappingES7 = async (config) => {
   try {
     await client.indices.putMapping({
       index: config.index,
-      ...(config.type ? { type: config.type } : {}),
       body: {
         properties: getMapping(config)
       }
@@ -232,9 +231,7 @@ export const getSKQuickStartText = ({
   mapping
 }) => {
   const mappingCall = {
-    mappings: {
       properties: mapping
-    }
   }
 
   return `
