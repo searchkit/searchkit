@@ -22,6 +22,7 @@
   "scripts": {
     "build": "rm -rf lib; tsc && tsc -p tsconfig-cjs.json",
     "dev": "rm -rf lib; tsc --watch",
+    "dev2": "tsc --watch -p tsconfig-cjs.json",
     "test": "jest"
   },
   "publishConfig": {

@@ -1,7 +1,7 @@
-import { useSearchkitQuery } from '@searchkit/client'
-import { gql } from '@apollo/client'
+import { gql, useQuery } from '@apollo/client'
 import { useState } from 'react'
 import { HitsList, HitsGrid } from './searchkit/Hits'
+import { useSearchkitVariables } from '@searchkit/client'
 import {
   FacetsList,
   SearchBar,
@@ -96,7 +96,10 @@ const query = gql`
 `
 
 const Page = () => {
-  const { data, loading } = useSearchkitQuery(query)
+  const variables = useSearchkitVariables()
+  const { data, loading } = useQuery(query, {
+    variables: variables
+  })
   const [viewType, setViewType] = useState('list')
   const Facets = FacetsList([])
   return (
