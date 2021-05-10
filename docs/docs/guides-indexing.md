@@ -6,7 +6,7 @@ slug: /guides/elasticsearch-setup-indexing
 ---
 
 ### Setup Elasticsearch
-Either pick a cloud offering for example [qbox.io](www.qbox.io?ref=searchkit) or run locally via [instructions here](https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html)
+Either pick a cloud offering for example [qbox.io](https://www.qbox.io?ref=searchkit) or run locally via [instructions here](https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html)
 
 ### Setup Fields + Mappings
 
