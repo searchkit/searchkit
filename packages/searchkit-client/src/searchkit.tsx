@@ -1,11 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { useLazyQuery } from '@apollo/client'
 import history, { Router } from './history'
 
 type SearchkitClientRoutingOptions = {
   stateMapping: {
-    stateToRoute: any
-    routeToState: any
+    stateToRoute: (searchState: SearchState) => any
+    routeToState: (routeState: any) => SearchState
   }
 }
 
@@ -58,62 +57,50 @@ const filterSelector = (filter: Filter) => (f: Filter) => {
   return false
 }
 
+const searchStateDiff = (a: SearchState, b: SearchState) => {
+  return JSON.stringify(a) !== JSON.stringify(b)
+}
+
 type SearchState = {
   query: string
   filters: Array<Filter>
   sortBy: string
+  page: PageOptions
 }
 
 export class SearchkitClient {
   public searchOnLoad: boolean
   private onSearch: (variables: SearchkitQueryVariables) => void
-  private routing: SearchkitClientRoutingOptions
-  private router: Router
-  public searchState: any
-  public setSearchState: any
+  public routing: SearchkitClientRoutingOptions
+  public searchState: SearchState
+  public setSearchState: (searchState: SearchState | ((prevState: SearchState) => SearchState) ) => void
 
   constructor({ searchOnLoad = true, itemsPerPage = 10, routing }: SearchkitClientConfig = {}) {
     this.onSearch = null
     this.searchOnLoad = searchOnLoad
     this.routing = routing
-    this.router = history()
-    if (!(typeof window === 'undefined')) {
-      this.router.onUpdate((routeState) => {
-        const searchState: SearchState = this.routing.stateMapping.routeToState(routeState)
-        if (
-          searchState.query !== this.searchState.query ||
-          this.searchState.filters.length !== searchState.filters.length ||
-          this.searchState.sortBy !== searchState.sortBy
-        ) {
-          this.setSearchState(searchState)
-          this.performSearch()
-        }
-      })
-    }
   }
 
   private performSearch() {
-    if (this.onSearch) this.onSearch(this.getVariables())
-    if (this.routing?.stateMapping?.stateToRoute) {
-      const routeState = this.routing.stateMapping.stateToRoute(this.searchState)
-      this.router.write(routeState)
-    }
+    if (this.onSearch) this.onSearch(this.getSearchState())
   }
 
-  getVariables() {
+  public getSearchState(): SearchState {
     return this.searchState
   }
 
-  setCallbackFn(callback: (variables: SearchkitQueryVariables) => void) {
+  public setCallbackFn(callback: (variables: SearchkitQueryVariables) => void) {
     this.onSearch = callback
   }
 
   setQuery(query: string): void {
-    this.setSearchState({
+    debugger
+    this.setSearchState((searchState: SearchState) => ({
+      ...searchState,
       query,
       filters: [],
       page: { from: 0, size: 10 }
-    })
+    }))
   }
 
   getQuery(): string {
@@ -136,7 +123,7 @@ export class SearchkitClient {
   }
 
   canResetSearch(): boolean {
-    return !(this.searchState.filters.length === 0 && !this.query)
+    return !(this.searchState.filters.length === 0 && !this.searchState.query)
   }
 
   isFilterSelected(filter: Filter): boolean {
@@ -224,9 +211,30 @@ export function SearchkitProvider({
   useEffect(() => {
     if (pendingSearch) {
       setPendingSearch(false)
-      setSearchVariables(client.searchState)
+      setSearchVariables(client.searchState as any)
     }
   }, [pendingSearch])
+
+  if (!(typeof window === 'undefined')) {
+    this.router = history()
+    this.router.onUpdate((routeState) => {
+      const searchState: SearchState = this.routing.stateMapping.routeToState(routeState)
+      if (
+        searchState.query !== this.searchState.query ||
+        this.searchState.filters.length !== searchState.filters.length ||
+        this.searchState.sortBy !== searchState.sortBy
+      ) {
+        this.setSearchState(searchState)
+        this.performSearch()
+      }
+    })
+  }
+
+  useEffect(() => {
+    if (client.routing) {
+
+    }
+  })
 
   return (
     <SearchkitContext.Provider value={client}>

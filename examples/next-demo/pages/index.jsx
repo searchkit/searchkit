@@ -10,17 +10,16 @@ export default withApollo(withSearchkit(Search, () => {
       searchOnLoad: true,
       routing: {
         stateMapping: {
-          stateToRoute(uiState) {
-            const filters = uiState.filters.reduce((sum, selected) => {
+          stateToRoute(searchState) {
+            const filters = searchState.filters.reduce((sum, selected) => {
               return {
                 ...sum,
                 [selected.identifier]: selected.value
               }
             }, {})
-            console.log(uiState.filters)
             return {
-              query: uiState.query,
-              sort: uiState.sortBy,
+              query: searchState.query,
+              sort: searchState.sortBy,
               ...filters
             }
           },
