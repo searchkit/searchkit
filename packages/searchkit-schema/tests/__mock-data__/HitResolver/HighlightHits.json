@@ -1,0 +1,420 @@
+{
+  "took" : 52,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 48,
+      "relation" : "eq"
+    },
+    "max_score" : 7.1922398,
+    "hits" : [
+      {
+        "_index" : "imdb_movies",
+        "_type" : "_doc",
+        "_id" : "tt0037638",
+        "_score" : 7.1922398,
+        "_source" : {
+          "type" : "movie",
+          "title" : "Detour",
+          "year" : 1945,
+          "rated" : "Approved",
+          "released" : "1945-11-07T00:00:00+01:00",
+          "genres" : [
+            "Crime",
+            "Drama",
+            "Film-Noir"
+          ],
+          "directors" : [
+            "Edgar G. Ulmer"
+          ],
+          "writers" : [
+            "Martin Goldsmith",
+            "Martin Goldsmith"
+          ],
+          "actors" : [
+            "Tom Neal",
+            "Ann Savage",
+            "Claudia Drake",
+            "Edmund MacDonald"
+          ],
+          "countries" : [
+            "USA"
+          ],
+          "plot" : "Chance events trap hitch-hiker Al Roberts in a tightening net of film noir trouble.",
+          "poster" : "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMTQxMzA0ODk4OV5BMl5BanBnXkFtZTcwOTkwMzQyMQ@@._V1_SX300.jpg",
+          "id" : "tt0037638",
+          "imdbrating" : 7.5
+        }
+      },
+      {
+        "_index" : "imdb_movies",
+        "_type" : "_doc",
+        "_id" : "tt0497116",
+        "_score" : 6.929497,
+        "_source" : {
+          "type" : "movie",
+          "title" : "An Inconvenient Truth",
+          "year" : 2006,
+          "rated" : "PG",
+          "released" : "2006-08-31T00:00:00+02:00",
+          "genres" : [
+            "Documentary"
+          ],
+          "directors" : [
+            "Davis Guggenheim"
+          ],
+          "writers" : [ ],
+          "actors" : [
+            "Al Gore",
+            "Billy West"
+          ],
+          "countries" : [
+            "USA"
+          ],
+          "plot" : "A documentary on Al Gore's campaign to make the issue of global warming a recognized problem worldwide.",
+          "poster" : "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BOTg3NjYxMjM5OF5BMl5BanBnXkFtZTcwMzQzMDA0MQ@@._V1_SX300.jpg",
+          "id" : "tt0497116",
+          "metascore" : 75,
+          "imdbrating" : 7.6
+        },
+        "highlight" : {
+          "actors" : [
+            "<em>Al</em> Gore"
+          ]
+        }
+      },
+      {
+        "_index" : "imdb_movies",
+        "_type" : "_doc",
+        "_id" : "tt0391024",
+        "_score" : 6.805195,
+        "_source" : {
+          "type" : "movie",
+          "title" : "Control Room",
+          "year" : 2004,
+          "rated" : null,
+          "released" : "2004-06-18T00:00:00+02:00",
+          "genres" : [
+            "Documentary"
+          ],
+          "directors" : [
+            "Jehane Noujaim"
+          ],
+          "writers" : [
+            "Julia Bacha",
+            "Jehane Noujaim"
+          ],
+          "actors" : [
+            "Samir Khader",
+            "Josh Rushing",
+            "George W. Bush",
+            "Hassan Ibrahim"
+          ],
+          "countries" : [
+            "USA"
+          ],
+          "plot" : "A documentary on perception of the United States's war with Iraq, with an emphasis on Al Jazeera's coverage.",
+          "poster" : "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMjA2NzM5NTkzOV5BMl5BanBnXkFtZTcwMjExMDcyMQ@@._V1_SX300.jpg",
+          "id" : "tt0391024",
+          "metascore" : 79,
+          "imdbrating" : 7.8
+        }
+      },
+      {
+        "_index" : "imdb_movies",
+        "_type" : "_doc",
+        "_id" : "tt0094226",
+        "_score" : 6.4576797,
+        "_source" : {
+          "type" : "movie",
+          "title" : "The Untouchables",
+          "year" : 1987,
+          "rated" : "R",
+          "released" : "1987-06-03T00:00:00+02:00",
+          "genres" : [
+            "Crime",
+            "Drama",
+            "History"
+          ],
+          "directors" : [
+            "Brian De Palma"
+          ],
+          "writers" : [
+            "Oscar Fraley",
+            "David Mamet"
+          ],
+          "actors" : [
+            "Kevin Costner",
+            "Sean Connery",
+            "Charles Martin Smith",
+            "Andy Garcia"
+          ],
+          "countries" : [
+            "USA"
+          ],
+          "plot" : "Federal Agent Eliot Ness sets out to stop Al Capone; because of rampant corruption, he assembles a small, hand-picked team.",
+          "poster" : "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMTc1MzY0MTcyMV5BMl5BanBnXkFtZTcwMzE3Njk3OA@@._V1_SX300.jpg",
+          "id" : "tt0094226",
+          "imdbrating" : 8
+        }
+      },
+      {
+        "_index" : "imdb_movies",
+        "_type" : "_doc",
+        "_id" : "tt0108734",
+        "_score" : 6.411784,
+        "_source" : {
+          "type" : "series",
+          "title" : "The Critic",
+          "year" : 1994,
+          "rated" : "TV-14",
+          "released" : "1994-01-26T00:00:00+01:00",
+          "genres" : [
+            "Animation",
+            "Comedy",
+            "Drama"
+          ],
+          "directors" : [ ],
+          "writers" : [
+            "Al Jean",
+            "Mike Reiss"
+          ],
+          "actors" : [
+            "Jon Lovitz",
+            "Nancy Cartwright",
+            "Christine Cavanaugh",
+            "Gerrit Graham"
+          ],
+          "countries" : [
+            "USA"
+          ],
+          "plot" : "Jay Sherman is a New York film critic who has to review films he doesn't like for a living.",
+          "poster" : "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMjA3NDI2MzE3OV5BMl5BanBnXkFtZTcwNjA4NjQyMQ@@._V1_SX300.jpg",
+          "id" : "tt0108734",
+          "imdbrating" : 8.1
+        },
+        "highlight" : {
+          "writers" : [
+            "<b>Al</b> Jean"
+          ]
+        }
+      },
+      {
+        "_index" : "imdb_movies",
+        "_type" : "_doc",
+        "_id" : "tt0116913",
+        "_score" : 6.411784,
+        "_source" : {
+          "type" : "movie",
+          "title" : "Looking for Richard",
+          "year" : 1996,
+          "rated" : "PG-13",
+          "released" : "1996-10-11T00:00:00+02:00",
+          "genres" : [
+            "Documentary",
+            "Drama"
+          ],
+          "directors" : [
+            "Al Pacino"
+          ],
+          "writers" : [
+            "William Shakespeare",
+            "Al Pacino"
+          ],
+          "actors" : [
+            "Penelope Allen",
+            "Gordon MacDonald",
+            "Madison Arnold",
+            "Vincent Angell"
+          ],
+          "countries" : [
+            "USA"
+          ],
+          "plot" : "Al Pacino's deeply-felt rumination on Shakespeare's significance and relevance to the modern world through interviews and an in-depth analysis of \"Richard III.\"",
+          "poster" : "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMTIyNTQwNzEwOV5BMl5BanBnXkFtZTcwMDEzNDMzMQ@@._V1_SX300.jpg",
+          "id" : "tt0116913",
+          "imdbrating" : 7.4
+        },
+        "highlight" : {
+          "writers" : [
+            "<b>Al</b> Pacino"
+          ]
+        }
+      },
+      {
+        "_index" : "imdb_movies",
+        "_type" : "_doc",
+        "_id" : "tt0098546",
+        "_score" : 5.8878617,
+        "_source" : {
+          "type" : "movie",
+          "title" : "UHF",
+          "year" : 1989,
+          "rated" : "PG-13",
+          "released" : "1989-07-21T00:00:00+02:00",
+          "genres" : [
+            "Comedy"
+          ],
+          "directors" : [
+            "Jay Levey"
+          ],
+          "writers" : [
+            "'Weird Al' Yankovic",
+            "Jay Levey"
+          ],
+          "actors" : [
+            "'Weird Al' Yankovic",
+            "Victoria Jackson",
+            "Kevin McCarthy",
+            "Michael Richards"
+          ],
+          "countries" : [
+            "USA"
+          ],
+          "plot" : "A local public station gets a new owner. The station becomes a hit, with all sorts of hilarious sight gags and wacky humor.",
+          "poster" : "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMTAzMjE2NDg5NjZeQTJeQWpwZ15BbWU3MDAzNzI4NzQ@._V1_SX300.jpg",
+          "id" : "tt0098546",
+          "metascore" : 32,
+          "imdbrating" : 7
+        },
+        "highlight" : {
+          "actors" : [
+            "'Weird <em>Al</em>' Yankovic"
+          ],
+          "writers" : [
+            "'Weird <b>Al</b>' Yankovic"
+          ]
+        }
+      },
+      {
+        "_index" : "imdb_movies",
+        "_type" : "_doc",
+        "_id" : "tt0097372",
+        "_score" : 5.5183444,
+        "_source" : {
+          "type" : "movie",
+          "title" : "For All Mankind",
+          "year" : 1989,
+          "rated" : "Not Rated",
+          "released" : "1989-11-01T00:00:00+01:00",
+          "genres" : [
+            "Documentary",
+            "History"
+          ],
+          "directors" : [
+            "Al Reinert"
+          ],
+          "writers" : [ ],
+          "actors" : [
+            "Jim Lovell",
+            "Russell Schweickart",
+            "Eugene Cernan",
+            "Michael Collins"
+          ],
+          "countries" : [
+            "USA"
+          ],
+          "plot" : "This movie documents the Apollo missions perhaps the most definitively of any movie under two hours. Al Reinert watched all the footage shot during the missions--over 6,000,000 feet of it, ...",
+          "poster" : "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BODE1MDIyNDUyM15BMl5BanBnXkFtZTcwNTc0MTk1Mg@@._V1_SX300.jpg",
+          "id" : "tt0097372",
+          "imdbrating" : 8.2
+        }
+      },
+      {
+        "_index" : "imdb_movies",
+        "_type" : "_doc",
+        "_id" : "tt0017925",
+        "_score" : 5.4430923,
+        "_source" : {
+          "type" : "movie",
+          "title" : "The General",
+          "year" : 1926,
+          "rated" : "Unrated",
+          "released" : "1927-02-24T00:00:00+01:00",
+          "genres" : [
+            "Action",
+            "Adventure",
+            "Comedy"
+          ],
+          "directors" : [
+            "Clyde Bruckman",
+            "Buster Keaton"
+          ],
+          "writers" : [
+            "Buster Keaton",
+            "Clyde Bruckman",
+            "Al Boasberg"
+          ],
+          "actors" : [
+            "Buster Keaton",
+            "Marion Mack",
+            "Glen Cavender",
+            "Jim Farley"
+          ],
+          "countries" : [
+            "USA"
+          ],
+          "plot" : "When Union spies steal an engineer's beloved locomotive, he pursues it single handedly and straight through enemy lines.",
+          "poster" : "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BODQxMzMyNTY5Nl5BMl5BanBnXkFtZTcwMDMyNTk3OA@@._V1_SX300.jpg",
+          "id" : "tt0017925",
+          "imdbrating" : 8.3
+        },
+        "highlight" : {
+          "writers" : [
+            "<b>Al</b> Boasberg"
+          ]
+        }
+      },
+      {
+        "_index" : "imdb_movies",
+        "_type" : "_doc",
+        "_id" : "tt0068315",
+        "_score" : 5.4430923,
+        "_source" : {
+          "type" : "movie",
+          "title" : "Brian's Song",
+          "year" : 1971,
+          "rated" : "G",
+          "released" : "1971-11-30T00:00:00+01:00",
+          "genres" : [
+            "Biography",
+            "Drama",
+            "Sport"
+          ],
+          "directors" : [
+            "Buzz Kulik"
+          ],
+          "writers" : [
+            "Gale Sayers",
+            "Al Silverman",
+            "William Blinn"
+          ],
+          "actors" : [
+            "James Caan",
+            "Billy Dee Williams",
+            "Jack Warden",
+            "Bernie Casey"
+          ],
+          "countries" : [
+            "USA"
+          ],
+          "plot" : "Based on the real-life relationship between teammates Brian Piccolo and Gale Sayers and the bond established when Piccolo discovers that he is dying.",
+          "poster" : "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMTkyNjQ3NTQ5Nl5BMl5BanBnXkFtZTcwMzk3NzUyMQ@@._V1_SX300.jpg",
+          "id" : "tt0068315",
+          "imdbrating" : 7.6
+        },
+        "highlight" : {
+          "writers" : [
+            "<b>Al</b> Silverman"
+          ]
+        }
+      }
+    ]
+  }
+}

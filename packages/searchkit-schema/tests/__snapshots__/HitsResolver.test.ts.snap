@@ -675,3 +675,169 @@ Object {
   },
 }
 `;
+
+exports[`Hits Resolver should return as expected should return correct highlight Results 2`] = `
+Object {
+  "results": Object {
+    "hits": Object {
+      "items": Array [
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Tom Neal",
+              "Ann Savage",
+              "Claudia Drake",
+              "Edmund MacDonald",
+            ],
+            "writers": Array [
+              "Martin Goldsmith",
+              "Martin Goldsmith",
+            ],
+          },
+          "highlight": null,
+          "id": "tt0037638",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Al Gore",
+              "Billy West",
+            ],
+            "writers": Array [],
+          },
+          "highlight": "{\\"actors\\":[\\"<em>Al</em> Gore\\"]}",
+          "id": "tt0497116",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Samir Khader",
+              "Josh Rushing",
+              "George W. Bush",
+              "Hassan Ibrahim",
+            ],
+            "writers": Array [
+              "Julia Bacha",
+              "Jehane Noujaim",
+            ],
+          },
+          "highlight": null,
+          "id": "tt0391024",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Kevin Costner",
+              "Sean Connery",
+              "Charles Martin Smith",
+              "Andy Garcia",
+            ],
+            "writers": Array [
+              "Oscar Fraley",
+              "David Mamet",
+            ],
+          },
+          "highlight": null,
+          "id": "tt0094226",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Jon Lovitz",
+              "Nancy Cartwright",
+              "Christine Cavanaugh",
+              "Gerrit Graham",
+            ],
+            "writers": Array [
+              "Al Jean",
+              "Mike Reiss",
+            ],
+          },
+          "highlight": "{\\"writers\\":[\\"<b>Al</b> Jean\\"]}",
+          "id": "tt0108734",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Penelope Allen",
+              "Gordon MacDonald",
+              "Madison Arnold",
+              "Vincent Angell",
+            ],
+            "writers": Array [
+              "William Shakespeare",
+              "Al Pacino",
+            ],
+          },
+          "highlight": "{\\"writers\\":[\\"<b>Al</b> Pacino\\"]}",
+          "id": "tt0116913",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "'Weird Al' Yankovic",
+              "Victoria Jackson",
+              "Kevin McCarthy",
+              "Michael Richards",
+            ],
+            "writers": Array [
+              "'Weird Al' Yankovic",
+              "Jay Levey",
+            ],
+          },
+          "highlight": "{\\"actors\\":[\\"'Weird <em>Al</em>' Yankovic\\"],\\"writers\\":[\\"'Weird <b>Al</b>' Yankovic\\"]}",
+          "id": "tt0098546",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Jim Lovell",
+              "Russell Schweickart",
+              "Eugene Cernan",
+              "Michael Collins",
+            ],
+            "writers": Array [],
+          },
+          "highlight": null,
+          "id": "tt0097372",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "Buster Keaton",
+              "Marion Mack",
+              "Glen Cavender",
+              "Jim Farley",
+            ],
+            "writers": Array [
+              "Buster Keaton",
+              "Clyde Bruckman",
+              "Al Boasberg",
+            ],
+          },
+          "highlight": "{\\"writers\\":[\\"<b>Al</b> Boasberg\\"]}",
+          "id": "tt0017925",
+        },
+        Object {
+          "fields": Object {
+            "actors": Array [
+              "James Caan",
+              "Billy Dee Williams",
+              "Jack Warden",
+              "Bernie Casey",
+            ],
+            "writers": Array [
+              "Gale Sayers",
+              "Al Silverman",
+              "William Blinn",
+            ],
+          },
+          "highlight": "{\\"writers\\":[\\"<b>Al</b> Silverman\\"]}",
+          "id": "tt0068315",
+        },
+      ],
+      "sortedBy": null,
+    },
+  },
+}
+`;

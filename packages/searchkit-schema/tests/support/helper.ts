@@ -5,9 +5,13 @@ import Server from './server'
 
 let agent
 
-export const setupTestServer = (config: SearchkitSchemaConfig | Array<SearchkitSchemaConfig>) => {
+export const setupTestServer = (
+  config: SearchkitSchemaConfig | Array<SearchkitSchemaConfig>,
+  customTypeDefs?: any,
+  customResolvers?: any
+) => {
   const app = express()
-  const appServer = new Server(config)
+  const appServer = new Server(config, customTypeDefs, customResolvers)
   app.use(appServer.setupApolloServer())
   agent = request(app)
 }

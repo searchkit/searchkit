@@ -1,12 +1,19 @@
 import nock from 'nock'
+import { gql } from 'apollo-server-micro'
 import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
 import { MultiMatchQuery } from '../src'
 import { setupTestServer, callQuery } from './support/helper'
 import HitsMock from './__mock-data__/HitResolver/Hits.json'
+import HighlightHitsMock from './__mock-data__/HitResolver/HighlightHits.json'
 
 describe('Hits Resolver', () => {
   describe('should return as expected', () => {
-    const runQuery = async (query = '', page = { size: 10, from: 0 }, sorting?: string) => {
+    const runQuery = async (
+      query = '',
+      page = { size: 10, from: 0 },
+      sorting?: string,
+      includeHighlight?: boolean
+    ) => {
       const gql = `
         {
           results(query: "${query}") {
@@ -21,6 +28,7 @@ describe('Hits Resolver', () => {
                     writers
                     actors
                   }
+                  ${includeHighlight ? 'highlight' : ''}
                 }
               }
             }
@@ -205,6 +213,110 @@ describe('Hits Resolver', () => {
       response = await runQuery('', { size: 10, from: 10 }, 'released')
       expect(response.body.data).toMatchSnapshot()
 
+      expect(response.status).toEqual(200)
+    })
+
+    it('should return correct highlight Results', async () => {
+      const config: SearchkitConfig = {
+        host: 'http://localhost:9200',
+        index: 'movies',
+        hits: {
+          fields: ['actors', 'writers'],
+          highlightedFields: [
+            'actors',
+            { field: 'writers', config: { pre_tags: ['<b>'], post_tags: ['</b>'] } }
+          ]
+        },
+        query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] })
+      }
+
+      setupTestServer(
+        {
+          config,
+          addToQueryType: true,
+          typeName: 'ResultSet',
+          hitTypeName: 'ResultHit'
+        },
+        gql`
+          type Query {
+            root: String
+          }
+
+          type Mutation {
+            root: String
+          }
+
+          type HitFields {
+            title: String
+            writers: [String]
+            actors: [String]
+            plot: String
+            poster: String
+          }
+
+          type ResultHit implements SKHit {
+            id: ID!
+            fields: HitFields
+            highlight: String
+          }
+        `,
+        {
+          ResultHit: {
+            highlight: (hit: any) => JSON.stringify(hit.highlight)
+          }
+        }
+      )
+
+      const scope = nock('http://localhost:9200')
+        .post('/movies/_search')
+        .reply((uri, body) => {
+          expect(body).toMatchInlineSnapshot(`
+            Object {
+              "aggs": Object {},
+              "from": 0,
+              "highlight": Object {
+                "fields": Object {
+                  "actors": Object {},
+                  "writers": Object {
+                    "post_tags": Array [
+                      "</b>",
+                    ],
+                    "pre_tags": Array [
+                      "<b>",
+                    ],
+                  },
+                },
+              },
+              "query": Object {
+                "bool": Object {
+                  "must": Array [
+                    Object {
+                      "multi_match": Object {
+                        "fields": Array [
+                          "actors",
+                          "writers",
+                          "title^4",
+                          "plot",
+                        ],
+                        "query": "al",
+                      },
+                    },
+                  ],
+                },
+              },
+              "size": 10,
+              "sort": Array [
+                Object {
+                  "_score": "desc",
+                },
+              ],
+            }
+          `)
+          return [200, HighlightHitsMock]
+        })
+
+      const response = await runQuery('al', { size: 10, from: 0 }, undefined, true)
+      expect(response.body.data).toMatchSnapshot()
       expect(response.status).toEqual(200)
     })
   })

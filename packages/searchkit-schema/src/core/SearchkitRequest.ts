@@ -107,6 +107,18 @@ export default class SearchkitRequest {
     const combinedFilterConfigs = [...(this.config.facets || []), ...(this.config.filters || [])]
     const postFilter = filterTransform(this.queryManager, combinedFilterConfigs)
 
+    let highlight
+    this.config.hits.highlightedFields?.forEach((field) => {
+      if (!highlight) {
+        highlight = { fields: {} }
+      }
+      if (typeof field == 'string') {
+        highlight.fields[field] = {}
+      } else {
+        highlight.fields[field.field] = field.config
+      }
+    })
+
     const baseQuery = { size: 0 }
 
     return mergeESQueries(
@@ -114,6 +126,7 @@ export default class SearchkitRequest {
         baseQuery,
         query && { query },
         postFilter && { post_filter: postFilter },
+        highlight && { highlight },
         ...(partialQueries as any[])
       ].filter(Boolean)
     )

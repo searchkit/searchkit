@@ -44,7 +44,9 @@ export default async (parent, parameters: HitsParameters, ctx) => {
       items: hits.hits.map((hit) => ({
         id: hit._id,
         fields: hit._source,
-        type: parent.searchkit.hitType
+        type: parent.searchkit.hitType,
+        highlight: hit.highlight,
+        rawHit: hit
       })),
       page: {
         total: hitsTotal,
