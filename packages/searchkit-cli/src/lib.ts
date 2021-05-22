@@ -231,7 +231,7 @@ export const getSKQuickStartText = ({
   mapping
 }) => {
   const mappingCall = {
-      properties: mapping
+    properties: mapping
   }
 
   return `

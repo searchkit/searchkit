@@ -12,12 +12,18 @@ export interface SortingOption {
   defaultOption?: boolean
 }
 
+export interface CustomHighlightConfig {
+  field: string
+  config: any
+}
+
 export interface SearchkitConfig {
   host: string
   index: string
   sortOptions?: SortingOption[]
   hits: {
     fields: string[]
+    highlightedFields?: (string | CustomHighlightConfig)[]
   }
   query?: BaseQuery
   facets?: Array<BaseFacet>
