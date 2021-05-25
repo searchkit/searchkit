@@ -10,8 +10,6 @@ import {
   useSearchkitVariables,
   useSearchkitQueryValue
 } from '../searchkit'
-import type { SearchState } from '../searchkit'
-import history from '../history'
 
 jest.mock('@apollo/client', () => ({
   useQuery: jest.fn().mockReturnValue(true)
