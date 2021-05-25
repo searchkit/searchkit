@@ -97,7 +97,7 @@ const query = gql`
 
 const Page = () => {
   const variables = useSearchkitVariables()
-  const { data, loading } = useQuery(query, { variables })
+  const { previousData, data = previousData, loading } = useQuery(query, { variables })
   const [viewType, setViewType] = useState('list')
   const Facets = FacetsList([])
   return (

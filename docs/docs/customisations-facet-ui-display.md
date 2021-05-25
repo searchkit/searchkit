@@ -81,9 +81,7 @@ Then add the facet to FacetsList
 
   export default () => {
     const variables = useSearchkitVariables()
-    const { data, loading } = useQuery(query, {
-      variables
-    })
+    const { previousData, data = previousData, loading } = useQuery(QUERY, { variables })
     const Facets = FacetsList([ColourPickerFacet])
     return (
       ...

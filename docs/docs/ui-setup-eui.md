@@ -139,7 +139,7 @@ export const HitsList = ({ data }) => (
 
 export default () => {
   const variables = useSearchkitVariables()
-  const { data, loading } = useQuery(query, {
+  const { previousData, data = previousData, loading } = useQuery(QUERY, {
     variables
   })
   const Facets = FacetsList([])
