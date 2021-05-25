@@ -22,7 +22,6 @@
   "scripts": {
     "build": "rm -rf lib; tsc && tsc -p tsconfig-cjs.json",
     "dev": "rm -rf lib; tsc --watch",
-    "dev2": "tsc --watch -p tsconfig-cjs.json",
     "test": "jest"
   },
   "publishConfig": {
@@ -45,9 +44,12 @@
     "ts-jest": "^26.4.4",
     "typescript": "^4.0.5"
   },
+  "dependencies": {
+    "qs": "^6.10.1",
+    "lodash": "^4.17.21"
+  },
   "peerDependencies": {
     "@apollo/client": "^3.x.x",
-    "react": "*",
-    "react-dom": "*"
+    "react": "*"
   }
 }
