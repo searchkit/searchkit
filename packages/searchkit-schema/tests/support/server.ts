@@ -56,9 +56,17 @@ const userTypeDefs = gql`
 
 class Server {
   config: SearchkitSchemaConfig | Array<SearchkitSchemaConfig>
+  customTypeDefs: any
+  customResolvers: any
 
-  constructor(config: SearchkitSchemaConfig | Array<SearchkitSchemaConfig>) {
+  constructor(
+    config: SearchkitSchemaConfig | Array<SearchkitSchemaConfig>,
+    customTypeDefs?: string,
+    customResolvers?: any
+  ) {
     this.config = config
+    this.customTypeDefs = customTypeDefs
+    this.customResolvers = customResolvers
   }
 
   setupApolloServer() {
@@ -81,11 +89,10 @@ class Server {
         }
       })
     } else {
-      // when only one config, the default searchkit
-      td = [...typeDefs, baseTypeDefs]
-      r = withSearchkitResolvers()
+      // when only one config, the default searchkit, which maybe overriden using customTypeDefs
+      td = [...typeDefs, this.customTypeDefs ? this.customTypeDefs : baseTypeDefs]
+      r = withSearchkitResolvers(this.customResolvers)
     }
-
     const server = new ApolloServer({
       typeDefs: td,
       resolvers: r,
