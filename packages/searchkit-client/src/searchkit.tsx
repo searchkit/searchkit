@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { isArray, isUndefined } from 'lodash'
+import { isUndefined } from 'lodash'
 import { useQuery } from '@apollo/client'
-import history, { Router, RouteState } from './history'
 
 export interface Filter {
   identifier: string

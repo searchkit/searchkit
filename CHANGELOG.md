@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-canary.32](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.27...v3.0.0-canary.32) (2021-05-25)
+
+
+### Features
+
+* Add highlight support for matched words ([#880](https://github.com/searchkit/searchkit/issues/880)) ([a7b971e](https://github.com/searchkit/searchkit/commit/a7b971e778bc017f9feb535cd848a7776f82778e))
+* **rangefilter:** allow min / max & dateMin / dateMax to be optional ([#859](https://github.com/searchkit/searchkit/issues/859)) ([a27e774](https://github.com/searchkit/searchkit/commit/a27e774692c9e8860fddc82334aa8910d7422fb1)), closes [#844](https://github.com/searchkit/searchkit/issues/844)
+* add optional postProcessRequest ([#857](https://github.com/searchkit/searchkit/issues/857)) ([fc98800](https://github.com/searchkit/searchkit/commit/fc9880037ad04c7089af22a1bd0bc4ec3715b9c4))
+
+
+
+
+
 # [3.0.0-canary.31](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.27...v3.0.0-canary.31) (2021-05-25)
 
 
