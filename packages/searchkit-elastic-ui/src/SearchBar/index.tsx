@@ -1,20 +1,21 @@
-import { useSearchkit } from '@searchkit/client'
+import { useSearchkit, useSearchkitQueryValue } from '@searchkit/client'
 import { EuiFieldSearch } from '@elastic/eui'
-import React, { useState } from 'react'
+import React from 'react'
 
 export const SearchBar = ({ loading }) => {
+  const [query, setQuery] = useSearchkitQueryValue()
   const api = useSearchkit()
-  const [value, setValue] = useState(api.getQuery())
 
   return (
     <EuiFieldSearch
       placeholder="Search"
-      value={value}
+      value={query}
       onChange={(e) => {
-        setValue(e.target.value)
+        setQuery(e.target.value)
       }}
       isLoading={loading}
-      onSearch={() => {
+      onSearch={(value) => {
+        setQuery(value)
         api.setQuery(value)
         api.search()
       }}

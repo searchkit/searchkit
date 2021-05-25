@@ -18,19 +18,9 @@ The SearchkitClient class encapsulates Searchkit's core client-side API. Maintai
 ```javascript
 import { SearchkitClient } from '@searchkit/client'
 
-const client = new SearchkitClient({
-  itemsPerPage: 12,
-  searchOnLoad: true
-})
+const client = new SearchkitClient()
 
 ```
-
-### SearchkitClientConfig Field Options
-
-| Option        |      Description      |
-| :------------- | :----------- |
-| itemsPerPage         | Optional. Default number of items per page. |
-| searchOnLoad | A boolean to search on load, defaults to true |
 
 ### SearchkitClient Methods
 
@@ -97,6 +87,22 @@ export default withSearchkit(Index)
 
 ```
 
+## withSeachkitRouting HOC
+Wraps component with Searchkit Routing functionality. Requires NextJS Page. See [url synchronization](www.searchkit.co/docs/guides/url-synchronization) for more information.
+
+### Usage
+
+```javascript
+import { withSearchkit, withSearchkitRouting } from '@searchkit/client'
+
+const Index = (props) => {
+  return <Search />
+}
+
+export default withSearchkit(withSearchkitRouting(Index))
+
+```
+
 ## Searchkit Provider
 Provides to child components access to the shared SearchkitClient instance
 
@@ -144,13 +150,14 @@ const SearchInput = () => {
 }
 ```
 
-## useSearchkitQuery(query)
-Query contains all data requirements needed to power the search.
+## useSearchkitVariables Hook
+Hook that returns all searchkit variables needed to power the search. Use in conjuction with apollo client.
 
 ### Usage
 
 ```javascript
-import { useSearchkitQuery } from '@searchkit/client'
+import { useQuery } from '@apollo/client'
+import { useSearchkitVariables } from '@searchkit/client'
 
 const query = gql`
   query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput, $sortBy: String) {
@@ -165,7 +172,10 @@ const query = gql`
 `
 
 const Index = () => {
-  const { data, loading } = useSearchkitQuery(query)
+  const variables = useSearchkitVariables()
+  const { data, loading } = useQuery(query, {
+    variables
+  })
   return (
     <div>search</div>
   )
@@ -173,7 +183,34 @@ const Index = () => {
 }
 ```
 
-### Options
-| Option        | Description      |
-| :------------- | :----------- |
-| query          | GQL query that has query, filters, sorting & page variables |
+## useSearchkitQueryValue Hook
+Hook thats similar to the react useState hook but listens on changes to SearchkitClient and updates the value should there be a change in value outside of the component (like url query change).
+
+### Usage
+
+```javascript
+import { useSearchkit, useSearchkitQueryValue } from '@searchkit/client'
+import React from 'react'
+
+export const SearchBar = () => {
+  const [query, setQuery] = useSearchkitQueryValue()
+  const api = useSearchkit()
+
+  return (
+    <form onSubmit={(e) => {
+        e.preventDefault()
+        api.setQuery(value)
+        api.search()
+    }}
+      <input
+        placeholder="Search"
+        value={query}
+        onChange={(e) => {
+          setQuery(e.target.value)
+        }}
+      />
+    </form>
+  )
+}
+
+```

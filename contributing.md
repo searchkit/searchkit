@@ -18,7 +18,7 @@ yarn run test
 1. In your app's `package.json`, replace:
 
    ```json
-   "@searchkit/apollo-resolvers": "<searchkit-version>",
+   "@searchkit/schema": "<searchkit-version>",
    "@searchkit/client": "<searchkit-version>",
    "@searchkit/elastic-ui": "<searchkit-version>",
 
@@ -27,7 +27,9 @@ yarn run test
    with:
 
    ```json
-   "next": "file:<local-path-to-cloned-searchkit-repo>/packages/<searchkit-package>",
+   "@searchkit/schema": "file:<local-path-to-cloned-searchkit-repo>/packages/searchkit-schema",
+   "@searchkit/client": "file:<local-path-to-cloned-searchkit-repo>/packages/searchkit-client",
+   "@searchkit/elastic-ui": "file:<local-path-to-cloned-searchkit-repo>/packages/searchkit-elastic-ui",
    ```
 
 2. In your app's root directory, make sure to remove `@searchkit` from `node_modules` with:

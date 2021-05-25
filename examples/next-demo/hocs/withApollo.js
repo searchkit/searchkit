@@ -1,30 +1,21 @@
-import React from 'react'
-import withApollo from 'next-with-apollo'
+// lib/withApollo.js
+import withApollo from 'next-with-apollo';
 import { InMemoryCache, ApolloProvider, ApolloClient } from '@apollo/client'
 
 export default withApollo(
   ({ initialState }) => {
-    const cache = new InMemoryCache({
-      typePolicies: {
-        FacetSetEntry: {
-          keyFields: false
-        }
-      }
-      // possibleTypes: introspectionResult.possibleTypes
-    }).restore(initialState || {})
-
-    if (typeof window !== 'undefined') window.cache = cache
-
     return new ApolloClient({
-      uri: `/api/graphql`,
-      cache
-    })
+      uri: 'http://localhost:3000/api/graphql',
+      cache: new InMemoryCache().restore(initialState || {})
+    });
   },
   {
-    render: ({ Page, props }) => (
-      <ApolloProvider client={props.apollo}>
-        <Page {...props} />
-      </ApolloProvider>
-    )
+    render: ({ Page, props }) => {
+      return (
+        <ApolloProvider client={props.apollo}>
+          <Page {...props} />
+        </ApolloProvider>
+      );
+    }
   }
-)
+);

@@ -3,7 +3,32 @@ import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 
 jest.mock('@searchkit/client', () => {
   const originalModule = jest.requireActual('@searchkit/client')
-  const api = new originalModule.SearchkitClient()
+
+  const createSearchkitClient = () => {
+    const state = Object.assign(
+      {},
+      {
+        query: '',
+        filters: [],
+        sortBy: '',
+        page: {
+          size: 10,
+          from: 0
+        }
+      }
+    )
+    const setState = (arg) => {
+      Object.assign(state, arg(state))
+    }
+    const api = new originalModule.SearchkitClient()
+    api.setSearchState = setState
+    api.searchState = state
+
+    return api
+  }
+
+  const api = createSearchkitClient()
+
   return {
     __esModule: true,
     ...originalModule,
