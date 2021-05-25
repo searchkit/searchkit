@@ -14,7 +14,7 @@ This will enable you to be able to provide query params in the url for searchkit
 
 To get started, import the `withSearchkitRouting` HOC from `@searchkit/client` package.
 
-```
+```javascript
 import { withSearchkit, withSearchkitRouting } from '@searchkit/client'
 import dynamic from 'next/dynamic'
 import withApollo from '../hocs/withApollo'
@@ -29,7 +29,7 @@ export default withApollo(withSearchkit(withSearchkitRouting(Search)))
 
 Out the box, searchkit provides default url serialisation functions. You may want to make the url more "pretty", depending on your application. To do so, you need to provide two functions to the HOC, `stateToRoute` and `routeToState`
 
-```
+```javascript
 export default withApollo(withSearchkit(withSearchkitRouting(Search, {
   stateToRoute: myCustomStateToRouteFn,
   routeToState: myCustomRouteToStateFn
@@ -38,7 +38,7 @@ export default withApollo(withSearchkit(withSearchkitRouting(Search, {
 
 `myCustomStateToRouteFn` will get the searchState from searchkitClient and you need to return an object for querystring to serialise to. An example of one below
 
-```
+```javascript
 const myCustomStateToRouteFn = (searchState) => {
   const routeState = {
     query: searchState.query,
@@ -62,7 +62,7 @@ const myCustomStateToRouteFn = (searchState) => {
 
 `myCustomRouteToStateFn` will get the routeState from the url (objectified via QS) and you need to return a searchState object. An example of one below
 
-```
+```javascript
 export const routeToStateFn = (routeState) => ({
   query: routeState.query || '',
   sortBy: routeState.sort,
@@ -79,7 +79,7 @@ export const routeToStateFn = (routeState) => ({
 
 You will need to use the `useSearchkitQueryValue` hook to maintain the searchbar input value. The hook will listen to changes to the searchkit state and update.
 
-```
+```javascript
 import { useSearchkit, useSearchkitQueryValue } from '@searchkit/client'
 import { EuiFieldSearch } from '@elastic/eui'
 import React from 'react'

@@ -11,7 +11,7 @@ Then you must enable [url synchronization](www.searchkit.co/docs/guides/url-sync
 
 An example of the configuration can be seen below:
 
-```
+```javascript
 import { useQuery, gql } from '@apollo/client'
 import { withSearchkit, useSearchkitVariables, withSearchkitRouting } from '@searchkit/client'
 import withApollo from '../hocs/withApollo'
