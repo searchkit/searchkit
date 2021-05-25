@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-canary.31](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.27...v3.0.0-canary.31) (2021-05-25)
+
+**Note:** Version bump only for package @searchkit/elastic-ui
+
+
+
+
+
 # [3.0.0-canary.30](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.27...v3.0.0-canary.30) (2021-02-13)
 
 **Note:** Version bump only for package @searchkit/elastic-ui
