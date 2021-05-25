@@ -33,7 +33,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@searchkit/client": "file:/Users/joe/projects/searchkit/packages/searchkit-client",
+    "@searchkit/client": "^3.0.0-canary.30",
     "use-debounce": "^5.0.3"
   },
   "devDependencies": {
