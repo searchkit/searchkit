@@ -1,12 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import history, { Router } from './history'
-
-type SearchkitClientRoutingOptions = {
-  stateMapping: {
-    stateToRoute: (searchState: SearchState) => any
-    routeToState: (routeState: any) => SearchState
-  }
-}
+import { isArray, isUndefined } from 'lodash'
+import { useQuery } from '@apollo/client'
+import history, { Router, RouteState } from './history'
 
 export interface Filter {
   identifier: string
@@ -31,24 +26,20 @@ interface SearchkitQueryVariables {
 
 export interface SearchkitClientConfig {
   itemsPerPage?: number
-  searchOnLoad?: boolean
-  routing?: SearchkitClientRoutingOptions
 }
-
-const isDefined = (str) => typeof str !== 'undefined'
 
 const filterSelector = (filter: Filter) => (f: Filter) => {
   if (filter.identifier !== f.identifier) return false
   if (
-    isDefined(filter.min) &&
-    isDefined(filter.max) &&
+    !isUndefined(filter.min) &&
+    !isUndefined(filter.max) &&
     filter.min === f.min &&
     filter.max === f.max
   )
     return true
   if (
-    isDefined(filter.dateMin) &&
-    isDefined(filter.dateMax) &&
+    !isUndefined(filter.dateMin) &&
+    !isUndefined(filter.dateMax) &&
     filter.dateMin === f.dateMin &&
     filter.dateMax === f.dateMax
   )
@@ -57,11 +48,26 @@ const filterSelector = (filter: Filter) => (f: Filter) => {
   return false
 }
 
-const searchStateDiff = (a: SearchState, b: SearchState) => {
-  return JSON.stringify(a) !== JSON.stringify(b)
+export const searchStateEqual = (a: SearchState, b: SearchState) => {
+  if (a.query !== b.query) return false
+  if (a.sortBy !== b.sortBy) return false
+  if (a.page.from !== b.page.from) return false
+  if (a.page.size !== b.page.size) return false
+  if (a.filters.length !== b.filters.length) return false
+
+  const filterDiffs = a.filters.find((filter) => {
+    const filterSelectorA = filterSelector(filter)
+    if (!b.filters.find(filterSelectorA)) {
+      return true
+    }
+    return false
+  })
+  if (filterDiffs) return false
+
+  return true
 }
 
-type SearchState = {
+export type SearchState = {
   query: string
   filters: Array<Filter>
   sortBy: string
@@ -69,16 +75,24 @@ type SearchState = {
 }
 
 export class SearchkitClient {
-  public searchOnLoad: boolean
   private onSearch: (variables: SearchkitQueryVariables) => void
-  public routing: SearchkitClientRoutingOptions
+  public baseSearchState: SearchState
   public searchState: SearchState
-  public setSearchState: (searchState: SearchState | ((prevState: SearchState) => SearchState) ) => void
+  public setSearchState: (
+    searchState: SearchState | ((prevState: SearchState) => SearchState)
+  ) => void
 
-  constructor({ searchOnLoad = true, itemsPerPage = 10, routing }: SearchkitClientConfig = {}) {
+  constructor({}: SearchkitClientConfig = {}) {
+    this.baseSearchState = {
+      query: '',
+      filters: [],
+      page: {
+        size: 10,
+        from: 0
+      },
+      sortBy: null
+    }
     this.onSearch = null
-    this.searchOnLoad = searchOnLoad
-    this.routing = routing
   }
 
   private performSearch() {
@@ -93,13 +107,23 @@ export class SearchkitClient {
     this.onSearch = callback
   }
 
+  public updateBaseSearchState(updates: Partial<SearchState>): void {
+    this.baseSearchState = {
+      ...this.baseSearchState,
+      ...updates,
+      page: {
+        ...this.baseSearchState.page,
+        ...updates.page
+      }
+    }
+  }
+
   setQuery(query: string): void {
-    debugger
     this.setSearchState((searchState: SearchState) => ({
       ...searchState,
       query,
       filters: [],
-      page: { from: 0, size: 10 }
+      page: { from: 0, size: searchState.page.size }
     }))
   }
 
@@ -175,10 +199,10 @@ export class SearchkitClient {
   }
 
   setSortBy(sortBy: string): void {
-    this.setSearchState({
-      ...this.searchState,
+    this.setSearchState((prevState) => ({
+      ...prevState,
       sortBy
-    })
+    }))
   }
 }
 
@@ -192,17 +216,10 @@ export function SearchkitProvider({
   client: SearchkitClient
   children: React.ReactElement
 }) {
-  ;[client.searchState, client.setSearchState] = useState({
-    query: '',
-    filters: [],
-    page: {
-      size: 10,
-      from: 0
-    },
-    sortBy: null
-  })
+  const baseState = client.baseSearchState
+  ;[client.searchState, client.setSearchState] = useState(baseState)
   const [pendingSearch, setPendingSearch] = useState(false)
-  const [searchVariables, setSearchVariables] = useState()
+  const [searchVariables, setSearchVariables] = useState(baseState)
 
   client.setCallbackFn(() => {
     setPendingSearch(true)
@@ -214,27 +231,6 @@ export function SearchkitProvider({
       setSearchVariables(client.searchState as any)
     }
   }, [pendingSearch])
-
-  if (!(typeof window === 'undefined')) {
-    this.router = history()
-    this.router.onUpdate((routeState) => {
-      const searchState: SearchState = this.routing.stateMapping.routeToState(routeState)
-      if (
-        searchState.query !== this.searchState.query ||
-        this.searchState.filters.length !== searchState.filters.length ||
-        this.searchState.sortBy !== searchState.sortBy
-      ) {
-        this.setSearchState(searchState)
-        this.performSearch()
-      }
-    })
-  }
-
-  useEffect(() => {
-    if (client.routing) {
-
-    }
-  })
 
   return (
     <SearchkitContext.Provider value={client}>
@@ -253,4 +249,24 @@ export function useSearchkitVariables() {
 export function useSearchkit(): SearchkitClient {
   const sk = useContext(SearchkitContext) as SearchkitClient
   return sk
+}
+
+export function useSearchkitQueryValue(): [string, (a: string) => void] {
+  const api = useSearchkit()
+  const [query, setQuery] = useState(api.getQuery())
+  useEffect(() => {
+    setQuery(api.getQuery() || '')
+  }, [api.searchState])
+
+  return [query, setQuery]
+}
+
+export function useSearchkitQuery(query) {
+  console.warn(
+    'useSearchkitQuery has now been deprecated. Use useSearchkitVariables hook + useQuery instead.'
+  )
+  const variables = useSearchkitVariables()
+  return useQuery(query, {
+    variables
+  })
 }
