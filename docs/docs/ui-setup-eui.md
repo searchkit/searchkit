@@ -24,8 +24,8 @@ Below is an example of a typical Searchkit page which uses EUI and Searchkit EUI
 ```javascript
 # components/search.js
 
-import { useSearchkitQuery } from '@searchkit/client'
-import { gql } from '@apollo/client'
+import { useSearchkitVariables } from '@searchkit/client'
+import { gql, useQuery } from '@apollo/client'
 
 import {
   FacetsList,
@@ -138,8 +138,10 @@ export const HitsList = ({ data }) => (
 )
 
 export default () => {
-
-  const { data, loading } = useSearchkitQuery(query)
+  const variables = useSearchkitVariables()
+  const { data, loading } = useQuery(query, {
+    variables
+  })
   const Facets = FacetsList([])
   return (
     <EuiPage>

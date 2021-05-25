@@ -76,10 +76,14 @@ ColourPickerFacet.DISPLAY = 'ColourPickerFacet'
 Then add the facet to FacetsList
 
 ```javascript
-  import { FacetsList } from "@searchkit/elastic-ui" 
+  import { FacetsList } from "@searchkit/elastic-ui"
+  import { useSearchkitVariables } from "@searchkit/client"
 
   export default () => {
-    const { data, loading } = useSearchkitQuery(query)
+    const variables = useSearchkitVariables()
+    const { data, loading } = useQuery(query, {
+      variables
+    })
     const Facets = FacetsList([ColourPickerFacet])
     return (
       ...

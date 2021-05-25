@@ -11,8 +11,8 @@ Require to setup the provider, define a GQL query for components and use the sea
 
 ```javascript
 
-import { useSearchkitQuery, SearchkitProvider, SearchkitClient } from '@searchkit/client'
-import { gql } from '@apollo/client'
+import { useSearchkitVariables, SearchkitProvider, SearchkitClient } from '@searchkit/client'
+import { gql, useQuery } from '@apollo/client'
 
 const query = gql`
   query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput) {
@@ -51,7 +51,7 @@ const query = gql`
         items {
           id
           fields {
-            
+
           }
         }
       }
@@ -73,8 +73,10 @@ const query = gql`
 const client = SearchkitClient()
 
 export default () => {
-
-  const { data, loading } = useSearchkitQuery(query)
+  const variables = useSearchkitVariables()
+  const { data, loading } = useQuery(query, {
+    variables
+  })
 
   return (
     <div>
