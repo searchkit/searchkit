@@ -1,5 +1,5 @@
-import {  gql } from '@apollo/client';
-import { useSearchkitQuery, useSearchkit } from '@searchkit/client'
+import {  gql, useQuery } from '@apollo/client';
+import { useSearchkitVariables, useSearchkit } from '@searchkit/client'
 
 import React, { useState } from 'react'
 
@@ -95,7 +95,8 @@ const Facet = ({facet}) =>{
 }
 
 export default () => {
-  const { data, loading } = useSearchkitQuery(query)
+  const variables = useSearchkitVariables()
+  const { data, loading } = useQuery(query, { variables })
   if (loading) return null
   return (
     <div>

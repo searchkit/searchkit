@@ -1,7 +1,7 @@
-import { useSearchkitQuery } from '@searchkit/client'
-import { gql } from '@apollo/client'
+import { gql, useQuery } from '@apollo/client'
 import { useState } from 'react'
 import { HitsList, HitsGrid } from './searchkit/Hits'
+import { useSearchkitVariables } from '@searchkit/client'
 import {
   FacetsList,
   SearchBar,
@@ -27,6 +27,7 @@ import {
   EuiFlexGroup,
   EuiFlexItem
 } from '@elastic/eui'
+import { useEffect } from 'react'
 
 const query = gql`
   query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput, $sortBy: String) {
@@ -96,7 +97,11 @@ const query = gql`
 `
 
 const Page = () => {
-  const { data, loading } = useSearchkitQuery(query)
+  const variables = useSearchkitVariables()
+  const { previousData, data = previousData, loading } = useQuery(query, {
+    variables: variables
+  })
+
   const [viewType, setViewType] = useState('list')
   const Facets = FacetsList([])
   return (

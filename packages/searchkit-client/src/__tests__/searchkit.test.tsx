@@ -1,17 +1,41 @@
 import { renderHook, act } from '@testing-library/react-hooks'
 import React from 'react'
-import { useLazyQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import {
   SearchkitClient,
   SearchkitContext,
   SearchkitProvider,
   useSearchkit,
-  useSearchkitQuery
+  useSearchkitQuery,
+  useSearchkitVariables,
+  useSearchkitQueryValue
 } from '../searchkit'
 
 jest.mock('@apollo/client', () => ({
-  useLazyQuery: jest.fn().mockReturnValue([jest.fn(), {}])
+  useQuery: jest.fn().mockReturnValue(true)
 }))
+
+const initial = {
+  query: '',
+  filters: [],
+  sortBy: '',
+  page: {
+    size: 10,
+    from: 0
+  }
+}
+
+const createSearchkitClient = () => {
+  const state = Object.assign({}, initial)
+  const setState = (arg) => {
+    Object.assign(state, arg(state))
+  }
+  const api = new SearchkitClient()
+  api.setSearchState = setState
+  api.searchState = state
+
+  return api
+}
 
 describe('Searchkit Client', () => {
   it('should be exportable', () => {
@@ -22,7 +46,8 @@ describe('Searchkit Client', () => {
   })
 
   it('default state to be empty', () => {
-    const api = new SearchkitClient()
+    const api = createSearchkitClient()
+
     expect(api.getQuery()).toBe('')
     expect(api.getFilters()).toEqual([])
     expect(api.getFiltersByIdentifier('anId')).toEqual([])
@@ -30,7 +55,7 @@ describe('Searchkit Client', () => {
   })
 
   it('should be able to manipulate query', () => {
-    const api = new SearchkitClient()
+    const api = createSearchkitClient()
     expect(api.getQuery()).toBe('')
     api.setQuery('heat')
     expect(api.getQuery()).toBe('heat')
@@ -40,7 +65,7 @@ describe('Searchkit Client', () => {
   })
 
   it('should be able to manipulate filters', () => {
-    const api = new SearchkitClient()
+    const api = createSearchkitClient()
     expect(api.getFilters()).toEqual([])
     api.addFilter({ identifier: 'type', value: 'Movie' })
     expect(api.getFilters()).toEqual([{ identifier: 'type', value: 'Movie' }])
@@ -55,12 +80,12 @@ describe('Searchkit Client', () => {
   })
 
   it('should be able to manage pagination', () => {
-    const api = new SearchkitClient()
+    const api = createSearchkitClient()
     api.setPage({ from: 10, size: 10 })
   })
 
   it('should toggle filter and keep order', () => {
-    const api = new SearchkitClient()
+    const api = createSearchkitClient()
     api.addFilter({ identifier: 'type', value: 'Movies' })
     api.addFilter({ identifier: 'type', value: 'Games' })
     expect(api.getFilters()).toEqual([
@@ -77,7 +102,7 @@ describe('Searchkit Client', () => {
   })
 
   it('should toggle range filters', () => {
-    const api = new SearchkitClient()
+    const api = createSearchkitClient()
     api.addFilter({ identifier: 'type', min: 0, max: 100 })
     expect(api.getFilters()).toEqual([{ identifier: 'type', min: 0, max: 100 }])
     api.toggleFilter({ identifier: 'type', min: 0, max: 100 })
@@ -85,7 +110,7 @@ describe('Searchkit Client', () => {
   })
 
   it('should toggle range filters min / max optional', () => {
-    const api = new SearchkitClient()
+    const api = createSearchkitClient()
     api.addFilter({ identifier: 'type', min: 0, max: null })
     expect(api.getFilters()).toEqual([{ identifier: 'type', min: 0, max: null }])
     api.toggleFilter({ identifier: 'type', min: 0, max: null })
@@ -93,7 +118,7 @@ describe('Searchkit Client', () => {
   })
 
   it('should toggle date range filters', () => {
-    const api = new SearchkitClient()
+    const api = createSearchkitClient()
     const filter = {
       identifier: 'type',
       dateMin: '2012-12-26T00:00:00.000Z',
@@ -106,7 +131,7 @@ describe('Searchkit Client', () => {
   })
 
   it('should toggle date range filters min / max optional', () => {
-    const api = new SearchkitClient()
+    const api = createSearchkitClient()
     api.addFilter({ identifier: 'released', dateMin: '2020-12-26T00:00:00.000Z', dateMax: null })
     expect(api.getFilters()).toEqual([
       { identifier: 'released', dateMin: '2020-12-26T00:00:00.000Z', dateMax: null }
@@ -116,7 +141,7 @@ describe('Searchkit Client', () => {
   })
 
   it('should remove multiple filters by id', () => {
-    const api = new SearchkitClient()
+    const api = createSearchkitClient()
     api.addFilter({ identifier: 'type', value: 'Movies' })
     api.addFilter({ identifier: 'type', value: 'Games' })
     api.removeFiltersByIdentifier('type')
@@ -124,7 +149,7 @@ describe('Searchkit Client', () => {
   })
 
   it('should determine whether a filter has been applied or not', () => {
-    const api = new SearchkitClient()
+    const api = createSearchkitClient()
     api.addFilter({ identifier: 'type', value: 'Movies' })
     api.addFilter({ identifier: 'type', value: 'Games' })
     expect(api.isFilterSelected({ identifier: 'type', value: 'Movies' })).toBeTruthy()
@@ -133,7 +158,7 @@ describe('Searchkit Client', () => {
 
   it('should pass state within callback', () => {
     const callback = jest.fn()
-    const api = new SearchkitClient()
+    const api = createSearchkitClient()
     api.setCallbackFn(callback)
     api.setQuery('test')
     api.addFilter({ identifier: 'type', value: 'Movies' })
@@ -149,7 +174,7 @@ describe('Searchkit Client', () => {
   })
 
   it('Searchkit Provider + Hook', () => {
-    const api = new SearchkitClient()
+    const api = createSearchkitClient()
     const wrapper = ({ children }) => <SearchkitProvider client={api}>{children}</SearchkitProvider>
 
     const { result } = renderHook(() => useSearchkit(), { wrapper })
@@ -159,17 +184,18 @@ describe('Searchkit Client', () => {
     expect(api.getQuery()).toBe('test')
   })
 
-  it('useSearchQuery', () => {
-    const api = new SearchkitClient({ searchOnLoad: true })
-    api.setQuery('test')
-    api.addFilter({ identifier: 'type', value: 'Movies' })
-    api.setSortBy('released')
-    api.search = jest.fn()
+  it('useSearchkitQuery', () => {
+    const api = createSearchkitClient()
+    api.updateBaseSearchState({
+      query: 'test',
+      filters: [{ identifier: 'type', value: 'Movies' }],
+      sortBy: 'released'
+    })
     const wrapper = ({ children }) => <SearchkitProvider client={api}>{children}</SearchkitProvider>
 
     renderHook(() => useSearchkitQuery('gqlQuery'), { wrapper })
 
-    expect(useLazyQuery).toHaveBeenCalledWith('gqlQuery', {
+    expect(useQuery).toHaveBeenCalledWith('gqlQuery', {
       variables: {
         filters: [{ identifier: 'type', value: 'Movies' }],
         page: { from: 0, size: 10 },
@@ -177,20 +203,72 @@ describe('Searchkit Client', () => {
         sortBy: 'released'
       }
     })
-    expect(api.search).toBeCalled()
   })
 
-  it('searchOnLoad', () => {
-    ;(useLazyQuery as any).mockReset()
-    const api = new SearchkitClient({ searchOnLoad: false })
-    api.setQuery('test')
-    api.addFilter({ identifier: 'type', value: 'Movies' })
-    api.setSortBy('released')
-    api.search = jest.fn()
+  it('variables lifecycle', async () => {
+    const api = createSearchkitClient()
+    api.updateBaseSearchState({
+      query: 'test',
+      filters: [{ identifier: 'type', value: 'Movies' }],
+      sortBy: 'released'
+    })
     const wrapper = ({ children }) => <SearchkitProvider client={api}>{children}</SearchkitProvider>
 
-    renderHook(() => useSearchkitQuery('gqlQuery'), { wrapper })
-    expect(useLazyQuery).toHaveBeenCalled()
-    expect(api.search).not.toBeCalled()
+    const variablesHook = renderHook(() => useSearchkitVariables(), { wrapper })
+
+    expect(variablesHook.result.current).toEqual({
+      filters: [{ identifier: 'type', value: 'Movies' }],
+      page: { from: 0, size: 10 },
+      query: 'test',
+      sortBy: 'released'
+    })
+    act(() => {
+      api.setQuery('hello')
+    })
+
+    variablesHook.rerender()
+
+    expect(variablesHook.result.current).toEqual({
+      filters: [{ identifier: 'type', value: 'Movies' }],
+      page: { from: 0, size: 10 },
+      query: 'test',
+      sortBy: 'released'
+    })
+
+    act(() => {
+      api.search()
+    })
+
+    expect(variablesHook.result.current).toEqual({
+      filters: [],
+      page: { from: 0, size: 10 },
+      query: 'hello',
+      sortBy: 'released'
+    })
+  })
+})
+
+describe('useSearchkitQuery', () => {
+  it('should update when api state is updated', () => {
+    const api = createSearchkitClient()
+    api.updateBaseSearchState({
+      query: 'test',
+      filters: [{ identifier: 'type', value: 'Movies' }],
+      sortBy: 'released'
+    })
+    const wrapper = ({ children }) => <SearchkitProvider client={api}>{children}</SearchkitProvider>
+
+    const queryValueHook = renderHook(() => useSearchkitQueryValue(), { wrapper })
+
+    expect(queryValueHook.result.current[0]).toEqual('test')
+    act(() => {
+      api.setQuery('hello')
+    })
+    queryValueHook.rerender()
+    expect(queryValueHook.result.current[0]).toEqual('hello')
+    act(() => {
+      queryValueHook.result.current[1]('test')
+    })
+    expect(queryValueHook.result.current[0]).toEqual('test')
   })
 })

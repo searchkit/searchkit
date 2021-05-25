@@ -1,11 +1,32 @@
 import React from 'react'
-import { render, fireEvent, waitFor, screen } from '@testing-library/react'
-
 jest.mock('@searchkit/client', () => {
-  // Require the original module to not be mocked...
   const originalModule = jest.requireActual('@searchkit/client')
-  const api = new originalModule.SearchkitClient()
-  api.onSearch = jest.fn()
+
+  const createSearchkitClient = () => {
+    const state = Object.assign(
+      {},
+      {
+        query: '',
+        filters: [],
+        sortBy: '',
+        page: {
+          size: 10,
+          from: 0
+        }
+      }
+    )
+    const setState = (arg) => {
+      Object.assign(state, arg(state))
+    }
+    const api = new originalModule.SearchkitClient()
+    api.setSearchState = setState
+    api.searchState = state
+
+    return api
+  }
+
+  const api = createSearchkitClient()
+
   return {
     __esModule: true,
     ...originalModule,
@@ -14,7 +35,6 @@ jest.mock('@searchkit/client', () => {
   }
 })
 
-import { SearchkitClient } from '@searchkit/client'
 import renderer from 'react-test-renderer'
 import { ResetSearchButton } from '../index'
 

@@ -14,12 +14,12 @@ Also see [Create React App](https://searchkit.co/docs/examples/create-react-app)
 Below example of how a simple search query component can be built using the searchkit client API. When search is invoked, the API will perform a new query.  
 
 ```javascript
-import React, { useState } from 'react';
-import { useSearchkit } from '@searchkit/client';
+import React from 'react';
+import { useSearchkitQueryValue } from '@searchkit/client';
 
 const SearchInput = () => {
   const api = useSearchkit();
-  const [value, setValue] = useState('');
+  const [value, setValue] = useSearchkitQueryValue();
   return (
     <form
       onSubmit={(e) => {
@@ -94,7 +94,7 @@ const FacetsList = ({ data, loading }) => {
 ```javascript
 
 import { gql } from '@apollo/client';
-import { useSearchkitQuery, useSearchkit } from '@searchkit/client'
+import { useSearchkit, useSearchkitVariables } from '@searchkit/client'
 import withApollo from '../lib/withApollo';
 import { useState } from 'react'
 import { SearchInput, Facets } from './components'
@@ -128,7 +128,10 @@ const QUERY = gql`
   `
 
 const Index = () => {
-  const { data, loading } = useSearchkitQuery(QUERY)
+  const variables = useSearchkitVariables()
+  const { data, loading } = usequery(QUERY, {
+    variables
+  })
 
   if (loading || !data) {
     return <h1>loading...</h1>;

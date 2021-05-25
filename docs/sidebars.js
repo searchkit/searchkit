@@ -22,7 +22,13 @@ module.exports = {
      'API only': ['example-apps-prisma', 'example-apps-aws-lambda', 'example-apps-express' ],
       'Frontend only': ['example-apps-create-react-app']
   }],
-  Guides:  [{ 'Guides': ['guides-elasticsearch-setup-indexing', 'guides-graphql-schema-cheat-sheet']}, {
+  Guides:  [{ 'Guides': [
+    'guides-elasticsearch-setup-indexing',
+    'guides-graphql-schema-cheat-sheet',
+    'guides-url-sync',
+    'guides-ssr',
+    'guides-highlighting'
+  ]}, {
     'Upgrade Notes': ['v2-v3-migration', 'guides-upgrade-rc25']
   }],
   Customisations: {
