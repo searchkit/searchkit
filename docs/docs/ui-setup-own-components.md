@@ -129,7 +129,7 @@ const QUERY = gql`
 
 const Index = () => {
   const variables = useSearchkitVariables()
-  const { data, loading } = usequery(QUERY, {
+  const { previousData, data = previousData, loading } = useQuery(QUERY, {
     variables
   })
 

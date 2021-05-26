@@ -50,9 +50,8 @@ const Search = () => {
   }
 `
 const variables = useSearchkitVariables()
-const { previousData, data = previousData } = useQuery(query, {
-  variables: variables
-})
+const { previousData, data = previousData, loading } = useQuery(QUERY, { variables })
+
   if (data) // return the result only once data has been returned
     return (
       <div>
