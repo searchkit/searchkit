@@ -209,7 +209,8 @@ import {
 } from '@searchkit/elastic-ui'
 
 const Page = () => {
-  const { data, loading } = useSearchkitQuery(query)
+  const variables = useSearchkitVariables()
+  const { data, loading } = useQuery(query, { variables })
   const [viewType, setViewType] = useState('list')
   const Facets = FacetsList([])
   return (

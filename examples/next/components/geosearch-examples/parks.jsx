@@ -1,8 +1,6 @@
-import { useSearchkitQuery } from '@searchkit/client'
-import { gql } from '@apollo/client'
-import PlacesSearchInput from './Input'
-import Maps from './maps'
-
+import { useSearchkitVariables } from '@searchkit/client'
+import { gql, useQuery } from '@apollo/client'
+import PlacesSearchInput from './PlacesSearchInput'
 import {
   FacetsList,
   Pagination,
@@ -125,7 +123,8 @@ const LocationFilter = ({ filter, loading }) => {
 }
 
 const Page = () => {
-  const { data, loading } = useSearchkitQuery(query)
+  const variables = useSearchkitVariables()
+  const { data, loading } = useQuery(query, { variables })
   const Facets = FacetsList([])
   return (
     <EuiPage>

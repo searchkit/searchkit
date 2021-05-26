@@ -74,7 +74,7 @@ const client = SearchkitClient()
 
 export default () => {
   const variables = useSearchkitVariables()
-  const { data, loading } = useQuery(query, {
+  const { previousData, data = previousData, loading } = useQuery(query, {
     variables
   })
 
