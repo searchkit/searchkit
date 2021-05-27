@@ -102,7 +102,7 @@ describe('Geo Filters', () => {
               "from": 0,
               "query": Object {
                 "bool": Object {
-                  "must": Array [
+                  "filter": Array [
                     Object {
                       "geo_bounding_box": Object {
                         "location": Object {

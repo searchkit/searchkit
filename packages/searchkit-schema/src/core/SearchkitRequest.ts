@@ -89,27 +89,19 @@ export default class SearchkitRequest {
         ? this.config.query.getFilter(this.queryManager)
         : null
 
-    const hasBaseFilters = this.baseFilters?.length > 0
     const baseFiltersQuery = filterTransform(this.queryManager, this.config.filters)
-    const query: Query = queryFilter || (hasBaseFilters || baseFiltersQuery ? {} : null)
+    const combinedBaseFilters = [].concat(this.baseFilters, baseFiltersQuery?.bool?.must || [])
+    const query: Query = queryFilter || (combinedBaseFilters.length > 0 ? {} : null)
 
-    if (baseFiltersQuery) {
+    if (combinedBaseFilters.length) {
       if (query.bool) {
         Object.assign(query.bool, {
           filter: query.bool.filter?.length
-          ? [].concat(query.bool.filter, this.baseFilters)
-          : this.baseFilters
+            ? [].concat(query.bool.filter, combinedBaseFilters)
+            : combinedBaseFilters
         })
       } else {
-        Object.assign(query, { bool: { filter: baseFiltersQuery } })
-      }
-    }
-
-    if (baseFiltersQuery) {
-      if (query.bool) {
-        query.bool.filter = [...query.bool.filter, ...baseFiltersQuery.bool.must]
-      } else {
-        Object.assign(query, baseFiltersQuery)
+        Object.assign(query, { bool: { filter: combinedBaseFilters } })
       }
     }
 
