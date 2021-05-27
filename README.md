@@ -156,14 +156,12 @@ Will provide a GraphQL API where you can perform queries like:
   results(filters: [{identifier: "type", value: "Movie"}, {identifier: "metascore", min: 30}]) {
     summary {
       appliedFilters {
-        appliedFilters {
-          identifier
-          id
-          label
-          display
-          ... on ValueSelectedFilter {
-            value
-          }
+        identifier
+        id
+        label
+        display
+        ... on ValueSelectedFilter {
+          value
         }
       }
     }
