@@ -3,7 +3,7 @@ import { BaseFilter } from '../filters'
 import QueryManager from './QueryManager'
 import { SearchResponse } from './SearchkitRequest'
 
-export const facetFilterTransform = (
+export const filterTransform = (
   queryManager: QueryManager,
   facets: Array<BaseFilter> = []
 ) => {
@@ -16,18 +16,6 @@ export const facetFilterTransform = (
   }, [])
 
   return subFilters.length ? { bool: { must: subFilters } } : null
-}
-
-export const filterTransform = (queryManager: QueryManager, filters: Array<BaseFilter> = []) => {
-  const subFilters = filters.reduce((subFilters, filter) => {
-    const filterSubFilter = queryManager.getFiltersById(filter.getIdentifier())
-    if (filterSubFilter) {
-      return [...subFilters, filter.getFilters(filterSubFilter)]
-    }
-    return subFilters
-  }, [])
-
-  return subFilters.length ? subFilters : null
 }
 
 export const getAggregationsFromFacets = (

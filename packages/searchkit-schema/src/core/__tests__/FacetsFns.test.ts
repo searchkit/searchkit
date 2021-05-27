@@ -1,5 +1,5 @@
 import {
-  facetFilterTransform,
+  filterTransform,
   getAggregationsFromFacets,
   getFacetsFromResponse
 } from '../FacetsFns'
@@ -246,7 +246,7 @@ describe('Facet Fns', () => {
     })
   })
 
-  describe('facetFilterTransform', () => {
+  describe('filterTransform', () => {
     it('should get filter for test', () => {
       const qm = new QueryManager([{ identifier: 'test', value: 'testValue' }], '')
       const facetConfig = [
@@ -258,7 +258,7 @@ describe('Facet Fns', () => {
         }),
         new RefinementSelectFacet({ field: 'test2', identifier: 'test2', label: 'Test 2' })
       ]
-      expect(facetFilterTransform(qm, facetConfig)).toEqual({
+      expect(filterTransform(qm, facetConfig)).toEqual({
         bool: { must: [{ bool: { should: [{ term: { test: 'testValue' } }] } }] }
       })
     })
@@ -280,7 +280,7 @@ describe('Facet Fns', () => {
         }),
         new RefinementSelectFacet({ field: 'test2', identifier: 'test2', label: 'Test 2' })
       ]
-      expect(facetFilterTransform(qm, facetConfig)).toEqual({
+      expect(filterTransform(qm, facetConfig)).toEqual({
         bool: {
           must: [
             { bool: { should: [{ term: { test: 'testValue' } }] } },
@@ -306,7 +306,7 @@ describe('Facet Fns', () => {
           multipleSelect: true
         })
       ]
-      expect(facetFilterTransform(qm, facetConfig)).toEqual({
+      expect(filterTransform(qm, facetConfig)).toEqual({
         bool: {
           must: [{ bool: { should: [{ term: { test: 'testValue' } }] } }]
         }
