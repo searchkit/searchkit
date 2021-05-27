@@ -5,7 +5,7 @@ import { SearchResponse } from './SearchkitRequest'
 
 export const filterTransform = (
   queryManager: QueryManager,
-  facets: Array<BaseFilter> = []
+  facets: Array<BaseFacet | BaseFilter> = []
 ) => {
   const subFilters = facets.reduce((subFilters, facet) => {
     const facetSubFilter = queryManager.getFiltersById(facet.getIdentifier())
