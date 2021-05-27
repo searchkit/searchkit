@@ -1,7 +1,28 @@
 import { useQuery, gql } from '@apollo/client'
-import { withSearchkit, useSearchkitVariables, withSearchkitRouting } from '@searchkit/client'
+import { withSearchkit, useSearchkitVariables, withSearchkitRouting, useSearchkitQueryValue, useSearchkit } from '@searchkit/client'
 import withApollo from '../hocs/withApollo'
-import { getDataFromTree } from "@apollo/client/react/ssr";
+import { getDataFromTree } from "@apollo/client/react/ssr"
+
+function SearchBar() {
+  const [query, setQuery] = useSearchkitQueryValue();
+  const api = useSearchkit()
+  return (
+    <form onSubmit={(e) => {
+      e.preventDefault()
+      api.setQuery(query)
+      api.search()
+    }}>
+      <input
+        type="search"
+        value={query}
+        onChange={(e) => {
+          const value = e.target.value
+          setQuery(value)
+        }}
+      />
+    </form>
+  )
+}
 
 const Search = () => {
   const query = gql`
@@ -43,6 +64,7 @@ const { previousData, data = previousData } = useQuery(query, {
     return (
       <div>
         <h2>{data?.results?.summary?.total} Results</h2>
+        <SearchBar/>
         {data.results?.hits.items.map((hit) => {
           return (
             <div key={hit.id}>

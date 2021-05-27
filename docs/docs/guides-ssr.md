@@ -9,7 +9,7 @@ Searchkit is able to do server side rendering with a few changes. Due to elastic
 
 Then you must enable [url synchronization](www.searchkit.co/docs/guides/url-synchronization).
 
-An example of the configuration can be seen below:
+An example of the configuration can be seen below. You can see it in [action here](https://demo.searchkit.co/ssr-example?query=test)
 
 ```javascript
 import { useQuery, gql } from '@apollo/client'
