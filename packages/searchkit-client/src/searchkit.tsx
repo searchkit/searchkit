@@ -160,33 +160,38 @@ export class SearchkitClient {
   }
 
   removeFilter(filter: Filter): void {
-    const filters = this.searchState.filters.reduce((filters, f) => {
-      if (filterSelector(filter)(f)) {
-        return [...filters]
+    this.setSearchState((prevState) => {
+      const filters = prevState.filters.reduce((filters, f) => {
+        if (filterSelector(filter)(f)) {
+          return [...filters]
+        }
+        return [...filters, { ...f }]
+      }, [])
+      return {
+        ...prevState,
+        filters
       }
-      return [...filters, { ...f }]
-    }, [])
-
-    this.setSearchState((prevState) => ({
-      ...prevState,
-      filters
-    }))
+    })
   }
 
   removeFiltersByIdentifier(identifier: string): void {
-    const filters = this.searchState.filters.filter((f) => f.identifier !== identifier)
-    this.setSearchState((prevState) => ({
-      ...prevState,
-      filters
-    }))
+    this.setSearchState((prevState) => {
+      const filters = prevState.filters.filter((f) => f.identifier !== identifier)
+      return {
+        ...prevState,
+        filters
+      }
+    })
   }
 
   addFilter(filter: Filter): void {
-    const filters = [{ ...filter }, ...this.searchState.filters]
-    this.setSearchState((prevState) => ({
-      ...prevState,
-      filters
-    }))
+    this.setSearchState((prevState) => {
+      const filters = [{ ...filter }, ...prevState.filters]
+      return {
+        ...prevState,
+        filters
+      }
+    })
   }
 
   toggleFilter(filter: Filter): void {

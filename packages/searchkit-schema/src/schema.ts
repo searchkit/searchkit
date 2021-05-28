@@ -59,8 +59,10 @@ const baseSearchkitTypeDefs = gql`
     identifier: String!
     label: String!
     display: String!
-    topLeft: SKGeoPoint!
-    bottomRight: SKGeoPoint!
+    topLeft: SKGeoPoint
+    bottomRight: SKGeoPoint
+    bottomLeft: SKGeoPoint
+    topRight: SKGeoPoint
   }
 
   type SKGeoPoint {
@@ -102,8 +104,10 @@ const baseSearchkitTypeDefs = gql`
   }
 
   input SKGeoBoundingBoxInput {
-    topLeft: SKGeoPointInput!
-    bottomRight: SKGeoPointInput!
+    topLeft: SKGeoPointInput
+    bottomRight: SKGeoPointInput
+    topRight: SKGeoPointInput
+    bottomLeft: SKGeoPointInput
   }
 
   input SKGeoPointInput {

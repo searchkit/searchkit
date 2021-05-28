@@ -1,3 +1,4 @@
+import { omitBy, isNil } from 'lodash'
 import { GeoBoundingBoxFilter } from '../core/QueryManager'
 import { BaseFilter } from './BaseFilter'
 
@@ -23,10 +24,15 @@ class GeoBoundingBoxFilterClass implements BaseFilter {
   getFilters(filters: Array<GeoBoundingBoxFilter>) {
     return {
       geo_bounding_box: {
-        [this.config.field]: {
-          top_left: filters[0].geoBoundingBox.topLeft,
-          bottom_right: filters[0].geoBoundingBox.bottomRight
-        }
+        [this.config.field]: omitBy(
+          {
+            top_left: filters[0].geoBoundingBox.topLeft,
+            bottom_right: filters[0].geoBoundingBox.bottomRight,
+            bottom_left: filters[0].geoBoundingBox.bottomLeft,
+            top_right: filters[0].geoBoundingBox.topRight
+          },
+          isNil
+        )
       }
     }
   }
@@ -35,14 +41,12 @@ class GeoBoundingBoxFilterClass implements BaseFilter {
     const c = filterSet.geoBoundingBox
     return {
       type: 'GeoBoundingBoxSelectedFilter',
-      id: `${this.getIdentifier()}_${c.topLeft.lat}_${c.topLeft.lon}_${c.bottomRight.lat}_${
-        c.bottomRight.lon
-      }`,
+      id: `${this.getIdentifier()}_${JSON.stringify(c)}`,
       identifier: this.getIdentifier(),
       label: this.getLabel(),
       topLeft: c.topLeft,
       bottomRight: c.bottomRight,
-      display: null
+      display: this.config.display || 'GeoBoundingBoxFilter'
     }
   }
 }

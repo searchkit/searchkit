@@ -89,23 +89,23 @@ export default class SearchkitRequest {
         ? this.config.query.getFilter(this.queryManager)
         : null
 
-    const hasBaseFilters = this.baseFilters?.length
-    const query: Query = queryFilter || (hasBaseFilters ? {} : null)
+    const baseFiltersQuery = filterTransform(this.queryManager, this.config.filters)
+    const combinedBaseFilters = [].concat(this.baseFilters, baseFiltersQuery?.bool?.must || [])
+    const query: Query = queryFilter || (combinedBaseFilters.length > 0 ? {} : null)
 
-    if (hasBaseFilters) {
+    if (combinedBaseFilters.length) {
       if (query.bool) {
         Object.assign(query.bool, {
           filter: query.bool.filter?.length
-            ? [].concat(query.bool.filter, this.baseFilters)
-            : this.baseFilters
+            ? [].concat(query.bool.filter, combinedBaseFilters)
+            : combinedBaseFilters
         })
       } else {
-        Object.assign(query, { bool: { filter: this.baseFilters } })
+        Object.assign(query, { bool: { filter: combinedBaseFilters } })
       }
     }
 
-    const combinedFilterConfigs = [...(this.config.facets || []), ...(this.config.filters || [])]
-    const postFilter = filterTransform(this.queryManager, combinedFilterConfigs)
+    const postFilter = filterTransform(this.queryManager, this.config.facets)
 
     let highlight
     this.config.hits.highlightedFields?.forEach((field) => {

@@ -18,40 +18,43 @@ export const HitsGrid = ({ data }) => (
 )
 
 export const HitsList = ({ data }) => (
-  <>
+  <EuiFlexGrid>
     {data?.results.hits.items.map((hit) => (
-      <EuiFlexGroup gutterSize="xl" key={hit.id}>
-        <EuiFlexItem>
-          <EuiFlexGroup>
-            <EuiFlexItem grow={false}>
-              <img src={hit.fields.poster} alt="Nature" style={{ height: '150px' }} />
-            </EuiFlexItem>
-            <EuiFlexItem grow={4}>
-              <EuiTitle size="xs">
-                <h6>{hit.fields.title}</h6>
-              </EuiTitle>
-              <EuiText grow={false}>
-                <p>{hit.fields.plot}</p>
-              </EuiText>
-            </EuiFlexItem>
-            <EuiFlexItem grow={2}>
-              <EuiText grow={false}>
-                <ul>
-                  <li>
-                    <b>ACTORS: </b>
-                    {hit.fields.actors.join(', ')}
-                  </li>
+      <EuiFlexItem>
 
-                  <li>
-                    <b>WRITERS: </b>
-                    {hit.fields.writers.join(', ')}
-                  </li>
-                </ul>
-              </EuiText>
-            </EuiFlexItem>
-          </EuiFlexGroup>
-        </EuiFlexItem>
-      </EuiFlexGroup>
+        <EuiFlexGroup gutterSize="xl" key={hit.id}>
+          <EuiFlexItem>
+            <EuiFlexGroup>
+              <EuiFlexItem grow={false}>
+                <img src={hit.fields.poster} alt="Nature" style={{ height: '150px' }} />
+              </EuiFlexItem>
+              <EuiFlexItem grow={4}>
+                <EuiTitle size="xs">
+                  <h6>{hit.fields.title}</h6>
+                </EuiTitle>
+                <EuiText grow={false}>
+                  <p>{hit.fields.plot}</p>
+                </EuiText>
+              </EuiFlexItem>
+              <EuiFlexItem grow={2}>
+                <EuiText grow={false}>
+                  <ul>
+                    <li>
+                      <b>ACTORS: </b>
+                      {hit.fields.actors.join(', ')}
+                    </li>
+
+                    <li>
+                      <b>WRITERS: </b>
+                      {hit.fields.writers.join(', ')}
+                    </li>
+                  </ul>
+                </EuiText>
+              </EuiFlexItem>
+            </EuiFlexGroup>
+          </EuiFlexItem>
+        </EuiFlexGroup>
+      </EuiFlexItem>
     ))}
-  </>
+  </EuiFlexGrid>
 )
