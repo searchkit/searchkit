@@ -1,6 +1,7 @@
 import { useSearchkit, useSearchkitVariables } from '@searchkit/client'
 import { useEffect, useRef, useState } from 'react'
 import debounce from 'debounce'
+import { xor } from 'lodash'
 
 let map
 
@@ -24,7 +25,6 @@ export default ({ data }) => {
     const updateBoundsFilter = debounce(() => {
       const bounds = map.getBounds()
       if (bounds) {
-        console.log("bounds", JSON.stringify(bounds))
         setMapGeoBounds(bounds)
       }
     }, 100)
@@ -41,6 +41,11 @@ export default ({ data }) => {
 
     const items = data.hits.items
     const itemIds = items.map(({ id }) => id)
+
+
+    if (xor(mapIds, itemIds).length === 0) {
+      return {}
+    }
 
     markers.forEach((marker) => {
       marker.setMap(null)
@@ -115,7 +120,6 @@ export default ({ data }) => {
       } else {
         const ne = mapGeoBounds.getNorthEast()
         const sw = mapGeoBounds.getSouthWest()
-        console.log("mapGeoBounds", JSON.stringify(mapGeoBounds))
         api.removeFiltersByIdentifier("location")
         api.setPage({ from: 0, size: 10 })
         api.addFilter({
