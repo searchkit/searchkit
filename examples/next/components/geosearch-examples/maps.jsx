@@ -1,4 +1,4 @@
-import { useSearchkit } from '@searchkit/client'
+import { useSearchkit, useSearchkitVariables } from '@searchkit/client'
 import { useEffect, useRef, useState } from 'react'
 import debounce from 'debounce'
 
@@ -7,6 +7,7 @@ let map
 export default ({ data }) => {
 
   const api = useSearchkit()
+  const variables = useSearchkitVariables()
   const [markers, setMarkers] = useState([])
   const [mapIds, setMapIds] = useState([])
   const [mapGeoBounds, setMapGeoBounds] = useState(null)
@@ -40,10 +41,6 @@ export default ({ data }) => {
 
     const items = data.hits.items
     const itemIds = items.map(({ id }) => id)
-
-    if (!itemIds.find((id) => !mapIds.includes(id))) {
-      return {}
-    }
 
     markers.forEach((marker) => {
       marker.setMap(null)
@@ -155,7 +152,7 @@ export default ({ data }) => {
       }
 
     }
-  }, [api.filters])
+  }, [variables])
 
   return (
     <div>

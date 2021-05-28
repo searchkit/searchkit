@@ -1,6 +1,5 @@
 import { useSearchkitVariables } from '@searchkit/client'
 import { gql, useQuery } from '@apollo/client'
-import { gql } from '@apollo/client'
 import PlacesSearchInput from './Input'
 import Maps from './maps'
 
@@ -8,6 +7,7 @@ import {
   Pagination,
   ResetSearchButton,
   SelectedFilters,
+  FacetsList
 } from '@searchkit/elastic-ui'
 
 import {
@@ -126,7 +126,8 @@ const LocationFilter = ({ filter, loading }) => {
 
 const Page = () => {
   const variables = useSearchkitVariables()
-  const { data, loading } = useQuery(query, { variables })
+  const { previousData, data = previousData, loading } = useQuery(query, { variables })
+  const Facets = FacetsList()
   return (
     <EuiPage>
       <EuiPageSideBar>
