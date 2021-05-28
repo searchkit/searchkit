@@ -1,8 +1,4 @@
-import {
-  filterTransform,
-  getAggregationsFromFacets,
-  getFacetsFromResponse
-} from '../FacetsFns'
+import { filterTransform, getAggregationsFromFacets, getFacetsFromResponse } from '../FacetsFns'
 import QueryManager from '../QueryManager'
 import { RefinementSelectFacet } from '../../facets'
 import { SearchResponse } from '../SearchkitRequest'

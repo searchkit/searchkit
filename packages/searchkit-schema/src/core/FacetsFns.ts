@@ -3,10 +3,7 @@ import { BaseFilter } from '../filters'
 import QueryManager from './QueryManager'
 import { SearchResponse } from './SearchkitRequest'
 
-export const filterTransform = (
-  queryManager: QueryManager,
-  facets: Array<BaseFilter> = []
-) => {
+export const filterTransform = (queryManager: QueryManager, facets: Array<BaseFilter> = []) => {
   const subFilters = facets.reduce((subFilters, facet) => {
     const facetSubFilter = queryManager.getFiltersById(facet.getIdentifier())
     if (facetSubFilter) {
