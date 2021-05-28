@@ -15,8 +15,7 @@ export default async (parent, parameters: FacetResolverParameters, ctx) => {
   const skRequest: SearchkitRequest = parent.searchkit.skRequest
 
   const facet =
-  config.facets &&
-  config.facets.find((facet) => facet.getIdentifier() === parameters.identifier)
+    config.facets && config.facets.find((facet) => facet.getIdentifier() === parameters.identifier)
   if (!facet) return null
 
   try {
