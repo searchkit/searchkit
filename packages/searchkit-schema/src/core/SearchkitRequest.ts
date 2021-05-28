@@ -119,18 +119,6 @@ export default class SearchkitRequest {
       }
     })
 
-    let highlight
-    this.config.hits.highlightedFields?.forEach((field) => {
-      if (!highlight) {
-        highlight = { fields: {} }
-      }
-      if (typeof field == 'string') {
-        highlight.fields[field] = {}
-      } else {
-        highlight.fields[field.field] = field.config
-      }
-    })
-
     const baseQuery = { size: 0 }
 
     return mergeESQueries(
