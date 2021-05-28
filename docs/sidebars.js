@@ -27,7 +27,8 @@ module.exports = {
     'guides-graphql-schema-cheat-sheet',
     'guides-url-sync',
     'guides-ssr',
-    'guides-highlighting'
+    'guides-highlighting',
+    'guides-geo-search'
   ]}, {
     'Upgrade Notes': ['v2-v3-migration', 'guides-upgrade-rc25']
   }],
