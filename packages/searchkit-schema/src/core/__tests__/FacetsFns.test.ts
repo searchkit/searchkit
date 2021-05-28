@@ -66,7 +66,7 @@ describe('Facet Fns', () => {
       ]
 
       /*
-        test 3 aggregrations are excluded from its own filters. 
+        test 3 aggregrations are excluded from its own filters.
       */
       expect(getAggregationsFromFacets(qm, {}, facetConfig)).toEqual({
         aggs: {
