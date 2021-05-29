@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { isArray } from 'lodash'
-import history, { Router, RouteState } from './history'
-import { useSearchkitVariables, useSearchkit, searchStateEqual } from './searchkit'
+import history, { Router, RouteState, defaultParseURL, defaultCreateURL } from './history'
+import { useSearchkitVariables, useSearchkit, searchStateEqual, SearchkitRoutingOptionsContext } from './searchkit'
 import type { SearchState } from './searchkit'
+import qs from 'qs'
 
 export const routeStateEqual = (a, b) =>
   Object.entries(a).toString() === Object.entries(b).toString()
@@ -38,7 +39,7 @@ export const routeToStateFn = (routeState) => ({
 
 export default function withSearchkitRouting(
   Page,
-  { stateToRoute = stateToRouteFn, routeToState = routeToStateFn } = {}
+  { stateToRoute = stateToRouteFn, routeToState = routeToStateFn, createURL = defaultCreateURL, parseURL = defaultParseURL } = {}
 ) {
   let routingInstance = undefined
 
@@ -47,9 +48,16 @@ export default function withSearchkitRouting(
     if (typeof window === 'undefined') {
       return null
     }
-    routingInstance = history()
+    routingInstance = history({ createURL, parseURL })
 
     return routingInstance
+  }
+
+  const routingOptions = {
+    stateToRoute,
+    routeToState,
+    createURL: (config) => createURL({ ...config, qsModule: qs }),
+    parseURL: (config) => parseURL({ ...config, qsModule: qs }),
   }
 
   const withSearchkitRouting = () => {
@@ -88,7 +96,11 @@ export default function withSearchkitRouting(
       }
     }, [])
 
-    return <Page />
+    return (
+      <SearchkitRoutingOptionsContext.Provider value={routingOptions}>
+        <Page />
+      </SearchkitRoutingOptionsContext.Provider>
+    )
   }
 
   withSearchkitRouting.getInitialProps = async (ctx) => {
@@ -96,12 +108,19 @@ export default function withSearchkitRouting(
     if (Page.getInitialProps) {
       props = await Page.getInitialProps(ctx)
     }
-    const searchState: SearchState = routeToState(ctx.query)
+    const mockLocation = {
+      hostname: ctx.req?.headers.host,
+      href: ctx.asPath,
+      pathname: ctx.pathname,
+      search: ctx.asPath.substring(ctx.pathname.length)
+    } as Location
+
+    const searchState: SearchState = routeToState(routingOptions.parseURL({ location: mockLocation }))
     ctx.searchkitClient.updateBaseSearchState(searchState)
 
     return {
       ...props,
-      searchState: searchState
+      searchState
     }
   }
 

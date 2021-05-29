@@ -16,7 +16,7 @@ export default withApollo(
     if (typeof window !== 'undefined') window.cache = cache
 
     return new ApolloClient({
-      uri: `/api/graphql`,
+      uri: `http://localhost:3000/api/graphql`,
       cache
     })
   },

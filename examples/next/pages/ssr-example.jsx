@@ -1,5 +1,5 @@
 import { useQuery, gql } from '@apollo/client'
-import { withSearchkit, useSearchkitVariables, withSearchkitRouting, useSearchkitQueryValue, useSearchkit } from '@searchkit/client'
+import { withSearchkit, useSearchkitVariables, withSearchkitRouting, useSearchkitQueryValue, useSearchkit, FilterLink, PaginationLink } from '@searchkit/client'
 import withApollo from '../hocs/withApollo'
 import { getDataFromTree } from "@apollo/client/react/ssr"
 
@@ -26,12 +26,12 @@ function SearchBar() {
 
 const Search = () => {
   const query = gql`
-  query resultSet($query: String) {
-    results(query: $query) {
+  query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput, $sortBy: String) {
+    results(query: $query, filters: $filters) {
       summary {
         total
       }
-      hits {
+      hits(page: $page, sortBy: $sortBy) {
         page {
           total
           totalPages
@@ -58,12 +58,13 @@ const Search = () => {
 `
 const variables = useSearchkitVariables()
 const { previousData, data = previousData } = useQuery(query, {
-  variables: variables
+  variables
 })
   if (data)
     return (
       <div>
         <h2>{data?.results?.summary?.total} Results</h2>
+        <FilterLink filter={{identifier: 'type', value:'movie'}}>Toggle Filter by Movie</FilterLink>
         <SearchBar/>
         {data.results?.hits.items.map((hit) => {
           return (
@@ -73,6 +74,8 @@ const { previousData, data = previousData } = useQuery(query, {
             </div>
           )
         })}
+        <PaginationLink page={1}>Page 1</PaginationLink>
+        <PaginationLink page={2}>Page 2</PaginationLink>
       </div>
     )
   else {
