@@ -187,14 +187,13 @@ class SearchkitClientState {
       sortBy
     }))
   }
-
 }
 
 export function createSearchState(state: SearchState) {
   const searchState = Object.assign({}, state)
-  const setSearchState = ((fn) => {
+  const setSearchState = (fn) => {
     Object.assign(searchState, fn(searchState))
-  })
+  }
   const scs = new SearchkitClientState()
   scs.setSearchState = setSearchState
   scs.searchState = searchState
@@ -241,7 +240,6 @@ export class SearchkitClient extends SearchkitClientState {
   public search(): void {
     this.performSearch()
   }
-
 }
 
 export const SearchkitContext = createContext({})

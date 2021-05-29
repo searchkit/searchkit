@@ -1,5 +1,10 @@
 import React from 'react'
-import { createSearchState, useSearchkit, useSearchkitRoutingOptions, useSearchkitVariables } from './searchkit'
+import {
+  createSearchState,
+  useSearchkit,
+  useSearchkitRoutingOptions,
+  useSearchkitVariables
+} from './searchkit'
 
 interface FilterLinkProps {
   filter: any
@@ -54,9 +59,10 @@ export function FilterLink({ filter, resetPagination = true, children }: FilterL
   }
 
   return (
-    <a href={href} onClick={clickHandler}>{children}</a>
+    <a href={href} onClick={clickHandler}>
+      {children}
+    </a>
   )
-
 }
 
 export function PaginationLink({ page, children }: PaginationLinkProps) {
@@ -94,7 +100,8 @@ export function PaginationLink({ page, children }: PaginationLinkProps) {
   }
 
   return (
-    <a href={href} onClick={clickHandler}>{children}</a>
+    <a href={href} onClick={clickHandler}>
+      {children}
+    </a>
   )
-
-  }
+}

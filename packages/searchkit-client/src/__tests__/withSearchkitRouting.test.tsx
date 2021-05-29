@@ -123,10 +123,10 @@ describe('withSearchkitRouting', () => {
     })
     it('filters', () => {
       const routeStateA = {
-        filters: [{ identifier: "type", value: "movie"}]
+        filters: [{ identifier: 'type', value: 'movie' }]
       }
       const routeStateB = {
-        filters: [{ identifier: "type", value: "movie"}]
+        filters: [{ identifier: 'type', value: 'movie' }]
       }
       expect(routeStateEqual(routeStateA, routeStateB)).toBe(true)
     })

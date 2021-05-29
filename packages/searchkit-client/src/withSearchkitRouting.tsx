@@ -1,9 +1,14 @@
 import React, { useEffect } from 'react'
 import { isArray } from 'lodash'
-import history, { Router, RouteState, defaultParseURL, defaultCreateURL } from './history'
-import { useSearchkitVariables, useSearchkit, searchStateEqual, SearchkitRoutingOptionsContext } from './searchkit'
-import type { SearchState } from './searchkit'
 import qs from 'qs'
+import history, { Router, RouteState, defaultParseURL, defaultCreateURL } from './history'
+import {
+  useSearchkitVariables,
+  useSearchkit,
+  searchStateEqual,
+  SearchkitRoutingOptionsContext
+} from './searchkit'
+import type { SearchState } from './searchkit'
 
 export const routeStateEqual = (a, b) =>
   Object.entries(a).toString() === Object.entries(b).toString()
@@ -39,7 +44,12 @@ export const routeToStateFn = (routeState) => ({
 
 export default function withSearchkitRouting(
   Page,
-  { stateToRoute = stateToRouteFn, routeToState = routeToStateFn, createURL = defaultCreateURL, parseURL = defaultParseURL } = {}
+  {
+    stateToRoute = stateToRouteFn,
+    routeToState = routeToStateFn,
+    createURL = defaultCreateURL,
+    parseURL = defaultParseURL
+  } = {}
 ) {
   let routingInstance = undefined
 
@@ -57,7 +67,7 @@ export default function withSearchkitRouting(
     stateToRoute,
     routeToState,
     createURL: (config) => createURL({ ...config, qsModule: qs }),
-    parseURL: (config) => parseURL({ ...config, qsModule: qs }),
+    parseURL: (config) => parseURL({ ...config, qsModule: qs })
   }
 
   const withSearchkitRouting = () => {
@@ -115,7 +125,9 @@ export default function withSearchkitRouting(
       search: ctx.asPath.substring(ctx.pathname.length)
     } as Location
 
-    const searchState: SearchState = routeToState(routingOptions.parseURL({ location: mockLocation }))
+    const searchState: SearchState = routeToState(
+      routingOptions.parseURL({ location: mockLocation })
+    )
     ctx.searchkitClient.updateBaseSearchState(searchState)
 
     return {
