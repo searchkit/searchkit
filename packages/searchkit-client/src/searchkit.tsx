@@ -73,48 +73,14 @@ export type SearchState = {
   page: PageOptions
 }
 
-export class SearchkitClient {
-  private onSearch: (variables: SearchkitQueryVariables) => void
-  public baseSearchState: SearchState
+class SearchkitClientState {
   public searchState: SearchState
   public setSearchState: (
     searchState: SearchState | ((prevState: SearchState) => SearchState)
   ) => void
 
-  constructor({}: SearchkitClientConfig = {}) {
-    this.baseSearchState = {
-      query: '',
-      filters: [],
-      page: {
-        size: 10,
-        from: 0
-      },
-      sortBy: null
-    }
-    this.onSearch = null
-  }
-
-  private performSearch() {
-    if (this.onSearch) this.onSearch(this.getSearchState())
-  }
-
   public getSearchState(): SearchState {
     return this.searchState
-  }
-
-  public setCallbackFn(callback: (variables: SearchkitQueryVariables) => void) {
-    this.onSearch = callback
-  }
-
-  public updateBaseSearchState(updates: Partial<SearchState>): void {
-    this.baseSearchState = {
-      ...this.baseSearchState,
-      ...updates,
-      page: {
-        ...this.baseSearchState.page,
-        ...updates.page
-      }
-    }
   }
 
   setQuery(query: string): void {
@@ -123,6 +89,23 @@ export class SearchkitClient {
       query,
       filters: [],
       page: { from: 0, size: searchState.page.size }
+    }))
+  }
+
+  resetPage(): void {
+    this.setSearchState((searchState: SearchState) => ({
+      ...searchState,
+      page: {
+        from: 0,
+        size: searchState.page.size
+      }
+    }))
+  }
+
+  resetFilters(): void {
+    this.setSearchState((searchState: SearchState) => ({
+      ...searchState,
+      filters: []
     }))
   }
 
@@ -135,10 +118,6 @@ export class SearchkitClient {
       ...prevState,
       page
     }))
-  }
-
-  search(): void {
-    this.performSearch()
   }
 
   getFilters(): Filter[] {
@@ -210,8 +189,62 @@ export class SearchkitClient {
   }
 }
 
+export function createSearchState(state: SearchState) {
+  const searchState = Object.assign({}, state)
+  const setSearchState = (fn) => {
+    Object.assign(searchState, fn(searchState))
+  }
+  const scs = new SearchkitClientState()
+  scs.setSearchState = setSearchState
+  scs.searchState = searchState
+  return scs
+}
+
+export class SearchkitClient extends SearchkitClientState {
+  private onSearch: (variables: SearchkitQueryVariables) => void
+  public baseSearchState: SearchState
+
+  constructor({}: SearchkitClientConfig = {}) {
+    super()
+    this.baseSearchState = {
+      query: '',
+      filters: [],
+      page: {
+        size: 10,
+        from: 0
+      },
+      sortBy: null
+    }
+    this.onSearch = null
+  }
+
+  public updateBaseSearchState(updates: Partial<SearchState>): void {
+    this.baseSearchState = {
+      ...this.baseSearchState,
+      ...updates,
+      page: {
+        ...this.baseSearchState.page,
+        ...updates.page
+      }
+    }
+  }
+
+  private performSearch() {
+    if (this.onSearch) this.onSearch(this.getSearchState())
+  }
+
+  public setCallbackFn(callback: (variables: SearchkitQueryVariables) => void) {
+    this.onSearch = callback
+  }
+
+  public search(): void {
+    this.performSearch()
+  }
+}
+
 export const SearchkitContext = createContext({})
 export const SearchkitVariablesContext = createContext({})
+export const SearchkitRoutingOptionsContext = createContext(null)
 
 export function SearchkitProvider({
   client,
@@ -220,7 +253,7 @@ export function SearchkitProvider({
   client: SearchkitClient
   children: React.ReactElement
 }) {
-  const baseState = client.baseSearchState
+  const baseState = Object.assign({}, client.baseSearchState)
   ;[client.searchState, client.setSearchState] = useState(baseState)
   const [pendingSearch, setPendingSearch] = useState(false)
   const [searchVariables, setSearchVariables] = useState(baseState)
@@ -245,14 +278,25 @@ export function SearchkitProvider({
   )
 }
 
-export function useSearchkitVariables() {
-  const variables = useContext(SearchkitVariablesContext)
+export function useSearchkitVariables(): SearchState {
+  const variables = useContext(SearchkitVariablesContext) as SearchState
   return variables
 }
 
 export function useSearchkit(): SearchkitClient {
   const sk = useContext(SearchkitContext) as SearchkitClient
   return sk
+}
+
+interface SearchkitRoutingOptions {
+  routeToState: any
+  stateToRoute: any
+  createURL: any
+  parseURL: any
+}
+
+export function useSearchkitRoutingOptions(): SearchkitRoutingOptions | null {
+  return useContext(SearchkitRoutingOptionsContext) as SearchkitRoutingOptions
 }
 
 export function useSearchkitQueryValue(): [string, (a: string) => void] {

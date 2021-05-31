@@ -121,6 +121,15 @@ describe('withSearchkitRouting', () => {
       routeStateB.size = 10
       expect(routeStateEqual(routeStateA, routeStateB)).toBe(false)
     })
+    it('filters', () => {
+      const routeStateA = {
+        filters: [{ identifier: 'type', value: 'movie' }]
+      }
+      const routeStateB = {
+        filters: [{ identifier: 'type', value: 'movie' }]
+      }
+      expect(routeStateEqual(routeStateA, routeStateB)).toBe(true)
+    })
   })
 
   describe('Routing functions', () => {

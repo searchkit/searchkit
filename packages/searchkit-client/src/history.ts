@@ -30,20 +30,23 @@ type BrowserHistoryArgs = {
   parseURL?: ParseURL
 }
 
-const defaultCreateURL: CreateURL = ({ qsModule, routeState, location }) => {
-  const { protocol, hostname, port = '', pathname, hash } = location
-  const queryString = qsModule.stringify(routeState)
-  const portWithPrefix = port === '' ? '' : `:${port}`
+export const defaultCreateURL: CreateURL = ({ qsModule, routeState, location }) => {
+  if (location) {
+    const { protocol, hostname, port = '', pathname, hash } = location
+    const queryString = qsModule.stringify(routeState)
+    const portWithPrefix = port === '' ? '' : `:${port}`
 
-  // IE <= 11 has no proper `location.origin` so we cannot rely on it.
-  if (!queryString) {
-    return `${protocol}//${hostname}${portWithPrefix}${pathname}${hash}`
+    // IE <= 11 has no proper `location.origin` so we cannot rely on it.
+    if (!queryString) {
+      return `${protocol}//${hostname}${portWithPrefix}${pathname}${hash}`
+    }
+
+    return `${protocol}//${hostname}${portWithPrefix}${pathname}?${queryString}${hash}`
   }
-
-  return `${protocol}//${hostname}${portWithPrefix}${pathname}?${queryString}${hash}`
+  return `?${qsModule.stringify(routeState)}`
 }
 
-const defaultParseURL: ParseURL = ({ qsModule, location }) =>
+export const defaultParseURL: ParseURL = ({ qsModule, location }) =>
   qsModule.parse(location.search.slice(1), { arrayLimit: 99 })
 
 class BrowserHistory implements Router {
@@ -51,7 +54,7 @@ class BrowserHistory implements Router {
 
   private readonly _createURL: Required<BrowserHistoryArgs>['createURL']
 
-  private readonly parseURL: Required<BrowserHistoryArgs>['parseURL']
+  private readonly _parseURL: Required<BrowserHistoryArgs>['parseURL']
 
   private writeTimer?: number
   private _onPopState?(event: PopStateEvent): void
@@ -66,11 +69,11 @@ class BrowserHistory implements Router {
     this.writeTimer = undefined
     this.writeDelay = writeDelay
     this._createURL = createURL
-    this.parseURL = parseURL
+    this._parseURL = parseURL
   }
 
   public read(): RouteState {
-    return this.parseURL({ qsModule: qs, location: window.location })
+    return this._parseURL({ qsModule: qs, location: window.location })
   }
 
   public write(routeState: RouteState): void {

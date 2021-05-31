@@ -1,6 +1,6 @@
 import React from 'react'
 import { EuiFacetGroup, EuiTitle, EuiFacetButton } from '@elastic/eui'
-import { useSearchkit } from '@searchkit/client'
+import { useSearchkit, FilterLink } from '@searchkit/client'
 
 export const ListFacet = ({ facet, loading }) => {
   const api = useSearchkit()
@@ -11,13 +11,11 @@ export const ListFacet = ({ facet, loading }) => {
       key={entry.id}
       quantity={entry.count}
       isSelected={api.isFilterSelected({ identifier: facet.identifier, value: entry.label })}
-      onClick={() => {
-        api.toggleFilter({ identifier: facet.identifier, value: entry.label })
-        api.search()
-      }}
       isLoading={loading}
     >
-      {entry.label}
+      <FilterLink filter={{ identifier: facet.identifier, value: entry.label }}>
+        {entry.label}
+      </FilterLink>
     </EuiFacetButton>
   ))
 
