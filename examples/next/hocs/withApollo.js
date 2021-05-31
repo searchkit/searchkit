@@ -1,9 +1,9 @@
 import React from 'react'
 import withApollo from 'next-with-apollo'
-import { InMemoryCache, ApolloProvider, ApolloClient } from '@apollo/client'
+import { InMemoryCache, ApolloProvider, ApolloClient, createHttpLink } from '@apollo/client'
 
 export default withApollo(
-  ({ initialState }) => {
+  ({ initialState, headers }) => {
     const cache = new InMemoryCache({
       typePolicies: {
         FacetSetEntry: {
@@ -16,7 +16,14 @@ export default withApollo(
     if (typeof window !== 'undefined') window.cache = cache
 
     return new ApolloClient({
-      uri: `http://localhost:3000/api/graphql`,
+      ssrMode: true,
+      link: createHttpLink({
+        uri: '/api/graphql',
+        credentials: 'same-origin',
+        headers: {
+          cookie: headers?.cookie
+        }
+      }),
       cache
     })
   },
