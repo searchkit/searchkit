@@ -214,3 +214,68 @@ export const SearchBar = () => {
 }
 
 ```
+
+## FilterLink Component
+A link component that handles the interaction for toggling a filter. If routing has been configured, (see [routing guide](https://searchkit.co/docs/guides/url-synchronization) for more information) href attribute would be provided for the next state.
+
+### Usage
+
+```javascript
+import { useSearchkit, FilterLink } from '@searchkit/client'
+import React from 'react'
+
+export const ListFacet = ({ facet, loading }) => {
+  const api = useSearchkit()
+
+  const entries = facet.entries.map((entry) => (
+      <FilterLink 
+        key={entry.id} 
+        filter={{ identifier: facet.identifier, value: entry.label }}>
+          {entry.label} - ({entry.count})
+      </FilterLink>
+  ))
+
+  return (
+    <>
+      <h3>{facet.label}</h3>
+      <div>{entries}</div>
+    </>
+  )
+}
+
+```
+
+### Options
+| Option        |      Description      |
+| :------------- | :----------- |
+| filter         | Required. Filter object to be toggled. If filter is selected, the next action will be for it to be removed |
+| resetPagination | Optional. Default is true. When true, when filter is applied, resets pagination to 0. |
+
+## Pagination Component
+A link component that handles the interaction for navigating to a particular page. If routing has been configured, (see [routing guide](https://searchkit.co/docs/guides/url-synchronization) for more information) href attribute would be provided for the next state.
+
+### Usage
+
+```javascript
+import { useSearchkit, PaginationLink } from '@searchkit/client'
+import React from 'react'
+
+export const Pagination = ({ data, loading }) => {
+  const api = useSearchkit()
+
+  const currentPage = data.hits.page.pageNumber
+
+  return (
+    <>
+      <PaginationLink page={currentPage - 1}>Previous</PaginationLink>
+      <PaginationLink page={currentPage + 1}>Next</PaginationLink>
+    </>
+  )
+}
+
+```
+
+### Options
+| Option        |      Description      |
+| :------------- | :----------- |
+| page         | Required. The next page |

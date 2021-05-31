@@ -119,11 +119,11 @@ const searchkitConfig = {
   hits: {
     fields: [ 'title', 'plot', 'poster' ]
   },
-  query: new MultiMatchQuery({ 
-    fields: [ 'plot','title^4'] 
+  query: new MultiMatchQuery({
+    fields: [ 'plot','title^4']
   }),
   facets: [
-    new RefinementSelectFacet({ 
+    new RefinementSelectFacet({
       field: 'type.raw',
       identifier: 'type',
       label: 'Type'
@@ -156,11 +156,11 @@ const searchkitConfig = {
 const code2 = `
 {
   results(
-    query: "heat", 
+    query: "heat",
     filters: [
       {
-        id: "type", 
-        value: "movie" 
+        id: "type",
+        value: "movie"
       }
     ]) {
     facets {
@@ -212,11 +212,11 @@ const code2 = `
             <div className="lg:col-span-6 col-span-12 lg:pt-0 pt-6">
               <div className="text-center lg:text-left">
                 <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-3xl lg:text-3xl xl:text-3xl">Powered by Apollo GraphQL</h2>
-                <p className="mt-3 text-base text-gray-700 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">Searchkit GraphQL resolvers saves building a search focused API with common use cases such as facet filtering, pagination and querying.  
+                <p className="mt-3 text-base text-gray-700 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">Searchkit GraphQL resolvers saves building a search focused API with common use cases such as facet filtering, pagination and querying.
 
                 </p>
                 <div className="mx-auto mt-8 text-base text-center">
-                  <SyntaxHighlight code={`yarn add @searchkit/apollo-resolvers`} language="shell" />
+                  <SyntaxHighlight code={`yarn add @searchkit/schema`} language="shell" />
                 </div>
                 <div className="mt-5 mx-auto sm:flex justify-left md:mt-8">
                   <div className="rounded-md shadow">
@@ -253,7 +253,7 @@ const code2 = `
             </div>
           </div>
       </div>
-    </div> 
+    </div>
   )
 }
 
@@ -283,7 +283,7 @@ const FrontendIntro = () => {
         </div>
       </div>
     </div>
-    
+
   )
 }
 

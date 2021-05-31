@@ -244,7 +244,7 @@ export class SearchkitClient extends SearchkitClientState {
 
 export const SearchkitContext = createContext({})
 export const SearchkitVariablesContext = createContext({})
-export const SearchkitRoutingOptionsContext = createContext({})
+export const SearchkitRoutingOptionsContext = createContext(null)
 
 export function SearchkitProvider({
   client,
@@ -253,7 +253,7 @@ export function SearchkitProvider({
   client: SearchkitClient
   children: React.ReactElement
 }) {
-  const baseState = client.baseSearchState
+  const baseState = Object.assign({}, client.baseSearchState)
   ;[client.searchState, client.setSearchState] = useState(baseState)
   const [pendingSearch, setPendingSearch] = useState(false)
   const [searchVariables, setSearchVariables] = useState(baseState)

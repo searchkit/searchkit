@@ -9,12 +9,12 @@ import {
 interface FilterLinkProps {
   filter: any
   resetPagination?: boolean
-  children: React.ReactChildren
+  children: React.ReactChildren | React.ReactChild
 }
 
 interface PaginationLinkProps {
   page: number
-  children: React.ReactChildren
+  children: React.ReactChildren | React.ReactChild
 }
 
 function isModifiedEvent(event: React.MouseEvent): boolean {
@@ -47,7 +47,6 @@ export function FilterLink({ filter, resetPagination = true, children }: FilterL
     const { nodeName } = e.currentTarget
 
     if (nodeName === 'A' && isModifiedEvent(e)) {
-      // ignore click for browser’s default behavior
       return
     }
 
@@ -86,7 +85,6 @@ export function PaginationLink({ page, children }: PaginationLinkProps) {
     const { nodeName } = e.currentTarget
 
     if (nodeName === 'A' && isModifiedEvent(e)) {
-      // ignore click for browser’s default behavior
       return
     }
 

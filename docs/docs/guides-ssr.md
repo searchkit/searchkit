@@ -11,6 +11,8 @@ Then you must enable [url synchronization](www.searchkit.co/docs/guides/url-sync
 
 An example of the configuration can be seen below. You can see it in [action here](https://demo.searchkit.co/ssr-example?query=test)
 
+In order for SEO, you will need to use `PaginationLink` and `FilterLink` components to provide you links for your filters and pagination components so search engines like google can navigate around your search pages. For more information, see [searchkit/client API](https://searchkit.co/docs/reference/searchkit-client) docs for components.
+
 ```javascript
 import { useQuery, gql } from '@apollo/client'
 import { withSearchkit, useSearchkitVariables, withSearchkitRouting } from '@searchkit/client'
