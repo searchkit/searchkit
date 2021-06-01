@@ -1,14 +1,17 @@
 ## Search, made easy
 Searchkit is an open source toolkit which helps you build a great search experience with Elasticsearch.
 
-![api-setup-2](./docs/static/img/m/search.jpeg)
-
 Searchkit is a Graph QL / React UI Component framework to:
   - Quickly build a GraphQL API focused on search UI
   - Out-of-the-box React components
   - A great Search experience without needing to be an expert in Elasticsearch, React and Node 
 
-[Website](https://searchkit.co/) | [View Demo](https://demo.searchkit.co) | [Documentation](https://searchkit.co/docs)
+[Website](https://searchkit.co/) 
+[View Demo](https://demo.searchkit.co)
+[Documentation](https://searchkit.co/docs)
+[Discord / Live Discussion](https://discord.gg/CRuWmSQZQx)
+
+![api-setup-2](./docs/static/img/m/search.jpeg)
 
 [Read our blog post about Searchkit V3](https://blog.searchkit.co/searchkit-v3-enter-graphql-330e1aa5752d)
 
