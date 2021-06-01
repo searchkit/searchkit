@@ -19,12 +19,15 @@ slug: /customisations/extending-hit-result
 
 [see an example](https://github.com/searchkit/searchkit/blob/next/examples/next/pages/api/graphql.js#L79)
 
-Then provide a resolver for the field. 
+Then provide a resolver for the field. See [ResultsResolver](https://github.com/beepsoft/searchkit/blob/next/packages/searchkit-schema/src/resolvers/HitsResolver.ts#L44) for what can be provided.
 
 ```javascript
   resolvers: withSearchkitResolvers({
     ResultHit: {
-      exampleCustomField: (parent) => `Example Return Value for ${parent.id}`
+      exampleCustomField: ({ 
+        id, // id contents
+        rawHit // the raw ES hit contents 
+        }) => `Example Return Value for ${id}`
     }
   }),
 ```
