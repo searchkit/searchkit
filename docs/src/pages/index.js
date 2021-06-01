@@ -28,7 +28,7 @@ const Navigation = () => (
                   Blog
                 </a>
                 <a href="https://discord.gg/CRuWmSQZQx" className="rounded-md py-2 px-3 inline-flex items-center leading-5 font-medium text-gray-100 betterhover:hover:bg-gray-100 hover:text-gray-100 hover:bg-gray-800 focus:outline-none focus:text-gray-900 focus:bg-gray-200 transition duration-150 ease-in-out">
-                  Discord
+                  Discord Chat
                 </a>
                 <a href="/docs" className="rounded-md py-2 px-3 inline-flex items-center leading-5 font-medium text-gray-100 betterhover:hover:bg-gray-100 hover:text-gray-100 hover:bg-gray-800 focus:outline-none focus:text-gray-900 focus:bg-gray-200 transition duration-150 ease-in-out">
                   Docs
@@ -292,7 +292,7 @@ function Home() {
   const context = useDocusaurusContext();
 
   return (
-    <div>
+    <>
       <Head>
         <title>Searchkit | Search UI with elasticsearch, made easy. </title>
         <meta name="description" content="Search UI toolkit powered by Elasticsearch and Apollo GraphQL. Out the box React components using Elastic EUI."/>
@@ -316,7 +316,7 @@ function Home() {
       <ConfigIntro />
       <FrontendIntro />
     </div>
-    </div>
+    </>
   );
 }
 

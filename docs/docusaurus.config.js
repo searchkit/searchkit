@@ -16,8 +16,8 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'searchkit', // Usually your GitHub org/user name.
   projectName: 'searchkit', // Usually your repo name.
-  stylesheets: ['https://unpkg.com/tailwindcss@1.9.2/dist/tailwind.min.css'],
   themeConfig: {
+    disableSwitch: true,
     announcementBar: {
       id: 'searchkit_classic', // Any value that will identify this message.
       content:
@@ -27,7 +27,6 @@ module.exports = {
       isCloseable: false, // Defaults to `true`.
     },
     sidebarCollapsible: false,
-    disableSwitch: true,
     respectPrefersColorScheme: false,
     gtag: {
       trackingID: 'G-Y1LWVCFZQK',
@@ -87,10 +86,12 @@ module.exports = {
             'https://github.com/facebook/docusaurus/edit/master/website/blog/',
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: [require.resolve('./src/css/custom.css'), require.resolve('./src/css/tailwind.css')]
         },
       },
     ],
   ],
-  plugins: []
+  plugins: [
+    require.resolve('@cmfcmf/docusaurus-search-local')
+  ]
 };
