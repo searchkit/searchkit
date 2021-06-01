@@ -6,10 +6,11 @@ Searchkit is a Graph QL / React UI Component framework to:
   - Out-of-the-box React components
   - A great Search experience without needing to be an expert in Elasticsearch, React and Node 
 
-[Website](https://searchkit.co/) 
-[View Demo](https://demo.searchkit.co)
-[Documentation](https://searchkit.co/docs)
-[Discord / Live Discussion](https://discord.gg/CRuWmSQZQx)
+#### Highlights
+- [Website](https://searchkit.co/) 
+- [View Demo](https://demo.searchkit.co)
+- [Documentation](https://searchkit.co/docs)
+- [Discord / Live Discussion](https://discord.gg/CRuWmSQZQx)
 
 ![api-setup-2](./docs/static/img/m/search.jpeg)
 
