@@ -18,6 +18,8 @@ module.exports = {
   projectName: 'searchkit', // Usually your repo name.
   themeConfig: {
     disableSwitch: true,
+    defaultMode: 'dark',
+
     announcementBar: {
       id: 'searchkit_classic', // Any value that will identify this message.
       content:
@@ -86,7 +88,7 @@ module.exports = {
             'https://github.com/facebook/docusaurus/edit/master/website/blog/',
         },
         theme: {
-          customCss: [require.resolve('./src/css/custom.css'), require.resolve('./src/css/tailwind.css')]
+          customCss: [require.resolve('./src/css/custom.css')],
         },
       },
     ],

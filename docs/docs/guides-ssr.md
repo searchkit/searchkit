@@ -7,13 +7,13 @@ slug: /guides/ssr-server-side-rendering
 
 Searchkit is able to do server side rendering with a few changes. Due to elastic-ui isn't SSR friendly, you will need to build your own components to do SSR. The first part is to configure apollo to be able to SSR. See [Apollo Server side rendering guide](https://www.apollographql.com/docs/react/performance/server-side-rendering/)
 
-Then you must enable [url synchronization](www.searchkit.co/docs/guides/url-synchronization).
+Then you must enable [url synchronization](https://www.searchkit.co/docs/guides/url-synchronization).
 
 An example of the configuration can be seen below. You can see it in [action here](https://demo.searchkit.co/ssr-example?query=test)
 
-In order for SEO, you will need to use `PaginationLink` and `FilterLink` components to provide you links for your filters and pagination components so search engines like google can navigate around your search pages. For more information, see [searchkit/client API](https://searchkit.co/docs/reference/searchkit-client) docs for components.
+See [SEO tips](https://www.searchkit.co/docs/guides/seo-tips) for more information on how SSR and other features can improve SEO on your search.
 
-```javascript
+```jsx
 import { useQuery, gql } from '@apollo/client'
 import { withSearchkit, useSearchkitVariables, withSearchkitRouting } from '@searchkit/client'
 import withApollo from '../hocs/withApollo'

@@ -7,10 +7,10 @@ slug: /guides/filtering-with-geo-location-search
 
 Searchkit supports the ability to Geosearch hits with elasticsearch. [View Demo](https://demo.searchkit.co/us-parks) of this functionality 
 
-### Index
+## Index
 Start by indexing locations using the geo_point type. Here is an example of indexing the geo_point data available here. https://github.com/searchkit/searchkit/blob/next/examples/indexer/parks/config.ts#L48-L56
 
-### Setting & querying the API
+## Setting up the API
 First import the GeoBoudingBoxFilter from @searchkit/schema
 
 ```javascipt
@@ -50,6 +50,8 @@ const usParksConfig = {
   ]
 }
 ```
+
+## Querying the API
 
 Then you will be able to filter the results by a geo location
 

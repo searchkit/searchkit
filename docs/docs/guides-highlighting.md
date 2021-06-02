@@ -5,8 +5,6 @@ sidebar_label: Highlighting Fields
 slug: /guides/highlighting-fields
 ---
 
-### Getting highlights for matches
-
 To receive ElasticSearch highlights for your matches you need to do the followings:
 
 1. Add `highlightedFields` under `hits` for your Searchkit config. Here you may list the name of fields for which you want to get highlights, or an object where you specify the field name and the highlight configuration according to the  [ElasticSearch highlighting](https://www.elastic.co/guide/en/elasticsearch/reference/current/highlighting.html) documentation
