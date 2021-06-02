@@ -315,6 +315,7 @@ function Home() {
       </div>
       <ConfigIntro />
       <FrontendIntro />
+      <link rel="stylesheet" href="https://unpkg.com/tailwindcss@1.9.2/dist/tailwind.min.css" ></link>
     </div>
     </>
   );

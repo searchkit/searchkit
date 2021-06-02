@@ -28,7 +28,8 @@ module.exports = {
     'guides-url-sync',
     'guides-ssr',
     'guides-highlighting',
-    'guides-geo-search'
+    'guides-geo-search',
+    'guides-seo'
   ]}, {
     'Upgrade Notes': ['v2-v3-migration', 'guides-upgrade-rc25']
   }],
