@@ -87,6 +87,14 @@ see [Adding multiple searchkit configurations](https://www.searchkit.co/docs/cus
 
 # Searchkit Configuration
 
+## Configuration Options
+
+| Option        | Description      |
+| :------------- | :----------- |
+| postProcessRequest          | Optional. If you need to modify the request body before sending it to Elasticsearch, you can add a `postProcessRequest` function to your schema config. The method will recieve a request body argument which is the ES query that Searchkit API has built for your request. You function must return the request body, with your query changes. See postProcessRequest section for more information.    |
+| host          | Required. The elasticsearch connection string  |
+
+
 ## Query
 
 Query will be applied to results & facets. You need to configure a Query handler for this to work.
@@ -450,3 +458,21 @@ const searchkitConfig = {
 | label          | UI label for facet. Used by @searchkit/elastic-ui components |
 | display        | **Optional**. Used on UI to specify what component to handle facet |
 
+## postProcessRequest
+An escape hatch function which allows you to modify the ES request body before it is sent to elasticsearch
+
+Every search request will pass through this function, containing the full body, and expecting a full request body back. 
+
+```javascript
+const searchkitConfig = {
+  host: 'http://localhost:9200',
+  index: 'my_index',
+  hits: {
+    fields: []
+  },
+  query: new MultiMatchQuery({ fields: [] }),
+  postProcessRequest: (body) => {
+    return { ...body, min_score: 10 };
+  }
+}
+```
