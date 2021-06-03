@@ -41,14 +41,9 @@ module.exports = {
           label: "Docs",
         },
         {
-          to: 'docs/guides/elasticsearch-setup-indexing',
-          activeBasePath: 'docs/guides',
-          label: "Guides",
-        },
-        {
-          to: 'docs/customisations/extending-hit-result',
-          activeBasePath: 'docs/customisations',
-          label: "Customisations",
+          to: 'docs/your-own-components',
+          activeBasePath: 'docs/your-own-components',
+          label: "Customising UI",
         },
         {
           to: 'docs/examples/next',

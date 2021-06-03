@@ -1,8 +1,8 @@
 ---
-id: customisations-ui-facet-display
-title: Controlling UI for Facet
-sidebar_label: Controlling Facet UI
-slug: /customisations/facet-ui-display
+id: own-components-ui-facet-display
+title: Custom UI Facet
+sidebar_label: Custom UI Facet
+slug: /build-your-own-components/custom-ui-facet
 ---
 
 For each facet in the configuration, there is a field called display. 
