@@ -1,7 +1,7 @@
 ---
 id: customisations-hit-resolver
-title: Extending Result Hits
-sidebar_label: Extending Result Hits
+title: Data from other sources
+sidebar_label: Data from other sources
 slug: /customisations/extending-hit-result
 ---
 

@@ -14,7 +14,7 @@ Searchkit provides react components out the box which works with the Searchkit G
 - View complete demo of the components on the Searchkit's [demo site](https://demo.searchkit.co/).
 
 #### With Searchkit's React components, you still can:
-- Add your own [custom facet UI](https://www.searchkit.co/docs/build-your-own-components/custom-ui-facet).
+- Build your own [facet component](https://www.searchkit.co/docs/build-your-own-components/custom-ui-facet).
 - Adjust the layout with [Elastic UI framework configuration](https://elastic.github.io/eui/#/) or your own custom CSS.
 
 #### Advantages building your own components:
