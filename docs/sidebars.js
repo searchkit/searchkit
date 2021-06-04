@@ -32,13 +32,14 @@ module.exports = {
     'own-components',
     'own-components-ui-search-query',
     'own-components-ui-result-list-hits',
-    // summary
-    // selected filters
-    // pagination
+    'own-components-ui-summary',
+    'own-components-ui-selected-filters',
+    'own-components-ui-pagination',
     // sorting
     {
       'Facets': [
         'own-components-ui-facet-display',
+        'own-components-ui-facet-value-filtering'
         // list facet
         // range facet
         // date range facet
