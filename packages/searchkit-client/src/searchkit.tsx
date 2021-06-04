@@ -256,7 +256,7 @@ export function SearchkitProvider({
   const baseState = Object.assign({}, client.baseSearchState)
   ;[client.searchState, client.setSearchState] = useState(baseState)
   const [pendingSearch, setPendingSearch] = useState(false)
-  const [searchVariables, setSearchVariables] = useState(baseState)
+  const [searchVariables, setSearchVariables] = useState(null)
 
   client.setCallbackFn(() => {
     setPendingSearch(true)

@@ -35,7 +35,7 @@ export function FilterLink({ filter, resetPagination = true, children }: FilterL
   const routingOptions = useSearchkitRoutingOptions()
   let href
 
-  if (routingOptions) {
+  if (routingOptions && variables) {
     const scs = createSearchState(variables)
     scs.toggleFilter(filter)
     if (resetPagination) scs.resetPage()
@@ -71,7 +71,7 @@ export function PaginationLink({ page, children }: PaginationLinkProps) {
   const from = variables.page.size * (page - 1)
   let href
 
-  if (routingOptions) {
+  if (routingOptions && variables) {
     const scs = createSearchState(variables)
     scs.setPage({
       from,

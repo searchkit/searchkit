@@ -5,12 +5,6 @@ import { InMemoryCache, ApolloProvider, ApolloClient, createHttpLink } from '@ap
 export default withApollo(
   ({ initialState, headers }) => {
     const cache = new InMemoryCache({
-      typePolicies: {
-        FacetSetEntry: {
-          keyFields: false
-        }
-      }
-      // possibleTypes: introspectionResult.possibleTypes
     }).restore(initialState || {})
 
     if (typeof window !== 'undefined') window.cache = cache
