@@ -1,11 +1,11 @@
 ---
 id: own-components-ui-facet-display
-title: Custom UI Facet
-sidebar_label: Custom UI Facet
+title: Building your own Facet Component
+sidebar_label: Building your own Facet Component
 slug: /build-your-own-components/custom-ui-facet
 ---
 
-For each facet in the configuration, there is a field called display. 
+For each facet in the configuration, there is a field called display.
 
 ```javascript
     new RefinementSelectFacet({
@@ -16,7 +16,7 @@ For each facet in the configuration, there is a field called display.
     })
 ```
 
-Display field is used to indicate what presentation should be for facet within the UI.  
+Display field is used to indicate what presentation should be for facet within the UI.
 
 ```gql
 {
