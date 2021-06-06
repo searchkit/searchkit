@@ -20,9 +20,9 @@ export const HitsGrid = ({ data }) => (
 export const HitsList = ({ data }) => (
   <EuiFlexGrid>
     {data?.results.hits.items.map((hit) => (
-      <EuiFlexItem>
+      <EuiFlexItem key={hit.id}>
 
-        <EuiFlexGroup gutterSize="xl" key={hit.id}>
+        <EuiFlexGroup gutterSize="xl">
           <EuiFlexItem>
             <EuiFlexGroup>
               <EuiFlexItem grow={false}>

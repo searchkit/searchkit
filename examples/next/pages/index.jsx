@@ -31,8 +31,7 @@ export default withApollo(withSearchkit(withSearchkitRouting(Search, {
     }
 
     const queryString = qsModule.stringify(newRouteState, {
-      addQueryPrefix: true,
-      arrayFormat: 'repeat',
+      addQueryPrefix: true
     })
 
     return `/type/${typeCategoryURL}${queryString}`
