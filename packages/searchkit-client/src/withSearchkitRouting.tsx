@@ -34,7 +34,7 @@ export const stateToRouteFn = (searchState) => {
 
 export const routeToStateFn = (routeState) => ({
   query: routeState.query || '',
-  sortBy: routeState.sort,
+  sortBy: routeState.sort || '',
   filters: routeState.filters || [],
   page: {
     size: Number(routeState.size) || 10,
@@ -100,6 +100,7 @@ export default function withSearchkitRouting(
       const routeState = router.read()
       const searchState: SearchState = routeToState(routeState)
       api.setSearchState(searchState)
+      api.search()
 
       return function cleanup() {
         router.dispose()

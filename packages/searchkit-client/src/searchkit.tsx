@@ -213,7 +213,7 @@ export class SearchkitClient extends SearchkitClientState {
         size: 10,
         from: 0
       },
-      sortBy: null
+      sortBy: ''
     }
     this.onSearch = null
   }

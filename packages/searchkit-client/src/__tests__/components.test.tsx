@@ -121,7 +121,7 @@ describe('components', () => {
           "size": 20,
         },
         "query": "",
-        "sortBy": null,
+        "sortBy": "",
       }
     `)
   })
@@ -165,7 +165,7 @@ describe('components', () => {
           "size": 10,
         },
         "query": "test",
-        "sortBy": undefined,
+        "sortBy": "",
       }
     `)
   })
