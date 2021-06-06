@@ -76,9 +76,10 @@ export default function withSearchkitRouting(
 
     useEffect(() => {
       const router = getRouting()
-      if (router) {
+      if (router && searchkitVariables) {
         const routeState: RouteState = stateToRoute(searchkitVariables)
         const currentRouteState = router.read()
+
         if (!routeStateEqual(currentRouteState, routeState)) {
           router.write(routeState)
         }
@@ -100,7 +101,7 @@ export default function withSearchkitRouting(
       const routeState = router.read()
       const searchState: SearchState = routeToState(routeState)
       api.setSearchState(searchState)
-
+      api.search()
       return function cleanup() {
         router.dispose()
       }
