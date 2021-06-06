@@ -4,14 +4,7 @@ import { InMemoryCache, ApolloProvider, ApolloClient, createHttpLink } from '@ap
 
 export default withApollo(
   ({ initialState, headers }) => {
-    const cache = new InMemoryCache({
-      typePolicies: {
-        FacetSetEntry: {
-          keyFields: false
-        }
-      }
-      // possibleTypes: introspectionResult.possibleTypes
-    }).restore(initialState || {})
+    const cache = new InMemoryCache({}).restore(initialState || {})
 
     if (typeof window !== 'undefined') window.cache = cache
 
@@ -19,6 +12,7 @@ export default withApollo(
       ssrMode: true,
       link: createHttpLink({
         uri: '/api/graphql',
+       // uri: 'http://localhost:3000/api/graphql',
         credentials: 'same-origin',
         headers: {
           cookie: headers?.cookie
