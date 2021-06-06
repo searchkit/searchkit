@@ -17,6 +17,7 @@ Searchkit is a Graph QL / React UI Component framework to:
 [Read our blog post about Searchkit V3](https://blog.searchkit.co/searchkit-v3-enter-graphql-330e1aa5752d)
 
 ### Release History
+- 3.0.0-canary.35 : Routing + Search state Bug fixes
 - 3.0.0-canary.34 : Better SEO support https://github.com/searchkit/searchkit/releases/tag/v3.0.0-canary.34
 - 3.0.0-canary.33 : Fix issue with state where multiple api calls are made before searching.
 - 3.0.0-canary.31 : Highlighting, url sync, SSR support.
