@@ -10,7 +10,7 @@ export const SearchBar = ({ loading }) => {
     <EuiFieldSearch
       placeholder="Search"
       value={query}
-      onChange={(e) => {
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
         setQuery(e.target.value)
       }}
       isLoading={loading}

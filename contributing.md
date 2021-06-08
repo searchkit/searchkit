@@ -13,45 +13,27 @@ Running all unit tests:
 yarn run test
 ```
 
-## Running your own app with locally compiled version of Next.js
+## Running the examples/next demo app with locally compiled version of Searchkit packages
 
-1. In your app's `package.json`, replace:
+1. Run the make command `link-packages` within your terminal
 
-   ```json
-   "@searchkit/schema": "<searchkit-version>",
-   "@searchkit/client": "<searchkit-version>",
-   "@searchkit/elastic-ui": "<searchkit-version>",
+`make link-packages`
 
-   ```
+This will create a symlink for all searchkit libraries to the examples/next application
 
-   with:
+2. At Searchkit root, keep the two following commands running in the background. Order of execution matters (needs to be core and then UI). This builds the libraries for example app to use. These commands will also continue to watch for changes and rebuild
 
-   ```json
-   "@searchkit/schema": "file:<local-path-to-cloned-searchkit-repo>/packages/searchkit-schema",
-   "@searchkit/client": "file:<local-path-to-cloned-searchkit-repo>/packages/searchkit-client",
-   "@searchkit/elastic-ui": "file:<local-path-to-cloned-searchkit-repo>/packages/searchkit-elastic-ui",
-   ```
+`yarn run dev:core` in terminal / shell 1
+`yarn run dev:ui` in terminal / shell 2
 
-2. In your app's root directory, make sure to remove `@searchkit` from `node_modules` with:
+3. Run the next application in local development mode.
 
-   ```sh
-   rm -rf ./node_modules/@searchkit
-   ```
+`cd ./examples/next && yarn start` in shell 3
 
-3. In your app's root directory, run:
+Changes to any of the packages will automatically reload the next example app
 
-   ```sh
-   yarn
-   ```
+4. Once you applied your changes and want to remove symlinks, run the make command `unlink-packages`
 
-   to re-install all of the dependencies.
+`make unlink-packages`
 
-   Note that @searchkit packages will be copied from the locally compiled version as opposed to from being downloaded from the NPM registry.
-
-4. Run your application as you normally would.
-
-5. To update your app's dependencies, after you've made changes to your local `@searchkit` repository. In your app's root directory, run:
-
-   ```sh
-   yarn install --force
-   ```
+5. For your changes, create unit tests for coverage. Its advisable to run `unlink-packages` (above command) as your unit tests may not work as expected.

@@ -21,6 +21,9 @@ Searchkit is an open source search toolkit. Searchkit is made up of the followin
 - [GraphQL Schema Query Cheatsheet](https://searchkit.co/docs/guides/graphql-schema-queries-cheatsheet)
 - [Customising Searchkit](https://searchkit.co/docs/quick-start/customise-searchkit)
 
+#### Contributing to Searchkit
+- [Contributing Guide](https://github.com/searchkit/searchkit/blob/next/contributing.md)
+
 ### Searchkit Classic
 For those who currently use Searchkit Classic, here are quicklinks to codebase & Docs
 - [Codebase](https://github.com/searchkit/searchkit/tree/v2)
