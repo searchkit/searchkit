@@ -16,7 +16,7 @@
     "versionup:pre": "lerna version prerelease --conventional-commits --no-git-tag-version",
     "build": "lerna run build --stream --scope @searchkit/client && lerna run build --stream --scope '{@searchkit/schema,@searchkit/elastic-ui,@searchkit/cli}'",
     "dev:core": "lerna run dev --stream --scope '{@searchkit/client,@searchkit/schema}'",
-    "dev:ui": "lerna run dev --stream --scope '{@searchkit/elastic-ui}'",
+    "dev:ui": "lerna run dev --stream --scope '@searchkit/elastic-ui'",
     "release": "lerna publish from-package",
     "test": "lerna run test --stream",
     "build-docs": "lerna run build-docs",
