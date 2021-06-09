@@ -70,7 +70,7 @@ export default function withSearchkitRouting(
     parseURL: (config) => parseURL({ ...config, qsModule: qs })
   }
 
-  const withSearchkitRouting = () => {
+  const withSearchkitRouting = (props) => {
     const searchkitVariables = useSearchkitVariables()
     const api = useSearchkit()
 
@@ -109,7 +109,7 @@ export default function withSearchkitRouting(
 
     return (
       <SearchkitRoutingOptionsContext.Provider value={routingOptions}>
-        <Page />
+        <Page {...props} />
       </SearchkitRoutingOptionsContext.Provider>
     )
   }

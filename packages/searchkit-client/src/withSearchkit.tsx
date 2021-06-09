@@ -21,7 +21,7 @@ export default (Page, createSearchkitClient = defaultSearchkitClient) => {
     }
     return (
       <SearchkitProvider client={getClient()}>
-        <Page />
+        <Page {...props} />
       </SearchkitProvider>
     )
   }
