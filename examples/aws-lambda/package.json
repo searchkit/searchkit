@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@searchkit/schema": "^3.0.0-canary.35",
+    "@searchkit/schema": "^3.0.0-canary.37",
     "apollo-server-lambda": "^2.19.0"
   },
   "devDependencies": {
