@@ -21,7 +21,7 @@ unlink-packages:
 	cd ./examples/next/node_modules/react-dom && yarn unlink
 	cd ./examples/next/node_modules/@apollo/client && yarn unlink
 
-  cd ./packages/searchkit-schema && yarn --force
+	cd ./packages/searchkit-schema && yarn --force
 	cd ./packages/searchkit-elastic-ui && yarn --force
 	cd ./packages/searchkit-client && yarn --force
 

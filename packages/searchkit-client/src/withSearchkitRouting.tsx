@@ -114,11 +114,15 @@ export default function withSearchkitRouting(
     )
   }
 
-  withSearchkitRouting.getInitialProps = async (ctx) => {
+  withSearchkitRouting.getInitialProps = async (pageCtx) => {
     let props
+    const ctx = 'Component' in pageCtx ? pageCtx.ctx : pageCtx;
+    const searchkitClient = pageCtx.searchkitClient
+
     if (Page.getInitialProps) {
       props = await Page.getInitialProps(ctx)
     }
+
     const mockLocation = {
       hostname: ctx.req?.headers.host,
       href: ctx.asPath,
@@ -129,7 +133,7 @@ export default function withSearchkitRouting(
     const searchState: SearchState = routeToState(
       routingOptions.parseURL({ location: mockLocation })
     )
-    ctx.searchkitClient.updateBaseSearchState(searchState)
+    searchkitClient.updateBaseSearchState(searchState)
 
     return {
       ...props,
