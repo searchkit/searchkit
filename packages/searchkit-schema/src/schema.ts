@@ -164,9 +164,8 @@ export interface SearchkitSchemaConfig {
 }
 
 export default (schemaConfigs: SearchkitSchemaConfig | Array<SearchkitSchemaConfig>) => {
-  const { typeDefs, context, resolvers } = (Array.isArray(schemaConfigs)
-    ? schemaConfigs
-    : [schemaConfigs]
+  const { typeDefs, context, resolvers } = (
+    Array.isArray(schemaConfigs) ? schemaConfigs : [schemaConfigs]
   ).reduce(
     (sum, schemaConfig) => {
       const typeName = schemaConfig.typeName
