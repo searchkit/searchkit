@@ -16,6 +16,6 @@ export default async (parent, {}, ctx) => {
 
     return facets
   } catch (e) {
-    console.log(e)
+    throw e
   }
 }

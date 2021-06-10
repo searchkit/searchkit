@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-canary.38](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.27...v3.0.0-canary.38) (2021-06-10)
+
+
+### Features
+
+* Add highlight support for matched words ([#880](https://github.com/searchkit/searchkit/issues/880)) ([a7b971e](https://github.com/searchkit/searchkit/commit/a7b971e778bc017f9feb535cd848a7776f82778e))
+
+
+
+
+
 # [3.0.0-canary.37](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.27...v3.0.0-canary.37) (2021-06-09)
 
 

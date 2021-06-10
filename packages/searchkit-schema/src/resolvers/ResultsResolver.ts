@@ -59,6 +59,6 @@ export default async (parent, parameters, ctx, info) => {
       }
     }
   } catch (e) {
-    console.log(e)
+    throw e
   }
 }

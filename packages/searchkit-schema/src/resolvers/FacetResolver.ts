@@ -34,6 +34,6 @@ export default async (parent, parameters: FacetResolverParameters, ctx) => {
 
     return facets[0]
   } catch (e) {
-    console.log(e)
+    throw e
   }
 }
