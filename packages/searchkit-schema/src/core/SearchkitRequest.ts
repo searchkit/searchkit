@@ -4,6 +4,7 @@ import HttpAgent, { HttpsAgent } from 'agentkeepalive'
 import { SearchkitConfig } from '../resolvers'
 import QueryManager from './QueryManager'
 import { filterTransform } from './FacetsFns'
+import ESQueryError from '../utils/ESQueryError'
 
 export interface SearchResponse<T> {
   took: number
@@ -141,7 +142,11 @@ export default class SearchkitRequest {
 
       return response.body
     } catch (e) {
-      console.log(e)
+      if (e.meta?.statusCode === 400) {
+        throw new ESQueryError(`Elasticsearch query failed. Check your custom filters or configuration. Below is the ES Query`, esQuery)
+      } else {
+        throw e
+      }
     }
   }
 }

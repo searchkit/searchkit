@@ -58,6 +58,6 @@ export default async (parent, parameters: HitsParameters, ctx) => {
       sortedBy: chosenSortOption?.id
     }
   } catch (e) {
-    console.log(e)
+    throw e
   }
 }

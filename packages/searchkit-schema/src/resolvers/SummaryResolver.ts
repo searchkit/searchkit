@@ -28,6 +28,6 @@ export default async (parent, {}, ctx) => {
       }, [])
     }
   } catch (e) {
-    console.log(e)
+    throw e
   }
 }

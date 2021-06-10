@@ -16,9 +16,17 @@ module.exports = {
       'searchkit-client',
       'searchkit-elastic-ui',
     ],
-    'Advanced API': [ 'customisations-hit-resolver', 'customisations-graphql-multiple-configurations', 'customisations-graphql-types', 'customisations-ui-add-new-facet-class', 'customisations-add-base-filters' ],
-    'Guides': [
-      'guides-elasticsearch-setup-indexing',
+    'API Guides': [
+      'customisations-hit-resolver',
+      'customisations-graphql-multiple-configurations',
+      'customisations-graphql-types',
+      'customisations-ui-add-new-facet-class',
+      'customisations-add-base-filters',
+      'customisations-authentication-and-authorisation',
+      'customisations-api-logging'
+    ],
+    'Indexing Guides': ['guides-elasticsearch-setup-indexing'],
+    'Frontend Guides': [
       'guides-graphql-schema-cheat-sheet',
       'guides-url-sync',
       'guides-ssr',

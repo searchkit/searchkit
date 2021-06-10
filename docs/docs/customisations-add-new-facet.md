@@ -1,7 +1,7 @@
 ---
 id: customisations-ui-add-new-facet-class
-title: Adding a new Facet Type
-sidebar_label: New Facet Type
+title: Building your own Facet
+sidebar_label: Building your own Facet
 slug: /customisations/add-new-facet
 ---
 
