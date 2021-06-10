@@ -116,7 +116,7 @@ export default function withSearchkitRouting(
 
   withSearchkitRouting.getInitialProps = async (pageCtx) => {
     let props
-    const ctx = 'Component' in pageCtx ? pageCtx.ctx : pageCtx;
+    const ctx = 'Component' in pageCtx ? pageCtx.ctx : pageCtx
     const searchkitClient = pageCtx.searchkitClient
 
     if (Page.getInitialProps) {
