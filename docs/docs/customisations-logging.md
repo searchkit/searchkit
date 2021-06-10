@@ -46,7 +46,7 @@ const server = new ApolloServer({
 });
 ```
 
-# Error Logging
+### Error Logging
 Errors can happen for some of the following reasons:
 - Elasticsearch Query isn't correct
 - Failed to connect to the Elasticsearch Instance
