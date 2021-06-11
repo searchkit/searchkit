@@ -3,6 +3,8 @@ id: customisations-add-base-filters
 title: Adding base filters
 sidebar_label: Adding base filters
 slug: /customisations/add-base-filters
+keywords: Base Filters, Elasticsearch Base Filters
+description: Adding your own base filters to Searchkit API
 ---
 
 You want to apply elastic-search filters on the API to filter results. You can do this with implementing the `getBaseFilters` method.

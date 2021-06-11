@@ -3,6 +3,8 @@ id: customisations-ui-add-new-facet-class
 title: Building your own Facet
 sidebar_label: Building your own Facet
 slug: /customisations/add-new-facet
+keywords: Elasticsearch Facets, GraphQL Facet Search, Searchkit Facet, Elasticsearch API
+description: Building your own custom facet for Searchkit
 ---
 
 You want to add a new type of facet which isn't currently supported by Searchkit. First create a Facet Class by implementing the BaseFacet interface.

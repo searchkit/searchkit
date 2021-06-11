@@ -2,7 +2,9 @@
 id: example-apps-next
 title: Vercel Next Example
 sidebar_label: Vercel Next
-slug: /examples/next
+slug: /examples/nextjs-graphql-elasticsearch-boilerplate
+keywords: Elasticsearch GraphQL Nextjs Example, Elasticsearch GraphQL boilerplate 
+description: Elasticsearch NextJS GraphQL boilerplate
 ---
 ### NextJS
 Technologies: Vercel Next + Searchkit + Apollo + elastic-ui 

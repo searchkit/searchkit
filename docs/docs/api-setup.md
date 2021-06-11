@@ -3,6 +3,8 @@ id: api-setup
 title: API Setup
 sidebar_label: API Setup
 slug: /quick-start/api-setup
+keywords: GraphQL, Elasticsearch, Elasticsearch indexing, Apollo Server, GraphQL Schema, Elasticsearch GraphQL
+description: Setting up Elasticsearch with Apollo Server and Searchkit GraphQL API Schema 
 ---
 
 ## Setting up Elasticsearch & Indexing

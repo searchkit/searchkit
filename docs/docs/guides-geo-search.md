@@ -3,6 +3,8 @@ id: guides-geo-search
 title: Geo Location Search Filtering
 sidebar_label: Geo Location Search Filtering
 slug: /guides/filtering-with-geo-location-search
+keywords: Elasticsearch GraphQL Nextjs Example, Elasticsearch GraphQL boilerplate 
+description: Elasticsearch NextJS Search GraphQL boilerplate
 ---
 
 Searchkit supports the ability to Geosearch hits with elasticsearch. [View Demo](https://demo.searchkit.co/us-parks) of this functionality 

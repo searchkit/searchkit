@@ -1,8 +1,10 @@
 ---
 id: customisations-graphql-multiple-configurations
-title: Multiple Searchkit Configurations
-sidebar_label: Multiple Search Configurations
+title: Multiple Searchkit Schema Configurations
+sidebar_label: Multiple Searchkit Schema Configurations
 slug: /customisations/multiple-searchkit-configurations
+keywords: Elasticsearch GraphQL API, Multiple Search Schemas
+description: Having more than one Searchkit configuration for your GraphQL API
 ---
 
 For different parts of the site, you may want a different search experience (searching on a different index, different facet configurations, different query implementations). SearchkitSchema function can accept multiple searchkit configurations. For each searchkit configuration, it will define the graphql schema + resolvers for SDL.  An example of this shown below:

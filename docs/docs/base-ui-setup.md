@@ -3,6 +3,8 @@ id: base-ui-setup
 title: Initial Setup
 sidebar_label: Initial Setup
 slug: /quick-start/ui/setup
+keywords: React, Elasticsearch, Apollo Client, GraphQL, GraphQL React Elasticsearch
+description: Setting up Apollo client to call Searchkit GraphQL API and integrating with your own components 
 ---
 
 This section we will be setting up the UI part of searchkit.

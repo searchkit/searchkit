@@ -1,8 +1,10 @@
 ---
 id: customisations-graphql-types
-title: Changing GraphQL Types
-sidebar_label: Changing GraphQL Types
+title: Customise Searchkit Schema
+sidebar_label: Customise Searchkit Schema
 slug: /customisations/changing-graphql-types
+keywords: Elasticsearch GraphQL API, customise GraphQL types
+description: Customise Searchkit Schema
 ---
 
 When `addToQueryType` is true, searchkit will add a `results` field to the SDL which will use the Searchkit Resolver. For some, you may not want the field to be added to the root Query type and want to configure where the field should be. With addToQueryType set to false and putting in your own field in the SDL.

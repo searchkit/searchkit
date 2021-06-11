@@ -2,7 +2,9 @@
 id: example-apps-prisma
 title: Prisma Example
 sidebar_label: Prisma + Express
-slug: /examples/prisma-node-express
+slug: /examples/prisma-node-express-graphql-elasticsearch-boilerplate
+keywords: Elasticsearch GraphQL Nextjs Example, Elasticsearch GraphQL boilerplate 
+description: Elasticsearch Prisma GraphQL boilerplate
 ---
 
 Technologies: Searchkit + Prisma + Express

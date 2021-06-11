@@ -3,6 +3,8 @@ id: customisations-authentication-and-authorisation
 title: Authentication & Authorisation
 sidebar_label: Authentication & Authorisation
 slug: /customisations/authentication-and-authorisation
+keywords: Elasticsearch GraphQL API, Searchkit Permissions, Searchkit Authorizations, Searchkit Filtering
+description: Authorization and authentication for Searchkit
 ---
 
 You want to apply search filters based on who or where the request is coming from. With `getBaseFilters`, you can return an array of filters to apply to the elasticsearch request.

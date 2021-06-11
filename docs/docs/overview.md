@@ -3,6 +3,8 @@ id: overview
 title: Overview
 sidebar_label: Overview
 slug: /
+keywords: Search UI, Elasticsearch Search UI, React Search Components
+description: Searchkit is an open source search toolkit built with Elasticsearch, GraphQL and React.
 ---
 
 ### What is Searchkit?

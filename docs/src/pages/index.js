@@ -294,16 +294,16 @@ function Home() {
   return (
     <>
       <Head>
-        <title>Searchkit | Search UI with elasticsearch, made easy. </title>
-        <meta name="description" content="Search UI toolkit powered by Elasticsearch and Apollo GraphQL. Out the box React components using Elastic EUI."/>
-        <meta name="keywords" content="Elasticsearch, GraphQL, graph QL, React, framework, UI components" />
+        <title>Searchkit | Search UI with elasticsearch and GraphQL, made easy. </title>
+        <meta name="description" content="Search UI with Elasticsearch and Apollo GraphQL. Tools to build a GraphQL API and use Out the box React components to build a great search experience."/>
+        <meta name="keywords" content="Elasticsearch, GraphQL, React Search UI, Search UI components, NextJS Search, Elasticsearch Search UI" />
         <meta property="og:title" content="Searchkit - Search, made easy"/>
-        <meta property="og:description" content="Search UI toolkit powered by Elasticsearch and Apollo GraphQL. Out the box React components using Elastic EUI."/>
+        <meta property="og:description" content="Search UI with Elasticsearch and Apollo GraphQL. Tools to build a GraphQL API and use Out the box React components to build a great search experience."/>
         <meta property="og:image" content={useBaseUrl('img/m/search.jpeg')}/>
         <meta property="og:url" content="https://searchkit.co"/>
         <link data-react-helmet="true" rel="shortcut icon" href="/img/favicon.ico"/>
         <meta property="twitter:title" content="Searchkit - Search, made easy"/>
-        <meta property="twitter:description" content="Search UI toolkit powered by Elasticsearch and Apollo GraphQL. Out the box React components using Elastic EUI."/>
+        <meta property="twitter:description" content="Search UI with Elasticsearch and Apollo GraphQL. Tools to build a GraphQL API and use Out the box React components to build a great search experience."/>
         <meta property="twitter:image" content={useBaseUrl('img/m/search.jpeg')}/>
         <meta property="twitter:url" content="summary_large_image"/>
         <meta name="google-site-verification" content="nYA9IOgFmYP8znklDbiAGOx8fRXGvpQBX6NQmIKRwMA" />

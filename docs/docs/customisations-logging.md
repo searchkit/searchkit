@@ -3,6 +3,8 @@ id: customisations-api-logging
 title: Server Logging
 sidebar_label: Server Logging
 slug: /customisations/server-logging
+keywords: Elasticsearch GraphQL API, Searchkit Server logging, Searchkit APM 
+description: Implement Server logging / Monitoring for Searchkit
 ---
 
 When you want to provide logging so you can monitor demand from a operations perspective or from an analytics prespective, you can build your own graphql plugin which allows you to implement methods that are called in the lifecycle of a request. Here you can monitor on errors, request timings and the query.
