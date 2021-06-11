@@ -46,7 +46,7 @@ module.exports = {
           label: "Customising UI",
         },
         {
-          to: 'docs/examples/next',
+          to: 'docs/examples/nextjs-graphql-elasticsearch-boilerplate',
           activeBasePath: 'docs/examples',
           label: "Examples",
         },
