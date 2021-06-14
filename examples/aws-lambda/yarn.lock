@@ -386,10 +386,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
-"@searchkit/schema@^3.0.0-canary.25":
-  version "3.0.0-canary.25"
-  resolved "https://registry.yarnpkg.com/@searchkit/schema/-/schema-3.0.0-canary.25.tgz#fa9f40629f9d00dbcaa6ac9782054c0afa02d678"
-  integrity sha512-Ymf4KyDRM9WsBAMsOHhBBYkd6Gm5iTnTQnwWDNo+XWQvFSEt9BFwf3XyuCr1/cc4K1JC74uaPXAGq/Pmib9mZg==
+"@searchkit/schema@^3.0.0-canary.38":
+  version "3.0.0-canary.38"
+  resolved "https://registry.yarnpkg.com/@searchkit/schema/-/schema-3.0.0-canary.38.tgz#8a0aa80570b38f913615b6291371ddc5056b309a"
+  integrity sha512-0fUQ9638JIk5i6JTtCkanVfLHay2k3LaiEUXJyze/br9xYHhgdIDlPV3Rt/sbI2WP0tcVPqtuEd/gTyAr5k36A==
   dependencies:
     "@elastic/elasticsearch" "^7.9.1"
     agentkeepalive "^4.1.3"
@@ -1786,9 +1786,9 @@ node-schedule@^1.3.2:
     sorted-array-functions "^1.0.0"
 
 normalize-url@^4.1.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-4.5.0.tgz#453354087e6ca96957bd8f5baf753f5982142129"
-  integrity sha512-2s47yzUxdexf1OhyRi4Em83iQk0aPvwTddtFz4hnSSw9dCEsLEGf6SwIO8ss/19S9iBb5sJaOuTvTGDeZI00BQ==
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-4.5.1.tgz#0dd90cf1288ee1d1313b87081c9a5932ee48518a"
+  integrity sha512-9UZCFRHQdNrfTpGg8+1INIg93B6zE0aXMVFkw1WFwvO4SlZywU6aLg5Of0Ap/PgcbSw4LNxvMWXMeugwMCX0AA==
 
 npm-run-path@^4.0.0:
   version "4.0.1"
