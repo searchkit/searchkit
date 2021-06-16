@@ -23,7 +23,7 @@ module.exports = {
     announcementBar: {
       id: 'searchkit_classic', // Any value that will identify this message.
       content:
-        'Searchkit V2 Docs are accessible <a href="http://searchkit.github.io/searchkit/stable/">here</a>',
+        'Searchkit V2 have moved to <a href="http://searchkit.github.io/searchkit/stable/">here</a>',
       backgroundColor: 'rgb(26,32,44)', // Defaults to `#fff`.
       textColor: '#fff', // Defaults to `#000`.
       isCloseable: false, // Defaults to `true`.
