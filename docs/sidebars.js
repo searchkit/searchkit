@@ -57,6 +57,13 @@ module.exports = {
   Examples: [
     { 'API + Frontend': ['example-apps-next'],
      'API only': ['example-apps-prisma', 'example-apps-aws-lambda', 'example-apps-express' ],
-      'Frontend only': ['example-apps-create-react-app']
+      'Frontend only': ['example-apps-create-react-app'],
+      'Tutorials': [
+        {
+          type: 'link',
+          label: "How to build a GraphQL API with AWS Lambda, Elasticsearch and Searchkit",
+          href: "https://dev.to/joemcelroy/search-ui-graphql-api-with-elasticsearch-searchkit-4jp7"
+        }
+      ]
   }]
 };
