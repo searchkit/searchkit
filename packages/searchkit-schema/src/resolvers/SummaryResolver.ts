@@ -6,10 +6,11 @@ export default async (parent, {}, ctx) => {
   const queryManager: QueryManager = parent.searchkit.queryManager
   const config: SearchkitConfig = parent.searchkit.config
   const skRequest: SearchkitRequest = parent.searchkit.skRequest
+  const facets = parent.searchkit.facets
 
   try {
     const results = await skRequest.search({})
-    const combinedFilters = [...(config.facets || []), ...(config.filters || [])]
+    const combinedFilters = [...(facets || []), ...(config.filters || [])]
     return {
       total:
         typeof results.hits.total.value === 'number'

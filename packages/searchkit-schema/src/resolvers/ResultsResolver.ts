@@ -4,6 +4,7 @@ import SearchkitRequest from '../core/SearchkitRequest'
 import BaseQuery from '../query/BaseQuery'
 import { BaseFacet } from '../facets/BaseFacet'
 import { BaseFilter } from '../filters/BaseFilter'
+import { VisibleWhenRuleSet } from '../facets'
 
 export interface SortingOption {
   id: string
@@ -26,7 +27,7 @@ export interface SearchkitConfig {
     highlightedFields?: (string | CustomHighlightConfig)[]
   }
   query?: BaseQuery
-  facets?: Array<BaseFacet>
+  facets?: Array<BaseFacet | VisibleWhenRuleSet>
   filters?: Array<BaseFilter>
   postProcessRequest?: (body: RequestBody) => RequestBody
 }
@@ -34,6 +35,15 @@ export interface SearchkitConfig {
 export interface ResultsResolverParameters {
   filters: Array<MixedFilter>
   query: string
+}
+
+const getFacets = (facets: Array<BaseFacet|VisibleWhenRuleSet> = [], queryManager: QueryManager, ctx) => {
+  return facets.reduce((facetsList, facet) => {
+    if (facet instanceof VisibleWhenRuleSet) {
+      return [...facetsList, ...facet.getActiveFacets(queryManager, ctx)]
+    }
+    return [...facetsList, facet]
+  }, [])
 }
 
 export default async (parent, parameters, ctx, info) => {
@@ -48,12 +58,14 @@ export default async (parent, parameters, ctx, info) => {
       ? ctx.searchkit.baseFilters[returnTypeName](parent, parameters, ctx, info)
       : []
     const queryManager = new QueryManager(parameters.filters, parameters.query)
-    const skRequest = new SearchkitRequest(queryManager, skConfig, baseFilters)
+    const facets = getFacets(skConfig.facets, queryManager, ctx)
+    const skRequest = new SearchkitRequest(queryManager, skConfig, baseFilters, facets)
 
     return {
       searchkit: {
         skRequest: skRequest,
         queryManager: queryManager,
+        facets,
         config: skConfig,
         hitType: ctx.searchkit.hitTypeMappings[returnTypeName]
       }

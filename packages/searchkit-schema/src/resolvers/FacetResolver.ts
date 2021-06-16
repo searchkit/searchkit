@@ -1,7 +1,7 @@
 import SearchkitRequest from '../core/SearchkitRequest'
 import { getAggregationsFromFacets, getFacetsFromResponse } from '../core/FacetsFns'
 import QueryManager from '../core/QueryManager'
-import { SearchkitConfig } from './ResultsResolver'
+import { BaseFacet } from '../facets'
 
 export interface FacetResolverParameters {
   identifier: string
@@ -11,11 +11,12 @@ export interface FacetResolverParameters {
 
 export default async (parent, parameters: FacetResolverParameters, ctx) => {
   const queryManager: QueryManager = parent.searchkit.queryManager
-  const config: SearchkitConfig = parent.searchkit.config
   const skRequest: SearchkitRequest = parent.searchkit.skRequest
+  const skFacets: Array<BaseFacet> = parent.searchkit.facets
 
+  // evaluate the facets that are allowed from rules
   const facet =
-    config.facets && config.facets.find((facet) => facet.getIdentifier() === parameters.identifier)
+    skFacets && skFacets.find((facet) => facet.getIdentifier() === parameters.identifier)
   if (!facet) return null
 
   try {

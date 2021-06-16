@@ -18,7 +18,6 @@ function getSortOption(id, sortOptions: SortingOption[]) {
 }
 
 export default async (parent, parameters: HitsParameters, ctx) => {
-  const typeName = parent.searchkit.typeName
   const config: SearchkitConfig = parent.searchkit.config
   const skRequest: SearchkitRequest = parent.searchkit.skRequest
   try {
