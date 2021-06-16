@@ -6,7 +6,6 @@ interface DateRangeFacetConfig {
   identifier: string
   field: string
   label: string
-  size?: number
   display?: 'DateRange' | string
 }
 

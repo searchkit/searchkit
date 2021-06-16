@@ -5,6 +5,7 @@ import { SearchkitConfig } from '../resolvers'
 import QueryManager from './QueryManager'
 import { filterTransform } from './FacetsFns'
 import ESQueryError from '../utils/ESQueryError'
+import { BaseFacet } from '../facets'
 
 export interface SearchResponse<T> {
   took: number
@@ -64,7 +65,8 @@ export default class SearchkitRequest {
   constructor(
     private queryManager: QueryManager,
     private config: SearchkitConfig,
-    private baseFilters: Array<Record<string, unknown>>
+    private baseFilters: Array<Record<string, unknown>>,
+    private facets: Array<BaseFacet>
   ) {
     this.client = new Client({
       node: this.config.host,
@@ -106,7 +108,7 @@ export default class SearchkitRequest {
       }
     }
 
-    const postFilter = filterTransform(this.queryManager, this.config.facets)
+    const postFilter = filterTransform(this.queryManager, this.facets)
 
     let highlight
     this.config.hits.highlightedFields?.forEach((field) => {

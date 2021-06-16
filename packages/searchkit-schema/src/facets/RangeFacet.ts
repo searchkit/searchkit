@@ -6,7 +6,6 @@ interface RangeFacetConfig {
   identifier: string
   field: string
   label: string
-  size?: number
   display?: 'Slider' | string
   range: {
     min: number
