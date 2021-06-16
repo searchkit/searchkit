@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node config.ts",
     "parks": "ts-node ./parks/config.ts",
-    "bikes": "ts-node ./bike-hire-stations/config.ts"
+    "bikes": "ts-node ./bike-hire-stations/config.ts",
+    "products": "ts-node ./mrp-products/config.ts"
   },
   "author": "",
   "license": "ISC",
