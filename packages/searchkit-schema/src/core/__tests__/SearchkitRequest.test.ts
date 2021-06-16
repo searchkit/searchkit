@@ -22,6 +22,7 @@ describe('SearchkitRequest', () => {
           fields: ['title']
         }
       },
+      [],
       []
     )
     const x = await sr.search({
@@ -44,6 +45,7 @@ describe('SearchkitRequest', () => {
           },
           postProcessRequest
         },
+        [],
         []
       )
       const x = await sr.search({
