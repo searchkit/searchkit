@@ -23,15 +23,16 @@ module.exports = {
       'customisations-ui-add-new-facet-class',
       'customisations-add-base-filters',
       'customisations-authentication-and-authorisation',
-      'customisations-api-logging'
+      'customisations-api-logging',
+      'customisations-conditional-facets',
+      'guides-highlighting',
+      'guides-geo-search',
     ],
     'Indexing Guides': ['guides-elasticsearch-setup-indexing'],
     'Frontend Guides': [
       'guides-graphql-schema-cheat-sheet',
       'guides-url-sync',
       'guides-ssr',
-      'guides-highlighting',
-      'guides-geo-search',
       'guides-seo'
     ],
     'Notes': ['v2-v3-migration', 'guides-upgrade-rc25']
