@@ -1,98 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Facets Resolver should return as expected custom rule 1`] = `
-Object {
-  "results": Object {
-    "facets": Array [
-      Object {
-        "identifier": "type",
-      },
-      Object {
-        "identifier": "writers",
-      },
-      Object {
-        "identifier": "actors",
-      },
-      Object {
-        "identifier": "genres",
-      },
-    ],
-  },
-}
-`;
-
-exports[`Facets Resolver should return as expected should return correct Results 2`] = `
-Object {
-  "results": Object {
-    "facets": Array [
-      Object {
-        "display": "ListFacet",
-        "entries": Array [
-          Object {
-            "count": 3120,
-            "id": "type_Movie",
-            "label": "Movie",
-          },
-          Object {
-            "count": 521,
-            "id": "type_Episode",
-            "label": "Episode",
-          },
-          Object {
-            "count": 473,
-            "id": "type_Series",
-            "label": "Series",
-          },
-          Object {
-            "count": 48,
-            "id": "type_Game",
-            "label": "Game",
-          },
-        ],
-        "identifier": "type",
-        "label": "Type",
-        "type": "RefinementSelectFacet",
-      },
-    ],
-    "hits": Object {
-      "items": Array [
-        Object {
-          "id": "tt0468569",
-        },
-        Object {
-          "id": "tt0110912",
-        },
-        Object {
-          "id": "tt0167260",
-        },
-        Object {
-          "id": "tt0114369",
-        },
-        Object {
-          "id": "tt0073486",
-        },
-        Object {
-          "id": "tt0172495",
-        },
-        Object {
-          "id": "tt1520211",
-        },
-        Object {
-          "id": "tt0338013",
-        },
-        Object {
-          "id": "tt0078788",
-        },
-        Object {
-          "id": "tt0180093",
-        },
-      ],
-    },
-  },
-}
-`;
-
-exports[`Facets Resolver should return as expected should return correct Results 4`] = `
+exports[`Facets Resolver should return as expected Reeturn all facets when rule satisfied 2`] = `
 Object {
   "results": Object {
     "facets": Array [
@@ -258,11 +166,108 @@ Object {
         },
       ],
     },
+    "summary": Object {
+      "appliedFilters": Array [
+        Object {
+          "identifier": "type",
+        },
+      ],
+      "disabledFilters": Array [],
+    },
   },
 }
 `;
 
-exports[`Facets Resolver should return as expected should return correct Results 6`] = `
+exports[`Facets Resolver should return as expected custom rule configuration 1`] = `
+Object {
+  "results": Object {
+    "facets": Array [
+      Object {
+        "identifier": "type",
+      },
+      Object {
+        "identifier": "writers",
+      },
+      Object {
+        "identifier": "actors",
+      },
+      Object {
+        "identifier": "genres",
+      },
+    ],
+  },
+}
+`;
+
+exports[`Facets Resolver should return as expected should not have the writers filter applied 2`] = `
+Object {
+  "results": Object {
+    "facets": Array [
+      Object {
+        "entries": Array [
+          Object {
+            "id": "type_Movie",
+          },
+          Object {
+            "id": "type_Episode",
+          },
+          Object {
+            "id": "type_Series",
+          },
+          Object {
+            "id": "type_Game",
+          },
+        ],
+        "identifier": "type",
+      },
+    ],
+    "hits": Object {
+      "items": Array [
+        Object {
+          "id": "tt0468569",
+        },
+        Object {
+          "id": "tt0110912",
+        },
+        Object {
+          "id": "tt0167260",
+        },
+        Object {
+          "id": "tt0114369",
+        },
+        Object {
+          "id": "tt0073486",
+        },
+        Object {
+          "id": "tt0172495",
+        },
+        Object {
+          "id": "tt1520211",
+        },
+        Object {
+          "id": "tt0338013",
+        },
+        Object {
+          "id": "tt0078788",
+        },
+        Object {
+          "id": "tt0180093",
+        },
+      ],
+    },
+    "summary": Object {
+      "appliedFilters": Array [],
+      "disabledFilters": Array [
+        Object {
+          "identifier": "writers",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`Facets Resolver should return as expected should return correct Results 2`] = `
 Object {
   "results": Object {
     "facets": Array [
@@ -328,6 +333,10 @@ Object {
           "id": "tt0180093",
         },
       ],
+    },
+    "summary": Object {
+      "appliedFilters": Array [],
+      "disabledFilters": Array [],
     },
   },
 }

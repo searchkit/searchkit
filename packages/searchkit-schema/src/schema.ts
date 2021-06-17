@@ -17,8 +17,13 @@ const baseSearchkitTypeDefs = gql`
   type SKSummary {
     total: Float!
     appliedFilters: [SKSelectedFilter]
+    disabledFilters: [SKDisabledFilter]
     query: String
     sortOptions: [SKSortOption]
+  }
+
+  type SKDisabledFilter {
+    identifier: String!
   }
 
   interface SKSelectedFilter {
