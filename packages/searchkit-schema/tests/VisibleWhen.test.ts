@@ -1,10 +1,9 @@
 import nock from 'nock'
 import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
-import { MultiMatchQuery } from '../src'
+import { MultiMatchQuery, VisibleWhen, FacetSelectedRule } from '../src'
 import { RefinementSelectFacet } from '../src/facets'
 import { setupTestServer, callQuery } from './support/helper'
 import HitsMock from './__mock-data__/FacetsResolver/results.json'
-import { VisibleWhen, FacetSelected } from '../src/facets'
 import QueryManager from '../src/core/QueryManager'
 
 describe('Facets Resolver', () => {
@@ -47,7 +46,7 @@ describe('Facets Resolver', () => {
             })
           ],
           [
-            FacetSelected('type', 'Movie'),
+            FacetSelectedRule('type', 'Movie'),
             customRule
           ]
         )
@@ -66,6 +65,14 @@ describe('Facets Resolver', () => {
       const gql = `
         {
           results(query: "") {
+            summary {
+              appliedFilters {
+                identifier
+              }
+              disabledFilters {
+                identifier
+              }
+            }
             hits(page: {size: 10, from: 0 }) {
               items {
                 id
@@ -125,7 +132,7 @@ describe('Facets Resolver', () => {
       expect(response.status).toEqual(200)
     })
 
-    it('should return correct Results', async () => {
+    it('Reeturn all facets when rule satisfied', async () => {
       setupTestServer({
         config,
         addToQueryType: true,
@@ -136,6 +143,14 @@ describe('Facets Resolver', () => {
       const gql = `
         {
           results(query: "", filters: [{identifier: "type", value:"Movie"}]) {
+            summary {
+              appliedFilters {
+                identifier
+              }
+              disabledFilters {
+                identifier
+              }
+            }
             hits(page: {size: 10, from: 0 }) {
               items {
                 id
@@ -263,7 +278,7 @@ describe('Facets Resolver', () => {
       expect(response.status).toEqual(200)
     })
 
-    it('should return correct Results', async () => {
+    it('should not have the writers filter applied', async () => {
       setupTestServer({
         config,
         addToQueryType: true,
@@ -273,7 +288,15 @@ describe('Facets Resolver', () => {
 
       const gql = `
         {
-          results(query: "") {
+          results(query: "", filters: [{ identifier: "writers", value: "example"}]) {
+            summary {
+              appliedFilters {
+                identifier
+              }
+              disabledFilters {
+                identifier
+              }
+            }
             hits(page: {size: 10, from: 0 }) {
               items {
                 id
@@ -281,13 +304,8 @@ describe('Facets Resolver', () => {
             }
             facets {
               identifier
-              type
-              label
-              display
               entries {
                 id
-                count
-                label
               }
             }
           }
@@ -333,7 +351,7 @@ describe('Facets Resolver', () => {
       expect(response.status).toEqual(200)
     })
 
-    it('custom rule', async () => {
+    it('custom rule configuration', async () => {
 
       setupTestServer({
         config,
