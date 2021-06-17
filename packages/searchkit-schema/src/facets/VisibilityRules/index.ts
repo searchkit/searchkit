@@ -17,7 +17,7 @@ export function VisibleWhen(facets: Array<BaseFacet>, rules: Array<any>) : Visib
   return new VisibleWhenRuleSet(facets, rules)
 }
 
-export function FacetSelected(identifier: string, value?: string) {
+export function FacetSelectedRule(identifier: string, value?: string) {
   return (queryManager: QueryManager) => {
     const identifierFilters = queryManager.getFiltersById(identifier) as Array<ValueFilter>
     if (!identifierFilters) return false
