@@ -476,3 +476,88 @@ const searchkitConfig = {
   }
 }
 ```
+
+## Facet Visibility Rules
+
+### VisibleWhen
+
+#### Usage
+```javascript
+{
+  VisibleWhen, FacetSelectedRule
+} from '@searchkit/schema'
+
+facets: [
+  new RefinementSelectFacet({ identifier: 'type', field: 'type.raw', label: 'Type' }),
+  VisibleWhen(
+    [
+      new RefinementSelectFacet({
+        identifier: 'writers',
+        field: 'writers.raw',
+        label: 'Writers',
+        display: 'override',
+        multipleSelect: true
+      }),
+      new RefinementSelectFacet({
+        identifier: 'actors',
+        field: 'actors.raw',
+        label: 'Actors'
+      }),
+      new RefinementSelectFacet({
+        identifier: 'genres',
+        field: 'genres.raw',
+        label: 'Genres'
+      })
+    ],
+    [ // All Rules must be satisfied for the facets to be visible
+      FacetSelectedRule('type', 'Movie') // Visible only when Movie has been selected in type
+    ]
+  )
+]
+```
+
+#### Options
+
+| Option        | Description      |
+| :------------- | :----------- |
+| facets          | Required. An Array of facet configurations that will be displayed if the rule is satisfied  |
+| rules             | Required. An array of rules |
+
+### Rule: FacetSelectedRule
+
+#### Usage
+```javascript
+{
+  FacetSelectedRule
+} from '@searchkit/schema'
+
+    rules: [
+      FacetSelectedRule('type', 'Movie')
+    ]
+```
+
+| Option        | Description      |
+| :------------- | :----------- |
+| identifier          | Required. The facet identifier |
+| value             | Optional. Without it provided, the rule will be satisfied for any applied filters matching the identifier. With value, will be satisfied for an applied filter with both identifier and value  |
+
+### Rule: CustomRule
+Allows you to build your own rule. You have access to the queryManager and ctx which are passed as arguments.
+
+#### Usage
+```javascript
+
+const customRule = (queryManager, ctx: any) => {
+  const userRole = ctx.userRole
+  const filters = queryManager.getFiltersById("collection")
+  if (userRole === "Admin" && filters[0].value === "People") {
+    return true
+  }
+  return false
+}
+```
+
+    rules: [
+      customRule
+    ]
+```
