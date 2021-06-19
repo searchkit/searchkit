@@ -111,7 +111,7 @@ const server = new ApolloServer({
       root: String
     }
 
-    // Type name should match the hit typename
+    # Type name should match the hit typename
     type ResultHit implements SKHit {
       id: ID!
       fields: HitFields
