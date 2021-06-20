@@ -43,7 +43,9 @@ export default withApollo(
     }
   }
 );
+```
 
+```javascript
 // pages/index.js
 
 import { gql, useQuery } from '@apollo/client';
