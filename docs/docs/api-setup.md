@@ -111,7 +111,7 @@ const server = new ApolloServer({
       root: String
     }
 
-    // Type name should match the hit typename
+    # Type name should match the hit typename
     type ResultHit implements SKHit {
       id: ID!
       fields: HitFields
@@ -137,7 +137,7 @@ Make sure you replace the host, index. This will setup a basic searchkit API and
   results {
     hits {
       items {
-        // 'ResultHit' should match the hitTypename and type you implemented in SDL
+        # 'ResultHit' should match the hitTypename and type you implemented in SDL
         ... on ResultHit {
           id
         }
@@ -239,7 +239,7 @@ const searchkitConfig = {
 
 Once configured, API will return all facets values for fields that have aggregations. 
 
-```
+```gql
 {
   results(query: "heat") {
     facets {
@@ -303,9 +303,3 @@ const searchkitConfig = {
   }
 }
 ```
-
- 
-
-
-
-
