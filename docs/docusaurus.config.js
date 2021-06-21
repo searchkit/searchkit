@@ -16,6 +16,9 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'searchkit', // Usually your GitHub org/user name.
   projectName: 'searchkit', // Usually your repo name.
+  scripts: [
+    '/livechat.js'
+  ],
   themeConfig: {
     disableSwitch: true,
     defaultMode: 'dark',
