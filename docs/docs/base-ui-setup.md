@@ -99,7 +99,7 @@ then update the root page to use the searchkit HOC
 // pages/index.js
 
 import { gql, useQuery } from '@apollo/client';
-import { useSearchkitVariables, useSearchkit } from '@searchkit/client'
+import { useSearchkitVariables, withSearchkit } from '@searchkit/client'
 import withApollo from '../lib/withApollo';
 import { useState } from 'react'
 
@@ -131,7 +131,7 @@ const Index = () => {
   </>;
 };
 
-export default withApollo(useSearchkit(Index));
+export default withApollo(withSearchkit(Index));
 ```
 
 Next you have a choice of two paths:
