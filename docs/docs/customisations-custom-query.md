@@ -64,7 +64,13 @@ You can do this by using QueryOptions and CustomQuery. Within the graphQL query,
 
 ```graphql
 {
-  results(query:"heat", queryOptions: { fields: ["title^2", "description^1"]})
+  results(query:"heat", queryOptions: { fields: ["title^2", "description^1"]}) {
+     hits {
+       items {
+          id
+       }
+     }
+  }
 }
 ```
 
