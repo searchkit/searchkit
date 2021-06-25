@@ -12,7 +12,7 @@ jest.mock('@elastic/elasticsearch', () => ({
 
 describe('SearchkitRequest', () => {
   it('should', async () => {
-    const qm = new QueryManager([], '')
+    const qm = new QueryManager([], '', null)
     const sr = new SearchkitRequest(
       qm,
       {
@@ -34,7 +34,7 @@ describe('SearchkitRequest', () => {
   describe('postProcessRequest', () => {
     it('should', async () => {
       const postProcessRequest = jest.fn((body) => ({ ...body, min_score: 10 }))
-      const qm = new QueryManager([], '')
+      const qm = new QueryManager([], '', null)
       const sr = new SearchkitRequest(
         qm,
         {

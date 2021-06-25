@@ -98,6 +98,10 @@ const baseSearchkitTypeDefs = gql`
     size: Float
   }
 
+  input SKQueryOptions {
+    fields: [String]
+  }
+
   input SKFiltersSet {
     identifier: String!
     value: String
@@ -178,7 +182,7 @@ export default (schemaConfigs: SearchkitSchemaConfig | Array<SearchkitSchemaConf
       const extendQuery = schemaConfig.addToQueryType
         ? `
     extend type Query {
-      results(query: String, filters: [SKFiltersSet], page: SKPageInput): ${typeName}
+      results(query: String, queryOptions: SKQueryOptions, filters: [SKFiltersSet], page: SKPageInput): ${typeName}
     }`
         : ''
 

@@ -30,11 +30,14 @@ export type GeoBoundingBoxFilter = {
   }
 }
 
+type QueryOptions = {
+  fields: Array<string>
+}
+
 export type MixedFilter = ValueFilter | RangeFilter | DateRangeFilter | GeoBoundingBoxFilter
 
 export default class QueryManager {
-  constructor(private filters: Array<MixedFilter>, private query: string) {}
-
+  constructor(private filters: Array<MixedFilter>, private query: string, private queryOptions: QueryOptions) {}
   hasFilters(): boolean {
     return this.filters && this.filters.length > 0
   }
@@ -45,6 +48,10 @@ export default class QueryManager {
 
   getQuery(): string {
     return this.query
+  }
+
+  getQueryOptions(): QueryOptions {
+    return this.queryOptions
   }
 
   getFilters(): Array<MixedFilter> {

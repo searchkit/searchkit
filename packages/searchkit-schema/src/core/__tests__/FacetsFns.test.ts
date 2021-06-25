@@ -6,7 +6,7 @@ import { SearchResponse } from '../SearchkitRequest'
 describe('Facet Fns', () => {
   describe('getAggregationsFromFacets', () => {
     it('create aggregations for one facet ', () => {
-      const qm = new QueryManager([{ identifier: 'test', value: 'testValue' }], '')
+      const qm = new QueryManager([{ identifier: 'test', value: 'testValue' }], '', null)
       const facetConfig = [
         new RefinementSelectFacet({ field: 'test', identifier: 'test', label: 'Test' })
       ]
@@ -52,7 +52,8 @@ describe('Facet Fns', () => {
           { identifier: 'test', value: 'testValue' },
           { identifier: 'test3', value: 'testValue' }
         ],
-        ''
+        '',
+        null
       )
       const facetConfig = [
         new RefinementSelectFacet({ field: 'test', identifier: 'test', label: 'Test' }),
@@ -244,7 +245,7 @@ describe('Facet Fns', () => {
 
   describe('filterTransform', () => {
     it('should get filter for test', () => {
-      const qm = new QueryManager([{ identifier: 'test', value: 'testValue' }], '')
+      const qm = new QueryManager([{ identifier: 'test', value: 'testValue' }], '', null)
       const facetConfig = [
         new RefinementSelectFacet({
           field: 'test',
@@ -265,7 +266,8 @@ describe('Facet Fns', () => {
           { identifier: 'test', value: 'testValue' },
           { identifier: 'test2', value: 'testValue2' }
         ],
-        ''
+        '',
+        null
       )
       const facetConfig = [
         new RefinementSelectFacet({
@@ -292,7 +294,8 @@ describe('Facet Fns', () => {
           { identifier: 'test', value: 'testValue' },
           { identifier: 'test2', value: 'testValue2' }
         ],
-        ''
+        '',
+        null
       )
       const facetConfig = [
         new RefinementSelectFacet({

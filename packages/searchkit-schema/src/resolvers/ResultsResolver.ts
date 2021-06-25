@@ -57,7 +57,8 @@ export default async (parent, parameters, ctx, info) => {
     const baseFilters = ctx.searchkit.baseFilters[returnTypeName]
       ? ctx.searchkit.baseFilters[returnTypeName](parent, parameters, ctx, info)
       : []
-    const queryManager = new QueryManager(parameters.filters, parameters.query)
+    const queryOptions = parameters.queryOptions || { fields: [] }
+    const queryManager = new QueryManager(parameters.filters, parameters.query, queryOptions)
     const facets = getFacets(skConfig.facets, queryManager, ctx)
     const skRequest = new SearchkitRequest(queryManager, skConfig, baseFilters, facets)
 

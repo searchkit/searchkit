@@ -18,6 +18,7 @@ module.exports = {
     ],
     'API Guides': [
       'customisations-hit-resolver',
+      'customisations-query-boosting-relevance',
       'customisations-graphql-multiple-configurations',
       'customisations-graphql-types',
       'customisations-ui-add-new-facet-class',
