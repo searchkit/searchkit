@@ -1,0 +1,10 @@
+# dependabot.yml file with updates
+# disabled for Docker and limited for npm
+
+version: 2
+updates:
+  # Configuration for Dockerfile
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
