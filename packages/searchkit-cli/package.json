@@ -30,7 +30,7 @@
     "@elastic/elasticsearch": "^7.10.0",
     "date-fns": "^2.16.1",
     "elasticsearch": "^16.7.2",
-    "inquirer": "^7.3.3",
+    "inquirer": "^8.1.1",
     "lodash": "^4.17.20",
     "yargs": "^16.2.0"
   },
