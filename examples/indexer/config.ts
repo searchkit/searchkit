@@ -142,7 +142,7 @@ withConfig({
       sourceOptions: {
         path: 'imdbRating',
         transform: (str) => {
-          if (!str || parseFloat(str) === NaN) return null
+          if (!str || isNaN(parseFloat(str))) return 0
           return parseFloat(str)
         }
       }
