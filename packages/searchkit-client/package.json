@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@apollo/client": "^3.3.19",
-    "@testing-library/react-hooks": "^3.4.2",
+    "@testing-library/react-hooks": "^7.0.1",
     "@types/node": "^13.9.1",
     "@types/react": "^17.0.13",
     "graphql": "^15.5.0",
