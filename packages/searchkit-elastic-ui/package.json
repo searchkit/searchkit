@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@searchkit/client": "^3.0.0-canary.40",
-    "use-debounce": "^5.0.3"
+    "use-debounce": "^7.0.0"
   },
   "devDependencies": {
     "@elastic/datemath": "^5.0.3",
