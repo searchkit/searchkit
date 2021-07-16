@@ -176,16 +176,6 @@ describe('HierarchicalMenuFacet', () => {
             Object {
               "aggs": Object {
                 "facet_bucket_all": Object {
-                  "aggs": Object {},
-                  "filter": Object {
-                    "bool": Object {
-                      "must": Array [
-                        null,
-                      ],
-                    },
-                  },
-                },
-                "facet_bucket_categories": Object {
                   "aggs": Object {
                     "categories": Object {
                       "aggs": Object {
@@ -231,7 +221,19 @@ describe('HierarchicalMenuFacet', () => {
                   },
                   "filter": Object {
                     "bool": Object {
-                      "must": Array [],
+                      "must": Array [
+                        Object {
+                          "bool": Object {
+                            "must": Array [
+                              Object {
+                                "term": Object {
+                                  "category_lvl1.keyword": "Coats and Jackets",
+                                },
+                              },
+                            ],
+                          },
+                        },
+                      ],
                     },
                   },
                 },
@@ -240,7 +242,17 @@ describe('HierarchicalMenuFacet', () => {
               "post_filter": Object {
                 "bool": Object {
                   "must": Array [
-                    null,
+                    Object {
+                      "bool": Object {
+                        "must": Array [
+                          Object {
+                            "term": Object {
+                              "category_lvl1.keyword": "Coats and Jackets",
+                            },
+                          },
+                        ],
+                      },
+                    },
                   ],
                 },
               },
@@ -311,16 +323,6 @@ describe('HierarchicalMenuFacet', () => {
             Object {
               "aggs": Object {
                 "facet_bucket_all": Object {
-                  "aggs": Object {},
-                  "filter": Object {
-                    "bool": Object {
-                      "must": Array [
-                        null,
-                      ],
-                    },
-                  },
-                },
-                "facet_bucket_categories": Object {
                   "aggs": Object {
                     "categories": Object {
                       "aggs": Object {
@@ -395,7 +397,24 @@ describe('HierarchicalMenuFacet', () => {
                   },
                   "filter": Object {
                     "bool": Object {
-                      "must": Array [],
+                      "must": Array [
+                        Object {
+                          "bool": Object {
+                            "must": Array [
+                              Object {
+                                "term": Object {
+                                  "category_lvl1.keyword": "Coats and Jackets",
+                                },
+                              },
+                              Object {
+                                "term": Object {
+                                  "category_lvl2.keyword": "Leather jackets",
+                                },
+                              },
+                            ],
+                          },
+                        },
+                      ],
                     },
                   },
                 },
@@ -404,7 +423,22 @@ describe('HierarchicalMenuFacet', () => {
               "post_filter": Object {
                 "bool": Object {
                   "must": Array [
-                    null,
+                    Object {
+                      "bool": Object {
+                        "must": Array [
+                          Object {
+                            "term": Object {
+                              "category_lvl1.keyword": "Coats and Jackets",
+                            },
+                          },
+                          Object {
+                            "term": Object {
+                              "category_lvl2.keyword": "Leather jackets",
+                            },
+                          },
+                        ],
+                      },
+                    },
                   ],
                 },
               },

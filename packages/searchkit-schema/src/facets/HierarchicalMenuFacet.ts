@@ -10,7 +10,7 @@ interface HierarchicalMenuFacetConfig {
 }
 
 class HierarchicalMenuFacet implements BaseFacet {
-  public excludeOwnFilters = true
+  public excludeOwnFilters = false
 
   constructor(public config: HierarchicalMenuFacetConfig) {}
   getLabel(): string {
@@ -22,12 +22,15 @@ class HierarchicalMenuFacet implements BaseFacet {
   }
 
   getFilters(filters: Array<HierarchicalValueFilter>) {
-    return null
+    return {
+      bool: {
+        must: filters.map((filter) => ({ term: { [this.config.fields[filter.level - 1]]: filter.value } }))
+      }
+    }
   }
 
   getAggregation(overrides, queryManager: QueryManager) {
     const appliedFilters =  queryManager.getFiltersById(this.config.identifier) as Array<HierarchicalValueFilter> || []
-
     const levelAggs = this.config.fields.reduce((aggs, field, index) => {
       const level = index + 1
       const parentFilters = appliedFilters.filter((f) => f.level < level)
@@ -68,9 +71,7 @@ class HierarchicalMenuFacet implements BaseFacet {
         "filter": {
           "match_all": {}
         },
-        "aggs": {
-          ...levelAggs
-        }
+        "aggs": levelAggs
       }
     }
   }
@@ -89,7 +90,7 @@ class HierarchicalMenuFacet implements BaseFacet {
 
   transformResponse(response, queryManager: QueryManager) {
     const appliedFilters = queryManager.getFiltersById(this.config.identifier) as Array<HierarchicalValueFilter> || []
-    const x = (level) => {
+    const buildEntries = (level: number) => {
       if (response[`lvl_${level}`]) {
         const levelFilter = appliedFilters.find((f) => f.level === level)
         return response[`lvl_${level}`].aggs.buckets.map((bucket) => {
@@ -97,7 +98,7 @@ class HierarchicalMenuFacet implements BaseFacet {
             label: bucket.key,
             count: bucket.doc_count,
             id: `${this.getIdentifier()}_${bucket.key}_${level}`,
-            entries: levelFilter?.value === bucket.key ? x(level + 1) : null
+            entries: levelFilter?.value === bucket.key ? buildEntries(level + 1) : null
           }
         })
       } else {
@@ -110,7 +111,7 @@ class HierarchicalMenuFacet implements BaseFacet {
       label: this.getLabel(),
       type: 'HierarchicalMenuFacet',
       display: this.config.display || 'HierarchicalMenuFacet',
-      entries: x(1)
+      entries: buildEntries(1)
     }
   }
 }
