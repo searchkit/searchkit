@@ -110,6 +110,7 @@ const baseSearchkitTypeDefs = gql`
     dateMin: String
     dateMax: String
     geoBoundingBox: SKGeoBoundingBoxInput
+    level: Int
   }
 
   input SKGeoBoundingBoxInput {
@@ -137,6 +138,7 @@ const baseSearchkitTypeDefs = gql`
     label: String
     count: Float
     isSelected: Boolean
+    entries: [SKFacetSetEntry]
   }
 
   type RefinementSelectFacet implements SKFacetSet {
@@ -162,6 +164,15 @@ const baseSearchkitTypeDefs = gql`
     display: String
     entries: [SKFacetSetEntry]
   }
+
+  type HierarchicalMenuFacet implements SKFacetSet {
+    identifier: String
+    label: String
+    type: String
+    display: String
+    entries: [SKFacetSetEntry]
+  }
+
 `
 
 export interface SearchkitSchemaConfig {

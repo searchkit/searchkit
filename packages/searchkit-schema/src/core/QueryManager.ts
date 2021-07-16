@@ -30,11 +30,17 @@ export type GeoBoundingBoxFilter = {
   }
 }
 
+export type HierarchicalValueFilter = {
+  identifier: string
+  value: string
+  level: number
+}
+
 type QueryOptions = {
   fields: Array<string>
 }
 
-export type MixedFilter = ValueFilter | RangeFilter | DateRangeFilter | GeoBoundingBoxFilter
+export type MixedFilter = ValueFilter | RangeFilter | DateRangeFilter | GeoBoundingBoxFilter | HierarchicalValueFilter
 
 export default class QueryManager {
   constructor(private filters: Array<MixedFilter>, private query: string, private queryOptions: QueryOptions) {}

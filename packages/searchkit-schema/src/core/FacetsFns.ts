@@ -41,7 +41,7 @@ export const getAggregationsFromFacets = (
     const subAggs = bucket.aggs.reduce(
       (subAggs, subAgg: BaseFacet) => ({
         ...subAggs,
-        ...subAgg.getAggregation(overrides[subAgg.getIdentifier()])
+        ...subAgg.getAggregation(overrides[subAgg.getIdentifier()], queryManager)
       }),
       {}
     )
@@ -60,7 +60,8 @@ export const getAggregationsFromFacets = (
 
 export const getFacetsFromResponse = (
   facetsConfig: Array<BaseFacet | BaseFilter>,
-  response: SearchResponse<any>
+  response: SearchResponse<any>,
+  queryManager: QueryManager
 ) => {
   const facetBucketKeys = Object.keys(response.aggregations).filter(
     (aggKey) => aggKey.indexOf('facet_bucket_') !== -1
@@ -86,7 +87,7 @@ export const getFacetsFromResponse = (
     .map((facet) => {
       const aggFacetResponse = collapsedFacetAggsMap[facet.getIdentifier()]
       if ('transformResponse' in facet) {
-        return facet.transformResponse(aggFacetResponse)
+        return facet.transformResponse(aggFacetResponse, queryManager)
       }
       return {}
     })
