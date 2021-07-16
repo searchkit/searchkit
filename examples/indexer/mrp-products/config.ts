@@ -76,12 +76,24 @@ withConfig({
 			sourceOptions: {
         path: 'categories',
         transform: (str, doc) => {
-          return str[1]
+          return str[0]
         }
 			}
     },
     {
 			fieldName: 'category_lvl2',
+			stored: true,
+      facet: true,
+      searchable: true,
+			sourceOptions: {
+        path: 'categories',
+        transform: (str, doc) => {
+          return str[1]
+        }
+			}
+    },
+    {
+			fieldName: 'category_lvl3',
 			stored: true,
       facet: true,
       searchable: true,
