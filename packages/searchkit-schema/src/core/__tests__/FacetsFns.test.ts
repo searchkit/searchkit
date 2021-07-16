@@ -200,7 +200,8 @@ describe('Facet Fns', () => {
           multipleSelect: true
         })
       ]
-      expect(getFacetsFromResponse(facetConfig, response)).toEqual([
+      const qm = new QueryManager([], '', null)
+      expect(getFacetsFromResponse(facetConfig, response, qm)).toEqual([
         {
           entries: [
             { count: 73, id: 'test_TV-14', label: 'TV-14' },
