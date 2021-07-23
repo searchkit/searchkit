@@ -17,6 +17,8 @@ interface PaginationLinkProps {
   children: React.ReactChildren | React.ReactChild
 }
 
+export type FilterLinkClickRef = { onClick: (e: React.MouseEvent) => {} }
+
 function isModifiedEvent(event: React.MouseEvent): boolean {
   const { target } = event.currentTarget as HTMLAnchorElement
   return (
