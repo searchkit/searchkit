@@ -132,7 +132,7 @@ const productsConfig = {
       'name', 'location'
     ]
   },
-  query: new MultiMatchQuery({ fields: ['name'] }),
+  query: new MultiMatchQuery({ fields: ['designerName^3', 'name'] }),
   facets: [
     new HierarchicalMenuFacet({
       fields: [ 'category_lvl1.keyword', 'category_lvl2.keyword', 'category_lvl3.keyword' ],
@@ -195,7 +195,10 @@ const server = new ApolloServer({
     }
 
     type ProductHitFields {
+      imageURL: String
+      designerName: String
       name: String
+      price: Float
     }
 
     type ParkResultHit implements SKHit {
