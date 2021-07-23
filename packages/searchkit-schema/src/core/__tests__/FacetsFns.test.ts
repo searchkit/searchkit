@@ -200,13 +200,14 @@ describe('Facet Fns', () => {
           multipleSelect: true
         })
       ]
-      expect(getFacetsFromResponse(facetConfig, response)).toEqual([
+      const qm = new QueryManager([], '', null)
+      expect(getFacetsFromResponse(facetConfig, response, qm)).toEqual([
         {
           entries: [
-            { count: 73, id: 'test_TV-14', label: 'TV-14' },
-            { count: 7, id: 'test_TV-PG', label: 'TV-PG' },
-            { count: 2, id: 'test_PG', label: 'PG' },
-            { count: 2, id: 'test_PG-13', label: 'PG-13' }
+            { count: 73, label: 'TV-14' },
+            { count: 7, label: 'TV-PG' },
+            { count: 2, label: 'PG' },
+            { count: 2, label: 'PG-13' }
           ],
           identifier: 'test',
           label: 'Test 1',
@@ -215,11 +216,11 @@ describe('Facet Fns', () => {
         },
         {
           entries: [
-            { count: 73, id: 'test2_Naveen Andrews', label: 'Naveen Andrews' },
-            { count: 53, id: 'test2_Emilie de Ravin', label: 'Emilie de Ravin' },
-            { count: 39, id: 'test2_Henry Ian Cusick', label: 'Henry Ian Cusick' },
-            { count: 34, id: 'test2_Matthew Fox', label: 'Matthew Fox' },
-            { count: 23, id: 'test2_Michael Emerson', label: 'Michael Emerson' }
+            { count: 73, label: 'Naveen Andrews' },
+            { count: 53, label: 'Emilie de Ravin' },
+            { count: 39, label: 'Henry Ian Cusick' },
+            { count: 34, label: 'Matthew Fox' },
+            { count: 23, label: 'Michael Emerson' }
           ],
           identifier: 'test2',
           label: 'Test 2',
@@ -228,11 +229,11 @@ describe('Facet Fns', () => {
         },
         {
           entries: [
-            { count: 78, id: 'test3_J.J. Abrams', label: 'J.J. Abrams' },
-            { count: 72, id: 'test3_Jeffrey Lieber', label: 'Jeffrey Lieber' },
-            { count: 69, id: 'test3_Damon Lindelof', label: 'Damon Lindelof' },
-            { count: 53, id: 'test3_James Manos Jr.', label: 'James Manos Jr.' },
-            { count: 53, id: 'test3_Jeff Lindsay', label: 'Jeff Lindsay' }
+            { count: 78, label: 'J.J. Abrams' },
+            { count: 72, label: 'Jeffrey Lieber' },
+            { count: 69, label: 'Damon Lindelof' },
+            { count: 53, label: 'James Manos Jr.' },
+            { count: 53, label: 'Jeff Lindsay' }
           ],
           identifier: 'test3',
           label: 'Test 3',

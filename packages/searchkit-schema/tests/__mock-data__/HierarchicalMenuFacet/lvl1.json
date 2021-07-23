@@ -1,0 +1,317 @@
+{
+  "took": 259,
+  "timed_out": false,
+  "_shards": {
+      "total": 1,
+      "successful": 1,
+      "skipped": 0,
+      "failed": 0
+  },
+  "hits": {
+      "total": {
+          "value": 2560,
+          "relation": "eq"
+      },
+      "max_score": 1.0,
+      "hits": [
+          {
+              "_index": "mrp-products",
+              "_type": "_doc",
+              "_id": "10163292707229244",
+              "_score": 1.0,
+              "_source": {
+                  "id": "10163292707229244",
+                  "name": "Slim-Fit Logo-Jacquard Cotton and Silk-Blend Polo Shirt",
+                  "designerName": "GUCCI",
+                  "imageURL": "//cache.mrporter.com/variants/images/10163292707229244/in/w300.jpg",
+                  "price": "850.00",
+                  "colour": "Red",
+                  "sizes": [
+                      "XS",
+                      "M",
+                      "XXS",
+                      "L",
+                      "XL"
+                  ],
+                  "category_lvl1": "Polo shirts",
+                  "category_lvl2": "Short sleeve polo shirts",
+                  "autocomplete": "GUCCI Slim-Fit Logo-Jacquard Cotton and Silk-Blend Polo Shirt"
+              }
+          },
+          {
+              "_index": "mrp-products",
+              "_type": "_doc",
+              "_id": "13452677152061433",
+              "_score": 1.0,
+              "_source": {
+                  "id": "13452677152061433",
+                  "name": "Garment-Dyed Fleece-Back Cotton-Jersey Sweatshirt",
+                  "designerName": "TOM FORD",
+                  "imageURL": "//cache.mrporter.com/variants/images/13452677152061433/in/w300.jpg",
+                  "price": "620.00",
+                  "colour": "Gray",
+                  "sizes": [
+                      "40",
+                      "60",
+                      "50",
+                      "66",
+                      "46"
+                  ],
+                  "category_lvl1": "Sweats",
+                  "category_lvl2": "Sweatshirts",
+                  "autocomplete": "TOM FORD Garment-Dyed Fleece-Back Cotton-Jersey Sweatshirt"
+              }
+          },
+          {
+              "_index": "mrp-products",
+              "_type": "_doc",
+              "_id": "11452292647194357",
+              "_score": 1.0,
+              "_source": {
+                  "id": "11452292647194357",
+                  "name": "G9 Checked Linen and Lyocell-Blend Harrington Jacket",
+                  "designerName": "BARACUTA",
+                  "imageURL": "//cache.mrporter.com/variants/images/11452292647194357/in/w300.jpg",
+                  "price": "550.00",
+                  "colour": "Black",
+                  "sizes": [
+                      "32",
+                      "42",
+                      "40",
+                      "46",
+                      "34"
+                  ],
+                  "category_lvl1": "Coats and Jackets",
+                  "category_lvl2": "Bomber jackets",
+                  "autocomplete": "BARACUTA G9 Checked Linen and Lyocell-Blend Harrington Jacket"
+              }
+          },
+          {
+              "_index": "mrp-products",
+              "_type": "_doc",
+              "_id": "560971904241887",
+              "_score": 1.0,
+              "_source": {
+                  "id": "560971904241887",
+                  "name": "Logo-Flocked Cotton-Jersey T-Shirt",
+                  "designerName": "FEAR OF GOD",
+                  "imageURL": "//cache.mrporter.com/variants/images/560971904241887/in/w300.jpg",
+                  "price": "230.00",
+                  "colour": "Black",
+                  "sizes": [
+                      "XXXXL",
+                      "XXXL",
+                      "XS",
+                      "XXS",
+                      "L"
+                  ],
+                  "category_lvl1": "T-Shirts",
+                  "category_lvl2": "Printed t-shirts",
+                  "autocomplete": "FEAR OF GOD Logo-Flocked Cotton-Jersey T-Shirt"
+              }
+          },
+          {
+              "_index": "mrp-products",
+              "_type": "_doc",
+              "_id": "10163292707229255",
+              "_score": 1.0,
+              "_source": {
+                  "id": "10163292707229255",
+                  "name": "Logo-Jacquard Wool and Cotton-Blend Cardigan",
+                  "designerName": "GUCCI",
+                  "imageURL": "//cache.mrporter.com/variants/images/10163292707229255/in/w300.jpg",
+                  "price": "980.00",
+                  "colour": "Blue",
+                  "sizes": [
+                      "L",
+                      "M",
+                      "XXXL",
+                      "S",
+                      "XS"
+                  ],
+                  "category_lvl1": "Knitwear",
+                  "category_lvl2": "Cardigans",
+                  "autocomplete": "GUCCI Logo-Jacquard Wool and Cotton-Blend Cardigan"
+              }
+          },
+          {
+              "_index": "mrp-products",
+              "_type": "_doc",
+              "_id": "13452677152333220",
+              "_score": 1.0,
+              "_source": {
+                  "id": "13452677152333220",
+                  "name": "Tapered Logo-Appliquéd Cotton-Jersey Sweatpants",
+                  "designerName": "ACNE STUDIOS",
+                  "imageURL": "//cache.mrporter.com/variants/images/13452677152333220/in/w300.jpg",
+                  "price": "250.00",
+                  "colour": "Gray",
+                  "sizes": [
+                      "XS",
+                      "L",
+                      "XXXXL",
+                      "XXL",
+                      "M"
+                  ],
+                  "category_lvl1": "Sweats",
+                  "category_lvl2": "Sweatpants",
+                  "autocomplete": "ACNE STUDIOS Tapered Logo-Appliquéd Cotton-Jersey Sweatpants"
+              }
+          },
+          {
+              "_index": "mrp-products",
+              "_type": "_doc",
+              "_id": "11452292647412043",
+              "_score": 1.0,
+              "_source": {
+                  "id": "11452292647412043",
+                  "name": "Oversized Logo-Embroidered Printed Cotton-Jersey T-Shirt",
+                  "designerName": "VETEMENTS",
+                  "imageURL": "//cache.mrporter.com/variants/images/11452292647412043/in/w300.jpg",
+                  "price": "385.00",
+                  "colour": "Blue",
+                  "sizes": [
+                      "S",
+                      "XL",
+                      "M",
+                      "XXL",
+                      "XXXXL"
+                  ],
+                  "category_lvl1": "T-Shirts",
+                  "category_lvl2": "Printed t-shirts",
+                  "autocomplete": "VETEMENTS Oversized Logo-Embroidered Printed Cotton-Jersey T-Shirt"
+              }
+          },
+          {
+              "_index": "mrp-products",
+              "_type": "_doc",
+              "_id": "9465239339535960",
+              "_score": 1.0,
+              "_source": {
+                  "id": "9465239339535960",
+                  "name": "Ethan Striped Merino Wool Sweater",
+                  "designerName": "ORLEBAR BROWN",
+                  "imageURL": "//cache.mrporter.com/variants/images/9465239339535960/in/w300.jpg",
+                  "price": "395.00",
+                  "colour": "Multi",
+                  "sizes": [
+                      "XL",
+                      "XXS",
+                      "XXXL",
+                      "M",
+                      "XXXXL"
+                  ],
+                  "category_lvl1": "Knitwear",
+                  "category_lvl2": "Crew necks",
+                  "autocomplete": "ORLEBAR BROWN Ethan Striped Merino Wool Sweater"
+              }
+          },
+          {
+              "_index": "mrp-products",
+              "_type": "_doc",
+              "_id": "13452677150717069",
+              "_score": 1.0,
+              "_source": {
+                  "id": "13452677150717069",
+                  "name": "Cotton-Jersey T-Shirt",
+                  "designerName": "JAMES PERSE",
+                  "imageURL": "//cache.mrporter.com/variants/images/13452677150717069/in/w300.jpg",
+                  "price": "70.00",
+                  "colour": "Blue",
+                  "sizes": [
+                      "0",
+                      "3",
+                      "5",
+                      "2",
+                      "6"
+                  ],
+                  "category_lvl1": "T-Shirts",
+                  "category_lvl2": "Plain t-shirts",
+                  "autocomplete": "JAMES PERSE Cotton-Jersey T-Shirt"
+              }
+          },
+          {
+              "_index": "mrp-products",
+              "_type": "_doc",
+              "_id": "3633577411025988",
+              "_score": 1.0,
+              "_source": {
+                  "id": "3633577411025988",
+                  "name": "Stretch-Cotton Twill Shorts",
+                  "designerName": "POLO RALPH LAUREN",
+                  "imageURL": "//cache.mrporter.com/variants/images/3633577411025988/in/w300.jpg",
+                  "price": "85.00",
+                  "colour": "White",
+                  "sizes": [
+                      "38",
+                      "36",
+                      "26",
+                      "35",
+                      "28"
+                  ],
+                  "category_lvl1": "Shorts",
+                  "category_lvl2": "Casual shorts",
+                  "autocomplete": "POLO RALPH LAUREN Stretch-Cotton Twill Shorts"
+              }
+          }
+      ]
+  },
+  "aggregations": {
+      "facet_bucket_all": {
+          "meta": {},
+          "doc_count": 2560,
+          "categories": {
+              "doc_count": 2560,
+              "lvl_1": {
+                  "doc_count": 2560,
+                  "aggs": {
+                      "doc_count_error_upper_bound": 0,
+                      "sum_other_doc_count": 237,
+                      "buckets": [
+                          {
+                              "key": "T-Shirts",
+                              "doc_count": 426
+                          },
+                          {
+                              "key": "Casual Shirts",
+                              "doc_count": 372
+                          },
+                          {
+                              "key": "Knitwear",
+                              "doc_count": 324
+                          },
+                          {
+                              "key": "Sweats",
+                              "doc_count": 308
+                          },
+                          {
+                              "key": "Coats and Jackets",
+                              "doc_count": 231
+                          },
+                          {
+                              "key": "Polo shirts",
+                              "doc_count": 220
+                          },
+                          {
+                              "key": "Shorts",
+                              "doc_count": 132
+                          },
+                          {
+                              "key": "Trousers",
+                              "doc_count": 117
+                          },
+                          {
+                              "key": "Swimwear",
+                              "doc_count": 113
+                          },
+                          {
+                              "key": "Underwear",
+                              "doc_count": 80
+                          }
+                      ]
+                  }
+              }
+          }
+      }
+  }
+}

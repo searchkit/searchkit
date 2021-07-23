@@ -70,6 +70,15 @@ const baseSearchkitTypeDefs = gql`
     topRight: SKGeoPoint
   }
 
+  type HierarchicalValueSelectedFilter implements SKSelectedFilter {
+    id: ID!
+    identifier: String!
+    label: String!
+    display: String!
+    level: Int!
+    value: String!
+  }
+
   type SKGeoPoint {
     lat: Float!
     lon: Float!
@@ -110,6 +119,7 @@ const baseSearchkitTypeDefs = gql`
     dateMin: String
     dateMax: String
     geoBoundingBox: SKGeoBoundingBoxInput
+    level: Int
   }
 
   input SKGeoBoundingBoxInput {
@@ -133,10 +143,11 @@ const baseSearchkitTypeDefs = gql`
   }
 
   type SKFacetSetEntry {
-    id: ID!
     label: String
     count: Float
     isSelected: Boolean
+    level: Int
+    entries: [SKFacetSetEntry]
   }
 
   type RefinementSelectFacet implements SKFacetSet {
@@ -162,6 +173,15 @@ const baseSearchkitTypeDefs = gql`
     display: String
     entries: [SKFacetSetEntry]
   }
+
+  type HierarchicalMenuFacet implements SKFacetSet {
+    identifier: String
+    label: String
+    type: String
+    display: String
+    entries: [SKFacetSetEntry]
+  }
+
 `
 
 export interface SearchkitSchemaConfig {

@@ -117,6 +117,19 @@ describe('Searchkit Client', () => {
     expect(api.getFilters()).toEqual([])
   })
 
+  it('should toggle level value filters', () => {
+    const api = createSearchkitClient()
+    api.addFilter({ identifier: 'type', value: "test", level: 1 })
+    api.addFilter({ identifier: 'type', value: "level2", level: 2 })
+
+    expect(api.getFilters()).toEqual([
+      { identifier: 'type', value: "level2", level: 2 },
+      { identifier: 'type', value: "test", level: 1 }
+    ])
+    api.toggleFilter({ identifier: 'type', value: "level2", level: 2 })
+    expect(api.getFilters()).toEqual([{ identifier: 'type', value: "test", level: 1 }])
+  })
+
   it('should toggle date range filters', () => {
     const api = createSearchkitClient()
     const filter = {

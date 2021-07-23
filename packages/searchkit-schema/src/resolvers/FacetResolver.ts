@@ -31,7 +31,7 @@ export default async (parent, parameters: FacetResolverParameters, ctx) => {
       [facet]
     )
     const response = await skRequest.search(aggs)
-    const facets = getFacetsFromResponse([facet], response)
+    const facets = getFacetsFromResponse([facet], response, queryManager)
 
     return facets[0]
   } catch (e) {

@@ -64,7 +64,6 @@ class RefinementSelectFacet implements BaseFacet {
       display: this.config.display || 'ListFacet',
       type: 'RefinementSelectFacet',
       entries: response.buckets.map((entry) => ({
-        id: `${this.getIdentifier()}_${entry.key}`,
         label: entry.key,
         count: entry.doc_count
       }))

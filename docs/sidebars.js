@@ -50,7 +50,8 @@ module.exports = {
     {
       'Facets': [
         'own-components-ui-facet-display',
-        'own-components-ui-facet-value-filtering'
+        'own-components-ui-facet-value-filtering',
+        'own-components-hierarchical-facet'
         // list facet
         // range facet
         // date range facet

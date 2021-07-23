@@ -13,7 +13,7 @@ export default async (parent, {}, ctx) => {
   try {
     const aggs = getAggregationsFromFacets(queryManager, {}, skFacets)
     const results = await skRequest.search(aggs)
-    const facets = getFacetsFromResponse(skFacets, results)
+    const facets = getFacetsFromResponse(skFacets, results, queryManager)
 
     return facets
   } catch (e) {

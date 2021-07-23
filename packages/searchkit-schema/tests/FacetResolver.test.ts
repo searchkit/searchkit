@@ -46,7 +46,6 @@ describe('Facet Resolver', () => {
               label
               display
               entries {
-                id
                 count
                 label
               }
@@ -106,7 +105,6 @@ describe('Facet Resolver', () => {
               label
               display
               entries {
-                id
                 count
                 label
               }
@@ -154,7 +152,6 @@ describe('Facet Resolver', () => {
               label
               display
               entries {
-                id
                 count
                 label
               }

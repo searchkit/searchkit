@@ -27,7 +27,6 @@ Display field is used to indicate what presentation should be for facet within t
       type
       display
       entries {
-        id
         label
         count
       }

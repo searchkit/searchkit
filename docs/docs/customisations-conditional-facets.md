@@ -85,7 +85,6 @@ The filters that have been applied and disabled will appear in the summary type 
       label
       display
       entries {
-        id
         count
         label
       }

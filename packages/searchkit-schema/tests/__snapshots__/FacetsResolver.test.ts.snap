@@ -9,27 +9,22 @@ Object {
         "entries": Array [
           Object {
             "count": 83,
-            "id": "writers_J.J. Abrams",
             "label": "J.J. Abrams",
           },
           Object {
             "count": 74,
-            "id": "writers_Jeffrey Lieber",
             "label": "Jeffrey Lieber",
           },
           Object {
             "count": 73,
-            "id": "writers_Damon Lindelof",
             "label": "Damon Lindelof",
           },
           Object {
             "count": 53,
-            "id": "writers_James Manos Jr.",
             "label": "James Manos Jr.",
           },
           Object {
             "count": 53,
-            "id": "writers_Jeff Lindsay",
             "label": "Jeff Lindsay",
           },
         ],
@@ -42,27 +37,22 @@ Object {
         "entries": Array [
           Object {
             "count": 73,
-            "id": "actors_Naveen Andrews",
             "label": "Naveen Andrews",
           },
           Object {
             "count": 56,
-            "id": "actors_Jennifer Carpenter",
             "label": "Jennifer Carpenter",
           },
           Object {
             "count": 56,
-            "id": "actors_Michael C. Hall",
             "label": "Michael C. Hall",
           },
           Object {
             "count": 53,
-            "id": "actors_Emilie de Ravin",
             "label": "Emilie de Ravin",
           },
           Object {
             "count": 42,
-            "id": "actors_Jared Padalecki",
             "label": "Jared Padalecki",
           },
         ],
@@ -75,22 +65,18 @@ Object {
         "entries": Array [
           Object {
             "count": 3120,
-            "id": "type_Movie",
             "label": "Movie",
           },
           Object {
             "count": 521,
-            "id": "type_Episode",
             "label": "Episode",
           },
           Object {
             "count": 473,
-            "id": "type_Series",
             "label": "Series",
           },
           Object {
             "count": 48,
-            "id": "type_Game",
             "label": "Game",
           },
         ],
@@ -103,27 +89,22 @@ Object {
         "entries": Array [
           Object {
             "count": 2529,
-            "id": "genres_Drama",
             "label": "Drama",
           },
           Object {
             "count": 1274,
-            "id": "genres_Comedy",
             "label": "Comedy",
           },
           Object {
             "count": 786,
-            "id": "genres_Crime",
             "label": "Crime",
           },
           Object {
             "count": 725,
-            "id": "genres_Action",
             "label": "Action",
           },
           Object {
             "count": 666,
-            "id": "genres_Adventure",
             "label": "Adventure",
           },
         ],
@@ -179,27 +160,22 @@ Object {
         "entries": Array [
           Object {
             "count": 83,
-            "id": "writers_J.J. Abrams",
             "label": "J.J. Abrams",
           },
           Object {
             "count": 74,
-            "id": "writers_Jeffrey Lieber",
             "label": "Jeffrey Lieber",
           },
           Object {
             "count": 73,
-            "id": "writers_Damon Lindelof",
             "label": "Damon Lindelof",
           },
           Object {
             "count": 53,
-            "id": "writers_James Manos Jr.",
             "label": "James Manos Jr.",
           },
           Object {
             "count": 53,
-            "id": "writers_Jeff Lindsay",
             "label": "Jeff Lindsay",
           },
         ],
@@ -212,27 +188,22 @@ Object {
         "entries": Array [
           Object {
             "count": 73,
-            "id": "actors_Naveen Andrews",
             "label": "Naveen Andrews",
           },
           Object {
             "count": 56,
-            "id": "actors_Jennifer Carpenter",
             "label": "Jennifer Carpenter",
           },
           Object {
             "count": 56,
-            "id": "actors_Michael C. Hall",
             "label": "Michael C. Hall",
           },
           Object {
             "count": 53,
-            "id": "actors_Emilie de Ravin",
             "label": "Emilie de Ravin",
           },
           Object {
             "count": 42,
-            "id": "actors_Jared Padalecki",
             "label": "Jared Padalecki",
           },
         ],
@@ -245,22 +216,18 @@ Object {
         "entries": Array [
           Object {
             "count": 3120,
-            "id": "type_Movie",
             "label": "Movie",
           },
           Object {
             "count": 521,
-            "id": "type_Episode",
             "label": "Episode",
           },
           Object {
             "count": 473,
-            "id": "type_Series",
             "label": "Series",
           },
           Object {
             "count": 48,
-            "id": "type_Game",
             "label": "Game",
           },
         ],
@@ -273,27 +240,22 @@ Object {
         "entries": Array [
           Object {
             "count": 2529,
-            "id": "genres_Drama",
             "label": "Drama",
           },
           Object {
             "count": 1274,
-            "id": "genres_Comedy",
             "label": "Comedy",
           },
           Object {
             "count": 786,
-            "id": "genres_Crime",
             "label": "Crime",
           },
           Object {
             "count": 725,
-            "id": "genres_Action",
             "label": "Action",
           },
           Object {
             "count": 666,
-            "id": "genres_Adventure",
             "label": "Adventure",
           },
         ],

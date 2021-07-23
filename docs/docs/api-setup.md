@@ -247,7 +247,6 @@ Once configured, API will return all facets values for fields that have aggregat
       label
       type
       entries {
-        id
         label
         count
       }
@@ -272,7 +271,6 @@ When the user chooses to filter by movies, you can add the filter like so
       label
       type
       entries {
-        id
         label
         count
       }

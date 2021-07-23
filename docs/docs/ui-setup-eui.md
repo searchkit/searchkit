@@ -110,7 +110,6 @@ query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput, $s
         label
         display
         entries {
-          id
           label
           count
         }

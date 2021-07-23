@@ -169,7 +169,6 @@ const code2 = `
       type
       display
       entries {
-        id
         label
         count
       }

@@ -1,26 +1,6 @@
-import { useSearchkit } from '@searchkit/client'
+import { FilterLink, useSearchkit, FilterLinkClickRef } from '@searchkit/client'
 import { EuiButton, EuiFlexGroup, EuiFlexItem } from '@elastic/eui'
-import React from 'react'
-
-const ValueFilter = ({ filter, loading }) => {
-  const api = useSearchkit()
-
-  return (
-    <EuiFlexItem grow={false}>
-      <EuiButton
-        onClick={() => {
-          api.removeFilter(filter)
-          api.search()
-        }}
-        iconSide="right"
-        iconType="cross"
-        isLoading={loading}
-      >
-        {filter.label}: {filter.value}
-      </EuiButton>
-    </EuiFlexItem>
-  )
-}
+import React, { useRef } from 'react'
 
 const NumericRangeFilter = ({ filter, loading }) => {
   const api = useSearchkit()
@@ -63,12 +43,32 @@ const DateRangeFilter = ({ filter, loading }) => {
   )
 }
 
+const ValueFilter = ({ filter, loading }) => {
+  const ref = useRef<FilterLinkClickRef>()
+
+  return (
+    <EuiFlexItem grow={false}>
+      <EuiButton
+        iconSide="right"
+        iconType="cross"
+        isLoading={loading}
+        onClick={(e) => {
+          ref.current.onClick(e)
+        }}
+      >
+        <FilterLink ref={ref} filter={filter}><>{filter.label}: {filter.value}</></FilterLink>
+      </EuiButton>
+    </EuiFlexItem>
+  )
+}
+
 export const SelectedFilters = ({ loading, data, customFilterComponents = {} }) => {
   const filterComponentMap = {
     ListFacet: ValueFilter,
     RangeSliderFacet: NumericRangeFilter,
     DateRangeFacet: DateRangeFilter,
     ComboBoxFacet: ValueFilter,
+    HierarchicalMenuFacet: ValueFilter,
     ...customFilterComponents
   }
   return (

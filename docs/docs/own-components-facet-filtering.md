@@ -13,7 +13,6 @@ slug: /build-your-own-components/facet-value-filtering
         identifier
         label
         entries {
-          id
           label
           count
         }

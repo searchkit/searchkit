@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef, useImperativeHandle } from 'react'
 import {
   createSearchState,
   useSearchkit,
@@ -17,6 +17,8 @@ interface PaginationLinkProps {
   children: React.ReactChildren | React.ReactChild
 }
 
+export type FilterLinkClickRef = { onClick: (e: React.MouseEvent) => {} }
+
 function isModifiedEvent(event: React.MouseEvent): boolean {
   const { target } = event.currentTarget as HTMLAnchorElement
   return (
@@ -29,16 +31,26 @@ function isModifiedEvent(event: React.MouseEvent): boolean {
   )
 }
 
-export function FilterLink({ filter, resetPagination = true, children }: FilterLinkProps) {
+
+export const FilterLink = forwardRef<{}, FilterLinkProps>((props, ref) => {
+  const { filter, resetPagination = true, children } = props
   const api = useSearchkit()
   const variables = useSearchkitVariables()
   const routingOptions = useSearchkitRoutingOptions()
   let href
+  const filterAdded = api.isFilterSelected(filter)
 
   if (routingOptions) {
     const scs = createSearchState(variables)
     scs.toggleFilter(filter)
     if (resetPagination) scs.resetPage()
+    if (filter.level) {
+      const appliedFilters = scs.getFiltersByIdentifier(filter.identifier)
+      const levelFilters = appliedFilters.filter((f) => f.level === filter.level || (!filterAdded && f.level > filter.level) )
+      if (levelFilters?.length > 0) {
+        levelFilters.forEach((f) => scs.removeFilter(f))
+      }
+    }
     const nextRouteState = routingOptions.stateToRoute(scs.searchState)
     href = routingOptions.createURL({ routeState: nextRouteState })
   }
@@ -54,15 +66,27 @@ export function FilterLink({ filter, resetPagination = true, children }: FilterL
 
     api.toggleFilter(filter)
     if (resetPagination) api.resetPage()
+    if (filter.level) {
+      const appliedFilters = api.getFiltersByIdentifier(filter.identifier)
+      const levelFilters = appliedFilters.filter((f) => f.level === filter.level || (f.level > filter.level) )
+      if (levelFilters?.length > 0) {
+        levelFilters.forEach((f) => api.removeFilter(f))
+      }
+    }
     api.search()
   }
 
+  useImperativeHandle(ref, () => ({onClick: (e: MouseEvent) => {
+    clickHandler(e)
+  }
+  }));
+
   return (
-    <a href={href} onClick={clickHandler}>
+    <a href={href} onClick={!ref ? clickHandler: undefined}>
       {children}
     </a>
   )
-}
+})
 
 export function PaginationLink({ page, children }: PaginationLinkProps) {
   const api = useSearchkit()

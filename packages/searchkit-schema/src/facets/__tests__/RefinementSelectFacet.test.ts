@@ -50,19 +50,16 @@ describe('Multiple Select Facet', () => {
           { key: 'da', doc_count: 1 }
         ]
       })
-    ).toMatchInlineSnapshot(
-      `
+    ).toMatchInlineSnapshot(`
       Object {
         "display": "ListFacet",
         "entries": Array [
           Object {
             "count": 1,
-            "id": "testId_bla",
             "label": "bla",
           },
           Object {
             "count": 1,
-            "id": "testId_da",
             "label": "da",
           },
         ],
@@ -70,7 +67,6 @@ describe('Multiple Select Facet', () => {
         "label": "Test",
         "type": "RefinementSelectFacet",
       }
-    `
-    )
+    `)
   })
 })

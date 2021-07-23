@@ -76,7 +76,6 @@ query {
       display <-- Used by client on how to display the facet. Can be configured in Facet configuration
       type <-- facet class type
       entries {
-        id
         label
         count
       }
@@ -100,7 +99,6 @@ Used for facet interactions such as for search or for when displaying more facet
 				type
 				display
 				entries {
-					id
 					label
 					count
 				}
