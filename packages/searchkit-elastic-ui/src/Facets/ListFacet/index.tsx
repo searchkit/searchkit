@@ -8,7 +8,7 @@ export const ListFacet = ({ facet, loading }) => {
   const entries = facet.entries.map((entry) => (
     <EuiFacetButton
       style={{ height: '28px', marginTop: 0, marginBottom: 0 }}
-      key={entry.id}
+      key={entry.label}
       quantity={entry.count}
       isSelected={api.isFilterSelected({ identifier: facet.identifier, value: entry.label })}
       isLoading={loading}

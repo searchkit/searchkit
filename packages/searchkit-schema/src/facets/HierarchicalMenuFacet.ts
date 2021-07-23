@@ -10,7 +10,7 @@ interface HierarchicalMenuFacetConfig {
 }
 
 class HierarchicalMenuFacet implements BaseFacet {
-  public excludeOwnFilters = false
+  public excludeOwnFilters = true
 
   constructor(public config: HierarchicalMenuFacetConfig) {}
   getLabel(): string {
@@ -78,8 +78,8 @@ class HierarchicalMenuFacet implements BaseFacet {
 
   getSelectedFilter(filterSet) {
     return {
-      type: 'HierarchicalMenuFilter',
-      id: `${this.getIdentifier()}`,
+      type: 'HierarchicalValueSelectedFilter',
+      id: `${this.getIdentifier()}_${filterSet.value}`,
       identifier: this.getIdentifier(),
       label: this.getLabel(),
       value: filterSet.value,
@@ -90,15 +90,17 @@ class HierarchicalMenuFacet implements BaseFacet {
 
   transformResponse(response, queryManager: QueryManager) {
     const appliedFilters = queryManager.getFiltersById(this.config.identifier) as Array<HierarchicalValueFilter> || []
-    const buildEntries = (level: number) => {
+    const buildEntries = (level: number, parentId: string = "") => {
       if (response[`lvl_${level}`]) {
         const levelFilter = appliedFilters.find((f) => f.level === level)
         return response[`lvl_${level}`].aggs.buckets.map((bucket) => {
+          const isSelected = levelFilter?.value === bucket.key
+          const id = `${parentId}_${this.getIdentifier()}_${bucket.key}_${level}${isSelected && '_selected'}`
           return {
             label: bucket.key,
             count: bucket.doc_count,
-            id: `${this.getIdentifier()}_${bucket.key}_${level}`,
-            entries: levelFilter?.value === bucket.key ? buildEntries(level + 1) : null
+            level: level,
+            entries: isSelected ? buildEntries(level + 1, id) : null
           }
         })
       } else {

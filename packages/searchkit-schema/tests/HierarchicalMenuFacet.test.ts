@@ -53,15 +53,12 @@ describe('HierarchicalMenuFacet', () => {
               display
               ... on HierarchicalMenuFacet {
                 entries {
-                  id
                   count
                   label
                   entries {
-                    id
                     count
                     label
                     entries {
-                      id
                       count
                       label
                     }
@@ -149,15 +146,12 @@ describe('HierarchicalMenuFacet', () => {
               display
               ... on HierarchicalMenuFacet {
                 entries {
-                  id
                   count
                   label
                   entries {
-                    id
                     count
                     label
                     entries {
-                      id
                       count
                       label
                     }
@@ -176,6 +170,26 @@ describe('HierarchicalMenuFacet', () => {
             Object {
               "aggs": Object {
                 "facet_bucket_all": Object {
+                  "aggs": Object {},
+                  "filter": Object {
+                    "bool": Object {
+                      "must": Array [
+                        Object {
+                          "bool": Object {
+                            "must": Array [
+                              Object {
+                                "term": Object {
+                                  "category_lvl1.keyword": "Coats and Jackets",
+                                },
+                              },
+                            ],
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+                "facet_bucket_categories": Object {
                   "aggs": Object {
                     "categories": Object {
                       "aggs": Object {
@@ -221,19 +235,7 @@ describe('HierarchicalMenuFacet', () => {
                   },
                   "filter": Object {
                     "bool": Object {
-                      "must": Array [
-                        Object {
-                          "bool": Object {
-                            "must": Array [
-                              Object {
-                                "term": Object {
-                                  "category_lvl1.keyword": "Coats and Jackets",
-                                },
-                              },
-                            ],
-                          },
-                        },
-                      ],
+                      "must": Array [],
                     },
                   },
                 },
@@ -296,15 +298,12 @@ describe('HierarchicalMenuFacet', () => {
               display
               ... on HierarchicalMenuFacet {
                 entries {
-                  id
                   count
                   label
                   entries {
-                    id
                     count
                     label
                     entries {
-                      id
                       count
                       label
                     }
@@ -323,6 +322,31 @@ describe('HierarchicalMenuFacet', () => {
             Object {
               "aggs": Object {
                 "facet_bucket_all": Object {
+                  "aggs": Object {},
+                  "filter": Object {
+                    "bool": Object {
+                      "must": Array [
+                        Object {
+                          "bool": Object {
+                            "must": Array [
+                              Object {
+                                "term": Object {
+                                  "category_lvl1.keyword": "Coats and Jackets",
+                                },
+                              },
+                              Object {
+                                "term": Object {
+                                  "category_lvl2.keyword": "Leather jackets",
+                                },
+                              },
+                            ],
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+                "facet_bucket_categories": Object {
                   "aggs": Object {
                     "categories": Object {
                       "aggs": Object {
@@ -397,24 +421,7 @@ describe('HierarchicalMenuFacet', () => {
                   },
                   "filter": Object {
                     "bool": Object {
-                      "must": Array [
-                        Object {
-                          "bool": Object {
-                            "must": Array [
-                              Object {
-                                "term": Object {
-                                  "category_lvl1.keyword": "Coats and Jackets",
-                                },
-                              },
-                              Object {
-                                "term": Object {
-                                  "category_lvl2.keyword": "Leather jackets",
-                                },
-                              },
-                            ],
-                          },
-                        },
-                      ],
+                      "must": Array [],
                     },
                   },
                 },

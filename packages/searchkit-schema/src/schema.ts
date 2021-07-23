@@ -70,6 +70,15 @@ const baseSearchkitTypeDefs = gql`
     topRight: SKGeoPoint
   }
 
+  type HierarchicalValueSelectedFilter implements SKSelectedFilter {
+    id: ID!
+    identifier: String!
+    label: String!
+    display: String!
+    level: Int!
+    value: String!
+  }
+
   type SKGeoPoint {
     lat: Float!
     lon: Float!
@@ -134,10 +143,10 @@ const baseSearchkitTypeDefs = gql`
   }
 
   type SKFacetSetEntry {
-    id: ID!
     label: String
     count: Float
     isSelected: Boolean
+    level: Int
     entries: [SKFacetSetEntry]
   }
 
