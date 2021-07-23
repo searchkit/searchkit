@@ -260,10 +260,8 @@ When configured, a GraphQL query using the facets node like below will bring bac
       type
       display
       entries {
-        id
         label
         count
-        isSelected
       }
     }
   }
@@ -281,10 +279,8 @@ The resolver also supports returning facet options for one particular facet via 
       type
       display
       entries {
-        id
         label
         count
-        isSelected
       }
     }
   }
@@ -343,9 +339,8 @@ Supports facet values querying via the facet node. Great for UIs where you have 
  {
   results(query: "heat", filters: []) {
     facet(identifier: "type", query: "movi", size: 10) {
-      id
+      identifier
       entries {
-        id
         label
         count
       }
@@ -364,6 +359,9 @@ Supports facet values querying via the facet node. Great for UIs where you have 
 | MultipleSelect | Boolean. Default False. Filters operates as an OR. See multiple Select for more information |
 | size           | **Optional**. Controls the number of options displayed. Defaults to 5. 
 | display        | **Optional**. Used on UI to specify what component to handle facet |
+
+### HierarchicalMenuFacet
+see [Hierarchical Menu Facet Page](https://searchkit.co/docs/build-your-own-components/hierarchical-facet) for more information
 
 ### RangeFilterFacet
 
