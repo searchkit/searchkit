@@ -87,7 +87,6 @@ const query = gql`
         label
         display
         entries {
-          id
           label
           count
         }

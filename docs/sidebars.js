@@ -37,7 +37,7 @@ module.exports = {
       'guides-ssr',
       'guides-seo'
     ],
-    'Notes': ['v2-v3-migration', 'guides-upgrade-rc25']
+    'Notes': ['v2-v3-migration', 'guides-upgrade-rc41']
   },
   'UI Docs': [
     'own-components',
