@@ -4,6 +4,7 @@ import { ComboBoxFacet } from '../ComboBoxFacet'
 import { ListFacet } from '../ListFacet'
 import { RangeSliderFacet } from '../RangeSliderFacet'
 import { DateRangeFacet } from '../DateRangeFacet'
+import { HierarchicalMenuFacet } from '../HierarchicalMenuFacet'
 
 export const FacetsList = (components = []) => {
   const componentTypeMap = [
@@ -11,7 +12,8 @@ export const FacetsList = (components = []) => {
     ListFacet,
     ComboBoxFacet,
     RangeSliderFacet,
-    DateRangeFacet
+    DateRangeFacet,
+    HierarchicalMenuFacet
   ].reduce((sum, component) => {
     sum[component.DISPLAY] = component
     return sum

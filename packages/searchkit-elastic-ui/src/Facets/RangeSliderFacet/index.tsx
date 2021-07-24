@@ -57,7 +57,7 @@ export const RangeSliderFacet = ({ facet }) => {
         <h3>{facet.label}</h3>
       </EuiTitle>
       <EuiDualRange
-        id={facet.id}
+        id={facet.identifier}
         value={dualValue}
         min={minBoundary}
         max={maxBoundary}

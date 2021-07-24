@@ -124,7 +124,6 @@ Will provide a GraphQL API where you can perform queries like:
       type
       display
       entries {
-        id
         label
         count
       }
@@ -165,7 +164,6 @@ Will provide a GraphQL API where you can perform queries like:
       type
       display
       entries {
-        id
         label
         count
       }

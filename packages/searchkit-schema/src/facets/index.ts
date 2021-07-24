@@ -1,5 +1,6 @@
 export { default as RefinementSelectFacet } from './RefinementSelectFacet'
 export { default as RangeFacet } from './RangeFacet'
 export { default as DateRangeFacet } from './DateRangeFacet'
+export { default as HierarchicalMenuFacet } from './HierarchicalMenuFacet'
 export * from './BaseFacet'
 export * from './VisibilityRules'

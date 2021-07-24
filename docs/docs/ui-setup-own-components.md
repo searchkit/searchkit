@@ -64,7 +64,7 @@ const RefinementFacet = ({ facet }) => {
           return (
             <li
               className={isSelected ? 'selected' : ''}
-              key={entry.id}
+              key={entry.label}
               onClick={() => {
                 api.toggleFilter({ identifier: facet.identifier, value: entry.label });
                 api.search();
@@ -118,7 +118,6 @@ const QUERY = gql`
           label
           display
           entries {
-            id
             label
             count
           }

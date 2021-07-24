@@ -50,7 +50,7 @@ class DateRangeFacet implements BaseFacet {
       label: this.getLabel(),
       type: 'DateRangeFacet',
       display: this.config.display || 'DateRangeFacet',
-      entries: []
+      entries: null
     }
   }
 }

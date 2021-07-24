@@ -1,0 +1,405 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HierarchicalMenuFacet should return as expected 1 lvl1 filter, bring back level 1 + lvl2 facets. Lvl2 facets have lvl1 filter applied 2`] = `
+Object {
+  "results": Object {
+    "facets": Array [
+      Object {
+        "display": "HierarchicalMenuFacet",
+        "entries": Array [
+          Object {
+            "count": 426,
+            "entries": null,
+            "label": "T-Shirts",
+          },
+          Object {
+            "count": 372,
+            "entries": null,
+            "label": "Casual Shirts",
+          },
+          Object {
+            "count": 324,
+            "entries": null,
+            "label": "Knitwear",
+          },
+          Object {
+            "count": 308,
+            "entries": null,
+            "label": "Sweats",
+          },
+          Object {
+            "count": 231,
+            "entries": Array [
+              Object {
+                "count": 107,
+                "entries": null,
+                "label": "Lightweight & waterproof jackets",
+              },
+              Object {
+                "count": 39,
+                "entries": null,
+                "label": "Bomber jackets",
+              },
+              Object {
+                "count": 23,
+                "entries": null,
+                "label": "Leather jackets",
+              },
+              Object {
+                "count": 20,
+                "entries": null,
+                "label": "Down jackets",
+              },
+              Object {
+                "count": 17,
+                "entries": null,
+                "label": "Denim jackets",
+              },
+              Object {
+                "count": 14,
+                "entries": null,
+                "label": "Gilets",
+              },
+              Object {
+                "count": 4,
+                "entries": null,
+                "label": "Parkas",
+              },
+              Object {
+                "count": 4,
+                "entries": null,
+                "label": "Raincoats & trench coats",
+              },
+              Object {
+                "count": 3,
+                "entries": null,
+                "label": "Winter coats",
+              },
+            ],
+            "label": "Coats and Jackets",
+          },
+          Object {
+            "count": 220,
+            "entries": null,
+            "label": "Polo shirts",
+          },
+          Object {
+            "count": 132,
+            "entries": null,
+            "label": "Shorts",
+          },
+          Object {
+            "count": 117,
+            "entries": null,
+            "label": "Trousers",
+          },
+          Object {
+            "count": 113,
+            "entries": null,
+            "label": "Swimwear",
+          },
+          Object {
+            "count": 80,
+            "entries": null,
+            "label": "Underwear",
+          },
+        ],
+        "identifier": "categories",
+        "label": "Categories",
+        "type": "HierarchicalMenuFacet",
+      },
+    ],
+    "hits": Object {
+      "items": Array [
+        Object {
+          "id": "10163292707229244",
+        },
+        Object {
+          "id": "13452677152061433",
+        },
+        Object {
+          "id": "11452292647194357",
+        },
+        Object {
+          "id": "560971904241887",
+        },
+        Object {
+          "id": "10163292707229255",
+        },
+        Object {
+          "id": "13452677152333220",
+        },
+        Object {
+          "id": "11452292647412043",
+        },
+        Object {
+          "id": "9465239339535960",
+        },
+        Object {
+          "id": "13452677150717069",
+        },
+        Object {
+          "id": "3633577411025988",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`HierarchicalMenuFacet should return as expected 1 lvl1 filter, bring back level 1..3 facets. Lvl2 facets have lvl1 filter applied, lvl3 will have lvl 1..2 filter applied 2`] = `
+Object {
+  "results": Object {
+    "facets": Array [
+      Object {
+        "display": "HierarchicalMenuFacet",
+        "entries": Array [
+          Object {
+            "count": 426,
+            "entries": null,
+            "label": "T-Shirts",
+          },
+          Object {
+            "count": 372,
+            "entries": null,
+            "label": "Casual Shirts",
+          },
+          Object {
+            "count": 324,
+            "entries": null,
+            "label": "Knitwear",
+          },
+          Object {
+            "count": 308,
+            "entries": null,
+            "label": "Sweats",
+          },
+          Object {
+            "count": 231,
+            "entries": Array [
+              Object {
+                "count": 107,
+                "entries": null,
+                "label": "Lightweight & waterproof jackets",
+              },
+              Object {
+                "count": 39,
+                "entries": null,
+                "label": "Bomber jackets",
+              },
+              Object {
+                "count": 23,
+                "entries": Array [
+                  Object {
+                    "count": 107,
+                    "label": "Long",
+                  },
+                  Object {
+                    "count": 39,
+                    "label": "Short",
+                  },
+                ],
+                "label": "Leather jackets",
+              },
+              Object {
+                "count": 20,
+                "entries": null,
+                "label": "Down jackets",
+              },
+              Object {
+                "count": 17,
+                "entries": null,
+                "label": "Denim jackets",
+              },
+              Object {
+                "count": 14,
+                "entries": null,
+                "label": "Gilets",
+              },
+              Object {
+                "count": 4,
+                "entries": null,
+                "label": "Parkas",
+              },
+              Object {
+                "count": 4,
+                "entries": null,
+                "label": "Raincoats & trench coats",
+              },
+              Object {
+                "count": 3,
+                "entries": null,
+                "label": "Winter coats",
+              },
+            ],
+            "label": "Coats and Jackets",
+          },
+          Object {
+            "count": 220,
+            "entries": null,
+            "label": "Polo shirts",
+          },
+          Object {
+            "count": 132,
+            "entries": null,
+            "label": "Shorts",
+          },
+          Object {
+            "count": 117,
+            "entries": null,
+            "label": "Trousers",
+          },
+          Object {
+            "count": 113,
+            "entries": null,
+            "label": "Swimwear",
+          },
+          Object {
+            "count": 80,
+            "entries": null,
+            "label": "Underwear",
+          },
+        ],
+        "identifier": "categories",
+        "label": "Categories",
+        "type": "HierarchicalMenuFacet",
+      },
+    ],
+    "hits": Object {
+      "items": Array [
+        Object {
+          "id": "10163292707229244",
+        },
+        Object {
+          "id": "13452677152061433",
+        },
+        Object {
+          "id": "11452292647194357",
+        },
+        Object {
+          "id": "560971904241887",
+        },
+        Object {
+          "id": "10163292707229255",
+        },
+        Object {
+          "id": "13452677152333220",
+        },
+        Object {
+          "id": "11452292647412043",
+        },
+        Object {
+          "id": "9465239339535960",
+        },
+        Object {
+          "id": "13452677150717069",
+        },
+        Object {
+          "id": "3633577411025988",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`HierarchicalMenuFacet should return as expected No filters, bring back only level 1 facets 2`] = `
+Object {
+  "results": Object {
+    "facets": Array [
+      Object {
+        "display": "HierarchicalMenuFacet",
+        "entries": Array [
+          Object {
+            "count": 426,
+            "entries": null,
+            "label": "T-Shirts",
+          },
+          Object {
+            "count": 372,
+            "entries": null,
+            "label": "Casual Shirts",
+          },
+          Object {
+            "count": 324,
+            "entries": null,
+            "label": "Knitwear",
+          },
+          Object {
+            "count": 308,
+            "entries": null,
+            "label": "Sweats",
+          },
+          Object {
+            "count": 231,
+            "entries": null,
+            "label": "Coats and Jackets",
+          },
+          Object {
+            "count": 220,
+            "entries": null,
+            "label": "Polo shirts",
+          },
+          Object {
+            "count": 132,
+            "entries": null,
+            "label": "Shorts",
+          },
+          Object {
+            "count": 117,
+            "entries": null,
+            "label": "Trousers",
+          },
+          Object {
+            "count": 113,
+            "entries": null,
+            "label": "Swimwear",
+          },
+          Object {
+            "count": 80,
+            "entries": null,
+            "label": "Underwear",
+          },
+        ],
+        "identifier": "categories",
+        "label": "Categories",
+        "type": "HierarchicalMenuFacet",
+      },
+    ],
+    "hits": Object {
+      "items": Array [
+        Object {
+          "id": "10163292707229244",
+        },
+        Object {
+          "id": "13452677152061433",
+        },
+        Object {
+          "id": "11452292647194357",
+        },
+        Object {
+          "id": "560971904241887",
+        },
+        Object {
+          "id": "10163292707229255",
+        },
+        Object {
+          "id": "13452677152333220",
+        },
+        Object {
+          "id": "11452292647412043",
+        },
+        Object {
+          "id": "9465239339535960",
+        },
+        Object {
+          "id": "13452677150717069",
+        },
+        Object {
+          "id": "3633577411025988",
+        },
+      ],
+    },
+  },
+}
+`;

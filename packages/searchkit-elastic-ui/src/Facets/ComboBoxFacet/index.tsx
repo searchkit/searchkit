@@ -15,7 +15,6 @@ const facetRefinementSearchQuery = gql`
         identifier
         label
         entries {
-          id
           label
           count
         }

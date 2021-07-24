@@ -37,7 +37,7 @@ module.exports = {
       'guides-ssr',
       'guides-seo'
     ],
-    'Notes': ['v2-v3-migration', 'guides-upgrade-rc25']
+    'Notes': ['v2-v3-migration', 'guides-upgrade-rc41']
   },
   'UI Docs': [
     'own-components',
@@ -50,7 +50,8 @@ module.exports = {
     {
       'Facets': [
         'own-components-ui-facet-display',
-        'own-components-ui-facet-value-filtering'
+        'own-components-ui-facet-value-filtering',
+        'own-components-hierarchical-facet'
         // list facet
         // range facet
         // date range facet

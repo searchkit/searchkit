@@ -1,13 +1,13 @@
 import { useSearchkitVariables } from '@searchkit/client'
 import { gql, useQuery } from '@apollo/client'
-import PlacesSearchInput from './Input'
-import Maps from './maps'
-
+import { useState } from 'react'
 import {
+  FacetsList,
+  SearchBar,
   Pagination,
   ResetSearchButton,
   SelectedFilters,
-  FacetsList
+  SortingSelector
 } from '@searchkit/elastic-ui'
 
 import {
@@ -22,15 +22,16 @@ import {
   EuiPageSideBar,
   EuiTitle,
   EuiHorizontalRule,
-  EuiText,
+  EuiButtonGroup,
   EuiFlexGroup,
   EuiFlexItem,
-  EuiFlexGrid
+  EuiFlexGrid,
+  EuiCard
 } from '@elastic/eui'
 
 const query = gql`
   query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput, $sortBy: String) {
-    usParks(query: $query, filters: $filters) {
+    products(query: $query, filters: $filters) {
       summary {
         total
         appliedFilters {
@@ -38,15 +39,8 @@ const query = gql`
           identifier
           display
           label
-          ... on DateRangeSelectedFilter {
-            dateMin
-            dateMax
-          }
-          ... on NumericRangeSelectedFilter {
-            min
-            max
-          }
-          ... on ValueSelectedFilter {
+          ... on HierarchicalValueSelectedFilter {
+            level
             value
           }
         }
@@ -66,14 +60,13 @@ const query = gql`
         }
         sortedBy
         items {
-          ... on ParkResultHit {
+          ... on ProductHit {
             id
             fields {
-              title
-              location
-              nps_link
-              states
-              description
+              imageURL
+              designerName
+              name
+              price
             }
           }
         }
@@ -86,60 +79,56 @@ const query = gql`
         entries {
           label
           count
+          level
+          entries {
+            label
+            count
+            level
+            entries {
+              label
+              count
+              level
+            }
+          }
         }
       }
     }
   }
 `
 
-export const HitsList = ({ data }) => (
-  <EuiFlexGrid direction="column">
-    {data?.hits.items.map((hit) => (
-      <EuiFlexItem key={hit.id}>
-      <EuiFlexGroup gutterSize="xl" >
-        <EuiFlexItem>
-          <EuiFlexGroup>
-            <EuiFlexItem grow={4}>
-              <EuiTitle size="xs">
-                <a href={hit.fields.nps_link}><h6>{hit.fields.title} ({hit.fields.states.join(", ")})</h6></a>
-              </EuiTitle>
-              <EuiText>
-                <p>{hit.fields.description}</p>
-              </EuiText>
-              <EuiText>
-              <a href={hit.fields.nps_link}>Read more »</a>
-              </EuiText>
-            </EuiFlexItem>
-          </EuiFlexGroup>
-        </EuiFlexItem>
-    </EuiFlexGroup>
-    </EuiFlexItem>
+const HitsGrid = ({ data }) => (
+  <EuiFlexGrid gutterSize="l">
+    {data?.products.hits.items.map((hit) => (
+      <EuiFlexItem key={hit.id} grow={2}>
+        <EuiCard
+          grow={false}
+          textAlign="left"
+          image={<img src={hit.fields.imageURL} style={{ maxWidth: 200 }} />}
+          title={hit.fields.name}
+          description={hit.fields.brandName}
+        />
+      </EuiFlexItem>
     ))}
   </EuiFlexGrid>
 )
 
-const LocationFilter = ({ filter, loading }) => {
-  return null
-}
-
 const Page = () => {
   const variables = useSearchkitVariables()
   const { previousData, data = previousData, loading } = useQuery(query, { variables })
-  const Facets = FacetsList()
+  const [viewType, setViewType] = useState('list')
+  const Facets = FacetsList([])
   return (
     <EuiPage>
       <EuiPageSideBar>
-        <PlacesSearchInput />
+        <SearchBar loading={loading} />
         <EuiHorizontalRule margin="m" />
-        <Facets data={data?.usParks} />
+        <Facets data={data?.products} loading={loading} />
       </EuiPageSideBar>
       <EuiPageBody component="div">
         <EuiPageHeader>
           <EuiPageHeaderSection>
             <EuiTitle size="l">
-              <SelectedFilters data={data?.usParks} loading={loading} customFilterComponents={{
-                GeoBoundingBoxFilter: LocationFilter
-              }} />
+              <SelectedFilters data={data?.products} loading={loading} />
             </EuiTitle>
           </EuiPageHeaderSection>
           <EuiPageHeaderSection>
@@ -150,22 +139,22 @@ const Page = () => {
           <EuiPageContentHeader>
             <EuiPageContentHeaderSection>
               <EuiTitle size="s">
-                <h2>{data?.usParks.summary.total} Results</h2>
+                <h2>{data?.products.summary.total} Results</h2>
               </EuiTitle>
+            </EuiPageContentHeaderSection>
+            <EuiPageContentHeaderSection>
+              <EuiFlexGroup>
+                <EuiFlexItem grow={1}>
+                  <SortingSelector data={data?.products} loading={loading} />
+                </EuiFlexItem>
+              </EuiFlexGroup>
             </EuiPageContentHeaderSection>
           </EuiPageContentHeader>
           <EuiPageContentBody>
-          <EuiFlexGroup>
-            <EuiFlexItem>
-              <HitsList data={data?.usParks} />
-              <EuiFlexGroup justifyContent="spaceAround">
-                <Pagination data={data?.usParks} />
-              </EuiFlexGroup>
-            </EuiFlexItem>
-            <EuiFlexItem>
-              <Maps data={data?.usParks} />
-            </EuiFlexItem>
-          </EuiFlexGroup>
+            <HitsGrid data={data} />
+            <EuiFlexGroup justifyContent="spaceAround">
+              <Pagination data={data?.results} />
+            </EuiFlexGroup>
           </EuiPageContentBody>
         </EuiPageContent>
       </EuiPageBody>

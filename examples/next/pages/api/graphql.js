@@ -8,7 +8,8 @@ import {
   SearchkitSchema,
   DateRangeFacet,
   SearchkitResolver,
-  GeoBoundingBoxFilter
+  GeoBoundingBoxFilter,
+  HierarchicalMenuFacet
 } from '@searchkit/schema'
 
 const searchkitConfig = {
@@ -123,20 +124,20 @@ const usParksConfig = {
   ]
 }
 
-const bikeHireConfig = {
+const productsConfig = {
   host: process.env.ES_HOST || 'http://localhost:9200',
-  index: 'bike_hire_stations',
+  index: 'mrp-products',
   hits: {
     fields: [
       'name', 'location'
     ]
   },
-  query: new MultiMatchQuery({ fields: ['name'] }),
-  filters: [
-    new GeoBoundingBoxFilter({
-      field: 'location',
-      label: "Location",
-      identifier: "location"
+  query: new MultiMatchQuery({ fields: ['designerName^3', 'name'] }),
+  facets: [
+    new HierarchicalMenuFacet({
+      fields: [ 'category_lvl1.keyword', 'category_lvl2.keyword', 'category_lvl3.keyword' ],
+      label: 'Category',
+      identifier: 'category',
     })
   ]
 }
@@ -147,9 +148,9 @@ const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema([{
   hitTypeName: 'ResultHit',
   addToQueryType: true
 }, {
-  config: bikeHireConfig,
-  typeName: 'BikeHireResultSet',
-  hitTypeName: 'BikeHireHit',
+  config: productsConfig,
+  typeName: 'productsResultSet',
+  hitTypeName: 'ProductHit',
   addToQueryType: false
 }, {
   config: usParksConfig,
@@ -193,9 +194,11 @@ const server = new ApolloServer({
       description: String
     }
 
-    type BikeHireHitFields {
+    type ProductHitFields {
+      imageURL: String
+      designerName: String
       name: String
-      location: String
+      price: Float
     }
 
     type ParkResultHit implements SKHit {
@@ -203,14 +206,14 @@ const server = new ApolloServer({
       fields: ParkHitFields
     }
 
-    type BikeHireHit implements SKHit {
+    type ProductHit implements SKHit {
       id: ID!
-      fields: BikeHireHitFields
+      fields: ProductHitFields
     }
 
     extend type Query {
       usParks(query: String, filters: [SKFiltersSet], page: SKPageInput): ParkResultSet
-      bikeHireStations(query: String, filters: [SKFiltersSet], page: SKPageInput): BikeHireResultSet
+      products(query: String, filters: [SKFiltersSet], page: SKPageInput): productsResultSet
     }
   `, ...typeDefs
   ],
@@ -220,7 +223,7 @@ const server = new ApolloServer({
     },
     Query: {
       usParks: SearchkitResolver,
-      bikeHireStations: SearchkitResolver
+      products: SearchkitResolver
     }
   }),
   introspection: true,

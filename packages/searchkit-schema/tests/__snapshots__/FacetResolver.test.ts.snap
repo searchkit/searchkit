@@ -8,27 +8,22 @@ Object {
       "entries": Array [
         Object {
           "count": 10,
-          "id": "writers_Terry Nation",
           "label": "Terry Nation",
         },
         Object {
           "count": 9,
-          "id": "writers_Terry Rossio",
           "label": "Terry Rossio",
         },
         Object {
           "count": 8,
-          "id": "writers_Ted Elliott",
           "label": "Ted Elliott",
         },
         Object {
           "count": 7,
-          "id": "writers_Terry Gilliam",
           "label": "Terry Gilliam",
         },
         Object {
           "count": 5,
-          "id": "writers_Terry George",
           "label": "Terry George",
         },
       ],
