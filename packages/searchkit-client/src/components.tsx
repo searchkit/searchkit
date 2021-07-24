@@ -17,7 +17,7 @@ interface PaginationLinkProps {
   children: React.ReactChildren | React.ReactChild
 }
 
-export type FilterLinkClickRef = { onClick: (e: React.MouseEvent) => {} }
+export type FilterLinkClickRef = { onClick: (e: React.MouseEvent) => void }
 
 function isModifiedEvent(event: React.MouseEvent): boolean {
   const { target } = event.currentTarget as HTMLAnchorElement
@@ -31,7 +31,7 @@ function isModifiedEvent(event: React.MouseEvent): boolean {
   )
 }
 
-export const FilterLink = forwardRef<{}, FilterLinkProps>((props, ref) => {
+export const FilterLink = forwardRef<FilterLinkClickRef, FilterLinkProps>((props, ref) => {
   const { filter, resetPagination = true, children } = props
   const api = useSearchkit()
   const variables = useSearchkitVariables()
@@ -56,7 +56,7 @@ export const FilterLink = forwardRef<{}, FilterLinkProps>((props, ref) => {
     href = routingOptions.createURL({ routeState: nextRouteState })
   }
 
-  const clickHandler = (e) => {
+  const clickHandler = (e: React.MouseEvent) => {
     const { nodeName } = e.currentTarget
 
     if (nodeName === 'A' && isModifiedEvent(e)) {
@@ -80,7 +80,7 @@ export const FilterLink = forwardRef<{}, FilterLinkProps>((props, ref) => {
   }
 
   useImperativeHandle(ref, () => ({
-    onClick: (e: MouseEvent) => {
+    onClick: (e) => {
       clickHandler(e)
     }
   }))

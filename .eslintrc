@@ -67,6 +67,7 @@
     "no-empty-pattern": "warn",
     "no-undef": "off",
     "no-unused-vars": "warn",
+    "no-useless-catch": "warn",
     "no-useless-escape": "off",
     "prettier/prettier": "error",
     "react/display-name": "off",
