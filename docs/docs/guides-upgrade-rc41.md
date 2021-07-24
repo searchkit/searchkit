@@ -1,6 +1,6 @@
 ---
 id: guides-upgrade-rc41
-title: RC41 Update: Remove id field from facet entries
+title: RC41 Update - Remove id field from facet entries
 sidebar_label: RC41 Update
 slug: /guides/update-notes-rc41
 ---
