@@ -31,7 +31,6 @@ function isModifiedEvent(event: React.MouseEvent): boolean {
   )
 }
 
-
 export const FilterLink = forwardRef<{}, FilterLinkProps>((props, ref) => {
   const { filter, resetPagination = true, children } = props
   const api = useSearchkit()
@@ -46,7 +45,9 @@ export const FilterLink = forwardRef<{}, FilterLinkProps>((props, ref) => {
     if (resetPagination) scs.resetPage()
     if (filter.level) {
       const appliedFilters = scs.getFiltersByIdentifier(filter.identifier)
-      const levelFilters = appliedFilters.filter((f) => f.level === filter.level || (!filterAdded && f.level > filter.level) )
+      const levelFilters = appliedFilters.filter(
+        (f) => f.level === filter.level || (!filterAdded && f.level > filter.level)
+      )
       if (levelFilters?.length > 0) {
         levelFilters.forEach((f) => scs.removeFilter(f))
       }
@@ -68,7 +69,9 @@ export const FilterLink = forwardRef<{}, FilterLinkProps>((props, ref) => {
     if (resetPagination) api.resetPage()
     if (filter.level) {
       const appliedFilters = api.getFiltersByIdentifier(filter.identifier)
-      const levelFilters = appliedFilters.filter((f) => f.level === filter.level || (f.level > filter.level) )
+      const levelFilters = appliedFilters.filter(
+        (f) => f.level === filter.level || f.level > filter.level
+      )
       if (levelFilters?.length > 0) {
         levelFilters.forEach((f) => api.removeFilter(f))
       }
@@ -76,13 +79,14 @@ export const FilterLink = forwardRef<{}, FilterLinkProps>((props, ref) => {
     api.search()
   }
 
-  useImperativeHandle(ref, () => ({onClick: (e: MouseEvent) => {
-    clickHandler(e)
-  }
-  }));
+  useImperativeHandle(ref, () => ({
+    onClick: (e: MouseEvent) => {
+      clickHandler(e)
+    }
+  }))
 
   return (
-    <a href={href} onClick={!ref ? clickHandler: undefined}>
+    <a href={href} onClick={!ref ? clickHandler : undefined}>
       {children}
     </a>
   )

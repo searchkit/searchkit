@@ -1,7 +1,7 @@
 import SearchkitRequest from '../core/SearchkitRequest'
 import QueryManager from '../core/QueryManager'
-import { SearchkitConfig } from './ResultsResolver'
 import { BaseFacet, VisibleWhenRuleSet } from '../facets'
+import { SearchkitConfig } from './ResultsResolver'
 
 export default async (parent, {}, ctx) => {
   const queryManager: QueryManager = parent.searchkit.queryManager
@@ -24,14 +24,17 @@ export default async (parent, {}, ctx) => {
       }
       return facetConfig.getSelectedFilter(filterSet)
     })
-    const { appliedFilters, disabledFilters } = filters.reduce((sum, filter) => {
-      if (filter.disabled) {
-        sum.disabledFilters.push(filter)
-      } else {
-        sum.appliedFilters.push(filter)
-      }
-      return sum
-    }, {appliedFilters: [], disabledFilters: []})
+    const { appliedFilters, disabledFilters } = filters.reduce(
+      (sum, filter) => {
+        if (filter.disabled) {
+          sum.disabledFilters.push(filter)
+        } else {
+          sum.appliedFilters.push(filter)
+        }
+        return sum
+      },
+      { appliedFilters: [], disabledFilters: [] }
+    )
 
     return {
       total:

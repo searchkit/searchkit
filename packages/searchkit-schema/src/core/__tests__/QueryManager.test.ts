@@ -29,7 +29,7 @@ describe('QueryManager', () => {
   })
 
   it('query options', () => {
-    let qm = new QueryManager([], null, { fields: ["test" ]})
-    expect(qm.getQueryOptions().fields).toEqual(["test"])
+    const qm = new QueryManager([], null, { fields: ['test'] })
+    expect(qm.getQueryOptions().fields).toEqual(['test'])
   })
 })

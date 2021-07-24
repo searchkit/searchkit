@@ -5,8 +5,8 @@
   "dependencies": {
     "@apollo/client": "^3.2.7",
     "@elastic/eui": "^30.4.1",
-    "@searchkit/client": "^3.0.0-canary.39",
-    "@searchkit/elastic-ui": "^3.0.0-canary.39",
+    "@searchkit/client": "^3.0.0-canary.41",
+    "@searchkit/elastic-ui": "^3.0.0-canary.41",
     "graphql": "^15.4.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

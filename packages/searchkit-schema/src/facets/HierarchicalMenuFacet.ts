@@ -24,54 +24,57 @@ class HierarchicalMenuFacet implements BaseFacet {
   getFilters(filters: Array<HierarchicalValueFilter>) {
     return {
       bool: {
-        must: filters.map((filter) => ({ term: { [this.config.fields[filter.level - 1]]: filter.value } }))
+        must: filters.map((filter) => ({
+          term: { [this.config.fields[filter.level - 1]]: filter.value }
+        }))
       }
     }
   }
 
   getAggregation(overrides, queryManager: QueryManager) {
-    const appliedFilters =  queryManager.getFiltersById(this.config.identifier) as Array<HierarchicalValueFilter> || []
+    const appliedFilters =
+      (queryManager.getFiltersById(this.config.identifier) as Array<HierarchicalValueFilter>) || []
     const levelAggs = this.config.fields.reduce((aggs, field, index) => {
       const level = index + 1
       const parentFilters = appliedFilters.filter((f) => f.level < level)
-      const getAggs = (parentFilters.length === (level - 1))
+      const getAggs = parentFilters.length === level - 1
       if (getAggs) {
         return {
           ...aggs,
           [`lvl_${level}`]: {
-            "filter": parentFilters.length === 0 ? { match_all: {} } : {
-              "bool": {
-                "must": parentFilters.map((f) => {
-                  return {
-                    "term": {
-                      [this.config.fields[f.level-1]]: {
-                        "value": f.value
-                      }
+            filter:
+              parentFilters.length === 0
+                ? { match_all: {} }
+                : {
+                    bool: {
+                      must: parentFilters.map((f) => ({
+                        term: {
+                          [this.config.fields[f.level - 1]]: {
+                            value: f.value
+                          }
+                        }
+                      }))
                     }
-                  }
-                })
-              },
-            },
+                  },
             aggs: {
-              "aggs": {
-                "terms": {
-                  "field": this.config.fields[level-1]
+              aggs: {
+                terms: {
+                  field: this.config.fields[level - 1]
                 }
               }
             }
           }
         }
-      } else {
-        return aggs
       }
+      return aggs
     }, {})
 
     return {
       [this.getIdentifier()]: {
-        "filter": {
-          "match_all": {}
+        filter: {
+          match_all: {}
         },
-        "aggs": levelAggs
+        aggs: levelAggs
       }
     }
   }
@@ -89,13 +92,16 @@ class HierarchicalMenuFacet implements BaseFacet {
   }
 
   transformResponse(response, queryManager: QueryManager) {
-    const appliedFilters = queryManager.getFiltersById(this.config.identifier) as Array<HierarchicalValueFilter> || []
-    const buildEntries = (level: number, parentId: string = "") => {
+    const appliedFilters =
+      (queryManager.getFiltersById(this.config.identifier) as Array<HierarchicalValueFilter>) || []
+    const buildEntries = (level: number, parentId = '') => {
       if (response[`lvl_${level}`]) {
         const levelFilter = appliedFilters.find((f) => f.level === level)
         return response[`lvl_${level}`].aggs.buckets.map((bucket) => {
           const isSelected = levelFilter?.value === bucket.key
-          const id = `${parentId}_${this.getIdentifier()}_${bucket.key}_${level}${isSelected && '_selected'}`
+          const id = `${parentId}_${this.getIdentifier()}_${bucket.key}_${level}${
+            isSelected && '_selected'
+          }`
           return {
             label: bucket.key,
             count: bucket.doc_count,
@@ -103,9 +109,8 @@ class HierarchicalMenuFacet implements BaseFacet {
             entries: isSelected ? buildEntries(level + 1, id) : null
           }
         })
-      } else {
-        return null
       }
+      return null
     }
 
     return {

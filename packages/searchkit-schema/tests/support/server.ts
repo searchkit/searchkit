@@ -55,14 +55,11 @@ const userTypeDefs = gql`
 `
 
 class Server {
-
   constructor(
     private config: SearchkitSchemaConfig | Array<SearchkitSchemaConfig>,
     private customTypeDefs?: string,
     private customResolvers?: any
-  ) {
-
-  }
+  ) {}
 
   setupApolloServer() {
     const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema(this.config)
@@ -95,7 +92,7 @@ class Server {
       playground: true,
       context: {
         ...context,
-        role: "Admin"
+        role: 'Admin'
       }
     })
     return server.createHandler({ path: '/api/graphql' })

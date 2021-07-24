@@ -66,8 +66,8 @@ describe('Query Options', () => {
           return [200, HitsMock]
         })
 
-      let response = await runQuery()
-      expect(response.body.data.results.hits.items.length).toBe(10)
+      const response = await runQuery()
+      expect(response.body.data.results.hits.items).toHaveLength(10)
     })
   })
 })

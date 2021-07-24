@@ -181,7 +181,6 @@ const baseSearchkitTypeDefs = gql`
     display: String
     entries: [SKFacetSetEntry]
   }
-
 `
 
 export interface SearchkitSchemaConfig {

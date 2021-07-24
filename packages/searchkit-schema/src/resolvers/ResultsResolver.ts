@@ -37,14 +37,17 @@ export interface ResultsResolverParameters {
   query: string
 }
 
-const getFacets = (facets: Array<BaseFacet|VisibleWhenRuleSet> = [], queryManager: QueryManager, ctx) => {
-  return facets.reduce((facetsList, facet) => {
+const getFacets = (
+  facets: Array<BaseFacet | VisibleWhenRuleSet> = [],
+  queryManager: QueryManager,
+  ctx
+) =>
+  facets.reduce((facetsList, facet) => {
     if (facet instanceof VisibleWhenRuleSet) {
       return [...facetsList, ...facet.getActiveFacets(queryManager, ctx)]
     }
     return [...facetsList, facet]
   }, [])
-}
 
 export default async (parent, parameters, ctx, info) => {
   try {

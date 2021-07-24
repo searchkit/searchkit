@@ -40,10 +40,19 @@ type QueryOptions = {
   fields: Array<string>
 }
 
-export type MixedFilter = ValueFilter | RangeFilter | DateRangeFilter | GeoBoundingBoxFilter | HierarchicalValueFilter
+export type MixedFilter =
+  | ValueFilter
+  | RangeFilter
+  | DateRangeFilter
+  | GeoBoundingBoxFilter
+  | HierarchicalValueFilter
 
 export default class QueryManager {
-  constructor(private filters: Array<MixedFilter>, private query: string, private queryOptions: QueryOptions) {}
+  constructor(
+    private filters: Array<MixedFilter>,
+    private query: string,
+    private queryOptions: QueryOptions
+  ) {}
   hasFilters(): boolean {
     return this.filters && this.filters.length > 0
   }

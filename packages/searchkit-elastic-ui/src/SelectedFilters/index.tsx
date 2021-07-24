@@ -56,7 +56,11 @@ const ValueFilter = ({ filter, loading }) => {
           ref.current.onClick(e)
         }}
       >
-        <FilterLink ref={ref} filter={filter}><>{filter.label}: {filter.value}</></FilterLink>
+        <FilterLink ref={ref} filter={filter}>
+          <>
+            {filter.label}: {filter.value}
+          </>
+        </FilterLink>
       </EuiButton>
     </EuiFlexItem>
   )

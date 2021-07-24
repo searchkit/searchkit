@@ -1,8 +1,8 @@
 import SearchkitRequest from '../core/SearchkitRequest'
 import { getAggregationsFromFacets, getFacetsFromResponse } from '../core/FacetsFns'
 import QueryManager from '../core/QueryManager'
-import { SearchkitConfig } from './ResultsResolver'
 import { BaseFacet } from '../facets'
+import { SearchkitConfig } from './ResultsResolver'
 
 export default async (parent, {}, ctx) => {
   const queryManager: QueryManager = parent.searchkit.queryManager

@@ -2,14 +2,12 @@ import nock from 'nock'
 import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
 import { MultiMatchQuery, VisibleWhen, FacetSelectedRule } from '../src'
 import { RefinementSelectFacet } from '../src/facets'
+import QueryManager from '../src/core/QueryManager'
 import { setupTestServer, callQuery } from './support/helper'
 import HitsMock from './__mock-data__/FacetsResolver/results.json'
-import QueryManager from '../src/core/QueryManager'
 
 describe('Facets Resolver', () => {
-  let customRule = jest.fn((queryManager: QueryManager, ctx: any) => {
-    return true
-  })
+  const customRule = jest.fn((queryManager: QueryManager, ctx: any) => true)
   describe('should return as expected', () => {
     const runQuery = async (gql) => {
       const response = await callQuery({ gql })
@@ -45,21 +43,17 @@ describe('Facets Resolver', () => {
               label: 'Genres'
             })
           ],
-          [
-            FacetSelectedRule('type', 'Movie'),
-            customRule
-          ]
+          [FacetSelectedRule('type', 'Movie'), customRule]
         )
       ]
     }
 
     it('should return correct Results', async () => {
-
       setupTestServer({
         config,
         addToQueryType: true,
         typeName: 'ResultSet',
-        hitTypeName: 'ResultHit',
+        hitTypeName: 'ResultHit'
       })
 
       const gql = `
@@ -350,7 +344,6 @@ describe('Facets Resolver', () => {
     })
 
     it('custom rule configuration', async () => {
-
       setupTestServer({
         config,
         addToQueryType: true,
@@ -370,16 +363,14 @@ describe('Facets Resolver', () => {
 
       const scope = nock('http://localhost:9200')
         .post('/movies/_search')
-        .reply((uri, body) => {
-          return [200, HitsMock]
-        })
+        .reply((uri, body) => [200, HitsMock])
 
       const response = await runQuery(gql)
       expect(response.body.data).toMatchSnapshot()
       expect(response.status).toEqual(200)
       const customRuleArgs = customRule.mock.calls[0]
-      expect(customRuleArgs[0].getQuery()).toBe("")
-      expect(customRuleArgs[1].role).toEqual("Admin")
+      expect(customRuleArgs[0].getQuery()).toBe('')
+      expect(customRuleArgs[1].role).toEqual('Admin')
     })
   })
 })

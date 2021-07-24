@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@nexus/schema": "^0.14.0",
-    "@searchkit/schema": "3.0.0-canary.39",
+    "@searchkit/schema": "3.0.0-canary.41",
     "apollo-server": "^2.15.1",
     "graphql-iso-date": "^3.6.1",
     "graphql-tools": "^7.0.1",
