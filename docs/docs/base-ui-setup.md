@@ -17,7 +17,7 @@ First we need to setup Apollo client. In this guide we will be using [nextjs](ht
 
 We add the @apollo/client & next-with-apollo dependencies via yarn
 
-```yarn add next-with-apollo @apollo/client```
+```yarn add next-with-apollo @apollo/client graphql```
 
 Then we configure apollo with next.
 
