@@ -202,7 +202,7 @@ export default withApollo(withSearchkit(Index));
 ```
 and add EUI CSS globally via adding the css file to pages/_app.js
 
-```
+```javascript
 import '@elastic/eui/dist/eui_theme_light.css'
 
 function MyApp({ Component, pageProps }) {
