@@ -15,7 +15,7 @@ Also see [Create React App](https://searchkit.co/docs/examples/create-react-app)
 
 First we need to setup Apollo client. In this guide we will be using [nextjs](https://nextjs.org/) & [withApollo HOC](https://github.com/lfades/next-with-apollo)
 
-We add the @apollo/client & next-with-apollo dependencies via yarn
+We add the @apollo/client, next-with-apollo, and graphql dependencies via yarn
 
 ```yarn add next-with-apollo @apollo/client graphql```
 
