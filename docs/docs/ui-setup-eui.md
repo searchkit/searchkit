@@ -47,12 +47,11 @@ import {
   EuiPageSideBar,
   EuiTitle,
   EuiHorizontalRule,
-  EuiButtonGroup,
   EuiFlexGroup,
   EuiFlexItem
 } from '@elastic/eui'
 
-const query = gql`
+const QUERY = gql`
 query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput, $sortBy: String) {
     results(query: $query, filters: $filters) {
       summary {
