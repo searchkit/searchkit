@@ -1,3 +1,4 @@
+import { ClientOptions } from '@elastic/elasticsearch'
 import { RequestBody } from '@elastic/elasticsearch/lib/Transport'
 import QueryManager, { MixedFilter } from '../core/QueryManager'
 import SearchkitRequest from '../core/SearchkitRequest'
@@ -5,7 +6,6 @@ import BaseQuery from '../query/BaseQuery'
 import { BaseFacet } from '../facets/BaseFacet'
 import { BaseFilter } from '../filters/BaseFilter'
 import { VisibleWhenRuleSet } from '../facets'
-
 export interface SortingOption {
   id: string
   label: string
@@ -19,7 +19,7 @@ export interface CustomHighlightConfig {
 }
 
 export interface SearchkitConfig {
-  host: string
+  host: string | ClientOptions
   index: string
   sortOptions?: SortingOption[]
   hits: {

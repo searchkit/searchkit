@@ -1,5 +1,5 @@
 import dataloader from 'dataloader'
-import { Client } from '@elastic/elasticsearch'
+import { Client, ClientOptions, NodeOptions } from '@elastic/elasticsearch'
 import HttpAgent, { HttpsAgent } from 'agentkeepalive'
 import { SearchkitConfig } from '../resolvers'
 import ESQueryError from '../utils/ESQueryError'
@@ -68,11 +68,17 @@ export default class SearchkitRequest {
     private baseFilters: Array<Record<string, unknown>>,
     private facets: Array<BaseFacet>
   ) {
-    this.client = new Client({
-      node: this.config.host,
-      agent: () =>
-        new URL(this.config.host).protocol === 'http:' ? keepaliveAgent : keepaliveHttpsAgent
-    })
+    if (typeof this.config.host === 'string') {
+      this.client = new Client({
+        node: this.config.host,
+        agent: this.getHostAgent(this.config.host)
+      })
+    } else {
+      this.client = new Client({
+        ...this.config.host,
+        agent: this.getHostAgent(this.config.host)
+      })
+    }
 
     this.dataloader = new dataloader(async (partialQueries) => {
       const query = this.buildQuery(partialQueries)
@@ -153,5 +159,27 @@ export default class SearchkitRequest {
         throw e
       }
     }
+  }
+
+  private getHostAgent(host: string | ClientOptions): HttpsAgent | HttpAgent {
+    let url: string = null
+    if (typeof host === 'string') {
+      url = host
+    } else {
+      const nodes = host.nodes || host.node
+      let node: string | NodeOptions
+      if (nodes) {
+        if (Array.isArray(nodes)) {
+          if (nodes.length > 0) {
+            node = nodes[0]
+          }
+        } else {
+          node = nodes
+        }
+      }
+      url = typeof node === 'string' ? node : node.url.toString()
+    }
+
+    return new URL(url).protocol === 'http:' ? keepaliveAgent : keepaliveHttpsAgent
   }
 }
