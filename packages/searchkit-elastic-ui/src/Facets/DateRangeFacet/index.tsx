@@ -38,6 +38,7 @@ export const DateRangeFacet = ({ facet, loading }) => {
             startDate={startDate}
             value={selectedOption && selectedOption.dateMin}
             endDate={endDate}
+            adjustDateOnChange={false}
             placeholder="from"
             isInvalid={startDate > endDate}
             aria-label="Start date"
@@ -51,6 +52,7 @@ export const DateRangeFacet = ({ facet, loading }) => {
             startDate={startDate}
             value={selectedOption && selectedOption.dateMax}
             endDate={endDate}
+            adjustDateOnChange={false}
             isInvalid={startDate > endDate}
             aria-label="End date"
             placeholder="to"
