@@ -21,12 +21,15 @@ class CustomFilter {
     return "CustomFilter"
   }
 
-  // returns the ES query 
+  // returns the ES query. Requires to return a boolean query
+  // https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html
   getFilters(filters) {
     return {
-      "should" : filters.map((filter) => {
-        return { "term" : {"tag": filter.value }}
-      })
+      "bool": {
+        "filter" : filters.map((filter) => {
+          return { "term" : {"tag": filter.value }}
+        })
+      }
     }
   }
 
