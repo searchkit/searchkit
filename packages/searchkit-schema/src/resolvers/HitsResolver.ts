@@ -1,3 +1,4 @@
+import QueryManager from '../core/QueryManager'
 import SearchkitRequest from '../core/SearchkitRequest'
 import { SearchkitConfig, SortingOption } from './ResultsResolver'
 
@@ -20,6 +21,8 @@ function getSortOption(id, sortOptions: SortingOption[]) {
 export default async (parent, parameters: HitsParameters, ctx) => {
   const config: SearchkitConfig = parent.searchkit.config
   const skRequest: SearchkitRequest = parent.searchkit.skRequest
+  const queryManager: QueryManager = parent.searchkit.queryManager
+
   try {
     const from = parameters.page?.from || 0
     const size = parameters.page?.size || 10
@@ -28,6 +31,8 @@ export default async (parent, parameters: HitsParameters, ctx) => {
     const chosenSortOption = parameters.sortBy
       ? getSortOption(parameters.sortBy, config.sortOptions)
       : defaultSortOption
+
+    queryManager.setSortBy(chosenSortOption)
 
     const { hits } = await skRequest.search({
       from: from,
