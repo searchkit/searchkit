@@ -1,3 +1,5 @@
+import { SortingOption } from "../resolvers/ResultsResolver"
+
 export type ValueFilter = {
   identifier: string
   value: string
@@ -48,6 +50,9 @@ export type MixedFilter =
   | HierarchicalValueFilter
 
 export default class QueryManager {
+
+  private sortBy: SortingOption
+
   constructor(
     private filters: Array<MixedFilter>,
     private query: string,
@@ -77,5 +82,13 @@ export default class QueryManager {
     if (!this.hasFilters()) return null
     const idFilters = this.filters.filter((filter) => filter.identifier === id)
     return idFilters.length > 0 ? idFilters : null
+  }
+
+  setSortBy(sort: SortingOption): void {
+    this.sortBy = sort
+  }
+
+  getSortBy(): SortingOption {
+    return this.sortBy
   }
 }

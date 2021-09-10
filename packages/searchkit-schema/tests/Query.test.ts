@@ -12,9 +12,17 @@ describe('Query Options', () => {
       hits: {
         fields: ['actors', 'writers']
       },
+      sortOptions: [
+        { field: 'relevance', id: 'relevance', label: "Relevance"}
+      ],
       query: new CustomQuery({
         queryFn: (query, queryManager) => {
           expect(queryManager.getQueryOptions().fields).toEqual(['customField'])
+          expect(queryManager.getSortBy()).toEqual({
+            id: 'relevance',
+            field: 'relevance',
+            label: 'Relevance'
+          })
           const field = queryManager.getQueryOptions().fields[0]
           return {
             bool: {
@@ -39,7 +47,7 @@ describe('Query Options', () => {
       const gql = `
       query {
         results(query: "tes", queryOptions: { fields: ["customField"] }) {
-          hits {
+          hits(sortBy: "relevance") {
             items {
               id
             }

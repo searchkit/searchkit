@@ -37,6 +37,12 @@ import {
 const searchkitConfig = {
   query: new CustomQuery({ 
     queryFn: (query, qm) => {
+      
+      // access current sort by option using the queryManager
+      const sortLabel = qm.getSortBy()?.label
+      // access current filters applied to the search
+      const filters = qm.getFilters()
+
       return {
         bool: {
           must: [{
