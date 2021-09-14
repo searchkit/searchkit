@@ -33,7 +33,8 @@
     "@elastic/elasticsearch": "^7.9.1",
     "agentkeepalive": "^4.1.3",
     "dataloader": "^2.0.0",
-    "graphql-tag": "^2.10.3"
+    "graphql-tag": "^2.10.3",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@types/node": "^13.9.1",
