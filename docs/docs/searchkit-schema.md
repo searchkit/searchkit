@@ -245,6 +245,85 @@ then you will be able to specify how you want hits to be sorted by within the hi
 | label          | label to be displayed in frontend  |
 
 
+## Filters
+Filters are configured within the Searchkit config with the `filters` array property. It allows you to setup filtering for particular fields.
+
+### TermFilter
+Allows you to apply one or more term filters to your search
+
+### Example Configuration & Usage
+```javascript
+{
+  TermFilter
+} from '@searchkit/schema'
+
+const searchkitConfig = {
+  ...
+  filters: [
+    new TermFilter({ field: 'type.raw', identifier: 'type', label: 'Type' })
+  ]
+}
+```
+
+and to add filters, you would use the GQL input value `filters` array type
+
+```gql
+ {
+  results(filters: [{identifier: "type", value: "movie" }]) {
+    hits {
+      id
+    }
+  }
+}
+```
+
+#### Options
+
+| Option        | Description      |
+| :------------- | :----------- |
+| field          | field to be used for term filter, preferably a field that is raw, not tokenized  |
+| identifier             | Required to be unique. Used to apply filters on field |
+| label          | UI label for `appliedFilters` node. |
+| display        | **Optional**. Used on UI to specify what component to handle filter in `SelectedFilters` |
+
+### NumericRangeFilter
+Allows you to apply one or more numeric range filters to your search.
+
+### Example Configuration & Usage
+```javascript
+{
+  NumericRangeFilter
+} from '@searchkit/schema'
+
+const searchkitConfig = {
+  ...
+  filters: [
+    new NumericRangeFilter({ field: 'imdbRating', identifier: 'imdbRating', label: 'IMDB Rating' })
+  ]
+}
+```
+
+and to add filters, you would use the GQL input value `filters` array type
+
+```gql
+ {
+  results(filters: [{identifier: "imdbRating", min: 1, max: 100 }]) {
+    hits {
+      id
+    }
+  }
+}
+```
+
+#### Options
+
+| Option        | Description      |
+| :------------- | :----------- |
+| field          | field to be used for range filter, preferably a field that is raw, not tokenized  |
+| identifier             | Required to be unique. Used to apply filters on field |
+| label          | UI label for `appliedFilters` node. |
+| display        | **Optional**. Used on UI to specify what component to handle filter in `SelectedFilters` |
+
 
 ## Facets
 Facets are configured together on the Searchkit Config within the facets array. Each facet can support a range of experiences from a simple list to date filtering
