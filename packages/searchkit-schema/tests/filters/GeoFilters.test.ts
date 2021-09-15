@@ -1,8 +1,8 @@
 import nock from 'nock'
-import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
-import { MultiMatchQuery, GeoBoundingBoxFilter, RefinementSelectFacet } from '../src'
-import { setupTestServer, callQuery } from './support/helper'
-import HitsMock from './__mock-data__/FacetsResolver/results.json'
+import { SearchkitConfig } from '../../src/resolvers/ResultsResolver'
+import { MultiMatchQuery, GeoBoundingBoxFilter, RefinementSelectFacet } from '../../src'
+import { setupTestServer, callQuery } from '../support/helper'
+import HitsMock from '../__mock-data__/FacetsResolver/results.json'
 
 describe('Geo Filters', () => {
   describe('should return as expected', () => {

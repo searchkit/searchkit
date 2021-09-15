@@ -37,6 +37,7 @@ class TermFilter implements BaseFilter {
       id: `${this.getIdentifier()}_${filterSet.value}`,
       identifier: this.getIdentifier(),
       label: this.config.label,
+      value: filterSet.value,
       display: this.config.display || "TermFilter"
     }
   }

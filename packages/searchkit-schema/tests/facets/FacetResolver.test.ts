@@ -1,9 +1,9 @@
 import nock from 'nock'
-import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
-import { MultiMatchQuery } from '../src'
-import { RefinementSelectFacet } from '../src/facets'
-import { setupTestServer, callQuery } from './support/helper'
-import FacetMock from './__mock-data__/FacetResolver/Facet.json'
+import { SearchkitConfig } from '../../src/resolvers/ResultsResolver'
+import { MultiMatchQuery } from '../../src'
+import { RefinementSelectFacet } from '../../src/facets'
+import { setupTestServer, callQuery } from '../support/helper'
+import FacetMock from '../__mock-data__/FacetResolver/Facet.json'
 
 describe('Facet Resolver', () => {
   describe('should return as expected', () => {

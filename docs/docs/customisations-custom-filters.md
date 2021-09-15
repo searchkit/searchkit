@@ -78,7 +78,6 @@ With this configured, you should be able to apply a GQL query like below
       id
     }
   }
-  }
 }
 
 ```

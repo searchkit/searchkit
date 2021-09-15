@@ -246,12 +246,12 @@ then you will be able to specify how you want hits to be sorted by within the hi
 
 
 ## Filters
-Filters are configured within the Searchkit config with the `filters` array property. It allows you to setup filtering for particular fields.
+Filters are configured within the Searchkit config with the `filters` array property. It allows you to apply filters for particular fields within your UI.
 
 ### TermFilter
 Allows you to apply one or more term filters to your search
 
-### Example Configuration & Usage
+#### Example Configuration & Usage
 ```javascript
 {
   TermFilter
