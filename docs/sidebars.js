@@ -24,6 +24,7 @@ module.exports = {
       'customisations-graphql-types',
       'customisations-ui-add-new-facet-class',
       'customisations-add-base-filters',
+      'guides-using-filters',
       'customisations-authentication-and-authorisation',
       'customisations-api-logging',
       'customisations-conditional-facets',
