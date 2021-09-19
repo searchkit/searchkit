@@ -15,9 +15,9 @@ Also see [Create React App](https://searchkit.co/docs/examples/create-react-app)
 
 First we need to setup Apollo client. In this guide we will be using [nextjs](https://nextjs.org/) & [withApollo HOC](https://github.com/lfades/next-with-apollo)
 
-We add the @apollo/client & next-with-apollo dependencies via yarn
+We add the @apollo/client, next-with-apollo, and graphql dependencies via yarn
 
-```yarn add next-with-apollo @apollo/client```
+```yarn add next-with-apollo @apollo/client graphql```
 
 Then we configure apollo with next.
 
@@ -72,7 +72,7 @@ const Index = () => {
   return <>
     {data.results.hits.items.map((item) => {
       return (
-        <div>hit id: {item.id}</div>
+        <div key={item.id}>hit id: {item.id}</div>
       )
     })}
   </>;
@@ -101,11 +101,10 @@ then update the root page to use the searchkit HOC
 import { gql, useQuery } from '@apollo/client';
 import { useSearchkitVariables, withSearchkit } from '@searchkit/client'
 import withApollo from '../lib/withApollo';
-import { useState } from 'react'
 
 const QUERY = gql`
     query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput) {
-      results(query: $query, filters: $filters) {
+      results(query: $query, filters: $filters, page: $page) {
         hits {
           items {
             id
@@ -125,7 +124,7 @@ const Index = () => {
   return <>
     {data.results.hits.items.map((item) => {
       return (
-        <div>hit id: {item.id}</div>
+        <div key={item.id}>hit id: {item.id}</div>
       )
     })}
   </>;

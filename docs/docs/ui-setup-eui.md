@@ -47,12 +47,11 @@ import {
   EuiPageSideBar,
   EuiTitle,
   EuiHorizontalRule,
-  EuiButtonGroup,
   EuiFlexGroup,
   EuiFlexItem
 } from '@elastic/eui'
 
-const query = gql`
+const QUERY = gql`
 query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput, $sortBy: String) {
     results(query: $query, filters: $filters) {
       summary {
@@ -202,7 +201,7 @@ export default withApollo(withSearchkit(Index));
 ```
 and add EUI CSS globally via adding the css file to pages/_app.js
 
-```
+```javascript
 import '@elastic/eui/dist/eui_theme_light.css'
 
 function MyApp({ Component, pageProps }) {
