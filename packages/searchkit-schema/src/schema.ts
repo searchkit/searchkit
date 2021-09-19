@@ -46,8 +46,8 @@ const baseSearchkitTypeDefs = gql`
     identifier: String!
     label: String!
     display: String!
-    min: Float!
-    max: Float!
+    min: Float
+    max: Float
   }
 
   type DateRangeSelectedFilter implements SKSelectedFilter {

@@ -1,10 +1,10 @@
 import nock from 'nock'
-import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
-import { MultiMatchQuery, HierarchicalMenuFacet } from '../src'
-import { setupTestServer, callQuery } from './support/helper'
-import lvl1Mock from './__mock-data__/HierarchicalMenuFacet/lvl1.json'
-import lvl2Mock from './__mock-data__/HierarchicalMenuFacet/lvl2.json'
-import lvl3Mock from './__mock-data__/HierarchicalMenuFacet/lvl3.json'
+import { SearchkitConfig } from '../../src/resolvers/ResultsResolver'
+import { MultiMatchQuery, HierarchicalMenuFacet } from '../../src'
+import { setupTestServer, callQuery } from '../support/helper'
+import lvl1Mock from '../__mock-data__/HierarchicalMenuFacet/lvl1.json'
+import lvl2Mock from '../__mock-data__/HierarchicalMenuFacet/lvl2.json'
+import lvl3Mock from '../__mock-data__/HierarchicalMenuFacet/lvl3.json'
 
 describe('HierarchicalMenuFacet', () => {
   describe('should return as expected', () => {
