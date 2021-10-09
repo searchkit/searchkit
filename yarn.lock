@@ -395,7 +395,7 @@
   dependencies:
     tslib "^1.9.3"
 
-"@elastic/elasticsearch@^7.10.0", "@elastic/elasticsearch@^7.9.1":
+"@elastic/elasticsearch@7.13.0", "@elastic/elasticsearch@^7.10.0":
   version "7.13.0"
   resolved "https://registry.yarnpkg.com/@elastic/elasticsearch/-/elasticsearch-7.13.0.tgz#6dcf511dfa91187e22c81e54f41f4bd0fd96b4d6"
   integrity sha512-WgwLWo2p9P2tdqzBGX9fHeG8p5IOTXprXNTECQG2mJ7z9n93N5AFBJpEw4d35tWWeCWi9jI13A2wzQZH7XZ/xw==

@@ -1,6 +1,6 @@
 {
   "name": "@searchkit/schema",
-  "version": "3.0.0-canary.44",
+  "version": "3.0.0-canary.45",
   "main": "lib/index.js",
   "author": "Joseph McElroy <phoey1@gmail.com>",
   "license": "Apache-2.0",
@@ -30,7 +30,7 @@
     "test": "NODE_ENV=test jest --runInBand --forceExit --detectOpenHandles"
   },
   "dependencies": {
-    "@elastic/elasticsearch": "^7.9.1",
+    "@elastic/elasticsearch": "7.13.0",
     "agentkeepalive": "^4.1.3",
     "dataloader": "^2.0.0",
     "graphql-tag": "^2.10.3",
