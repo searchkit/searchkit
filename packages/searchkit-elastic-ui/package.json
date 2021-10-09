@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@elastic/datemath": "^5.0.3",
-    "@elastic/eui": "^34.0.0",
+    "@elastic/eui": "^39.0.0",
     "@searchkit/client": "^3.0.0-canary.45",
     "@types/react": "^17.0.13",
     "moment": "^2.29.1",
@@ -46,7 +46,7 @@
   },
   "peerDependencies": {
     "@apollo/client": "^3.0.0",
-    "@elastic/eui": "^34.0.0",
+    "@elastic/eui": "^39.0.0",
     "@searchkit/client": "^3",
     "react": "^17.0.0||^16.0.0"
   }
