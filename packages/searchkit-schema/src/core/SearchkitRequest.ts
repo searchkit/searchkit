@@ -1,17 +1,20 @@
 import dataloader from 'dataloader'
-import { Client } from '@elastic/elasticsearch'
 import HttpAgent, { HttpsAgent } from 'agentkeepalive'
 import { SearchkitConfig } from '../resolvers'
 import ESQueryError from '../utils/ESQueryError'
 import { BaseFacet } from '../facets'
 import QueryManager from './QueryManager'
 import { filterTransform } from './FacetsFns'
-import {
-  ApiResponse,
-} from "@elastic/elasticsearch/lib/Transport";
 
 export interface SearchClient {
-  search<TContext, TRequestBody, TResponse>(params?: SearchRequest<TRequestBody>): Promise<ApiResponse<TResponse, TContext>>
+  search<TContext, TRequestBody, TResponse>(params?: SearchRequest<TRequestBody>): Promise<SearchResult<TResponse, TContext>>
+}
+
+export interface SearchResult<TResponse, TContext> {
+  body: TResponse,
+  meta: {
+    context: TContext
+  }
 }
 
 export interface SearchRequest<T> {
@@ -72,7 +75,6 @@ const keepaliveAgent = new HttpAgent()
 
 export default class SearchkitRequest {
   private dataloader: any
-  // private client: Client
 
   constructor(
     private client: SearchClient,
@@ -81,12 +83,6 @@ export default class SearchkitRequest {
     private baseFilters: Array<Record<string, unknown>>,
     private facets: Array<BaseFacet>
   ) {
-    this.client = new Client({
-      node: this.config.host,
-      agent: () =>
-        new URL(this.config.host).protocol === 'http:' ? keepaliveAgent : keepaliveHttpsAgent
-    })
-
     this.dataloader = new dataloader(async (partialQueries) => {
       const query = this.buildQuery(partialQueries)
       const esQuery = this.config.postProcessRequest ? this.config.postProcessRequest(query) : query
@@ -150,7 +146,7 @@ export default class SearchkitRequest {
 
   private async executeQuery<T>(esQuery): Promise<T> {
     try {
-      const response = await this.client.search<null, SearchRequest<T>, SearchResponse<T>>({
+      const response = await this.client.search<null, SearchRequest<T>, null>({
         index: this.config.index,
         body: esQuery
       })
