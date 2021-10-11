@@ -6,9 +6,12 @@ import ESQueryError from '../utils/ESQueryError'
 import { BaseFacet } from '../facets'
 import QueryManager from './QueryManager'
 import { filterTransform } from './FacetsFns'
+import {
+  ApiResponse,
+} from "@elastic/elasticsearch/lib/Transport";
 
 export interface SearchClient {
-  search(params?: SearchRequest<any>): Promise<SearchResponse<any>>
+  search<TContext, TRequestBody, TResponse>(params?: SearchRequest<TRequestBody>): Promise<ApiResponse<TResponse, TContext>>
 }
 
 export interface SearchRequest<T> {
@@ -145,9 +148,9 @@ export default class SearchkitRequest {
     )
   }
 
-  private async executeQuery(esQuery): Promise<SearchResponse<any>> {
+  private async executeQuery<T>(esQuery): Promise<T> {
     try {
-      const response = await this.client.search<SearchResponse<any>>({
+      const response = await this.client.search<null, SearchRequest<T>, SearchResponse<T>>({
         index: this.config.index,
         body: esQuery
       })
