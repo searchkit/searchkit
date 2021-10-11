@@ -7,6 +7,15 @@ import { BaseFacet } from '../facets'
 import QueryManager from './QueryManager'
 import { filterTransform } from './FacetsFns'
 
+export interface SearchClient {
+  search(params?: SearchRequest<any>): Promise<SearchResponse<any>>
+}
+
+export interface SearchRequest<T> {
+  index: string | string[];
+  body: T;
+}
+
 export interface SearchResponse<T> {
   took: number
   timed_out: boolean
@@ -60,9 +69,10 @@ const keepaliveAgent = new HttpAgent()
 
 export default class SearchkitRequest {
   private dataloader: any
-  private client: Client
+  // private client: Client
 
   constructor(
+    private client: SearchClient,
     private queryManager: QueryManager,
     private config: SearchkitConfig,
     private baseFilters: Array<Record<string, unknown>>,
