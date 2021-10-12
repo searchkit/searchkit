@@ -1,4 +1,5 @@
 import dataloader from 'dataloader'
+import { Client } from '@elastic/elasticsearch'
 import HttpAgent, { HttpsAgent } from 'agentkeepalive'
 import { SearchkitConfig } from '../resolvers'
 import ESQueryError from '../utils/ESQueryError'
@@ -75,14 +76,17 @@ const keepaliveAgent = new HttpAgent()
 
 export default class SearchkitRequest {
   private dataloader: any
+  private client: SearchClient
 
   constructor(
-    private client: SearchClient,
     private queryManager: QueryManager,
     private config: SearchkitConfig,
     private baseFilters: Array<Record<string, unknown>>,
-    private facets: Array<BaseFacet>
+    private facets: Array<BaseFacet>,
+    client?: SearchClient,
   ) {
+    this.client = client ?? this.getDefaultClient()
+
     this.dataloader = new dataloader(async (partialQueries) => {
       const query = this.buildQuery(partialQueries)
       const esQuery = this.config.postProcessRequest ? this.config.postProcessRequest(query) : query
@@ -162,5 +166,13 @@ export default class SearchkitRequest {
         throw e
       }
     }
+  }
+
+  private getDefaultClient(): SearchClient {
+    return new Client({
+      node: this.config.host,
+      agent: () =>
+        new URL(this.config.host).protocol === 'http:' ? keepaliveAgent : keepaliveHttpsAgent
+    });
   }
 }
