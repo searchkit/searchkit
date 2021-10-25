@@ -8,19 +8,21 @@ import QueryManager from './QueryManager'
 import { filterTransform } from './FacetsFns'
 
 export interface SearchClient {
-  search<TContext, TRequestBody, TResponse>(params?: SearchRequest<TRequestBody>): Promise<SearchResult<TResponse, TContext>>
+  search<TContext, TRequestBody, TResponse>(
+    params?: SearchRequest<TRequestBody>
+  ): Promise<SearchResult<TResponse, TContext>>
 }
 
 export interface SearchResult<TResponse, TContext> {
-  body: TResponse,
+  body: TResponse
   meta: {
     context: TContext
   }
 }
 
 export interface SearchRequest<T> {
-  index: string | string[];
-  body: T;
+  index: string | string[]
+  body: T
 }
 
 export interface SearchResponse<T> {
@@ -83,7 +85,7 @@ export default class SearchkitRequest {
     private config: SearchkitConfig,
     private baseFilters: Array<Record<string, unknown>>,
     private facets: Array<BaseFacet>,
-    client?: SearchClient,
+    client?: SearchClient
   ) {
     this.client = client ?? this.getDefaultClient()
 
