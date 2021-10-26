@@ -27,7 +27,8 @@
   "scripts": {
     "build": "rm -rf lib; tsc",
     "dev": "rm -rf lib; tsc --watch",
-    "test": "NODE_ENV=test jest --runInBand --forceExit --detectOpenHandles"
+    "test": "NODE_ENV=test jest --runInBand --forceExit --detectOpenHandles",
+    "coverage": "jest --coverage"
   },
   "dependencies": {
     "@elastic/elasticsearch": "7.13.0",

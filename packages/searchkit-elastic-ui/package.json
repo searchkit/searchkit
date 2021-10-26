@@ -22,7 +22,8 @@
   "scripts": {
     "build": "rm -rf lib; tsc && tsc -p tsconfig-cjs.json",
     "dev": "rm -rf lib; tsc --watch",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",

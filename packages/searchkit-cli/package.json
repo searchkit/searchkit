@@ -24,7 +24,8 @@
   "scripts": {
     "build": "rm -rf lib; tsc",
     "dev": "rm -rf lib; tsc --watch",
-    "test": "echo no-tests"
+    "test": "echo no-tests",
+    "coverage": "echo 'no coverage'"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^7.10.0",
