@@ -22,6 +22,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Install modules
         run: yarn
+      - name: Build
+        run: yarn build
       - name: Generate coverage
         run: yarn coverage
       - name: Merge reports
