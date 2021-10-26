@@ -32,7 +32,7 @@ jobs:
           cp packages/searchkit-client/coverage/coverage-final.json searchkit-client.json
           cp packages/searchkit-elastic-ui/coverage/coverage-final.json searchkit-elastic-ui.json
           cp packages/searchkit-schema/coverage/coverage-final.json searchkit-schema.json
-          nyc merge coverage coverage/all.json
+          npx nyc merge coverage coverage/all.json
       - uses: codecov/codecov-action@v2
         with:
           files: ./coverage/all.json
