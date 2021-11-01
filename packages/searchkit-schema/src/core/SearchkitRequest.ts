@@ -136,7 +136,9 @@ export default class SearchkitRequest {
   }
 
   private async executeQuery(esQuery): Promise<SearchResponse<any>> {
+    const debugMode = process.env.DEBUG_MODE === "true"
     try {
+      if (debugMode) console.log(JSON.stringify(esQuery, null, 2))
       const response = await this.client.search<SearchResponse<any>>({
         index: this.config.index,
         body: esQuery
@@ -144,6 +146,8 @@ export default class SearchkitRequest {
 
       return response.body
     } catch (e) {
+      if (debugMode) console.log(JSON.stringify(e, null, 2))
+
       if (e.meta?.statusCode === 400) {
         throw new ESQueryError(
           `Elasticsearch query failed. Check your custom filters or configuration. Below is the ES Query`,
