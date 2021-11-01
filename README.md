@@ -18,15 +18,12 @@ Searchkit is a Graph QL / React UI Component framework to:
 [Read our blog post about Searchkit V3](https://blog.searchkit.co/searchkit-v3-enter-graphql-330e1aa5752d)
 
 ### Release History
+- 3.0.0-canary.46 : Debug mode for logging elasticsearch query. Activated via ENV variable `DEBUG_MODE=true`. [view release nodes](https://github.com/searchkit/searchkit/releases/tag/v3.0.0-canary.46)
 - 3.0.0-canary.44 : Out the box filters for terms and ranges [view release nodes](https://github.com/searchkit/searchkit/releases/tag/v3.0.0-canary.44)
 - 3.0.0-canary.41 : Hierarchical Facet support. Breaking change with facet entries GQL[View release notes](https://github.com/searchkit/searchkit/releases/tag/v3.0.0-canary.41)
 - 3.0.0-canary.39 : Facet Visibility rules allowing you to show / hide facets depending on search state [View Release notes](https://github.com/searchkit/searchkit/releases/tag/v3.0.0-canary.39)
 - 3.0.0-canary.37 : Fixes for routing HOC used for Next _app layout component [View Release notes](https://github.com/searchkit/searchkit/releases/tag/v3.0.0-canary.37)
-- 3.0.0-canary.35 : Routing + Search state Bug fixes. [View Release notes](https://github.com/searchkit/searchkit/releases/tag/v3.0.0-canary.35)
-- 3.0.0-canary.34 : Better SEO support [View Release notes](https://github.com/searchkit/searchkit/releases/tag/v3.0.0-canary.34)
-- 3.0.0-canary.33 : Fix issue with state where multiple api calls are made before searching.
-- 3.0.0-canary.31 : Highlighting, url sync, SSR support.
-- 3.0.0-canary.25 : Improved API for GraphQL schema for better flexibility, multiple search configurations. [View upgrade notes](https://searchkit.co/docs/guides/update-notes-rc25)  
+
 
 ### Searchkit Classic
 For those who currently use Searchkit Classic, here are quicklinks to codebase & Docs

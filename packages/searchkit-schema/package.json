@@ -1,6 +1,6 @@
 {
   "name": "@searchkit/schema",
-  "version": "3.0.0-canary.45",
+  "version": "3.0.0-canary.46",
   "main": "lib/index.js",
   "author": "Joseph McElroy <phoey1@gmail.com>",
   "license": "Apache-2.0",
