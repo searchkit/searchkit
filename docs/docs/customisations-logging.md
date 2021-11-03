@@ -48,6 +48,9 @@ const server = new ApolloServer({
 });
 ```
 
+### Query Logging
+To review the query that gets sent to Elasticsearch to confirm its the right syntax, use the environment variable `DEBUG_MODE=true` and the query will be returned in the console.
+
 ### Error Logging
 Errors can happen for some of the following reasons:
 - Elasticsearch Query isn't correct

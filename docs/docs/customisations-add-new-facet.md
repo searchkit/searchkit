@@ -127,3 +127,5 @@ then you should be able to query for facet + see filters applied in summary
     } 
   }
 ```
+
+If you want to see the query thats being requested to Elasticsearch, use the `DEBUG_MODE=true` environment variable to log the query at every request. see [Debug Logging](https://searchkit.co/docs/customisations/server-logging#query-logging) 
