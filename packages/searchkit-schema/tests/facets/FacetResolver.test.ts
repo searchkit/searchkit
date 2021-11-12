@@ -171,7 +171,7 @@ describe('Facet Resolver', () => {
       expect(response.status).toEqual(200)
     })
 
-    fit('multiple facet queries', async () => {
+    it('multiple facet queries', async () => {
       setupTestServer({
         config: {
           ...config,
