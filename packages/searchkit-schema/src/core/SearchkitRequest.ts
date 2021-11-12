@@ -1,4 +1,5 @@
 import dataloader from 'dataloader'
+import { merge } from 'lodash'
 import { Client } from '@elastic/elasticsearch'
 import HttpAgent, { HttpsAgent } from 'agentkeepalive'
 import { SearchkitConfig } from '../resolvers'
@@ -43,17 +44,9 @@ type BaseQuery = {
 }
 
 export const mergeESQueries = (queries) =>
-  queries.reduce(
-    (combinedQuery, partial) => ({
-      ...combinedQuery,
-      ...partial,
-      aggs: {
-        ...combinedQuery.aggs,
-        ...partial.aggs
-      }
-    }),
-    {}
-  )
+  merge({
+    aggs: {}
+  }, ...queries)
 
 const keepaliveHttpsAgent = new HttpsAgent()
 const keepaliveAgent = new HttpAgent()
@@ -130,7 +123,7 @@ export default class SearchkitRequest {
         query && { query },
         postFilter && { post_filter: postFilter },
         highlight && { highlight },
-        ...(partialQueries as any[])
+        ...(partialQueries as any[]),
       ].filter(Boolean)
     )
   }

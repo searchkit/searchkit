@@ -90,10 +90,10 @@ describe('SearchkitRequest', () => {
         aggs: { field: 'term' }
       })
       expect(window.console.log).toHaveBeenLastCalledWith(JSON.stringify({
-        "size": 0,
         "aggs": {
           "field": "term"
-        }
+        },
+        "size": 0
       }, null, 2))
     })
   })

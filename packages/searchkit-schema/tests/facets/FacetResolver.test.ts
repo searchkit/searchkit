@@ -170,5 +170,67 @@ describe('Facet Resolver', () => {
       const response = await runQuery(gql)
       expect(response.status).toEqual(200)
     })
+
+    fit('multiple facet queries', async () => {
+      setupTestServer({
+        config: {
+          ...config,
+          facets: [
+            new RefinementSelectFacet({
+              identifier: 'writers',
+              field: 'writers.raw',
+              label: 'Writers',
+              multipleSelect: true
+            }),
+            new RefinementSelectFacet({
+              identifier: 'actors',
+              field: 'actors.raw',
+              label: 'Actors'
+            })
+          ]
+        },
+        typeName: 'ResultSet',
+        hitTypeName: 'ResultHit',
+        addToQueryType: true
+      })
+
+      const gql = `
+        {
+          results(query: "") {
+            writersFacet: facet(identifier: "writers") {
+              identifier
+              type
+              label
+              display
+              entries {
+                count
+                label
+              }
+            }
+            actorsFacet: facet(identifier: "actors") {
+              identifier
+              type
+              label
+              display
+              entries {
+                count
+                label
+              }
+            }
+          }
+        }
+      `
+
+      const scope = nock('http://localhost:9200')
+        .post('/movies/_search')
+        .reply((uri, body: any) => {
+          expect(Object.keys(body.aggs.facet_bucket_all.aggs)).toEqual(['writers', 'actors'])
+          return [200, FacetMock]
+        })
+
+      const response = await runQuery(gql)
+      expect(response.status).toEqual(200)
+    })
   })
+
 })
