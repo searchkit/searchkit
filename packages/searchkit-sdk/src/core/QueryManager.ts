@@ -1,4 +1,4 @@
-import { SortingOption } from "../resolvers/ResultsResolver"
+import { SortingOption } from ".."
 
 export type ValueFilter = {
   identifier: string
@@ -25,10 +25,10 @@ export type GeoPoint = {
 export type GeoBoundingBoxFilter = {
   identifier: string
   geoBoundingBox: {
-    topLeft: GeoPoint
-    bottomRight: GeoPoint
-    topRight: GeoPoint
-    bottomLeft: GeoPoint
+    topLeft?: GeoPoint
+    bottomRight?: GeoPoint
+    topRight?: GeoPoint
+    bottomLeft?: GeoPoint
   }
 }
 

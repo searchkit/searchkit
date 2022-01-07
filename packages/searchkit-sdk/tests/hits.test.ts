@@ -62,4 +62,38 @@ describe('Hit Results', () => {
     expect(response.summary.query).toBe('test')
     expect(response.summary.total).toBe(4162)
   })
+
+  it("pagination - 2nd page", async () => {
+    const request = SearchkitRequest({
+      host: 'http://localhost:9200',
+      query: new MultiMatchQuery({
+        fields: ['title', 'body']
+      }),
+      hits: {
+        fields: ['facet1']
+      },
+      index: 'test'
+    })
+
+    request.query('test')
+
+    const scope = nock('http://localhost:9200')
+      .post('/test/_search')
+      .reply(200, (uri, body: any) => {
+        expect(body.from).toBe(10);
+        expect(body.size).toBe(10)
+        return HitsMMock
+      })
+
+    const response = await request.execute({
+      hits: {
+        size: 10,
+        from: 10
+      }
+    })
+    expect(response).toMatchSnapshot()
+    expect(response.facets).toBeFalsy()
+    expect(response.summary.query).toBe('test')
+    expect(response.summary.total).toBe(4162)
+  })
 })

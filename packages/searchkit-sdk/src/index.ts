@@ -116,6 +116,11 @@ class SearchkitRequest {
     let facets = []
     let filteredFacets = null
     let overrides = {}
+
+    if (!responseRequest.hits) responseRequest.hits = {}
+    if (!responseRequest.hits.size) responseRequest.hits.size = 0
+    if (!responseRequest.hits.from) responseRequest.hits.from = 0    
+
     if (!!responseRequest.facets) {
       facets = getFacets(this.config.facets, this.queryManager, {})
       if (Array.isArray(responseRequest.facets)) {
@@ -139,11 +144,11 @@ class SearchkitRequest {
     const chosenSortOption = this.queryManager.getSortBy()
 
     partialQueries.push({
-      size: responseRequest.hits?.size || 0,
-      from: responseRequest.hits?.from || 0,
+      size: responseRequest.hits.size,
+      from: responseRequest.hits.from,
       sort: chosenSortOption ? chosenSortOption.field : [{ _score: 'desc' }]
-
     })
+
     let skRequestBody = RequestBodyBuilder(this.queryManager, this.config, baseFilters, facets, partialQueries)
     if (this.config.postProcessRequest) {
       skRequestBody = this.config.postProcessRequest(skRequestBody)

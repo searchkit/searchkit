@@ -60,8 +60,8 @@ export class ElasticSearchResponseTransformer implements SearchkitResponseTransf
       typeof hits.total.value === 'number' ? hits.total.value : hits.total
     ) as number
 
-    const size = 0
-    const from = 0
+    const size = responseRequest.hits.size
+    const from = responseRequest.hits.from
     const chosenSortOption = queryManager.getSortBy()
 
     return {

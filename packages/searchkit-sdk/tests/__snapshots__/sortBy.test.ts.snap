@@ -401,10 +401,10 @@ Object {
   ],
   "page": Object {
     "from": 0,
-    "pageNumber": NaN,
-    "size": 0,
+    "pageNumber": 0,
+    "size": 10,
     "total": 4162,
-    "totalPages": Infinity,
+    "totalPages": 417,
   },
   "sortedBy": undefined,
   "summary": Object {
