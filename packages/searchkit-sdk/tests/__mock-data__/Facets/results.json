@@ -530,6 +530,56 @@
                         "doc_count": 48
                     }
                 ]
+            },
+            "imdbRating": {
+                "doc_count_error_upper_bound": 0,
+                "sum_other_doc_count": 0,
+                "buckets": [
+                    {
+                        "key": "0",
+                        "doc_count": 3120
+                    },
+                    {
+                        "key": "10",
+                        "doc_count": 521
+                    },
+                    {
+                        "key": "20",
+                        "doc_count": 473
+                    },
+                    {
+                        "key": "30",
+                        "doc_count": 58
+                    },
+                    {
+                        "key": "40",
+                        "doc_count": 28
+                    },
+                    {
+                        "key": "50",
+                        "doc_count": 98
+                    },
+                    {
+                        "key": "60",
+                        "doc_count": 28
+                    },
+                    {
+                        "key": "70",
+                        "doc_count": 48
+                    },
+                    {
+                        "key": "80",
+                        "doc_count": 68
+                    },
+                    {
+                        "key": "90",
+                        "doc_count": 38
+                    },
+                    {
+                        "key": "100",
+                        "doc_count": 28
+                    }
+                ]
             }
         }
     }
