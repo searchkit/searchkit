@@ -7,14 +7,14 @@ export type ValueFilter = {
 
 export type RangeFilter = {
   identifier: string
-  min: number
-  max: number
+  min?: number
+  max?: number
 }
 
 export type DateRangeFilter = {
   identifier: string
-  dateMin: string
-  dateMax: string
+  dateMin?: string
+  dateMax?: string
 }
 
 export type GeoPoint = {
