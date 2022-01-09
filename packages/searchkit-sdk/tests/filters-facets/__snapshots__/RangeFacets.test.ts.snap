@@ -1,5 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Numeric Range + Date Range Facet Filters Numeric Range Combination of min and max date range facets 1`] = `
+Object {
+  "aggs": Object {
+    "facet_bucket_all": Object {
+      "aggs": Object {},
+      "filter": Object {
+        "bool": Object {
+          "must": Array [
+            Object {
+              "range": Object {
+                "released": Object {
+                  "gte": "2012-12-18T00:00:00.000Z",
+                  "lte": "2021-12-18T00:00:00.000Z",
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+    "facet_bucket_imdbRating": Object {
+      "aggs": Object {
+        "imdbRating": Object {
+          "histogram": Object {
+            "extended_bounds": Object {
+              "max": 100,
+              "min": 0,
+            },
+            "field": "imdbRating",
+            "interval": 10,
+            "min_doc_count": 0,
+          },
+        },
+      },
+      "filter": Object {
+        "bool": Object {
+          "must": Array [
+            Object {
+              "range": Object {
+                "released": Object {
+                  "gte": "2012-12-18T00:00:00.000Z",
+                  "lte": "2021-12-18T00:00:00.000Z",
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+    "facet_bucket_released": Object {
+      "aggs": Object {},
+      "filter": Object {
+        "bool": Object {
+          "must": Array [],
+        },
+      },
+    },
+  },
+  "from": 0,
+  "post_filter": Object {
+    "bool": Object {
+      "must": Array [
+        Object {
+          "range": Object {
+            "released": Object {
+              "gte": "2012-12-18T00:00:00.000Z",
+              "lte": "2021-12-18T00:00:00.000Z",
+            },
+          },
+        },
+      ],
+    },
+  },
+  "size": 0,
+  "sort": Array [
+    Object {
+      "_score": "desc",
+    },
+  ],
+}
+`;
+
+exports[`Numeric Range + Date Range Facet Filters Numeric Range Combination of min and max date range facets: released values 1`] = `undefined`;
+
 exports[`Numeric Range + Date Range Facet Filters Numeric Range Combination of min and max number range facets 1`] = `
 Object {
   "aggs": Object {

@@ -77,48 +77,5 @@ describe('NumericRangeFilter', () => {
       ]
     `)
 
-    //   request.setFilters([
-    //     {
-    //       identifier: 'imdbRating',
-    //       min: 5
-    //     }
-    //   ])
-
-    //   response = await request.execute({
-    //     facets: true
-    //   })
-
-    //   expect(lastESRequest.query.bool.filter[0]).toMatchInlineSnapshot(`
-    //     Object {
-    //       "range": Object {
-    //         "imdbRating": Object {
-    //           "gte": 5,
-    //         },
-    //       },
-    //     }
-    //   `)
-    //   expect(response.summary.appliedFilters.length).toBe(1)
-
-    //   request.setFilters([
-    //       {
-    //         identifier: 'imdbRating',
-    //         max: 5
-    //       }
-    //     ])
-
-    //     response = await request.execute({
-    //       facets: true
-    //     })
-
-    //     expect(lastESRequest.query.bool.filter[0]).toMatchInlineSnapshot(`
-    //       Object {
-    //         "range": Object {
-    //           "imdbRating": Object {
-    //             "lte": 5,
-    //           },
-    //         },
-    //       }
-    //     `)
-    //     expect(response.summary.appliedFilters.length).toBe(1)
   })
 })

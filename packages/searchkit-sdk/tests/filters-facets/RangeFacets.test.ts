@@ -54,12 +54,13 @@ describe('Numeric Range + Date Range Facet Filters', () => {
           lastESRequest = body
           return ResultsNoHitsMock
         })
-        .persist()
 
       let response = await request.execute({
         facets: true
       })
-      expect(response.facets.find(({label}) => label === "IMDB Rating")).toMatchSnapshot("imdb rating values")
+      expect(response.facets.find(({ label }) => label === 'IMDB Rating')).toMatchSnapshot(
+        'imdb rating values'
+      )
       expect(response.summary.appliedFilters).toMatchInlineSnapshot(`
         Array [
           Object {
@@ -133,5 +134,45 @@ describe('Numeric Range + Date Range Facet Filters', () => {
       `)
     })
 
+    it('Combination of min and max date range facets', async () => {
+      const request = SearchkitRequest(config)
+      request.setFilters([
+        {
+          identifier: 'released',
+          dateMin: '2012-12-18T00:00:00.000Z',
+          dateMax: '2021-12-18T00:00:00.000Z'
+        }
+      ])
+
+      let lastESRequest
+
+      const scope = nock('http://localhost:9200')
+        .post('/movies/_search')
+        .reply(200, (uri, body) => {
+          expect(body).toMatchSnapshot()
+          lastESRequest = body
+          return ResultsNoHitsMock
+        })
+
+      let response = await request.execute({
+        facets: true
+      })
+      expect(response.facets.find(({ label }) => label === 'released')).toMatchSnapshot(
+        'released values'
+      )
+      expect(response.summary.appliedFilters).toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "dateMax": "2021-12-18T00:00:00.000Z",
+            "dateMin": "2012-12-18T00:00:00.000Z",
+            "display": "DateRangeFacet",
+            "id": "released_2012-12-18T00:00:00.000Z_2021-12-18T00:00:00.000Z",
+            "identifier": "released",
+            "label": "Released",
+            "type": "DateRangeSelectedFilter",
+          },
+        ]
+      `)
+    })
   })
 })
