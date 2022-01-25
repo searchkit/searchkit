@@ -80,7 +80,7 @@ export default function withSearchkitRouting(
         const routeState: RouteState = stateToRoute(searchkitVariables)
         const currentRouteState = router.read()
         if (!routeStateEqual(currentRouteState, routeState)) {
-          router.write(routeState)
+          router.write(routeState, true)
         }
       }
     }, [searchkitVariables])
