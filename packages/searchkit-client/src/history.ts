@@ -76,7 +76,7 @@ class BrowserHistory implements Router {
     return this._parseURL({ qsModule: qs, location: window.location })
   }
 
-  public write(routeState: RouteState, shouldPushToHistory: Boolean = true): void {
+  public write(routeState: RouteState, shouldPushToHistory: boolean = true): void {
     const url = this.createURL(routeState)
 
     if (this.writeTimer) {

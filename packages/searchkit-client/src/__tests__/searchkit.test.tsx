@@ -8,7 +8,8 @@ import {
   useSearchkit,
   useSearchkitQuery,
   useSearchkitVariables,
-  useSearchkitQueryValue
+  useSearchkitQueryValue,
+  SearchkitClientConfig
 } from '../searchkit'
 
 jest.mock('@apollo/client', () => ({
@@ -25,12 +26,12 @@ const initial = {
   }
 }
 
-const createSearchkitClient = () => {
+const createSearchkitClient = (config: SearchkitClientConfig = {}) => {
   const state = Object.assign({}, initial)
   const setState = (arg) => {
     Object.assign(state, arg(state))
   }
-  const api = new SearchkitClient()
+  const api = new SearchkitClient(config)
   api.setSearchState = setState
   api.searchState = state
 
@@ -52,6 +53,15 @@ describe('Searchkit Client', () => {
     expect(api.getFilters()).toEqual([])
     expect(api.getFiltersByIdentifier('anId')).toEqual([])
     expect(api.canResetSearch()).toBe(false)
+    expect(api.baseSearchState.page.size).toBe(10)
+  })
+
+  it('allow to change items per page', () => {
+    const api = createSearchkitClient({
+      itemsPerPage: 20
+    })
+
+    expect(api.baseSearchState.page.size).toBe(20)
   })
 
   it('should be able to manipulate query', () => {

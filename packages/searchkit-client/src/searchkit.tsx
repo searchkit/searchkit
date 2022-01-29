@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import isEqual from 'fast-deep-equal'
 import { isUndefined } from 'lodash'
 import { useQuery } from '@apollo/client'
 
@@ -50,28 +51,11 @@ const filterSelector = (filter: Filter) => (f: Filter) => {
   return false
 }
 
-export const searchStateEqual = (a: SearchState, b: SearchState) => {
-  if (a.query !== b.query) return false
-  if (a.sortBy !== b.sortBy) return false
-  if (a.page.from !== b.page.from) return false
-  if (a.page.size !== b.page.size) return false
-  if (a.filters.length !== b.filters.length) return false
-
-  const filterDiffs = a.filters.find((filter) => {
-    const filterSelectorA = filterSelector(filter)
-    if (!b.filters.find(filterSelectorA)) {
-      return true
-    }
-    return false
-  })
-  if (filterDiffs) return false
-
-  return true
-}
+export const searchStateEqual = (a: SearchState, b: SearchState): boolean => isEqual(a, b)
 
 export type SearchState = {
   query: string
-  filters: Array<Filter>
+  filters: Filter[]
   sortBy: string
   page: PageOptions
 }
@@ -207,13 +191,13 @@ export class SearchkitClient extends SearchkitClientState {
   private onSearch: (variables: SearchkitQueryVariables) => void
   public baseSearchState: SearchState
 
-  constructor({}: SearchkitClientConfig = {}) {
+  constructor({ itemsPerPage }: SearchkitClientConfig = {}) {
     super()
     this.baseSearchState = {
       query: '',
       filters: [],
       page: {
-        size: 10,
+        size: itemsPerPage || 10,
         from: 0
       },
       sortBy: ''

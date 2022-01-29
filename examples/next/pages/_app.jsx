@@ -2,7 +2,7 @@ import '@elastic/eui/dist/eui_theme_light.css'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
-export default ({ Component, pageProps }) => {
+const App = ({ Component, pageProps }) => {
 
   const router = useRouter()
   useEffect(() => {
@@ -17,3 +17,5 @@ export default ({ Component, pageProps }) => {
 
   return <Component {...pageProps} />
 }
+
+export default App
