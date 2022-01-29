@@ -232,5 +232,4 @@ describe('Facet Resolver', () => {
       expect(response.status).toEqual(200)
     })
   })
-
 })

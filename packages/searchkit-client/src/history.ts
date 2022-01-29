@@ -7,7 +7,7 @@ export type RouteState = {
 export type Router = {
   onUpdate(callback: (route: RouteState) => void): void
   read(): RouteState
-  write(route: RouteState, shouldPushToHistory: Boolean): void
+  write(route: RouteState, shouldPushToHistory: boolean): void
   createURL(state: RouteState): string
   dispose(): void
 }
@@ -76,7 +76,7 @@ class BrowserHistory implements Router {
     return this._parseURL({ qsModule: qs, location: window.location })
   }
 
-  public write(routeState: RouteState, shouldPushToHistory: boolean = true): void {
+  public write(routeState: RouteState, shouldPushToHistory = true): void {
     const url = this.createURL(routeState)
 
     if (this.writeTimer) {

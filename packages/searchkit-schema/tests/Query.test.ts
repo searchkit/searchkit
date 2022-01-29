@@ -12,9 +12,7 @@ describe('Query Options', () => {
       hits: {
         fields: ['actors', 'writers']
       },
-      sortOptions: [
-        { field: 'relevance', id: 'relevance', label: "Relevance"}
-      ],
+      sortOptions: [{ field: 'relevance', id: 'relevance', label: 'Relevance' }],
       query: new CustomQuery({
         queryFn: (query, queryManager) => {
           expect(queryManager.getQueryOptions().fields).toEqual(['customField'])

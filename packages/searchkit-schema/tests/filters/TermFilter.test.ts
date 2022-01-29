@@ -105,5 +105,4 @@ describe('Term Filter', () => {
       `)
     })
   })
-
 })
