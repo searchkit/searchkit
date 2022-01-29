@@ -10,7 +10,6 @@ interface GeoBoundingBoxFilterConfig {
 }
 
 class GeoBoundingBoxFilterClass implements BaseFilter {
-
   constructor(public config: GeoBoundingBoxFilterConfig) {}
   getLabel(): string {
     return this.config.label

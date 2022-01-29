@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { isArray } from 'lodash'
+import isEqual from 'fast-deep-equal'
 import qs from 'qs'
 import history, { Router, RouteState, defaultParseURL, defaultCreateURL } from './history'
 import {
@@ -10,21 +10,30 @@ import {
 } from './searchkit'
 import type { SearchState } from './searchkit'
 
-export const routeStateEqual = (a, b) =>
-  Object.entries(a).toString() === Object.entries(b).toString()
+const sanitiseRouteState = (routeState) => {
+  const intKeys = ['size', 'from']
+  for (const key of intKeys) {
+    if (routeState[key] !== undefined && typeof routeState[key] === 'string') {
+      routeState[key] = parseInt(routeState[key])
+    }
+  }
+  return routeState
+}
+
+export const routeStateEqual = (a, b) => isEqual(sanitiseRouteState(a), sanitiseRouteState(b))
 
 export const stateToRouteFn = (searchState) => {
   const routeState = {
     query: searchState.query,
     sort: searchState.sortBy,
     filters: searchState.filters,
-    size: Number(searchState.page?.size),
-    from: Number(searchState.page?.from)
+    size: parseInt(searchState.page?.size),
+    from: parseInt(searchState.page?.from)
   }
   return Object.keys(routeState).reduce((sum, key) => {
     if (
-      (isArray(routeState[key]) && routeState[key].length > 0) ||
-      (!isArray(routeState[key]) && !!routeState[key])
+      (Array.isArray(routeState[key]) && routeState[key].length > 0) ||
+      (!Array.isArray(routeState[key]) && !!routeState[key])
     ) {
       sum[key] = routeState[key]
     }
@@ -48,10 +57,11 @@ export default function withSearchkitRouting(
     stateToRoute = stateToRouteFn,
     routeToState = routeToStateFn,
     createURL = defaultCreateURL,
-    parseURL = defaultParseURL
+    parseURL = defaultParseURL,
+    router = null
   } = {}
 ) {
-  let routingInstance = undefined
+  let routingInstance = router
 
   const getRouting = (): Router => {
     if (routingInstance) return routingInstance
@@ -78,9 +88,12 @@ export default function withSearchkitRouting(
       const router = getRouting()
       if (router) {
         const routeState: RouteState = stateToRoute(searchkitVariables)
-        const currentRouteState = router.read()
+        const currentRouteState = {
+          size: api.baseSearchState.page?.size,
+          ...router.read()
+        }
         if (!routeStateEqual(currentRouteState, routeState)) {
-          router.write(routeState)
+          router.write(routeState, true)
         }
       }
     }, [searchkitVariables])

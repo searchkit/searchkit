@@ -44,9 +44,12 @@ type BaseQuery = {
 }
 
 export const mergeESQueries = (queries) =>
-  merge({
-    aggs: {}
-  }, ...queries)
+  merge(
+    {
+      aggs: {}
+    },
+    ...queries
+  )
 
 const keepaliveHttpsAgent = new HttpsAgent()
 const keepaliveAgent = new HttpAgent()
@@ -123,13 +126,13 @@ export default class SearchkitRequest {
         query && { query },
         postFilter && { post_filter: postFilter },
         highlight && { highlight },
-        ...(partialQueries as any[]),
+        ...(partialQueries as any[])
       ].filter(Boolean)
     )
   }
 
   private async executeQuery(esQuery): Promise<SearchResponse<any>> {
-    const debugMode = process.env.DEBUG_MODE === "true"
+    const debugMode = process.env.DEBUG_MODE === 'true'
     try {
       if (debugMode) console.log(JSON.stringify(esQuery, null, 2))
       const response = await this.client.search<SearchResponse<any>>({

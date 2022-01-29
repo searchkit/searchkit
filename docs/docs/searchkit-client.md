@@ -18,9 +18,15 @@ The SearchkitClient class encapsulates Searchkit's core client-side API. Maintai
 ```javascript
 import { SearchkitClient } from '@searchkit/client'
 
-const client = new SearchkitClient()
+const client = new SearchkitClient({
+  itemsPerPage: 20
+})
 
 ```
+
+| Option        |      Description      |
+| :------------- | :----------- |
+| itemsPerPage         | The initial items per page. url parameter will override value if specified |
 
 ### SearchkitClient Methods
 

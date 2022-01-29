@@ -71,7 +71,7 @@ describe('SearchkitRequest', () => {
       expect(window.console.log).not.toBeCalled()
     })
 
-    it("debug mode", async () => {
+    it('debug mode', async () => {
       process.env.DEBUG_MODE = 'true'
       const qm = new QueryManager([], '', null)
       const sr = new SearchkitRequest(
@@ -89,12 +89,18 @@ describe('SearchkitRequest', () => {
       const x = await sr.search({
         aggs: { field: 'term' }
       })
-      expect(window.console.log).toHaveBeenLastCalledWith(JSON.stringify({
-        "aggs": {
-          "field": "term"
-        },
-        "size": 0
-      }, null, 2))
+      expect(window.console.log).toHaveBeenLastCalledWith(
+        JSON.stringify(
+          {
+            aggs: {
+              field: 'term'
+            },
+            size: 0
+          },
+          null,
+          2
+        )
+      )
     })
   })
 })
