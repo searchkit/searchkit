@@ -286,6 +286,35 @@ const FrontendIntro = () => {
   )
 }
 
+const VideoIntro = () => {
+  return (
+    <div className="text-lg border-t border-gray-400 bg-gray-0">
+      <div className="py-24 mx-auto container px-4 md:mt-8 relative">
+        <div className="md:col-span-6 col-span-12 md:pt-0 md:pt-6 pt-4">
+          <div className="relative h-0 overflow-hidden max-w-full w-full" style={{"padding-bottom": "56%"}}>
+            <iframe className="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/4vHibwubrQA?autoplay=1&mute=1"></iframe>
+          </div>
+        </div>
+        <div className="md:col-span-6 col-span-12 pt-20">
+          <div className="text-center">
+            <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-3xl lg:text-3xl xl:text-3xl">Quick to get Started</h2>
+            <p className="mt-3 text-base text-gray-800 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">Searchkit has example starter apps for you to get started really quickly.</p>
+            <div className="mx-auto px-20 mt-8 text-base">
+              <SyntaxHighlight code={`curl https://codeload.github.com/searchkit/searchkit/tar.gz/next | tar -xz --strip=2 searchkit-next/examples/next-demo`} language="shell" />
+            </div>
+          </div>
+          <div className="mt-5 mx-auto sm:flex justify-center md:mt-8">
+              <div className="rounded-md shadow">
+                <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-black bg-gray-300 hover:bg-gray-400 focus:outline-none focus:border-gray-500 focus:shadow-outline-white transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10" href="https://www.youtube.com/watch?v=4vHibwubrQA">Watch Getting Started Video</a>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+  )
+}
+
 
 function Home() {
   const context = useDocusaurusContext();
@@ -314,6 +343,7 @@ function Home() {
       </div>
       <ConfigIntro />
       <FrontendIntro />
+      <VideoIntro />
       <link rel="stylesheet" href="https://unpkg.com/tailwindcss@1.9.2/dist/tailwind.min.css" ></link>
     </div>
     </>
