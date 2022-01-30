@@ -7,7 +7,7 @@
     "dev": "node index"
   },
   "dependencies": {
-    "@searchkit/schema": "^3.0.0-canary.41",
+    "@searchkit/schema": "^3.0.0-canary.47",
     "apollo-server-express": "^2.19.0",
     "express": "^4.17.1"
   }
