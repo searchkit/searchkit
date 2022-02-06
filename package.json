@@ -2,7 +2,8 @@
   "name": "searchkit",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/next"
   ],
   "repository": {
     "type": "git",
@@ -62,5 +63,10 @@
       "pre-commit": "yarn run lint",
       "pre-push": "yarn test"
     }
+  },
+  "resolutions": {
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "@apollo/client": "^3.3.19"
   }
 }
