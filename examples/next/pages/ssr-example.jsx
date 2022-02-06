@@ -65,9 +65,7 @@ const { previousData, data = previousData } = useQuery(query, {
     return (
       <div>
         <h2>{data?.results?.summary?.total} Results</h2>
-        <Link href="/simple-page">
-          <a href="/simple-page">Link to a new page</a>
-        </Link>
+        <Link href="/simple-page">Link to a new page</Link>
         <FilterLink filter={{identifier: 'type', value:'movie'}}>Toggle Filter by Movie</FilterLink>
         <SearchBar/>
         {data.results?.hits.items.map((hit) => {
@@ -84,9 +82,7 @@ const { previousData, data = previousData } = useQuery(query, {
     )
   else {
     return (
-      <Link href="/simple-page">
-        <a href="/simple-page">Link to a new page</a>
-      </Link>
+      <Link href="/simple-page">Link to a new page</Link>
     )
   }
 }
