@@ -1,6 +1,6 @@
 {
   "name": "@searchkit/client",
-  "version": "3.0.0-canary.46",
+  "version": "3.0.0-canary.47",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./lib/esm/index.d.ts",
@@ -48,6 +48,7 @@
     "typescript": "^4.0.5"
   },
   "dependencies": {
+    "fast-deep-equal": "^3.1.3",
     "lodash": "^4.17.21",
     "qs": "^6.10.1"
   }

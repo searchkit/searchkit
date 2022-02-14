@@ -1,7 +1,14 @@
-import { routeStateEqual, stateToRouteFn, routeToStateFn } from '../withSearchkitRouting'
+import { render, screen } from '@testing-library/react'
+import React from 'react'
+import withSearchkitRouting, {
+  routeStateEqual,
+  stateToRouteFn,
+  routeToStateFn
+} from '../withSearchkitRouting'
 import { searchStateEqual } from '../searchkit'
 import type { SearchState } from '../searchkit'
-import history from '../history'
+import history, { Router } from '../history'
+import { SearchkitClient, withSearchkit } from '..'
 
 describe('withSearchkitRouting', () => {
   describe('searchStateEqual', () => {
@@ -121,6 +128,20 @@ describe('withSearchkitRouting', () => {
       routeStateB.size = 10
       expect(routeStateEqual(routeStateA, routeStateB)).toBe(false)
     })
+    it('page options with incorrect size and from type', () => {
+      // function should also work with incorrect types
+      const routeStateA = {
+        size: '1',
+        from: '10'
+      }
+      const routeStateB = {
+        size: 1,
+        from: 10
+      }
+      expect(routeStateEqual(routeStateA, routeStateB)).toBe(true)
+      routeStateB.size = 10
+      expect(routeStateEqual(routeStateA, routeStateB)).toBe(false)
+    })
     it('filters', () => {
       const routeStateA = {
         filters: [{ identifier: 'type', value: 'movie' }]
@@ -152,6 +173,29 @@ describe('withSearchkitRouting', () => {
       delete window.location
       window.location = new URL(url) as any
       expect(routeToStateFn(routeState)).toMatchObject(searchState)
+    })
+  })
+
+  describe('url SearchState / RouteState sync hooks', () => {
+    it('should not call router write if the route state is the same', () => {
+      const api = new SearchkitClient()
+      const routerWriteMock = jest.fn().mockImplementation(() => {})
+      const routerOnUpdateMock = jest.fn().mockImplementation(() => {})
+
+      const Components = withSearchkit(
+        withSearchkitRouting(() => <div />, {
+          router: {
+            read: () => ({}),
+            write: routerWriteMock,
+            onUpdate: routerOnUpdateMock,
+            dispose: () => {}
+          }
+        }),
+        () => api
+      )
+
+      render(<Components />)
+      expect(routerWriteMock).toHaveBeenCalledTimes(0)
     })
   })
 })

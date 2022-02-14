@@ -2,6 +2,7 @@ import { useQuery, gql } from '@apollo/client'
 import { withSearchkit, useSearchkitVariables, withSearchkitRouting, useSearchkitQueryValue, useSearchkit, FilterLink, PaginationLink } from '@searchkit/client'
 import withApollo from '../hocs/withApollo'
 import { getDataFromTree } from "@apollo/client/react/ssr"
+import Link from 'next/link'
 
 function SearchBar() {
   const [query, setQuery] = useSearchkitQueryValue();
@@ -64,6 +65,7 @@ const { previousData, data = previousData } = useQuery(query, {
     return (
       <div>
         <h2>{data?.results?.summary?.total} Results</h2>
+        <Link href="/simple-page">Link to a new page</Link>
         <FilterLink filter={{identifier: 'type', value:'movie'}}>Toggle Filter by Movie</FilterLink>
         <SearchBar/>
         {data.results?.hits.items.map((hit) => {
@@ -79,7 +81,9 @@ const { previousData, data = previousData } = useQuery(query, {
       </div>
     )
   else {
-    return null
+    return (
+      <Link href="/simple-page">Link to a new page</Link>
+    )
   }
 }
 

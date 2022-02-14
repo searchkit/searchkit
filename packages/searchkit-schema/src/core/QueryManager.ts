@@ -1,4 +1,4 @@
-import { SortingOption } from "../resolvers/ResultsResolver"
+import { SortingOption } from '../resolvers/ResultsResolver'
 
 export type ValueFilter = {
   identifier: string
@@ -50,7 +50,6 @@ export type MixedFilter =
   | HierarchicalValueFilter
 
 export default class QueryManager {
-
   private sortBy: SortingOption
 
   constructor(

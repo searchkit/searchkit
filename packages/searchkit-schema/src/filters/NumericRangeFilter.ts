@@ -10,7 +10,6 @@ interface NumericRangeFilterConfig {
 }
 
 class NumericRangeFilter implements BaseFilter {
-
   constructor(public config: NumericRangeFilterConfig) {}
   getLabel(): string {
     return this.config.label
@@ -38,7 +37,6 @@ class NumericRangeFilter implements BaseFilter {
       max: filterSet.max
     }
   }
-
 }
 
 export default NumericRangeFilter

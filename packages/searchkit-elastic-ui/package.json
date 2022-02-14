@@ -1,6 +1,6 @@
 {
   "name": "@searchkit/elastic-ui",
-  "version": "3.0.0-canary.46",
+  "version": "3.0.0-canary.47",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "lib/esm/index.d.ts",
@@ -37,9 +37,10 @@
     "use-debounce": "^5.0.3"
   },
   "devDependencies": {
+    "@apollo/client": "^3.5.8",
     "@elastic/datemath": "^5.0.3",
     "@elastic/eui": "^34.0.0",
-    "@searchkit/client": "^3.0.0-canary.46",
+    "@searchkit/client": "^3.0.0-canary.47",
     "@types/react": "^17.0.13",
     "moment": "^2.29.1",
     "react": "^17.0.1",
