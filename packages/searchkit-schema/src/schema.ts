@@ -1,12 +1,12 @@
 import gql from 'graphql-tag'
+import { SearchkitConfig } from '@searchkit/sdk'
 import {
   FacetsResolver,
   HitsResolver,
-  SearchkitConfig,
   SearchkitResolver,
-  SummaryResolver
+  SummaryResolver,
+  FacetResolver
 } from './resolvers'
-import FacetResolver from './resolvers/FacetResolver'
 
 const baseSearchkitTypeDefs = gql`
   type SKSortOption {
