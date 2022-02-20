@@ -1407,20 +1407,20 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@searchkit/client@^3.0.0-canary.41":
-  version "3.0.0-canary.41"
-  resolved "https://registry.yarnpkg.com/@searchkit/client/-/client-3.0.0-canary.41.tgz#1da08952a849e48b4a7bd4ed04b31a9229a38734"
-  integrity sha512-IMjmJkpAdloCOSdFmJidsdJj20yI3VLiX5tg8crzT6bM+2o8jD6uUKITxdGyY6a+wAD1LDCtXXthL4SJpwcN+A==
+"@searchkit/client@^3.0.0-canary.47":
+  version "3.0.0-canary.47"
+  resolved "https://registry.yarnpkg.com/@searchkit/client/-/client-3.0.0-canary.47.tgz#5caafce5a213b788413a4eb87f0bdf171c90f087"
+  integrity sha512-H7+e/8EOPInwKMz/Z/hW6sHdKd0FciYMS4G7C+mV7ZK6imlmUgbwfgQ5zDqM+dg4ITn88i1uvwKww699cooxmg==
   dependencies:
+    fast-deep-equal "^3.1.3"
     lodash "^4.17.21"
     qs "^6.10.1"
 
-"@searchkit/elastic-ui@^3.0.0-canary.41":
-  version "3.0.0-canary.41"
-  resolved "https://registry.yarnpkg.com/@searchkit/elastic-ui/-/elastic-ui-3.0.0-canary.41.tgz#37ef92d392643a332aab394fc1bbef7687e2bce2"
-  integrity sha512-E3toEbM5H0jcoP/973k/UtvDCr69STVPlrmIgPYbJIpoOCfOYFYo/n+3KKRpbqab96uYIbCVcQxbhCpBIWaIng==
+"@searchkit/elastic-ui@^3.0.0-canary.47":
+  version "3.0.0-canary.47"
+  resolved "https://registry.yarnpkg.com/@searchkit/elastic-ui/-/elastic-ui-3.0.0-canary.47.tgz#9e89d3a70bb9f241f8ab253724777469f84ecbe2"
+  integrity sha512-Zs1hH9JmDA3ewNA+z1NEQC8PL4TZTpsbQyELXVg3qX2f8Le9sJSD28I3fI2MXeWpTed/NQKjWvsB1e/HWd5Jaw==
   dependencies:
-    "@searchkit/client" "^3.0.0-canary.41"
     use-debounce "^5.0.3"
 
 "@sinonjs/commons@^1.7.0":
@@ -4938,7 +4938,7 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
-fast-deep-equal@^3.1.1:
+fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
   integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
@@ -11730,9 +11730,9 @@ url-loader@4.1.1:
     schema-utils "^3.0.0"
 
 url-parse@^1.4.3:
-  version "1.4.7"
-  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.7.tgz#a8a83535e8c00a316e403a5db4ac1b9b853ae278"
-  integrity sha512-d3uaVyzDB9tQoSXFvuSUNFibTd9zxd2bkVrDRvF5TmvWWQwqE4lgYJ5m+x1DbecWkw+LK4RNl2CU1hHuOKPVlg==
+  version "1.5.7"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.5.7.tgz#00780f60dbdae90181f51ed85fb24109422c932a"
+  integrity sha512-HxWkieX+STA38EDk7CE9MEryFeHCKzgagxlGvsdS7WBImq9Mk+PGwiT56w82WI3aicwJA8REp42Cxo98c8FZMA==
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
