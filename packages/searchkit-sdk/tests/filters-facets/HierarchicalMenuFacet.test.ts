@@ -8,6 +8,7 @@ import nock from 'nock'
 import lvl1Mock from '../__mock-data__/HierarchicalMenuFacet/lvl1.json'
 import lvl2Mock from '../__mock-data__/HierarchicalMenuFacet/lvl2.json'
 import lvl3Mock from '../__mock-data__/HierarchicalMenuFacet/lvl3.json'
+import ESClientAdapter from '../../src/adapters/ESClientAdapter'
 
 describe('NumericRangeFilter', () => {
   let request
@@ -33,7 +34,7 @@ describe('NumericRangeFilter', () => {
       ]
     }
 
-    request = SearchkitRequest(config)
+    request = SearchkitRequest(config, ESClientAdapter)
   })
 
   it('No filters, bring back only level 1 facets', async () => {
@@ -263,10 +264,10 @@ describe('NumericRangeFilter', () => {
 
     const lvl1Facet = response.facets[0].entries.find(({ label }) => label === 'Coats and Jackets')
 
-    expect(
-      lvl1Facet.entries.length
-    ).toBe(9)
-    expect(lvl1Facet.entries.find(({ label }) => label === 'Leather jackets').entries.length).toBe(2)
+    expect(lvl1Facet.entries.length).toBe(9)
+    expect(lvl1Facet.entries.find(({ label }) => label === 'Leather jackets').entries.length).toBe(
+      2
+    )
     expect(response.facets[0].entries.filter(({ entries }) => entries !== null).length).toBe(1)
   })
 

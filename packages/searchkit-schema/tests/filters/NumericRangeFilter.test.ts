@@ -1,6 +1,6 @@
 import nock from 'nock'
+import { NumericRangeFilter, SearchkitConfig } from '@searchkit/sdk'
 import { callQuery, setupTestServer } from '../support/helper'
-import { NumericRangeFilter, SearchkitConfig, TermFilter } from '../../src'
 import HitsMock from '../__mock-data__/HitResolver/Hits.json'
 
 describe('Numeric Range Filter', () => {

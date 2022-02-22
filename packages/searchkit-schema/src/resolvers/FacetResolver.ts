@@ -1,7 +1,7 @@
 import SearchkitRequest from '../core/SearchkitRequest'
 import { getAggregationsFromFacets, getFacetsFromResponse } from '../core/FacetsFns'
 import QueryManager from '../core/QueryManager'
-import { BaseFacet } from '../facets'
+import { BaseFacet } from '@searchkit/sdk'
 
 export interface FacetResolverParameters {
   identifier: string

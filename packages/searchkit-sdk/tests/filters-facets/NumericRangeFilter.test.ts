@@ -7,6 +7,7 @@ import SearchkitRequest, {
 import { RefinementSelectFacet } from '../../src/facets'
 import nock from 'nock'
 import ResultsNoHitsMock from '../__mock-data__/Facets/results-no-hits.json'
+import ESClientAdapter from '../../src/adapters/ESClientAdapter'
 
 describe('NumericRangeFilter', () => {
   it('Combination of min and max number filters', async () => {
@@ -25,7 +26,7 @@ describe('NumericRangeFilter', () => {
       ]
     }
 
-    const request = SearchkitRequest(moviesSearchConfig)
+    const request = SearchkitRequest(moviesSearchConfig, ESClientAdapter)
     request.setFilters([
       {
         identifier: 'imdbRating',
@@ -86,17 +87,17 @@ describe('NumericRangeFilter', () => {
     expect(response.summary.appliedFilters.length).toBe(1)
 
     request.setFilters([
-        {
-          identifier: 'imdbRating',
-          max: 5
-        }
-      ])
-  
-      response = await request.execute({
-        facets: true
-      })
-  
-      expect(lastESRequest.query.bool.filter[0]).toMatchInlineSnapshot(`
+      {
+        identifier: 'imdbRating',
+        max: 5
+      }
+    ])
+
+    response = await request.execute({
+      facets: true
+    })
+
+    expect(lastESRequest.query.bool.filter[0]).toMatchInlineSnapshot(`
         Object {
           "range": Object {
             "imdbRating": Object {
@@ -105,6 +106,6 @@ describe('NumericRangeFilter', () => {
           },
         }
       `)
-      expect(response.summary.appliedFilters.length).toBe(1)
+    expect(response.summary.appliedFilters.length).toBe(1)
   })
 })

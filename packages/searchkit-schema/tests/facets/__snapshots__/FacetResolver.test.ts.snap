@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Facet Resolver should return as expected should return correct Results 1`] = `
+Object {
+  "results": Object {
+    "facet": null,
+  },
+}
+`;
+
 exports[`Facet Resolver should return as expected should return correct Results 2`] = `
 Object {
   "results": Object {

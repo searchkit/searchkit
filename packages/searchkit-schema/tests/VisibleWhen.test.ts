@@ -1,7 +1,11 @@
+import {
+  MultiMatchQuery,
+  RefinementSelectFacet,
+  SearchkitConfig,
+  VisibleWhen,
+  FacetSelectedRule
+} from '@searchkit/sdk'
 import nock from 'nock'
-import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
-import { MultiMatchQuery, VisibleWhen, FacetSelectedRule } from '../src'
-import { RefinementSelectFacet } from '../src/facets'
 import QueryManager from '../src/core/QueryManager'
 import { setupTestServer, callQuery } from './support/helper'
 import HitsMock from './__mock-data__/FacetsResolver/results.json'
@@ -369,8 +373,7 @@ describe('Facets Resolver', () => {
       expect(response.body.data).toMatchSnapshot()
       expect(response.status).toEqual(200)
       const customRuleArgs = customRule.mock.calls[0]
-      expect(customRuleArgs[0].getQuery()).toBe('')
-      expect(customRuleArgs[1].role).toEqual('Admin')
+      expect(customRuleArgs[0].getQuery()).toBe(null)
     })
   })
 })

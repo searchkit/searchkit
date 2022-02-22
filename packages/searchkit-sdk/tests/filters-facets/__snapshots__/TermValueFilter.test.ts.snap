@@ -24,7 +24,7 @@ Object {
       },
     ],
     "disabledFilters": Array [],
-    "query": null,
+    "query": "",
     "sortOptions": Array [],
     "total": 4162,
   },

@@ -7,7 +7,7 @@
       "esnext"
     ],
     "rootDir": "src",
-    "outDir": "lib",
+    "outDir": "lib/esm",
     "strict": false,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,

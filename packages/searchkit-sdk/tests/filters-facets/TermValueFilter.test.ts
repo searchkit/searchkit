@@ -7,6 +7,7 @@ import SearchkitRequest, {
 } from '../../src'
 import nock from 'nock'
 import ResultsNoHitsMock from '../__mock-data__/Facets/results-no-hits.json'
+import ESClientAdapter from '../../src/adapters/ESClientAdapter'
 
 describe('NumericRangeFilter', () => {
   it('Combination of min and max number filters', async () => {
@@ -25,7 +26,7 @@ describe('NumericRangeFilter', () => {
       ]
     }
 
-    const request = SearchkitRequest(moviesSearchConfig)
+    const request = SearchkitRequest(moviesSearchConfig, ESClientAdapter)
     request.setFilters([
       {
         identifier: 'type',
@@ -76,6 +77,5 @@ describe('NumericRangeFilter', () => {
         },
       ]
     `)
-
   })
 })

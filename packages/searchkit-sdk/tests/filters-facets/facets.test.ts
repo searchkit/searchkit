@@ -2,29 +2,33 @@ import SearchkitRequest from '../../src'
 import { RefinementSelectFacet } from '../../src/facets'
 import nock from 'nock'
 import ResultsNoHitsMock from '../__mock-data__/Facets/results-no-hits.json'
+import ESClientAdapter from '../../src/adapters/ESClientAdapter'
 
 describe('Facets', () => {
   it('2 Facets configured, no filters', async () => {
-    const request = SearchkitRequest({
-      host: 'http://localhost:9200',
-      hits: {
-        fields: ['facet1']
+    const request = SearchkitRequest(
+      {
+        host: 'http://localhost:9200',
+        hits: {
+          fields: ['facet1']
+        },
+        facets: [
+          new RefinementSelectFacet({
+            field: 'writers',
+            identifier: 'writers',
+            label: 'Writers'
+          }),
+          new RefinementSelectFacet({
+            field: 'actors',
+            identifier: 'actors',
+            label: 'Actors',
+            multipleSelect: false
+          })
+        ],
+        index: 'test'
       },
-      facets: [
-        new RefinementSelectFacet({
-          field: 'writers',
-          identifier: 'writers',
-          label: 'Writers'
-        }),
-        new RefinementSelectFacet({
-          field: 'actors',
-          identifier: 'actors',
-          label: 'Actors',
-          multipleSelect: false
-        })
-      ],
-      index: 'test'
-    })
+      ESClientAdapter
+    )
 
     const scope = nock('http://localhost:9200')
       .post('/test/_search')
@@ -43,26 +47,29 @@ describe('Facets', () => {
   })
 
   it('2 Facets configured, with two filters in each facet', async () => {
-    const request = SearchkitRequest({
-      host: 'http://localhost:9200',
-      hits: {
-        fields: []
+    const request = SearchkitRequest(
+      {
+        host: 'http://localhost:9200',
+        hits: {
+          fields: []
+        },
+        facets: [
+          new RefinementSelectFacet({
+            field: 'writers',
+            identifier: 'writers',
+            label: 'Writers'
+          }),
+          new RefinementSelectFacet({
+            field: 'actors',
+            identifier: 'actors',
+            label: 'Actors',
+            multipleSelect: false
+          })
+        ],
+        index: 'test'
       },
-      facets: [
-        new RefinementSelectFacet({
-          field: 'writers',
-          identifier: 'writers',
-          label: 'Writers'
-        }),
-        new RefinementSelectFacet({
-          field: 'actors',
-          identifier: 'actors',
-          label: 'Actors',
-          multipleSelect: false
-        })
-      ],
-      index: 'test'
-    })
+      ESClientAdapter
+    )
 
     request.setFilters([
       { identifier: 'writers', value: 'writer1' },
@@ -106,26 +113,29 @@ describe('Facets', () => {
   })
 
   it('2 Facets configured, with two filters in each facet, specify a particular facet only to be returned', async () => {
-    const request = SearchkitRequest({
-      host: 'http://localhost:9200',
-      hits: {
-        fields: []
+    const request = SearchkitRequest(
+      {
+        host: 'http://localhost:9200',
+        hits: {
+          fields: []
+        },
+        facets: [
+          new RefinementSelectFacet({
+            field: 'writers',
+            identifier: 'writers',
+            label: 'Writers'
+          }),
+          new RefinementSelectFacet({
+            field: 'actors',
+            identifier: 'actors',
+            label: 'Actors',
+            multipleSelect: false
+          })
+        ],
+        index: 'test'
       },
-      facets: [
-        new RefinementSelectFacet({
-          field: 'writers',
-          identifier: 'writers',
-          label: 'Writers'
-        }),
-        new RefinementSelectFacet({
-          field: 'actors',
-          identifier: 'actors',
-          label: 'Actors',
-          multipleSelect: false
-        })
-      ],
-      index: 'test'
-    })
+      ESClientAdapter
+    )
 
     request.setFilters([
       { identifier: 'writers', value: 'writer1' },
@@ -149,26 +159,29 @@ describe('Facets', () => {
   })
 
   it('2 Facets configured, with two filters in each facet, specify both facets to be returned (test multiple works)', async () => {
-    const request = SearchkitRequest({
-      host: 'http://localhost:9200',
-      hits: {
-        fields: []
+    const request = SearchkitRequest(
+      {
+        host: 'http://localhost:9200',
+        hits: {
+          fields: []
+        },
+        facets: [
+          new RefinementSelectFacet({
+            field: 'writers',
+            identifier: 'writers',
+            label: 'Writers'
+          }),
+          new RefinementSelectFacet({
+            field: 'actors',
+            identifier: 'actors',
+            label: 'Actors',
+            multipleSelect: false
+          })
+        ],
+        index: 'test'
       },
-      facets: [
-        new RefinementSelectFacet({
-          field: 'writers',
-          identifier: 'writers',
-          label: 'Writers'
-        }),
-        new RefinementSelectFacet({
-          field: 'actors',
-          identifier: 'actors',
-          label: 'Actors',
-          multipleSelect: false
-        })
-      ],
-      index: 'test'
-    })
+      ESClientAdapter
+    )
 
     request.setFilters([
       { identifier: 'writers', value: 'writer1' },
@@ -192,26 +205,29 @@ describe('Facets', () => {
   })
 
   it('facet overrides possible via facet array', async () => {
-    const request = SearchkitRequest({
-      host: 'http://localhost:9200',
-      hits: {
-        fields: []
+    const request = SearchkitRequest(
+      {
+        host: 'http://localhost:9200',
+        hits: {
+          fields: []
+        },
+        facets: [
+          new RefinementSelectFacet({
+            field: 'writers',
+            identifier: 'writers',
+            label: 'Writers'
+          }),
+          new RefinementSelectFacet({
+            field: 'actors',
+            identifier: 'actors',
+            label: 'Actors',
+            multipleSelect: false
+          })
+        ],
+        index: 'test'
       },
-      facets: [
-        new RefinementSelectFacet({
-          field: 'writers',
-          identifier: 'writers',
-          label: 'Writers'
-        }),
-        new RefinementSelectFacet({
-          field: 'actors',
-          identifier: 'actors',
-          label: 'Actors',
-          multipleSelect: false
-        })
-      ],
-      index: 'test'
-    })
+      ESClientAdapter
+    )
 
     request.setFilters([
       { identifier: 'writers', value: 'writer1' },

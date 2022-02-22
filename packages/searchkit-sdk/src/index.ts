@@ -4,13 +4,14 @@ import BaseQuery from './query/BaseQuery'
 import { BaseFacet } from './facets/BaseFacet'
 import { BaseFilter } from './filters/BaseFilter'
 import { VisibleWhenRuleSet } from './facets'
-import { SearchkitAdapter, ESClientAdapter } from './adapters'
+import { SearchkitAdapter, SearchkitAdapterConstructor } from './adapters'
 import { getAggregationsFromFacets } from './core/FacetsFns'
 import { SearchkitResponseTransformer, ElasticSearchResponseTransformer } from './transformers'
 
 export * from './query'
 export * from './facets'
 export * from './filters'
+export * from './adapters'
 
 export interface SortingOption {
   id: string
@@ -55,7 +56,8 @@ const getFacets = (
     return [...facetsList, facet]
   }, [])
 
-const createInstance = (config: SearchkitConfig) => new SearchkitRequest(config)
+const createInstance = (config: SearchkitConfig, adapter: SearchkitAdapterConstructor) =>
+  new SearchkitRequest(config, adapter)
 
 export type ResponseRequest = {
   hits?: {
@@ -86,9 +88,9 @@ export class SearchkitRequest {
   private adapter: SearchkitAdapter
   private transformer: SearchkitResponseTransformer
 
-  constructor(private config: SearchkitConfig) {
+  constructor(private config: SearchkitConfig, Adapter) {
     this.queryManager = new QueryManager()
-    this.adapter = new ESClientAdapter(config)
+    this.adapter = new Adapter(config)
     this.transformer = new ElasticSearchResponseTransformer()
   }
 
@@ -102,15 +104,22 @@ export class SearchkitRequest {
     return this
   }
 
+  setQueryOptions(options) {
+    this.queryManager.setQueryOptions(options)
+    return this
+  }
+
   setSortBy(sortBy: string) {
-    const sortOption = getSortOption(sortBy, this.config.sortOptions)
-    this.queryManager.setSortBy(sortOption)
+    if (this.config.sortOptions && sortBy) {
+      const sortOption = getSortOption(sortBy, this.config.sortOptions)
+      this.queryManager.setSortBy(sortOption)
+    }
     return this
   }
 
   async execute(responseRequest: ResponseRequest, baseFilters: BaseFilters = []) {
     const partialQueries = []
-    let facets = []
+    const facets = getFacets(this.config.facets, this.queryManager, {})
     let filteredFacets = null
     let overrides = {}
 
@@ -119,7 +128,6 @@ export class SearchkitRequest {
     if (!responseRequest.hits.from) responseRequest.hits.from = 0
 
     if (responseRequest.facets) {
-      facets = getFacets(this.config.facets, this.queryManager, {})
       if (Array.isArray(responseRequest.facets)) {
         const filteredFacetIdentifiers = responseRequest.facets.map((facet) => facet.identifier)
         filteredFacets =

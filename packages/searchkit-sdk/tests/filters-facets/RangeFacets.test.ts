@@ -1,11 +1,12 @@
+import nock from 'nock'
 import SearchkitRequest, {
   RangeFacet,
   DateRangeFacet,
   MultiMatchQuery,
   SearchkitConfig
 } from '../../src'
-import nock from 'nock'
 import ResultsNoHitsMock from '../__mock-data__/Facets/results.json'
+import ESClientAdapter from '../../src/adapters/ESClientAdapter'
 
 describe('Numeric Range + Date Range Facet Filters', () => {
   describe('Numeric Range', () => {
@@ -36,7 +37,7 @@ describe('Numeric Range + Date Range Facet Filters', () => {
     }
 
     it('Combination of min and max number range facets', async () => {
-      const request = SearchkitRequest(config)
+      const request = SearchkitRequest(config, ESClientAdapter)
       request.setFilters([
         {
           identifier: 'imdbRating',
@@ -55,7 +56,7 @@ describe('Numeric Range + Date Range Facet Filters', () => {
           return ResultsNoHitsMock
         })
 
-      let response = await request.execute({
+      const response = await request.execute({
         facets: true
       })
       expect(response.facets.find(({ label }) => label === 'IMDB Rating')).toMatchSnapshot(
@@ -135,7 +136,7 @@ describe('Numeric Range + Date Range Facet Filters', () => {
     })
 
     it('Combination of min and max date range facets', async () => {
-      const request = SearchkitRequest(config)
+      const request = SearchkitRequest(config, ESClientAdapter)
       request.setFilters([
         {
           identifier: 'released',
@@ -154,7 +155,7 @@ describe('Numeric Range + Date Range Facet Filters', () => {
           return ResultsNoHitsMock
         })
 
-      let response = await request.execute({
+      const response = await request.execute({
         facets: true
       })
       expect(response.facets.find(({ label }) => label === 'released')).toMatchSnapshot(

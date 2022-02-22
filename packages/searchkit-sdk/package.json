@@ -2,6 +2,7 @@
   "name": "@searchkit/sdk",
   "version": "3.0.0-canary.46",
   "main": "lib/index.js",
+  "module": "lib/esm",
   "author": "Joseph McElroy <phoey1@gmail.com>",
   "license": "Apache-2.0",
   "keywords": [
@@ -25,7 +26,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rm -rf lib; tsc",
+    "build": "rm -rf lib; tsc && tsc -p tsconfig-cjs.json",
     "dev": "rm -rf lib; tsc --watch",
     "test": "NODE_ENV=test jest --runInBand --forceExit --detectOpenHandles",
     "coverage": "jest --coverage"

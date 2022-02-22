@@ -1,7 +1,7 @@
 import nock from 'nock'
-import { SearchkitConfig } from '../../src/resolvers/ResultsResolver'
-import { MultiMatchQuery } from '../../src'
-import { DateRangeFacet, RangeFacet } from '../../src/facets'
+import { SearchkitConfig } from '@searchkit/sdk'
+import { MultiMatchQuery } from '@searchkit/sdk'
+import { DateRangeFacet, RangeFacet } from '@searchkit/sdk'
 import { setupTestServer, callQuery } from './../support/helper'
 import HitsMock from './../__mock-data__/FacetsResolver/results.json'
 

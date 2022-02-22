@@ -1,5 +1,5 @@
-import { ResponseRequest } from ".."
-import { getFacetsFromResponse } from "../core/FacetsFns"
+import { ResponseRequest } from '..'
+import { getFacetsFromResponse } from '../core/FacetsFns'
 
 export interface SearchkitResponseTransformer {
   transformResponse(responseBody, facetsConfig, queryManager, config, responseRequest): any
@@ -7,48 +7,53 @@ export interface SearchkitResponseTransformer {
 
 function getSummaryFromResponse(responseBody, facets, queryManager, config) {
   const combinedFilters = [...(facets || []), ...(config.filters || [])]
-    const filters = queryManager.getFilters().map((filterSet) => {
-      const facetConfig = combinedFilters.find(
-        (facet) => facet.getIdentifier() === filterSet.identifier
-      )
-      if (!facetConfig) {
-        return {
-          identifier: filterSet.identifier,
-          disabled: true
-        }
-      }
-      return facetConfig.getSelectedFilter(filterSet)
-    })
-    const { appliedFilters, disabledFilters } = filters.reduce(
-      (sum, filter) => {
-        if (filter.disabled) {
-          sum.disabledFilters.push(filter)
-        } else {
-          sum.appliedFilters.push(filter)
-        }
-        return sum
-      },
-      { appliedFilters: [], disabledFilters: [] }
+  const filters = queryManager.getFilters().map((filterSet) => {
+    const facetConfig = combinedFilters.find(
+      (facet) => facet.getIdentifier() === filterSet.identifier
     )
-
-    return {
-      total:
-        typeof responseBody.hits.total.value === 'number'
-          ? responseBody.hits.total.value
-          : responseBody.hits.total,
-      query: queryManager.getQuery(),
-      sortOptions: (config.sortOptions || []).map((sortOption) => ({
-        id: sortOption.id,
-        label: sortOption.label
-      })),
-      appliedFilters: appliedFilters,
-      disabledFilters: disabledFilters
+    if (!facetConfig) {
+      return {
+        identifier: filterSet.identifier,
+        disabled: true
+      }
     }
+    return facetConfig.getSelectedFilter(filterSet)
+  })
+  const { appliedFilters, disabledFilters } = filters.reduce(
+    (sum, filter) => {
+      if (filter.disabled) {
+        sum.disabledFilters.push(filter)
+      } else {
+        sum.appliedFilters.push(filter)
+      }
+      return sum
+    },
+    { appliedFilters: [], disabledFilters: [] }
+  )
+
+  return {
+    total:
+      typeof responseBody.hits.total.value === 'number'
+        ? responseBody.hits.total.value
+        : responseBody.hits.total,
+    query: queryManager.getQuery() || '',
+    sortOptions: (config.sortOptions || []).map((sortOption) => ({
+      id: sortOption.id,
+      label: sortOption.label
+    })),
+    appliedFilters: appliedFilters,
+    disabledFilters: disabledFilters
   }
+}
 
 export class ElasticSearchResponseTransformer implements SearchkitResponseTransformer {
-
-  transformResponse(responseBody, facetsConfig, queryManager, config, responseRequest: ResponseRequest) {
+  transformResponse(
+    responseBody,
+    facetsConfig,
+    queryManager,
+    config,
+    responseRequest: ResponseRequest
+  ) {
     const { hits } = responseBody
 
     const facets = responseRequest.facets
@@ -70,7 +75,7 @@ export class ElasticSearchResponseTransformer implements SearchkitResponseTransf
       items: hits.hits.map((hit) => ({
         id: hit._id,
         fields: hit._source,
-        highlight: hit.highlight,
+        highlight: hit.highlight
       })),
       page: {
         total: hitsTotal,

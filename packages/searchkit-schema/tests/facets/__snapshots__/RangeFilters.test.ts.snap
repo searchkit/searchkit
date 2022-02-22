@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Range Facets should return as expected date range optional max 1`] = `
+Object {
+  "results": Object {
+    "hits": null,
+  },
+}
+`;
+
 exports[`Range Facets should return as expected date range optional max 2`] = `
 Object {
   "results": Object {
@@ -37,6 +45,14 @@ Object {
         },
       ],
     },
+  },
+}
+`;
+
+exports[`Range Facets should return as expected numeric range optional max 1`] = `
+Object {
+  "results": Object {
+    "hits": null,
   },
 }
 `;

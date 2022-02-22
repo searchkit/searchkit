@@ -2,6 +2,7 @@ import SearchkitRequest, { GeoBoundingBoxFilter, MultiMatchQuery, SearchkitConfi
 import { RefinementSelectFacet } from '../../src/facets'
 import nock from 'nock'
 import ResultsNoHitsMock from '../__mock-data__/Facets/results-no-hits.json'
+import ESClientAdapter from '../../src/adapters/ESClientAdapter'
 
 describe('Geo Filters', () => {
   it('2 Facets configured, no filters', async () => {
@@ -28,7 +29,7 @@ describe('Geo Filters', () => {
       ]
     }
 
-    const request = SearchkitRequest(config)
+    const request = SearchkitRequest(config, ESClientAdapter)
     request.setFilters([
       {
         identifier: 'location',

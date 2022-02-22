@@ -1,6 +1,7 @@
+import nock from 'nock'
 import SearchkitRequest from '../src'
 import { MultiMatchQuery } from '../src/query'
-import nock from 'nock'
+import ESClientAdapter from '../src/adapters/ESClientAdapter'
 import HitsMMock from './__mock-data__/HitResolver/Hits.json'
 
 describe('PostProcessRequest', () => {
@@ -9,17 +10,20 @@ describe('PostProcessRequest', () => {
       requestBody.query.bool.must[0].multi_match.query = 'changed query'
       return requestBody
     })
-    const request = SearchkitRequest({
-      host: 'http://localhost:9200',
-      query: new MultiMatchQuery({
-        fields: ['title', 'body']
-      }),
-      hits: {
-        fields: ['facet1']
+    const request = SearchkitRequest(
+      {
+        host: 'http://localhost:9200',
+        query: new MultiMatchQuery({
+          fields: ['title', 'body']
+        }),
+        hits: {
+          fields: ['facet1']
+        },
+        index: 'test',
+        postProcessRequest: postProcessRequestExampleFn
       },
-      index: 'test',
-      postProcessRequest: postProcessRequestExampleFn
-    })
+      ESClientAdapter
+    )
 
     request.query('test')
 

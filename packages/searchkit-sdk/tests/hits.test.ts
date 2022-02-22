@@ -1,20 +1,24 @@
-import SearchkitRequest from '../src'
-import { MultiMatchQuery } from '../src/query'
 import nock from 'nock'
+import SearchkitRequest from '../src'
+import ESClientAdapter from '../src/adapters/ESClientAdapter'
+import { MultiMatchQuery } from '../src/query'
 import HitsMMock from './__mock-data__/HitResolver/Hits.json'
 
 describe('Hit Results', () => {
   it('Query', async () => {
-    const request = SearchkitRequest({
-      host: 'http://localhost:9200',
-      query: new MultiMatchQuery({
-        fields: ['title', 'body']
-      }),
-      hits: {
-        fields: ['facet1']
+    const request = SearchkitRequest(
+      {
+        host: 'http://localhost:9200',
+        query: new MultiMatchQuery({
+          fields: ['title', 'body']
+        }),
+        hits: {
+          fields: ['facet1']
+        },
+        index: 'test'
       },
-      index: 'test'
-    })
+      ESClientAdapter
+    )
 
     request.query('test')
 
@@ -63,24 +67,27 @@ describe('Hit Results', () => {
     expect(response.summary.total).toBe(4162)
   })
 
-  it("pagination - 2nd page", async () => {
-    const request = SearchkitRequest({
-      host: 'http://localhost:9200',
-      query: new MultiMatchQuery({
-        fields: ['title', 'body']
-      }),
-      hits: {
-        fields: ['facet1']
+  it('pagination - 2nd page', async () => {
+    const request = SearchkitRequest(
+      {
+        host: 'http://localhost:9200',
+        query: new MultiMatchQuery({
+          fields: ['title', 'body']
+        }),
+        hits: {
+          fields: ['facet1']
+        },
+        index: 'test'
       },
-      index: 'test'
-    })
+      ESClientAdapter
+    )
 
     request.query('test')
 
     const scope = nock('http://localhost:9200')
       .post('/test/_search')
       .reply(200, (uri, body: any) => {
-        expect(body.from).toBe(10);
+        expect(body.from).toBe(10)
         expect(body.size).toBe(10)
         return HitsMMock
       })

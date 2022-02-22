@@ -40,10 +40,12 @@ type BaseQuery = {
 }
 
 export const mergeESQueries = (queries) =>
-  merge({
-    aggs: {}
-  }, ...queries)
-
+  merge(
+    {
+      aggs: {}
+    },
+    ...queries
+  )
 
 export default function RequestBodyBuilder(
   queryManager: QueryManager,
@@ -52,11 +54,8 @@ export default function RequestBodyBuilder(
   facets: Array<BaseFacet>,
   partialQueries: Array<any>
 ) {
-
   const queryFilter =
-    queryManager.hasQuery() && config.query
-      ? config.query.getFilter(queryManager)
-      : null
+    queryManager.hasQuery() && config.query ? config.query.getFilter(queryManager) : null
 
   const baseFiltersQuery = filterTransform(queryManager, config.filters)
   const combinedBaseFilters = [].concat(baseFilters, baseFiltersQuery?.bool?.must || [])
@@ -96,8 +95,7 @@ export default function RequestBodyBuilder(
       query && { query },
       postFilter && { post_filter: postFilter },
       highlight && { highlight },
-      ...(partialQueries as any[]),
+      ...(partialQueries as any[])
     ].filter(Boolean)
   )
 }
-
