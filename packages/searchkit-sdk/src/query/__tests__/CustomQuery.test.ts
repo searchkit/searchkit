@@ -4,7 +4,7 @@ import QueryManager from '../../core/QueryManager'
 describe('Custom Query', () => {
   it('should allow custom ES query to be used to build query', () => {
     const qm = new QueryManager()
-    qm.setQuery("test")
+    qm.setQuery('test')
     const cq = new CustomQuery({
       queryFn: (query, qm) => ({
         bool: {

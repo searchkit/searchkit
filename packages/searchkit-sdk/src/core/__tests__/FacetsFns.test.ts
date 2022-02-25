@@ -1,7 +1,7 @@
+import { SearchResponse } from 'elasticsearch'
 import { filterTransform, getAggregationsFromFacets, getFacetsFromResponse } from '../FacetsFns'
 import QueryManager from '../QueryManager'
 import { RefinementSelectFacet } from '../../facets'
-import { SearchResponse } from 'elasticsearch'
 
 describe('Facet Fns', () => {
   describe('getAggregationsFromFacets', () => {
@@ -49,12 +49,10 @@ describe('Facet Fns', () => {
 
     it('create aggregations for two facets in all and one for Multiple select', () => {
       const qm = new QueryManager()
-      qm.setFilters(
-        [
-          { identifier: 'test', value: 'testValue' },
-          { identifier: 'test3', value: 'testValue' }
-        ]
-      )
+      qm.setFilters([
+        { identifier: 'test', value: 'testValue' },
+        { identifier: 'test3', value: 'testValue' }
+      ])
       const facetConfig = [
         new RefinementSelectFacet({ field: 'test', identifier: 'test', label: 'Test' }),
         new RefinementSelectFacet({ field: 'test2', identifier: 'test2', label: 'Test 2' }),
@@ -264,12 +262,10 @@ describe('Facet Fns', () => {
 
     it('should get 2 filters for test', () => {
       const qm = new QueryManager()
-      qm.setFilters(
-        [
-          { identifier: 'test', value: 'testValue' },
-          { identifier: 'test2', value: 'testValue2' }
-        ]
-      )
+      qm.setFilters([
+        { identifier: 'test', value: 'testValue' },
+        { identifier: 'test2', value: 'testValue2' }
+      ])
       const facetConfig = [
         new RefinementSelectFacet({
           field: 'test',
@@ -291,12 +287,10 @@ describe('Facet Fns', () => {
 
     it('should get 1 filters for test, missing test 2 facet config is omitted', () => {
       const qm = new QueryManager()
-      qm.setFilters(
-        [
-          { identifier: 'test', value: 'testValue' },
-          { identifier: 'test2', value: 'testValue2' }
-        ]
-      )
+      qm.setFilters([
+        { identifier: 'test', value: 'testValue' },
+        { identifier: 'test2', value: 'testValue2' }
+      ])
       const facetConfig = [
         new RefinementSelectFacet({
           field: 'test',

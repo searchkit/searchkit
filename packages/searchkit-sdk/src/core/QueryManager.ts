@@ -1,4 +1,4 @@
-import { SortingOption } from ".."
+import { SortingOption } from '..'
 
 export type ValueFilter = {
   identifier: string
@@ -50,7 +50,6 @@ export type MixedFilter =
   | HierarchicalValueFilter
 
 export default class QueryManager {
-
   private sortBy: SortingOption
   private filters: Array<MixedFilter>
   private query: string
