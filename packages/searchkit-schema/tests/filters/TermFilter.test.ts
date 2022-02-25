@@ -61,6 +61,7 @@ describe('Term Filter', () => {
           expect(body).toMatchInlineSnapshot(`
             Object {
               "aggs": Object {},
+              "from": 0,
               "query": Object {
                 "bool": Object {
                   "filter": Array [
@@ -79,6 +80,11 @@ describe('Term Filter', () => {
                 },
               },
               "size": 0,
+              "sort": Array [
+                Object {
+                  "_score": "desc",
+                },
+              ],
             }
           `)
           return [200, HitsMock]

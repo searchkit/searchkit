@@ -1,9 +1,8 @@
+import nock from 'nock'
 import SearchkitRequest, { MultiMatchQuery, SearchkitConfig, VisibleWhen } from '../../src'
 import { FacetSelectedRule, RefinementSelectFacet } from '../../src/facets'
-import nock from 'nock'
 import ResultsNoHitsMock from '../__mock-data__/Facets/results-no-hits.json'
 import QueryManager from '../../src/core/QueryManager'
-import ESClientAdapter from '../../src/adapters/ESClientAdapter'
 
 describe('Visible When Rule system', () => {
   it('success', async () => {
@@ -43,7 +42,7 @@ describe('Visible When Rule system', () => {
       ]
     }
 
-    const request = SearchkitRequest(config, ESClientAdapter)
+    const request = SearchkitRequest(config)
 
     const scope = nock('http://localhost:9200')
       .post('/movies/_search')
@@ -51,7 +50,7 @@ describe('Visible When Rule system', () => {
         const facetFieldRequests = (body as any).aggs.facet_bucket_all.aggs
         expect(facetFieldRequests).toBeTruthy()
         expect(facetFieldRequests.type.terms.field).toBe('type.raw')
-        expect(Object.keys(facetFieldRequests).length).toBe(1)
+        expect(Object.keys(facetFieldRequests)).toHaveLength(1)
         return ResultsNoHitsMock
       })
 
@@ -59,7 +58,7 @@ describe('Visible When Rule system', () => {
       facets: true
     })
     expect(response).toMatchSnapshot()
-    expect(response.facets.length).toBe(1)
+    expect(response.facets).toHaveLength(1)
     expect(response.facets.map((f) => f.identifier)).toEqual(['type'])
 
     nock('http://localhost:9200')
@@ -78,7 +77,7 @@ describe('Visible When Rule system', () => {
       facets: true
     })
     expect(response).toMatchSnapshot()
-    expect(response.facets.length).toBe(4)
+    expect(response.facets).toHaveLength(4)
     expect(response.facets.map((f) => f.identifier).sort()).toEqual(
       ['type', 'writers', 'genres', 'actors'].sort()
     )
@@ -93,7 +92,7 @@ describe('Visible When Rule system', () => {
       facets: true
     })
     expect(response).toMatchSnapshot()
-    expect(response.facets.length).toBe(1)
+    expect(response.facets).toHaveLength(1)
     expect(response.facets.map((f) => f.identifier).sort()).toEqual(['type'].sort())
   })
 })

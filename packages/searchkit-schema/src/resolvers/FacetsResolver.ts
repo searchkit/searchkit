@@ -3,7 +3,7 @@ import { DataRequest } from './ResultsResolver'
 export default async (parent, {}, ctx) => {
   const dataRequest = parent.searchkit.dataRequest as DataRequest
 
-  dataRequest.setFacets()
+  dataRequest.setFacets(true)
 
   try {
     const results = await dataRequest.search()

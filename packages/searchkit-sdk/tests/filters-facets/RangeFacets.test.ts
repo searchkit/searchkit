@@ -6,7 +6,6 @@ import SearchkitRequest, {
   SearchkitConfig
 } from '../../src'
 import ResultsNoHitsMock from '../__mock-data__/Facets/results.json'
-import ESClientAdapter from '../../src/adapters/ESClientAdapter'
 
 describe('Numeric Range + Date Range Facet Filters', () => {
   describe('Numeric Range', () => {
@@ -37,7 +36,7 @@ describe('Numeric Range + Date Range Facet Filters', () => {
     }
 
     it('Combination of min and max number range facets', async () => {
-      const request = SearchkitRequest(config, ESClientAdapter)
+      const request = SearchkitRequest(config)
       request.setFilters([
         {
           identifier: 'imdbRating',
@@ -136,7 +135,7 @@ describe('Numeric Range + Date Range Facet Filters', () => {
     })
 
     it('Combination of min and max date range facets', async () => {
-      const request = SearchkitRequest(config, ESClientAdapter)
+      const request = SearchkitRequest(config)
       request.setFilters([
         {
           identifier: 'released',

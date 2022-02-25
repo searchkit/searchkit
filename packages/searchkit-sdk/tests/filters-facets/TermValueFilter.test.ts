@@ -1,13 +1,6 @@
-import SearchkitRequest, {
-  GeoBoundingBoxFilter,
-  MultiMatchQuery,
-  NumericRangeFilter,
-  SearchkitConfig,
-  TermFilter
-} from '../../src'
 import nock from 'nock'
+import SearchkitRequest, { SearchkitConfig, TermFilter } from '../../src'
 import ResultsNoHitsMock from '../__mock-data__/Facets/results-no-hits.json'
-import ESClientAdapter from '../../src/adapters/ESClientAdapter'
 
 describe('NumericRangeFilter', () => {
   it('Combination of min and max number filters', async () => {
@@ -26,7 +19,7 @@ describe('NumericRangeFilter', () => {
       ]
     }
 
-    const request = SearchkitRequest(moviesSearchConfig, ESClientAdapter)
+    const request = SearchkitRequest(moviesSearchConfig)
     request.setFilters([
       {
         identifier: 'type',
@@ -61,7 +54,7 @@ describe('NumericRangeFilter', () => {
       })
       .persist()
 
-    let response = await request.execute({
+    const response = await request.execute({
       facets: true
     })
     expect(response).toMatchSnapshot()

@@ -58,25 +58,31 @@ describe('Numeric Range Filter', () => {
       .post('/movies/_search')
       .reply((uri, body) => {
         expect(body).toMatchInlineSnapshot(`
-            Object {
-              "aggs": Object {},
-              "query": Object {
-                "bool": Object {
-                  "filter": Array [
-                    Object {
-                      "range": Object {
-                        "imdbRating": Object {
-                          "gte": 2,
-                          "lte": 6,
-                        },
+          Object {
+            "aggs": Object {},
+            "from": 0,
+            "query": Object {
+              "bool": Object {
+                "filter": Array [
+                  Object {
+                    "range": Object {
+                      "imdbRating": Object {
+                        "gte": 2,
+                        "lte": 6,
                       },
                     },
-                  ],
-                },
+                  },
+                ],
               },
-              "size": 0,
-            }
-          `)
+            },
+            "size": 0,
+            "sort": Array [
+              Object {
+                "_score": "desc",
+              },
+            ],
+          }
+        `)
         return [200, HitsMock]
       })
 
@@ -129,6 +135,7 @@ describe('Numeric Range Filter', () => {
         expect(body).toMatchInlineSnapshot(`
           Object {
             "aggs": Object {},
+            "from": 0,
             "query": Object {
               "bool": Object {
                 "filter": Array [
@@ -143,6 +150,11 @@ describe('Numeric Range Filter', () => {
               },
             },
             "size": 0,
+            "sort": Array [
+              Object {
+                "_score": "desc",
+              },
+            ],
           }
         `)
         return [200, HitsMock]
@@ -197,6 +209,7 @@ describe('Numeric Range Filter', () => {
         expect(body).toMatchInlineSnapshot(`
           Object {
             "aggs": Object {},
+            "from": 0,
             "query": Object {
               "bool": Object {
                 "filter": Array [
@@ -211,6 +224,11 @@ describe('Numeric Range Filter', () => {
               },
             },
             "size": 0,
+            "sort": Array [
+              Object {
+                "_score": "desc",
+              },
+            ],
           }
         `)
         return [200, HitsMock]

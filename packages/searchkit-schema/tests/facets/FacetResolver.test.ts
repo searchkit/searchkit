@@ -77,7 +77,13 @@ describe('Facet Resolver', () => {
                   },
                 },
               },
+              "from": 0,
               "size": 0,
+              "sort": Array [
+                Object {
+                  "_score": "desc",
+                },
+              ],
             }
           `)
           return [200, FacetMock]
@@ -229,6 +235,8 @@ describe('Facet Resolver', () => {
         })
 
       const response = await runQuery(gql)
+      expect(response.body.data.results.writersFacet).not.toBeNull()
+      expect(response.body.data.results.actorsFacet).not.toBeNull()
       expect(response.status).toEqual(200)
     })
   })

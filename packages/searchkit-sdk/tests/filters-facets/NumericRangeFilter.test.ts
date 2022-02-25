@@ -1,13 +1,6 @@
-import SearchkitRequest, {
-  GeoBoundingBoxFilter,
-  MultiMatchQuery,
-  NumericRangeFilter,
-  SearchkitConfig
-} from '../../src'
-import { RefinementSelectFacet } from '../../src/facets'
 import nock from 'nock'
+import SearchkitRequest, { NumericRangeFilter, SearchkitConfig } from '../../src'
 import ResultsNoHitsMock from '../__mock-data__/Facets/results-no-hits.json'
-import ESClientAdapter from '../../src/adapters/ESClientAdapter'
 
 describe('NumericRangeFilter', () => {
   it('Combination of min and max number filters', async () => {
@@ -26,7 +19,7 @@ describe('NumericRangeFilter', () => {
       ]
     }
 
-    const request = SearchkitRequest(moviesSearchConfig, ESClientAdapter)
+    const request = SearchkitRequest(moviesSearchConfig)
     request.setFilters([
       {
         identifier: 'imdbRating',
@@ -84,7 +77,7 @@ describe('NumericRangeFilter', () => {
         },
       }
     `)
-    expect(response.summary.appliedFilters.length).toBe(1)
+    expect(response.summary.appliedFilters).toHaveLength(1)
 
     request.setFilters([
       {
@@ -106,6 +99,6 @@ describe('NumericRangeFilter', () => {
           },
         }
       `)
-    expect(response.summary.appliedFilters.length).toBe(1)
+    expect(response.summary.appliedFilters).toHaveLength(1)
   })
 })

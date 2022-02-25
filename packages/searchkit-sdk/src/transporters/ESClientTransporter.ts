@@ -1,12 +1,12 @@
 import { Client } from '@elastic/elasticsearch'
 import HttpAgent, { HttpsAgent } from 'agentkeepalive'
 import { SearchkitConfig } from '..'
-import type { SearchkitAdapter } from '.'
+import type { SearchkitTransporter } from '.'
 
 const keepaliveHttpsAgent = new HttpsAgent()
 const keepaliveAgent = new HttpAgent()
 
-export default class ESClientAdapter implements SearchkitAdapter {
+export default class ESClientTransporter implements SearchkitTransporter {
   private client: Client
 
   constructor(private config: SearchkitConfig) {

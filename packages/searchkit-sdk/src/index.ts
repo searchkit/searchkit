@@ -4,14 +4,14 @@ import BaseQuery from './query/BaseQuery'
 import { BaseFacet } from './facets/BaseFacet'
 import { BaseFilter } from './filters/BaseFilter'
 import { VisibleWhenRuleSet } from './facets'
-import { SearchkitAdapter, SearchkitAdapterConstructor } from './adapters'
+import { SearchkitTransporter, FetchClientTransporter } from './transporters'
 import { getAggregationsFromFacets } from './core/FacetsFns'
 import { SearchkitResponseTransformer, ElasticSearchResponseTransformer } from './transformers'
 
 export * from './query'
 export * from './facets'
 export * from './filters'
-export * from './adapters'
+export * from './transporters'
 
 export interface SortingOption {
   id: string
@@ -56,8 +56,10 @@ const getFacets = (
     return [...facetsList, facet]
   }, [])
 
-const createInstance = (config: SearchkitConfig, adapter: SearchkitAdapterConstructor) =>
-  new SearchkitRequest(config, adapter)
+const createInstance = (
+  config: SearchkitConfig,
+  adapter?: SearchkitTransporter
+): SearchkitRequest => new SearchkitRequest(config, adapter)
 
 export type ResponseRequest = {
   hits?: {
@@ -85,12 +87,12 @@ function getSortOption(id, sortOptions: SortingOption[]) {
 
 export class SearchkitRequest {
   private queryManager: QueryManager
-  private adapter: SearchkitAdapter
+  private transporter: SearchkitTransporter
   private transformer: SearchkitResponseTransformer
 
-  constructor(private config: SearchkitConfig, Adapter) {
+  constructor(private config: SearchkitConfig, transporter?: SearchkitTransporter) {
     this.queryManager = new QueryManager()
-    this.adapter = new Adapter(config)
+    this.transporter = !transporter ? new FetchClientTransporter(config) : transporter
     this.transformer = new ElasticSearchResponseTransformer()
   }
 
@@ -166,7 +168,7 @@ export class SearchkitRequest {
     if (this.config.postProcessRequest) {
       skRequestBody = this.config.postProcessRequest(skRequestBody)
     }
-    const response = await this.adapter.performRequest(skRequestBody)
+    const response = await this.transporter.performRequest(skRequestBody)
 
     return this.transformer.transformResponse(
       response,

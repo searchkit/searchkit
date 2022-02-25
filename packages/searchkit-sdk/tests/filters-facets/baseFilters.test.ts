@@ -2,23 +2,19 @@ import nock from 'nock'
 import SearchkitRequest from '../../src'
 import { MultiMatchQuery } from '../../src/query'
 import HitsMMock from '../__mock-data__/HitResolver/Hits.json'
-import ESClientAdapter from '../../src/adapters/ESClientAdapter'
 
 describe('Base Filters', () => {
   it('Example implementation', async () => {
-    const request = SearchkitRequest(
-      {
-        host: 'http://localhost:9200',
-        query: new MultiMatchQuery({
-          fields: ['title', 'body']
-        }),
-        hits: {
-          fields: ['facet1']
-        },
-        index: 'test'
+    const request = SearchkitRequest({
+      host: 'http://localhost:9200',
+      query: new MultiMatchQuery({
+        fields: ['title', 'body']
+      }),
+      hits: {
+        fields: ['facet1']
       },
-      ESClientAdapter
-    )
+      index: 'test'
+    })
 
     request.query('test')
 

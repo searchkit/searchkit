@@ -1,8 +1,7 @@
+import nock from 'nock'
 import SearchkitRequest, { GeoBoundingBoxFilter, MultiMatchQuery, SearchkitConfig } from '../../src'
 import { RefinementSelectFacet } from '../../src/facets'
-import nock from 'nock'
 import ResultsNoHitsMock from '../__mock-data__/Facets/results-no-hits.json'
-import ESClientAdapter from '../../src/adapters/ESClientAdapter'
 
 describe('Geo Filters', () => {
   it('2 Facets configured, no filters', async () => {
@@ -29,7 +28,7 @@ describe('Geo Filters', () => {
       ]
     }
 
-    const request = SearchkitRequest(config, ESClientAdapter)
+    const request = SearchkitRequest(config)
     request.setFilters([
       {
         identifier: 'location',
@@ -56,7 +55,7 @@ describe('Geo Filters', () => {
     })
     expect(response).toMatchSnapshot()
     expect(response.facets).toBeDefined()
-    expect(response.facets.length).toBe(1)
+    expect(response.facets).toHaveLength(1)
     expect(response.facets.map((f) => f.identifier)).toEqual(['type'])
     expect(response.summary.appliedFilters).toMatchInlineSnapshot(`
       Array [
@@ -112,6 +111,6 @@ describe('Geo Filters', () => {
         },
       }
     `)
-    expect(response.summary.appliedFilters.length).toBe(2)
+    expect(response.summary.appliedFilters).toHaveLength(2)
   })
 })

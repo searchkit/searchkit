@@ -1,10 +1,14 @@
 /* eslint-disable no-useless-catch */
-import createInstance, { SearchkitConfig, SearchkitRequest, SortingOption } from '@searchkit/sdk'
+import createInstance, { SearchkitConfig, SearchkitRequest } from '@searchkit/sdk'
+import ESClientTransporter from '@searchkit/sdk/lib/cjs/transporters/ESClientTransporter'
 import DataLoader from 'dataloader'
+
+type FacetsRequest = { identifier: string; query?: string; size?: number }[]
 
 export class DataRequest {
   private dataloader: any
-  private enableFacets: boolean
+  private facets: boolean
+  private facetsCriteria: { identifier: string; query?: string; size?: number }[] = []
   private size: number
   private from: number
   private skRequest: SearchkitRequest
@@ -12,11 +16,15 @@ export class DataRequest {
 
   constructor(private config: SearchkitConfig) {
     this.dataloader = new DataLoader(this.performSearch.bind(this))
-    this.skRequest = createInstance(config)
+    this.skRequest = createInstance(config, new ESClientTransporter(config))
   }
 
-  setFacets(): void {
-    this.enableFacets = true
+  setFacets(enable: boolean): void {
+    this.facets = enable
+  }
+
+  setFacetsCriteria(facetsCriteria: FacetsRequest): void {
+    this.facetsCriteria = [...this.facetsCriteria, ...facetsCriteria]
   }
 
   setHits({ size, from, sortId }: { size: number; from: number; sortId: string }): void {
@@ -48,7 +56,7 @@ export class DataRequest {
   async performSearch(requests) {
     const results = await this.skRequest.execute(
       {
-        facets: this.enableFacets,
+        facets: this.facetsCriteria ? this.facetsCriteria : this.facets,
         hits: {
           size: this.size,
           from: this.from
@@ -65,7 +73,6 @@ export default async (parent, parameters, ctx, info) => {
   try {
     const returnTypeName = info.returnType.name
     const config = ctx.searchkit.configs[returnTypeName] as SearchkitConfig
-    const skRequest = createInstance(config)
 
     const baseFilters = ctx.searchkit.baseFilters[returnTypeName]
       ? ctx.searchkit.baseFilters[returnTypeName](parent, parameters, ctx, info)
@@ -88,7 +95,6 @@ export default async (parent, parameters, ctx, info) => {
 
     return {
       searchkit: {
-        skRequest: skRequest,
         dataRequest,
         config,
         hitType: ctx.searchkit.hitTypeMappings[returnTypeName]

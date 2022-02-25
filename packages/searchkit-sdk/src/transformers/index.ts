@@ -1,14 +1,37 @@
-import { ResponseRequest } from '..'
+import { BaseFacet, ResponseRequest, SelectedFilter } from '..'
 import { getFacetsFromResponse } from '../core/FacetsFns'
+import QueryManager from '../core/QueryManager'
 
 export interface SearchkitResponseTransformer {
   transformResponse(responseBody, facetsConfig, queryManager, config, responseRequest): any
 }
 
-function getSummaryFromResponse(responseBody, facets, queryManager, config) {
+function isSelectedDisabledFilter(filter): filter is DisabledFilter {
+  return (filter as DisabledFilter).disabled
+}
+
+export type DisabledFilter = {
+  disabled: true
+  identifier: string
+}
+
+export type SummaryResponse = {
+  total: number
+  appliedFilters: SelectedFilter[]
+  disabledFilters: DisabledFilter[]
+  query: string
+  sortOptions: { id: string; label: string }[]
+}
+
+function getSummaryFromResponse(
+  responseBody,
+  facets,
+  queryManager: QueryManager,
+  config
+): SummaryResponse {
   const combinedFilters = [...(facets || []), ...(config.filters || [])]
   const filters = queryManager.getFilters().map((filterSet) => {
-    const facetConfig = combinedFilters.find(
+    const facetConfig: BaseFacet = combinedFilters.find(
       (facet) => facet.getIdentifier() === filterSet.identifier
     )
     if (!facetConfig) {
@@ -19,9 +42,12 @@ function getSummaryFromResponse(responseBody, facets, queryManager, config) {
     }
     return facetConfig.getSelectedFilter(filterSet)
   })
-  const { appliedFilters, disabledFilters } = filters.reduce(
+  const {
+    appliedFilters,
+    disabledFilters
+  }: { appliedFilters: SelectedFilter[]; disabledFilters: DisabledFilter[] } = filters.reduce(
     (sum, filter) => {
-      if (filter.disabled) {
+      if (isSelectedDisabledFilter(filter)) {
         sum.disabledFilters.push(filter)
       } else {
         sum.appliedFilters.push(filter)

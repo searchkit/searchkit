@@ -1,10 +1,11 @@
 import { SearchkitConfig } from '..'
-import { SearchkitAdapter } from '.'
+import { SearchkitTransporter } from '.'
 
-export default class FetchClientAdapter implements SearchkitAdapter {
+export default class FetchClientTransporter implements SearchkitTransporter {
   constructor(private config: SearchkitConfig) {}
 
   async performRequest(requestBody) {
+    if (!fetch) throw new Error('Fetch is not supported in this browser / environment')
     const response = await fetch(this.config.host + '/' + this.config.index + '/_search', {
       method: 'POST',
       body: JSON.stringify(requestBody),

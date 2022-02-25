@@ -1,4 +1,4 @@
-import { SortingOption } from '../resolvers/ResultsResolver'
+import { SortingOption } from '@searchkit/sdk'
 
 export type ValueFilter = {
   identifier: string

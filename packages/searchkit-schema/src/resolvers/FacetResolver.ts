@@ -1,39 +1,22 @@
-import SearchkitRequest from '../core/SearchkitRequest'
-import { getAggregationsFromFacets, getFacetsFromResponse } from '../core/FacetsFns'
-import QueryManager from '../core/QueryManager'
-import { BaseFacet } from '@searchkit/sdk'
+import { DataRequest } from './ResultsResolver'
 
 export interface FacetResolverParameters {
   identifier: string
-  query: string
-  size: number
+  query?: string
+  size?: number
 }
 
 export default async (parent, parameters: FacetResolverParameters, ctx) => {
-  const queryManager: QueryManager = parent.searchkit.queryManager
-  const skRequest: SearchkitRequest = parent.searchkit.skRequest
-  const skFacets: Array<BaseFacet> = parent.searchkit.facets
+  const dataRequest = parent.searchkit.dataRequest as DataRequest
 
-  // evaluate the facets that are allowed from rules
-  const facet =
-    skFacets && skFacets.find((facet) => facet.getIdentifier() === parameters.identifier)
-  if (!facet) return null
+  dataRequest.setFacets(true)
+  dataRequest.setFacetsCriteria([
+    { identifier: parameters.identifier, query: parameters.query, size: parameters.size }
+  ])
 
   try {
-    const aggs = getAggregationsFromFacets(
-      queryManager,
-      {
-        [facet.getIdentifier()]: {
-          query: parameters.query,
-          size: parameters.size
-        }
-      },
-      [facet]
-    )
-    const response = await skRequest.search(aggs)
-    const facets = getFacetsFromResponse([facet], response, queryManager)
-
-    return facets[0]
+    const response = await dataRequest.search()
+    return response.facets.find((facet) => facet.identifier === parameters.identifier)
   } catch (e) {
     throw e
   }
