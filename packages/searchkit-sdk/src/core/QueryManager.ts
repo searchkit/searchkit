@@ -38,7 +38,7 @@ export type HierarchicalValueFilter = {
   level: number
 }
 
-type QueryOptions = {
+export type QueryOptions = {
   fields: Array<string>
 }
 

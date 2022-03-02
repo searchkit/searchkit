@@ -5,6 +5,15 @@ import DataLoader from 'dataloader'
 
 type FacetsRequest = { identifier: string; query?: string; size?: number }[]
 
+const transporter = {}
+
+function getTransporter(config: SearchkitConfig) {
+  if (!transporter[config.index]) {
+    transporter[config.index] = new ESClientTransporter(config)
+  }
+  return transporter[config.index]
+}
+
 export class DataRequest {
   private dataloader: any
   private facets: boolean
@@ -16,7 +25,7 @@ export class DataRequest {
 
   constructor(private config: SearchkitConfig) {
     this.dataloader = new DataLoader(this.performSearch.bind(this))
-    this.skRequest = createInstance(config, new ESClientTransporter(config))
+    this.skRequest = createInstance(config, getTransporter(this.config))
   }
 
   setFacets(enable: boolean): void {
@@ -56,7 +65,7 @@ export class DataRequest {
   async performSearch(requests) {
     const results = await this.skRequest.execute(
       {
-        facets: this.facetsCriteria ? this.facetsCriteria : this.facets,
+        facets: this.facetsCriteria.length > 0 ? this.facetsCriteria : this.facets,
         hits: {
           size: this.size,
           from: this.from

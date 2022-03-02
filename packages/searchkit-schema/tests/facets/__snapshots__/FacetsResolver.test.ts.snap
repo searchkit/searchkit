@@ -1,14 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Facets Resolver should return as expected should return correct Results 1`] = `
-Object {
-  "results": Object {
-    "facets": null,
-    "hits": null,
-  },
-}
-`;
-
 exports[`Facets Resolver should return as expected should return correct Results 2`] = `
 Object {
   "results": Object {
@@ -156,15 +147,6 @@ Object {
         },
       ],
     },
-  },
-}
-`;
-
-exports[`Facets Resolver should return as expected should return correct results with one filter 1`] = `
-Object {
-  "results": Object {
-    "facets": null,
-    "hits": null,
   },
 }
 `;

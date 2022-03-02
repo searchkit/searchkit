@@ -1,4 +1,4 @@
-import { BaseFacet, ResponseRequest, SelectedFilter } from '..'
+import { BaseFacet, FacetResponse, ResponseRequest, SelectedFilter } from '..'
 import { getFacetsFromResponse } from '../core/FacetsFns'
 import QueryManager from '../core/QueryManager'
 
@@ -72,14 +72,36 @@ function getSummaryFromResponse(
   }
 }
 
+interface SearchkitHit {
+  id: string
+  fields: Record<string, any>
+  highlight: Record<string, any>
+}
+
+interface SearchkitPage {
+  total: number
+  totalPages: number
+  pageNumber: number
+  from: number
+  size: number
+}
+
+export interface SearchkitResponse {
+  summary: SummaryResponse
+  facets: FacetResponse[]
+  items: SearchkitHit[]
+  page: SearchkitPage
+  sortedBy?: string
+}
+
 export class ElasticSearchResponseTransformer implements SearchkitResponseTransformer {
   transformResponse(
     responseBody,
     facetsConfig,
-    queryManager,
+    queryManager: QueryManager,
     config,
     responseRequest: ResponseRequest
-  ) {
+  ): SearchkitResponse {
     const { hits } = responseBody
 
     const facets = responseRequest.facets

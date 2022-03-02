@@ -1,15 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Geo Filters should return as expected no filters applied 1`] = `
-Object {
-  "results": Object {
-    "facets": null,
-    "hits": null,
-    "summary": null,
-  },
-}
-`;
-
 exports[`Geo Filters should return as expected no filters applied 2`] = `
 Object {
   "results": Object {
@@ -57,16 +47,6 @@ Object {
     "summary": Object {
       "appliedFilters": Array [],
     },
-  },
-}
-`;
-
-exports[`Geo Filters should return as expected one filter applied 1`] = `
-Object {
-  "results": Object {
-    "facets": null,
-    "hits": null,
-    "summary": null,
   },
 }
 `;
@@ -125,16 +105,6 @@ Object {
         },
       ],
     },
-  },
-}
-`;
-
-exports[`Geo Filters should return as expected should return correct Results 1`] = `
-Object {
-  "results": Object {
-    "facets": null,
-    "hits": null,
-    "summary": null,
   },
 }
 `;

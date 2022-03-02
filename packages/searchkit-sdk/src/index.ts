@@ -1,4 +1,4 @@
-import QueryManager, { MixedFilter } from './core/QueryManager'
+import QueryManager, { MixedFilter, QueryOptions } from './core/QueryManager'
 import RequestBodyBuilder from './core/RequestBodyBuilder'
 import BaseQuery from './query/BaseQuery'
 import { BaseFacet } from './facets/BaseFacet'
@@ -6,7 +6,11 @@ import { BaseFilter } from './filters/BaseFilter'
 import { VisibleWhenRuleSet } from './facets'
 import { SearchkitTransporter, FetchClientTransporter } from './transporters'
 import { getAggregationsFromFacets } from './core/FacetsFns'
-import { SearchkitResponseTransformer, ElasticSearchResponseTransformer } from './transformers'
+import {
+  SearchkitResponseTransformer,
+  ElasticSearchResponseTransformer,
+  SearchkitResponse
+} from './transformers'
 
 export * from './query'
 export * from './facets'
@@ -58,8 +62,8 @@ const getFacets = (
 
 const createInstance = (
   config: SearchkitConfig,
-  adapter?: SearchkitTransporter
-): SearchkitRequest => new SearchkitRequest(config, adapter)
+  transporter?: SearchkitTransporter
+): SearchkitRequest => new SearchkitRequest(config, transporter)
 
 export type ResponseRequest = {
   hits?: {
@@ -96,22 +100,22 @@ export class SearchkitRequest {
     this.transformer = new ElasticSearchResponseTransformer()
   }
 
-  query(query: string) {
+  query(query: string): SearchkitRequest {
     this.queryManager.setQuery(query)
     return this
   }
 
-  setFilters(filters: Array<MixedFilter>) {
+  setFilters(filters: Array<MixedFilter>): SearchkitRequest {
     this.queryManager.setFilters(filters)
     return this
   }
 
-  setQueryOptions(options) {
+  setQueryOptions(options: QueryOptions): SearchkitRequest {
     this.queryManager.setQueryOptions(options)
     return this
   }
 
-  setSortBy(sortBy: string) {
+  setSortBy(sortBy: string): SearchkitRequest {
     if (this.config.sortOptions && sortBy) {
       const sortOption = getSortOption(sortBy, this.config.sortOptions)
       this.queryManager.setSortBy(sortOption)
@@ -119,7 +123,10 @@ export class SearchkitRequest {
     return this
   }
 
-  async execute(responseRequest: ResponseRequest, baseFilters: BaseFilters = []) {
+  async execute(
+    responseRequest: ResponseRequest,
+    baseFilters: BaseFilters = []
+  ): Promise<SearchkitResponse> {
     const partialQueries = []
     const facets = getFacets(this.config.facets, this.queryManager, {})
     let filteredFacets = null

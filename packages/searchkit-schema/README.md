@@ -2,7 +2,7 @@
 
 ## Searchkit GraphQL Schema 
 
-[![npm version](https://badge.fury.io/js/%40searchkit%2Fclient.svg)](https://badge.fury.io/js/%40searchkit%2Fclient)
+[![npm version](https://badge.fury.io/js/%40searchkit%2Fschema.svg)](https://badge.fury.io/js/%40searchkit%2Fschema)
 
 Searchkit Schema is a library which allows you to build a GraphQL Search API designed for Search UI experiences with configuration. It integrates with Elasticsearch to provide search features like full-text search, faceted filtering, sorting, relevency tweaking and query highlighting.   
 
