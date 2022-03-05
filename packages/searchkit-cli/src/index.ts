@@ -29,6 +29,9 @@ export interface CliConfig {
   index: string
   type?: string
   host: string
+  connectionOptions?: {
+    apiKey?: string
+  }
   source?: any
   fields: Array<SearchkitField>
 }

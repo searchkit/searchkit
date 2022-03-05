@@ -1,11 +1,12 @@
 ---
 id: guides-elasticsearch-setup-indexing
-title: Elasticsearch Setup and Indexing 
+title: Elasticsearch Setup and Indexing
 sidebar_label: Elasticsearch Setup & Indexing
 slug: /guides/elasticsearch-setup-indexing
 ---
 
 ### Setup Elasticsearch
+
 Either pick a cloud offering for example [qbox.io](https://www.qbox.io?ref=searchkit) or run locally via [instructions here](https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html)
 
 ### Setup Fields + Mappings
@@ -15,6 +16,7 @@ Searchkit has a CLI which helps creating a Elasticsearch schema for your documen
 Copy the project from [indexer example](https://github.com/searchkit/searchkit/tree/next/examples/indexer)
 
 Then within config.ts, add your own fields. Searchkit CLI will:
+
 1. generate a Elasticsearch mapping file based on your configuration
 2. Give you an example configuration for searchkit
 3. Update elasticsearch with the mapping file (requires host)
@@ -22,20 +24,22 @@ Then within config.ts, add your own fields. Searchkit CLI will:
 
 ```javascript
 withConfig({
-  index: 'imdb_movies', <--- the elasticsearch index name
-  host: "http://localhost:9200", <--- host url for elasticsearch
-  source: movies, <---- Array of raw documents. Used with the field's sourceOptions. Optional
-  type: 'movie' <----- required for Elasticsearch v6. If you use elasticsearch 7, do *not* specify type.
+  index: 'imdb_movies', // the elasticsearch index name
+  host: "http://localhost:9200", // host url for elasticsearch
+  connectionOptions: {
+    apiKey: "cvdfv" // Optional. Elasticsearch apiKey for authentication. Requires write access to index
+  }
+  source: movies, //- Array of raw documents. Used with the field's sourceOptions. Optional
   fields: [
     {
-      fieldName: 'type',  <-- name of field. Must be lowercase
-      stored: true, <-------- fields you want returned in the API. 
-      facet: true,  <-------- If you want the value to be used as a facet
-      searchable: true <----- If you want the field to be searchable within query
-      type: 'integer' <--- Optional. Default is keyword. Can be `integer`, `date` or `float`
-      sourceOptions: { 
-        path: 'Type' <-- Used in indexing step. The key for the field value source. 
-        transform: splitComma <-- Optional. To provide transformation from source to document field 
+      fieldName: 'type',  // name of field. Must be lowercase
+      stored: true, // fields you want returned in the API.
+      facet: true,  // If you want the value to be used as a facet
+      searchable: true // If you want the field to be searchable within query
+      type: 'integer' // Optional. Default is keyword. Can be `integer`, `date` or `float`
+      sourceOptions: {
+        path: 'Type' // Used in indexing step. The key for the field value source.
+        transform: splitComma // Optional. To provide transformation from source to document field
       }
     }
   ]
@@ -45,10 +49,13 @@ withConfig({
 Then run the CLI via `yarn start` and follow the steps.
 
 #### Generate Example Searchkit Config?
+
 If yes, CLI will generate a file in current working directory called skConfig.md. This will provide you an elasticsearch mapping file and an example searchkit config, based on the field definitions within config.ts
 
 #### Host detected. Destroy index and reinsert index mapping?
+
 If yes, will recreate the elasticsearch index
 
 #### Source detected. Insert documents into ES host?
+
 If yes, will index the documents into elasticsearch
