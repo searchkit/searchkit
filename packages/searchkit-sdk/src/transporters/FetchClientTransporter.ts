@@ -10,7 +10,11 @@ export default class FetchClientTransporter implements SearchkitTransporter {
       method: 'POST',
       body: JSON.stringify(requestBody),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        ...(this.config.connectionOptions?.headers || {}),
+        ...(this.config.connectionOptions?.apiKey
+          ? { Authorization: `ApiKey ${this.config.connectionOptions.apiKey}` }
+          : {})
       }
     })
     const json = await response.json()

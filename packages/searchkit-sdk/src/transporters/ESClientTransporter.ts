@@ -12,6 +12,12 @@ export default class ESClientTransporter implements SearchkitTransporter {
   constructor(private config: SearchkitConfig) {
     this.client = new Client({
       node: this.config.host,
+      auth: {
+        apiKey: this.config.connectionOptions?.apiKey
+      },
+      headers: {
+        ...(this.config.connectionOptions?.headers || {})
+      },
       agent: () =>
         new URL(this.config.host).protocol === 'http:' ? keepaliveAgent : keepaliveHttpsAgent
     })

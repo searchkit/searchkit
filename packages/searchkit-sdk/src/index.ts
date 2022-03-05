@@ -32,6 +32,10 @@ export interface CustomHighlightConfig {
 export interface SearchkitConfig {
   host: string
   index: string
+  connectionOptions?: {
+    apiKey?: string
+    headers?: Record<string, string>
+  }
   sortOptions?: SortingOption[]
   hits: {
     fields: string[]
