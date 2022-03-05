@@ -65,7 +65,10 @@ export const transformDefinitionField = (field) => {
 
 export const dropIndices = async (config) => {
   const client = new Client({
-    node: config.host
+    node: config.host,
+    auth: {
+      apiKey: config.connectionOptions?.apiKey
+    }
   })
 
   try {
@@ -75,7 +78,10 @@ export const dropIndices = async (config) => {
 
 export const createIndices = async (config) => {
   const client = new Client({
-    node: config.host
+    node: config.host,
+    auth: {
+      apiKey: config.connectionOptions?.apiKey
+    }
   })
 
   try {
@@ -98,7 +104,10 @@ export const getMapping = (config) => {
 
 export const addMappingES7 = async (config) => {
   const client = new Client({
-    node: config.host
+    node: config.host,
+    auth: {
+      apiKey: config.connectionOptions?.apiKey
+    }
   })
 
   try {
@@ -138,7 +147,10 @@ export const getDocs = (config) => {
 
 export const indexDocs = async (config) => {
   const client = new Client({
-    node: config.host
+    node: config.host,
+    auth: {
+      apiKey: config.connectionOptions?.apiKey
+    }
   })
   const docs = await getDocs(config)
   try {

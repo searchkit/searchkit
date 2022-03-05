@@ -1,10 +1,5 @@
 import { ApolloServer, gql } from 'apollo-server-micro'
-import {
-  SearchkitSchema,
-  SearchkitConfig,
-  SearchkitResolver,
-  SearchkitSchemaConfig
-} from '../../src/index'
+import { SearchkitSchema, SearchkitResolver, SearchkitSchemaConfig } from '../../src/index'
 
 const baseTypeDefs = gql`
   type Query {

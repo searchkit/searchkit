@@ -1,7 +1,6 @@
 import nock from 'nock'
 import { gql } from 'apollo-server-micro'
-import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
-import { MultiMatchQuery } from '../src'
+import { MultiMatchQuery, SearchkitConfig } from '@searchkit/sdk'
 import { setupTestServer, callQuery } from './support/helper'
 import HitsMock from './__mock-data__/HitResolver/Hits.json'
 import HighlightHitsMock from './__mock-data__/HitResolver/HighlightHits.json'

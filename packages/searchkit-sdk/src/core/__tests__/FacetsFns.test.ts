@@ -1,12 +1,13 @@
+import { SearchResponse } from 'elasticsearch'
 import { filterTransform, getAggregationsFromFacets, getFacetsFromResponse } from '../FacetsFns'
 import QueryManager from '../QueryManager'
 import { RefinementSelectFacet } from '../../facets'
-import { SearchResponse } from '../SearchkitRequest'
 
 describe('Facet Fns', () => {
   describe('getAggregationsFromFacets', () => {
     it('create aggregations for one facet ', () => {
-      const qm = new QueryManager([{ identifier: 'test', value: 'testValue' }], '', null)
+      const qm = new QueryManager()
+      qm.setFilters([{ identifier: 'test', value: 'testValue' }])
       const facetConfig = [
         new RefinementSelectFacet({ field: 'test', identifier: 'test', label: 'Test' })
       ]
@@ -47,14 +48,11 @@ describe('Facet Fns', () => {
     })
 
     it('create aggregations for two facets in all and one for Multiple select', () => {
-      const qm = new QueryManager(
-        [
-          { identifier: 'test', value: 'testValue' },
-          { identifier: 'test3', value: 'testValue' }
-        ],
-        '',
-        null
-      )
+      const qm = new QueryManager()
+      qm.setFilters([
+        { identifier: 'test', value: 'testValue' },
+        { identifier: 'test3', value: 'testValue' }
+      ])
       const facetConfig = [
         new RefinementSelectFacet({ field: 'test', identifier: 'test', label: 'Test' }),
         new RefinementSelectFacet({ field: 'test2', identifier: 'test2', label: 'Test 2' }),
@@ -96,7 +94,7 @@ describe('Facet Fns', () => {
 
   describe('getFacetsFromResponse', () => {
     it('should transform response from two facets', () => {
-      const response: SearchResponse<any> = {
+      const response = {
         took: 0,
         timed_out: false,
         hits: {
@@ -200,7 +198,7 @@ describe('Facet Fns', () => {
           multipleSelect: true
         })
       ]
-      const qm = new QueryManager([], '', null)
+      const qm = new QueryManager()
       expect(getFacetsFromResponse(facetConfig, response, qm)).toEqual([
         {
           entries: [
@@ -246,7 +244,8 @@ describe('Facet Fns', () => {
 
   describe('filterTransform', () => {
     it('should get filter for test', () => {
-      const qm = new QueryManager([{ identifier: 'test', value: 'testValue' }], '', null)
+      const qm = new QueryManager()
+      qm.setFilters([{ identifier: 'test', value: 'testValue' }])
       const facetConfig = [
         new RefinementSelectFacet({
           field: 'test',
@@ -262,14 +261,11 @@ describe('Facet Fns', () => {
     })
 
     it('should get 2 filters for test', () => {
-      const qm = new QueryManager(
-        [
-          { identifier: 'test', value: 'testValue' },
-          { identifier: 'test2', value: 'testValue2' }
-        ],
-        '',
-        null
-      )
+      const qm = new QueryManager()
+      qm.setFilters([
+        { identifier: 'test', value: 'testValue' },
+        { identifier: 'test2', value: 'testValue2' }
+      ])
       const facetConfig = [
         new RefinementSelectFacet({
           field: 'test',
@@ -290,14 +286,11 @@ describe('Facet Fns', () => {
     })
 
     it('should get 1 filters for test, missing test 2 facet config is omitted', () => {
-      const qm = new QueryManager(
-        [
-          { identifier: 'test', value: 'testValue' },
-          { identifier: 'test2', value: 'testValue2' }
-        ],
-        '',
-        null
-      )
+      const qm = new QueryManager()
+      qm.setFilters([
+        { identifier: 'test', value: 'testValue' },
+        { identifier: 'test2', value: 'testValue2' }
+      ])
       const facetConfig = [
         new RefinementSelectFacet({
           field: 'test',

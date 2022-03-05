@@ -1,0 +1,73 @@
+{
+    "took": 1,
+    "timed_out": false,
+    "_shards": {
+        "total": 4,
+        "successful": 4,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": 4162,
+        "max_score": 0.0,
+        "hits": []
+    },
+    "aggregations": {
+        "facet_bucket_all": {
+            "meta": {},
+            "doc_count": 4162,
+            "writers": {
+                "doc_count_error_upper_bound": 2,
+                "sum_other_doc_count": 48,
+                "buckets": [
+                    {
+                        "key": "Terry Nation",
+                        "doc_count": 10
+                    },
+                    {
+                        "key": "Terry Rossio",
+                        "doc_count": 9
+                    },
+                    {
+                        "key": "Ted Elliott",
+                        "doc_count": 8
+                    },
+                    {
+                        "key": "Terry Gilliam",
+                        "doc_count": 7
+                    },
+                    {
+                        "key": "Terry George",
+                        "doc_count": 5
+                    }
+                ]
+            },
+            "actors": {
+              "doc_count_error_upper_bound": 2,
+              "sum_other_doc_count": 48,
+              "buckets": [
+                  {
+                      "key": "Actor 1",
+                      "doc_count": 10
+                  },
+                  {
+                      "key": "Actor 2",
+                      "doc_count": 9
+                  },
+                  {
+                      "key": "Actor 3",
+                      "doc_count": 8
+                  },
+                  {
+                      "key": "Actor 4",
+                      "doc_count": 7
+                  },
+                  {
+                      "key": "Actor 5",
+                      "doc_count": 5
+                  }
+              ]
+          }
+        }
+    }
+}

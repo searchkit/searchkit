@@ -1,5 +1,5 @@
 import QueryManager from '../core/QueryManager'
-import type { Query } from '../core/SearchkitRequest'
+import type { Query } from '../core/RequestBodyBuilder'
 import BaseQuery from './BaseQuery'
 
 interface CustomQueryConfig {

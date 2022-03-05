@@ -1,0 +1,430 @@
+{
+    "took": 0,
+    "timed_out": false,
+    "_shards": {
+        "total": 4,
+        "successful": 4,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": 4162,
+        "max_score": 1.0,
+        "hits": [
+            {
+                "_index": "movies",
+                "_type": "movie",
+                "_id": "tt0468569",
+                "_score": 1.0,
+                "_source": {
+                    "title": "The Dark Knight",
+                    "year": 2008,
+                    "rated": [
+                        "PG-13"
+                    ],
+                    "released": "2008-07-18",
+                    "runtimeMinutes": 152,
+                    "genres": [
+                        "Action",
+                        "Crime",
+                        "Drama"
+                    ],
+                    "writers": [
+                        "Jonathan Nolan",
+                        "Christopher Nolan",
+                        "David S. Goyer",
+                        "Bob Kane"
+                    ],
+                    "actors": [
+                        "Christian Bale",
+                        "Heath Ledger",
+                        "Aaron Eckhart",
+                        "Michael Caine"
+                    ],
+                    "plot": "When Batman, Gordon and Harvey Dent launch an assault on the mob, they let the clown out of the box, the Joker, bent on turning Gotham on itself and bringing any heroes down to his level.",
+                    "countries": [
+                        "USA",
+                        "UK"
+                    ],
+                    "awards": "Won 2 Oscars. Another 94 wins & 69 nominations.",
+                    "poster": "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_SX300.jpg",
+                    "metaScore": 82,
+                    "imdbRating": 9,
+                    "imdbVotes": 1133701,
+                    "imdbId": "tt0468569",
+                    "type": "Movie"
+                }
+            },
+            {
+                "_index": "movies",
+                "_type": "movie",
+                "_id": "tt0110912",
+                "_score": 1.0,
+                "_source": {
+                    "title": "Pulp Fiction",
+                    "year": 1994,
+                    "rated": [
+                        "R"
+                    ],
+                    "released": "1994-10-14",
+                    "runtimeMinutes": 154,
+                    "genres": [
+                        "Crime",
+                        "Drama",
+                        "Thriller"
+                    ],
+                    "writers": [
+                        "Quentin Tarantino",
+                        "Roger Avary"
+                    ],
+                    "actors": [
+                        "Tim Roth",
+                        "Amanda Plummer",
+                        "Laura Lovelace",
+                        "John Travolta"
+                    ],
+                    "plot": "The lives of two mob hit men, a boxer, a gangster's wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
+                    "countries": [
+                        "USA"
+                    ],
+                    "awards": "Won 1 Oscar. Another 61 wins & 46 nominations.",
+                    "poster": "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMjE0ODk2NjczOV5BMl5BanBnXkFtZTYwNDQ0NDg4._V1_SX300.jpg",
+                    "metaScore": 94,
+                    "imdbRating": 9,
+                    "imdbVotes": 895306,
+                    "imdbId": "tt0110912",
+                    "type": "Movie"
+                }
+            },
+            {
+                "_index": "movies",
+                "_type": "movie",
+                "_id": "tt0167260",
+                "_score": 1.0,
+                "_source": {
+                    "title": "The Lord of the Rings: The Return of the King",
+                    "year": 2003,
+                    "rated": [
+                        "PG-13"
+                    ],
+                    "released": "2003-12-17",
+                    "runtimeMinutes": 201,
+                    "genres": [
+                        "Action",
+                        "Adventure",
+                        "Fantasy"
+                    ],
+                    "writers": [
+                        "J.R.R. Tolkien",
+                        "Fran Walsh",
+                        "Philippa Boyens",
+                        "Peter Jackson"
+                    ],
+                    "actors": [
+                        "Noel Appleby",
+                        "Alexandra Astin",
+                        "Sean Astin",
+                        "David Aston"
+                    ],
+                    "plot": "Gandalf and Aragorn lead the World of Men against Sauron's army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring.",
+                    "countries": [
+                        "USA",
+                        "New Zealand"
+                    ],
+                    "awards": "Won 11 Oscars. Another 122 wins & 73 nominations.",
+                    "poster": "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMjE4MjA1NTAyMV5BMl5BanBnXkFtZTcwNzM1NDQyMQ@@._V1_SX300.jpg",
+                    "metaScore": 94,
+                    "imdbRating": 8.9,
+                    "imdbVotes": 826369,
+                    "imdbId": "tt0167260",
+                    "type": "Movie"
+                }
+            },
+            {
+                "_index": "movies",
+                "_type": "movie",
+                "_id": "tt0114369",
+                "_score": 1.0,
+                "_source": {
+                    "title": "Se7en",
+                    "year": 1995,
+                    "rated": [
+                        "R"
+                    ],
+                    "released": "1995-09-22",
+                    "runtimeMinutes": 127,
+                    "genres": [
+                        "Crime",
+                        "Mystery",
+                        "Thriller"
+                    ],
+                    "writers": [
+                        "Andrew Kevin Walker"
+                    ],
+                    "actors": [
+                        "Morgan Freeman",
+                        "Andrew Kevin Walker",
+                        "Daniel Zacapa",
+                        "Brad Pitt"
+                    ],
+                    "plot": "Two detectives, a rookie and a veteran, hunt a serial killer who uses the seven deadly sins as his modus operandi.",
+                    "countries": [
+                        "USA"
+                    ],
+                    "awards": "Nominated for 1 Oscar. Another 25 wins & 18 nominations.",
+                    "poster": "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMTQwNTU3MTE4NF5BMl5BanBnXkFtZTcwOTgxNDM2Mg@@._V1_SX300.jpg",
+                    "metaScore": 65,
+                    "imdbRating": 8.7,
+                    "imdbVotes": 672372,
+                    "imdbId": "tt0114369",
+                    "type": "Movie"
+                }
+            },
+            {
+                "_index": "movies",
+                "_type": "movie",
+                "_id": "tt0073486",
+                "_score": 1.0,
+                "_source": {
+                    "title": "One Flew Over the Cuckoo's Nest",
+                    "year": 1975,
+                    "rated": [
+                        "R"
+                    ],
+                    "released": "1975-11-21",
+                    "runtimeMinutes": 133,
+                    "genres": [
+                        "Drama"
+                    ],
+                    "writers": [
+                        "Lawrence Hauben",
+                        "Bo Goldman",
+                        "Ken Kesey",
+                        "Dale Wasserman"
+                    ],
+                    "actors": [
+                        "Michael Berryman",
+                        "Peter Brocco",
+                        "Dean R. Brooks",
+                        "Alonzo Brown"
+                    ],
+                    "plot": "Upon admittance to a mental institution, a brash rebel rallies the patients to take on the oppressive head nurse.",
+                    "countries": [
+                        "USA"
+                    ],
+                    "awards": "Won 5 Oscars. Another 30 wins & 12 nominations.",
+                    "poster": "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMTk5OTA4NTc0NF5BMl5BanBnXkFtZTcwNzI5Mzg3OA@@._V1_SX300.jpg",
+                    "metaScore": 79,
+                    "imdbRating": 8.8,
+                    "imdbVotes": 481493,
+                    "imdbId": "tt0073486",
+                    "type": "Movie"
+                }
+            },
+            {
+                "_index": "movies",
+                "_type": "movie",
+                "_id": "tt0172495",
+                "_score": 1.0,
+                "_source": {
+                    "title": "Gladiator",
+                    "year": 2000,
+                    "rated": [
+                        "R"
+                    ],
+                    "released": "2000-05-05",
+                    "runtimeMinutes": 155,
+                    "genres": [
+                        "Action",
+                        "Adventure",
+                        "Drama"
+                    ],
+                    "writers": [
+                        "David Franzoni",
+                        "John Logan",
+                        "William Nicholson"
+                    ],
+                    "actors": [
+                        "Russell Crowe",
+                        "Joaquin Phoenix",
+                        "Connie Nielsen",
+                        "Oliver Reed"
+                    ],
+                    "plot": "When a Roman general is betrayed and his family murdered by an emperor's corrupt son, he comes to Rome as a gladiator to seek revenge.",
+                    "countries": [
+                        "USA",
+                        "UK"
+                    ],
+                    "awards": "Won 5 Oscars. Another 51 wins & 80 nominations.",
+                    "poster": "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMTgwMzQzNTQ1Ml5BMl5BanBnXkFtZTgwMDY2NTYxMTE@._V1_SX300.jpg",
+                    "metaScore": 64,
+                    "imdbRating": 8.5,
+                    "imdbVotes": 649422,
+                    "imdbId": "tt0172495",
+                    "type": "Movie"
+                }
+            },
+            {
+                "_index": "movies",
+                "_type": "movie",
+                "_id": "tt1520211",
+                "_score": 1.0,
+                "_source": {
+                    "title": "The Walking Dead",
+                    "year": 2010,
+                    "rated": [
+                        "TV-14"
+                    ],
+                    "released": "2010-10-31",
+                    "runtimeMinutes": 45,
+                    "genres": [
+                        "Drama",
+                        "Horror",
+                        "Thriller"
+                    ],
+                    "writers": [
+                        "Frank Darabont"
+                    ],
+                    "actors": [
+                        "Andrew Lincoln",
+                        "Steven Yeun",
+                        "Chandler Riggs",
+                        "Norman Reedus"
+                    ],
+                    "plot": "Police officer Rick Grimes leads a group of survivors in a world overrun by zombies.",
+                    "countries": [
+                        "USA"
+                    ],
+                    "awards": "Nominated for 1 Golden Globe. Another 15 wins & 50 nominations.",
+                    "poster": "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BNzU0MjIzNzY1MV5BMl5BanBnXkFtZTgwNjgxNTg4MDE@._V1_SX300.jpg",
+                    "imdbRating": 8.8,
+                    "imdbVotes": 357942,
+                    "imdbId": "tt1520211",
+                    "type": "Series"
+                }
+            },
+            {
+                "_index": "movies",
+                "_type": "movie",
+                "_id": "tt0338013",
+                "_score": 1.0,
+                "_source": {
+                    "title": "Eternal Sunshine of the Spotless Mind",
+                    "year": 2004,
+                    "rated": [
+                        "R"
+                    ],
+                    "released": "2004-03-19",
+                    "runtimeMinutes": 108,
+                    "genres": [
+                        "Drama",
+                        "Romance",
+                        "Sci-Fi"
+                    ],
+                    "writers": [
+                        "Charlie Kaufman",
+                        "Michel Gondry",
+                        "Pierre Bismuth"
+                    ],
+                    "actors": [
+                        "Jim Carrey",
+                        "Kate Winslet",
+                        "Gerry Robert Byrne",
+                        "Elijah Wood"
+                    ],
+                    "plot": "A couple undergo a procedure to erase each other from their memories when their relationship turns sour, but it is only through the process of loss that they discover what they had to begin with.",
+                    "countries": [
+                        "USA"
+                    ],
+                    "awards": "Won 1 Oscar. Another 46 wins & 54 nominations.",
+                    "poster": "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMTY4NzcwODg3Nl5BMl5BanBnXkFtZTcwNTEwOTMyMw@@._V1_SX300.jpg",
+                    "metaScore": 89,
+                    "imdbRating": 8.4,
+                    "imdbVotes": 467149,
+                    "imdbId": "tt0338013",
+                    "type": "Movie"
+                }
+            },
+            {
+                "_index": "movies",
+                "_type": "movie",
+                "_id": "tt0078788",
+                "_score": 1.0,
+                "_source": {
+                    "title": "Apocalypse Now",
+                    "year": 1979,
+                    "rated": [
+                        "R"
+                    ],
+                    "released": "1979-08-15",
+                    "runtimeMinutes": 153,
+                    "genres": [
+                        "Drama",
+                        "War"
+                    ],
+                    "writers": [
+                        "John Milius",
+                        "Francis Ford Coppola",
+                        "Michael Herr"
+                    ],
+                    "actors": [
+                        "Marlon Brando",
+                        "Martin Sheen",
+                        "Robert Duvall",
+                        "Frederic Forrest"
+                    ],
+                    "plot": "During the U.S.-Viet Nam War, Captain Willard is sent on a dangerous mission into Cambodia to assassinate a renegade colonel who has set himself up as a god among a local tribe.",
+                    "countries": [
+                        "USA"
+                    ],
+                    "awards": "Won 2 Oscars. Another 17 wins & 30 nominations.",
+                    "poster": "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMTcyMzQ5NDM4OV5BMl5BanBnXkFtZTcwODUwNDg3OA@@._V1_SX300.jpg",
+                    "metaScore": 90,
+                    "imdbRating": 8.5,
+                    "imdbVotes": 329282,
+                    "imdbId": "tt0078788",
+                    "type": "Movie"
+                }
+            },
+            {
+                "_index": "movies",
+                "_type": "movie",
+                "_id": "tt0180093",
+                "_score": 1.0,
+                "_source": {
+                    "title": "Requiem for a Dream",
+                    "year": 2000,
+                    "rated": [
+                        "R"
+                    ],
+                    "released": "2000-10-27",
+                    "runtimeMinutes": 102,
+                    "genres": [
+                        "Drama"
+                    ],
+                    "writers": [
+                        "Hubert Selby Jr.",
+                        "Darren Aronofsky"
+                    ],
+                    "actors": [
+                        "Ellen Burstyn",
+                        "Jared Leto",
+                        "Jennifer Connelly",
+                        "Marlon Wayans"
+                    ],
+                    "plot": "The drug-induced utopias of four Coney Island individuals are shattered when their addictions become stronger.",
+                    "countries": [
+                        "USA"
+                    ],
+                    "awards": "Nominated for 1 Oscar. Another 27 wins & 36 nominations.",
+                    "poster": "https://s3-eu-west-1.amazonaws.com/imdbimages/images/MV5BMzM2OTYwMTY4Nl5BMl5BanBnXkFtZTcwMjU1Njg3OA@@._V1_SX300.jpg",
+                    "metaScore": 68,
+                    "imdbRating": 8.4,
+                    "imdbVotes": 406824,
+                    "imdbId": "tt0180093",
+                    "type": "Movie"
+                }
+            }
+        ]
+    }
+}

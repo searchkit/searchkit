@@ -1,0 +1,121 @@
+{
+    "took": 68,
+    "timed_out": false,
+    "_shards": {
+        "total": 4,
+        "successful": 4,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": 4162,
+        "max_score": 1.0,
+        "hits": []
+    },
+    "aggregations": {
+        "facet_bucket_all": {
+            "meta": {},
+            "doc_count": 4162,
+            "actors": {
+                "doc_count_error_upper_bound": 31,
+                "sum_other_doc_count": 16028,
+                "buckets": [
+                    {
+                        "key": "Naveen Andrews",
+                        "doc_count": 73
+                    },
+                    {
+                        "key": "Jennifer Carpenter",
+                        "doc_count": 56
+                    },
+                    {
+                        "key": "Michael C. Hall",
+                        "doc_count": 56
+                    },
+                    {
+                        "key": "Emilie de Ravin",
+                        "doc_count": 53
+                    },
+                    {
+                        "key": "Jared Padalecki",
+                        "doc_count": 42
+                    }
+                ]
+            },
+            "genres": {
+                "doc_count_error_upper_bound": 145,
+                "sum_other_doc_count": 4259,
+                "buckets": [
+                    {
+                        "key": "Drama",
+                        "doc_count": 2529
+                    },
+                    {
+                        "key": "Comedy",
+                        "doc_count": 1274
+                    },
+                    {
+                        "key": "Crime",
+                        "doc_count": 786
+                    },
+                    {
+                        "key": "Action",
+                        "doc_count": 725
+                    },
+                    {
+                        "key": "Adventure",
+                        "doc_count": 666
+                    }
+                ]
+            },
+            "writers": {
+                "doc_count_error_upper_bound": 21,
+                "sum_other_doc_count": 8919,
+                "buckets": [
+                    {
+                        "key": "J.J. Abrams",
+                        "doc_count": 83
+                    },
+                    {
+                        "key": "Jeffrey Lieber",
+                        "doc_count": 74
+                    },
+                    {
+                        "key": "Damon Lindelof",
+                        "doc_count": 73
+                    },
+                    {
+                        "key": "James Manos Jr.",
+                        "doc_count": 53
+                    },
+                    {
+                        "key": "Jeff Lindsay",
+                        "doc_count": 53
+                    }
+                ]
+            },
+            "type": {
+                "doc_count_error_upper_bound": 0,
+                "sum_other_doc_count": 0,
+                "buckets": [
+                    {
+                        "key": "Movie",
+                        "doc_count": 3120
+                    },
+                    {
+                        "key": "Episode",
+                        "doc_count": 521
+                    },
+                    {
+                        "key": "Series",
+                        "doc_count": 473
+                    },
+                    {
+                        "key": "Game",
+                        "doc_count": 48
+                    }
+                ]
+            }
+        }
+    }
+}

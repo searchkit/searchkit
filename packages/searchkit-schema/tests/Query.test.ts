@@ -1,6 +1,6 @@
 import nock from 'nock'
-import { SearchkitConfig } from '../src/resolvers/ResultsResolver'
-import { CustomQuery } from '../src'
+import { SearchkitConfig } from '@searchkit/sdk'
+import { CustomQuery } from '@searchkit/sdk'
 import { setupTestServer, callQuery } from './support/helper'
 import HitsMock from './__mock-data__/HitResolver/Hits.json'
 
