@@ -3,13 +3,15 @@
 exports[`NumericRangeFilter Combination of min and max number filters 2`] = `
 Object {
   "facets": Array [],
-  "items": Array [],
-  "page": Object {
-    "from": 0,
-    "pageNumber": NaN,
-    "size": 0,
-    "total": 4162,
-    "totalPages": Infinity,
+  "hits": Object {
+    "items": Array [],
+    "page": Object {
+      "from": 0,
+      "pageNumber": NaN,
+      "size": 0,
+      "total": 4162,
+      "totalPages": Infinity,
+    },
   },
   "sortedBy": undefined,
   "summary": Object {

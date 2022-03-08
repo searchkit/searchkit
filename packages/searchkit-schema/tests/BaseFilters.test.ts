@@ -1,6 +1,5 @@
 import nock from 'nock'
-import { SearchkitConfig } from '@searchkit/sdk'
-import { MultiMatchQuery } from '@searchkit/sdk'
+import { SearchkitConfig, MultiMatchQuery } from '../src/index'
 import { setupTestServer, callQuery } from './support/helper'
 import HitsMock from './__mock-data__/HitResolver/Hits.json'
 

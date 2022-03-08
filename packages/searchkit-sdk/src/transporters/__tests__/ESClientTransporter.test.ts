@@ -1,4 +1,5 @@
 import nock from 'nock'
+;(global as any).setImmediate = jest.useRealTimers
 import ESClientTransporter from '../ESClientTransporter'
 
 describe('ESClientTransporter', () => {

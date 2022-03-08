@@ -1,6 +1,6 @@
 {
   "name": "@searchkit/schema",
-  "version": "3.0.0-canary.47",
+  "version": "3.0.0-canary.48",
   "main": "lib/index.js",
   "author": "Joseph McElroy <phoey1@gmail.com>",
   "license": "Apache-2.0",
@@ -31,7 +31,7 @@
     "coverage": "jest --coverage"
   },
   "dependencies": {
-    "@searchkit/sdk": "^3.0.0-canary.47",    
+    "@searchkit/sdk": "^3.0.0-canary.48",
     "dataloader": "^2.0.0",
     "graphql-tag": "^2.10.3",
     "lodash": "^4.17.21"

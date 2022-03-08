@@ -72,7 +72,7 @@ function getSummaryFromResponse(
   }
 }
 
-interface SearchkitHit {
+export interface SearchkitHit {
   id: string
   fields: Record<string, any>
   highlight: Record<string, any>
@@ -89,8 +89,10 @@ interface SearchkitPage {
 export interface SearchkitResponse {
   summary: SummaryResponse
   facets: FacetResponse[]
-  items: SearchkitHit[]
-  page: SearchkitPage
+  hits: {
+    items: SearchkitHit[]
+    page: SearchkitPage
+  }
   sortedBy?: string
 }
 
@@ -120,17 +122,19 @@ export class ElasticSearchResponseTransformer implements SearchkitResponseTransf
     return {
       summary,
       facets,
-      items: hits.hits.map((hit) => ({
-        id: hit._id,
-        fields: hit._source,
-        highlight: hit.highlight
-      })),
-      page: {
-        total: hitsTotal,
-        totalPages: Math.ceil(hitsTotal / size),
-        pageNumber: from / size,
-        from: from,
-        size: size
+      hits: {
+        items: hits.hits.map((hit) => ({
+          id: hit._id,
+          fields: hit._source,
+          highlight: hit.highlight
+        })),
+        page: {
+          total: hitsTotal,
+          totalPages: Math.ceil(hitsTotal / size),
+          pageNumber: from / size,
+          from: from,
+          size: size
+        }
       },
       sortedBy: chosenSortOption?.id
     }
