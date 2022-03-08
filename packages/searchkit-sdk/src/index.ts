@@ -9,13 +9,15 @@ import { getAggregationsFromFacets } from './core/FacetsFns'
 import {
   SearchkitResponseTransformer,
   ElasticSearchResponseTransformer,
-  SearchkitResponse
+  SearchkitResponse,
+  SearchkitHit
 } from './transformers'
 
 export * from './query'
 export * from './facets'
 export * from './filters'
 export * from './transporters'
+export { MixedFilter, QueryOptions, SearchkitResponse, SearchkitHit }
 
 export interface SortingOption {
   id: string

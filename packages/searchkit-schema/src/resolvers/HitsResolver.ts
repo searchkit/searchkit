@@ -21,14 +21,14 @@ export default async (parent, parameters: HitsParameters, ctx) => {
       sortId: parameters.sortBy
     })
 
-    const { items, page, sortedBy } = await dataRequest.search()
+    const { hits, sortedBy } = await dataRequest.search()
 
     return {
-      items: items.map((item) => ({
+      items: hits.items.map((item) => ({
         ...item,
         type: parent.searchkit.hitType
       })),
-      page: page,
+      page: hits.page,
       sortedBy
     }
   } catch (e) {
