@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MultiQueryOptionsFacet range of value, min-max range facets 2`] = `
+Object {
+  "facets": Array [
+    Object {
+      "display": "ListFacet",
+      "entries": Array [
+        Object {
+          "count": 0,
+          "label": "0 - 10000",
+        },
+        Object {
+          "count": 0,
+          "label": "10001 - 100000",
+        },
+        Object {
+          "count": 39,
+          "label": "100001 - 500000",
+        },
+        Object {
+          "count": 0,
+          "label": "500001 - 1000000",
+        },
+        Object {
+          "count": 39,
+          "label": "1000001 - 5000000",
+        },
+        Object {
+          "count": 0,
+          "label": "5000001 - 10000000",
+        },
+        Object {
+          "count": 59,
+          "label": "10000001+",
+        },
+      ],
+      "identifier": "visitors",
+      "label": "Visitors",
+      "type": "MultiQueryOptionsFacet",
+    },
+  ],
+  "hits": Object {
+    "items": Array [],
+    "page": Object {
+      "from": 0,
+      "pageNumber": NaN,
+      "size": 0,
+      "total": 0,
+      "totalPages": NaN,
+    },
+  },
+  "sortedBy": undefined,
+  "summary": Object {
+    "appliedFilters": Array [
+      Object {
+        "display": "ListFacet",
+        "id": "visitors_0 - 10000",
+        "identifier": "visitors",
+        "label": "Visitors",
+        "type": "MultiQueryOptionsFacet",
+        "value": "0 - 10000",
+      },
+    ],
+    "disabledFilters": Array [],
+    "query": "",
+    "sortOptions": Array [],
+    "total": 0,
+  },
+}
+`;

@@ -6,7 +6,7 @@ import HitsMMock from './__mock-data__/HitResolver/Hits.json'
 describe('PostProcessRequest', () => {
   it('Query', async () => {
     const postProcessRequestExampleFn = jest.fn().mockImplementation((requestBody) => {
-      requestBody.query.bool.must[0].multi_match.query = 'changed query'
+      requestBody.query.bool.should[0].multi_match.query = 'changed query'
       return requestBody
     })
     const request = SearchkitRequest({
@@ -32,14 +32,46 @@ describe('PostProcessRequest', () => {
             "from": 0,
             "query": Object {
               "bool": Object {
-                "must": Array [
+                "should": Array [
                   Object {
                     "multi_match": Object {
                       "fields": Array [
                         "title",
                         "body",
                       ],
+                      "operator": "and",
                       "query": "changed query",
+                      "type": "best_fields",
+                    },
+                  },
+                  Object {
+                    "multi_match": Object {
+                      "fields": Array [
+                        "title",
+                        "body",
+                      ],
+                      "query": "test",
+                      "type": "cross_fields",
+                    },
+                  },
+                  Object {
+                    "multi_match": Object {
+                      "fields": Array [
+                        "title",
+                        "body",
+                      ],
+                      "query": "test",
+                      "type": "phrase",
+                    },
+                  },
+                  Object {
+                    "multi_match": Object {
+                      "fields": Array [
+                        "title",
+                        "body",
+                      ],
+                      "query": "test",
+                      "type": "phrase_prefix",
                     },
                   },
                 ],

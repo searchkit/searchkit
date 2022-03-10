@@ -34,7 +34,18 @@ describe('Base Filters', () => {
                     },
                   },
                 ],
-                "must": Array [
+                "should": Array [
+                  Object {
+                    "multi_match": Object {
+                      "fields": Array [
+                        "title",
+                        "body",
+                      ],
+                      "operator": "and",
+                      "query": "test",
+                      "type": "best_fields",
+                    },
+                  },
                   Object {
                     "multi_match": Object {
                       "fields": Array [
@@ -42,6 +53,27 @@ describe('Base Filters', () => {
                         "body",
                       ],
                       "query": "test",
+                      "type": "cross_fields",
+                    },
+                  },
+                  Object {
+                    "multi_match": Object {
+                      "fields": Array [
+                        "title",
+                        "body",
+                      ],
+                      "query": "test",
+                      "type": "phrase",
+                    },
+                  },
+                  Object {
+                    "multi_match": Object {
+                      "fields": Array [
+                        "title",
+                        "body",
+                      ],
+                      "query": "test",
+                      "type": "phrase_prefix",
                     },
                   },
                 ],
