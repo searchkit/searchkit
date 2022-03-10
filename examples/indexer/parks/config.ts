@@ -5,15 +5,23 @@ withConfig({
   index: 'us_parks',
   host: 'http://localhost:9200/',
   source: parks,
-  // type: 'movie',
   fields: [
     {
       fieldName: 'visitors',
       stored: true,
-      searchable: true,
-      facet: true,
+      searchable: false,
+      type: 'integer',
       sourceOptions: {
         path: 'visitors'
+      }
+    },
+    {
+      fieldName: 'acres',
+      stored: true,
+      searchable: false,
+      type: 'integer',
+      sourceOptions: {
+        path: 'acres'
       }
     },
     {
@@ -37,7 +45,7 @@ withConfig({
       fieldName: 'date_established',
       stored: true,
       searchable: false,
-
+      type: 'date',
       sourceOptions: {
         path: 'date_established'
       }
