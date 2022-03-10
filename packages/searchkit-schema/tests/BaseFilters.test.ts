@@ -65,7 +65,20 @@ describe('Base Query', () => {
                     },
                   },
                 ],
-                "must": Array [
+                "should": Array [
+                  Object {
+                    "multi_match": Object {
+                      "fields": Array [
+                        "actors",
+                        "writers",
+                        "title^4",
+                        "plot",
+                      ],
+                      "operator": "and",
+                      "query": "heat",
+                      "type": "best_fields",
+                    },
+                  },
                   Object {
                     "multi_match": Object {
                       "fields": Array [
@@ -75,6 +88,31 @@ describe('Base Query', () => {
                         "plot",
                       ],
                       "query": "heat",
+                      "type": "cross_fields",
+                    },
+                  },
+                  Object {
+                    "multi_match": Object {
+                      "fields": Array [
+                        "actors",
+                        "writers",
+                        "title^4",
+                        "plot",
+                      ],
+                      "query": "heat",
+                      "type": "phrase",
+                    },
+                  },
+                  Object {
+                    "multi_match": Object {
+                      "fields": Array [
+                        "actors",
+                        "writers",
+                        "title^4",
+                        "plot",
+                      ],
+                      "query": "heat",
+                      "type": "phrase_prefix",
                     },
                   },
                 ],

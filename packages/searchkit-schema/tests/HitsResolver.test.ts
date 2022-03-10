@@ -288,7 +288,20 @@ describe('Hits Resolver', () => {
               },
               "query": Object {
                 "bool": Object {
-                  "must": Array [
+                  "should": Array [
+                    Object {
+                      "multi_match": Object {
+                        "fields": Array [
+                          "actors",
+                          "writers",
+                          "title^4",
+                          "plot",
+                        ],
+                        "operator": "and",
+                        "query": "al",
+                        "type": "best_fields",
+                      },
+                    },
                     Object {
                       "multi_match": Object {
                         "fields": Array [
@@ -298,6 +311,31 @@ describe('Hits Resolver', () => {
                           "plot",
                         ],
                         "query": "al",
+                        "type": "cross_fields",
+                      },
+                    },
+                    Object {
+                      "multi_match": Object {
+                        "fields": Array [
+                          "actors",
+                          "writers",
+                          "title^4",
+                          "plot",
+                        ],
+                        "query": "al",
+                        "type": "phrase",
+                      },
+                    },
+                    Object {
+                      "multi_match": Object {
+                        "fields": Array [
+                          "actors",
+                          "writers",
+                          "title^4",
+                          "plot",
+                        ],
+                        "query": "al",
+                        "type": "phrase_prefix",
                       },
                     },
                   ],
