@@ -27,7 +27,18 @@ describe('Hit Results', () => {
             "from": 0,
             "query": Object {
               "bool": Object {
-                "must": Array [
+                "should": Array [
+                  Object {
+                    "multi_match": Object {
+                      "fields": Array [
+                        "title",
+                        "body",
+                      ],
+                      "operator": "and",
+                      "query": "test",
+                      "type": "best_fields",
+                    },
+                  },
                   Object {
                     "multi_match": Object {
                       "fields": Array [
@@ -35,6 +46,27 @@ describe('Hit Results', () => {
                         "body",
                       ],
                       "query": "test",
+                      "type": "cross_fields",
+                    },
+                  },
+                  Object {
+                    "multi_match": Object {
+                      "fields": Array [
+                        "title",
+                        "body",
+                      ],
+                      "query": "test",
+                      "type": "phrase",
+                    },
+                  },
+                  Object {
+                    "multi_match": Object {
+                      "fields": Array [
+                        "title",
+                        "body",
+                      ],
+                      "query": "test",
+                      "type": "phrase_prefix",
                     },
                   },
                 ],

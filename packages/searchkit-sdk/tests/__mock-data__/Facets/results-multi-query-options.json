@@ -1,0 +1,52 @@
+{
+  "took" : 2,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 0,
+      "relation" : "eq"
+    },
+    "max_score" : null,
+    "hits" : [ ]
+  },
+  "aggregations" : {
+    "facet_bucket_visitors" : {
+      "meta" : { },
+      "doc_count" : 59,
+      "visitors" : {
+        "buckets" : {
+          "0 - 10000" : {
+            "doc_count" : 0
+          },
+          "10000001+" : {
+            "doc_count" : 59
+          },
+          "1000001 - 5000000" : {
+            "doc_count" : 39
+          },
+          "100001 - 500000" : {
+            "doc_count" : 39
+          },
+          "10001 - 100000" : {
+            "doc_count" : 0
+          },
+          "5000001 - 10000000" : {
+            "doc_count" : 0
+          },
+          "500001 - 1000000" : {
+            "doc_count" : 0
+          }
+        }
+      }
+    },
+    "facet_bucket_all" : {
+      "doc_count" : 0
+    }
+  }
+}

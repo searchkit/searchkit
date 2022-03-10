@@ -12,11 +12,34 @@ class MultiMatchQuery implements BaseQuery {
     if (queryManager.hasQuery()) {
       return {
         bool: {
-          must: [
+          should: [
             {
               multi_match: {
                 query: queryManager.getQuery(),
-                fields: this.config.fields
+                fields: this.config.fields,
+                type: 'best_fields',
+                operator: 'and'
+              }
+            },
+            {
+              multi_match: {
+                query: queryManager.getQuery(),
+                fields: this.config.fields,
+                type: 'cross_fields'
+              }
+            },
+            {
+              multi_match: {
+                query: queryManager.getQuery(),
+                fields: this.config.fields,
+                type: 'phrase'
+              }
+            },
+            {
+              multi_match: {
+                query: queryManager.getQuery(),
+                fields: this.config.fields,
+                type: 'phrase_prefix'
               }
             }
           ]
