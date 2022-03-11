@@ -3,9 +3,9 @@ import { withConfig, toNumber, splitComma, toDate } from '@searchkit/cli'
 
 withConfig({
   index: 'imdb_movies',
-  host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+  host: 'http://localhost:9200',
   connectionOptions: {
-    apiKey: 'NWF4c2VYOEJzRDhHMzlEX1JDejU6YnJXaS1XWjlSZ2F5ek1Cc3V4aXV6dw=='
+    apiKey: 'my-api-key'
   },
   source: movies,
   fields: [
