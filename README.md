@@ -1,10 +1,17 @@
 ## Search, made easy
 Searchkit is an open source toolkit which helps you build a great search experience with Elasticsearch.
 
-Searchkit is a Graph QL / React UI Component framework to:
-  - Quickly build a GraphQL API focused on search UI
-  - Out-of-the-box React components
-  - A great Search experience without needing to be an expert in Elasticsearch, React and Node 
+Searchkit to simplify using Elasticsearch for Search:
+  - Powerful Browser / Node.js SDK client for Elasticsearch
+  - Out-of-the-box React Search State & components
+  - Optional Integrations with GraphQL, Node.js REST APIs
+  - A great Search experience without needing to be an expert in Elasticsearch
+
+#### I want to build an API that uses Elasticsearch
+Searchkit SDK provides an javascript / typescript API which can run on node.js or the browser. This can simply integrate with your existing node.js API. See quick intro to SDK.
+
+#### I dont use node but I want to use Searchkit
+You can use the Searchkit SDK within the browser and proxy your elasticsearch queries through your API.
 
 #### Highlights
 - [Getting Started Video](https://www.youtube.com/watch?v=4vHibwubrQA)
@@ -12,49 +19,42 @@ Searchkit is a Graph QL / React UI Component framework to:
 - [View Demo](https://demo.searchkit.co)
 - [Documentation](https://searchkit.co/docs)
 - [Discord / Live Discussion](https://discord.gg/CRuWmSQZQx)
-- [Contributing Guide](https://github.com/searchkit/searchkit/blob/next/contributing.md)
 
 ![api-setup-2](./docs/static/img/m/search.jpeg)
 
-[Read our blog post about Searchkit V3](https://blog.searchkit.co/searchkit-v3-enter-graphql-330e1aa5752d)
-
-### Release History
-- 3.0.0-canary.46 : Debug mode for logging elasticsearch query. Activated via ENV variable `DEBUG_MODE=true`. [view release nodes](https://github.com/searchkit/searchkit/releases/tag/v3.0.0-canary.46)
-- 3.0.0-canary.44 : Out the box filters for terms and ranges [view release nodes](https://github.com/searchkit/searchkit/releases/tag/v3.0.0-canary.44)
-- 3.0.0-canary.41 : Hierarchical Facet support. Breaking change with facet entries GQL[View release notes](https://github.com/searchkit/searchkit/releases/tag/v3.0.0-canary.41)
-- 3.0.0-canary.39 : Facet Visibility rules allowing you to show / hide facets depending on search state [View Release notes](https://github.com/searchkit/searchkit/releases/tag/v3.0.0-canary.39)
-- 3.0.0-canary.37 : Fixes for routing HOC used for Next _app layout component [View Release notes](https://github.com/searchkit/searchkit/releases/tag/v3.0.0-canary.37)
-
-
-### Searchkit Classic
-For those who currently use Searchkit Classic, here are quicklinks to codebase & Docs
-- [Codebase](https://github.com/searchkit/searchkit/tree/v2)
-- [Searchkit v2 Docs](http://searchkit.github.io/searchkit/stable/)
-- [Upgrade Notes to v3](https://searchkit.co/docs/guides/v2-v3-migration)
-
-### Quick Intro
+### Quick Intro to SDK
 From a configuration
 
-```js
+```javascript
+
+import Searchkit, { MultiMatchQuery, RefinementSelectFacet, RangeFacet, DateRangeFacet, TermFilter } from '@searchkit/sdk'
+
 const searchkitConfig = {
-  host: 'http://localhost:9200/', // elasticsearch instance url
-  index: 'movies',
+  host: 'http://127.0.0.1:9200/', // elasticsearch instance url
+  index: 'movies', // search indices name
   hits: {
     fields: [ 'title', 'plot', 'poster' ]
   },
-  query: new MultiMatchQuery({ 
-    fields: [ 'plot','title^4'] 
+  query: new MultiMatchQuery({
+    fields: [ 'plot','title^4'],
+    highlightFields: ["title"]
   }),
+  sortOptions: [
+    { id: 'relevance', label: 'Relevance', field: '_score' },
+    { id: 'released', label: 'Recent Releases', field: { released: 'desc' } }
+  ],
+  filters: [
+    new TermFilter({
+      identifier: "writer",
+      field: "writers",
+      label: "Writers"
+    })
+  ],
   facets: [
-    new RefinementSelectFacet({ 
+    new RefinementSelectFacet({
       identifier: 'type',
       field: 'type.raw',
       label: 'Type'
-    }),
-    new RefinementSelectFacet({
-      identifier: 'writers',
-      field: 'writers.raw',
-      label: 'Writers',
       multipleSelect: true
     }),
     new RangeFacet({
@@ -75,135 +75,160 @@ const searchkitConfig = {
   ]
 }
 
-const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema({
-  config: searchkitConfig,
-  typeName: 'ResultSet', 
-  hitTypeName: 'ResultHit',
-  addToQueryType: true 
-})
-
-const server = new ApolloServer({
-  typeDefs: [
-    gql`
-    type Query {
-      root: String
+const request = Searchkit(config)
+const response = await request
+  .query("heat")
+  .setFilters([
+    { identifier: "metascore", min: 10, max: 90 },
+    { identifier: 'writers', value: 'writer1' },
+    { identifier: 'released', dateMin: '2021-01-01T10:10:10.000Z', dateMax: '2022-01-01T10:10:10.000Z' }
+  ])
+  .setSortBy("released")
+  .execute({
+    facets: true,
+    hits: {
+      size: 10,
+      from: 0
     }
+  })
 
-    type HitFields {
-      title: String
-    }
+```
 
-    type ResultHit implements SKHit {
-      id: ID!
-      fields: HitFields
+Will provide a response like this
+
+```json
+
+{
+  "hits": {
+    "items": [
+      {
+        "fields": {
+          "title": "title",
+          "plot": "plot text",
+          "poster": "http://cdn.url/poster"
+        },
+        "highlight": {},
+        "id": "1"
+      }
+      // ...9 further items
+    ],
+    "page": {
+      "from": 0,
+      "pageNumber": 0,
+      "size": 10,
+      "total": 4162,
+      "totalPages": 417
     }
-  `, ...typeDefs
+  },
+"facets": [
+    {
+      "display": "ListFacet",
+      "entries": [
+        {
+          "count": 83,
+          "label": "J.J. Abrams",
+        },
+        {
+          "count": 74,
+          "label": "Jeffrey Lieber",
+        },
+        {
+          "count": 73,
+          "label": "Damon Lindelof",
+        },
+        {
+          "count": 53,
+          "label": "James Manos Jr.",
+        },
+        {
+          "count": 53,
+          "label": "Jeff Lindsay",
+        },
+      ],
+      "identifier": "writers",
+      "label": "Writers",
+      "type": "RefinementSelectFacet",
+    },
+    {
+      "display": "ListFacet",
+      "entries": [
+        {
+          "count": 73,
+          "label": "Naveen Andrews",
+        },
+        {
+          "count": 56,
+          "label": "Jennifer Carpenter",
+        },
+        {
+          "count": 56,
+          "label": "Michael C. Hall",
+        },
+        {
+          "count": 53,
+          "label": "Emilie de Ravin",
+        },
+        {
+          "count": 42,
+          "label": "Jared Padalecki",
+        },
+      ],
+      "identifier": "actors",
+      "label": "Actors",
+      "type": "RefinementSelectFacet",
+    },
   ],
-  resolvers: withSearchkitResolvers({}),
-  introspection: true,
-  playground: true,
-  context: {
-    ...context
-  }
-})
-```
-
-Will provide a GraphQL API where you can perform queries like:
-
-#### Simple Hits
-[Try it out](https://demo.searchkit.co/api/graphql)
-
-```graphql
-{
-  results(query: "heat") {
-    hits {
-      items {
-        ... on ResultHit {
-          id
-          fields {
-            title
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-#### Facets
-[Try it out](https://demo.searchkit.co/api/graphql)
-
-```graphql
-{
-  results(query: "heat") {
-    facets {
-      identifier
-      label
-      type
-      display
-      entries {
-        id
-        label
-        count
-      }
-    }
-    hits {
-      items {
-        id
-        fields {
-          title
-        }
-      }
-    }
+  "sortedBy": "released",
+  "summary": {
+    "appliedFilters": [
+      {
+        "display": "ListFacet",
+        "id": "writers_writer1",
+        "identifier": "writers",
+        "label": "Writers",
+        "type": "ValueSelectedFilter",
+        "value": "writer1",
+      },
+      {
+        "display": "ListFacet",
+        "id": "actors_actors",
+        "identifier": "actors",
+        "label": "Actors",
+        "type": "ValueSelectedFilter",
+        "value": "actors",
+      },
+      {
+        "display": "RangeFacet",
+        "id": "actors_actors",
+        "identifier": "metascore",
+        "label": "Metascore",
+        "type": "ValueSelectedFilter",
+        "min": "10",
+        "max": "90"
+      },
+    ],
+    "disabledFilters": [],
+    "query": "heat",
+    "sortOptions": [{
+        "id": "relevance",
+        "label": "Relevance",
+      },
+      {
+        "id": "released",
+        "label": "Recent Releases",
+      },
+      {
+        "id": "title-released",
+        "label": "Recent Titles",
+      },
+    ],
+    "total": 4162
   }
 }
 ```
-
-#### Filtering
-[Try it out](https://demo.searchkit.co/api/graphql)
-```graphql
-{
-  results(filters: [{identifier: "type", value: "Movie"}, {identifier: "metascore", min: 30}]) {
-    summary {
-      appliedFilters {
-        identifier
-        id
-        label
-        display
-        ... on ValueSelectedFilter {
-          value
-        }
-      }
-    }
-    facets {
-      identifier
-      label
-      type
-      display
-      entries {
-        id
-        label
-        count
-      }
-    }
-    hits {
-      items {
-        ... on ResultHit {
-          id
-          fields {
-            title
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-See [Schema Query Guide](https://searchkit.co/docs/guides/graphql-schema-queries-cheatsheet) for more examples.
 
 #### React Integration
-We provide a thin [React client](https://searchkit.co/docs/reference/searchkit-client) which integrates with Searchkit's API, Apollo Client. It maintains search state (pagination, filtering and querying) and calls Apollo client to fetch.
+We provide a thin [React client](https://searchkit.co/docs/reference/searchkit-client) which integrates with Searchkit's SDK. It maintains search state (pagination, filtering and querying) and provides SearchState via a hook.
 
 #### React Components
 
@@ -216,10 +241,38 @@ import {
   SelectedFilters
 } from '@searchkit/elastic-ui'
 
+const useSearchkitSDK = (config) => {
+  const variables = useSearchkitVariables();
+  const [results, setResponse] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      const request = Searchkit(config)
+        .query(variables.query)
+        .setFilters(variables.filters)
+        .setSortBy(variables.sortBy);
+
+      const response = await request.execute({
+        facets: true,
+        hits: {
+          size: variables.page.size,
+          from: variables.page.from,
+        },
+      });
+      setLoading(false);
+      setResponse(response);
+    }
+
+    fetchData();
+  }, [variables]);
+
+  return {results, loading};
+};
+
 const Page = () => {
-  const variables = useSearchkitVariables()
-  const { data, loading } = useQuery(query, { variables })
-  const [viewType, setViewType] = useState('list')
+  const { data, loading } = useSearchkitSDK(config)
   const Facets = FacetsList([])
   return (
     <EuiPage>
@@ -246,25 +299,9 @@ const Page = () => {
                 <h2>{data?.results.summary.total} Results</h2>
               </EuiTitle>
             </EuiPageContentHeaderSection>
-            <EuiPageContentHeaderSection>
-              <EuiButtonGroup
-                options={[
-                  {
-                    id: `grid`,
-                    label: 'Grid'
-                  },
-                  {
-                    id: `list`,
-                    label: 'List'
-                  }
-                ]}
-                idSelected={viewType}
-                onChange={(id) => setViewType(id)}
-              />
-            </EuiPageContentHeaderSection>
           </EuiPageContentHeader>
           <EuiPageContentBody>
-            {viewType === 'grid' ? <HitsGrid data={data} /> : <HitsList data={data} />}
+            <HitsList data={data} />
             <EuiFlexGroup justifyContent="spaceAround">
               <Pagination data={data?.results} />
             </EuiFlexGroup>
@@ -279,9 +316,11 @@ const Page = () => {
 See [quickstart guide](https://searchkit.co/docs/quick-start/ui/eui)
 
 ### Example Projects
-* Next App with Searchkit & Elastic UI [Code](https://github.com/searchkit/searchkit/tree/next/examples/next) | [Demo](https://demo.searchkit.co)
+* Searchkit SDK & Elastic UI [Code](https://github.com/searchkit/searchkit/tree/next/examples/example-app) | [Demo](https://demo.searchkit.co)
+* Searchkit GraphQL & Elastic UI [Code](https://github.com/searchkit/searchkit/tree/next/examples/next/pages/graphql) | [Demo](https://demo.searchkit.co/graphql)
 
 ### NPM Packages
+* @searchkit/sdk [Documentation](https://searchkit.co/docs/reference/searchkit-sdk)
 * @searchkit/schema [Documentation](https://searchkit.co/docs/reference/searchkit-schema)
 * @searchkit/client [Documentation](https://searchkit.co/docs/reference/searchkit-client)
 * @searchkit/elastic-ui [Documentation](https://searchkit.co/docs/reference/searchkit-elastic-ui)
@@ -293,8 +332,6 @@ See [quickstart guide](https://searchkit.co/docs/quick-start/ui/eui)
 #### Can I upgrade from Searchkit v2?
 Searchkit has undergone a total rewrite so whilst it should be straightforward to move onto, any code written for searchkit legacy wouldn't work on Searchkit v3.
 
-#### Do I need to expose my Elasticsearch instance to the browser?
-No! You dont expose your elasticsearch cluster to the browser, Search API sits in between elasticsearch and the browser.
 
-#### I'm building a Native App / use angular. Do I need to use the Searchkit UI components?
-No! Searchkit API provides a dev friendly search API. Searchkit simplifies using elasticsearch for search so that you can build your own UI components very easily. If your apps dont use react or you are building a native mobile app, you can just use the searchkit API. [See our blog article for more information](https://blog.searchkit.co/searchkit-why-graphql-aa886603b698)
+#### Do I need to expose my Elasticsearch instance to the browser?
+No! You dont expose your elasticsearch cluster to the browser, you can use the Search GraphQL API that sits in between elasticsearch and the browser.

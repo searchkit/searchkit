@@ -31,11 +31,7 @@ module.exports = {
       textColor: '#fff', // Defaults to `#000`.
       isCloseable: false, // Defaults to `true`.
     },
-    sidebarCollapsible: false,
     respectPrefersColorScheme: false,
-    gtag: {
-      trackingID: 'G-Y1LWVCFZQK',
-    },
     navbar: {
       title: 'Searchkit',
       items: [
@@ -44,14 +40,9 @@ module.exports = {
           label: "Docs",
         },
         {
-          to: 'docs/your-own-components',
-          activeBasePath: 'docs/your-own-components',
-          label: "Customising UI",
-        },
-        {
-          to: 'docs/examples/nextjs-graphql-elasticsearch-boilerplate',
-          activeBasePath: 'docs/examples',
-          label: "Examples",
+          to: 'docs/graphql/overview',
+          activeBasePath: 'docs/integrations',
+          label: "GraphQL Integration",
         },
         {
           href: 'https://github.com/searchkit/searchkit',
@@ -78,6 +69,13 @@ module.exports = {
           // Please change this to your repo.
           editUrl:
             'https://github.com/searchkit/searchkit/tree/next/docs/',
+          // disableVersioning: true,
+          sidebarCollapsed: false,
+
+        },
+        gtag: {
+          trackingID: 'G-Y1LWVCFZQK',
+          anonymizeIP: true,
         },
         blog: {
           showReadingTime: true,
@@ -92,6 +90,6 @@ module.exports = {
     ],
   ],
   plugins: [
-    require.resolve('@cmfcmf/docusaurus-search-local')
+    // require.resolve('@cmfcmf/docusaurus-search-local')
   ]
 };

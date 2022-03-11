@@ -3,79 +3,105 @@ id: customisations-query-boosting-relevance
 title: Custom Query and Boosting
 sidebar_label: Custom Query and Boosting
 slug: /customisations/customisations-query-boosting-relevance
-keywords: Elasticsearch Facets, GraphQL Facet Search, Searchkit Facet, Elasticsearch API, Conditional Facets
+keywords:
+  [
+    Elasticsearch Facets,
+    GraphQL Facet Search,
+    Searchkit Facet,
+    Elasticsearch API,
+    Conditional Facets,
+  ]
 description: Conditional facets
 ---
 
 Within Searchkit configuration, you can specify how you want to transform the query string into an elasticsearch query. Out of the box there are two options:
-- MultiMatch Query. Documentation [here](https://searchkit.co/docs/reference/schema#multimatchquery)
-- Custom Query. Documentation [here](https://searchkit.co/docs/reference/schema#customquery)
+
+- MultiMatch Query
+- Custom Query
 
 ### MultiMatch Query
-Allows you to query multiple fields + adjustments on how important each field is. 
+
+Allows you to query multiple fields + adjustments on how important each field is.
 
 ```javascript
-import {
-  MultiMatchQuery
-} from '@searchkit/schema'
+import {MultiMatchQuery} from '@searchkit/sdk';
 
 const searchkitConfig = {
-  query: new MultiMatchQuery({ fields: ['title^2', 'description']})
-}
+  query: new MultiMatchQuery({fields: ['title^2', 'description']}),
+};
 ```
 
 The above example will use the incoming query value and return documents which the query value match in either title or description. Title is boosted to 2x, making documents with a match in the title appear first on the result set.
 
 ### Custom Query
+
 Allows you to have full control over the what the elasticsearch query should be, using the elasticsearch Query DSL.
 
 ```javascript
-import {
-  CustomQuery
-} from '@searchkit/schema'
+import {CustomQuery} from '@searchkit/sdk';
 
 const searchkitConfig = {
-  query: new CustomQuery({ 
+  query: new CustomQuery({
     queryFn: (query, qm) => {
-      
       // access current sort by option using the queryManager
-      const sortLabel = qm.getSortBy()?.label
+      const sortLabel = qm.getSortBy()?.label;
       // access current filters applied to the search
-      const filters = qm.getFilters()
+      const filters = qm.getFilters();
 
       return {
         bool: {
-          must: [{
-            wildcard: {
-              field: {
-                value: query + '*',
-                boost: 1.0,
-                rewrite: 'constant_score'
-              }
-            }
-          }]
-        }
-      }
-    }
-  })
-}
+          must: [
+            {
+              wildcard: {
+                field: {
+                  value: query + '*',
+                  boost: 1.0,
+                  rewrite: 'constant_score',
+                },
+              },
+            },
+          ],
+        },
+      };
+    },
+  }),
+};
 ```
 
 #### Query Options
+
 When you need to be able to provide some sort of options at query time. Examples include:
+
 - Advanced Search UI where customer can specify what fields to search by
 - Customer wants to adjust which fields are the most relevant for their search
 
-You can do this by using QueryOptions and CustomQuery. Within the graphQL query, you can specify fields at query time
+You can do this by using QueryOptions and CustomQuery.
+
+```javascript
+const request = Searchkit(config);
+const response = await request
+  .query('heat')
+  .setQueryOptions({
+    fields: ['title^2', 'description^1'],
+  })
+  .execute({
+    hits: {
+      size: 10,
+      from: 0,
+    },
+  });
+```
+
+or within the graphQL query, you can specify fields at query time
 
 ```graphql
 {
-  results(query:"heat", queryOptions: { fields: ["title^2", "description^1"]}) {
-     hits {
-       items {
-          id
-       }
-     }
+  results(query: "heat", queryOptions: {fields: ["title^2", "description^1"]}) {
+    hits {
+      items {
+        id
+      }
+    }
   }
 }
 ```
@@ -113,4 +139,4 @@ const config: SearchkitConfig = {
 }
 ```
 
-If you want to see the query thats being requested to Elasticsearch, use the `DEBUG_MODE=true` environment variable to log the query at every request. see [Debug Logging](https://searchkit.co/docs/customisations/server-logging#query-logging) 
+If you want to see the query thats being requested to Elasticsearch, use the `DEBUG_MODE=true` environment variable to log the query at every request. see [Debug Logging](https://searchkit.co/docs/customisations/server-logging#query-logging)

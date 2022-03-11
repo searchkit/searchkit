@@ -1,8 +1,8 @@
 ---
-id: customisations-ui-add-new-facet-class
+id: sdk-customisations-ui-add-new-facet-class
 title: Building your own Facet
 sidebar_label: Building your own Facet
-slug: /customisations/add-new-facet
+slug: /sdk/customisations/add-new-facet
 keywords:
   [
     Elasticsearch Facets,
@@ -77,55 +77,29 @@ export class CustomFacet implements BaseFacet {
 }
 ```
 
-Then add a Facet type to the schema
-
-```gql
-type CustomFacet implements SKFacetSet {
-  identifier: String
-  label: String
-  type: String
-  display: String
-  customField: String
-}
-
-type CustomSelectedFilter implements SKSelectedFilter {
-  id: String!
-  identifier: String!
-  label: String!
-  display: String!
-  value: String
-  customField: String
-}
-```
-
 then you should be able to query for facet + see filters applied in summary
 
-```gql
-query {
-  results {
-    summary {
-      appliedFilters {
-        id
-        identifier
-        label
-        display
-        ... on CustomSelectedFilter {
-          value
-          customField
-        }
-      }
-    }
-    facets {
-      ... on CustomFacet {
-        identifier
-        label
-        type
-        display
-        customField
-      }
-    }
-  }
-}
-```
+```javascript
+const searchkitConfig = {
+  host: process.env.ES_HOST || 'http://localhost:9200',
+  index: 'us_parks',
+  query: new MultiMatchQuery({fields: ['title']}),
+  facets: [
+    new CustomFacet({
+      identifier: 'test',
+      field: 'field',
+      label: 'label',
+    }),
+  ],
+};
 
-If you want to see the query thats being requested to Elasticsearch, use the `DEBUG_MODE=true` environment variable to log the query at every request. see [Debug Logging](https://searchkit.co/docs/customisations/server-logging#query-logging)
+const request = Searchkit(config);
+const response = await request
+  .setFilters([{identifier: 'test', value: 'test'}])
+  .execute({
+    hits: {
+      size: 10,
+      from: 0,
+    },
+  });
+```

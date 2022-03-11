@@ -1,8 +1,8 @@
 ---
-id: guides-using-filters
+id: sdk-guides-using-filters
 title: Filters
 sidebar_label: Filters
-slug: /customisations/filters
+slug: /sdk/customisations/filters
 keywords: [Elasticsearch Filters, Searchkit Filters, Search Filters]
 description: Searchkit custom filters
 ---
@@ -31,26 +31,16 @@ const moviesSearchConfig = {
     }),
   ],
 };
-```
 
-With this configured, you should be able to apply a GQL query like below
-
-```graphql
-{
-  results(filters: [{identifier: "type", value: "test"}]) {
-    summary {
-      appliedFilters {
-        id
-        identifier
-        label
-        display
-        ... on ValueSelectedFilter {
-          value
-        }
-      }
-    }
-  }
-}
+const request = Searchkit(config);
+const response = await request
+  .setFilters([{identifier: 'type', value: 'test'}])
+  .execute({
+    hits: {
+      size: 10,
+      from: 0,
+    },
+  });
 ```
 
 and Searchkit will return all hit results that have a field type with a value of "test".

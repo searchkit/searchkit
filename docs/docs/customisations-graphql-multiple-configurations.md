@@ -3,12 +3,11 @@ id: customisations-graphql-multiple-configurations
 title: Multiple Searchkit Schema Configurations
 sidebar_label: Multiple Searchkit Schema Configurations
 slug: /customisations/multiple-searchkit-configurations
-keywords: Elasticsearch GraphQL API, Multiple Search Schemas
+keywords: [Elasticsearch GraphQL API, Multiple Search Schemas]
 description: Having more than one Searchkit configuration for your GraphQL API
 ---
 
-For different parts of the site, you may want a different search experience (searching on a different index, different facet configurations, different query implementations). SearchkitSchema function can accept multiple searchkit configurations. For each searchkit configuration, it will define the graphql schema + resolvers for SDL.  An example of this shown below:
-
+For different parts of the site, you may want a different search experience (searching on a different index, different facet configurations, different query implementations). SearchkitSchema function can accept multiple searchkit configurations. For each searchkit configuration, it will define the graphql schema + resolvers for SDL. An example of this shown below:
 
 ```javascript
 const moviesSearchConfig: SearchkitConfig = {
@@ -30,16 +29,16 @@ const userSearchConfig: SearchkitConfig = {
 }
 
 const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema([
-  { 
+  {
     typeName: 'ResultSet',
     hitTypeName: "ResultHit",
     config: moviesSearchConfig,
-    addToQueryType: true 
+    addToQueryType: true
   },
-  { 
-    typeName: 'UserResultSet', 
-    hitTypeName: "UserResultHit", 
-    config: userSearchConfig 
+  {
+    typeName: 'UserResultSet',
+    hitTypeName: "UserResultHit",
+    config: userSearchConfig
   }
 ]
 

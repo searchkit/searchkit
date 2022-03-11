@@ -1,8 +1,8 @@
 ---
-id: customisations-adding-your-own-filters
+id: sdk-customisations-adding-your-own-filters
 title: Custom Filters
 sidebar_label: Custom Filters
-slug: /customisations/customisations-filters
+slug: /sdk-customisations/customisations-filters
 keywords: [Elasticsearch Filters, Searchkit Filters, Search Filters]
 description: Searchkit custom filters
 ---
@@ -56,30 +56,17 @@ const searchkitConfig = {
   ]
 }
 
-```
-
-With this configured, you should be able to apply a GQL query like below
-
-```graphql
-{
-  results(filters: [{ identifier: "CustomFilter", value: "test" }]) {
-    summary {
-      appliedFilters {
-        id
-        identifier
-        label
-        display
-        ... on ValueSelectedFilter {
-          value
-        }
-      }
-    }
-   hits {
-    items {
-      id
-    }
-  }
-}
+const request = Searchkit(config);
+const response = await request
+  .setFilters([
+    { identifier: 'CustomFilter', value: 'test' }
+  ])
+  .execute({
+    hits: {
+      size: 10,
+      from: 0,
+    },
+  });
 
 ```
 
