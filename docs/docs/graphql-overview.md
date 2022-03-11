@@ -7,20 +7,78 @@ keywords: [Search UI, Elasticsearch Search UI, React Search Components]
 description: Searchkit is an open source search toolkit built with Elasticsearch, GraphQL and React.
 ---
 
-### What is Searchkit?
+### GraphQL Integration
 
-Searchkit is an open source search toolkit. Searchkit is made up of the following parts:
+```js
+const searchkitConfig = {
+  host: 'http://localhost:9200/', // elasticsearch instance url
+  index: 'movies',
+  hits: {
+    fields: ['title', 'plot', 'poster'],
+  },
+  query: new MultiMatchQuery({
+    fields: ['plot', 'title^4'],
+  }),
+  facets: [
+    new RefinementSelectFacet({
+      identifier: 'type',
+      field: 'type.raw',
+      label: 'Type',
+    }),
+    new RefinementSelectFacet({
+      identifier: 'writers',
+      field: 'writers.raw',
+      label: 'Writers',
+      multipleSelect: true,
+    }),
+    new RangeFacet({
+      identifier: 'metascore',
+      field: 'metaScore',
+      label: 'Metascore',
+      range: {
+        min: 0,
+        max: 100,
+        interval: 5,
+      },
+    }),
+    new DateRangeFacet({
+      identifier: 'released',
+      field: 'released',
+      label: 'Released',
+    }),
+  ],
+};
 
-- [@searchkit/sdk](https://searchkit.co/docs/reference/searchkit-sdk): Browser & Node.js Client Search SDK.
-- [@searchkit/client](https://searchkit.co/docs/reference/searchkit-client): Works in tandem with Searchkit's SDK to manage your search query state in React
-- [@searchkit/elastic-ui](https://searchkit.co/docs/reference/searchkit-elastic-ui): Out the box UI search components based on Elastic UI framework
+const {typeDefs, withSearchkitResolvers, context} = SearchkitSchema({
+  config: searchkitConfig,
+  typeName: 'ResultSet',
+  hitTypeName: 'ResultHit',
+  addToQueryType: true,
+});
 
-#### Quick Start Guide
+const server = new ApolloServer({
+  typeDefs: [
+    gql`
+      type Query {
+        root: String
+      }
 
-- [Quick Start Guide](https://searchkit.co/docs/quick-start/overview)
-- [Example Apps](https://github.com/searchkit/searchkit/tree/next/examples)
-- [Setting up Elasticsearch & Indexing Guide](https://searchkit.co/docs/guides/elasticsearch-setup-indexing)
+      type HitFields {
+        title: String
+      }
 
-#### Contributing to Searchkit
-
-- [Contributing Guide](https://github.com/searchkit/searchkit/blob/next/contributing.md)
+      type ResultHit implements SKHit {
+        id: ID!
+        fields: HitFields
+      }
+    `,
+    ...typeDefs,
+  ],
+  resolvers: withSearchkitResolvers({}),
+  introspection: true,
+  playground: true,
+  context: {
+    ...context,
+  },
+});
+```

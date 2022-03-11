@@ -110,7 +110,7 @@ const SyntaxHighlight = ({code, language='javascript', className: classNames, st
   )
 }
 
-const ConfigIntro = () => {
+const SearchkitSDKIntro = () => {
 
   const code = `
 const searchkitConfig = {
@@ -210,7 +210,7 @@ const code2 = `
             </div>
             <div className="lg:col-span-6 col-span-12 lg:pt-0 pt-6">
               <div className="text-center lg:text-left">
-                <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-3xl lg:text-3xl xl:text-3xl">Powered by Apollo GraphQL</h2>
+                <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-3xl lg:text-3xl xl:text-3xl">Apollo GraphQL Integration</h2>
                 <p className="mt-3 text-base text-gray-700 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">Searchkit GraphQL resolvers saves building a search focused API with common use cases such as facet filtering, pagination and querying.
 
                 </p>
@@ -241,6 +241,109 @@ const code2 = `
                   <div className="flex flex-col justify-between mt-20 sm:mt-0">
                     <h3 className="text-xl font-bold mt-1">Client Friendly</h3>
                     <p className="mt-1">All the heavy lifting is done by the API, making it easy to integrate your React website or Swift iOS App.</p>
+                  </div>
+                  <div className="flex flex-col justify-between mt-20">
+                    <h3 className="text-xl font-bold mt-1">Flexible Customisation</h3>
+                    <p className="mt-1">Easily extend and add your own facets. Write your own resolvers to provide information that comes from other sources, not just from elasticsearch.</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+      </div>
+    </div>
+  )
+}
+
+const ConfigIntro = () => {
+
+  const code = `
+const searchkitConfig = {
+  host: 'http://demo.searchkit.co/api/',
+  index: 'movies',
+  hits: {
+    fields: [ 'title', 'plot', 'poster' ]
+  },
+  query: new MultiMatchQuery({
+    fields: [ 'plot','title^4']
+  }),
+  facets: [
+    new RefinementSelectFacet({
+      field: 'type.raw',
+      identifier: 'type',
+      label: 'Type',
+      multipleSelect: true
+    }),
+    new RangeFacet({
+      field: 'metaScore',
+      identifier: 'metascore',
+      label: 'Metascore',
+      range: {
+        min: 0,
+        max: 100,
+        interval: 5
+      }
+    }),
+    new DateRangeFacet({
+      field: 'released',
+      identifier: 'released',
+      label: 'Released'
+    })
+  ]
+}
+
+const request = Searchkit(config);
+const response = await request
+  .setFilters([{identifier: 'type', value: 'movie'}])
+  .execute({
+    hits: {
+      size: 10,
+      from: 0,
+    },
+  });
+`
+
+  return (
+    <div className="text-lg border-t border-gray-100 bg-white">
+      <div className="py-24 mx-auto container px-4 sm:mt-8 relative">
+          <div className="grid grid-cols-12 gap-4">
+            <div className="col-span-12 lg:col-span-6 overflow-hidden flex text-sm pb-60 transform transition-opacity duration-300 lg:mr-10">
+                <SyntaxHighlight code={code} className="transform transition-opacity duration-300 w-full" />
+            </div>
+            <div className="lg:col-span-6 col-span-12 lg:pt-0 pt-6">
+              <div className="text-center lg:text-left">
+                <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-3xl lg:text-3xl xl:text-3xl">SDK for Search</h2>
+                <p className="mt-3 text-base text-gray-700 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">Works on the browser or Node.js. Integrates easily into your application.
+
+                </p>
+                <div className="mx-auto mt-8 text-base text-center">
+                  <SyntaxHighlight code={`yarn add @searchkit/sdk`} language="shell" />
+                </div>
+                <div className="mt-5 mx-auto sm:flex justify-left md:mt-8">
+                  <div className="rounded-md shadow">
+                    <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:border-gray-500 focus:shadow-outline-white transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10" href="/docs/quick-start/basic-setup">Start Tutorial</a>
+                  </div>
+                  <div className="rounded-md shadow ml-3">
+                    <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-900 bg-gray-000 hover:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-blue transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10 border-gray-900" href="https://demo.searchkit.co">View Demo</a>
+                  </div>
+              </div>
+              </div>
+              <div className="flex flex-col justify-between mt-12 sm:flex-row">
+                <div className="flex flex-col justify-between w-4/5">
+                  <div className="flex flex-col justify-between">
+                    <h3 className="text-xl font-bold mt-1">SDK designed for Search UI</h3>
+                    <p className="mt-1">Its extremely quick to integrate Elasticsearch into your API or frontend app.</p>
+                  </div>
+                  <div className="flex flex-col justify-between mt-20">
+                    <h3 className="text-xl font-bold mt-1">Faceted Search made Simple</h3>
+                    <p className="mt-1">Searchkit provides filtering on text, numbers and dates.</p>
+                  </div>
+                </div>
+                <div className="flex flex-col justify-between w-4/5 sm:ml-10">
+                  <div className="flex flex-col justify-between mt-20 sm:mt-0">
+                    <h3 className="text-xl font-bold mt-1">Client Friendly</h3>
+                    <p className="mt-1">All the heavy lifting is done by the SDK, making it easy to integrate your React website or Swift iOS App.</p>
                   </div>
                   <div className="flex flex-col justify-between mt-20">
                     <h3 className="text-xl font-bold mt-1">Flexible Customisation</h3>
@@ -288,7 +391,7 @@ const FrontendIntro = () => {
 
 const VideoIntro = () => {
   return (
-    <div className="text-lg border-t border-gray-400 bg-gray-0">
+    <div className="text-lg border-t border-gray-400 bg-gray-900">
       <div className="py-24 mx-auto container px-4 md:mt-8 relative">
         <div className="md:col-span-6 col-span-12 md:pt-0 md:pt-6 pt-4">
           <div className="relative h-0 overflow-hidden max-w-full w-full" style={{"padding-bottom": "56%"}}>
@@ -300,7 +403,7 @@ const VideoIntro = () => {
             <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-3xl lg:text-3xl xl:text-3xl">Quick to get Started</h2>
             <p className="mt-3 text-base text-gray-800 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">Searchkit has example starter apps for you to get started really quickly.</p>
             <div className="mx-auto px-20 mt-8 text-base">
-              <SyntaxHighlight code={`curl https://codeload.github.com/searchkit/searchkit/tar.gz/next | tar -xz --strip=2 searchkit-next/examples/next-demo`} language="shell" />
+              <SyntaxHighlight code={`curl https://codeload.github.com/searchkit/searchkit/tar.gz/next | tar -xz --strip=2 searchkit-next/examples/example-app`} language="shell" />
             </div>
           </div>
           <div className="mt-5 mx-auto sm:flex justify-center md:mt-8">
@@ -343,6 +446,7 @@ function Home() {
       </div>
       <ConfigIntro />
       <FrontendIntro />
+      <SearchkitSDKIntro />
       <VideoIntro />
       <link rel="stylesheet" href="https://unpkg.com/tailwindcss@1.9.2/dist/tailwind.min.css" ></link>
     </div>

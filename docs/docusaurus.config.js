@@ -42,7 +42,7 @@ module.exports = {
         {
           to: 'docs/graphql/overview',
           activeBasePath: 'docs/integrations',
-          label: "Integrations",
+          label: "GraphQL Integration",
         },
         {
           href: 'https://github.com/searchkit/searchkit',
