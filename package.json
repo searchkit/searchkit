@@ -3,7 +3,7 @@
   "private": true,
   "workspaces": [
     "packages/*",
-    "examples/next"
+    "examples/example-app"
   ],
   "repository": {
     "type": "git",

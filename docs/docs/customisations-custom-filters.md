@@ -3,11 +3,12 @@ id: customisations-adding-your-own-filters
 title: Custom Filters
 sidebar_label: Custom Filters
 slug: /customisations/customisations-filters
-keywords: Elasticsearch Filters, Searchkit Filters, Search Filters
+keywords: [Elasticsearch Filters, Searchkit Filters, Search Filters]
 description: Searchkit custom filters
 ---
 
 When you want to apply filters to your search and don't want them to be displayed as facets. Some examples could include:
+
 - Adding a search box for a particular filter
 
 ```javascript
@@ -33,7 +34,7 @@ class CustomFilter {
     }
   }
 
-  // powers the appliedFilters type for all filters added 
+  // powers the appliedFilters type for all filters added
   getSelectedFilter(filterSet) {
     return {
       type: 'ValueSelectedFilter',
@@ -86,16 +87,18 @@ If you're using `@searchkit/client`, you will be able to apply the filter like s
 
 ```javascript
 const CustomFilterComponent = () => {
-  const api = useSearchkit()
+  const api = useSearchkit();
 
   return (
     <div>
-      <a onClick={() => {
-        api.toggleFilter({ identifier: "CustomFilter", value: "test" })
-        api.search()
-      }}>Toggle test filter</a>
+      <a
+        onClick={() => {
+          api.toggleFilter({identifier: 'CustomFilter', value: 'test'});
+          api.search();
+        }}>
+        Toggle test filter
+      </a>
     </div>
-  )
-}
-
+  );
+};
 ```

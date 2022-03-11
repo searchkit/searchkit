@@ -1,8 +1,8 @@
 ---
-id: overview
+id: graphql-overview
 title: Overview
 sidebar_label: Overview
-slug: /
+slug: /graphql/overview
 keywords: [Search UI, Elasticsearch Search UI, React Search Components]
 description: Searchkit is an open source search toolkit built with Elasticsearch, GraphQL and React.
 ---

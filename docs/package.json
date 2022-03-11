@@ -15,12 +15,8 @@
     "prettier:diff": "prettier --config .prettierrc --list-different \"**/*.{js,md}\""
   },
   "dependencies": {
-    "@cmfcmf/docusaurus-search-local": "^0.6.2",
-    "@docusaurus/core": "^v2.0.0-beta.0",
-    "@docusaurus/module-type-aliases": "^v2.0.0-beta.0",
-    "@docusaurus/types": "^v2.0.0-beta.0",
-    "@docusaurus/utils": "^v2.0.0-beta.0",
-    "@docusaurus/preset-classic": "^2.0.0-beta.0",
+    "@docusaurus/core": "2.0.0-beta.15",
+    "@docusaurus/preset-classic": "2.0.0-beta.15",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

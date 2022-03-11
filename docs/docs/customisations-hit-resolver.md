@@ -3,7 +3,8 @@ id: customisations-hit-resolver
 title: Integrate your own data sources
 sidebar_label: Integrate your own data sources
 slug: /customisations/extending-hit-result
-keywords: Custom Resolver, Elasticsearch GraphQL, Postgres Database, MySQL Database
+keywords:
+  [Custom Resolver, Elasticsearch GraphQL, Postgres Database, MySQL Database]
 description: Enrich your hits resolver with data from other databases
 ---
 
@@ -26,9 +27,9 @@ Then provide a resolver for the field. See [ResultsResolver](https://github.com/
 ```javascript
   resolvers: withSearchkitResolvers({
     ResultHit: {
-      exampleCustomField: ({ 
+      exampleCustomField: ({
         id, // id contents
-        rawHit // the raw ES hit contents 
+        rawHit // the raw ES hit contents
         }) => `Example Return Value for ${id}`
     }
   }),
@@ -39,21 +40,21 @@ Then provide a resolver for the field. See [ResultsResolver](https://github.com/
 then with a GQL query like below
 
 ```gql
-  query {
-    results {
-      hits {
-        items {
-          ... on ResultHit {
-            id
-            exampleCustomField
-          }
+query {
+  results {
+    hits {
+      items {
+        ... on ResultHit {
+          id
+          exampleCustomField
         }
       }
-    } 
+    }
   }
+}
 ```
 
-will call the exampleCustomField resolver for each hit item. The parent object (passed as an argument) contains the HitFields values. The return value is what will be provided in the response.  
+will call the exampleCustomField resolver for each hit item. The parent object (passed as an argument) contains the HitFields values. The return value is what will be provided in the response.
 
 ```
 {

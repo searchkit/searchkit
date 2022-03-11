@@ -1,9 +1,10 @@
-import dynamic from 'next/dynamic'
 import { withSearchkit, withSearchkitRouting } from '@searchkit/client'
- 
-const Search = dynamic(() => import('../components/sdk-example'), { ssr: false })
+import dynamic from 'next/dynamic'
+import withApollo from '../../hocs/withApollo'
 
-export default withSearchkit(withSearchkitRouting(Search, {
+const Search = dynamic(() => import('../../components/index'), { ssr: false })
+
+export default withApollo(withSearchkit(withSearchkitRouting(Search, {
   createURL: ({ qsModule, location, routeState }) => {
     let filters
     let typeCategoryURL = "all"
@@ -47,4 +48,4 @@ export default withSearchkit(withSearchkitRouting(Search, {
     return routeState
 
   }
-}))
+})))

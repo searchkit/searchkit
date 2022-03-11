@@ -3,7 +3,7 @@ id: customisations-graphql-types
 title: Customise Searchkit Schema
 sidebar_label: Customise Searchkit Schema
 slug: /customisations/changing-graphql-types
-keywords: Elasticsearch GraphQL API, customise GraphQL types
+keywords: [Elasticsearch GraphQL API, customise GraphQL types]
 description: Customise Searchkit Schema
 ---
 
@@ -20,11 +20,11 @@ const moviesSearchConfig: SearchkitConfig = {
 }
 
 const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema(
-  { 
+  {
     typeName: 'ResultSet',
     hitTypeName: "ResultHit",
     config: moviesSearchConfig,
-    addToQueryType: false 
+    addToQueryType: false
   }
 ]
 
