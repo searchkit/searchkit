@@ -290,8 +290,8 @@ const Page = () => {
 See [quickstart guide](https://searchkit.co/docs/quick-start/ui/eui)
 
 ### Example Projects
-* Searchkit SDK & Elastic UI [Code](https://github.com/searchkit/searchkit/tree/next/examples/example-app) | [Demo](https://demo.searchkit.co)
-* Searchkit GraphQL & Elastic UI [Code](https://github.com/searchkit/searchkit/tree/next/examples/next/pages/graphql) | [Demo](https://demo.searchkit.co/graphql)
+* Searchkit SDK & Elastic UI [Code](https://codesandbox.io/s/searchkit-cra-xj25o0) | [Demo](https://xj25o0.csb.app/)
+* Searchkit GraphQL & Elastic UI [Code](https://codesandbox.io/s/searchkit-graphql-example-if14fj) | [Demo](https://if14fj.sse.codesandbox.io/) | [GraphQL Playground](https://if14fj.sse.codesandbox.io/api/graphql)
 
 ### NPM Packages
 * @searchkit/sdk [Documentation](https://searchkit.co/docs/reference/searchkit-sdk)

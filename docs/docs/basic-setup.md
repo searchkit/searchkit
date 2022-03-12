@@ -19,6 +19,20 @@ See [Indexing Guide](https://searchkit.co/docs/guides/elasticsearch-setup-indexi
 
 In this tutorial, we are going to use [Create React App](https://reactjs.org/docs/create-a-new-react-app.html). Follow the following steps to create a boilerplate app.
 
+### Forking Code Sandbox
+
+<iframe src="https://codesandbox.io/embed/searchkit-cra-xj25o0?fontsize=14&hidenavigation=1&theme=dark"
+     style={{ 
+      width:"100%",
+      height:"500px",
+    }}
+     title="searchkit CRA"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+### Via Create React App Scripts
+
 ```
 npx create-react-app my-app
 cd my-app
