@@ -1,4 +1,6 @@
-import{ DateRangeFacet, MultiMatchQuery, RangeFacet, RefinementSelectFacet } from '@searchkit/sdk'
+import { DateRangeFacet, MultiMatchQuery, RangeFacet, RefinementSelectFacet } from '@searchkit/sdk'
+import { useSearchkitSDK } from '@searchkit/sdk/lib/esm/react-hooks'
+import { useSearchkitVariables } from '@searchkit/client'
 import {
   FacetsList,
   SearchBar,
@@ -26,7 +28,6 @@ import {
 } from '@elastic/eui'
 
 import '@elastic/eui/dist/eui_theme_light.css'
-import useSearchkitSDK from './useSearchkitSDKHook';
 
 const config = {
   host: "https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243",
@@ -156,7 +157,8 @@ const HitsList = ({ data }) => (
 function App() {
   
   const Facets = FacetsList([])
-  const { results, loading } = useSearchkitSDK(config)
+  const variables = useSearchkitVariables()
+  const { results, loading } = useSearchkitSDK(config, variables)
   return (
     <EuiPage>
       <EuiPageSideBar>

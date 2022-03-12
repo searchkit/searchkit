@@ -49,48 +49,6 @@ ReactDOM.render(
 );
 ```
 
-### Add the Searchkit Hook
-
-Create a new file called `useSearchkitSDK.js` and copy and paste this hook example code.
-
-```javascript
-import Searchkit from '@searchkit/sdk';
-import {useSearchkitVariables} from '@searchkit/client';
-import {useState, useEffect} from 'react';
-
-const useSearchkitSDK = (config) => {
-  const variables = useSearchkitVariables();
-  const [results, setResponse] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-      const request = Searchkit(config)
-        .query(variables.query)
-        .setFilters(variables.filters)
-        .setSortBy(variables.sortBy);
-
-      const response = await request.execute({
-        facets: true,
-        hits: {
-          size: variables.page.size,
-          from: variables.page.from,
-        },
-      });
-      setLoading(false);
-      setResponse(response);
-    }
-
-    fetchData();
-  }, [variables]);
-
-  return {results, loading};
-};
-
-export default useSearchkitSDK;
-```
-
 ### Add Searchkit Code
 
 Within the App.js file, add the configuration code for Searchkit. Should look similar to below. See [@searchkit/sdk](https://searchkit.co/docs/reference/searchkit-sdk) on how to configure Searchkit.
@@ -102,7 +60,8 @@ import {
   RangeFacet,
   RefinementSelectFacet,
 } from '@searchkit/sdk';
-import useSearchkitSDK from './useSearchkitSDK';
+import useSearchkitSDK from '@searchkit/sdk/lib/esm/react-hooks';
+import {useSearchkitVariables} from '@searchkit/client';
 
 const config = {
   host: '<elasticsearch-host-url>',
@@ -135,7 +94,8 @@ const config = {
 };
 
 function App() {
-  const {results, loading} = useSearchkitSDK(config);
+  const variables = useSearchkitVariables();
+  const {results, loading} = useSearchkitSDK(config, variables);
   return <div>results {results?.summary?.total}</div>;
 }
 ```
@@ -285,22 +245,4 @@ function App() {
 
 You should now see your results!
 
-## Step 3: Url Persistance
-
-Update your index.js file to use the routing HOC
-
-```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import {withSearchkit, withSearchkitRouting} from '@searchkit/client';
-
-const SearchkitApp = withSearchkit(withSearchkitRouting(App));
-
-ReactDOM.render(
-  <React.StrictMode>
-    <SearchkitApp />
-  </React.StrictMode>,
-  document.getElementById('root'),
-);
-```
+### Code Sandbox Example

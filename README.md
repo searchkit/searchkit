@@ -228,7 +228,7 @@ Will provide a response like this
 ```
 
 #### React Integration
-We provide a thin [React client](https://searchkit.co/docs/reference/searchkit-client) which integrates with Searchkit's SDK. It maintains search state (pagination, filtering and querying) and provides SearchState via a hook.
+We provide a thin [React client](https://searchkit.co/docs/reference/searchkit-client) which integrates with Searchkit's SDK or Searchkit GraphQL API. It maintains search state (pagination, filtering and querying) and provides SearchState via a hook.
 
 #### React Components
 
@@ -241,38 +241,12 @@ import {
   SelectedFilters
 } from '@searchkit/elastic-ui'
 
-const useSearchkitSDK = (config) => {
-  const variables = useSearchkitVariables();
-  const [results, setResponse] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-      const request = Searchkit(config)
-        .query(variables.query)
-        .setFilters(variables.filters)
-        .setSortBy(variables.sortBy);
-
-      const response = await request.execute({
-        facets: true,
-        hits: {
-          size: variables.page.size,
-          from: variables.page.from,
-        },
-      });
-      setLoading(false);
-      setResponse(response);
-    }
-
-    fetchData();
-  }, [variables]);
-
-  return {results, loading};
-};
+import { useSearchkitSDK } from '@searchkit/sdk/lib/esm/react-hooks'
+import { useSearchkitVariables } from '@searchkit/client'
 
 const Page = () => {
-  const { data, loading } = useSearchkitSDK(config)
+  const variables = useSearchkitVariables()
+  const { data, loading } = useSearchkitSDK(config, variables)
   const Facets = FacetsList([])
   return (
     <EuiPage>
