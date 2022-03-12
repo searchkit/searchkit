@@ -20,6 +20,10 @@ You can use the Searchkit SDK within the browser and proxy your elasticsearch qu
 - [Documentation](https://searchkit.co/docs)
 - [Discord / Live Discussion](https://discord.gg/CRuWmSQZQx)
 
+#### Code Sandbox Examples
+* Searchkit SDK & Elastic UI [Code](https://codesandbox.io/s/searchkit-cra-xj25o0) | [Demo](https://xj25o0.csb.app/)
+* Searchkit GraphQL & Elastic UI [Code](https://codesandbox.io/s/searchkit-graphql-example-if14fj) | [Demo](https://if14fj.sse.codesandbox.io/) | [GraphQL Playground](https://if14fj.sse.codesandbox.io/api/graphql)
+
 ![api-setup-2](./docs/static/img/m/search.jpeg)
 
 ### Quick Intro to SDK
@@ -288,10 +292,6 @@ const Page = () => {
 ```
 
 See [quickstart guide](https://searchkit.co/docs/quick-start/ui/eui)
-
-### Example Projects
-* Searchkit SDK & Elastic UI [Code](https://codesandbox.io/s/searchkit-cra-xj25o0) | [Demo](https://xj25o0.csb.app/)
-* Searchkit GraphQL & Elastic UI [Code](https://codesandbox.io/s/searchkit-graphql-example-if14fj) | [Demo](https://if14fj.sse.codesandbox.io/) | [GraphQL Playground](https://if14fj.sse.codesandbox.io/api/graphql)
 
 ### NPM Packages
 * @searchkit/sdk [Documentation](https://searchkit.co/docs/reference/searchkit-sdk)
