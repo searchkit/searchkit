@@ -1,13 +1,11 @@
-import { SearchkitClient, SearchkitProvider } from '@searchkit/client';
 import { MultiMatchQuery, RefinementSelectFacet, RangeFacet, DateRangeFacet } from "@searchkit/sdk"
-import useSearchkitSDK from '../../hooks/useSearchkitSDKHook';
+import { useSearchkitSDK } from '@searchkit/sdk/lib/esm/react-hooks';
 import {
   FacetsList,
   SearchBar,
   Pagination,
   ResetSearchButton,
-  SelectedFilters,
-  SortingSelector
+  SelectedFilters
 } from '@searchkit/elastic-ui'
 
 import {
@@ -27,6 +25,7 @@ import {
   EuiFlexGroup,
   EuiFlexItem,
 } from '@elastic/eui'
+import { useSearchkitVariables } from "@searchkit/client";
 
 const searchkitConfig = {
   host: "https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243",
@@ -160,7 +159,8 @@ const HitsList = ({ data }) => (
 
 function App() {
   const Facets = FacetsList([])
-  const { results, loading } = useSearchkitSDK(searchkitConfig)
+  const variables = useSearchkitVariables()
+  const { results, loading } = useSearchkitSDK(searchkitConfig, variables)
 
   return (
       <EuiPage>

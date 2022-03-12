@@ -1,6 +1,5 @@
 import { renderHook, act } from '@testing-library/react-hooks'
 import React from 'react'
-import { useQuery } from '@apollo/client'
 import {
   SearchkitClient,
   SearchkitContext,
@@ -11,10 +10,6 @@ import {
   useSearchkitQueryValue,
   SearchkitClientConfig
 } from '../searchkit'
-
-jest.mock('@apollo/client', () => ({
-  useQuery: jest.fn().mockReturnValue(true)
-}))
 
 const initial = {
   query: '',
@@ -205,27 +200,6 @@ describe('Searchkit Client', () => {
       result.current.setQuery('test')
     })
     expect(api.getQuery()).toBe('test')
-  })
-
-  it('useSearchkitQuery', () => {
-    const api = createSearchkitClient()
-    api.updateBaseSearchState({
-      query: 'test',
-      filters: [{ identifier: 'type', value: 'Movies' }],
-      sortBy: 'released'
-    })
-    const wrapper = ({ children }) => <SearchkitProvider client={api}>{children}</SearchkitProvider>
-
-    renderHook(() => useSearchkitQuery('gqlQuery'), { wrapper })
-
-    expect(useQuery).toHaveBeenCalledWith('gqlQuery', {
-      variables: {
-        filters: [{ identifier: 'type', value: 'Movies' }],
-        page: { from: 0, size: 10 },
-        query: 'test',
-        sortBy: 'released'
-      }
-    })
   })
 
   it('variables lifecycle', async () => {

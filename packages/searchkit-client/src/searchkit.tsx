@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import isEqual from 'fast-deep-equal'
 import { isUndefined } from 'lodash'
-import { useQuery } from '@apollo/client'
 
 export interface Filter {
   identifier: string
@@ -297,11 +296,7 @@ export function useSearchkitQueryValue(): [string, (a: string) => void] {
 }
 
 export function useSearchkitQuery(query) {
-  console.warn(
-    'useSearchkitQuery has now been deprecated. Use useSearchkitVariables hook + useQuery instead.'
+  console.error(
+    'useSearchkitQuery has now been removed. Use useSearchkitVariables hook + useQuery instead.'
   )
-  const variables = useSearchkitVariables()
-  return useQuery(query, {
-    variables
-  })
 }
