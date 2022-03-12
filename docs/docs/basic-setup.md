@@ -245,4 +245,30 @@ function App() {
 
 You should now see your results!
 
+<<<<<<< HEAD
+
 ### Code Sandbox Example
+
+=======
+
+## Step 3: Url Persistance
+
+Update your index.js file to use the routing HOC
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import {withSearchkit, withSearchkitRouting} from '@searchkit/client';
+
+const SearchkitApp = withSearchkit(withSearchkitRouting(App));
+
+ReactDOM.render(
+  <React.StrictMode>
+    <SearchkitApp />
+  </React.StrictMode>,
+  document.getElementById('root'),
+);
+```
+
+> > > > > > > 6470aa32bd686ad6aca5edbecca587e49be96cf9
