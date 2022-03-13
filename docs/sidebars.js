@@ -2,6 +2,7 @@ module.exports = {
   docs: {
     'Quick Guide': [
       'overview',
+      'base-how-to-use-searchkit',
       'setup-basic-setup'
     ],
     Reference: [

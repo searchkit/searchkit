@@ -1,17 +1,14 @@
 ## Search, made easy
 Searchkit is an open source toolkit which helps you build a great search experience with Elasticsearch.
 
+See [why use Searchkit](https://searchkit/co/docs//quick-start/why
+
 Searchkit to simplify using Elasticsearch for Search:
   - Powerful Browser / Node.js SDK client for Elasticsearch
   - Out-of-the-box React Search State & components
   - Optional Integrations with GraphQL, Node.js REST APIs
   - A great Search experience without needing to be an expert in Elasticsearch
 
-#### I want to build an API that uses Elasticsearch
-Searchkit SDK provides an javascript / typescript API which can run on node.js or the browser. This can simply integrate with your existing node.js API. See quick intro to SDK.
-
-#### I dont use node but I want to use Searchkit
-You can use the Searchkit SDK within the browser and proxy your elasticsearch queries through your API.
 
 #### Highlights
 - [Getting Started Video](https://www.youtube.com/watch?v=4vHibwubrQA)

@@ -9,7 +9,9 @@ description: Searchkit is an open source search toolkit built with Elasticsearch
 
 ### What is Searchkit?
 
-Searchkit is an open source search toolkit. Searchkit is made up of the following parts:
+Searchkit is an open source search toolkit. See [why use Searchkit](https://searchkit/co/docs//quick-start/why).
+
+Searchkit is made up of the following parts:
 
 - [@searchkit/sdk](https://searchkit.co/docs/reference/searchkit-sdk): Browser & Node.js Client Search SDK.
 - [@searchkit/client](https://searchkit.co/docs/reference/searchkit-client): Works in tandem with Searchkit's SDK to manage your search query state in React
