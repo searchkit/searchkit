@@ -210,19 +210,19 @@ const code2 = `
             </div>
             <div className="lg:col-span-6 col-span-12 lg:pt-0 pt-6">
               <div className="text-center lg:text-left">
-                <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-3xl lg:text-3xl xl:text-3xl">Apollo GraphQL Integration</h2>
+                <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-3xl lg:text-3xl xl:text-3xl">GraphQL Integration</h2>
                 <p className="mt-3 text-base text-gray-700 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">Searchkit GraphQL resolvers saves building a search focused API with common use cases such as facet filtering, pagination and querying.
 
                 </p>
                 <div className="mx-auto mt-8 text-base text-center">
-                  <SyntaxHighlight code={`yarn add @searchkit/schema`} language="shell" />
+                  <SyntaxHighlight code={`yarn add @searchkit/schema apollo-server`} language="shell" />
                 </div>
-                <div className="mt-5 mx-auto sm:flex justify-left md:mt-8">
+                <div className="mt-5 mx-auto flex justify-left">
                   <div className="rounded-md shadow">
-                    <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:border-gray-500 focus:shadow-outline-white transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10" href="/docs/quick-start/api-setup">Start Tutorial</a>
+                    <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:border-gray-500 focus:shadow-outline-white transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10" href="https://codesandbox.io/s/searchkit-graphql-example-if14fj">Fork</a>
                   </div>
                   <div className="rounded-md shadow ml-3">
-                    <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-900 bg-gray-000 hover:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-blue transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10 border-gray-900" href="https://demo.searchkit.co">View Demo</a>
+                    <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-900 bg-gray-000 hover:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-blue transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10 border-gray-900" href="https://demo.searchkit.co/api/graphql">View GraphQL Playground</a>
                   </div>
               </div>
               </div>
@@ -313,7 +313,7 @@ const response = await request
             </div>
             <div className="lg:col-span-6 col-span-12 lg:pt-0 pt-6">
               <div className="text-center lg:text-left">
-                <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-3xl lg:text-3xl xl:text-3xl">SDK for Search</h2>
+                <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-3xl lg:text-3xl xl:text-3xl">Typescript SDK for Search</h2>
                 <p className="mt-3 text-base text-gray-700 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">Works on the browser or Node.js. Integrates easily into your application.
 
                 </p>
@@ -371,14 +371,14 @@ const FrontendIntro = () => {
             <h2 className="text-3xl tracking-tight font-extrabold text-gray-100 sm:text-3xl lg:text-3xl xl:text-3xl">Out the box React Components</h2>
             <p className="mt-3 text-base text-gray-400 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">For those who want a search UI quickly, Searchkit provides UI components out the box which work with Searchkit's API to bring a great search experience to your app. Searchkit components leverages Elastic's EUI react components.</p>
             <div className="mx-auto px-20 mt-8 text-base">
-              <SyntaxHighlight code={`yarn add @searchkit/client @searchkit/elastic-ui @elastic/eui`} language="shell" />
+              <SyntaxHighlight code={`yarn add @searchkit/sdk @searchkit/client @searchkit/elastic-ui @elastic/eui`} language="shell" />
             </div>
             <div className="mt-5 mx-auto sm:flex justify-center md:mt-8">
               <div className="rounded-md shadow">
                 <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:border-gray-500 focus:shadow-outline-white transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10" href="https://demo.searchkit.co">View Demo</a>
               </div>
               <div className="rounded-md shadow ml-3">
-                <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-100 bg-gray-900 hover:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-blue transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10 border-gray-900" href="https://github.com/searchkit/searchkit/blob/next/examples/next/components/index.jsx#L81">View Code</a>
+                <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-100 bg-gray-900 hover:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-blue transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10 border-gray-900" href="https://codesandbox.io/s/searchkit-cra-xj25o0">View Code Sandbox</a>
               </div>
             </div>
           </div>
@@ -400,15 +400,15 @@ const VideoIntro = () => {
         </div>
         <div className="md:col-span-6 col-span-12 pt-20">
           <div className="text-center">
-            <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-3xl lg:text-3xl xl:text-3xl">Quick to get Started</h2>
-            <p className="mt-3 text-base text-gray-800 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">Searchkit has example starter apps for you to get started really quickly.</p>
-            <div className="mx-auto px-20 mt-8 text-base">
-              <SyntaxHighlight code={`curl https://codeload.github.com/searchkit/searchkit/tar.gz/next | tar -xz --strip=2 searchkit-next/examples/example-app`} language="shell" />
-            </div>
+            <h2 className="text-3xl tracking-tight font-extrabold text-white sm:text-3xl lg:text-3xl xl:text-3xl">Quick to get Started</h2>
+            <p className="mt-3 text-base text-gray-200 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">Searchkit has example starter apps for you to get started really quickly.</p>
           </div>
           <div className="mt-5 mx-auto sm:flex justify-center md:mt-8">
               <div className="rounded-md shadow">
-                <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-black bg-gray-300 hover:bg-gray-400 focus:outline-none focus:border-gray-500 focus:shadow-outline-white transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10" href="https://www.youtube.com/watch?v=4vHibwubrQA">Watch Getting Started Video</a>
+                <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-black bg-gray-300 hover:bg-gray-400 focus:outline-none focus:border-gray-500 focus:shadow-outline-white transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10" href="https://codesandbox.io/s/searchkit-cra-xj25o0">Fork Code Sandbox Template</a>
+              </div>
+              <div className="rounded-md shadow ml-3">
+                <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-100 bg-gray-900 hover:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-blue transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10 border-gray-900" href="https://www.youtube.com/watch?v=4vHibwubrQA">Watch Getting Started Video</a>
               </div>
             </div>
         </div>
@@ -425,16 +425,16 @@ function Home() {
   return (
     <>
       <Head>
-        <title>Searchkit | Search UI with elasticsearch and GraphQL, made easy. </title>
-        <meta name="description" content="Search UI with Elasticsearch and Apollo GraphQL. Tools to build a GraphQL API and use Out the box React components to build a great search experience."/>
-        <meta name="keywords" content="Elasticsearch, GraphQL, React Search UI, Search UI components, NextJS Search, Elasticsearch Search UI" />
+        <title>Searchkit | Search UI with elasticsearch, made easy. </title>
+        <meta name="description" content="Search with Elasticsearch made easy. Browser & Node.js SDK and Out the box React components to build a great search experience."/>
+        <meta name="keywords" content="Elasticsearch, GraphQL, React Search UI, Nodejs, Search UI components, NextJS Search, Elasticsearch Search UI" />
         <meta property="og:title" content="Searchkit - Search, made easy"/>
-        <meta property="og:description" content="Search UI with Elasticsearch and Apollo GraphQL. Tools to build a GraphQL API and use Out the box React components to build a great search experience."/>
+        <meta property="og:description" content="Search with Elasticsearch made easy. Browser & Node.js SDK and Out the box React components to build a great search experience."/>
         <meta property="og:image" content={useBaseUrl('img/m/search.jpeg')}/>
         <meta property="og:url" content="https://searchkit.co"/>
         <link data-react-helmet="true" rel="shortcut icon" href="/img/favicon.ico"/>
         <meta property="twitter:title" content="Searchkit - Search, made easy"/>
-        <meta property="twitter:description" content="Search UI with Elasticsearch and Apollo GraphQL. Tools to build a GraphQL API and use Out the box React components to build a great search experience."/>
+        <meta property="twitter:description" content="Search with Elasticsearch made easy. Browser & Node.js SDK and Out the box React components to build a great search experience."/>
         <meta property="twitter:image" content={useBaseUrl('img/m/search.jpeg')}/>
         <meta property="twitter:url" content="summary_large_image"/>
         <meta name="google-site-verification" content="nYA9IOgFmYP8znklDbiAGOx8fRXGvpQBX6NQmIKRwMA" />
