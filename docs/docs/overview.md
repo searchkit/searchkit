@@ -19,12 +19,11 @@ Searchkit is an open source search toolkit. Searchkit is made up of the followin
 
 - [@searchkit/schema](https://searchkit.co/docs/reference/searchkit-schema): Searchkit GraphQL Schema
 
-#### Quick Start Guide
+#### Code Sandbox Examples
 
-- [Quick Start Guide](https://searchkit.co/docs/quick-start/overview)
-- Searchkit SDK & Elastic UI Code Sandbox [Code](https://codesandbox.io/s/searchkit-cra-xj25o0) | [Demo](https://xj25o0.csb.app/)
-- Searchkit GraphQL & Elastic UI Code Sandbox [Code](https://codesandbox.io/s/searchkit-graphql-example-if14fj) | [Demo](https://if14fj.sse.codesandbox.io/) | [GraphQL Playground](https://if14fj.sse.codesandbox.io/api/graphql)
-- [Setting up Elasticsearch & Indexing Guide](https://searchkit.co/docs/guides/elasticsearch-setup-indexing)
+- Searchkit SDK & Node Express [Code](https://codesandbox.io/s/searchkit-node-express-js-example-c7bk7e) | [Demo](https://c7bk7e.sse.codesandbox.io/)
+- Searchkit SDK & Elastic UI [Code](https://codesandbox.io/s/searchkit-cra-xj25o0) | [Demo](https://xj25o0.csb.app/)
+- Searchkit GraphQL & Elastic UI [Code](https://codesandbox.io/s/searchkit-graphql-example-if14fj) | [Demo](https://if14fj.sse.codesandbox.io/) | [GraphQL Playground](https://if14fj.sse.codesandbox.io/api/graphql)
 
 #### Contributing to Searchkit
 
