@@ -9,7 +9,7 @@ description: Searchkit is an open source search toolkit built with Elasticsearch
 
 ### What is Searchkit?
 
-Searchkit is an open source search toolkit. See [why use Searchkit](https://searchkit/co/docs//quick-start/why).
+Searchkit is an open source search toolkit. See [why use Searchkit](https://searchkit.co/docs//quick-start/why).
 
 Searchkit is made up of the following parts:
 

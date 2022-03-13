@@ -1,7 +1,7 @@
 ## Search, made easy
 Searchkit is an open source toolkit which helps you build a great search experience with Elasticsearch.
 
-See [why use Searchkit](https://searchkit/co/docs//quick-start/why
+See [why use Searchkit](https://searchkit.co/docs//quick-start/why
 
 Searchkit to simplify using Elasticsearch for Search:
   - Powerful Browser / Node.js SDK client for Elasticsearch
