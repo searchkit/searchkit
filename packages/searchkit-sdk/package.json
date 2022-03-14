@@ -1,6 +1,6 @@
 {
   "name": "@searchkit/sdk",
-  "version": "3.0.0-canary.49",
+  "version": "3.0.0-canary.50",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "author": "Joseph McElroy <phoey1@gmail.com>",
