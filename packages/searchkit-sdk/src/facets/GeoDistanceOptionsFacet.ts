@@ -9,8 +9,8 @@ interface GeoDistanceOptionsFacetConfig {
   label: string
   display?: string
   ranges: {
-    from: number
-    to: number
+    from?: number
+    to?: number
     label: string
   }[]
   multipleSelect?: boolean
