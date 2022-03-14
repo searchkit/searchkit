@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MultiQueryOptionsFacet range of value, min-max range facets 2`] = `
+exports[`GeoDistanceOptionsFacet range of value, min-max range facets 2`] = `
 Object {
   "facets": Array [
     Object {
@@ -13,6 +13,10 @@ Object {
         Object {
           "count": 42,
           "label": "0 - 2000",
+        },
+        Object {
+          "count": 13,
+          "label": "1000 - 2000",
         },
       ],
       "identifier": "location",

@@ -2,7 +2,7 @@ import nock from 'nock'
 import SearchkitRequest, { SearchkitConfig, GeoDistanceOptionsFacet } from '../../src'
 import ResultsNoHitsMock from '../__mock-data__/Facets/results-geo-distance-options.json'
 
-describe('MultiQueryOptionsFacet', () => {
+describe('GeoDistanceOptionsFacet', () => {
   it('range of value, min-max range facets', async () => {
     const moviesSearchConfig: SearchkitConfig = {
       host: 'http://localhost:9200',
@@ -16,8 +16,9 @@ describe('MultiQueryOptionsFacet', () => {
           origin: '37.7749, -122.4194',
           unit: 'mi',
           ranges: [
-            { from: 0, to: 1000, label: '0 - 1000' },
-            { from: 0, to: 2000, label: '0 - 2000' }
+            { to: 1000, label: '0 - 1000' },
+            { to: 2000, label: '0 - 2000' },
+            { from: 1000, to: 2000, label: '1000 - 2000' }
           ],
           label: 'location',
           identifier: 'location'
@@ -49,13 +50,16 @@ describe('MultiQueryOptionsFacet', () => {
                     "origin": "37.7749, -122.4194",
                     "ranges": Array [
                       Object {
-                        "from": 0,
                         "key": "0 - 1000",
                         "to": 1000,
                       },
                       Object {
-                        "from": 0,
                         "key": "0 - 2000",
+                        "to": 2000,
+                      },
+                      Object {
+                        "from": 1000,
+                        "key": "1000 - 2000",
                         "to": 2000,
                       },
                     ],
