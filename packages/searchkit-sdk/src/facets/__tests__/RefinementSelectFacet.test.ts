@@ -69,4 +69,52 @@ describe('Multiple Select Facet', () => {
       }
     `)
   })
+
+  describe('sort order options', () => {
+    it('getAggregation with count', () => {
+      const msf = new RefinementSelectFacet({
+        identifier: 'testId',
+        label: 'Test',
+        field: 'testField',
+        order: 'count'
+      })
+
+      expect(msf.getAggregation(null)).toMatchInlineSnapshot(`
+        Object {
+          "testId": Object {
+            "terms": Object {
+              "field": "testField",
+              "order": Object {
+                "_count": "desc",
+              },
+              "size": 5,
+            },
+          },
+        }
+      `)
+    })
+
+    it('getAggregation with value', () => {
+      const msf = new RefinementSelectFacet({
+        identifier: 'testId',
+        label: 'Test',
+        field: 'testField',
+        order: 'value'
+      })
+
+      expect(msf.getAggregation(null)).toMatchInlineSnapshot(`
+        Object {
+          "testId": Object {
+            "terms": Object {
+              "field": "testField",
+              "order": Object {
+                "_key": "asc",
+              },
+              "size": 5,
+            },
+          },
+        }
+      `)
+    })
+  })
 })

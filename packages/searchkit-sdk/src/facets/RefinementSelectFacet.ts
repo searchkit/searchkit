@@ -9,6 +9,7 @@ interface RefinementSelectFacetConfig {
   label: string
   display?: 'ListFacet' | 'ComboFacet' | string
   multipleSelect?: boolean
+  order?: 'count' | 'value'
 }
 
 class RefinementSelectFacet implements BaseFacet {
@@ -35,11 +36,16 @@ class RefinementSelectFacet implements BaseFacet {
   }
 
   getAggregation(overrides: FacetOptions) {
+    const orderMap = {
+      count: { _count: 'desc' },
+      value: { _key: 'asc' }
+    }
     return {
       [this.getIdentifier()]: {
         terms: {
           field: this.config.field,
           size: overrides?.size || this.config.size || 5,
+          ...(this.config.order ? { order: orderMap[this.config.order] } : {}),
           ...(overrides?.query ? { include: createRegexQuery(overrides.query) } : {})
         }
       }
