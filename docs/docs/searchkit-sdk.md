@@ -272,7 +272,13 @@ const response = await Searchkit(config)
   });
 ```
 
-Example response
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| fields | fields to be queried. See elasticsearch documentation for more information on options |
+
+#### Example response
 
 ```json
 {
@@ -309,6 +315,44 @@ Example response
   }
 }
 ```
+
+### CustomQuery
+
+Allows you to pass a function which will return an elasticsearch query filter. See [Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html) for what options are available. This is great for when you have a query in mind to use.
+
+#### Usage
+
+```javascript
+import {CustomQuery} from '@searchkit/sdk';
+
+const searchkitConfig = {
+  query: new CustomQuery({
+    queryFn: (query, qm) => {
+      return {
+        bool: {
+          must: [
+            {
+              wildcard: {
+                field: {
+                  value: query + '*',
+                  boost: 1.0,
+                  rewrite: 'constant_score',
+                },
+              },
+            },
+          ],
+        },
+      };
+    },
+  }),
+};
+```
+
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| queryFn(query, queryManager) | Function. Returns an array of filters. Query argument is the query string. queryManager argument is a class that keeps the query and filters that have been applied to search. For example you may want to adjust the query DSL based on what filters have been selected |
 
 ## Filters
 
@@ -369,7 +413,16 @@ const response = await request
   });
 ```
 
-The filters that you will apply will also be returned in the response
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| field | field to be used for term filter, preferably a field that is raw, not tokenized |
+| identifier | Required to be unique. Used to apply filters on field |
+| label | UI label for `appliedFilters` node. |
+| display | **Optional**. Used on UI to specify what component to handle filter in `SelectedFilters` |
+
+The filters that you will apply will also be returned in the response under `summary.appliedFilters`.
 
 ```json
 {
@@ -489,6 +542,7 @@ const response = await request.execute({
 | MultipleSelect | Boolean. Default False. Filters operates as an OR. See multiple Select for more information |
 | size | **Optional**. Controls the number of options displayed. Defaults to 5. |
 | display | **Optional**. Used on UI to specify what component to handle facet |
+| order | **Optional**. The order for the facet value terms. Can be either `value` (Alphabetical asc order) or `count` (doc_count desc order) |
 
 ### HierarchicalMenuFacet
 
@@ -808,6 +862,17 @@ const searchkitConfig = {
       label: 'Recent titles',
       field: [{released: 'desc'}, {title: 'desc'}],
     },
+    {
+      id: 'multiple_sort',
+      label: 'Multiple sort',
+      field: [
+        {post_date: {order: 'asc'}},
+        'user',
+        {name: 'desc'},
+        {age: 'desc'},
+        '_score',
+      ],
+    },
   ],
 };
 
@@ -822,6 +887,13 @@ const response = await request
     },
   });
 ```
+
+#### Options
+
+| Option | Description                                |
+| :----- | :----------------------------------------- |
+| id     | Unique id. Used to specify what to sort by |
+| label  | label to be displayed in frontend          |
 
 Will give back the sorting name and sorting options in the response
 
@@ -847,8 +919,32 @@ Will give back the sorting name and sorting options in the response
         "id": "title-released",
         "label": "Recent Titles",
       },
+      {
+        "id": "multiple_sort",
+        "label": "Multiple Sort",
+      },
     ],
     "total": 4162,
   }
 }
+```
+
+## postProcessRequest
+
+An escape hatch function which allows you to modify the ES request body before it is sent to elasticsearch
+
+Every search request will pass through this function, containing the full body, and expecting a full request body back.
+
+```javascript
+const searchkitConfig = {
+  host: 'http://localhost:9200',
+  index: 'my_index',
+  hits: {
+    fields: [],
+  },
+  query: new MultiMatchQuery({fields: []}),
+  postProcessRequest: (body) => {
+    return {...body, min_score: 10};
+  },
+};
 ```
