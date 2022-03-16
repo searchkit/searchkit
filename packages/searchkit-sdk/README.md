@@ -16,7 +16,7 @@ All Searchkit documentation can be found at: <br/>
 [https://searchkit.co/docs/](https://searchkit.co/docs/)
 
 The Searchkit Schema API reference can be found at: <br/>
-[https://searchkit.co/docs/reference/sdk](https://searchkit.co/docs/reference/sdk)
+[https://searchkit.co/docs/reference/searchkit-sdk](https://searchkit.co/docs/reference/searchkit-sdk)
 
 ### Quick Intro
 From a configuration
