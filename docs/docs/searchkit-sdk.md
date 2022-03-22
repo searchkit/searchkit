@@ -856,7 +856,12 @@ const searchkitConfig = {
   }),
   sortOptions: [
     {id: 'relevance', label: 'Relevance', field: '_score'},
-    {id: 'released', label: 'Recent Releases', field: {released: 'desc'}},
+    {
+      id: 'released',
+      label: 'Recent Releases',
+      field: {released: 'desc'},
+      defaultOption: true,
+    },
     {
       id: 'title-released',
       label: 'Recent titles',
@@ -890,10 +895,12 @@ const response = await request
 
 #### Options
 
-| Option | Description                                |
-| :----- | :----------------------------------------- |
-| id     | Unique id. Used to specify what to sort by |
-| label  | label to be displayed in frontend          |
+| Option | Description |
+| :-- | :-- |
+| id | Unique id. Used to specify what to sort by |
+| label | label to be displayed in frontend |
+| field | Elasticsearch Sorting field. See above for examples of complex sorting field configurations |
+| defaultOption | Boolean. If no sorting option is selected, this will be the sort option chosen as default |
 
 Will give back the sorting name and sorting options in the response
 

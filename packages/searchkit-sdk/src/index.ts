@@ -104,6 +104,15 @@ export class SearchkitRequest {
     this.queryManager = new QueryManager()
     this.transporter = !transporter ? new FetchClientTransporter(config) : transporter
     this.transformer = new ElasticSearchResponseTransformer()
+    this.handleDefaults()
+  }
+
+  handleDefaults(): void {
+    const defaultSortOptionId =
+      this.config.sortOptions && this.config.sortOptions.find((option) => option.defaultOption)
+    const defaultSortOption =
+      defaultSortOptionId && getSortOption(defaultSortOptionId.id, this.config.sortOptions)
+    this.queryManager.setSortBy(defaultSortOption)
   }
 
   query(query: string): SearchkitRequest {
