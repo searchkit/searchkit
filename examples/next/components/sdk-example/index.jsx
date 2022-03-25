@@ -27,6 +27,7 @@ import {
 } from '@elastic/eui'
 import { useSearchkitVariables } from "@searchkit/client";
 
+
 const searchkitConfig = {
   host: "https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243",
   connectionOptions: {
