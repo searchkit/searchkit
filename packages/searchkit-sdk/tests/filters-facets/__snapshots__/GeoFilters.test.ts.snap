@@ -2,6 +2,12 @@
 
 exports[`Geo Filters 2 Facets configured, no filters 1`] = `
 Object {
+  "_source": Object {
+    "includes": Array [
+      "actors",
+      "writers",
+    ],
+  },
   "aggs": Object {
     "facet_bucket_all": Object {
       "aggs": Object {
@@ -116,6 +122,12 @@ Object {
 
 exports[`Geo Filters 2 Facets configured, no filters 4`] = `
 Object {
+  "_source": Object {
+    "includes": Array [
+      "actors",
+      "writers",
+    ],
+  },
   "aggs": Object {
     "facet_bucket_all": Object {
       "aggs": Object {

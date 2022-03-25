@@ -2,6 +2,11 @@
 
 exports[`Facets 2 Facets configured, no filters 1`] = `
 Object {
+  "_source": Object {
+    "includes": Array [
+      "facet1",
+    ],
+  },
   "aggs": Object {
     "facet_bucket_all": Object {
       "aggs": Object {
@@ -118,6 +123,9 @@ Object {
 
 exports[`Facets 2 Facets configured, with two filters in each facet 1`] = `
 Object {
+  "_source": Object {
+    "includes": Array [],
+  },
   "aggs": Object {
     "facet_bucket_all": Object {
       "aggs": Object {
@@ -302,6 +310,9 @@ Object {
 
 exports[`Facets 2 Facets configured, with two filters in each facet, specify a particular facet only to be returned 1`] = `
 Object {
+  "_source": Object {
+    "includes": Array [],
+  },
   "aggs": Object {
     "facet_bucket_all": Object {
       "aggs": Object {
@@ -438,6 +449,9 @@ Object {
 
 exports[`Facets 2 Facets configured, with two filters in each facet, specify both facets to be returned (test multiple works) 1`] = `
 Object {
+  "_source": Object {
+    "includes": Array [],
+  },
   "aggs": Object {
     "facet_bucket_all": Object {
       "aggs": Object {
@@ -622,6 +636,9 @@ Object {
 
 exports[`Facets facet overrides possible via facet array 1`] = `
 Object {
+  "_source": Object {
+    "includes": Array [],
+  },
   "aggs": Object {
     "facet_bucket_all": Object {
       "aggs": Object {

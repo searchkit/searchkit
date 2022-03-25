@@ -2,6 +2,12 @@
 
 exports[`NumericRangeFilter Combination of min and max number filters 1`] = `
 Object {
+  "_source": Object {
+    "includes": Array [
+      "actors",
+      "writers",
+    ],
+  },
   "aggs": Object {
     "facet_bucket_all": Object {
       "aggs": Object {},
@@ -72,6 +78,12 @@ Object {
 
 exports[`NumericRangeFilter Combination of min and max number filters 4`] = `
 Object {
+  "_source": Object {
+    "includes": Array [
+      "actors",
+      "writers",
+    ],
+  },
   "aggs": Object {
     "facet_bucket_all": Object {
       "aggs": Object {},
@@ -107,6 +119,12 @@ Object {
 
 exports[`NumericRangeFilter Combination of min and max number filters 6`] = `
 Object {
+  "_source": Object {
+    "includes": Array [
+      "actors",
+      "writers",
+    ],
+  },
   "aggs": Object {
     "facet_bucket_all": Object {
       "aggs": Object {},

@@ -88,10 +88,16 @@ export default function RequestBodyBuilder(
   })
 
   const baseQuery = { size: 0 }
+  const sourceFields = {
+    _source: {
+      includes: config.hits.fields
+    }
+  }
 
   return mergeESQueries(
     [
       baseQuery,
+      sourceFields,
       query && { query },
       postFilter && { post_filter: postFilter },
       highlight && { highlight },
