@@ -60,6 +60,12 @@ describe('Hits Resolver', () => {
         .reply((uri, body) => {
           expect(body).toMatchInlineSnapshot(`
             Object {
+              "_source": Object {
+                "includes": Array [
+                  "actors",
+                  "writers",
+                ],
+              },
               "aggs": Object {},
               "from": 0,
               "size": 10,
@@ -132,6 +138,12 @@ describe('Hits Resolver', () => {
         .reply((uri, body) => {
           expect(body).toMatchInlineSnapshot(`
             Object {
+              "_source": Object {
+                "includes": Array [
+                  "actors",
+                  "writers",
+                ],
+              },
               "aggs": Object {},
               "from": 10,
               "size": 10,
@@ -183,6 +195,12 @@ describe('Hits Resolver', () => {
         .reply((uri, body) => {
           expect(body).toMatchInlineSnapshot(`
             Object {
+              "_source": Object {
+                "includes": Array [
+                  "actors",
+                  "writers",
+                ],
+              },
               "aggs": Object {},
               "from": 10,
               "size": 10,
@@ -198,6 +216,12 @@ describe('Hits Resolver', () => {
       scope.post('/movies/_search').reply((uri, body) => {
         expect(body).toMatchInlineSnapshot(`
           Object {
+            "_source": Object {
+              "includes": Array [
+                "actors",
+                "writers",
+              ],
+            },
             "aggs": Object {},
             "from": 10,
             "size": 10,
@@ -271,6 +295,12 @@ describe('Hits Resolver', () => {
         .reply((uri, body) => {
           expect(body).toMatchInlineSnapshot(`
             Object {
+              "_source": Object {
+                "includes": Array [
+                  "actors",
+                  "writers",
+                ],
+              },
               "aggs": Object {},
               "from": 0,
               "highlight": Object {

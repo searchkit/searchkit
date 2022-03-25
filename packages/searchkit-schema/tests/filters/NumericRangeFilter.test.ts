@@ -59,6 +59,12 @@ describe('Numeric Range Filter', () => {
       .reply((uri, body) => {
         expect(body).toMatchInlineSnapshot(`
           Object {
+            "_source": Object {
+              "includes": Array [
+                "actors",
+                "writers",
+              ],
+            },
             "aggs": Object {},
             "from": 0,
             "query": Object {
@@ -134,6 +140,12 @@ describe('Numeric Range Filter', () => {
       .reply((uri, body) => {
         expect(body).toMatchInlineSnapshot(`
           Object {
+            "_source": Object {
+              "includes": Array [
+                "actors",
+                "writers",
+              ],
+            },
             "aggs": Object {},
             "from": 0,
             "query": Object {
@@ -208,6 +220,12 @@ describe('Numeric Range Filter', () => {
       .reply((uri, body) => {
         expect(body).toMatchInlineSnapshot(`
           Object {
+            "_source": Object {
+              "includes": Array [
+                "actors",
+                "writers",
+              ],
+            },
             "aggs": Object {},
             "from": 0,
             "query": Object {

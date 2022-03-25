@@ -65,6 +65,12 @@ describe('Range Facets', () => {
         .reply((uri, body) => {
           expect(body).toMatchInlineSnapshot(`
             Object {
+              "_source": Object {
+                "includes": Array [
+                  "actors",
+                  "writers",
+                ],
+              },
               "aggs": Object {},
               "from": 0,
               "post_filter": Object {
@@ -123,6 +129,12 @@ describe('Range Facets', () => {
         .reply((uri, body) => {
           expect(body).toMatchInlineSnapshot(`
             Object {
+              "_source": Object {
+                "includes": Array [
+                  "actors",
+                  "writers",
+                ],
+              },
               "aggs": Object {},
               "from": 0,
               "post_filter": Object {
