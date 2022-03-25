@@ -82,6 +82,12 @@ describe('Geo Filters', () => {
         .reply((uri, body) => {
           expect(body).toMatchInlineSnapshot(`
             Object {
+              "_source": Object {
+                "includes": Array [
+                  "actors",
+                  "writers",
+                ],
+              },
               "aggs": Object {
                 "facet_bucket_all": Object {
                   "aggs": Object {
@@ -184,6 +190,12 @@ describe('Geo Filters', () => {
         .reply((uri, body) => {
           expect(body).toMatchInlineSnapshot(`
             Object {
+              "_source": Object {
+                "includes": Array [
+                  "actors",
+                  "writers",
+                ],
+              },
               "aggs": Object {
                 "facet_bucket_all": Object {
                   "aggs": Object {
@@ -266,6 +278,12 @@ describe('Geo Filters', () => {
         .reply((uri, body) => {
           expect(body).toMatchInlineSnapshot(`
             Object {
+              "_source": Object {
+                "includes": Array [
+                  "actors",
+                  "writers",
+                ],
+              },
               "aggs": Object {
                 "facet_bucket_all": Object {
                   "aggs": Object {

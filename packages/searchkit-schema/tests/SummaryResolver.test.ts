@@ -112,6 +112,11 @@ describe('Summary Resolver', () => {
         .reply((uri, body) => {
           expect(body).toMatchInlineSnapshot(`
             Object {
+              "_source": Object {
+                "includes": Array [
+                  "actors",
+                ],
+              },
               "aggs": Object {},
               "from": 0,
               "post_filter": Object {

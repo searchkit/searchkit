@@ -2,7 +2,7 @@
   "packages": [
     "packages/*"
   ],
-  "version": "3.0.0-canary.52",
+  "version": "3.0.0-canary.53",
   "includeMergedTags": true,
   "command": {
     "publish": {

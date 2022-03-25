@@ -83,6 +83,12 @@ describe('customisations', () => {
       .reply((uri, body) => {
         expect(body).toMatchInlineSnapshot(`
           Object {
+            "_source": Object {
+              "includes": Array [
+                "actors",
+                "writers",
+              ],
+            },
             "aggs": Object {},
             "from": 0,
             "size": 10,
@@ -101,6 +107,12 @@ describe('customisations', () => {
       .reply((uri, body) => {
         expect(body).toMatchInlineSnapshot(`
           Object {
+            "_source": Object {
+              "includes": Array [
+                "name",
+                "tags",
+              ],
+            },
             "aggs": Object {},
             "from": 0,
             "query": Object {
