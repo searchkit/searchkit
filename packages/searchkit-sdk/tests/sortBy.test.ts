@@ -23,6 +23,11 @@ describe('Hit Results', () => {
       .reply(200, (uri, body) => {
         expect(body).toMatchInlineSnapshot(`
           Object {
+            "_source": Object {
+              "includes": Array [
+                "facet1",
+              ],
+            },
             "aggs": Object {},
             "from": 0,
             "size": 10,
@@ -52,6 +57,11 @@ describe('Hit Results', () => {
       .reply(200, (uri, body) => {
         expect(body).toMatchInlineSnapshot(`
           Object {
+            "_source": Object {
+              "includes": Array [
+                "facet1",
+              ],
+            },
             "aggs": Object {},
             "from": 0,
             "size": 10,

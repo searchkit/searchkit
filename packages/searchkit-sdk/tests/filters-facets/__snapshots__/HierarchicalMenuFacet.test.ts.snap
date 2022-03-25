@@ -2,6 +2,12 @@
 
 exports[`NumericRangeFilter 1 lvl1 filter, bring back level 1..3 facets. Lvl2 facets have lvl1 filter applied, lvl3 will have lvl 1..2 filter applied 1`] = `
 Object {
+  "_source": Object {
+    "includes": Array [
+      "actors",
+      "writers",
+    ],
+  },
   "aggs": Object {
     "facet_bucket_all": Object {
       "aggs": Object {},
@@ -142,6 +148,12 @@ Object {
 
 exports[`NumericRangeFilter Filter on level 1 facet 1`] = `
 Object {
+  "_source": Object {
+    "includes": Array [
+      "actors",
+      "writers",
+    ],
+  },
   "aggs": Object {
     "facet_bucket_all": Object {
       "aggs": Object {},
@@ -243,6 +255,12 @@ Object {
 
 exports[`NumericRangeFilter Ignore level 3 filter because only lvl1 filter has been applied 1`] = `
 Object {
+  "_source": Object {
+    "includes": Array [
+      "actors",
+      "writers",
+    ],
+  },
   "aggs": Object {
     "facet_bucket_all": Object {
       "aggs": Object {},
@@ -354,6 +372,12 @@ Object {
 
 exports[`NumericRangeFilter No filters, bring back only level 1 facets 1`] = `
 Object {
+  "_source": Object {
+    "includes": Array [
+      "actors",
+      "writers",
+    ],
+  },
   "aggs": Object {
     "facet_bucket_all": Object {
       "aggs": Object {

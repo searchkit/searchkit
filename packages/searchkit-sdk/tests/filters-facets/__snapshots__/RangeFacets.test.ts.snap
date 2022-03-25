@@ -2,6 +2,12 @@
 
 exports[`Numeric Range + Date Range Facet Filters Numeric Range Combination of min and max date range facets 1`] = `
 Object {
+  "_source": Object {
+    "includes": Array [
+      "actors",
+      "writers",
+    ],
+  },
   "aggs": Object {
     "facet_bucket_all": Object {
       "aggs": Object {},
@@ -86,6 +92,12 @@ exports[`Numeric Range + Date Range Facet Filters Numeric Range Combination of m
 
 exports[`Numeric Range + Date Range Facet Filters Numeric Range Combination of min and max number range facets 1`] = `
 Object {
+  "_source": Object {
+    "includes": Array [
+      "actors",
+      "writers",
+    ],
+  },
   "aggs": Object {
     "facet_bucket_all": Object {
       "aggs": Object {},
