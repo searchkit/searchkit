@@ -1,7 +1,7 @@
 ---
 id: sdk-customisations-adding-your-own-filters
-title: Custom Filters
-sidebar_label: Custom Filters
+title: Filters
+sidebar_label: Filters
 slug: /sdk-customisations/customisations-filters
 keywords: [Elasticsearch Filters, Searchkit Filters, Search Filters]
 description: Searchkit custom filters
@@ -34,7 +34,7 @@ class CustomFilter {
     }
   }
 
-  // powers the appliedFilters type for all filters added
+  // powers the summary.appliedFilters array value for when the filter is added
   getSelectedFilter(filterSet) {
     return {
       type: 'ValueSelectedFilter',

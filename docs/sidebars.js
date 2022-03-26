@@ -10,6 +10,11 @@ module.exports = {
       'searchkit-client',
       'searchkit-elastic-ui',
     ],
+    Customisations: [
+      'customisations-query-boosting-relevance',
+      'sdk-customisations-adding-your-own-filters',
+      'sdk-customisations-ui-add-new-facet-class'
+    ],
     'Frontend Guides': [
       'guides-url-sync'
     ],
@@ -18,9 +23,6 @@ module.exports = {
     ],
     'Notes': ['v2-v3-migration', 'guides-upgrade-rc41'],
     'SDK Guides': [
-      'sdk-customisations-adding-your-own-filters',
-      'customisations-query-boosting-relevance',
-      'sdk-customisations-ui-add-new-facet-class',
       'sdk-guides-using-filters',
       'customisations-conditional-facets'
     ],

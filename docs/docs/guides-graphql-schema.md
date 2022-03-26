@@ -296,3 +296,17 @@ query {
   }
 }
 ```
+
+### Query Options Usage
+
+```graphql
+{
+  results(query: "heat", queryOptions: {fields: ["title^2", "description^1"]}) {
+    hits {
+      items {
+        id
+      }
+    }
+  }
+}
+```

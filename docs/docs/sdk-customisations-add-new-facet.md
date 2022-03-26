@@ -1,7 +1,7 @@
 ---
 id: sdk-customisations-ui-add-new-facet-class
-title: Building your own Facet
-sidebar_label: Building your own Facet
+title: Facet
+sidebar_label: Facet
 slug: /sdk/customisations/add-new-facet
 keywords:
   [
@@ -13,12 +13,12 @@ keywords:
 description: Building your own custom facet for Searchkit
 ---
 
-You want to add a new type of facet which isn't currently supported by Searchkit. First create a Facet Class by implementing the BaseFacet interface.
+You can easily add your own facets which use Elasticsearch's aggregation API.
 
 ```javascript
 import {BaseFacet} from '@searchkit/schema';
 
-export class CustomFacet implements BaseFacet {
+export class CustomFacet {
   // whether Facet should exclude its own filters from
   // aggregation query.
   // When true, will return all aggregations for field
@@ -42,13 +42,30 @@ export class CustomFacet implements BaseFacet {
     return this.config.label;
   }
 
+  // transform the facet's filters into ES filter queries
+  getFilters(filters) {
+    const condition = this.excludeOwnFilters ? 'should' : 'must';
+    return {
+      bool: {
+        [condition]: filters.map((term) => ({
+          term: {[this.config.field]: term.value},
+        })),
+      },
+    };
+  }
+
   // return the elasticsearch aggregation query for facet
   // overrides are values specified at query time
   // Facet options can be size or query
-  getAggregation(overrides: FacetOptions) {}
-
-  // transform the facet's  filters into ES filter queries
-  getFilters(filters: Array<MixedFilter>) {}
+  getAggregation(overrides) {
+    return {
+      [this.getIdentifier()]: {
+        terms: {
+          field: this.config.field,
+        },
+      },
+    };
+  }
 
   // transform ES response into an object that matches the Facet Schema type
   transformResponse(response) {

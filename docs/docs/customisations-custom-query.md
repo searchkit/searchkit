@@ -1,7 +1,7 @@
 ---
 id: customisations-query-boosting-relevance
-title: Custom Query and Boosting
-sidebar_label: Custom Query and Boosting
+title: Query and Boosting
+sidebar_label: Query and Boosting
 slug: /customisations/customisations-query-boosting-relevance
 keywords:
   [
@@ -9,9 +9,9 @@ keywords:
     GraphQL Facet Search,
     Searchkit Facet,
     Elasticsearch API,
-    Conditional Facets,
+    Customising Query,
   ]
-description: Conditional facets
+description: Customising Query
 ---
 
 Within Searchkit configuration, you can specify how you want to transform the query string into an elasticsearch query. Out of the box there are two options:
@@ -90,20 +90,6 @@ const response = await request
       from: 0,
     },
   });
-```
-
-or within the graphQL query, you can specify fields at query time
-
-```graphql
-{
-  results(query: "heat", queryOptions: {fields: ["title^2", "description^1"]}) {
-    hits {
-      items {
-        id
-      }
-    }
-  }
-}
 ```
 
 and adjust the customQuery function to change the DSL based on the options
