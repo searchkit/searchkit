@@ -1,7 +1,7 @@
 import { useSearchkit, useSearchkitVariables } from '@searchkit/client'
 import { useEffect, useRef, useState } from 'react'
 import debounce from 'debounce'
-import { xor } from 'lodash'
+import xor from 'lodash/xor'
 
 let map
 

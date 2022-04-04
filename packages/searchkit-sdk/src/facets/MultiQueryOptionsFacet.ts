@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { ValueFilter } from '../core/QueryManager'
 import { BaseFacet } from './BaseFacet'
 

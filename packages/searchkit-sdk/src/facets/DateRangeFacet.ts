@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import isUndefined from 'lodash/isUndefined'
 import { DateRangeFilter } from '../core/QueryManager'
 import { BaseFacet } from './BaseFacet'
 
@@ -23,8 +23,8 @@ class DateRangeFacet implements BaseFacet {
 
   getFilters(filters: Array<DateRangeFilter>) {
     const rangeFilter: { gte?: string; lte?: string } = {}
-    if (!_.isUndefined(filters[0].dateMin)) rangeFilter.gte = filters[0].dateMin
-    if (!_.isUndefined(filters[0].dateMax)) rangeFilter.lte = filters[0].dateMax
+    if (!isUndefined(filters[0].dateMin)) rangeFilter.gte = filters[0].dateMin
+    if (!isUndefined(filters[0].dateMax)) rangeFilter.lte = filters[0].dateMax
     return { range: { [this.config.field]: rangeFilter } }
   }
 

@@ -1,4 +1,4 @@
-import { merge } from 'lodash'
+import merge from 'lodash/merge'
 import { SearchkitConfig } from '../'
 import { BaseFacet } from '../facets'
 import QueryManager from './QueryManager'

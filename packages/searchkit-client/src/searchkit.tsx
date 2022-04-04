@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import isEqual from 'fast-deep-equal'
-import { isUndefined } from 'lodash'
+import isUndefined from 'lodash/isUndefined'
 
 export interface Filter {
   identifier: string
