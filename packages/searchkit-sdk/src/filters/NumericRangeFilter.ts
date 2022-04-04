@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import isUndefined from 'lodash/isUndefined'
 import { RangeFilter } from '../core/QueryManager'
 import { BaseFilter } from './BaseFilter'
 
@@ -21,8 +21,8 @@ class NumericRangeFilter implements BaseFilter {
 
   getFilters(filters: Array<RangeFilter>) {
     const rangeFilter: { gte?: number; lte?: number } = {}
-    if (!_.isUndefined(filters[0].min)) rangeFilter.gte = filters[0].min
-    if (!_.isUndefined(filters[0].max)) rangeFilter.lte = filters[0].max
+    if (!isUndefined(filters[0].min)) rangeFilter.gte = filters[0].min
+    if (!isUndefined(filters[0].max)) rangeFilter.lte = filters[0].max
     return { range: { [this.config.field]: rangeFilter } }
   }
 

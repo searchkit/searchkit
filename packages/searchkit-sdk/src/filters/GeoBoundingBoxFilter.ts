@@ -1,4 +1,5 @@
-import { omitBy, isNil } from 'lodash'
+import isNil from 'lodash/isNil'
+import omitBy from 'lodash/omitBy'
 import { GeoBoundingBoxFilter } from '../core/QueryManager'
 import { BaseFilter } from './BaseFilter'
 

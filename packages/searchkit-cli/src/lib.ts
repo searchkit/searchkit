@@ -1,5 +1,5 @@
 import { Client } from '@elastic/elasticsearch'
-import _ from 'lodash'
+import flatMap from 'lodash/flatMap'
 import parse from 'date-fns/parse'
 import formatISO from 'date-fns/formatISO'
 
@@ -154,7 +154,7 @@ export const indexDocs = async (config) => {
   })
   const docs = await getDocs(config)
   try {
-    const cmds = _.flatMap(docs, (doc) => [
+    const cmds = flatMap(docs, (doc) => [
       { index: { _index: config.index, _id: doc.id, _type: config.type } },
       doc
     ])

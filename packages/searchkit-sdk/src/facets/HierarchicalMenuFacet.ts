@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import QueryManager, { HierarchicalValueFilter } from '../core/QueryManager'
 import { BaseFacet } from './BaseFacet'
 
