@@ -75,6 +75,7 @@ export type ResponseRequest = {
   hits?: {
     size?: number
     from?: number
+    includeRawHit?: boolean
   }
   facets?:
     | boolean

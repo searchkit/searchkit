@@ -76,9 +76,10 @@ export interface SearchkitHit {
   id: string
   fields: Record<string, any>
   highlight: Record<string, any>
+  rawHit: Record<string, any>
 }
 
-interface SearchkitPage {
+export interface SearchkitPage {
   total: number
   totalPages: number
   pageNumber: number
@@ -126,7 +127,8 @@ export class ElasticSearchResponseTransformer implements SearchkitResponseTransf
         items: hits.hits.map((hit) => ({
           id: hit._id,
           fields: hit._source,
-          highlight: hit.highlight
+          highlight: hit.highlight,
+          ...(responseRequest.hits.includeRawHit ? { rawHit: hit } : {})
         })),
         page: {
           total: hitsTotal,

@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-catch */
 import createInstance, { SearchkitConfig, SearchkitRequest } from '@searchkit/sdk'
+import { SearchkitResponse } from '@searchkit/sdk'
 import ESClientTransporter from '@searchkit/sdk/lib/cjs/transporters/ESClientTransporter'
 import DataLoader from 'dataloader'
 
@@ -58,7 +59,7 @@ export class DataRequest {
     this.skRequest.setQueryOptions(options)
   }
 
-  search(): Promise<any> {
+  search(): Promise<SearchkitResponse> {
     return this.dataloader.load(1)
   }
 
@@ -68,7 +69,8 @@ export class DataRequest {
         facets: this.facetsCriteria.length > 0 ? this.facetsCriteria : this.facets,
         hits: {
           size: this.size,
-          from: this.from
+          from: this.from,
+          includeRawHit: true
         }
       },
       this.baseFilters

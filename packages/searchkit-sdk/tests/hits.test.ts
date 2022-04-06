@@ -129,8 +129,37 @@ describe('Hit Results', () => {
       }
     })
     expect(response).toMatchSnapshot()
+    expect(response.hits.items[0].rawHit).not.toBeDefined()
     expect(response.facets).toBeFalsy()
     expect(response.summary.query).toBe('test')
     expect(response.summary.total).toBe(4162)
+  })
+
+  it('includes raw hit', async () => {
+    const request = SearchkitRequest({
+      host: 'http://localhost:9200',
+      query: new MultiMatchQuery({
+        fields: ['title', 'body']
+      }),
+      hits: {
+        fields: ['facet1']
+      },
+      index: 'test'
+    })
+
+    request.query('test')
+
+    const scope = nock('http://localhost:9200')
+      .post('/test/_search')
+      .reply(200, (uri, body: any) => HitsMMock)
+
+    const response = await request.execute({
+      hits: {
+        size: 10,
+        from: 10,
+        includeRawHit: true
+      }
+    })
+    expect(response.hits.items[0].rawHit).toBeDefined()
   })
 })

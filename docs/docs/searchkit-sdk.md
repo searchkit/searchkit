@@ -205,6 +205,7 @@ const response = await Searchkit(config).execute({
   hits: {
     from: 0,
     size: 10,
+    includeRawHit: true,
   },
 });
 ```
@@ -244,6 +245,14 @@ example of response
   }
 }
 ```
+
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| from | page start of the request |
+| size | number of hits to return |
+| includeRawHit | Boolean. When true, will return the raw elasticsearch document in the response under `rawHit` |
 
 ## Query API
 
@@ -574,7 +583,7 @@ const response = await request
     facets: true,
     hits: {
       size: 10,
-      from: 0,
+      from: 0
     },
   });
 ```
