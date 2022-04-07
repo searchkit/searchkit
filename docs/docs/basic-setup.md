@@ -259,12 +259,6 @@ function App() {
 
 You should now see your results!
 
-<<<<<<< HEAD
-
-### Code Sandbox Example
-
-=======
-
 ## Step 3: Url Persistance
 
 Update your index.js file to use the routing HOC
@@ -284,5 +278,3 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 ```
-
-> > > > > > > 6470aa32bd686ad6aca5edbecca587e49be96cf9
