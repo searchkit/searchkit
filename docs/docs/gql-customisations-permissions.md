@@ -1,8 +1,8 @@
 ---
-id: customisations-authentication-and-authorisation
+id: gql-customisations-permissions
 title: Authentication & Authorisation
 sidebar_label: Authentication & Authorisation
-slug: /customisations/authentication-and-authorisation
+slug: /graphql/customisations/authentication-and-authorisation
 keywords:
   [
     Elasticsearch GraphQL API,

@@ -1,8 +1,8 @@
 ---
 id: sdk-customisations-ui-add-new-facet-class
 title: Facet
-sidebar_label: Facet
-slug: /sdk/customisations/add-new-facet
+sidebar_label: Custom Facet
+slug: /core/reference/searchkit-sdk/facets/custom
 keywords:
   [
     Elasticsearch Facets,

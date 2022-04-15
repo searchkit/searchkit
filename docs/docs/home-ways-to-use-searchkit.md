@@ -1,8 +1,8 @@
 ---
-id: base-how-to-use-searchkit
+id: home-how-to-use-searchkit
 title: Why use Searchkit?
 sidebar_label: Why use Searchkit?
-slug: /quick-start/why
+slug: /core/overview/why-use-searchkit
 keywords:
   [
     React,

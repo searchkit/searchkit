@@ -1,8 +1,8 @@
 ---
-id: base-ui-setup
+id: gql-ui-setup
 title: Initial Setup
 sidebar_label: Initial Setup
-slug: /quick-start/ui/setup
+slug: /graphql/quick-start/ui/setup
 keywords:
   [React, Elasticsearch, Apollo Client, GraphQL, GraphQL React Elasticsearch]
 description: Setting up Apollo client to call Searchkit GraphQL API and integrating with your own components
@@ -10,7 +10,7 @@ description: Setting up Apollo client to call Searchkit GraphQL API and integrat
 
 This section we will be setting up the UI part of searchkit.
 
-Also see [Create React App](https://searchkit.co/docs/examples/create-react-app) if you're not using NextJS.
+Also see [Create React App](https://codesandbox.io/s/searchkit-create-react-app-xj25o0) if you're not using NextJS.
 
 ## Setup Apollo Client
 
@@ -121,7 +121,11 @@ const QUERY = gql`
 
 const Index = () => {
   const variables = useSearchkitVariables();
-  const {previousData, data = previousData, loading} = useQuery(QUERY, {
+  const {
+    previousData,
+    data = previousData,
+    loading,
+  } = useQuery(QUERY, {
     variables,
   });
 
@@ -142,5 +146,5 @@ export default withApollo(withSearchkit(Index));
 
 Next you have a choice of two paths:
 
-- Use the out the box Search Components with @searchkit/elastic-ui. [Read more](/docs/quick-start/ui/eui)
-- Build your own components [Read more](/docs/quick-start/ui/your-components)
+- Use the out the box Search Components with @searchkit/elastic-ui.
+- Build your own components

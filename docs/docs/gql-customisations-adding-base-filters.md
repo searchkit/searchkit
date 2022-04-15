@@ -1,8 +1,8 @@
 ---
-id: customisations-add-base-filters
+id: gql-customisations-add-base-filters
 title: Adding base filters
 sidebar_label: Adding base filters
-slug: /customisations/add-base-filters
+slug: /graphql/customisations/add-base-filters
 keywords: [Base Filters, Elasticsearch Base Filters]
 description: Adding your own base filters to Searchkit API
 ---

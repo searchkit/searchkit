@@ -1,0 +1,108 @@
+---
+id: searchkit-sdk-facets-multi-query-options
+title: MultiQueryOptionsFacet
+sidebar_label: Multi Query Options
+slug: /core/reference/searchkit-sdk/facets/MultiQueryOptionsFacet
+---
+
+Facet that provides a list of entries with custom ranges or text. Good for usecases where you want control over the facet entries.
+
+#### Elasticsearch Mapping
+
+Below is an example mapping for the field `metascore`. We need to use a numeric type field type for this facet.
+
+```json
+{
+  "properties": {
+    "released": {
+      "type": "date"
+    },
+    "metascore": {
+      "type": "integer"
+    },
+    "type": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword",
+          "ignore_above": 256
+        }
+      }
+    }
+  }
+}
+```
+
+#### Usage
+
+```javascript
+{
+  MultiQueryOptionsFacet
+} from '@searchkit/sdk'
+
+const searchkitConfig = {
+  ...
+  facets: [
+    // example of Numeric Range
+    new MultiQueryOptionsFacet({
+      identifier: 'released',
+      field: 'released',
+      label: 'Released',
+      options: [
+        { min: 0, max: 10000, label: '0 - 10000' },
+        { min: 100001, max: 500000, label: '100001 - 500000' },
+        { min: 500001, max: 1000000, label: '500001 - 1000000' },
+        { min: 1000001, max: 5000000, label: '1000001 - 5000000' },
+        { min: 5000001, max: 10000000, label: '5000001 - 10000000' },
+        { min: 10000001, label: '10000001+' }
+      ]
+    }),
+    // example of value
+    new MultiQueryOptionsFacet({
+      identifier: 'type',
+      field: 'type.keyword',
+      label: 'Type',
+      options: [
+        { value: "movie", label: 'Movie' },
+        { value: "games", label: 'Games' },
+        { value: "shows", label: 'Shows' },
+      ]
+    }),
+    // example of date ranges
+    new MultiQueryOptionsFacet({
+      identifier: 'age',
+      field: 'age',
+      label: 'Age',
+      options: [
+        { dateMin: "10/12/2020", dateMax: "10/12/2021", label: 'Recent' },
+        { dateMin: "10/12/1920", dateMax: "10/12/2000", label: 'Vintage' }
+      ]
+    })
+  ]
+}
+
+const request = Searchkit(searchkitConfig);
+const response = await request
+  .setFilters([
+    {identifier: 'released', value: "5000001 - 10000000" },
+    {identifier: 'age', value: "Recent" },
+    {identifier: 'type', value: "movie" },
+  ])
+  .execute({
+    facets: true,
+    hits: {
+      size: 10,
+      from: 0,
+    },
+  });
+```
+
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| field | Aggregation field to be used, preferably a field that is raw, not tokenized |
+| id | Required to be unique. Used to apply filters on field |
+| label | UI label for facet. Used by @searchkit/elastic-ui components |
+| display | **Optional**. Used on UI to specify what component to handle facet |
+| multipleSelect | **Optional**. Default False. Allows you to choose multiple options which expands the search results |

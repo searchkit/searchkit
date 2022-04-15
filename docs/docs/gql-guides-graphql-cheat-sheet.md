@@ -1,8 +1,8 @@
 ---
-id: guides-graphql-schema-cheat-sheet
+id: gql-guides-graphql-cheat-sheet
 title: GQL Schema Queries Cheatsheet
 sidebar_label: GQL Queries Cheatsheet
-slug: /guides/graphql-schema-queries-cheatsheet
+slug: /graphql/guides/graphql-schema-queries-cheatsheet
 ---
 
 Try these examples on the [Demo GraphQL Playground](https://demo.searchkit.co/api/graphql)
@@ -305,6 +305,82 @@ query {
     hits {
       items {
         id
+      }
+    }
+  }
+}
+```
+
+## Geo location filtering
+
+Able to filter the results by a geo location with `GeoLocationFilter`
+
+```graphql
+{
+  result(
+    filters: [
+      {
+        identifier: "location"
+        geoBoundingBox: {
+          topLeft: {lat: 70.73, lon: -95.1}
+          bottomRight: {lat: 10.01, lon: -65.12}
+        }
+      }
+    ]
+  ) {
+    hits {
+      items {
+        id
+        ... on ParkResultHit {
+          fields {
+            title
+            location
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### HierarchicalMenuFacet GraphQL query
+
+```graphql
+  results(query: "test", filters: [
+    { identifier: 'categories', value: "Clothing" }
+  ]) {
+    summary {
+      total
+      appliedFilters {
+        id
+        identifier
+        label
+        display
+        ... on ValueSelectedFilter {
+          value
+        }
+      }
+    }
+    facets {
+      identifier
+      label
+      facets {
+        identifier
+        type
+        label
+        display
+        entries {
+          label
+          count
+          entries {
+            label
+            count
+            entries {
+              label
+              count
+            }
+          }
+        }
       }
     }
   }

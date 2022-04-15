@@ -1,8 +1,8 @@
 ---
-id: customisations-graphql-multiple-configurations
+id: gql-customisations-graphql-multiple-configurations
 title: Multiple Searchkit Schema Configurations
 sidebar_label: Multiple Searchkit Schema Configurations
-slug: /customisations/multiple-searchkit-configurations
+slug: /graphql/customisations/multiple-searchkit-configurations
 keywords: [Elasticsearch GraphQL API, Multiple Search Schemas]
 description: Having more than one Searchkit configuration for your GraphQL API
 ---

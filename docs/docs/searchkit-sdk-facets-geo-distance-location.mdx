@@ -1,0 +1,77 @@
+---
+id: searchkit-sdk-facets-geo-distance-location
+title: GeoDistanceOptionsFacet
+sidebar_label: Geo Distance Options
+slug: /core/reference/searchkit-sdk/facets/GeoDistanceOptionsFacet
+---
+
+Facet that provides a list of entries of ranges where each distance range has a number of hits associated. Great for finding results which are near to you.
+
+#### Elasticsearch Mapping
+
+Below is an example mapping for the field `metascore`. We need to use a numeric type field type for this facet.
+
+```json
+{
+  "properties": {
+    "location": {
+      "type": "geo_point"
+    }
+  }
+}
+```
+
+#### Usage
+
+```javascript
+{
+  MultiQueryOptionsFacet
+} from '@searchkit/sdk'
+
+const searchkitConfig = {
+  ...
+  facets: [
+    // example of Numeric Range
+    new GeoDistanceOptionsFacet({
+      field: 'location',
+      origin: '37.7749, -122.4194',
+      unit: 'mi',
+      ranges: [
+        { to: 10, label: 'Very Close' },
+        { from: 10, to: 20, label: 'Car ride away' },
+        { from: 20, to: 100, label: 'A little far' }
+      ],
+      label: 'location',
+      identifier: 'location'
+    })
+  ]
+}
+
+const request = Searchkit(searchkitConfig);
+const response = await request
+  .setFilters([
+    {
+      identifier: 'location',
+      value: 'Very Close'
+    }
+  ])
+  .execute({
+    facets: true,
+    hits: {
+      size: 10,
+      from: 0,
+    },
+  });
+```
+
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| field | Aggregation field to be used, preferably a field that is raw, not tokenized |
+| identifier | Required to be unique. Used to apply filters on field |
+| label | UI label for facet. Used by @searchkit/elastic-ui components |
+| display | **Optional**. Used on UI to specify what component to handle facet |
+| ranges | Array of distance options. |
+| unit | **Optional**. Unit of distance. Defaults to `mi` |
+| origin | **Required**. Origin point for distance calculation. |

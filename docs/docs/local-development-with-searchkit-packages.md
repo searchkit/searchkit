@@ -1,8 +1,8 @@
 ---
 id: local-development-with-searchkit-packages
 title: Local Development with Searchkit packages
-sidebar_label: Local Development
-slug: /contributing/local-development
+sidebar_label: Contributing to Searchkit
+slug: /core/contributing/local-development
 ---
 
 You can run the example project with locally compiled versions of the Searchkit packages.

@@ -1,8 +1,8 @@
 ---
-id: customisations-graphql-types
+id: gql-customisations-graphql-types
 title: Customise Searchkit Schema
 sidebar_label: Customise Searchkit Schema
-slug: /customisations/changing-graphql-types
+slug: /graphql/customisations/changing-graphql-types
 keywords: [Elasticsearch GraphQL API, customise GraphQL types]
 description: Customise Searchkit Schema
 ---

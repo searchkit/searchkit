@@ -1,0 +1,188 @@
+---
+id: searchkit-sdk-core
+title: Integration with Searchkit
+sidebar_label: Integration
+slug: /core/reference/searchkit-sdk
+---
+
+## Package Installation
+
+`yarn add @searchkit/sdk`
+
+### Simple Usage
+
+Example below is an example of configuring your query, sortOptions, filters and facets and performing the request. Behind the scenes, Searchkit SDK will generate a query DSL based on your configuration and search criteria, perform the query to Elasticsearch and return you a friendly response for you to use.
+
+SDK is universal. Works on the browser as well on node.js. You can treat it like a SDK client to Elasticsearch.
+
+```javascript
+
+import Searchkit, { MultiMatchQuery, RefinementSelectFacet, RangeFacet, DateRangeFacet, TermFilter } from '@searchkit/sdk'
+
+const searchkitConfig = {
+  host: 'http://127.0.0.1:9200/', // elasticsearch instance url
+  index: 'movies', // search indices name
+  hits: {
+    fields: [ 'title', 'plot', 'poster' ]
+  },
+  query: new MultiMatchQuery({
+    fields: [ 'plot','title^4'],
+    highlightFields: ["title"]
+  }),
+  sortOptions: [
+    { id: 'relevance', label: 'Relevance', field: '_score' },
+    { id: 'released', label: 'Recent Releases', field: { released: 'desc' } }
+  ],
+  filters: [
+    new TermFilter({
+      identifier: "writer",
+      field: "writers",
+      label: "Writers"
+    })
+  ],
+  facets: [
+    new RefinementSelectFacet({
+      identifier: 'type',
+      field: 'type.raw',
+      label: 'Type'
+      multipleSelect: true
+    }),
+    new RangeFacet({
+      identifier: 'metascore',
+      field: 'metaScore',
+      label: 'Metascore',
+      range: {
+        min: 0,
+        max: 100,
+        interval: 5
+      }
+    }),
+    new DateRangeFacet({
+      identifier: 'released',
+      field: 'released',
+      label: 'Released'
+    })
+  ]
+}
+
+const request = Searchkit(config)
+const response = await request
+  .query("heat")
+  .setFilters([
+    { identifier: "metascore", min: 10, max: 90 },
+    { identifier: 'writers', value: 'writer1' },
+    { identifier: 'released', dateMin: '2021-01-01T10:10:10.000Z', dateMax: '2022-01-01T10:10:10.000Z' }
+  ])
+  .setSortBy("released")
+  .execute({
+    facets: true,
+    hits: {
+      size: 10,
+      from: 0
+    }
+  })
+
+```
+
+## Connecting to Elasticsearch
+
+You can configure & connect to an Elasticsearch instance without any credentials although its strongly suggested that you do if you're using the SDK within the browser. Below are some of the options you can use to secure the connection between you and Elasticsearch.
+
+### Proxy the search call through your API
+
+If you're using Searchkit SDK directly within the browser and require Elasticsearch to be accesible from the browser, opening up a route on your API that proxies the request through your API could be an option. This means that we are not exposing Elasticsearch on the internet and gives you opportunity to add additional filters to the Elasticsearch query.
+
+### Via API Key
+
+Setting up an apiKey for Elasticsearch and configuring the rights to the apiKey to be read only and restricted to the indicies you're searching on. You are able to do this from within Kibana with Elasticsearch security enabled.
+
+```javascript
+
+const searchkitConfig = {
+  host: 'http://127.0.0.1:9200/', // elasticsearch instance url
+  connectionOptions: {
+    apiKey: "<insert apiKey>
+  }
+  index: 'movies',
+}
+```
+
+### Via Headers
+
+You can use the headers configuration object to pass any additional credential information required by the request. Can be used for example to pass JWT token with the request.
+
+```javascript
+
+const searchkitConfig = {
+  host: 'http://127.0.0.1:9200/', // elasticsearch instance url
+  connectionOptions: {
+    headers: {
+      authorization: "jwtToken",
+      "x-custom-header": "test"
+    }
+  }
+  index: 'movies',
+}
+```
+
+### Directly to Elasticsearch
+
+Still a viable option but you will need to update Elasticsearch CORS settings to allow requests to be performed from your domain.
+
+## Network Transport
+
+For more advanced use cases, you might want to be able to handle the mechanism of performing the network request yourself. By default, SDK uses fetch but we also have an Elasticsearch client transport should you wish to use that.
+
+#### @elastic/client Transport
+
+```javascript
+import ESClientTransporter from '@searchkit/sdk/lib/cjs/transporters/ESClientTransporter';
+
+const skConfig = {
+  // ... searchkit configuration
+};
+
+const transporter = new ESClientTransporter(skConfig);
+const response = await Searchkit(skConfig, transporter).execute({
+  hits: {
+    from: 0,
+    size: 10,
+  },
+});
+```
+
+#### Building your own
+
+You can use any network library of your choice by implementing your own transporter.
+
+```javascript
+const skConfig = {
+  // ... searchkit configuration
+};
+
+class MyCustomTransporter {
+  constructor(config) {
+    this.config = config;
+  }
+
+  async performRequest(requestBody) {
+    const response = await fetch(
+      this.config.host + '/' + this.config.index + '/_search',
+      {
+        method: 'POST',
+        body: JSON.stringify(requestBody),
+      },
+    );
+    const json = await response.json();
+    return json;
+  }
+}
+
+const transporter = new MyCustomTransporter(skConfig);
+const response = await Searchkit(skConfig, transporter).execute({
+  hits: {
+    from: 0,
+    size: 10,
+  },
+});
+```

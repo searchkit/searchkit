@@ -1,0 +1,63 @@
+---
+id: searchkit-sdk-facets-date-range
+title: DateRangeFacet
+sidebar_label: Date Range
+slug: /core/reference/searchkit-sdk/facets/DateRangeFacet
+---
+
+This is a facet that allows you to filter by a date range. Currently does not generate any facet entries. Mainly useful for the date range filter.
+
+#### Elasticsearch Mapping
+
+Below is an example mapping for the field `released`. We need to use a date type field type for this facet.
+
+```json
+{
+  "properties": {
+    "released": {
+      "type": "date"
+    }
+  }
+}
+```
+
+#### Usage
+
+```javascript
+{
+  DateRangeFacet
+} from '@searchkit/sdk'
+
+const searchkitConfig = {
+  ...
+  facets: [
+    new DateRangeFacet({
+      identifier: 'released',
+      field: 'released',
+      label: 'Released'
+    })
+  ]
+}
+
+const request = Searchkit(searchkitConfig);
+const response = await request
+  .setFilters([
+    {identifier: 'released', dateMin: "10/12/2020", dateMax: "10/12/2021" },
+  ])
+  .execute({
+    facets: true,
+    hits: {
+      size: 10,
+      from: 0,
+    },
+  });
+```
+
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| field | Aggregation field to be used, preferably a field that is raw, not tokenized |
+| id | Required to be unique. Used to apply filters on field |
+| label | UI label for facet. Used by @searchkit/elastic-ui components |
+| display | **Optional**. Used on UI to specify what component to handle facet |

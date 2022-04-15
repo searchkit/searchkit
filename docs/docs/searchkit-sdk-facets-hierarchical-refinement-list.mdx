@@ -1,0 +1,166 @@
+---
+id: searchkit-sdk-facets-hierarchical-refinement-list
+title: Hierarchical Menu
+sidebar_label: Hierarchical Menu
+slug: /core/reference/searchkit-sdk/facets/HierarchicalMenuFacet
+---
+
+Returns a list of facet options in a hierarchy that can be applied to refine the result set. When one level is selected, the next level is populated with the children of the selected option.
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+export const videoStyling = {maxHeight: '350px', maxWidth: '100%'};
+
+#### Elasticsearch Mapping
+
+Below is an example mapping for the field `actors`. We need to use a keyword field type for this facet.
+
+```json
+{
+  "properties": {
+    "category1": {
+      "type": "text",
+      "fields": {
+        "raw": {
+          "type": "keyword"
+        }
+      }
+    }
+  },
+  "category2": {
+    "type": "text",
+    "fields": {
+      "raw": {
+        "type": "keyword"
+      }
+    }
+  },
+  "category3": {
+    "type": "text",
+    "fields": {
+      "raw": {
+        "type": "keyword"
+      }
+    }
+  }
+}
+```
+
+### HierarchicalMenuFacet
+
+#### Usage
+
+```javascript
+{
+  HierarchicalMenuFacet
+} from '@searchkit/sdk'
+
+const searchkitConfig = {
+  ...
+  facets: [
+    new HierarchicalMenuFacet({
+      fields: ['categories1', 'categories2', 'categories3'],
+      identifier: 'categories',
+      label: 'Categories'
+    })
+  ]
+}
+
+const request = Searchkit(searchkitConfig);
+const response = await request
+  .setFilters([
+    {identifier: 'categories', value: 'Clothing', level: 1},
+    {identifier: 'categories', value: 'Shoes', level: 2},
+  ])
+  .execute({
+    facets: true,
+    hits: {
+      size: 10,
+      from: 0
+    },
+  });
+```
+
+#### Response
+
+```javascript
+  {
+  "hits": {
+    "items": [
+      // 10 items
+    ],
+    "page": {
+      "from": 0,
+      "pageNumber": 0,
+      "size": 10,
+      "total": 11,
+      "totalPages": 2
+    }
+  },
+  "sortedBy": undefined,
+  "facets": [
+      {
+      "display": "HierarchicalMenuFacet",
+      "entries": [
+        {
+          "count": 73,
+          "label": "Clothing",
+        },
+        {
+          "count": 56,
+          "label": "Shoes",
+          "entries": [
+            {
+              "count": 56,
+              "label": "Trainers",
+            },
+            {
+              "count": 23,
+              "label": "Boots",
+            }
+          ]
+        },
+        {
+          "count": 56,
+          "label": "Sport",
+        }
+      ]
+      "identifier": "categories",
+      "label": "Categories",
+      "type": "HierarchicalMenuFacet"
+    },
+  ],
+  "summary": {
+    "appliedFilters": [
+      {
+        "display": "ListFacet",
+        "id": "categories_clothing",
+        "identifier": "categories",
+        "label": "Categories",
+        "value": "Clothing",
+        "level": 1
+      },
+      {
+        "display": "ListFacet",
+        "id": "categories_shoes",
+        "identifier": "categories",
+        "label": "Categories",
+        "value": "Shoes",
+        "level": 2
+      },
+    ],
+    "disabledFilters": [],
+    "query": "",
+    "sortOptions": [],
+    "total": 11
+  }
+}
+```
+
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| field | Aggregation field to be used, preferably a field that is raw, not tokenized |
+| id | Required to be unique. Used to apply filters on field |
+| label | UI label for facet. Used by @searchkit/elastic-ui components |
+| display | **Optional**. Used on UI to specify what component to handle facet |

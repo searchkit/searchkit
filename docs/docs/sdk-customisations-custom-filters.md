@@ -1,8 +1,8 @@
 ---
-id: sdk-customisations-adding-your-own-filters
+id: sdk-customisations-custom-filters
 title: Filters
 sidebar_label: Filters
-slug: /sdk-customisations/customisations-filters
+slug: /core/sdk-customisations/customisations-filters
 keywords: [Elasticsearch Filters, Searchkit Filters, Search Filters]
 description: Searchkit custom filters
 ---

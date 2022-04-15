@@ -1,5 +1,5 @@
 ---
-id: graphql-overview
+id: gql-graphql-overview
 title: Overview
 sidebar_label: Overview
 slug: /graphql/overview

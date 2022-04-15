@@ -1,0 +1,53 @@
+---
+id: searchkit-sdk-pagination
+title: Pagination
+sidebar_label: Pagination
+slug: /core/reference/searchkit-sdk/pagination
+---
+
+Searchkit provides page information so its really easy to implement pagination.
+
+```javascript
+const skConfig = {
+  host: 'http://127.0.0.1:9200/',
+  index: 'movies',
+  hits: {
+    fields: ['title', 'plot', 'poster'],
+    highlightFields: ['title'],
+  },
+};
+
+const response = await Searchkit(config)
+  .query('heat')
+  .execute({
+    hits: {
+      from: 0, // start from the first result
+      size: 10, // get 10 results
+    },
+  });
+```
+
+#### Example response
+
+```json
+{
+  "hits": {
+    items: [ ... ],
+    "page": { // pagination information
+      "from": 0,
+      "pageNumber": 0,
+      "size": 10,
+      "total": 11,
+      "totalPages": 2
+    }
+  },
+  "sortedBy": undefined,
+  "summary": {
+    "appliedFilters": [],
+    "disabledFilters": [],
+    "query": "heat",
+    "sortOptions": [],
+    "total": 11
+  }
+}
+```

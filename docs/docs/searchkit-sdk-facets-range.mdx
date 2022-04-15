@@ -1,0 +1,195 @@
+---
+id: searchkit-sdk-facets-range
+title: RangeFacet
+sidebar_label: Numeric Range
+slug: /core/reference/searchkit-sdk/facets/RangeFacet
+---
+
+Returns a list of facet options that can be applied to refine the result set. Generates a histogram of values between the range. Useful for indicating where results are found within the range.
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+export const videoStyling = {maxHeight: '350px', maxWidth: '100%'};
+
+/>
+
+#### Elasticsearch Mapping
+
+Below is an example mapping for the field `metascore`. We need to use a field that ranges can be applied on. This could be a numeric type for this facet.
+
+```json
+{
+  "properties": {
+    "metascore": {
+      "type": "float"
+    }
+  }
+}
+```
+
+#### Usage
+
+```javascript
+{
+  RangeFacet
+} from '@searchkit/sdk'
+
+const searchkitConfig = {
+  ...
+  facets: [
+    new RangeFacet({
+      field: 'metaScore',
+      identifier: 'metascore',
+      label: 'Metascore',
+      range: {
+        min: 0,
+        max: 100,
+        interval: 5
+      }
+    })
+  ]
+}
+
+const request = Searchkit(searchkitConfig);
+const response = await request
+  .setFilters([
+    {identifier: 'metascore', min: 10, max: 90 },
+  ])
+  .execute({
+    facets: true,
+    hits: {
+      size: 10,
+      from: 0,
+    },
+  });
+```
+
+#### Response
+
+```javascript
+  {
+  "summary": {
+    "total": 1607,
+    "query": "",
+    "sortOptions": [],
+    "appliedFilters": [
+      {
+        "identifier": "metascore",
+        "id": "metascore_22_100",
+        "label": "Metascore",
+        "display": "RangeSliderFacet",
+        "type": "NumericRangeSelectedFilter",
+        "min": 10,
+        "max": 90
+      }
+    ],
+    "disabledFilters": []
+  },
+  "facets": [
+    {
+      "identifier": "metascore",
+      "label": "Metascore",
+      "display": "RangeSliderFacet",
+      "type": "RangeFacet",
+      "entries": [
+        {
+          "label": 0,
+          "count": 0
+        },
+        {
+          "label": 5,
+          "count": 0
+        },
+        {
+          "label": 10,
+          "count": 1
+        },
+        {
+          "label": 15,
+          "count": 3
+        },
+        {
+          "label": 20,
+          "count": 8
+        },
+        {
+          "label": 25,
+          "count": 21
+        },
+        {
+          "label": 30,
+          "count": 44
+        },
+        {
+          "label": 35,
+          "count": 58
+        },
+        {
+          "label": 40,
+          "count": 64
+        },
+        {
+          "label": 45,
+          "count": 125
+        },
+        {
+          "label": 50,
+          "count": 139
+        },
+        {
+          "label": 55,
+          "count": 155
+        },
+        {
+          "label": 60,
+          "count": 175
+        },
+        {
+          "label": 65,
+          "count": 193
+        },
+        {
+          "label": 70,
+          "count": 190
+        },
+        {
+          "label": 75,
+          "count": 147
+        },
+        {
+          "label": 80,
+          "count": 137
+        },
+        {
+          "label": 85,
+          "count": 83
+        },
+        {
+          "label": 90,
+          "count": 51
+        },
+        {
+          "label": 95,
+          "count": 15
+        },
+        {
+          "label": 100,
+          "count": 4
+        }
+      ]
+    }
+  ],
+  "hits": {  ... }
+}
+```
+
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| field | Aggregation field to be used, preferably a field that is raw, not tokenized |
+| id | Required to be unique. Used to apply filters on field |
+| label | UI label for facet. Used by @searchkit/elastic-ui components |
+| range | Object of min, max and interval. Brings back entries between min and max. Number of entries depends on interval |
+| display | **Optional**. Used on UI to specify what component to handle facet |
+
+### RangeFilterFacet

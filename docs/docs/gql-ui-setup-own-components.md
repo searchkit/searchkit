@@ -2,20 +2,20 @@
 id: ui-setup-own-components
 title: With your Components
 sidebar_label: With your Components
-slug: /quick-start/ui/your-components
+slug: /graphql/quick-start/ui/your-components
 ---
 
 This guide will step you through how to use the searchkit client API to build your own UI components, for those who want to integrate searchkit into their own UI.
 
-Also see [Create React App](https://searchkit.co/docs/examples/create-react-app) if you're not using NextJS.
+Also see [Create React App](https://codesandbox.io/s/searchkit-create-react-app-xj25o0) if you're not using NextJS.
 
 ### Search Input Component
 
-Below example of how a simple search query component can be built using the searchkit client API. When search is invoked, the API will perform a new query.  
+Below example of how a simple search query component can be built using the searchkit client API. When search is invoked, the API will perform a new query.
 
 ```javascript
 import React from 'react';
-import { useSearchkitQueryValue } from '@searchkit/client';
+import {useSearchkitQueryValue} from '@searchkit/client';
 
 const SearchInput = () => {
   const api = useSearchkit();
@@ -42,15 +42,15 @@ const SearchInput = () => {
 
 ### Facet Component
 
-Facets are configured on the server API. The configuration controls their order, their size and label. This makes the client side extremely simple. 
+Facets are configured on the server API. The configuration controls their order, their size and label. This makes the client side extremely simple.
 
-First we implement code to render each facet and their facet options and then we implement toggling facets which call the searchkit client API  
+First we implement code to render each facet and their facet options and then we implement toggling facets which call the searchkit client API
 
 ```javascript
-import React, { useState } from 'react'
-import { useSearchkit } from '@searchkit/client'
+import React, {useState} from 'react';
+import {useSearchkit} from '@searchkit/client';
 
-const RefinementFacet = ({ facet }) => {
+const RefinementFacet = ({facet}) => {
   const api = useSearchkit();
   return (
     <div key={facet.identifier}>
@@ -66,7 +66,10 @@ const RefinementFacet = ({ facet }) => {
               className={isSelected ? 'selected' : ''}
               key={entry.label}
               onClick={() => {
-                api.toggleFilter({ identifier: facet.identifier, value: entry.label });
+                api.toggleFilter({
+                  identifier: facet.identifier,
+                  value: entry.label,
+                });
                 api.search();
               }}>
               {entry.label} - {entry.count}
@@ -78,59 +81,67 @@ const RefinementFacet = ({ facet }) => {
   );
 };
 
-const FacetsList = ({ data, loading }) => {
+const FacetsList = ({data, loading}) => {
   return (
     <div>
       {data.facets.map((facet) => {
-        return <RefinementFacet facet={facet} loading={loading} />
+        return <RefinementFacet facet={facet} loading={loading} />;
       })}
     </div>
-  )
-}
+  );
+};
 ```
 
 ### Adding components to the page
 
 ```javascript
-
-import { gql } from '@apollo/client';
-import { useSearchkit, useSearchkitVariables } from '@searchkit/client'
+import {gql} from '@apollo/client';
+import {useSearchkit, useSearchkitVariables} from '@searchkit/client';
 import withApollo from '../lib/withApollo';
-import { useState } from 'react'
-import { SearchInput, Facets } from './components'
+import {useState} from 'react';
+import {SearchInput, Facets} from './components';
 
 const QUERY = gql`
-    query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput, $sortBy: String) {
-      results(query: $query, filters: $filters) {
-         hits(page: $page, sortBy: $sortBy) {
-          items {
-            ... on ResultHit {
-              id
-              fields {
-                title
-              }
+  query resultSet(
+    $query: String
+    $filters: [SKFiltersSet]
+    $page: SKPageInput
+    $sortBy: String
+  ) {
+    results(query: $query, filters: $filters) {
+      hits(page: $page, sortBy: $sortBy) {
+        items {
+          ... on ResultHit {
+            id
+            fields {
+              title
             }
           }
         }
-        facets {
-          identifier
-          type
+      }
+      facets {
+        identifier
+        type
+        label
+        display
+        entries {
           label
-          display
-          entries {
-            label
-            count
-          }
+          count
         }
       }
     }
-  `
+  }
+`;
 
 const Index = () => {
-  const variables = useSearchkitVariables()
-  const { previousData, data = previousData, loading } = useQuery(QUERY, {
-    variables
-  })
+  const variables = useSearchkitVariables();
+  const {
+    previousData,
+    data = previousData,
+    loading,
+  } = useQuery(QUERY, {
+    variables,
+  });
 
   if (loading || !data) {
     return <h1>loading...</h1>;
@@ -144,12 +155,13 @@ const Index = () => {
       <div className="results">
         {data.results.hits.items.map((item) => {
           return (
-            <div>id: {item.id}, title: {item.fields.title}</div>
-          )
+            <div>
+              id: {item.id}, title: {item.fields.title}
+            </div>
+          );
         })}
       </div>
     </div>
-  )
+  );
 };
- 
 ```

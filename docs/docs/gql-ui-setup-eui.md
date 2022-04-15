@@ -1,25 +1,26 @@
 ---
-id: ui-setup-eui
+id: gql-ui-setup-eui
 title: With EUI Components
 sidebar_label: With EUI Components
-slug: /quick-start/ui/eui
+slug: /graphql/quick-start/ui/eui
 ---
 
 This guide will step you through how to use the out-of-the-box Searchkit UI components. We will be using Next JS. Also see [Create React App](https://searchkit.co/docs/examples/create-react-app) if you're not using NextJS.
 
 Once you've completed the [initial setup](../initial-setup), start by adding the @searchkit/elastic-ui and @elastic/eui dependency via yarn
 
-```yarn add @searchkit/elastic-ui @elastic/eui @elastic/datemath moment```
+`yarn add @searchkit/elastic-ui @elastic/eui @elastic/datemath moment`
 
 NextJS (if you have been following the guide with NextJS) has an issue with EUI and SSR so we are going to [dynamically import](https://nextjs.org/docs/advanced-features/dynamic-import) the component.
 
 First create a JS file called search.js in the components folder which will be the search page.
 
 The search page will contain the following:
+
 - components from searchkit client, elastic-ui and elastic's EUI
 - A GQL query using all fields required by searchkit's components
 
-Below is an example of a typical Searchkit page which uses EUI and Searchkit EUI. 
+Below is an example of a typical Searchkit page which uses EUI and Searchkit EUI.
 
 ```javascript
 # components/search.js
@@ -184,29 +185,26 @@ export default () => {
 then go to the pages/index.js and update
 
 ```javascript
-import { withSearchkit } from "@searchkit/client";
-import withApollo from "../lib/withApollo";
-import dynamic from 'next/dynamic'
-const Search = dynamic(
-  () => import('../components/Search'),
-  { ssr: false }
-)
-
+import {withSearchkit} from '@searchkit/client';
+import withApollo from '../lib/withApollo';
+import dynamic from 'next/dynamic';
+const Search = dynamic(() => import('../components/Search'), {ssr: false});
 
 const Index = () => {
-  return <Search />
-}
+  return <Search />;
+};
 
 export default withApollo(withSearchkit(Index));
 ```
-and add EUI CSS globally via adding the css file to pages/_app.js
+
+and add EUI CSS globally via adding the css file to pages/\_app.js
 
 ```javascript
-import '@elastic/eui/dist/eui_theme_light.css'
+import '@elastic/eui/dist/eui_theme_light.css';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+function MyApp({Component, pageProps}) {
+  return <Component {...pageProps} />;
 }
 
-export default MyApp
+export default MyApp;
 ```
