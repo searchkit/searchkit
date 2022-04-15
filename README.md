@@ -289,7 +289,7 @@ const Page = () => {
 }
 ```
 
-See [quickstart guide](https://searchkit.co/docs/quick-start/ui/eui)
+See [quickstart guide](https://searchkit.co/docs/core/overview/quick-start-guide)
 
 ### NPM Packages
 * @searchkit/sdk [Documentation](https://searchkit.co/docs/core/reference/searchkit-sdk)
