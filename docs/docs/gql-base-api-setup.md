@@ -1,8 +1,8 @@
 ---
-id: api-setup
+id: gql-base-api-setup
 title: API Setup
 sidebar_label: API Setup
-slug: /quick-start/api-setup
+slug: /graphql/quick-start/api-setup
 keywords:
   [
     GraphQL,
@@ -17,13 +17,11 @@ description: Setting up Elasticsearch with Apollo Server and Searchkit GraphQL A
 
 ## Setting up Elasticsearch & Indexing
 
-See [Setting up Elasticsearch & Indexing Guide](https://searchkit.co/docs/guides/elasticsearch-setup-indexing) to setup Elasticsearch and index the data corpus to be searched by searchkit.
+See [Setting up Elasticsearch & Indexing Guide](/docs/core/guides/elasticsearch-setup-indexing) to setup Elasticsearch and index the data corpus to be searched by searchkit.
 
 ## Setup Apollo Server
 
 First step is to setup Apollo Server within our app. We are using [Next](https://github.com/vercel/next.js/) & [Apollo Server Micro](https://www.apollographql.com/docs/apollo-server/v1/servers/micro/) where we will use [API routes](https://nextjs.org/docs/api-routes/introduction) for our app.
-
-Also see [AWS lambda example](https://searchkit.co/docs/examples/aws-lambda) if you're not using NextJS.
 
 First install `apollo-server-micro`
 

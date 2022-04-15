@@ -322,7 +322,7 @@ const response = await request
                 </div>
                 <div className="mt-5 mx-auto sm:flex justify-left md:mt-8">
                   <div className="rounded-md shadow">
-                    <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:border-gray-500 focus:shadow-outline-white transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10" href="/docs/quick-start/basic-setup">Start Tutorial</a>
+                    <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-gray-900 hover:bg-gray-700 focus:outline-none focus:border-gray-500 focus:shadow-outline-white transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10" href="/docs/core/overview/quick-start-guide">Start Tutorial</a>
                   </div>
                   <div className="rounded-md shadow ml-3">
                     <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-900 bg-gray-000 hover:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-blue transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10 border-gray-900" href="https://demo.searchkit.co">View Demo</a>

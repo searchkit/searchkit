@@ -1,0 +1,110 @@
+---
+id: searchkit-sdk-sorting
+title: Sorting
+sidebar_label: Sorting
+slug: /core/reference/searchkit-sdk/sorting
+---
+
+To specify what sort order you want. By default its by score.
+
+### Usage
+
+```javascript
+import Searchkit, {
+  MultiMatchQuery,
+  RefinementSelectFacet,
+  RangeFacet,
+  DateRangeFacet,
+  TermFilter,
+} from '@searchkit/sdk';
+
+const searchkitConfig = {
+  host: 'http://127.0.0.1:9200/', // elasticsearch instance url
+  index: 'movies', // search indices name
+  hits: {
+    fields: ['title', 'plot', 'poster'],
+  },
+  query: new MultiMatchQuery({
+    fields: ['plot', 'title^4'],
+  }),
+  sortOptions: [
+    {id: 'relevance', label: 'Relevance', field: '_score'},
+    {
+      id: 'released',
+      label: 'Recent Releases',
+      field: {released: 'desc'},
+      defaultOption: true,
+    },
+    {
+      id: 'title-released',
+      label: 'Recent titles',
+      field: [{released: 'desc'}, {title: 'desc'}],
+    },
+    {
+      id: 'multiple_sort',
+      label: 'Multiple sort',
+      field: [
+        {post_date: {order: 'asc'}},
+        'user',
+        {name: 'desc'},
+        {age: 'desc'},
+        '_score',
+      ],
+    },
+  ],
+};
+
+const request = Searchkit(config);
+const response = await request
+  .query('heat')
+  .setSortBy('released') // here to set the sort, specifying the id
+  .execute({
+    hits: {
+      size: 10,
+      from: 0,
+    },
+  });
+```
+
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| id | Unique id. Used to specify what to sort by |
+| label | label to be displayed in frontend |
+| field | Elasticsearch Sorting field. See above for examples of complex sorting field configurations |
+| defaultOption | Boolean. If no sorting option is selected, this will be the sort option chosen as default |
+
+Will give back the sorting name and sorting options in the response
+
+```json
+{
+  "hits": [...],
+  "facets": [...],
+  "sortedBy": "released",
+  "summary": {
+    "appliedFilters": [],
+    "disabledFilters": [],
+    "query": "test",
+    "sortOptions": [
+      {
+        "id": "relevance",
+        "label": "Relevance",
+      },
+      {
+        "id": "released",
+        "label": "Recent Releases",
+      },
+      {
+        "id": "title-released",
+        "label": "Recent Titles",
+      },
+      {
+        "id": "multiple_sort",
+        "label": "Multiple Sort",
+      },
+    ],
+    "total": 4162,
+  }
+}
+```

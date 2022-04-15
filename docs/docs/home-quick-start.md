@@ -1,10 +1,10 @@
 ---
-id: setup-basic-setup
-title: Quick Setup
-sidebar_label: Quick Setup
-slug: /quick-start/basic-setup
-keywords: [Elasticsearch, Elasticsearch indexing]
-description: Setup Searchkit
+id: home-quick-start
+title: Quick Start
+sidebar_label: Quick Start
+slug: /core/overview/quick-start-guide
+keywords: [how to use, Searchkit Quick start]
+description: Quick start to searchkit
 ---
 
 ## Setup an Elasticsarch Instance

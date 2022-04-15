@@ -1,13 +1,13 @@
 ---
-id: guides-elasticsearch-setup-indexing
-title: Elasticsearch Setup and Indexing
-sidebar_label: Elasticsearch Setup & Indexing
-slug: /guides/elasticsearch-setup-indexing
+id: guides-indexing
+title: Indexing Data
+sidebar_label: Indexing Data
+slug: /core/guides/elasticsearch-setup-indexing
 ---
 
 ### Setup Elasticsearch
 
-Either pick a cloud offering for example [qbox.io](https://www.qbox.io?ref=searchkit) or run locally via [instructions here](https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html)
+Either pick a cloud offering [Elastic Cloud](https://cloud.elastic.co?ref=searchkit) or run locally via [instructions here](https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html)
 
 ### Setup Fields + Mappings
 
@@ -36,7 +36,7 @@ withConfig({
       stored: true, // fields you want returned in the API.
       facet: true,  // If you want the value to be used as a facet
       searchable: true // If you want the field to be searchable within query
-      type: 'integer' // Optional. Default is keyword. Can be `integer`, `date` or `float`
+      type: 'integer' // Optional. Default is text. Can be `integer`, `date` or `float`
       sourceOptions: {
         path: 'Type' // Used in indexing step. The key for the field value source.
         transform: splitComma // Optional. To provide transformation from source to document field

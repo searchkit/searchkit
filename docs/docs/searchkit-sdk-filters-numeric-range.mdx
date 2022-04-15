@@ -1,0 +1,102 @@
+---
+id: searchkit-sdk-filters-numeric-range
+title: NumericRangeFilter
+sidebar_label: Numeric Range
+slug: /core/reference/searchkit-sdk/filters/NumericRangeFilter
+---
+
+When you want to apply filters to your search and don't want them to be displayed as facets. `NumericRangeFilter` applies a numberic range filter to a particular field to the search.
+
+- Adding a date range component to UI
+
+#### Elasticsearch Mapping
+
+Below is an example mapping for the field `metascore`. We need to use a numeric type field type for this facet.
+
+```json
+{
+  "properties": {
+    "metascore": {
+      "type": "float"
+    }
+  }
+}
+```
+
+### Adding a filter to Searchkit Config
+
+Within the Searchkit config, there is a filters array which allows you to configure one or more filters for your search. Below is an example of adding a `NumericRangeFilter` to search.
+
+```javascript
+const config = {
+  host: 'http://localhost:9200',
+  index: 'movies',
+  hits: {
+    fields: ['actors', 'writers'],
+  },
+  filters: [
+    new NumericRangeFilter({
+      identifier: 'metascore',
+      field: 'metascore',
+      label: 'Score',
+    }),
+  ],
+};
+
+const request = Searchkit(config);
+const response = await request
+  .setFilters([
+    {identifier: 'metascore', min: 10, max: 90},
+    {identifier: 'type', value: 'movies'},
+  ])
+  .execute({
+    hits: {
+      size: 10,
+      from: 0,
+    },
+  });
+```
+
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| field | field to be used for term filter, preferably a field that is raw, not tokenized |
+| identifier | Required to be unique. Used to apply filters on field |
+| label | UI label for `appliedFilters` node. |
+| display | **Optional**. Used on UI to specify what component to handle filter in `SelectedFilters` |
+
+The filters that you will apply will also be returned in the response under `summary.appliedFilters`.
+
+```json
+{
+  "hits": {
+    "items": [
+      // 10 items
+    ],
+    "page": {
+      "from": 0,
+      "pageNumber": 0,
+      "size": 10,
+      "total": 11,
+      "totalPages": 2
+    }
+  },
+  "sortedBy": undefined,
+  "summary": {
+    "appliedFilters": [
+      {
+        "display": "NumericRangeFilter",
+        "id": "metascore_10_90",
+        "identifier": "metascore",
+        "label": "Score",
+        "value": "10 - 90"
+      }
+    ],
+    "disabledFilters": [],
+    "query": "",
+    "sortOptions": [],
+    "total": 11
+  }
+}
+```

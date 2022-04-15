@@ -1,21 +1,24 @@
 ---
 id: searchkit-elastic-ui
 title: Searchkit Elastic UI
-sidebar_label: "@searchkit/elastic-ui"
-slug: /reference/searchkit-elastic-ui
+sidebar_label: '@searchkit/elastic-ui'
+slug: /core/reference/searchkit-elastic-ui
 ---
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
-export const videoStyling = {'maxHeight': '350px', 'maxWidth': '100%'}
+export const videoStyling = {maxHeight: '350px', maxWidth: '100%'};
 
 ## Setup
 
 Require to setup the provider, define a GQL query for components and use the searchkitQuery hook to perform the search. See Quick start UI Setup for more information.
 
 ```javascript
-
-import { useSearchkitVariables, SearchkitProvider, SearchkitClient } from '@searchkit/client'
-import { gql, useQuery } from '@apollo/client'
+import {
+  useSearchkitVariables,
+  SearchkitProvider,
+  SearchkitClient,
+} from '@searchkit/client';
+import {gql, useQuery} from '@apollo/client';
 
 const query = gql`
   query resultSet($query: String, $filters: [SKFiltersSet], $page: SKPageInput) {
@@ -70,15 +73,19 @@ const query = gql`
       }
     }
   }
-`
+`;
 
-const client = SearchkitClient()
+const client = SearchkitClient();
 
 export default () => {
-  const variables = useSearchkitVariables()
-  const { previousData, data = previousData, loading } = useQuery(query, {
-    variables
-  })
+  const variables = useSearchkitVariables();
+  const {
+    previousData,
+    data = previousData,
+    loading,
+  } = useQuery(query, {
+    variables,
+  });
 
   return (
     <div>
@@ -87,17 +94,22 @@ export default () => {
         <Hits data={data} />
       </SearchkitProvider>
     </div>
-  )
-
-}
-
+  );
+};
 ```
 
 ## Components
 
 ### SearchBar
 
-<video className="mx-auto" style={videoStyling} autoPlay muted loop src={useBaseUrl("movs/Searchbar.mov")} />
+<video
+  className="mx-auto"
+  style={videoStyling}
+  autoPlay
+  muted
+  loop
+  src={useBaseUrl('movs/Searchbar.mov')}
+/>
 
 #### Usage
 
@@ -112,14 +124,21 @@ import {
 ```
 
 #### Options
-| Option        | Description      |
-| :------------- | :----------- |
-| loading          | Boolean   |
 
+| Option  | Description |
+| :------ | :---------- |
+| loading | Boolean     |
 
 ### SelectedFilters
 
-<video className="mx-auto" style={videoStyling} autoPlay muted loop src={useBaseUrl("movs/SelectedFilters.mov")} />
+<video
+  className="mx-auto"
+  style={videoStyling}
+  autoPlay
+  muted
+  loop
+  src={useBaseUrl('movs/SelectedFilters.mov')}
+/>
 
 #### Usage
 
@@ -130,19 +149,26 @@ import {
 ```
 
 ```javascript
-  <SelectedFilters data={data?.results} loading={loading} />
+<SelectedFilters data={data?.results} loading={loading} />
 ```
 
 #### Options
-| Option        | Description      |
-| :------------- | :----------- |
-| loading          | Boolean. Loading value from GQL query   |
-| data | Response from GQL query | 
 
+| Option  | Description                           |
+| :------ | :------------------------------------ |
+| loading | Boolean. Loading value from GQL query |
+| data    | Response from GQL query               |
 
 ### ResetSearchButton
 
-<video className="mx-auto" style={videoStyling} autoPlay muted loop src={useBaseUrl("movs/ResetSearchButton.mov")} />
+<video
+  className="mx-auto"
+  style={videoStyling}
+  autoPlay
+  muted
+  loop
+  src={useBaseUrl('movs/ResetSearchButton.mov')}
+/>
 
 #### Usage
 
@@ -153,18 +179,25 @@ import {
 ```
 
 ```javascript
-  <ResetSearchButton loading={loading} />
+<ResetSearchButton loading={loading} />
 ```
 
 #### Options
-| Option        | Description      |
-| :------------- | :----------- |
-| loading          | Boolean. Loading value from GQL query   |
 
+| Option  | Description                           |
+| :------ | :------------------------------------ |
+| loading | Boolean. Loading value from GQL query |
 
 ### Pagination
 
-<video className="mx-auto" style={videoStyling} autoPlay muted loop src={useBaseUrl("movs/Pagination.mov")} />
+<video
+  className="mx-auto"
+  style={videoStyling}
+  autoPlay
+  muted
+  loop
+  src={useBaseUrl('movs/Pagination.mov')}
+/>
 
 #### Usage
 
@@ -175,19 +208,22 @@ import {
 ```
 
 ```javascript
-  <Pagination data={data?.results} />
+<Pagination data={data?.results} />
 ```
 
 #### Options
-| Option        | Description      |
-| :------------- | :----------- |
-| data          | Boolean. Loading value from GQL query   |
+
+| Option | Description                           |
+| :----- | :------------------------------------ |
+| data   | Boolean. Loading value from GQL query |
 
 ### Sorting Selector
+
 Pagination.mov
 
 #### Usage
-Requires sorting configuration within the resolvers. See [sorting documentation](/docs/reference/schema#sorting).
+
+Requires sorting configuration within the resolvers. See [sorting documentation](/core/reference/searchkit-sdk/sorting).
 
 ```javascipt
 import {
@@ -196,10 +232,11 @@ import {
 ```
 
 ```javascript
-  <SortingSelector data={data?.results} loading={loading} />
+<SortingSelector data={data?.results} loading={loading} />
 ```
 
 ### GraphQL Query
+
 Relies on GraphQL query
 
 ```
@@ -219,49 +256,77 @@ Relies on GraphQL query
 ```
 
 #### Options
-| Option        | Description      |
-| :------------- | :----------- |
-| data          | data response from graphql request   |
-| loading          | Boolean.   |
+
+| Option  | Description                        |
+| :------ | :--------------------------------- |
+| data    | data response from graphql request |
+| loading | Boolean.                           |
 
 ## Facets
 
 ### FacetsList
-Searchkit API returns a list of facets, in the configuration order. Each facet is configured with a  display field and this field is tied with a component. 
+
+Searchkit API returns a list of facets, in the configuration order. Each facet is configured with a display field and this field is tied with a component.
 
 ListFacet component will use the facet response and for each facet, will display the correct facet component to the user.
 
 FacetsList is a function which returns a React component that accepts the data / loading props.You will be able to pass custom facet components within the optional argument. FacetsList Searchkit will render all Searchkit Facet Components.
 
 #### Usage
+
 ```javascript
-import {
-  FacetsList
-} from '@searchkit/elastic-ui'
+import {FacetsList} from '@searchkit/elastic-ui';
 
 export default () => {
-  const Facets = FacetsList([CustomFacet])
+  const Facets = FacetsList([CustomFacet]);
   return (
     <div>
       <Facets data={data?.results} loading={loading} />
     </div>
-
-  )
-}
+  );
+};
 ```
 
 ### ListFacet
 
-<video className="mx-auto" style={videoStyling} autoPlay muted loop src={useBaseUrl("movs/ListFacet.mov")} />
+<video
+  className="mx-auto"
+  style={videoStyling}
+  autoPlay
+  muted
+  loop
+  src={useBaseUrl('movs/ListFacet.mov')}
+/>
 
 ### RangeSliderFacet
 
-<video className="mx-auto" style={videoStyling} autoPlay muted loop src={useBaseUrl("movs/RangeSliderFacet.mov")} />
+<video
+  className="mx-auto"
+  style={videoStyling}
+  autoPlay
+  muted
+  loop
+  src={useBaseUrl('movs/RangeSliderFacet.mov')}
+/>
 
 ### ComboBoxFacet
 
-<video className="mx-auto" style={videoStyling} autoPlay muted loop src={useBaseUrl("movs/ComboBoxFacet.mov")} />
+<video
+  className="mx-auto"
+  style={videoStyling}
+  autoPlay
+  muted
+  loop
+  src={useBaseUrl('movs/ComboBoxFacet.mov')}
+/>
 
 ### DateRangeFacet
 
-<video className="mx-auto" style={videoStyling} autoPlay muted loop src={useBaseUrl("movs/DateRangeFilter.mov")} />
+<video
+  className="mx-auto"
+  style={videoStyling}
+  autoPlay
+  muted
+  loop
+  src={useBaseUrl('movs/DateRangeFilter.mov')}
+/>

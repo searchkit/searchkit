@@ -1,16 +1,15 @@
 ---
-id: guides-highlighting
-title: Highlighting Fields 
+id: gql-guides-highlighting
+title: Highlighting Fields
 sidebar_label: Highlighting Fields
-slug: /guides/highlighting-fields
+slug: /graphql/guides/highlighting-fields
 ---
 
 To receive ElasticSearch highlights for your matches you need to do the followings:
 
-1. Add `highlightedFields` under `hits` for your Searchkit config. Here you may list the name of fields for which you want to get highlights, or an object where you specify the field name and the highlight configuration according to the  [ElasticSearch highlighting](https://www.elastic.co/guide/en/elasticsearch/reference/current/highlighting.html) documentation
+1. Add `highlightedFields` under `hits` for your Searchkit config. Here you may list the name of fields for which you want to get highlights, or an object where you specify the field name and the highlight configuration according to the [ElasticSearch highlighting](https://www.elastic.co/guide/en/elasticsearch/reference/current/highlighting.html) documentation
 2. Add a `highlight` field to your `ResultHit` graphql schema type
 3. When configuring ApolloServer specify a custom resolver for `highlight`
-
 
 The following example generates a JSON encoded string version of the highlight objects received from ElasticSearch. You may specify another shape for `highlight` in your `ResultHit` type and a matching transformation of `hit.highlight` in your resolver.
 
@@ -24,15 +23,15 @@ const searchkitConfig = {
       'title',
       {
         field: 'plot',
-        config: { 
-          pre_tags: ['<b>'], 
-          post_tags: ['</b>'] 
+        config: {
+          pre_tags: ['<b>'],
+          post_tags: ['</b>']
         }
       }
     ]
   },
-  query: new MultiMatchQuery({ 
-    fields: [ 'plot','title^4'] 
+  query: new MultiMatchQuery({
+    fields: [ 'plot','title^4']
   }),
   facets: [
     ...
@@ -41,9 +40,9 @@ const searchkitConfig = {
 
 const { typeDefs, withSearchkitResolvers, context } = SearchkitSchema({
   config: searchkitConfig,
-  typeName: 'ResultSet', 
+  typeName: 'ResultSet',
   hitTypeName: 'ResultHit',
-  addToQueryType: true 
+  addToQueryType: true
 })
 
 const server = new ApolloServer({

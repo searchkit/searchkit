@@ -1,0 +1,102 @@
+---
+id: searchkit-sdk-facets-conditional-facets
+title: Conditional Facet Rules
+sidebar_label: Conditional Facets
+slug: /core/reference/searchkit-sdk/facets/conditional-facets
+---
+
+Searchkit provides the functionality to add conditions to when to show facets.
+
+Examples of usecases:
+
+- I want to show "CPU Socket type" facets when the customer has selected to filter by "motherboards"
+- I want to show different filters depending on the user's role and authorization groups.
+
+The advantages being able to customise the experience around what the customer is filtering for and who they are. Reducing the number of facets also has performance benefits meaning searches will be faster.
+
+You can achieve this by using `VisibleWhen` and using the out the box ruleset or building your own custom visibility rules. `VisibleWhen` will return these facets only when certain conditions are met.
+
+When a filter where the `VisibleWhen` condition was previously met but now is removed, the filters in the facet will be disabled and will appear in the `summary.disabledFilters` array for UI display purposes.
+
+## Facet Visibility Rules
+
+### VisibleWhen
+
+#### Usage
+
+```javascript
+{
+  VisibleWhen, FacetSelectedRule
+} from '@searchkit/sdk'
+
+facets: [
+  new RefinementSelectFacet({ identifier: 'type', field: 'type.raw', label: 'Type' }),
+  VisibleWhen(
+    [
+      new RefinementSelectFacet({
+        identifier: 'writers',
+        field: 'writers.raw',
+        label: 'Writers',
+        display: 'override',
+        multipleSelect: true
+      }),
+      new RefinementSelectFacet({
+        identifier: 'actors',
+        field: 'actors.raw',
+        label: 'Actors'
+      }),
+      new RefinementSelectFacet({
+        identifier: 'genres',
+        field: 'genres.raw',
+        label: 'Genres'
+      })
+    ],
+    [ // All Rules must be satisfied for the facets to be visible
+      FacetSelectedRule('type', 'Movie') // Visible only when Movie has been selected in type
+    ]
+  )
+]
+```
+
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| facets | Required. An Array of facet configurations that will be displayed if the rule is satisfied |
+| rules | Required. An array of rules |
+
+### Rule: FacetSelectedRule
+
+#### Usage
+
+```javascript
+{
+  FacetSelectedRule
+} from '@searchkit/schema'
+
+    rules: [
+      FacetSelectedRule('type', 'Movie')
+    ]
+```
+
+| Option | Description |
+| :-- | :-- |
+| identifier | Required. The facet identifier |
+| value | Optional. Without it provided, the rule will be satisfied for any applied filters matching the identifier. With value, will be satisfied for an applied filter with both identifier and value |
+
+### Rule: CustomRule
+
+Allows you to build your own rule. You have access to the queryManager and ctx which are passed as arguments.
+
+#### Usage
+
+```javascript
+const customRule = (queryManager, ctx: any) => {
+  const userRole = ctx.userRole;
+  const filters = queryManager.getFiltersById('collection');
+  if (userRole === 'Admin' && filters[0].value === 'People') {
+    return true;
+  }
+  return false;
+};
+```

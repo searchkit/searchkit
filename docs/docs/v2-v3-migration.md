@@ -2,7 +2,7 @@
 id: v2-v3-migration
 title: V2 to V3 Migration
 sidebar_label: V2 Migration
-slug: /guides/v2-v3-migration
+slug: /core/guides/v2-v3-migration
 ---
 
 Guide to help ease migrating your app from v2 to v3 of searchkit. For the UI, we provide out the box react components which works with searchkit's SDK to provide a great out the box search experience.

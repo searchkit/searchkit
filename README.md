@@ -1,7 +1,7 @@
 ## Search, made easy
 Searchkit is an open source toolkit which helps you build a great search experience with Elasticsearch.
 
-See [why use Searchkit](https://searchkit.co/docs//quick-start/why)
+See [why use Searchkit](https://searchkit.co/docs/core/overview/why-use-searchkit)
 
 Searchkit to simplify using Elasticsearch for Search:
   - Powerful Browser / Node.js SDK client for Elasticsearch
@@ -230,7 +230,7 @@ Will provide a response like this
 ```
 
 #### React Integration
-We provide a thin [React client](https://searchkit.co/docs/reference/searchkit-client) which integrates with Searchkit's SDK or Searchkit GraphQL API. It maintains search state (pagination, filtering and querying) and provides SearchState via a hook.
+We provide a thin [React client](https://searchkit.co/docs/core/reference/searchkit-client) which integrates with Searchkit's SDK or Searchkit GraphQL API. It maintains search state (pagination, filtering and querying) and provides SearchState via a hook.
 
 #### React Components
 
@@ -289,13 +289,14 @@ const Page = () => {
 }
 ```
 
-See [quickstart guide](https://searchkit.co/docs/quick-start/ui/eui)
+See [quickstart guide](https://searchkit.co/docs/core/overview/quick-start-guide)
 
 ### NPM Packages
-* @searchkit/sdk [Documentation](https://searchkit.co/docs/reference/searchkit-sdk)
-* @searchkit/schema [Documentation](https://searchkit.co/docs/reference/searchkit-schema)
-* @searchkit/client [Documentation](https://searchkit.co/docs/reference/searchkit-client)
-* @searchkit/elastic-ui [Documentation](https://searchkit.co/docs/reference/searchkit-elastic-ui)
+* @searchkit/sdk [Documentation](https://searchkit.co/docs/core/reference/searchkit-sdk)
+* @searchkit/schema [Documentation](https://searchkit.co/docs/graphql/schema)
+* @searchkit/client [Documentation]((https://searchkit.co/docs/core/reference/searchkit-client)
+* @searchkit/elastic-ui [Documentation](https://searchkit.co/docs/core/reference/searchkit-elastic-ui)
+
 
 ### Sponsors
 [*QBOX*](https://www.qbox.io?ref=searchkit) Elasticsearch hosting. They have kindly provided us an elasticsearch instance for our demo site.
@@ -307,3 +308,6 @@ Searchkit has undergone a total rewrite so whilst it should be straightforward t
 
 #### Do I need to expose my Elasticsearch instance to the browser?
 No! You dont expose your elasticsearch cluster to the browser, you can use the Search GraphQL API that sits in between elasticsearch and the browser.
+
+#### Do I need to run a Node.js Server?
+No! You can use the searchkit/sdk within the browser too.

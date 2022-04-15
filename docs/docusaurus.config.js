@@ -37,11 +37,12 @@ module.exports = {
       items: [
         {
           to: 'docs',
+          activeBasePath: 'docs/core',
           label: "Docs",
         },
         {
           to: 'docs/graphql/overview',
-          activeBasePath: 'docs/integrations',
+          activeBasePath: 'docs/graphql',
           label: "GraphQL Integration",
         },
         {

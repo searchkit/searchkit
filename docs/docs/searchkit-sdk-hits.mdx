@@ -1,0 +1,72 @@
+---
+id: searchkit-sdk-hits
+title: Results Hits Configuration
+sidebar_label: Result Hits
+slug: /core/reference/searchkit-sdk/result-hits
+---
+
+Performs a query to Elasticsearch returning documents within the index. Searchkit will transform the response into a friendly API
+
+```javascript
+const skConfig = {
+  host: 'http://127.0.0.1:9200/', // elasticsearch instance url
+  index: 'movies', // search indices name
+  hits: {
+    fields: ['title', 'plot', 'poster'],
+    highlightFields: ['title'],
+  },
+};
+
+const response = await Searchkit(config).execute({
+  hits: {
+    from: 0,
+    size: 10,
+    includeRawHit: true,
+  },
+});
+```
+
+example of response
+
+```json
+{
+  "hits": {
+    "items": [
+      {
+        "fields": {
+          "title": "title",
+          "plot": "plot text",
+          "poster": "http://cdn.url/poster"
+        },
+        "highlight": {},
+        "id": "idofDocument",
+        "rawHit": { ... } // raw hit from elasticsearch. Returned only if includeRawHit is true
+      }
+      // ...9 further items
+    ],
+    "page": {
+      "from": 0,
+      "pageNumber": 0,
+      "size": 10,
+      "total": 4162,
+      "totalPages": 417
+    }
+  },
+  "sortedBy": undefined,
+  "summary": {
+    "appliedFilters": [],
+    "disabledFilters": [],
+    "query": "",
+    "sortOptions": [],
+    "total": 4162
+  }
+}
+```
+
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| from | page start of the request |
+| size | number of hits to return |
+| includeRawHit | Boolean. When true, will return the raw elasticsearch document in the response under `rawHit` |

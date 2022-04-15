@@ -1,8 +1,8 @@
 ---
-id: customisations-api-logging
+id: gql-customisations-logging
 title: Server Logging
 sidebar_label: Server Logging
-slug: /customisations/server-logging
+slug: /graphql/customisations/server-logging
 keywords: [Elasticsearch GraphQL API, Searchkit Server logging, Searchkit APM]
 description: Implement Server logging / Monitoring for Searchkit
 ---

@@ -1,0 +1,100 @@
+---
+id: searchkit-sdk-filters-geo-location
+title: GeoLocationFilter
+sidebar_label: Geo Location
+slug: /core/reference/searchkit-sdk/filters/GeoLocationFilter
+---
+
+## Filters
+
+When you want to apply a geo location filter to your search and don't want them to be displayed as facets.
+
+### Adding a filter to Searchkit Config
+
+Within the Searchkit config, there is a filters array which allows you to configure one or more filters for your search.
+
+```javascript
+const config = {
+  host: 'http://localhost:9200',
+  index: 'movies',
+  hits: {
+    fields: ['actors', 'writers'],
+  },
+  filters: [
+    new GeoBoundingBoxFilter({
+      identifier: 'location',
+      field: 'location',
+      label: 'Location',
+    }),
+  ],
+};
+
+const request = Searchkit(config);
+const response = await request
+  .setFilters([
+    {
+      identifier: 'location',
+      geoBoundingBox: {
+        topLeft: {lat: 50.73, lon: -75.1},
+        bottomRight: {lat: 40.01, lon: -55.12},
+      },
+    },
+  ])
+  .execute({
+    hits: {
+      size: 10,
+      from: 0,
+    },
+  });
+```
+
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| field | field to be used for term filter, preferably a field that is raw, not tokenized |
+| identifier | Required to be unique. Used to apply filters on field |
+| label | UI label for `appliedFilters` node. |
+| display | **Optional**. Used on UI to specify what component to handle filter in `SelectedFilters` |
+
+The filters that you will apply will also be returned in the response under `summary.appliedFilters`.
+
+```json
+{
+  hits: {
+    items: [
+      // 10 items
+    ],
+    "page": {
+      "from": 0,
+      "pageNumber": 0,
+      "size": 10,
+      "total": 11,
+      "totalPages": 2,
+    }
+  },
+  "sortedBy": undefined,
+  "summary": {
+    "appliedFilters": [
+      {
+        "bottomRight": {
+          "lat": 40.01,
+          "lon": -55.12,
+        },
+        "display": "GeoBoundingBoxFilter",
+        "id": "location_{\\"topLeft\\":{\\"lat\\":50.73,\\"lon\\":-75.1},\\"bottomRight\\":{\\"lat\\":40.01,\\"lon\\":-55.12}}",
+        "identifier": "location",
+        "label": "Location",
+        "topLeft": {
+          "lat": 50.73,
+          "lon": -75.1,
+        }
+      }
+    ],
+    "disabledFilters": [],
+    "query": "",
+    "sortOptions": [],
+    "total": 11,
+  },
+}
+```

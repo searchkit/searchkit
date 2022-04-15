@@ -1,8 +1,8 @@
 ---
-id: searchkit-schema
+id: gql-searchkit-schema
 title: Searchkit Schema
 sidebar_label: '@searchkit/schema'
-slug: /reference/schema
+slug: /graphql/reference/schema
 ---
 
 ## Initial Setup

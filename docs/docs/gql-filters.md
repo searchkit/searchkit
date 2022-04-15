@@ -1,8 +1,8 @@
 ---
-id: guides-using-filters
+id: gql-filters
 title: Filters
 sidebar_label: Filters
-slug: /customisations/filters
+slug: /graphql/customisations/filters
 keywords: [Elasticsearch Filters, Searchkit Filters, Search Filters]
 description: Searchkit custom filters
 ---

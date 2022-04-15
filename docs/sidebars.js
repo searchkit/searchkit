@@ -1,62 +1,71 @@
 module.exports = {
   docs: {
-    'Quick Guide': [
+    'Searchkit': [
       'overview',
-      'base-how-to-use-searchkit',
-      'setup-basic-setup'
+      'home-how-to-use-searchkit',
+      'home-quick-start'
     ],
-    Reference: [
-      'searchkit-sdk',
-      'searchkit-client',
-      'searchkit-elastic-ui',
-    ],
-    Customisations: [
-      'customisations-query-boosting-relevance',
-      'sdk-customisations-adding-your-own-filters',
-      'sdk-customisations-ui-add-new-facet-class'
-    ],
-    'Frontend Guides': [
-      'guides-url-sync'
-    ],
-    'Getting Data into Elasticsearch': [
-      'guides-elasticsearch-setup-indexing'
-    ],
-    'Notes': ['v2-v3-migration', 'guides-upgrade-rc41'],
-    'SDK Guides': [
-      'sdk-guides-using-filters',
-      'customisations-conditional-facets'
-    ],
-  },
-  'GraphQL Integration': [{
-    'Quick Guide': [
-      'graphql-overview',
-      'api-setup',
+    'Searchkit API': [
+      'searchkit-sdk-core',
+      'searchkit-sdk-hits',
+      'searchkit-sdk-query',
       {
-        'UI setup': [
-          'base-ui-setup',
-          'ui-setup-eui',
-          'ui-setup-own-components',
+        'Filters': [
+          'searchkit-sdk-filters-value',
+          'searchkit-sdk-filters-numeric-range',
+          'searchkit-sdk-filters-geo-location',
+          'customisations-adding-your-own-filters'
         ],
-      }
+        'Facets': [
+          'searchkit-sdk-facets-refinement-list',
+          'searchkit-sdk-facets-hierarchical-refinement-list',
+          'searchkit-sdk-facets-range',
+          'searchkit-sdk-facets-date-range',
+          'searchkit-sdk-facets-geo-distance-location',
+          'searchkit-sdk-facets-multi-query-options',
+          'searchkit-sdk-facets-conditional-facets',
+          'sdk-customisations-ui-add-new-facet-class'
+        ]
+      },
+      'searchkit-sdk-sorting',
+      'searchkit-sdk-pagination',
+      'searchkit-sdk-base-filters',
+      'searchkit-sdk-customise-elasticsearch-query'
     ],
-    Reference: [
-      'searchkit-schema'
+    'Frontend APIs': [
+      'searchkit-client',
+      'searchkit-elastic-ui'
     ],
-    'Frontend Guides': [
+    'Guides': [
+      'guides-query-boosting-relevance',
+      'guides-geo-search',
+      'guides-indexing',
+      'guides-seo',
       'guides-ssr',
-      'guides-seo'
+      'guides-url-sync'
+    ]
+  },
+  'graphql': {
+    'Overview & Setup': [
+      'gql-graphql-overview',
+      'gql-base-api-setup',
+      'gql-ui-setup',
+      'gql-guides-graphql-cheat-sheet'
     ],
-    'API Guides': [
-      'customisations-adding-your-own-filters',
-      'customisations-ui-add-new-facet-class',
-      'customisations-add-base-filters',
-      'guides-using-filters',
-      'guides-graphql-schema-cheat-sheet',
-      'customisations-hit-resolver',
-      'customisations-graphql-multiple-configurations',
-      'customisations-graphql-types',
-      'customisations-authentication-and-authorisation',
-      'customisations-api-logging'
+    'API': [
+      'gql-searchkit-schema'
     ],
-  }],
+    'Guides': [
+      'gql-customisations-add-base-filters',
+      'gql-customisations-conditional-facets',
+      'gql-customisations-graphql-multiple-configurations',
+      'gql-customisations-graphql-types',
+      'gql-customisations-hit-resolver',
+      'gql-customisations-logging',
+      'gql-customisations-permissions',
+      'gql-filters',
+      'gql-guides-highlighting'
+    ]
+
+  }
 };

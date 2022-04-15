@@ -1,8 +1,8 @@
 ---
-id: customisations-conditional-facets
+id: gql-customisations-conditional-facets
 title: Conditional Facets
 sidebar_label: Conditional Facets
-slug: /customisations/conditional-facets
+slug: /graphql/customisations/conditional-facets
 keywords:
   [
     Elasticsearch Facets,

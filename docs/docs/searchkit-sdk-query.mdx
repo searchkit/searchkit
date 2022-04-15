@@ -1,0 +1,119 @@
+---
+id: searchkit-sdk-query
+title: Query & Highlighting
+sidebar_label: Query & Highlighting
+slug: /core/reference/searchkit-sdk/query-highlighting
+---
+
+## Query API
+
+Performs a query to Elasticsearch returning documents matching the query within the index. Searchkit will transform the response into a friendly API
+
+```javascript
+const skConfig = {
+  host: 'http://127.0.0.1:9200/',
+  index: 'movies',
+  hits: {
+    fields: ['title', 'plot', 'poster'],
+    highlightFields: ['title'],
+  },
+  query: new MultiMatchQuery({
+    fields: ['plot', 'title^4'],
+  }),
+};
+
+const response = await Searchkit(config)
+  .query('heat')
+  .execute({
+    hits: {
+      from: 0,
+      size: 10,
+    },
+  });
+```
+
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| fields | fields to be queried. See elasticsearch documentation for more information on options |
+
+#### Example response
+
+```json
+{
+  "hits": {
+    "items": [
+      {
+        "fields": {
+          "title": "heat",
+          "plot": "plot text",
+          "poster": "http://cdn.url/poster"
+        },
+        "highlight": {
+          "title": "<em>heat</em>"
+        },
+        "id": "idofDocument"
+      }
+      // ...9 further items
+    ],
+    "page": {
+      "from": 0,
+      "pageNumber": 0,
+      "size": 10,
+      "total": 11,
+      "totalPages": 2
+    }
+  },
+  "sortedBy": undefined,
+  "summary": {
+    "appliedFilters": [],
+    "disabledFilters": [],
+    "query": "heat",
+    "sortOptions": [],
+    "total": 11
+  }
+}
+```
+
+### Highlighting
+
+When the field is specified in the `highlightFields` option, the searchkit will highlight the matching terms in the response, under the `highlight` object. The `highlight` object will contain the field name as key and an array of highlighted terms as value.
+
+### CustomQuery
+
+Allows you to pass a function which will return an elasticsearch query filter. See [Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html) for what options are available. This is great for when you have a query in mind to use.
+
+#### Usage
+
+```javascript
+import {CustomQuery} from '@searchkit/sdk';
+
+const searchkitConfig = {
+  query: new CustomQuery({
+    queryFn: (query, qm) => {
+      return {
+        bool: {
+          must: [
+            {
+              wildcard: {
+                field: {
+                  value: query + '*',
+                  boost: 1.0,
+                  rewrite: 'constant_score',
+                },
+              },
+            },
+          ],
+        },
+      };
+    },
+  }),
+};
+```
+
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| queryFn(query, queryManager) | Function. Returns an array of filters. Query argument is the query string. queryManager argument is a class that keeps the query and filters that have been applied to search. For example you may want to adjust the query DSL based on what filters have been selected |

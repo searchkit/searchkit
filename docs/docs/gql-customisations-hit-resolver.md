@@ -1,8 +1,8 @@
 ---
-id: customisations-hit-resolver
+id: gql-customisations-hit-resolver
 title: Integrate your own data sources
 sidebar_label: Integrate your own data sources
-slug: /customisations/extending-hit-result
+slug: /graphql/customisations/extending-hit-result
 keywords:
   [Custom Resolver, Elasticsearch GraphQL, Postgres Database, MySQL Database]
 description: Enrich your hits resolver with data from other databases

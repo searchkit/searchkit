@@ -1,8 +1,8 @@
 ---
-id: customisations-query-boosting-relevance
+id: guides-query-boosting-relevance
 title: Query and Boosting
-sidebar_label: Query and Boosting
-slug: /customisations/customisations-query-boosting-relevance
+sidebar_label: Query, Boosting & Relevance
+slug: /core/guides/query-boosting-relevance
 keywords:
   [
     Elasticsearch Facets,

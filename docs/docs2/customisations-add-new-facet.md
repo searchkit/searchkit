@@ -2,7 +2,7 @@
 id: customisations-ui-add-new-facet-class
 title: Building your own Facet
 sidebar_label: Building your own Facet
-slug: /customisations/add-new-facet
+slug: /core/customisations/add-new-facet
 keywords:
   [
     Elasticsearch Facets,

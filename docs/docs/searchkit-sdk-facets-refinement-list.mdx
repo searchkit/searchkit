@@ -1,0 +1,163 @@
+---
+id: searchkit-sdk-facets-refinement-list
+title: RefinementList Facet
+sidebar_label: Refinement List
+slug: /core/reference/searchkit-sdk/facets/RefinementList
+---
+
+Returns a list of facet options that can be applied to refine the result set.
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
+export const videoStyling = {maxHeight: '350px', maxWidth: '100%'};
+
+<video
+  className="mx-auto"
+  style={videoStyling}
+  autoPlay
+  muted
+  loop
+  src={useBaseUrl('movs/ListFacet.mov')}
+/>
+
+#### Elasticsearch Mapping
+
+Below is an example mapping for the field `actors`. We need to use a keyword field type for this facet.
+
+```json
+{
+  "properties": {
+    "actors": {
+      "type": "text",
+      "fields": {
+        "raw": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}
+```
+
+#### Usage
+
+```javascript
+{
+  RefinementSelectFacet
+} from '@searchkit/sdk'
+
+const searchkitConfig = {
+  ...
+  facets: [
+    new RefinementSelectFacet({ field: 'actors.raw', identifier: 'actors', label: 'Actors' })
+  ]
+}
+
+const request = Searchkit(config);
+const response = await request
+  .setFilters([
+    {identifier: 'actors', value: 'Jared Padalecki'},
+  ])
+  .execute({
+    facets: true,
+    hits: {
+      size: 10,
+      from: 0,
+    },
+  });
+```
+
+#### Response
+
+```javascript
+  {
+  "hits": {
+    "items": [
+      // 10 items
+    ],
+    "page": {
+      "from": 0,
+      "pageNumber": 0,
+      "size": 10,
+      "total": 11,
+      "totalPages": 2
+    }
+  },
+  "sortedBy": undefined,
+  "facets": [
+      {
+      "display": "ListFacet",
+      "entries": [
+        {
+          "count": 73,
+          "label": "Naveen Andrews",
+        },
+        {
+          "count": 56,
+          "label": "Jennifer Carpenter",
+        },
+        {
+          "count": 56,
+          "label": "Michael C. Hall",
+        },
+        {
+          "count": 53,
+          "label": "Emilie de Ravin",
+        },
+        {
+          "count": 42,
+          "label": "Jared Padalecki",
+        },
+      ],
+      "identifier": "actors",
+      "label": "Actors",
+      "type": "RefinementSelectFacet",
+    },
+  ],
+  "summary": {
+    "appliedFilters": [
+      {
+        "display": "ListFacet",
+        "id": "actors_Jared_Padalecki",
+        "identifier": "actors",
+        "label": "Actors",
+        "value": "Jared Padalecki"
+      }
+    ],
+    "disabledFilters": [],
+    "query": "",
+    "sortOptions": [],
+    "total": 11
+  }
+}
+```
+
+#### Multiple Select (AKA Disjuntive Facet)
+
+Behaves like an OR filter. When configured and a filter is applied, facet will continue to return the same facet options as if the filter wasn't chosen. As more filters are applied, result matches will be of hits that have at least one of the filter values.
+
+#### Facet Value Query
+
+Supports facet values querying via the `execute` function facets option. Great for UIs where you have a large list of options and require search
+
+```javascript
+const request = Searchkit(config);
+const response = await request.execute({
+  facets: [{identifier: 'type', query: 'mo'}],
+  hits: {
+    size: 10,
+    from: 0,
+  },
+});
+```
+
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| field | Aggregation field to be used, preferably a field that is raw, not tokenized |
+| id | Required to be unique. Used to apply filters on field |
+| label | UI label for facet. Used by @searchkit/elastic-ui components |
+| MultipleSelect | Boolean. Default False. Filters operates as an OR. See multiple Select for more information |
+| size | **Optional**. Controls the number of options displayed. Defaults to 5. |
+| display | **Optional**. Used on UI to specify what component to handle facet |
+| order | **Optional**. The order for the facet value terms. Can be either `value` (Alphabetical asc order) or `count` (doc_count desc order) |
