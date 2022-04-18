@@ -293,7 +293,7 @@ See [quickstart guide](https://searchkit.co/docs/core/overview/quick-start-guide
 
 ### NPM Packages
 * @searchkit/sdk [Documentation](https://searchkit.co/docs/core/reference/searchkit-sdk)
-* @searchkit/schema [Documentation](https://searchkit.co/docs/graphql/schema)
+* @searchkit/schema [Documentation](https://searchkit.co/docs/graphql/overview)
 * @searchkit/client [Documentation]((https://searchkit.co/docs/core/reference/searchkit-client)
 * @searchkit/elastic-ui [Documentation](https://searchkit.co/docs/core/reference/searchkit-elastic-ui)
 
