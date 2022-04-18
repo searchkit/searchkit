@@ -37,6 +37,7 @@ module.exports = {
       'searchkit-elastic-ui'
     ],
     'Guides': [
+      'guides-using-filters',
       'guides-query-boosting-relevance',
       'guides-geo-search',
       'guides-indexing',
