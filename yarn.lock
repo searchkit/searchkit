@@ -2656,6 +2656,33 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@searchkit/client@3.0.0-canary.53":
+  version "3.0.0-canary.53"
+  resolved "https://registry.yarnpkg.com/@searchkit/client/-/client-3.0.0-canary.53.tgz#fd55d5571e621f23e7fe294c9f246277112b2f25"
+  integrity sha512-889XevznuHYR0X6gn6BDzbB40TkAOrmAVr/4EqfYf/fAiQwxD6dxW8A1nQeU69oKwRh56iEoxwB9g6MnE/rruA==
+  dependencies:
+    fast-deep-equal "^3.1.3"
+    lodash "^4.17.21"
+    qs "^6.10.1"
+
+"@searchkit/elastic-ui@3.0.0-canary.53":
+  version "3.0.0-canary.53"
+  resolved "https://registry.yarnpkg.com/@searchkit/elastic-ui/-/elastic-ui-3.0.0-canary.53.tgz#3e3f21d7214f3aa6081ee3f9c8baeaead509764c"
+  integrity sha512-YbNRkF8LiPaCS81Hv8yEmTmy1qRj0KJhqMgc5k4WEoU9pmMt+8114SzelRe4FQR5vB72UGHtw32VoxPxuFPFsw==
+  dependencies:
+    use-debounce "^5.0.3"
+
+"@searchkit/schema@3.0.0-canary.53":
+  version "3.0.0-canary.53"
+  resolved "https://registry.yarnpkg.com/@searchkit/schema/-/schema-3.0.0-canary.53.tgz#c44389fe2777bc270384d983d47c7cea6beaea48"
+  integrity sha512-8gsMLjEp9BlEhcJD0JqkxvvkLeOyO9or1M+Rsh4RoayGxiZQgEO/XN8weG70C75I/9vJ+ni02m0nfM26JWlsGA==
+  dependencies:
+    "@elastic/elasticsearch" "7.13.0"
+    "@searchkit/sdk" "^3.0.0-canary.53"
+    dataloader "^2.0.0"
+    graphql-tag "^2.10.3"
+    lodash "^4.17.21"
+
 "@sinonjs/commons@^1.7.0":
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.8.3.tgz#3802ddd21a50a949b6721ddd72da36e67e7f1b2d"
