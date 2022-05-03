@@ -76,7 +76,7 @@ export interface SearchkitHit {
   id: string
   fields: Record<string, any>
   highlight: Record<string, any>
-  rawHit: Record<string, any>
+  rawHit?: Record<string, any>
 }
 
 export interface SearchkitPage {
