@@ -18,10 +18,13 @@ export interface SearchkitField {
   stored?: boolean
   fieldName: string
   searchable?: boolean
-  type?: 'integer' | 'date' | 'float' | 'geo_point'
+  type?: 'integer' | 'date' | 'float' | 'geo_point' | 'search_as_you_type' | string
   sourceOptions?: {
-    path: string
-    transform?: (str: string, document: Record<string, unknown>) => string | number
+    path?: string
+    transform?: (
+      str: string,
+      document: Record<string, unknown>
+    ) => string | number | string[] | number[]
   }
 }
 
