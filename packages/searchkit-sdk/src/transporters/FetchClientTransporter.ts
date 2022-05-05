@@ -1,12 +1,13 @@
 import { SearchkitConfig } from '..'
-import { SearchkitTransporter } from '.'
+import { SearchkitTransporter, SearchkitTransporterOverrides } from '.'
 
 export default class FetchClientTransporter implements SearchkitTransporter {
   constructor(private config: SearchkitConfig) {}
 
-  async performRequest(requestBody) {
+  async performRequest(requestBody, overrides: SearchkitTransporterOverrides = {}): Promise<any> {
     if (!fetch) throw new Error('Fetch is not supported in this browser / environment')
-    const response = await fetch(this.config.host + '/' + this.config.index + '/_search', {
+    const { index = this.config.index } = overrides
+    const response = await fetch(this.config.host + '/' + index + '/_search', {
       method: 'POST',
       body: JSON.stringify(requestBody),
       headers: {

@@ -12,11 +12,13 @@ import {
   SearchkitResponse,
   SearchkitHit
 } from './transformers'
+import { BaseSuggestor } from './suggestors'
 
 export * from './query'
 export * from './facets'
 export * from './filters'
 export * from './transporters'
+export * from './suggestors'
 export { MixedFilter, QueryOptions, SearchkitResponse, SearchkitHit }
 
 export interface SortingOption {
@@ -31,15 +33,19 @@ export interface CustomHighlightConfig {
   config: any
 }
 
-export interface SearchkitConfig {
+export interface BaseConfig {
   host: string
   index: string
   connectionOptions?: {
     apiKey?: string
     headers?: Record<string, string>
   }
+}
+
+export interface SearchkitConfig extends BaseConfig {
+  suggestions?: Array<BaseSuggestor<any>>
   sortOptions?: SortingOption[]
-  hits: {
+  hits?: {
     fields: string[]
     highlightedFields?: (string | CustomHighlightConfig)[]
   }
@@ -137,6 +143,13 @@ export class SearchkitRequest {
       this.queryManager.setSortBy(sortOption)
     }
     return this
+  }
+
+  async executeSuggestions(query: string): Promise<Array<any>> {
+    const suggestions = await Promise.all(
+      this.config.suggestions.map((suggestor) => suggestor.getSuggestions(query, this.transporter))
+    )
+    return suggestions
   }
 
   async execute(

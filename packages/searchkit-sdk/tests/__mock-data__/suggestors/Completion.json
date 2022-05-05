@@ -1,0 +1,50 @@
+{
+  "took" : 1,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 0,
+      "relation" : "eq"
+    },
+    "max_score" : null,
+    "hits" : [ ]
+  },
+  "suggest" : {
+    "suggest" : [
+      {
+        "text" : "swe",
+        "offset" : 0,
+        "length" : 3,
+        "options" : [
+          {
+            "text" : "Sweatpants",
+            "_index" : "mrp-products",
+            "_id" : "13452677152333220",
+            "_score" : 2.0,
+            "_source" : { }
+          },
+          {
+            "text" : "Sweats",
+            "_index" : "mrp-products",
+            "_id" : "13452677152061433",
+            "_score" : 2.0,
+            "_source" : { }
+          },
+          {
+            "text" : "Swimwear",
+            "_index" : "mrp-products",
+            "_id" : "6630340699206111",
+            "_score" : 2.0,
+            "_source" : { }
+          }
+        ]
+      }
+    ]
+  }
+}
