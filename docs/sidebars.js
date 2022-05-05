@@ -9,6 +9,7 @@ module.exports = {
       'searchkit-sdk-core',
       'searchkit-sdk-hits',
       'searchkit-sdk-query',
+      'searchkit-sdk-autocomplete',
       {
         'Filters': [
           'searchkit-sdk-filters-value',
