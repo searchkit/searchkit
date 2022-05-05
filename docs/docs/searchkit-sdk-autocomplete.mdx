@@ -1,0 +1,146 @@
+---
+id: searchkit-sdk-autocomplete
+title: Query Autocomplete
+sidebar_label: Query Autocomplete
+slug: /core/reference/searchkit-sdk/query-autocomplete
+---
+
+The autocomplete is a type of search that returns a list of results that match the query. These suggestors help you quickly build an autocomplete.
+
+## Completion Suggestor
+
+### Usage
+
+```javascript
+import Searchkit, {CompletionSuggester} from '@searchkit/sdk';
+
+const request = Searchkit({
+  host: 'http://localhost:9200',
+  index: 'test',
+  suggestions: [
+    new CompletionSuggester({
+      index: 'popular-queries',
+      identifier: 'completion',
+      field: 'suggestions',
+    }),
+  ],
+});
+
+const results = await request.executeSuggestions('swe');
+```
+
+will give back an example response of the following:
+
+```json
+[
+  {
+    "identifier": "completion",
+    "suggestions": ["Sweatpants", "Sweats", "Swimwear"]
+  }
+]
+```
+
+### Field Mapping
+
+The field that is used for the suggestions is mapped to the `suggestions` field in the index. Behind the scenes, its using the `completion` suggester. Read more [information about its capability](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters.html#completion-suggester)
+
+```json
+{
+  "mappings": {
+    "properties": {
+      "suggestions": {
+        "type": "completion"
+      }
+    }
+  }
+}
+```
+
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| identifier | Required. |
+| index | Optional. Used if the suggestions are contained within a different index. Overrides the main `index` option. |
+| field | Required. String. field that is of type `completion`. Used for suggesting terms |
+| size | Optional. Number. number of suggestions to return. Default is 5 |
+| skip_duplicates | Optional. Boolean. Whether to skip duplicate suggestions. Default is true |
+
+## Hits Suggestor
+
+Will return a list of hits that match the query. In this example we are using the `Prefix Query` which uses a multi-match `bool_prefix` type. The hits suggestor is used to return a list of hits that match the query.
+
+In this example, `title_suggest` is a `search_as_you_type` field. [Read more about it](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-suggesters.html#search-as-you-type).
+
+### Usage
+
+```javascript
+import Searchkit, {HitsSuggestor, PrefixQuery} from '@searchkit/sdk';
+
+const request = Searchkit({
+  host: 'http://localhost:9200',
+  index: 'test',
+  suggestions: [
+    new HitsSuggestor({
+      index: 'mrp-products',
+      identifier: 'hits',
+      hits: {
+        fields: ['name', 'designerName'],
+        highlightedFields: ['name', 'designerName'],
+      },
+      query: new PrefixQuery({
+        fields: ['title_suggest'],
+      }),
+    }),
+  ],
+});
+
+const results = await request.executeSuggestions('shi');
+```
+
+Will get a response like
+
+```json
+[
+  {
+    "identifier": "hits",
+    "hits": [
+      {
+        "fields": {
+          "designerName": "GUCCI",
+          "name": "Slim-Fit Logo-Jacquard Cotton and Silk-Blend Polo Shirt"
+        },
+        "highlight": {
+          "title_suggest._index_prefix": [
+            "GUCCI Slim-Fit Logo-Jacquard Cotton and Silk-Blend Polo <em>Shirt</em>"
+          ]
+        },
+        "id": "10163292707229244"
+      },
+      {
+        "fields": {
+          "designerName": "FEAR OF GOD",
+          "name": "Logo-Flocked Cotton-Jersey T-Shirt"
+        },
+        "highlight": {
+          "title_suggest._index_prefix": [
+            "FEAR OF GOD Logo-Flocked Cotton-Jersey T-<em>Shirt</em>"
+          ]
+        },
+        "id": "560971904241887"
+      }
+    ]
+  }
+]
+```
+
+#### Options
+
+| Option | Description |
+| :-- | :-- |
+| identifier | Required. |
+| index | Optional. Used if the suggestions are contained within a different index. Overrides the main `index` option. |
+| hits.fields | Required. Field values to bring back |
+| hits.highlightedFields | Optional. Fields to highlight |
+| query | Optional. Number. number of suggestions to return. Default is 5 |
+| skip_duplicates | Optional. Boolean. Whether to skip duplicate suggestions. Default is true |
