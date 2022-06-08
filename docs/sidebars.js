@@ -12,6 +12,7 @@ module.exports = {
       'searchkit-sdk-autocomplete',
       {
         'Filters': [
+          'searchkit-sdk-base-filters',
           'searchkit-sdk-filters-value',
           'searchkit-sdk-filters-numeric-range',
           'searchkit-sdk-filters-geo-location',
@@ -30,7 +31,6 @@ module.exports = {
       },
       'searchkit-sdk-sorting',
       'searchkit-sdk-pagination',
-      'searchkit-sdk-base-filters',
       'searchkit-sdk-customise-elasticsearch-query'
     ],
     'Frontend APIs': [
