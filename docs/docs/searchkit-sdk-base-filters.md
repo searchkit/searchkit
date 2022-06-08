@@ -14,6 +14,30 @@ const response = await request.execute(
       size: 10,
     },
   },
-  [{term: {status: 'published'}}], // optional second argument with an array of lucene clauses
-);
+  [
+    {
+      bool: {
+        must: [
+          {
+            term: {
+              country: 'GB',
+            },
+          },
+        ],
+        must_not: [
+          {
+            term: {
+              status: 'not_published',
+            },
+          },
+        ],
+      },
+    },
+    {
+      term: {
+        facet1: 'test',
+      },
+    },
+  ],
+); // optional second argument with an array of lucene clauses
 ```
