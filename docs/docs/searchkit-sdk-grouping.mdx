@@ -1,0 +1,57 @@
+---
+id: searchkit-sdk-grouping
+title: Result Grouping
+sidebar_label: Result Grouping
+slug: /core/reference/searchkit-sdk/grouping
+---
+
+Group results based on shared fields. When configured with a `innerHits` configuration, will bring back the most relevant documents for the group.
+
+Total results do not take into account the grouping so total hits will be more than the actual number of hits. This may give unexpected pagination experiences.
+
+#### Example
+
+With Searchkit SDK. Will distinct results that share the same value within the `designername.keyword` field.
+
+```js
+const searchkitConfig = {
+  {
+      host: 'http://localhost:9200',
+      collapse: {
+        field: 'designername.keyword',
+      },
+      hits: {
+        fields: ['name', 'designername']
+      },
+      index: 'test'
+    }
+}
+
+const response = await Searchkit(searchkitConfig).execute()
+```
+
+#### Example with Inner Hits
+
+To bring back the documents for each grouping, you can use the `innerHits` configuration. the `innerHits` configuration is part of the elasticsearch configuration for [inner_hits](https://www.elastic.co/guide/en/elasticsearch/reference/current/collapse-search-results.html#expand-collapse-results)
+
+```js
+const searchkitConfig = {
+  {
+      host: 'http://localhost:9200',
+      collapse: {
+        field: 'designername.keyword',
+        innerHits: {
+          size: 4,
+          _source: ["title"],
+          sort: [{"productScore": "desc"}]
+        }
+      },
+      hits: {
+        fields: ['name', 'designername']
+      },
+      index: 'test'
+    }
+}
+
+const response = await Searchkit(searchkitConfig).execute()
+```

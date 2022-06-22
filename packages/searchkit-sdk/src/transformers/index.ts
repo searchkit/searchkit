@@ -1,4 +1,9 @@
-import { BaseFacet, FacetResponse, ResponseRequest, SelectedFilter } from '..'
+import {
+  SearchHit,
+  SearchInnerHitsResult,
+  SearchResponseBody
+} from '@elastic/elasticsearch-types/lib/api/types'
+import { BaseFacet, FacetResponse, ResponseRequest, SearchkitConfig, SelectedFilter } from '..'
 import { getFacetsFromResponse } from '../core/FacetsFns'
 import QueryManager from '../core/QueryManager'
 
@@ -15,12 +20,17 @@ export type DisabledFilter = {
   identifier: string
 }
 
+export interface SortOption {
+  id: string
+  label: string
+}
+
 export type SummaryResponse = {
   total: number
   appliedFilters: SelectedFilter[]
   disabledFilters: DisabledFilter[]
   query: string
-  sortOptions: { id: string; label: string }[]
+  sortOptions: SortOption[]
 }
 
 function getSummaryFromResponse(
@@ -76,6 +86,7 @@ export interface SearchkitHit {
   id: string
   fields: Record<string, any>
   highlight: Record<string, any>
+  innerHits?: Record<string, SearchkitInnerHits>
   rawHit?: Record<string, any>
 }
 
@@ -87,22 +98,54 @@ export interface SearchkitPage {
   size: number
 }
 
+export interface SearchkitHits {
+  items: SearchkitHit[]
+  page: SearchkitPage
+}
+
+export interface SearchkitInnerHits {
+  items: SearchkitHit[]
+  total: number
+}
+
 export interface SearchkitResponse {
   summary: SummaryResponse
   facets: FacetResponse[]
-  hits: {
-    items: SearchkitHit[]
-    page: SearchkitPage
-  }
+  hits: SearchkitHits
   sortedBy?: string
+}
+
+const getInnerHits = (
+  hit: SearchHit<unknown>,
+  includeRawHit: boolean
+): Record<string, SearchkitInnerHits> => {
+  return Object.keys(hit.inner_hits).reduce((sum, innerHitKey) => {
+    const innerHitGroup: SearchInnerHitsResult = hit.inner_hits[innerHitKey]
+
+    const innerGroup: SearchkitInnerHits = {
+      items: innerHitGroup.hits.hits.map((hit) => ({
+        id: hit._id,
+        fields: hit._source,
+        highlight: hit.highlight || {},
+        ...(includeRawHit ? { rawHit: hit } : {})
+      })),
+      total: innerHitGroup.hits.total["value"] as number
+    }
+
+    return {
+      ...sum,
+      [innerHitKey]: innerGroup
+    }
+  }, {})
+  }
 }
 
 export class ElasticSearchResponseTransformer implements SearchkitResponseTransformer {
   transformResponse(
-    responseBody,
+    responseBody: SearchResponseBody,
     facetsConfig,
     queryManager: QueryManager,
-    config,
+    config: SearchkitConfig,
     responseRequest: ResponseRequest
   ): SearchkitResponse {
     const { hits } = responseBody
@@ -112,9 +155,7 @@ export class ElasticSearchResponseTransformer implements SearchkitResponseTransf
       : null
     const summary = getSummaryFromResponse(responseBody, facetsConfig, queryManager, config)
 
-    const hitsTotal = (
-      typeof hits.total.value === 'number' ? hits.total.value : hits.total
-    ) as number
+    const hitsTotal = hits.total["value"] as number
 
     const size = responseRequest.hits.size
     const from = responseRequest.hits.from
@@ -127,7 +168,9 @@ export class ElasticSearchResponseTransformer implements SearchkitResponseTransf
         items: hits.hits.map((hit) => ({
           id: hit._id,
           fields: hit._source,
-          highlight: hit.highlight,
+          highlight: hit.highlight || {},
+          innerHits:
+            config.collapse && getInnerHits(hit, responseRequest.hits.includeRawHit),
           ...(responseRequest.hits.includeRawHit ? { rawHit: hit } : {})
         })),
         page: {

@@ -1,9 +1,12 @@
+import { QueryDslQueryContainer } from '@elastic/elasticsearch-types/lib/api/types'
 import { BaseFacet, FacetResponse } from '../facets/BaseFacet'
 import { BaseFilter } from '../filters'
 import QueryManager from './QueryManager'
-import { SearchResponse } from './RequestBodyBuilder'
 
-export const filterTransform = (queryManager: QueryManager, facets: Array<BaseFilter> = []) => {
+export const filterTransform = (
+  queryManager: QueryManager,
+  facets: Array<BaseFilter> = []
+): QueryDslQueryContainer => {
   const subFilters = facets.reduce((subFilters, facet) => {
     const facetSubFilter = queryManager.getFiltersById(facet.getIdentifier())
     if (facetSubFilter) {
@@ -60,7 +63,7 @@ export const getAggregationsFromFacets = (
 
 export const getFacetsFromResponse = (
   facetsConfig: Array<BaseFacet | BaseFilter>,
-  response: SearchResponse<any>,
+  response: SearchResponse<unknown>,
   queryManager: QueryManager
 ): FacetResponse[] => {
   const facetBucketKeys = Object.keys(response.aggregations).filter(
