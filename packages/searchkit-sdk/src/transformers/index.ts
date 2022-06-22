@@ -118,8 +118,8 @@ export interface SearchkitResponse {
 const getInnerHits = (
   hit: SearchHit<unknown>,
   includeRawHit: boolean
-): Record<string, SearchkitInnerHits> => {
-  return Object.keys(hit.inner_hits).reduce((sum, innerHitKey) => {
+): Record<string, SearchkitInnerHits> =>
+  Object.keys(hit.inner_hits).reduce((sum, innerHitKey) => {
     const innerHitGroup: SearchInnerHitsResult = hit.inner_hits[innerHitKey]
 
     const innerGroup: SearchkitInnerHits = {
@@ -129,7 +129,8 @@ const getInnerHits = (
         highlight: hit.highlight || {},
         ...(includeRawHit ? { rawHit: hit } : {})
       })),
-      total: innerHitGroup.hits.total["value"] as number
+      // @ts-ignore
+      total: innerHitGroup.hits.total.value
     }
 
     return {
@@ -137,8 +138,6 @@ const getInnerHits = (
       [innerHitKey]: innerGroup
     }
   }, {})
-  }
-}
 
 export class ElasticSearchResponseTransformer implements SearchkitResponseTransformer {
   transformResponse(
@@ -155,7 +154,8 @@ export class ElasticSearchResponseTransformer implements SearchkitResponseTransf
       : null
     const summary = getSummaryFromResponse(responseBody, facetsConfig, queryManager, config)
 
-    const hitsTotal = hits.total["value"] as number
+    // @ts-ignore
+    const hitsTotal = hits.total.value as number
 
     const size = responseRequest.hits.size
     const from = responseRequest.hits.from
@@ -169,8 +169,7 @@ export class ElasticSearchResponseTransformer implements SearchkitResponseTransf
           id: hit._id,
           fields: hit._source,
           highlight: hit.highlight || {},
-          innerHits:
-            config.collapse && getInnerHits(hit, responseRequest.hits.includeRawHit),
+          innerHits: config.collapse && getInnerHits(hit, responseRequest.hits.includeRawHit),
           ...(responseRequest.hits.includeRawHit ? { rawHit: hit } : {})
         })),
         page: {

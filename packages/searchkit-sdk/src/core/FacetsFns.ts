@@ -1,4 +1,7 @@
-import { QueryDslQueryContainer } from '@elastic/elasticsearch-types/lib/api/types'
+import {
+  QueryDslQueryContainer,
+  SearchResponseBody
+} from '@elastic/elasticsearch-types/lib/api/types'
 import { BaseFacet, FacetResponse } from '../facets/BaseFacet'
 import { BaseFilter } from '../filters'
 import QueryManager from './QueryManager'
@@ -63,7 +66,7 @@ export const getAggregationsFromFacets = (
 
 export const getFacetsFromResponse = (
   facetsConfig: Array<BaseFacet | BaseFilter>,
-  response: SearchResponse<unknown>,
+  response: SearchResponseBody<unknown>,
   queryManager: QueryManager
 ): FacetResponse[] => {
   const facetBucketKeys = Object.keys(response.aggregations).filter(
