@@ -68,7 +68,7 @@ export default class QueryManager {
     this.queryOptions = options
   }
 
-  setFilters(filters: Array<MixedFilter>) {
+  setFilters(filters: Array<MixedFilter>): void {
     this.filters = filters
   }
 

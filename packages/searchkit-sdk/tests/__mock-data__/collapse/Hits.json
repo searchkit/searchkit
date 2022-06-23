@@ -1,0 +1,689 @@
+{
+  "took" : 59,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 6128,
+      "relation" : "eq"
+    },
+    "max_score" : null,
+    "hits" : [
+      {
+        "_index" : "search-products",
+        "_id" : "17266703523626988",
+        "_score" : 1.0,
+        "_source" : {
+          "name" : "Leather Blouson Jacket",
+          "designername" : "MR P."
+        },
+        "fields" : {
+          "designername.keyword" : [
+            "MR P."
+          ]
+        },
+        "inner_hits" : {
+          "test" : {
+            "hits" : {
+              "total" : {
+                "value" : 102,
+                "relation" : "eq"
+              },
+              "max_score" : 0.0,
+              "hits" : [
+                {
+                  "_index" : "search-products",
+                  "_id" : "17266703523626988",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Leather Blouson Jacket"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "18706561956369450",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Slim-Fit Tapered Organic Cotton-Jersey Sweatpants"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "17266703523637757",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Shearling-Trimmed Suede Jacket"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "17266703523630555",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Ribbed Donegal Merino Wool-Blend Sweater"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "17266703523637746",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Shearling Fleece Jacket"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "_index" : "search-products",
+        "_id" : "30629810020329747",
+        "_score" : 1.0,
+        "_source" : {
+          "name" : "Embellished Wool Coat",
+          "designername" : "GIVENCHY"
+        },
+        "fields" : {
+          "designername.keyword" : [
+            "GIVENCHY"
+          ]
+        },
+        "inner_hits" : {
+          "test" : {
+            "hits" : {
+              "total" : {
+                "value" : 61,
+                "relation" : "eq"
+              },
+              "max_score" : 0.0,
+              "hits" : [
+                {
+                  "_index" : "search-products",
+                  "_id" : "30629810020329747",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Embellished Wool Coat"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "15546005221984641",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Oversized Quilted Leather Down Jacket"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "30629810020329866",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "+ Chito Printed Cotton-Jersey Hoodie"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "30629810020329822",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Straight-Leg Zip-Detailed Jeans"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "30629810020329779",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Straight-Leg Logo-Appliquéd Cotton-Jersey Shorts"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "_index" : "search-products",
+        "_id" : "30629810019872615",
+        "_score" : 1.0,
+        "_source" : {
+          "name" : "Jack Straight-Leg Jeans",
+          "designername" : "ISABEL MARANT"
+        },
+        "fields" : {
+          "designername.keyword" : [
+            "ISABEL MARANT"
+          ]
+        },
+        "inner_hits" : {
+          "test" : {
+            "hits" : {
+              "total" : {
+                "value" : 8,
+                "relation" : "eq"
+              },
+              "max_score" : 0.0,
+              "hits" : [
+                {
+                  "_index" : "search-products",
+                  "_id" : "30629810019872615",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Jack Straight-Leg Jeans"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "30629810019877037",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Tiglin Lyocell-Twill Shirt"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "30629810019891301",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Elliot Jacquard-Knit Polo Shirt"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "30629810019877029",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Elliot Cotton-Jacquard Polo Shirt"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "30629810019872616",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Tyron Logo-Embroidered Cotton-Canvas Baseball Cap"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "_index" : "search-products",
+        "_id" : "29419655931937912",
+        "_score" : 1.0,
+        "_source" : {
+          "name" : "Logo-Jacquard Wool Sweater",
+          "designername" : "ACNE STUDIOS"
+        },
+        "fields" : {
+          "designername.keyword" : [
+            "ACNE STUDIOS"
+          ]
+        },
+        "inner_hits" : {
+          "test" : {
+            "hits" : {
+              "total" : {
+                "value" : 67,
+                "relation" : "eq"
+              },
+              "max_score" : 0.0,
+              "hits" : [
+                {
+                  "_index" : "search-products",
+                  "_id" : "29419655931937912",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Logo-Jacquard Wool Sweater"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "13452677152318192",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Fairview Logo-Appliquéd Organic Cotton-Jersey Sweatshirt"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "13452677152333220",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Tapered Logo-Appliquéd Cotton-Jersey Sweatpants"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "10516758728013962",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Oversized Cotton-Jersey T-Shirt"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "13452677152340297",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Forba Logo-Appliquéd Cotton-Jersey Sweatshirt"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "_index" : "search-products",
+        "_id" : "32027475399170323",
+        "_score" : 1.0,
+        "_source" : {
+          "name" : "Argyle Mohair-Blend Cardigan",
+          "designername" : "MARNI"
+        },
+        "fields" : {
+          "designername.keyword" : [
+            "MARNI"
+          ]
+        },
+        "inner_hits" : {
+          "test" : {
+            "hits" : {
+              "total" : {
+                "value" : 7,
+                "relation" : "eq"
+              },
+              "max_score" : 0.0,
+              "hits" : [
+                {
+                  "_index" : "search-products",
+                  "_id" : "32027475399170323",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Argyle Mohair-Blend Cardigan"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "32027475399186647",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Argyled Mohair-Blend Cardigan"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "32027475399170260",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Fussbett Calf Hair Slippers"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "32027475399186645",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Fussbett Full-Grain Leather Slippers"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "32027475399170254",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Fussbett Calf Hair Slippers"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "_index" : "search-products",
+        "_id" : "24665545640633395",
+        "_score" : 1.0,
+        "_source" : {
+          "name" : "Bootcut Distressed Jeans",
+          "designername" : "VETEMENTS"
+        },
+        "fields" : {
+          "designername.keyword" : [
+            "VETEMENTS"
+          ]
+        },
+        "inner_hits" : {
+          "test" : {
+            "hits" : {
+              "total" : {
+                "value" : 15,
+                "relation" : "eq"
+              },
+              "max_score" : 0.0,
+              "hits" : [
+                {
+                  "_index" : "search-products",
+                  "_id" : "24665545640633395",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Bootcut Distressed Jeans"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "24665545640633361",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Logo-Print Cotton-Blend Jersey Hoodie"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "24665545640633355",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Tapered Logo-Print Cotton-Blend Jersey Sweatpants"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "24665545640633765",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Embellished Cotton-Jersey T-Shirt"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "24665545640633381",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Logo-Print Cotton-Blend Jersey Hoodie"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "_index" : "search-products",
+        "_id" : "33258524072377077",
+        "_score" : 1.0,
+        "_source" : {
+          "name" : "Button-Down Collar Printed Cotton-Poplin Shirt",
+          "designername" : "BALENCIAGA"
+        },
+        "fields" : {
+          "designername.keyword" : [
+            "BALENCIAGA"
+          ]
+        },
+        "inner_hits" : {
+          "test" : {
+            "hits" : {
+              "total" : {
+                "value" : 101,
+                "relation" : "eq"
+              },
+              "max_score" : 0.0,
+              "hits" : [
+                {
+                  "_index" : "search-products",
+                  "_id" : "33258524072377077",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Button-Down Collar Printed Cotton-Poplin Shirt"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "33258524072377038",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "+ The Simpsons Printed Cotton-Jersey Hoodie"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "33258524072377079",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Logo-Print Cotton-Blend Jersey Hoodie"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "33258524072377062",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Oversized Logo-Jacquard Wool-Blend Sweater"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "33258524072377058",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Logo-Embroidered Cashmere Sweater"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "_index" : "search-products",
+        "_id" : "32027475399187166",
+        "_score" : 1.0,
+        "_source" : {
+          "name" : "Cropped Leather Drawstring Trousers",
+          "designername" : "RICK OWENS"
+        },
+        "fields" : {
+          "designername.keyword" : [
+            "RICK OWENS"
+          ]
+        },
+        "inner_hits" : {
+          "test" : {
+            "hits" : {
+              "total" : {
+                "value" : 14,
+                "relation" : "eq"
+              },
+              "max_score" : 0.0,
+              "hits" : [
+                {
+                  "_index" : "search-products",
+                  "_id" : "32027475399187166",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Cropped Leather Drawstring Trousers"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "32027475399186987",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Tapered Virgin Wool-Blend Sweatpants"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "32027475399187049",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Slim-Fit Cashmere Sweater"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "32027475399187040",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Organic Cotton-Jersey Tank Top"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "32027475399193810",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Leather Jacket"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "_index" : "search-products",
+        "_id" : "28941591747114209",
+        "_score" : 1.0,
+        "_source" : {
+          "name" : "Wesley Fair Isle Wool Sweater",
+          "designername" : "RAG & BONE"
+        },
+        "fields" : {
+          "designername.keyword" : [
+            "RAG & BONE"
+          ]
+        },
+        "inner_hits" : {
+          "test" : {
+            "hits" : {
+              "total" : {
+                "value" : 28,
+                "relation" : "eq"
+              },
+              "max_score" : 0.0,
+              "hits" : [
+                {
+                  "_index" : "search-products",
+                  "_id" : "28941591747114209",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Wesley Fair Isle Wool Sweater"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "28941591747114211",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Fit 2 Slim-Fit Jeans"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "28941591747114215",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Fit 2 Slim-Fit Stretch-Denim Jeans"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "28941591747124833",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Fit 2 Slim-Fit Stretch-Cotton and Cashmere-Blend Jeans"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "336416600057852",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Manston Nylon Bomber Jacket"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "_index" : "search-products",
+        "_id" : "22250442025579341",
+        "_score" : 1.0,
+        "_source" : {
+          "name" : "Everett Logo-Appliquéd Quilted Shell Down Gilet",
+          "designername" : "CANADA GOOSE"
+        },
+        "fields" : {
+          "designername.keyword" : [
+            "CANADA GOOSE"
+          ]
+        },
+        "inner_hits" : {
+          "test" : {
+            "hits" : {
+              "total" : {
+                "value" : 19,
+                "relation" : "eq"
+              },
+              "max_score" : 0.0,
+              "hits" : [
+                {
+                  "_index" : "search-products",
+                  "_id" : "22250442025579341",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Everett Logo-Appliquéd Quilted Shell Down Gilet"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "22250442025579348",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Everett Logo-Appliquéd Quilted EnduraLuxe Down Jacket"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "666467151985711",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Chateau Shell Hooded Down Parka"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "22250442025588895",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "Macmillan Camouflage-Print Quilted Shell Hooded Down Parka"
+                  }
+                },
+                {
+                  "_index" : "search-products",
+                  "_id" : "22250442025588842",
+                  "_score" : 0.0,
+                  "_source" : {
+                    "name" : "HyBridge Slim-Fit Merino Wool and Quilted Nylon Down Gilet"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}
