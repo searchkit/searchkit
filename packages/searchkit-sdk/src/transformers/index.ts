@@ -1,5 +1,6 @@
 import {
   SearchHit,
+  SearchHitsMetadata,
   SearchInnerHitsResult,
   SearchResponseBody
 } from '@elastic/elasticsearch-types/lib/api/types'
@@ -129,8 +130,7 @@ const getInnerHits = (
         highlight: hit.highlight || {},
         ...(includeRawHit ? { rawHit: hit } : {})
       })),
-      // @ts-ignore
-      total: innerHitGroup.hits.total.value
+      total: getHitsTotal(innerHitGroup.hits)
     }
 
     return {
@@ -138,6 +138,14 @@ const getInnerHits = (
       [innerHitKey]: innerGroup
     }
   }, {})
+
+// to support 6.x - 8.x
+const getHitsTotal = (hits: SearchHitsMetadata<unknown>): number => {
+  // @ts-ignore
+  const isNumber = typeof hits.total.value === 'number'
+  // @ts-ignore
+  return isNumber ? hits.total.value : hits.total
+}
 
 export class ElasticSearchResponseTransformer implements SearchkitResponseTransformer {
   transformResponse(
@@ -154,8 +162,7 @@ export class ElasticSearchResponseTransformer implements SearchkitResponseTransf
       : null
     const summary = getSummaryFromResponse(responseBody, facetsConfig, queryManager, config)
 
-    // @ts-ignore
-    const hitsTotal = hits.total.value as number
+    const hitsTotal = getHitsTotal(hits)
 
     const size = responseRequest.hits.size
     const from = responseRequest.hits.from
@@ -169,7 +176,10 @@ export class ElasticSearchResponseTransformer implements SearchkitResponseTransf
           id: hit._id,
           fields: hit._source,
           highlight: hit.highlight || {},
-          innerHits: config.collapse && getInnerHits(hit, responseRequest.hits.includeRawHit),
+          ...((config.collapse && {
+            innerHits: getInnerHits(hit, responseRequest.hits.includeRawHit)
+          }) ||
+            {}),
           ...(responseRequest.hits.includeRawHit ? { rawHit: hit } : {})
         })),
         page: {
