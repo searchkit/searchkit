@@ -1,3 +1,4 @@
+import type { SearchFieldCollapse } from '@elastic/elasticsearch-types/lib/api/types'
 import merge from 'lodash/merge'
 import { SearchkitConfig } from '../'
 import { BaseFacet } from '../facets'
@@ -31,12 +32,6 @@ export type Query = {
     should?: Array<Record<string, unknown>>
     filter?: Array<Record<string, unknown>>
   }
-}
-
-type BaseQuery = {
-  size: number
-  query?: Query
-  post_filter?: Query
 }
 
 export const mergeESQueries = (queries) =>
@@ -87,6 +82,15 @@ export default function RequestBodyBuilder(
     }
   })
 
+  let collapseConfig: SearchFieldCollapse
+
+  if (config.collapse) {
+    collapseConfig = {
+      field: config.collapse.field,
+      inner_hits: config.collapse.inner_hits
+    }
+  }
+
   const baseQuery = { size: 0 }
   const sourceFields = {
     _source: {
@@ -99,6 +103,7 @@ export default function RequestBodyBuilder(
       baseQuery,
       sourceFields,
       query && { query },
+      collapseConfig && { collapse: collapseConfig },
       postFilter && { post_filter: postFilter },
       highlight && { highlight },
       ...(partialQueries as any[])

@@ -1,3 +1,4 @@
+import type { SearchInnerHits, SearchRequest } from '@elastic/elasticsearch-types/lib/api/types'
 import QueryManager, { MixedFilter, QueryOptions } from './core/QueryManager'
 import RequestBodyBuilder from './core/RequestBodyBuilder'
 import BaseQuery from './query/BaseQuery'
@@ -42,6 +43,13 @@ export interface BaseConfig {
   }
 }
 
+export type CollapseInnerHitsConfig = SearchInnerHits
+
+export interface CollapseConfig {
+  field: string
+  inner_hits?: CollapseInnerHitsConfig | CollapseInnerHitsConfig[]
+}
+
 export interface SearchkitConfig extends BaseConfig {
   suggestions?: Array<BaseSuggestor<any>>
   sortOptions?: SortingOption[]
@@ -52,7 +60,8 @@ export interface SearchkitConfig extends BaseConfig {
   query?: BaseQuery
   facets?: Array<BaseFacet | VisibleWhenRuleSet>
   filters?: Array<BaseFilter>
-  postProcessRequest?: (body: any) => any
+  collapse?: CollapseConfig
+  postProcessRequest?: (body: SearchRequest) => SearchRequest
 }
 
 export interface ResultsResolverParameters {

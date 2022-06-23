@@ -44,7 +44,7 @@ Object {
           ],
           "year": 2008,
         },
-        "highlight": undefined,
+        "highlight": Object {},
         "id": "tt0468569",
       },
       Object {
@@ -83,7 +83,7 @@ Object {
           ],
           "year": 1994,
         },
-        "highlight": undefined,
+        "highlight": Object {},
         "id": "tt0110912",
       },
       Object {
@@ -125,7 +125,7 @@ Object {
           ],
           "year": 2003,
         },
-        "highlight": undefined,
+        "highlight": Object {},
         "id": "tt0167260",
       },
       Object {
@@ -163,7 +163,7 @@ Object {
           ],
           "year": 1995,
         },
-        "highlight": undefined,
+        "highlight": Object {},
         "id": "tt0114369",
       },
       Object {
@@ -202,7 +202,7 @@ Object {
           ],
           "year": 1975,
         },
-        "highlight": undefined,
+        "highlight": Object {},
         "id": "tt0073486",
       },
       Object {
@@ -243,7 +243,7 @@ Object {
           ],
           "year": 2000,
         },
-        "highlight": undefined,
+        "highlight": Object {},
         "id": "tt0172495",
       },
       Object {
@@ -280,7 +280,7 @@ Object {
           ],
           "year": 2010,
         },
-        "highlight": undefined,
+        "highlight": Object {},
         "id": "tt1520211",
       },
       Object {
@@ -320,7 +320,7 @@ Object {
           ],
           "year": 2004,
         },
-        "highlight": undefined,
+        "highlight": Object {},
         "id": "tt0338013",
       },
       Object {
@@ -359,7 +359,7 @@ Object {
           ],
           "year": 1979,
         },
-        "highlight": undefined,
+        "highlight": Object {},
         "id": "tt0078788",
       },
       Object {
@@ -396,7 +396,7 @@ Object {
           ],
           "year": 2000,
         },
-        "highlight": undefined,
+        "highlight": Object {},
         "id": "tt0180093",
       },
     ],

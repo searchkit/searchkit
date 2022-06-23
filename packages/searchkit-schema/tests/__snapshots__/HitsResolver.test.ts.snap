@@ -694,7 +694,7 @@ Object {
               "Martin Goldsmith",
             ],
           },
-          "highlight": null,
+          "highlight": "{}",
           "id": "tt0037638",
         },
         Object {
@@ -721,7 +721,7 @@ Object {
               "Jehane Noujaim",
             ],
           },
-          "highlight": null,
+          "highlight": "{}",
           "id": "tt0391024",
         },
         Object {
@@ -737,7 +737,7 @@ Object {
               "David Mamet",
             ],
           },
-          "highlight": null,
+          "highlight": "{}",
           "id": "tt0094226",
         },
         Object {
@@ -798,7 +798,7 @@ Object {
             ],
             "writers": Array [],
           },
-          "highlight": null,
+          "highlight": "{}",
           "id": "tt0097372",
         },
         Object {

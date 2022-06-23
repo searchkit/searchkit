@@ -1,0 +1,526 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Collapse Collapse basic 2`] = `
+Object {
+  "facets": null,
+  "hits": Object {
+    "items": Array [
+      Object {
+        "fields": Object {
+          "designername": "MR P.",
+          "name": "Leather Blouson Jacket",
+        },
+        "highlight": Object {},
+        "id": "17266703523626988",
+        "innerHits": Object {
+          "test": Object {
+            "items": Array [
+              Object {
+                "fields": Object {
+                  "name": "Leather Blouson Jacket",
+                },
+                "highlight": Object {},
+                "id": "17266703523626988",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Slim-Fit Tapered Organic Cotton-Jersey Sweatpants",
+                },
+                "highlight": Object {},
+                "id": "18706561956369450",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Shearling-Trimmed Suede Jacket",
+                },
+                "highlight": Object {},
+                "id": "17266703523637757",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Ribbed Donegal Merino Wool-Blend Sweater",
+                },
+                "highlight": Object {},
+                "id": "17266703523630555",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Shearling Fleece Jacket",
+                },
+                "highlight": Object {},
+                "id": "17266703523637746",
+              },
+            ],
+            "total": 102,
+          },
+        },
+      },
+      Object {
+        "fields": Object {
+          "designername": "GIVENCHY",
+          "name": "Embellished Wool Coat",
+        },
+        "highlight": Object {},
+        "id": "30629810020329747",
+        "innerHits": Object {
+          "test": Object {
+            "items": Array [
+              Object {
+                "fields": Object {
+                  "name": "Embellished Wool Coat",
+                },
+                "highlight": Object {},
+                "id": "30629810020329747",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Oversized Quilted Leather Down Jacket",
+                },
+                "highlight": Object {},
+                "id": "15546005221984641",
+              },
+              Object {
+                "fields": Object {
+                  "name": "+ Chito Printed Cotton-Jersey Hoodie",
+                },
+                "highlight": Object {},
+                "id": "30629810020329866",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Straight-Leg Zip-Detailed Jeans",
+                },
+                "highlight": Object {},
+                "id": "30629810020329822",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Straight-Leg Logo-Appliquéd Cotton-Jersey Shorts",
+                },
+                "highlight": Object {},
+                "id": "30629810020329779",
+              },
+            ],
+            "total": 61,
+          },
+        },
+      },
+      Object {
+        "fields": Object {
+          "designername": "ISABEL MARANT",
+          "name": "Jack Straight-Leg Jeans",
+        },
+        "highlight": Object {},
+        "id": "30629810019872615",
+        "innerHits": Object {
+          "test": Object {
+            "items": Array [
+              Object {
+                "fields": Object {
+                  "name": "Jack Straight-Leg Jeans",
+                },
+                "highlight": Object {},
+                "id": "30629810019872615",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Tiglin Lyocell-Twill Shirt",
+                },
+                "highlight": Object {},
+                "id": "30629810019877037",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Elliot Jacquard-Knit Polo Shirt",
+                },
+                "highlight": Object {},
+                "id": "30629810019891301",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Elliot Cotton-Jacquard Polo Shirt",
+                },
+                "highlight": Object {},
+                "id": "30629810019877029",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Tyron Logo-Embroidered Cotton-Canvas Baseball Cap",
+                },
+                "highlight": Object {},
+                "id": "30629810019872616",
+              },
+            ],
+            "total": 8,
+          },
+        },
+      },
+      Object {
+        "fields": Object {
+          "designername": "ACNE STUDIOS",
+          "name": "Logo-Jacquard Wool Sweater",
+        },
+        "highlight": Object {},
+        "id": "29419655931937912",
+        "innerHits": Object {
+          "test": Object {
+            "items": Array [
+              Object {
+                "fields": Object {
+                  "name": "Logo-Jacquard Wool Sweater",
+                },
+                "highlight": Object {},
+                "id": "29419655931937912",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Fairview Logo-Appliquéd Organic Cotton-Jersey Sweatshirt",
+                },
+                "highlight": Object {},
+                "id": "13452677152318192",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Tapered Logo-Appliquéd Cotton-Jersey Sweatpants",
+                },
+                "highlight": Object {},
+                "id": "13452677152333220",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Oversized Cotton-Jersey T-Shirt",
+                },
+                "highlight": Object {},
+                "id": "10516758728013962",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Forba Logo-Appliquéd Cotton-Jersey Sweatshirt",
+                },
+                "highlight": Object {},
+                "id": "13452677152340297",
+              },
+            ],
+            "total": 67,
+          },
+        },
+      },
+      Object {
+        "fields": Object {
+          "designername": "MARNI",
+          "name": "Argyle Mohair-Blend Cardigan",
+        },
+        "highlight": Object {},
+        "id": "32027475399170323",
+        "innerHits": Object {
+          "test": Object {
+            "items": Array [
+              Object {
+                "fields": Object {
+                  "name": "Argyle Mohair-Blend Cardigan",
+                },
+                "highlight": Object {},
+                "id": "32027475399170323",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Argyled Mohair-Blend Cardigan",
+                },
+                "highlight": Object {},
+                "id": "32027475399186647",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Fussbett Calf Hair Slippers",
+                },
+                "highlight": Object {},
+                "id": "32027475399170260",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Fussbett Full-Grain Leather Slippers",
+                },
+                "highlight": Object {},
+                "id": "32027475399186645",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Fussbett Calf Hair Slippers",
+                },
+                "highlight": Object {},
+                "id": "32027475399170254",
+              },
+            ],
+            "total": 7,
+          },
+        },
+      },
+      Object {
+        "fields": Object {
+          "designername": "VETEMENTS",
+          "name": "Bootcut Distressed Jeans",
+        },
+        "highlight": Object {},
+        "id": "24665545640633395",
+        "innerHits": Object {
+          "test": Object {
+            "items": Array [
+              Object {
+                "fields": Object {
+                  "name": "Bootcut Distressed Jeans",
+                },
+                "highlight": Object {},
+                "id": "24665545640633395",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Logo-Print Cotton-Blend Jersey Hoodie",
+                },
+                "highlight": Object {},
+                "id": "24665545640633361",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Tapered Logo-Print Cotton-Blend Jersey Sweatpants",
+                },
+                "highlight": Object {},
+                "id": "24665545640633355",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Embellished Cotton-Jersey T-Shirt",
+                },
+                "highlight": Object {},
+                "id": "24665545640633765",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Logo-Print Cotton-Blend Jersey Hoodie",
+                },
+                "highlight": Object {},
+                "id": "24665545640633381",
+              },
+            ],
+            "total": 15,
+          },
+        },
+      },
+      Object {
+        "fields": Object {
+          "designername": "BALENCIAGA",
+          "name": "Button-Down Collar Printed Cotton-Poplin Shirt",
+        },
+        "highlight": Object {},
+        "id": "33258524072377077",
+        "innerHits": Object {
+          "test": Object {
+            "items": Array [
+              Object {
+                "fields": Object {
+                  "name": "Button-Down Collar Printed Cotton-Poplin Shirt",
+                },
+                "highlight": Object {},
+                "id": "33258524072377077",
+              },
+              Object {
+                "fields": Object {
+                  "name": "+ The Simpsons Printed Cotton-Jersey Hoodie",
+                },
+                "highlight": Object {},
+                "id": "33258524072377038",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Logo-Print Cotton-Blend Jersey Hoodie",
+                },
+                "highlight": Object {},
+                "id": "33258524072377079",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Oversized Logo-Jacquard Wool-Blend Sweater",
+                },
+                "highlight": Object {},
+                "id": "33258524072377062",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Logo-Embroidered Cashmere Sweater",
+                },
+                "highlight": Object {},
+                "id": "33258524072377058",
+              },
+            ],
+            "total": 101,
+          },
+        },
+      },
+      Object {
+        "fields": Object {
+          "designername": "RICK OWENS",
+          "name": "Cropped Leather Drawstring Trousers",
+        },
+        "highlight": Object {},
+        "id": "32027475399187166",
+        "innerHits": Object {
+          "test": Object {
+            "items": Array [
+              Object {
+                "fields": Object {
+                  "name": "Cropped Leather Drawstring Trousers",
+                },
+                "highlight": Object {},
+                "id": "32027475399187166",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Tapered Virgin Wool-Blend Sweatpants",
+                },
+                "highlight": Object {},
+                "id": "32027475399186987",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Slim-Fit Cashmere Sweater",
+                },
+                "highlight": Object {},
+                "id": "32027475399187049",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Organic Cotton-Jersey Tank Top",
+                },
+                "highlight": Object {},
+                "id": "32027475399187040",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Leather Jacket",
+                },
+                "highlight": Object {},
+                "id": "32027475399193810",
+              },
+            ],
+            "total": 14,
+          },
+        },
+      },
+      Object {
+        "fields": Object {
+          "designername": "RAG & BONE",
+          "name": "Wesley Fair Isle Wool Sweater",
+        },
+        "highlight": Object {},
+        "id": "28941591747114209",
+        "innerHits": Object {
+          "test": Object {
+            "items": Array [
+              Object {
+                "fields": Object {
+                  "name": "Wesley Fair Isle Wool Sweater",
+                },
+                "highlight": Object {},
+                "id": "28941591747114209",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Fit 2 Slim-Fit Jeans",
+                },
+                "highlight": Object {},
+                "id": "28941591747114211",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Fit 2 Slim-Fit Stretch-Denim Jeans",
+                },
+                "highlight": Object {},
+                "id": "28941591747114215",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Fit 2 Slim-Fit Stretch-Cotton and Cashmere-Blend Jeans",
+                },
+                "highlight": Object {},
+                "id": "28941591747124833",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Manston Nylon Bomber Jacket",
+                },
+                "highlight": Object {},
+                "id": "336416600057852",
+              },
+            ],
+            "total": 28,
+          },
+        },
+      },
+      Object {
+        "fields": Object {
+          "designername": "CANADA GOOSE",
+          "name": "Everett Logo-Appliquéd Quilted Shell Down Gilet",
+        },
+        "highlight": Object {},
+        "id": "22250442025579341",
+        "innerHits": Object {
+          "test": Object {
+            "items": Array [
+              Object {
+                "fields": Object {
+                  "name": "Everett Logo-Appliquéd Quilted Shell Down Gilet",
+                },
+                "highlight": Object {},
+                "id": "22250442025579341",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Everett Logo-Appliquéd Quilted EnduraLuxe Down Jacket",
+                },
+                "highlight": Object {},
+                "id": "22250442025579348",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Chateau Shell Hooded Down Parka",
+                },
+                "highlight": Object {},
+                "id": "666467151985711",
+              },
+              Object {
+                "fields": Object {
+                  "name": "Macmillan Camouflage-Print Quilted Shell Hooded Down Parka",
+                },
+                "highlight": Object {},
+                "id": "22250442025588895",
+              },
+              Object {
+                "fields": Object {
+                  "name": "HyBridge Slim-Fit Merino Wool and Quilted Nylon Down Gilet",
+                },
+                "highlight": Object {},
+                "id": "22250442025588842",
+              },
+            ],
+            "total": 19,
+          },
+        },
+      },
+    ],
+    "page": Object {
+      "from": 0,
+      "pageNumber": 0,
+      "size": 10,
+      "total": 6128,
+      "totalPages": 613,
+    },
+  },
+  "sortedBy": undefined,
+  "summary": Object {
+    "appliedFilters": Array [],
+    "disabledFilters": Array [],
+    "query": "",
+    "sortOptions": Array [],
+    "total": 6128,
+  },
+}
+`;

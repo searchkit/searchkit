@@ -1,4 +1,4 @@
-import { SearchResponse } from 'elasticsearch'
+import { SearchResponse } from '@elastic/elasticsearch-types/lib/api/types'
 import { filterTransform, getAggregationsFromFacets, getFacetsFromResponse } from '../FacetsFns'
 import QueryManager from '../QueryManager'
 import { RefinementSelectFacet } from '../../facets'
@@ -94,15 +94,14 @@ describe('Facet Fns', () => {
 
   describe('getFacetsFromResponse', () => {
     it('should transform response from two facets', () => {
-      const response = {
+      const response: SearchResponse<unknown> = {
         took: 0,
         timed_out: false,
+        _shards: { total: 0, successful: 0, failed: 0 },
         hits: {
           hits: [],
           max_score: 0,
-          total: {
-            value: 0
-          }
+          total: 0
         },
         aggregations: {
           facet_bucket_all: {
