@@ -10,6 +10,7 @@ module.exports = {
       'searchkit-sdk-hits',
       'searchkit-sdk-query',
       'searchkit-sdk-autocomplete',
+      'searchkit-sdk-grouping',
       {
         'Filters': [
           'searchkit-sdk-base-filters',
