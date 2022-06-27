@@ -34,8 +34,13 @@ export interface CustomHighlightConfig {
   config: any
 }
 
+export interface CloudHost {
+  id: string
+}
+
 export interface BaseConfig {
-  host: string
+  host?: string
+  cloud?: CloudHost
   index: string
   connectionOptions?: {
     apiKey?: string

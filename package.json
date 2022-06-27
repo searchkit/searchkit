@@ -31,7 +31,7 @@
     "@testing-library/react": "^11.1.2",
     "@types/elasticsearch": "^5.0.36",
     "@types/jest": "^26.0.15",
-    "@types/node": "^13.9.1",
+    "@types/node": "^18.0.0",
     "@types/react": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.0.1",
