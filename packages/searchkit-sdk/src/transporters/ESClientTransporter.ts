@@ -1,4 +1,4 @@
-import { Client } from '@elastic/elasticsearch'
+import { Client, ClientOptions } from '@elastic/elasticsearch'
 import HttpAgent, { HttpsAgent } from 'agentkeepalive'
 import { SearchkitConfig } from '..'
 import type { SearchkitTransporter } from '.'
@@ -10,17 +10,26 @@ export default class ESClientTransporter implements SearchkitTransporter {
   private client: Client
 
   constructor(private config: SearchkitConfig) {
-    this.client = new Client({
-      node: this.config.host,
+    if (!this.config.host && !this.config.cloud) {
+      throw new Error('Host or cloud is required')
+    }
+
+    const esClientConfig: ClientOptions = {
+      ...(this.config.host ? { node: this.config.host } : { cloud: { id: this.config.cloud.id } }),
       auth: {
         apiKey: this.config.connectionOptions?.apiKey
       },
       headers: {
         ...(this.config.connectionOptions?.headers || {})
-      },
-      agent: () =>
+      }
+    }
+
+    if (this.config.host) {
+      esClientConfig.agent = () =>
         new URL(this.config.host).protocol === 'http:' ? keepaliveAgent : keepaliveHttpsAgent
-    })
+    }
+
+    this.client = new Client(esClientConfig)
   }
 
   async performRequest(requestBody) {
