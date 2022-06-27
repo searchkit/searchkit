@@ -88,6 +88,31 @@ const response = await request
 
 You can configure & connect to an Elasticsearch instance without any credentials although its strongly suggested that you do if you're using the SDK within the browser. Below are some of the options you can use to secure the connection between you and Elasticsearch.
 
+### Elasticsearch via Elastic Cloud
+
+When your elasticsearch instance is hosted on [cloud.elastic.co](https://cloud.elastic.co), you can use the `cloudId` to connect to it.
+
+```javascript
+
+const searchkitConfig = {
+  cloud: {
+    id: 'commerce-demo:dXMtZWFzdDQuZ2NwLmVsYXN0aWMtY2xvdWQuY29tOjQ0MyRkMWJkMzY4NjJjZTU0YzdiOTAzZTJhYWNkNGNkN2YwYSQ2ZDRiY2YwOWI2ZWU0NjBjOWVlNTg4YjJiNWM5ZGE0MQ==', // elastic cloud id
+  },
+  connectionOptions: {
+    apiKey: "<api-key>"
+  },
+  index: 'movies',
+  hits: { fields: [ 'title', 'plot', 'poster' ] },
+  query: new MultiMatchQuery({
+    fields: [ 'plot','title^4'],
+    highlightFields: ["title"]
+  })
+}
+
+const request = Searchkit(config) const response = await request .query("heat")
+
+```
+
 ### Proxy the search call through your API
 
 If you're using Searchkit SDK directly within the browser and require Elasticsearch to be accesible from the browser, opening up a route on your API that proxies the request through your API could be an option. This means that we are not exposing Elasticsearch on the internet and gives you opportunity to add additional filters to the Elasticsearch query.
