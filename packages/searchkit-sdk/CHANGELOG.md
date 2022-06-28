@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-canary.57](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.53...v3.0.0-canary.57) (2022-06-28)
+
+**Note:** Version bump only for package @searchkit/sdk
+
+
+
+
+
 # [3.0.0-canary.56](https://github.com/searchkit/searchkit/compare/v3.0.0-canary.53...v3.0.0-canary.56) (2022-06-23)
 
 **Note:** Version bump only for package @searchkit/sdk
