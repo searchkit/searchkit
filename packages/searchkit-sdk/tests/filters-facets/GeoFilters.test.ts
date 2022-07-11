@@ -1,5 +1,5 @@
 import nock from 'nock'
-import SearchkitRequest, { GeoBoundingBoxFilter, MultiMatchQuery, SearchkitConfig } from '../../src'
+import SearchkitRequest, { Filter, MultiMatchQuery, SearchkitConfig } from '../../src'
 import { RefinementSelectFacet } from '../../src/facets'
 import ResultsNoHitsMock from '../__mock-data__/Facets/results-no-hits.json'
 
@@ -13,7 +13,7 @@ describe('Geo Filters', () => {
       },
       query: new MultiMatchQuery({ fields: ['actors', 'writers', 'title^4', 'plot'] }),
       filters: [
-        new GeoBoundingBoxFilter({
+        new Filter({
           field: 'location',
           identifier: 'location',
           label: 'Location'
@@ -97,17 +97,23 @@ describe('Geo Filters', () => {
 
     expect(lastESRequest.query.bool.filter[0]).toMatchInlineSnapshot(`
       Object {
-        "geo_bounding_box": Object {
-          "location": Object {
-            "bottom_right": Object {
-              "lat": 40.01,
-              "lon": -55.12,
+        "bool": Object {
+          "filter": Array [
+            Object {
+              "geo_bounding_box": Object {
+                "location": Object {
+                  "bottom_right": Object {
+                    "lat": 40.01,
+                    "lon": -55.12,
+                  },
+                  "top_left": Object {
+                    "lat": 50.73,
+                    "lon": -75.1,
+                  },
+                },
+              },
             },
-            "top_left": Object {
-              "lat": 50.73,
-              "lon": -75.1,
-            },
-          },
+          ],
         },
       }
     `)
