@@ -110,17 +110,23 @@ describe('Geo Filters', () => {
                 "bool": Object {
                   "filter": Array [
                     Object {
-                      "geo_bounding_box": Object {
-                        "location": Object {
-                          "bottom_right": Object {
-                            "lat": 40.01,
-                            "lon": -55.12,
+                      "bool": Object {
+                        "filter": Array [
+                          Object {
+                            "geo_bounding_box": Object {
+                              "location": Object {
+                                "bottom_right": Object {
+                                  "lat": 40.01,
+                                  "lon": -55.12,
+                                },
+                                "top_left": Object {
+                                  "lat": 50.73,
+                                  "lon": -75.1,
+                                },
+                              },
+                            },
                           },
-                          "top_left": Object {
-                            "lat": 50.73,
-                            "lon": -75.1,
-                          },
-                        },
+                        ],
                       },
                     },
                   ],

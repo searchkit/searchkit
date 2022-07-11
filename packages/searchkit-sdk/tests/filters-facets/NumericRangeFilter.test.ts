@@ -1,5 +1,5 @@
 import nock from 'nock'
-import SearchkitRequest, { NumericRangeFilter, SearchkitConfig } from '../../src'
+import SearchkitRequest, { Filter, SearchkitConfig } from '../../src'
 import ResultsNoHitsMock from '../__mock-data__/Facets/results-no-hits.json'
 
 describe('NumericRangeFilter', () => {
@@ -11,7 +11,7 @@ describe('NumericRangeFilter', () => {
         fields: ['actors', 'writers']
       },
       filters: [
-        new NumericRangeFilter({
+        new Filter({
           identifier: 'imdbRating',
           field: 'imdbRating',
           label: 'IMDB Rating'
@@ -70,10 +70,16 @@ describe('NumericRangeFilter', () => {
 
     expect(lastESRequest.query.bool.filter[0]).toMatchInlineSnapshot(`
       Object {
-        "range": Object {
-          "imdbRating": Object {
-            "gte": 5,
-          },
+        "bool": Object {
+          "filter": Array [
+            Object {
+              "range": Object {
+                "imdbRating": Object {
+                  "gte": 5,
+                },
+              },
+            },
+          ],
         },
       }
     `)
@@ -91,14 +97,20 @@ describe('NumericRangeFilter', () => {
     })
 
     expect(lastESRequest.query.bool.filter[0]).toMatchInlineSnapshot(`
-        Object {
-          "range": Object {
-            "imdbRating": Object {
-              "lte": 5,
+      Object {
+        "bool": Object {
+          "filter": Array [
+            Object {
+              "range": Object {
+                "imdbRating": Object {
+                  "lte": 5,
+                },
+              },
             },
-          },
-        }
-      `)
+          ],
+        },
+      }
+    `)
     expect(response.summary.appliedFilters).toHaveLength(1)
   })
 })

@@ -1,5 +1,5 @@
 import nock from 'nock'
-import SearchkitRequest, { SearchkitConfig, TermFilter } from '../../src'
+import SearchkitRequest, { SearchkitConfig, Filter } from '../../src'
 import ResultsNoHitsMock from '../__mock-data__/Facets/results-no-hits.json'
 
 describe('NumericRangeFilter', () => {
@@ -11,7 +11,7 @@ describe('NumericRangeFilter', () => {
         fields: ['actors', 'writers']
       },
       filters: [
-        new TermFilter({
+        new Filter({
           identifier: 'type',
           field: 'type',
           label: 'type'
@@ -26,8 +26,6 @@ describe('NumericRangeFilter', () => {
         value: 'movie'
       }
     ])
-
-    let lastESRequest
 
     const scope = nock('http://localhost:9200')
       .post('/movies/_search')
@@ -49,7 +47,6 @@ describe('NumericRangeFilter', () => {
             ],
           }
         `)
-        lastESRequest = body
         return ResultsNoHitsMock
       })
       .persist()

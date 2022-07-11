@@ -14,9 +14,7 @@ module.exports = {
       {
         'Filters': [
           'searchkit-sdk-base-filters',
-          'searchkit-sdk-filters-value',
-          'searchkit-sdk-filters-numeric-range',
-          'searchkit-sdk-filters-geo-location',
+          'searchkit-sdk-filters',
           'customisations-adding-your-own-filters'
         ],
         'Facets': [

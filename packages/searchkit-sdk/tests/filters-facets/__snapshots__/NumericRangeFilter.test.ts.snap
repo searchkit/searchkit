@@ -23,11 +23,17 @@ Object {
     "bool": Object {
       "filter": Array [
         Object {
-          "range": Object {
-            "imdbRating": Object {
-              "gte": 5,
-              "lte": 10,
-            },
+          "bool": Object {
+            "filter": Array [
+              Object {
+                "range": Object {
+                  "imdbRating": Object {
+                    "gte": 5,
+                    "lte": 10,
+                  },
+                },
+              },
+            ],
           },
         },
       ],
@@ -99,10 +105,16 @@ Object {
     "bool": Object {
       "filter": Array [
         Object {
-          "range": Object {
-            "imdbRating": Object {
-              "gte": 5,
-            },
+          "bool": Object {
+            "filter": Array [
+              Object {
+                "range": Object {
+                  "imdbRating": Object {
+                    "gte": 5,
+                  },
+                },
+              },
+            ],
           },
         },
       ],
@@ -140,10 +152,16 @@ Object {
     "bool": Object {
       "filter": Array [
         Object {
-          "range": Object {
-            "imdbRating": Object {
-              "lte": 5,
-            },
+          "bool": Object {
+            "filter": Array [
+              Object {
+                "range": Object {
+                  "imdbRating": Object {
+                    "lte": 5,
+                  },
+                },
+              },
+            ],
           },
         },
       ],
