@@ -71,11 +71,17 @@ describe('Numeric Range Filter', () => {
               "bool": Object {
                 "filter": Array [
                   Object {
-                    "range": Object {
-                      "imdbRating": Object {
-                        "gte": 2,
-                        "lte": 6,
-                      },
+                    "bool": Object {
+                      "filter": Array [
+                        Object {
+                          "range": Object {
+                            "imdbRating": Object {
+                              "gte": 2,
+                              "lte": 6,
+                            },
+                          },
+                        },
+                      ],
                     },
                   },
                 ],
@@ -152,10 +158,16 @@ describe('Numeric Range Filter', () => {
               "bool": Object {
                 "filter": Array [
                   Object {
-                    "range": Object {
-                      "imdbRating": Object {
-                        "gte": 2,
-                      },
+                    "bool": Object {
+                      "filter": Array [
+                        Object {
+                          "range": Object {
+                            "imdbRating": Object {
+                              "gte": 2,
+                            },
+                          },
+                        },
+                      ],
                     },
                   },
                 ],
@@ -232,10 +244,16 @@ describe('Numeric Range Filter', () => {
               "bool": Object {
                 "filter": Array [
                   Object {
-                    "range": Object {
-                      "imdbRating": Object {
-                        "lte": 2,
-                      },
+                    "bool": Object {
+                      "filter": Array [
+                        Object {
+                          "range": Object {
+                            "imdbRating": Object {
+                              "lte": 2,
+                            },
+                          },
+                        },
+                      ],
                     },
                   },
                 ],
