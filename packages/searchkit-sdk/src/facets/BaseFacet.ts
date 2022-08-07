@@ -17,7 +17,7 @@ export interface SelectedFilter {
 
 export interface FacetResponseEntry {
   label: string
-  count: string
+  count: number
 }
 
 export interface FacetResponse {
