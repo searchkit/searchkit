@@ -5,6 +5,7 @@
   "module": "./lib/esm/index.js",
   "types": "lib/esm/index.d.ts",
   "author": "Joseph McElroy <phoey1@gmail.com>",
+  "sideEffects": false,
   "license": "Apache-2.0",
   "keywords": [
     "graphql",

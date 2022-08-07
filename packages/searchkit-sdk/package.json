@@ -4,6 +4,7 @@
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "author": "Joseph McElroy <phoey1@gmail.com>",
+  "sideEffects": false,
   "license": "Apache-2.0",
   "keywords": [
     "graphql",
