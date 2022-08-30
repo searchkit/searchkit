@@ -174,6 +174,13 @@ describe('Searchkit Client', () => {
     expect(api.isFilterSelected({ identifier: 'type', value: 'no match' })).toBeFalsy()
   })
 
+  it('should differentiate filters of same values across different levels', () => {
+    const api = createSearchkitClient()
+    api.addFilter({ identifier: 'type', value: 'Movies', level: 1 })
+    expect(api.isFilterSelected({ identifier: 'type', value: 'Movies', level: 1 })).toBeTruthy()
+    expect(api.isFilterSelected({ identifier: 'type', value: 'Movies', level: 2 })).toBeFalsy()
+  })
+
   it('should pass state within callback', () => {
     const callback = jest.fn()
     const api = createSearchkitClient()

@@ -44,9 +44,11 @@ const filterSelector = (filter: Filter) => (f: Filter) => {
     filter.dateMax === f.dateMax
   )
     return true
-  if (filter.value && filter.level && filter.level === f.level && f.value === filter.value)
-    return true
+
+  if (filter.value && filter.level) return filter.level === f.level && f.value === filter.value
+
   if (filter.value && filter.value === f.value) return true
+
   return false
 }
 
