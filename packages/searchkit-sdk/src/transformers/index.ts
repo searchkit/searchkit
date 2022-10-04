@@ -174,7 +174,13 @@ export class ElasticSearchResponseTransformer implements SearchkitResponseTransf
       hits: {
         items: hits.hits.map((hit) => ({
           id: hit._id,
-          fields: hit._source,
+          // NOTE: turn all values with one element in array into just that
+          // element to match previous behaviour
+          fields: Object.fromEntries(
+            Object.entries(hit.fields || {}).map(([key, value]) =>
+              value.length === 1 ? [key, value[0]] : [key, value]
+            )
+          ),
           highlight: hit.highlight || {},
           ...((config.collapse && {
             innerHits: getInnerHits(hit, responseRequest.hits.includeRawHit)
