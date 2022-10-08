@@ -8,12 +8,12 @@ import { HierarchicalMenuFacet } from '../HierarchicalMenuFacet'
 
 export const FacetsList = (components = []) => {
   const componentTypeMap = [
-    ...components,
     ListFacet,
     ComboBoxFacet,
     RangeSliderFacet,
     DateRangeFacet,
-    HierarchicalMenuFacet
+    HierarchicalMenuFacet,
+    ...components
   ].reduce((sum, component) => {
     sum[component.DISPLAY] = component
     return sum
