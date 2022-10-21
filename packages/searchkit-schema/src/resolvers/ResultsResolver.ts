@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-catch */
 import createInstance, { SearchkitConfig, SearchkitRequest } from '@searchkit/sdk'
-import { SearchkitResponse } from '@searchkit/sdk'
+import type { SearchkitResponse } from '@searchkit/sdk'
 import ESClientTransporter from '@searchkit/sdk/lib/cjs/transporters/ESClientTransporter'
 import DataLoader from 'dataloader'
 

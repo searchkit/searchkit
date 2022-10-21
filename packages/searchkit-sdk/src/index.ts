@@ -1,5 +1,6 @@
 import type { SearchInnerHits, SearchRequest } from '@elastic/elasticsearch-types/lib/api/types'
-import QueryManager, { MixedFilter, QueryOptions } from './core/QueryManager'
+import QueryManager from './core/QueryManager'
+import type { MixedFilter, QueryOptions } from './core/QueryManager'
 import RequestBodyBuilder from './core/RequestBodyBuilder'
 import BaseQuery from './query/BaseQuery'
 import { BaseFacet } from './facets/BaseFacet'
@@ -7,12 +8,8 @@ import { BaseFilter } from './filters/BaseFilter'
 import { VisibleWhenRuleSet } from './facets'
 import { SearchkitTransporter, FetchClientTransporter } from './transporters'
 import { getAggregationsFromFacets } from './core/FacetsFns'
-import {
-  SearchkitResponseTransformer,
-  ElasticSearchResponseTransformer,
-  SearchkitResponse,
-  SearchkitHit
-} from './transformers'
+import type { SearchkitResponseTransformer, SearchkitResponse, SearchkitHit } from './transformers'
+import { ElasticSearchResponseTransformer } from './transformers'
 import { BaseSuggestor } from './suggestors'
 
 export * from './query'
