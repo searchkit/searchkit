@@ -18,10 +18,16 @@ const Navigation = () => (
     <div className="bg-gray-900 border-b border-gray-800">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-12 md:gap-10">
-          <div className="md:col-span-3 flex items-center justify-between h-16">
-            <span className="text-xl font-semibold text-gray-100">Searchkit</span>
+          <div className="md:col-span-4 flex items-center h-16">
+            <span className="text-xl font-semibold text-gray-100 mr-3">Searchkit</span>
+            <a className="rounded-full py-1 px-3 items-center bg-gray-800 xl:flex" href="https://beta.searchkit.co">
+              <strong className="font-semibold text-blue-200 text-sm">Searchkit Beta: Instantsearch</strong>
+              <svg width="3" height="6" className="ml-3 overflow-visible text-blue-300 dark:text-sky-400" aria-hidden="true"><path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </a>
+
           </div>
-          <div className="md:col-span-9 items-center flex justify-between md:justify-end  space-x-6 h-16">
+          
+          <div className="md:col-span-8 items-center flex justify-between md:justify-end  space-x-6 h-16">
             <div className="flex justify-between md:justify-end items-center flex-1 md:space-x-2">
               <div>
                 <a href="https://blog.searchkit.co" className="rounded-md py-2 px-3 inline-flex items-center leading-5 font-medium text-gray-100 betterhover:hover:bg-gray-100 hover:text-gray-100 hover:bg-gray-800 focus:outline-none focus:text-gray-900 focus:bg-gray-200 transition duration-150 ease-in-out">

@@ -26,7 +26,7 @@ module.exports = {
     announcementBar: {
       id: 'searchkit_classic', // Any value that will identify this message.
       content:
-        'This is a documentation for Searchkit V3. You can find the previous versions <a href="http://searchkit.github.io/searchkit/stable/">here</a>',
+        '<div style="font-size:16px"><a href="https://beta.searchkit.co">Searchkit Beta</a> is now out, with support for Algolia Instantsearch.</div>',
       backgroundColor: 'rgb(26,32,44)', // Defaults to `#fff`.
       textColor: '#fff', // Defaults to `#000`.
       isCloseable: false, // Defaults to `true`.

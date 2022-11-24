@@ -1,7 +1,12 @@
-## Search, made easy
+# Search, made easy
 Searchkit is an open source toolkit which helps you build a great search experience with Elasticsearch.
 
-See [why use Searchkit](https://searchkit.co/docs/core/overview/why-use-searchkit)
+---
+
+## Searchkit Beta 4 is out!
+Searchkit 4 Beta is out, with a new API and support for Algolia Instantsearch. Check out the [beta website](https://beta.searchkit.co) or checkout the [next branch](https://github.com/searchkit/searchkit/tree/next)
+
+-----
 
 Searchkit to simplify using Elasticsearch for Search:
   - Powerful Browser / Node.js SDK client for Elasticsearch
