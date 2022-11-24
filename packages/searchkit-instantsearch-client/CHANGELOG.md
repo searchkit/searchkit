@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.0.0-next.2
+
+### Patch Changes
+
+- fix build issue
+
 ## 4.0.0-next.1
 
 ### Patch Changes
