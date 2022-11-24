@@ -34,3 +34,4 @@ yarn-error.log*
 
 packages/**/dist
 packages/**/lib
+.vercel

@@ -20,10 +20,6 @@
     "publish-packages": "turbo run build lint test && changeset version && changeset publish"
   },
   "devDependencies": {
-    "@apollo/client": "^3.3.19",
-    "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/react": "^11.1.2",
-    "@types/elasticsearch": "^5.0.36",
     "@types/jest": "^26.0.15",
     "@types/node": "^18.0.0",
     "@types/react": "^18.0.25",

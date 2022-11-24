@@ -1,1 +1,0 @@
-import 'cross-fetch/polyfill'
