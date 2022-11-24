@@ -26,6 +26,7 @@ export default {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="description" content="Searchkit is an open source library which helps you build a great search experience with Elasticsearch." />
       <meta name="og:title" content="Searchkit" />
+      <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c98b302ea3bb4a33a012a7ef0ab3e240"}'></script>
     </>
   ),
 }
