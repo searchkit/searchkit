@@ -18,10 +18,11 @@ export default defineConfig([
     entry: ["src/index.ts"],
     ...commonConfig,
     format: ["iife"],
+    minify: true,
     outDir: "dist/umd",
-    globalName: "ISESClientDefault",
+    globalName: "SearchkitInstantsearchClientDefault",
     footer: {
-      js: "var ISESClient = ISESClientDefault.default"
+      js: "var SearchkitInstantsearchClient = SearchkitInstantsearchClientDefault.default"
     }
   },
 ]);

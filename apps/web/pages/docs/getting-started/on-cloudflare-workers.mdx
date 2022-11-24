@@ -111,7 +111,7 @@ Steps to update
 ```html
 <html>
   <head>
-    <script src="https://cdn.jsdelivr.net/npm/@searchkit/api@1.2.0/dist/umd/index.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@searchkit/instantsearch-client/dist/umd/index.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
     <link
       rel="stylesheet"
@@ -136,7 +136,7 @@ Steps to update
     <script>
       const search = instantsearch({
         indexName: "<INDEX_NAME>",
-        searchClient: ISESClient({
+        searchClient: SearchkitInstantsearchClient({
           url: "<WORKER_URL>",
         }),
       });

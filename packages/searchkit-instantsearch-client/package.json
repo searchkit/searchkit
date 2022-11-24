@@ -8,6 +8,8 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "jsdelivr": "dist/umd/index.global.js",
+  "unpkg": "dist/umd/index.global.js",
   "exports": {
     ".": "./dist/index.js"
   },

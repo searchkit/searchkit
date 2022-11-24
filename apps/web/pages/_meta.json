@@ -21,7 +21,7 @@
   "demo": {
     "title": "Demo",
     "type": "page",
-    "href": "http://ises.vercel.app/demo",
+    "href": "http://beta.searchkit.co/demo",
     "newWindow": false
   }
 }
