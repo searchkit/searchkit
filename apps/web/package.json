@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint"
   },
@@ -14,6 +15,7 @@
     "algoliasearch": "^4.14.2",
     "autoprefixer": "^10.4.12",
     "next": "12.3.1",
+    "next-sitemap": "^3.1.32",
     "nextra": "2.0.0-beta.38",
     "nextra-theme-docs": "2.0.0-beta.38",
     "react": "18.2.0",
