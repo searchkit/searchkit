@@ -5,86 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Jest Schema",
-            "type": "node",
-            "request": "launch",
-            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
-            "stopOnEntry": false,
-            "args": [
-                 "--runInBand", "--forceExit", "--detectOpenHandles", "--watch"
-            ],
-            "cwd": "${workspaceRoot}/packages/searchkit-schema",
-            "preLaunchTask": null,
-            "runtimeExecutable": null,
-            "env": {
-                "NODE_ENV": "test"
-            },
-            "console": "integratedTerminal",
-            "sourceMaps": true
-        },
-        {
-          "name": "Jest Searchkit SDK",
-          "type": "node",
-          "request": "launch",
-          "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
-          "stopOnEntry": false,
-          "args": [
-               "--runInBand", "--forceExit", "--detectOpenHandles", "--watch"
-          ],
-          "cwd": "${workspaceRoot}/packages/searchkit-sdk",
-          "preLaunchTask": null,
-          "runtimeExecutable": null,
-          "env": {
-              "NODE_ENV": "test"
-          },
-          "console": "integratedTerminal",
-          "sourceMaps": true
-      },
-        {
-            "name": "Jest client",
-            "type": "node",
-            "request": "launch",
-            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
-            "stopOnEntry": false,
-            "args": [
-                 "--runInBand", "--forceExit", "--detectOpenHandles", "--watch"
-            ],
-            "cwd": "${workspaceRoot}/packages/searchkit-client",
-            "preLaunchTask": null,
-            "runtimeExecutable": null,
-            "env": {
-                "NODE_ENV": "test"
-            },
-            "console": "integratedTerminal",
-            "sourceMaps": true
-        },
-        {
-            "name": "Jest elastic-ui",
-            "type": "node",
-            "request": "launch",
-            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
-            "stopOnEntry": false,
-            "args": [
-                 "--runInBand", "--forceExit", "--detectOpenHandles", "--watch"
-            ],
-            "cwd": "${workspaceRoot}/packages/searchkit-elastic-ui",
-            "preLaunchTask": null,
-            "runtimeExecutable": null,
-            "env": {
-                "NODE_ENV": "test"
-            },
-            "console": "integratedTerminal",
-            "sourceMaps": true
-        },
-        {
-            "name": "Cloud SDK Tests",
+            "name": "API Tests",
             "type": "node",
             "request": "launch",
             "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
             "args": [
                  "--runInBand", "--forceExit", "--detectOpenHandles", "--watch"
             ],
-            "cwd": "${workspaceRoot}/packages/api",
+            "cwd": "${workspaceRoot}/packages/searchkit-api",
             "env": {
                 "NODE_ENV": "test"
             },
