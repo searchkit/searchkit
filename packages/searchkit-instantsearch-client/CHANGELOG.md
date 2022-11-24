@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.0.0-next.1
+
+### Patch Changes
+
+- ba99ac83: Update export for jsdelivr and unpkg
+
 ## 5.0.0-next.0
 
 ### Major Changes
