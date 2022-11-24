@@ -3,6 +3,8 @@ Searchkit is an open source library which helps you build a great search experie
 
 Works with React, Vue, Angular, and more.
 
+[Website](https://beta.searchkit.co/) | [View Demo](https://beta.searchkit.co/demo) | [Documentation](https://beta.searchkit.co/docs) | [Discord / Live Discussion](https://discord.gg/CRuWmSQZQx)
+
 Searchkit to simplify using Elasticsearch for Search:
   - Support for Edge based Platforms like Cloudflare and Vercel Edge functions
   - Integrates with Instantsearch UI components for React, Vue, Angular, and more
@@ -14,11 +16,7 @@ Searchkit integrates with your existing Elasticsearch cluster, and provides an A
 
 ![overview](apps/web/public/searchkit-overview.png)
 
-#### Highlights
-- [Website](https://beta.searchkit.co/) 
-- [View Demo](https://beta.searchkit.co/demo)
-- [Documentation](https://beta.searchkit.co/docs)
-- [Discord / Live Discussion](https://discord.gg/CRuWmSQZQx)
+
 
 #### Code Sandbox Examples
 * react-Instantsearch + Next.JS + Searchkit [LINK](https://codesandbox.io/s/beta-react-instantsearch-next-js-searchkit-dxz0v3)
@@ -31,18 +29,9 @@ Once you have indexed your data in Elasticsearch, you can use Searchkit and inst
 #### Install the package
 Installing both the API and instantsearch-client is easy. You can install them with npm or yarn.
 
-<Tabs items={['npm', 'yarn']} storageKey="selected-pkg-manager">
-  <Tab>
   ```bash
   npm install @searchkit/api @searchkit/instantsearch-client
   ```
-  </Tab>
-  <Tab>
-      ```bash
-  yarn add @searchkit/api @searchkit/instantsearch-client
-  ```
-  </Tab>
-</Tabs>
 
 #### Setup an API
 
