@@ -15,7 +15,7 @@ yarn add @searchkit/api
 Then import it in your project:
 
 ```js
-import Client from "@searchkit/api";
+import API from "@searchkit/api";
 ```
 
 ### Usage
@@ -25,7 +25,7 @@ Node API handles incoming instantsearch requests, transforms them into Elasticse
 The API is built in a way to simplify the integration with multiple node server frameworks.
 
 ```typescript
-const ises = Client({
+const api = API({
   connection: {
     host: "https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243",
     apiKey: "a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw==", // optional
@@ -90,7 +90,7 @@ class MyTransporter {
   }
 }
 
-const ises = Client({
+const api = API({
   connection: new MyTransporter(),
   ...
 });
@@ -198,7 +198,7 @@ export default async function handler(
 ) {
   // invokes handleRequest passing in the request body
   // containing the search requests
-  const results = await ises.handleRequest(req.body);
+  const results = await api.handleRequest(req.body);
   // returning back the results to the browser
   res.send(results);
 }
@@ -213,7 +213,7 @@ Below is an example of a `getQuery` function that overrides the default query to
 ````tsx
 
 ```tsx
-  const results = await client.handleRequest(req.body, {
+  const results = await api.handleRequest(req.body, {
     getQuery: (query, search_attributes) => {
       return [
         {
@@ -243,7 +243,7 @@ Below is an example of a `getBaseFilters` function that adds a filter to the Ela
 ````tsx
 
 ```tsx
-  const results = await client.handleRequest(req.body, {
+  const results = await api.handleRequest(req.body, {
     getBaseFilters: () => {
       return [
         {

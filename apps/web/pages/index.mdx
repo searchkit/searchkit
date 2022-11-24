@@ -28,7 +28,7 @@ Searchkit integrates with your existing Elasticsearch cluster, and provides an A
 
 Searchkit Cloud provides two public libraries:
 
-- [cloud-sdk](./reference/api) Node API which transforms instantsearch requests into Elasticsearch queries
+- [API](./reference/api) Node API which transforms instantsearch requests into Elasticsearch queries
 - [instantsearch-client](./reference/client) that integrates with the instantsearch library and the Searchkit's SDK.
 
 With the SDK, you'll be able to use instantsearch frameworks to quickly build great search experiences with **Elasticsearch**.
@@ -54,10 +54,10 @@ npm install @searchkit/api @searchkit/instantsearch-client
 This creates an API which transforms the instantsearch requests sent from the browser into Elasticsearch queries and transforms the responses into instantsearch results.
 
 ```ts
-import Client from "@searchkit/api";
+import API from "@searchkit/api";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const client = Client({
+const api = API({
   connection: {
     host: "<elasticsearch-host>",
     apiKey: "<api-key>", // optional
@@ -75,7 +75,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const results = await client.handleRequest(req.body);
+  const results = await api.handleRequest(req.body);
   res.send(results);
 }
 ```
