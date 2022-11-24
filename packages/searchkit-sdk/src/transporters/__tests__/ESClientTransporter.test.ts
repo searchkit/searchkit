@@ -1,5 +1,11 @@
+import { TextEncoder, TextDecoder } from 'util'
+global.TextEncoder = TextEncoder
+// @ts-ignore
+global.TextDecoder = TextDecoder
+
 import nock from 'nock'
 ;(global as any).setImmediate = jest.useRealTimers
+import { SearchResponse } from '@elastic/elasticsearch-types/lib/api/types'
 import ESClientTransporter from '../ESClientTransporter'
 
 describe('ESClientTransporter', () => {
@@ -49,9 +55,10 @@ describe('ESClientTransporter', () => {
         body
       })
       .then((response) => {
-        expect(response.hits.hits).toHaveLength(1)
-        expect(response.hits.hits[0]._id).toEqual('1')
-        expect(response.hits.hits[0]._source.title).toEqual('My title')
+        const results = response as unknown as SearchResponse<any, any>
+        expect(results.hits.hits).toHaveLength(1)
+        expect(results.hits.hits[0]._id).toEqual('1')
+        expect(results.hits.hits[0]._source.title).toEqual('My title')
       })
   })
 
@@ -103,9 +110,10 @@ describe('ESClientTransporter', () => {
         body
       })
       .then((response) => {
-        expect(response.hits.hits).toHaveLength(1)
-        expect(response.hits.hits[0]._id).toEqual('1')
-        expect(response.hits.hits[0]._source.title).toEqual('My title')
+        const results = response as unknown as SearchResponse<any, any>
+        expect(results.hits.hits).toHaveLength(1)
+        expect(results.hits.hits[0]._id).toEqual('1')
+        expect(results.hits.hits[0]._source.title).toEqual('My title')
       })
   })
 })

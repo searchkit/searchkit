@@ -41,6 +41,7 @@
     "@elastic/elasticsearch": "*"
   },
   "devDependencies": {
+    "@elastic/elasticsearch": "7.13.0",
     "@types/node": "^18.0.0",
     "cross-fetch": "^3.1.5",
     "nock": "^13.0.5",
