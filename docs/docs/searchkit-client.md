@@ -1,13 +1,13 @@
 ---
 id: searchkit-client
 title: Searchkit Client
-sidebar_label: '@searchkit/client'
+sidebar_label: '@searchkit/instantsearch-client'
 slug: /core/reference/searchkit-client
 ---
 
 ## Package Installation
 
-`yarn add @searchkit/client`
+`yarn add @searchkit/instantsearch-client`
 
 ## SearchkitClient
 
@@ -16,7 +16,7 @@ The SearchkitClient class encapsulates Searchkit's core client-side API. Maintai
 ### Usage
 
 ```javascript
-import {SearchkitClient} from '@searchkit/client';
+import {SearchkitClient} from '@searchkit/instantsearch-client';
 
 const client = new SearchkitClient({
   itemsPerPage: 20,
@@ -96,7 +96,7 @@ Wraps component with Searchkit Provider with an instantiated SearchkitClient. Us
 ### Usage
 
 ```javascript
-import {withSearchkit} from '@searchkit/client';
+import {withSearchkit} from '@searchkit/instantsearch-client';
 
 const Index = (props) => {
   return <Search />;
@@ -112,7 +112,10 @@ Wraps component with Searchkit Routing functionality. Requires NextJS Page. See 
 ### Usage
 
 ```javascript
-import {withSearchkit, withSearchkitRouting} from '@searchkit/client';
+import {
+  withSearchkit,
+  withSearchkitRouting,
+} from '@searchkit/instantsearch-client';
 
 const Index = (props) => {
   return <Search />;
@@ -128,7 +131,10 @@ Provides to child components access to the shared SearchkitClient instance
 ### Usage
 
 ```javascript
-import {SearchkitClient, SearchkitProvider} from '@searchkit/client';
+import {
+  SearchkitClient,
+  SearchkitProvider,
+} from '@searchkit/instantsearch-client';
 
 const client = new SearchkitClient();
 
@@ -151,7 +157,7 @@ Returns the shared SearchkitClient instance. Required to update the shared query
 
 ```javascript
 import React, { useState } from 'react'
-import { useSearchkit } from '@searchkit/client'
+import { useSearchkit } from '@searchkit/instantsearch-client'
 
 const SearchInput = () => {
   const api = useSearchkit()
@@ -178,7 +184,7 @@ Hook that returns all searchkit variables needed to power the search. Use in con
 
 ```javascript
 import {useQuery} from '@apollo/client';
-import {useSearchkitVariables} from '@searchkit/client';
+import {useSearchkitVariables} from '@searchkit/instantsearch-client';
 
 const query = gql`
   query resultSet(
@@ -217,7 +223,7 @@ Hook thats similar to the react useState hook but listens on changes to Searchki
 ### Usage
 
 ```javascript
-import { useSearchkit, useSearchkitQueryValue } from '@searchkit/client'
+import { useSearchkit, useSearchkitQueryValue } from '@searchkit/instantsearch-client'
 import React from 'react'
 
 export const SearchBar = () => {
@@ -250,7 +256,7 @@ A link component that handles the interaction for toggling a filter. If routing 
 ### Usage
 
 ```javascript
-import {useSearchkit, FilterLink} from '@searchkit/client';
+import {useSearchkit, FilterLink} from '@searchkit/instantsearch-client';
 import React from 'react';
 
 export const ListFacet = ({facet, loading}) => {
@@ -287,7 +293,7 @@ A link component that handles the interaction for navigating to a particular pag
 ### Usage
 
 ```javascript
-import {useSearchkit, PaginationLink} from '@searchkit/client';
+import {useSearchkit, PaginationLink} from '@searchkit/instantsearch-client';
 import React from 'react';
 
 export const Pagination = ({data, loading}) => {

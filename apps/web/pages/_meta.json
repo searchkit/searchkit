@@ -1,0 +1,27 @@
+{
+  "*": {
+    "type": "page"
+  },
+  "index": {
+    "display": "hidden",
+    "title": "Home",
+    "type": "page",
+    "theme": {
+      "sidebar": false,
+      "toc": true
+    }
+  },
+  "docs": {
+    "title": "Docs",
+    "type": "page"
+  },
+  "examples": {
+    "display": "hidden"
+  },
+  "demo": {
+    "title": "Demo",
+    "type": "page",
+    "href": "http://ises.vercel.app/demo",
+    "newWindow": false
+  }
+}

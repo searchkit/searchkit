@@ -1,0 +1,19 @@
+{
+  "mode": "pre",
+  "tag": "next",
+  "initialVersions": {
+    "web": "0.0.0",
+    "eslint-config-custom": "0.0.0",
+    "@searchkit/cli": "3.0.0",
+    "@searchkit/client": "3.0.0",
+    "@searchkit/api": "1.1.1",
+    "@searchkit/elastic-ui": "3.0.0",
+    "@searchkit/instantsearch-client": "1.3.0",
+    "@searchkit/schema": "3.0.0",
+    "@searchkit/sdk": "3.0.0",
+    "tsconfig": "0.0.0"
+  },
+  "changesets": [
+    "popular-cows-melt"
+  ]
+}

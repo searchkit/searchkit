@@ -14,7 +14,7 @@ Searchkit is an open source search toolkit. See [why use Searchkit](https://sear
 Searchkit is made up of the following parts:
 
 - [@searchkit/sdk](https://searchkit.co/docs/core/reference/searchkit-sdk): Browser & Node.js Client Search SDK.
-- [@searchkit/client](https://searchkit.co/docs/core/reference/searchkit-client): Works in tandem with Searchkit's SDK to manage your search query state in React
+- [@searchkit/instantsearch-client](https://searchkit.co/docs/core/reference/searchkit-client): Works in tandem with Searchkit's SDK to manage your search query state in React
 - [@searchkit/elastic-ui](https://searchkit.co/docs/core/reference/searchkit-elastic-ui): Out the box UI search components based on Elastic UI framework
 
 #### Integrations

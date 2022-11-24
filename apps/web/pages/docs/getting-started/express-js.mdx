@@ -1,0 +1,41 @@
+---
+title: Cloudflare Workers and Instantsearch.js
+---
+
+## Get Started
+
+Tutorial coming soon but in the meantime, you can check out the [express js codesandbox example](https://instantsearch-cloudflare-workers.netlify.com/).
+
+and below is the code for the express js middleware example.
+
+```js
+var express = require("express");
+var router = express.Router();
+var Client = require("@searchkit/api").default;
+
+const apiClient = Client({
+  connection: {
+    host: "<ELASTICSEARCH_HOST>",
+    apiKey: "<API_KEY>",
+  },
+  search_settings: {
+    highlight_attributes: ["title", "actors"],
+    search_attributes: ["title", "actors"],
+    result_attributes: ["title", "actors", "poster"],
+    facet_attributes: [
+      "type",
+      { attribute: "actors", field: "actors.keyword" },
+      "rated",
+      { attribute: "imdbrating", type: "numeric" },
+      { attribute: "metascore", type: "numeric" },
+    ],
+  },
+});
+
+router.post("/", async function (req, res) {
+  const response = await apiClient.handleRequest(req.body);
+  res.send(response);
+});
+
+module.exports = router;
+```

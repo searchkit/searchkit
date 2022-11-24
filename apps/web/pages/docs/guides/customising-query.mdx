@@ -1,0 +1,22 @@
+---
+title: Customising the Default Query
+---
+
+This example shows how to use the `getQuery` function to customise the query for a given request.
+
+Below is an example of using the [`combined_fields` query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-combined-fields-query.html) instead.
+
+```js
+const results = await apiClient.handleRequest(req.body, {
+  getQuery: (query, search_attributes) => {
+    return [
+      {
+        combined_fields: {
+          query,
+          fields: search_attributes,
+        },
+      },
+    ];
+  },
+});
+```

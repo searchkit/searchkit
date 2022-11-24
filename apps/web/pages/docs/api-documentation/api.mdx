@@ -1,0 +1,263 @@
+---
+title: Node API
+---
+
+### Installation
+
+It is available as `@searchkit/api` on npm.
+
+```sh
+npm install @searchkit/api
+# OR
+yarn add @searchkit/api
+```
+
+Then import it in your project:
+
+```js
+import Client from "@searchkit/api";
+```
+
+### Usage
+
+Node API handles incoming instantsearch requests, transforms them into Elasticsearch queries. With the response, it transforms it into a format that instantsearch can understand.
+
+The API is built in a way to simplify the integration with multiple node server frameworks.
+
+```typescript
+const ises = Client({
+  connection: {
+    host: "https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243",
+    apiKey: "a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw==", // optional
+  },
+  search_settings: {
+    highlight_attributes: ["title", "actors"],
+    search_attributes: ["title", "actors"],
+    result_attributes: ["title", "actors", "poster", "year"],
+    facet_attributes: [
+      "type",
+      { attribute: "actors", field: "actors.keyword" },
+      "rated",
+      { attribute: "imdbrating", type: "numeric" },
+      { attribute: "metascore", type: "numeric" },
+    ],
+  },
+});
+```
+
+### Parameters
+
+#### `connection` configuration
+
+- `host` - Elasticsearch url host
+- `apiKey` - Elasticsearch API key. This is optional but strongly recommended for production environments. You can create an API key via [Kibana](https://www.elastic.co/guide/en/kibana/master/api-keys.html).
+
+Connection also supports implementing your own connector to Elasticsearch. You can do this by passing in a transporter instance through `connection`.
+
+You can use this for more complex authentication connections with Elasticsearch or Opensearch.
+
+```tsx
+
+import type { Transporter, SearchRequest, ElasticsearchResponseBody } from '@searchkit/api'
+
+class MyTransporter {
+  async msearch(
+    requests: SearchRequest[]
+  ): Promise<ElasticsearchResponseBody[]> {
+    // Implement your own search logic here
+    // Fetch is an example of calling an API.
+    const response = await fetch(`https://localhost:9200/_msearch`, {
+      headers: {
+        "content-type": "application/json",
+      },
+      body: requests
+        .reduce<string[]>(
+          (sum, request) => [
+            ...sum,
+            JSON.stringify({ index: request.indexName }),
+            "\n",
+            JSON.stringify(request.body),
+            "\n",
+          ],
+          []
+        )
+        .join(""),
+      method: "POST",
+    });
+
+    const responses = await response.json();
+    return responses.responses;
+  }
+}
+
+const ises = Client({
+  connection: new MyTransporter(),
+  ...
+});
+```
+
+#### `search_settings` configuration
+
+```tsx
+search_settings: {
+  highlight_attributes: ["title", "actors"],
+  search_attributes: ["title^3", "actors"],
+  result_attributes: ["title", "actors", "poster", "year"],
+  facet_attributes: [
+    "type",
+    { attribute: "actors", field: "actors.keyword" },
+    "rated",
+    { attribute: "imdbrating", type: "numeric" },
+    { attribute: "metascore", type: "numeric" },
+  ],
+},
+```
+
+Attributes that are used to configure the search experience.
+
+- `highlight_attributes` - Attributes that are used to highlight the search results.
+- `search_attributes` - Attributes that are used to search the results. Boosting can be applied to these attributes (e.g. `title^3`).
+- `result_attributes` - Attributes that are returned in the search result response.
+- `facet_attributes` - Attributes that are used to create facets. Facets can be of type `string` or `numeric` or `date`.
+
+##### `facet_attributes` custom configuration
+
+For **text** based facets, you need to specify a `keyword` type field to use for the facet. This is because Elasticsearch does not support aggregations on text fields. You can find more information about the field mapping [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-field-mapping.html).
+
+Typically you would create a subfield of the text field with the `keyword` type. For example, if you have a `actors` field with the `text` type, you would create a `actors.keyword` field with the `keyword` type.
+
+```tsx
+{
+  "mappings": {
+    "properties": {
+      "actors": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+in the above example, you would specify the `actors` facet as follows:
+
+```tsx
+facet_attributes: [
+  { attribute: "actors", field: "actors.keyword" },
+],
+```
+
+and you would use the `actors` attribute within the UI components.
+
+Below is an example of a `RefinementList` Instantsearch React component that uses the `actors` facet.
+
+```tsx
+<RefinementList attribute="actors" searchable={true} limit={10} />
+```
+
+###### `facet_attributes` numeric and date types
+
+For range based facets, you need to specify the `type` as `numeric` or `date`. This is so the API can correctly generate facet stats for the field to be used in the UI.
+
+```tsx
+facet_attributes: [
+  { attribute: "imdbrating", type: "numeric" },
+  { attribute: "metascore", type: "numeric" },
+],
+```
+
+Below is an example of a `NumericMenu` Instantsearch React component that uses the `imdbrating` facet.
+
+```tsx
+<NumericMenu
+  attribute="imdbrating"
+  items={[
+    { label: "5 - 7", start: 5, end: 7 },
+    { label: "7 - 9", start: 7, end: 9 },
+    { label: ">= 9", start: 9 },
+  ]}
+/>
+```
+
+### `HandleRequest` function
+
+The `handleRequest` method is used to handle incoming REST requests from the browser. It takes in multiple instantsearch `SearchRequest` objects and returns multiple instantsearch `SearchResponse` objects.
+
+#### Usage
+
+```tsx
+// function to handle the incoming request
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  // invokes handleRequest passing in the request body
+  // containing the search requests
+  const results = await ises.handleRequest(req.body);
+  // returning back the results to the browser
+  res.send(results);
+}
+```
+
+#### `getQuery` optional function
+
+The `getQuery` function is used to override the default Elasticsearch query. The function must return an Elasticsearch query. You can read more about the Elasticsearch query DSL [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html).
+
+Below is an example of a `getQuery` function that overrides the default query to use the `combined_fields` query type (read more about `combined_fields` [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-combined-fields-query.html)).
+
+````tsx
+
+```tsx
+  const results = await client.handleRequest(req.body, {
+    getQuery: (query, search_attributes) => {
+      return [
+        {
+          combined_fields: {
+            query,
+            fields: search_attributes,
+          },
+        },
+      ];
+    }
+  });
+````
+
+##### Function Parameters
+
+- **query**: The query string from the search request.
+- **search_attributes**: The search attributes from the search configuration.
+
+#### `getBaseFilters` optional function
+
+The `getBaseFilters` function is used to add filters to the Elasticsearch query. The function must return an Elasticsearch query. You can read more about the Elasticsearch query DSL [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html).
+
+This function is useful if the request needs to be filtered based on the user's session. For example, if you want to filter the search results based on the user's role or status.
+
+Below is an example of a `getBaseFilters` function that adds a filter to the Elasticsearch query to only return results where the `status` field is `published`.
+
+````tsx
+
+```tsx
+  const results = await client.handleRequest(req.body, {
+    getBaseFilters: () => {
+      return [
+        {
+          bool: {
+            must: {
+              term: {
+                status: {
+                  value: "published",
+                },
+              },
+            },
+          },
+        },
+      ];
+    }
+  });
+````

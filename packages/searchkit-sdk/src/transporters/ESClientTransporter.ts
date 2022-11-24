@@ -40,7 +40,7 @@ export default class ESClientTransporter implements SearchkitTransporter {
         index: this.config.index,
         body: requestBody
       })
-      return response.body
+      return response
     } catch (e) {
       if (debugMode) console.log(JSON.stringify(e, null, 2))
       if (e.meta?.statusCode === 400) {

@@ -92,7 +92,7 @@ Searchkit provides a `withSearchkit` HOC that simplifies adding the provider and
 
 First install the searchkit/client dependency via yarn
 
-`yarn add @searchkit/client`
+`yarn add @searchkit/instantsearch-client`
 
 then update the root page to use the searchkit HOC
 
@@ -100,7 +100,10 @@ then update the root page to use the searchkit HOC
 // pages/index.js
 
 import {gql, useQuery} from '@apollo/client';
-import {useSearchkitVariables, withSearchkit} from '@searchkit/client';
+import {
+  useSearchkitVariables,
+  withSearchkit,
+} from '@searchkit/instantsearch-client';
 import withApollo from '../lib/withApollo';
 
 const QUERY = gql`

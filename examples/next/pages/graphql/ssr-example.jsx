@@ -1,5 +1,5 @@
 import { useQuery, gql } from '@apollo/client'
-import { withSearchkit, useSearchkitVariables, withSearchkitRouting, useSearchkitQueryValue, useSearchkit, FilterLink, PaginationLink } from '@searchkit/client'
+import { withSearchkit, useSearchkitVariables, withSearchkitRouting, useSearchkitQueryValue, useSearchkit, FilterLink, PaginationLink } from '@searchkit/instantsearch-client'
 import withApollo from '../../hocs/withApollo'
 import { getDataFromTree } from "@apollo/client/react/ssr"
 import Link from 'next/link'

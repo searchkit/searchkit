@@ -1,0 +1,78 @@
+---
+title: Authentication Example
+---
+
+### Example with JWT authentication on Cloudflare worker
+
+Below is an example of how to use a JWT to do role based permissions. This example will use the JWT provided from the client and validate it against the public key provided by Auth0. If the JWT is valid, the user will be allowed to access the API. If the JWT is invalid, the user will be denied access.
+The JWT will contain the user's role, which will be used to filter via Elasticsearch filters to only return the data the user is allowed to see.
+
+### Frontend Changes
+
+In this example we are:
+
+1. Passing in an auth token header stored within localstorage along with the request
+
+```js
+const searchClient = Client({
+  url: "/api/search",
+  headers: () => ({
+    auth: "Bearer" + window.localStorage.getItem("token"),
+  }),
+});
+```
+
+### Backend Changes
+
+In this example we are:
+
+1. validating the JWT token is valid
+2. decoding the JWT token to get the user's role
+3. using `getBaseFilters` to filter documents that are only for the `admin` role
+
+```js filename="api-worker.js"
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
+
+// Following code is a modified version of that found at https://blog.cloudflare.com/dronedeploy-and-cloudflare-workers/
+
+async function handleRequest(request) {
+  const isValid = await isValidJwt(request)
+  if (!isValid) {
+    // It is immediately failing here, which is great. The worker doesn't bother hitting your API
+    return new Response('Invalid JWT', { status: 403 })
+  } else {
+    const token = await decodeToken(request)
+    // role could be admin etc
+    const { role } = token
+
+    // This is where you would do your role based permissions using baseFilters
+    const body = await request.json();
+    const results = await client.handleRequest(body, {
+      getBaseFilters: () => {
+        // filter documents that must have "admin" in field role
+        return [
+          {
+            bool: {
+              must: [
+                {
+                  term: {
+                    role: role,
+                  },
+                }
+              },
+            },
+          },
+        ];
+      },
+    });
+
+    return new Response(JSON.stringify(results));
+  }
+
+  const response = await fetch(request)
+  return response
+}
+
+```

@@ -1,6 +1,6 @@
 import { EuiComboBox } from '@elastic/eui'
 import { useState, useEffect } from 'react'
-import { useSearchkit } from '@searchkit/client'
+import { useSearchkit } from '@searchkit/instantsearch-client'
 
 const Input = () => {
 

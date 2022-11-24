@@ -1,4 +1,4 @@
-import { withSearchkit } from '@searchkit/client'
+import { withSearchkit } from '@searchkit/instantsearch-client'
 import dynamic from 'next/dynamic'
 import withApollo from '../../hocs/withApollo'
 

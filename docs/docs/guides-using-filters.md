@@ -49,7 +49,7 @@ const response = await request
 
 and Searchkit will return all hit results that have a field type with a value of "test".
 
-If you're using `@searchkit/client`, you will be able to apply the filter like so
+If you're using `@searchkit/instantsearch-client`, you will be able to apply the filter like so
 
 ```javascript
 const CustomFilterComponent = () => {

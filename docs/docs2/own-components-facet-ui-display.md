@@ -8,12 +8,12 @@ slug: /build-your-own-components/custom-ui-facet
 For each facet in the configuration, there is a field called display.
 
 ```javascript
-    new RefinementSelectFacet({
-      field: 'colour.raw',
-      identifier: 'colour',
-      label: 'Colour',
-      display: 'ColourPickerFacet'
-    })
+new RefinementSelectFacet({
+  field: 'colour.raw',
+  identifier: 'colour',
+  label: 'Colour',
+  display: 'ColourPickerFacet',
+});
 ```
 
 Display field is used to indicate what presentation should be for facet within the UI.
@@ -40,23 +40,29 @@ Display field is used to indicate what presentation should be for facet within t
 If you're using @searchkit/elastic-ui, create a react component to be used for the facet
 
 ```javascript
-import React from 'react'
-import { EuiTitle } from '@elastic/eui'
-import { useSearchkit } from '@searchkit/client'
+import React from 'react';
+import {EuiTitle} from '@elastic/eui';
+import {useSearchkit} from '@searchkit/instantsearch-client';
 
-export const ColourPickerFacet = ({ facet, loading }) => {
-  const api = useSearchkit()
+export const ColourPickerFacet = ({facet, loading}) => {
+  const api = useSearchkit();
 
   const entries = facet.entries.map((entry) => (
     <li
-      style={{ backgroundColor: entry, border: api.isFilterSelected({ identifier: facet.identifier, value: entry.label }) ? '1px solid red' : none }}
-      onClick={() => {
-        api.toggleFilter({ identifier: facet.identifier, value: entry.label })
-        api.search()
+      style={{
+        backgroundColor: entry,
+        border: api.isFilterSelected({
+          identifier: facet.identifier,
+          value: entry.label,
+        })
+          ? '1px solid red'
+          : none,
       }}
-    >
-    </li>
-  ))
+      onClick={() => {
+        api.toggleFilter({identifier: facet.identifier, value: entry.label});
+        api.search();
+      }}></li>
+  ));
 
   return (
     <>
@@ -65,11 +71,10 @@ export const ColourPickerFacet = ({ facet, loading }) => {
       </EuiTitle>
       <ul>{entries}</ul>
     </>
-  )
-}
+  );
+};
 
-ColourPickerFacet.DISPLAY = 'ColourPickerFacet'
-
+ColourPickerFacet.DISPLAY = 'ColourPickerFacet';
 ```
 
 Then add the facet to FacetsList
@@ -87,6 +92,7 @@ Then add the facet to FacetsList
         <Facets data={data?.results} loading={loading} />
       ...
     )
-  } 
+  }
 ```
-Facets component will render all the facets that come back, using the display field to map components with facet response. 
+
+Facets component will render all the facets that come back, using the display field to map components with facet response.

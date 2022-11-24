@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { withSearchkit, withSearchkitRouting } from '@searchkit/client'
+import { withSearchkit, withSearchkitRouting } from '@searchkit/instantsearch-client'
  
 const Search = dynamic(() => import('../components/sdk-example'), { ssr: false })
 

@@ -49,7 +49,10 @@ Once your boilerplate app has been setup, open the index.js file and add the Sea
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {SearchkitClient, SearchkitProvider} from '@searchkit/client';
+import {
+  SearchkitClient,
+  SearchkitProvider,
+} from '@searchkit/instantsearch-client';
 
 const skClient = new SearchkitClient();
 
@@ -75,7 +78,7 @@ import {
   RefinementSelectFacet,
 } from '@searchkit/sdk';
 import useSearchkitSDK from '@searchkit/sdk/lib/esm/react-hooks';
-import {useSearchkitVariables} from '@searchkit/client';
+import {useSearchkitVariables} from '@searchkit/instantsearch-client';
 
 const config = {
   host: '<elasticsearch-host-url>',
@@ -267,7 +270,10 @@ Update your index.js file to use the routing HOC
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {withSearchkit, withSearchkitRouting} from '@searchkit/client';
+import {
+  withSearchkit,
+  withSearchkitRouting,
+} from '@searchkit/instantsearch-client';
 
 const SearchkitApp = withSearchkit(withSearchkitRouting(App));
 

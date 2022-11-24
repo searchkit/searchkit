@@ -15,7 +15,7 @@ Below example of how a simple search query component can be built using the sear
 
 ```javascript
 import React from 'react';
-import {useSearchkitQueryValue} from '@searchkit/client';
+import {useSearchkitQueryValue} from '@searchkit/instantsearch-client';
 
 const SearchInput = () => {
   const api = useSearchkit();
@@ -48,7 +48,7 @@ First we implement code to render each facet and their facet options and then we
 
 ```javascript
 import React, {useState} from 'react';
-import {useSearchkit} from '@searchkit/client';
+import {useSearchkit} from '@searchkit/instantsearch-client';
 
 const RefinementFacet = ({facet}) => {
   const api = useSearchkit();
@@ -96,7 +96,10 @@ const FacetsList = ({data, loading}) => {
 
 ```javascript
 import {gql} from '@apollo/client';
-import {useSearchkit, useSearchkitVariables} from '@searchkit/client';
+import {
+  useSearchkit,
+  useSearchkitVariables,
+} from '@searchkit/instantsearch-client';
 import withApollo from '../lib/withApollo';
 import {useState} from 'react';
 import {SearchInput, Facets} from './components';

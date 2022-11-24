@@ -11,10 +11,13 @@ For features like SSR and sharing the search via url, we need to save the search
 
 This will enable you to be able to provide query params in the url for searchkit to update state, for example `/?query=heat` will show results with the query for "heat".
 
-To get started, import the `withSearchkitRouting` HOC from `@searchkit/client` package.
+To get started, import the `withSearchkitRouting` HOC from `@searchkit/instantsearch-client` package.
 
 ```javascript
-import {withSearchkit, withSearchkitRouting} from '@searchkit/client';
+import {
+  withSearchkit,
+  withSearchkitRouting,
+} from '@searchkit/instantsearch-client';
 import dynamic from 'next/dynamic';
 import withApollo from '../hocs/withApollo';
 
@@ -143,7 +146,10 @@ export default withApollo(
 You will need to use the `useSearchkitQueryValue` hook to maintain the searchbar input value. The hook will listen to changes to the searchkit state and update.
 
 ```javascript
-import {useSearchkit, useSearchkitQueryValue} from '@searchkit/client';
+import {
+  useSearchkit,
+  useSearchkitQueryValue,
+} from '@searchkit/instantsearch-client';
 import {EuiFieldSearch} from '@elastic/eui';
 import React from 'react';
 

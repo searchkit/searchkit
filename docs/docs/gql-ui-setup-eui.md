@@ -25,7 +25,7 @@ Below is an example of a typical Searchkit page which uses EUI and Searchkit EUI
 ```javascript
 # components/search.js
 
-import { useSearchkitVariables } from '@searchkit/client'
+import { useSearchkitVariables } from '@searchkit/instantsearch-client'
 import { gql, useQuery } from '@apollo/client'
 
 import {
@@ -185,7 +185,7 @@ export default () => {
 then go to the pages/index.js and update
 
 ```javascript
-import {withSearchkit} from '@searchkit/client';
+import {withSearchkit} from '@searchkit/instantsearch-client';
 import withApollo from '../lib/withApollo';
 import dynamic from 'next/dynamic';
 const Search = dynamic(() => import('../components/Search'), {ssr: false});

@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.nextra-sidebar-container a {
+  color: white;
+  font-size: 18px;
+}

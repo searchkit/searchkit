@@ -1,4 +1,4 @@
-import { useSearchkitVariables } from '@searchkit/client'
+import { useSearchkitVariables } from '@searchkit/instantsearch-client'
 import { gql, useQuery } from '@apollo/client'
 import PlacesSearchInput from './Input'
 import Maps from './maps'

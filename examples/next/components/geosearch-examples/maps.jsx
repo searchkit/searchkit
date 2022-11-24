@@ -1,4 +1,4 @@
-import { useSearchkit, useSearchkitVariables } from '@searchkit/client'
+import { useSearchkit, useSearchkitVariables } from '@searchkit/instantsearch-client'
 import { useEffect, useRef, useState } from 'react'
 import debounce from 'debounce'
 import xor from 'lodash/xor'

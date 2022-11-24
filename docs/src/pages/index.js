@@ -371,7 +371,7 @@ const FrontendIntro = () => {
             <h2 className="text-3xl tracking-tight font-extrabold text-gray-100 sm:text-3xl lg:text-3xl xl:text-3xl">Out the box React Components</h2>
             <p className="mt-3 text-base text-gray-400 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">For those who want a search UI quickly, Searchkit provides UI components out the box which work with Searchkit's API to bring a great search experience to your app. Searchkit components leverages Elastic's EUI react components.</p>
             <div className="mx-auto px-20 mt-8 text-base">
-              <SyntaxHighlight code={`yarn add @searchkit/sdk @searchkit/client @searchkit/elastic-ui @elastic/eui`} language="shell" />
+              <SyntaxHighlight code={`yarn add @searchkit/sdk @searchkit/instantsearch-client @searchkit/elastic-ui @elastic/eui`} language="shell" />
             </div>
             <div className="mt-5 mx-auto sm:flex justify-center md:mt-8">
               <div className="rounded-md shadow">

@@ -70,7 +70,7 @@ const response = await request
 
 ```
 
-If you're using `@searchkit/client`, you will be able to apply the filter like so
+If you're using `@searchkit/instantsearch-client`, you will be able to apply the filter like so
 
 ```javascript
 const CustomFilterComponent = () => {

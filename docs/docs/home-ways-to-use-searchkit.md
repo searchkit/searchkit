@@ -25,7 +25,7 @@ A typescript based Elasticsearch SDK built for Search Experiences. Can run on bo
 
 Provides an inituative API geared towards building Search experiences. You dont need to learn how to use Elasticsearch aggregations, query relevance and filtering, you simply configure your Search experience should be with our out-the-box facets, query & filter handlers and you get back a developer friendly response for you to render your UI.
 
-### @searchkit/client
+### @searchkit/instantsearch-client
 
 A typescript React Search State Management library.
 
@@ -35,7 +35,7 @@ Simplifies managing Search state across your components. Manages the Search stat
 
 ### @searchkit/elastic-ui
 
-React Search UI components based on EUI. Uses the @searchkit/client State API.
+React Search UI components based on EUI. Uses the @searchkit/instantsearch-client State API.
 
 #### Why should I use it?
 
@@ -53,9 +53,9 @@ Quickly implement a GraphQL Search API with Apollo.
 
 ### I have a node API
 
-You can use `@searchkit/sdk` to integrate with your existing API. You can implement a route which takes in a search criteria payload (Example: `@searchkit/client` Search State variables) and perform a request with the SDK. You also have the option to enrich the Searchkit response from other sources within your API route.
+You can use `@searchkit/sdk` to integrate with your existing API. You can implement a route which takes in a search criteria payload (Example: `@searchkit/instantsearch-client` Search State variables) and perform a request with the SDK. You also have the option to enrich the Searchkit response from other sources within your API route.
 
-If you're using React on the client side, you can use `@searchkit/client` to manage the Search state between your UI components and provide the search criteria variables to your API route.
+If you're using React on the client side, you can use `@searchkit/instantsearch-client` to manage the Search state between your UI components and provide the search criteria variables to your API route.
 
 See [Node.js Code Sandbox Example](https://codesandbox.io/s/searchkit-node-express-js-example-c7bk7e) for a simple usage example.
 
@@ -67,7 +67,7 @@ You can use `@searchkit/sdk` on the browser to perform Elasticsearch queries and
 - lift the hit's ids from the Elasticsearch response and perform queries from other data sources to enrich the response
 - Hide the Elasticsearch instance from the public internet
 
-If you're using React on the client side, you can use `@searchkit/client` to manage the Search state between your UI components and provide the search criteria variables to `@searchkit/sdk`.
+If you're using React on the client side, you can use `@searchkit/instantsearch-client` to manage the Search state between your UI components and provide the search criteria variables to `@searchkit/sdk`.
 
 See [Browser based CodeSandbox Example](https://codesandbox.io/s/searchkit-cra-xj25o0) for a simple usage example.
 

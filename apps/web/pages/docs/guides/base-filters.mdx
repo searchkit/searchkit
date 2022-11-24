@@ -1,0 +1,27 @@
+---
+title: Base Filters
+---
+
+This example shows how to use the `getBaseFilters` function to get the base filters for a given request.
+
+Base filters can be used to filter the documents in Elasticsearch before they are sent to the client. This is useful when you want to filter out documents that the user doesn't have access to.
+
+Below is an example of filtering documents that are not published.
+
+```js
+const results = await apiClient.handleRequest(req.body, {
+  getBaseFilters: () => {
+    return [
+      {
+        bool: {
+          must: {
+            term: {
+              status: "published",
+            },
+          },
+        },
+      },
+    ];
+  },
+});
+```

@@ -1,32 +1,36 @@
-**/es
-node_modules
-npm-debug.log
-lib/__test__
-$CIRCLE_TEST_REPORTS
-_book
-coverage
-lib
-stats.json
-dist
-test-report.xml
-e2e-results.xml
-unit-results.xml
-**/cypress/videos
-**/cypress/screenshots
-lerna-debug.log
-packages/searchkit/release
-yarn-error.log
-package-lock.json
-.DS_Store
-**/bundle.js
-package-lock.json
-**/.rpt2_cache/**
-.next
-.vercel
-jspm_packages
-dev.db
-**/with-prisma/src/generated
-examples/**/yarn.lock
-# Serverless directories
-.serverless
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# testing
+coverage
+
+# next.js
+.next/
+out/
+build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# turbo
+.turbo
+
+packages/**/dist
+packages/**/lib
