@@ -1,17 +1,17 @@
-## Great search experiences, made easy.
+# Great search experiences, made easy.
 Searchkit is an open source library which helps you build a great search experience with **Elasticsearch**.
 
 Works with React, Vue, Angular, and more.
 
-[Website](https://beta.searchkit.co/) | [View Demo](https://beta.searchkit.co/demo) | [Documentation](https://beta.searchkit.co/docs) | [Discord / Live Discussion](https://discord.gg/CRuWmSQZQx)
+[Website](https://beta.searchkit.co/) | [View Demo](https://beta.searchkit.co/demo) | [Documentation](https://beta.searchkit.co/docs) | [Discord](https://discord.gg/CRuWmSQZQx)
 
-Searchkit to simplify using Elasticsearch for Search:
-  - Support for Edge based Platforms like Cloudflare and Vercel Edge functions
+**Searchkit to simplify using Elasticsearch for Search:**
+  - Support for **Edge Function Platforms** like Cloudflare and Vercel Edge functions
   - Integrates with Instantsearch UI components for React, Vue, Angular, and more
   - A great Search experience without needing to be an expert in Elasticsearch
   - GraphQL Support (coming soon!)
 
-### How it works
+## How it works
 Searchkit integrates with your existing Elasticsearch cluster, and provides an API that allows you to build a search experience with Algolia Instantsearch.
 
 ![overview](apps/web/public/searchkit-overview.png)
