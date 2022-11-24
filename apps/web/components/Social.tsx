@@ -3,7 +3,7 @@ import { DiscordIcon, GitHubIcon } from "nextra/icons";
 function Github() {
   return (
     <a
-      href="https://github.com/searchkit/searchkit"
+      href="https://github.com/searchkit/searchkit/tree/next"
       className="hidden p-2 text-current sm:flex hover:opacity-75"
       title="Searchkit GitHub repo"
       target="_blank"

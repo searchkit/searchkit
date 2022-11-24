@@ -4,9 +4,10 @@ title: Great search experiences, made easy with Elasticsearch and Instantsearch
 
 import Image from "next/image";
 import { IntroButtons } from '../components/promo-page/IntroButtons';
+import { Tabs, Tab } from '../components/Tabs';
 
 <div className="pt-4 m-auto text-left">
-  <h1 className="font-extrabold md:text-5xl mt-8 mb-4">Great search experiences, <br/>
+  <h1 className="font-extrabold md:text-5xl mt-8 mb-4">Great search experiences,<br/>
   made easy.</h1>
   <div className="mb-10 max-w-lg">
     <p className="text-xl mb-1 text-gray-400 md:!text-xl">
@@ -26,12 +27,12 @@ Searchkit integrates with your existing Elasticsearch cluster, and provides an A
 
 ![overview](../public/searchkit-overview.png)
 
-Searchkit Cloud provides two public libraries:
+Searchkit provides two public libraries:
 
 - [API](./reference/api) Node API which transforms instantsearch requests into Elasticsearch queries
 - [instantsearch-client](./reference/client) that integrates with the instantsearch library and the Searchkit's SDK.
 
-With the SDK, you'll be able to use instantsearch frameworks to quickly build great search experiences with **Elasticsearch**.
+With Searchkit's API, you'll be able to use instantsearch frameworks to quickly build great search experiences with **Elasticsearch**.
 
 - [Instantsearch.js](https://github.com/algolia/instantsearch.js)
 - [React InstantSearch](https://github.com/algolia/react-instantsearch)
@@ -43,11 +44,20 @@ With the SDK, you'll be able to use instantsearch frameworks to quickly build gr
 Once you have indexed your data in Elasticsearch, you can use Searchkit and instantsearch to query your data and display it in your app.
 
 #### Install the package
-Installing both the client and the cloud SDK is as simple as running:
+Installing both the API and instantsearch-client is easy. You can install them with npm or yarn.
 
-```bash
-npm install @searchkit/api @searchkit/instantsearch-client
-```
+<Tabs items={['npm', 'yarn']} storageKey="selected-pkg-manager">
+  <Tab>
+  ```bash
+  npm install @searchkit/api @searchkit/instantsearch-client
+  ```
+  </Tab>
+  <Tab>
+      ```bash
+  yarn add @searchkit/api @searchkit/instantsearch-client
+  ```
+  </Tab>
+</Tabs>
 
 #### Setup an API
 
@@ -106,7 +116,7 @@ export default App;
 
 #### IMDB Movies Example
 
-Demo site running Instantsearch React and Elasticsearch: [https://www.searchkit.co/demo](https://www.searchkit.co/demo)
+Demo site running Instantsearch React and Elasticsearch: [https://beta.searchkit.co/demo](https://beta.searchkit.co/demo)
 
 - [Demo site](/demo)
 - [Frontend Codebase](https://github.com/searchkit/searchkit/tree/next/apps/web/pages/demo.tsx)

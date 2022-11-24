@@ -2,8 +2,8 @@ import { Discord, Github } from "./components/Social";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  projectLink: 'https://github.com/searchkit/searchkit', // GitHub link in the navbar
-  docsRepositoryBase: 'https://github.com/searchkit/searchkit/blob/master', // base URL for the docs repository
+  projectLink: 'https://github.com/searchkit/searchkit/tree/next', // GitHub link in the navbar
+  docsRepositoryBase: 'https://github.com/searchkit/searchkit/tree/next', // base URL for the docs repository
   titleSuffix: ' – Searchkit',
   footer: true,
   search: false,
