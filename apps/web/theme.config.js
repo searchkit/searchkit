@@ -21,6 +21,11 @@ export default {
   chat: {
     icon: Discord,
   },
+  nextThemes: {
+    defaultTheme: "dark",
+    enableSystem: false,
+    forcedTheme: "dark"
+  },
   head: (
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,7 +36,6 @@ export default {
       <meta property="twitter:title" content="Searchkit - UI Library for Elasticsearch"/>
       <meta property="twitter:description" content="Searchkit is an open source library which helps you build a great search experience with Elasticsearch and Instantsearch."/>
       <meta property="twitter:url" content="summary_large_image"/>
-      <meta name="google-site-verification" content="nYA9IOgFmYP8znklDbiAGOx8fRXGvpQBX6NQmIKRwMA" />
       <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c98b302ea3bb4a33a012a7ef0ab3e240"}'></script>
     </>
   ),
