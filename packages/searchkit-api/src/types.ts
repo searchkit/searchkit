@@ -59,7 +59,22 @@ interface QueryRewriteAction {
   query: string
 }
 
-export type QueryRuleAction = PinnedResultAction | QueryAttributeBoostAction | QueryRewriteAction
+interface RenderUserDataAction {
+  action: 'RenderUserData'
+  userData: string
+}
+
+interface RenderFacetsOrderAction {
+  action: 'RenderFacetsOrder'
+  facetAttributesOrder: string[]
+}
+
+export type QueryRuleAction =
+  | PinnedResultAction
+  | QueryAttributeBoostAction
+  | QueryRewriteAction
+  | RenderUserDataAction
+  | RenderFacetsOrderAction
 
 export type QueryRuleCondition = QueryStringRuleCondition
 

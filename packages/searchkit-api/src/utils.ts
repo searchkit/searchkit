@@ -34,11 +34,11 @@ export const getFacetField = (
   )
 }
 
-export const getFacetAttribute = (
+export const getFacetByAttribute = (
   facet_attributes: FacetAttribute[],
   attribute: FacetAttribute
 ): string => {
-  const attributeKey = typeof attribute === 'string' ? attribute : attribute.attribute
+  const attributeKey = getFacetAttribute(attribute)
 
   if (facet_attributes.includes(attributeKey)) {
     return attributeKey
@@ -48,6 +48,10 @@ export const getFacetAttribute = (
       // @ts-ignore: object is possibly null
       .find((a) => a.attribute === attributeKey)?.attribute || attributeKey
   )
+}
+
+export const getFacetAttribute = (facetAttribute: FacetAttribute): string => {
+  return typeof facetAttribute === 'string' ? facetAttribute : facetAttribute.attribute
 }
 
 export const getFacetFieldType = (

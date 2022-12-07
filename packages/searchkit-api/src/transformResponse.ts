@@ -3,6 +3,7 @@ import { SearchSettingsConfig } from './types'
 import { getHighlightFields, highlightTerm } from './highlightUtils'
 import { AlgoliaMultipleQueriesQuery, ElasticsearchResponseBody } from './types'
 import { getFacetFieldType } from './utils'
+import { QueryRuleActions } from './queryRules'
 
 type FacetsList = Record<string, Record<string, number>>
 type FacetsStats = Record<string, { min: number; max: number; avg: number; sum: number }>
@@ -85,29 +86,43 @@ const getFacets = (response: ElasticsearchResponseBody, config: SearchSettingsCo
   )
 }
 
-const getRenderingContent = (config: SearchSettingsConfig) => ({
-  renderingContent: {
-    facetOrdering: {
-      facets: {
-        order: config.facet_attributes?.map((facet) =>
-          typeof facet === 'string' ? facet : facet.attribute
-        )
-      },
-      values: config.facet_attributes?.reduce<Record<string, { sortRemainingBy: 'count' }>>(
-        (sum, facet) => {
-          const facetName = typeof facet === 'string' ? facet : facet.attribute
-          return {
-            ...sum,
-            [facetName]: {
-              sortRemainingBy: 'count'
-            }
-          }
+const getRenderingContent = (config: SearchSettingsConfig, queryRuleActions: QueryRuleActions) => {
+  const defaultOrder = config.facet_attributes?.map((facet) =>
+    typeof facet === 'string' ? facet : facet.attribute
+  )
+
+  return {
+    renderingContent: {
+      facetOrdering: {
+        facets: {
+          order: queryRuleActions.facetAttributesOrder || defaultOrder || []
         },
-        {}
-      )
+        values: config.facet_attributes?.reduce<Record<string, { sortRemainingBy: 'count' }>>(
+          (sum, facet) => {
+            const facetName = typeof facet === 'string' ? facet : facet.attribute
+
+            // If request has explicit facet orders and the facet is not
+            // in the query rule actions, we don't want to sort it
+            if (
+              queryRuleActions.facetAttributesOrder &&
+              !queryRuleActions.facetAttributesOrder.includes(facetName)
+            ) {
+              return sum
+            }
+
+            return {
+              ...sum,
+              [facetName]: {
+                sortRemainingBy: 'count'
+              }
+            }
+          },
+          {}
+        )
+      }
     }
   }
-})
+}
 
 const getPageDetails = (
   response: ElasticsearchResponseBody,
@@ -134,7 +149,8 @@ const getPageDetails = (
 export default function transformResponse(
   response: ElasticsearchResponseBody,
   instantsearchRequest: AlgoliaMultipleQueriesQuery,
-  config: SearchSettingsConfig
+  config: SearchSettingsConfig,
+  queryRuleActions: QueryRuleActions
 ) {
   return {
     exhaustiveNbHits: true,
@@ -142,11 +158,12 @@ export default function transformResponse(
     exhaustiveTypo: true,
     exhaustive: { facetsCount: true, nbHits: true, typo: true },
     ...getPageDetails(response, instantsearchRequest, config),
-    ...getRenderingContent(config),
+    ...getRenderingContent(config, queryRuleActions),
     ...getFacets(response, config),
     hits: getHits(response, config),
     index: instantsearchRequest.indexName,
-    params: stringify(instantsearchRequest.params as any)
+    params: stringify(instantsearchRequest.params as any),
+    ...(queryRuleActions.userData.length > 0 ? { userData: queryRuleActions.userData } : {})
   }
 }
 

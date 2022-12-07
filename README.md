@@ -12,7 +12,8 @@ Works with React, Vue, Angular, and more.
   - GraphQL Support (coming soon!)
 
 ## How it works
-Searchkit integrates with your existing Elasticsearch cluster, and provides an API that allows you to build a search experience with Algolia Instantsearch.
+Searchkit uses Elasticsearch and provides an API that allows you to build a search experience with Algolia Instantsearch.
+
 
 ![overview](apps/web/public/searchkit-overview.png)
 

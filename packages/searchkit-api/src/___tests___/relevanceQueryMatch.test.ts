@@ -1,24 +1,34 @@
-import { RelevanceQueryMatch } from "../transformRequest";
+import { getQueryRulesActionsFromRequest } from '../queryRules'
+import { RelevanceQueryMatch } from '../transformRequest'
 
-describe("relevance query match", () => {
-  it("should work", () => {
+describe('relevance query match', () => {
+  it('should work', () => {
     expect(
-      RelevanceQueryMatch("test", ["title", "description"], {
-        result_attributes: [],
-        search_attributes: [],
-        query_rules: [
+      RelevanceQueryMatch(
+        'test',
+        ['title', 'description'],
+        getQueryRulesActionsFromRequest(
+          [
+            {
+              actions: [{ action: 'PinnedResult', documentIds: ['1'] }],
+              conditions: [
+                {
+                  context: 'query',
+                  match_type: 'exact',
+                  value: 'test'
+                }
+              ]
+            }
+          ],
+
           {
-            actions: [{ action: "PinnedResult", documentIds: ["1"] }],
-            conditions: [
-              {
-                context: "query",
-                match_type: "exact",
-                value: "test",
-              },
-            ],
-          },
-        ],
-      })
+            params: {
+              query: 'test'
+            },
+            indexName: 'test'
+          }
+        )
+      )
     ).toMatchInlineSnapshot(`
       {
         "function_score": {
@@ -41,41 +51,49 @@ describe("relevance query match", () => {
           },
         },
       }
-    `);
-  });
+    `)
+  })
 
-  it("should work with function score", () => {
+  it('should work with function score', () => {
     expect(
-      RelevanceQueryMatch("test", ["title", "description"], {
-        result_attributes: [],
-        search_attributes: [],
-        query_rules: [
+      RelevanceQueryMatch(
+        'test',
+        ['title', 'description'],
+        getQueryRulesActionsFromRequest(
+          [
+            {
+              actions: [
+                { action: 'PinnedResult', documentIds: ['1'] },
+                {
+                  action: 'QueryAttributeBoost',
+                  attribute: 'categories',
+                  value: 'televisions',
+                  boost: 3
+                },
+
+                {
+                  action: 'QueryRewrite',
+                  query: 'televisions'
+                }
+              ],
+
+              conditions: [
+                {
+                  context: 'query',
+                  match_type: 'exact',
+                  value: 'test'
+                }
+              ]
+            }
+          ],
           {
-            actions: [
-              { action: "PinnedResult", documentIds: ["1"] },
-              {
-                action: "QueryAttributeBoost",
-                attribute: "categories",
-                value: "televisions",
-                boost: 3,
-              },
-
-              {
-                action: "QueryRewrite",
-                query: "televisions",
-              },
-            ],
-
-            conditions: [
-              {
-                context: "query",
-                match_type: "exact",
-                value: "test",
-              },
-            ],
-          },
-        ],
-      })
+            params: {
+              query: 'test'
+            },
+            indexName: 'test'
+          }
+        )
+      )
     ).toMatchInlineSnapshot(`
       {
         "function_score": {
@@ -109,6 +127,6 @@ describe("relevance query match", () => {
           },
         },
       }
-    `);
-  });
-});
+    `)
+  })
+})
