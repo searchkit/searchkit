@@ -1,4 +1,4 @@
-import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, ToggleRefinement, Panel, Pagination, Stats, connectSearchBox, NumericMenu, RangeInput, CurrentRefinements } from 'react-instantsearch-dom';
+import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, ToggleRefinement, Panel, Pagination, Stats, connectSearchBox, NumericMenu, RangeInput, CurrentRefinements, QueryRuleCustomData } from 'react-instantsearch-dom';
 import Client from '@searchkit/instantsearch-client'
 
 const searchClient = Client({
@@ -29,30 +29,46 @@ export default function Web() {
         <SearchBox />
         <div className="left-panel">
   
-          {/* <DynamicWidgets maxValuesPerFacet={5}> */}
-              <Panel header="Type">
-                <RefinementList attribute="type" searchable={true}/>
-              </Panel>
-              <Panel header="actors">
-                <RefinementList attribute="actors" searchable={true} limit={10} />
-              </Panel>
-              <Panel header="imdbrating">
-                <NumericMenu
-                  attribute="imdbrating"
-                  items={[
-                    { label: '5 - 7', start: 5, end: 7 },
-                    { label: '7 - 9', start: 7, end: 9 },
-                    { label: '>= 9', start: 9 },
-                  ]}
-                />
-              </Panel>
-              <Panel header="metascore">
-                <RangeInput attribute="metascore" header="Range Input" />
+          <DynamicWidgets maxValuesPerFacet={5}>
+            <Panel header="Type">
+              <RefinementList attribute="type" searchable={true}/>
+            </Panel>
+            <Panel header="actors">
+              <RefinementList attribute="actors" searchable={true} limit={10} />
+            </Panel>
+            <Panel header="imdbrating">
+              <NumericMenu
+                attribute="imdbrating"
+                items={[
+                  { label: '5 - 7', start: 5, end: 7 },
+                  { label: '7 - 9', start: 7, end: 9 },
+                  { label: '>= 9', start: 9 },
+                ]}
+              />
+            </Panel>
+            <Panel header="metascore">
+              <RangeInput attribute="metascore" header="Range Input" />
 
-              </Panel>
-          {/* </DynamicWidgets> */}
+            </Panel>
+          </DynamicWidgets>
         </div>
         <div className="right-panel">
+        <QueryRuleCustomData>
+        {({ items }: { items: any[] }) =>
+          items.map(({ title }) => {
+            if (!title) {
+              return null;
+            }
+
+            return (
+              <section key={title}>
+                <h2>{title}</h2>
+                <p>You have typed in movie, show something wild about movies!</p>
+              </section>
+            );
+          })
+        }
+      </QueryRuleCustomData>
           <Stats />
           <CurrentRefinements />
 

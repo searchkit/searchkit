@@ -1,11 +1,11 @@
-import { getSatisfiedRules } from './queryRules'
+import { QueryRuleActions } from './queryRules'
 import { FacetAttribute, RequestOptions, SearchSettingsConfig } from './types'
 import {
   AlgoliaMultipleQueriesQuery,
   ElasticsearchQuery,
   ElasticsearchSearchRequest
 } from './types'
-import { getFacetAttribute, getFacetField, getFacetFieldType } from './utils'
+import { getFacetByAttribute, getFacetField, getFacetFieldType } from './utils'
 
 export const createRegexQuery = (queryString: string) => {
   let query = queryString.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
@@ -132,7 +132,11 @@ const transformFacetFilters = (
   }, [])
 }
 
-export const getAggs = (request: AlgoliaMultipleQueriesQuery, config: SearchSettingsConfig) => {
+export const getAggs = (
+  request: AlgoliaMultipleQueriesQuery,
+  config: SearchSettingsConfig,
+  queryRuleActions: QueryRuleActions
+) => {
   const { params = {}, type } = request
   // @ts-ignore
   const { facets, maxValuesPerFacet, facetName, facetQuery } = params
@@ -149,13 +153,19 @@ export const getAggs = (request: AlgoliaMultipleQueriesQuery, config: SearchSett
       }
     }
   } else if (Array.isArray(facets)) {
-    const facetAttributes: FacetAttribute[] =
-      facets[0] === '*' ? config.facet_attributes || [] : facets
+    let facetAttibutes = config.facet_attributes || []
+    if (queryRuleActions.facetAttributesOrder) {
+      facetAttibutes = queryRuleActions.facetAttributesOrder.map((attribute) => {
+        return getFacetByAttribute(config.facet_attributes || [], attribute)
+      })
+    }
+
+    const facetAttributes: FacetAttribute[] = facets[0] === '*' ? facetAttibutes : facets
     return (
       facetAttributes.reduce((sum, facet) => {
         const fieldType = getFacetFieldType(config.facet_attributes || [], facet)
         const field = getFacetField(config.facet_attributes || [], facet)
-        const attributeName = getFacetAttribute(config.facet_attributes || [], facet)
+        const attributeName = getFacetByAttribute(config.facet_attributes || [], facet)
 
         if (fieldType === 'numeric') {
           return {
@@ -188,7 +198,7 @@ export const getAggs = (request: AlgoliaMultipleQueriesQuery, config: SearchSett
   } else if (typeof facets === 'string') {
     const fieldType = getFacetFieldType(config.facet_attributes || [], facets)
     const field = getFacetField(config.facet_attributes || [], facets)
-    const attributeName = getFacetAttribute(config.facet_attributes || [], facets)
+    const attributeName = getFacetByAttribute(config.facet_attributes || [], facets)
 
     if (fieldType === 'numeric') {
       return {
@@ -220,59 +230,23 @@ export const getAggs = (request: AlgoliaMultipleQueriesQuery, config: SearchSett
 export function RelevanceQueryMatch(
   query: string,
   search_attributes: string[],
-  config: SearchSettingsConfig
+  queryRuleActions: QueryRuleActions
 ) {
-  if (Array.isArray(config.query_rules) && config.query_rules.length > 0) {
-    const satisfiedRules = getSatisfiedRules(
-      {
-        query: query
-      },
-      config.query_rules
-    )
-
-    const actionQueries = satisfiedRules.reduce<{
-      pinnedDocs: string[]
-      boostFunctions: any[]
-      query: string
-    }>(
-      (sum, rule) => {
-        rule.actions.map((action) => {
-          if (action.action === 'PinnedResult') {
-            sum.pinnedDocs.push(...action.documentIds)
-          } else if (action.action === 'QueryRewrite') {
-            sum.query = action.query
-          } else if (action.action === 'QueryAttributeBoost') {
-            sum.boostFunctions.push({
-              filter: {
-                match: { [action.attribute]: { query: action.value } }
-              },
-              weight: action.boost
-            })
-          }
-        })
-        return sum
-      },
-      {
-        pinnedDocs: [],
-        boostFunctions: [],
-        query: query
-      }
-    )
-
+  if (queryRuleActions) {
     return {
       function_score: {
         query: {
           pinned: {
-            ids: actionQueries.pinnedDocs,
+            ids: queryRuleActions.pinnedDocs,
             organic: {
               combined_fields: {
-                query: actionQueries.query,
+                query: queryRuleActions.query,
                 fields: search_attributes
               }
             }
           }
         },
-        functions: actionQueries.boostFunctions
+        functions: queryRuleActions.boostFunctions
       }
     }
   }
@@ -284,6 +258,7 @@ export function RelevanceQueryMatch(
 const getQuery = (
   request: AlgoliaMultipleQueriesQuery,
   config: SearchSettingsConfig,
+  queryRuleActions: QueryRuleActions,
   requestOptions?: RequestOptions
 ) => {
   const { params = {} } = request
@@ -304,7 +279,7 @@ const getQuery = (
         typeof query === 'string' && query !== ''
           ? requestOptions?.getQuery
             ? requestOptions.getQuery(query, searchAttributes, config)
-            : RelevanceQueryMatch(query, searchAttributes, config)
+            : RelevanceQueryMatch(query, searchAttributes, queryRuleActions)
           : []
     }
   }
@@ -361,11 +336,12 @@ export const getHighlightFields = (
 export function transformRequest(
   request: AlgoliaMultipleQueriesQuery,
   config: SearchSettingsConfig,
+  queryRuleActions: QueryRuleActions,
   requestOptions?: RequestOptions
 ): ElasticsearchSearchRequest {
   const body: ElasticsearchSearchRequest = {
-    aggs: getAggs(request, config),
-    query: getQuery(request, config, requestOptions),
+    aggs: getAggs(request, config, queryRuleActions),
+    query: getQuery(request, config, queryRuleActions, requestOptions),
     ...getResultsSize(request, config),
     ...getHitFields(request, config),
     ...getHighlightFields(request, config)

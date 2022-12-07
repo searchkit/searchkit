@@ -1,8 +1,9 @@
 import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
 import { transformRequest } from './transformRequest'
 import transformResponse, { transformFacetValuesResponse } from './transformResponse'
-import { ClientConfig, SearchRequest, RequestOptions, Transporter } from './types'
+import { ClientConfig, SearchRequest, RequestOptions, Transporter, QueryRuleAction } from './types'
 import { ESTransporter } from './Transporter'
+import { getQueryRulesActionsFromRequest, QueryRuleActions } from './queryRules'
 export * from './types'
 
 class Client {
@@ -33,8 +34,19 @@ class Client {
     instantsearchRequests: AlgoliaMultipleQueriesQuery[],
     requestOptions?: RequestOptions
   ) {
+    const queryRules = this.config.search_settings.query_rules || []
+
+    const requestQueryRuleActions: QueryRuleActions[] = instantsearchRequests.map((request) => {
+      return getQueryRulesActionsFromRequest(queryRules, request)
+    })
+
     const esRequests: SearchRequest[] = instantsearchRequests.map((request, i) => ({
-      body: transformRequest(request, this.config.search_settings, requestOptions),
+      body: transformRequest(
+        request,
+        this.config.search_settings,
+        requestQueryRuleActions[i],
+        requestOptions
+      ),
       indexName: request.indexName
     }))
 
@@ -45,7 +57,12 @@ class Client {
       if (instantsearchRequests[i].params?.facetName) {
         return transformFacetValuesResponse(response, instantsearchRequests[i])
       }
-      return transformResponse(response, instantsearchRequests[i], this.config.search_settings)
+      return transformResponse(
+        response,
+        instantsearchRequests[i],
+        this.config.search_settings,
+        requestQueryRuleActions[i]
+      )
     })
 
     return {

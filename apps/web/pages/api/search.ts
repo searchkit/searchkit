@@ -33,9 +33,28 @@ const apiClient = Client({
           },
           {
             action: 'QueryAttributeBoost',
-            boost: 10,
+            boost: 100,
             attribute: 'title',
-            value: 'star wars'
+            value: 'heat'
+          }
+        ]
+      },
+      {
+        conditions: [
+          {
+            context: 'query',
+            match_type: 'exact',
+            value: 'movie'
+          }
+        ],
+        actions: [
+          {
+            action: 'RenderUserData',
+            userData: '{ "title": "Movie" }'
+          },
+          {
+            action: 'RenderFacetsOrder',
+            facetAttributesOrder: ['type']
           }
         ]
       }
