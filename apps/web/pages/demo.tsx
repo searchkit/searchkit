@@ -28,8 +28,8 @@ export default function Web() {
       >
         <SearchBox />
         <div className="left-panel">
-  
-          <DynamicWidgets maxValuesPerFacet={5}>
+          {/* @ts-ignore */}
+          <DynamicWidgets maxValuesPerFacet={5} fallbackWidget={RefinementList}>
             <Panel header="Type">
               <RefinementList attribute="type" searchable={true}/>
             </Panel>
@@ -48,7 +48,6 @@ export default function Web() {
             </Panel>
             <Panel header="metascore">
               <RangeInput attribute="metascore" header="Range Input" />
-
             </Panel>
           </DynamicWidgets>
         </div>
