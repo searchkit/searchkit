@@ -12,10 +12,10 @@ const apiClient = Client({
     result_attributes: ['title', 'actors', 'poster'],
     facet_attributes: [
       'type',
-      { attribute: 'actors', field: 'actors.keyword' },
+      { attribute: 'actors', field: 'actors.keyword', type: 'string' },
       'rated',
-      { attribute: 'imdbrating', type: 'numeric' },
-      { attribute: 'metascore', type: 'numeric' }
+      { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' },
+      { attribute: 'metascore', type: 'numeric', field: 'metascore' }
     ],
     query_rules: [
       {
