@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://example.com</loc><lastmod>2022-12-07T16:34:35.752Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/demo</loc><lastmod>2022-12-07T16:34:35.752Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/docs</loc><lastmod>2022-12-07T16:34:35.752Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/docs/api-documentation/api</loc><lastmod>2022-12-07T16:34:35.752Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/docs/api-documentation/instantsearch-client</loc><lastmod>2022-12-07T16:34:35.752Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/docs/examples/cloudflare-workers</loc><lastmod>2022-12-07T16:34:35.752Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/docs/examples/instantsearch-js-template</loc><lastmod>2022-12-07T16:34:35.752Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/docs/examples/sandbox-template</loc><lastmod>2022-12-07T16:34:35.752Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/docs/getting-started</loc><lastmod>2022-12-07T16:34:35.752Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/docs/getting-started/express-js</loc><lastmod>2022-12-07T16:34:35.752Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/docs/getting-started/on-cloudflare-workers</loc><lastmod>2022-12-07T16:34:35.752Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/docs/guides/authentication</loc><lastmod>2022-12-07T16:34:35.752Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/docs/guides/base-filters</loc><lastmod>2022-12-07T16:34:35.752Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/docs/guides/customising-query</loc><lastmod>2022-12-07T16:34:35.752Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/docs/guides/facets</loc><lastmod>2022-12-07T16:34:35.752Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://example.com/docs/guides/setting-up-elasticsearch</loc><lastmod>2022-12-07T16:34:35.752Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://example.com</loc><lastmod>2022-12-09T14:38:52.943Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://example.com/demo</loc><lastmod>2022-12-09T14:38:52.943Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://example.com/docs</loc><lastmod>2022-12-09T14:38:52.943Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://example.com/docs/api-documentation/api</loc><lastmod>2022-12-09T14:38:52.943Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://example.com/docs/api-documentation/instantsearch-client</loc><lastmod>2022-12-09T14:38:52.943Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://example.com/docs/examples/cloudflare-workers</loc><lastmod>2022-12-09T14:38:52.943Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://example.com/docs/examples/instantsearch-js-template</loc><lastmod>2022-12-09T14:38:52.943Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://example.com/docs/examples/sandbox-template</loc><lastmod>2022-12-09T14:38:52.943Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://example.com/docs/getting-started</loc><lastmod>2022-12-09T14:38:52.943Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://example.com/docs/getting-started/express-js</loc><lastmod>2022-12-09T14:38:52.943Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://example.com/docs/getting-started/on-cloudflare-workers</loc><lastmod>2022-12-09T14:38:52.943Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://example.com/docs/guides/authentication</loc><lastmod>2022-12-09T14:38:52.943Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://example.com/docs/guides/base-filters</loc><lastmod>2022-12-09T14:38:52.943Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://example.com/docs/guides/customising-query</loc><lastmod>2022-12-09T14:38:52.943Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://example.com/docs/guides/facets</loc><lastmod>2022-12-09T14:38:52.943Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://example.com/docs/guides/setting-up-elasticsearch</loc><lastmod>2022-12-09T14:38:52.943Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>

@@ -1,4 +1,4 @@
-import Client from '@searchkit/api'
+import Client from '../../'
 import {
   DisjunctiveExampleRequest,
   nonDynamicFacetRequest,
@@ -66,7 +66,7 @@ describe('Integration tests', () => {
             'type',
             { field: 'actors.keyword', attribute: 'actors', type: 'string' },
             'rated',
-            { attribute: 'imdbrating', type: 'numeric' }
+            { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' }
           ]
         }
       })
@@ -95,7 +95,7 @@ describe('Integration tests', () => {
           highlight_attributes: ['title', 'actors'],
           search_attributes: ['title', 'actors'],
           result_attributes: ['title', 'actors'],
-          facet_attributes: [{ attribute: 'imdbrating', type: 'numeric' }]
+          facet_attributes: [{ attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' }]
         }
       })
 
@@ -127,7 +127,7 @@ describe('Integration tests', () => {
             'type',
             { field: 'actors.keyword', attribute: 'actors', type: 'string' },
             'rated',
-            { attribute: 'imdbrating', type: 'numeric' }
+            { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' }
           ]
         }
       })
@@ -170,7 +170,7 @@ describe('Integration tests', () => {
             'type',
             { field: 'actors.keyword', attribute: 'actors', type: 'string' },
             'rated',
-            { attribute: 'imdbrating', type: 'numeric' }
+            { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' }
           ]
         }
       })

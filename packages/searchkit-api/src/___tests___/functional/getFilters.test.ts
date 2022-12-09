@@ -1,9 +1,9 @@
-import Client, { AlgoliaMultipleQueriesQuery } from '@searchkit/api'
+import Client, { AlgoliaMultipleQueriesQuery } from '../../'
 import nock from 'nock'
 import { DisjunctiveExampleRequest } from '../mocks/AlgoliaRequests'
 import { HitsResponseWithFacetFilter } from '../mocks/ElasticsearchResponses'
 
-describe('Add additional base filters to search', () => {
+fdescribe('Add additional base filters to search', () => {
   it('call with one filter and query applied', async () => {
     const client = Client({
       connection: {

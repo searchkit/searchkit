@@ -1,4 +1,4 @@
-import Client, { AlgoliaMultipleQueriesQuery } from '@searchkit/api'
+import Client, { AlgoliaMultipleQueriesQuery } from '../../'
 import nock from 'nock'
 import { DisjunctiveExampleRequest } from '../mocks/AlgoliaRequests'
 import { HitsResponseWithFacetFilter } from '../mocks/ElasticsearchResponses'

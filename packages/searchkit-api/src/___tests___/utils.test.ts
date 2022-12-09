@@ -17,14 +17,20 @@ describe('utils', () => {
 
   describe('getFacetField', () => {
     it('getFacetField - default config', () => {
-      expect(getFacetField(['type', { attribute: 'imdbRating', type: 'numeric' }], 'type')).toBe(
-        'type'
-      )
+      expect(
+        getFacetField(
+          ['type', { attribute: 'imdbRating', type: 'numeric', field: 'imdbRating' }],
+          'type'
+        )
+      ).toBe('type')
     })
 
     it('getFacetField - complex config', () => {
       expect(
-        getFacetField(['type', { attribute: 'imdbRating', type: 'numeric' }], 'imdbRating')
+        getFacetField(
+          ['type', { attribute: 'imdbRating', type: 'numeric', field: 'imdbRating' }],
+          'imdbRating'
+        )
       ).toBe('imdbRating')
     })
 
@@ -48,16 +54,23 @@ describe('utils', () => {
   describe('getFacetAttribute', () => {
     it('getFacetAttribute - default config', () => {
       expect(
-        getFacetByAttribute(['type', { attribute: 'imdbRating', type: 'numeric' }], 'type')
+        getFacetByAttribute(
+          ['type', { attribute: 'imdbRating', type: 'numeric', field: 'imdbRating' }],
+          'type'
+        )
       ).toBe('type')
     })
 
     it('getFacetAttribute - complex config', () => {
       expect(
-        getFacetByAttribute(['type', { attribute: 'imdbRating', type: 'numeric' }], {
-          attribute: 'imdbRating',
-          type: 'numeric'
-        })
+        getFacetByAttribute(
+          ['type', { attribute: 'imdbRating', type: 'numeric', field: 'imdbRating' }],
+          {
+            attribute: 'imdbRating',
+            type: 'numeric',
+            field: 'imdbRating'
+          }
+        )
       ).toBe('imdbRating')
     })
   })
@@ -65,22 +78,32 @@ describe('utils', () => {
   describe('getFacetFieldType', () => {
     it('getFacetFieldType - default config', () => {
       expect(
-        getFacetFieldType(['type', { attribute: 'imdbRating', type: 'numeric' }], 'type')
+        getFacetFieldType(
+          ['type', { attribute: 'imdbRating', type: 'numeric', field: 'imdbRating' }],
+          'type'
+        )
       ).toBe('string')
     })
 
     it('getFacetFieldType - complex config', () => {
       expect(
-        getFacetFieldType(['type', { attribute: 'imdbRating', type: 'numeric' }], {
-          attribute: 'imdbRating',
-          type: 'numeric'
-        })
+        getFacetFieldType(
+          ['type', { attribute: 'imdbRating', type: 'numeric', field: 'imdbRating' }],
+          {
+            attribute: 'imdbRating',
+            type: 'numeric',
+            field: 'imdbRating'
+          }
+        )
       ).toBe('numeric')
     })
 
     it('getFacetFieldType - complex config', () => {
       expect(
-        getFacetFieldType(['type', { attribute: 'imdbRating', type: 'numeric' }], 'imdbRating')
+        getFacetFieldType(
+          ['type', { attribute: 'imdbRating', type: 'numeric', field: 'imdbRating' }],
+          'imdbRating'
+        )
       ).toBe('numeric')
     })
   })

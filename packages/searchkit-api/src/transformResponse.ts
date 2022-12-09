@@ -19,11 +19,30 @@ const getHits = (response: ElasticsearchResponseBody, config: SearchSettingsConf
 }
 
 const getFacets = (response: ElasticsearchResponseBody, config: SearchSettingsConfig) => {
-  const { aggregations } = response
-
-  if (!aggregations) {
+  if (!response?.aggregations) {
     return {}
   }
+
+  // flattening for nested facets
+  const aggregations = Object.keys(response.aggregations).reduce<Record<string, any>>(
+    (sum, key) => {
+      const value = (response.aggregations || {})[key] as any
+
+      if (key.endsWith('.')) {
+        const { doc_count, ...nestedAggregations } = value
+        return {
+          ...sum,
+          ...nestedAggregations
+        }
+      }
+
+      return {
+        ...sum,
+        [key]: value
+      }
+    },
+    {}
+  )
 
   return Object.keys(aggregations).reduce<{
     facets: FacetsList
