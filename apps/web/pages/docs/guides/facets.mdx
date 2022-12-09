@@ -41,7 +41,7 @@ If you have a field that contains a keyword subfield, you can use that field as 
 
 ```json
 {
-  "facet_attributes": [{ "attribute": "brand", "field": "brand.keyword" }]
+  "facet_attributes": [{ "attribute": "brand", "field": "brand.keyword", "type": "string" }]
 }
 ```
 
@@ -49,9 +49,63 @@ If you have a field that is a numerical value and want to use the numerical type
 
 ```json
 {
-  "facet_attributes": [{ "attribute": "imdbrating", "type": "numeric" }]
+  "facet_attributes": [{ "attribute": "imdbrating", "type": "numeric", "field": "imdbrating" }]
 }
 ```
+
+### Nested Fields Support
+
+Searchkit API supports nested fields. If you have a document like this:
+
+```json
+PUT my-index-000001
+{
+  "mappings": {
+    "properties": {
+      "user": {
+        "type": "nested" 
+      }
+    }
+  }
+}
+
+PUT my-index-000001/_doc/1
+{
+  "user" : [
+    {
+      "first" : "John",
+      "last" :  "Smith"
+    },
+    {
+      "first" : "Alice",
+      "last" :  "White"
+    }
+  ]
+}
+```
+
+Then you can add the nested field to the facet attributes like this:
+
+```json
+{
+  "facet_attributes": [{
+    "attribute": "user.first",
+    "field": "first.keyword", // make sure to use the keyword subfield
+    "type": "string",
+    "nestedPath": "user"
+  }]
+}
+```
+
+and then you can use the facet in your search application like this:
+
+```jsx filename="pages/search.tsx"
+import { RefinementList } from "react-instantsearch-dom";
+
+<RefinementList attribute="user.first" />;
+```
+
+an example of this working in [codesandbox](https://codesandbox.io/s/beta-example-nested-field-support-for-facet-and-filters-n3gp11?file=/pages/api/search.ts:475-606)
 
 ## Components
 
