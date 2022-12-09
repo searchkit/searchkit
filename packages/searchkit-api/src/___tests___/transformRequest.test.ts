@@ -79,7 +79,10 @@ describe('transformRequest', () => {
           {
             search_attributes: [],
             result_attributes: [],
-            facet_attributes: ['type', { attribute: 'imdbRating', type: 'numeric' }]
+            facet_attributes: [
+              'type',
+              { attribute: 'imdbRating', type: 'numeric', field: 'imdbRating' }
+            ]
           },
           {
             query: '',
@@ -127,7 +130,10 @@ describe('transformRequest', () => {
         {
           search_attributes: [],
           result_attributes: [],
-          facet_attributes: ['type', { attribute: 'imdbRating', type: 'numeric' }]
+          facet_attributes: [
+            'type',
+            { attribute: 'imdbRating', field: 'imdbRating', type: 'numeric' }
+          ]
         },
         {
           query: '',
@@ -163,7 +169,10 @@ describe('transformRequest', () => {
         {
           search_attributes: [],
           result_attributes: [],
-          facet_attributes: ['type', { attribute: 'imdbRating', type: 'numeric' }]
+          facet_attributes: [
+            'type',
+            { attribute: 'imdbRating', type: 'numeric', field: 'imdbRating' }
+          ]
         },
         {
           query: '',

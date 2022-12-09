@@ -1,0 +1,227 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Nested Facets, filters and results One nested facet support 3`] = `
+{
+  "results": [
+    {
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "user.first": {
+          "Alice": 1,
+          "John": 2,
+          "Smith": 1,
+        },
+      },
+      "facets_stats": {},
+      "hits": [
+        {
+          "_highlightResult": {},
+          "objectID": "1",
+        },
+        {
+          "_highlightResult": {},
+          "objectID": "2",
+        },
+      ],
+      "hitsPerPage": 20,
+      "index": "imdb_movies",
+      "nbHits": 2,
+      "nbPages": 1,
+      "page": 0,
+      "params": "facetFilters=&facets=*&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&highlightPreTag=%3Cais-highlight-0000000000%3E&maxValuesPerFacet=10&page=0&query=&tagFilters=",
+      "processingTimeMS": 1,
+      "query": "",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "user.first",
+            ],
+          },
+          "values": {
+            "user.first": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+    {
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "user.first": {
+          "Alice": 1,
+          "Haribo": 1,
+          "Jacob": 1,
+          "John": 2,
+          "Smith": 1,
+        },
+      },
+      "facets_stats": {},
+      "hits": [
+        {
+          "_highlightResult": {},
+          "objectID": "1",
+        },
+      ],
+      "hitsPerPage": 1,
+      "index": "imdb_movies",
+      "nbHits": 3,
+      "nbPages": 3,
+      "page": 0,
+      "params": "analytics=false&clickAnalytics=false&facets=user.first&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&highlightPreTag=%3Cais-highlight-0000000000%3E&hitsPerPage=1&maxValuesPerFacet=10&page=0&query=&tagFilters=",
+      "processingTimeMS": 0,
+      "query": "",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "user.first",
+            ],
+          },
+          "values": {
+            "user.first": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`Nested Facets, filters and results One nested facet support: ES Request 1`] = `
+"{"index":"imdb_movies"}
+{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[{"bool":{"should":[{"nested":{"path":"user","query":{"bool":{"should":[{"term":{"user.first.keyword":"Alice"}}]}}}}]}}],"must":[]}},"size":20,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{}}}}
+{"index":"imdb_movies"}
+{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[],"must":[]}},"size":1,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{}}}}
+"
+`;
+
+exports[`Nested Facets, filters and results two OR filters 3`] = `
+{
+  "results": [
+    {
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "user.first": {
+          "Alice": 1,
+          "John": 2,
+          "Smith": 1,
+        },
+      },
+      "facets_stats": {},
+      "hits": [
+        {
+          "_highlightResult": {},
+          "objectID": "1",
+        },
+        {
+          "_highlightResult": {},
+          "objectID": "2",
+        },
+      ],
+      "hitsPerPage": 20,
+      "index": "imdb_movies",
+      "nbHits": 2,
+      "nbPages": 1,
+      "page": 0,
+      "params": "facetFilters=&facets=*&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&highlightPreTag=%3Cais-highlight-0000000000%3E&maxValuesPerFacet=10&page=0&query=&tagFilters=",
+      "processingTimeMS": 1,
+      "query": "",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "user.first",
+            ],
+          },
+          "values": {
+            "user.first": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+    {
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "user.first": {
+          "Alice": 1,
+          "Haribo": 1,
+          "Jacob": 1,
+          "John": 2,
+          "Smith": 1,
+        },
+      },
+      "facets_stats": {},
+      "hits": [
+        {
+          "_highlightResult": {},
+          "objectID": "1",
+        },
+      ],
+      "hitsPerPage": 1,
+      "index": "imdb_movies",
+      "nbHits": 3,
+      "nbPages": 3,
+      "page": 0,
+      "params": "analytics=false&clickAnalytics=false&facets=user.first&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&highlightPreTag=%3Cais-highlight-0000000000%3E&hitsPerPage=1&maxValuesPerFacet=10&page=0&query=&tagFilters=",
+      "processingTimeMS": 0,
+      "query": "",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "user.first",
+            ],
+          },
+          "values": {
+            "user.first": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`Nested Facets, filters and results two OR filters: ES Request 1`] = `
+"{"index":"imdb_movies"}
+{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[{"bool":{"should":[{"nested":{"path":"user","query":{"bool":{"should":[{"term":{"user.first.keyword":"Alice"}},{"term":{"user.first.keyword":"John"}}]}}}}]}}],"must":[]}},"size":20,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{}}}}
+{"index":"imdb_movies"}
+{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[],"must":[]}},"size":1,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{}}}}
+"
+`;

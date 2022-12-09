@@ -5,7 +5,7 @@ import {
   ElasticsearchQuery,
   ElasticsearchSearchRequest
 } from './types'
-import { getFacetByAttribute, getFacetField, getFacetFieldType } from './utils'
+import { getFacet, getFacetAttribute } from './utils'
 
 export const createRegexQuery = (queryString: string) => {
   let query = queryString.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
@@ -97,6 +97,10 @@ const transformNumericFilters = (
   }, [])
 }
 
+const termFilter = (field: string, value: string) => {
+  return { term: { [field]: value } }
+}
+
 const transformFacetFilters = (
   request: AlgoliaMultipleQueriesQuery,
   config: SearchSettingsConfig
@@ -116,20 +120,139 @@ const transformFacetFilters = (
           bool: {
             should: filter.reduce((sum, filter) => {
               const [facet, value] = filter.split(':')
-              const field = getFacetField(config.facet_attributes || [], facet)
+              const facetAttribute = getFacetAttribute(facet)
+              const facetConfig = getFacet(config.facet_attributes || [], facetAttribute)
 
-              return [...sum, { term: { [field]: value } }]
+              if (
+                typeof facetConfig !== 'string' &&
+                isNestedFacet(facetConfig) &&
+                facetConfig.nestedPath
+              ) {
+                // detect if there is a nested filter in sum
+                // if one doesn't exist, add one
+                // if one does exist, add to it
+                const nestedFilter = sum.find((filter: any) => {
+                  return filter.nested && filter.nested.path === facetConfig.nestedPath
+                })
+
+                if (nestedFilter) {
+                  nestedFilter.nested.query.bool.should.push(
+                    termFilter(`${facetConfig.nestedPath}.${facetConfig.field}`, value)
+                  )
+                  return sum
+                } else {
+                  return [
+                    ...sum,
+                    {
+                      nested: {
+                        path: facetConfig.nestedPath,
+                        query: {
+                          bool: {
+                            should: [
+                              termFilter(`${facetConfig.nestedPath}.${facetConfig.field}`, value)
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+              return [...sum, termFilter(facetAttribute, value)]
             }, [])
           }
         }
       ]
     } else if (typeof filter === 'string') {
       const [facet, value] = filter.split(':')
-      const field = getFacetField(config.facet_attributes || [], facet)
+      const facetAttribute = getFacetAttribute(facet)
+      const facetConfig = getFacet(config.facet_attributes || [], facetAttribute)
 
-      return [...sum, { term: { [field]: value } }]
+      if (typeof facetConfig !== 'string' && isNestedFacet(facetConfig) && facetConfig.nestedPath) {
+        // detect if there is a nested filter in sum
+        // if one doesn't exist, add one
+        // if one does exist, add to it
+        const nestedFilter = sum.find((filter: any) => {
+          return filter.nested && filter.nested.path === facetConfig.nestedPath + '.'
+        })
+
+        if (nestedFilter) {
+          nestedFilter.nested.query.bool.should.push(
+            termFilter(`${facetConfig.nestedPath}.${facetConfig.field}`, value)
+          )
+          return sum
+        } else {
+          return [
+            ...sum,
+            {
+              nested: {
+                path: facetConfig.nestedPath,
+                query: {
+                  bool: {
+                    should: [termFilter(`${facetConfig.nestedPath}.${facetConfig.field}`, value)]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+      return [...sum, termFilter(facet, value)]
     }
   }, [])
+}
+
+const isNestedFacet = (facet: FacetAttribute): boolean => {
+  return typeof facet !== 'string' && !!facet.nestedPath
+}
+
+const getTermAggregation = (facet: FacetAttribute, size: number, search: string) => {
+  const searchInclude = search && search.length > 0 ? { include: createRegexQuery(search) } : {}
+  let aggEntries = {}
+
+  const getInnerAggs = (facetName: string, field: string): any => {
+    if (typeof facet === 'string' || facet.type === 'string') {
+      aggEntries = {
+        [facetName]: {
+          terms: {
+            field: field,
+            size,
+            ...searchInclude
+          }
+        }
+      }
+    } else if (facet.type === 'numeric') {
+      aggEntries = {
+        [facetName + '$_stats']: {
+          stats: {
+            field: field
+          }
+        },
+        [facetName + '$_entries']: {
+          terms: {
+            field: field,
+            size: size
+          }
+        }
+      }
+    }
+    return aggEntries
+  }
+
+  if (typeof facet === 'string') {
+    return getInnerAggs(facet, facet)
+  } else if (isNestedFacet(facet)) {
+    return {
+      [`${facet.nestedPath}.`]: {
+        nested: {
+          path: facet.nestedPath
+        },
+        aggs: getInnerAggs(facet.attribute, `${facet.nestedPath}.${facet.field}`)
+      }
+    }
+  } else {
+    return getInnerAggs(facet.attribute, facet.field)
+  }
 }
 
 export const getAggs = (
@@ -141,89 +264,36 @@ export const getAggs = (
   // @ts-ignore
   const { facets, maxValuesPerFacet, facetName, facetQuery } = params
   const maxFacetSize = maxValuesPerFacet || 10
+  const facetAttributes = config.facet_attributes || []
 
   if (facetName) {
-    return {
-      [facetName]: {
-        terms: {
-          field: getFacetField(config.facet_attributes || [], facetName),
-          size: maxFacetSize,
-          include: createRegexQuery(facetQuery)
-        }
-      }
-    }
+    return getTermAggregation(getFacet(facetAttributes, facetName), maxFacetSize, facetQuery)
   } else if (Array.isArray(facets)) {
     let facetAttibutes = config.facet_attributes || []
+
     if (queryRuleActions.facetAttributesOrder) {
       facetAttibutes = queryRuleActions.facetAttributesOrder.map((attribute) => {
-        return getFacetByAttribute(config.facet_attributes || [], attribute)
+        return getFacet(config.facet_attributes || [], attribute)
       })
     }
 
-    const facetAttributes: FacetAttribute[] = facets[0] === '*' ? facetAttibutes : facets
+    const facetAttributes: FacetAttribute[] =
+      facets[0] === '*'
+        ? facetAttibutes
+        : facets.map((facetAttribute) => {
+            return getFacet(config.facet_attributes || [], facetAttribute)
+          })
     return (
       facetAttributes.reduce((sum, facet) => {
-        const fieldType = getFacetFieldType(config.facet_attributes || [], facet)
-        const field = getFacetField(config.facet_attributes || [], facet)
-        const attributeName = getFacetByAttribute(config.facet_attributes || [], facet)
-
-        if (fieldType === 'numeric') {
-          return {
-            ...sum,
-            [attributeName + '$_stats']: {
-              stats: {
-                field
-              }
-            },
-            [attributeName + '$_entries']: {
-              terms: {
-                field,
-                size: maxFacetSize
-              }
-            }
-          }
-        }
-
         return {
           ...sum,
-          [attributeName]: {
-            terms: {
-              field: field,
-              size: maxFacetSize
-            }
-          }
+          ...getTermAggregation(facet, maxFacetSize, '')
         }
       }, {}) || {}
     )
   } else if (typeof facets === 'string') {
-    const fieldType = getFacetFieldType(config.facet_attributes || [], facets)
-    const field = getFacetField(config.facet_attributes || [], facets)
-    const attributeName = getFacetByAttribute(config.facet_attributes || [], facets)
-
-    if (fieldType === 'numeric') {
-      return {
-        [attributeName + '$_stats']: {
-          stats: {
-            field
-          }
-        },
-        [attributeName + '$_entries']: {
-          terms: {
-            field,
-            size: maxFacetSize
-          }
-        }
-      }
-    }
-
-    return {
-      [attributeName]: {
-        terms: {
-          field: field,
-          size: maxFacetSize
-        }
-      }
-    }
+    const field = getFacet(config.facet_attributes || [], facets)
+    return getTermAggregation(field, maxFacetSize, '')
   }
 }
 

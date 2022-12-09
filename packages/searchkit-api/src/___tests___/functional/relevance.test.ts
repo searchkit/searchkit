@@ -1,4 +1,4 @@
-import Client from '@searchkit/api'
+import Client from '../../'
 import { DisjunctiveExampleRequest } from '../mocks/AlgoliaRequests'
 import type { AlgoliaMultipleQueriesQuery } from '@searchkit/api'
 

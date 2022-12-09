@@ -18,6 +18,19 @@ export const createRegexQuery = (queryString: string) => {
   return query
 }
 
+export const getFacet = (
+  facet_attributes: FacetAttribute[],
+  attributeName: string
+): FacetAttribute => {
+  const f = facet_attributes.find((a) => {
+    if (typeof a === 'string') {
+      return a === attributeName
+    }
+    return a.attribute === attributeName
+  })
+  return f || attributeName
+}
+
 export const getFacetField = (
   facet_attributes: FacetAttribute[],
   attribute: FacetAttribute

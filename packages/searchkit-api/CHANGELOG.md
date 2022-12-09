@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.0.0-next.2
+
+### Minor Changes
+
+- 186735d0: Support nested fields for filters and facets
+
 ## 4.0.0-next.1
 
 ### Minor Changes

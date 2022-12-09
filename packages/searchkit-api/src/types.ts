@@ -15,8 +15,9 @@ type ElasticsearchQuery = ElasticsearchQueryDslQuery
 
 export type FacetFieldConfig = {
   attribute: string
-  field?: string
-  type?: 'numeric' | 'string' | 'date'
+  field: string
+  type: 'numeric' | 'string' | 'date'
+  nestedPath?: string
 }
 
 export interface ClientConfigConnection {
