@@ -1,16 +1,9 @@
 import Client, { AlgoliaMultipleQueriesQuery } from '../../'
 import nock from 'nock'
-import {
-  DisjunctiveExampleRequest,
-  NestedQueryRequest,
-  TwoFiltersNestedQueryRequest
-} from '../mocks/AlgoliaRequests'
-import {
-  ExampleNestedFiltersResponse,
-  HitsResponseWithFacetFilter
-} from '../mocks/ElasticsearchResponses'
+import { NestedQueryRequest, TwoFiltersNestedQueryRequest } from '../mocks/AlgoliaRequests'
+import { ExampleNestedFiltersResponse } from '../mocks/ElasticsearchResponses'
 
-fdescribe('Nested Facets, filters and results', () => {
+describe('Nested Facets, filters and results', () => {
   it('One nested facet support', async () => {
     const client = Client({
       connection: {

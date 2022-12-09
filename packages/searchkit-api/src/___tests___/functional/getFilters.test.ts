@@ -3,7 +3,7 @@ import nock from 'nock'
 import { DisjunctiveExampleRequest } from '../mocks/AlgoliaRequests'
 import { HitsResponseWithFacetFilter } from '../mocks/ElasticsearchResponses'
 
-fdescribe('Add additional base filters to search', () => {
+describe('Add additional base filters to search', () => {
   it('call with one filter and query applied', async () => {
     const client = Client({
       connection: {
