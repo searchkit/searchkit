@@ -983,3 +983,61 @@ export const ExampleNestedFiltersResponse = {
     }
   ]
 }
+
+export const ExampleNestedNumericFilterResponse = {
+  took: 2,
+  responses: [
+    {
+      took: 1,
+      timed_out: false,
+      _shards: {
+        total: 1,
+        successful: 1,
+        skipped: 0,
+        failed: 0
+      },
+      hits: {
+        total: {
+          value: 1,
+          relation: 'eq'
+        },
+        max_score: 0,
+        hits: [
+          {
+            _index: 'my-index-000001',
+            _id: '4',
+            _score: 0,
+            _source: {}
+          }
+        ]
+      },
+      aggregations: {
+        'user.': {
+          'doc_count': 2,
+          'user.price$_stats': {
+            count: 2,
+            min: 34,
+            max: 123,
+            avg: 78.5,
+            sum: 157
+          },
+          'user.price$_entries': {
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 0,
+            buckets: [
+              {
+                key: 34,
+                doc_count: 1
+              },
+              {
+                key: 123,
+                doc_count: 1
+              }
+            ]
+          }
+        }
+      },
+      status: 200
+    }
+  ]
+}

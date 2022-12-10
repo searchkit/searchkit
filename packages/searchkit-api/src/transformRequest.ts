@@ -37,60 +37,80 @@ const transformNumericFilters = (
   }
 
   return numericFilters.reduce((sum, filter) => {
-    const [match, field, operator, value] = filter.match(/(\w+)(\=|\!\=|\>|\>\=|\<|\<\=)(\d+)/)
+    const [match, field, operator, value] = filter.match(
+      /([\w\.\_\-]+)(\=|\!\=|\>|\>\=|\<|\<\=)(\d+)/
+    )
+    const fieldConfig = getFacet(config.facet_attributes || [], field)
 
     if (!match) return sum
 
+    const getFilter = (operator: string, value: string) => {
+      if (operator === '=') {
+        return {
+          term: {
+            [field]: value
+          }
+        }
+      } else if (operator === '!=') {
+        return {
+          bool: {
+            must_not: {
+              term: {
+                [field]: value
+              }
+            }
+          }
+        }
+      } else if (operator === '>') {
+        return {
+          range: {
+            [field]: {
+              gt: value
+            }
+          }
+        }
+      } else if (operator === '>=') {
+        return {
+          range: {
+            [field]: {
+              gte: value
+            }
+          }
+        }
+      } else if (operator === '<') {
+        return {
+          range: {
+            [field]: {
+              lt: value
+            }
+          }
+        }
+      } else if (operator === '<=') {
+        return {
+          range: {
+            [field]: {
+              lte: value
+            }
+          }
+        }
+      }
+    }
+
     const esFilter = []
 
-    if (operator === '=') {
+    if (typeof fieldConfig !== 'string' && fieldConfig.nestedPath) {
       esFilter.push({
-        term: {
-          [field]: value
-        }
-      })
-    } else if (operator === '!=') {
-      esFilter.push({
-        bool: {
-          must_not: {
-            term: {
-              [field]: value
+        nested: {
+          path: fieldConfig.nestedPath,
+          query: {
+            bool: {
+              filter: [getFilter(operator, value)]
             }
           }
         }
       })
-    } else if (operator === '>') {
-      esFilter.push({
-        range: {
-          [field]: {
-            gt: value
-          }
-        }
-      })
-    } else if (operator === '>=') {
-      esFilter.push({
-        range: {
-          [field]: {
-            gte: value
-          }
-        }
-      })
-    } else if (operator === '<') {
-      esFilter.push({
-        range: {
-          [field]: {
-            lt: value
-          }
-        }
-      })
-    } else if (operator === '<=') {
-      esFilter.push({
-        range: {
-          [field]: {
-            lte: value
-          }
-        }
-      })
+    } else {
+      esFilter.push(getFilter(operator, value))
     }
 
     return [...sum, ...esFilter]
