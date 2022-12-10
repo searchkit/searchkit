@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.0.0-next.4
+
+### Patch Changes
+
+- 799be8e0: Fix issue when facets have multiple nested attributes that have the same nested path
+
 ## 4.0.0-next.3
 
 ### Minor Changes
