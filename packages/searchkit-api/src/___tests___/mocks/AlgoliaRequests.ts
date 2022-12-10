@@ -131,6 +131,23 @@ export const TwoFiltersNestedQueryRequest = [
   }
 ]
 
+export const NumericFilterNestedQueryRequest = [
+  {
+    indexName: 'my-index-000001',
+    params: {
+      facetFilters: [],
+      facets: ['*'],
+      highlightPostTag: '</ais-highlight-0000000000>',
+      highlightPreTag: '<ais-highlight-0000000000>',
+      maxValuesPerFacet: 10,
+      numericFilters: ['user.price>=90'],
+      page: 0,
+      query: '',
+      tagFilters: ''
+    }
+  }
+]
+
 export const FacetQueryExampleRequest = [
   {
     indexName: 'imdb_movies',
