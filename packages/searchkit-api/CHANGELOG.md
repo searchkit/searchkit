@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.0.0-next.3
+
+### Minor Changes
+
+- 97297d50: support nested fields for numeric filters
+
 ## 4.0.0-next.2
 
 ### Minor Changes
