@@ -1,3 +1,4 @@
+import deepmerge from 'deepmerge'
 import { QueryRuleActions } from './queryRules'
 import { FacetAttribute, RequestOptions, SearchSettingsConfig } from './types'
 import {
@@ -305,10 +306,7 @@ export const getAggs = (
           })
     return (
       facetAttributes.reduce((sum, facet) => {
-        return {
-          ...sum,
-          ...getTermAggregation(facet, maxFacetSize, '')
-        }
+        return deepmerge(sum, getTermAggregation(facet, maxFacetSize, ''))
       }, {}) || {}
     )
   } else if (typeof facets === 'string') {
