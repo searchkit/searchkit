@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.0.0-next.5
+
+### Minor Changes
+
+- fix issue with facet filters
+
 ## 4.0.0-next.4
 
 ### Patch Changes
