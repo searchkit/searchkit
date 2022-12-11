@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "0.0.1-next.6",
+  "version": "0.0.1-next.7",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@searchkit/api": "4.0.0-next.4",
+    "@searchkit/api": "4.0.0-next.5",
     "@searchkit/instantsearch-client": "4.0.0-next.2",
     "algoliasearch": "^4.14.2",
     "autoprefixer": "^10.4.12",

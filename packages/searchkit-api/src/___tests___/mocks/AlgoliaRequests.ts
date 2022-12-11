@@ -29,6 +29,22 @@ export const nonDynamicFacetRequest = [
   }
 ]
 
+export const nonDynamicFacetRequestOneFilter = [
+  {
+    indexName: 'imdb_movies',
+    params: {
+      facetFilters: [['actors:Alice']],
+      facets: ['*'],
+      highlightPostTag: '</ais-highlight-0000000000>',
+      highlightPreTag: '<ais-highlight-0000000000>',
+      maxValuesPerFacet: 10,
+      page: 0,
+      query: '',
+      tagFilters: ''
+    }
+  }
+]
+
 export const DisjunctiveExampleRequest = [
   {
     indexName: 'imdb_movies',
