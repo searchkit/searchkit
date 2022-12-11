@@ -143,6 +143,7 @@ const transformFacetFilters = (
               const [facet, value] = filter.split(':')
               const facetAttribute = getFacetAttribute(facet)
               const facetConfig = getFacet(config.facet_attributes || [], facetAttribute)
+              const field = typeof facetConfig === 'string' ? facetConfig : facetConfig.field
 
               if (
                 typeof facetConfig !== 'string' &&
@@ -179,7 +180,7 @@ const transformFacetFilters = (
                   ]
                 }
               }
-              return [...sum, termFilter(facetAttribute, value)]
+              return [...sum, termFilter(field, value)]
             }, [])
           }
         }
@@ -188,6 +189,7 @@ const transformFacetFilters = (
       const [facet, value] = filter.split(':')
       const facetAttribute = getFacetAttribute(facet)
       const facetConfig = getFacet(config.facet_attributes || [], facetAttribute)
+      const field = typeof facetConfig === 'string' ? facetConfig : facetConfig.field
 
       if (typeof facetConfig !== 'string' && isNestedFacet(facetConfig) && facetConfig.nestedPath) {
         // detect if there is a nested filter in sum
@@ -218,7 +220,7 @@ const transformFacetFilters = (
           ]
         }
       }
-      return [...sum, termFilter(facet, value)]
+      return [...sum, termFilter(field, value)]
     }
   }, [])
 }

@@ -2,6 +2,7 @@ import Client from '../../'
 import {
   DisjunctiveExampleRequest,
   nonDynamicFacetRequest,
+  nonDynamicFacetRequestOneFilter,
   NumericFiltersExampleRequest
 } from '../mocks/AlgoliaRequests'
 import type {
@@ -80,6 +81,39 @@ describe('Integration tests', () => {
 
       const response = await client.handleInstantSearchRequests(
         nonDynamicFacetRequest as AlgoliaMultipleQueriesQuery[]
+      )
+
+      expect(response).toMatchSnapshot()
+    })
+
+    it('non dynamic facets with one filter', async () => {
+      const client = Client({
+        connection: {
+          host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+          apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
+        },
+        search_settings: {
+          highlight_attributes: ['title', 'actors'],
+          search_attributes: ['title', 'actors', 'query'],
+          result_attributes: ['title', 'actors', 'query'],
+          facet_attributes: [
+            'type',
+            { field: 'actors.keyword', attribute: 'actors', type: 'string' },
+            'rated',
+            { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' }
+          ]
+        }
+      })
+
+      nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+        .post('/_msearch', (requestBody: any) => {
+          expect(requestBody).toMatchSnapshot('ES Request')
+          return true
+        })
+        .reply(200, HitsWithNoQueryOrFiltersResponse)
+
+      const response = await client.handleInstantSearchRequests(
+        nonDynamicFacetRequestOneFilter as AlgoliaMultipleQueriesQuery[]
       )
 
       expect(response).toMatchSnapshot()
