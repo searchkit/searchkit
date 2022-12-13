@@ -2,24 +2,28 @@ import { Discord, Github } from "./components/Social";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  projectLink: 'https://github.com/searchkit/searchkit/tree/next', // GitHub link in the navbar
+  project: { link: 'https://github.com/searchkit/searchkit/tree/next'}, // GitHub link in the navbar
   docsRepositoryBase: 'https://github.com/searchkit/searchkit/tree/next', // base URL for the docs repository
-  titleSuffix: ' – Searchkit',
-  footer: true,
-  search: false,
+  useNextSeoProps() {
+    return {
+      titleTemplate: '%s – Searchkit'
+    }
+  },
   toc: {
     float: true
   },
-  footerText: `Apache 2.0 ${new Date().getFullYear()} © Joseph McElroy.`,
-  footerEditLink: `Edit this page on GitHub`,
+  footer: { text: `Apache 2.0 ${new Date().getFullYear()} © Joseph McElroy.` },
+  editLink: { text: `Edit this page on GitHub`, },
   logo: (
     <span className="text-xl font-semibold text-gray-100">Searchkit</span>
   ),
   project: {
     icon: Github,
+    link: 'https://github.com/searchkit/searchkit/tree/next'
   },
   chat: {
     icon: Discord,
+    link: 'https://discord.gg/CRuWmSQZQx',
   },
   nextThemes: {
     defaultTheme: "dark",

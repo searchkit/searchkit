@@ -4,7 +4,7 @@ function Github() {
   return (
     <a
       href="https://github.com/searchkit/searchkit/tree/next"
-      className="hidden p-2 text-current sm:flex hover:opacity-75"
+      className="hidden text-current sm:flex hover:opacity-75"
       title="Searchkit GitHub repo"
       target="_blank"
       rel="noreferrer"
@@ -19,7 +19,7 @@ function Discord() {
   return (
     <a
       href="https://discord.gg/CRuWmSQZQx"
-      className="hidden p-2 text-current sm:flex hover:opacity-75"
+      className="hidden text-current sm:flex hover:opacity-75"
       title="Turbo Discord server"
       target="_blank"
       rel="noreferrer"
