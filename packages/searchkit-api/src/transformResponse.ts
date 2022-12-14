@@ -171,18 +171,22 @@ export default function transformResponse(
   config: SearchSettingsConfig,
   queryRuleActions: QueryRuleActions
 ) {
-  return {
-    exhaustiveNbHits: true,
-    exhaustiveFacetsCount: true,
-    exhaustiveTypo: true,
-    exhaustive: { facetsCount: true, nbHits: true, typo: true },
-    ...getPageDetails(response, instantsearchRequest, config),
-    ...getRenderingContent(config, queryRuleActions),
-    ...getFacets(response, config),
-    hits: getHits(response, config),
-    index: instantsearchRequest.indexName,
-    params: stringify(instantsearchRequest.params as any),
-    ...(queryRuleActions.userData.length > 0 ? { userData: queryRuleActions.userData } : {})
+  try {
+    return {
+      exhaustiveNbHits: true,
+      exhaustiveFacetsCount: true,
+      exhaustiveTypo: true,
+      exhaustive: { facetsCount: true, nbHits: true, typo: true },
+      ...getPageDetails(response, instantsearchRequest, config),
+      ...getRenderingContent(config, queryRuleActions),
+      ...getFacets(response, config),
+      hits: getHits(response, config),
+      index: instantsearchRequest.indexName,
+      params: stringify(instantsearchRequest.params as any),
+      ...(queryRuleActions.userData.length > 0 ? { userData: queryRuleActions.userData } : {})
+    }
+  } catch (e) {
+    throw new Error(`Error transforming Elasticsearch response for index`)
   }
 }
 

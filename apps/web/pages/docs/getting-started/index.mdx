@@ -96,7 +96,7 @@ First, we need to create a new file in the `pages` directory called `search.js` 
 
 ```js
 import { InstantSearch, SearchBox, Hits } from "react-instantsearch-dom";
-import createClient from "@searchkit/api";
+import createClient from "@searchkit/instantsearch-client";
 
 const searchClient = createClient({
   url: "/api/search",

@@ -1,7 +1,14 @@
 import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
 import { transformRequest } from './transformRequest'
 import transformResponse, { transformFacetValuesResponse } from './transformResponse'
-import { ClientConfig, SearchRequest, RequestOptions, Transporter, QueryRuleAction } from './types'
+import {
+  ClientConfig,
+  SearchRequest,
+  RequestOptions,
+  Transporter,
+  QueryRuleAction,
+  AppSettings
+} from './types'
 import { ESTransporter } from './Transporter'
 import { getQueryRulesActionsFromRequest, QueryRuleActions } from './queryRules'
 export * from './types'
@@ -9,12 +16,16 @@ export * from './types'
 class Client {
   transporter: Transporter
 
-  constructor(private config: ClientConfig) {
+  constructor(private config: ClientConfig, private settings: AppSettings = { debug: false }) {
     this.transporter =
       'msearch' in config.connection ? config.connection : new ESTransporter(config.connection)
   }
 
   private async performSearch(requests: SearchRequest[]) {
+    if (this.settings.debug) {
+      console.log('Performing search with requests:')
+      console.log(JSON.stringify(requests, null, 2))
+    }
     const responses = await this.transporter.msearch(requests)
     return responses
   }
@@ -71,6 +82,6 @@ class Client {
   }
 }
 
-const createClient = (config: ClientConfig) => new Client(config)
+const createClient = (config: ClientConfig, settings?: AppSettings) => new Client(config, settings)
 
 export default createClient
