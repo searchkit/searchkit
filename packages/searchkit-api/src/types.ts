@@ -108,6 +108,10 @@ export interface Transporter {
   msearch: (requests: SearchRequest[]) => Promise<ElasticsearchResponseBody[]>
 }
 
+export interface AppSettings {
+  debug: boolean
+}
+
 export type {
   AlgoliaMultipleQueriesQuery,
   ElasticsearchSearchRequest,

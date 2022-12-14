@@ -1,16 +1,24 @@
 ---
 title: Node API
 ---
+import { Tabs, Tab } from '../../../components/Tabs'
 
 ### Installation
 
 It is available as `@searchkit/api` on npm.
 
+<Tabs items={['npm', 'yarn']} storageKey="selected-package-manager">
+<Tab>
 ```sh
 npm install @searchkit/api
-# OR
+```
+</Tab>
+<Tab>
+```sh
 yarn add @searchkit/api
 ```
+</Tab>
+</Tabs>
 
 Then import it in your project:
 
@@ -210,7 +218,7 @@ The `getQuery` function is used to override the default Elasticsearch query. The
 
 Below is an example of a `getQuery` function that overrides the default query to use the `combined_fields` query type (read more about `combined_fields` [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-combined-fields-query.html)).
 
-````tsx
+To see the full Elasticsearch query that is executed to Elasticsearch, you can run the API in debug mode (see below).
 
 ```tsx
   const results = await api.handleRequest(req.body, {
@@ -225,7 +233,7 @@ Below is an example of a `getQuery` function that overrides the default query to
       ];
     }
   });
-````
+```
 
 ##### Function Parameters
 
@@ -240,9 +248,9 @@ This function is useful if the request needs to be filtered based on the user's 
 
 Below is an example of a `getBaseFilters` function that adds a filter to the Elasticsearch query to only return results where the `status` field is `published`.
 
-````tsx
+To see the full Elasticsearch query that is executed to Elasticsearch, you can run the API in debug mode (see below).
 
-```tsx
+```ts
   const results = await api.handleRequest(req.body, {
     getBaseFilters: () => {
       return [
@@ -260,4 +268,18 @@ Below is an example of a `getBaseFilters` function that adds a filter to the Ela
       ];
     }
   });
-````
+```
+
+### Debug mode
+
+The API can be run in debug mode to help with debugging the Elasticsearch query. To run the API in debug mode, set the `debug` flag to `true` in the `handleRequest` function.
+
+This is helpful when you're overriding the query via `getQuery` or providing base filters via `getBaseFilters` and want to see the Elasticsearch query that is executed to Elasticsearch.
+
+```ts
+const api = API({
+  // configuration
+}, { debug: true });
+```
+
+When the API is run in debug mode, the Elasticsearch query is logged to the console.
