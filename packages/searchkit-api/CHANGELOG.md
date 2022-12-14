@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.0.0-next.6
+
+### Minor Changes
+
+- Support debug mode to emit the elasticsearch query + transporter to handle errors gracefully
+
 ## 4.0.0-next.5
 
 ### Minor Changes
