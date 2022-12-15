@@ -317,29 +317,24 @@ export const getAggs = (
   }
 }
 
-export function RelevanceQueryMatch(
-  query: string,
-  search_attributes: string[],
-  queryRuleActions: QueryRuleActions
-) {
-  if (queryRuleActions) {
+function queryRulesWrapper(organicQuery: any, queryRuleActions: QueryRuleActions) {
+  if (queryRuleActions.touched) {
     return {
       function_score: {
         query: {
           pinned: {
             ids: queryRuleActions.pinnedDocs,
-            organic: {
-              combined_fields: {
-                query: queryRuleActions.query,
-                fields: search_attributes
-              }
-            }
+            organic: organicQuery
           }
         },
         functions: queryRuleActions.boostFunctions
       }
     }
   }
+  return organicQuery
+}
+
+export function RelevanceQueryMatch(query: string, search_attributes: string[]) {
   return {
     combined_fields: { query: query, fields: search_attributes }
   }
@@ -362,15 +357,19 @@ const getQuery = (
     ...(requestOptions?.getBaseFilters?.() || [])
   ]
 
+  const organicQuery =
+    typeof query === 'string' && query !== ''
+      ? requestOptions?.getQuery
+        ? requestOptions.getQuery(query, searchAttributes, config)
+        : RelevanceQueryMatch(query, searchAttributes)
+      : []
+
   return {
     bool: {
       filter: filters,
-      must:
-        typeof query === 'string' && query !== ''
-          ? requestOptions?.getQuery
-            ? requestOptions.getQuery(query, searchAttributes, config)
-            : RelevanceQueryMatch(query, searchAttributes, queryRuleActions)
-          : []
+      must: queryRuleActions.touched
+        ? queryRulesWrapper(organicQuery, queryRuleActions)
+        : organicQuery
     }
   }
 }

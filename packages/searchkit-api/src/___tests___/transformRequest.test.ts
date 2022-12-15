@@ -89,7 +89,8 @@ describe('transformRequest', () => {
             boostFunctions: [],
             facetAttributesOrder: undefined,
             pinnedDocs: [],
-            userData: []
+            userData: [],
+            touched: false
           }
         )
       ).toMatchInlineSnapshot(`
@@ -179,7 +180,8 @@ describe('transformRequest', () => {
           boostFunctions: [],
           facetAttributesOrder: ['type'],
           pinnedDocs: [],
-          userData: []
+          userData: [],
+          touched: true
         }
       )
     ).toMatchInlineSnapshot(`

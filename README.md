@@ -17,6 +17,10 @@ Searchkit uses Elasticsearch and provides an API that allows you to build a sear
 
 ![overview](apps/web/public/searchkit-overview.png)
 
+### How it works
+Searchkit integrates with your existing Elasticsearch cluster, and provides an API that allows you to build a search experience with Algolia Instantsearch.
+
+![overview](apps/web/public/searchkit-overview.png)
 
 
 #### Code Sandbox Examples
