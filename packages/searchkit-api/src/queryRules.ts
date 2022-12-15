@@ -10,6 +10,7 @@ export interface QueryRuleActions {
   query: string
   userData: unknown[]
   facetAttributesOrder: string[] | undefined
+  touched: boolean
 }
 
 export const getQueryRulesActionsFromRequest = (
@@ -25,6 +26,7 @@ export const getQueryRulesActionsFromRequest = (
   const actions = satisfiedRules.reduce<QueryRuleActions>(
     (sum, rule) => {
       rule.actions.map((action) => {
+        sum.touched = true
         if (action.action === 'PinnedResult') {
           sum.pinnedDocs.push(...action.documentIds)
         } else if (action.action === 'QueryRewrite') {
@@ -49,9 +51,11 @@ export const getQueryRulesActionsFromRequest = (
       boostFunctions: [],
       query: queryContext.query,
       userData: [],
-      facetAttributesOrder: undefined
+      facetAttributesOrder: undefined,
+      touched: false
     }
   )
+
   return actions
 }
 

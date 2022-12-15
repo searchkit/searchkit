@@ -55,23 +55,13 @@ describe('Add additional base filters to search', () => {
                 },
               ],
               "must": {
-                "function_score": {
-                  "functions": [],
-                  "query": {
-                    "pinned": {
-                      "ids": [],
-                      "organic": {
-                        "combined_fields": {
-                          "fields": [
-                            "title",
-                            "actors",
-                            "query",
-                          ],
-                          "query": "shawshank",
-                        },
-                      },
-                    },
-                  },
+                "combined_fields": {
+                  "fields": [
+                    "title",
+                    "actors",
+                    "query",
+                  ],
+                  "query": "shawshank",
                 },
               },
             },

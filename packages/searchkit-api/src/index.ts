@@ -1,14 +1,7 @@
 import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
 import { transformRequest } from './transformRequest'
 import transformResponse, { transformFacetValuesResponse } from './transformResponse'
-import {
-  ClientConfig,
-  SearchRequest,
-  RequestOptions,
-  Transporter,
-  QueryRuleAction,
-  AppSettings
-} from './types'
+import { ClientConfig, SearchRequest, RequestOptions, Transporter, AppSettings } from './types'
 import { ESTransporter } from './Transporter'
 import { getQueryRulesActionsFromRequest, QueryRuleActions } from './queryRules'
 export * from './types'
