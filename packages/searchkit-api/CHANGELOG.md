@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.0.0-next.7
+
+### Minor Changes
+
+- a11ce94f: Only wrap Elasticsearch query when query rule actions are present
+
 ## 4.0.0-next.6
 
 ### Minor Changes
