@@ -21,7 +21,7 @@ describe('Transport Errors', () => {
       highlight_attributes: ['title', 'actors'],
       search_attributes: ['title', 'actors', 'query'],
       result_attributes: ['title', 'actors', 'query'],
-      facet_attributes: [],
+      facet_attributes: ['type'],
       query_rules: []
     }
   })

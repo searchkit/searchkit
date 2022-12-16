@@ -2049,11 +2049,15 @@ exports[`Integration tests facets numeric facets 1`] = `
         "facetOrdering": {
           "facets": {
             "order": [
+              "type",
               "imdbrating",
             ],
           },
           "values": {
             "imdbrating": {
+              "sortRemainingBy": "count",
+            },
+            "type": {
               "sortRemainingBy": "count",
             },
           },
@@ -2133,11 +2137,15 @@ exports[`Integration tests facets numeric facets 1`] = `
         "facetOrdering": {
           "facets": {
             "order": [
+              "type",
               "imdbrating",
             ],
           },
           "values": {
             "imdbrating": {
+              "sortRemainingBy": "count",
+            },
+            "type": {
               "sortRemainingBy": "count",
             },
           },
@@ -2150,7 +2158,7 @@ exports[`Integration tests facets numeric facets 1`] = `
 
 exports[`Integration tests facets numeric facets: ES Request 1`] = `
 "{"index":"imdb_movies"}
-{"aggs":{"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[{"bool":{"should":[{"term":{"type":"movie"}}]}}],"must":{"combined_fields":{"query":"shawshank","fields":["title","actors"]}}}},"size":20,"from":0,"_source":{"includes":["title","actors"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
+{"aggs":{"type":{"terms":{"field":"type","size":10}},"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[{"bool":{"should":[{"term":{"type":"movie"}}]}}],"must":{"combined_fields":{"query":"shawshank","fields":["title","actors"]}}}},"size":20,"from":0,"_source":{"includes":["title","actors"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
 {"index":"imdb_movies"}
 {"aggs":{"type":{"terms":{"field":"type","size":10}}},"query":{"bool":{"filter":[],"must":{"combined_fields":{"query":"shawshank","fields":["title","actors"]}}}},"size":1,"from":0,"_source":{"includes":["title","actors"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
 "

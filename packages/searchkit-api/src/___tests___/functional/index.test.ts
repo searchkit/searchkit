@@ -129,7 +129,10 @@ describe('Integration tests', () => {
           highlight_attributes: ['title', 'actors'],
           search_attributes: ['title', 'actors'],
           result_attributes: ['title', 'actors'],
-          facet_attributes: [{ attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' }]
+          facet_attributes: [
+            'type',
+            { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' }
+          ]
         }
       })
 

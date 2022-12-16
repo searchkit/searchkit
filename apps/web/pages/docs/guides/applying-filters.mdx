@@ -1,0 +1,196 @@
+---
+title: Applying Filters
+---
+
+There are a number of ways to apply filters to your search results. Filters can be applied on the client or on the server.
+
+## Setup Filters & Facets Attributes
+
+To apply filters on the client, you must first setup the facet & filter attributes in your `facet_attributes` and `filter_attributes` in your application settings.
+
+```js
+{
+  facet_attributes: [
+    { attribute: 'author', field: 'author.keyword', type: 'string' },
+    { attribute: 'price', field: 'price', type: 'numeric' },
+  ],
+  filter_attributes: [
+    { attribute: 'publisher', field: 'publisher.keyword', type: 'string' },
+    { attribute: 'genre', field: 'genre.keyword', type: 'string' },
+    { attribute: 'date', field: 'date.field', type: 'date' },
+    { attribute: 'nestedField', field: 'price', type: 'string', nestedPath: 'nested' }
+  ],
+  result_attributes: [],
+  search_attributes: []
+}
+```
+
+## Applying Filters on the Client
+
+Filters can be applied on the client by using the `filters` property on the `configure` component on Instansearch.
+
+<Tabs items={["React", "instantsearch.js"]}>
+  <Tab> 
+```jsx
+import { Configure } from 'react-instantsearch-dom';
+
+<Configure
+  filters="free_shipping:true"
+/>
+```
+  </Tab>
+  <Tab>
+```js
+instantsearch.widgets.configure({
+  filters="free_shipping:true"
+});
+```
+  </Tab>
+</Tabs>
+
+Filters can be applied on the client by using the `filters` property on the `configure` component on Instantsearch.
+
+Filters must follow the [Elasticsearch Query String](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html) format.
+
+Use the `attribute` property to specify the field you want to filter on.
+
+Nested fields are not supported in the `filters` property. To filter on nested fields, use `facetFilters` or `numericFilters` property.
+
+### Filter by string
+
+```js
+ "author:John" # author is John
+ "author:John OR author:Jane" # author is John or Jane
+ "author:John AND author:Jane" # author is John and Jane
+```
+
+### Filter by numeric
+
+```js
+ "price:10" # price is 10
+ "price:[10 TO 20]" # price is between 10 and 20
+ "price:[10 TO *]" # price is greater than 10
+ "price:[* TO 20]" # price is less than 20
+```
+
+### Filter by date
+
+```js
+ "date:2015-01-01" # date is 2015-01-01
+ "date:[2015-01-01 TO 2015-12-31]" # date is between 2015-01-01 and 2015-12-31
+ "date:[2015-01-01 TO *]" # date is greater than 2015-01-01
+ "date:[* TO 2015-12-31]" # date is less than 2015-12-31
+```
+
+## Numeric & Facet Filters
+
+Numeric & Facet filters are typically used by widgets. Adding facet widgets and assigning them to a facet attribute will automatically add the filters to the search as you interact with them.
+
+You can also add numeric filters or facet Filters to the search by using the `numericFilters` or `facetFilters` property on the `configure` component on Instantsearch.
+
+<Tabs items={["React", "instantsearch.js"]}>
+  <Tab> 
+```jsx
+import { Configure } from 'react-instantsearch-dom';
+
+<Configure
+  facetFilters={["author:John"]}
+  numericFilters={["price:[10 TO 20]"]}
+/>
+```
+  </Tab>
+  <Tab>
+```js
+instantsearch.widgets.configure({
+  facetFilters: ["author:John"],
+  numericFilters: ["price:[10 TO 20]"]
+});
+```
+  </Tab>
+</Tabs>
+
+### Widgets
+
+Numeric filters are used by numeric based widgets like the `NumericMenu` or `RangeInput` widget.
+
+<Tabs items={["React", "instantsearch.js"]}>
+  <Tab> 
+```jsx
+import { NumericMenu } from 'react-instantsearch-dom';
+
+<NumericMenu
+  attribute="price"
+  items={[
+    { label: 'All' },
+    { label: 'Less than 10', end: 10 },
+    { label: '10 - 50', start: 10, end: 50 },
+    { label: 'More than 50', start: 50 },
+  ]}
+/>
+```
+  </Tab>
+  <Tab>
+```js
+instantsearch.widgets.numericMenu({
+  attribute: "price",
+  items: [
+    { label: 'All' },
+    { label: 'Less than 10', end: 10 },
+    { label: '10 - 50', start: 10, end: 50 },
+    { label: 'More than 50', start: 50 },
+  ]
+});
+```
+  </Tab>
+</Tabs>
+
+Facet filters are used by facet based widgets like the `RefinementList` or `Menu` widget.
+
+<Tabs items={["React", "instantsearch.js"]}>
+  <Tab> 
+```jsx
+import { RefinementList } from 'react-instantsearch-dom';
+
+<RefinementList
+  attribute="author"
+/>
+```
+  </Tab>
+  <Tab>
+```js
+instantsearch.widgets.refinementList({
+  attribute: "author"
+});
+```
+  </Tab>
+</Tabs>
+
+## Applying Filters on the Server
+
+Filters can be applied on the server by using the `getBaseFilters` function within the `handleRequest` function.
+
+Examples could include:
+- Filtering out documents that are not published
+- Filtering out documents that the user doesn't have access to
+
+Below is an example of filtering documents that are not published.
+
+```js
+const results = await apiClient.handleRequest(req.body, {
+  getBaseFilters: () => {
+    return [
+      {
+        bool: {
+          must: {
+            term: {
+              status: "published",
+            },
+          },
+        },
+      },
+    ];
+  },
+});
+```
+
+The function must return an array of filters. Each filter is an object that follows the [Elasticsearch Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html).

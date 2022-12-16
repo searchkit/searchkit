@@ -3,7 +3,7 @@ import { Discord, Github } from "./components/Social";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   project: { link: 'https://github.com/searchkit/searchkit/tree/next'}, // GitHub link in the navbar
-  docsRepositoryBase: 'https://github.com/searchkit/searchkit/tree/next', // base URL for the docs repository
+  docsRepositoryBase: 'https://github.com/searchkit/searchkit/blob/next/apps/web/pages/docs', // base URL for the docs repository
   useNextSeoProps() {
     return {
       titleTemplate: '%s – Searchkit'

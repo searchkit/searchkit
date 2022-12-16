@@ -20,6 +20,13 @@ export type FacetFieldConfig = {
   nestedPath?: string
 }
 
+export type FilterAttribute = {
+  attribute: string
+  field: string
+  type: 'numeric' | 'string' | 'date'
+  nestedPath?: string
+}
+
 export interface ClientConfigConnection {
   host: string
   apiKey?: string
@@ -30,6 +37,7 @@ export type FacetAttribute = string | FacetFieldConfig
 export interface SearchSettingsConfig {
   search_attributes: Array<string>
   facet_attributes?: FacetAttribute[]
+  filter_attributes?: FilterAttribute[]
   result_attributes: string[]
   highlight_attributes?: string[]
   prefix_attributes?: string[]
