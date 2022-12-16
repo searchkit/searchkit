@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.0.0-next.8
+
+### Patch Changes
+
+- e9dfa3d4: More advanced filter support
+
 ## 4.0.0-next.7
 
 ### Minor Changes
