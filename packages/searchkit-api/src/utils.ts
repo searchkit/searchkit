@@ -31,6 +31,10 @@ export const getFacet = (
   return f || attributeName
 }
 
+export const isNestedFacet = (facet: FacetAttribute): boolean => {
+  return typeof facet !== 'string' && !!facet.nestedPath
+}
+
 export const getFacetField = (
   facet_attributes: FacetAttribute[],
   attribute: FacetAttribute

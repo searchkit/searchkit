@@ -1,12 +1,9 @@
 import deepmerge from 'deepmerge'
+import { transformBaseFilters, transformFacetFilters, transformNumericFilters } from './filters'
 import { QueryRuleActions } from './queryRules'
 import { FacetAttribute, RequestOptions, SearchSettingsConfig } from './types'
-import {
-  AlgoliaMultipleQueriesQuery,
-  ElasticsearchQuery,
-  ElasticsearchSearchRequest
-} from './types'
-import { getFacet, getFacetAttribute } from './utils'
+import { AlgoliaMultipleQueriesQuery, ElasticsearchSearchRequest } from './types'
+import { getFacet, isNestedFacet } from './utils'
 
 export const createRegexQuery = (queryString: string) => {
   let query = queryString.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
@@ -24,209 +21,6 @@ export const createRegexQuery = (queryString: string) => {
     query = `([a-zA-Z]+ )+?${query}`
   }
   return query
-}
-
-const transformNumericFilters = (
-  request: AlgoliaMultipleQueriesQuery,
-  config: SearchSettingsConfig
-): ElasticsearchQuery[] => {
-  const { params = {} } = request
-  const { numericFilters } = params
-
-  if (!Array.isArray(numericFilters)) {
-    return []
-  }
-
-  return numericFilters.reduce((sum, filter) => {
-    const [match, field, operator, value] = filter.match(
-      /([\w\.\_\-]+)(\=|\!\=|\>|\>\=|\<|\<\=)(\d+)/
-    )
-    const fieldConfig = getFacet(config.facet_attributes || [], field)
-
-    if (!match) return sum
-
-    const getFilter = (operator: string, value: string) => {
-      if (operator === '=') {
-        return {
-          term: {
-            [field]: value
-          }
-        }
-      } else if (operator === '!=') {
-        return {
-          bool: {
-            must_not: {
-              term: {
-                [field]: value
-              }
-            }
-          }
-        }
-      } else if (operator === '>') {
-        return {
-          range: {
-            [field]: {
-              gt: value
-            }
-          }
-        }
-      } else if (operator === '>=') {
-        return {
-          range: {
-            [field]: {
-              gte: value
-            }
-          }
-        }
-      } else if (operator === '<') {
-        return {
-          range: {
-            [field]: {
-              lt: value
-            }
-          }
-        }
-      } else if (operator === '<=') {
-        return {
-          range: {
-            [field]: {
-              lte: value
-            }
-          }
-        }
-      }
-    }
-
-    const esFilter = []
-
-    if (typeof fieldConfig !== 'string' && fieldConfig.nestedPath) {
-      esFilter.push({
-        nested: {
-          path: fieldConfig.nestedPath,
-          query: {
-            bool: {
-              filter: [getFilter(operator, value)]
-            }
-          }
-        }
-      })
-    } else {
-      esFilter.push(getFilter(operator, value))
-    }
-
-    return [...sum, ...esFilter]
-  }, [])
-}
-
-const termFilter = (field: string, value: string) => {
-  return { term: { [field]: value } }
-}
-
-const transformFacetFilters = (
-  request: AlgoliaMultipleQueriesQuery,
-  config: SearchSettingsConfig
-): ElasticsearchQuery[] => {
-  const { params = {} } = request
-  const { facetFilters } = params
-
-  if (!Array.isArray(facetFilters)) {
-    return []
-  }
-
-  return facetFilters.reduce((sum, filter) => {
-    if (Array.isArray(filter)) {
-      return [
-        ...sum,
-        {
-          bool: {
-            should: filter.reduce((sum, filter) => {
-              const [facet, value] = filter.split(':')
-              const facetAttribute = getFacetAttribute(facet)
-              const facetConfig = getFacet(config.facet_attributes || [], facetAttribute)
-              const field = typeof facetConfig === 'string' ? facetConfig : facetConfig.field
-
-              if (
-                typeof facetConfig !== 'string' &&
-                isNestedFacet(facetConfig) &&
-                facetConfig.nestedPath
-              ) {
-                // detect if there is a nested filter in sum
-                // if one doesn't exist, add one
-                // if one does exist, add to it
-                const nestedFilter = sum.find((filter: any) => {
-                  return filter.nested && filter.nested.path === facetConfig.nestedPath
-                })
-
-                if (nestedFilter) {
-                  nestedFilter.nested.query.bool.should.push(
-                    termFilter(`${facetConfig.nestedPath}.${facetConfig.field}`, value)
-                  )
-                  return sum
-                } else {
-                  return [
-                    ...sum,
-                    {
-                      nested: {
-                        path: facetConfig.nestedPath,
-                        query: {
-                          bool: {
-                            should: [
-                              termFilter(`${facetConfig.nestedPath}.${facetConfig.field}`, value)
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-              return [...sum, termFilter(field, value)]
-            }, [])
-          }
-        }
-      ]
-    } else if (typeof filter === 'string') {
-      const [facet, value] = filter.split(':')
-      const facetAttribute = getFacetAttribute(facet)
-      const facetConfig = getFacet(config.facet_attributes || [], facetAttribute)
-      const field = typeof facetConfig === 'string' ? facetConfig : facetConfig.field
-
-      if (typeof facetConfig !== 'string' && isNestedFacet(facetConfig) && facetConfig.nestedPath) {
-        // detect if there is a nested filter in sum
-        // if one doesn't exist, add one
-        // if one does exist, add to it
-        const nestedFilter = sum.find((filter: any) => {
-          return filter.nested && filter.nested.path === facetConfig.nestedPath + '.'
-        })
-
-        if (nestedFilter) {
-          nestedFilter.nested.query.bool.should.push(
-            termFilter(`${facetConfig.nestedPath}.${facetConfig.field}`, value)
-          )
-          return sum
-        } else {
-          return [
-            ...sum,
-            {
-              nested: {
-                path: facetConfig.nestedPath,
-                query: {
-                  bool: {
-                    should: [termFilter(`${facetConfig.nestedPath}.${facetConfig.field}`, value)]
-                  }
-                }
-              }
-            }
-          ]
-        }
-      }
-      return [...sum, termFilter(field, value)]
-    }
-  }, [])
-}
-
-const isNestedFacet = (facet: FacetAttribute): boolean => {
-  return typeof facet !== 'string' && !!facet.nestedPath
 }
 
 const getTermAggregation = (facet: FacetAttribute, size: number, search: string) => {
@@ -354,6 +148,7 @@ const getQuery = (
   const filters = [
     ...transformFacetFilters(request, config),
     ...transformNumericFilters(request, config),
+    ...transformBaseFilters(request, config),
     ...(requestOptions?.getBaseFilters?.() || [])
   ]
 
