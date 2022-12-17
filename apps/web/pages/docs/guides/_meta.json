@@ -1,7 +1,7 @@
 {
   "setting-up-elasticsearch": "Setting up Elasticsearch",
   "user-restricted-data": "User-restricted access to data",
-  "base-filters": "Base Filters",
+  "applying-filters": "Applying Filters",
   "customising-query": "Customising the Query",
   "facets": "Configuring Facets"
 }
