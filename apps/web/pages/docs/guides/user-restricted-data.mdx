@@ -1,8 +1,14 @@
 ---
-title: Authentication Example
+title: User-restricted access to data
 ---
 
-### Example with JWT authentication on Cloudflare worker
+Sometimes, you don’t want your users to search your entire index, but only a subset that concerns them.
+
+Content might be restricted to a specific user as private data, a set of users, a group, or even everybody. Handling access within an index allows to have a fine-grained control over who can search and view what content.
+
+By applying filters on the server side, you can restrict access to data based on the user’s role, or any other criteria.
+
+### Add User based Permissions with JWT
 
 Below is an example of how to use a JWT to do role based permissions. This example will use the JWT provided from the client and validate it against the public key provided by Auth0. If the JWT is valid, the user will be allowed to access the API. If the JWT is invalid, the user will be denied access.
 The JWT will contain the user's role, which will be used to filter via Elasticsearch filters to only return the data the user is allowed to see.
