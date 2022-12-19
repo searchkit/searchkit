@@ -1,5 +1,6 @@
 import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, ToggleRefinement, Panel, Pagination, Stats, connectSearchBox, NumericMenu, RangeInput, CurrentRefinements, QueryRuleCustomData, HierarchicalMenu, RangeSlider, Configure, QueryRuleContext } from 'react-instantsearch-dom';
 import Client from '@searchkit/instantsearch-client'
+import Script from 'next/script';
 
 const searchClient = Client({
   url: '/api/product-search',
@@ -18,6 +19,8 @@ const hitView = (props: any) => {
 export default function Web() {
     return (
       <div className="ais-InstantSearch">
+        <Script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c98b302ea3bb4a33a012a7ef0ab3e240"}' />
+
   
       <InstantSearch
         indexName="mrp-products_sk"
