@@ -12,10 +12,12 @@
     }
   },
   "docs": {
-    "title": "Docs",
+    "title": "Documentation",
     "type": "page"
   },
   "examples": {
+    "title": "Examples",
+    "type": "page",
     "display": "hidden"
   },
   "demo": {
