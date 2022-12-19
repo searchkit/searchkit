@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.0.0-next.9
+
+### Patch Changes
+
+- Additional Query rule conditions and actions
+
 ## 4.0.0-next.8
 
 ### Patch Changes

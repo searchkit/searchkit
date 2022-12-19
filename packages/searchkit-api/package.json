@@ -1,6 +1,6 @@
 {
   "name": "@searchkit/api",
-  "version": "4.0.0-next.8",
+  "version": "4.0.0-next.9",
   "main": "./dist/index.js",
   "description": "",
   "repository": "https://github.com/searchkit/searchkit",
