@@ -29,7 +29,7 @@ export default function Web() {
 
         <QueryRuleContext
             trackedFilters={{
-              designerName: (values) => values,
+              designerName: (values: unknown[]) => values,
             }}
             transformRuleContexts={(ruleContexts: string[]) => {
               return ruleContexts;
