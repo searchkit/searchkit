@@ -23,17 +23,17 @@ yarn add @searchkit/api
 Then import it in your project:
 
 ```js
-import API from "@searchkit/api";
+import Client from "@searchkit/api";
 ```
 
 ### Usage
 
-Node API handles incoming instantsearch requests, transforms them into Elasticsearch queries. With the response, it transforms it into a format that instantsearch can understand.
+Node client handles incoming instantsearch requests, transforms them into Elasticsearch queries. With the response, it transforms it into a format that instantsearch can understand.
 
-The API is built in a way to simplify the integration with multiple node server frameworks.
+The client is built in a way to simplify the integration with multiple node server frameworks.
 
 ```typescript
-const api = API({
+const client = Client({
   connection: {
     host: "https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243",
     apiKey: "a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw==", // optional
@@ -98,7 +98,7 @@ class MyTransporter {
   }
 }
 
-const api = API({
+const client = Client({
   connection: new MyTransporter(),
   ...
 });
@@ -170,7 +170,7 @@ Below is an example of a `RefinementList` Instantsearch React component that use
 
 ###### `facet_attributes` numeric and date types
 
-For range based facets, you need to specify the `type` as `numeric` or `date`. This is so the API can correctly generate facet stats for the field to be used in the UI.
+For range based facets, you need to specify the `type` as `numeric` or `date`. This is so the client can correctly generate facet stats for the field to be used in the UI.
 
 ```tsx
 facet_attributes: [
@@ -206,7 +206,7 @@ export default async function handler(
 ) {
   // invokes handleRequest passing in the request body
   // containing the search requests
-  const results = await api.handleRequest(req.body);
+  const results = await client.handleRequest(req.body);
   // returning back the results to the browser
   res.send(results);
 }
@@ -218,10 +218,10 @@ The `getQuery` function is used to override the default Elasticsearch query. The
 
 Below is an example of a `getQuery` function that overrides the default query to use the `combined_fields` query type (read more about `combined_fields` [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-combined-fields-query.html)).
 
-To see the full Elasticsearch query that is executed to Elasticsearch, you can run the API in debug mode (see below).
+To see the full Elasticsearch query that is executed to Elasticsearch, you can run the client in debug mode (see below).
 
 ```tsx
-  const results = await api.handleRequest(req.body, {
+  const results = await client.handleRequest(req.body, {
     getQuery: (query, search_attributes) => {
       return [
         {
@@ -248,10 +248,10 @@ This function is useful if the request needs to be filtered based on the user's 
 
 Below is an example of a `getBaseFilters` function that adds a filter to the Elasticsearch query to only return results where the `status` field is `published`.
 
-To see the full Elasticsearch query that is executed to Elasticsearch, you can run the API in debug mode (see below).
+To see the full Elasticsearch query that is executed to Elasticsearch, you can run the client in debug mode (see below).
 
 ```ts
-  const results = await api.handleRequest(req.body, {
+  const results = await client.handleRequest(req.body, {
     getBaseFilters: () => {
       return [
         {
@@ -272,14 +272,21 @@ To see the full Elasticsearch query that is executed to Elasticsearch, you can r
 
 ### Debug mode
 
-The API can be run in debug mode to help with debugging the Elasticsearch query. To run the API in debug mode, set the `debug` flag to `true` in the `handleRequest` function.
+The client can be run in debug mode to help with debugging the Elasticsearch query. To run the client in debug mode, set the `debug` flag to `true` in the `Client` function.
 
 This is helpful when you're overriding the query via `getQuery` or providing base filters via `getBaseFilters` and want to see the Elasticsearch query that is executed to Elasticsearch.
 
 ```ts
-const api = API({
-  // configuration
+const client = Client({
+  // search_settings configuration
+  connection: {
+    // ...
+  },
+  search_settings: {
+    search_attributes: ["title", "plot"],
+    // ...
+  }
 }, { debug: true });
 ```
 
-When the API is run in debug mode, the Elasticsearch query is logged to the console.
+When the client is run in debug mode, the Elasticsearch query is logged to the console.

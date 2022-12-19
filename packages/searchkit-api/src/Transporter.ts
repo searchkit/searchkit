@@ -1,5 +1,6 @@
 import { ClientConfigConnection, SearchRequest } from './types'
 import { ElasticsearchResponseBody, Transporter } from './types'
+import { createElasticsearchQueryFromRequest } from './utils'
 
 export class ESTransporter implements Transporter {
   constructor(public config: ClientConfigConnection) {}
@@ -12,18 +13,7 @@ export class ESTransporter implements Transporter {
           ...(this.config.apiKey ? { authorization: `ApiKey ${this.config.apiKey}` } : {}),
           'content-type': 'application/json'
         },
-        body: requests
-          .reduce<string[]>(
-            (sum, request) => [
-              ...sum,
-              JSON.stringify({ index: request.indexName }),
-              '\n',
-              JSON.stringify(request.body),
-              '\n'
-            ],
-            []
-          )
-          .join(''),
+        body: createElasticsearchQueryFromRequest(requests),
         method: 'POST'
       })
 

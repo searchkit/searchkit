@@ -24,11 +24,13 @@ describe('Integration tests for relevance', () => {
         query_rules: [
           {
             conditions: [
-              {
-                context: 'query',
-                match_type: 'exact',
-                value: 'movies'
-              }
+              [
+                {
+                  context: 'query',
+                  match_type: 'exact',
+                  value: 'movies'
+                }
+              ]
             ],
             actions: [
               {

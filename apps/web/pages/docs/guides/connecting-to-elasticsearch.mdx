@@ -1,0 +1,104 @@
+---
+title: Connecting to Elasticsearch
+---
+
+The easiest way to connect to Elasticsearch is to use Elastic cloud. You can sign up for a free trial account and get started right away.
+
+### Connecting to Elastic Cloud
+
+To connect to Elastic Cloud, you need to create an account and get your credentials. You can do this by following the instructions on the [Elastic Cloud website](https://www.elastic.co/cloud).
+
+Once you have setup a deployment, do the following:
+
+1. Go to the [Elastic Cloud console](https://cloud.elastic.co/).
+2. Click on the deployment you want to connect to.
+3. Locate the Elasticsearch URL and copy it.
+4. Paste the URL into the `connection.host` field in the configuration object, within the Node app.
+5. Create an API key with `read` privileges for the index. Copy the API key and paste it into the `connection.apiKey` field in the configuration object, within the Node app. 
+
+```ts
+const client = Client({
+  connection: {
+    host: "ELASTICSEARCH_URL",
+    apiKey: "API_KEY"
+  }
+})
+```
+
+If Searchkit cannot connect to Elasticsearch, it will throw an error. You should be able to see the error in the terminal running the node API.
+
+### Connecting to Elasticsearch locally
+
+If you want to run Elasticsearch locally, you can download and install it from the [Elastic website](https://www.elastic.co/downloads/elasticsearch).
+
+Once you have installed Elasticsearch, you can start it by running the following command in the terminal:
+
+```bash
+elasticsearch
+```
+
+You can then connect to Elasticsearch by setting the `connection.host` field in the configuration object, within the Node app, to `http://localhost:9200`.
+
+API Key is not required but its important you use one for production.
+
+```ts
+const client = Client({
+  connection: {
+    host: "http://localhost:9200"
+  }
+})
+```
+
+### Connecting to Opensearch
+
+Searchkit does not provide out of the box support for Opensearch. However, you can connect to Opensearch by using a custom transport.
+
+You can use this for more complex authentication connections with Elasticsearch or Opensearch.
+
+You can find an example of a custom transport below.
+
+```ts
+
+import type { Transporter, SearchRequest, ElasticsearchResponseBody } from '@searchkit/api'
+
+class MyTransporter {
+  async msearch(
+    requests: SearchRequest[]
+  ): Promise<ElasticsearchResponseBody[]> {
+    // Implement your own search logic here
+    // Fetch is an example of calling an API.
+    const username = 'master-user'
+    const password = 'master-user-password'
+
+    const response = await fetch(`https://domain-endpoint/_msearch`, {
+      headers: {
+        "content-type": "application/json",
+        // Basic auth
+        "Authorization", 'Basic ' + Buffer.from(username + ":" + password).toString('base64')
+      },
+      body: requests
+        .reduce<string[]>(
+          (sum, request) => [
+            ...sum,
+            JSON.stringify({ index: request.indexName }),
+            "\n",
+            JSON.stringify(request.body),
+            "\n",
+          ],
+          []
+        )
+        .join(""),
+      method: "POST",
+    });
+
+    const responses = await response.json();
+    return responses.responses;
+  }
+}
+
+const client = Client({
+  connection: new MyTransporter(),
+  ...
+});
+```
+

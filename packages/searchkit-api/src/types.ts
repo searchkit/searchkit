@@ -51,6 +51,19 @@ interface QueryStringRuleCondition {
   value: string
 }
 
+interface ContextRuleCondition {
+  context: 'context'
+  value: string[]
+}
+
+interface FilterRuleCondition {
+  context: 'filterPresent'
+  values: {
+    attribute: string
+    value: string
+  }[]
+}
+
 interface PinnedResultAction {
   action: 'PinnedResult'
   documentIds: string[]
@@ -85,10 +98,13 @@ export type QueryRuleAction =
   | RenderUserDataAction
   | RenderFacetsOrderAction
 
-export type QueryRuleCondition = QueryStringRuleCondition
+export type QueryRuleCondition =
+  | QueryStringRuleCondition
+  | ContextRuleCondition
+  | FilterRuleCondition
 
 export interface QueryRule {
-  conditions: QueryRuleCondition[]
+  conditions: QueryRuleCondition[][]
   actions: QueryRuleAction[]
 }
 

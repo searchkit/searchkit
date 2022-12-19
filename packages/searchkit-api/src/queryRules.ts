@@ -1,7 +1,14 @@
 import { AlgoliaMultipleQueriesQuery, QueryRule, SearchSettingsConfig } from './types'
 
+export interface QueryContextFilter {
+  attribute: string
+  value: string
+}
+
 export interface QueryContext {
   query: string
+  context: readonly string[]
+  filters: readonly QueryContextFilter[]
 }
 
 export interface QueryRuleActions {
@@ -13,12 +20,35 @@ export interface QueryRuleActions {
   touched: boolean
 }
 
+const getFacetFilters = (
+  facetFilters: string | readonly string[] | readonly (string | readonly string[])[] | undefined
+): QueryContextFilter[] => {
+  if (!facetFilters) {
+    return []
+  }
+  if (typeof facetFilters === 'string') {
+    const [attribute, value] = facetFilters.split(':')
+    return [{ attribute, value }]
+  } else {
+    // @ts-ignore
+    return facetFilters.reduce<QueryContextFilter[]>((sum: any, filter: any) => {
+      if (typeof filter === 'string') {
+        const [attribute, value] = filter.split(':')
+        return [...sum, { attribute, value }]
+      }
+      return [...sum, ...getFacetFilters(filter)]
+    }, [])
+  }
+}
+
 export const getQueryRulesActionsFromRequest = (
   queryRules: QueryRule[],
   request: AlgoliaMultipleQueriesQuery
 ) => {
   const queryContext: QueryContext = {
-    query: request.params?.query || ''
+    query: request.params?.query || '',
+    context: request.params?.ruleContexts || [],
+    filters: getFacetFilters(request.params?.facetFilters)
   }
 
   const satisfiedRules = getSatisfiedRules(queryContext, queryRules || [])
@@ -61,18 +91,32 @@ export const getQueryRulesActionsFromRequest = (
 
 export const getSatisfiedRules = (queryContext: QueryContext, rules: QueryRule[]) =>
   rules.filter(
-    (rule) =>
-      rule.conditions.filter((condition) => {
-        if (condition.context === 'query' && condition.match_type === 'exact') {
-          return condition.value === queryContext.query
-        }
-        if (condition.context === 'query' && condition.match_type === 'contains') {
-          return queryContext.query.includes(condition.value)
-        }
-        if (condition.context === 'query' && condition.match_type === 'prefix') {
-          return queryContext.query.startsWith(condition.value)
-        }
+    (ruleOrs) =>
+      ruleOrs.conditions.find(
+        (rule) =>
+          rule.filter((condition) => {
+            if (condition.context === 'query' && condition.match_type === 'exact') {
+              return condition.value === queryContext.query
+            }
+            if (condition.context === 'query' && condition.match_type === 'contains') {
+              return queryContext.query.includes(condition.value)
+            }
+            if (condition.context === 'query' && condition.match_type === 'prefix') {
+              return queryContext.query.startsWith(condition.value)
+            }
+            if (condition.context === 'context') {
+              return condition.value.some((value) => queryContext.context.includes(value))
+            }
+            if (condition.context === 'filterPresent') {
+              return condition.values.every(
+                (value) =>
+                  queryContext.filters.find(
+                    (filter) => filter.attribute === value.attribute && filter.value === value.value
+                  ) !== undefined
+              )
+            }
 
-        return false
-      }).length > 0
+            return false
+          }).length === rule.length
+      ) !== undefined
   )

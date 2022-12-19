@@ -1,6 +1,8 @@
 {
+  "connecting-to-elasticsearch": "Connecting to Elasticsearch",
   "setting-up-elasticsearch": "Setting up Elasticsearch",
   "user-restricted-data": "User-restricted access to data",
+  "query-rules": "Query Rules",
   "applying-filters": "Applying Filters",
   "customising-query": "Customising the Query",
   "facets": "Configuring Facets"

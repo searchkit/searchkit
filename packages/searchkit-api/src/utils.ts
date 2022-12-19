@@ -1,4 +1,4 @@
-import { FacetAttribute, FacetFieldConfig } from './types'
+import { FacetAttribute, FacetFieldConfig, SearchRequest } from './types'
 
 export const createRegexQuery = (queryString: string) => {
   let query = queryString.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
@@ -85,4 +85,19 @@ export const getFacetFieldType = (
       // @ts-ignore: object is possibly null
       .find((a) => a?.attribute === attributeKey)?.type || 'string'
   )
+}
+
+export const createElasticsearchQueryFromRequest = (requests: SearchRequest[]) => {
+  return requests
+    .reduce<string[]>(
+      (sum, request) => [
+        ...sum,
+        JSON.stringify({ index: request.indexName }),
+        '\n',
+        JSON.stringify(request.body),
+        '\n'
+      ],
+      []
+    )
+    .join('')
 }

@@ -1956,13 +1956,13 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
 
 exports[`Integration tests facets non dynamic facets with one filter: ES Request 1`] = `
 "{"index":"imdb_movies"}
-{"aggs":{"type":{"terms":{"field":"type","size":10}},"actors":{"terms":{"field":"actors.keyword","size":10}},"rated":{"terms":{"field":"rated","size":10}},"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[{"bool":{"should":[{"term":{"actors.keyword":"Alice"}}]}}],"must":[]}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
+{"aggs":{"type":{"terms":{"field":"type","size":10}},"actors":{"terms":{"field":"actors.keyword","size":10}},"rated":{"terms":{"field":"rated","size":10}},"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[{"bool":{"should":[{"term":{"actors.keyword":"Alice"}}]}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
 "
 `;
 
 exports[`Integration tests facets non dynamic facets: ES Request 1`] = `
 "{"index":"imdb_movies"}
-{"aggs":{"type":{"terms":{"field":"type","size":10}},"actors":{"terms":{"field":"actors.keyword","size":10}},"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[],"must":[]}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
+{"aggs":{"type":{"terms":{"field":"type","size":10}},"actors":{"terms":{"field":"actors.keyword","size":10}},"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
 "
 `;
 
@@ -3079,8 +3079,8 @@ exports[`Integration tests facets numeric filters 1`] = `
 
 exports[`Integration tests facets numeric filters: ES Request 1`] = `
 "{"index":"imdb_movies"}
-{"aggs":{"type":{"terms":{"field":"type","size":10}},"actors":{"terms":{"field":"actors.keyword","size":10}},"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[{"range":{"imdbrating":{"gte":"90"}}}],"must":[]}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
+{"aggs":{"type":{"terms":{"field":"type","size":10}},"actors":{"terms":{"field":"actors.keyword","size":10}},"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[{"range":{"imdbrating":{"gte":"90"}}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
 {"index":"imdb_movies"}
-{"aggs":{"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[],"must":[]}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
+{"aggs":{"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
 "
 `;

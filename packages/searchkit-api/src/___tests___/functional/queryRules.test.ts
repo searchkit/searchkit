@@ -24,11 +24,13 @@ describe('Integration tests for query rules', () => {
         query_rules: [
           {
             conditions: [
-              {
-                context: 'query',
-                match_type: 'exact',
-                value: 'shawshank'
-              }
+              [
+                {
+                  context: 'query',
+                  match_type: 'exact',
+                  value: 'shawshank'
+                }
+              ]
             ],
             actions: [
               {

@@ -157,7 +157,9 @@ const getQuery = (
       ? requestOptions?.getQuery
         ? requestOptions.getQuery(query, searchAttributes, config)
         : RelevanceQueryMatch(query, searchAttributes)
-      : []
+      : {
+          match_all: {}
+        }
 
   return {
     bool: {

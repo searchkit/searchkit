@@ -21,11 +21,13 @@ describe('GetQuery Extension', () => {
       query_rules: [
         {
           conditions: [
-            {
-              context: 'query',
-              value: 'shawshank',
-              match_type: 'exact'
-            }
+            [
+              {
+                context: 'query',
+                value: 'shawshank',
+                match_type: 'exact'
+              }
+            ]
           ],
           actions: [
             {
