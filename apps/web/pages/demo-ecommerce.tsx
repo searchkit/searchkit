@@ -1,4 +1,4 @@
-import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, ToggleRefinement, Panel, Pagination, Stats, connectSearchBox, NumericMenu, RangeInput, CurrentRefinements, QueryRuleCustomData, HierarchicalMenu, RangeSlider } from 'react-instantsearch-dom';
+import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, ToggleRefinement, Panel, Pagination, Stats, connectSearchBox, NumericMenu, RangeInput, CurrentRefinements, QueryRuleCustomData, HierarchicalMenu, RangeSlider, Configure, QueryRuleContext } from 'react-instantsearch-dom';
 import Client from '@searchkit/instantsearch-client'
 
 const searchClient = Client({
@@ -23,6 +23,19 @@ export default function Web() {
         indexName="mrp-products_sk"
         searchClient={searchClient}
       >
+        <Configure
+            ruleContexts={['ecommerce']}
+        />
+
+        <QueryRuleContext
+            trackedFilters={{
+              designerName: (values: unknown[]) => values,
+            }}
+            transformRuleContexts={(ruleContexts: string[]) => {
+              return ruleContexts;
+            }}
+          />
+
         <SearchBox />
         <div className="left-panel">
           {/* @ts-ignore */}

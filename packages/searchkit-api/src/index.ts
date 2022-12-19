@@ -4,6 +4,7 @@ import transformResponse, { transformFacetValuesResponse } from './transformResp
 import { ClientConfig, SearchRequest, RequestOptions, Transporter, AppSettings } from './types'
 import { ESTransporter } from './Transporter'
 import { getQueryRulesActionsFromRequest, QueryRuleActions } from './queryRules'
+import { createElasticsearchQueryFromRequest } from './utils'
 export * from './types'
 
 class Client {
@@ -17,7 +18,8 @@ class Client {
   private async performSearch(requests: SearchRequest[]) {
     if (this.settings.debug) {
       console.log('Performing search with requests:')
-      console.log(JSON.stringify(requests, null, 2))
+      console.log('POST /_msearch')
+      console.log(createElasticsearchQueryFromRequest(requests))
     }
     const responses = await this.transporter.msearch(requests)
     return responses

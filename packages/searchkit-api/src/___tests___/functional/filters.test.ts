@@ -60,7 +60,9 @@ describe('Add additional base filters to search', () => {
                   },
                 },
               ],
-              "must": [],
+              "must": {
+                "match_all": {},
+              },
             },
           }
         `)

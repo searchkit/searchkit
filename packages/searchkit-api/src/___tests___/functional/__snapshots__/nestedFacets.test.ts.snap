@@ -107,9 +107,9 @@ exports[`Nested Facets, filters and results One nested facet support 3`] = `
 
 exports[`Nested Facets, filters and results One nested facet support: ES Request 1`] = `
 "{"index":"imdb_movies"}
-{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[{"bool":{"should":[{"nested":{"path":"user","query":{"bool":{"should":[{"term":{"user.first.keyword":"Alice"}}]}}}}]}}],"must":[]}},"size":20,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{}}}}
+{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[{"bool":{"should":[{"nested":{"path":"user","query":{"bool":{"should":[{"term":{"user.first.keyword":"Alice"}}]}}}}]}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{}}}}
 {"index":"imdb_movies"}
-{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[],"must":[]}},"size":1,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{}}}}
+{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[],"must":{"match_all":{}}}},"size":1,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{}}}}
 "
 `;
 
@@ -220,9 +220,9 @@ exports[`Nested Facets, filters and results one facet and two OR filters 3`] = `
 
 exports[`Nested Facets, filters and results one facet and two OR filters: ES Request 1`] = `
 "{"index":"imdb_movies"}
-{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[{"bool":{"should":[{"nested":{"path":"user","query":{"bool":{"should":[{"term":{"user.first.keyword":"Alice"}},{"term":{"user.first.keyword":"John"}}]}}}}]}}],"must":[]}},"size":20,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{}}}}
+{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[{"bool":{"should":[{"nested":{"path":"user","query":{"bool":{"should":[{"term":{"user.first.keyword":"Alice"}},{"term":{"user.first.keyword":"John"}}]}}}}]}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{}}}}
 {"index":"imdb_movies"}
-{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[],"must":[]}},"size":1,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{}}}}
+{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[],"must":{"match_all":{}}}},"size":1,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{}}}}
 "
 `;
 
@@ -287,7 +287,7 @@ exports[`Nested Facets, filters and results one numeric facet 3`] = `
 
 exports[`Nested Facets, filters and results one numeric facet: ES Request 1`] = `
 "{"index":"my-index-000001"}
-{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.price$_stats":{"stats":{"field":"user.price"}},"user.price$_entries":{"terms":{"field":"user.price","size":10}}}}},"query":{"bool":{"filter":[{"nested":{"path":"user","query":{"bool":{"filter":[{"range":{"user.price":{"gte":"90"}}}]}}}}],"must":[]}},"size":20,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{}}}}
+{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.price$_stats":{"stats":{"field":"user.price"}},"user.price$_entries":{"terms":{"field":"user.price","size":10}}}}},"query":{"bool":{"filter":[{"nested":{"path":"user","query":{"bool":{"filter":[{"range":{"user.price":{"gte":"90"}}}]}}}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{}}}}
 "
 `;
 
@@ -360,6 +360,6 @@ exports[`Nested Facets, filters and results two nested facets 3`] = `
 
 exports[`Nested Facets, filters and results two nested facets: ES Request 1`] = `
 "{"index":"my-index-000001"}
-{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.price$_stats":{"stats":{"field":"user.price"}},"user.price$_entries":{"terms":{"field":"user.price","size":10}},"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[{"nested":{"path":"user","query":{"bool":{"filter":[{"range":{"user.price":{"gte":"90"}}}]}}}}],"must":[]}},"size":20,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{}}}}
+{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.price$_stats":{"stats":{"field":"user.price"}},"user.price$_entries":{"terms":{"field":"user.price","size":10}},"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[{"nested":{"path":"user","query":{"bool":{"filter":[{"range":{"user.price":{"gte":"90"}}}]}}}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{}}}}
 "
 `;

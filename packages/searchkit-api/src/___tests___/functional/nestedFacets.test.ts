@@ -84,7 +84,9 @@ describe('Nested Facets, filters and results', () => {
                   },
                 },
               ],
-              "must": [],
+              "must": {
+                "match_all": {},
+              },
             },
           }
         `)
@@ -176,7 +178,9 @@ describe('Nested Facets, filters and results', () => {
                   },
                 },
               ],
-              "must": [],
+              "must": {
+                "match_all": {},
+              },
             },
           }
         `)
@@ -264,7 +268,9 @@ describe('Nested Facets, filters and results', () => {
                   },
                 },
               ],
-              "must": [],
+              "must": {
+                "match_all": {},
+              },
             },
           }
         `)
@@ -364,7 +370,9 @@ describe('Nested Facets, filters and results', () => {
                   },
                 },
               ],
-              "must": [],
+              "must": {
+                "match_all": {},
+              },
             },
           }
         `)
