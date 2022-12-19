@@ -24,28 +24,43 @@ import { Tabs, Tab } from '../components/Tabs';
 
 </div>
 
-## How it works
-Searchkit uses Elasticsearch and provides an API that allows you to build a search experience with Algolia Instantsearch.
+## Features
+- **Elasticsearch support** - Searchkit is built on top of Elasticsearch, which means you can use the Elasticsearch query language to build your search experience.
+- **Instantsearch support** - Searchkit uses instantsearch, which means you can use the instantsearch libraries to build your search experience.
+- **Open source** - Searchkit is open source, which means you can use it for free and contribute to the project.
+- **Production Ready** - Searchkit sits in-between Elasticsearch and UI framework, which means it's battle tested and used in production by many companies.
+
+## Relevance Features
+- **Query Rules** - Query rules are a powerful feature that allows you to customize the behavior of the search experience. You can use query rules to boost or filter results, or to change the ranking of results. Read more about query rules [here](/docs/guides/query-rules)
+- **Full Power of Elasticsearch Query Language** - Searchkit supports the full Elasticsearch query language, which means you can use the Elasticsearch Query DSL to tune your relevance.
+- **Synonyms** - Synonyms Support (coming soon)
+- **Relevance Tuning** - Relevance Tuning (coming soon)
+
+## Instantsearch Support
+With Searchkit and instantsearch, you can build a great search experience with Elasticsearch. Compatible with [Vanilla](https://github.com/algolia/instantsearch.js), [React](https://github.com/algolia/react-instantsearch), [Vue InstantSearch](https://github.com/algolia/vue-instantsearch), [Angular InstantSearch](https://github.com/algolia/angular-instantsearch), and more.
+
+- **Facets** - Facets are a great way to filter your results. Searchkit supports a wide range of facets, including range facets, hierarchical facets, and more.
+- **Autocomplete** - Autocomplete is a great way to help users find what they're looking for. Searchkit supports autocomplete for both search and filters.
 
 ![overview](../public/searchkit-overview.png)
 
 Searchkit provides two public libraries:
 
-- [API](./reference/api) Node API which transforms instantsearch requests into Elasticsearch queries
-- [instantsearch-client](./reference/client) that integrates with the instantsearch library and the Searchkit's SDK.
+- [API](./api-documentation/api) Node API which transforms instantsearch requests into Elasticsearch queries
+- [instantsearch-client](./api-documentation/instantsearch-client) that integrates with the instantsearch library and the Searchkit's SDK.
 
 With Searchkit's API, you'll be able to use instantsearch frameworks to quickly build great search experiences with **Elasticsearch**.
 
-- [Instantsearch.js](https://github.com/algolia/instantsearch.js)
-- [React InstantSearch](https://github.com/algolia/react-instantsearch)
-- [Vue InstantSearch](https://github.com/algolia/vue-instantsearch)
-- [Angular InstantSearch](https://github.com/algolia/angular-instantsearch)
+## Community
 
-### How you can use it
+- [Discord](https://discord.gg/CRuWmSQZQx)
+- [Github Issues](https://github.com/searchkit/searchkit/issues)
+
+## How you can use it
 
 Once you have indexed your data in Elasticsearch, you can use Searchkit and instantsearch to query your data and display it in your app.
 
-#### Install the package
+### Installation
 Installing both the API and instantsearch-client is easy. You can install them with npm or yarn.
 
 <Tabs items={['npm', 'yarn']} storageKey="selected-pkg-manager">
@@ -61,17 +76,17 @@ Installing both the API and instantsearch-client is easy. You can install them w
   </Tab>
 </Tabs>
 
-#### Setup an API
+### Setup an API
 
 This creates an API which transforms the instantsearch requests sent from the browser into Elasticsearch queries and transforms the responses into instantsearch results.
 
 <Tabs items={['Next.js', 'Cloudflare Workers', 'express.js']} storageKey="selected-node-platform">
   <Tab>
 ```ts
-import API from "@searchkit/api";
+import Client from "@searchkit/api";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const api = API({
+const client = Client({
   connection: {
     host: "<elasticsearch-host>",
     apiKey: "<api-key>", // optional
@@ -89,16 +104,16 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const results = await api.handleRequest(req.body);
+  const results = await client.handleRequest(req.body);
   res.send(results);
 }
 ```
 </Tab>
 <Tab>
 ```ts
-import API from "@searchkit/api";
+import Client from "@searchkit/api";
 
-const api = API({
+const client = Client({
   connection: {
     host: "<elasticsearch-host>",
     apiKey: "<elasticsearch api-key>", // optional
@@ -116,7 +131,7 @@ const api = API({
 
 async function handleRequest(event: FetchEvent) {
   const body = await event.request.json();
-  const results = await api.handleRequest(body);
+  const results = await client.handleRequest(body);
 
   return new Response(JSON.stringify(results), {
     headers: {
@@ -136,9 +151,9 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-const API = require('@searchkit/api').default
+const Client = require('@searchkit/api').default
 
-const api = API({
+const client = Client({
   connection: {
     host: "<elasticsearch-host>",
     apiKey: "<elasticsearch api-key>", // optional
@@ -155,7 +170,7 @@ const api = API({
 });
 
 app.post('/api/search', async (req, res) => {
-    const results = await api.handleRequest(req.body);
+    const results = await client.handleRequest(req.body);
     res.send(results);
 })
 
@@ -167,7 +182,7 @@ app.listen(port, () => {
 </Tabs>
 
 
-#### Setup the Frontend
+### Setup the Frontend
 
 Using InstantSearch and the instantsearch-client is as simple as adding this JavaScript code to your page:
 
