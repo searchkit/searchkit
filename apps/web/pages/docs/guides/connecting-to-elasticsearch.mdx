@@ -50,13 +50,25 @@ const client = Client({
 })
 ```
 
+### Connecting to Elasticsearch with custom headers
+
+If you are using Elasticsearch with a proxy, you may need to add custom headers to the request. You can do this by setting the `connection.headers` field in the configuration object, within the Node app.
+
+```ts
+const client = Client({
+  connection: {
+    host: "http://localhost:9200",
+    headers: {
+      "X-My-Header": "My-Value"
+    }
+  }
+})
+```
+
+
 ### Connecting to Opensearch
 
-Searchkit does not provide out of the box support for Opensearch. However, you can connect to Opensearch by using a custom transport.
-
-You can use this for more complex authentication connections with Elasticsearch or Opensearch.
-
-You can find an example of a custom transport below.
+Searchkit does not provide out of the box support for Opensearch. Depending on your use case, you may be able to use the default transport with headers. If you need to use a custom transport, you can do so by implementing the `Transporter` interface.
 
 ```ts
 

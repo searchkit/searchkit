@@ -37,7 +37,11 @@ The client is built in a way to simplify the integration with multiple node serv
 const client = Client({
   connection: {
     host: "https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243",
-    apiKey: "a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw==", // optional
+    apiKey: "a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw==", // optional apiKey
+    headers: { // optional headers sent to Elasticsearch. Useful for basic auth
+      "Authorization", 'Basic ' + Buffer.from(username + ":" + password).toString('base64'),
+      "my-custom-header": "my-custom-value"
+    },
   },
   search_settings: {
     highlight_attributes: ["title", "actors"],
@@ -60,6 +64,7 @@ const client = Client({
 
 - `host` - Elasticsearch url host
 - `apiKey` - Elasticsearch API key. This is optional but strongly recommended for production environments. You can create an API key via [Kibana](https://www.elastic.co/guide/en/kibana/master/api-keys.html).
+- `headers` - Additional headers to pass to Elasticsearch. This is optional.
 
 Connection also supports implementing your own connector to Elasticsearch. You can do this by passing in a transporter instance through `connection`.
 

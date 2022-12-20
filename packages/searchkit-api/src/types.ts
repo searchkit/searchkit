@@ -30,6 +30,7 @@ export type FilterAttribute = {
 export interface ClientConfigConnection {
   host: string
   apiKey?: string
+  headers?: Record<string, string>
 }
 
 export type FacetAttribute = string | FacetFieldConfig

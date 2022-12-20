@@ -11,7 +11,8 @@ export class ESTransporter implements Transporter {
       const response = await fetch(`${this.config.host}/_msearch`, {
         headers: {
           ...(this.config.apiKey ? { authorization: `ApiKey ${this.config.apiKey}` } : {}),
-          'content-type': 'application/json'
+          'content-type': 'application/json',
+          ...(this.config.headers || {})
         },
         body: createElasticsearchQueryFromRequest(requests),
         method: 'POST'

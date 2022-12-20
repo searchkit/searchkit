@@ -5,11 +5,7 @@ import {
   nonDynamicFacetRequestOneFilter,
   NumericFiltersExampleRequest
 } from '../mocks/AlgoliaRequests'
-import type {
-  AlgoliaMultipleQueriesQuery,
-  ElasticsearchResponseBody,
-  Transporter
-} from '@searchkit/api'
+import type { AlgoliaMultipleQueriesQuery } from '@searchkit/api'
 
 import nock from 'nock'
 import {
@@ -181,43 +177,6 @@ describe('Integration tests', () => {
       )
 
       expect(response).toMatchSnapshot()
-    })
-  })
-
-  describe('Transporter', () => {
-    it('should allow overriding the transporter', async () => {
-      class MyCustomTransporter implements Transporter {
-        constructor() {}
-        async msearch() {
-          return HitsWithNoQueryOrFiltersResponse.responses as ElasticsearchResponseBody[]
-        }
-      }
-
-      const customTransporter = new MyCustomTransporter()
-
-      jest.spyOn(customTransporter, 'msearch')
-
-      const client = Client({
-        connection: customTransporter,
-        search_settings: {
-          highlight_attributes: ['title', 'actors'],
-          search_attributes: ['title', 'actors', 'query'],
-          result_attributes: ['title', 'actors', 'query'],
-          facet_attributes: [
-            'type',
-            { field: 'actors.keyword', attribute: 'actors', type: 'string' },
-            'rated',
-            { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' }
-          ]
-        }
-      })
-
-      const response = await client.handleInstantSearchRequests(
-        nonDynamicFacetRequest as AlgoliaMultipleQueriesQuery[]
-      )
-
-      expect(customTransporter.msearch).toBeCalled()
-      expect(response)
     })
   })
 })
