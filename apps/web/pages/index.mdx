@@ -4,6 +4,7 @@ title: Great search experiences, made easy with Elasticsearch and Instantsearch
 
 import Image from "next/image";
 import { IntroButtons } from '../components/promo-page/IntroButtons';
+import { FeatureBreakout } from '../components/promo-page/FeatureBreakout'
 import { Tabs, Tab } from '../components/Tabs';
 
 <div className="pt-4 m-auto text-left">
@@ -24,37 +25,16 @@ import { Tabs, Tab } from '../components/Tabs';
 
 </div>
 
-## Features
-- **Elasticsearch support** - Searchkit is built on top of Elasticsearch, which means you can use the Elasticsearch query language to build your search experience.
-- **Instantsearch support** - Searchkit uses instantsearch, which means you can use the instantsearch libraries to build your search experience.
-- **Open source** - Searchkit is open source, which means you can use it for free and contribute to the project.
-- **Production Ready** - Searchkit sits in-between Elasticsearch and UI framework, which means it's battle tested and used in production by many companies.
+<FeatureBreakout title="Full power of Elasticsearch" description="Searchkit is built on top of Elasticsearch, which means you can use the Elasticsearch query language to build your search experience." linkTitle="Start Tutorial" linkHref="/docs/getting-started" />
+<FeatureBreakout title="Algolia Instantsearch Compatible" description="Searchkit uses instantsearch, which means you can use the instantsearch libraries to build your search experience." linkTitle="Filters Docs" linkHref="/docs/guides/applying-filters" subtext="React, Vue. You don't even need frontend skills. Query Rules, Facets (Hierarchical, Ranges, Menus) all supported." />
+<FeatureBreakout title="Open source and free to use" description="Searchkit is open source, which means you can use it for free and contribute to the project. It's battle tested and used in production by many companies" linkTitle="View Github" linkHref="https://github.com/searchkit/searchkit" />
+<FeatureBreakout title="Run anywhere, your choice" description="Searchkit can integrate anywhere. Instantsearch provides support for many different frameworks. Searchkit API can run anywhere for node. Either in your code or in a worker within cloudflare. Your choice" linkTitle="Cloudflare example" linkHref="/docs/examples/cloudflare-workers" />
 
-## Relevance Features
-- **Query Rules** - Query rules are a powerful feature that allows you to customize the behavior of the search experience. You can use query rules to boost or filter results, or to change the ranking of results. Read more about query rules [here](/docs/guides/query-rules)
-- **Full Power of Elasticsearch Query Language** - Searchkit supports the full Elasticsearch query language, which means you can use the Elasticsearch Query DSL to tune your relevance.
-- **Synonyms** - Synonyms Support (coming soon)
-- **Relevance Tuning** - Relevance Tuning (coming soon)
+<h2 className="text-left md:text-left text-3xl tracking-tight font-extrabold text-gray-100 sm:text-3xl lg:text-3xl xl:text-3xl mt-12">Search Relevance Features</h2>
 
-## Instantsearch Support
-With Searchkit and instantsearch, you can build a great search experience with Elasticsearch. Compatible with [Vanilla](https://github.com/algolia/instantsearch.js), [React](https://github.com/algolia/react-instantsearch), [Vue InstantSearch](https://github.com/algolia/vue-instantsearch), [Angular InstantSearch](https://github.com/algolia/angular-instantsearch), and more.
-
-- **Facets** - Facets are a great way to filter your results. Searchkit supports a wide range of facets, including range facets, hierarchical facets, and more.
-- **Autocomplete** - Autocomplete is a great way to help users find what they're looking for. Searchkit supports autocomplete for both search and filters.
-
-![overview](../public/searchkit-overview.png)
-
-Searchkit provides two public libraries:
-
-- [API](./api-documentation/api) Node API which transforms instantsearch requests into Elasticsearch queries
-- [instantsearch-client](./api-documentation/instantsearch-client) that integrates with the instantsearch library and the Searchkit's SDK.
-
-With Searchkit's API, you'll be able to use instantsearch frameworks to quickly build great search experiences with **Elasticsearch**.
-
-## Community
-
-- [Discord](https://discord.gg/CRuWmSQZQx)
-- [Github Issues](https://github.com/searchkit/searchkit/issues)
+<FeatureBreakout title="Query Rules" description="Query rules are a powerful feature that allows you to customize the behavior of the search experience. You can use query rules to boost or filter results, or to change the ranking of results." linkTitle="Query Rules Docs" linkHref="/docs/guides/query-rules" />
+<FeatureBreakout title="Semantic Search Capable" description="Searchkit supports the full power of Elasticsearch, which means you can use the Elasticsearch Query DSL to tune your relevance and use features like Elasticsearch semantic search." />
+<FeatureBreakout title="Your own Custom Query" description="Override Searchkit's Query and provide your own, tuned to your relevance needs." linkTitle="Customise Query Docs" linkHref="/docs/guides/customising-query" />
 
 ## Quick Start
 
@@ -281,6 +261,10 @@ export default App;
 </Tab>
 </Tabs>
 
+## Community
+
+- [Discord](https://discord.gg/CRuWmSQZQx)
+- [Github Issues](https://github.com/searchkit/searchkit/issues)
 
 #### IMDB Movies Example
 
