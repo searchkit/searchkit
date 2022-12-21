@@ -9,7 +9,7 @@ export const FeatureBreakout = ({ title, description, linkTitle, linkHref, image
             {subtext && <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">{subtext}</p>}
             {linkHref && <div className="mt-5 mx-auto sm:flex md:justify-left md:mt-8">
               <div className="rounded-md shadow">
-                <a className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-200 bg-gray-800 hover:bg-gray-200 focus:outline-none focus:border-gray-500 focus:shadow-outline-white transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10" href={linkHref}>{linkTitle}</a>
+                <a className="w-full flex items-center justify-center px-6 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-gray-200 bg-gray-800 hover:bg-gray-700 focus:outline-none focus:border-gray-500 focus:shadow-outline-white transition duration-150 ease-in-out md:py-3 md:text-md md:px-4" href={linkHref}>{linkTitle}</a>
               </div>
             </div>
 }
