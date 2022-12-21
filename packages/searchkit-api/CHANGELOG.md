@@ -1,5 +1,12 @@
 # @searchkit/api
 
+## 4.0.0-next.10
+
+### Minor Changes
+
+- 6b364816: query rules: query rewrite fix
+- 2c4748df: Custom headers support for elasticsearch connection
+
 ## 4.0.0-next.9
 
 ### Patch Changes
