@@ -140,8 +140,7 @@ const getQuery = (
   queryRuleActions: QueryRuleActions,
   requestOptions?: RequestOptions
 ) => {
-  const { params = {} } = request
-  const { query } = params
+  const query = queryRuleActions.query
 
   const searchAttributes = config.search_attributes
 
