@@ -146,10 +146,10 @@ const getRenderingContent = (config: SearchSettingsConfig, queryRuleActions: Que
 const getPageDetails = (
   response: ElasticsearchResponseBody,
   request: AlgoliaMultipleQueriesQuery,
-  config: SearchSettingsConfig
+  queryRuleActions: QueryRuleActions
 ) => {
   const { params = {} } = request
-  const { hitsPerPage = 20, page = 0, query = '' } = params
+  const { hitsPerPage = 20, page = 0 } = params
 
   const { total } = response.hits
   const totalHits = typeof total === 'number' ? total : total?.value
@@ -161,7 +161,7 @@ const getPageDetails = (
     nbHits: totalHits,
     page: page,
     nbPages,
-    query
+    query: queryRuleActions.query
   }
 }
 
@@ -177,7 +177,7 @@ export default function transformResponse(
       exhaustiveFacetsCount: true,
       exhaustiveTypo: true,
       exhaustive: { facetsCount: true, nbHits: true, typo: true },
-      ...getPageDetails(response, instantsearchRequest, config),
+      ...getPageDetails(response, instantsearchRequest, queryRuleActions),
       ...getRenderingContent(config, queryRuleActions),
       ...getFacets(response, config),
       hits: getHits(response, config),

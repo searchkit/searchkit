@@ -54,6 +54,10 @@ const client = Client(
             {
               action: 'RenderFacetsOrder',
               facetAttributesOrder: ['type']
+            },
+            {
+              action: 'QueryRewrite',
+              query: 'one'
             }
           ]
         },
