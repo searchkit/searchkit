@@ -46,17 +46,26 @@ class Client {
       return getQueryRulesActionsFromRequest(queryRules, request)
     })
 
-    const esRequests: SearchRequest[] = instantsearchRequests.map((request, i) => ({
+    let esRequests: SearchRequest[] = instantsearchRequests.map((request, i) => ({
       body: transformRequest(
         request,
         this.config.search_settings,
         requestQueryRuleActions[i],
         requestOptions
       ),
+      request: request,
       indexName: request.indexName
     }))
 
-    const esResponses = await this.performSearch(esRequests)
+    if (requestOptions?.hooks?.beforeSearch) {
+      esRequests = await requestOptions.hooks.beforeSearch(esRequests)
+    }
+
+    let esResponses = await this.performSearch(esRequests)
+
+    if (requestOptions?.hooks?.afterSearch) {
+      esResponses = await requestOptions.hooks.afterSearch(esRequests, esResponses)
+    }
 
     const instantsearchResponses = esResponses.map((response, i) => {
       // @ts-ignore

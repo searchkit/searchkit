@@ -1,0 +1,125 @@
+---
+title: Learn to Rank
+description: Integrate Learn to Rank with Metarank
+---
+
+# Learn to Rank
+
+Learn to Rank is a machine learning technique that allows you to train a model to rank search results. The model is trained using a set of features and a set of relevance judgements. The model is then used to rank search results.
+
+In this guide, you will learn how to integrate Learn to Rank with Metarank and Searchkit. You can learn more about Learn to Rank with Metarank in the [Metarank documentation](https://metarank.io/docs/learn-to-rank).
+
+We assume in this guide that you have:
+- Installed Metarank and Searchkit
+- Trained a model using Metarank
+- Setup the features and relevance judgements for your model
+
+## Changes to Searchkit UI
+
+Metarank requires session id and user id to be sent with each search request. One way to do this is in the `@searchkit/instantsearch-client` and provide the session id and user id via headers:
+
+```js
+const searchClient = Client({
+  url: "/api/search",
+  headers: {
+    "x-session-id": "my-session-id",
+    "x-user-id": "my-user-id",
+  },
+});
+```
+
+## Changes to the Searchkit API
+
+To integrate Learn to Rank with Searchkit, we will use the hooks for `beforeSearch` and `afterSearch`. These hooks allow us to modify the query and the results before they are sent to Elasticsearch and returned to the UI.
+
+We will use the `afterSearch` hook to send the results to the Metarank API and update the results with the new order.
+
+```ts
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+
+  const headers = req.headers
+  
+  const results = await client.handleRequest(req.body, {
+    hooks: {
+      afterSearch: async (searchRequests, searchResponses) => {
+        // Get the first search request
+        const [uiRequest, otherRequests] = searchRequests;
+        // Get the first search response
+        const [uiResponse, otherResponses] = searchResponses;
+
+        // Get the session id and user id from the headers
+        const sessionId = headers["x-session-id"];
+        const userId = headers["x-user-id"];
+
+        // Get the query from the first search request
+        const query = uiRequest.body.query;
+
+        // Get the results from the first search response
+        const results = uiResponse.body.hits.hits;
+
+
+        // Send the request to the Metarank API
+        const response = await fetch("http://localhost:8080/rank/xgboost", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            session: sessionId,
+            user: userId,
+            fields: [ 
+              { name: "query", value: query }
+            ],
+            timestamp: (new Date()).getTime(),
+            items: results.map((item) => {
+              return {
+                id: item._id,
+                // an optional array of extra fields that you can use in your model
+                fields: [
+                  { name: "title", value: item._source.title },
+                  { name: "description", value: item._source.description },
+                  { name: "url", value: item._source.url },
+                ],
+              };
+            }})
+          }),
+        });
+
+        // Get the response from the Metarank API
+        const metarankResponse = await response.json();
+
+        // Get the items order from the response
+        const items = metarankResponse.items;
+
+        // Update the order of the results for the first 20 results
+        const updatedResults = items.map((item) => {
+          const result = results.find((result) => result._id === item.id);
+          return result
+        });
+
+        // Update the results in the first search response
+        const updatedUiResponse = {
+          ...uiResponse,
+          body: {
+            ...uiResponse.body,
+            hits: {
+              ...uiResponse.body.hits,
+              hits: updatedResults,
+            },
+          },
+        };
+
+        return [
+          updatedUiResponse,
+          ...otherResponses
+        ];
+      }
+    }
+  });
+
+}
+```
+
+
+
+

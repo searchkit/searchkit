@@ -218,6 +218,18 @@ export default async function handler(
 }
 ```
 
+#### Parameters
+
+The `handleRequest` function takes in the following parameters:
+
+- **body** - The request body containing the search requests.
+- **options** - The options object containing the following properties:
+  - **getQuery** - The function used to override the default Elasticsearch query.
+  - **getBaseFilters** - The function used to provide the base Elasticsearch filters. These filters are applied to all search requests.
+  - **hooks** - The hooks object containing the following properties:
+    - **beforeSearch** - The function that is invoked before the search request is executed.
+    - **afterSearch** - The function that is invoked after the search response is received.  
+
 #### `getQuery` optional function
 
 The `getQuery` function is used to override the default Elasticsearch query. The function must return an Elasticsearch query. You can read more about the Elasticsearch query DSL [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html).
@@ -360,7 +372,6 @@ Below is an example of an `afterSearch` hook that logs the search response to th
   - **indexName** - The Elasticsearch index name.
   - **body** - The Elasticsearch request body query.
   - **request** - The state requested from the UI. Contains attributes like query, filters, sort, size and more.
-
 - **searchResponse** - The search responses array which is used to render the search results UI.
 
 ### Debug mode
