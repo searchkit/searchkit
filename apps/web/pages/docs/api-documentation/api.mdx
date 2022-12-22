@@ -11,12 +11,12 @@ It is available as `@searchkit/api` on npm.
 <Tabs items={['npm', 'yarn']} storageKey="selected-package-manager">
 <Tab>
 ```sh
-npm install @searchkit/api
+npm install @searchkit/api@latest
 ```
 </Tab>
 <Tab>
 ```sh
-yarn add @searchkit/api
+yarn add @searchkit/api@latest
 ```
 </Tab>
 </Tabs>
@@ -275,6 +275,93 @@ To see the full Elasticsearch query that is executed to Elasticsearch, you can r
     }
   });
 ```
+
+### Hooks
+
+Hooks are functions that are invoked at different stages of the search request. Hooks are useful if you want to perform some action before or after the search request is executed.
+
+#### `beforeSearch` hook function
+
+The `beforeSearch` hook is invoked before the search request is executed. This hook is useful if you want to perform some action before the search request is executed.
+
+Examples include:
+- Learn to rank
+- Semantic search
+- A/B testing
+
+Below is an example of a `beforeSearch` hook that adds a `rescore` query to the Elasticsearch query.
+
+To see the full Elasticsearch query that is executed to Elasticsearch, you can run the client in debug mode (see below).
+
+```ts
+  const results = await client.handleRequest(req.body, {
+    hooks: {
+      beforeSearch: (searchRequests) => {
+        const uiRequest = searchRequests[0]
+
+        return [
+          {
+            ...uiRequest,
+            rescore: {
+              window_size: 100,
+              query: {
+                rescore_query: {
+                  match: {
+                    plot: {
+                      query: uiRequest.query,
+                      operator: "and",
+                    },
+                  },
+                },
+                query_weight: 1,
+                rescore_query_weight: 10,
+              }
+            }
+          },
+          searchRequests.slice(1, searchRequests.length)
+        ]
+        
+      },
+    }
+  });
+```
+
+##### Function Parameters
+
+- **searchRequests** - An array of `SearchRequest` objects. Each `SearchRequest` object contains the following properties:
+  - **indexName** - The Elasticsearch index name.
+  - **body** - The Elasticsearch request body query.
+  - **request** - The state requested from the UI. Contains attributes like query, filters, sort, size and more.
+
+#### `afterSearch` hook function
+
+The `afterSearch` hook is invoked after the search response is received. This hook is useful if you want to perform some action after the search response is received.
+
+Examples include:
+- Logging
+- Analytics
+
+Below is an example of an `afterSearch` hook that logs the search response to the console.
+
+```ts
+  const results = await client.handleRequest(req.body, {
+    hooks: {
+      afterSearch: (searchRequests, searchResponses) => {
+        console.log(searchResponses);
+        return searchResponses;
+      },
+    },
+  });
+```
+
+##### Function Parameters
+
+- **searchRequests** - An array of `SearchRequest` objects. Each `SearchRequest` object contains the following properties:
+  - **indexName** - The Elasticsearch index name.
+  - **body** - The Elasticsearch request body query.
+  - **request** - The state requested from the UI. Contains attributes like query, filters, sort, size and more.
+
+- **searchResponse** - The search responses array which is used to render the search results UI.
 
 ### Debug mode
 
