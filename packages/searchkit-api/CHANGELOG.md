@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.0.0-next.11
+
+### Patch Changes
+
+- 0d970a91: Add beforeSearch & afterSearch hook to transform requests
+
 ## 4.0.0-next.10
 
 ### Minor Changes
