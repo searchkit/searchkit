@@ -21,3 +21,41 @@ const results = await apiClient.handleRequest(req.body, {
   },
 });
 ```
+
+You can also use the hooks to customise the query. For example, to add a rescore query to the default query.
+
+Read more about [hooks](/docs/api-documentation/api#Hooks) in api-documentation.
+
+```ts
+  const results = await client.handleRequest(req.body, {
+    hooks: {
+      beforeSearch: (searchRequests) => {
+        const uiRequest = searchRequests[0]
+
+        return [
+          {
+            ...uiRequest,
+            rescore: {
+              window_size: 100,
+              query: {
+                rescore_query: {
+                  match: {
+                    plot: {
+                      query: uiRequest.query,
+                      operator: "and",
+                    },
+                  },
+                },
+                query_weight: 1,
+                rescore_query_weight: 10,
+              }
+            }
+          },
+          searchRequests.slice(1, searchRequests.length)
+        ]
+        
+      },
+    }
+  });
+```
+
