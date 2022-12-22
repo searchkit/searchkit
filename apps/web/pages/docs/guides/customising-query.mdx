@@ -26,6 +26,80 @@ You can also use the hooks to customise the query. For example, to add a rescore
 
 Read more about [hooks](/docs/api-documentation/api#Hooks) in api-documentation.
 
+### Example of adding a rescore query
+
+```ts
+  const results = await client.handleRequest(req.body, {
+    hooks: {
+      beforeSearch: (searchRequests) => {
+        const uiRequest = searchRequests[0]
+
+        return [
+          {
+            ...uiRequest,
+            body: {
+              ...uiRequest.body,
+              rescore: {
+                window_size: 100,
+                query: {
+                  rescore_query: {
+                    match: {
+                      plot: {
+                        query: uiRequest.body.query,
+                        operator: "and",
+                      },
+                    },
+                  },
+                  query_weight: 1,
+                  rescore_query_weight: 10,
+                }
+              }
+            }
+          },
+          searchRequests.slice(1, searchRequests.length)
+        ]
+        
+      },
+    }
+  });
+```
+
+### Example of doing a KNN search
+
+An example of extending the query to do a hybrid search with KNN search and text search. Retrieves the search query provided in the UI and uses it to retrieve an image embedding from a custom image search API. Then extends the query to do a hybrid search with KNN search (with embedding) and text search. 
+
+```ts
+  const results = await client.handleRequest(req.body, {
+    hooks: {
+      beforeSearch: async (searchRequests) => {
+        const [uiRequest, ...restRequests] = searchRequests
+
+        // get an image embedding from the query text
+        const imageEmbedding = await getImageEmbeddingFromQueryText(uiRequest.params.query)
+
+        // extends the query to do a hybrid search with KNN search and text search
+        // https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search.html
+        return [
+          {
+            ...uiRequest,
+            body: {
+              ...uiRequest.body,
+              "knn": {
+                "field": "image-vector",
+                "query_vector": imageEmbedding,
+                "k": 10,
+                "num_candidates": 100
+              },
+            },
+          },
+          restRequests,
+        ];
+        
+      },
+    }
+  });
+```
+
 ```ts
   const results = await client.handleRequest(req.body, {
     hooks: {

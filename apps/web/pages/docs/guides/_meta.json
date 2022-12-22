@@ -3,7 +3,7 @@
   "setting-up-elasticsearch": "Setting up Elasticsearch",
   "query-rules": "Query Rules",
   "user-restricted-data": "User-restricted access to data",
-  "learning-to-rank": "Learning to Rank",
+  "learn-to-rank": "Learn to Rank",
   "applying-filters": "Applying Filters",
   "customising-query": "Customising the Query",
   "facets": "Configuring Facets"
