@@ -116,6 +116,7 @@ export interface ClientConfig {
 
 export type SearchRequest = {
   body: ElasticsearchSearchRequest
+  request: AlgoliaMultipleQueriesQuery
   indexName: string
 }
 
@@ -126,6 +127,24 @@ export interface RequestOptions {
     config: SearchSettingsConfig
   ) => ElasticsearchQuery | ElasticsearchQuery[] | undefined
   getBaseFilters?: () => ElasticsearchQuery[] | undefined
+  hooks?: {
+    /**
+     * @description Allows you to modify the search requests before they are sent to Elasticsearch
+     * @param requests An array of SearchRequest objects, each containing the body (elasticsearch query) and indexName of the request
+     * @returns An array of modified SearchRequest objects, each containing the body (elasticsearch query) and indexName of the request
+     */
+    beforeSearch?: (requests: SearchRequest[]) => Promise<SearchRequest[]>
+    /**
+     * @description Allows you to modify the search responses before its transformed into an InstantSearch response
+     * @param requests An array of SearchRequest objects, each containing the body (elasticsearch query) and indexName of the request
+     * @param responses An array of Elasticsearch Response objects
+     * @returns An array of modified Elasticsearch response objects
+     */
+    afterSearch?: (
+      requests: SearchRequest[],
+      responses: ElasticsearchResponseBody[]
+    ) => Promise<ElasticsearchResponseBody[]>
+  }
 }
 
 export interface Transporter {
