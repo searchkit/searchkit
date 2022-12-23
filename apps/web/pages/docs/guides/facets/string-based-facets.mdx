@@ -58,7 +58,7 @@ will result in the following mapping:
 
 Then you can use instantsearch components using the `brand` facet attribute.
 
-### Instantsearch Components
+### UI Components
 
 ```jsx filename="pages/search.tsx"
 import { RefinementList } from "react-instantsearch-dom";
@@ -147,20 +147,20 @@ To define a facet attribute for a nested field, you need to specify the path to 
 
 Then you can use instantsearch components using the `marketplace.supplier` facet attribute.
 
-# Instantsearch Components
+## UI Components
 
 The following instantsearch components are supported:
 
-## RefinementList Widget
+### RefinementList Widget
 
 The RefinementList component displays a list of facet values. When a value is selected, only results matching that value are displayed. More than one value can be selected at a time.
 
-![overview](../../../public/docs/refinementlist.png)
+![overview](../../../../public/docs/refinementlist.png)
 
 * React Storybook (https://react-instantsearch.netlify.app/storybook/?path=/story/refinementlist--default)
 * Instantsearch.js Storybook (https://instantsearchjs.netlify.app/stories/js/?path=/story/refinements-refinementlist--default)
 
-### Usage
+#### Usage
 
 ```jsx filename="pages/search.tsx"
 import { RefinementList } from "react-instantsearch-dom";
@@ -168,17 +168,17 @@ import { RefinementList } from "react-instantsearch-dom";
 <RefinementList attribute="brand" />;
 ```
 
-## Menu Widget
+### Menu Widget
 
 The menu component displays a list of facet values. When a value is selected, only results matching that value are displayed. Only one value can be selected at a time.
 
-![overview](../../../public/docs/menu.png)
+![overview](../../../../public/docs/menu.png)
 
 * React Storybook (https://react-instantsearch.netlify.app/storybook/?path=/story/menu--default)
 * Instantsearch.js Storybook (https://instantsearchjs.netlify.app/stories/js/?path=/story/refinements-menu--default)
 
 
-### Usage
+#### Usage
 
 ```jsx filename="pages/search.tsx"
 import { Menu } from "react-instantsearch-dom";
@@ -186,12 +186,12 @@ import { Menu } from "react-instantsearch-dom";
 <Menu attribute="brand" />;
 ```
 
-## Hierarchical Widget
+### Hierarchical Widget
 
 * React Storybook (https://react-instantsearch.netlify.app/storybook/?path=/story/hierarchicalmenu--default)
 * Instantsearch.js Storybook (https://instantsearchjs.netlify.app/stories/js/?path=/story/refinements-hierarchicalmenu--default)
 
-### Configuration
+#### Configuration
 
 Hierarchical facets are a special type of facet that allows you to create a hierarchy of facets. This is useful when you have a large number of facet values and want to group them into a hierarchy.
 
@@ -232,7 +232,7 @@ and we need to setup the following `facet_attributes`
 
 ```
 
-### Usage
+#### Usage
 
 ```jsx filename="pages/search.tsx"
 import { HierarchicalMenu } from "react-instantsearch-dom";
