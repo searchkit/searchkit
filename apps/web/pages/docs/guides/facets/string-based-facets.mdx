@@ -1,0 +1,247 @@
+---
+title: String based
+---
+
+Searchkit API supports a number of different instantsearch facet components. The following examples show what components are supported and how to add them to your search application.
+
+Below we will show how to setup a field in Elasticsearch to be used as a facet attribute. You will then be able to use the facet attribute with instantsearch components.
+
+### Defining a facet attribute
+
+By default, any string type field in Elasticsearch will be defined as a text field and a keyword subfield. The text field is used for full text search and the keyword field is used for aggregations.
+
+Read more about Elasticsearch dynamic field mapping in the [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/master/dynamic-field-mapping.html).
+
+The following document indexed in Elasticsearch:
+
+```json
+{
+  "brand": "Apple"
+}
+```
+
+will result in the following mapping:
+
+```json
+{
+  "properties": {
+    "brand": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}
+```
+
+ The keyword field is the field that should be used for facet attributes. In this case, the facet field should be `brand.keyword`.
+
+ You will then be able to define a facet attribute in Searchkit:
+
+### Simple Facet Attribute
+
+```ts
+{
+  facet_attributes: [
+    { 
+      attribute: 'brand', 
+      field: 'brand.keyword', 
+      type: 'string' 
+    },
+  ]
+}
+
+```
+
+Then you can use instantsearch components using the `brand` facet attribute.
+
+### Instantsearch Components
+
+```jsx filename="pages/search.tsx"
+import { RefinementList } from "react-instantsearch-dom";
+
+<RefinementList attribute="brand" />;
+```
+
+## Nested Fields Support
+
+Elasticsearch supports nested fields. This means that you can have a field that is an object with nested fields.
+
+Read more about nested fields in the [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/nested.html).
+
+#### Marketplace Example
+
+A product document may have one or more suppliers. Each supplier may have a different price for the product. The following document shows a product with two suppliers:
+
+```json
+{
+  "name": "AirPods",
+  "marketplace": [
+    {
+      "supplier": "Apple",
+      "price": 100,
+      "market": "Worldwide"
+    },
+    {
+      "supplier": "Dixons",
+      "price": 95,
+      "market": "GB"
+    }
+  ]
+}
+```
+
+The mapping for the `marketplace` field would be:
+
+```json
+{
+  "properties": {
+    "marketplace": {
+      "type": "nested",
+      "properties": {
+        "supplier": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          }
+        },
+        "price": {
+          "type": "integer"
+        },
+        "market": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Defining a facet attribute for a nested field
+
+To define a facet attribute for a nested field, you need to specify the path to the nested field.
+
+```ts
+{
+  facet_attributes: [
+    { 
+      attribute: 'marketplace.supplier', 
+      field: 'supplier.keyword', 
+      type: 'string',
+      nestedPath: 'marketplace'
+    },
+  ]
+}
+
+```
+
+Then you can use instantsearch components using the `marketplace.supplier` facet attribute.
+
+# Instantsearch Components
+
+The following instantsearch components are supported:
+
+## RefinementList Widget
+
+The RefinementList component displays a list of facet values. When a value is selected, only results matching that value are displayed. More than one value can be selected at a time.
+
+![overview](../../../public/docs/refinementlist.png)
+
+* React Storybook (https://react-instantsearch.netlify.app/storybook/?path=/story/refinementlist--default)
+* Instantsearch.js Storybook (https://instantsearchjs.netlify.app/stories/js/?path=/story/refinements-refinementlist--default)
+
+### Usage
+
+```jsx filename="pages/search.tsx"
+import { RefinementList } from "react-instantsearch-dom";
+
+<RefinementList attribute="brand" />;
+```
+
+## Menu Widget
+
+The menu component displays a list of facet values. When a value is selected, only results matching that value are displayed. Only one value can be selected at a time.
+
+![overview](../../../public/docs/menu.png)
+
+* React Storybook (https://react-instantsearch.netlify.app/storybook/?path=/story/menu--default)
+* Instantsearch.js Storybook (https://instantsearchjs.netlify.app/stories/js/?path=/story/refinements-menu--default)
+
+
+### Usage
+
+```jsx filename="pages/search.tsx"
+import { Menu } from "react-instantsearch-dom";
+
+<Menu attribute="brand" />;
+```
+
+## Hierarchical Widget
+
+* React Storybook (https://react-instantsearch.netlify.app/storybook/?path=/story/hierarchicalmenu--default)
+* Instantsearch.js Storybook (https://instantsearchjs.netlify.app/stories/js/?path=/story/refinements-hierarchicalmenu--default)
+
+### Configuration
+
+Hierarchical facets are a special type of facet that allows you to create a hierarchy of facets. This is useful when you have a large number of facet values and want to group them into a hierarchy.
+
+The following document indexed in Elasticsearch:
+
+```json
+{
+  "brand": "Apple",
+  "product": "Macbook Pro 14",
+  "category_lvl1": "Electronics",
+  "category_lvl2": "Electronics > Computers",
+  "category_lvl3": "Electronics > Computers > Laptops"
+}
+```
+
+and we need to setup the following `facet_attributes`
+
+```ts
+{
+  facet_attributes: [
+    { 
+      attribute: 'category_lvl1', 
+      field: 'category_lvl1.keyword', 
+      type: 'string' 
+    },
+    { 
+      attribute: 'category_lvl2', 
+      field: 'category_lvl2.keyword', 
+      type: 'string' 
+    },
+    { 
+      attribute: 'category_lvl3', 
+      field: 'category_lvl3.keyword', 
+      type: 'string' 
+    },
+  ]
+}
+
+```
+
+### Usage
+
+```jsx filename="pages/search.tsx"
+import { HierarchicalMenu } from "react-instantsearch-dom";
+
+<HierarchicalMenu
+  attributes={[
+    "category_lvl1",
+    "category_lvl2",
+    "category_lvl3",
+  ]}
+/>;
+```
