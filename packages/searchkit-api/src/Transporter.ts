@@ -36,9 +36,9 @@ export class ESTransporter implements Transporter {
         throw new Error(
           'Elasticsearch index not found. Check your index name and make sure it exists.'
         )
-      } else if (responses.status === 400) {
+      } else if (responses.status === 400 || responses.responses?.[0]?.status === 400) {
         throw new Error(
-          'Elasticsearch Bad Request. Check your query and make sure it is valid. Turn on debug mode to see the Elasticsearch query.'
+          'Elasticsearch Bad Request. Check your query and make sure it is valid. Check the field mapping. Turn on debug mode to see the Elasticsearch query.'
         )
       }
       return responses.responses
