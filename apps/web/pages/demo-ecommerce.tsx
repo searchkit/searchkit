@@ -28,6 +28,7 @@ export default function Web() {
       >
         <Configure
             ruleContexts={['ecommerce']}
+
         />
 
         <QueryRuleContext
@@ -47,7 +48,10 @@ export default function Web() {
               <HierarchicalMenu attributes={["categories_lvl1", "categories_lvl2", "categories_lvl3"]} searchable={true}/>
             </Panel>
             <Panel header="Designer Name">
-              <RefinementList attribute="designerName" searchable={true}/>
+              <RefinementList attribute="designerName" searchable={true} defaultRefinement={["TOM FORD"]} />
+            </Panel>
+            <Panel header="Price">
+              <RangeInput attribute="price" />
             </Panel>
           {/* </DynamicWidgets> */}
         </div>

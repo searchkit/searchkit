@@ -17,6 +17,7 @@ const apiClient = Client({
       { attribute: 'designerName', field: 'designerName.keyword', type: 'string' },
       { attribute: 'price', type: 'numeric', field: 'price' }
     ],
+    filter_attributes: [{ attribute: 'outOfStock', field: 'outOfStock', type: 'string' }],
     query_rules: []
   }
 })

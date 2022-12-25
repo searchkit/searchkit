@@ -1,0 +1,82 @@
+---
+title: Filtering by String
+---
+
+You can filter your search results by string values. This is useful for filtering by author, tags, or any other string value.
+
+## Setup a String field
+
+To filter by string, you must first add a keyword to your index.
+
+Indexing the following document into Elasticsearch will create a `author` field that can be used for filtering.
+
+```json
+{
+  "author": "John Doe" # could be ["John Doe", "Jane Doe"] for multiple authors
+}
+```
+
+and your mapping will look like this:
+
+```json
+{
+  "properties": {
+    "author": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}
+```
+
+## Filter Attribute Configuration
+
+Add a filter attribute to your index configuration. The filter attribute will be used to filter your search results by date.
+
+```ts
+ {
+  "filter_attributes": [
+    { attribute: 'author', field: 'author.keyword', type: 'string' },
+  ]
+ }
+
+```
+
+Alternatively, you can also add the attribute under `facet_attributes` to make it available for faceting.
+
+```ts
+ {
+  "facet_attributes": [
+    { attribute: 'author', field: 'author.keyword', type: 'string' }
+  ]
+ }
+
+```
+
+The attribute name must be unique in both `filter_attributes` and `facet_attributes`. If you want to use the same attribute for both filtering and faceting, add it to `facet_attributes` only.
+
+## Using Filter Attributes
+
+You can use the filter attribute in your search query to filter your search results by date within `configure`.
+
+
+### Syntax Examples
+Filters must follow the [Elasticsearch Query String](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html) format.
+
+```js
+ "author:John" # author is John
+ "author:John OR author:Jane" # author is John or Jane
+ "author:John AND author:Jane" # author is John and Jane
+```
+
+### Example
+
+```js title="Instantsearch.js - Configure"
+ client.configure({
+  filters: 'author:John'
+ })
+```

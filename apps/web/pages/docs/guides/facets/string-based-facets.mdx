@@ -56,9 +56,9 @@ will result in the following mapping:
 
 ```
 
-Then you can use instantsearch components using the `brand` facet attribute.
+### Frontend Usage
 
-### UI Components
+Then you can use instantsearch components using the `brand` facet attribute.
 
 ```jsx filename="pages/search.tsx"
 import { RefinementList } from "react-instantsearch-dom";
@@ -66,13 +66,65 @@ import { RefinementList } from "react-instantsearch-dom";
 <RefinementList attribute="brand" />;
 ```
 
+## Array based Values
+
+Elasticsearch supports array based values. This means that you can have a field that is an array of values.
+
+Read more about array based values in the [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html).
+
+### Defining a facet attribute for an array field
+
+An example of an array field is a `tags` field. The following document indexed in Elasticsearch:
+
+```json
+{
+  "tags": ["apple", "fruit"]
+}
+```
+
+will result in the following mapping:
+
+```json
+{
+  "properties": {
+    "tags": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}
+```
+
+The keyword field is the field that should be used for facet attributes. In this case, the facet field should be `tags.keyword`.
+
+You will then be able to define a facet attribute in Searchkit:
+
+```ts
+{
+  facet_attributes: [
+    { 
+      attribute: 'tags', 
+      field: 'tags.keyword', 
+      type: 'string' 
+    },
+  ]
+}
+
+```
+
+Then you can use instantsearch components using the `tags` facet attribute.
+
 ## Nested Fields Support
 
 Elasticsearch supports nested fields. This means that you can have a field that is an object with nested fields.
 
 Read more about nested fields in the [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/nested.html).
 
-#### Marketplace Example
+### Marketplace Example
 
 A product document may have one or more suppliers. Each supplier may have a different price for the product. The following document shows a product with two suppliers:
 

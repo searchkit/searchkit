@@ -20,6 +20,31 @@ const client = Client(
       ],
       query_rules: [
         {
+          conditions: [[]],
+          actions: [
+            {
+              action: 'RenderFacetsOrder',
+              facetAttributesOrder: ['type', 'actors', 'rated', 'metascore']
+            }
+          ]
+        },
+        {
+          conditions: [
+            [
+              {
+                context: 'filterPresent',
+                values: [{ attribute: 'type', value: 'movie' }]
+              }
+            ]
+          ],
+          actions: [
+            {
+              action: 'RenderFacetsOrder',
+              facetAttributesOrder: ['type', 'actors', 'rated', 'imdbrating', 'metascore']
+            }
+          ]
+        },
+        {
           conditions: [
             [
               {
