@@ -2,7 +2,7 @@
 
 exports[`Transport Errors 200 but bad response 1`] = `"Error transforming Elasticsearch response for index"`;
 
-exports[`Transport Errors 400 error 1`] = `"Elasticsearch Bad Request. Check your query and make sure it is valid. Turn on debug mode to see the Elasticsearch query."`;
+exports[`Transport Errors 400 error 1`] = `"Elasticsearch Bad Request. Check your query and make sure it is valid. Check the field mapping. Turn on debug mode to see the Elasticsearch query."`;
 
 exports[`Transport Errors 401 error 1`] = `"Cannot connect to Elasticsearch. Check your connection host and API Key. You can also provide a custom Elasticsearch transporter to the API Client. See docs for more information."`;
 
