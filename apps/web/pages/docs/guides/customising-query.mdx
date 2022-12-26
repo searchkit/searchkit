@@ -26,7 +26,15 @@ You can also use the hooks to customise the query. For example, to add a rescore
 
 Read more about [hooks](/docs/api-documentation/api#Hooks) in api-documentation.
 
-### Example of adding a rescore query
+## Query hooks
+
+Query hooks are functions that are called before and after the search request is sent to Elasticsearch. They can be used to modify the search request and response before it is sent to Elasticsearch and to the UI.
+
+Query hooks allow you to add custom logic to the search request and response. For example, you can add a rescore query to the default query, or add a custom query to the request.
+
+### Rescore Query Example
+
+Could be also used for Open source connections [Learn to rank plugin](https://elasticsearch-learning-to-rank.readthedocs.io/en/latest/) 
 
 ```ts
   const results = await client.handleRequest(req.body, {
@@ -100,36 +108,4 @@ An example of extending the query to do a hybrid search with KNN search and text
   });
 ```
 
-```ts
-  const results = await client.handleRequest(req.body, {
-    hooks: {
-      beforeSearch: (searchRequests) => {
-        const uiRequest = searchRequests[0]
-
-        return [
-          {
-            ...uiRequest,
-            rescore: {
-              window_size: 100,
-              query: {
-                rescore_query: {
-                  match: {
-                    plot: {
-                      query: uiRequest.query,
-                      operator: "and",
-                    },
-                  },
-                },
-                query_weight: 1,
-                rescore_query_weight: 10,
-              }
-            }
-          },
-          searchRequests.slice(1, searchRequests.length)
-        ]
-        
-      },
-    }
-  });
-```
 

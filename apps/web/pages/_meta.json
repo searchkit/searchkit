@@ -16,9 +16,8 @@
     "type": "page"
   },
   "examples": {
-    "title": "Examples",
-    "type": "page",
-    "display": "hidden"
+    "title": "Code Examples",
+    "type": "page"
   },
   "demo": {
     "title": "Demo",

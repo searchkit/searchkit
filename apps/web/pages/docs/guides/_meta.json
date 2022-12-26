@@ -1,11 +1,10 @@
 {
+  "setup-elasticsearch": "Setup Elasticsearch",
+  "indexing-data": "Indexing Data",
   "facets": "Facets",
   "filters": "Filters",
   "query-rules": "Query Rules",
-  "connecting-to-elasticsearch": "Connecting to Elasticsearch",
-  "setting-up-elasticsearch": "Setting up Elasticsearch",
+  "customising-query": "Customise Query",
   "user-restricted-data": "User-restricted access to data",
-  "learn-to-rank": "Learn to Rank",
-  "applying-filters": "Applying Filters",
-  "customising-query": "Customising the Query"
+  "learn-to-rank": "Learn to Rank"
 }

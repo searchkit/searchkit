@@ -1,21 +1,11 @@
 ---
-title: Indexing data into Elasticsearch
+title: Indexing data
 description: Indexing data into Elasticsearch for use with Instantsearch and Searchkit
 ---
 
-## Setting up Elasticsearch
+## Setting up an Index
 
-This tutorial will guide you through the process of setting up Elasticsearch, to be used with Instantsearch and Searchkit. We will be using a sample movie data-set of around 1000 movies.
-
-Within this tutorial, we assume that you have Node.js installed on your machine.
-
-### Step 1: Setup Elasticsearch
-
-First we need to setup Elasticsearch. The easiest way to do this is to create an Elasticsearch instance via [Elastic Cloud](https://cloud.elastic.co/registration).
-
-#### Setting up an Index
-
-We are going to issue commands via Kibana's dev tools console. You can alternatively use a REST client like Postman to achieve this.
+We are going to issue commands via Kibana's dev tools console. You can alternatively use a REST client like Postman or curl to achieve this.
 
 First we need to create an index for our data. We can do this simply via the following request:
 
@@ -56,7 +46,11 @@ Once saved, you are presented with the api-key. Copy this and keep it safe. We w
 
 Next we need to setup the index fields, ready for us to ingest data.
 
-The mapping for an index depends on the data you want to index and the features you want.
+The mapping for an index depends on the data you want to index and the features you want. 
+
+When you index data, Elasticsearch will automatically detect the data type of the field and create a mapping for it. However, you can also explicitly define the mapping for an index. This is useful when you want to define the mapping before you index any data, or when you want to change the mapping for an existing index.
+
+Some of the mapping features required are mentioned in [filters](/docs/guides/filters) and [facets](/docs/guides/facets).
 
 #### Examples
 
