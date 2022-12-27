@@ -1,5 +1,23 @@
 {
-  "cloudflare-workers": "Cloudflare Worker",
-  "sandbox-template": "CodeSandbox Template",
-  "instantsearch-js-template": "Instantsearch JS Template"
+  "cloudflare-workers": {
+    "title": "Cloudflare Worker",
+    "theme": {
+      "toc": false,
+      "layout": "full"
+    }
+  },
+  "sandbox-template": {
+    "title": "CodeSandbox Template",
+    "theme": {
+      "toc": false,
+      "layout": "full"
+    }
+  },
+  "instantsearch-js-template": {
+    "title": "Instantsearch JS Template",
+    "theme": {
+      "toc": false,
+      "layout": "full"
+    }
+  }
 }
