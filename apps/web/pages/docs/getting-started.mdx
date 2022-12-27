@@ -1,0 +1,262 @@
+---
+title: Quick Start with Searchkit
+---
+
+import { Callout, Tabs, Tab } from 'nextra-theme-docs'
+
+## Quick Start
+
+<Callout type="info">
+  This guide presumes you have an Elasticsearch index with data in it. If you need help with that, check out our [Setup Elasticsearch guide](/docs/guides/setup-elasticsearch) or our [Indexing data guide](/docs/guides/indexing-data).
+</Callout>
+
+Once you have indexed your data in Elasticsearch, you can use Searchkit and instantsearch to query your data and display it in your app.
+
+### Installation
+Installing both the API and instantsearch-client is easy. You can install them with npm or yarn.
+
+<Tabs items={['npm', 'yarn']} storageKey="selected-pkg-manager">
+  <Tab>
+  ```bash
+  npm install @searchkit/api@latest @searchkit/instantsearch-client@latest
+  ```
+  </Tab>
+  <Tab>
+      ```bash
+  yarn add @searchkit/api@latest @searchkit/instantsearch-client@latest
+  ```
+  </Tab>
+</Tabs>
+
+### Setup an API
+
+This creates an API which transforms the instantsearch requests sent from the browser into Elasticsearch queries and transforms the responses into instantsearch results.
+
+<Tabs items={['Next.js', 'Cloudflare Workers', 'express.js']} storageKey="selected-node-platform">
+  <Tab>
+```ts
+import Client from "@searchkit/api";
+import { NextApiRequest, NextApiResponse } from "next";
+
+const client = Client({
+  connection: {
+    host: "<elasticsearch-host>",
+    apiKey: "<api-key>", // optional
+  },
+  search_settings: {
+    highlight_attributes: ["title", "actors"],
+    search_attributes: ["title", "actors"],
+    result_attributes: ["title", "actors"],
+    facet_attributes: ["type", "rated"],
+  },
+});
+
+// example API handler for Next.js
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const results = await client.handleRequest(req.body);
+  res.send(results);
+}
+```
+</Tab>
+<Tab>
+```ts
+import Client from "@searchkit/api";
+
+const client = Client({
+  connection: {
+    host: "<elasticsearch-host>",
+    apiKey: "<elasticsearch api-key>", // optional
+  },
+  search_settings: {
+    highlight_attributes: ["title", "actors"],
+    search_attributes: ["title", "actors", "query"],
+    result_attributes: ["title", "actors", "query"],
+    facet_attributes: [
+      "type",
+      { attribute: "actors", field: "actors.keyword" },
+    ],
+  },
+});
+
+async function handleRequest(event: FetchEvent) {
+  const body = await event.request.json();
+  const results = await client.handleRequest(body);
+
+  return new Response(JSON.stringify(results), {
+    headers: {
+      "content-type": "application/json",
+    }
+  });
+}
+
+addEventListener("fetch", (event) => {
+  return event.respondWith(handleRequest(event));
+});
+```
+</Tab>
+<Tab>
+```ts
+const express = require('express')
+const app = express()
+const port = 3000
+
+const Client = require('@searchkit/api').default
+
+const client = Client({
+  connection: {
+    host: "<elasticsearch-host>",
+    apiKey: "<elasticsearch api-key>", // optional
+  },
+  search_settings: {
+    highlight_attributes: ["title", "actors"],
+    search_attributes: ["title", "actors", "query"],
+    result_attributes: ["title", "actors", "query"],
+    facet_attributes: [
+      "type",
+      { attribute: "actors", field: "actors.keyword" },
+    ],
+  },
+});
+
+app.post('/api/search', async (req, res) => {
+    const results = await client.handleRequest(req.body);
+    res.send(results);
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+```
+</Tab>
+</Tabs>
+
+
+### Setup the Frontend
+
+Using InstantSearch and the instantsearch-client is as simple as adding this JavaScript code to your page:
+
+<Tabs items={['React', 'Vanilla JS']} storageKey="selected-frontend-platform">
+  <Tab>
+```tsx
+import React from "react";
+import ReactDOM from "react-dom";
+import Client from "@searchkit/instantsearch-client";
+import { InstantSearch, SearchBox, Hits } from "react-instantsearch-dom";
+
+const searchClient = Client({
+  url: "/api/search", // API url
+});
+
+const App = () => (
+  <InstantSearch indexName="bestbuy" searchClient={searchClient}>
+    <SearchBox />
+    <Hits />
+  </InstantSearch>
+);
+
+export default App;
+```
+</Tab>
+<Tab>
+```html
+<html>
+  <head>
+    <title>Express</title>
+    <script src="https://cdn.jsdelivr.net/npm/@searchkit/instantsearch-client@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+
+  <body>
+    <div class="ais-InstantSearch">
+
+      <div class="left-panel">
+        <h2>Type</h2>
+        <div id="type-list"></div>
+      </div>
+      <div class="right-panel">
+        <div id="searchbox" class="ais-SearchBox"></div>
+        <div id="hits"></div>
+        <div id="pagination"></div>
+      </div>
+    </div>
+    <script>
+      /* global instantsearch algoliasearch */
+
+      const search = instantsearch({
+        indexName: "imdb_movies",
+        searchClient: SearchkitInstantsearchClient({
+          url: "https://ises-cfw.es-search.workers.dev"
+        })
+      });
+
+      search.addWidgets([
+        instantsearch.widgets.searchBox({
+          container: "#searchbox"
+        }),
+        instantsearch.widgets.refinementList({
+          container: "#type-list",
+          attribute: "type"
+        }),
+        instantsearch.widgets.hits({
+          container: "#hits",
+          templates: {
+            item: `
+        <div>
+          <div class="hit-name">
+            {{#helpers.highlight}}{ "attribute": "title" }{{/helpers.highlight}}
+          </div>
+          <div class="hit-description">
+            {{#helpers.highlight}}{ "attribute": "actors" }{{/helpers.highlight}}
+          </div>
+        </div>
+      `
+          }
+        }),
+        instantsearch.widgets.pagination({
+          container: "#pagination"
+        })
+      ]);
+
+      search.start();
+    </script>
+  </body>
+</html>
+```
+</Tab>
+</Tabs>
+
+## Adding Filters and Facets
+
+Filters and facets provide your users with a way to narrow down their search results. 
+
+Follow the [filters guide](/docs/guides/filters) or [facets guide](/docs/guides/facets) to add filters and facets to your search.
+
+## Customising the UI
+
+You can customise the UI of your search results by using Instantsearch.
+
+Searchkit is compatible with the following InstantSearch libraries:
+
+- [Instantsearch.js](https://github.com/algolia/instantsearch.js)
+- [React InstantSearch](https://github.com/algolia/react-instantsearch)
+- [Vue InstantSearch](https://github.com/algolia/vue-instantsearch)
+- [Angular InstantSearch](https://github.com/algolia/angular-instantsearch)
+
+## Query Rules
+
+Query rules allow you to customize the search results based on the user's query.
+
+Follow the [query rules guide](/docs/guides/query-rules) to add query rules to your search.
+
+## Deploying to Production
+
+If you're using Next.js, you can deploy your app to [Vercel](https://vercel.com) with a single click. If you're using Cloudflare workers, you can deploy your app through Cloudflare wrangler on [Cloudflare Workers](https://workers.cloudflare.com).
+
