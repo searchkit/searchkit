@@ -1,0 +1,201 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hits Per Page should return the default 20 for UI request 1`] = `
+{
+  "results": [
+    {
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "actors": {
+          "Bob Gunton": 1,
+          "Morgan Freeman": 1,
+          "Tim Robbins": 1,
+          "William Sadler": 1,
+        },
+        "rated": {
+          "R": 1,
+        },
+        "type": {
+          "movie": 1,
+        },
+      },
+      "facets_stats": {},
+      "hits": [
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tim Robbins",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Morgan Freeman",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Bob Gunton",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "William Sadler",
+              },
+            ],
+            "title": [
+              {
+                "fullyHighlighted": false,
+                "matchLevel": "full",
+                "matchedWords": [
+                  "Shawshank",
+                ],
+                "value": "The <ais-highlight-0000000000>Shawshank</ais-highlight-0000000000> Redemption",
+              },
+            ],
+          },
+          "actors": [
+            "Tim Robbins",
+            "Morgan Freeman",
+            "Bob Gunton",
+            "William Sadler",
+          ],
+          "objectID": "tt0111161",
+          "title": "The Shawshank Redemption",
+        },
+      ],
+      "hitsPerPage": 20,
+      "index": "imdb_movies",
+      "nbHits": 1,
+      "nbPages": 1,
+      "page": 0,
+      "params": "facetFilters=&facets=*&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&highlightPreTag=%3Cais-highlight-0000000000%3E&maxValuesPerFacet=10&page=0&query=shawshank&tagFilters=",
+      "processingTimeMS": 2,
+      "query": "shawshank",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "type",
+              "actors",
+              "rated",
+            ],
+          },
+          "values": {
+            "actors": {
+              "sortRemainingBy": "count",
+            },
+            "rated": {
+              "sortRemainingBy": "count",
+            },
+            "type": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+    {
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "type": {
+          "movie": 1,
+        },
+      },
+      "facets_stats": {},
+      "hits": [
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tim Robbins",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Morgan Freeman",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Bob Gunton",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "William Sadler",
+              },
+            ],
+            "title": [
+              {
+                "fullyHighlighted": false,
+                "matchLevel": "full",
+                "matchedWords": [
+                  "Shawshank",
+                ],
+                "value": "The <ais-highlight-0000000000>Shawshank</ais-highlight-0000000000> Redemption",
+              },
+            ],
+          },
+          "actors": [
+            "Tim Robbins",
+            "Morgan Freeman",
+            "Bob Gunton",
+            "William Sadler",
+          ],
+          "objectID": "tt0111161",
+          "title": "The Shawshank Redemption",
+        },
+      ],
+      "hitsPerPage": 0,
+      "index": "imdb_movies",
+      "nbHits": 1,
+      "nbPages": 0,
+      "page": 0,
+      "params": "analytics=false&clickAnalytics=false&facets=type&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&highlightPreTag=%3Cais-highlight-0000000000%3E&hitsPerPage=0&maxValuesPerFacet=10&page=0&query=shawshank&tagFilters=",
+      "processingTimeMS": 2,
+      "query": "shawshank",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "type",
+              "actors",
+              "rated",
+            ],
+          },
+          "values": {
+            "actors": {
+              "sortRemainingBy": "count",
+            },
+            "rated": {
+              "sortRemainingBy": "count",
+            },
+            "type": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+  ],
+}
+`;

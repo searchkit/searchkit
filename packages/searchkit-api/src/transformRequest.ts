@@ -172,7 +172,7 @@ const getQuery = (
 
 const getResultsSize = (request: AlgoliaMultipleQueriesQuery, config: SearchSettingsConfig) => {
   const { params = {} } = request
-  const hitsPerPage = params.hitsPerPage || 20
+  const hitsPerPage = params.hitsPerPage == null ? 20 : params.hitsPerPage
 
   return {
     size: hitsPerPage,

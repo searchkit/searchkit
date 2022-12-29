@@ -3041,7 +3041,7 @@ exports[`Integration tests facets numeric filters 1`] = `
       "hitsPerPage": 0,
       "index": "imdb_movies",
       "nbHits": 4162,
-      "nbPages": Infinity,
+      "nbPages": 0,
       "page": 0,
       "params": "analytics=false&clickAnalytics=false&facets=imdbrating&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&highlightPreTag=%3Cais-highlight-0000000000%3E&hitsPerPage=0&maxValuesPerFacet=10&page=0&query=",
       "processingTimeMS": 2,
@@ -3081,6 +3081,6 @@ exports[`Integration tests facets numeric filters: ES Request 1`] = `
 "{"index":"imdb_movies"}
 {"aggs":{"type":{"terms":{"field":"type","size":10}},"actors":{"terms":{"field":"actors.keyword","size":10}},"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[{"range":{"imdbrating":{"gte":"90"}}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
 {"index":"imdb_movies"}
-{"aggs":{"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
+{"aggs":{"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[],"must":{"match_all":{}}}},"size":0,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<ais-highlight-0000000000>"],"post_tags":["</ais-highlight-0000000000>"],"fields":{"title":{},"actors":{}}}}
 "
 `;
