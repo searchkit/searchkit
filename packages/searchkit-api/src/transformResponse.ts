@@ -153,7 +153,10 @@ const getPageDetails = (
 
   const { total } = response.hits
   const totalHits = typeof total === 'number' ? total : total?.value
-  const nbPages = Math.ceil((typeof total === 'number' ? total : total?.value || 0) / hitsPerPage)
+  const nbPages =
+    hitsPerPage <= 0
+      ? 0
+      : Math.ceil((typeof total === 'number' ? total : total?.value || 0) / hitsPerPage)
 
   return {
     hitsPerPage,
