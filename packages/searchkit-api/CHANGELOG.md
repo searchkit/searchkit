@@ -1,5 +1,15 @@
 # @searchkit/api
 
+## 4.0.0-next.12
+
+### Minor Changes
+
+- 22a91911: Fix issue where facet requests returned hits
+
+### Patch Changes
+
+- 21297f17: update transporter to fix issue with single bad reequest
+
 ## 4.0.0-next.11
 
 ### Patch Changes
