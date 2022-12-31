@@ -20,6 +20,7 @@ describe('GetQuery Extension', () => {
       ],
       query_rules: [
         {
+          id: '1',
           conditions: [
             [
               {

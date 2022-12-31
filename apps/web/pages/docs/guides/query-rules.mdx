@@ -9,6 +9,7 @@ Query rules are a powerful feature that allows you to customize the behavior of 
 
 Query rules are defined in the `search_settings` configuration under `query_rules`. The `query_rules` configuration is an array of query rule objects. Each query rule object has the following properties:
 
+  * `id`: String. Required. The id of the query rule. This is used to identify the query rule.
   * `conditions`: An array of [conditions](#query-rule-conditions) that define the conditions that must be met for the query rule to be applied.
   * `actions`: An [action](#query-rule-actions) that defines the actions to be taken when the query rule is applied.
 
@@ -19,6 +20,7 @@ Below is an example of a query rule that will pin the document "tt0111161" to th
   "search_settings": {
     "query_rules": [
       {
+        "id": "1",
         "conditions": [
           [
             {
@@ -57,6 +59,7 @@ Either of the **OR** conditions must be met for the query rule action to be appl
   "search_settings": {
     "query_rules": [
       {
+        "id": "1",
         "conditions": [
           [
             {

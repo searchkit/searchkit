@@ -22,6 +22,7 @@ describe('Integration tests for query rules', () => {
       ],
       query_rules: [
         {
+          id: '1',
           conditions: [
             [
               {
@@ -47,6 +48,7 @@ describe('Integration tests for query rules', () => {
           ]
         },
         {
+          id: '2',
           conditions: [
             [
               {

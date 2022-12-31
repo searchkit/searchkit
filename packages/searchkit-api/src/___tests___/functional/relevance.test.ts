@@ -23,6 +23,7 @@ describe('Integration tests for relevance', () => {
         ],
         query_rules: [
           {
+            id: '1',
             conditions: [
               [
                 {
