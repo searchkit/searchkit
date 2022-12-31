@@ -20,6 +20,7 @@ const client = Client(
       ],
       query_rules: [
         {
+          id: '1',
           conditions: [[]],
           actions: [
             {
@@ -29,6 +30,7 @@ const client = Client(
           ]
         },
         {
+          id: '2',
           conditions: [
             [
               {
@@ -45,6 +47,7 @@ const client = Client(
           ]
         },
         {
+          id: '3',
           conditions: [
             [
               {
@@ -62,6 +65,7 @@ const client = Client(
           ]
         },
         {
+          id: '4',
           conditions: [
             [
               {
@@ -87,6 +91,7 @@ const client = Client(
           ]
         },
         {
+          id: '5',
           conditions: [
             [
               {

@@ -4,18 +4,22 @@ import { QueryRule } from '../types'
 describe('getSatisfiedRules', () => {
   const rules: QueryRule[] = [
     {
+      id: '1',
       conditions: [[{ context: 'query', value: 'test', match_type: 'exact' }]],
       actions: []
     },
     {
+      id: '2',
       conditions: [[{ context: 'query', value: 'bob', match_type: 'prefix' }]],
       actions: []
     },
     {
+      id: '3',
       conditions: [[{ context: 'query', value: 'ph', match_type: 'contains' }]],
       actions: []
     },
     {
+      id: '4',
       conditions: [
         [
           { context: 'query', value: 'test', match_type: 'exact' },
@@ -25,6 +29,7 @@ describe('getSatisfiedRules', () => {
       actions: []
     },
     {
+      id: '5',
       conditions: [
         [
           { context: 'query', value: 'test', match_type: 'exact' },
@@ -34,12 +39,14 @@ describe('getSatisfiedRules', () => {
       actions: []
     },
     {
+      id: '6',
       conditions: [
         [{ context: 'filterPresent', values: [{ attribute: 'designerName', value: 'test' }] }]
       ],
       actions: []
     },
     {
+      id: '7',
       conditions: [
         [
           {

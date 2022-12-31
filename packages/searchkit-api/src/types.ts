@@ -105,6 +105,7 @@ export type QueryRuleCondition =
   | FilterRuleCondition
 
 export interface QueryRule {
+  id: string
   conditions: QueryRuleCondition[][]
   actions: QueryRuleAction[]
 }
