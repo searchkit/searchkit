@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.0.0-next.13
+
+### Minor Changes
+
+- e3770fba: Introduce id into query rule
+
 ## 4.0.0-next.12
 
 ### Minor Changes

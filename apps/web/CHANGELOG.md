@@ -1,5 +1,12 @@
 # web
 
+## 0.0.1-next.15
+
+### Patch Changes
+
+- Updated dependencies [e3770fba]
+  - @searchkit/api@4.0.0-next.13
+
 ## 0.0.1-next.14
 
 ### Patch Changes
