@@ -87,7 +87,7 @@ class MyTransporter {
       headers: {
         "content-type": "application/json",
         // Basic auth
-        "Authorization", 'Basic ' + Buffer.from(username + ":" + password).toString('base64')
+        "Authorization": 'Basic ' + Buffer.from(username + ":" + password).toString('base64')
       },
       body: requests
         .reduce<string[]>(
