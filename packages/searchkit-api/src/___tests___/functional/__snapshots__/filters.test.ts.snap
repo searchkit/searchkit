@@ -4,6 +4,7 @@ exports[`Add additional base filters to search call with one filter and query ap
 {
   "results": [
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -105,6 +106,7 @@ exports[`Add additional base filters to search call with one filter and query ap
       },
     },
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,

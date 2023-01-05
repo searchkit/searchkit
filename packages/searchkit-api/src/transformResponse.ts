@@ -176,6 +176,7 @@ export default function transformResponse(
 ) {
   try {
     return {
+      appliedRules: queryRuleActions.ruleIds,
       exhaustiveNbHits: true,
       exhaustiveFacetsCount: true,
       exhaustiveTypo: true,
