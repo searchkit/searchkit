@@ -4,6 +4,7 @@ exports[`Integration tests call with one filter and query applied 1`] = `
 {
   "results": [
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -105,6 +106,7 @@ exports[`Integration tests call with one filter and query applied 1`] = `
       },
     },
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -212,6 +214,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
 {
   "results": [
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -1085,6 +1088,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
 {
   "results": [
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -1970,6 +1974,7 @@ exports[`Integration tests facets numeric facets 1`] = `
 {
   "results": [
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -2065,6 +2070,7 @@ exports[`Integration tests facets numeric facets 1`] = `
       },
     },
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -2168,6 +2174,7 @@ exports[`Integration tests facets numeric filters 1`] = `
 {
   "results": [
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -2226,6 +2233,7 @@ exports[`Integration tests facets numeric filters 1`] = `
       },
     },
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,

@@ -4,6 +4,7 @@ exports[`Integration tests for relevance call with one filter and query applied 
 {
   "results": [
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -105,6 +106,7 @@ exports[`Integration tests for relevance call with one filter and query applied 
       },
     },
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,

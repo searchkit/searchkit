@@ -4,6 +4,7 @@ exports[`Hits Per Page should return the default 20 for UI request 1`] = `
 {
   "results": [
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -105,6 +106,7 @@ exports[`Hits Per Page should return the default 20 for UI request 1`] = `
       },
     },
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,

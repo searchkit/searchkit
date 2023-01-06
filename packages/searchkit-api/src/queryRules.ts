@@ -12,6 +12,7 @@ export interface QueryContext {
 }
 
 export interface QueryRuleActions {
+  ruleIds: string[]
   pinnedDocs: string[]
   boostFunctions: any[]
   query: string
@@ -77,6 +78,7 @@ export const getQueryRulesActionsFromRequest = (
       return sum
     },
     {
+      ruleIds: satisfiedRules.map((rule) => rule.id),
       pinnedDocs: [],
       boostFunctions: [],
       query: queryContext.query,

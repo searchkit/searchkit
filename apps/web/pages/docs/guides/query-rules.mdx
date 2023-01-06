@@ -300,5 +300,9 @@ Below is an example of the `QueryRewrite` action:
   }
   ```
 
+  ## Debugging Query Rules
+
+  If you are having issues with your query rules, you can find what query rules are being applied to your search request in the search response via `appliedRules`. The `appliedRules` property is an array of query rule ids that were applied to the search request. The `appliedRules` property will be empty if no query rules were applied to the search request.
+
 
 

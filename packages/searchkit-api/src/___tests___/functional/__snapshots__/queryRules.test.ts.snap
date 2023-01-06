@@ -4,6 +4,9 @@ exports[`Integration tests for query rules call with one filter and query applie
 {
   "results": [
     {
+      "appliedRules": [
+        "1",
+      ],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -106,6 +109,9 @@ exports[`Integration tests for query rules call with one filter and query applie
       ],
     },
     {
+      "appliedRules": [
+        "1",
+      ],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,

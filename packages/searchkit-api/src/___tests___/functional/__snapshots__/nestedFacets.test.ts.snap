@@ -4,6 +4,7 @@ exports[`Nested Facets, filters and results One nested facet support 3`] = `
 {
   "results": [
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -54,6 +55,7 @@ exports[`Nested Facets, filters and results One nested facet support 3`] = `
       },
     },
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -117,6 +119,7 @@ exports[`Nested Facets, filters and results one facet and two OR filters 3`] = `
 {
   "results": [
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -167,6 +170,7 @@ exports[`Nested Facets, filters and results one facet and two OR filters 3`] = `
       },
     },
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -230,6 +234,7 @@ exports[`Nested Facets, filters and results one numeric facet 3`] = `
 {
   "results": [
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -295,6 +300,7 @@ exports[`Nested Facets, filters and results two nested facets 3`] = `
 {
   "results": [
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,

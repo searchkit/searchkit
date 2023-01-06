@@ -4,6 +4,7 @@ exports[`GetQuery Extension GetQuery Extension with no matching query rules acti
 {
   "results": [
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -105,6 +106,7 @@ exports[`GetQuery Extension GetQuery Extension with no matching query rules acti
       },
     },
     {
+      "appliedRules": [],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -212,6 +214,9 @@ exports[`GetQuery Extension GetQuery Extension with query rules 2`] = `
 {
   "results": [
     {
+      "appliedRules": [
+        "1",
+      ],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
@@ -313,6 +318,9 @@ exports[`GetQuery Extension GetQuery Extension with query rules 2`] = `
       },
     },
     {
+      "appliedRules": [
+        "1",
+      ],
       "exhaustive": {
         "facetsCount": true,
         "nbHits": true,
