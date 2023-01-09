@@ -55,13 +55,48 @@ describe('Add additional base filters to search', () => {
                 },
               ],
               "must": {
-                "combined_fields": {
-                  "fields": [
-                    "title",
-                    "actors",
-                    "query",
+                "bool": {
+                  "should": [
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "multi_match": {
+                              "fields": [
+                                "title",
+                                "actors",
+                                "query",
+                              ],
+                              "fuzziness": "AUTO:4,8",
+                              "query": "shawshank",
+                            },
+                          },
+                          {
+                            "multi_match": {
+                              "fields": [
+                                "title",
+                                "actors",
+                                "query",
+                              ],
+                              "query": "shawshank",
+                              "type": "bool_prefix",
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      "multi_match": {
+                        "fields": [
+                          "title",
+                          "actors",
+                          "query",
+                        ],
+                        "query": "shawshank",
+                        "type": "phrase",
+                      },
+                    },
                   ],
-                  "query": "shawshank",
                 },
               },
             },

@@ -130,9 +130,21 @@ search_settings: {
 Attributes that are used to configure the search experience.
 
 - `highlight_attributes` - Attributes that are used to highlight the search results.
-- `search_attributes` - Attributes that are used to search the results. Boosting can be applied to these attributes (e.g. `title^3`).
+- `search_attributes` - Attributes that are used to search the results.
 - `result_attributes` - Attributes that are returned in the search result response.
 - `facet_attributes` - Attributes that are used to create facets. Facets can be of type `string` or `numeric` or `date`.
+
+##### search_attributes
+
+The search attributes define what Elasticsearch fields should be searched when a user performs a search.
+
+The search attributes can be configured as follows:
+
+```js
+search_attributes: ["description", "actors", { field: "title", weight: 3 }, "released.year"];
+```
+
+The following configuration will search the `description`, `actors` and an object field `released.year` fields with the default weight of 1. The `title` field will be weighted 3 times more than the `actors` field.
 
 ##### `facet_attributes` custom configuration
 

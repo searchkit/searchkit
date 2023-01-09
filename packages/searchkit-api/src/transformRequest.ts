@@ -1,7 +1,13 @@
 import deepmerge from 'deepmerge'
 import { transformBaseFilters, transformFacetFilters, transformNumericFilters } from './filters'
 import { QueryRuleActions } from './queryRules'
-import { FacetAttribute, RequestOptions, SearchSettingsConfig } from './types'
+import {
+  FacetAttribute,
+  RequestOptions,
+  SearchAttribute,
+  SearchAttributeConfig,
+  SearchSettingsConfig
+} from './types'
 import { AlgoliaMultipleQueriesQuery, ElasticsearchSearchRequest } from './types'
 import { getFacet, isNestedFacet } from './utils'
 
@@ -128,9 +134,47 @@ function queryRulesWrapper(organicQuery: any, queryRuleActions: QueryRuleActions
   return organicQuery
 }
 
-export function RelevanceQueryMatch(query: string, search_attributes: string[]) {
+export function RelevanceQueryMatch(query: string, search_attributes: SearchAttribute[]) {
+  const getFieldsMap = (boostMultiplier: number) => {
+    return search_attributes.map((attribute) => {
+      return typeof attribute === 'string'
+        ? attribute
+        : `${attribute.field}^${(attribute.weight || 1) * boostMultiplier}`
+    })
+  }
+
   return {
-    combined_fields: { query: query, fields: search_attributes }
+    bool: {
+      should: [
+        {
+          bool: {
+            should: [
+              {
+                multi_match: {
+                  query: query,
+                  fields: getFieldsMap(1),
+                  fuzziness: 'AUTO:4,8'
+                }
+              },
+              {
+                multi_match: {
+                  query: query,
+                  fields: getFieldsMap(0.5),
+                  type: 'bool_prefix'
+                }
+              }
+            ]
+          }
+        },
+        {
+          multi_match: {
+            query: query,
+            type: 'phrase',
+            fields: getFieldsMap(2)
+          }
+        }
+      ]
+    }
   }
 }
 

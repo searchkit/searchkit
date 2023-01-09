@@ -99,7 +99,7 @@ describe('GetQuery Extension', () => {
           return {
             multi_match: {
               query,
-              fields: search_attributes
+              fields: search_attributes as string[]
             }
           }
         }
@@ -158,7 +158,7 @@ describe('GetQuery Extension', () => {
           return {
             multi_match: {
               query,
-              fields: search_attributes
+              fields: search_attributes as string[]
             }
           }
         }

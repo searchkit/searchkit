@@ -33,10 +33,17 @@ export interface ClientConfigConnection {
   headers?: Record<string, string>
 }
 
+export interface SearchAttributeConfig {
+  field: string
+  weight?: number
+}
+
 export type FacetAttribute = string | FacetFieldConfig
 
+export type SearchAttribute = string | SearchAttributeConfig
+
 export interface SearchSettingsConfig {
-  search_attributes: Array<string>
+  search_attributes: SearchAttribute[]
   facet_attributes?: FacetAttribute[]
   filter_attributes?: FilterAttribute[]
   result_attributes: string[]
@@ -124,7 +131,7 @@ export type SearchRequest = {
 export interface RequestOptions {
   getQuery?: (
     query: string,
-    search_attributes: string[],
+    search_attributes: SearchAttribute[],
     config: SearchSettingsConfig
   ) => ElasticsearchQuery | ElasticsearchQuery[] | undefined
   getBaseFilters?: () => ElasticsearchQuery[] | undefined
