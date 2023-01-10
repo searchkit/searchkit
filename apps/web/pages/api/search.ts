@@ -9,7 +9,7 @@ const client = Client(
     },
     search_settings: {
       highlight_attributes: ['title', 'actors'],
-      search_attributes: [{ field: 'title', boost: 3 }, 'actors'],
+      search_attributes: [{ field: 'title', weight: 3 }, 'actors'],
       result_attributes: ['title', 'actors', 'poster'],
       facet_attributes: [
         'type',
