@@ -71,14 +71,14 @@ const client = Client(
               {
                 context: 'query',
                 match_type: 'exact',
-                value: 'movie'
+                value: 'episode'
               }
             ]
           ],
           actions: [
             {
               action: 'RenderUserData',
-              userData: '{ "title": "Movie" }'
+              userData: '{ "title": "Episode" }'
             },
             {
               action: 'RenderFacetsOrder',
@@ -86,7 +86,7 @@ const client = Client(
             },
             {
               action: 'QueryRewrite',
-              query: 'one'
+              query: 'tv episodes'
             }
           ]
         },
@@ -108,6 +108,29 @@ const client = Client(
             {
               action: 'PinnedResult',
               documentIds: ['tt0468569']
+            }
+          ]
+        },
+        {
+          id: '6',
+          conditions: [
+            [
+              {
+                context: 'query',
+                value: 'movie',
+                match_type: 'exact'
+              }
+            ]
+          ],
+          actions: [
+            {
+              action: 'QueryBoost',
+              query: 'actors:"Dan Aykroyd" OR actors:"Charlie Sheen"',
+              weight: 2
+            },
+            {
+              action: 'QueryFilter',
+              query: 'type:"movie"'
             }
           ]
         }

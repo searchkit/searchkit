@@ -236,20 +236,14 @@ export const transformFacetFilters = (
   }, [])
 }
 
-export const transformBaseFilters = (
-  request: AlgoliaMultipleQueriesQuery,
-  config: SearchSettingsConfig
+export const transformQueryString = (
+  facets: FacetAttribute[] = [],
+  filters: FilterAttribute[] = [],
+  queryString: string
 ) => {
-  const { params = {} } = request
-  const { filters } = params
-
-  if (!filters || filters === '') {
-    return []
-  }
-
-  const filterMap = getFacetFilterMap(config.facet_attributes || [], config.filter_attributes || [])
   const regex = /([\w\.\-]+)\:/gi
-  const queryString = filters.replace(regex, (match: string, word: string) => {
+  const filterMap = getFacetFilterMap(facets, filters)
+  return queryString.replace(regex, (match: string, word: string) => {
     if (!filterMap[word]) {
       throw new Error(
         `Attribute "${word}" is not defined as an attribute in the facet or filter search settings`
@@ -264,6 +258,24 @@ export const transformBaseFilters = (
 
     return filterMap[word].field + ':'
   })
+}
+
+export const transformBaseFilters = (
+  request: AlgoliaMultipleQueriesQuery,
+  config: SearchSettingsConfig
+) => {
+  const { params = {} } = request
+  const { filters } = params
+
+  if (!filters || filters === '') {
+    return []
+  }
+
+  const queryString = transformQueryString(
+    config.facet_attributes,
+    config.filter_attributes,
+    filters
+  )
 
   return [
     {

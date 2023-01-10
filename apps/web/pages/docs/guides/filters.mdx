@@ -3,11 +3,19 @@ title: Filters
 description: Learn how to apply filters to your search results.
 ---
 
+# Filters
+
 import { Tabs, Tab } from '../../../components/Tabs';
 
-There are a number of ways to apply filters to your search results. Filters can be applied on the client or on the server.
+There are a number of ways to apply filters to your search results. Filters can be applied on:
+- [client](#applying-filters-on-the-client) - Highlighting results on the client
+- [server](#applying-filters-on-the-server) - Applying user level filtering 
 
-## Setup Filters & Facets Attributes
+## Applying Filters on the Client
+
+Filters can be applied on the client by using the `filters` property on the `configure` component on Instantsearch.
+
+### Setup
 
 To apply filters on the client, you must first setup the filter in either the `facet_attributes` and `filter_attributes` configuration in your application settings.
 
@@ -29,10 +37,6 @@ Below is an example of a configuration that has a `facet_attributes` and `filter
   search_attributes: []
 }
 ```
-
-## Applying Filters on the Client
-
-Filters can be applied on the client by using the `filters` property on the `configure` component on Instantsearch.
 
 <Tabs items={["React", "instantsearch.js"]}>
   <Tab> 
@@ -67,7 +71,7 @@ Nested fields are not supported in the `filters` property. To filter on nested f
 - [Filter by boolean](/docs/guides/filters/filter-by-boolean)
 - [Filter by array](/docs/guides/filters/filter-by-array)
 
-## Numeric & Facet Filters
+### Numeric & Facet Filters
 
 Numeric & Facet filters are typically used by widgets.
 

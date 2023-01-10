@@ -1,0 +1,31 @@
+### `QueryRewrite` Rule Action
+
+The `QueryRewrite` action is used to rewrite the query. The `QueryRewrite` action has the following properties:
+
+  * `action`: The action to perform. This must be set to `QueryRewrite`.
+  * `query`: The query to rewrite.
+
+Below is an example of the `QueryRewrite` action:
+
+```json
+  {
+  "search_settings": {
+    "query_rules": [
+      {
+        "id": "1",
+        "conditions": [
+          [
+            // conditions here
+          ]
+        ],
+        "actions": [
+          {
+            "action": "QueryRewrite",
+            "query": "star wars"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
