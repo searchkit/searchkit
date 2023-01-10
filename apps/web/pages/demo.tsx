@@ -1,9 +1,6 @@
 import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, ToggleRefinement, Panel, Pagination, Stats, connectSearchBox, NumericMenu, RangeInput, CurrentRefinements, QueryRuleCustomData } from 'react-instantsearch-dom';
 import Client from '@searchkit/instantsearch-client'
 import Script from 'next/script'
-import { history } from 'instantsearch.js/es/lib/routers';
-import { simple } from 'instantsearch.js/es/lib/stateMappings';
-
 
 const searchClient = Client({
   url: '/api/search',
@@ -20,11 +17,6 @@ const hitView = (props: any) => {
 
     </div>
   )
-}
-
-const routing = {
-  router: history(),
-  stateMapping: simple(),
 }
 
 export default function Web() {
