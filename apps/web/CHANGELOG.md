@@ -1,5 +1,14 @@
 # web
 
+## 0.0.1-next.16
+
+### Patch Changes
+
+- Updated dependencies [a0e24e7e]
+- Updated dependencies [13d6655e]
+- Updated dependencies [1fd1706c]
+  - @searchkit/api@4.0.0-next.14
+
 ## 0.0.1-next.15
 
 ### Patch Changes

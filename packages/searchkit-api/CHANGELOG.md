@@ -1,5 +1,13 @@
 # @searchkit/api
 
+## 4.0.0-next.14
+
+### Minor Changes
+
+- a0e24e7e: return appliedRules in search response
+- 13d6655e: Adjust the default query relevance handler to include prefix
+- 1fd1706c: Add QueryFilter and QueryBoost actions
+
 ## 4.0.0-next.13
 
 ### Minor Changes
