@@ -1,3 +1,4 @@
+import { QueryDslQueryContainer } from '@elastic/elasticsearch/lib/api/types'
 import deepmerge from 'deepmerge'
 import { transformBaseFilters, transformFacetFilters, transformNumericFilters } from './filters'
 import { QueryRuleActions } from './queryRules'
@@ -183,7 +184,7 @@ const getQuery = (
   config: SearchSettingsConfig,
   queryRuleActions: QueryRuleActions,
   requestOptions?: RequestOptions
-) => {
+): QueryDslQueryContainer => {
   const query = queryRuleActions.query
 
   const searchAttributes = config.search_attributes
@@ -192,7 +193,8 @@ const getQuery = (
     ...transformFacetFilters(request, config),
     ...transformNumericFilters(request, config),
     ...transformBaseFilters(request, config),
-    ...(requestOptions?.getBaseFilters?.() || [])
+    ...(requestOptions?.getBaseFilters?.() || []),
+    ...queryRuleActions.baseFilters
   ]
 
   const organicQuery =

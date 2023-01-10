@@ -28,8 +28,20 @@ export type FilterAttribute = {
 }
 
 export interface ClientConfigConnection {
+  /**
+   * @description The Elasticsearch host
+   * @example https://my-elasticsearch-host.com
+   */
   host: string
+  /**
+   * @description The Elasticsearch API key. This is optional and only required if you have API key authentication enabled.
+   * @example 1234567890
+   */
   apiKey?: string
+  /**
+   * @description Headers to be sent with the Elasticsearch request.
+   * @example { 'X-My-Header': 'My-Value' }
+   */
   headers?: Record<string, string>
 }
 
@@ -43,8 +55,17 @@ export type FacetAttribute = string | FacetFieldConfig
 export type SearchAttribute = string | SearchAttributeConfig
 
 export interface SearchSettingsConfig {
+  /**
+   * @description fields that will be searched when a user enters a query
+   */
   search_attributes: SearchAttribute[]
+  /**
+   * @description fields that will be used to as facets
+   */
   facet_attributes?: FacetAttribute[]
+  /**
+   * @description fields that will be used to as filters
+   */
   filter_attributes?: FilterAttribute[]
   result_attributes: string[]
   highlight_attributes?: string[]
@@ -77,11 +98,15 @@ interface PinnedResultAction {
   documentIds: string[]
 }
 
-interface QueryAttributeBoostAction {
-  action: 'QueryAttributeBoost'
-  attribute: string
-  value?: string
-  boost: number
+interface QueryBoostAction {
+  action: 'QueryBoost'
+  query: string
+  weight: number
+}
+
+interface FilterAction {
+  action: 'QueryFilter'
+  query: string
 }
 
 interface QueryRewriteAction {
@@ -101,10 +126,11 @@ interface RenderFacetsOrderAction {
 
 export type QueryRuleAction =
   | PinnedResultAction
-  | QueryAttributeBoostAction
+  | QueryBoostAction
   | QueryRewriteAction
   | RenderUserDataAction
   | RenderFacetsOrderAction
+  | FilterAction
 
 export type QueryRuleCondition =
   | QueryStringRuleCondition
@@ -129,12 +155,23 @@ export type SearchRequest = {
 }
 
 export interface RequestOptions {
+  /**
+   * @description Allows you to override the organic query
+   * @param query The original query search terms
+   * @param search_attributes The search attributes configured in the search settings
+   * @param config The search settings
+   * @returns An Elasticsearch query object or an array of Elasticsearch query objects
+   */
   getQuery?: (
     query: string,
     search_attributes: SearchAttribute[],
     config: SearchSettingsConfig
-  ) => ElasticsearchQuery | ElasticsearchQuery[] | undefined
-  getBaseFilters?: () => ElasticsearchQuery[] | undefined
+  ) => ElasticsearchQuery | ElasticsearchQuery[]
+  /**
+   * @description Allows you to add base filters to be applied to the search. This is useful for user / document level permissions
+   * @returns An array of Elasticsearch query objects that will be wrapped in a bool filter query
+   **/
+  getBaseFilters?: () => ElasticsearchQuery[]
   hooks?: {
     /**
      * @description Allows you to modify the search requests before they are sent to Elasticsearch

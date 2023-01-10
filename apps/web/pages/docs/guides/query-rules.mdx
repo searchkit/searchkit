@@ -46,7 +46,13 @@ Its important to note that query rules are applied in the order they are defined
   
 ## Query Rule Conditions
 
-Conditions are used to define the conditions that must be met for a query rule to be applied. Conditions are defined in the `conditions` property of a query rule object. The `conditions` property is an array of arrays of conditions. Each array of conditions is an "OR" condition. Each condition is an "AND" condition. This means that if you have two conditions in an array, both conditions must be met for the query rule to be applied. If you have two arrays of conditions, at least one of the arrays of conditions must be met for the query rule to be applied.
+Conditions are used to define the conditions that must be met for a query rule to be applied.
+
+The following conditions are supported in Searchkit:
+
+- [Query](/docs/guides/query-rules/conditions/query)
+- [Context](/docs/guides/query-rules/conditions/context)
+- [Filter](/docs/guides/query-rules/conditions/filters)
 
 Below is an example where we have two **OR** conditions:
 * The first **OR** condition has two **AND** conditions. Both the `context` & `query` condition must be met.
@@ -87,222 +93,17 @@ Either of the **OR** conditions must be met for the query rule action to be appl
 }
 ```
 
-
-The following conditions are supported in Searchkit:
-
-### `query` Rule Condition
-
-The `Query` condition is used to match the query string. The `Query` condition has the following properties:
-
-  * `context`: The context of the condition. This must be set to `query`.
-  * `match_type`: The type of match to perform. This can be set to `exact`, `prefix` or `contains`.
-  * `value`: The value to match against.
-
-Below is an example of the `query` condition:
-
-```json
-{
-  "context": "query",
-  "match_type": "prefix",
-  "value": "star"
-}
-```
-
-### `context` Rule Condition
-
-The `context` condition is used to match the context of the search. The `context` condition has the following properties:
-
-  * `context`: The context of the condition. This must be set to `context`.
-  * `value`: The value to match against.
-
-Below is an example of the `context` condition:
-  
-  ```json
-  {
-    "context": "context",
-    "value": "test"
-  }
-  ```
-
-This condition is useful if you want to apply a set of query rules to a specific context. You can set the context of a search by using the `context` parameter via the `configure` component on the frontend.
-
-```jsx
-  <Configure
-      ruleContexts={['ecommerce']}
-  />
-```
-
-### `filterPresent` Rule Condition
-
-The `filterPresent` condition is used to match the `facetfilters` of the search request. The `filterPresent` condition has the following properties:
-
-  * `context`: The context of the condition. This must be set to `filterPresent`.
-  * `values`: An array of `attribute:value` facet filters to match against. The `attribute` must be the name of the facet and the `value` must be the value of the facet.
-
-Below is an example of the `facet_filters` condition where we are matching against the `type` facet with the value `movie`:
-
-```json
-{
-  "context": "filterPresent",
-  "values": [{ "attribute": "type", "value": "movie" }]
-}
-```
-
-Below is an example of the `facet_filters` condition where we are matching against the `type` facet with the value `movie` and the `genre` facet with the value `drama`. Both the `type` and `genre` facet filters must be present for the query rule to be applied.
-
-```json
-{
-  "context": "filterPresent",
-  "values": [{ "attribute": "type", "value": "movie" }, { "attribute": "genre", "value": "drama" }]
-}
-```
-
 ## Query Rule Actions
 
 Actions are used to define the actions to be taken when a query rule is applied. Actions are defined in the `actions` property of a query rule object. The `actions` property is an array of actions. The following actions are supported in Searchkit:
 
-### `PinnedResult` Rule Action
+- [Facet Order](/docs/guides/query-rules/actions/facet-order)
+- [Pin Results](/docs/guides/query-rules/actions/pin-result)
+- [Render User Data](/docs/guides/query-rules/actions/render-user-data)
+- [Query rewrite](/docs/guides/query-rules/actions/query-rewrite)
+- [Query boost](/docs/guides/query-rules/actions/query-boost)
+- [Query filter](/docs/guides/query-rules/actions/query-filter)
 
-The `PinnedResult` action is used to pin a document to the top of the search results. The `PinnedResult` action has the following properties:
+## Debugging Query Rules
 
-  * `action`: The action to perform. This must be set to `PinnedResult`.
-  * `documentIds`: An array of document ids to pin to the top of the search results.
-
-Below is an example of the `PinnedResult` action:
-  
-  ```json
-  {
-    "action": "PinnedResult",
-    "documentIds": ["tt0111161"]
-  }
-  ```
-
-### `RenderUserData` Rule Action 
-
-The `RenderUserData` action is used to send data to the frontend to perform a number of actions. The `RenderUserData` action has the following properties:
-
-  * `action`: The action to perform. This must be set to `RenderUserData`.
-  * `userData`: The user data to render in the search results. This can be any JSON object.
-
-Below is an example of the `RenderUserData` action:
-  
-  ```json
-  {
-    "action": "RenderUserData",
-    "userData": "{\"title\":\"Star Wars\",\"description\":\"A long time ago in a galaxy far, far away...\",\"image\":\"https://upload.wikimedia.org/wikipedia/en/8/87/StarWarsMoviePoster1977.jpg\"}"
-  }
-  ```
-
-  and then in your frontend you can use the `renderUserData` with `QueryRuleCustomData` component to render the user data:
-  
-  ```jsx
-  <QueryRuleCustomData>
-    {({ items }: { items: any[] }) =>
-      items.map(({ title }) => {
-        if (!title) {
-          return null;
-        }
-
-        return (
-          <section key={title}>
-            <h2>{title}</h2>
-            <p>You have typed in movie, show something wild about movies!</p>
-          </section>
-        );
-      })
-    }
-</QueryRuleCustomData>
-```
-
-#### User Redirect Example
-
-You can also use the `RenderUserData` action to redirect the user to a different page. An example to do this is store a `redirect` property with the URL you want to redirect the user to. Below is an example of the `RenderUserData` action with a redirect:
-
-```json
-{
-  "action": "RenderUserData",
-  "userData": "{ \"redirect\": \"https://searchkit.co\" }"
-}
-```
-
-and then in your frontend you can use the `renderUserData` with `QueryRuleCustomData` component to redirect the user:
-
-```jsx
-<QueryRuleCustomData>
-  {({ items }: { items: any[] }) =>
-    items.map((item) => {
-      if (item.redirect) {
-        window.location = item.redirect
-      }
-      return null;
-    })
-  }
-</QueryRuleCustomData>
-```
-
-### `RenderFacetsOrder` Rule Action
-
-The `RenderFacetsOrder` action is used to render the facets in a specific order and show only facets specified. The `RenderFacetsOrder` action has the following properties:
-
-  * `action`: The action to perform. This must be set to `RenderFacetsOrder`.
-  * `facetOrder`: An array of facet names to render in the order specified.
-
-Below is an example of the `RenderFacetsOrder` action:
-  
-  ```json
-  {
-    "action": "RenderFacetsOrder",
-    "facetAttributesOrder": ["type", "actors"]
-  }
-  ```
-
-  To use the `facetAttributesOrder` on the frontend, you need to use the `DynamicFacets` component. The `DynamicFacets` component will render the facets in the order specified by the `facetAttributesOrder` property and hide all other facets.
-  
-  Below is an example of the `DynamicFacets` component. In the example below, the `DynamicFacets` component will render the `type` and `actors` facets in the order specified by the `facetAttributesOrder` property and hide all other facets.
-  
-  ```jsx
-  <DynamicWidgets maxValuesPerFacet={5} fallbackWidget={RefinementList}>
-  <Panel header="Type">
-    <RefinementList attribute="type" searchable={true}/>
-  </Panel>
-  <Panel header="actors">
-    <RefinementList attribute="actors" searchable={true} limit={10} />
-  </Panel>
-  <Panel header="imdbrating">
-    <NumericMenu
-      attribute="imdbrating"
-      items={[
-        { label: '5 - 7', start: 5, end: 7 },
-        { label: '7 - 9', start: 7, end: 9 },
-        { label: '>= 9', start: 9 },
-      ]}
-    />
-  </Panel>
-  <Panel header="metascore">
-    <RangeInput attribute="metascore" header="Range Input" />
-  </Panel>
-</DynamicWidgets>
-```
-
-### `QueryRewrite` Rule Action
-
-The `QueryRewrite` action is used to rewrite the query. The `QueryRewrite` action has the following properties:
-
-  * `action`: The action to perform. This must be set to `QueryRewrite`.
-  * `query`: The query to rewrite.
-
-Below is an example of the `QueryRewrite` action:
-  
-  ```json
-  {
-    "action": "QueryRewrite",
-    "query": "star wars"
-  }
-  ```
-
-  ## Debugging Query Rules
-
-  If you are having issues with your query rules, you can find what query rules are being applied to your search request in the search response via `appliedRules`. The `appliedRules` property is an array of query rule ids that were applied to the search request. The `appliedRules` property will be empty if no query rules were applied to the search request.
-
-
-
+If you are having issues with your query rules, you can find what query rules are being applied to your search request in the search response via `appliedRules`. The `appliedRules` property is an array of query rule ids that were applied to the search request. The `appliedRules` property will be empty if no query rules were applied to the search request.

@@ -1,3 +1,4 @@
+import { transformQueryString } from './filters'
 import { AlgoliaMultipleQueriesQuery, QueryRule, SearchSettingsConfig } from './types'
 
 export interface QueryContextFilter {
@@ -18,6 +19,7 @@ export interface QueryRuleActions {
   query: string
   userData: unknown[]
   facetAttributesOrder: string[] | undefined
+  baseFilters: any[]
   touched: boolean
 }
 
@@ -44,7 +46,8 @@ const getFacetFilters = (
 
 export const getQueryRulesActionsFromRequest = (
   queryRules: QueryRule[],
-  request: AlgoliaMultipleQueriesQuery
+  request: AlgoliaMultipleQueriesQuery,
+  config: SearchSettingsConfig
 ) => {
   const queryContext: QueryContext = {
     query: request.params?.query || '',
@@ -62,17 +65,33 @@ export const getQueryRulesActionsFromRequest = (
           sum.pinnedDocs.push(...action.documentIds)
         } else if (action.action === 'QueryRewrite') {
           sum.query = action.query
-        } else if (action.action === 'QueryAttributeBoost') {
+        } else if (action.action === 'QueryBoost') {
           sum.boostFunctions.push({
             filter: {
-              match: { [action.attribute]: { query: action.value } }
+              query_string: {
+                query: transformQueryString(
+                  config.facet_attributes,
+                  config.filter_attributes,
+                  action.query
+                )
+              }
             },
-            weight: action.boost
+            weight: action.weight
           })
         } else if (action.action === 'RenderUserData') {
           sum.userData.push(JSON.parse(action.userData))
         } else if (action.action === 'RenderFacetsOrder') {
           sum.facetAttributesOrder = action.facetAttributesOrder
+        } else if (action.action === 'QueryFilter') {
+          sum.baseFilters.push({
+            query_string: {
+              query: transformQueryString(
+                config.facet_attributes,
+                config.filter_attributes,
+                action.query
+              )
+            }
+          })
         }
       })
       return sum
@@ -84,7 +103,8 @@ export const getQueryRulesActionsFromRequest = (
       query: queryContext.query,
       userData: [],
       facetAttributesOrder: undefined,
-      touched: false
+      touched: false,
+      baseFilters: []
     }
   )
 

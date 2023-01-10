@@ -1,0 +1,36 @@
+---
+title: Query Text
+description: Apply a query condition rule 
+---
+
+The `Query` condition is used to match the query string. The `Query` condition has the following properties:
+
+  * `context`: The context of the condition. This must be set to `query`.
+  * `match_type`: The type of match to perform. This can be set to `exact`, `prefix` or `contains`.
+  * `value`: The value to match against.
+
+Below is an example of the `query` condition which will apply the actions when the `query` has a prefix of "star". 
+
+```json
+{
+  "search_settings": {
+    "query_rules": [
+      {
+        "id": "1",
+        "conditions": [
+          [
+            {
+              "context": "query",
+              "match_type": "prefix",
+              "value": "star"
+            }
+          ]
+        ],
+        "actions": [
+          // actions that will apply for conditions
+        ]
+      }
+    ]
+  }
+}
+```

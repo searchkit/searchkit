@@ -64,6 +64,24 @@ describe('Integration tests for query rules', () => {
               query: 'one'
             }
           ]
+        },
+        {
+          id: '3',
+          conditions: [
+            [
+              {
+                context: 'query',
+                match_type: 'exact',
+                value: 'testQuery'
+              }
+            ]
+          ],
+          actions: [
+            {
+              action: 'QueryFilter',
+              query: 'actors:Actor1 OR rated:[4 TO *]'
+            }
+          ]
         }
       ]
     }
@@ -156,6 +174,47 @@ describe('Integration tests for query rules', () => {
           params: {
             ...x.params,
             query: 'movie'
+          }
+        }
+      }) as AlgoliaMultipleQueriesQuery[]
+    )
+  })
+
+  it('Query Filters', async () => {
+    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+      .post('/_msearch', (requestBody: any) => {
+        const x = JSON.parse(requestBody.split('\n')[1])
+        expect(x.query.bool.filter).toMatchInlineSnapshot(`
+          [
+            {
+              "bool": {
+                "should": [
+                  {
+                    "term": {
+                      "type": "movie",
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              "query_string": {
+                "query": "actors.keyword:Actor1 OR rated:[4 TO *]",
+              },
+            },
+          ]
+        `)
+        return true
+      })
+      .reply(200, HitsResponseWithFacetFilter)
+
+    await client.handleInstantSearchRequests(
+      DisjunctiveExampleRequest.map((x) => {
+        return {
+          ...x,
+          params: {
+            ...x.params,
+            query: 'testQuery'
           }
         }
       }) as AlgoliaMultipleQueriesQuery[]
