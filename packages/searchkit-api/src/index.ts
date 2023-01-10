@@ -43,7 +43,7 @@ class Client {
     const queryRules = this.config.search_settings.query_rules || []
 
     const requestQueryRuleActions: QueryRuleActions[] = instantsearchRequests.map((request) => {
-      return getQueryRulesActionsFromRequest(queryRules, request)
+      return getQueryRulesActionsFromRequest(queryRules, request, this.config.search_settings)
     })
 
     let esRequests: SearchRequest[] = instantsearchRequests.map((request, i) => ({

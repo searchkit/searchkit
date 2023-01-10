@@ -1,0 +1,45 @@
+---
+title: Query Filter
+description: Learn how to filter documents from your search results.
+---
+
+The `QueryFilter` action refines the search results using filters. This action is useful when you want to filter out documents that do not match a specific condition. For example, you can use this action to filter out documents that do not have a specific attribute value.
+
+  * `action`: The action to perform. This must be set to `QueryFilter`.
+  * `query`: A query string that will be used to match documents. This query string should use attributes from facet or filters attributes. 
+
+Below is an example of the `QueryFilter` action:
+
+```json
+{
+  search_settings: {
+    facet_attributes: [
+      'type',
+      { field: 'actors.keyword', attribute: 'actors', type: 'string' },
+      'rated'
+    ],
+    query_rules: [
+      {
+        id: '1',
+        conditions: [
+          [
+            {
+              context: 'query',
+              match_type: 'exact',
+              value: 'movie'
+            }
+          ]
+        ],
+        actions: [
+          {
+            action: 'QueryFilter',
+            query: 'type:movie'
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+  

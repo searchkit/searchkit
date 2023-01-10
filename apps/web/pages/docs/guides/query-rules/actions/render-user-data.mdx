@@ -1,0 +1,99 @@
+---
+title: Render Data
+description: "Learn how to use the RenderUserData action to send data to the frontend to perform a number of actions."
+---
+
+The `RenderUserData` action is used to send data to the frontend to perform a number of actions on the frontend. 
+
+The `RenderUserData` action has the following properties:
+
+  * `action`: The action to perform. This must be set to `RenderUserData`.
+  * `userData`: The user data to render in the search results. This can be any JSON object.
+
+Below is an example of the `RenderUserData` action:
+  
+  ```json
+  {
+  "search_settings": {
+    "query_rules": [
+      {
+        "id": "1",
+        "conditions": [
+          [
+            // conditions here
+          ]
+        ],
+        "actions": [
+          {
+            "action": "RenderUserData",
+            "userData": "{\"title\":\"Star Wars\",\"description\":\"A long time ago in a galaxy far, far away...\",\"image\":\"https://upload.wikimedia.org/wikipedia/en/8/87/StarWarsMoviePoster1977.jpg\"}"
+          }
+        ]
+      }
+    ]
+  }
+}
+  ```
+
+  and then in your frontend you can use the `renderUserData` with `QueryRuleCustomData` component to render the user data:
+  
+  ```jsx
+  <QueryRuleCustomData>
+    {({ items }: { items: any[] }) =>
+      items.map(({ title }) => {
+        if (!title) {
+          return null;
+        }
+
+        return (
+          <section key={title}>
+            <h2>{title}</h2>
+            <p>You have typed in movie, show something wild about movies!</p>
+          </section>
+        );
+      })
+    }
+</QueryRuleCustomData>
+```
+
+#### User Redirect Example
+
+You can also use the `RenderUserData` action to redirect the user to a different page. An example to do this is store a `redirect` property with the URL you want to redirect the user to. Below is an example of the `RenderUserData` action with a redirect:
+
+```json
+  {
+  "search_settings": {
+    "query_rules": [
+      {
+        "id": "1",
+        "conditions": [
+          [
+            // conditions here
+          ]
+        ],
+        "actions": [
+          {
+            "action": "RenderUserData",
+            "userData": "{ \"redirect\": \"https://searchkit.co\" }"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+and then in your frontend you can use the `renderUserData` with `QueryRuleCustomData` component to redirect the user:
+
+```jsx
+<QueryRuleCustomData>
+  {({ items }: { items: any[] }) =>
+    items.map((item) => {
+      if (item.redirect) {
+        window.location = item.redirect
+      }
+      return null;
+    })
+  }
+</QueryRuleCustomData>
+```

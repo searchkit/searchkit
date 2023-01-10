@@ -91,7 +91,8 @@ describe('transformRequest', () => {
             pinnedDocs: [],
             userData: [],
             touched: false,
-            ruleIds: []
+            ruleIds: [],
+            baseFilters: []
           }
         )
       ).toMatchInlineSnapshot(`
@@ -183,7 +184,8 @@ describe('transformRequest', () => {
           pinnedDocs: [],
           userData: [],
           touched: true,
-          ruleIds: ['rule1']
+          ruleIds: ['rule1'],
+          baseFilters: []
         }
       )
     ).toMatchInlineSnapshot(`
