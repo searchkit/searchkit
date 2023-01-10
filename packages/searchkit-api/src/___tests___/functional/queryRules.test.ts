@@ -114,13 +114,48 @@ describe('Integration tests for query rules', () => {
                 "pinned": {
                   "ids": [],
                   "organic": {
-                    "combined_fields": {
-                      "fields": [
-                        "title",
-                        "actors",
-                        "query",
+                    "bool": {
+                      "should": [
+                        {
+                          "bool": {
+                            "should": [
+                              {
+                                "multi_match": {
+                                  "fields": [
+                                    "title",
+                                    "actors",
+                                    "query",
+                                  ],
+                                  "fuzziness": "AUTO:4,8",
+                                  "query": "one",
+                                },
+                              },
+                              {
+                                "multi_match": {
+                                  "fields": [
+                                    "title",
+                                    "actors",
+                                    "query",
+                                  ],
+                                  "query": "one",
+                                  "type": "bool_prefix",
+                                },
+                              },
+                            ],
+                          },
+                        },
+                        {
+                          "multi_match": {
+                            "fields": [
+                              "title",
+                              "actors",
+                              "query",
+                            ],
+                            "query": "one",
+                            "type": "phrase",
+                          },
+                        },
                       ],
-                      "query": "one",
                     },
                   },
                 },

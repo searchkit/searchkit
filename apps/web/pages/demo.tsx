@@ -2,7 +2,6 @@ import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementLi
 import Client from '@searchkit/instantsearch-client'
 import Script from 'next/script'
 
-
 const searchClient = Client({
   url: '/api/search',
 });

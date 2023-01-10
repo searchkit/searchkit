@@ -45,13 +45,20 @@ export interface ClientConfigConnection {
   headers?: Record<string, string>
 }
 
+export interface SearchAttributeConfig {
+  field: string
+  weight?: number
+}
+
 export type FacetAttribute = string | FacetFieldConfig
+
+export type SearchAttribute = string | SearchAttributeConfig
 
 export interface SearchSettingsConfig {
   /**
    * @description fields that will be searched when a user enters a query
    */
-  search_attributes: Array<string>
+  search_attributes: SearchAttribute[]
   /**
    * @description fields that will be used to as facets
    */
@@ -157,7 +164,7 @@ export interface RequestOptions {
    */
   getQuery?: (
     query: string,
-    search_attributes: string[],
+    search_attributes: SearchAttribute[],
     config: SearchSettingsConfig
   ) => ElasticsearchQuery | ElasticsearchQuery[]
   /**
