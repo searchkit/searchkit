@@ -26,9 +26,7 @@ export const HitsResponseWithFacetFilter = {
               title: 'The Shawshank Redemption'
             },
             highlight: {
-              title: [
-                'The <ais-highlight-0000000000>Shawshank</ais-highlight-0000000000> Redemption'
-              ]
+              title: ['The <em>Shawshank</em> Redemption']
             }
           }
         ]
@@ -104,9 +102,7 @@ export const HitsResponseWithFacetFilter = {
               title: 'The Shawshank Redemption'
             },
             highlight: {
-              title: [
-                'The <ais-highlight-0000000000>Shawshank</ais-highlight-0000000000> Redemption'
-              ]
+              title: ['The <em>Shawshank</em> Redemption']
             }
           }
         ]
@@ -485,9 +481,7 @@ export const HitsResponseWithFacetFilterAndNumericFacet = {
               title: 'The Shawshank Redemption'
             },
             highlight: {
-              title: [
-                'The <ais-highlight-0000000000>Shawshank</ais-highlight-0000000000> Redemption'
-              ]
+              title: ['The <em>Shawshank</em> Redemption']
             }
           }
         ]
@@ -538,9 +532,7 @@ export const HitsResponseWithFacetFilterAndNumericFacet = {
               title: 'The Shawshank Redemption'
             },
             highlight: {
-              title: [
-                'The <ais-highlight-0000000000>Shawshank</ais-highlight-0000000000> Redemption'
-              ]
+              title: ['The <em>Shawshank</em> Redemption']
             }
           }
         ]

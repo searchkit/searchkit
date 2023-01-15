@@ -69,8 +69,7 @@ export interface SearchSettingsConfig {
   filter_attributes?: FilterAttribute[]
   result_attributes: string[]
   highlight_attributes?: string[]
-  prefix_attributes?: string[]
-  typo_tolerance_attributes?: string[]
+  snippet_attributes?: string[]
   query_rules?: QueryRule[]
 }
 

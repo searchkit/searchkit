@@ -8,13 +8,37 @@ import { QueryRuleActions } from './queryRules'
 type FacetsList = Record<string, Record<string, number>>
 type FacetsStats = Record<string, { min: number; max: number; avg: number; sum: number }>
 
-const getHits = (response: ElasticsearchResponseBody, config: SearchSettingsConfig) => {
+const getHits = (
+  response: ElasticsearchResponseBody,
+  config: SearchSettingsConfig,
+  instantsearchRequest: AlgoliaMultipleQueriesQuery
+) => {
   const { hits } = response
+  const { highlight_attributes = [], snippet_attributes = [] } = config
 
   return hits.hits.map((hit) => ({
     objectID: hit._id,
     ...(hit._source || {}),
-    _highlightResult: getHighlightFields(hit)
+    ...(highlight_attributes.length > 0
+      ? {
+          _highlightResult: getHighlightFields(
+            hit,
+            instantsearchRequest?.params?.highlightPreTag,
+            instantsearchRequest?.params?.highlightPostTag,
+            highlight_attributes
+          )
+        }
+      : {}),
+    ...(snippet_attributes.length > 0
+      ? {
+          _snippetResult: getHighlightFields(
+            hit,
+            instantsearchRequest?.params?.highlightPreTag,
+            instantsearchRequest?.params?.highlightPostTag,
+            config.snippet_attributes
+          )
+        }
+      : {})
   }))
 }
 
@@ -184,7 +208,7 @@ export default function transformResponse(
       ...getPageDetails(response, instantsearchRequest, queryRuleActions),
       ...getRenderingContent(config, queryRuleActions),
       ...getFacets(response, config),
-      hits: getHits(response, config),
+      hits: getHits(response, config, instantsearchRequest),
       index: instantsearchRequest.indexName,
       params: stringify(instantsearchRequest.params as any),
       ...(queryRuleActions.userData.length > 0 ? { userData: queryRuleActions.userData } : {})
@@ -199,6 +223,10 @@ export const transformFacetValuesResponse = (
   instantsearchRequest: AlgoliaMultipleQueriesQuery
 ) => {
   const aggregations = response.aggregations || {}
+
+  const preTag = instantsearchRequest.params?.highlightPreTag || '<ais-highlight-0000000000>'
+  const postTag = instantsearchRequest.params?.highlightPostTag || '<ais-highlight-0000000000/>'
+
   return {
     facetHits: (aggregations[Object.keys(aggregations)[0]] as any).buckets.map((entry: any) => ({
       value: entry.key,
@@ -206,7 +234,9 @@ export const transformFacetValuesResponse = (
         entry.key,
         // @ts-ignore
         instantsearchRequest.params.facetQuery || ''
-      ),
+      )
+        .replace(/<\em>/g, preTag)
+        .replace(/<\/\em>/g, postTag),
       count: entry.doc_count
     })),
     exhaustiveFacetsCount: true,

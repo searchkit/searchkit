@@ -1,60 +1,52 @@
-import { getHighlightFields, highlightTerm } from "../highlightUtils";
-import { ElasticsearchHit } from "../types";
+import { getHighlightFields, highlightTerm } from '../highlightUtils'
+import { ElasticsearchHit } from '../types'
 
-describe("highlight utils", () => {
-  it("should highlight one match", () => {
-    expect(highlightTerm("some random string", "some")).toBe(
-      "<ais-highlight-0000000000>some</ais-highlight-0000000000> random string"
-    );
-  });
+describe('highlight utils', () => {
+  it('should highlight one match', () => {
+    expect(highlightTerm('some random string', 'some')).toBe('<em>some</em> random string')
+  })
 
-  describe("getHighlightFields", () => {
-    it("should match on a field", () => {
+  describe('getHighlightFields', () => {
+    it('should match on a field', () => {
       const hit: ElasticsearchHit = {
-        _id: "test",
-        _index: "index",
+        _id: 'test',
+        _index: 'index',
         _source: {
-          title: "The Lion King",
+          title: 'The Lion King'
         },
         highlight: {
-          title: [
-            "The <ais-highlight-0000000000>Lion</ais-highlight-0000000000> King",
-          ],
-        },
-      };
-
-      expect(getHighlightFields(hit)).toMatchInlineSnapshot(`
-        {
-          "title": [
-            {
-              "fullyHighlighted": false,
-              "matchLevel": "full",
-              "matchedWords": [
-                "Lion",
-              ],
-              "value": "The <ais-highlight-0000000000>Lion</ais-highlight-0000000000> King",
-            },
-          ],
+          title: ['The <em>Lion</em> King']
         }
-      `);
-    });
-  });
+      }
 
-  it("should have matches and source value is an array", () => {
+      expect(getHighlightFields(hit, undefined, undefined, ['title'])).toMatchInlineSnapshot(`
+        {
+          "title": {
+            "fullyHighlighted": false,
+            "matchLevel": "full",
+            "matchedWords": [
+              "Lion",
+            ],
+            "value": "The <ais-highlight-0000000000>Lion<ais-highlight-0000000000/> King",
+          },
+        }
+      `)
+    })
+  })
+
+  it('should have matches and source value is an array', () => {
     const hit: ElasticsearchHit = {
-      _id: "test",
-      _index: "index",
+      _id: 'test',
+      _index: 'index',
       _source: {
-        actors: ["Robert De Niro", "Al Pacino"],
+        actors: ['Robert De Niro', 'Al Pacino']
       },
       highlight: {
-        actors: [
-          "The <ais-highlight-0000000000>Robert</ais-highlight-0000000000> De Niro",
-        ],
-      },
-    };
+        actors: ['The <em>Robert</em> De Niro']
+      }
+    }
 
-    expect(getHighlightFields(hit)).toMatchInlineSnapshot(`
+    expect(getHighlightFields(hit, undefined, undefined, ['actors'])).toMatchInlineSnapshot(`
       {
         "actors": [
           {
@@ -63,24 +55,24 @@ describe("highlight utils", () => {
             "matchedWords": [
               "Robert",
             ],
-            "value": "The <ais-highlight-0000000000>Robert</ais-highlight-0000000000> De Niro",
+            "value": "The <ais-highlight-0000000000>Robert<ais-highlight-0000000000/> De Niro",
           },
         ],
       }
-    `);
-  });
+    `)
+  })
 
-  it("should not have matches and source value is an array", () => {
+  it('should not have matches and source value is an array', () => {
     const hit: ElasticsearchHit = {
-      _id: "test",
-      _index: "index",
+      _id: 'test',
+      _index: 'index',
       _source: {
-        actors: ["Robert De Niro", "Al Pacino"],
+        actors: ['Robert De Niro', 'Al Pacino']
       },
-      highlight: {},
-    };
+      highlight: {}
+    }
 
-    expect(getHighlightFields(hit)).toMatchInlineSnapshot(`
+    expect(getHighlightFields(hit, undefined, undefined, ['actors'])).toMatchInlineSnapshot(`
       {
         "actors": [
           {
@@ -95,20 +87,20 @@ describe("highlight utils", () => {
           },
         ],
       }
-    `);
-  });
+    `)
+  })
 
-  it("should have no matches", () => {
+  it('should have no matches', () => {
     const hit: ElasticsearchHit = {
-      _id: "test",
-      _index: "index",
+      _id: 'test',
+      _index: 'index',
       _source: {
-        title: "The Lion King",
+        title: 'The Lion King'
       },
-      highlight: {},
-    };
+      highlight: {}
+    }
 
-    expect(getHighlightFields(hit)).toMatchInlineSnapshot(`
+    expect(getHighlightFields(hit, undefined, undefined, ['title'])).toMatchInlineSnapshot(`
       {
         "title": {
           "matchLevel": "none",
@@ -116,6 +108,6 @@ describe("highlight utils", () => {
           "value": "The Lion King",
         },
       }
-    `);
-  });
-});
+    `)
+  })
+})

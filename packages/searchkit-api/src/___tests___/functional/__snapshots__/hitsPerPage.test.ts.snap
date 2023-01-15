@@ -53,16 +53,14 @@ exports[`Hits Per Page should return the default 20 for UI request 1`] = `
                 "value": "William Sadler",
               },
             ],
-            "title": [
-              {
-                "fullyHighlighted": false,
-                "matchLevel": "full",
-                "matchedWords": [
-                  "Shawshank",
-                ],
-                "value": "The <ais-highlight-0000000000>Shawshank</ais-highlight-0000000000> Redemption",
-              },
-            ],
+            "title": {
+              "fullyHighlighted": false,
+              "matchLevel": "full",
+              "matchedWords": [
+                "Shawshank",
+              ],
+              "value": "The <em>Shawshank</em> Redemption",
+            },
           },
           "actors": [
             "Tim Robbins",
@@ -79,7 +77,7 @@ exports[`Hits Per Page should return the default 20 for UI request 1`] = `
       "nbHits": 1,
       "nbPages": 1,
       "page": 0,
-      "params": "facetFilters=&facets=*&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&highlightPreTag=%3Cais-highlight-0000000000%3E&maxValuesPerFacet=10&page=0&query=shawshank&tagFilters=",
+      "params": "facetFilters=&facets=*&highlightPostTag=%3C%2Fem%3E&highlightPreTag=%3Cem%3E&maxValuesPerFacet=10&page=0&query=shawshank&tagFilters=",
       "processingTimeMS": 2,
       "query": "shawshank",
       "renderingContent": {
@@ -146,16 +144,14 @@ exports[`Hits Per Page should return the default 20 for UI request 1`] = `
                 "value": "William Sadler",
               },
             ],
-            "title": [
-              {
-                "fullyHighlighted": false,
-                "matchLevel": "full",
-                "matchedWords": [
-                  "Shawshank",
-                ],
-                "value": "The <ais-highlight-0000000000>Shawshank</ais-highlight-0000000000> Redemption",
-              },
-            ],
+            "title": {
+              "fullyHighlighted": false,
+              "matchLevel": "full",
+              "matchedWords": [
+                "Shawshank",
+              ],
+              "value": "The <em>Shawshank</em> Redemption",
+            },
           },
           "actors": [
             "Tim Robbins",
@@ -172,7 +168,7 @@ exports[`Hits Per Page should return the default 20 for UI request 1`] = `
       "nbHits": 1,
       "nbPages": 0,
       "page": 0,
-      "params": "analytics=false&clickAnalytics=false&facets=type&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&highlightPreTag=%3Cais-highlight-0000000000%3E&hitsPerPage=0&maxValuesPerFacet=10&page=0&query=shawshank&tagFilters=",
+      "params": "analytics=false&clickAnalytics=false&facets=type&highlightPostTag=%3C%2Fem%3E&highlightPreTag=%3Cem%3E&hitsPerPage=0&maxValuesPerFacet=10&page=0&query=shawshank&tagFilters=",
       "processingTimeMS": 2,
       "query": "shawshank",
       "renderingContent": {
