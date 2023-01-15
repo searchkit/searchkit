@@ -248,18 +248,38 @@ export const getHighlightFields = (
   const { params = {} } = request
   const { attributesToHighlight } = params
   // ignoring attributesToHighlight for now
+
+  const highlightFields =
+    config.highlight_attributes?.reduce(
+      (sum, field) => ({
+        ...sum,
+        [field]: {
+          number_of_fragments: 0
+        }
+      }),
+      {}
+    ) || {}
+
+  const snippetFields =
+    config.snippet_attributes?.reduce(
+      (sum, field) => ({
+        ...sum,
+        [field]: {
+          number_of_fragments: 5,
+          fragment_size: 100
+        }
+      }),
+      {}
+    ) || {}
+
   return {
     highlight: {
-      pre_tags: [params.highlightPreTag || '<ais-highlight-0000000000>'],
-      post_tags: [params.highlightPostTag || '</ais-highlight-0000000000>'],
-      fields:
-        config.highlight_attributes?.reduce(
-          (sum, field) => ({
-            ...sum,
-            [field]: {}
-          }),
-          {}
-        ) || {}
+      pre_tags: ['<em>'],
+      post_tags: ['</em>'],
+      fields: {
+        ...highlightFields,
+        ...snippetFields
+      }
     }
   }
 }

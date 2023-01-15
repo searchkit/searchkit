@@ -1,4 +1,4 @@
-import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, ToggleRefinement, Panel, Pagination, Stats, connectSearchBox, NumericMenu, RangeInput, CurrentRefinements, QueryRuleCustomData } from 'react-instantsearch-dom';
+import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, ToggleRefinement, Panel, Pagination, Stats, connectSearchBox, NumericMenu, RangeInput, CurrentRefinements, QueryRuleCustomData, Snippet } from 'react-instantsearch-dom';
 import Client from '@searchkit/instantsearch-client'
 import Script from 'next/script'
 
@@ -13,7 +13,7 @@ const hitView = (props: any) => {
       <h2><Highlight hit={props.hit} attribute="title" /></h2>
       <br />
       
-      <Highlight hit={props.hit} attribute="actors" />
+      <Snippet hit={props.hit} attribute="plot" />
 
     </div>
   )

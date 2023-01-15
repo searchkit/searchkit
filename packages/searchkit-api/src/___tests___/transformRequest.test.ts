@@ -14,14 +14,18 @@ describe('transformRequest', () => {
         {
           "highlight": {
             "fields": {
-              "actors": {},
-              "title": {},
+              "actors": {
+                "number_of_fragments": 0,
+              },
+              "title": {
+                "number_of_fragments": 0,
+              },
             },
             "post_tags": [
-              "</ais-highlight-0000000000>",
+              "</em>",
             ],
             "pre_tags": [
-              "<ais-highlight-0000000000>",
+              "<em>",
             ],
           },
         }
@@ -40,10 +44,10 @@ describe('transformRequest', () => {
           "highlight": {
             "fields": {},
             "post_tags": [
-              "</ais-highlight-0000000000>",
+              "</em>",
             ],
             "pre_tags": [
-              "<ais-highlight-0000000000>",
+              "<em>",
             ],
           },
         }
