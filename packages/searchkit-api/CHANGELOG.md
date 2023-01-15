@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.0.0-next.15
+
+### Minor Changes
+
+- d760fb7a: Highlight & snippets support
+
 ## 4.0.0-next.14
 
 ### Minor Changes
