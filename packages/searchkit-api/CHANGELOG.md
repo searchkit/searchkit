@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.0.0-next.16
+
+### Minor Changes
+
+- ee857da0: Add sorting support
+
 ## 4.0.0-next.15
 
 ### Minor Changes
