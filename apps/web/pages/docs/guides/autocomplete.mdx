@@ -1,0 +1,145 @@
+---
+title: Autocomplete
+description: How to use Algolia autocomplete.js with Searchkit
+---
+
+# Autocomplete
+
+Algolia provides a great autocomplete library called [autocomplete.js](https://github.com/algolia/autocomplete) which can be used with Searchkit. This guide will show you how to use it.
+
+A working example can be found [here](/autocomplete).
+
+### Hits Autocomplete Example
+
+This example shows how to use autocomplete.js with Searchkit. It uses the `getAlgoliaResults` function from the autocomplete.js library.
+
+```jsx
+
+import client from "@searchkit/instantsearch-client";
+import {
+  getAlgoliaResults
+} from "@algolia/autocomplete-js";
+
+const searchClient = client({
+  url: "https://ises-cfw.searchkit.workers.dev"
+});
+
+
+getSources={({ query, state }) => {
+    if (!query) {
+      return [];
+    }
+
+    return [
+      {
+        sourceId: "movies",
+        getItems() {
+          // using searchkit to get results for the query
+          return getAlgoliaResults({
+            searchClient,
+            queries: [
+              {
+                indexName: "imdb_movies",
+                query,
+                params: {
+                  query
+                }
+              }
+            ],
+            transformResponse({ hits }) {
+              const [imdbMoviesHits] = hits;
+              return imdbMoviesHits;
+            }
+          });
+        },
+        templates: {
+          header() {
+            return (
+              <Fragment>
+                <span className="aa-SourceHeaderTitle">Movies</span>
+                <div className="aa-SourceHeaderLine" />
+              </Fragment>
+            );
+          },
+          item({ item, components }) {
+            return <div>{item.title}</div>;
+          },
+          noResults() {
+            return "No movies for this query.";
+          }
+        }
+      }
+    ];
+  }}
+```
+
+### Facets Autocomplete Example
+
+This example shows how to use autocomplete.js with facets. It uses the `getAlgoliaFacets` function from the autocomplete.js library.
+
+It queries the `actors` facet and returns the top 5 results. If the user types a query, it will return the top 3 results.
+
+```jsx
+
+import client from "@searchkit/instantsearch-client";
+import {
+  getAlgoliaFacets
+} from "@algolia/autocomplete-js";
+
+const searchClient = client({
+  url: "https://ises-cfw.searchkit.workers.dev"
+});
+
+function createCategoriesPlugin({
+  searchClient
+}) {
+  return {
+    getSources({ query }) {
+      return [
+        {
+          sourceId: "actorsPlugin",
+          getItems() {
+            return getAlgoliaFacets({
+              searchClient,
+              queries: [
+                {
+                  indexName: "imdb_movies",
+                  facet: "actors",
+                  params: {
+                    facetName: "actors",
+                    facetQuery: query,
+                    maxFacetHits: query ? 3 : 5
+                  }
+                }
+              ]
+            });
+          },
+          templates: {
+            header() {
+              return (
+                <Fragment>
+                  <span className="aa-SourceHeaderTitle">Actors</span>
+                  <div className="aa-SourceHeaderLine" />
+                </Fragment>
+              );
+            },
+            item({ item, components }) {
+              return (
+                <div className="aa-ItemWrapper">
+                  <div className="aa-ItemContent">
+                    <div className="aa-ItemContentBody">
+                      <div className="aa-ItemContentTitle">{item.label}</div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+          }
+        }
+      ];
+    }
+  };
+}
+```
+
+

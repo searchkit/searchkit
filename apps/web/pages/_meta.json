@@ -12,17 +12,11 @@
     }
   },
   "docs": {
-    "title": "Documentation",
+    "title": "Docs",
     "type": "page"
   },
   "examples": {
     "title": "Code Examples",
     "type": "page"
-  },
-  "demo": {
-    "title": "Demo",
-    "type": "page",
-    "href": "http://beta.searchkit.co/demo",
-    "newWindow": false
   }
 }

@@ -21,7 +21,7 @@ const hitView = (props: any) => {
 
 export default function Web() {
     return (
-      <div className="ais-InstantSearch bg-slate-50">
+      <div className="ais-InstantSearch bg-gray-100 h-screen p-4">
         <Script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c98b302ea3bb4a33a012a7ef0ab3e240"}' />
   
       <InstantSearch

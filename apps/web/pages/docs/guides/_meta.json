@@ -2,6 +2,7 @@
   "setup-elasticsearch": "Setup Elasticsearch",
   "indexing-data": "Indexing Data",
   "customising-query": "Search Relevance",
+  "autocomplete": "Autocomplete",
   "highlighting-snippets": "Highlighting and Snippets",
   "facets": "Facets",
   "filters": "Filters",
