@@ -5,6 +5,7 @@ import { ClientConfig, SearchRequest, RequestOptions, Transporter, AppSettings }
 import { ESTransporter } from './Transporter'
 import { getQueryRulesActionsFromRequest, QueryRuleActions } from './queryRules'
 import { createElasticsearchQueryFromRequest } from './utils'
+import { getIndexName } from './sorting'
 export * from './types'
 
 class Client {
@@ -54,7 +55,7 @@ class Client {
         requestOptions
       ),
       request: request,
-      indexName: request.indexName
+      indexName: getIndexName(request.indexName, this.config.search_settings)
     }))
 
     if (requestOptions?.hooks?.beforeSearch) {

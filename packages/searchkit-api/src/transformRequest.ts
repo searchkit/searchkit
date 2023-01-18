@@ -2,6 +2,7 @@ import { QueryDslQueryContainer } from '@elastic/elasticsearch/lib/api/types'
 import deepmerge from 'deepmerge'
 import { transformBaseFilters, transformFacetFilters, transformNumericFilters } from './filters'
 import { QueryRuleActions } from './queryRules'
+import { getSorting } from './sorting'
 import {
   FacetAttribute,
   RequestOptions,
@@ -295,7 +296,8 @@ export function transformRequest(
     query: getQuery(request, config, queryRuleActions, requestOptions),
     ...getResultsSize(request, config),
     ...getHitFields(request, config),
-    ...getHighlightFields(request, config)
+    ...getHighlightFields(request, config),
+    ...getSorting(request, config)
   }
 
   return body

@@ -7,8 +7,8 @@ const apiClient = Client({
     apiKey: 'eGV0UTk0UUJfaGpmdGNGZzk3U286MVNkRFZRbWpTcG1tQTdRX2g0MVpPZw=='
   },
   search_settings: {
-    highlight_attributes: ['name', 'designername'],
-    search_attributes: ['name', 'designername'],
+    highlight_attributes: ['name', 'designerName'],
+    search_attributes: ['name', 'designerName'],
     result_attributes: ['name', 'designerName', 'imageURL'],
     facet_attributes: [
       { attribute: 'categories_lvl1', field: 'categories_lvl1.keyword', type: 'string' },
@@ -18,7 +18,21 @@ const apiClient = Client({
       { attribute: 'price', type: 'numeric', field: 'price' }
     ],
     filter_attributes: [{ attribute: 'outOfStock', field: 'outOfStock', type: 'string' }],
-    query_rules: []
+    query_rules: [],
+    sorting: {
+      default: {
+        field: '_score',
+        order: 'desc'
+      },
+      _price_desc: {
+        field: 'price',
+        order: 'desc'
+      },
+      _price_asc: {
+        field: 'price',
+        order: 'asc'
+      }
+    }
   }
 })
 

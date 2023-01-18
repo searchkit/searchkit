@@ -1924,3 +1924,8 @@ a[class^='ais-'] {
 .hit-image {
   @apply mb-4 max-h-72;
 }
+
+.ais-SortBy {
+  width: 230px;
+  float:right;
+}

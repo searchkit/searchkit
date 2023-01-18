@@ -1,4 +1,4 @@
-import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, ToggleRefinement, Panel, Pagination, Stats, connectSearchBox, NumericMenu, RangeInput, CurrentRefinements, QueryRuleCustomData, Snippet } from 'react-instantsearch-dom';
+import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, ToggleRefinement, Panel, Pagination, Stats, connectSearchBox, NumericMenu, RangeInput, CurrentRefinements, QueryRuleCustomData, Snippet, SortBy } from 'react-instantsearch-dom';
 import Client from '@searchkit/instantsearch-client'
 import Script from 'next/script'
 
@@ -21,7 +21,7 @@ const hitView = (props: any) => {
 
 export default function Web() {
     return (
-      <div className="ais-InstantSearch">
+      <div className="ais-InstantSearch bg-slate-50">
         <Script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c98b302ea3bb4a33a012a7ef0ab3e240"}' />
   
       <InstantSearch
@@ -70,8 +70,19 @@ export default function Web() {
           })
         }
       </QueryRuleCustomData>
-          <Stats />
-          <CurrentRefinements />
+        <div className="flex">
+          <div className="flex-auto w-full py-2 px-4">
+            <Stats />
+            <CurrentRefinements />
+          </div>
+          <div className="flex-none">
+            <SortBy defaultRefinement='imdb_movies' items={[
+              { value: 'imdb_movies', label: 'Relevance' },
+              { value: 'imdb_movies_rated_desc', label: 'Highly Rated Movies' },
+            ]}
+            />
+          </div>
+          </div>
 
           <Hits hitComponent={hitView}/>
           <Pagination />
