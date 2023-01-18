@@ -18,6 +18,16 @@ const client = Client(
         { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' },
         { attribute: 'metascore', type: 'numeric', field: 'metascore' }
       ],
+      sorting: {
+        default: {
+          field: '_score',
+          order: 'desc'
+        },
+        _rated_desc: {
+          field: 'rated',
+          order: 'desc'
+        }
+      },
       snippet_attributes: ['plot'],
       query_rules: [
         {

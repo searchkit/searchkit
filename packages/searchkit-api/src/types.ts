@@ -54,6 +54,11 @@ export type FacetAttribute = string | FacetFieldConfig
 
 export type SearchAttribute = string | SearchAttributeConfig
 
+export type SortingOption = {
+  field: string
+  order: 'asc' | 'desc'
+}
+
 export interface SearchSettingsConfig {
   /**
    * @description fields that will be searched when a user enters a query
@@ -71,6 +76,7 @@ export interface SearchSettingsConfig {
   highlight_attributes?: string[]
   snippet_attributes?: string[]
   query_rules?: QueryRule[]
+  sorting?: Record<string, SortingOption | SortingOption[]>
 }
 
 interface QueryStringRuleCondition {

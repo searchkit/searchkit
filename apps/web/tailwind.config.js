@@ -3,7 +3,7 @@ module.exports = {
   content: [
     "./components/**/*.{js,tsx}",
     "./pages/**/*.{md,mdx}",
-    './demo.tsx',
+    './pages/demo.tsx',
     "./theme.config.js",
   ],
 };

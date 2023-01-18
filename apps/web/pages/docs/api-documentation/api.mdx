@@ -124,6 +124,19 @@ search_settings: {
     { attribute: "imdbrating", type: "numeric" },
     { attribute: "metascore", type: "numeric" },
   ],
+  filter_attributes: [
+    { attribute: "year", type: "numeric" }
+  ],
+  sorting: {
+    default: {
+      field: '_score',
+      order: 'desc'
+    },
+    _year_desc: [{
+      field: 'year',
+      order: 'desc'
+    }]
+  },
 },
 ```
 
@@ -133,6 +146,8 @@ Attributes that are used to configure the search experience.
 - `search_attributes` - Attributes that are used to search the results.
 - `result_attributes` - Attributes that are returned in the search result response.
 - `facet_attributes` - Attributes that are used to create facets. Facets can be of type `string` or `numeric` or `date`.
+- `filter_attributes` - Attributes that are used to create filters. Filters can be of type `string` or `numeric` or `date`.
+- `sorting` - Attributes that are used to create sorting options. Sorting can be a single sorting field or multiple.
 
 ##### search_attributes
 
@@ -209,6 +224,31 @@ Below is an example of a `NumericMenu` Instantsearch React component that uses t
   ]}
 />
 ```
+
+##### `sorting` 
+
+Sorting can be configured as follows:
+
+```tsx
+
+sorting: {
+  default: {
+    field: '_score',
+    order: 'desc'
+  },
+  _year_desc: [{
+    field: 'year',
+    order: 'desc'
+  }]
+}
+```
+
+The `default` sorting option is used when no sorting option is selected. The `_year_desc` sorting option is used when the user selects the `_year_desc` sorting option.
+
+The sorting option can be a single sorting field or multiple sorting fields.
+
+See the [sorting guide](/docs/guides/sorting) for more information.
+
 
 ### `HandleRequest` function
 
