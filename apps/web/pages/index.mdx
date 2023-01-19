@@ -5,7 +5,9 @@ title: Great search experiences, made easy with Elasticsearch and Instantsearch
 import Image from "next/image";
 import { IntroButtons } from '../components/promo-page/IntroButtons';
 import { FeatureBreakout } from '../components/promo-page/FeatureBreakout'
-import { Tabs, Tab } from '../components/Tabs';
+
+<div className="max-w-5xl mx-auto px-8 pb-16">
+
 
 <div className="pt-4 m-auto text-left">
   <h1 className="font-extrabold md:text-5xl mt-8 mb-4 text-2xl">Great search experiences,<br/>
@@ -25,252 +27,53 @@ import { Tabs, Tab } from '../components/Tabs';
 
 </div>
 
-<FeatureBreakout title="Full power of Elasticsearch" description="Searchkit is built on top of Elasticsearch, which means you can use the Elasticsearch query language to build your search experience." linkTitle="Query Hooks" linkHref="/docs/api-documentation/api#hooks" />
-<FeatureBreakout title="Open source and free to use" description="Searchkit is open source, which means you can use it for free and contribute to the project. It's battle tested and used in production by many companies." linkTitle="Searchkit on Github" linkHref="https://github.com/searchkit/searchkit" />
-<FeatureBreakout title="Algolia Instantsearch Compatible" description="Searchkit uses instantsearch, which means you can use the instantsearch libraries to build your search experience." linkTitle="Instantsearch.js Example" linkHref="/docs/examples/instantsearch-js-template" subtext="Components for React, Vue, Angular and Javascript. Build a search UI without needing frontend skills." />
-<FeatureBreakout title="Node Middleware API" description="Searchkit API is a node middleware that works between Elasticsearch and Search UI. Run it standalone or in your node API. Your choice." linkTitle="API Documentation" linkHref="/docs/api-documentation/api" />
-<FeatureBreakout title="Powerful Query Rules" description="Query rules allows you to customize the behavior of the search experience. You can use query rules to boost or filter results, or to change the ranking of results, based on a set of conditions." linkTitle="Query Rules Docs" linkHref="/docs/guides/query-rules" />
-<FeatureBreakout title="Semantic Search Capable" description="Searchkit supports the full power of Elasticsearch, which means you can use the Elasticsearch Query DSL to tune your relevance and use features like Elasticsearch semantic search." linkTitle="Customise Query Docs" linkHref="/docs/guides/customising-query#example-of-doing-a-knn-search"/>
-<FeatureBreakout title="Your own Custom Query" description="Override Searchkit's Query and provide your own, tuned to your relevance needs." linkTitle="Customise Query Docs" linkHref="/docs/guides/customising-query" />
-
-## Quick Start
-
-Once you have indexed your data in Elasticsearch, you can use Searchkit and instantsearch to query your data and display it in your app.
-
-### Installation
-Installing both the API and instantsearch-client is easy. You can install them with npm or yarn.
-
-<Tabs items={['npm', 'yarn']} storageKey="selected-pkg-manager">
-  <Tab>
-  ```bash
-  npm install @searchkit/api@latest @searchkit/instantsearch-client@latest
-  ```
-  </Tab>
-  <Tab>
-      ```bash
-  yarn add @searchkit/api@latest @searchkit/instantsearch-client@latest
-  ```
-  </Tab>
-</Tabs>
-
-### Setup an API
-
-This creates an API which transforms the instantsearch requests sent from the browser into Elasticsearch queries and transforms the responses into instantsearch results.
-
-<Tabs items={['Next.js', 'Cloudflare Workers', 'express.js']} storageKey="selected-node-platform">
-  <Tab>
-```ts
-import Client from "@searchkit/api";
-import { NextApiRequest, NextApiResponse } from "next";
-
-const client = Client({
-  connection: {
-    host: "<elasticsearch-host>",
-    apiKey: "<api-key>", // optional
-  },
-  search_settings: {
-    highlight_attributes: ["title", "actors"],
-    search_attributes: ["title", "actors"],
-    result_attributes: ["title", "actors"],
-    facet_attributes: ["type", "rated"],
-  },
-});
-
-// example API handler for Next.js
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const results = await client.handleRequest(req.body);
-  res.send(results);
-}
-```
-</Tab>
-<Tab>
-```ts
-import Client from "@searchkit/api";
-
-const client = Client({
-  connection: {
-    host: "<elasticsearch-host>",
-    apiKey: "<elasticsearch api-key>", // optional
-  },
-  search_settings: {
-    highlight_attributes: ["title", "actors"],
-    search_attributes: ["title", "actors", "query"],
-    result_attributes: ["title", "actors", "query"],
-    facet_attributes: [
-      "type",
-      { attribute: "actors", field: "actors.keyword" },
-    ],
-  },
-});
-
-async function handleRequest(event: FetchEvent) {
-  const body = await event.request.json();
-  const results = await client.handleRequest(body);
-
-  return new Response(JSON.stringify(results), {
-    headers: {
-      "content-type": "application/json",
+<FeatureBreakout 
+  title="Build Search Experiences Fast!" 
+  description="Searchkit uses instantsearch, which means you can use the instantsearch libraries to build your search experience." 
+  snippets={[
+    {
+      title: "Polyfill for Algolia",
+      description: "This means you can use Instantsearch with Elasticsearch, without needing to change your code.",
+      link: "/docs/api-documentation/api"
+    },
+    {
+      title: "Instantsearch Compatible",
+      description: "Components for React, Vue, Angular and Javascript. Build a search UI without needing frontend skills.",
+      link: "/demos"
+    },
+    {
+      title: "Autocomplete.js Compatible",
+      description: "Build an autocomplete experience with Autocomplete.js, which is compatible with Searchkit.",
+      link: "/docs/guides/autocomplete"
     }
-  });
-}
+  ]}
+/>
+<FeatureBreakout 
+  title="Full Power of Elasticsearch" 
+  description="Searchkit is built on top of Elasticsearch, which means you can use the Elasticsearch query language to build your search experience." 
+  snippets={[
+    {
+      title: "Request Hooks",
+      description: "Searchkit provides hooks for you to customize the query before it is sent to Elasticsearch. This allows you to add custom filters, or change the query language.",
+      link: "/docs/guides/customising-query#query-hooks"
+    },
+    {
+      title: "Customise Query",
+      description: "Searchkit provides a custom query component, which allows you to build a custom query using the Elasticsearch query language.",
+      link: "/docs/guides/customising-query"
+    },
+    {
+      title: "Nested Field Support",
+      description: "Searchkit provides support for nested fields, which allows you to build a search experience for nested data.",
+      link: "/docs/guides/facets/string-based-facets#nested-fields-support"
+    },
+    {
+      title: "Custom Facet Aggregations",
+      description: "Build your own Facets using Elasticsearch aggregations.",
+      link: "https://github.com/searchkit/searchkit/issues/1174"
+    }
+  ]}
+/>
+<FeatureBreakout title="Relevance made simple" description="Query rules allows you to customize the behavior of the search experience. You can use query rules to boost or filter results, or to change the ranking of results, based on a set of conditions." linkTitle="Query Rules Docs" linkHref="/docs/guides/query-rules" image="/public/query-rules.png" />
 
-addEventListener("fetch", (event) => {
-  return event.respondWith(handleRequest(event));
-});
-```
-</Tab>
-<Tab>
-```ts
-const express = require('express')
-const app = express()
-const port = 3000
-
-const Client = require('@searchkit/api').default
-
-const client = Client({
-  connection: {
-    host: "<elasticsearch-host>",
-    apiKey: "<elasticsearch api-key>", // optional
-  },
-  search_settings: {
-    highlight_attributes: ["title", "actors"],
-    search_attributes: ["title", "actors", "query"],
-    result_attributes: ["title", "actors", "query"],
-    facet_attributes: [
-      "type",
-      { attribute: "actors", field: "actors.keyword" },
-    ],
-  },
-});
-
-app.post('/api/search', async (req, res) => {
-    const results = await client.handleRequest(req.body);
-    res.send(results);
-})
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
-```
-</Tab>
-</Tabs>
-
-
-### Setup the Frontend
-
-Using InstantSearch and the instantsearch-client is as simple as adding this JavaScript code to your page:
-
-<Tabs items={['React', 'Vanilla JS']} storageKey="selected-frontend-platform">
-  <Tab>
-```tsx
-import React from "react";
-import ReactDOM from "react-dom";
-import Client from "@searchkit/instantsearch-client";
-import { InstantSearch, SearchBox, Hits } from "react-instantsearch-dom";
-
-const searchClient = Client({
-  url: "/api/search", // API url
-});
-
-const App = () => (
-  <InstantSearch indexName="bestbuy" searchClient={searchClient}>
-    <SearchBox />
-    <Hits />
-  </InstantSearch>
-);
-
-export default App;
-```
-</Tab>
-<Tab>
-```html
-<html>
-  <head>
-    <title>Express</title>
-    <script src="https://cdn.jsdelivr.net/npm/@searchkit/instantsearch-client@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
-    />
-    <link rel="stylesheet" href="/style.css" />
-  </head>
-
-  <body>
-    <div class="ais-InstantSearch">
-
-      <div class="left-panel">
-        <h2>Type</h2>
-        <div id="type-list"></div>
-      </div>
-      <div class="right-panel">
-        <div id="searchbox" class="ais-SearchBox"></div>
-        <div id="hits"></div>
-        <div id="pagination"></div>
-      </div>
-    </div>
-    <script>
-      /* global instantsearch algoliasearch */
-
-      const search = instantsearch({
-        indexName: "imdb_movies",
-        searchClient: SearchkitInstantsearchClient({
-          url: "https://ises-cfw.es-search.workers.dev"
-        })
-      });
-
-      search.addWidgets([
-        instantsearch.widgets.searchBox({
-          container: "#searchbox"
-        }),
-        instantsearch.widgets.refinementList({
-          container: "#type-list",
-          attribute: "type"
-        }),
-        instantsearch.widgets.hits({
-          container: "#hits",
-          templates: {
-            item: `
-        <div>
-          <div class="hit-name">
-            {{#helpers.highlight}}{ "attribute": "title" }{{/helpers.highlight}}
-          </div>
-          <div class="hit-description">
-            {{#helpers.highlight}}{ "attribute": "actors" }{{/helpers.highlight}}
-          </div>
-        </div>
-      `
-          }
-        }),
-        instantsearch.widgets.pagination({
-          container: "#pagination"
-        })
-      ]);
-
-      search.start();
-    </script>
-  </body>
-</html>
-```
-</Tab>
-</Tabs>
-
-## Community
-
-- [Discord](https://discord.gg/CRuWmSQZQx)
-- [Github Issues](https://github.com/searchkit/searchkit/issues)
-
-#### IMDB Movies Example
-
-Demo site running Instantsearch React and Elasticsearch: [https://beta.searchkit.co/demo](https://beta.searchkit.co/demo)
-
-- [Demo site](/demo)
-- [Frontend Codebase](https://github.com/searchkit/searchkit/tree/next/apps/web/pages/demo.tsx)
-- [API Codebase](https://github.com/searchkit/searchkit/tree/next/apps/web/pages/api/search.tsx)
-
-## Found a Bug?
-
-Not all features of Instantsearch is supported so you may encounter issues. If you do encounter issues or missing features, please [submit an issue](https://github.com/searchkit/searchkit/issues)!
+</div>

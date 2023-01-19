@@ -8,7 +8,8 @@
     "type": "page",
     "theme": {
       "sidebar": false,
-      "toc": true
+      "toc": true,
+      "layout": "raw"
     }
   },
   "docs": {
@@ -16,7 +17,17 @@
     "type": "page"
   },
   "examples": {
-    "title": "Code Examples",
+    "title": "Examples",
     "type": "page"
+  },
+  "demos": {
+    "title": "Demos",
+    "type": "page"
+  },
+  "playground": {
+    "title": "Try Playground",
+    "type": "page",
+    "href": "https://playground.searchkit.co",
+    "newWindow": true
   }
 }
