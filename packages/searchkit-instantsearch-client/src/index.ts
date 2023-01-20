@@ -58,7 +58,7 @@ class InstantSearchElasticsearchAdapter {
     try {
       if (isSearchkit(this.config)) {
         const results = await this.config.handleInstantSearchRequests(instantsearchRequests)
-        return results
+        return results.results
       }
 
       const response = await fetch(this.config.url, {
