@@ -1,0 +1,66 @@
+---
+title: Filter by boolean value
+---
+
+You can filter your search results by boolean. For example, you can filter your search results by `in_stock` to only show in stock products.
+
+## Setup a boolean field
+
+To filter by boolean value, you must first set up a boolean field. 
+
+Indexing the following document into Elasticsearch will create a boolean field called `in_stock`:
+
+```json
+{
+  "in_stock": true
+}
+```
+
+and your mapping will look like this:
+
+```json
+{
+  "mappings": {
+    "properties": {
+      "in_stock": {
+        "type": "boolean"
+      }
+    }
+  }
+}
+```
+
+## Filter Attribute Configuration
+
+Add a filter attribute to your index configuration. The filter attribute will be used to filter your search results by in stock flag.
+
+```ts
+ {
+  "filter_attributes": [
+    { attribute: 'in_stock', field: 'in_stock', type: 'string' },
+  ]
+ }
+```
+
+Alternatively, you could setup the attribute under `facet_attributes` to make it available for faceting.
+
+```ts
+ {
+  "facet_attributes": [
+    { attribute: 'in_stock', field: 'in_stock', type: 'string' },
+  ]
+ }
+
+```
+
+The attribute name must be unique in both `filter_attributes` and `facet_attributes`. If you want to use the same attribute for both filtering and faceting, add it to `facet_attributes` only.
+
+## Using Filter Attributes
+
+You can use the filter attribute in your search query to filter your search results by date within `configure`.
+
+### Syntax Examples
+
+```js
+ "in_stock:true" # In stock is true
+```

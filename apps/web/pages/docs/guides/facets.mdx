@@ -1,0 +1,81 @@
+---
+title: Facets
+description: Facets are used to filter search results by a specific field value.
+---
+
+Facets are used to filter search results by a specific field value. For example, you can use facets to filter search results by category, price, or brand.
+
+## Facet types
+
+There are two types of facets:
+
+### String Based Facets
+These facets are used to filter search results by a string field value. For example, you can use a string based facet to filter search results by category, brand, or color.
+
+You can read more about string based facets in the [String Based Facets](/docs/guides/facets/string-based-facets) guide.
+
+### Numeric based Facets
+These facets are used to filter search results by a numeric field value. For example, you can use a range based facet to filter search results by price or rating.
+
+You can read more about string based facets in the [String Based Facets](/docs/guides/facets/string-based-facets) guide.
+
+## Filtering
+
+Facet attributes can also be used to filter search results. For example, you can use a facet attribute in `filters`.
+
+```jsx
+<InstantSearch indexName="imdb_movies" searchClient={searchClient}>
+  <Configure filters="price:[* TO 90]" />
+  <NumericMenu attribute="price" />
+</InstantSearch>
+```
+
+Read more about filtering in the [Filtering](/docs/guides/applying-filters) guide.
+
+## Facet Ordering and Display
+
+With the `DynamicWidgets` widget, you can order and conditionally display facets based on query rules. For example, you can display a facet based on a set of conditions.
+
+For example, `brand` and `categories` are two facets being displayed. 
+
+```jsx
+<InstantSearch indexName="products" searchClient={searchClient}>
+  <DynamicWidgets>
+    <RefinementList attribute="brand" />
+    <RefinementList attribute="categories" />
+  </DynamicWidgets>
+</InstantSearch>
+```
+
+You want to hide the `categories` facet only when the search user types in `star` in the search box.
+
+```json
+{
+  "search_settings": {
+    "query_rules": [
+      {
+        "id": "1",
+        "conditions": [
+          [
+            {
+              "context": "query",
+              "match_type": "prefix",
+              "value": "star"
+            }
+          ]
+        ],
+        "actions": [
+          {
+            "action": "RenderFacetsOrder",
+            "facetAttributesOrder": ["categories"] // only display categories facet
+          }
+        ]
+      }
+    ]
+  }
+}
+
+```
+
+for more information about query rules, see the [Query Rules](/docs/guides/query-rules) guide.
+

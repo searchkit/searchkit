@@ -1,0 +1,37 @@
+{
+  "*": {
+    "type": "page"
+  },
+  "index": {
+    "display": "hidden",
+    "title": "Home",
+    "type": "page",
+    "theme": {
+      "sidebar": false,
+      "toc": true,
+      "layout": "raw"
+    }
+  },
+  "docs": {
+    "title": "Docs",
+    "type": "page"
+  },
+  "examples": {
+    "title": "Examples",
+    "type": "page"
+  },
+  "demos": {
+    "title": "Demos",
+    "type": "page"
+  },
+  "playground": {
+    "title": "Try Playground",
+    "type": "page",
+    "href": "https://playground.searchkit.co",
+    "newWindow": true
+  },
+  "about": {
+    "title": "About",
+    "type": "page"
+  }
+}

@@ -1,0 +1,3086 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Integration tests call with one filter and query applied 1`] = `
+{
+  "results": [
+    {
+      "appliedRules": [],
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "actors": {
+          "Bob Gunton": 1,
+          "Morgan Freeman": 1,
+          "Tim Robbins": 1,
+          "William Sadler": 1,
+        },
+        "rated": {
+          "R": 1,
+        },
+        "type": {
+          "movie": 1,
+        },
+      },
+      "facets_stats": {},
+      "hits": [
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tim Robbins",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Morgan Freeman",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Bob Gunton",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "William Sadler",
+              },
+            ],
+            "title": {
+              "fullyHighlighted": false,
+              "matchLevel": "full",
+              "matchedWords": [
+                "Shawshank",
+              ],
+              "value": "The <em>Shawshank</em> Redemption",
+            },
+          },
+          "actors": [
+            "Tim Robbins",
+            "Morgan Freeman",
+            "Bob Gunton",
+            "William Sadler",
+          ],
+          "objectID": "tt0111161",
+          "title": "The Shawshank Redemption",
+        },
+      ],
+      "hitsPerPage": 20,
+      "index": "imdb_movies",
+      "nbHits": 1,
+      "nbPages": 1,
+      "page": 0,
+      "params": "facetFilters=&facets=*&highlightPostTag=%3C%2Fem%3E&highlightPreTag=%3Cem%3E&maxValuesPerFacet=10&page=0&query=shawshank&tagFilters=",
+      "processingTimeMS": 2,
+      "query": "shawshank",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "type",
+              "actors",
+              "rated",
+            ],
+          },
+          "values": {
+            "actors": {
+              "sortRemainingBy": "count",
+            },
+            "rated": {
+              "sortRemainingBy": "count",
+            },
+            "type": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+    {
+      "appliedRules": [],
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "type": {
+          "movie": 1,
+        },
+      },
+      "facets_stats": {},
+      "hits": [
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tim Robbins",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Morgan Freeman",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Bob Gunton",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "William Sadler",
+              },
+            ],
+            "title": {
+              "fullyHighlighted": false,
+              "matchLevel": "full",
+              "matchedWords": [
+                "Shawshank",
+              ],
+              "value": "The <em>Shawshank</em> Redemption",
+            },
+          },
+          "actors": [
+            "Tim Robbins",
+            "Morgan Freeman",
+            "Bob Gunton",
+            "William Sadler",
+          ],
+          "objectID": "tt0111161",
+          "title": "The Shawshank Redemption",
+        },
+      ],
+      "hitsPerPage": 1,
+      "index": "imdb_movies",
+      "nbHits": 1,
+      "nbPages": 1,
+      "page": 0,
+      "params": "analytics=false&clickAnalytics=false&facets=type&highlightPostTag=%3C%2Fem%3E&highlightPreTag=%3Cem%3E&hitsPerPage=1&maxValuesPerFacet=10&page=0&query=shawshank&tagFilters=",
+      "processingTimeMS": 2,
+      "query": "shawshank",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "type",
+              "actors",
+              "rated",
+            ],
+          },
+          "values": {
+            "actors": {
+              "sortRemainingBy": "count",
+            },
+            "rated": {
+              "sortRemainingBy": "count",
+            },
+            "type": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`Integration tests call with one filter and query applied: ES Request 1`] = `
+"{"index":"imdb_movies"}
+{"aggs":{"type":{"terms":{"field":"type","size":10}},"actors":{"terms":{"field":"actors.keyword","size":10}},"rated":{"terms":{"field":"rated","size":10}}},"query":{"bool":{"filter":[{"bool":{"should":[{"term":{"type":"movie"}}]}}],"must":{"bool":{"should":[{"bool":{"should":[{"multi_match":{"query":"shawshank","fields":["title","actors","query"],"fuzziness":"AUTO:4,8"}},{"multi_match":{"query":"shawshank","fields":["title","actors","query"],"type":"bool_prefix"}}]}},{"multi_match":{"query":"shawshank","type":"phrase","fields":["title","actors","query"]}}]}}}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0},"actors":{"number_of_fragments":0}}}}
+{"index":"imdb_movies"}
+{"aggs":{"type":{"terms":{"field":"type","size":10}}},"query":{"bool":{"filter":[],"must":{"bool":{"should":[{"bool":{"should":[{"multi_match":{"query":"shawshank","fields":["title","actors","query"],"fuzziness":"AUTO:4,8"}},{"multi_match":{"query":"shawshank","fields":["title","actors","query"],"type":"bool_prefix"}}]}},{"multi_match":{"query":"shawshank","type":"phrase","fields":["title","actors","query"]}}]}}}},"size":1,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0},"actors":{"number_of_fragments":0}}}}
+"
+`;
+
+exports[`Integration tests facets non dynamic facets 1`] = `
+{
+  "results": [
+    {
+      "appliedRules": [],
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "actors": {
+          "Emilie de Ravin": 53,
+          "Henry Ian Cusick": 39,
+          "Hugh Laurie": 41,
+          "Jared Padalecki": 49,
+          "Jennifer Carpenter": 56,
+          "Jensen Ackles": 49,
+          "Julie Benz": 40,
+          "Michael C. Hall": 56,
+          "Naveen Andrews": 73,
+          "Omar Epps": 36,
+        },
+        "imdbrating": {
+          "7.199999809265137": 169,
+          "7.300000190734863": 182,
+          "7.400000095367432": 209,
+          "7.5": 171,
+          "7.599999904632568": 210,
+          "7.699999809265137": 197,
+          "7.800000190734863": 227,
+          "7.900000095367432": 173,
+          "8": 185,
+          "8.100000381469727": 199,
+        },
+        "type": {
+          "episode": 521,
+          "game": 48,
+          "movie": 3120,
+          "series": 473,
+        },
+      },
+      "facets_stats": {
+        "imdbrating": {
+          "avg": 7.61511294157788,
+          "max": 9.899999618530273,
+          "min": 5.099999904632568,
+          "sum": 31694.100062847137,
+        },
+      },
+      "hits": [
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tim Robbins",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Morgan Freeman",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Bob Gunton",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "William Sadler",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Shawshank Redemption",
+            },
+          },
+          "actors": [
+            "Tim Robbins",
+            "Morgan Freeman",
+            "Bob Gunton",
+            "William Sadler",
+          ],
+          "objectID": "tt0111161",
+          "title": "The Shawshank Redemption",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Marlon Brando",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Al Pacino",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "James Caan",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Richard S. Castellano",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Godfather",
+            },
+          },
+          "actors": [
+            "Marlon Brando",
+            "Al Pacino",
+            "James Caan",
+            "Richard S. Castellano",
+          ],
+          "objectID": "tt0068646",
+          "title": "The Godfather",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Christian Bale",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Heath Ledger",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Aaron Eckhart",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Michael Caine",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Dark Knight",
+            },
+          },
+          "actors": [
+            "Christian Bale",
+            "Heath Ledger",
+            "Aaron Eckhart",
+            "Michael Caine",
+          ],
+          "objectID": "tt0468569",
+          "title": "The Dark Knight",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Peter Dinklage",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Lena Headey",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Maisie Williams",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Emilia Clarke",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Game of Thrones",
+            },
+          },
+          "actors": [
+            "Peter Dinklage",
+            "Lena Headey",
+            "Maisie Williams",
+            "Emilia Clarke",
+          ],
+          "objectID": "tt0944947",
+          "title": "Game of Thrones",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tim Roth",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Amanda Plummer",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Laura Lovelace",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "John Travolta",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Pulp Fiction",
+            },
+          },
+          "actors": [
+            "Tim Roth",
+            "Amanda Plummer",
+            "Laura Lovelace",
+            "John Travolta",
+          ],
+          "objectID": "tt0110912",
+          "title": "Pulp Fiction",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Edward Norton",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Brad Pitt",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Helena Bonham Carter",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Meat Loaf",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Fight Club",
+            },
+          },
+          "actors": [
+            "Edward Norton",
+            "Brad Pitt",
+            "Helena Bonham Carter",
+            "Meat Loaf",
+          ],
+          "objectID": "tt0137523",
+          "title": "Fight Club",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Noel Appleby",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Alexandra Astin",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Sean Astin",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "David Aston",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Lord of the Rings: The Return of the King",
+            },
+          },
+          "actors": [
+            "Noel Appleby",
+            "Alexandra Astin",
+            "Sean Astin",
+            "David Aston",
+          ],
+          "objectID": "tt0167260",
+          "title": "The Lord of the Rings: The Return of the King",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Leonardo DiCaprio",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Joseph Gordon-Levitt",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Ellen Page",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tom Hardy",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Inception",
+            },
+          },
+          "actors": [
+            "Leonardo DiCaprio",
+            "Joseph Gordon-Levitt",
+            "Ellen Page",
+            "Tom Hardy",
+          ],
+          "objectID": "tt1375666",
+          "title": "Inception",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Alan Howard",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Elijah Wood",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Noel Appleby",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Sean Astin",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Lord of the Rings: The Fellowship of the Ring",
+            },
+          },
+          "actors": [
+            "Alan Howard",
+            "Elijah Wood",
+            "Noel Appleby",
+            "Sean Astin",
+          ],
+          "objectID": "tt0120737",
+          "title": "The Lord of the Rings: The Fellowship of the Ring",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Keanu Reeves",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Laurence Fishburne",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Carrie-Anne Moss",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Hugo Weaving",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Matrix",
+            },
+          },
+          "actors": [
+            "Keanu Reeves",
+            "Laurence Fishburne",
+            "Carrie-Anne Moss",
+            "Hugo Weaving",
+          ],
+          "objectID": "tt0133093",
+          "title": "The Matrix",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Al Pacino",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Robert Duvall",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Diane Keaton",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Robert De Niro",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Godfather: Part II",
+            },
+          },
+          "actors": [
+            "Al Pacino",
+            "Robert Duvall",
+            "Diane Keaton",
+            "Robert De Niro",
+          ],
+          "objectID": "tt0071562",
+          "title": "The Godfather: Part II",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Liam Neeson",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Ben Kingsley",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Ralph Fiennes",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Caroline Goodall",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Schindler's List",
+            },
+          },
+          "actors": [
+            "Liam Neeson",
+            "Ben Kingsley",
+            "Ralph Fiennes",
+            "Caroline Goodall",
+          ],
+          "objectID": "tt0108052",
+          "title": "Schindler's List",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tom Hanks",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Rebecca Williams",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Sally Field",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Michael Conner Humphreys",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Forrest Gump",
+            },
+          },
+          "actors": [
+            "Tom Hanks",
+            "Rebecca Williams",
+            "Sally Field",
+            "Michael Conner Humphreys",
+          ],
+          "objectID": "tt0109830",
+          "title": "Forrest Gump",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Bryan Cranston",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Anna Gunn",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Aaron Paul",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Dean Norris",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Breaking Bad",
+            },
+          },
+          "actors": [
+            "Bryan Cranston",
+            "Anna Gunn",
+            "Aaron Paul",
+            "Dean Norris",
+          ],
+          "objectID": "tt0903747",
+          "title": "Breaking Bad",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Bruce Allpress",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Sean Astin",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "John Bach",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Sala Baker",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Lord of the Rings: The Two Towers",
+            },
+          },
+          "actors": [
+            "Bruce Allpress",
+            "Sean Astin",
+            "John Bach",
+            "Sala Baker",
+          ],
+          "objectID": "tt0167261",
+          "title": "The Lord of the Rings: The Two Towers",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Mark Hamill",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Harrison Ford",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Carrie Fisher",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Peter Cushing",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Star Wars: Episode IV - A New Hope",
+            },
+          },
+          "actors": [
+            "Mark Hamill",
+            "Harrison Ford",
+            "Carrie Fisher",
+            "Peter Cushing",
+          ],
+          "objectID": "tt0076759",
+          "title": "Star Wars: Episode IV - A New Hope",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Morgan Freeman",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Andrew Kevin Walker",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Daniel Zacapa",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Brad Pitt",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Se7en",
+            },
+          },
+          "actors": [
+            "Morgan Freeman",
+            "Andrew Kevin Walker",
+            "Daniel Zacapa",
+            "Brad Pitt",
+          ],
+          "objectID": "tt0114369",
+          "title": "Se7en",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Mark Hamill",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Harrison Ford",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Carrie Fisher",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Billy Dee Williams",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Star Wars: Episode V - The Empire Strikes Back",
+            },
+          },
+          "actors": [
+            "Mark Hamill",
+            "Harrison Ford",
+            "Carrie Fisher",
+            "Billy Dee Williams",
+          ],
+          "objectID": "tt0080684",
+          "title": "Star Wars: Episode V - The Empire Strikes Back",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Christian Bale",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Gary Oldman",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tom Hardy",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Joseph Gordon-Levitt",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Dark Knight Rises",
+            },
+          },
+          "actors": [
+            "Christian Bale",
+            "Gary Oldman",
+            "Tom Hardy",
+            "Joseph Gordon-Levitt",
+          ],
+          "objectID": "tt1345836",
+          "title": "The Dark Knight Rises",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Robert De Niro",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Ray Liotta",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Joe Pesci",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Lorraine Bracco",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Goodfellas",
+            },
+          },
+          "actors": [
+            "Robert De Niro",
+            "Ray Liotta",
+            "Joe Pesci",
+            "Lorraine Bracco",
+          ],
+          "objectID": "tt0099685",
+          "title": "Goodfellas",
+        },
+      ],
+      "hitsPerPage": 20,
+      "index": "imdb_movies",
+      "nbHits": 4162,
+      "nbPages": 209,
+      "page": 0,
+      "params": "facets=type&facets=actors&facets=imdbrating&highlightPostTag=%3C%2Fem%3E&highlightPreTag=%3Cem%3E&maxValuesPerFacet=10&page=0&query=&tagFilters=",
+      "processingTimeMS": 5,
+      "query": "",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "type",
+              "actors",
+              "rated",
+              "imdbrating",
+            ],
+          },
+          "values": {
+            "actors": {
+              "sortRemainingBy": "count",
+            },
+            "imdbrating": {
+              "sortRemainingBy": "count",
+            },
+            "rated": {
+              "sortRemainingBy": "count",
+            },
+            "type": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`Integration tests facets non dynamic facets with one filter 1`] = `
+{
+  "results": [
+    {
+      "appliedRules": [],
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "actors": {
+          "Emilie de Ravin": 53,
+          "Henry Ian Cusick": 39,
+          "Hugh Laurie": 41,
+          "Jared Padalecki": 49,
+          "Jennifer Carpenter": 56,
+          "Jensen Ackles": 49,
+          "Julie Benz": 40,
+          "Michael C. Hall": 56,
+          "Naveen Andrews": 73,
+          "Omar Epps": 36,
+        },
+        "imdbrating": {
+          "7.199999809265137": 169,
+          "7.300000190734863": 182,
+          "7.400000095367432": 209,
+          "7.5": 171,
+          "7.599999904632568": 210,
+          "7.699999809265137": 197,
+          "7.800000190734863": 227,
+          "7.900000095367432": 173,
+          "8": 185,
+          "8.100000381469727": 199,
+        },
+        "type": {
+          "episode": 521,
+          "game": 48,
+          "movie": 3120,
+          "series": 473,
+        },
+      },
+      "facets_stats": {
+        "imdbrating": {
+          "avg": 7.61511294157788,
+          "max": 9.899999618530273,
+          "min": 5.099999904632568,
+          "sum": 31694.100062847137,
+        },
+      },
+      "hits": [
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tim Robbins",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Morgan Freeman",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Bob Gunton",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "William Sadler",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Shawshank Redemption",
+            },
+          },
+          "actors": [
+            "Tim Robbins",
+            "Morgan Freeman",
+            "Bob Gunton",
+            "William Sadler",
+          ],
+          "objectID": "tt0111161",
+          "title": "The Shawshank Redemption",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Marlon Brando",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Al Pacino",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "James Caan",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Richard S. Castellano",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Godfather",
+            },
+          },
+          "actors": [
+            "Marlon Brando",
+            "Al Pacino",
+            "James Caan",
+            "Richard S. Castellano",
+          ],
+          "objectID": "tt0068646",
+          "title": "The Godfather",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Christian Bale",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Heath Ledger",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Aaron Eckhart",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Michael Caine",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Dark Knight",
+            },
+          },
+          "actors": [
+            "Christian Bale",
+            "Heath Ledger",
+            "Aaron Eckhart",
+            "Michael Caine",
+          ],
+          "objectID": "tt0468569",
+          "title": "The Dark Knight",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Peter Dinklage",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Lena Headey",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Maisie Williams",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Emilia Clarke",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Game of Thrones",
+            },
+          },
+          "actors": [
+            "Peter Dinklage",
+            "Lena Headey",
+            "Maisie Williams",
+            "Emilia Clarke",
+          ],
+          "objectID": "tt0944947",
+          "title": "Game of Thrones",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tim Roth",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Amanda Plummer",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Laura Lovelace",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "John Travolta",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Pulp Fiction",
+            },
+          },
+          "actors": [
+            "Tim Roth",
+            "Amanda Plummer",
+            "Laura Lovelace",
+            "John Travolta",
+          ],
+          "objectID": "tt0110912",
+          "title": "Pulp Fiction",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Edward Norton",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Brad Pitt",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Helena Bonham Carter",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Meat Loaf",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Fight Club",
+            },
+          },
+          "actors": [
+            "Edward Norton",
+            "Brad Pitt",
+            "Helena Bonham Carter",
+            "Meat Loaf",
+          ],
+          "objectID": "tt0137523",
+          "title": "Fight Club",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Noel Appleby",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Alexandra Astin",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Sean Astin",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "David Aston",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Lord of the Rings: The Return of the King",
+            },
+          },
+          "actors": [
+            "Noel Appleby",
+            "Alexandra Astin",
+            "Sean Astin",
+            "David Aston",
+          ],
+          "objectID": "tt0167260",
+          "title": "The Lord of the Rings: The Return of the King",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Leonardo DiCaprio",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Joseph Gordon-Levitt",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Ellen Page",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tom Hardy",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Inception",
+            },
+          },
+          "actors": [
+            "Leonardo DiCaprio",
+            "Joseph Gordon-Levitt",
+            "Ellen Page",
+            "Tom Hardy",
+          ],
+          "objectID": "tt1375666",
+          "title": "Inception",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Alan Howard",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Elijah Wood",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Noel Appleby",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Sean Astin",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Lord of the Rings: The Fellowship of the Ring",
+            },
+          },
+          "actors": [
+            "Alan Howard",
+            "Elijah Wood",
+            "Noel Appleby",
+            "Sean Astin",
+          ],
+          "objectID": "tt0120737",
+          "title": "The Lord of the Rings: The Fellowship of the Ring",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Keanu Reeves",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Laurence Fishburne",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Carrie-Anne Moss",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Hugo Weaving",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Matrix",
+            },
+          },
+          "actors": [
+            "Keanu Reeves",
+            "Laurence Fishburne",
+            "Carrie-Anne Moss",
+            "Hugo Weaving",
+          ],
+          "objectID": "tt0133093",
+          "title": "The Matrix",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Al Pacino",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Robert Duvall",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Diane Keaton",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Robert De Niro",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Godfather: Part II",
+            },
+          },
+          "actors": [
+            "Al Pacino",
+            "Robert Duvall",
+            "Diane Keaton",
+            "Robert De Niro",
+          ],
+          "objectID": "tt0071562",
+          "title": "The Godfather: Part II",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Liam Neeson",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Ben Kingsley",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Ralph Fiennes",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Caroline Goodall",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Schindler's List",
+            },
+          },
+          "actors": [
+            "Liam Neeson",
+            "Ben Kingsley",
+            "Ralph Fiennes",
+            "Caroline Goodall",
+          ],
+          "objectID": "tt0108052",
+          "title": "Schindler's List",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tom Hanks",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Rebecca Williams",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Sally Field",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Michael Conner Humphreys",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Forrest Gump",
+            },
+          },
+          "actors": [
+            "Tom Hanks",
+            "Rebecca Williams",
+            "Sally Field",
+            "Michael Conner Humphreys",
+          ],
+          "objectID": "tt0109830",
+          "title": "Forrest Gump",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Bryan Cranston",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Anna Gunn",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Aaron Paul",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Dean Norris",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Breaking Bad",
+            },
+          },
+          "actors": [
+            "Bryan Cranston",
+            "Anna Gunn",
+            "Aaron Paul",
+            "Dean Norris",
+          ],
+          "objectID": "tt0903747",
+          "title": "Breaking Bad",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Bruce Allpress",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Sean Astin",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "John Bach",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Sala Baker",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Lord of the Rings: The Two Towers",
+            },
+          },
+          "actors": [
+            "Bruce Allpress",
+            "Sean Astin",
+            "John Bach",
+            "Sala Baker",
+          ],
+          "objectID": "tt0167261",
+          "title": "The Lord of the Rings: The Two Towers",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Mark Hamill",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Harrison Ford",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Carrie Fisher",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Peter Cushing",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Star Wars: Episode IV - A New Hope",
+            },
+          },
+          "actors": [
+            "Mark Hamill",
+            "Harrison Ford",
+            "Carrie Fisher",
+            "Peter Cushing",
+          ],
+          "objectID": "tt0076759",
+          "title": "Star Wars: Episode IV - A New Hope",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Morgan Freeman",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Andrew Kevin Walker",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Daniel Zacapa",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Brad Pitt",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Se7en",
+            },
+          },
+          "actors": [
+            "Morgan Freeman",
+            "Andrew Kevin Walker",
+            "Daniel Zacapa",
+            "Brad Pitt",
+          ],
+          "objectID": "tt0114369",
+          "title": "Se7en",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Mark Hamill",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Harrison Ford",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Carrie Fisher",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Billy Dee Williams",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Star Wars: Episode V - The Empire Strikes Back",
+            },
+          },
+          "actors": [
+            "Mark Hamill",
+            "Harrison Ford",
+            "Carrie Fisher",
+            "Billy Dee Williams",
+          ],
+          "objectID": "tt0080684",
+          "title": "Star Wars: Episode V - The Empire Strikes Back",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Christian Bale",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Gary Oldman",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tom Hardy",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Joseph Gordon-Levitt",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Dark Knight Rises",
+            },
+          },
+          "actors": [
+            "Christian Bale",
+            "Gary Oldman",
+            "Tom Hardy",
+            "Joseph Gordon-Levitt",
+          ],
+          "objectID": "tt1345836",
+          "title": "The Dark Knight Rises",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Robert De Niro",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Ray Liotta",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Joe Pesci",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Lorraine Bracco",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Goodfellas",
+            },
+          },
+          "actors": [
+            "Robert De Niro",
+            "Ray Liotta",
+            "Joe Pesci",
+            "Lorraine Bracco",
+          ],
+          "objectID": "tt0099685",
+          "title": "Goodfellas",
+        },
+      ],
+      "hitsPerPage": 20,
+      "index": "imdb_movies",
+      "nbHits": 4162,
+      "nbPages": 209,
+      "page": 0,
+      "params": "facetFilters=&facets=*&highlightPostTag=%3C%2Fem%3E&highlightPreTag=%3Cem%3E&maxValuesPerFacet=10&page=0&query=&tagFilters=",
+      "processingTimeMS": 5,
+      "query": "",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "type",
+              "actors",
+              "rated",
+              "imdbrating",
+            ],
+          },
+          "values": {
+            "actors": {
+              "sortRemainingBy": "count",
+            },
+            "imdbrating": {
+              "sortRemainingBy": "count",
+            },
+            "rated": {
+              "sortRemainingBy": "count",
+            },
+            "type": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`Integration tests facets non dynamic facets with one filter: ES Request 1`] = `
+"{"index":"imdb_movies"}
+{"aggs":{"type":{"terms":{"field":"type","size":10}},"actors":{"terms":{"field":"actors.keyword","size":10}},"rated":{"terms":{"field":"rated","size":10}},"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[{"bool":{"should":[{"term":{"actors.keyword":"Alice"}}]}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0},"actors":{"number_of_fragments":0}}}}
+"
+`;
+
+exports[`Integration tests facets non dynamic facets: ES Request 1`] = `
+"{"index":"imdb_movies"}
+{"aggs":{"type":{"terms":{"field":"type","size":10}},"actors":{"terms":{"field":"actors.keyword","size":10}},"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0},"actors":{"number_of_fragments":0}}}}
+"
+`;
+
+exports[`Integration tests facets numeric facets 1`] = `
+{
+  "results": [
+    {
+      "appliedRules": [],
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "imdbrating": {
+          "9.300000190734863": 1,
+        },
+      },
+      "facets_stats": {
+        "imdbrating": {
+          "avg": 9.300000190734863,
+          "max": 9.300000190734863,
+          "min": 9.300000190734863,
+          "sum": 9.300000190734863,
+        },
+      },
+      "hits": [
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tim Robbins",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Morgan Freeman",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Bob Gunton",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "William Sadler",
+              },
+            ],
+            "title": {
+              "fullyHighlighted": false,
+              "matchLevel": "full",
+              "matchedWords": [
+                "Shawshank",
+              ],
+              "value": "The <em>Shawshank</em> Redemption",
+            },
+          },
+          "actors": [
+            "Tim Robbins",
+            "Morgan Freeman",
+            "Bob Gunton",
+            "William Sadler",
+          ],
+          "objectID": "tt0111161",
+          "title": "The Shawshank Redemption",
+        },
+      ],
+      "hitsPerPage": 20,
+      "index": "imdb_movies",
+      "nbHits": 1,
+      "nbPages": 1,
+      "page": 0,
+      "params": "facetFilters=&facets=*&highlightPostTag=%3C%2Fem%3E&highlightPreTag=%3Cem%3E&maxValuesPerFacet=10&page=0&query=shawshank&tagFilters=",
+      "processingTimeMS": 2,
+      "query": "shawshank",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "type",
+              "imdbrating",
+            ],
+          },
+          "values": {
+            "imdbrating": {
+              "sortRemainingBy": "count",
+            },
+            "type": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+    {
+      "appliedRules": [],
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "type": {
+          "movie": 1,
+        },
+      },
+      "facets_stats": {},
+      "hits": [
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tim Robbins",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Morgan Freeman",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Bob Gunton",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "William Sadler",
+              },
+            ],
+            "title": {
+              "fullyHighlighted": false,
+              "matchLevel": "full",
+              "matchedWords": [
+                "Shawshank",
+              ],
+              "value": "The <em>Shawshank</em> Redemption",
+            },
+          },
+          "actors": [
+            "Tim Robbins",
+            "Morgan Freeman",
+            "Bob Gunton",
+            "William Sadler",
+          ],
+          "objectID": "tt0111161",
+          "title": "The Shawshank Redemption",
+        },
+      ],
+      "hitsPerPage": 1,
+      "index": "imdb_movies",
+      "nbHits": 1,
+      "nbPages": 1,
+      "page": 0,
+      "params": "analytics=false&clickAnalytics=false&facets=type&highlightPostTag=%3C%2Fem%3E&highlightPreTag=%3Cem%3E&hitsPerPage=1&maxValuesPerFacet=10&page=0&query=shawshank&tagFilters=",
+      "processingTimeMS": 2,
+      "query": "shawshank",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "type",
+              "imdbrating",
+            ],
+          },
+          "values": {
+            "imdbrating": {
+              "sortRemainingBy": "count",
+            },
+            "type": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`Integration tests facets numeric facets: ES Request 1`] = `
+"{"index":"imdb_movies"}
+{"aggs":{"type":{"terms":{"field":"type","size":10}},"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[{"bool":{"should":[{"term":{"type":"movie"}}]}}],"must":{"bool":{"should":[{"bool":{"should":[{"multi_match":{"query":"shawshank","fields":["title","actors"],"fuzziness":"AUTO:4,8"}},{"multi_match":{"query":"shawshank","fields":["title","actors"],"type":"bool_prefix"}}]}},{"multi_match":{"query":"shawshank","type":"phrase","fields":["title","actors"]}}]}}}},"size":20,"from":0,"_source":{"includes":["title","actors"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0},"actors":{"number_of_fragments":0}}}}
+{"index":"imdb_movies"}
+{"aggs":{"type":{"terms":{"field":"type","size":10}}},"query":{"bool":{"filter":[],"must":{"bool":{"should":[{"bool":{"should":[{"multi_match":{"query":"shawshank","fields":["title","actors"],"fuzziness":"AUTO:4,8"}},{"multi_match":{"query":"shawshank","fields":["title","actors"],"type":"bool_prefix"}}]}},{"multi_match":{"query":"shawshank","type":"phrase","fields":["title","actors"]}}]}}}},"size":1,"from":0,"_source":{"includes":["title","actors"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0},"actors":{"number_of_fragments":0}}}}
+"
+`;
+
+exports[`Integration tests facets numeric filters 1`] = `
+{
+  "results": [
+    {
+      "appliedRules": [],
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "actors": {},
+        "imdbrating": {},
+        "type": {},
+      },
+      "facets_stats": {
+        "imdbrating": {
+          "avg": null,
+          "max": null,
+          "min": null,
+          "sum": 0,
+        },
+      },
+      "hits": [],
+      "hitsPerPage": 20,
+      "index": "imdb_movies",
+      "nbHits": 0,
+      "nbPages": 0,
+      "page": 0,
+      "params": "facets=type&facets=actors&facets=imdbrating&highlightPostTag=%3C%2Fem%3E&highlightPreTag=%3Cem%3E&maxValuesPerFacet=10&numericFilters=imdbrating%3E%3D90&page=0&query=&tagFilters=",
+      "processingTimeMS": 0,
+      "query": "",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "type",
+              "actors",
+              "rated",
+              "imdbrating",
+            ],
+          },
+          "values": {
+            "actors": {
+              "sortRemainingBy": "count",
+            },
+            "imdbrating": {
+              "sortRemainingBy": "count",
+            },
+            "rated": {
+              "sortRemainingBy": "count",
+            },
+            "type": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+    {
+      "appliedRules": [],
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "imdbrating": {
+          "7.199999809265137": 169,
+          "7.300000190734863": 182,
+          "7.400000095367432": 209,
+          "7.5": 171,
+          "7.599999904632568": 210,
+          "7.699999809265137": 197,
+          "7.800000190734863": 227,
+          "7.900000095367432": 173,
+          "8": 185,
+          "8.100000381469727": 199,
+        },
+      },
+      "facets_stats": {
+        "imdbrating": {
+          "avg": 7.61511294157788,
+          "max": 9.899999618530273,
+          "min": 5.099999904632568,
+          "sum": 31694.100062847137,
+        },
+      },
+      "hits": [
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tim Robbins",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Morgan Freeman",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Bob Gunton",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "William Sadler",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Shawshank Redemption",
+            },
+          },
+          "actors": [
+            "Tim Robbins",
+            "Morgan Freeman",
+            "Bob Gunton",
+            "William Sadler",
+          ],
+          "objectID": "tt0111161",
+          "title": "The Shawshank Redemption",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Marlon Brando",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Al Pacino",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "James Caan",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Richard S. Castellano",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Godfather",
+            },
+          },
+          "actors": [
+            "Marlon Brando",
+            "Al Pacino",
+            "James Caan",
+            "Richard S. Castellano",
+          ],
+          "objectID": "tt0068646",
+          "title": "The Godfather",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Christian Bale",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Heath Ledger",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Aaron Eckhart",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Michael Caine",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Dark Knight",
+            },
+          },
+          "actors": [
+            "Christian Bale",
+            "Heath Ledger",
+            "Aaron Eckhart",
+            "Michael Caine",
+          ],
+          "objectID": "tt0468569",
+          "title": "The Dark Knight",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Peter Dinklage",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Lena Headey",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Maisie Williams",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Emilia Clarke",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Game of Thrones",
+            },
+          },
+          "actors": [
+            "Peter Dinklage",
+            "Lena Headey",
+            "Maisie Williams",
+            "Emilia Clarke",
+          ],
+          "objectID": "tt0944947",
+          "title": "Game of Thrones",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tim Roth",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Amanda Plummer",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Laura Lovelace",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "John Travolta",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Pulp Fiction",
+            },
+          },
+          "actors": [
+            "Tim Roth",
+            "Amanda Plummer",
+            "Laura Lovelace",
+            "John Travolta",
+          ],
+          "objectID": "tt0110912",
+          "title": "Pulp Fiction",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Edward Norton",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Brad Pitt",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Helena Bonham Carter",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Meat Loaf",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Fight Club",
+            },
+          },
+          "actors": [
+            "Edward Norton",
+            "Brad Pitt",
+            "Helena Bonham Carter",
+            "Meat Loaf",
+          ],
+          "objectID": "tt0137523",
+          "title": "Fight Club",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Noel Appleby",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Alexandra Astin",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Sean Astin",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "David Aston",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Lord of the Rings: The Return of the King",
+            },
+          },
+          "actors": [
+            "Noel Appleby",
+            "Alexandra Astin",
+            "Sean Astin",
+            "David Aston",
+          ],
+          "objectID": "tt0167260",
+          "title": "The Lord of the Rings: The Return of the King",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Leonardo DiCaprio",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Joseph Gordon-Levitt",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Ellen Page",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tom Hardy",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Inception",
+            },
+          },
+          "actors": [
+            "Leonardo DiCaprio",
+            "Joseph Gordon-Levitt",
+            "Ellen Page",
+            "Tom Hardy",
+          ],
+          "objectID": "tt1375666",
+          "title": "Inception",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Alan Howard",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Elijah Wood",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Noel Appleby",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Sean Astin",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Lord of the Rings: The Fellowship of the Ring",
+            },
+          },
+          "actors": [
+            "Alan Howard",
+            "Elijah Wood",
+            "Noel Appleby",
+            "Sean Astin",
+          ],
+          "objectID": "tt0120737",
+          "title": "The Lord of the Rings: The Fellowship of the Ring",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Keanu Reeves",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Laurence Fishburne",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Carrie-Anne Moss",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Hugo Weaving",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Matrix",
+            },
+          },
+          "actors": [
+            "Keanu Reeves",
+            "Laurence Fishburne",
+            "Carrie-Anne Moss",
+            "Hugo Weaving",
+          ],
+          "objectID": "tt0133093",
+          "title": "The Matrix",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Al Pacino",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Robert Duvall",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Diane Keaton",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Robert De Niro",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Godfather: Part II",
+            },
+          },
+          "actors": [
+            "Al Pacino",
+            "Robert Duvall",
+            "Diane Keaton",
+            "Robert De Niro",
+          ],
+          "objectID": "tt0071562",
+          "title": "The Godfather: Part II",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Liam Neeson",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Ben Kingsley",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Ralph Fiennes",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Caroline Goodall",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Schindler's List",
+            },
+          },
+          "actors": [
+            "Liam Neeson",
+            "Ben Kingsley",
+            "Ralph Fiennes",
+            "Caroline Goodall",
+          ],
+          "objectID": "tt0108052",
+          "title": "Schindler's List",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tom Hanks",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Rebecca Williams",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Sally Field",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Michael Conner Humphreys",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Forrest Gump",
+            },
+          },
+          "actors": [
+            "Tom Hanks",
+            "Rebecca Williams",
+            "Sally Field",
+            "Michael Conner Humphreys",
+          ],
+          "objectID": "tt0109830",
+          "title": "Forrest Gump",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Bryan Cranston",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Anna Gunn",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Aaron Paul",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Dean Norris",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Breaking Bad",
+            },
+          },
+          "actors": [
+            "Bryan Cranston",
+            "Anna Gunn",
+            "Aaron Paul",
+            "Dean Norris",
+          ],
+          "objectID": "tt0903747",
+          "title": "Breaking Bad",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Bruce Allpress",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Sean Astin",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "John Bach",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Sala Baker",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Lord of the Rings: The Two Towers",
+            },
+          },
+          "actors": [
+            "Bruce Allpress",
+            "Sean Astin",
+            "John Bach",
+            "Sala Baker",
+          ],
+          "objectID": "tt0167261",
+          "title": "The Lord of the Rings: The Two Towers",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Mark Hamill",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Harrison Ford",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Carrie Fisher",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Peter Cushing",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Star Wars: Episode IV - A New Hope",
+            },
+          },
+          "actors": [
+            "Mark Hamill",
+            "Harrison Ford",
+            "Carrie Fisher",
+            "Peter Cushing",
+          ],
+          "objectID": "tt0076759",
+          "title": "Star Wars: Episode IV - A New Hope",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Morgan Freeman",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Andrew Kevin Walker",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Daniel Zacapa",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Brad Pitt",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Se7en",
+            },
+          },
+          "actors": [
+            "Morgan Freeman",
+            "Andrew Kevin Walker",
+            "Daniel Zacapa",
+            "Brad Pitt",
+          ],
+          "objectID": "tt0114369",
+          "title": "Se7en",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Mark Hamill",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Harrison Ford",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Carrie Fisher",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Billy Dee Williams",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Star Wars: Episode V - The Empire Strikes Back",
+            },
+          },
+          "actors": [
+            "Mark Hamill",
+            "Harrison Ford",
+            "Carrie Fisher",
+            "Billy Dee Williams",
+          ],
+          "objectID": "tt0080684",
+          "title": "Star Wars: Episode V - The Empire Strikes Back",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Christian Bale",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Gary Oldman",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Tom Hardy",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Joseph Gordon-Levitt",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "The Dark Knight Rises",
+            },
+          },
+          "actors": [
+            "Christian Bale",
+            "Gary Oldman",
+            "Tom Hardy",
+            "Joseph Gordon-Levitt",
+          ],
+          "objectID": "tt1345836",
+          "title": "The Dark Knight Rises",
+        },
+        {
+          "_highlightResult": {
+            "actors": [
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Robert De Niro",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Ray Liotta",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Joe Pesci",
+              },
+              {
+                "matchLevel": "none",
+                "matchedWords": [],
+                "value": "Lorraine Bracco",
+              },
+            ],
+            "title": {
+              "matchLevel": "none",
+              "matchedWords": [],
+              "value": "Goodfellas",
+            },
+          },
+          "actors": [
+            "Robert De Niro",
+            "Ray Liotta",
+            "Joe Pesci",
+            "Lorraine Bracco",
+          ],
+          "objectID": "tt0099685",
+          "title": "Goodfellas",
+        },
+      ],
+      "hitsPerPage": 0,
+      "index": "imdb_movies",
+      "nbHits": 4162,
+      "nbPages": 0,
+      "page": 0,
+      "params": "analytics=false&clickAnalytics=false&facets=imdbrating&highlightPostTag=%3C%2Fem%3E&highlightPreTag=%3Cem%3E&hitsPerPage=0&maxValuesPerFacet=10&page=0&query=",
+      "processingTimeMS": 2,
+      "query": "",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "type",
+              "actors",
+              "rated",
+              "imdbrating",
+            ],
+          },
+          "values": {
+            "actors": {
+              "sortRemainingBy": "count",
+            },
+            "imdbrating": {
+              "sortRemainingBy": "count",
+            },
+            "rated": {
+              "sortRemainingBy": "count",
+            },
+            "type": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`Integration tests facets numeric filters: ES Request 1`] = `
+"{"index":"imdb_movies"}
+{"aggs":{"type":{"terms":{"field":"type","size":10}},"actors":{"terms":{"field":"actors.keyword","size":10}},"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[{"range":{"imdbrating":{"gte":"90"}}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0},"actors":{"number_of_fragments":0}}}}
+{"index":"imdb_movies"}
+{"aggs":{"imdbrating$_stats":{"stats":{"field":"imdbrating"}},"imdbrating$_entries":{"terms":{"field":"imdbrating","size":10}}},"query":{"bool":{"filter":[],"must":{"match_all":{}}}},"size":0,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0},"actors":{"number_of_fragments":0}}}}
+"
+`;

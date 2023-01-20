@@ -1,9 +1,9 @@
 {
-  "name": "searchkit",
+  "name": "searchkit-monorepo",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "examples/next"
+    "apps/*",
+    "packages/*"
   ],
   "repository": {
     "type": "git",
@@ -11,53 +11,28 @@
   },
   "license": "Apache-2.0",
   "scripts": {
-    "versionup": "lerna version --conventional-commits --conventional-graduate --no-git-tag-version",
-    "versionup:patch": "lerna version patch --conventional-commits --conventional-graduate --no-git-tag-version",
-    "versionup:minor": "lerna version minor --conventional-commits --conventional-graduate --no-git-tag-version",
-    "versionup:major": "lerna version major --conventional-commits --conventional-graduate --no-git-tag-version",
-    "versionup:pre": "lerna version prerelease --conventional-commits --no-git-tag-version",
-    "build": "lerna run build --stream --scope @searchkit/client && lerna run build --stream --scope '{@searchkit/schema,@searchkit/elastic-ui,@searchkit/cli,@searchkit/sdk}'",
-    "dev:core": "lerna run dev --stream --scope '{@searchkit/client,@searchkit/schema, @searchkit/sdk}'",
-    "dev:ui": "lerna run dev --stream --scope '@searchkit/elastic-ui'",
-    "release": "lerna publish from-package",
-    "test": "lerna run test --stream",
-    "build-docs": "lerna run build-docs",
-    "lint": "eslint . --ext js,ts,tsx --fix",
-    "coverage": "lerna run coverage --stream"
+    "test": "turbo run test",
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "changeset": "changeset",
+    "publish-packages": "turbo run build lint test && changeset version && changeset publish"
   },
   "devDependencies": {
-    "@apollo/client": "^3.3.19",
-    "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/react": "^11.1.2",
-    "@types/elasticsearch": "^5.0.36",
     "@types/jest": "^26.0.15",
     "@types/node": "^18.0.0",
-    "@types/react": "^17.0.0",
+    "@types/react": "^18.0.25",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.0.1",
-    "eslint": "^7.11.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-prettier": "^6.7.0",
-    "eslint-import-resolver-typescript": "^2.0.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^25.0.5",
-    "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-react": "^7.1.0",
+    "eslint-config-custom": "*",
     "husky": "^4.3.0",
-    "jest": "^26.6.3",
     "prettier": "^2.1.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "stylelint": "^11.0.0",
-    "stylelint-config-prettier": "^6.0.0",
-    "stylelint-config-standard": "^20.0.0",
-    "stylelint-order": "^3.1.0",
-    "stylelint-prettier": "^1.1.1",
-    "ts-jest": "^26.4.4",
-    "typescript": "^4.0.5"
+    "turbo": "latest",
+    "typescript": "^4.9.3"
   },
   "dependencies": {
-    "lerna": "^3.22.0"
+    "@changesets/cli": "^2.25.0"
   },
   "husky": {
     "hooks": {
@@ -66,8 +41,7 @@
     }
   },
   "resolutions": {
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "@apollo/client": "^3.3.19"
-  }
+
+  },
+  "version": "0.0.0"
 }

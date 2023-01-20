@@ -1,0 +1,113 @@
+---
+title: Search Relevance
+description: How to customise the default query for customised relevance
+---
+
+Out the box, Searchkit provides a Elasticsearch query that is designed to work well for most use cases. However, you may want to customise the query to improve the relevance of the search results.
+
+This example shows how to use the `getQuery` function to customise the query for a given request.
+
+Below is an example of using the [`combined_fields` query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-combined-fields-query.html) instead.
+
+```js
+const results = await apiClient.handleRequest(req.body, {
+  getQuery: (query, search_attributes) => {
+    return [
+      {
+        combined_fields: {
+          query,
+          fields: search_attributes,
+        },
+      },
+    ];
+  },
+});
+```
+
+You can also use the hooks to customise the query. For example, to add a rescore query to the default query.
+
+Read more about [hooks](/docs/api-documentation/api#Hooks) in api-documentation.
+
+## Request hooks
+
+Request hooks are functions that are called before and after the search request is sent to Elasticsearch. They can be used to modify the search request and response before it is sent to Elasticsearch and to the UI.
+
+Request hooks allow you to add custom logic to the search request and response. For example, you can add a rescore query to the default query, or add a custom query to the request.
+
+### Rescore Query Example
+
+Could be also used for Open source connections [Learn to rank plugin](https://elasticsearch-learning-to-rank.readthedocs.io/en/latest/) 
+
+```ts
+  const results = await client.handleRequest(req.body, {
+    hooks: {
+      beforeSearch: (searchRequests) => {
+        const uiRequest = searchRequests[0]
+
+        return [
+          {
+            ...uiRequest,
+            body: {
+              ...uiRequest.body,
+              rescore: {
+                window_size: 100,
+                query: {
+                  rescore_query: {
+                    match: {
+                      plot: {
+                        query: uiRequest.body.query,
+                        operator: "and",
+                      },
+                    },
+                  },
+                  query_weight: 1,
+                  rescore_query_weight: 10,
+                }
+              }
+            }
+          },
+          searchRequests.slice(1, searchRequests.length)
+        ]
+        
+      },
+    }
+  });
+```
+
+### Example of doing a KNN search
+
+An example of extending the query to do a hybrid search with KNN search and text search. Retrieves the search query provided in the UI and uses it to retrieve an image embedding from a custom image search API. Then extends the query to do a hybrid search with KNN search (with embedding) and text search. 
+
+```ts
+  const results = await client.handleRequest(req.body, {
+    hooks: {
+      beforeSearch: async (searchRequests) => {
+        const [uiRequest, ...restRequests] = searchRequests
+
+        // get an image embedding from the query text
+        const imageEmbedding = await getImageEmbeddingFromQueryText(uiRequest.params.query)
+
+        // extends the query to do a hybrid search with KNN search and text search
+        // https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search.html
+        return [
+          {
+            ...uiRequest,
+            body: {
+              ...uiRequest.body,
+              "knn": {
+                "field": "image-vector",
+                "query_vector": imageEmbedding,
+                "k": 10,
+                "num_candidates": 100
+              },
+            },
+          },
+          restRequests,
+        ];
+        
+      },
+    }
+  });
+```
+
+

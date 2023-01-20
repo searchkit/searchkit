@@ -1,0 +1,371 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Nested Facets, filters and results One nested facet support 3`] = `
+{
+  "results": [
+    {
+      "appliedRules": [],
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "user.first": {
+          "Alice": 1,
+          "John": 2,
+          "Smith": 1,
+        },
+      },
+      "facets_stats": {},
+      "hits": [
+        {
+          "_highlightResult": {},
+          "objectID": "1",
+        },
+        {
+          "_highlightResult": {},
+          "objectID": "2",
+        },
+      ],
+      "hitsPerPage": 20,
+      "index": "imdb_movies",
+      "nbHits": 2,
+      "nbPages": 1,
+      "page": 0,
+      "params": "facetFilters=&facets=*&highlightPostTag=%3C%2Fem%3E&highlightPreTag=%3Cem%3E&maxValuesPerFacet=10&page=0&query=&tagFilters=",
+      "processingTimeMS": 1,
+      "query": "",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "user.first",
+            ],
+          },
+          "values": {
+            "user.first": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+    {
+      "appliedRules": [],
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "user.first": {
+          "Alice": 1,
+          "Haribo": 1,
+          "Jacob": 1,
+          "John": 2,
+          "Smith": 1,
+        },
+      },
+      "facets_stats": {},
+      "hits": [
+        {
+          "_highlightResult": {},
+          "objectID": "1",
+        },
+      ],
+      "hitsPerPage": 1,
+      "index": "imdb_movies",
+      "nbHits": 3,
+      "nbPages": 3,
+      "page": 0,
+      "params": "analytics=false&clickAnalytics=false&facets=user.first&highlightPostTag=%3C%2Fem%3E&highlightPreTag=%3Cem%3E&hitsPerPage=1&maxValuesPerFacet=10&page=0&query=&tagFilters=",
+      "processingTimeMS": 0,
+      "query": "",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "user.first",
+            ],
+          },
+          "values": {
+            "user.first": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`Nested Facets, filters and results One nested facet support: ES Request 1`] = `
+"{"index":"imdb_movies"}
+{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[{"bool":{"should":[{"nested":{"path":"user","query":{"bool":{"should":[{"term":{"user.first.keyword":"Alice"}}]}}}}]}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0}}}}
+{"index":"imdb_movies"}
+{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[],"must":{"match_all":{}}}},"size":1,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0}}}}
+"
+`;
+
+exports[`Nested Facets, filters and results one facet and two OR filters 3`] = `
+{
+  "results": [
+    {
+      "appliedRules": [],
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "user.first": {
+          "Alice": 1,
+          "John": 2,
+          "Smith": 1,
+        },
+      },
+      "facets_stats": {},
+      "hits": [
+        {
+          "_highlightResult": {},
+          "objectID": "1",
+        },
+        {
+          "_highlightResult": {},
+          "objectID": "2",
+        },
+      ],
+      "hitsPerPage": 20,
+      "index": "imdb_movies",
+      "nbHits": 2,
+      "nbPages": 1,
+      "page": 0,
+      "params": "facetFilters=&facets=*&highlightPostTag=%3C%2Fem%3E&highlightPreTag=%3Cem%3E&maxValuesPerFacet=10&page=0&query=&tagFilters=",
+      "processingTimeMS": 1,
+      "query": "",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "user.first",
+            ],
+          },
+          "values": {
+            "user.first": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+    {
+      "appliedRules": [],
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "user.first": {
+          "Alice": 1,
+          "Haribo": 1,
+          "Jacob": 1,
+          "John": 2,
+          "Smith": 1,
+        },
+      },
+      "facets_stats": {},
+      "hits": [
+        {
+          "_highlightResult": {},
+          "objectID": "1",
+        },
+      ],
+      "hitsPerPage": 1,
+      "index": "imdb_movies",
+      "nbHits": 3,
+      "nbPages": 3,
+      "page": 0,
+      "params": "analytics=false&clickAnalytics=false&facets=user.first&highlightPostTag=%3C%2Fem%3E&highlightPreTag=%3Cem%3E&hitsPerPage=1&maxValuesPerFacet=10&page=0&query=&tagFilters=",
+      "processingTimeMS": 0,
+      "query": "",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "user.first",
+            ],
+          },
+          "values": {
+            "user.first": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`Nested Facets, filters and results one facet and two OR filters: ES Request 1`] = `
+"{"index":"imdb_movies"}
+{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[{"bool":{"should":[{"nested":{"path":"user","query":{"bool":{"should":[{"term":{"user.first.keyword":"Alice"}},{"term":{"user.first.keyword":"John"}}]}}}}]}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0}}}}
+{"index":"imdb_movies"}
+{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[],"must":{"match_all":{}}}},"size":1,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0}}}}
+"
+`;
+
+exports[`Nested Facets, filters and results one numeric facet 3`] = `
+{
+  "results": [
+    {
+      "appliedRules": [],
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "user.price": {
+          "123": 1,
+          "34": 1,
+        },
+      },
+      "facets_stats": {
+        "user.price": {
+          "avg": 78.5,
+          "max": 123,
+          "min": 34,
+          "sum": 157,
+        },
+      },
+      "hits": [
+        {
+          "_highlightResult": {},
+          "objectID": "4",
+        },
+      ],
+      "hitsPerPage": 20,
+      "index": "my-index-000001",
+      "nbHits": 1,
+      "nbPages": 1,
+      "page": 0,
+      "params": "facets=*&highlightPostTag=%3C%2Fem%3E&highlightPreTag=%3Cem%3E&maxValuesPerFacet=10&numericFilters=user.price%3E%3D90&page=0&query=&tagFilters=",
+      "processingTimeMS": 1,
+      "query": "",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "user.price",
+            ],
+          },
+          "values": {
+            "user.price": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`Nested Facets, filters and results one numeric facet: ES Request 1`] = `
+"{"index":"my-index-000001"}
+{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.price$_stats":{"stats":{"field":"user.price"}},"user.price$_entries":{"terms":{"field":"user.price","size":10}}}}},"query":{"bool":{"filter":[{"nested":{"path":"user","query":{"bool":{"filter":[{"range":{"user.price":{"gte":"90"}}}]}}}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0}}}}
+"
+`;
+
+exports[`Nested Facets, filters and results two nested facets 3`] = `
+{
+  "results": [
+    {
+      "appliedRules": [],
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "facets": {
+        "user.first": {
+          "Haribo": 1,
+          "Jacob": 1,
+        },
+        "user.price": {
+          "123": 1,
+          "34": 1,
+        },
+      },
+      "facets_stats": {
+        "user.price": {
+          "avg": 78.5,
+          "max": 123,
+          "min": 34,
+          "sum": 157,
+        },
+      },
+      "hits": [
+        {
+          "_highlightResult": {},
+          "objectID": "4",
+        },
+      ],
+      "hitsPerPage": 20,
+      "index": "my-index-000001",
+      "nbHits": 1,
+      "nbPages": 1,
+      "page": 0,
+      "params": "facets=*&highlightPostTag=%3C%2Fem%3E&highlightPreTag=%3Cem%3E&maxValuesPerFacet=10&numericFilters=user.price%3E%3D90&page=0&query=&tagFilters=",
+      "processingTimeMS": 1,
+      "query": "",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [
+              "user.price",
+              "user.first",
+            ],
+          },
+          "values": {
+            "user.first": {
+              "sortRemainingBy": "count",
+            },
+            "user.price": {
+              "sortRemainingBy": "count",
+            },
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`Nested Facets, filters and results two nested facets: ES Request 1`] = `
+"{"index":"my-index-000001"}
+{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.price$_stats":{"stats":{"field":"user.price"}},"user.price$_entries":{"terms":{"field":"user.price","size":10}},"user.first":{"terms":{"field":"user.first.keyword","size":10}}}}},"query":{"bool":{"filter":[{"nested":{"path":"user","query":{"bool":{"filter":[{"range":{"user.price":{"gte":"90"}}}]}}}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0}}}}
+"
+`;

@@ -1,0 +1,62 @@
+---
+title: Filtering by Date
+---
+
+You can filter your search results by date. This is useful if you want to find all the documents that were created or modified in a specific time period.
+
+## Setup a date field
+
+To filter by date, you need to add a date field to your index. You can do this by adding a date field to your schema. 
+
+Indexing the following document into Elasticsearch will create a date field called `date`:
+
+```json
+ {
+   "date": "2015-01-01"
+ }
+```
+
+and your mapping will look like this:
+
+```json
+{
+  "properties": {
+    "date": {
+      "type": "date"
+    }
+  }
+}
+```
+
+## Filter Attribute Configuration
+
+Add a filter attribute to your index configuration. The filter attribute will be used to filter your search results by date.
+
+```ts
+ {
+  "filter_attributes": [
+    { attribute: 'date', field: 'date', type: 'date' },
+  ]
+ }
+```
+
+## Using Filter Attributes
+
+You can use the filter attribute in your search query to filter your search results by date within `configure`.
+
+### Syntax Examples
+
+```js
+ "date:2015-01-01" # date is 2015-01-01
+ "date:[2015-01-01 TO 2015-12-31]" # date is between 2015-01-01 and 2015-12-31
+ "date:[2015-01-01 TO *]" # date is greater than 2015-01-01
+ "date:[* TO 2015-12-31]" # date is less than 2015-12-31
+```
+
+### Example
+
+```js title="Instantsearch.js - Configure"
+ client.configure({
+  filters: 'date:[2015-01-01 TO 2015-12-31]'
+ })
+```

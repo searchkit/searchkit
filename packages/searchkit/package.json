@@ -1,0 +1,44 @@
+{
+  "name": "searchkit",
+  "version": "4.0.0",
+  "main": "./dist/index.js",
+  "description": "",
+  "repository": "https://github.com/searchkit/searchkit",
+  "bugs": "https://github.com/searchkit/searchkit/issues",
+  "homepage": "https://www.searchkit.co",
+  "license": "MIT",
+  "files": [
+    "dist/"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "lint": "eslint src/*.ts*",
+    "build": "tsup",
+    "dev": "npm run build --watch",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@elastic/elasticsearch": "8.4.0",
+    "@types/jest": "^29.1.1",
+    "cross-fetch": "^3.1.5",
+    "eslint": "^7.32.0",
+    "eslint-config-custom": "*",
+    "jest": "29.1.2",
+    "nock": "^13.0.5",
+    "node-fetch": "^2.6.6",
+    "ts-jest": "29.0.3",
+    "tsconfig": "*",
+    "tsup": "^6.3.0",
+    "typescript": "^4.5.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "deepmerge": "^4.2.2"
+  }
+}

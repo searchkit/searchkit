@@ -1,0 +1,13 @@
+{
+  "setup-elasticsearch": "Setup Elasticsearch",
+  "indexing-data": "Indexing Data",
+  "customising-query": "Search Relevance",
+  "autocomplete": "Autocomplete",
+  "highlighting-snippets": "Highlighting and Snippets",
+  "facets": "Facets",
+  "filters": "Filters",
+  "query-rules": "Query Rules",
+  "sorting": "Sorting",
+  "user-restricted-data": "User-restricted access to data",
+  "learn-to-rank": "Learn to Rank"
+}

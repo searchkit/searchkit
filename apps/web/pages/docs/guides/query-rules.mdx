@@ -1,0 +1,109 @@
+---
+title: Query Rules
+description: Query rules are a powerful feature that allows you to customize the behavior of the search experience.
+---
+
+# Query Rules
+
+Query rules are a powerful feature that allows you to customize the behavior of the search experience. They are a set of conditions and consequent actions that are applied to search results. They are applied in the order they are defined in the dashboard.
+
+Query rules are defined in the `search_settings` configuration under `query_rules`. The `query_rules` configuration is an array of query rule objects. Each query rule object has the following properties:
+
+  * `id`: String. Required. The id of the query rule. This is used to identify the query rule.
+  * `conditions`: An array of [conditions](#query-rule-conditions) that define the conditions that must be met for the query rule to be applied.
+  * `actions`: An [action](#query-rule-actions) that defines the actions to be taken when the query rule is applied.
+
+Below is an example of a query rule that will pin the document "tt0111161" to the top of the search results when the query starts with "star".
+
+```json
+{
+  "search_settings": {
+    "query_rules": [
+      {
+        "id": "1",
+        "conditions": [
+          [
+            {
+              "context": "query",
+              "match_type": "prefix",
+              "value": "star"
+            }
+          ]
+        ],
+        "actions": [
+          {
+            "action": "PinnedResult",
+            "documentIds": ["tt0111161"]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Its important to note that query rules are applied in the order they are defined in the configuration. This means that if you have two query rules that both match a query, the first query rule will be applied first and the second query rule will be applied second. This can be useful if you want to apply a query rule that will override another query rule.
+  
+## Query Rule Conditions
+
+Conditions are used to define the conditions that must be met for a query rule to be applied.
+
+The following conditions are supported in Searchkit:
+
+- [Query](/docs/guides/query-rules/conditions/query)
+- [Context](/docs/guides/query-rules/conditions/context)
+- [Filter](/docs/guides/query-rules/conditions/filters)
+
+Below is an example where we have two **OR** conditions:
+* The first **OR** condition has two **AND** conditions. Both the `context` & `query` condition must be met.
+* The second **OR** condition has one **AND** condition. The `context` condition must be met.
+
+Either of the **OR** conditions must be met for the query rule action to be applied.
+
+```json
+{
+  "search_settings": {
+    "query_rules": [
+      {
+        "id": "1",
+        "conditions": [
+          [
+            {
+              "context": "query",
+              "match_type": "prefix",
+              "value": "star"
+            },
+            {
+              "context": "context",
+              "value": "test"
+            }
+          ],
+          [
+            {
+              "context": "context",
+              "value": "ecommerce"
+            }
+          ]
+          ]
+        ],
+        "actions": []
+      }
+    ]
+  }
+}
+```
+
+## Query Rule Actions
+
+Actions are used to define the actions to be taken when a query rule is applied. Actions are defined in the `actions` property of a query rule object. The `actions` property is an array of actions. The following actions are supported in Searchkit:
+
+- [Facet Order](/docs/guides/query-rules/actions/facet-order)
+- [Pin Results](/docs/guides/query-rules/actions/pin-result)
+- [Render User Data](/docs/guides/query-rules/actions/render-user-data)
+- [Query rewrite](/docs/guides/query-rules/actions/query-rewrite)
+- [Query boost](/docs/guides/query-rules/actions/query-boost)
+- [Query filter](/docs/guides/query-rules/actions/query-filter)
+
+## Debugging Query Rules
+
+If you are having issues with your query rules, you can find what query rules are being applied to your search request in the search response via `appliedRules`. The `appliedRules` property is an array of query rule ids that were applied to the search request. The `appliedRules` property will be empty if no query rules were applied to the search request.

@@ -1,0 +1,86 @@
+---
+title: Highlighting & Snippets
+description: Learn how to add higlighting to your app
+---
+
+# Highlighting & Snippets
+
+Highlighting is a way to highlight a specific part of a search result. It is useful when you want to show the user where the search term is located in the result.
+
+## Differences between highlighting and snippets
+
+Highlighting and snippets are very similar. The main difference is that highlighting is returns the whole field value, highlighting the matches while snippets returns a part of the field value, highlighting the matches.
+
+Highlighting would be useful for short value fields like title.
+
+Snippets would be useful for long value fields like description.
+
+## Highlighting
+
+First we need to add the `highlight_attributes` to the `search_settings` configuration.
+
+```javascript
+
+const searchSettings = {
+  ...
+    search_settings: {
+      highlight_attributes: ['title']
+    }
+  ...
+}
+```
+
+Then we can use the `Highlight` component to return the matches. 
+
+```jsx
+
+const hitView = (props) => {
+  return (
+    <div>
+      <h2><Highlight hit={props.hit} attribute="title" /></h2>
+    </div>
+  )
+}
+
+```
+
+## Snippets
+
+First we need to add the `snippet_attributes` to the `search_settings` configuration.
+
+```javascript
+
+const searchSettings = {
+  ...
+    search_settings: {
+      snippet_attributes: ['description']
+    }
+  ...
+}
+```
+
+Then we can use the `Snippet` component to return the matches. 
+
+```jsx
+
+import { Hits, Highlight } from "react-instantsearch-dom"
+
+const hitView = (props) => {
+  return (
+    <div>
+      <h2><Highlight hit={props.hit} attribute="title" /></h2>
+      <p><Snippet hit={props.hit} attribute="description" /></p>
+    </div>
+  )
+}
+
+```
+
+## Troubleshooting
+
+1. Make sure you have the `highlight_attributes` or `snippet_attributes` in the `search_settings` configuration.
+2. Make sure the attributes are also specified in the search attributes too, and match the same name.
+
+## Not supported yet
+
+- Using nested fields. Please open an issue if you need this feature.

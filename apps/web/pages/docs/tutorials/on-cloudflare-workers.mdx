@@ -1,0 +1,182 @@
+---
+title: Cloudflare Workers and Instantsearch.js
+description: Example of using Cloudflare Workers to build a Elasticsearch serverless API for your InstantSearch.js app.
+---
+
+## Get Started
+
+In this tutorial, you’ll learn how to use Cloudflare Workers to build a Elasticsearch serverless API for your InstantSearch.js app.
+
+### Code Sandbox
+
+See this in action on [CodeSandbox](https://codesandbox.io/s/beta-instantsearch-js-searchkit-b2oo1u)
+
+## Prerequisites
+
+To follow this tutorial, you should have a basic understanding of JavaScript and have Node.js and npm installed on your computer.
+
+You should also have a Cloudflare account. If you don’t have one, you can sign up for a free account [here](https://dash.cloudflare.com/sign-up).
+
+You should also have an Elasticsearch instance running. If you don’t have one, you can get started with [Elasticsearch in 10 minutes](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html).
+
+## Setup a cloudflare worker project
+
+Follow the tutorial [here](https://developers.cloudflare.com/workers/get-started/guide/) to setup a cloudflare worker project.
+
+Once you have completed the tutorial, start up the worker by running `wrangler dev` in your terminal.
+
+## Install dependencies
+
+Below we will install the dependencies we need to build our Elasticsearch serverless API.
+
+```bash
+yarn add @searchkit/api
+```
+
+## Create a search API
+
+With your new project generated, you can begin to write your code. Open the `index.js` file in your project directory and replace the contents with the following code:
+
+Steps to update
+
+1. Update the `ELASTICSEARCH_URL` to your Elasticsearch instance URL. Although optional, it is recommended to use a [api key](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html) to access your Elasticsearch instance.
+2. Update the search settings to match the field names in your Elasticsearch index.
+
+```js
+import Client from "@searchkit/api";
+
+// Initialize
+
+const client = Client({
+  connection: {
+    host: "<ELASTICSEARCH_URL>",
+    apiKey: "<ELASTICSEARCH_API_KEY>", // optional
+  },
+  search_settings: {
+    highlight_attributes: ["highlightField1", "highlightField2"],
+    search_attributes: ["title", "description"],
+    result_attributes: ["title", "description"],
+    facet_attributes: [
+      "type",
+      { attribute: "actors", field: "actors.keyword" },
+    ],
+  },
+});
+
+// Handle CORS preflight requests
+async function handleOptions(request: Request) {
+  return new Response(null, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
+}
+
+async function handleRequest(event: FetchEvent) {
+  if (event.request.method === "OPTIONS") {
+    // Handle CORS preflight requests
+    return handleOptions(event.request);
+  }
+
+  const body = await event.request.json();
+  const results = await client.handleRequest(body);
+
+  return new Response(JSON.stringify(results), {
+    headers: {
+      "content-type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, HEAD, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
+}
+
+addEventListener("fetch", (event) => {
+  return event.respondWith(handleRequest(event));
+});
+```
+
+## Build the Search UI with Instantsearch.js
+
+Now that we have our Elasticsearch serverless API ready, we can build the search UI with Instantsearch.js.
+
+Easiest way is adding the InstantSearch.js library & Searchkit via a CDN:
+
+Steps to update
+
+1. Update the index name to match the index name in your Elasticsearch instance.
+2. Update the WORKER_URL to match the URL of your Cloudflare worker.
+
+```html
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/@searchkit/instantsearch-client"></script>
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
+    />
+  </head>
+
+  <body>
+    <div class="ais-InstantSearch">
+      <h1>InstantSearch.js with Elasticsearch demo</h1>
+
+      <div class="left-panel">
+        <h2>Type</h2>
+        <div id="type-list"></div>
+      </div>
+      <div class="right-panel">
+        <div id="searchbox" class="ais-SearchBox"></div>
+        <div id="hits"></div>
+        <div id="pagination"></div>
+      </div>
+    </div>
+    <script>
+      const search = instantsearch({
+        indexName: "<INDEX_NAME>",
+        searchClient: SearchkitInstantsearchClient({
+          url: "<WORKER_URL>",
+        }),
+      });
+
+      search.addWidgets([
+        instantsearch.widgets.searchBox({
+          container: "#searchbox",
+        }),
+        instantsearch.widgets.refinementList({
+          container: "#type-list",
+          attribute: "type",
+        }),
+        instantsearch.widgets.hits({
+          container: "#hits",
+          templates: {
+            item: `
+        <div>
+          <div class="hit-name">
+            {{#helpers.highlight}}{ "attribute": "title" }{{/helpers.highlight}}
+          </div>
+          <div class="hit-description">
+            {{#helpers.highlight}}{ "attribute": "description" }{{/helpers.highlight}}
+          </div>
+        </div>
+      `,
+          },
+        }),
+        instantsearch.widgets.pagination({
+          container: "#pagination",
+        }),
+      ]);
+
+      search.start();
+    </script>
+  </body>
+</html>
+```
+
+## Deploying your changes to Production
+
+Once you are happy with your changes, you can deploy your worker to production by running `wrangler publish` in your terminal.
+Once you have deployed your worker, you can update the `WORKER_URL` in your search UI to point to your production worker.

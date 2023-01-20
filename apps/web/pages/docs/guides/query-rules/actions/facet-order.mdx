@@ -1,0 +1,62 @@
+---
+title: Facets Order
+description: "Learn how to use the RenderUserData action to send data to the frontend to perform a number of actions."
+---
+
+The `RenderFacetsOrder` action is used to render the facets in a specific order and show only facets specified. The `RenderFacetsOrder` action has the following properties:
+
+  * `action`: The action to perform. This must be set to `RenderFacetsOrder`.
+  * `facetOrder`: An array of facet names to render in the order specified.
+
+Below is an example of the `RenderFacetsOrder` action:
+
+    ```json
+  {
+  "search_settings": {
+    "query_rules": [
+      {
+        "id": "1",
+        "conditions": [
+          [
+            // conditions here
+          ]
+        ],
+        "actions": [
+          {
+            "action": "RenderFacetsOrder",
+            "facetAttributesOrder": ["type", "actors"] // facet attributes.
+          }
+        ]
+      }
+    ]
+  }
+}
+  ```
+
+  To use the `facetAttributesOrder` on the frontend, you need to use the `DynamicFacets` component. The `DynamicFacets` component will render the facets in the order specified by the `facetAttributesOrder` property and hide all other facets.
+  
+  Below is an example of the `DynamicFacets` component. In the example below, the `DynamicFacets` component will render the `type` and `actors` facets in the order specified by the `facetAttributesOrder` property and hide all other facets.
+  
+  ```jsx
+<DynamicWidgets maxValuesPerFacet={5} fallbackWidget={RefinementList}>
+  <Panel header="Type">
+    <RefinementList attribute="type" searchable={true}/>
+  </Panel>
+  <Panel header="actors">
+    <RefinementList attribute="actors" searchable={true} limit={10} />
+  </Panel>
+  <Panel header="imdbrating">
+    <NumericMenu
+      attribute="imdbrating"
+      items={[
+        { label: '5 - 7', start: 5, end: 7 },
+        { label: '7 - 9', start: 7, end: 9 },
+        { label: '>= 9', start: 9 },
+      ]}
+    />
+  </Panel>
+  <Panel header="metascore">
+    <RangeInput attribute="metascore" header="Range Input" />
+  </Panel>
+</DynamicWidgets>
+```

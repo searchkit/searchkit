@@ -1,0 +1,448 @@
+---
+title: Node API
+description: Searchkit Node API for Elasticsearch
+---
+import { Tabs, Tab } from '../../../components/Tabs'
+
+### Installation
+
+It is available as `@searchkit/api` on npm.
+
+<Tabs items={['npm', 'yarn']} storageKey="selected-package-manager">
+<Tab>
+```sh
+npm install @searchkit/api@latest
+```
+</Tab>
+<Tab>
+```sh
+yarn add @searchkit/api@latest
+```
+</Tab>
+</Tabs>
+
+Then import it in your project:
+
+```js
+import Client from "@searchkit/api";
+```
+
+### Usage
+
+Node client handles incoming instantsearch requests, transforms them into Elasticsearch queries. With the response, it transforms it into a format that instantsearch can understand.
+
+The client is built in a way to simplify the integration with multiple node server frameworks.
+
+```typescript
+const client = Client({
+  connection: {
+    host: "https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243",
+    apiKey: "a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw==", // optional apiKey
+    headers: { // optional headers sent to Elasticsearch. Useful for basic auth
+      "Authorization", 'Basic ' + Buffer.from(username + ":" + password).toString('base64'),
+      "my-custom-header": "my-custom-value"
+    },
+  },
+  search_settings: {
+    highlight_attributes: ["title", "actors"],
+    search_attributes: ["title", "actors"],
+    result_attributes: ["title", "actors", "poster", "year"],
+    facet_attributes: [
+      "type",
+      { attribute: "actors", field: "actors.keyword" },
+      "rated",
+      { attribute: "imdbrating", type: "numeric" },
+      { attribute: "metascore", type: "numeric" },
+    ],
+  },
+});
+```
+
+### Parameters
+
+#### `connection` configuration
+
+- `host` - Elasticsearch url host
+- `apiKey` - Elasticsearch API key. This is optional but strongly recommended for production environments. You can create an API key via [Kibana](https://www.elastic.co/guide/en/kibana/master/api-keys.html).
+- `headers` - Additional headers to pass to Elasticsearch. This is optional.
+
+Connection also supports implementing your own connector to Elasticsearch. You can do this by passing in a transporter instance through `connection`.
+
+You can use this for more complex authentication connections with Elasticsearch or Opensearch.
+
+```tsx
+
+import type { Transporter, SearchRequest, ElasticsearchResponseBody } from '@searchkit/api'
+
+class MyTransporter {
+  async msearch(
+    requests: SearchRequest[]
+  ): Promise<ElasticsearchResponseBody[]> {
+    // Implement your own search logic here
+    // Fetch is an example of calling an API.
+    const response = await fetch(`https://localhost:9200/_msearch`, {
+      headers: {
+        "content-type": "application/json",
+      },
+      body: requests
+        .reduce<string[]>(
+          (sum, request) => [
+            ...sum,
+            JSON.stringify({ index: request.indexName }),
+            "\n",
+            JSON.stringify(request.body),
+            "\n",
+          ],
+          []
+        )
+        .join(""),
+      method: "POST",
+    });
+
+    const responses = await response.json();
+    return responses.responses;
+  }
+}
+
+const client = Client({
+  connection: new MyTransporter(),
+  ...
+});
+```
+
+#### `search_settings` configuration
+
+```tsx
+search_settings: {
+  highlight_attributes: ["title", "actors"],
+  search_attributes: ["title^3", "actors"],
+  result_attributes: ["title", "actors", "poster", "year"],
+  facet_attributes: [
+    "type",
+    { attribute: "actors", field: "actors.keyword" },
+    "rated",
+    { attribute: "imdbrating", type: "numeric" },
+    { attribute: "metascore", type: "numeric" },
+  ],
+  filter_attributes: [
+    { attribute: "year", type: "numeric" }
+  ],
+  sorting: {
+    default: {
+      field: '_score',
+      order: 'desc'
+    },
+    _year_desc: [{
+      field: 'year',
+      order: 'desc'
+    }]
+  },
+},
+```
+
+Attributes that are used to configure the search experience.
+
+- `highlight_attributes` - Attributes that are used to highlight the search results.
+- `search_attributes` - Attributes that are used to search the results.
+- `result_attributes` - Attributes that are returned in the search result response.
+- `facet_attributes` - Attributes that are used to create facets. Facets can be of type `string` or `numeric` or `date`.
+- `filter_attributes` - Attributes that are used to create filters. Filters can be of type `string` or `numeric` or `date`.
+- `sorting` - Attributes that are used to create sorting options. Sorting can be a single sorting field or multiple.
+
+##### search_attributes
+
+The search attributes define what Elasticsearch fields should be searched when a user performs a search.
+
+The search attributes can be configured as follows:
+
+```js
+search_attributes: ["description", "actors", { field: "title", weight: 3 }, "released.year"];
+```
+
+The following configuration will search the `description`, `actors` and an object field `released.year` fields with the default weight of 1. The `title` field will be weighted 3 times more than the `actors` field.
+
+##### `facet_attributes` custom configuration
+
+For **text** based facets, you need to specify a `keyword` type field to use for the facet. This is because Elasticsearch does not support aggregations on text fields. You can find more information about the field mapping [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-field-mapping.html).
+
+Typically you would create a subfield of the text field with the `keyword` type. For example, if you have a `actors` field with the `text` type, you would create a `actors.keyword` field with the `keyword` type.
+
+```tsx
+{
+  "mappings": {
+    "properties": {
+      "actors": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+in the above example, you would specify the `actors` facet as follows:
+
+```tsx
+facet_attributes: [
+  { attribute: "actors", field: "actors.keyword" },
+],
+```
+
+and you would use the `actors` attribute within the UI components.
+
+Below is an example of a `RefinementList` Instantsearch React component that uses the `actors` facet.
+
+```tsx
+<RefinementList attribute="actors" searchable={true} limit={10} />
+```
+
+###### `facet_attributes` numeric and date types
+
+For range based facets, you need to specify the `type` as `numeric` or `date`. This is so the client can correctly generate facet stats for the field to be used in the UI.
+
+```tsx
+facet_attributes: [
+  { attribute: "imdbrating", type: "numeric" },
+  { attribute: "metascore", type: "numeric" },
+],
+```
+
+Below is an example of a `NumericMenu` Instantsearch React component that uses the `imdbrating` facet.
+
+```tsx
+<NumericMenu
+  attribute="imdbrating"
+  items={[
+    { label: "5 - 7", start: 5, end: 7 },
+    { label: "7 - 9", start: 7, end: 9 },
+    { label: ">= 9", start: 9 },
+  ]}
+/>
+```
+
+##### `sorting` 
+
+Sorting can be configured as follows:
+
+```tsx
+
+sorting: {
+  default: {
+    field: '_score',
+    order: 'desc'
+  },
+  _year_desc: [{
+    field: 'year',
+    order: 'desc'
+  }]
+}
+```
+
+The `default` sorting option is used when no sorting option is selected. The `_year_desc` sorting option is used when the user selects the `_year_desc` sorting option.
+
+The sorting option can be a single sorting field or multiple sorting fields.
+
+See the [sorting guide](/docs/guides/sorting) for more information.
+
+
+### `HandleRequest` function
+
+The `handleRequest` method is used to handle incoming REST requests from the browser. It takes in multiple instantsearch `SearchRequest` objects and returns multiple instantsearch `SearchResponse` objects.
+
+#### Usage
+
+```tsx
+// function to handle the incoming request
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  // invokes handleRequest passing in the request body
+  // containing the search requests
+  const results = await client.handleRequest(req.body);
+  // returning back the results to the browser
+  res.send(results);
+}
+```
+
+#### Parameters
+
+The `handleRequest` function takes in the following parameters:
+
+- **body** - The request body containing the search requests.
+- **options** - The options object containing the following properties:
+  - **getQuery** - The function used to override the default Elasticsearch query.
+  - **getBaseFilters** - The function used to provide the base Elasticsearch filters. These filters are applied to all search requests.
+  - **hooks** - The hooks object containing the following properties:
+    - **beforeSearch** - The function that is invoked before the search request is executed.
+    - **afterSearch** - The function that is invoked after the search response is received.  
+
+#### `getQuery` optional function
+
+The `getQuery` function is used to override the default Elasticsearch query. The function must return an Elasticsearch query. You can read more about the Elasticsearch query DSL [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html).
+
+Below is an example of a `getQuery` function that overrides the default query to use the `combined_fields` query type (read more about `combined_fields` [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-combined-fields-query.html)).
+
+To see the full Elasticsearch query that is executed to Elasticsearch, you can run the client in debug mode (see below).
+
+```tsx
+  const results = await client.handleRequest(req.body, {
+    getQuery: (query, search_attributes) => {
+      return [
+        {
+          combined_fields: {
+            query,
+            fields: search_attributes,
+          },
+        },
+      ];
+    }
+  });
+```
+
+##### Function Parameters
+
+- **query**: The query string from the search request.
+- **search_attributes**: The search attributes from the search configuration.
+
+#### `getBaseFilters` optional function
+
+The `getBaseFilters` function is used to add filters to the Elasticsearch query. The function must return an Elasticsearch query. You can read more about the Elasticsearch query DSL [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html).
+
+This function is useful if the request needs to be filtered based on the user's session. For example, if you want to filter the search results based on the user's role or status.
+
+Below is an example of a `getBaseFilters` function that adds a filter to the Elasticsearch query to only return results where the `status` field is `published`.
+
+To see the full Elasticsearch query that is executed to Elasticsearch, you can run the client in debug mode (see below).
+
+```ts
+  const results = await client.handleRequest(req.body, {
+    getBaseFilters: () => {
+      return [
+        {
+          bool: {
+            must: {
+              term: {
+                status: {
+                  value: "published",
+                },
+              },
+            },
+          },
+        },
+      ];
+    }
+  });
+```
+
+### Hooks
+
+Hooks are functions that are invoked at different stages of the search request. Hooks are useful if you want to perform some action before or after the search request is executed.
+
+#### `beforeSearch` hook function
+
+The `beforeSearch` hook is invoked before the search request is executed. This hook is useful if you want to perform some action before the search request is executed.
+
+Examples include:
+- Learn to rank
+- Semantic search
+- A/B testing
+
+Below is an example of a `beforeSearch` hook that adds a `rescore` query to the Elasticsearch query.
+
+To see the full Elasticsearch query that is executed to Elasticsearch, you can run the client in debug mode (see below).
+
+```ts
+  const results = await client.handleRequest(req.body, {
+    hooks: {
+      beforeSearch: (searchRequests) => {
+        const uiRequest = searchRequests[0]
+
+        return [
+          {
+            ...uiRequest,
+            rescore: {
+              window_size: 100,
+              query: {
+                rescore_query: {
+                  match: {
+                    plot: {
+                      query: uiRequest.query,
+                      operator: "and",
+                    },
+                  },
+                },
+                query_weight: 1,
+                rescore_query_weight: 10,
+              }
+            }
+          },
+          searchRequests.slice(1, searchRequests.length)
+        ]
+        
+      },
+    }
+  });
+```
+
+##### Function Parameters
+
+- **searchRequests** - An array of `SearchRequest` objects. Each `SearchRequest` object contains the following properties:
+  - **indexName** - The Elasticsearch index name.
+  - **body** - The Elasticsearch request body query.
+  - **request** - The state requested from the UI. Contains attributes like query, filters, sort, size and more.
+
+#### `afterSearch` hook function
+
+The `afterSearch` hook is invoked after the search response is received. This hook is useful if you want to perform some action after the search response is received.
+
+Examples include:
+- Logging
+- Analytics
+
+Below is an example of an `afterSearch` hook that logs the search response to the console.
+
+```ts
+  const results = await client.handleRequest(req.body, {
+    hooks: {
+      afterSearch: (searchRequests, searchResponses) => {
+        console.log(searchResponses);
+        return searchResponses;
+      },
+    },
+  });
+```
+
+##### Function Parameters
+
+- **searchRequests** - An array of `SearchRequest` objects. Each `SearchRequest` object contains the following properties:
+  - **indexName** - The Elasticsearch index name.
+  - **body** - The Elasticsearch request body query.
+  - **request** - The state requested from the UI. Contains attributes like query, filters, sort, size and more.
+- **searchResponse** - The search responses array which is used to render the search results UI.
+
+### Debug mode
+
+The client can be run in debug mode to help with debugging the Elasticsearch query. To run the client in debug mode, set the `debug` flag to `true` in the `Client` function.
+
+This is helpful when you're overriding the query via `getQuery` or providing base filters via `getBaseFilters` and want to see the Elasticsearch query that is executed to Elasticsearch.
+
+```ts
+const client = Client({
+  // search_settings configuration
+  connection: {
+    // ...
+  },
+  search_settings: {
+    search_attributes: ["title", "plot"],
+    // ...
+  }
+}, { debug: true });
+```
+
+When the client is run in debug mode, the Elasticsearch query is logged to the console.

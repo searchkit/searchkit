@@ -1,0 +1,38 @@
+---
+title: Pin Result
+description: Apply a pin result action rule 
+---
+
+### `PinnedResult` Rule Action
+
+The `PinnedResult` action is used to pin a document to the top of the search results. 
+
+The `PinnedResult` action has the following properties:
+
+  * `action`: The action to perform. This must be set to `PinnedResult`.
+  * `documentIds`: An array of document ids to pin to the top of the search results.
+
+Below is an example of the `PinnedResult` action:
+  
+  ```json
+  {
+  "search_settings": {
+    "query_rules": [
+      {
+        "id": "1",
+        "conditions": [
+          [
+            // conditions here
+          ]
+        ],
+        "actions": [
+          {
+            "action": "PinnedResult",
+            "documentIds": ["tt0111161"] // _id of the document to pin
+          }
+        ]
+      }
+    ]
+  }
+}
+```

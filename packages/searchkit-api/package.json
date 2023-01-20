@@ -1,0 +1,33 @@
+{
+  "name": "@searchkit/api",
+  "version": "4.0.0",
+  "main": "./dist/index.js",
+  "description": "",
+  "repository": "https://github.com/searchkit/searchkit",
+  "bugs": "https://github.com/searchkit/searchkit/issues",
+  "homepage": "https://www.searchkit.co",
+  "license": "MIT",
+  "files": [
+    "dist/"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "lint": "eslint src/*.ts*",
+    "build": "tsup",
+    "dev": "npm run build --watch",
+    "test": "jest"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "searchkit": "^4.0.0"
+  },
+  "devDependencies": {
+    "nock": "^13.1.3"
+  }
+}

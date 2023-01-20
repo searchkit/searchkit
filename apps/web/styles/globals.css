@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.nextra-sidebar-container a {
+  color: white;
+}

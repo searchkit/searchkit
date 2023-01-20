@@ -1,0 +1,4 @@
+{
+  "api": "@searchkit/api",
+  "instantsearch-client": "instantsearch-client"
+}

@@ -1,0 +1,69 @@
+---
+title: Filter by numeric value
+---
+
+You can filter your search results by numeric value. For example, you can filter by price, rating, or any other numeric value.
+
+## Setup a numeric field
+
+To filter by numeric value, you must first set up a numeric field. 
+
+Indexing the following document into Elasticsearch will create a long field called `price`:
+
+```json
+{
+  "price": 10
+}
+```
+
+and your mapping will look like this:
+
+```json
+{
+  "mappings": {
+    "properties": {
+      "price": {
+        "type": "long"
+      }
+    }
+  }
+}
+```
+
+## Filter Attribute Configuration
+
+Add a filter attribute to your index configuration. The filter attribute will be used to filter your search results by price.
+
+```ts
+ {
+  "filter_attributes": [
+    { attribute: 'price', field: 'price', type: 'numeric' },
+  ]
+ }
+```
+
+Alternatively, you could setup the attribute under `facet_attributes` to make it available for faceting.
+
+```ts
+ {
+  "facet_attributes": [
+    { attribute: 'price', field: 'price', type: 'numeric' }
+  ]
+ }
+
+```
+
+The attribute name must be unique in both `filter_attributes` and `facet_attributes`. If you want to use the same attribute for both filtering and faceting, add it to `facet_attributes` only.
+
+## Using Filter Attributes
+
+You can use the filter attribute in your search query to filter your search results by date within `configure`.
+
+### Syntax Examples
+
+```js
+ "price:10" # price is 10
+ "price:[10 TO 20]" # price is between 10 and 20
+ "price:[10 TO *]" # price is greater than 10
+ "price:[* TO 20]" # price is less than 20
+```

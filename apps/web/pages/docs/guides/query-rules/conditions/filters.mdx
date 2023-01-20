@@ -1,0 +1,62 @@
+---
+title: Filter
+description: Apply a Filter Present condition rule 
+---
+
+The `filterPresent` condition is used to apply actions where there are particular filters in the `facetfilters`. The `filterPresent` condition has the following properties:
+
+  * `context`: The context of the condition. This must be set to `filterPresent`.
+  * `values`: An array of `attribute:value` facet filters to match against. The `attribute` must be the name of the facet and the `value` must be the value of the facet.
+
+Below is an example of the `facet_filters` condition where we are matching against the `type` facet with the value `movie`:
+
+```json
+{
+  "search_settings": {
+    "query_rules": [
+      {
+        "id": "1",
+        "conditions": [
+          [
+            {
+              "context": "filterPresent",
+              "values": [{ "attribute": "type", "value": "movie" }]
+            }
+          ]
+        ],
+        "actions": [
+          // actions that will apply for conditions
+        ]
+      }
+    ]
+  }
+}
+```
+
+Below is an example of the `facet_filters` condition where we are matching against the `type` facet with the value `movie` and the `genre` facet with the value `drama`. Both the `type` and `genre` facet filters must be present for the query rule to be applied.
+
+```json
+{
+  "search_settings": {
+    "query_rules": [
+      {
+        "id": "1",
+        "conditions": [
+          [
+            {
+              "context": "filterPresent",
+              "values": [
+                { "attribute": "type", "value": "movie" }, 
+                { "attribute": "genre", "value": "drama" }
+              ]
+            }
+          ]
+        ],
+        "actions": [
+          // actions that will apply for conditions
+        ]
+      }
+    ]
+  }
+}
+```

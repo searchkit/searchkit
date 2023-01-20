@@ -1,0 +1,83 @@
+---
+title: Great search experiences, made easy with Elasticsearch and Instantsearch
+---
+
+import Image from "next/image";
+import { IntroButtons } from '../components/promo-page/IntroButtons';
+import { FeatureBreakout } from '../components/promo-page/FeatureBreakout'
+
+<div className="max-w-5xl mx-auto px-8 pb-16">
+
+
+<div className="pt-4 m-auto text-left">
+  <h1 className="font-extrabold md:text-5xl mt-8 mb-4 text-2xl">Great search experiences,<br/>
+  made easy.</h1>
+  <div className="mb-4 max-w-lg">
+    <p className="text-xl mb-1 text-gray-400 md:!text-xl">
+      <span className=" text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">Searchkit</span> is an open source library which helps you build a great search experience with <span className=" text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">Elasticsearch.</span>
+    </p>
+  </div>
+  <div className="max-w-lg mb-4">
+    <p className="text-xl mb-1 text-gray-400 md:!text-xl">
+      Works with React, Vue, Angular, and more.
+    </p>
+  </div>
+
+  <IntroButtons />
+
+</div>
+
+<FeatureBreakout 
+  title="Build Search Experiences Fast!" 
+  description="Searchkit uses instantsearch, which means you can use the instantsearch libraries to build your search experience." 
+  snippets={[
+    {
+      title: "Polyfill for Algolia",
+      description: "This means you can use Instantsearch with Elasticsearch, without needing to change your code.",
+      link: "/docs/api-documentation/api"
+    },
+    {
+      title: "Instantsearch Compatible",
+      description: "Components for React, Vue, Angular and Javascript. Build a search UI without needing frontend skills.",
+      link: "/demos"
+    },
+    {
+      title: "Autocomplete.js Compatible",
+      description: "Build an autocomplete experience with Autocomplete.js, which is compatible with Searchkit.",
+      link: "/docs/guides/autocomplete"
+    },
+    {
+      title: "GraphQL Support (coming soon)",
+      description: "Searchkit provides a GraphQL API, which allows you to build a search experience using GraphQL.",
+    }
+  ]}
+/>
+<FeatureBreakout 
+  title="Full Power of Elasticsearch" 
+  description="Searchkit is built on top of Elasticsearch, which means you can use the Elasticsearch query language to build your search experience." 
+  snippets={[
+    {
+      title: "Request Hooks",
+      description: "Searchkit provides hooks for you to customize the query before it is sent to Elasticsearch. This allows you to add custom filters, or change the query language.",
+      link: "/docs/guides/customising-query#query-hooks"
+    },
+    {
+      title: "Customise Query",
+      description: "Searchkit provides a custom query component, which allows you to build a custom query using the Elasticsearch query language.",
+      link: "/docs/guides/customising-query"
+    },
+    {
+      title: "Nested Field Support",
+      description: "Searchkit provides support for nested fields, which allows you to build a search experience for nested data.",
+      link: "/docs/guides/facets/string-based-facets#nested-fields-support"
+    },
+    {
+      title: "Custom Facet Aggregations",
+      description: "Build your own Facets using Elasticsearch aggregations.",
+      link: "https://github.com/searchkit/searchkit/issues/1174"
+    }
+  ]}
+/>
+<FeatureBreakout title="Relevance made simple" description="Query rules allows you to customize the behavior of the search experience. You can use query rules to boost or filter results, or to change the ranking of results, based on a set of conditions." linkTitle="Query Rules Docs" linkHref="/docs/guides/query-rules" image="/public/query-rules.png" />
+
+</div>

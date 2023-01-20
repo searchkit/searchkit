@@ -1,0 +1,38 @@
+---
+title: Query Boost
+description: Learn how to boost the relevance of your search results.
+---
+
+The `QueryBoost` action boosts the relevance of your search results. This action is useful when you want to boost the relevance of a specific documents which match a query.
+
+  * `action`: The action to perform. This must be set to `QueryBoost`.
+  * `query`: A query string that will be used to match documents. This query string should use attributes from facet or filters attributes. 
+
+Below is an example of the `QueryBoost` action:
+
+    ```json
+  {
+  "search_settings": {
+    "query_rules": [
+      {
+        "id": "1",
+        "conditions": [
+          [
+            // conditions here
+          ]
+        ],
+        "actions": [
+            // for all documents that match the query, boost the relevance by 2 
+            {
+              "action": "QueryBoost",
+              "query": 'actors:"Dan Aykroyd" OR actors:"Charlie Sheen"',
+              "weight": 2
+            },
+        ]
+      }
+    ]
+  }
+}
+  ```
+
+  

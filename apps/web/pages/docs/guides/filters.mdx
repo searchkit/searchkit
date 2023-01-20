@@ -1,0 +1,134 @@
+---
+title: Filters
+description: Learn how to apply filters to your search results.
+---
+
+# Filters
+
+import { Tabs, Tab } from '../../../components/Tabs';
+
+There are a number of ways to apply filters to your search results. Filters can be applied on:
+- [client](#applying-filters-on-the-client) - Highlighting results on the client
+- [server](#applying-filters-on-the-server) - Applying user level filtering 
+
+## Applying Filters on the Client
+
+Filters can be applied on the client by using the `filters` property on the `configure` component on Instantsearch.
+
+### Setup
+
+To apply filters on the client, you must first setup the filter in either the `facet_attributes` and `filter_attributes` configuration in your application settings.
+
+Below is an example of a configuration that has a `facet_attributes` and `filter_attributes` setup.
+
+```js
+{
+  facet_attributes: [
+    { attribute: 'author', field: 'author.keyword', type: 'string' },
+    { attribute: 'price', field: 'price', type: 'numeric' },
+  ],
+  filter_attributes: [
+    { attribute: 'publisher', field: 'publisher.keyword', type: 'string' },
+    { attribute: 'genre', field: 'genre.keyword', type: 'string' },
+    { attribute: 'date', field: 'date.field', type: 'date' },
+    { attribute: 'nestedField', field: 'price', type: 'string', nestedPath: 'nested' }
+  ],
+  result_attributes: [],
+  search_attributes: []
+}
+```
+
+<Tabs items={["React", "instantsearch.js"]}>
+  <Tab> 
+```jsx
+import { Configure } from 'react-instantsearch-dom';
+
+<Configure
+  filters="price:[90 TO *]"
+/>
+```
+  </Tab>
+  <Tab>
+```js
+instantsearch.widgets.configure({
+  filters: "price:[90 TO *]"
+});
+```
+  </Tab>
+</Tabs>
+
+Filters can be applied on the client by using the `filters` property on the `configure` component on Instantsearch.
+
+Use the `attribute` property to specify the field you want to filter on.
+
+Nested fields are not supported in the `filters` property. To filter on nested fields, use `facetFilters` or `numericFilters` property.
+
+### Filter Syntax
+
+- [Filter by string](/docs/guides/filters/filter-by-string)
+- [Filter by numeric value](/docs/guides/filters/filter-by-numeric-value)
+- [Filter by date](/docs/guides/filters/filter-by-date)
+- [Filter by boolean](/docs/guides/filters/filter-by-boolean)
+- [Filter by array](/docs/guides/filters/filter-by-array)
+
+### Numeric & Facet Filters
+
+Numeric & Facet filters are typically used by widgets.
+
+You can also add numeric filters or facet Filters to the search by using the `numericFilters` or `facetFilters` property on the `configure` component on Instantsearch.
+
+<Tabs items={["React", "instantsearch.js"]}>
+  <Tab> 
+```jsx
+import { Configure } from 'react-instantsearch-dom';
+
+<Configure
+  facetFilters={["author:John"]}
+  numericFilters={["price>10", "price<20"]}
+/>
+```
+  </Tab>
+  <Tab>
+```js
+instantsearch.widgets.configure({
+  facetFilters: ["author:John"],
+  numericFilters: ["price>10", "price<20"]
+});
+```
+  </Tab>
+</Tabs>
+
+## Applying Filters on the Server
+
+Filters can be applied on the server by using the `getBaseFilters` function within the `handleRequest` function.
+
+Examples could include:
+- Filtering out documents that are not published
+- Filtering out documents that the user doesn't have access to
+
+Below is an example of filtering documents that are not published.
+
+Attributes cannot be used within `getBaseFilters` function. You must use the `field` property instead. This is because the `field` property is the actual field name in Elasticsearch.
+
+The function must return an array of filters. Each filter is an object that follows the [Elasticsearch Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html).
+
+Below is an example of filtering documents that are not published using the `status` field.
+
+```js
+const results = await apiClient.handleRequest(req.body, {
+  getBaseFilters: () => {
+    return [
+      {
+        bool: {
+          must: {
+            term: {
+              status: "published",
+            },
+          },
+        },
+      },
+    ];
+  },
+});
+```
+

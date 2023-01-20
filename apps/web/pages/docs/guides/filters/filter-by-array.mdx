@@ -1,0 +1,81 @@
+---
+title: Filtering of Arrays
+---
+
+You can filter your search results by array of string values. This is useful for filtering by documents with many authors or tags.
+
+## Setup a String field
+
+To filter by string, you must first add a keyword to your index.
+
+Indexing the following document into Elasticsearch will create a `tags` field that can be used for filtering.
+
+```json
+{
+  "tags": ["ecommerce", "FW23"]
+}
+```
+
+and your mapping will look like this:
+
+```json
+{
+  "properties": {
+    "tags": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}
+```
+
+## Filter Attribute Configuration
+
+Add a filter attribute to your index configuration. The filter attribute will be used to filter your search results by date.
+
+```ts
+ {
+  "filter_attributes": [
+    { attribute: 'tags', field: 'tags.keyword', type: 'string' },
+  ]
+ }
+
+```
+
+Alternatively, you can also add the attribute under `facet_attributes` to make it available for faceting.
+
+```ts
+ {
+  "facet_attributes": [
+    { attribute: 'tags', field: 'tags.keyword', type: 'string' }
+  ]
+ }
+
+```
+
+The attribute name must be unique in both `filter_attributes` and `facet_attributes`. If you want to use the same attribute for both filtering and faceting, add it to `facet_attributes` only.
+
+## Using Filter Attributes
+
+You can use the filter attribute in your search query to filter your search results by date within `configure`.
+
+
+### Syntax Examples
+Filters must follow the [Elasticsearch Query String](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html) format.
+
+```js
+ "tags:ecommerce" # author is John
+ "author:ecommerce OR tags:fw23" # author is John or Jane
+```
+
+### Example
+
+```js
+ client.configure({
+  filters: 'tags:ecommerce'
+ })
+```
