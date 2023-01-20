@@ -1,5 +1,16 @@
 # @searchkit/api
 
+## 4.0.0
+
+### Major Changes
+
+- b1a0cde9: First Release
+
+### Patch Changes
+
+- 99d38964: fix build issue
+- ba99ac83: Update export for jsdelivr and unpkg
+
 ## 4.0.0-next.2
 
 ### Patch Changes

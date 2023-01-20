@@ -1,5 +1,36 @@
 # web
 
+## 0.0.1
+
+### Patch Changes
+
+- Updated dependencies [a11ce94f]
+- Updated dependencies [ee857da0]
+- Updated dependencies [a0e24e7e]
+- Updated dependencies [6b364816]
+- Updated dependencies [13d6655e]
+- Updated dependencies [90b72ac1]
+- Updated dependencies [99d38964]
+- Updated dependencies [d760fb7a]
+- Updated dependencies [799be8e0]
+- Updated dependencies [e9dfa3d4]
+- Updated dependencies [5c2c77d4]
+- Updated dependencies [22a91911]
+- Updated dependencies [1fd1706c]
+- Updated dependencies [b1a0cde9]
+- Updated dependencies [21297f17]
+- Updated dependencies [ba99ac83]
+- Updated dependencies [9145077a]
+- Updated dependencies [41716dd2]
+- Updated dependencies
+- Updated dependencies [8329b682]
+- Updated dependencies [e3770fba]
+- Updated dependencies [2c4748df]
+- Updated dependencies [37c72f78]
+- Updated dependencies [0d970a91]
+  - @searchkit/api@4.0.0
+  - @searchkit/instantsearch-client@4.0.0
+
 ## 0.0.1-next.18
 
 ### Patch Changes

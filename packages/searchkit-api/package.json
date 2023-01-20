@@ -1,6 +1,6 @@
 {
   "name": "@searchkit/api",
-  "version": "4.0.0-next.16",
+  "version": "4.0.0",
   "main": "./dist/index.js",
   "description": "",
   "repository": "https://github.com/searchkit/searchkit",
@@ -25,7 +25,7 @@
     "access": "public"
   },
   "dependencies": {
-    "searchkit": "^4.0.0-next.16"
+    "searchkit": "^4.0.0"
   },
   "devDependencies": {
     "nock": "^13.1.3"
