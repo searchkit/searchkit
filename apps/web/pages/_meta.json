@@ -29,5 +29,9 @@
     "type": "page",
     "href": "https://playground.searchkit.co",
     "newWindow": true
+  },
+  "about": {
+    "title": "About",
+    "type": "page"
   }
 }
