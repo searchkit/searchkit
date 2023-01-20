@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.1.1
+
+### Patch Changes
+
+- cdd27496: Fix facet values search when using browser only
+
 ## 4.1.0
 
 ### Minor Changes

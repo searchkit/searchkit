@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.0.1
+
+### Patch Changes
+
+- 6f0b8c97: remove querystring dependency
+
 ## 4.0.0
 
 ### Major Changes
