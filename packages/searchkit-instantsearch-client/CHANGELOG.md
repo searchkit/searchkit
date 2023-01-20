@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.1.0
+
+### Minor Changes
+
+- ed51794a: Support for browser only use-case
+
 ## 4.0.0
 
 ### Major Changes
