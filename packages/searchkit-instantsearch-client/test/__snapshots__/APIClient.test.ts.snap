@@ -1,0 +1,185 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`API connector works as expected 1`] = `
+{
+  "responses": [
+    {
+      "_shards": {
+        "failed": 0,
+        "skipped": 0,
+        "successful": 1,
+        "total": 1,
+      },
+      "aggregations": {
+        "actors": {
+          "buckets": [
+            {
+              "doc_count": 1,
+              "key": "Bob Gunton",
+            },
+            {
+              "doc_count": 1,
+              "key": "Morgan Freeman",
+            },
+            {
+              "doc_count": 1,
+              "key": "Tim Robbins",
+            },
+            {
+              "doc_count": 1,
+              "key": "William Sadler",
+            },
+          ],
+          "doc_count_error_upper_bound": 0,
+          "sum_other_doc_count": 0,
+        },
+        "rated": {
+          "buckets": [
+            {
+              "doc_count": 1,
+              "key": "R",
+            },
+          ],
+          "doc_count_error_upper_bound": 0,
+          "sum_other_doc_count": 0,
+        },
+        "type": {
+          "buckets": [
+            {
+              "doc_count": 1,
+              "key": "movie",
+            },
+          ],
+          "doc_count_error_upper_bound": 0,
+          "sum_other_doc_count": 0,
+        },
+      },
+      "hits": {
+        "hits": [
+          {
+            "_id": "tt0111161",
+            "_index": "imdb_movies",
+            "_score": 7.637228,
+            "_source": {
+              "actors": [
+                "Tim Robbins",
+                "Morgan Freeman",
+                "Bob Gunton",
+                "William Sadler",
+              ],
+              "title": "The Shawshank Redemption",
+            },
+            "highlight": {
+              "title": [
+                "The <em>Shawshank</em> Redemption",
+              ],
+            },
+          },
+        ],
+        "max_score": 7.637228,
+        "total": {
+          "relation": "eq",
+          "value": 1,
+        },
+      },
+      "status": 200,
+      "timed_out": false,
+      "took": 2,
+    },
+    {
+      "_shards": {
+        "failed": 0,
+        "skipped": 0,
+        "successful": 1,
+        "total": 1,
+      },
+      "aggregations": {
+        "type": {
+          "buckets": [
+            {
+              "doc_count": 1,
+              "key": "movie",
+            },
+          ],
+          "doc_count_error_upper_bound": 0,
+          "sum_other_doc_count": 0,
+        },
+      },
+      "hits": {
+        "hits": [
+          {
+            "_id": "tt0111161",
+            "_index": "imdb_movies",
+            "_score": 7.637228,
+            "_source": {
+              "actors": [
+                "Tim Robbins",
+                "Morgan Freeman",
+                "Bob Gunton",
+                "William Sadler",
+              ],
+              "title": "The Shawshank Redemption",
+            },
+            "highlight": {
+              "title": [
+                "The <em>Shawshank</em> Redemption",
+              ],
+            },
+          },
+        ],
+        "max_score": 7.637228,
+        "total": {
+          "relation": "eq",
+          "value": 1,
+        },
+      },
+      "status": 200,
+      "timed_out": false,
+      "took": 2,
+    },
+  ],
+  "took": 2,
+}
+`;
+
+exports[`API connector works as expected: Algolia request 1`] = `
+[
+  {
+    "indexName": "imdb_movies",
+    "params": {
+      "facetFilters": [
+        [
+          "type:movie",
+        ],
+      ],
+      "facets": [
+        "*",
+      ],
+      "highlightPostTag": "</em>",
+      "highlightPreTag": "<em>",
+      "maxValuesPerFacet": 10,
+      "page": 0,
+      "query": "shawshank",
+      "tagFilters": "",
+    },
+  },
+  {
+    "indexName": "imdb_movies",
+    "params": {
+      "analytics": false,
+      "attributesToHighlight": [],
+      "attributesToRetrieve": [],
+      "attributesToSnippet": [],
+      "clickAnalytics": false,
+      "facets": "type",
+      "highlightPostTag": "</em>",
+      "highlightPreTag": "<em>",
+      "hitsPerPage": 1,
+      "maxValuesPerFacet": 10,
+      "page": 0,
+      "query": "shawshank",
+      "tagFilters": "",
+    },
+  },
+]
+`;
