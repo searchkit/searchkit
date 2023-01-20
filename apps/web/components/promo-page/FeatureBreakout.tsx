@@ -25,7 +25,7 @@ export const FeatureBreakout = ({ title, description, linkTitle, linkHref, image
                   <h2 className="text-xl tracking-tight font-extrabold text-gray-200 sm:text-xl lg:text-xl xl:text-xl">{snippet.title}</h2>
                   <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-lg lg:text-md xl:text-lg">{snippet.description}</p>
                 </div>
-                {snippet.link && <a href={snippet.link} className="text-indigo-500 pt-3 text-center block sm:text-left">Read More &rarr;</a>}
+                {snippet.link && <a href={snippet.link} className="text-indigo-500 text-center block sm:text-left">Read More &rarr;</a>}
               </div>
         )))}
       </div>
