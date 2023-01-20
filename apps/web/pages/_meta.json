@@ -25,9 +25,15 @@
     "type": "page"
   },
   "playground": {
-    "title": "Try Playground",
+    "title": "Playground",
     "type": "page",
     "href": "https://playground.searchkit.co",
+    "newWindow": true
+  },
+  "V3 Docs": {
+    "title": "V3 Docs",
+    "type": "page",
+    "href": "https://v3.searchkit.co",
     "newWindow": true
   },
   "about": {

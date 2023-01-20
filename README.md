@@ -11,6 +11,9 @@ Works with React, Vue, Angular, and more.
   - A great Search experience without needing to be an expert in Elasticsearch
   - GraphQL Support (coming soon!)
 
+## Looking for the old Searchkit?
+- [Searchkit v3 Docs](https://v3.searchkit.co/docs)
+
 ## How it works
 Searchkit uses Elasticsearch and provides an API that allows you to build a search experience with Algolia Instantsearch.
 
