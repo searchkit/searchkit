@@ -1,4 +1,3 @@
-import { stringify } from 'querystring'
 import { SearchSettingsConfig } from './types'
 import { getHighlightFields, highlightTerm } from './highlightUtils'
 import { AlgoliaMultipleQueriesQuery, ElasticsearchResponseBody } from './types'
@@ -210,7 +209,7 @@ export default function transformResponse(
       ...getFacets(response, config),
       hits: getHits(response, config, instantsearchRequest),
       index: instantsearchRequest.indexName,
-      params: stringify(instantsearchRequest.params as any),
+      params: new URLSearchParams(instantsearchRequest.params as any).toString(),
       ...(queryRuleActions.userData.length > 0 ? { userData: queryRuleActions.userData } : {})
     }
   } catch (e) {

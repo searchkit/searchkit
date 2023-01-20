@@ -23,5 +23,16 @@ export default defineConfig([
     // NOTE: it means CJS will be .js and ESM will be .mjs
     format: ["cjs"],
     outDir: "dist",
-  }
+  },
+  {
+    entry: ["src/index.ts"],
+    ...commonConfig,
+    format: ["iife"],
+    minify: true,
+    outDir: "dist/umd",
+    globalName: "SearchkitDefault",
+    footer: {
+      js: "var Searchkit = SearchkitDefault.default"
+    }
+  },
 ]);
