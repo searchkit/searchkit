@@ -2,8 +2,8 @@ import { Discord, Github } from "./components/Social";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  project: { link: 'https://github.com/searchkit/searchkit/tree/next'}, // GitHub link in the navbar
-  docsRepositoryBase: 'https://github.com/searchkit/searchkit/blob/next/apps/web', // base URL for the docs repository
+  project: { link: 'https://github.com/searchkit/searchkit'}, // GitHub link in the navbar
+  docsRepositoryBase: 'https://github.com/searchkit/searchkit/tree/main/apps/web', // base URL for the docs repository
   useNextSeoProps() {
     return {
       titleTemplate: '%s – Searchkit'
@@ -19,7 +19,7 @@ export default {
   ),
   project: {
     icon: Github,
-    link: 'https://github.com/searchkit/searchkit/tree/next'
+    link: 'https://github.com/searchkit/searchkit/tree/main'
   },
   chat: {
     icon: Discord,
