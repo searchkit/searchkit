@@ -1,9 +1,9 @@
-import { ClientConfigConnection, SearchRequest } from './types'
+import { ConfigConnection, SearchRequest } from './types'
 import { ElasticsearchResponseBody, Transporter } from './types'
 import { createElasticsearchQueryFromRequest } from './utils'
 
 export class ESTransporter implements Transporter {
-  constructor(public config: ClientConfigConnection) {}
+  constructor(public config: ConfigConnection) {}
 
   async msearch(requests: SearchRequest[]): Promise<ElasticsearchResponseBody[]> {
     // @ts-ignore

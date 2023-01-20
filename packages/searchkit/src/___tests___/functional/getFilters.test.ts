@@ -5,7 +5,7 @@ import { HitsResponseWithFacetFilter } from '../mocks/ElasticsearchResponses'
 
 describe('Add additional base filters to search', () => {
   it('call with one filter and query applied', async () => {
-    const client = Client({
+    const client = new Client({
       connection: {
         host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
         apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
@@ -18,8 +18,7 @@ describe('Add additional base filters to search', () => {
           'type',
           { field: 'actors.keyword', attribute: 'actors', type: 'string' },
           'rated'
-        ],
-        filter_attributes: [{ field: 'imdbrating', attribute: 'imdbrating', type: 'numeric' }]
+        ]
       }
     })
 
@@ -44,11 +43,6 @@ describe('Add additional base filters to search', () => {
                   },
                 },
                 {
-                  "query_string": {
-                    "query": "imdbrating:>=1 AND type:movie",
-                  },
-                },
-                {
                   "bool": {
                     "must": {
                       "range": {
@@ -61,7 +55,49 @@ describe('Add additional base filters to search', () => {
                 },
               ],
               "must": {
-                "match_all": {},
+                "bool": {
+                  "should": [
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "multi_match": {
+                              "fields": [
+                                "title",
+                                "actors",
+                                "query",
+                              ],
+                              "fuzziness": "AUTO:4,8",
+                              "query": "shawshank",
+                            },
+                          },
+                          {
+                            "multi_match": {
+                              "fields": [
+                                "title",
+                                "actors",
+                                "query",
+                              ],
+                              "query": "shawshank",
+                              "type": "bool_prefix",
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      "multi_match": {
+                        "fields": [
+                          "title",
+                          "actors",
+                          "query",
+                        ],
+                        "query": "shawshank",
+                        "type": "phrase",
+                      },
+                    },
+                  ],
+                },
               },
             },
           }
@@ -71,14 +107,7 @@ describe('Add additional base filters to search', () => {
       .reply(200, HitsResponseWithFacetFilter)
 
     const response = await client.handleInstantSearchRequests(
-      DisjunctiveExampleRequest.map((request) => ({
-        indexName: request.indexName,
-        params: {
-          ...request.params,
-          filters: 'imdbrating:>=1 AND type:movie',
-          query: ''
-        }
-      })) as AlgoliaMultipleQueriesQuery[],
+      DisjunctiveExampleRequest as AlgoliaMultipleQueriesQuery[],
       {
         getBaseFilters: () => {
           return [

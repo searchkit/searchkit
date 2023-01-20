@@ -16,7 +16,7 @@ describe('Transporter', () => {
 
     jest.spyOn(customTransporter, 'msearch')
 
-    const client = Client({
+    const client = new Client({
       connection: customTransporter,
       search_settings: {
         highlight_attributes: ['title', 'actors'],
@@ -47,7 +47,7 @@ describe('Transporter', () => {
       })
     })
 
-    const client = Client({
+    const client = new Client({
       connection: {
         host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
         apiKey: 'apiKey',

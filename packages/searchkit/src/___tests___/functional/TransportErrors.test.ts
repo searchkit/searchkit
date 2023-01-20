@@ -12,7 +12,7 @@ import {
 } from '../mocks/ErrorElasticsearchResponses'
 
 describe('Transport Errors', () => {
-  const client = Client({
+  const client = new Client({
     connection: {
       host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
       apiKey: 'apikey'

@@ -13,7 +13,7 @@ import {
 
 describe('Nested Facets, filters and results', () => {
   it('One nested facet support', async () => {
-    const client = Client({
+    const client = new Client({
       connection: {
         host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
         apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
@@ -102,7 +102,7 @@ describe('Nested Facets, filters and results', () => {
   })
 
   it('one facet and two OR filters', async () => {
-    const client = Client({
+    const client = new Client({
       connection: {
         host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
         apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
@@ -196,7 +196,7 @@ describe('Nested Facets, filters and results', () => {
   })
 
   it('one numeric facet', async () => {
-    const client = Client({
+    const client = new Client({
       connection: {
         host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
         apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
@@ -286,7 +286,7 @@ describe('Nested Facets, filters and results', () => {
   })
 
   it('two nested facets', async () => {
-    const client = Client({
+    const client = new Client({
       connection: {
         host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
         apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='

@@ -17,7 +17,7 @@ import {
 
 describe('Integration tests', () => {
   it('call with one filter and query applied', async () => {
-    const client = Client({
+    const client = new Client({
       connection: {
         host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
         apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
@@ -50,7 +50,7 @@ describe('Integration tests', () => {
 
   describe('facets', () => {
     it('non dynamic facets', async () => {
-      const client = Client({
+      const client = new Client({
         connection: {
           host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
           apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
@@ -83,7 +83,7 @@ describe('Integration tests', () => {
     })
 
     it('non dynamic facets with one filter', async () => {
-      const client = Client({
+      const client = new Client({
         connection: {
           host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
           apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
@@ -116,7 +116,7 @@ describe('Integration tests', () => {
     })
 
     it('numeric facets', async () => {
-      const client = Client({
+      const client = new Client({
         connection: {
           host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
           apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
@@ -147,7 +147,7 @@ describe('Integration tests', () => {
     })
 
     it('numeric filters', async () => {
-      const client = Client({
+      const client = new Client({
         connection: {
           host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
           apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='

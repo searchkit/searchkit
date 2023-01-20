@@ -13,6 +13,8 @@ type ElasticsearchResponseBody = ElasticsearchBaseResponseBody<ElasticsearchHitD
 
 type ElasticsearchQuery = ElasticsearchQueryDslQuery
 
+export type MultipleQueriesQuery = AlgoliaMultipleQueriesQuery
+
 export type FacetFieldConfig = {
   attribute: string
   field: string
@@ -27,7 +29,7 @@ export type FilterAttribute = {
   nestedPath?: string
 }
 
-export interface ClientConfigConnection {
+export interface ConfigConnection {
   /**
    * @description The Elasticsearch host
    * @example https://my-elasticsearch-host.com
@@ -148,8 +150,8 @@ export interface QueryRule {
   actions: QueryRuleAction[]
 }
 
-export interface ClientConfig {
-  connection: ClientConfigConnection | Transporter
+export interface SearchkitConfig {
+  connection: ConfigConnection | Transporter
   search_settings: SearchSettingsConfig
 }
 
@@ -198,7 +200,7 @@ export interface RequestOptions {
 }
 
 export interface Transporter {
-  config?: ClientConfigConnection
+  config?: ConfigConnection
   msearch: (requests: SearchRequest[]) => Promise<ElasticsearchResponseBody[]>
 }
 

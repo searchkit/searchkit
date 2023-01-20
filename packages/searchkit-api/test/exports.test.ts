@@ -1,13 +1,14 @@
-import Client, { AlgoliaMultipleQueriesQuery } from '../../'
+import Client, { SearchkitConfig, MultipleQueriesQuery } from '@searchkit/api'
 import nock from 'nock'
-import { DisjunctiveExampleRequest } from '../mocks/AlgoliaRequests'
-import { HitsResponseWithFacetFilter } from '../mocks/ElasticsearchResponses'
+import { HitsResponseWithFacetFilter } from '../../searchkit/src/___tests___/mocks/ElasticsearchResponses'
+import { DisjunctiveExampleRequest } from '../../searchkit/src/___tests___/mocks/AlgoliaRequests'
+import 'cross-fetch/polyfill'
 
-describe('Add additional base filters to search', () => {
-  it('call with one filter and query applied', async () => {
-    const client = Client({
+describe('exports', () => {
+  it('works as expected', async () => {
+    const config: SearchkitConfig = {
       connection: {
-        host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+        host: 'http://localhost:9200',
         apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
       },
       search_settings: {
@@ -20,9 +21,11 @@ describe('Add additional base filters to search', () => {
           'rated'
         ]
       }
-    })
+    }
 
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    const client = Client(config)
+
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         expect(requestBody).toMatchSnapshot('ES Request')
         const x = JSON.parse(requestBody.split('\n')[1]).query
@@ -106,8 +109,8 @@ describe('Add additional base filters to search', () => {
       })
       .reply(200, HitsResponseWithFacetFilter)
 
-    const response = await client.handleInstantSearchRequests(
-      DisjunctiveExampleRequest as AlgoliaMultipleQueriesQuery[],
+    const response = await client.handleRequest(
+      DisjunctiveExampleRequest as MultipleQueriesQuery[],
       {
         getBaseFilters: () => {
           return [

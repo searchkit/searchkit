@@ -1,5 +1,5 @@
 {
-  "name": "searchkit",
+  "name": "searchkit-monorepo",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -41,9 +41,7 @@
     }
   },
   "resolutions": {
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "@apollo/client": "^3.3.19"
+
   },
   "version": "0.0.0"
 }

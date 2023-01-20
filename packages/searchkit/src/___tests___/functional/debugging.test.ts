@@ -5,7 +5,7 @@ import { HitsResponseWithFacetFilter } from '../mocks/ElasticsearchResponses'
 
 describe('Debugging Support', () => {
   it('should emit the elasticsearch query to console with debug mode', async () => {
-    const client = Client(
+    const client = new Client(
       {
         connection: {
           host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',

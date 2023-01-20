@@ -1,4 +1,4 @@
 {
-  "api": "Node API",
+  "api": "@searchkit/api",
   "instantsearch-client": "instantsearch-client"
 }

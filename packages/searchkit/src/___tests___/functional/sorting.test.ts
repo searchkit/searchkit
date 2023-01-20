@@ -33,7 +33,7 @@ describe('Integration tests for sorting', () => {
   }
 
   it('should sort on title', async () => {
-    const client = Client(config as unknown as any)
+    const client = new Client(config as unknown as any)
     nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
       .post('/_msearch', (requestBody: any) => {
         const x = JSON.parse(requestBody.split('\n')[1])
@@ -59,7 +59,7 @@ describe('Integration tests for sorting', () => {
   })
 
   it('should sort on default', async () => {
-    const client = Client(config as unknown as any)
+    const client = new Client(config as unknown as any)
     nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
       .post('/_msearch', (requestBody: any) => {
         const x = JSON.parse(requestBody.split('\n')[1])
@@ -84,7 +84,7 @@ describe('Integration tests for sorting', () => {
   })
 
   it('should have no sort without default and no override', async () => {
-    const client = Client({
+    const client = new Client({
       ...config,
       search_settings: {
         ...config.search_settings,

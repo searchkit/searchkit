@@ -3,7 +3,7 @@ import nock from 'nock'
 import { DisjunctiveExampleRequest } from '../mocks/AlgoliaRequests'
 import { HitsResponseWithFacetFilter } from '../mocks/ElasticsearchResponses'
 
-const client = Client({
+const client = new Client({
   connection: {
     host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
     apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
