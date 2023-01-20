@@ -1,10 +1,19 @@
+import type { MultipleQueriesQuery } from 'searchkit'
+import type Searchkit from 'searchkit'
+
 interface InstantSearchElasticsearchAdapterConfig {
   url: string
   headers?: Record<string, string> | (() => Record<string, string>)
 }
 
+type Config = InstantSearchElasticsearchAdapterConfig | Searchkit
+
+function isSearchkit(config: Config): config is Searchkit {
+  return (config as Searchkit).handleInstantSearchRequests !== undefined
+}
+
 class InstantSearchElasticsearchAdapter {
-  constructor(private config: InstantSearchElasticsearchAdapterConfig) {}
+  constructor(private config: Config) {}
 
   public async clearCache(): Promise<void> {
     return
@@ -12,15 +21,20 @@ class InstantSearchElasticsearchAdapter {
 
   private getHeaders(): Record<string, string> {
     let headers = {}
-    if (this.config.headers) {
+    if (!isSearchkit(this.config) && this.config.headers) {
       headers =
         typeof this.config.headers === 'function' ? this.config.headers() : this.config.headers
     }
     return headers
   }
 
-  public async search(instantsearchRequests: ReadonlyArray<any>): Promise<unknown> {
+  public async search(instantsearchRequests: Array<MultipleQueriesQuery>): Promise<unknown> {
     try {
+      if (isSearchkit(this.config)) {
+        const results = await this.config.handleInstantSearchRequests(instantsearchRequests)
+        return results
+      }
+
       const response = await fetch(this.config.url, {
         body: JSON.stringify(instantsearchRequests),
         headers: {
@@ -38,8 +52,15 @@ class InstantSearchElasticsearchAdapter {
     }
   }
 
-  public async searchForFacetValues(instantsearchRequests: ReadonlyArray<any>): Promise<any> {
+  public async searchForFacetValues(
+    instantsearchRequests: Array<MultipleQueriesQuery>
+  ): Promise<any> {
     try {
+      if (isSearchkit(this.config)) {
+        const results = await this.config.handleInstantSearchRequests(instantsearchRequests)
+        return results
+      }
+
       const response = await fetch(this.config.url, {
         body: JSON.stringify(instantsearchRequests),
         headers: {
@@ -58,7 +79,6 @@ class InstantSearchElasticsearchAdapter {
   }
 }
 
-const createClient = (config: InstantSearchElasticsearchAdapterConfig) =>
-  new InstantSearchElasticsearchAdapter(config)
+const createClient = (config: Config) => new InstantSearchElasticsearchAdapter(config)
 
 export default createClient

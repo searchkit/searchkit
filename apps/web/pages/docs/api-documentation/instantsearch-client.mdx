@@ -66,3 +66,29 @@ const searchClient = Client({
   }),
 });
 ```
+
+### Use Elasticsearch Directly
+
+You can also use the client to directly query Elasticsearch from the browser, skipping needing a node API in the middle. This is useful if you're proxying the Elasticsearch API through your own application API.
+
+[Working demo](/browser-only-demo) available.
+
+```js
+
+import Client from '@searchkit/instantsearch-client'
+import Script from 'next/script'
+import Searchkit, { SearchkitConfig } from "searchkit"
+import { config } from "./api/config"
+
+const searchkitClient = new Searchkit({
+  connection: {
+    host: "http://localhost:9200"
+  },
+  search_settings: {
+    // ... see Node API docs for configuration options
+  }
+})
+
+const searchClient = Client(searchkitClient);
+
+```

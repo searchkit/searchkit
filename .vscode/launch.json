@@ -35,6 +35,21 @@
             "sourceMaps": true
         },
         {
+            "name": "@searchkit/instantsearch-client Tests ",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+            "args": [
+                 "--runInBand", "--forceExit", "--detectOpenHandles", "--watch"
+            ],
+            "cwd": "${workspaceRoot}/packages/searchkit-instantsearch-client",
+            "env": {
+                "NODE_ENV": "test"
+            },
+            "console": "integratedTerminal",
+            "sourceMaps": true
+        },
+        {
           "name": "apps/web debug server-side",
           "type": "node",
           "request": "launch",
