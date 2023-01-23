@@ -16,7 +16,7 @@
     "@algolia/autocomplete-theme-classic": "^1.7.4",
     "algoliasearch": "^4.14.2",
     "autoprefixer": "^10.4.12",
-    "next": "12.3.1",
+    "next": "13.1.4",
     "next-sitemap": "^3.1.32",
     "nextra": "^2.2.9",
     "nextra-theme-docs": "^2.2.9",
