@@ -14,90 +14,165 @@ Works with React, Vue, Angular, and more.
 ## Looking for the old Searchkit?
 - [Searchkit v3 Docs](https://v3.searchkit.co/docs)
 
-## How it works
-Searchkit uses Elasticsearch and provides an API that allows you to build a search experience with Algolia Instantsearch.
+```tsx
+import Searchkit from "searchkit"
+import Client from '@searchkit/instantsearch-client'
 
-![overview](apps/web/public/searchkit-overview.png)
+// import your InstantSearch components
+import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, NumericMenu } from 'react-instantsearch-dom';
 
-
-#### Code Sandbox Examples
-* react-Instantsearch + Next.JS + Searchkit [LINK](https://codesandbox.io/s/beta-react-instantsearch-next-js-searchkit-dxz0v3)
-* Instantsearch.js + Searchkit [LINK](https://codesandbox.io/s/beta-instantsearch-js-searchkit-b2oo1u)
-
-### How you can use it
-
-Once you have indexed your data in Elasticsearch, you can use Searchkit and instantsearch to query your data and display it in your app.
-
-#### Install the package
-Installing both the API and instantsearch-client is easy. You can install them with npm or yarn.
-
-  ```bash
-  npm install @searchkit/api @searchkit/instantsearch-client
-  ```
-
-#### Setup an API
-
-This creates an API which transforms the instantsearch requests sent from the browser into Elasticsearch queries and transforms the responses into instantsearch results.
-
-```ts
-import API from "@searchkit/api";
-import { NextApiRequest, NextApiResponse } from "next";
-
-const api = API({
+const sk = new Searchkit({
   connection: {
-    host: "<elasticsearch-host>",
-    apiKey: "<api-key>", // optional
+    host: 'http://localhost:9200'
   },
   search_settings: {
-    highlight_attributes: ["title", "actors"],
-    search_attributes: ["title", "actors"],
-    result_attributes: ["title", "actors"],
-    facet_attributes: ["type", "rated"],
-  },
-});
+    search_attributes: [{ field: 'title', weight: 3 }, 'actors', 'plot'],
+    result_attributes: ['title', 'actors', 'poster', 'plot'],
+    highlight_attributes: ['title'],
+    facet_attributes: [
+      { attribute: 'actors', field: 'actors.keyword', type: 'string' },
+      { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' }
+    ]
+  }
+})
 
-// example API handler for Next.js
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const results = await api.handleRequest(req.body);
-  res.send(results);
+const searchClient = Client(searchkitClient);
+
+const App = () => (
+  <InstantSearch
+    indexName="imdb_movies"
+    searchClient={searchClient}
+  >
+    <SearchBox />
+    <div className="left-panel">
+      <RefinementList attribute="actors" searchable={true} limit={10} />
+      <NumericMenu
+        attribute="imdbrating"
+        items={[
+          { label: '5 - 7', start: 5, end: 7 },
+          { label: '7 - 9', start: 7, end: 9 },
+          { label: '>= 9', start: 9 },
+        ]}
+      />
+    </div>
+    <div className="right-panel">
+      <Hits />
+      <Pagination />
+    </div>
+  </InstantSearch>
 }
 ```
 
-#### Setup the Frontend
+#### Move to Node API
 
-Using InstantSearch and the instantsearch-client is as simple as adding this JavaScript code to your page:
+In above example, we are calling Elasticsearch directly from the browser. This is not recommended for production use. Instead, you should use the Searchkit API to proxy requests to Elasticsearch. With Searchkit, you can do this in a few lines of code.
+
+### Frontend Changes
 
 ```tsx
-import React from "react";
-import ReactDOM from "react-dom";
-import Client from "@searchkit/instantsearch-client";
-import { InstantSearch, SearchBox, Hits } from "react-instantsearch-dom";
+import Searchkit from "searchkit"
+import Client from '@searchkit/instantsearch-client'
+
+// import your InstantSearch components
+import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, NumericMenu } from 'react-instantsearch-dom';
 
 const searchClient = Client({
-  url: "/api/search", // API url
+    url: "/api/search",
 });
 
 const App = () => (
-  <InstantSearch indexName="bestbuy" searchClient={searchClient}>
+  <InstantSearch
+    indexName="imdb_movies"
+    searchClient={searchClient}
+  >
     <SearchBox />
-    <Hits />
+    <div className="left-panel">
+      <RefinementList attribute="actors" searchable={true} limit={10} />
+      <NumericMenu
+        attribute="imdbrating"
+        items={[
+          { label: '5 - 7', start: 5, end: 7 },
+          { label: '7 - 9', start: 7, end: 9 },
+          { label: '>= 9', start: 9 },
+        ]}
+      />
+    </div>
+    <div className="right-panel">
+      <Hits />
+      <Pagination />
+    </div>
   </InstantSearch>
-);
+}
+```
 
-export default App;
+### Backend Changes
+
+Example below using Next.js API Routes. You can also use Cloudflare Workers or Vercel Edge Functions, or any other Node.js server.
+
+```ts
+import Client from '@searchkit/api'
+import { NextApiRequest, NextApiResponse } from 'next'
+
+const client = Client(
+  {
+    connection: {
+      host: 'http://localhost:9200'
+    },
+    search_settings: {
+      search_attributes: [{ field: 'title', weight: 3 }, 'actors', 'plot'],
+      result_attributes: ['title', 'actors', 'poster', 'plot'],
+      highlight_attributes: ['title'],
+      facet_attributes: [
+        { attribute: 'actors', field: 'actors.keyword', type: 'string' },
+        { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' }
+      ]
+    }
+  },
+  { debug: true }
+)
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const results = await client.handleRequest(req.body)
+  res.send(results)
+}
+```
+
+### Query Rules
+
+Query rules allows you to customize the behavior of the search experience. You can use query rules to boost or filter results, or to change the ranking of results, based on a set of conditions.
+
+Below is an example of a query rule that boosts results for movies with Dan Aykroyd or Charlie Sheen, and filters results to only show movies if the query is the word "movie".
+
+```js
+
+{
+  id: '1',
+  conditions: [
+    [
+      {
+        context: 'query',
+        value: 'movie',
+        match_type: 'exact'
+      }
+    ]
+  ],
+  actions: [
+    {
+      action: 'QueryBoost',
+      query: 'actors:"Dan Aykroyd" OR actors:"Charlie Sheen"',
+      weight: 2
+    },
+    {
+      action: 'QueryFilter',
+      query: 'type:"movie"'
+    }
+  ]
+}
+
 ```
 
 ### NPM Packages
 * @searchkit/api [Documentation](https://beta.searchkit.co/docs/api-documentation/api)
 * @searchkit/instantsearch-client [Documentation](https://beta.searchkit.co/docs/api-documentation/instantsearch-client)
 
-### FAQ
 
-#### Do I need to expose my Elasticsearch instance to the browser?
-No! You dont expose your elasticsearch cluster to the browser, you use either Searchkit Cloud or host the API yourself that sits in between elasticsearch and the browser.
-
-#### Do I need to run a Node.js Server?
-No! You can use Searchkit Cloud to manage the infrastructure. Or you can host the API yourself on Cloudflare or Vercel.

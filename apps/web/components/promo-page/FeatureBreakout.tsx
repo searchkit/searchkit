@@ -20,7 +20,7 @@ export const FeatureBreakout = ({ title, description, linkTitle, linkHref, image
         {
           snippets && (
             snippets.map((snippet: any, index: number) => (
-              <div key={index} className="lg:col-span-12 col-span-12 pt-6 sm:max-w-xs">
+              <div key={index} className="md:col-span-6 col-span-12 pt-6 sm:max-w-xs">
                 <div className="text-center sm:text-left mb-3">
                   <h2 className="text-xl tracking-tight font-extrabold text-gray-200 sm:text-xl lg:text-xl xl:text-xl">{snippet.title}</h2>
                   <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-lg lg:text-md xl:text-lg">{snippet.description}</p>

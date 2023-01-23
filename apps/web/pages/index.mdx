@@ -9,7 +9,7 @@ import { FeatureBreakout } from '../components/promo-page/FeatureBreakout'
 <div className="max-w-5xl mx-auto px-8 pb-16">
 
 
-<div className="pt-4 m-auto text-left">
+<div className="pt-4 m-auto text-left mb-6">
   <h1 className="font-extrabold md:text-5xl mt-8 mb-4 text-2xl">Great search experiences,<br/>
   made easy.</h1>
   <div className="mb-4 max-w-lg">
@@ -26,6 +26,56 @@ import { FeatureBreakout } from '../components/promo-page/FeatureBreakout'
   <IntroButtons />
 
 </div>
+
+```tsx
+import Searchkit from "searchkit"
+import Client from '@searchkit/instantsearch-client'
+import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, NumericMenu } from 'react-instantsearch-dom';
+
+const sk = new Searchkit({
+  connection: {
+    host: 'http://localhost:9200'
+  },
+  search_settings: {
+    search_attributes: [{ field: 'title', weight: 3 }, 'actors', 'plot'],
+    result_attributes: ['title', 'actors', 'poster', 'plot'],
+    highlight_attributes: ['title'],
+    facet_attributes: [
+      { attribute: 'actors', field: 'actors.keyword', type: 'string' },
+      { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' }
+    ]
+  }
+})
+
+const searchClient = Client(searchkitClient);
+
+export default function Web() {
+    return (
+      <InstantSearch
+        indexName="imdb_movies"
+        searchClient={searchClient}
+      >
+        <SearchBox />
+        <div className="left-panel">
+          <RefinementList attribute="actors" searchable={true} limit={10} />
+          <NumericMenu
+            attribute="imdbrating"
+            items={[
+              { label: '5 - 7', start: 5, end: 7 },
+              { label: '7 - 9', start: 7, end: 9 },
+              { label: '>= 9', start: 9 },
+            ]}
+          />
+        </div>
+        <div className="right-panel">
+          <Hits />
+          <Pagination />
+        </div>
+      </InstantSearch>
+    );
+}
+
+```
 
 <FeatureBreakout 
   title="Build Search Experiences Fast!" 
