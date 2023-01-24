@@ -13,7 +13,12 @@ export function getHighlightFields(
 ) {
   const { _source = {}, highlight = {} } = hit
 
-  const hitHighlights = Object.keys(_source).reduce<Record<string, any>>((sum, fieldKey) => {
+  const combinedKeys = {
+    ..._source,
+    ...highlight
+  }
+
+  const hitHighlights = Object.keys(combinedKeys).reduce<Record<string, any>>((sum, fieldKey) => {
     const fieldValue: any = _source[fieldKey]
     const highlightedMatch = highlight[fieldKey] || null
 
@@ -49,7 +54,10 @@ export function getHighlightFields(
           }
         })
       }
-    } else if (!Array.isArray(fieldValue) && highlightedMatch && Array.isArray(highlightedMatch)) {
+    } else if (
+      (!Array.isArray(fieldValue) && highlightedMatch && Array.isArray(highlightedMatch)) ||
+      (!fieldValue && Array.isArray(highlightedMatch) && highlightedMatch.length > 0)
+    ) {
       const singleMatch = highlightedMatch[0]
 
       const matchWords = Array.from(singleMatch.matchAll(/\<em\>(.*?)\<\/em\>/g)).map(
@@ -76,7 +84,7 @@ export function getHighlightFields(
       [fieldKey]: {
         matchLevel: 'none',
         matchedWords: [],
-        value: fieldValue.toString()
+        value: fieldValue != undefined ? fieldValue.toString() : ''
       }
     }
   }, {})

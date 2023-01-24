@@ -235,9 +235,14 @@ export const getHitFields = (
   const { attributesToRetrieve } = params
   // ignoring attributesToRetrieve for now
 
+  const sourceFields = new Set([
+    ...(config.result_attributes || []),
+    ...(config.highlight_attributes || [])
+  ])
+
   return {
     _source: {
-      includes: config.result_attributes
+      includes: Array.from(sourceFields)
     }
   }
 }
