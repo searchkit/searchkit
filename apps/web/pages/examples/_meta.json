@@ -1,4 +1,5 @@
 {
+  "tutorials": "Tutorials",
   "cloudflare-workers": {
     "title": "Cloudflare Worker",
     "theme": {

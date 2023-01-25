@@ -1,22 +1,22 @@
 ---
-title: Node API
+title: Searchkit API
 description: Searchkit Node API for Elasticsearch
 ---
 import { Tabs, Tab } from '../../../components/Tabs'
 
 ### Installation
 
-It is available as `@searchkit/api` on npm.
+It is available as `searchkit` on npm.
 
 <Tabs items={['npm', 'yarn']} storageKey="selected-package-manager">
 <Tab>
 ```sh
-npm install @searchkit/api@latest
+npm install searchkit
 ```
 </Tab>
 <Tab>
 ```sh
-yarn add @searchkit/api@latest
+yarn add searchkit
 ```
 </Tab>
 </Tabs>
@@ -24,23 +24,22 @@ yarn add @searchkit/api@latest
 Then import it in your project:
 
 ```js
-import Client from "@searchkit/api";
+import Searchkit from "searchkit";
 ```
 
 ### Usage
 
-Node client handles incoming instantsearch requests, transforms them into Elasticsearch queries. With the response, it transforms it into a format that instantsearch can understand.
+You can use Searchkit with either the [@searchkit/api](/docs/api-documentation/api) or the [@searchkit/instantsearch-client](/docs/api-documentation/instantsearch-client) package.
 
-The client is built in a way to simplify the integration with multiple node server frameworks.
+#### With @searchkit/instantsearch-client
 
-Read more on how to configure Searchkit on [Searchkit API docs](/docs/api-documentation/searchkit).
+```tsx
 
-```ts
+import Client from '@searchkit/instantsearch-client'
+import Searchkit, { SearchkitConfig } from "searchkit"
+import { config } from "./api/config"
 
-import Client from "@searchkit/api";
-
-// SearchkitConfig is the configuration object that is used to configure the client
-const client = Client({
+const searchkitClient = new Searchkit({
   connection: {
     host: "https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243",
     apiKey: "a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw==", // optional apiKey
@@ -61,8 +60,212 @@ const client = Client({
       { attribute: "metascore", type: "numeric" },
     ],
   },
+})
+
+const searchClient = Client(searchkitClient);
+
+export const App = () => {
+  return (
+    <InstantSearch searchClient={searchClient} indexName="movies">
+      <SearchBox />
+      <Hits />
+    </InstantSearch>
+  )
+}
+```
+
+### SearchkitConfig
+
+#### `connection` configuration
+
+- `host` - Elasticsearch url host
+- `apiKey` - Elasticsearch API key. This is optional but strongly recommended for production environments. You can create an API key via [Kibana](https://www.elastic.co/guide/en/kibana/master/api-keys.html).
+- `headers` - Additional headers to pass to Elasticsearch. This is optional.
+
+Connection also supports implementing your own connector to Elasticsearch. You can do this by passing in a transporter instance through `connection`.
+
+You can use this for more complex authentication connections with Elasticsearch or Opensearch.
+
+```tsx
+
+import type { Transporter, SearchRequest, ElasticsearchResponseBody } from 'searchkit'
+
+class MyTransporter {
+  async msearch(
+    requests: SearchRequest[]
+  ): Promise<ElasticsearchResponseBody[]> {
+    // Implement your own search logic here
+    // Fetch is an example of calling an API.
+    const response = await fetch(`https://localhost:9200/_msearch`, {
+      headers: {
+        "content-type": "application/json",
+      },
+      body: requests
+        .reduce<string[]>(
+          (sum, request) => [
+            ...sum,
+            JSON.stringify({ index: request.indexName }),
+            "\n",
+            JSON.stringify(request.body),
+            "\n",
+          ],
+          []
+        )
+        .join(""),
+      method: "POST",
+    });
+
+    const responses = await response.json();
+    return responses.responses;
+  }
+}
+
+const client = Client({
+  connection: new MyTransporter(),
+  ...
 });
 ```
+
+#### `search_settings` configuration
+
+```tsx
+search_settings: {
+  highlight_attributes: ["title", "actors"],
+  search_attributes: ["title^3", "actors"],
+  result_attributes: ["title", "actors", "poster", "year"],
+  facet_attributes: [
+    "type",
+    { attribute: "actors", field: "actors.keyword" },
+    "rated",
+    { attribute: "imdbrating", type: "numeric" },
+    { attribute: "metascore", type: "numeric" },
+  ],
+  filter_attributes: [
+    { attribute: "year", type: "numeric" }
+  ],
+  sorting: {
+    default: {
+      field: '_score',
+      order: 'desc'
+    },
+    _year_desc: [{
+      field: 'year',
+      order: 'desc'
+    }]
+  },
+},
+```
+
+Attributes that are used to configure the search experience.
+
+- `highlight_attributes` - Attributes that are used to highlight the search results.
+- `search_attributes` - Attributes that are used to search the results.
+- `result_attributes` - Attributes that are returned in the search result response.
+- `facet_attributes` - Attributes that are used to create facets. Facets can be of type `string` or `numeric` or `date`.
+- `filter_attributes` - Attributes that are used to create filters. Filters can be of type `string` or `numeric` or `date`.
+- `sorting` - Attributes that are used to create sorting options. Sorting can be a single sorting field or multiple.
+- `query_rules` - Rules that affect search relevance. See [Query Rules](/docs/guides/query-rules) for more information.
+
+##### search_attributes
+
+The search attributes define what Elasticsearch fields should be searched when a user performs a search.
+
+The search attributes can be configured as follows:
+
+```js
+search_attributes: ["description", "actors", { field: "title", weight: 3 }, "released.year"];
+```
+
+The following configuration will search the `description`, `actors` and an object field `released.year` fields with the default weight of 1. The `title` field will be weighted 3 times more than the `actors` field.
+
+##### `facet_attributes` custom configuration
+
+For **text** based facets, you need to specify a `keyword` type field to use for the facet. This is because Elasticsearch does not support aggregations on text fields. You can find more information about the field mapping [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-field-mapping.html).
+
+Typically you would create a subfield of the text field with the `keyword` type. For example, if you have a `actors` field with the `text` type, you would create a `actors.keyword` field with the `keyword` type.
+
+```tsx
+{
+  "mappings": {
+    "properties": {
+      "actors": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+in the above example, you would specify the `actors` facet as follows:
+
+```tsx
+facet_attributes: [
+  { attribute: "actors", field: "actors.keyword" },
+],
+```
+
+and you would use the `actors` attribute within the UI components.
+
+Below is an example of a `RefinementList` Instantsearch React component that uses the `actors` facet.
+
+```tsx
+<RefinementList attribute="actors" searchable={true} limit={10} />
+```
+
+###### `facet_attributes` numeric and date types
+
+For range based facets, you need to specify the `type` as `numeric` or `date`. This is so the client can correctly generate facet stats for the field to be used in the UI.
+
+```tsx
+facet_attributes: [
+  { attribute: "imdbrating", type: "numeric" },
+  { attribute: "metascore", type: "numeric" },
+],
+```
+
+Below is an example of a `NumericMenu` Instantsearch React component that uses the `imdbrating` facet.
+
+```tsx
+<NumericMenu
+  attribute="imdbrating"
+  items={[
+    { label: "5 - 7", start: 5, end: 7 },
+    { label: "7 - 9", start: 7, end: 9 },
+    { label: ">= 9", start: 9 },
+  ]}
+/>
+```
+
+##### `sorting` 
+
+Sorting can be configured as follows:
+
+```tsx
+
+sorting: {
+  default: {
+    field: '_score',
+    order: 'desc'
+  },
+  _year_desc: [{
+    field: 'year',
+    order: 'desc'
+  }]
+}
+```
+
+The `default` sorting option is used when no sorting option is selected. The `_year_desc` sorting option is used when the user selects the `_year_desc` sorting option.
+
+The sorting option can be a single sorting field or multiple sorting fields.
+
+See the [sorting guide](/docs/guides/sorting) for more information.
+
 
 ### `HandleRequest` function
 

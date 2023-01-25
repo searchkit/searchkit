@@ -76,7 +76,6 @@ You can also use the client to directly query Elasticsearch from the browser, sk
 ```js
 
 import Client from '@searchkit/instantsearch-client'
-import Script from 'next/script'
 import Searchkit, { SearchkitConfig } from "searchkit"
 import { config } from "./api/config"
 
@@ -85,7 +84,7 @@ const searchkitClient = new Searchkit({
     host: "http://localhost:9200"
   },
   search_settings: {
-    // ... see Node API docs for configuration options
+    // ... see Searchkit API docs for configuration options
   }
 })
 

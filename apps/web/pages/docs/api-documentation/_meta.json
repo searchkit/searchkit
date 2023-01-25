@@ -1,4 +1,5 @@
 {
-  "api": "@searchkit/api",
-  "instantsearch-client": "instantsearch-client"
+  "searchkit": "Searchkit API",
+  "api": "Node API",
+  "instantsearch-client": "Instantsearch Client API"
 }

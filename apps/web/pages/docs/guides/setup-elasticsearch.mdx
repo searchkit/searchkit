@@ -26,7 +26,23 @@ const client = Client({
 })
 ```
 
+#### (Required for browser-only Searchkit) Add CORS headers to your Elasticsearch deployment
+
+If you are using Searchkit in the browser and without the node proxy, you will need to add CORS headers to your Elasticsearch instance.
+
+To do this, you need to add the following to your `elasticsearch.yml` file:
+
+```yaml
+http.cors.allow-origin: "*"
+http.cors.enabled: true
+http.cors.allow-credentials: true
+http.cors.allow-methods: OPTIONS, HEAD, GET, POST, PUT, DELETE
+http.cors.allow-headers: X-Requested-With, X-Auth-Token, Content-Type, Content-Length, Authorization, Access-Control-Allow-Headers, Accept, x-elastic-client-meta
+```
+
 If Searchkit cannot connect to Elasticsearch, it will throw an error. You should be able to see the error in the terminal running the node API.
+
+You can also switch on the `debug` [flag](/docs/api-documentation/api#debug-mode) in the configuration object, within the Node app, to see more detailed logs.
 
 ### Connecting to Elasticsearch locally
 
