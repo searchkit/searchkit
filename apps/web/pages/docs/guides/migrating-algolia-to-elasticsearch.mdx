@@ -1,0 +1,109 @@
+---
+title: Migrating from Algolia to Elasticsearch with Searchkit
+description: Use Searchkit to migrate from Algolia to Elasticsearch
+---
+
+## Migrating from Algolia to Elasticsearch with Searchkit
+
+One of the most common questions we get asked is how to migrate from Algolia to Elasticsearch. With Searchkit v4 and Instantsearch support, we’ve made it easier than ever to migrate from Algolia to Elasticsearch. In this post, we’ll show you how to migrate from Algolia to Elasticsearch with Searchkit.
+
+### Setting up Elasticsearch
+
+Setting up and maintaining our own search engine cluster can be time-consuming. We will be using Elastic Cloud for this, but the setup can work with an ElasticSearch index hosted anywhere.
+
+You can read more on how to [set up Elasticsearch](https://www.searchkit.co/docs/guides/setup-elasticsearch) and [indexing data](https://www.searchkit.co/docs/guides/indexing-data).
+
+### Setting up Searchkit and Instantsearch Client
+
+Install the dependencies for Searchkit and Instantsearch Client.
+
+```bash
+yarn add searchkit @searchkit/instantsearch-client
+```
+
+and setup the configuration for Searchkit.
+
+```js
+
+import Searchkit from "searchkit"
+import Client from '@searchkit/instantsearch-client'
+
+const sk = new Searchkit({
+  connection: {
+    host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+    apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
+  },
+  search_settings: {
+    // attributes to highlight or snippet
+    highlight_attributes: ['title'],
+    snippet_attributes: ['plot'],
+    search_attributes: [{ field: 'title', weight: 3 }, 'actors', 'plot'],
+    result_attributes: ['title', 'actors', 'poster', 'plot'],
+    facet_attributes: [
+      'type',
+      { attribute: 'actors', field: 'actors.keyword', type: 'string' },
+      'rated',
+      { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' },
+      { attribute: 'metascore', type: 'numeric', field: 'metascore' }
+    ],
+  }
+)
+
+```
+
+### Using the Instantsearch Client
+
+Then we can use Searchkit's Instantsearch Client to connect to Searchkit.
+
+```js
+
+import Client from '@searchkit/instantsearch-client'
+
+const searchClient = Client(searchkitClient);
+
+export default function App() {
+  return (
+    <InstantSearch searchClient={searchClient} indexName="movies">
+      <Configure hitsPerPage={10} />
+      <SearchBox />
+      <Hits hitComponent={MovieHits} />
+      <Pagination />
+    </InstantSearch>
+  );
+}
+
+```
+
+### Proxy Search Requests through Node
+
+We can use a proxy to forward requests from Searchkit to Elasticsearch. This is recommended for production use.
+
+```bash
+yarn add @searchkit/api
+```
+
+Below is an example of a Next.js API handler that proxies requests to Elasticsearch.
+
+```ts
+import Client from "@searchkit/api";
+import { NextApiRequest, NextApiResponse } from "next";
+
+const client = Client({
+  connection: {
+    host: "<elasticsearch-host>",
+    apiKey: "<api-key>", // optional
+  },
+  search_settings: {
+    // ... search settings
+  },
+});
+
+// example API handler for Next.js
+export default async function handler(
+  req,
+  res
+) {
+  const results = await client.handleRequest(req.body);
+  res.send(results);
+}
+```
