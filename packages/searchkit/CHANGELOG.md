@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.0.3
+
+### Patch Changes
+
+- Security dependency updates
+
 ## 4.0.2
 
 ### Patch Changes

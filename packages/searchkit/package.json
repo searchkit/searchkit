@@ -1,8 +1,16 @@
 {
   "name": "searchkit",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "main": "./dist/index.js",
-  "description": "",
+  "description": "Search UI for Elasticsearch. Compatible with Algolia's Instantsearch and Autocomplete",
+  "keywords": [
+    "elasticsearch",
+    "search",
+    "ui",
+    "react",
+    "instantsearch",
+    "autocomplete"
+  ],
   "repository": "https://github.com/searchkit/searchkit",
   "bugs": "https://github.com/searchkit/searchkit/issues",
   "homepage": "https://www.searchkit.co",

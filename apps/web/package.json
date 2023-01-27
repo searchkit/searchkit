@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.7.4",
-    "@searchkit/api": "4.0.1",
-    "@searchkit/instantsearch-client": "4.1.1",
+    "@searchkit/api": "4.0.2",
+    "@searchkit/instantsearch-client": "4.1.2",
     "@algolia/autocomplete-theme-classic": "^1.7.4",
     "algoliasearch": "^4.14.2",
     "autoprefixer": "^10.4.12",

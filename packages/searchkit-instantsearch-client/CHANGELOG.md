@@ -1,5 +1,13 @@
 # @searchkit/api
 
+## 4.1.2
+
+### Patch Changes
+
+- Security dependency updates
+- Updated dependencies
+  - searchkit@4.0.3
+
 ## 4.1.1
 
 ### Patch Changes
