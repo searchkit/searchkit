@@ -1,10 +1,12 @@
 import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, ToggleRefinement, Panel, Pagination, Stats, connectSearchBox, NumericMenu, RangeInput, CurrentRefinements, QueryRuleCustomData, Snippet, SortBy } from 'react-instantsearch-dom';
 import Client from '@searchkit/instantsearch-client'
 import Script from 'next/script'
+import Searchkit from "searchkit"
+import { config } from "./api/config"
 
-const searchClient = Client({
-  url: '/api/search',
-});
+const searchkitClient = new Searchkit(config)
+
+const searchClient = Client(searchkitClient);
 
 const hitView = (props: any) => {
   return (
@@ -31,7 +33,7 @@ export default function Web() {
         <SearchBox />
         <div className="left-panel">
           {/* @ts-ignore */}
-          <DynamicWidgets maxValuesPerFacet={5} fallbackWidget={RefinementList}>
+          <DynamicWidgets maxValuesPerFacet={10} fallbackWidget={RefinementList}>
             <Panel header="Type">
               <RefinementList attribute="type" searchable={true}/>
             </Panel>
