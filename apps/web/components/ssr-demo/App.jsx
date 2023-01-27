@@ -43,7 +43,7 @@ export function App(props) {
         <SearchBox />
         <div className="left-panel">
           {/* @ts-ignore */}
-          <DynamicWidgets maxValuesPerFacet={5} fallbackWidget={RefinementList}>
+          <DynamicWidgets maxValuesPerFacet={10} fallbackWidget={RefinementList}>
             <Panel header="Type">
               <RefinementList attribute="type" searchable={true}/>
             </Panel>
