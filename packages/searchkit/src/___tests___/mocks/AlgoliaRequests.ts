@@ -211,3 +211,21 @@ export const NumericFiltersExampleRequest = [
     }
   }
 ]
+
+export const NestedFacetQueryExampleRequest = [
+  {
+    indexName: 'my-index-000001',
+    params: {
+      facetName: 'user.first',
+      facetQuery: 'har',
+      facets: ['user.first', 'user.price'],
+      highlightPostTag: '</ais-highlight-0000000000>',
+      highlightPreTag: '<ais-highlight-0000000000>',
+      maxFacetHits: 10,
+      maxValuesPerFacet: 10,
+      page: 0,
+      query: '',
+      tagFilters: ''
+    }
+  }
+]

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nested facetQuery nested facet with query: ES Request 1`] = `
+"{"index":"my-index-000001"}
+{"aggs":{"user.":{"nested":{"path":"user"},"aggs":{"user.first":{"terms":{"field":"user.first.keyword","size":10,"include":"([a-zA-Z]+ )+?[hH][aA][rR].*"}}}}},"query":{"bool":{"filter":[],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0}}}}
+"
+`;
