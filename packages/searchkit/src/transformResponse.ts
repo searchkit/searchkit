@@ -222,12 +222,20 @@ export const transformFacetValuesResponse = (
   instantsearchRequest: AlgoliaMultipleQueriesQuery
 ) => {
   const aggregations = response.aggregations || {}
+  // @ts-ignore
+  const facetName = instantsearchRequest?.params?.facetName
 
   const preTag = instantsearchRequest.params?.highlightPreTag || '<ais-highlight-0000000000>'
   const postTag = instantsearchRequest.params?.highlightPostTag || '<ais-highlight-0000000000/>'
 
+  let agg = aggregations[Object.keys(aggregations)[0]] as any
+
+  if (agg && agg[facetName]) {
+    agg = agg[facetName]
+  }
+
   return {
-    facetHits: (aggregations[Object.keys(aggregations)[0]] as any).buckets.map((entry: any) => ({
+    facetHits: agg.buckets.map((entry: any) => ({
       value: entry.key,
       highlighted: highlightTerm(
         entry.key,

@@ -55,14 +55,24 @@ class InstantSearchElasticsearchAdapter {
   public async searchForFacetValues(
     instantsearchRequests: Array<MultipleQueriesQuery>
   ): Promise<any> {
+    const isr = instantsearchRequests.map<MultipleQueriesQuery>((request) => {
+      return {
+        ...request,
+        params: {
+          ...request.params,
+          hitsPerPage: 0
+        }
+      }
+    })
+
     try {
       if (isSearchkit(this.config)) {
-        const results = await this.config.handleInstantSearchRequests(instantsearchRequests)
+        const results = await this.config.handleInstantSearchRequests(isr)
         return results.results
       }
 
       const response = await fetch(this.config.url, {
-        body: JSON.stringify(instantsearchRequests),
+        body: JSON.stringify(isr),
         headers: {
           'Content-Type': 'application/json',
           ...this.getHeaders()

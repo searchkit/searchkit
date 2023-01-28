@@ -1105,3 +1105,118 @@ export const ExampleNestedMixedFacetResponse = {
     }
   ]
 }
+
+export const ExampleNestedFacetQueryResponse = {
+  took: 1,
+  responses: [
+    {
+      took: 1,
+      timed_out: false,
+      _shards: {
+        total: 1,
+        successful: 1,
+        skipped: 0,
+        failed: 0
+      },
+      hits: {
+        total: {
+          value: 4,
+          relation: 'eq'
+        },
+        max_score: 1,
+        hits: [
+          {
+            _index: 'my-index-000001',
+            _id: '1',
+            _score: 1,
+            _source: {
+              group: 'fans',
+              user: [
+                {
+                  first: 'John',
+                  last: 'Smith'
+                },
+                {
+                  first: 'Alice',
+                  last: 'White'
+                }
+              ]
+            }
+          },
+          {
+            _index: 'my-index-000001',
+            _id: '2',
+            _score: 1,
+            _source: {
+              group: 'fans',
+              user: [
+                {
+                  first: 'John',
+                  last: 'White'
+                },
+                {
+                  first: 'Smith',
+                  last: 'Fred'
+                }
+              ]
+            }
+          },
+          {
+            _index: 'my-index-000001',
+            _id: '3',
+            _score: 1,
+            _source: {
+              group: 'fans',
+              user: [
+                {
+                  first: 'Haribo',
+                  last: 'Friends'
+                },
+                {
+                  first: 'Jacob',
+                  last: 'McElroy'
+                }
+              ]
+            }
+          },
+          {
+            _index: 'my-index-000001',
+            _id: '4',
+            _score: 1,
+            _source: {
+              group: 'fans',
+              user: [
+                {
+                  first: 'Haribo',
+                  last: 'Friends',
+                  price: 123
+                },
+                {
+                  first: 'Jacob',
+                  last: 'McElroy',
+                  price: 34
+                }
+              ]
+            }
+          }
+        ]
+      },
+      aggregations: {
+        'user.': {
+          'doc_count': 8,
+          'user.first': {
+            doc_count_error_upper_bound: 0,
+            sum_other_doc_count: 0,
+            buckets: [
+              {
+                key: 'Haribo',
+                doc_count: 2
+              }
+            ]
+          }
+        }
+      },
+      status: 200
+    }
+  ]
+}
