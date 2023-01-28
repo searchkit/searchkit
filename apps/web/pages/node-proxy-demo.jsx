@@ -1,12 +1,10 @@
 import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, ToggleRefinement, Panel, Pagination, Stats, connectSearchBox, NumericMenu, RangeInput, CurrentRefinements, QueryRuleCustomData, Snippet, SortBy } from 'react-instantsearch-dom';
 import Client from '@searchkit/instantsearch-client'
 import Script from 'next/script'
-import Searchkit from "searchkit"
-import { config } from "./api/config"
 
-const searchkitClient = new Searchkit(config)
-
-const searchClient = Client(searchkitClient);
+const searchClient = Client({
+  url: "/api/search"
+});
 
 const hitView = (props) => {
   return (
