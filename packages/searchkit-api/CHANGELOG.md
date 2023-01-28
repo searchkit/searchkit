@@ -1,5 +1,17 @@
 # @searchkit/api
 
+## 4.0.4
+
+### Patch Changes
+
+- bump dependency
+
+## 4.0.3
+
+### Patch Changes
+
+- bump searchkit dependency
+
 ## 4.0.2
 
 ### Patch Changes
