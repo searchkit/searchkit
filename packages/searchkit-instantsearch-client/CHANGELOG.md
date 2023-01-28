@@ -1,5 +1,13 @@
 # @searchkit/api
 
+## 4.1.3
+
+### Patch Changes
+
+- 3484bd44: Fix nested facet query
+- Updated dependencies [3484bd44]
+  - searchkit@4.0.4
+
 ## 4.1.2
 
 ### Patch Changes

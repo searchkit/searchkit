@@ -1,5 +1,12 @@
 # web
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [3484bd44]
+  - @searchkit/instantsearch-client@4.1.3
+
 ## 0.0.4
 
 ### Patch Changes

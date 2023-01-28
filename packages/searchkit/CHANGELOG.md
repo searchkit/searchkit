@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.0.4
+
+### Patch Changes
+
+- 3484bd44: Fix nested facet query
+
 ## 4.0.3
 
 ### Patch Changes
