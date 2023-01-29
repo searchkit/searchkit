@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.1.0
+
+### Minor Changes
+
+- 031f790f: Geo Filtering capability
+
 ## 4.0.4
 
 ### Patch Changes

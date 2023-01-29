@@ -1,5 +1,16 @@
 # @searchkit/api
 
+## 4.1.0
+
+### Minor Changes
+
+- 031f790f: Geo Filtering capability
+
+### Patch Changes
+
+- Updated dependencies [031f790f]
+  - searchkit@4.1.0
+
 ## 4.0.4
 
 ### Patch Changes
