@@ -1,0 +1,120 @@
+---
+title: Geo Search Experiences
+description: Providing map based search experiences
+---
+
+# Geo Search Guide
+
+This guide will walk you through the process of creating a map based search experience. 
+
+## Index Geo Data
+
+In order to create a map based search experience, you will need to index geo data. You must use the `geo_point` type field to index geo data. 
+
+See the [Geo Point Data Type](https://www.elastic.co/guide/en/elasticsearch/reference/current/geo-point.html) for more information on how to index geo data.
+
+Below is an example of how to setup and index geo data into `location` field using the `geo_point` type field.
+
+```json
+PUT my-geo-data
+{
+  "mappings": {
+    "properties": {
+      "location": {
+        "type": "geo_point"
+      }
+    }
+  }
+}
+
+PUT my-geo-data/_doc/1
+{
+  "text": "Geopoint as a string",
+  "location": "41.12,-71.34" 
+}
+```
+
+## Configure Searchkit
+
+Within Searchkit configuration, you will need to specify the `geo_point` field that you indexed geo data into. 
+
+```js
+const searchkitClient = new Searchkit({
+  connection: {
+    host: 'http://localhost:9200'
+  },
+  search_settings: {
+    result_attributes: ["text"],
+    search_attributes: [],
+    geo_attribute: "location"
+  }
+})
+```
+
+## Create a Map Based Search Experience
+
+To create a map based search experience, you will use Instantsearch map components. 
+
+Below is an example of using the `react-instantsearch-dom-maps` package to create a map based search experience. 
+
+```js
+import React from 'react';
+import {
+  GoogleMapsLoader,
+  GeoSearch,
+  Marker,
+} from 'react-instantsearch-dom-maps';
+import { InstantSearch, Hits } from 'react-instantsearch-dom';
+import Client from '@searchkit/instantsearch-client'
+import Searchkit from "searchkit"
+
+const apiKey = 'AIzaSyCnxbEhpVqsd7m-dDGb3mJrFEnZFSKdKOU';
+const endpoint = 'https://maps.googleapis.com/maps/api/js?v=weekly';
+
+const searchkitClient = new Searchkit({
+  connection: {
+    host: 'http://localhost:9200'
+  },
+  search_settings: {
+    result_attributes: ["text"],
+    search_attributes: [],
+    geo_attribute: "location"
+  }
+})
+
+const searchClient = Client(searchkitClient);
+
+export default function Web() {
+    return (  
+      <InstantSearch
+        indexName="my-geo-data"
+        searchClient={searchClient}
+      >
+        <div style={{ height: 500 }}>
+        <GoogleMapsLoader apiKey={apiKey} endpoint={endpoint}>
+          {(google) => (
+            <GeoSearch google={google}>
+              {({ hits }) => (
+                <>
+                  {hits.map((hit) => (
+                    <Marker key={hit.objectID} hit={hit} />
+                  ))}
+                </>
+              )}
+            </GeoSearch>
+          )}
+        </GoogleMapsLoader>
+
+        <div className="right-panel">
+          <Hits />
+        </div>
+
+        </div>
+      </InstantSearch>
+    );
+}
+```
+
+## Live Demo
+
+You can view a live demo of this guide [here](/geo-search-demo).

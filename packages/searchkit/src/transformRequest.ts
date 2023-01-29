@@ -1,6 +1,11 @@
 import { QueryDslQueryContainer } from '@elastic/elasticsearch/lib/api/types'
 import deepmerge from 'deepmerge'
-import { transformBaseFilters, transformFacetFilters, transformNumericFilters } from './filters'
+import {
+  transformBaseFilters,
+  transformFacetFilters,
+  transformGeoFilters,
+  transformNumericFilters
+} from './filters'
 import { QueryRuleActions } from './queryRules'
 import { getSorting } from './sorting'
 import {
@@ -194,6 +199,7 @@ const getQuery = (
     ...transformFacetFilters(request, config),
     ...transformNumericFilters(request, config),
     ...transformBaseFilters(request, config),
+    ...transformGeoFilters(request, config),
     ...(requestOptions?.getBaseFilters?.() || []),
     ...queryRuleActions.baseFilters
   ]
@@ -237,7 +243,8 @@ export const getHitFields = (
 
   const sourceFields = new Set([
     ...(config.result_attributes || []),
-    ...(config.highlight_attributes || [])
+    ...(config.highlight_attributes || []),
+    ...(config.geo_attribute ? [config.geo_attribute] : [])
   ])
 
   return {

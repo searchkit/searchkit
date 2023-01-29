@@ -1,0 +1,405 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Geo Filters aroundLatLng 2`] = `
+{
+  "results": [
+    {
+      "appliedRules": [],
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "hits": [
+        {
+          "_geoloc": {
+            "lat": 44.35,
+            "lng": -68.21,
+          },
+          "location": "44.35,-68.21",
+          "objectID": "park_acadia",
+        },
+        {
+          "_geoloc": {
+            "lat": -14.25,
+            "lng": -170.68,
+          },
+          "location": "-14.25,-170.68",
+          "objectID": "park_american-samoa",
+        },
+        {
+          "_geoloc": {
+            "lat": 38.68,
+            "lng": -109.57,
+          },
+          "location": "38.68,-109.57",
+          "objectID": "park_arches",
+        },
+        {
+          "_geoloc": {
+            "lat": 43.75,
+            "lng": -102.5,
+          },
+          "location": "43.75,-102.5",
+          "objectID": "park_badlands",
+        },
+        {
+          "_geoloc": {
+            "lat": 29.25,
+            "lng": -103.25,
+          },
+          "location": "29.25,-103.25",
+          "objectID": "park_big-bend",
+        },
+        {
+          "_geoloc": {
+            "lat": 25.65,
+            "lng": -80.08,
+          },
+          "location": "25.65,-80.08",
+          "objectID": "park_biscayne",
+        },
+        {
+          "_geoloc": {
+            "lat": 38.57,
+            "lng": -107.72,
+          },
+          "location": "38.57,-107.72",
+          "objectID": "park_black-canyon-of-the-gunnison",
+        },
+        {
+          "_geoloc": {
+            "lat": 37.57,
+            "lng": -112.18,
+          },
+          "location": "37.57,-112.18",
+          "objectID": "park_bryce-canyon",
+        },
+        {
+          "_geoloc": {
+            "lat": 38.2,
+            "lng": -109.93,
+          },
+          "location": "38.2,-109.93",
+          "objectID": "park_canyonlands",
+        },
+        {
+          "_geoloc": {
+            "lat": 38.2,
+            "lng": -111.17,
+          },
+          "location": "38.2,-111.17",
+          "objectID": "park_capitol-reef",
+        },
+        {
+          "_geoloc": {
+            "lat": 32.17,
+            "lng": -104.44,
+          },
+          "location": "32.17,-104.44",
+          "objectID": "park_carlsbad-caverns",
+        },
+        {
+          "_geoloc": {
+            "lat": 34.01,
+            "lng": -119.42,
+          },
+          "location": "34.01,-119.42",
+          "objectID": "park_channel-islands",
+        },
+        {
+          "_geoloc": {
+            "lat": 33.78,
+            "lng": -80.78,
+          },
+          "location": "33.78,-80.78",
+          "objectID": "park_congaree",
+        },
+        {
+          "_geoloc": {
+            "lat": 42.94,
+            "lng": -122.1,
+          },
+          "location": "42.94,-122.1",
+          "objectID": "park_crater-lake",
+        },
+        {
+          "_geoloc": {
+            "lat": 41.24,
+            "lng": -81.55,
+          },
+          "location": "41.24,-81.55",
+          "objectID": "park_cuyahoga-valley",
+        },
+        {
+          "_geoloc": {
+            "lat": 36.24,
+            "lng": -116.82,
+          },
+          "location": "36.24,-116.82",
+          "objectID": "park_death-valley",
+        },
+        {
+          "_geoloc": {
+            "lat": 63.33,
+            "lng": -150.5,
+          },
+          "location": "63.33,-150.5",
+          "objectID": "park_denali",
+        },
+        {
+          "_geoloc": {
+            "lat": 24.63,
+            "lng": -82.87,
+          },
+          "location": "24.63,-82.87",
+          "objectID": "park_dry-tortugas",
+        },
+        {
+          "_geoloc": {
+            "lat": 25.32,
+            "lng": -80.93,
+          },
+          "location": "25.32,-80.93",
+          "objectID": "park_everglades",
+        },
+        {
+          "_geoloc": {
+            "lat": 67.78,
+            "lng": -153.3,
+          },
+          "location": "67.78,-153.3",
+          "objectID": "park_gates-of-the-arctic",
+        },
+      ],
+      "hitsPerPage": 20,
+      "index": "us_parks",
+      "nbHits": 59,
+      "nbPages": 3,
+      "page": 0,
+      "params": "aroundLatLng=40.7128%2C-74.0060&maxFacetHits=10&maxValuesPerFacet=10&page=0&query=&tagFilters=",
+      "processingTimeMS": 6,
+      "query": "",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [],
+          },
+          "values": undefined,
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`Geo Filters aroundLatLng: ES Request 1`] = `
+"{"index":"us_parks"}
+{"query":{"bool":{"filter":[{"geo_distance":{"distance":"1000m","location":{"lat":"40.7128","lon":"-74.0060"}}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["location"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{}}}
+"
+`;
+
+exports[`Geo Filters insideBoundingBox 2`] = `
+{
+  "results": [
+    {
+      "appliedRules": [],
+      "exhaustive": {
+        "facetsCount": true,
+        "nbHits": true,
+        "typo": true,
+      },
+      "exhaustiveFacetsCount": true,
+      "exhaustiveNbHits": true,
+      "exhaustiveTypo": true,
+      "hits": [
+        {
+          "_geoloc": {
+            "lat": 44.35,
+            "lng": -68.21,
+          },
+          "location": "44.35,-68.21",
+          "objectID": "park_acadia",
+        },
+        {
+          "_geoloc": {
+            "lat": -14.25,
+            "lng": -170.68,
+          },
+          "location": "-14.25,-170.68",
+          "objectID": "park_american-samoa",
+        },
+        {
+          "_geoloc": {
+            "lat": 38.68,
+            "lng": -109.57,
+          },
+          "location": "38.68,-109.57",
+          "objectID": "park_arches",
+        },
+        {
+          "_geoloc": {
+            "lat": 43.75,
+            "lng": -102.5,
+          },
+          "location": "43.75,-102.5",
+          "objectID": "park_badlands",
+        },
+        {
+          "_geoloc": {
+            "lat": 29.25,
+            "lng": -103.25,
+          },
+          "location": "29.25,-103.25",
+          "objectID": "park_big-bend",
+        },
+        {
+          "_geoloc": {
+            "lat": 25.65,
+            "lng": -80.08,
+          },
+          "location": "25.65,-80.08",
+          "objectID": "park_biscayne",
+        },
+        {
+          "_geoloc": {
+            "lat": 38.57,
+            "lng": -107.72,
+          },
+          "location": "38.57,-107.72",
+          "objectID": "park_black-canyon-of-the-gunnison",
+        },
+        {
+          "_geoloc": {
+            "lat": 37.57,
+            "lng": -112.18,
+          },
+          "location": "37.57,-112.18",
+          "objectID": "park_bryce-canyon",
+        },
+        {
+          "_geoloc": {
+            "lat": 38.2,
+            "lng": -109.93,
+          },
+          "location": "38.2,-109.93",
+          "objectID": "park_canyonlands",
+        },
+        {
+          "_geoloc": {
+            "lat": 38.2,
+            "lng": -111.17,
+          },
+          "location": "38.2,-111.17",
+          "objectID": "park_capitol-reef",
+        },
+        {
+          "_geoloc": {
+            "lat": 32.17,
+            "lng": -104.44,
+          },
+          "location": "32.17,-104.44",
+          "objectID": "park_carlsbad-caverns",
+        },
+        {
+          "_geoloc": {
+            "lat": 34.01,
+            "lng": -119.42,
+          },
+          "location": "34.01,-119.42",
+          "objectID": "park_channel-islands",
+        },
+        {
+          "_geoloc": {
+            "lat": 33.78,
+            "lng": -80.78,
+          },
+          "location": "33.78,-80.78",
+          "objectID": "park_congaree",
+        },
+        {
+          "_geoloc": {
+            "lat": 42.94,
+            "lng": -122.1,
+          },
+          "location": "42.94,-122.1",
+          "objectID": "park_crater-lake",
+        },
+        {
+          "_geoloc": {
+            "lat": 41.24,
+            "lng": -81.55,
+          },
+          "location": "41.24,-81.55",
+          "objectID": "park_cuyahoga-valley",
+        },
+        {
+          "_geoloc": {
+            "lat": 36.24,
+            "lng": -116.82,
+          },
+          "location": "36.24,-116.82",
+          "objectID": "park_death-valley",
+        },
+        {
+          "_geoloc": {
+            "lat": 63.33,
+            "lng": -150.5,
+          },
+          "location": "63.33,-150.5",
+          "objectID": "park_denali",
+        },
+        {
+          "_geoloc": {
+            "lat": 24.63,
+            "lng": -82.87,
+          },
+          "location": "24.63,-82.87",
+          "objectID": "park_dry-tortugas",
+        },
+        {
+          "_geoloc": {
+            "lat": 25.32,
+            "lng": -80.93,
+          },
+          "location": "25.32,-80.93",
+          "objectID": "park_everglades",
+        },
+        {
+          "_geoloc": {
+            "lat": 67.78,
+            "lng": -153.3,
+          },
+          "location": "67.78,-153.3",
+          "objectID": "park_gates-of-the-arctic",
+        },
+      ],
+      "hitsPerPage": 20,
+      "index": "us_parks",
+      "nbHits": 59,
+      "nbPages": 3,
+      "page": 0,
+      "params": "insideBoundingBox=38.30977110856795%2C-116.00649794923939%2C37.224209312978665%2C-120.86245498048939&maxFacetHits=10&maxValuesPerFacet=10&page=0&query=&tagFilters=",
+      "processingTimeMS": 6,
+      "query": "",
+      "renderingContent": {
+        "facetOrdering": {
+          "facets": {
+            "order": [],
+          },
+          "values": undefined,
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`Geo Filters insideBoundingBox: ES Request 1`] = `
+"{"index":"us_parks"}
+{"query":{"bool":{"filter":[{"geo_bounding_box":{"location":{"top_right":{"lat":38.30977110856795,"lon":-116.00649794923939},"bottom_left":{"lat":37.224209312978665,"lon":-120.86245498048939}}}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["location"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{}}}
+"
+`;

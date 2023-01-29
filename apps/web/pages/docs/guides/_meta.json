@@ -8,6 +8,7 @@
   "filters": "Filters",
   "query-rules": "Query Rules",
   "sorting": "Sorting",
+  "geo-search": "Geo Search & Filtering",
   "user-restricted-data": "User-restricted access to data",
   "learn-to-rank": "Learn to Rank",
   "migrating-algolia-to-elasticsearch": "Migrating from Algolia to Elasticsearch"

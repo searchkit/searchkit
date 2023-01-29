@@ -13,4 +13,14 @@ const withNextra = require('nextra')({
 //   // reactStrictMode: true,
 // }));
 
-module.exports = withNextra();
+module.exports = withNextra({
+  async redirects() {
+    return [
+      {
+        source: '/docs',
+        destination: '/docs/getting-started',
+        permanent: false,
+      },
+    ]
+  },
+});

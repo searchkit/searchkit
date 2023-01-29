@@ -153,6 +153,7 @@ search_settings: {
       order: 'desc'
     }]
   },
+  geo_attribute: "location"
 },
 ```
 
@@ -165,6 +166,7 @@ Attributes that are used to configure the search experience.
 - `filter_attributes` - Attributes that are used to create filters. Filters can be of type `string` or `numeric` or `date`.
 - `sorting` - Attributes that are used to create sorting options. Sorting can be a single sorting field or multiple.
 - `query_rules` - Rules that affect search relevance. See [Query Rules](/docs/guides/query-rules) for more information.
+- `geo_attribute` - Attribute that is used for geo based searches.
 
 ##### search_attributes
 
@@ -266,6 +268,15 @@ The sorting option can be a single sorting field or multiple sorting fields.
 
 See the [sorting guide](/docs/guides/sorting) for more information.
 
+##### `geo_attribute`
+
+The `geo_attribute` is used to configure the geo based search experience. The `geo_attribute` must point to a `geo_point` or `geo_shape` field type in Elasticsearch.
+
+```tsx
+geo_attribute: "location"
+```
+
+See [Geo Search](/docs/guides/geo-search) for more information.
 
 ### `HandleRequest` function
 
