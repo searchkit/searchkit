@@ -11,9 +11,6 @@ Works with React, Vue, Angular, and more.
   - A great Search experience without needing to be an expert in Elasticsearch
   - GraphQL Support (coming soon!)
 
-## Looking for the old Searchkit?
-- [Searchkit v3 Docs](https://v3.searchkit.co/docs)
-
 ```tsx
 import Searchkit from "searchkit"
 import Client from '@searchkit/instantsearch-client'
@@ -175,4 +172,5 @@ Below is an example of a query rule that boosts results for movies with Dan Aykr
 * @searchkit/api [Documentation](https://beta.searchkit.co/docs/api-documentation/api)
 * @searchkit/instantsearch-client [Documentation](https://beta.searchkit.co/docs/api-documentation/instantsearch-client)
 
-
+### Looking for the old Searchkit?
+- [Searchkit v3 Docs](https://v3.searchkit.co/docs)
