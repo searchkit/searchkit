@@ -1,0 +1,30 @@
+{
+  "mappings": {
+    "properties": {
+      "bikes_count": {
+        "type": "integer"
+      },
+      "docks_count": {
+        "type": "integer"
+      },
+      "nbEmptyDocks": {
+        "type": "integer"
+      },
+      "removal_date": {
+        "type": "date"
+      },
+      "name": {
+        "type": "text"
+      },
+      "id": {
+        "type": "keyword"
+      },
+      "installed": {
+        "type": "boolean"
+      },
+      "location": {
+        "type": "geo_point"
+      }
+    }
+  }
+}

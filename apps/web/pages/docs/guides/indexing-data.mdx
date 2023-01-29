@@ -17,7 +17,7 @@ PUT /my-example-movies
 
 #### Setting up a read-only API Key
 
-Next we need to setup an API key to access the data from the index. We can do this via Kibana's Stack Management API Keys page ($YOUR_KIBANA_ENDPOINT/app/management/security/api_keys). Note that security needs to be enabled for this option to be available.
+Next we need to setup an API key to access the data from the index. We can do this via Kibana's Stack Management API Keys page or [creating an api-key via rest](https://www.elastic.co/guide/en/elasticsearch/reference/current/security-api-create-api-key.html). Note that security needs to be enabled for this option to be available.
 
 Notice here we are only giving read privileges for this api key. You will need to setup an api key with write privileges to add and update data to the index.
 
@@ -38,7 +38,7 @@ Notice here we are only giving read privileges for this api key. You will need t
 
 ![overview](../../../public/docs/api-keys.jpg)
 
-Once saved, you are presented with the api-key. Copy this and keep it safe. We will need to use this further down in the tutorial.
+In Kibana, once saved, you are presented with the api-key. Copy this and keep it safe. We will need to use this further down in the tutorial.
 
 ![overview](../../../public/docs/api-key-view.jpg)
 

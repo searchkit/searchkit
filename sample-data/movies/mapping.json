@@ -1,0 +1,74 @@
+{
+  "properties": {
+    "type": {
+      "type": "keyword"
+    },
+    "title": {
+      "type": "text"
+    },
+    "year": {
+      "type": "integer"
+    },
+    "rated": {
+      "type": "keyword"
+    },
+    "released": {
+      "type": "date"
+    },
+    "genres": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword"
+        }
+      }
+    },
+    "directors": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword"
+        }
+      }
+    },
+    "writers": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword"
+        }
+      }
+    },
+    "actors": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword"
+        }
+      }
+    },
+    "countries": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword"
+        }
+      }
+    },
+    "plot": {
+      "type": "text"
+    },
+    "poster": {
+      "type": "keyword"
+    },
+    "id": {
+      "type": "keyword"
+    },
+    "metascore": {
+      "type": "integer"
+    },
+    "imdbrating": {
+      "type": "float"
+    }
+  }
+}

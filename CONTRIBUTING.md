@@ -16,7 +16,7 @@ governed by our [Code of Conduct](CODE_OF_CONDUCT.md). Make sure any changes you
 
 ### Help out in the community
 
-We can always use help in our [Discussions](https://github.com/searchkit/searchkit/discussions) or [Discord](https://discord.gg/CRuWmSQZQx)! Hop on over and see if there are any questions that you can answer. 
+We can always use help in our [Discord](https://discord.gg/CRuWmSQZQx)! Hop on over and see if there are any questions that you can answer. 
 
 ### Submit bug reports or feature requests
 

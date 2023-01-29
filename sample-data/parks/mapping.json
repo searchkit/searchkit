@@ -1,0 +1,54 @@
+{
+  "mappings": {
+    "properties": {
+      "acres": {
+        "type": "integer"
+      },
+      "date_established": {
+        "type": "date"
+      },
+      "description": {
+        "type": "text"
+      },
+      "id": {
+        "type": "keyword"
+      },
+      "image_url": {
+        "type": "keyword"
+      },
+      "location": {
+        "type": "geo_point"
+      },
+      "nps_link": {
+        "type": "keyword"
+      },
+      "states": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "title": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "visitors": {
+        "type": "integer"
+      },
+      "world_heritage_site": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  }
+}
