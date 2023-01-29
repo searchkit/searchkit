@@ -5,7 +5,7 @@ import { HitsResponseWithFacetFilter } from '../mocks/ElasticsearchResponses'
 
 const client = new Client({
   connection: {
-    host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+    host: 'http://localhost:9200',
     apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
   },
   search_settings: {
@@ -22,7 +22,7 @@ const client = new Client({
 
 describe('Hooks', () => {
   it('beforeSearch & afterSearch Hooks', async () => {
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         const x = JSON.parse(requestBody.split('\n')[1])
         expect(x.knn).toMatchInlineSnapshot(`

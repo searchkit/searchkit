@@ -13,7 +13,7 @@ import { HitsResponseWithFacetFilter } from '../mocks/ElasticsearchResponses'
 describe('Hits Per Page', () => {
   const client = new Client({
     connection: {
-      host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+      host: 'http://localhost:9200',
       apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
     },
     search_settings: {
@@ -29,7 +29,7 @@ describe('Hits Per Page', () => {
   })
 
   it('should return the default 20 for UI request', async () => {
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         const uiRequest = JSON.parse(requestBody.split('\n')[1])
         const filterRequest = JSON.parse(requestBody.split('\n')[3])

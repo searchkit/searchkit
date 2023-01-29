@@ -14,7 +14,7 @@ import {
 describe('Transport Errors', () => {
   const client = new Client({
     connection: {
-      host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+      host: 'http://localhost:9200',
       apiKey: 'apikey'
     },
     search_settings: {
@@ -27,7 +27,7 @@ describe('Transport Errors', () => {
   })
 
   it('401 error', async () => {
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         return true
       })
@@ -41,7 +41,7 @@ describe('Transport Errors', () => {
   })
 
   it('403 error', async () => {
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         return true
       })
@@ -55,7 +55,7 @@ describe('Transport Errors', () => {
   })
 
   it('400 error', async () => {
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         return true
       })
@@ -69,7 +69,7 @@ describe('Transport Errors', () => {
   })
 
   it('500 error', async () => {
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         return true
       })
@@ -83,7 +83,7 @@ describe('Transport Errors', () => {
   })
 
   it('200 but bad response', async () => {
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         return true
       })

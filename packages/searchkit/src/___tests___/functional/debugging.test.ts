@@ -8,7 +8,7 @@ describe('Debugging Support', () => {
     const client = new Client(
       {
         connection: {
-          host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+          host: 'http://localhost:9200',
           apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
         },
         search_settings: {
@@ -28,7 +28,7 @@ describe('Debugging Support', () => {
 
     console.log = jest.fn()
 
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         return true
       })

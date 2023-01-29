@@ -49,7 +49,7 @@ describe('Transporter', () => {
 
     const client = new Client({
       connection: {
-        host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+        host: 'http://localhost:9200',
         apiKey: 'apiKey',
         headers: {
           'X-Custom-Header': 'custom header value'

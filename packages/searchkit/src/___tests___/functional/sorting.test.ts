@@ -8,7 +8,7 @@ import { HitsResponseWithFacetFilter } from '../mocks/ElasticsearchResponses'
 describe('Integration tests for sorting', () => {
   const config = {
     connection: {
-      host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+      host: 'http://localhost:9200',
       apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
     },
     search_settings: {
@@ -34,7 +34,7 @@ describe('Integration tests for sorting', () => {
 
   it('should sort on title', async () => {
     const client = new Client(config as unknown as any)
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         const x = JSON.parse(requestBody.split('\n')[1])
         expect(x.sort).toMatchInlineSnapshot(`
@@ -60,7 +60,7 @@ describe('Integration tests for sorting', () => {
 
   it('should sort on default', async () => {
     const client = new Client(config as unknown as any)
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         const x = JSON.parse(requestBody.split('\n')[1])
         expect(x.sort).toMatchInlineSnapshot(`
@@ -91,7 +91,7 @@ describe('Integration tests for sorting', () => {
         sorting: {}
       }
     } as unknown as any)
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         const x = JSON.parse(requestBody.split('\n')[1])
         expect(x).not.toHaveProperty('sort')

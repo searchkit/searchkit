@@ -8,7 +8,7 @@ import { HitsResponseWithFacetFilter } from '../mocks/ElasticsearchResponses'
 describe('Integration tests for query rules', () => {
   const client = new Client({
     connection: {
-      host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+      host: 'http://localhost:9200',
       apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
     },
     search_settings: {
@@ -88,7 +88,7 @@ describe('Integration tests for query rules', () => {
   })
 
   it('call with one filter and query applied', async () => {
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         expect(requestBody).toMatchSnapshot('ES Request')
         return true
@@ -103,7 +103,7 @@ describe('Integration tests for query rules', () => {
   })
 
   it('query rewrite', async () => {
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         const x = JSON.parse(requestBody.split('\n')[1])
         expect(x.query.bool.must).toMatchInlineSnapshot(`
@@ -181,7 +181,7 @@ describe('Integration tests for query rules', () => {
   })
 
   it('Query Filters', async () => {
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         const x = JSON.parse(requestBody.split('\n')[1])
         expect(x.query.bool.filter).toMatchInlineSnapshot(`

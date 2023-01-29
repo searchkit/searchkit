@@ -6,7 +6,7 @@ import { HitsResponseWithFacetFilter } from '../mocks/ElasticsearchResponses'
 describe('GetQuery Extension', () => {
   const client = new Client({
     connection: {
-      host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+      host: 'http://localhost:9200',
       apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
     },
     search_settings: {
@@ -42,7 +42,7 @@ describe('GetQuery Extension', () => {
   })
 
   it('GetQuery Extension with query rules', async () => {
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         expect(requestBody).toMatchSnapshot('ES Request')
         const x = JSON.parse(requestBody.split('\n')[1]).query
@@ -110,7 +110,7 @@ describe('GetQuery Extension', () => {
   })
 
   it('GetQuery Extension with no matching query rules actions', async () => {
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         expect(requestBody).toMatchSnapshot('ES Request')
         const x = JSON.parse(requestBody.split('\n')[1]).query

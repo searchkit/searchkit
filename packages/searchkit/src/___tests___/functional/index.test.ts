@@ -19,7 +19,7 @@ describe('Integration tests', () => {
   it('call with one filter and query applied', async () => {
     const client = new Client({
       connection: {
-        host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+        host: 'http://localhost:9200',
         apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
       },
       search_settings: {
@@ -34,7 +34,7 @@ describe('Integration tests', () => {
       }
     })
 
-    nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+    nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
         expect(requestBody).toMatchSnapshot('ES Request')
         return true
@@ -52,7 +52,7 @@ describe('Integration tests', () => {
     it('non dynamic facets', async () => {
       const client = new Client({
         connection: {
-          host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+          host: 'http://localhost:9200',
           apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
         },
         search_settings: {
@@ -68,7 +68,7 @@ describe('Integration tests', () => {
         }
       })
 
-      nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+      nock('http://localhost:9200')
         .post('/_msearch', (requestBody: any) => {
           expect(requestBody).toMatchSnapshot('ES Request')
           return true
@@ -85,7 +85,7 @@ describe('Integration tests', () => {
     it('non dynamic facets with one filter', async () => {
       const client = new Client({
         connection: {
-          host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+          host: 'http://localhost:9200',
           apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
         },
         search_settings: {
@@ -101,7 +101,7 @@ describe('Integration tests', () => {
         }
       })
 
-      nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+      nock('http://localhost:9200')
         .post('/_msearch', (requestBody: any) => {
           expect(requestBody).toMatchSnapshot('ES Request')
           return true
@@ -118,7 +118,7 @@ describe('Integration tests', () => {
     it('numeric facets', async () => {
       const client = new Client({
         connection: {
-          host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+          host: 'http://localhost:9200',
           apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
         },
         search_settings: {
@@ -132,7 +132,7 @@ describe('Integration tests', () => {
         }
       })
 
-      nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+      nock('http://localhost:9200')
         .post('/_msearch', (requestBody: any) => {
           expect(requestBody).toMatchSnapshot('ES Request')
           return true
@@ -149,7 +149,7 @@ describe('Integration tests', () => {
     it('numeric filters', async () => {
       const client = new Client({
         connection: {
-          host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+          host: 'http://localhost:9200',
           apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
         },
         search_settings: {
@@ -165,7 +165,7 @@ describe('Integration tests', () => {
         }
       })
 
-      nock('https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243')
+      nock('http://localhost:9200')
         .post('/_msearch', (requestBody: any) => {
           expect(requestBody).toMatchSnapshot('ES Request')
           return true
