@@ -37,8 +37,16 @@ const getHits = (
             config.snippet_attributes
           )
         }
+      : {}),
+    ...(config.geo_attribute && hit._source?.[config.geo_attribute]
+      ? { _geoloc: convertLatLng(hit._source?.[config.geo_attribute] as string) }
       : {})
   }))
+}
+
+function convertLatLng(value: string) {
+  const [lat, lng] = value.split(',').map((v) => parseFloat(v))
+  return { lat, lng }
 }
 
 const getFacets = (response: ElasticsearchResponseBody, config: SearchSettingsConfig) => {

@@ -1220,3 +1220,188 @@ export const ExampleNestedFacetQueryResponse = {
     }
   ]
 }
+
+export const ExampleGeoDistanceResponse = {
+  took: 1,
+  responses: [
+    {
+      took: 6,
+      timed_out: false,
+      _shards: {
+        total: 1,
+        successful: 1,
+        skipped: 0,
+        failed: 0
+      },
+      hits: {
+        total: {
+          value: 59,
+          relation: 'eq'
+        },
+        max_score: 1,
+        hits: [
+          {
+            _index: 'us_parks',
+            _id: 'park_acadia',
+            _score: 1,
+            _source: {
+              location: '44.35,-68.21'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_american-samoa',
+            _score: 1,
+            _source: {
+              location: '-14.25,-170.68'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_arches',
+            _score: 1,
+            _source: {
+              location: '38.68,-109.57'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_badlands',
+            _score: 1,
+            _source: {
+              location: '43.75,-102.5'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_big-bend',
+            _score: 1,
+            _source: {
+              location: '29.25,-103.25'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_biscayne',
+            _score: 1,
+            _source: {
+              location: '25.65,-80.08'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_black-canyon-of-the-gunnison',
+            _score: 1,
+            _source: {
+              location: '38.57,-107.72'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_bryce-canyon',
+            _score: 1,
+            _source: {
+              location: '37.57,-112.18'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_canyonlands',
+            _score: 1,
+            _source: {
+              location: '38.2,-109.93'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_capitol-reef',
+            _score: 1,
+            _source: {
+              location: '38.2,-111.17'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_carlsbad-caverns',
+            _score: 1,
+            _source: {
+              location: '32.17,-104.44'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_channel-islands',
+            _score: 1,
+            _source: {
+              location: '34.01,-119.42'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_congaree',
+            _score: 1,
+            _source: {
+              location: '33.78,-80.78'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_crater-lake',
+            _score: 1,
+            _source: {
+              location: '42.94,-122.1'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_cuyahoga-valley',
+            _score: 1,
+            _source: {
+              location: '41.24,-81.55'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_death-valley',
+            _score: 1,
+            _source: {
+              location: '36.24,-116.82'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_denali',
+            _score: 1,
+            _source: {
+              location: '63.33,-150.5'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_dry-tortugas',
+            _score: 1,
+            _source: {
+              location: '24.63,-82.87'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_everglades',
+            _score: 1,
+            _source: {
+              location: '25.32,-80.93'
+            }
+          },
+          {
+            _index: 'us_parks',
+            _id: 'park_gates-of-the-arctic',
+            _score: 1,
+            _source: {
+              location: '67.78,-153.3'
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

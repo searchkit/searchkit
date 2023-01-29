@@ -74,11 +74,35 @@ export interface SearchSettingsConfig {
    * @description fields that will be used to as filters
    */
   filter_attributes?: FilterAttribute[]
+  /**
+   * @description fields that will be returned in the search results
+   * @example ['name', 'price']
+   **/
   result_attributes: string[]
+  /**
+   * @description fields that can be used to highlight search terms in the search results
+   * @example ['name']
+   **/
   highlight_attributes?: string[]
+  /**
+   * @description fields that can be used to generate a snippet of text matches from the search results
+   * @example ['description']
+   **/
   snippet_attributes?: string[]
+  /**
+   * @description Rules that can customise search results order.
+   */
   query_rules?: QueryRule[]
+  /**
+   * @description Sorting options for the search. This is optional and will default to sorting by _score if not provided.
+   * @example { 'price': { field: 'price', order: 'asc' } }
+   * @example { 'price': [{ field: 'price', order: 'asc' }, { field: 'name', order: 'asc' }] }
+   */
   sorting?: Record<string, SortingOption | SortingOption[]>
+  /**
+   * @description The attribute that will be used for geo search. This is required if you want to use geo search. Must be am Elasticsearch geo_point type field.
+   */
+  geo_attribute?: string
 }
 
 interface QueryStringRuleCondition {

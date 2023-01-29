@@ -285,3 +285,84 @@ export const transformBaseFilters = (
     }
   ]
 }
+
+export const transformGeoFilters = (
+  request: AlgoliaMultipleQueriesQuery,
+  config: SearchSettingsConfig
+) => {
+  if (!config.geo_attribute) {
+    return []
+  }
+  const { params = {} } = request
+  const { aroundLatLng, aroundRadius, insideBoundingBox } = params
+
+  if (insideBoundingBox) {
+    return [insideBoundingBoxFilter(insideBoundingBox, config.geo_attribute)]
+  }
+
+  if (aroundLatLng) {
+    const geoPoint = aroundLatLng.split(',')
+
+    return [
+      {
+        geo_distance: {
+          distance: aroundRadius || '1000m',
+          [config.geo_attribute]: {
+            lat: geoPoint[0],
+            lon: geoPoint[1]
+          }
+        }
+      }
+    ]
+  }
+
+  return []
+}
+
+function insideBoundingBoxFilter(
+  insideBoundingBox: string | readonly (readonly number[])[],
+  field: string
+) {
+  const geoBoundingboxFilter = (top: number, left: number, bottom: number, right: number) => {
+    return {
+      geo_bounding_box: {
+        [field]: {
+          top_right: {
+            lat: top,
+            lon: left
+          },
+          bottom_left: {
+            lat: bottom,
+            lon: right
+          }
+        }
+      }
+    }
+  }
+
+  if (typeof insideBoundingBox === 'string') {
+    const [top, left, bottom, right] = insideBoundingBox.split(',')
+    return geoBoundingboxFilter(
+      parseFloat(top),
+      parseFloat(left),
+      parseFloat(bottom),
+      parseFloat(right)
+    )
+  } else if (Array.isArray(insideBoundingBox)) {
+    const geoBoundingboxes = insideBoundingBox.map((boundingBox) => {
+      const [top, left, bottom, right] = boundingBox
+      return geoBoundingboxFilter(
+        parseFloat(top),
+        parseFloat(left),
+        parseFloat(bottom),
+        parseFloat(right)
+      )
+    })
+
+    return {
+      bool: {
+        should: geoBoundingboxes
+      }
+    }
+  }
+}

@@ -229,3 +229,32 @@ export const NestedFacetQueryExampleRequest = [
     }
   }
 ]
+
+export const GeoFilterQueryExampleRequest = [
+  {
+    indexName: 'us_parks',
+    params: {
+      aroundLatLng: '40.7128,-74.0060',
+      maxFacetHits: 10,
+      maxValuesPerFacet: 10,
+      page: 0,
+      query: '',
+      tagFilters: ''
+    }
+  }
+]
+
+export const GeoFilterBoundingBoxQueryExampleRequest = [
+  {
+    indexName: 'us_parks',
+    params: {
+      insideBoundingBox:
+        '38.30977110856795,-116.00649794923939,37.224209312978665,-120.86245498048939',
+      maxFacetHits: 10,
+      maxValuesPerFacet: 10,
+      page: 0,
+      query: '',
+      tagFilters: ''
+    }
+  }
+]

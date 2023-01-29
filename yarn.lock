@@ -6216,6 +6216,15 @@ react-instantsearch-core@6.39.0:
     prop-types "^15.6.2"
     react-fast-compare "^3.0.0"
 
+react-instantsearch-dom-maps@^6.39.0:
+  version "6.39.0"
+  resolved "https://registry.yarnpkg.com/react-instantsearch-dom-maps/-/react-instantsearch-dom-maps-6.39.0.tgz#72f528a708ff3bd0227ca067009ddba3b645e1e6"
+  integrity sha512-Hm1fT5EUeEyrul1iSMPaLNNgXf3x8hx3FllyD0RIkEY2JhS0r3ddKYpCPhMHQGLwwpCLd75kQiNjtjyhEjatPA==
+  dependencies:
+    "@babel/runtime" "^7.1.2"
+    prop-types "^15.6.2"
+    scriptjs "^2.5.8"
+
 react-instantsearch-dom@^6.36.0:
   version "6.39.0"
   resolved "https://registry.yarnpkg.com/react-instantsearch-dom/-/react-instantsearch-dom-6.39.0.tgz#4d42efd4f92de14437e57c9a66c01e0fde92d5ae"
@@ -6528,6 +6537,11 @@ scheduler@^0.23.0:
   integrity sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==
   dependencies:
     loose-envify "^1.1.0"
+
+scriptjs@^2.5.8:
+  version "2.5.9"
+  resolved "https://registry.yarnpkg.com/scriptjs/-/scriptjs-2.5.9.tgz#343915cd2ec2ed9bfdde2b9875cd28f59394b35f"
+  integrity sha512-qGVDoreyYiP1pkQnbnFAUIS5AjenNwwQBdl7zeos9etl+hYKWahjRTfzAZZYBv5xNHx7vNKCmaLDQZ6Fr2AEXg==
 
 scroll-into-view-if-needed@^3.0.0:
   version "3.0.4"
