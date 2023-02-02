@@ -25,7 +25,7 @@ export default function Web() {
 
   
       <InstantSearch
-        indexName="mrp-products_sk"
+        indexName="search-ecommerce"
         searchClient={searchClient}
       >
         <Configure
@@ -50,11 +50,16 @@ export default function Web() {
               <HierarchicalMenu attributes={["categories_lvl1", "categories_lvl2", "categories_lvl3"]} searchable={true}/>
             </Panel>
             <Panel header="Designer Name">
-              <RefinementList attribute="designerName" searchable={true} defaultRefinement={["TOM FORD"]} />
+              <RefinementList attribute="designerName" searchable={true} />
             </Panel>
             <Panel header="Price">
               <RangeInput attribute="price" />
             </Panel>
+            <ToggleRefinement
+              attribute="outOfStock"
+              label="Out of Stock"
+              value={true}
+            />
           {/* </DynamicWidgets> */}
         </div>
         <div className="right-panel">
@@ -64,10 +69,10 @@ export default function Web() {
             <CurrentRefinements />
           </div>
           <div className="flex-none">
-            <SortBy defaultRefinement='mrp-products_sk' items={[
-              { value: 'mrp-products_sk', label: 'Relevance' },
-              { value: 'mrp-products_sk_price_asc', label: 'Cheapest' },
-              { value: 'mrp-products_sk_price_desc', label: 'Most Expensive' },
+            <SortBy defaultRefinement='search-ecommerce' items={[
+              { value: 'search-ecommerce', label: 'Relevance' },
+              { value: 'search-ecommerce_price_asc', label: 'Cheapest' },
+              { value: 'search-ecommerce_price_desc', label: 'Most Expensive' },
 
             ]}
             />

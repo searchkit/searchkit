@@ -27,7 +27,6 @@ export default {
   },
   nextThemes: {
     defaultTheme: "dark",
-    enableSystem: false,
     forcedTheme: "dark"
   },
   head: (
