@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.1.4
+
+### Patch Changes
+
+- 75afdc28: Added a primitive client caching mechanism
+
 ## 4.1.3
 
 ### Patch Changes
