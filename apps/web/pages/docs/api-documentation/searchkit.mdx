@@ -8,7 +8,7 @@ import { Tabs, Tab } from '../../../components/Tabs'
 
 It is available as `searchkit` on npm.
 
-<Tabs items={['npm', 'yarn']} storageKey="selected-package-manager">
+<Tabs items={['npm', 'yarn', 'CDN']} storageKey="cloud-package-manager">
 <Tab>
 ```sh
 npm install searchkit
@@ -19,25 +19,31 @@ npm install searchkit
 yarn add searchkit
 ```
 </Tab>
+<Tab>
+```html
+    <script src="https://cdn.jsdelivr.net/npm/searchkit@latest"></script>
+```
+</Tab>
 </Tabs>
 
 Then import it in your project:
 
 ```js
 import Searchkit from "searchkit";
+// OR if you are using CDN
+const Searchkit = window.Searchkit;
 ```
 
 ### Usage
 
 You can use Searchkit with either the [@searchkit/api](/docs/api-documentation/api) or the [@searchkit/instantsearch-client](/docs/api-documentation/instantsearch-client) package.
 
-#### With @searchkit/instantsearch-client
-
+<Tabs items={['Browser Directly', 'Node API']} storageKey="usage-searchkit">
+<Tab>
 ```tsx
 
 import Client from '@searchkit/instantsearch-client'
 import Searchkit, { SearchkitConfig } from "searchkit"
-import { config } from "./api/config"
 
 const searchkitClient = new Searchkit({
   connection: {
@@ -73,6 +79,39 @@ export const App = () => {
   )
 }
 ```
+</Tab>
+<Tab>
+```ts
+
+import Client from "@searchkit/api";
+
+// SearchkitConfig is the configuration object that is used to configure the client
+const client = Client({
+  connection: {
+    host: "https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243",
+    apiKey: "a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw==", // optional apiKey
+    headers: { // optional headers sent to Elasticsearch. Useful for basic auth
+      "Authorization", 'Basic ' + Buffer.from(username + ":" + password).toString('base64'),
+      "my-custom-header": "my-custom-value"
+    },
+  },
+  search_settings: {
+    highlight_attributes: ["title", "actors"],
+    search_attributes: ["title", "actors"],
+    result_attributes: ["title", "actors", "poster", "year"],
+    facet_attributes: [
+      "type",
+      { attribute: "actors", field: "actors.keyword" },
+      "rated",
+      { attribute: "imdbrating", type: "numeric" },
+      { attribute: "metascore", type: "numeric" },
+    ],
+  },
+});
+```
+</Tab>
+</Tabs>
+
 
 ### SearchkitConfig
 

@@ -11,8 +11,25 @@ Works with React, Vue, Angular, and more.
   - A great Search experience without needing to be an expert in Elasticsearch
   - GraphQL Support (coming soon!)
 
-## Looking for the old Searchkit?
-- [Searchkit v3 Docs](https://v3.searchkit.co/docs)
+## Install
+
+Either install via npm or yarn
+
+```bash
+npm install searchkit @searchkit/api @searchkit/instantsearch-client
+```
+
+or via CDN
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@searchkit/instantsearch-client@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/searchkit@latest"></script>
+```
+
+## Usage
+
+Searchkit compatible with all Instantsearch frameworks. Below is an example using react-instantsearch-dom.
 
 ```tsx
 import Searchkit from "searchkit"
@@ -63,7 +80,7 @@ const App = () => (
 }
 ```
 
-#### Move to Node API
+## Proxy Search Requests
 
 In above example, we are calling Elasticsearch directly from the browser. This is not recommended for production use. Instead, you should use the Searchkit API to proxy requests to Elasticsearch. With Searchkit, you can do this in a few lines of code.
 

@@ -6,10 +6,29 @@ Works with React, Vue, Angular, and more.
 [Website](https://beta.searchkit.co/) | [Demos](https://beta.searchkit.co/demos) | [Documentation](https://beta.searchkit.co/docs/getting-started) | [Discord](https://discord.gg/CRuWmSQZQx)
 
 **Searchkit to simplify using Elasticsearch for Search:**
-  - Support for **Edge Function Platforms** like Cloudflare and Vercel Edge functions
+  - Support for **Edge Function Platforms** like Cloudflare and Vercel Edge functions to proxy Elasticsearch requests.
   - Integrates with Instantsearch UI components for React, Vue, Angular, and more
   - A great Search experience without needing to be an expert in Elasticsearch
-  - GraphQL Support (coming soon!)
+
+## Quick Start
+
+Either install via npm or yarn
+
+```bash
+npm install searchkit @searchkit/api @searchkit/instantsearch-client
+```
+
+or via CDN
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@searchkit/instantsearch-client@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/searchkit@latest"></script>
+```
+
+## Usage
+
+Searchkit compatible with all Instantsearch frameworks. Below is an example using react-instantsearch-dom.
 
 ```tsx
 import Searchkit from "searchkit"
@@ -60,7 +79,12 @@ const App = () => (
 }
 ```
 
-#### Move to Node API
+## Video Tutorials
+
+* Searchkit Intro Video with Instantsearch.js - [https://www.youtube.com/watch?v=R6iYpEuCdVs](https://www.youtube.com/watch?v=R6iYpEuCdVs)
+* Searchkit Proxy - [https://www.youtube.com/watch?v=8ztvn1-VZ_U](https://www.youtube.com/watch?v=8ztvn1-VZ_U)
+
+## Proxy Elasticsearch
 
 In above example, we are calling Elasticsearch directly from the browser. This is not recommended for production use. Instead, you should use the Searchkit API to proxy requests to Elasticsearch. With Searchkit, you can do this in a few lines of code.
 
@@ -134,7 +158,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 ```
 
-### Query Rules
+## Autocomplete
+
+Searchkit supports autocomplete.js library for autocomplete search.
+
+### Example
+
+
+
+## Query Rules
 
 Query rules allows you to customize the behavior of the search experience. You can use query rules to boost or filter results, or to change the ranking of results, based on a set of conditions.
 

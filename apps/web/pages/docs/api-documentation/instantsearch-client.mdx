@@ -2,21 +2,36 @@
 title: Browser Client
 description: Instanstsearch client for React Instantsearch
 ---
+import { Tabs, Tab } from '../../../components/Tabs'
 
 ### Installation
 
 It is available as `@searchkit/instantsearch-client` on npm.
 
+<Tabs items={['npm', 'yarn', 'CDN']} storageKey="cloud-package-manager">
+<Tab>
 ```sh
-npm install @searchkit/instantsearch-client@latest
-# or
-yarn add @searchkit/instantsearch-client@latest
+npm install @searchkit/instantsearch-client
 ```
+</Tab>
+<Tab>
+```sh
+yarn add @searchkit/instantsearch-client
+```
+</Tab>
+<Tab>
+```html
+<script src="https://cdn.jsdelivr.net/npm/@searchkit/instantsearch-client@latest"></script>
+```
+</Tab>
+</Tabs>
 
 Then import it in your project:
 
 ```js
 import Client from "@searchkit/instantsearch-client";
+// OR if using CDN
+const Client = window.SearchkitInstantsearchClient
 ```
 
 ### Usage

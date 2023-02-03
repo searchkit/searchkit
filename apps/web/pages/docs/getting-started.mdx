@@ -34,7 +34,7 @@ Using InstantSearch and the instantsearch-client is as simple as adding this Jav
 
 Instantsearch also supports vue, angular and react native. You can find more information about instantsearch [here](https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/js/).
 
-<Tabs items={['React', 'Vanilla JS']} storageKey="selected-frontend-platform">
+<Tabs items={['React', 'Vanilla JS with CDN scripts']} storageKey="selected-frontend-platform">
   <Tab>
 Install the dependencies:
 
@@ -78,34 +78,37 @@ export default App;
 ```
 </Tab>
 <Tab>
+
+Add the scripts to your page:
+
 ```html
-<html>
-  <head>
-    <title>Express</title>
-    <script src="https://cdn.jsdelivr.net/npm/searchkit@4"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@searchkit/instantsearch-client@4"></script>
-    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
-    />
-    <link rel="stylesheet" href="/style.css" />
-  </head>
+<script src="https://cdn.jsdelivr.net/npm/@searchkit/instantsearch-client@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/searchkit@latest"></script>
+// default theme
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
+/>
+```
 
-  <body>
-    <div class="ais-InstantSearch">
+Then add the html and javascript to your page:
 
-      <div class="left-panel">
-        <h2>Type</h2>
-        <div id="type-list"></div>
-      </div>
-      <div class="right-panel">
-        <div id="searchbox" class="ais-SearchBox"></div>
-        <div id="hits"></div>
-        <div id="pagination"></div>
-      </div>
-    </div>
-    <script>
+```html
+<div class="ais-InstantSearch">
+
+  <div class="left-panel">
+    <h2>Type</h2>
+    <div id="type-list"></div>
+  </div>
+  <div class="right-panel">
+    <div id="searchbox" class="ais-SearchBox"></div>
+    <div id="hits"></div>
+    <div id="pagination"></div>
+  </div>
+</div>
+
+    <script type="text/javascript">
       /* global instantsearch algoliasearch */
 
       const sk = new Searchkit({
@@ -156,11 +159,13 @@ export default App;
 
       search.start();
     </script>
-  </body>
-</html>
+
 ```
 </Tab>
 </Tabs>
+
+## Video Tutorial
+<iframe width="100%" height="500px" src="https://www.youtube.com/embed/R6iYpEuCdVs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
 And that's it! You can now search your data in Elasticsearch using instantsearch and Searchkit. Customise the search experience by adding widgets and customising the search settings.
 
@@ -283,12 +288,16 @@ and then we update the instantsearch client to use the API
 
 const searchClient = instantsearch({
   indexName: "imdb_movies",
-  searchClient: SearchkitInstantsearchClient(sk, {
-    host: "/api/search",
+  searchClient: SearchkitInstantsearchClient({
+    url: "/api/search",
   }),
 });
 
 ```
+
+## Video Tutorial
+<iframe width="100%" height="500px" src="https://www.youtube.com/embed/8ztvn1-VZ_U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+
 
 And that's it! You dont need to worry about the security of your Elasticsearch cluster, and you can scale your API independently of your search cluster.
 
