@@ -13,10 +13,12 @@ function isSearchkit(config: Config): config is Searchkit {
 }
 
 class InstantSearchElasticsearchAdapter {
+  private cache: Record<string, any> = {}
   constructor(private config: Config) {}
 
-  public async clearCache(): Promise<void> {
-    return
+  public clearCache(): Promise<void> {
+    this.cache = {}
+    return Promise.resolve(undefined)
   }
 
   private getHeaders(): Record<string, string> {
@@ -30,8 +32,14 @@ class InstantSearchElasticsearchAdapter {
 
   public async search(instantsearchRequests: Array<MultipleQueriesQuery>): Promise<unknown> {
     try {
+      const key = JSON.stringify(instantsearchRequests)
+      if (this.cache[key]) {
+        return this.cache[key]
+      }
+
       if (isSearchkit(this.config)) {
         const results = await this.config.handleInstantSearchRequests(instantsearchRequests)
+        this.cache[key] = results
         return results
       }
 
@@ -45,6 +53,7 @@ class InstantSearchElasticsearchAdapter {
       })
 
       const results = await response.json()
+      this.cache[key] = results
       return results
     } catch (e) {
       console.error(e)

@@ -20,5 +20,14 @@ describe('API connector', () => {
     const response = await x.search(DisjunctiveExampleRequest as any)
 
     expect(response).toMatchSnapshot()
+    // @ts-ignore
+    expect(Object.keys(x.cache)).toMatchInlineSnapshot(`
+        [
+          "[{"indexName":"imdb_movies","params":{"facetFilters":[["type:movie"]],"facets":["*"],"highlightPostTag":"</em>","highlightPreTag":"<em>","maxValuesPerFacet":10,"page":0,"query":"shawshank","tagFilters":""}},{"indexName":"imdb_movies","params":{"analytics":false,"attributesToHighlight":[],"attributesToRetrieve":[],"attributesToSnippet":[],"clickAnalytics":false,"facets":"type","highlightPostTag":"</em>","highlightPreTag":"<em>","hitsPerPage":1,"maxValuesPerFacet":10,"page":0,"query":"shawshank","tagFilters":""}}]",
+        ]
+      `)
+    x.clearCache()
+    // @ts-ignore
+    expect(x.cache).toEqual({})
   })
 })
