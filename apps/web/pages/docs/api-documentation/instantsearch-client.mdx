@@ -94,7 +94,7 @@ import Client from '@searchkit/instantsearch-client'
 import Searchkit, { SearchkitConfig } from "searchkit"
 import { config } from "./api/config"
 
-const searchkitClient = new Searchkit({
+const sk = new Searchkit({
   connection: {
     host: "http://localhost:9200"
   },
@@ -103,6 +103,24 @@ const searchkitClient = new Searchkit({
   }
 })
 
-const searchClient = Client(searchkitClient);
+const searchClient = Client(sk, {
+  // ... see Searchkit API docs for configuration options
+  // example of modifying the query that performs the organic match query
+  getQuery(query, search_attributes, config) {
+    return {
+      combined_fields: {
+        query: query,
+        fields: search_attributes.map((attr) => (typeof attr === 'string' ? attr : attr.field))
+      }
+    }
+  }
+});
 
 ```
+
+#### Parameters
+
+The client accepts the following parameters:
+
+- **Configuration** - The Searchkit instance.
+- **RequestOptions** - **Optional**. The Searchkit RequestOption. This is useful for modifying the request and response before it is sent to Elasticsearch. This is useful for modifying the request body, or modifying the response. You can read more about these options in the [Searchkit API docs](/docs/api-documentation/searchkit#request-options).

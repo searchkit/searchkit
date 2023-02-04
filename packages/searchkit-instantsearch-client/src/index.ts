@@ -1,4 +1,4 @@
-import type { MultipleQueriesQuery } from 'searchkit'
+import type { MultipleQueriesQuery, RequestOptions } from 'searchkit'
 import type Searchkit from 'searchkit'
 
 interface InstantSearchElasticsearchAdapterConfig {
@@ -14,7 +14,16 @@ function isSearchkit(config: Config): config is Searchkit {
 
 class InstantSearchElasticsearchAdapter {
   private cache: Record<string, any> = {}
-  constructor(private config: Config) {}
+  constructor(private config: Config, private requestOptions?: RequestOptions) {
+    if (!isSearchkit(this.config) && !this.config.url) {
+      throw new Error('Searchkit Instantsearch Client: url is required')
+    }
+    if (!isSearchkit(this.config) && this.requestOptions) {
+      throw new Error(
+        'Searchkit Instantsearch Client: requestOptions is not supported when used with url. Add the request options to @searchkit/api instead.'
+      )
+    }
+  }
 
   public clearCache(): Promise<void> {
     this.cache = {}
@@ -38,7 +47,10 @@ class InstantSearchElasticsearchAdapter {
       }
 
       if (isSearchkit(this.config)) {
-        const results = await this.config.handleInstantSearchRequests(instantsearchRequests)
+        const results = await this.config.handleInstantSearchRequests(
+          instantsearchRequests,
+          this.requestOptions
+        )
         this.cache[key] = results
         return results
       }
@@ -98,6 +110,7 @@ class InstantSearchElasticsearchAdapter {
   }
 }
 
-const createClient = (config: Config) => new InstantSearchElasticsearchAdapter(config)
+const createClient = (config: Config, requestOptions?: RequestOptions) =>
+  new InstantSearchElasticsearchAdapter(config, requestOptions)
 
 export default createClient
