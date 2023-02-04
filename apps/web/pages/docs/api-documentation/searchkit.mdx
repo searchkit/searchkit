@@ -214,12 +214,17 @@ The search attributes define what Elasticsearch fields should be searched when a
 The search attributes can be configured as follows:
 
 ```js
-search_attributes: ["description", "actors", { field: "title", weight: 3 }, "released.year"];
+search_attributes: [
+  "description", 
+  "actors", 
+  { field: "title", weight: 3 }, 
+  "released.year"
+];
 ```
 
 The following configuration will search the `description`, `actors` and an object field `released.year` fields with the default weight of 1. The `title` field will be weighted 3 times more than the `actors` field.
 
-##### `facet_attributes` custom configuration
+##### `facet_attributes`
 
 For **text** based facets, you need to specify a `keyword` type field to use for the facet. This is because Elasticsearch does not support aggregations on text fields. You can find more information about the field mapping [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-field-mapping.html).
 
@@ -259,7 +264,9 @@ Below is an example of a `RefinementList` Instantsearch React component that use
 <RefinementList attribute="actors" searchable={true} limit={10} />
 ```
 
-###### `facet_attributes` numeric and date types
+See [facets guide](/docs/guides/facets) for more information.
+
+###### numeric and date types
 
 For range based facets, you need to specify the `type` as `numeric` or `date`. This is so the client can correctly generate facet stats for the field to be used in the UI.
 
@@ -317,32 +324,10 @@ geo_attribute: "location"
 
 See [Geo Search](/docs/guides/geo-search) for more information.
 
-### `HandleRequest` function
+### Request Options
 
-The `handleRequest` method is used to handle incoming REST requests from the browser. It takes in multiple instantsearch `SearchRequest` objects and returns multiple instantsearch `SearchResponse` objects.
+`RequestOptions` is an object that contains the following properties:
 
-#### Usage
-
-```tsx
-// function to handle the incoming request
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  // invokes handleRequest passing in the request body
-  // containing the search requests
-  const results = await client.handleRequest(req.body);
-  // returning back the results to the browser
-  res.send(results);
-}
-```
-
-#### Parameters
-
-The `handleRequest` function takes in the following parameters:
-
-- **body** - The request body containing the search requests.
-- **options** - The options object containing the following properties:
   - **getQuery** - The function used to override the default Elasticsearch query.
   - **getBaseFilters** - The function used to provide the base Elasticsearch filters. These filters are applied to all search requests.
   - **hooks** - The hooks object containing the following properties:
@@ -407,7 +392,7 @@ To see the full Elasticsearch query that is executed to Elasticsearch, you can r
   });
 ```
 
-### Hooks
+### RequestOptions Hooks
 
 Hooks are functions that are invoked at different stages of the search request. Hooks are useful if you want to perform some action before or after the search request is executed.
 
@@ -484,14 +469,6 @@ Below is an example of an `afterSearch` hook that logs the search response to th
     },
   });
 ```
-
-##### Function Parameters
-
-- **searchRequests** - An array of `SearchRequest` objects. Each `SearchRequest` object contains the following properties:
-  - **indexName** - The Elasticsearch index name.
-  - **body** - The Elasticsearch request body query.
-  - **request** - The state requested from the UI. Contains attributes like query, filters, sort, size and more.
-- **searchResponse** - The search responses array which is used to render the search results UI.
 
 ### Debug mode
 
