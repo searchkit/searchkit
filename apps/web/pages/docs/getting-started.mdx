@@ -248,9 +248,12 @@ addEventListener("fetch", (event) => {
 </Tab>
 <Tab>
 ```ts
+require('cross-fetch/polyfill')
 const express = require('express')
 const app = express()
 const port = 3000
+
+app.use(express.json());
 
 const Client = require('@searchkit/api').default
 
