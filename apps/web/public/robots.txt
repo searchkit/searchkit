@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://searchkit.co
+Host: https://www.searchkit.co
 
 # Sitemaps
-Sitemap: https://searchkit.co/sitemap.xml
+Sitemap: https://www.searchkit.co/sitemap.xml

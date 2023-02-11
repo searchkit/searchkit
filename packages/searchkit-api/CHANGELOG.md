@@ -1,5 +1,18 @@
 # @searchkit/api
 
+## 4.2.0
+
+### Minor Changes
+
+- 4221160a: nested filter support for inner_hits + better grouping of range filters
+- 933926dd: Expanded support for geolocation field types
+
+### Patch Changes
+
+- Updated dependencies [4221160a]
+- Updated dependencies [933926dd]
+  - searchkit@4.2.0
+
 ## 4.1.0
 
 ### Minor Changes

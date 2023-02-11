@@ -1,6 +1,6 @@
 {
   "name": "searchkit",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "main": "./dist/index.js",
   "description": "Search UI for Elasticsearch. Compatible with Algolia's Instantsearch and Autocomplete",
   "keywords": [
