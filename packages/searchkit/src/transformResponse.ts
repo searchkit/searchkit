@@ -3,9 +3,13 @@ import { getHighlightFields, highlightTerm } from './highlightUtils'
 import { AlgoliaMultipleQueriesQuery, ElasticsearchResponseBody } from './types'
 import { getFacetFieldType } from './utils'
 import { QueryRuleActions } from './queryRules'
+import type { AggregationsStatsAggregate } from '@elastic/elasticsearch/lib/api/types'
 
 type FacetsList = Record<string, Record<string, number>>
-type FacetsStats = Record<string, { min: number; max: number; avg: number; sum: number }>
+type FacetsStats = Record<
+  string,
+  { min: number | null; max: number | null; avg: number | null; sum: number | null }
+>
 
 const getHits = (
   response: ElasticsearchResponseBody,
@@ -18,6 +22,7 @@ const getHits = (
   return hits.hits.map((hit) => ({
     objectID: hit._id,
     ...(hit._source || {}),
+    ...(hit.inner_hits ? { inner_hits: hit.inner_hits } : {}),
     ...(highlight_attributes.length > 0
       ? {
           _highlightResult: getHighlightFields(
@@ -84,7 +89,7 @@ const getFacets = (response: ElasticsearchResponseBody, config: SearchSettingsCo
       const fieldType = getFacetFieldType(config.facet_attributes || [], facet)
 
       if (fieldType === 'numeric') {
-        const facetValues = aggregations[facet + '$_stats'] as any
+        const facetValues = aggregations[facet + '$_stats'] as AggregationsStatsAggregate
         const { buckets } = aggregations[facet + '$_entries'] as {
           buckets: any[]
         }
