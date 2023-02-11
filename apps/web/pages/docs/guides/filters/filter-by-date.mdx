@@ -39,6 +39,18 @@ Add a filter attribute to your index configuration. The filter attribute will be
   ]
  }
 ```
+## NumericFilters Usage
+
+If you want to filter by date using `numericFilters`, for example having a component adjusting the filters, you can use the following syntax:
+
+```
+numericFilters: [
+  `availabilities.start<=${(new Date("2015-01-01")).getTime())}`, 
+  `availabilities.end<=${(new Date("2019-01-01")).getTime())}`
+]
+```
+
+See [camping-sites-demo](/camping-sites-demo) for an example of a date numeric filter component example.
 
 ## Using Filter Attributes
 
@@ -53,10 +65,12 @@ You can use the filter attribute in your search query to filter your search resu
  "date:[* TO 2015-12-31]" # date is less than 2015-12-31
 ```
 
-### Example
+### With configure
 
-```js title="Instantsearch.js - Configure"
+```js
  client.configure({
   filters: 'date:[2015-01-01 TO 2015-12-31]'
  })
 ```
+
+
