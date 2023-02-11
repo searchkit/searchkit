@@ -1,0 +1,29 @@
+{
+  "properties": {
+    "name": {
+      "type": "text"
+    },
+    "location": {
+      "type": "geo_point"
+    },
+    "availabilities": {
+      "type": "nested" 
+    },
+    "dates": {
+      "name": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "start": {
+        "type": "date"
+      },
+      "end": {
+        "type": "date"
+      }
+    }
+  }
+}

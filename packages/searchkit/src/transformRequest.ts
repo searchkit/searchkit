@@ -8,13 +8,7 @@ import {
 } from './filters'
 import { QueryRuleActions } from './queryRules'
 import { getSorting } from './sorting'
-import {
-  FacetAttribute,
-  RequestOptions,
-  SearchAttribute,
-  SearchAttributeConfig,
-  SearchSettingsConfig
-} from './types'
+import { FacetAttribute, RequestOptions, SearchAttribute, SearchSettingsConfig } from './types'
 import { AlgoliaMultipleQueriesQuery, ElasticsearchSearchRequest } from './types'
 import { getFacet, isNestedFacet } from './utils'
 

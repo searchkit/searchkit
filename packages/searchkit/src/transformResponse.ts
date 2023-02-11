@@ -3,7 +3,7 @@ import { getHighlightFields, highlightTerm } from './highlightUtils'
 import { AlgoliaMultipleQueriesQuery, ElasticsearchResponseBody } from './types'
 import { getFacetFieldType } from './utils'
 import { QueryRuleActions } from './queryRules'
-import type { AggregationsStatsAggregate } from '@elastic/elasticsearch/lib/api/types'
+import type { AggregationsStatsAggregate, GeoLocation } from '@elastic/elasticsearch/lib/api/types'
 
 type FacetsList = Record<string, Record<string, number>>
 type FacetsStats = Record<
@@ -44,14 +44,26 @@ const getHits = (
         }
       : {}),
     ...(config.geo_attribute && hit._source?.[config.geo_attribute]
-      ? { _geoloc: convertLatLng(hit._source?.[config.geo_attribute] as string) }
+      ? { _geoloc: convertLatLng(hit._source?.[config.geo_attribute] as GeoLocation) }
       : {})
   }))
 }
 
-function convertLatLng(value: string) {
-  const [lat, lng] = value.split(',').map((v) => parseFloat(v))
-  return { lat, lng }
+function convertLatLng(value: GeoLocation) {
+  if (typeof value === 'string') {
+    const [lat, lng] = value.split(',').map((v) => parseFloat(v))
+    return { lat, lng }
+  } else if (Array.isArray(value)) {
+    return { lat: value[0], lng: value[1] }
+  } else if (typeof value === 'object') {
+    if ('lat' in value && 'lon' in value) {
+      return {
+        lat: parseFloat(value.lat as unknown as string),
+        lng: parseFloat(value.lon as unknown as string)
+      }
+    }
+  }
+  return null
 }
 
 const getFacets = (response: ElasticsearchResponseBody, config: SearchSettingsConfig) => {
