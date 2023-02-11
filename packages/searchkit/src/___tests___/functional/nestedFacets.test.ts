@@ -66,6 +66,7 @@ describe('Nested Facets, filters and results', () => {
                     "should": [
                       {
                         "nested": {
+                          "inner_hits": {},
                           "path": "user",
                           "query": {
                             "bool": {
@@ -155,6 +156,7 @@ describe('Nested Facets, filters and results', () => {
                     "should": [
                       {
                         "nested": {
+                          "inner_hits": {},
                           "path": "user",
                           "query": {
                             "bool": {
@@ -251,6 +253,7 @@ describe('Nested Facets, filters and results', () => {
               "filter": [
                 {
                   "nested": {
+                    "inner_hits": {},
                     "path": "user",
                     "query": {
                       "bool": {
@@ -353,6 +356,7 @@ describe('Nested Facets, filters and results', () => {
               "filter": [
                 {
                   "nested": {
+                    "inner_hits": {},
                     "path": "user",
                     "query": {
                       "bool": {

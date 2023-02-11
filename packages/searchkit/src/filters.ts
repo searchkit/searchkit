@@ -87,22 +87,33 @@ export const transformNumericFilters = (
     const esFilter = []
 
     if (facetFilterConfig.nestedPath) {
-      esFilter.push({
-        nested: {
-          path: facetFilterConfig.nestedPath,
-          query: {
-            bool: {
-              filter: [
-                getFilter(
-                  facetFilterConfig.nestedPath + '.' + facetFilterConfig.field,
-                  operator,
-                  value
-                )
-              ]
+      const nestedPathPresent = sum.find((filter: any) => {
+        return filter.nested.path === facetFilterConfig.nestedPath
+      })
+
+      if (nestedPathPresent) {
+        nestedPathPresent.nested.query.bool.filter.push(
+          getFilter(facetFilterConfig.nestedPath + '.' + facetFilterConfig.field, operator, value)
+        )
+      } else {
+        esFilter.push({
+          nested: {
+            path: facetFilterConfig.nestedPath,
+            inner_hits: {},
+            query: {
+              bool: {
+                filter: [
+                  getFilter(
+                    facetFilterConfig.nestedPath + '.' + facetFilterConfig.field,
+                    operator,
+                    value
+                  )
+                ]
+              }
             }
           }
-        }
-      })
+        })
+      }
     } else {
       esFilter.push(getFilter(facetFilterConfig.field, operator, value))
     }
@@ -155,6 +166,10 @@ export const transformFacetFilters = (
             should: filter.reduce((sum, filter) => {
               const [facet, value] = filter.split(':')
               const facetFilterConfig = facetFilterMap[facet]
+              if (!facetFilterConfig)
+                throw new Error(
+                  `Facet "${facet}" not found in configuration. Add configuration to either facet_attributes or filter_attributes.`
+                )
               const field = facetFilterConfig.field
 
               if (isNestedFacet(facetFilterConfig)) {
@@ -175,6 +190,7 @@ export const transformFacetFilters = (
                     ...sum,
                     {
                       nested: {
+                        inner_hits: {},
                         path: facetFilterConfig.nestedPath,
                         query: {
                           bool: {
@@ -220,6 +236,7 @@ export const transformFacetFilters = (
             ...sum,
             {
               nested: {
+                inner_hits: {},
                 path: facetConfig.nestedPath,
                 query: {
                   bool: {
