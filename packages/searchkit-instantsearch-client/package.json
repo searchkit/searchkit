@@ -12,7 +12,7 @@
     "instantsearch",
     "autocomplete"
   ],
-  "version": "4.2.0",
+  "version": "4.2.1",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -42,7 +42,7 @@
     "tsup": "^6.3.0"
   },
   "dependencies": {
-    "searchkit": "^4.2.0"
+    "searchkit": "^4.2.1"
   },
   "publishConfig": {
     "access": "public"

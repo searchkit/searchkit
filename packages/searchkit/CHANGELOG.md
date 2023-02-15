@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.2.1
+
+### Patch Changes
+
+- 80328bee: Add better error handling when elasticsearch has an exception
+
 ## 4.2.0
 
 ### Minor Changes
