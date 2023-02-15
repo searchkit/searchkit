@@ -13,17 +13,23 @@ export default class Searchkit {
 
   constructor(private config: SearchkitConfig, private settings: AppSettings = { debug: false }) {
     this.transporter =
-      'msearch' in config.connection ? config.connection : new ESTransporter(config.connection)
+      'msearch' in config.connection
+        ? config.connection
+        : new ESTransporter(config.connection, settings)
   }
 
   private async performSearch(requests: SearchRequest[]) {
-    if (this.settings.debug) {
-      console.log('Performing search with requests:')
-      console.log('POST /_msearch')
-      console.log(createElasticsearchQueryFromRequest(requests))
+    try {
+      if (this.settings.debug) {
+        console.log('Performing search with requests:')
+        console.log('POST /_msearch')
+        console.log(createElasticsearchQueryFromRequest(requests))
+      }
+      const responses = await this.transporter.msearch(requests)
+      return responses
+    } catch (err) {
+      return []
     }
-    const responses = await this.transporter.msearch(requests)
-    return responses
   }
 
   async handleInstantSearchRequests(

@@ -1,24 +1,31 @@
-import { ConfigConnection, SearchRequest } from './types'
+import { AppSettings, ConfigConnection, SearchRequest } from './types'
 import { ElasticsearchResponseBody, Transporter } from './types'
 import { createElasticsearchQueryFromRequest } from './utils'
 
 export class ESTransporter implements Transporter {
-  constructor(public config: ConfigConnection) {}
+  constructor(public config: ConfigConnection, private settings: AppSettings) {}
+
+  async performNetworkRequest(requests: SearchRequest[]) {
+    return fetch(`${this.config.host}/_msearch`, {
+      headers: {
+        ...(this.config.apiKey ? { authorization: `ApiKey ${this.config.apiKey}` } : {}),
+        'content-type': 'application/json',
+        ...(this.config.headers || {})
+      },
+      body: createElasticsearchQueryFromRequest(requests),
+      method: 'POST'
+    })
+  }
 
   async msearch(requests: SearchRequest[]): Promise<ElasticsearchResponseBody[]> {
-    // @ts-ignore
     try {
-      const response = await fetch(`${this.config.host}/_msearch`, {
-        headers: {
-          ...(this.config.apiKey ? { authorization: `ApiKey ${this.config.apiKey}` } : {}),
-          'content-type': 'application/json',
-          ...(this.config.headers || {})
-        },
-        body: createElasticsearchQueryFromRequest(requests),
-        method: 'POST'
-      })
-
+      const response = await this.performNetworkRequest(requests)
       const responses = await response.json()
+
+      if (this.settings.debug) {
+        console.log('Elasticsearch response:')
+        console.log(responses)
+      }
 
       if (responses.status >= 500) {
         throw new Error(
@@ -38,7 +45,12 @@ export class ESTransporter implements Transporter {
         )
       } else if (responses.status === 400 || responses.responses?.[0]?.status === 400) {
         throw new Error(
-          'Elasticsearch Bad Request. Check your query and make sure it is valid. Check the field mapping. Turn on debug mode to see the Elasticsearch query.'
+          `Elasticsearch Bad Request. 
+          
+          1. Check your query and make sure it is valid. 
+          2. Check the field mapping. See documentation to make sure you are using text types for searching and keyword fields for faceting
+          3. Turn on debug mode to see the Elasticsearch query and the error response.
+          `
         )
       }
       return responses.responses
