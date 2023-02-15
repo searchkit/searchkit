@@ -7,6 +7,7 @@ import { getQueryRulesActionsFromRequest, QueryRuleActions } from './queryRules'
 import { createElasticsearchQueryFromRequest } from './utils'
 import { getIndexName } from './sorting'
 export * from './types'
+export * from './Transporter'
 
 export default class Searchkit {
   private transporter: Transporter
