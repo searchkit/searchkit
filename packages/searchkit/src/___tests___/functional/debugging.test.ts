@@ -38,7 +38,7 @@ describe('Debugging Support', () => {
       DisjunctiveExampleRequest as AlgoliaMultipleQueriesQuery[]
     )
 
-    expect(console.log).toHaveBeenCalledTimes(3)
+    expect(console.log).toHaveBeenCalledTimes(5)
     const x = (console.log as jest.Mock).mock.calls[2][0]
     expect(x).toMatchSnapshot('ES Request logging')
   })
