@@ -1,5 +1,16 @@
 # @searchkit/api
 
+## 4.3.0
+
+### Minor Changes
+
+- Connection Basic auth support + errors in console
+
+### Patch Changes
+
+- Updated dependencies
+  - searchkit@4.3.0
+
 ## 4.2.1
 
 ### Patch Changes
