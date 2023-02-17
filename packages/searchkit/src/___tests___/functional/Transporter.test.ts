@@ -79,4 +79,45 @@ describe('Transporter', () => {
       }
     `)
   })
+
+  it('should allow basic auth', async () => {
+    ;(global.fetch as jest.Mock).mockClear()
+    // @ts-ignore
+    jest.spyOn(global, 'fetch').mockImplementation(() => {
+      return Promise.resolve({
+        json: () => Promise.resolve(HitsWithNoQueryOrFiltersResponse)
+      })
+    })
+
+    const client = new Client({
+      connection: {
+        host: 'http://localhost:9200',
+        auth: {
+          password: 'changeme',
+          username: 'elastic'
+        }
+      },
+      search_settings: {
+        search_attributes: ['title', 'actors', 'query'],
+        result_attributes: ['title', 'actors', 'query'],
+        facet_attributes: [
+          'type',
+          { field: 'actors.keyword', attribute: 'actors', type: 'string' },
+          'rated',
+          { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' }
+        ]
+      }
+    })
+
+    await client.handleInstantSearchRequests(
+      nonDynamicFacetRequest as AlgoliaMultipleQueriesQuery[]
+    )
+
+    expect((global.fetch as jest.Mock).mock.calls[0][1].headers).toMatchInlineSnapshot(`
+      {
+        "Authorization": "Basic ZWxhc3RpYzpjaGFuZ2VtZQ==",
+        "content-type": "application/json",
+      }
+    `)
+  })
 })

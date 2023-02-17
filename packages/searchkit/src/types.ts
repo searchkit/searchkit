@@ -45,6 +45,16 @@ export interface ConfigConnection {
    * @example { 'X-My-Header': 'My-Value' }
    */
   headers?: Record<string, string>
+
+  /**
+   * @description The Elasticsearch account. This is optional and only required if you have basic authentication enabled.
+   * @example username: elastic
+   * @example password: changeme
+   */
+  auth?: {
+    username: string
+    password: string
+  }
 }
 
 export interface SearchAttributeConfig {

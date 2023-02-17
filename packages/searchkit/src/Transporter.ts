@@ -5,14 +5,27 @@ import { createElasticsearchQueryFromRequest } from './utils'
 export class ESTransporter implements Transporter {
   constructor(public config: ConfigConnection, private settings: AppSettings) {}
 
+  createElasticsearchQueryFromRequest(requests: SearchRequest[]) {
+    return createElasticsearchQueryFromRequest(requests)
+  }
+
   async performNetworkRequest(requests: SearchRequest[]) {
     return fetch(`${this.config.host}/_msearch`, {
       headers: {
         ...(this.config.apiKey ? { authorization: `ApiKey ${this.config.apiKey}` } : {}),
         'content-type': 'application/json',
-        ...(this.config.headers || {})
+        ...(this.config.headers || {}),
+        ...(this.config.auth
+          ? {
+              Authorization:
+                'Basic ' +
+                Buffer.from(this.config.auth.username + ':' + this.config.auth.password).toString(
+                  'base64'
+                )
+            }
+          : {})
       },
-      body: createElasticsearchQueryFromRequest(requests),
+      body: this.createElasticsearchQueryFromRequest(requests),
       method: 'POST'
     })
   }
@@ -24,26 +37,31 @@ export class ESTransporter implements Transporter {
 
       if (this.settings.debug) {
         console.log('Elasticsearch response:')
-        console.log(responses)
+        console.log(JSON.stringify(responses))
       }
 
       if (responses.status >= 500) {
+        console.error(JSON.stringify(responses))
         throw new Error(
           'Elasticsearch Internal Error: Check your elasticsearch instance to make sure it can recieve requests.'
         )
       } else if (responses.status === 401) {
+        console.error(JSON.stringify(responses))
         throw new Error(
           'Cannot connect to Elasticsearch. Check your connection host and API Key. You can also provide a custom Elasticsearch transporter to the API Client. See docs for more information.'
         )
       } else if (responses.responses?.[0]?.status === 403) {
+        console.error(JSON.stringify(responses))
         throw new Error(
           'Auth Error: You do not have permission to access this index. Check you are calling the right index (specified in frontend) and your API Key permissions has access to the index.'
         )
       } else if (responses.status === 404 || responses.responses?.[0]?.status === 404) {
+        console.error(JSON.stringify(responses))
         throw new Error(
           'Elasticsearch index not found. Check your index name and make sure it exists.'
         )
       } else if (responses.status === 400 || responses.responses?.[0]?.status === 400) {
+        console.error(JSON.stringify(responses))
         throw new Error(
           `Elasticsearch Bad Request. 
           

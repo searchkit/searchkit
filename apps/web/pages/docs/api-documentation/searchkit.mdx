@@ -53,6 +53,10 @@ const searchkitClient = new Searchkit({
       "Authorization", 'Basic ' + Buffer.from(username + ":" + password).toString('base64'),
       "my-custom-header": "my-custom-value"
     },
+    auth: {
+      username: 'elastic',
+      password: 'changeme'
+    }
   },
   search_settings: {
     highlight_attributes: ["title", "actors"],
@@ -94,6 +98,10 @@ const client = Client({
       "Authorization", 'Basic ' + Buffer.from(username + ":" + password).toString('base64'),
       "my-custom-header": "my-custom-value"
     },
+    auth: {
+      username: 'elastic',
+      password: 'changeme'
+    }
   },
   search_settings: {
     highlight_attributes: ["title", "actors"],
@@ -120,48 +128,36 @@ const client = Client({
 - `host` - Elasticsearch url host
 - `apiKey` - Elasticsearch API key. This is optional but strongly recommended for production environments. You can create an API key via [Kibana](https://www.elastic.co/guide/en/kibana/master/api-keys.html).
 - `headers` - Additional headers to pass to Elasticsearch. This is optional.
+- `auth` - Basic auth credentials. This is optional.
+
+See [connecting to Elasticsearch](/docs/guides/setup-elasticsearch) for more information on setting up Elasticsearch.
 
 Connection also supports implementing your own connector to Elasticsearch. You can do this by passing in a transporter instance through `connection`.
 
 You can use this for more complex authentication connections with Elasticsearch or Opensearch.
 
-```tsx
 
-import type { Transporter, SearchRequest, ElasticsearchResponseBody } from 'searchkit'
+```ts
 
-class MyTransporter {
-  async msearch(
-    requests: SearchRequest[]
-  ): Promise<ElasticsearchResponseBody[]> {
-    // Implement your own search logic here
-    // Fetch is an example of calling an API.
-    const response = await fetch(`https://localhost:9200/_msearch`, {
+import { ESTransporter } from 'searchkit'
+import type { SearchRequest } from "searchkit"
+
+class MyTransporter extends ESTransporter {
+  async performNetworkRequest(requests: SearchRequest[]) {
+    // you can use any http client here
+    return fetch(`https://localhost:9200/_msearch`, {
       headers: {
-        "content-type": "application/json",
+        // Add custom headers here
       },
-      body: requests
-        .reduce<string[]>(
-          (sum, request) => [
-            ...sum,
-            JSON.stringify({ index: request.indexName }),
-            "\n",
-            JSON.stringify(request.body),
-            "\n",
-          ],
-          []
-        )
-        .join(""),
-      method: "POST",
-    });
-
-    const responses = await response.json();
-    return responses.responses;
+      body: this.createElasticsearchQueryFromRequest(requests),
+      method: 'POST'
+    })
   }
 }
 
+// then pass the custom transporter to the client
 const client = Client({
-  connection: new MyTransporter(),
-  ...
+  connection: new MyTransporter()
 });
 ```
 
