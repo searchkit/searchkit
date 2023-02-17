@@ -12,6 +12,11 @@ import {
 } from '../mocks/ErrorElasticsearchResponses'
 
 describe('Transport Errors', () => {
+  let consoleError: jest.SpyInstance
+  beforeEach(() => {
+    consoleError = jest.spyOn(console, 'error').mockImplementation(() => {})
+  })
+
   const transporter = new ESTransporter(
     {
       host: 'http://localhost:9200',
@@ -30,6 +35,7 @@ describe('Transport Errors', () => {
     await expect(() => {
       return transporter.msearch([])
     }).rejects.toThrowErrorMatchingSnapshot()
+    expect(consoleError).toBeCalled()
   })
 
   it('403 error', async () => {
@@ -42,6 +48,7 @@ describe('Transport Errors', () => {
     await expect(() => {
       return transporter.msearch([])
     }).rejects.toThrowErrorMatchingSnapshot()
+    expect(consoleError).toBeCalled()
   })
 
   it('400 error', async () => {
@@ -54,6 +61,7 @@ describe('Transport Errors', () => {
     await expect(() => {
       return transporter.msearch([])
     }).rejects.toThrowErrorMatchingSnapshot()
+    expect(consoleError).toBeCalled()
   })
 
   it('500 error', async () => {
@@ -66,6 +74,7 @@ describe('Transport Errors', () => {
     await expect(() => {
       return transporter.msearch([])
     }).rejects.toThrowErrorMatchingSnapshot()
+    expect(consoleError).toBeCalled()
   })
 
   const client = new Client({
@@ -93,5 +102,6 @@ describe('Transport Errors', () => {
       DisjunctiveExampleRequest as AlgoliaMultipleQueriesQuery[]
     )
     expect(x).toEqual({ results: [] })
+    expect(consoleError).toBeCalled()
   })
 })

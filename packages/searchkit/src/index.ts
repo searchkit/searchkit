@@ -29,6 +29,7 @@ export default class Searchkit {
       const responses = await this.transporter.msearch(requests)
       return responses
     } catch (err) {
+      console.error(err)
       return []
     }
   }
