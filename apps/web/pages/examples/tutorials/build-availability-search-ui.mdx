@@ -1,0 +1,542 @@
+---
+title: How to build an availability search UI with Elasticsearch
+description: In this example we are imagining a booking site for cabins.  
+---
+
+# How to build an availability search UI with Elasticsearch
+
+This tutorial will show you how to build an availability search with Elasticsearch. 
+
+It will cover the following:
+- How to index availability data using nested documents
+- How to build a Search UI with React, Instantsearch and Searchkit
+
+In this example we are imagining a booking site for cabins.  
+
+## Prerequisites
+
+- Elasticsearch (preferably 7.x or higher)
+
+## Setting up Elasticsearch
+
+The easiest way to get started with Elasticsearch is to use the [Elastic Cloud](https://www.elastic.co/cloud) service. You can also run Elasticsearch locally using [Docker](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html).
+
+For this tutorial, we will use Docker to run Elasticsearch locally. We are going to disable security for simplicity. You can enable security if you want to.
+
+Pull the Elasticsearch Docker image:
+
+```bash
+docker pull docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+```
+
+Create a docker network for Elastic:
+
+```bash
+docker network create elastic
+```
+
+Start Elasticsearch:
+
+```bash
+docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+```
+
+## Indexing availability data
+
+For this tutorial, we will use the [Elasticsearch REST API](https://www.elastic.co/guide/en/elasticsearch/reference/current/rest-apis.html) to index and search data. You can use any of the [Elasticsearch clients](https://www.elastic.co/guide/en/elasticsearch/client/index.html) to do the same.
+
+### Create an index
+
+Our data model will have the following structure:
+
+- A `listing` has many `availability` objects
+- Each `availability` object has a `start date`, `end date`, `type` and a `price`
+- Each `listing` has a number of attributes like `name`, `description`, `categories` etc.
+
+We will use [nested documents](https://www.elastic.co/guide/en/elasticsearch/reference/current/nested.html) to model this data. This means that each `availability` object will be indexed as a nested document under the `listing` document.
+
+Let's create an index called `listings` with a mapping for the `listing` document:
+
+```bash
+curl --location --request PUT 'http://localhost:9200/listings' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "text"
+      },
+      "description": {
+        "type": "text"
+      },
+      "categories": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "availability": {
+        "type": "nested",
+        "properties": {
+          "start_date": {
+            "type": "date"
+          },
+          "end_date": {
+            "type": "date"
+          },
+          "type": {
+            "type": "keyword"
+          },
+          "price": {
+            "type": "float"
+          }
+        }
+      }
+    }
+  }
+}'
+```
+
+Highlights:
+- The `availability` field is of type `nested`. This means that each `availability` object will be indexed as a nested document under the `listing` document.
+- The `availability.start_date` and `availablity.end_date` fields are of type `date`. This allows us to filter for availability within a date range.
+- The `availability.type` field is of type `keyword`. This allows us to generate facet options and filter for availability by type.
+- The `availability.price` field is of type `float`. This allows us to filter for availability by price.
+- The `categories` field is of type `text` with a `keyword` sub-field. This allows us to search on categories and use as a facet for listings by category.
+
+### Add documents
+
+Let's add a couple of documents to the `listings` index:
+
+```bash
+curl --location --request POST 'http://localhost:9200/listings/_doc' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "name": "Cabin in the woods",
+  "description": "A cozy cabin in the woods",
+  "categories": ["cabin", "wood", "nature"],
+  "availability": [
+    {
+      "start_date": "2021-01-01",
+      "end_date": "2021-01-10",
+      "type": "nightly",
+      "price": 100
+    },
+    {
+      "start_date": "2021-01-11",
+      "end_date": "2021-01-20",
+      "type": "nightly",
+      "price": 150
+    },
+    {
+      "start_date": "2021-01-21",
+      "end_date": "2021-01-31",
+      "type": "nightly",
+      "price": 200
+    }
+  ]
+}'
+
+curl --location --request POST 'http://localhost:9200/listings/_doc' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "name": "Cabin in the mountains",
+  "description": "A cozy cabin in the mountains",
+  "categories": ["cabin", "mountain", "nature"],
+  "availability": [
+    {
+      "start_date": "2021-01-01",
+      "end_date": "2021-01-10",
+      "type": "nightly",
+      "price": 100
+    },
+    {
+      "start_date": "2021-01-11",
+      "end_date": "2021-01-20",
+      "type": "nightly",
+      "price": 150
+    },
+    {
+      "start_date": "2021-01-21",
+      "end_date": "2021-01-31",
+      "type": "nightly",
+      "price": 200
+    }
+  ]
+}'
+```
+
+### Build a search UI
+
+We will use [React](https://reactjs.org/), [Next.JS](https://nextjs.org/), [Instantsearch](https://github.com/algolia/instantsearch) and [Searchkit](https://github.com/searchkit/searchkit) to build a search UI.
+
+Let's create a new Next.JS app:
+
+```bash
+npx create-next-app searchkit-tutorial
+```
+
+Install Searchkit & Instantsearch:
+
+```bash
+cd searchkit-tutorial
+npm install searchkit @searchkit/api @searchkit/instantsearch-client react-instantsearch-dom
+```
+
+update file called `pages/index.js` and add the following code:
+
+```jsx
+import React from "react";
+import Client from "@searchkit/instantsearch-client";
+import { InstantSearch, SearchBox, Hits, RefinementList } from "react-instantsearch-dom";
+ 
+const searchClient = Client({
+  url: "/api/search"
+});
+ 
+const App = () => (
+  <InstantSearch indexName="listings" searchClient={searchClient}>
+    <SearchBox />
+    <Hits />
+  </InstantSearch>
+);
+ 
+export default App;
+```
+
+then add a new file called `pages/api/search.js` and add the following code:
+
+```js
+import Client from "@searchkit/api";
+ 
+const client = Client({
+  connection: {
+    host: "http://localhost:9200"
+  },
+  search_settings: {
+    search_attributes: ["name", "description"]
+  },
+});
+ 
+// example API handler for Next.js
+export default async function handler(req,res) {
+  const results = await client.handleRequest(req.body);
+  res.send(results);
+}
+```
+
+and finally, run the app:
+
+```bash
+npm run dev
+```
+
+You should see the following search UI:
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7c4bvvpmpr4a2etnvlc1.png)
+
+### Adjust search attributes
+
+Let's adjust the search attributes to include the `categories` field.
+
+Update the `pages/api/search.js` file and add the following code:
+
+```js
+import Client from "@searchkit/api";
+ 
+const client = Client({
+  connection: {
+    host: "http://localhost:9200"
+  },
+  search_settings: {
+    search_attributes: ["name", "description", "categories"]
+  },
+});
+ 
+// example API handler for Next.js
+export default async function handler(req,res) {
+  const results = await client.handleRequest(req.body);
+  res.send(results);
+}
+```
+
+Now, when you search for `cabin`, you should see the following results:
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/whipc166arij7xw0jmdy.png)
+
+### Add facets
+
+Let's add a facet for `categories` and for the nested field `availabilities.type`. 
+
+Update the `pages/index.js` file and add the following code:
+
+```jsx
+import React from "react";
+import Client from "@searchkit/instantsearch-client";
+import { InstantSearch, SearchBox, Hits, RefinementList } from "react-instantsearch-dom";
+ 
+const searchClient = Client({
+  url: "/api/search"
+});
+ 
+const App = () => (
+  <InstantSearch indexName="listings" searchClient={searchClient}>
+    <SearchBox />
+    <RefinementList attribute="categories" />
+    <RangeInput attribute="price" />
+    <RefinementList attribute="type" />
+    <Hits />
+  </InstantSearch>
+);
+ 
+export default App;
+```
+
+Then update the `pages/api/search.js` file and add the following code:
+
+```js
+import Client from "@searchkit/api";
+ 
+const client = Client({
+  connection: {
+    host: "http://localhost:9200"
+  },
+  search_settings: {
+    search_attributes: ["name", "description", "categories"],
+    facet_attributes: [
+      { field: "categories.keyword", type: "string", attribute: "categories" },
+      { field: "price", type: "numeric", attribute: "price",  nestedPath: "availability" },
+      { field: "type", type: "string", attribute: "type", nestedPath: "availability" }
+    ]
+  },
+});
+ 
+// example API handler for Next.js
+export default async function handler(req,res) {
+  const results = await client.handleRequest(req.body);
+  res.send(results);
+}
+```
+
+you should see the following UI:
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tn4fltlqueuoi7g4qjs0.png)
+
+### Add Date Filtering
+
+Let's add a date range filter to the search UI on the nested field `availability.start_date` & `availability.end_date`.
+
+Update the `pages/index.js` file and add the following code:
+
+```jsx
+import React from "react";
+import Client from "@searchkit/instantsearch-client";
+import { InstantSearch, SearchBox, Hits, RefinementList, RangeInput, createConnector } from "react-instantsearch-dom";
+ 
+const searchClient = Client({
+  url: "/api/search"
+});
+
+const defaultAvailabilityDates = ['2021-01-01', '2021-01-10']
+const AvailabilityDatesConnector = createConnector({
+  displayName: 'AvailabilityDates',
+  getProvidedProps: (props, searchState) => {
+    return {
+      availabilityDates: searchState.availabilityDates || defaultAvailabilityDates
+    }
+  },
+  refine: (props, searchState, nextValue) => {
+    return {
+      ...searchState,
+      availabilityDates: nextValue
+    }
+  },
+  getSearchParameters(searchParameters, props, searchState) {
+    const { availabilityDates = defaultAvailabilityDates } = searchState;    
+    return searchParameters.addNumericRefinement('availability.start_date', '<=', (new Date(availabilityDates[0])).getTime()).addNumericRefinement('availability.end_date', '>=', (new Date(availabilityDates[1])).getTime());
+  },
+})
+
+const AvailabilityDates = AvailabilityDatesConnector(({ availabilityDates, refine }) => {
+  return (
+    <div>
+      <input type="date"
+        value={availabilityDates[0]} onChange={(e) => {
+          refine([e.target.value, availabilityDates[1]])
+        }}
+        ></input>
+        <input type="date"
+        value={availabilityDates[1]}
+        onChange={(e) => {
+          refine([availabilityDates[0], e.target.value])
+        }}
+        ></input>
+    </div>
+  )
+})
+  
+ 
+const App = () => (
+  <InstantSearch indexName="listings" searchClient={searchClient}>
+    <SearchBox />
+    <RefinementList attribute="categories" />
+    <RangeInput attribute="price" />
+    <RefinementList attribute="type" />
+    <AvailabilityDates />
+    <Hits />
+  </InstantSearch>
+);
+ 
+export default App;
+```
+
+and then update the `pages/api/search.js` file and add the following code:
+
+```js
+import Client from "@searchkit/api";
+ 
+const client = Client({
+  connection: {
+    host: "http://localhost:9200"
+  },
+  search_settings: {
+    search_attributes: ["name", "description", "categories"],
+    facet_attributes: [
+      { field: "categories.keyword", type: "string", attribute: "categories" },
+      { field: "price", type: "numeric", attribute: "price",  nestedPath: "availability" },
+      { field: "type", type: "string", attribute: "type", nestedPath: "availability" }
+    ],
+    filter_attributes: [
+      { field: "start_date", type: "date", attribute: "availability.start_date", nestedPath: "availability" },
+      { field: "end_date", type: "date", attribute: "availability.end_date", nestedPath: "availability"  }
+    ]
+  },
+});
+ 
+// example API handler for Next.js
+export default async function handler(req,res) {
+  const results = await client.handleRequest(req.body);
+  res.send(results);
+}
+```
+
+In this example, we have added a date range filter to the search UI on the nested field `availability.start_date` & `availability.end_date` as filters. 
+
+You should see the following UI. The default date range is `2021-01-01` to `2021-01-10` which brings back one listing which has an availability entry matching time span.
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qahatl816kex9g46o8rr.png)
+
+ You can change the date range and see the results change.
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ccn3ielfj08ocmza5nfk.png)
+
+### Highlighting Availability Dates
+When you filter by availability dates & price, you are matching a number of availability entries. You can show the availability entries that match the filter by highlighting them in the search results.
+
+Update the `pages/index.js` file and add the following code:
+
+```jsx
+import React from "react";
+import Client from "@searchkit/instantsearch-client";
+import { InstantSearch, SearchBox, Hits, RefinementList, RangeInput, createConnector } from "react-instantsearch-dom";
+ 
+const searchClient = Client({
+  url: "/api/search"
+});
+
+const defaultAvailabilityDates = ['2021-01-01', '2021-01-10']
+const demo = createConnector({
+  displayName: 'AvailabilityDates',
+  getProvidedProps: (props, searchState) => {
+    return {
+      availabilityDates: searchState.availabilityDates || defaultAvailabilityDates
+    }
+  },
+  refine: (props, searchState, nextValue) => {
+    return {
+      ...searchState,
+      availabilityDates: nextValue
+    }
+  },
+  getSearchParameters(searchParameters, props, searchState) {
+    const { availabilityDates = defaultAvailabilityDates } = searchState;    
+    return searchParameters.addNumericRefinement('availability.start_date', '<=', (new Date(availabilityDates[0])).getTime()).addNumericRefinement('availability.end_date', '>=', (new Date(availabilityDates[1])).getTime());
+  },
+})
+
+const AvailabilityDates = demo(({ availabilityDates, refine }) => {
+  return (
+    <div>
+      <input type="date"
+        value={availabilityDates[0]} onChange={(e) => {
+          refine([e.target.value, availabilityDates[1]])
+        }}
+        ></input>
+        <input type="date"
+        value={availabilityDates[1]}
+        onChange={(e) => {
+          refine([availabilityDates[0], e.target.value])
+        }}
+        ></input>
+    </div>
+  )
+})
+  
+const ResultView = ({ hit }) => {
+  const availabilities = hit.inner_hits?.availability || { hits: { hits: [] }}
+  return (
+  <div>
+    <h2>{hit.name}</h2>
+    <p>{hit.description}</p>
+    <p>{hit.categories.join(", ")}</p>
+    <div>
+      {availabilities.hits.hits.map((a, i) => (
+        <div key={i}>
+          <p>{a._source.start_date} - {a._source.end_date}</p>
+          <p>{a._source.price}</p>
+          <p>{a._source.type}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+  )
+}
+ 
+const App = () => (
+  <InstantSearch indexName="listings" searchClient={searchClient}>
+    <SearchBox />
+    <RefinementList attribute="categories" />
+    <RangeInput attribute="price" />
+    <RefinementList attribute="type" />
+    <AvailabilityDates />
+
+    <Hits hitComponent={ResultView} />
+  </InstantSearch>
+);
+ 
+export default App;
+```
+
+Recap of Changes:
+- We have added a new component `ResultView` which is used to render the search results. This component shows the name, description, categories, and the availability entries that match the filter.
+- We are accessing the availability entries from the `inner_hits` property of the listing document. The `inner_hits` property is populated by Elasticsearch when the search query matches a nested document.
+
+You should see the UI:
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/v7vzczw1jc4ld8iwf7ll.png)
+
+### Expanding the search experience
+
+Now that you have a basic search UI, you can expand the search experience by adding more features like sorting, pagination, and query rules.
+
+- [Styling Components](https://instantsearchjs.netlify.app/stories/react/?path=/story/numericmenu--default): Instantsearch has a huge number of components that you can use with Searchkit.
+- [Query Rules](https://www.searchkit.co/docs/guides/query-rules): Query rules allow you to customize the search experience by adding custom logic to the search query. For example, you can add a rule to boost listings that have availability entries matching the current date.
+- [Search Relevance](https://www.searchkit.co/docs/guides/customising-query): Adjust the search relevance by overriding the default organic match query.
+- [Geo Search Components](https://www.searchkit.co/docs/guides/geo-search): Build map based search experiences
+
+## Thanks for following!
+
+Remember to star [Searchkit](https://www.github.com/searchkit/searchkit)! or visit our demo site [https://www.searchkit.co/demos](https://www.searchkit.co/demos) to see more examples.
+

@@ -74,7 +74,6 @@ const AvailabilityDates = demo(({ availabilityDates, refine }) => {
 const searchClient = Client(searchkitClient);
 
 const hitView = (props) => {
-  console.log(props.hit._geoloc)
   const availabilities = props.hit.inner_hits?.availabilities || { hits: { hits: [] }}
   return (
     <div>
