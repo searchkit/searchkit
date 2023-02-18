@@ -3,9 +3,37 @@ title: Connecting to Elasticsearch
 description: How to connect to Elasticsearch with Searchkit
 ---
 
+import { Callout } from "nextra-theme-docs";
+
+# Setup & Connect to Elasticsearch
+
 The easiest way to connect to Elasticsearch is to use Elastic cloud. You can sign up for a free trial account and get started right away.
 
-### Connecting to Elastic Cloud
+### Using Docker
+
+If you are using Docker, you can run Elasticsearch with the following command:
+
+Pull the Elasticsearch Docker image:
+
+```bash
+docker pull docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+```
+
+Create a docker network for Elastic:
+
+```bash
+docker network create elastic
+```
+
+Start Elasticsearch:
+
+```bash
+docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+```
+
+We are disabling security for this example, but you can read more about [securing Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/configuring-security.html) in the official documentation.
+
+### Using Elastic Cloud
 
 To connect to Elastic Cloud, you need to create an account and get your credentials. You can do this by following the instructions on the [Elastic Cloud website](https://www.elastic.co/cloud).
 
@@ -15,7 +43,26 @@ Once you have setup a deployment, do the following:
 2. Click on the deployment you want to connect to.
 3. Locate the Elasticsearch URL and copy it.
 4. Paste the URL into the `connection.host` field in the configuration object, within the Node app.
-5. Create an API key with `read` privileges for the index. Copy the API key and paste it into the `connection.apiKey` field in the configuration object, within the Node app. 
+
+### Connecting with username:password
+
+If you are using Elasticsearch with basic auth, you can set the `connection.auth.username` and `connection.auth.password` fields in the configuration object.
+
+```ts
+const client = Client({
+  connection: {
+    host: "ELASTICSEARCH_URL",
+    auth: {
+      username: "elastic",
+      password: "changeme"
+    }
+  }
+})
+```
+
+### Connecting with API key
+
+Create an API key with `read` privileges for the index. Copy the API key and paste it into the `connection.apiKey` field. 
 
 ```ts
 const client = Client({
@@ -26,7 +73,11 @@ const client = Client({
 })
 ```
 
-#### (Required for browser-only Searchkit) Add CORS headers to your Elasticsearch deployment
+#### Add CORS headers to your Elasticsearch deployment
+
+<Callout type="info">
+  This is only required if you are using Searchkit in the browser and without the node proxy.
+</Callout>
 
 If you are using Searchkit in the browser and without the node proxy, you will need to add CORS headers to your Elasticsearch instance.
 
@@ -44,30 +95,18 @@ If Searchkit cannot connect to Elasticsearch, it will throw an error. You should
 
 You can also switch on the `debug` [flag](/docs/api-documentation/api#debug-mode) in the configuration object, within the Node app, to see more detailed logs.
 
-### Connecting to Elasticsearch locally
+### Connecting to Elasticsearch via Docker
 
-If you want to run Elasticsearch locally, you can download and install it from the [Elastic website](https://www.elastic.co/downloads/elasticsearch).
+If you are running Elasticsearch via Docker, use the following command:
 
-Once you have installed Elasticsearch, you can start it by running the following command in the terminal:
-
-```bash
-elasticsearch
+```sh
+docker run -d --rm --name elasticsearch -p 127.0.0.1:9200:9200 -e http.port=9200 -e discovery.type=single-node -e http.max_content_length=10MB -e http.cors.enabled=true -e http.cors.allow-origin=\* -e http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization -e http.cors.allow-credentials=true -e network.publish_host=localhost -e xpack.security.enabled=false docker.elastic.co/elasticsearch/elasticsearch:8.6.2
 ```
 
-You can then connect to Elasticsearch by setting the `connection.host` field in the configuration object, within the Node app, to `http://localhost:9200`.
+Or the following if you are using OpenSearch:
 
-API Key is not required but its important you use one for production.
-
-```ts
-const client = Client({
-  connection: {
-    host: "http://localhost:9200"
-    auth: {
-      username: "elastic",
-      password: "changeme"
-    }
-  }
-})
+```sh
+docker run --name opensearch --rm -d -p 9200:9200 -e http.port=9200 -e discovery.type=single-node -e http.max_content_length=10MB -e http.cors.enabled=true -e http.cors.allow-origin=\* -e http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization -e http.cors.allow-credentials=true opensearchproject/opensearch:1.2.4
 ```
 
 ### Connecting to Elasticsearch with custom headers
@@ -80,22 +119,6 @@ const client = Client({
     host: "http://localhost:9200",
     headers: {
       "X-My-Header": "My-Value"
-    }
-  }
-})
-```
-
-### Basic Auth with Elasticsearch
-
-If you are using Elasticsearch with basic auth, you can set the `connection.auth.username` and `connection.auth.password` fields in the configuration object.
-
-```ts
-const client = Client({
-  connection: {
-    host: "http://localhost:9200",
-    auth: {
-      username: "elastic",
-      password: "changeme"
     }
   }
 })

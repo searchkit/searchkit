@@ -1,0 +1,233 @@
+---
+title: installation
+description: How to install the package
+---
+
+import { Callout } from 'nextra-theme-docs'
+import { Tabs, Tab } from '../../components/Tabs'
+
+## Installation
+
+Available on NPM registry and via a CDN.
+
+<Tabs items={['npm', 'yarn', 'CDN']} storageKey="cloud-package-manager">
+<Tab>
+```sh
+npm install searchkit @searchkit/api @searchkit/instantsearch-client
+```
+</Tab>
+<Tab>
+```sh
+yarn add searchkit @searchkit/api @searchkit/instantsearch-client
+```
+</Tab>
+<Tab>
+```html
+    <script src="https://cdn.jsdelivr.net/npm/searchkit@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@searchkit/instantsearch-client@latest"></script>
+```
+</Tab>
+</Tabs>
+
+#### Instantsearch Installation
+
+Then install your [instantsearch](https://github.com/algolia/instantsearch) of choice. 
+
+<Tabs items={['react-instantsearch', 'vue-instantsearch', 'angular-instantsearch', 'instantsearch.js']} storageKey="instantsearch-package">
+<Tab>
+```sh
+npm install react-instantsearch-dom
+```
+</Tab>
+<Tab>
+```sh
+npm install vue-instantsearch
+```
+</Tab>
+<Tab>
+```sh
+npm install angular-instantsearch
+```
+</Tab>
+<Tab>
+```sh
+npm install instantsearch.js
+```
+or 
+```html
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@latest"></script>
+```
+</Tab>
+</Tabs>
+
+## Usage
+
+<Callout type="info">
+  As we are talking to Elasticsearch directly, you will need to have CORS settings enabled in Elasticsearch. See <a href="/docs/guides/setup-elasticsearch">Connecting to Elasticsearch</a> for more details.
+
+  Alternatively, you can setup Searchkit Node API to proxy your search requests. See below for more details.
+</Callout>
+
+Setup Searchkit and the instantsearch client
+
+```js
+import Client from '@searchkit/instantsearch-client'
+import Searchkit, { SearchkitConfig } from "searchkit"
+
+// or importing from CDN
+// const Client = window.SearchkitInstantsearchClient
+// const Searchkit = window.Searchkit
+
+const searchkitClient = new Searchkit({
+  connection: {
+    host: "http://localhost:9200",
+    // see setup elastic search for more connection details
+    auth: {
+      username: 'elastic',
+      password: 'changeme'
+    }
+  },
+  search_settings: {
+    search_attributes: ["title", "description"]
+  },
+})
+
+const searchClient = Client(searchkitClient);
+```
+
+Then use the client in your instantsearch setup. Index name is the name of the index in elasticsearch.
+
+Below is an example of how to use the client with react-instantsearch.
+
+```js
+import { InstantSearch } from 'react-instantsearch-dom';
+
+const App = () => (
+  <InstantSearch searchClient={searchClient} indexName="movies">
+    {/* ... */}
+  </InstantSearch>
+);
+```
+
+See below for more details on how to use the different instantsearch libraries.
+
+* Instantsearch.js [API Docs](https://www.algolia.com/doc/api-reference/widgets/instantsearch/js/)
+* React [API Docs](https://www.algolia.com/doc/api-reference/widgets/instantsearch/react/)
+* React Hooks [API Docs](https://www.algolia.com/doc/api-reference/widgets/instantsearch/react-hooks/)
+* Angular [API Docs](https://www.algolia.com/doc/api-reference/widgets/instantsearch/angular/)
+* Vue [API Docs](https://www.algolia.com/doc/api-reference/widgets/instantsearch/vue/)
+
+## Searchkit Node API
+
+Its super easy to use Searchkit on the frontend, directly connecting to Elasticsearch. However, this is not recommended for production, as it exposes your Elasticsearch cluster to the public internet.
+
+To avoid this, you can proxy your search requests with `@searchkit/api`.
+
+### Changes to Frontend
+
+Remove Searchkit usage from frontend and adjust the `@searchkit/instantsearch-client` to use the Node API. 
+  
+```js {2}
+  const searchClient = Client({
+    url: "/api/search",
+  });
+```
+
+### Add Node API
+
+You can use any Node.js server to run the API. Below are some examples of how to use it with different frameworks.
+
+<Tabs items={['Next.js', 'Cloudflare Workers', 'express.js']} storageKey="selected-node-platform">
+  <Tab>
+```ts
+import Client from "@searchkit/api";
+
+const client = Client({
+  connection: {
+    host: "https://localhost:9200",
+    auth: {
+      username: 'elastic',
+      password: 'changeme'
+    }
+  },
+  search_settings: {
+    search_attributes: ["title", "description"]
+  },
+});
+
+// example API handler for Next.js
+export default async function handler(req, res) {
+  const results = await client.handleRequest(req.body);
+  res.send(results);
+}
+```
+</Tab>
+<Tab>
+```ts
+import Client from "@searchkit/api";
+
+const client = Client({
+  connection: {
+    host: "http://localhost:9200",
+    auth: {
+      username: 'elastic',
+      password: 'changeme'
+    }
+  },
+  search_settings: {
+    search_attributes: ["title", "description"]
+  },
+});
+
+async function handleRequest(event: FetchEvent) {
+  const body = await event.request.json();
+  const results = await client.handleRequest(body);
+
+  return new Response(JSON.stringify(results), {
+    headers: {
+      "content-type": "application/json",
+    }
+  });
+}
+
+addEventListener("fetch", (event) => {
+  return event.respondWith(handleRequest(event));
+});
+```
+</Tab>
+<Tab>
+```ts
+require('cross-fetch/polyfill')
+const express = require('express')
+const app = express()
+const port = 3000
+
+app.use(express.json());
+
+const Client = require('@searchkit/api').default
+
+const client = Client({
+  connection: {
+    host: "http://localhost:9200",
+    auth: {
+      username: 'elastic',
+      password: 'changeme'
+    }
+  },
+  search_settings: {
+    search_attributes: ["title", "description"]
+  },
+});
+
+app.post('/api/search', async (req, res) => {
+    const results = await client.handleRequest(req.body);
+    res.send(results);
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+```
+</Tab>
+</Tabs>
+
