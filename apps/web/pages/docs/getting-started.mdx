@@ -6,24 +6,103 @@ import { Callout, Tabs, Tab } from 'nextra-theme-docs'
 
 ## Quick Start
 
-<Callout type="info">
-  This guide presumes you have an Elasticsearch index with data in it. If you need help with that, check out our [Setup Elasticsearch guide](/docs/guides/setup-elasticsearch) or our [Indexing data guide](/docs/guides/indexing-data).
-</Callout>
+For this quick start, we are going to run Elasticsearch locally and build a small e-commerce search experience using Searchkit and instantsearch.
 
-Once you have indexed your data in Elasticsearch, you can use Searchkit and instantsearch to query your data and display it in your app.
+### Running Elasticsearch
+
+Going to use Elasticsearch via Docker for this quick start. For other options, see [Setup Elasticsearch](/docs/guides/setup-elasticsearch).
+
+```bash
+docker pull docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+```
+
+Create a docker network for Elastic:
+
+```bash
+docker network create elastic
+```
+
+Start Elasticsearch:
+
+```bash
+docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" -e http.cors.enabled=true -e "http.cors.allow-origin='*'" -e http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization -e http.cors.allow-credentials=true -e network.publish_host=localhost -e xpack.security.enabled=false docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+```
+
+We are running it with security disabled and CORS enabled. For production, you should enable security and use an API key. See [Setup Elasticsearch](/docs/guides/setup-elasticsearch) for more ways of connecting with authentication. 
+
+### Create an Index & index some data
+
+Our data model will have the following structure:
+
+- A `products` has many `product` documents
+- Each `product` document has a `name`, `price`, `description` and `categories` attributes
+
+Lets create an index called `products` and add some data.
+
+```bash
+curl --location --request PUT 'http://localhost:9200/products' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "text"
+      },
+      "description": {
+        "type": "text"
+      },
+      "price": {
+        "type": "integer"
+      },
+      "categories": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  }
+}'
+```
+
+Now lets add some data to our index.
+
+```bash
+curl --location --request POST 'http://localhost:9200/products/_doc' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "name": "Apple iPhone 12 Pro Max",
+  "description": "The iPhone 12 Pro Max is the most powerful iPhone ever. It has a 6.7-inch Super Retina XDR display, a Ceramic Shield front cover, and a triple-camera system with a LiDAR scanner. It also has a 5G connection, a 6-core CPU, and a 4-core GPU. The iPhone 12 Pro Max is available in 128GB, 256GB, and 512GB storage options.",
+  "categories": ["phones", "apple"],
+  "price": 800
+}'
+
+curl --location --request POST 'http://localhost:9200/products/_doc' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "name": "Apple iPhone 12 Pro",
+  "description": "The iPhone 12 Pro is the most powerful iPhone ever. It has a 6.1-inch Super Retina XDR display, a Ceramic Shield front cover, and a triple-camera system with a LiDAR scanner. It also has a 5G connection, a 6-core CPU, and a 4-core GPU. The iPhone 12 Pro is available in 128GB, 256GB, and 512GB storage options.",
+  "categories": ["phones", "apple"],
+  "price": 700
+}'
+```
 
 ### Installation
 Installing both the API and instantsearch-client is easy. You can install them with npm or yarn.
 
+For more details on installation and usage, see [Installation](/docs/installation).
+
 <Tabs items={['npm', 'yarn']} storageKey="selected-pkg-manager">
   <Tab>
   ```bash
-  npm install @searchkit/api @searchkit/instantsearch-client
+  npm install searchkit @searchkit/api @searchkit/instantsearch-client
   ```
   </Tab>
   <Tab>
       ```bash
-  yarn add @searchkit/api @searchkit/instantsearch-client
+  yarn add searchkit @searchkit/api @searchkit/instantsearch-client
   ```
   </Tab>
 </Tabs>
@@ -53,14 +132,22 @@ import { InstantSearch, SearchBox, Hits, RefinementList } from "react-instantsea
 
 const sk = new Searchkit({
   connection: {
-    host: "<elasticsearch-host>",
-    apiKey: "<api-key>", // optional
+    host: "http://localhost:9200",
   },
   search_settings: {
-    highlight_attributes: ["title", "actors"],
-    search_attributes: ["title", "actors"],
-    result_attributes: ["title", "actors"],
-    facet_attributes: ["type", "rated"],
+    highlight_attributes: ["name"],
+    snippet_attributes: ["description"],
+    search_attributes: [{ field: "name", weight: 3 }, "description", "categories"],
+    result_attributes: ["name", "description", "price", "categories"],
+    facet_attributes: [{
+      field: "categories.keyword",
+      type: "string",
+      attribute: "categories",
+    }, {
+      field: "price",
+      type: "numeric",
+      attribute: "price",
+    }],
   },
 })
 
@@ -69,7 +156,7 @@ const searchClient = Client(sk);
 const App = () => (
   <InstantSearch indexName="bestbuy" searchClient={searchClient}>
     <SearchBox />
-    <RefinementList attribute="type" />
+    <RefinementList attribute="categories" />
     <Hits />
   </InstantSearch>
 );
@@ -113,15 +200,23 @@ Then add the html and javascript to your page:
 
       const sk = new Searchkit({
         connection: {
-          host: "<elasticsearch-host>",
-          apiKey: "<api-key>", // optional
+          host: "http://localhost:9200",
         },
         search_settings: {
-          highlight_attributes: ["title", "actors"],
-          search_attributes: ["title", "actors"],
-          result_attributes: ["title", "actors"],
-          facet_attributes: ["type", "rated"],
-        },
+          highlight_attributes: ["name"],
+          snippet_attributes: ["description"],
+          search_attributes: [{ field: "name", weight: 3 }, "description", "categories"],
+          result_attributes: ["name", "description", "price", "categories"],
+          facet_attributes: [{
+            field: "categories.keyword",
+            type: "string",
+            attribute: "categories",
+          }, {
+            field: "price",
+            type: "numeric",
+            attribute: "price",
+          }],
+        }
       })
 
       const search = instantsearch({
@@ -135,7 +230,7 @@ Then add the html and javascript to your page:
         }),
         instantsearch.widgets.refinementList({
           container: "#type-list",
-          attribute: "type"
+          attribute: "categories"
         }),
         instantsearch.widgets.hits({
           container: "#hits",
@@ -146,7 +241,7 @@ Then add the html and javascript to your page:
             {{#helpers.highlight}}{ "attribute": "title" }{{/helpers.highlight}}
           </div>
           <div class="hit-description">
-            {{#helpers.highlight}}{ "attribute": "actors" }{{/helpers.highlight}}
+            {{#helpers.snippet}}{ "attribute": "description" }{{/helpers.snippet}}
           </div>
         </div>
       `
@@ -189,15 +284,23 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const client = Client({
   connection: {
-    host: "<elasticsearch-host>",
-    apiKey: "<api-key>", // optional
+    host: "http://localhost:9200",
   },
   search_settings: {
-    highlight_attributes: ["title", "actors"],
-    search_attributes: ["title", "actors"],
-    result_attributes: ["title", "actors"],
-    facet_attributes: ["type", "rated"],
-  },
+    highlight_attributes: ["name"],
+    snippet_attributes: ["description"],
+    search_attributes: [{ field: "name", weight: 3 }, "description", "categories"],
+    result_attributes: ["name", "description", "price", "categories"],
+    facet_attributes: [{
+      field: "categories.keyword",
+      type: "string",
+      attribute: "categories",
+    }, {
+      field: "price",
+      type: "numeric",
+      attribute: "price",
+    }],
+  }
 });
 
 // example API handler for Next.js
@@ -216,18 +319,23 @@ import Client from "@searchkit/api";
 
 const client = Client({
   connection: {
-    host: "<elasticsearch-host>",
-    apiKey: "<elasticsearch api-key>", // optional
+    host: "http://localhost:9200",
   },
   search_settings: {
-    highlight_attributes: ["title", "actors"],
-    search_attributes: ["title", "actors", "query"],
-    result_attributes: ["title", "actors", "query"],
-    facet_attributes: [
-      "type",
-      { attribute: "actors", field: "actors.keyword" },
-    ],
-  },
+    highlight_attributes: ["name"],
+    snippet_attributes: ["description"],
+    search_attributes: [{ field: "name", weight: 3 }, "description", "categories"],
+    result_attributes: ["name", "description", "price", "categories"],
+    facet_attributes: [{
+      field: "categories.keyword",
+      type: "string",
+      attribute: "categories",
+    }, {
+      field: "price",
+      type: "numeric",
+      attribute: "price",
+    }],
+  }
 });
 
 async function handleRequest(event: FetchEvent) {
@@ -259,18 +367,23 @@ const Client = require('@searchkit/api').default
 
 const client = Client({
   connection: {
-    host: "<elasticsearch-host>",
-    apiKey: "<elasticsearch api-key>", // optional
+    host: "http://localhost:9200",
   },
   search_settings: {
-    highlight_attributes: ["title", "actors"],
-    search_attributes: ["title", "actors", "query"],
-    result_attributes: ["title", "actors", "query"],
-    facet_attributes: [
-      "type",
-      { attribute: "actors", field: "actors.keyword" },
-    ],
-  },
+    highlight_attributes: ["name"],
+    snippet_attributes: ["description"],
+    search_attributes: [{ field: "name", weight: 3 }, "description", "categories"],
+    result_attributes: ["name", "description", "price", "categories"],
+    facet_attributes: [{
+      field: "categories.keyword",
+      type: "string",
+      attribute: "categories",
+    }, {
+      field: "price",
+      type: "numeric",
+      attribute: "price",
+    }],
+  }
 });
 
 app.post('/api/search', async (req, res) => {

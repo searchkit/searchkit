@@ -80,12 +80,7 @@ import Searchkit, { SearchkitConfig } from "searchkit"
 
 const searchkitClient = new Searchkit({
   connection: {
-    host: "http://localhost:9200",
-    // see setup elastic search for more connection details
-    auth: {
-      username: 'elastic',
-      password: 'changeme'
-    }
+    host: "http://localhost:9200"
   },
   search_settings: {
     search_attributes: ["title", "description"]
@@ -99,8 +94,21 @@ Then use the client in your instantsearch setup. Index name is the name of the i
 
 Below is an example of how to use the client with react-instantsearch.
 
-```js
+```js {3,16-20}
+import Client from '@searchkit/instantsearch-client'
+import Searchkit, { SearchkitConfig } from "searchkit"
 import { InstantSearch } from 'react-instantsearch-dom';
+
+const searchkitClient = new Searchkit({
+  connection: {
+    host: "http://localhost:9200"
+  },
+  search_settings: {
+    search_attributes: ["title", "description"]
+  },
+})
+
+const searchClient = Client(searchkitClient);
 
 const App = () => (
   <InstantSearch searchClient={searchClient} indexName="movies">
