@@ -3,7 +3,6 @@ Searchkit is an open source library which helps you build a great search experie
 Works with Javascript, React, Vue, Angular, and more.
 
 [![npm version](https://badge.fury.io/js/searchkit.svg)](https://badge.fury.io/js/searchkit)
-[![Discord](https://img.shields.io/discord/808028887978248192?label=Discord)](https://discord.gg/CRuWmSQZQx)
 
 [Website](https://beta.searchkit.co/) | [Demos](https://beta.searchkit.co/demos) | [Documentation](https://beta.searchkit.co/docs/getting-started) | [Discord](https://discord.gg/CRuWmSQZQx)
 
