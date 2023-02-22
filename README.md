@@ -3,7 +3,6 @@ Searchkit is an open source library which helps you build a great search experie
 Works with Javascript, React, Vue, Angular, and more.
 
 [![npm version](https://badge.fury.io/js/searchkit.svg)](https://badge.fury.io/js/searchkit)
-[![Discord](https://img.shields.io/discord/808028887978248192?label=Discord)](https://discord.gg/CRuWmSQZQx)
 
 [Website](https://beta.searchkit.co/) | [Demos](https://beta.searchkit.co/demos) | [Documentation](https://beta.searchkit.co/docs/getting-started) | [Discord](https://discord.gg/CRuWmSQZQx)
 
@@ -273,18 +272,23 @@ Below is an example of a query rule that boosts results for movies with Dan Aykr
 ## FAQ
 
 **Q: Do I need to expose Elasticsearch to the public internet?**
+
 No you don't. You can use Searchkit API to proxy requests to Elasticsearch. The XHR requests will provide the search state to the Searchkit Node API, which will then transform the request into elasticsearch queries and perform them to Elasticsearch.
 
 Searchkit offers both options, either perform the search directly from the browser, or use the Searchkit API to proxy requests to Elasticsearch. Directly from the browser offers great developer experience & prototyping. Once you are ready to deploy, you can use the Searchkit API to proxy requests to Elasticsearch.
 
 **Q: Do I need to use React?**
+
 You can use React, React Native, Vue, Angular. You dont even need to use a frontend framework, you can use plain Javascript and HTML with instantsearch.js widgets.
 
 **Q: Which version of Elasticsearch is supported?**
+
 Searchkit is compatible with Elasticsearch 7.0 and above + Opensearch 2.0 and above.
 
 **Q: Do you support Android and iOS?**
+
 Potentially. Searchkit API mimics the Algolia API, so it should be possible to use the Algolia Instantsearch client with Searchkit API with a few tweaks. If you are interested in this, please let us know.
 
 **Q: Why would I use Searchkit instead of Algolia?**
+
 Elasticsearch has alot of advantages over Algolia. You might want to use Elasticsearch as a cheaper alternative to Algolia, especially if you have a large dataset. You might want to run Elasticsearch on your own infrastructure, or have greater control over the query relevance. 
