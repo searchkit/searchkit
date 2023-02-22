@@ -1,5 +1,6 @@
 ---
-title: Great search experiences, made easy with Elasticsearch and Instantsearch
+title: Elasticsearch Site Search UI Components
+keywords: Vue, React, Angular, Instantsearch, Elasticsearch, Searchkit, Search UI Components, Search UI, Searchkit UI, Searchkit UI Components, Searchkit Components, Searchkit Instantsearch, Searchkit Instantsearch Components, Searchkit Instantsearch UI, Searchkit Instantsearch UI Compo
 ---
 
 import { IntroButtons } from '../components/promo-page/IntroButtons';
@@ -9,8 +10,7 @@ import { FeatureBreakout } from '../components/promo-page/FeatureBreakout'
 
 
 <div className="pt-4 m-auto text-left mb-6">
-  <h1 className="font-extrabold md:text-5xl mt-8 mb-4 text-2xl">Great search experiences,<br/>
-  made easy.</h1>
+  <h1 className="font-extrabold md:text-5xl mt-8 mb-4 text-2xl">Elasticsearch Search UI Components</h1>
   <div className="mb-4 max-w-lg">
     <p className="text-xl mb-1 text-gray-400 md:!text-xl">
       <span className=" text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">Searchkit</span> is an open source library which helps you build a great search experience with <span className=" text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">Elasticsearch.</span>
@@ -83,7 +83,7 @@ export default function Web() {
     {
       title: "Polyfill for Algolia",
       description: "Use Instantsearch Frontend Libraries with Elasticsearch.",
-      link: "/docs/api-documentation/api"
+      link: "/docs/api-documentation/searchkit"
     },
     {
       title: "Instantsearch Compatible",
@@ -154,3 +154,31 @@ export default function Web() {
   <iframe width="100%" height="500px" src="https://www.youtube.com/embed/R6iYpEuCdVs?autoplay=1&mute=1" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
 </div>
+
+<div className="max-w-2xl m-auto mb-2">
+  <h2 className="text-xl font-bold text-gray-100 mb-3 mt-4">Do I need to expose Elasticsearch to the public internet?</h2>
+  <p className="text-gray-300 text-lg   mb-6">No you don't. You can use Searchkit API to proxy requests to Elasticsearch. The XHR requests will provide the search state to the Searchkit Node API, which will then transform the request into elasticsearch queries and perform them to Elasticsearch.</p>
+  <p className="text-gray-300 text-lg   mb-6">Searchkit offers both options, either perform the search directly from the browser, or use the Searchkit API to proxy requests to Elasticsearch. Directly from the browser offers great developer experience & prototyping. Once you are ready to deploy, you can use the Searchkit API to proxy requests to Elasticsearch.</p>
+</div>
+
+<div className="max-w-2xl m-auto mb-2">
+  <h2 className="text-xl font-bold text-gray-100 mb-3 mt-4">Do I need to use React?</h2>
+  <p className="text-gray-300 text-lg   mb-6">You can use React, React Native, Vue, Angular. You dont even need to use a frontend framework, you can use plain Javascript and HTML with instantsearch.js widgets.</p>
+</div>
+
+<div className="max-w-2xl m-auto mb-2">
+  <h2 className="text-xl font-bold text-gray-100 mb-3 mt-4">Which version of Elasticsearch is supported?</h2>
+  <p className="text-gray-300 text-lg   mb-6">Searchkit is compatible with Elasticsearch 7.0 and above + Opensearch 2.0 and above.</p>
+</div>
+
+<div className="max-w-2xl m-auto mb-2">
+  <h2 className="text-xl font-bold text-gray-100 mb-3 mt-4">Do you support Android and iOS?</h2>
+  <p className="text-gray-300 text-lg   mb-6">Potentially. Searchkit API mimics the Algolia API, so it should be possible to use the Algolia Instantsearch client with Searchkit API with a few tweaks. If you are interested in this, please let us know.</p>
+</div>
+
+<div className="max-w-2xl m-auto pd-6">
+  <h2 className="text-xl font-bold text-gray-100 mb-3 mt-4">Why would I use Searchkit instead of Algolia?</h2>
+  <p className="text-gray-300 text-lg  mb-6">Elasticsearch has alot of advantages over Algolia. You might want to use Elasticsearch as a cheaper alternative to Algolia, especially if you have a large dataset. You might want to run Elasticsearch on your own infrastructure, or have greater control over the query relevance.</p>
+</div>
+
+
