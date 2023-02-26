@@ -5,3 +5,8 @@
 .nextra-sidebar-container a {
   color: white;
 }
+
+html[class~="dark"] .dark\:nx-text-neutral-500.dark\:nx-text-neutral-500 {
+  color: rgba(150, 150, 150, var(--tw-text-opacity));
+  font-size: 0.95rem;
+}

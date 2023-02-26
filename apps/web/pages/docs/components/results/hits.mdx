@@ -1,0 +1,56 @@
+---
+title: "Hits"
+---
+
+# Hits
+
+The `Hits` component displays a list of results from the current search.
+
+## Searchkit Setup
+
+Within `result_attributes` in `search_settings`:
+
+```ts
+{
+  search_settings: {
+    result_attributes: ['title', 'description', 'image', 'price', 'url']
+  }
+}
+```
+
+## Usage
+
+Below is an example of a `hitView` that displays the `product` attribute with the search query highlighted.
+
+```jsx
+
+const hitView = ({ hit }) => {
+  return (
+    <div>
+      <img src={hit.image} />
+      <h2>{hit.title}</h2>
+      <p>{hit.description}</p>
+      <p>{hit.price}</p>
+      <p>{hit.url}</p>
+    </div>
+  )
+}
+
+const App = () => {
+  return (
+    <InstantSearch
+      searchClient={searchClient}
+      indexName="products"
+    >
+      <Hits hitComponent={hitView} />
+    </InstantSearch>
+  )
+}
+```
+
+## Documentation
+
+- [JS Widgets](https://www.algolia.com/doc/api-reference/widgets/hits/js/)
+- [React InstantSearch](https://www.algolia.com/doc/api-reference/widgets/hits/react/)
+- [Vue InstantSearch](https://www.algolia.com/doc/api-reference/widgets/hits/vue/)
+- [Angular InstantSearch](https://www.algolia.com/doc/api-reference/widgets/hits/angular/)

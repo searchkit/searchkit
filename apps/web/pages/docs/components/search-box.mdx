@@ -1,0 +1,76 @@
+---
+title: "Search Box"
+---
+
+# Search Box
+
+The search box widget is used to let the user perform a text-based query.
+
+## Searchkit Setup
+
+Configure the `search_attributes` to include the fields you want to search on.
+
+he search attributes define what Elasticsearch fields should be searched when a user performs a search.
+
+The search attributes can be configured as follows:
+
+```js
+{ 
+  search_settings: {
+    search_attributes: [
+      "description", 
+      "actors", 
+      { field: "title", weight: 3 }, 
+      "released.year"
+    ]
+  }
+}
+```
+
+The following configuration will search the `description`, `actors` and an object field `released.year` fields with the default weight of 1. The `title` field will be weighted 3 times more than the `actors` field.
+
+### Overriding the default organic query handler
+
+Out the box, Searchkit provides a Elasticsearch query that is designed to work well for most search use cases. However, you may want to customise the query to improve the relevance of the search results.
+
+This example shows how to use the `getQuery` function to customise the query for a given request.
+
+Below is an example of using the [`combined_fields` query](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-combined-fields-query.html) instead.
+
+```js
+const results = await apiClient.handleRequest(req.body, {
+  getQuery: (query, search_attributes) => {
+    return [
+      {
+        combined_fields: {
+          query,
+          fields: search_attributes,
+        },
+      },
+    ];
+  },
+});
+```
+
+## Usage
+
+### Basic
+
+```jsx
+import { InstantSearch, SearchBox } from 'react-instantsearch-dom';
+
+export function App() {
+  return (
+    <InstantSearch indexName="instant_search" searchClient={searchClient}>
+      <SearchBox />
+    </InstantSearch>
+  );
+}
+```
+
+## Documentation
+
+- [JS Widgets](https://www.algolia.com/doc/api-reference/widgets/search-box/js/)
+- [React InstantSearch](https://www.algolia.com/doc/api-reference/widgets/search-box/react/)
+- [Vue InstantSearch](https://www.algolia.com/doc/api-reference/widgets/search-box/vue/)
+- [Angular InstantSearch](https://www.algolia.com/doc/api-reference/widgets/search-box/angular/)

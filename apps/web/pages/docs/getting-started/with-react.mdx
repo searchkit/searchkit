@@ -1,0 +1,241 @@
+---
+title: With React
+---
+
+import { Callout, Tabs, Tab } from 'nextra-theme-docs'
+import Setup from "./setup.mdx"
+
+## Quick Start with Searchkit and React instantsearch
+
+This guide will show you how to get started with Searchkit and React Instantsearch components.
+
+<Callout>
+  If you use Next.js, checkout the <a href="/examples/tutorials">Next.js guide</a> for a simpler setup.
+</Callout>
+
+<Setup />
+
+### Installation
+Installing both the API and instantsearch-client is easy. You can install them with npm or yarn.
+
+For more details on installation and usage, see [Installation](/docs/installation).
+
+<Tabs items={['npm', 'yarn']} storageKey="selected-pkg-manager">
+  <Tab>
+  ```bash
+  npm install searchkit @searchkit/api @searchkit/instantsearch-client react-instantsearch-dom
+  ```
+  </Tab>
+  <Tab>
+      ```bash
+  yarn add searchkit @searchkit/api @searchkit/instantsearch-client react-instantsearch-dom
+  ```
+  </Tab>
+</Tabs>
+
+### Building the Frontend
+
+Add the following code to your React app:
+
+```tsx
+import React from "react";
+import ReactDOM from "react-dom";
+import Client from "@searchkit/instantsearch-client";
+import Searchkit from "searchkit";
+import { InstantSearch, SearchBox, Hits, RefinementList } from "react-instantsearch-dom";
+
+// Create a Searchkit client
+// This is the configuration for Searchkit, specifying the fields to attributes used for search, facets, etc.
+const sk = new Searchkit({
+  connection: {
+    host: "http://localhost:9200",
+  },
+  search_settings: {
+    highlight_attributes: ["name"],
+    snippet_attributes: ["description"],
+    search_attributes: [{ field: "name", weight: 3 }, "description", "categories"],
+    result_attributes: ["name", "description", "price", "categories"],
+    facet_attributes: [{
+      field: "categories.keyword",
+      type: "string",
+      attribute: "categories",
+    }, {
+      field: "price",
+      type: "numeric",
+      attribute: "price",
+    }],
+  },
+})
+
+const searchClient = Client(sk);
+
+const App = () => (
+  <InstantSearch indexName="bestbuy" searchClient={searchClient}>
+    <SearchBox />
+    <RefinementList attribute="categories" />
+    <Hits />
+  </InstantSearch>
+);
+
+export default App;
+```
+
+### Proxy through an API (Optional)
+
+For production use, we dont recommend calling Elasticsearch directly from the browser. Thankfully, Searchkit provides a way to proxy the search request through to a node API. This is really easy to setup.
+
+Below this creates an API which transforms the instantsearch requests sent from the browser into Elasticsearch queries and transforms the responses into instantsearch results.
+
+<Tabs items={['Next.js', 'Cloudflare Workers', 'express.js']} storageKey="selected-node-platform">
+  <Tab>
+```ts
+import Client from "@searchkit/api";
+import { NextApiRequest, NextApiResponse } from "next";
+
+const client = Client({
+  connection: {
+    host: "http://localhost:9200",
+  },
+  search_settings: {
+    highlight_attributes: ["name"],
+    snippet_attributes: ["description"],
+    search_attributes: [{ field: "name", weight: 3 }, "description", "categories"],
+    result_attributes: ["name", "description", "price", "categories"],
+    facet_attributes: [{
+      field: "categories.keyword",
+      type: "string",
+      attribute: "categories",
+    }, {
+      field: "price",
+      type: "numeric",
+      attribute: "price",
+    }],
+  }
+});
+
+// example API handler for Next.js
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const results = await client.handleRequest(req.body);
+  res.send(results);
+}
+```
+</Tab>
+<Tab>
+```ts
+import Client from "@searchkit/api";
+
+const client = Client({
+  connection: {
+    host: "http://localhost:9200",
+  },
+  search_settings: {
+    highlight_attributes: ["name"],
+    snippet_attributes: ["description"],
+    search_attributes: [{ field: "name", weight: 3 }, "description", "categories"],
+    result_attributes: ["name", "description", "price", "categories"],
+    facet_attributes: [{
+      field: "categories.keyword",
+      type: "string",
+      attribute: "categories",
+    }, {
+      field: "price",
+      type: "numeric",
+      attribute: "price",
+    }],
+  }
+});
+
+async function handleRequest(event: FetchEvent) {
+  const body = await event.request.json();
+  const results = await client.handleRequest(body);
+
+  return new Response(JSON.stringify(results), {
+    headers: {
+      "content-type": "application/json",
+    }
+  });
+}
+
+addEventListener("fetch", (event) => {
+  return event.respondWith(handleRequest(event));
+});
+```
+</Tab>
+<Tab>
+```ts
+require('cross-fetch/polyfill')
+const express = require('express')
+const app = express()
+const port = 3000
+
+app.use(express.json());
+
+const Client = require('@searchkit/api').default
+
+const client = Client({
+  connection: {
+    host: "http://localhost:9200",
+  },
+  search_settings: {
+    highlight_attributes: ["name"],
+    snippet_attributes: ["description"],
+    search_attributes: [{ field: "name", weight: 3 }, "description", "categories"],
+    result_attributes: ["name", "description", "price", "categories"],
+    facet_attributes: [{
+      field: "categories.keyword",
+      type: "string",
+      attribute: "categories",
+    }, {
+      field: "price",
+      type: "numeric",
+      attribute: "price",
+    }],
+  }
+});
+
+app.post('/api/search', async (req, res) => {
+    const results = await client.handleRequest(req.body);
+    res.send(results);
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+```
+</Tab>
+</Tabs>
+
+and then we update the instantsearch client to use the API
+
+```ts
+
+const searchClient = instantsearch({
+  // the API endpoint you created above
+  url: "/api/search",
+});
+
+```
+
+## Adding Refinements
+
+Refinements provide your users with a way to narrow down their search results. 
+
+See the [Refinements](/docs/components/refinements/refinement-list) to add refinements to your search.
+
+## Customising the UI
+
+TODO - contributions welcome
+
+## Query Rules
+
+Query rules allow you to customize the search results based on the user's query.
+
+Follow the [query rules guide](/docs/guides/query-rules) to add query rules to your search.
+
+## Deploying to Production
+
+If you're using Next.js, you can deploy your app to [Vercel](https://vercel.com) with a single click. If you're using Cloudflare workers, you can deploy your app through Cloudflare wrangler on [Cloudflare Workers](https://workers.cloudflare.com).
+

@@ -1,0 +1,68 @@
+---
+title: "Dynamic Widgets"
+---
+
+# Dynamic Widgets
+
+Dynamic widgets are widgets that are added or removed from the UI based on query rules actions. They are useful when you want to display a widget only when a certain query or filter has been applied.
+
+With the `DynamicWidgets` widget, you can order and conditionally display facets based on query rules. For example, you can display a facet based on a set of conditions.
+
+For example, `brand` and `categories` are two facets being displayed. 
+
+```jsx
+<InstantSearch indexName="products" searchClient={searchClient}>
+  <DynamicWidgets>
+    <RefinementList attribute="brand" />
+    <RefinementList attribute="categories" />
+  </DynamicWidgets>
+</InstantSearch>
+```
+
+with query rule configuration
+
+```json
+{
+  "search_settings": {
+    "query_rules": [
+      {
+        "objectID": "1",
+        "conditions": [],
+        "actions": [
+          {
+            "action": "RenderFacetsOrder",
+            "facetAttributesOrder": ["brand"] // only display brand facet by default
+          }
+        ]
+      }
+      {
+        "id": "2",
+        "conditions": [
+          [
+            {
+              "context": "query",
+              "match_type": "prefix",
+              "value": "star"
+            }
+          ]
+        ],
+        "actions": [
+          {
+            "action": "RenderFacetsOrder",
+            "facetAttributesOrder": ["categories"] // only display categories facet when query starts with "star"
+          }
+        ]
+      }
+    ]
+  }
+}
+
+```
+
+for more information about query rules, see the [Query Rules](/docs/guides/query-rules) guide.
+
+## Documentation
+
+- [JS Widgets](https://www.algolia.com/doc/api-reference/widgets/dynamic-facets/js/)
+- [React Instantsearch](https://www.algolia.com/doc/api-reference/widgets/dynamic-facets/react/)
+- [Vue Instantsearch](https://www.algolia.com/doc/api-reference/widgets/dynamic-facets/vue/)

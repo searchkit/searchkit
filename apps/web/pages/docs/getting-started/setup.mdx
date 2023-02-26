@@ -1,0 +1,90 @@
+---
+title: Quick Start with Searchkit
+---
+
+import { Callout, Tabs, Tab } from 'nextra-theme-docs'
+
+## Quick Start
+
+For this quick start, we are going to run Elasticsearch locally and build a small e-commerce search experience using Searchkit and instantsearch.
+
+### Running Elasticsearch
+
+Going to use Elasticsearch via Docker for this quick start. For other options, see [Setup Elasticsearch](/docs/guides/setup-elasticsearch).
+
+```bash
+docker pull docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+```
+
+Create a docker network for Elastic:
+
+```bash
+docker network create elastic
+```
+
+Start Elasticsearch:
+
+```bash
+docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" -e http.cors.enabled=true -e "http.cors.allow-origin='*'" -e http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization -e http.cors.allow-credentials=true -e network.publish_host=localhost -e xpack.security.enabled=false docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+```
+
+We are running it with security disabled and CORS enabled. For production, you should enable security and use an API key. See [Setup Elasticsearch](/docs/guides/setup-elasticsearch) for more ways of connecting with authentication. 
+
+### Create an Index & index some data
+
+Our data model will have the following structure:
+
+- A `products` has many `product` documents
+- Each `product` document has a `name`, `price`, `description` and `categories` attributes
+
+Lets create an index called `products` and add some data.
+
+```bash
+curl --location --request PUT 'http://localhost:9200/products' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "text"
+      },
+      "description": {
+        "type": "text"
+      },
+      "price": {
+        "type": "integer"
+      },
+      "categories": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  }
+}'
+```
+
+Now lets add some data to our index.
+
+```bash
+curl --location --request POST 'http://localhost:9200/products/_doc' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "name": "Apple iPhone 12 Pro Max",
+  "description": "The iPhone 12 Pro Max is the most powerful iPhone ever. It has a 6.7-inch Super Retina XDR display, a Ceramic Shield front cover, and a triple-camera system with a LiDAR scanner. It also has a 5G connection, a 6-core CPU, and a 4-core GPU. The iPhone 12 Pro Max is available in 128GB, 256GB, and 512GB storage options.",
+  "categories": ["phones", "apple"],
+  "price": 800
+}'
+
+curl --location --request POST 'http://localhost:9200/products/_doc' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "name": "Apple iPhone 12 Pro",
+  "description": "The iPhone 12 Pro is the most powerful iPhone ever. It has a 6.1-inch Super Retina XDR display, a Ceramic Shield front cover, and a triple-camera system with a LiDAR scanner. It also has a 5G connection, a 6-core CPU, and a 4-core GPU. The iPhone 12 Pro is available in 128GB, 256GB, and 512GB storage options.",
+  "categories": ["phones", "apple"],
+  "price": 700
+}'
+```

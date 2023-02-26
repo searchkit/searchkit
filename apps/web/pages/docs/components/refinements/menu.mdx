@@ -1,0 +1,57 @@
+---
+title: "Menu"
+---
+
+# Menu Select
+
+Menu Select is a widget that displays a list of values for a single facet. Operates similar to a refinement list, but with a single selection at a time.
+
+## Setup
+
+The following document indexed in Elasticsearch:
+
+```json
+{
+  "brand": "Apple",
+  "product": "Macbook Pro 14",
+  "category": "Electronics"
+}
+```
+
+alternatively could be indexed as array if document is part of multiple categories:
+
+```json
+{
+  "brand": "Apple",
+  "product": "Macbook Pro 14",
+  "category": ["Electronics", "School Equipment"]
+}
+```
+
+## Searchkit Setup
+
+setup the following `facet_attributes`
+
+```ts
+{
+  facet_attributes: [
+    { 
+      attribute: 'category_lvl1', 
+      field: 'category.keyword',  // field must be a keyword type field
+      type: 'string' 
+    }
+  ]
+}
+
+```
+
+### Nested Fields
+
+You can also use nested fields to define facet attributes. This is useful for when you need to perserve object relationships. Read more about nested fields [here](/docs/guides/facets/string-based-facets#nested-fields-support)
+
+## Documentation
+
+- [JS Widgets](https://www.algolia.com/doc/api-reference/widgets/menu/js/)
+- [React Instantsearch](https://www.algolia.com/doc/api-reference/widgets/menu/react/)
+- [Vue Instantsearch](https://www.algolia.com/doc/api-reference/widgets/menu/vue/)
+- [Angular Instantsearch](https://www.algolia.com/doc/api-reference/widgets/menu/angular/)

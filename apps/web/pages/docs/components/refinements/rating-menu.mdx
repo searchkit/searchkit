@@ -1,0 +1,49 @@
+---
+title: "Rating Menu"
+---
+
+# Rating Menu
+
+The rating menu widget displays a list of ratings. When a user clicks on a rating, the widget will trigger a new search with the corresponding rating filter.
+
+## Setup
+
+The following document indexed in Elasticsearch:
+
+```json
+{
+  "brand": "Apple",
+  "product": "Macbook Pro 14",
+  "rating": 5
+}
+```
+
+If your attribute is a float, we recommend indexing a new attribute with the rounded integer value to use in this widget.
+
+## Searchkit Setup
+
+setup the following `facet_attributes`
+
+```ts
+{
+  facet_attributes: [
+    { 
+      attribute: 'rating', 
+      field: 'rating',  // field must be a integer type field
+      type: 'numeric' 
+    }
+  ]
+}
+
+```
+
+### Nested Fields
+
+You can also use nested fields to define facet attributes. This is useful for when you need to perserve object relationships. Read more about nested fields [here](/docs/guides/facets/string-based-facets#nested-fields-support)
+
+## Documentation
+
+- [JS Widgets](https://www.algolia.com/doc/api-reference/widgets/rating-menu/js/)
+- [React Instantsearch](https://www.algolia.com/doc/api-reference/widgets/rating-menu/react/)
+- [Vue Instantsearch](https://www.algolia.com/doc/api-reference/widgets/rating-menu/vue/)
+- [Angular Instantsearch](https://www.algolia.com/doc/api-reference/widgets/rating-menu/angular/)

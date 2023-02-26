@@ -1,0 +1,64 @@
+---
+title: "Sort By"
+---
+
+# Sort By
+
+The sort by widget allows a user to change the way hits are sorted. By default, hits are sorted by descending order of the `_score` (relevance) but a user can change this at any time. You can choose to display the selected sort option in the widget.
+
+## Searchkit Setup
+
+Configure `sorting` to define the available sort options. 
+
+The key is the sort option value and the value is the sort option label. 
+
+The default sort option is the first one in the list.
+
+```js
+search_settings: {
+  // ...
+  sorting: {
+    default: {
+      field: '_score',
+      order: 'desc'
+    },
+    _price_desc: {
+      field: 'price',
+      order: 'desc'
+    },
+    _price_asc: {
+      field: 'price',
+      order: 'asc'
+    }
+  }
+}
+```
+
+## Usage
+
+### Basic
+
+```jsx
+import { InstantSearch, SortBy } from 'react-instantsearch-dom';
+
+export function App() {
+  return (
+    <InstantSearch indexName="products" searchClient={searchClient}>
+      <SortBy
+        items={[
+          { label: 'Featured', value: 'products' },
+          { label: 'Price (asc)', value: 'products_price_asc' },
+          { label: 'Price (desc)', value: 'products_price_desc' },
+        ]}
+      />
+    </InstantSearch>
+  );
+}
+```
+
+## Documentation
+
+- [JS Widgets](https://www.algolia.com/doc/api-reference/widgets/sort-by/js/)
+- [React InstantSearch](https://www.algolia.com/doc/api-reference/widgets/sort-by/react/)
+- [Vue InstantSearch](https://www.algolia.com/doc/api-reference/widgets/sort-by/vue/)
+- [Angular InstantSearch](https://www.algolia.com/doc/api-reference/widgets/sort-by/angular/)

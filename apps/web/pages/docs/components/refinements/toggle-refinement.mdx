@@ -1,0 +1,73 @@
+---
+title: "Toggle Refinement"
+---
+
+# Toggle Refinement
+
+Toggle refinement is a widget that allows you to specify a filter that you can toggle on and off. It is commonly used for boolean values such as "free shipping" or "in stock".
+
+## Setup
+
+The following document indexed in Elasticsearch:
+
+```json
+{
+  "brand": "Apple",
+  "product": "Macbook Pro 14",
+  "in_stock": true,
+  "shipping": 10 
+}
+```
+
+## Searchkit Setup
+
+Within `facet_attributes`:
+
+```ts
+{
+  facet_attributes: [
+    { 
+      attribute: 'brand', 
+      field: 'brand.keyword',  // field must be a keyword type field
+      type: 'string' 
+    },
+    { 
+      attribute: 'in_stock', 
+      field: 'in_stock', 
+      type: 'string' 
+    },
+    { 
+      attribute: 'shipping', 
+      field: 'shipping', 
+      type: 'numeric' 
+    }
+  ]
+}
+
+```
+
+## Usage
+
+Below is an example of a refinement list that displays a list of categories with React InstantSearch.
+
+```jsx
+
+import { ToggleRefinement } from "react-instantsearch-dom";
+
+const App = () => (
+  <h3>Only Apple Products</h3>
+  <ToggleRefinement attribute="brand" on="Apple" />
+  <h3>Free Shipping</h3>
+  <ToggleRefinement attribute="shipping" on={0} />
+  <h3>In Stock</h3>
+  <ToggleRefinement attribute="in_stock" on={true} />  
+);
+
+``` 
+
+## Documentation
+
+- [JS Widgets](https://www.algolia.com/doc/api-reference/widgets/toggle-refinement/js/)
+- [React InstantSearch](https://www.algolia.com/doc/api-reference/widgets/toggle-refinement/react/)
+- [Vue InstantSearch](https://www.algolia.com/doc/api-reference/widgets/toggle-refinement/vue/)
+- [Angular InstantSearch](https://www.algolia.com/doc/api-reference/widgets/toggle-refinement/angular/)

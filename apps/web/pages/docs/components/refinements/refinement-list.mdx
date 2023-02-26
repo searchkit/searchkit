@@ -1,0 +1,71 @@
+---
+title: "Refinement List"
+---
+
+# Refinement List
+
+Refinement List is a widget that displays a list of values for a specific attribute. It is commonly used to display a list of categories or filters.
+
+## Setup
+
+The following document indexed in Elasticsearch:
+
+```json
+{
+  "brand": "Apple",
+  "product": "Macbook Pro 14",
+  "category": "Electronics"
+}
+```
+
+alternatively could be indexed as array if document is part of multiple categories:
+
+```json
+{
+  "brand": "Apple",
+  "product": "Macbook Pro 14",
+  "category": ["Electronics", "School Equipment"]
+}
+```
+
+## Searchkit Setup
+
+setup the following `facet_attributes`
+
+```ts
+{
+  facet_attributes: [
+    { 
+      attribute: 'category', 
+      field: 'category.keyword',  // field must be a keyword type field
+      type: 'string' 
+    }
+  ]
+}
+
+```
+
+### Nested Fields
+
+You can also use nested fields to define facet attributes. This is useful for when you need to perserve object relationships. Read more about nested fields [here](/docs/guides/facets/string-based-facets#nested-fields-support)
+
+## Usage
+
+Below is an example of a refinement list that displays a list of categories with React InstantSearch.
+
+```jsx
+
+import { RefinementList } from "react-instantsearch-dom";
+
+const App = () => (
+  <RefinementList attribute="category" />
+);
+
+``` 
+
+## Documentation
+
+- [JS Widgets](https://www.algolia.com/doc/api-reference/widgets/menu-select/js/)
+- [React Instantsearch](https://www.algolia.com/doc/api-reference/widgets/menu-select/react/)
+- [Vue Instantsearch](https://www.algolia.com/doc/api-reference/widgets/menu-select/vue/)
+- [Angular Instantsearch](https://www.algolia.com/doc/api-reference/widgets/menu-select/angular/)

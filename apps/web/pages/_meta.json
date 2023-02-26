@@ -24,6 +24,9 @@
     "title": "Demos",
     "type": "page"
   },
+  "hidden": {
+    "display": "hidden"
+  },
   "playground": {
     "title": "Playground",
     "type": "page",

@@ -1,0 +1,254 @@
+---
+title: Quick Start with Searchkit
+---
+
+import { Callout, Tabs, Tab } from 'nextra-theme-docs'
+import Setup from './setup.mdx'
+
+## Quick Start with Searchkit and instantsearch.js
+
+This guide will show you how to get started with Searchkit and instantsearch.js.
+
+<Setup />
+
+### Add CDN scripts to your page
+Installing both the API and instantsearch-client is easy. You can install them with via CDN or npm or yarn.
+
+<Tabs items={['CDN', 'npm', 'yarn']} storageKey="selected-pkg-manager-widgets">
+  <Tab>
+  ```html
+  <script src="https://cdn.jsdelivr.net/npm/@searchkit/instantsearch-client@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/searchkit@latest"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
+/>
+  ```
+  </Tab>
+  <Tab>
+  ```bash
+  npm install searchkit @searchkit/api @searchkit/instantsearch-client instantsearch.js
+  ```
+  </Tab>
+  <Tab>
+      ```bash
+  yarn add searchkit @searchkit/api @searchkit/instantsearch-client instantsearch.js
+  ```
+  </Tab>
+</Tabs>
+
+### Building the Frontend
+
+Add the html and javascript to your page:
+
+```html
+<div class="ais-InstantSearch">
+
+  <div class="left-panel">
+    <h2>Type</h2>
+    <div id="type-list"></div>
+  </div>
+  <div class="right-panel">
+    <div id="searchbox" class="ais-SearchBox"></div>
+    <div id="hits"></div>
+    <div id="pagination"></div>
+  </div>
+</div>
+
+    <script type="text/javascript">
+      /* global instantsearch algoliasearch */
+
+      const sk = new Searchkit({
+        connection: {
+          host: "http://localhost:9200",
+        },
+        search_settings: {
+          highlight_attributes: ["name"],
+          snippet_attributes: ["description"],
+          search_attributes: [{ field: "name", weight: 3 }, "description", "categories"],
+          result_attributes: ["name", "description", "price", "categories"],
+          facet_attributes: [{
+            field: "categories.keyword",
+            type: "string",
+            attribute: "categories",
+          }, {
+            field: "price",
+            type: "numeric",
+            attribute: "price",
+          }],
+        }
+      })
+
+      const search = instantsearch({
+        indexName: "imdb_movies",
+        searchClient: SearchkitInstantsearchClient(sk)
+      });
+
+      search.addWidgets([
+        instantsearch.widgets.searchBox({
+          container: "#searchbox"
+        }),
+        instantsearch.widgets.refinementList({
+          container: "#type-list",
+          attribute: "categories"
+        }),
+        instantsearch.widgets.hits({
+          container: "#hits",
+          templates: {
+            item(hit, { html, components }) {
+              return html`
+                <h2>
+                  ${hit.__hitIndex}:
+                  ${components.Highlight({ attribute: 'name', hit })}
+                </h2>
+                <p>${components.Snippet({ attribute: 'description', hit })}</p>
+              `;
+            }
+          }
+        }),
+        instantsearch.widgets.pagination({
+          container: "#pagination"
+        })
+      ]);
+
+      search.start();
+    </script>
+
+```
+
+## Video Tutorial
+<iframe width="100%" height="500px" src="https://www.youtube.com/embed/R6iYpEuCdVs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+
+And that's it! You can now search your data in Elasticsearch using instantsearch and Searchkit. Customise the search experience by adding widgets and customising the search settings.
+
+### Proxy through an API (Optional)
+
+For production use, we dont recommend calling Elasticsearch directly from the browser. Thankfully, Searchkit provides a way to proxy the search request through to a node API. This is really easy to setup.
+
+Below this creates an API which transforms the instantsearch requests sent from the browser into Elasticsearch queries and transforms the responses into instantsearch results.
+
+<Tabs items={['Cloudflare Workers', 'express.js']} storageKey="selected-node-platform-js-widgets">
+<Tab>
+```ts
+import Client from "@searchkit/api";
+
+const client = Client({
+  connection: {
+    host: "http://localhost:9200",
+  },
+  search_settings: {
+    highlight_attributes: ["name"],
+    snippet_attributes: ["description"],
+    search_attributes: [{ field: "name", weight: 3 }, "description", "categories"],
+    result_attributes: ["name", "description", "price", "categories"],
+    facet_attributes: [{
+      field: "categories.keyword",
+      type: "string",
+      attribute: "categories",
+    }, {
+      field: "price",
+      type: "numeric",
+      attribute: "price",
+    }],
+  }
+});
+
+async function handleRequest(event: FetchEvent) {
+  const body = await event.request.json();
+  const results = await client.handleRequest(body);
+
+  return new Response(JSON.stringify(results), {
+    headers: {
+      "content-type": "application/json",
+    }
+  });
+}
+
+addEventListener("fetch", (event) => {
+  return event.respondWith(handleRequest(event));
+});
+```
+</Tab>
+<Tab>
+```ts
+require('cross-fetch/polyfill')
+const express = require('express')
+const app = express()
+const port = 3000
+
+app.use(express.json());
+
+const Client = require('@searchkit/api').default
+
+const client = Client({
+  connection: {
+    host: "http://localhost:9200",
+  },
+  search_settings: {
+    highlight_attributes: ["name"],
+    snippet_attributes: ["description"],
+    search_attributes: [{ field: "name", weight: 3 }, "description", "categories"],
+    result_attributes: ["name", "description", "price", "categories"],
+    facet_attributes: [{
+      field: "categories.keyword",
+      type: "string",
+      attribute: "categories",
+    }, {
+      field: "price",
+      type: "numeric",
+      attribute: "price",
+    }],
+  }
+});
+
+app.post('/api/search', async (req, res) => {
+    const results = await client.handleRequest(req.body);
+    res.send(results);
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+```
+</Tab>
+</Tabs>
+
+and then we update the instantsearch client to use the API
+
+```ts
+
+const searchClient = instantsearch({
+  indexName: "imdb_movies",
+  searchClient: SearchkitInstantsearchClient({
+    url: "/api/search",
+  }),
+});
+
+```
+
+And that's it! You dont need to worry about the security of your Elasticsearch cluster, and you can scale your API independently of your search cluster.
+
+## Video Tutorial
+<iframe width="100%" height="500px" src="https://www.youtube.com/embed/8ztvn1-VZ_U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+
+## Adding Refinements
+
+Refinements provide your users with a way to narrow down their search results. 
+
+See the [Refinements](/docs/components/refinements/refinement-list) to add refinements to your search.
+
+## Customising the UI
+
+TODO - Contributions welcome
+
+## Query Rules
+
+Query rules allow you to customize the search results based on the user's query.
+
+Follow the [query rules guide](/docs/guides/query-rules) to add query rules to your search.
+
+## Deploying to Production
+
+TODO - Contributions welcome
+

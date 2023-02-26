@@ -1,0 +1,17 @@
+{
+  "with-javascript": {
+    "title": "With JS Widgets"
+  },
+  "with-react": {
+    "title": "With React"
+  },
+  "with-vue": {
+    "title": "With Vue"
+  },
+  "with-angular": {
+    "title": "With Angular"
+  },
+  "setup": {
+    "display": "hidden"
+  }
+}

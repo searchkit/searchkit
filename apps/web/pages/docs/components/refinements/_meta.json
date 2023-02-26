@@ -1,0 +1,14 @@
+{
+  "refinement-list": "Refinement List",
+  "hierarchical-menu": "Hierarchical Menu",
+  "numeric-menu": "Numeric Menu",
+  "range-slider": "Range Slider",
+  "range-input": "Range Input",
+  "rating-menu": "Rating Menu",
+  "menu": "Menu",
+  "menu-select": "Menu Select",
+  "toggle-refinement": "Toggle Refinement",
+  "current-refinements": "Current Refinements",
+  "clear-refinements": "Clear Refinements",
+  "DynamicWidgets": "Dynamic Widgets"
+}

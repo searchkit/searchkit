@@ -1,0 +1,47 @@
+---
+title: "Range Input"
+---
+
+# Range Input
+
+Range Input is a widget that displays inputs for filtering on a numeric range. It will use aggregation stats to determine the min and max values of the attribute and display the range input accordingly.
+
+## Setup
+
+The following document indexed in Elasticsearch:
+
+```json
+{
+  "brand": "Apple",
+  "product": "Macbook Pro 14",
+  "price": 2000
+}
+```
+
+## Searchkit Setup
+
+setup the following `facet_attributes`
+
+```ts
+{
+  facet_attributes: [
+    { 
+      attribute: 'price', 
+      field: 'price',  // field must be a numeric type field
+      type: 'numeric' 
+    }
+  ]
+}
+
+```
+
+### Nested Fields
+
+You can also use nested fields to define facet attributes. This is useful for when you need to perserve object relationships. Read more about nested fields [here](/docs/guides/facets/string-based-facets#nested-fields-support)
+
+## Documentation
+
+- [JS Widgets](https://www.algolia.com/doc/api-reference/widgets/numeric-menu/js/)
+- [React Instantsearch](https://www.algolia.com/doc/api-reference/widgets/numeric-menu/react/)
+- [Vue Instantsearch](https://www.algolia.com/doc/api-reference/widgets/numeric-menu/vue/)
+- [Angular Instantsearch](https://www.algolia.com/doc/api-reference/widgets/numeric-menu/angular/)

@@ -11,6 +11,15 @@ Works with Javascript, React, Vue, Angular, and more.
   - Searchkit Node API proxies Elasticsearch requests from the browser.
   - Ability to use Elasticsearch Query DSL for advanced queries
 
+## Quick Start Guides
+* [Searchkit with Javascript](https://www.searchkit.co/docs/getting-started/with-javascript)
+* [Searchkit with React](https://www.searchkit.co/docs/getting-started/with-react)
+* [Searchkit with Vue](https://www.searchkit.co/docs/getting-started/with-vue)
+* [Searchkit with Angular](https://www.searchkit.co/docs/getting-started/with-angular)
+
+## Components Docs
+* [Searchkit Instantsearch Components](https://www.searchkit.co/docs/components/refinements/refinement-list)
+
 ## Video Tutorials
 * [Searchkit Intro Video Tutorial with Instantsearch.js](https://www.youtube.com/watch?v=R6iYpEuCdVs)
 * [Searchkit Node API Video Tutorial](https://www.youtube.com/watch?v=8ztvn1-VZ_U)

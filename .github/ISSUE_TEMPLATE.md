@@ -8,7 +8,6 @@ Briefly describe the issue you are experiencing (or the feature you want to see 
 * Last Searchkit version that did not exhibit the issue (if applicable):
 * Node.js version:
 * Typescript version:
-* Apollo version:
 * Next.js version:
 * ElasticSearch/OpenSearch version:
 

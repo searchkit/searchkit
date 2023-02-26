@@ -1,9 +1,9 @@
 {
-  "installation": {
-    "title": "Installation & Setup"
-  },
   "getting-started": {
     "title": "Quick Start"
+  },
+  "components": {
+    "title": "Components"
   },
   "api-documentation": {
     "title": "API Documentation"

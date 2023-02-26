@@ -1,0 +1,85 @@
+---
+title: "Hierarchical Menu"
+---
+
+# Hierarchical Menu
+
+Hierarchical Menu is a widget that displays a hierarchical menu. It is commonly used for categories with subcategories.
+
+## Setup
+
+The following document indexed in Elasticsearch:
+
+```json
+{
+  "brand": "Apple",
+  "product": "Macbook Pro 14",
+  "category_lvl1": "Electronics",
+  "category_lvl2": "Electronics > Computers",
+  "category_lvl3": "Electronics > Computers > Laptops"
+}
+```
+
+alternatively could be indexed as array if document is part of multiple categories:
+
+```json
+{
+  "brand": "Apple",
+  "product": "Macbook Pro 14",
+  "category_lvl1": ["Electronics", "School Equipment"],
+  "category_lvl2": ["Electronics > Computers", "School Equipment > Computers"],
+  "category_lvl3": ["Electronics > Computers > Laptops", "School Equipment > Computers > Laptops"]
+}
+```
+
+## Searchkit Setup
+
+setup the following `facet_attributes`
+
+```ts
+{
+  facet_attributes: [
+    { 
+      attribute: 'category_lvl1', 
+      field: 'category_lvl1.keyword', 
+      type: 'string' 
+    },
+    { 
+      attribute: 'category_lvl2', 
+      field: 'category_lvl2.keyword', 
+      type: 'string' 
+    },
+    { 
+      attribute: 'category_lvl3', 
+      field: 'category_lvl3.keyword', 
+      type: 'string' 
+    },
+  ]
+}
+
+```
+
+### Nested Fields
+
+You can also use nested fields to define facet attributes. This is useful for when you need to perserve object relationships. Read more about nested fields [here](/docs/guides/facets/string-based-facets#nested-fields-support)
+
+## Component Usage
+
+Example below shows a HierarchicalMenu with 3 levels of categories.
+
+```jsx
+<HierarchicalMenu
+  attributes={[
+    'category_lvl1',
+    'category_lvl2',
+    'category_lvl3',
+  ]}
+/>
+```
+
+## Documentation
+
+- [JS Widgets](https://www.algolia.com/doc/api-reference/widgets/hierarchical-menu/js/)
+- [React Instantsearch](https://www.algolia.com/doc/api-reference/widgets/hierarchical-menu/react/)
+- [Vue Instantsearch](https://www.algolia.com/doc/api-reference/widgets/hierarchical-menu/vue/)
+- [Angular Instantsearch](https://www.algolia.com/doc/api-reference/widgets/hierarchical-menu/angular/)
