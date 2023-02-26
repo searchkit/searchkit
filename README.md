@@ -138,7 +138,7 @@ const sk = new Searchkit({
   }
 })
 
-const searchClient = Client(searchkitClient);
+const searchClient = Client(sk);
 
 const App = () => (
   <InstantSearch
