@@ -21,6 +21,11 @@ module.exports = withNextra({
         destination: '/docs/getting-started/with-react',
         permanent: false,
       },
+      {
+        source: '/docs/getting-started',
+        destination: '/docs/getting-started/with-react',
+        permanent: false,
+      }
     ]
   },
 });
