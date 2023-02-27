@@ -20,6 +20,10 @@ Works with Javascript, React, Vue, Angular, and more.
 ## Components Docs
 * [Searchkit Instantsearch Components](https://www.searchkit.co/docs/components/refinements/refinement-list)
 
+## Codesandbox Examples
+* [Searchkit with JS Widgets](https://codesandbox.io/s/searchkit-quick-start-js-widgets-4xopy5?file=/index.html)
+* [Searchkit with Vue](https://codesandbox.io/s/vue-example-3x7obs)
+
 ## Video Tutorials
 * [Searchkit Intro Video Tutorial with Instantsearch.js](https://www.youtube.com/watch?v=R6iYpEuCdVs)
 * [Searchkit Node API Video Tutorial](https://www.youtube.com/watch?v=8ztvn1-VZ_U)
