@@ -1,5 +1,7 @@
 import { Discord, Github } from "./components/Social";
+import { useRouter } from 'next/router'
 
+import { useConfig } from 'nextra-theme-docs'
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   project: { link: 'https://github.com/searchkit/searchkit'}, // GitHub link in the navbar
@@ -29,17 +31,25 @@ export default {
     defaultTheme: "dark",
     forcedTheme: "dark"
   },
-  head: (
-    <>
+  head: () => {
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { frontMatter } = useConfig()
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { asPath: url } = useRouter()
+    const host = "https://www.searchkit.co"
+    return <>
+      <meta property="og:url" content={host + url} />
+      <link rel="canonical" href={host + url} />
+      <meta property="og:title" content={frontMatter.title || "Searchkit - UI Widgets for Elasticsearch. React, Vue & Javascript supported"} />
+      <meta property="og:description" content={frontMatter.description || "Searchkit - UI Widgets for Elasticsearch. React, Vue & Javascript supported"} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta name="description" content="Searchkit is an open source library which helps you build a great search experience with Elasticsearch and Instantsearch." />
-      <meta name="og:title" content="Searchkit" />
-      <meta name="keywords" content="Elasticsearch, UI Library for Elasticsearch, React Search UI, Nodejs, Search UI components, NextJS Search, Elasticsearch Search UI, Instantsearch" />
-      <meta property="og:url" content="https://beta.searchkit.co"/>
-      <meta property="twitter:title" content="Searchkit - UI Library for Elasticsearch"/>
-      <meta property="twitter:description" content="Searchkit is an open source library which helps you build a great search experience with Elasticsearch and Instantsearch."/>
-      <meta property="twitter:url" content="summary_large_image"/>
+      <meta name="keywords" content={frontMatter.keywords || "Elasticsearch, UI Library for Elasticsearch, React Search UI, Nodejs, Search UI components, NextJS Search, Elasticsearch Search UI, Instantsearch, Vue"} />
+      <meta property="twitter:title"  content={frontMatter.title} />
+      <meta property="twitter:description" content={frontMatter.description || "Elasticsearch, UI Library for Elasticsearch, React Search UI, Nodejs, Search UI components, NextJS Search, Elasticsearch Search UI, Instantsearch"}/>
+      <meta property="twitter:url" content={host+url}/>
       <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c98b302ea3bb4a33a012a7ef0ab3e240"}'></script>
     </>
-  ),
+  },
+
 }
