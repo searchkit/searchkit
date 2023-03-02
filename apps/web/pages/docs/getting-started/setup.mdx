@@ -10,25 +10,17 @@ For this quick start, we are going to run Elasticsearch locally and build a smal
 
 ### Running Elasticsearch
 
-Going to use Elasticsearch via Docker for this quick start. For other options, see [Setup Elasticsearch](/docs/guides/setup-elasticsearch).
+Going to use Elasticsearch via Docker for this quick start. 
+
+For other options, see [Setup Elasticsearch](/docs/guides/setup-elasticsearch).
+
+Below we are running Elasticsearch with CORS enabled and security disabled. For production, you should enable security and use an API key. See [Setup Elasticsearch](/docs/guides/setup-elasticsearch) for more ways of connecting with authentication.
 
 ```bash
 docker pull docker.elastic.co/elasticsearch/elasticsearch:8.6.2
-```
-
-Create a docker network for Elastic:
-
-```bash
 docker network create elastic
-```
-
-Start Elasticsearch:
-
-```bash
 docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" -e http.cors.enabled=true -e "http.cors.allow-origin='*'" -e http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization -e http.cors.allow-credentials=true -e network.publish_host=localhost -e xpack.security.enabled=false docker.elastic.co/elasticsearch/elasticsearch:8.6.2
 ```
-
-We are running it with security disabled and CORS enabled. For production, you should enable security and use an API key. See [Setup Elasticsearch](/docs/guides/setup-elasticsearch) for more ways of connecting with authentication. 
 
 ### Create an Index & index some data
 

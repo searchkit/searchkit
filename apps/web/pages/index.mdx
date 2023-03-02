@@ -10,7 +10,7 @@ import { FeatureBreakout } from '../components/promo-page/FeatureBreakout'
 
 
 <div className="pt-4 m-auto text-left mb-6">
-  <h1 className="font-extrabold md:text-5xl mt-8 mb-4 text-2xl">Elasticsearch Search UI Components</h1>
+  <h1 className="font-extrabold md:text-5xl mt-8 mb-4 text-2xl leading-loose max-w-lg">Elasticsearch Search UI Components</h1>
   <div className="mb-4 max-w-lg">
     <p className="text-xl mb-1 text-gray-400 md:!text-xl">
       <span className=" text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">Searchkit</span> is an open source library which helps you build a great search experience with <span className=" text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">Elasticsearch.</span>
@@ -33,7 +33,11 @@ import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, NumericMenu
 
 const sk = new Searchkit({
   connection: {
-    host: 'http://localhost:9200'
+    host: 'http://localhost:9200',
+    auth: {
+      username: "elastic",
+      password: "changeme"
+    }
   },
   search_settings: {
     search_attributes: [{ field: 'title', weight: 3 }, 'actors', 'plot'],

@@ -33,6 +33,24 @@ docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "disc
 
 We are disabling security for this example, but you can read more about [securing Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/configuring-security.html) in the official documentation.
 
+You will be able to access Elasticsearch at host `http://localhost:9200`.
+
+### With Opensearch via Docker
+
+Pull the Opensearch Docker image:
+
+```bash
+docker pull opensearchproject/opensearch:1.2.4
+```
+
+Start Opensearch:
+
+```sh
+docker run --name opensearch --rm -d -p 9200:9200 -e http.port=9200 -e discovery.type=single-node -e http.max_content_length=10MB -e http.cors.enabled=true -e "http.cors.allow-origin='*'" -e http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization -e http.cors.allow-credentials=true opensearchproject/opensearch:1.2.4
+```
+
+You will be able to access Opensearch at host `http://localhost:9200`.
+
 ### Using Elastic Cloud
 
 To connect to Elastic Cloud, you need to create an account and get your credentials. You can do this by following the instructions on the [Elastic Cloud website](https://www.elastic.co/cloud).
@@ -46,7 +64,7 @@ Once you have setup a deployment, do the following:
 
 ### Connecting with username:password
 
-If you are using Elasticsearch with basic auth, you can set the `connection.auth.username` and `connection.auth.password` fields in the configuration object.
+When you create a deployment, you will be provided a user & password. You can set the `connection.auth.username` and `connection.auth.password` fields in the configuration object.
 
 ```ts
 const client = Client({
@@ -62,7 +80,32 @@ const client = Client({
 
 ### Connecting with API key
 
-Create an API key with `read` privileges for the index. Copy the API key and paste it into the `connection.apiKey` field. 
+Create an API key with `read` privileges for the index. 
+
+You will need to pass an `Authorization` header to be able to create an API key.
+
+```bash
+curl --location --request POST 'http://localhost:9200/_security/api_key' \
+--header 'Content-Type: application/json' \
+-u 'elastic:changeme' \
+--data-raw '{
+  "name": "Elastic Search API Key",
+  "role_descriptors": { 
+    "role-a": {
+      "cluster": ["all"],
+      "index": [
+        {
+          "names": ["<index-name>"],
+          "privileges": ["read"]
+        }
+      ]
+    }
+    
+  }
+}'
+```
+
+Copy the API key in `encoded` and paste it into the `connection.apiKey` field. 
 
 ```ts
 const client = Client({
@@ -72,6 +115,8 @@ const client = Client({
   }
 })
 ```
+
+You can also do this within Kibana by going to `Stack Management > API Keys` and creating a new API key.
 
 #### Add CORS headers to your Elasticsearch deployment
 
@@ -95,20 +140,6 @@ If Searchkit cannot connect to Elasticsearch, it will throw an error. You should
 
 You can also switch on the `debug` [flag](/docs/api-documentation/api#debug-mode) in the configuration object, within the Node app, to see more detailed logs.
 
-### Connecting to Elasticsearch via Docker
-
-If you are running Elasticsearch via Docker, use the following command:
-
-```sh
-docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" -e http.cors.enabled=true -e "http.cors.allow-origin='*'" -e http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization -e http.cors.allow-credentials=true -e network.publish_host=localhost -e xpack.security.enabled=false docker.elastic.co/elasticsearch/elasticsearch:8.6.2
-```
-
-Or the following if you are using OpenSearch:
-
-```sh
-docker run --name opensearch --rm -d -p 9200:9200 -e http.port=9200 -e discovery.type=single-node -e http.max_content_length=10MB -e http.cors.enabled=true -e "http.cors.allow-origin='*'" -e http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization -e http.cors.allow-credentials=true opensearchproject/opensearch:1.2.4
-```
-
 ### Connecting to Elasticsearch with custom headers
 
 If you are using Elasticsearch with a proxy, you may need to add custom headers to the request. You can do this by setting the `connection.headers` field in the configuration object, within the Node app.
@@ -126,7 +157,7 @@ const client = Client({
 
 ### Custom Transport
 
-Depending on your use case, you may be able to use the default transport with headers. If you need to use a custom transport, you can do so by implementing the `Transporter` interface.
+If all fails above, you can build your own custom transport. You can do so by implementing the `Transporter` interface.
 
 ```ts
 
