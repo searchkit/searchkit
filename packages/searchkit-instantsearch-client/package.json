@@ -19,7 +19,13 @@
   "jsdelivr": "dist/umd/index.global.js",
   "unpkg": "dist/umd/index.global.js",
   "exports": {
-    ".": "./dist/index.js"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package": "./package.json",
+    "./package.json": "./package.json"
   },
   "sideEffects": false,
   "license": "MIT",
@@ -38,7 +44,7 @@
     "node-fetch": "^2.6.6",
     "ts-jest": "29.0.3",
     "tsconfig": "*",
-    "typescript": "^4.5.2",
+    "typescript": "^4.9.5",
     "tsup": "^6.3.0"
   },
   "dependencies": {
