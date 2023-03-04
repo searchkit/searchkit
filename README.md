@@ -4,7 +4,17 @@ Works with Javascript, React, Vue, Angular, and more.
 
 [![npm version](https://badge.fury.io/js/searchkit.svg)](https://badge.fury.io/js/searchkit)
 
-[Website](https://beta.searchkit.co/) | [Demos](https://beta.searchkit.co/demos) | [Documentation](https://beta.searchkit.co/docs/getting-started) | [Discord](https://discord.gg/CRuWmSQZQx)
+[Website](https://www.searchkit.co/) | [Demos](https://www.searchkit.co/demos) | [Documentation](https://www.searchkit.co/docs/getting-started) | [Discord](https://discord.gg/CRuWmSQZQx)
+
+# What is Searchkit?
+
+Elasticsearch is a search engine that enables fast and accurate searching of large volumes of data, but it can take a lot of time and code to build a great search experience. 
+
+Searchkit simplifies this process by providing a layer of abstraction on top of Elasticsearch. With Searchkit, you can use Instantsearch components like Searchbox, refinement filters and results (and many more!) to build a search experience, and it handles all the communication with Elasticsearch for you.
+
+[Searchkit Query Rules](https://www.searchkit.co/docs/query-rules) allow you to adjust relevance of results easily. With actions and conditions, you can create rules that will automatically adjust the search results based on the user's query or filters.
+
+Searchkit is great for anyone who want to build a search experience quickly.
 
 **Searchkit to simplify using Elasticsearch for Search:**
   - UI Search Components for React, Vue, Angular, and more
@@ -19,6 +29,11 @@ Works with Javascript, React, Vue, Angular, and more.
 
 ## Components Docs
 * [Searchkit Instantsearch Components](https://www.searchkit.co/docs/components/refinements/refinement-list)
+
+## Proxy Elasticsearch Quick Starts
+* [Searchkit with Next.js Functions](https://www.searchkit.co/docs/proxy-elasticsearch/with-next-js)
+* [Searchkit with Cloudflare Workers](https://www.searchkit.co/docs/proxy-elasticsearch/with-cloudflare-workers)
+* [Searchkit with Express.js](https://www.searchkit.co/docs/proxy-elasticsearch/with-express-js)
 
 ## Codesandbox Examples
 * [Searchkit with JS Widgets](https://codesandbox.io/s/searchkit-quick-start-js-widgets-4xopy5?file=/index.html)
@@ -279,8 +294,8 @@ Below is an example of a query rule that boosts results for movies with Dan Aykr
 ```
 
 ### NPM Packages
-* @searchkit/api [Documentation](https://beta.searchkit.co/docs/api-documentation/api)
-* @searchkit/instantsearch-client [Documentation](https://beta.searchkit.co/docs/api-documentation/instantsearch-client)
+* @searchkit/api [Documentation](https://www.searchkit.co/docs/api-documentation/api)
+* @searchkit/instantsearch-client [Documentation](https://www.searchkit.co/docs/api-documentation/instantsearch-client)
 
 ## FAQ
 
