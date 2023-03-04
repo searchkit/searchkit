@@ -2,12 +2,15 @@
   "name": "searchkit",
   "version": "4.3.0",
   "main": "./dist/index.js",
-  "description": "Search UI for Elasticsearch. Compatible with Algolia's Instantsearch and Autocomplete",
+  "module": "./dist/index.mjs",
+  "description": "Search UI for Elasticsearch.",
   "keywords": [
     "elasticsearch",
     "search",
     "ui",
     "react",
+    "vue",
+    "angular",
     "instantsearch",
     "autocomplete"
   ],
@@ -20,7 +23,13 @@
   ],
   "sideEffects": false,
   "exports": {
-    ".": "./dist/index.js"
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package": "./package.json",
+    "./package.json": "./package.json"
   },
   "types": "./dist/index.d.ts",
   "jsdelivr": "dist/umd/index.global.js",
@@ -43,7 +52,7 @@
     "ts-jest": "29.0.3",
     "tsconfig": "*",
     "tsup": "^6.3.0",
-    "typescript": "^4.5.2"
+    "typescript": "^4.9.5"
   },
   "publishConfig": {
     "access": "public"

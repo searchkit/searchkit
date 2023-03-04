@@ -4,7 +4,8 @@
   "workspaces": [
     "apps/*",
     "packages/*",
-    "sample-data"
+    "sample-data",
+    "examples/*"
   ],
   "repository": {
     "type": "git",
@@ -30,7 +31,7 @@
     "husky": "^4.3.0",
     "prettier": "^2.1.2",
     "turbo": "latest",
-    "typescript": "^4.9.3"
+    "typescript": "^4.9.5"
   },
   "dependencies": {
     "@changesets/cli": "^2.25.0"
