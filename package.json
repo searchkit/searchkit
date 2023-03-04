@@ -4,7 +4,8 @@
   "workspaces": [
     "apps/*",
     "packages/*",
-    "sample-data"
+    "sample-data",
+    "examples/*"
   ],
   "repository": {
     "type": "git",
