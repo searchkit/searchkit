@@ -43,9 +43,9 @@
 <url><loc>https://www.searchkit.co/examples/cloudflare-workers</loc><lastmod>2023-02-17T10:59:53.296Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.searchkit.co/examples/instantsearch-js-template</loc><lastmod>2023-02-17T10:59:53.296Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.searchkit.co/examples/sandbox-template</loc><lastmod>2023-02-17T10:59:53.296Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.searchkit.co/examples/tutorials</loc><lastmod>2023-02-17T10:59:53.296Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.searchkit.co/examples/tutorials/express-js</loc><lastmod>2023-02-17T10:59:53.296Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.searchkit.co/examples/tutorials/on-cloudflare-workers</loc><lastmod>2023-02-17T10:59:53.296Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.searchkit.co//tutorials</loc><lastmod>2023-02-17T10:59:53.296Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.searchkit.co//tutorials/express-js</loc><lastmod>2023-02-17T10:59:53.296Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.searchkit.co//tutorials/on-cloudflare-workers</loc><lastmod>2023-02-17T10:59:53.296Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.searchkit.co/geo-search-demo</loc><lastmod>2023-02-17T10:59:53.296Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.searchkit.co/node-proxy-demo</loc><lastmod>2023-02-17T10:59:53.296Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.searchkit.co/ssr-demo</loc><lastmod>2023-02-17T10:59:53.296Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>

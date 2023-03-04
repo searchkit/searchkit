@@ -1,0 +1,85 @@
+---
+title: With Next.js
+description: Use Next.js Functions to proxy search requests to Elasticsearch
+---
+
+# Proxy With Next.js Functions
+
+For production use, we dont recommend calling Elasticsearch directly from the browser. Thankfully, Searchkit provides a way to proxy the search request through to a node API. This is really easy to setup.
+
+Below this creates a Next.js server function which transforms the instantsearch requests sent from the browser into Elasticsearch queries and transforms the responses into instantsearch results.
+
+## Get Started with Next.js
+
+First, within your Next.js project, install the dependencies
+
+```bash
+npm install @searchkit/api
+```
+
+## Create the API file
+
+Next, create a file called `pages/api/search.ts` with the following content
+
+```ts filename="pages/api/search.ts"
+import Client from "@searchkit/api";
+import { NextApiRequest, NextApiResponse } from "next";
+
+const client = Client({
+  connection: {
+    host: "http://localhost:9200",
+  },
+  search_settings: {
+    highlight_attributes: ["name"],
+    snippet_attributes: ["description"],
+    search_attributes: [{ field: "name", weight: 3 }, "description", "categories"],
+    result_attributes: ["name", "description", "price", "categories"],
+    facet_attributes: [{
+      field: "categories.keyword",
+      type: "string",
+      attribute: "categories",
+    }, {
+      field: "price",
+      type: "numeric",
+      attribute: "price",
+    }],
+  }
+});
+
+// example API handler for Next.js
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const results = await client.handleRequest(req.body);
+  res.send(results);
+}
+```
+
+and then on the frontend, update the instantsearch client to use the API url.
+
+Remove the `searchkit` import and configuration from the frontend as its no longer needed. Elasticsearch is now being called from the backend.
+
+```ts filename="pages/index.tsx"
+const searchClient = instantsearch({
+  // the API endpoint you created above
+  url: "/api/search",
+});
+
+```
+
+## Code Sandbox Example
+
+<iframe
+  src="https://codesandbox.io/embed/ises-template-k4tz09?codemirror=1&fontsize=14&theme=dark&autoresize=1&hidenavigation=1"
+  style={{
+    width: "100%",
+    height: "500px",
+    border: 0,
+    overflow: "hidden",
+    background: "rgb(21, 21, 21)",
+  }}
+  title="Searchkit"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-autoplay allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+/>

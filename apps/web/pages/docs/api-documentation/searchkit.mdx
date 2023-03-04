@@ -88,6 +88,7 @@ export const App = () => {
 ```ts
 
 import Client from "@searchkit/api";
+// const { default: Client } = require("@searchkit/api");
 
 // SearchkitConfig is the configuration object that is used to configure the client
 const client = Client({
@@ -200,7 +201,7 @@ Attributes that are used to configure the search experience.
 - `facet_attributes` - Attributes that are used to create facets. Facets can be of type `string` or `numeric` or `date`.
 - `filter_attributes` - Attributes that are used to create filters. Filters can be of type `string` or `numeric` or `date`.
 - `sorting` - Attributes that are used to create sorting options. Sorting can be a single sorting field or multiple.
-- `query_rules` - Rules that affect search relevance. See [Query Rules](/docs/guides/query-rules) for more information.
+- `query_rules` - Rules that affect search relevance. See [Query Rules](/docs//query-rules) for more information.
 - `geo_attribute` - Attribute that is used for geo based searches.
 
 ##### search_attributes

@@ -2,11 +2,18 @@
   "getting-started": {
     "title": "Quick Start"
   },
+  "proxy-elasticsearch": {
+    "title": "Proxy Elasticsearch"
+  },
   "components": {
     "title": "Components"
   },
+  "query-rules": "Query Rules",
   "api-documentation": {
     "title": "API Documentation"
+  },
+  "tutorials": {
+    "title": "Tutorials"
   },
   "guides": "Guides"
 }

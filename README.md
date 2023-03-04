@@ -29,8 +29,8 @@ Works with Javascript, React, Vue, Angular, and more.
 * [Searchkit Node API Video Tutorial](https://www.youtube.com/watch?v=8ztvn1-VZ_U)
 
 ## Tutorials
-* [Searchkit with Next.js](https://www.searchkit.co/examples/tutorials)
-* [Searchkit with Availability Search](https://www.searchkit.co/examples/tutorials/build-availability-search-ui)
+* [Searchkit with Next.js](https://www.searchkit.co/tutorials)
+* [Searchkit with Availability Search](https://www.searchkit.co/tutorials/build-availability-search-ui)
 
 ## Demos
 * [Searchkit with Next.js](https://www.searchkit.co/demo)

@@ -1,0 +1,29 @@
+---
+title: Why Proxy Elasticsearch?
+description: Explains why you should proxy Elasticsearch from the web and how to do it with Searchkit.
+---
+
+# Why Proxy Elasticsearch?
+
+Elasticsearch is a powerful search engine, but it is not designed to be exposed to the web. It is designed to be used by other APIs, which are then exposed to the web.
+
+Its fine to build search experiences with Searchkit by talking to Elasticsearch directly, for fast prototyping and development. But when you are ready to deploy, you should proxy Elasticsearch from the web.
+
+At the proxy, you can add security credentials, rate limiting, APM, and other features that are important for production.
+
+## Do I need to proxy Elasticsearch?
+
+It depends on your use case. If you are building a search experience for internal use or a POC, you can talk to Elasticsearch directly. If you are building a search experience for the public web for a high traffic website, you should proxy Elasticsearch from the web.
+
+If you choose not to proxy Elasticsearch from the web, connect with read-only credentials. See [connecting with an API key](/docs/guides/setup-elasticsearch#connecting-with-an-api-key) or [connecting with a user](/docs/guides/setup-elasticsearch#connecting-with-usernamepassword).
+
+## Proxy with Searchkit
+
+Searchkit provides built in support to proxy Elasticsearch from the web with a Node app. It works with any node based application that you can run on your own server.
+
+If you don't use Node currently, [getting started with using Cloudflare Workers](/docs/proxy-elasticsearch/with-cloudflare-workers) is a good option due to its low cost (Free plans get 100,000 req/day) and great developer experience.
+
+## I don't want to use Node
+
+If you don't want to use Node, you can proxy Elasticsearch with your own API server by creating a POST `/_msearch` API and specify your application server in the `host` property or building a [custom transporter](/docs/guides/setup-elasticsearch#custom-transport). Searchkit will continue to make Elasticsearch requests from the browser to the proxy which will then relay the request to Elasticsearch with read only security credentials and extra filtering restrictions (if needed).  
+

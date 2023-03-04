@@ -1,0 +1,110 @@
+---
+title: With cloudflare workers
+description: Use cloudflare workers to proxy search requests to Elasticsearch
+---
+
+# Proxy With Express.js
+
+For production use, we dont recommend calling Elasticsearch directly from the browser. Thankfully, Searchkit provides a way to proxy the search request through to a node API. This is really easy to setup.
+
+Below this creates an API which transforms the instantsearch requests sent from the browser into Elasticsearch queries and transforms the responses into instantsearch results.
+
+## Get Started with Express.js
+
+Install the dependencies
+
+```bash
+yarn add @searchkit/api searchkit express
+```
+
+## Create a server file
+
+We are going to use ESM modules, so we need to add a `type` field to our `package.json` file.
+
+```json filename='package.json'
+{
+  "name": "with-express-javascript-esm",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@searchkit/api": "latest",
+    "express": "4.18.1",
+    "isomorphic-unfetch": "^4.0.2",
+    "searchkit": "latest"
+  }
+}
+
+```
+
+Then create a file called `server.js` with the following contents.
+
+```js
+import express from "express";
+import Client from "@searchkit/api";
+import 'isomorphic-unfetch' // required for searchkit which uses fetch
+
+const app = express();
+
+const config = {
+  connection: {
+    host: '<HOST>'
+  },
+  search_settings: {
+    highlight_attributes: ['title'],
+    search_attributes: [{ field: 'title', weight: 3 }, 'actors', 'plot'],
+    result_attributes: ['title', 'actors', 'poster', 'plot'],
+    facet_attributes: [
+      'type',
+      { attribute: 'actors', field: 'actors.keyword', type: 'string' },
+      'rated',
+      { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' },
+      { attribute: 'metascore', type: 'numeric', field: 'metascore' }
+    ],
+    snippet_attributes: ['plot'],
+    query_rules: []
+  }
+}
+ 
+const apiClient = Client(config);
+
+app.use(express.json());
+ 
+app.post("/api/search", async function (req, res) {
+  const response = await apiClient.handleRequest(req.body);
+  res.send(response);
+});
+ 
+
+app.listen(3001, () => {
+  console.log("Server running on port 3001");
+});
+```
+
+then run your server locally
+
+```bash
+node server.js
+```
+
+## Update the Searchkit client on frontend
+
+and then we update the instantsearch client to use the API.
+
+The searchkit configuration and import are no longer needed. Rather than the elasticsearch requests being generated and performed on the browser, the search state is instead sent to the API, which then generates and performs requests to Elasticsearch on the server. 
+
+```ts {3-5}
+const searchClient = instantsearch({
+  indexName: "imdb_movies",
+  searchClient: SearchkitInstantsearchClient({
+    url: "http://localhost:3001/api/search",
+  }),
+});
+
+```

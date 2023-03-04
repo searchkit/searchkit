@@ -1,0 +1,7 @@
+{
+  "why": "Why Proxy Elasticsearch?",
+  "with-next-js": "With Next.js",
+  "with-express-js": "With Express.js",
+  "with-cloudflare-workers": "With Cloudflare Workers",
+  "with-your-own-server": "With your own API server"
+}

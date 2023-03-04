@@ -124,116 +124,6 @@ Add the html and javascript to your page:
 
 And that's it! You can now search your data in Elasticsearch using instantsearch and Searchkit. Customise the search experience by adding widgets and customising the search settings.
 
-### Proxy through an API (Optional)
-
-For production use, we dont recommend calling Elasticsearch directly from the browser. Thankfully, Searchkit provides a way to proxy the search request through to a node API. This is really easy to setup.
-
-Below this creates an API which transforms the instantsearch requests sent from the browser into Elasticsearch queries and transforms the responses into instantsearch results.
-
-<Tabs items={['Cloudflare Workers', 'express.js']} storageKey="selected-node-platform-js-widgets">
-<Tab>
-```ts
-import Client from "@searchkit/api";
-
-const client = Client({
-  connection: {
-    host: "http://localhost:9200",
-  },
-  search_settings: {
-    highlight_attributes: ["name"],
-    snippet_attributes: ["description"],
-    search_attributes: [{ field: "name", weight: 3 }, "description", "categories"],
-    result_attributes: ["name", "description", "price", "categories"],
-    facet_attributes: [{
-      field: "categories.keyword",
-      type: "string",
-      attribute: "categories",
-    }, {
-      field: "price",
-      type: "numeric",
-      attribute: "price",
-    }],
-  }
-});
-
-async function handleRequest(event: FetchEvent) {
-  const body = await event.request.json();
-  const results = await client.handleRequest(body);
-
-  return new Response(JSON.stringify(results), {
-    headers: {
-      "content-type": "application/json",
-    }
-  });
-}
-
-addEventListener("fetch", (event) => {
-  return event.respondWith(handleRequest(event));
-});
-```
-</Tab>
-<Tab>
-```ts
-require('cross-fetch/polyfill')
-const express = require('express')
-const app = express()
-const port = 3000
-
-app.use(express.json());
-
-const Client = require('@searchkit/api').default
-
-const client = Client({
-  connection: {
-    host: "http://localhost:9200",
-  },
-  search_settings: {
-    highlight_attributes: ["name"],
-    snippet_attributes: ["description"],
-    search_attributes: [{ field: "name", weight: 3 }, "description", "categories"],
-    result_attributes: ["name", "description", "price", "categories"],
-    facet_attributes: [{
-      field: "categories.keyword",
-      type: "string",
-      attribute: "categories",
-    }, {
-      field: "price",
-      type: "numeric",
-      attribute: "price",
-    }],
-  }
-});
-
-app.post('/api/search', async (req, res) => {
-    const results = await client.handleRequest(req.body);
-    res.send(results);
-})
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
-```
-</Tab>
-</Tabs>
-
-and then we update the instantsearch client to use the API
-
-```ts
-
-const searchClient = instantsearch({
-  indexName: "imdb_movies",
-  searchClient: SearchkitInstantsearchClient({
-    url: "/api/search",
-  }),
-});
-
-```
-
-And that's it! You dont need to worry about the security of your Elasticsearch cluster, and you can scale your API independently of your search cluster.
-
-## Video Tutorial
-<iframe width="100%" height="500px" src="https://www.youtube.com/embed/8ztvn1-VZ_U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-
 ## Adding Refinements
 
 Refinements provide your users with a way to narrow down their search results. 
@@ -244,7 +134,7 @@ See the [Refinements](/docs/components/refinements/refinement-list) to add refin
 
 Query rules allow you to customize the search results based on the user's query.
 
-Follow the [query rules guide](/docs/guides/query-rules) to add query rules to your search.
+Follow the [query rules guide](/docs//query-rules) to add query rules to your search.
 
 ## Deploying to Production
 

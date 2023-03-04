@@ -1,0 +1,128 @@
+---
+title: With cloudflare workers
+description: Use cloudflare workers to proxy search requests to Elasticsearch
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+<Callout>
+This guide expects that you have setup Searchkit on the frontend. If you haven't, please follow the getting started guide first.
+</Callout>
+
+# Proxy With Cloudflare Workers
+
+For production use, we dont recommend calling Elasticsearch directly from the browser. Thankfully, Searchkit provides a way to proxy the search request through to a node API. This is really easy to setup.
+
+Below this creates an API which transforms the instantsearch requests sent from the browser into Elasticsearch queries and transforms the responses into instantsearch results.
+
+## Get Started with Cloudflare Workers
+
+Follow the guide [here](https://developers.cloudflare.com/workers/get-started/guide/) to get started with Cloudflare Workers.
+
+## Create a new project
+
+```bash
+npx wrangler init my-searchkit-proxy-api
+cd my-searchkit-proxy-api
+```
+
+## Install @searchkit/api and searchkit
+
+```bash
+yarn add @searchkit/api searchkit
+```
+
+## Update the Cloudflare worker
+
+Edit the `src/index.js` file to look like this, replacing the `connection` and `search_settings` with your own. 
+
+```ts
+import Client from "@searchkit/api";
+ 
+const client = Client({
+  connection: {
+    host: "<ELASTICSEARCH_URL>",
+    apiKey: "<ELASTICSEARCH_API_KEY>", // optional
+  },
+  search_settings: {
+    highlight_attributes: ["highlightField1", "highlightField2"],
+    search_attributes: ["title", "description"],
+    result_attributes: ["title", "description"],
+    facet_attributes: [
+      "type",
+      { attribute: "actors", field: "actors.keyword" },
+    ],
+  },
+});
+ 
+// Handle CORS preflight requests
+async function handleOptions(request: Request) {
+  return new Response(null, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
+}
+ 
+async function handleRequest(event: FetchEvent) {
+  if (event.request.method === "OPTIONS") {
+    // Handle CORS preflight requests
+    return handleOptions(event.request);
+  }
+ 
+  const body = await event.request.json();
+  const results = await client.handleRequest(body);
+ 
+  return new Response(JSON.stringify(results), {
+    headers: {
+      "content-type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, HEAD, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
+}
+ 
+addEventListener("fetch", (event) => {
+  return event.respondWith(handleRequest(event));
+});
+```
+
+then run your worker locally
+
+```bash
+npx wrangler dev
+```
+
+## Update the Searchkit client on frontend
+
+and then we update the instantsearch client to use the API.
+
+The searchkit configuration and import are no longer needed. Rather than the elasticsearch requests being generated and performed on the browser, the search state is instead sent to the API, which then generates and performs requests to Elasticsearch on the server. 
+
+```ts {3,5}
+const searchClient = instantsearch({
+  indexName: "imdb_movies",
+  searchClient: SearchkitInstantsearchClient({
+    url: "http://localhost:8787/",
+  }),
+});
+
+```
+
+## Production
+
+When you are ready to deploy to production, run
+
+```bash
+npx wrangler publish
+```
+
+and then update the url in the frontend to point to the new url.
+
+And that's it! You dont need to worry about the security of your Elasticsearch cluster, and you can scale your API independently of your search cluster.
+
+## Video Tutorial
+<iframe width="100%" height="500px" src="https://www.youtube.com/embed/8ztvn1-VZ_U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
