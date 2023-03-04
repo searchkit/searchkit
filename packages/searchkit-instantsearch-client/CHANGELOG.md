@@ -1,5 +1,16 @@
 # @searchkit/api
 
+## 4.4.0
+
+### Minor Changes
+
+- c1325587: Update ESM package exports
+
+### Patch Changes
+
+- Updated dependencies [c1325587]
+  - searchkit@4.4.0
+
 ## 4.3.0
 
 ### Minor Changes

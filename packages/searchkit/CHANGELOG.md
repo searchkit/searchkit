@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.4.0
+
+### Minor Changes
+
+- c1325587: Update ESM package exports
+
 ## 4.3.0
 
 ### Minor Changes
