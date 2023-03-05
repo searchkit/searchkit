@@ -3,11 +3,11 @@
   "getting-started": {
     "title": "Quick Start"
   },
-  "proxy-elasticsearch": {
-    "title": "Proxy Elasticsearch"
-  },
   "components": {
     "title": "Components"
+  },
+  "proxy-elasticsearch": {
+    "title": "Proxy Elasticsearch"
   },
   "query-rules": "Query Rules",
   "api-documentation": {
