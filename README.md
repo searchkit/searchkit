@@ -259,6 +259,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 ```
 
+### Proxy Elasticsearch Quick Starts
+* [Searchkit with Next.js Functions](https://www.searchkit.co/docs/proxy-elasticsearch/with-next-js)
+* [Searchkit with Cloudflare Workers](https://www.searchkit.co/docs/proxy-elasticsearch/with-cloudflare-workers)
+* [Searchkit with Express.js](https://www.searchkit.co/docs/proxy-elasticsearch/with-express-js)
+
 ## Query Rules
 
 Query rules allows you to customize the behavior of the search experience. You can use query rules to boost or filter results, or to change the ranking of results, based on a set of conditions.
@@ -293,6 +298,8 @@ Below is an example of a query rule that boosts results for movies with Dan Aykr
 
 ```
 
+read more at [Query Rules](https://www.searchkit.co/docs/query-rules) docs.
+
 ### NPM Packages
 * @searchkit/api [Documentation](https://www.searchkit.co/docs/api-documentation/api)
 * @searchkit/instantsearch-client [Documentation](https://www.searchkit.co/docs/api-documentation/instantsearch-client)
@@ -301,7 +308,7 @@ Below is an example of a query rule that boosts results for movies with Dan Aykr
 
 **Q: Do I need to expose Elasticsearch to the public internet?**
 
-No you don't. You can use Searchkit API to proxy requests to Elasticsearch. The XHR requests will provide the search state to the Searchkit Node API, which will then transform the request into elasticsearch queries and perform them to Elasticsearch.
+Searchkit proxies requests to Elasticsearch.
 
 Searchkit offers both options, either perform the search directly from the browser, or use the Searchkit API to proxy requests to Elasticsearch. Directly from the browser offers great developer experience & prototyping. Once you are ready to deploy, you can use the Searchkit API to proxy requests to Elasticsearch.
 
