@@ -1,0 +1,60 @@
+---
+title: Add CORS headers
+description: Add CORS headers to Elasticsearch / Opensearch to allow calling directly from the browser
+---
+
+import { Callout } from 'nextra-theme-docs'
+
+# Add CORS headers
+
+<Callout type="info">
+  This is only required if you're calling Elasticsearch directly from the browser and without proxying Elasticsearch.
+</Callout>
+
+In order to call Elasticsearch / Opensearch directly from the browser, you need to add CORS headers to the response.
+
+## Elasticsearch
+
+### Docker
+
+This docker run command will add specify the CORS headers when running Elasticsearch.
+
+```bash
+docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" -e http.cors.enabled=true -e "http.cors.allow-origin='*'" -e http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization -e http.cors.allow-credentials=true -e network.publish_host=localhost -e xpack.security.enabled=false docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+```
+
+### Elastic Cloud
+1. Navigate to the deployment page
+2. go to actions > edit deployment
+3. on Elasticsearch instance, click on "Elasticsearch user settings and extensions"
+4. add the following to the "Elasticsearch user settings" field
+
+```yaml
+http.cors.allow-origin: "*"
+http.cors.enabled: true
+http.cors.allow-credentials: true
+http.cors.allow-methods: OPTIONS, HEAD, GET, POST, PUT, DELETE
+http.cors.allow-headers: X-Requested-With, X-Auth-Token, Content-Type, Content-Length, Authorization, Access-Control-Allow-Headers, Accept, x-elastic-client-meta
+```
+
+### `elasticsearch.yml`
+
+To do this, you need to add the following to your `elasticsearch.yml` file:
+
+```yaml filename=elasticsearch.yml
+http.cors.allow-origin: "*"
+http.cors.enabled: true
+http.cors.allow-credentials: true
+http.cors.allow-methods: OPTIONS, HEAD, GET, POST, PUT, DELETE
+http.cors.allow-headers: X-Requested-With, X-Auth-Token, Content-Type, Content-Length, Authorization, Access-Control-Allow-Headers, Accept, x-elastic-client-meta
+```
+
+## Opensearch
+
+### Docker
+
+This docker run command will add specify the CORS headers when running Opensearch.
+
+```bash
+docker run --name opensearch --rm -d -p 9200:9200 -e http.port=9200 -e discovery.type=single-node -e http.max_content_length=10MB -e http.cors.enabled=true -e "http.cors.allow-origin='*'" -e http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization -e http.cors.allow-credentials=true opensearchproject/opensearch:1.2.4
+```

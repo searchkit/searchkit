@@ -28,7 +28,7 @@ docker network create elastic
 Start Elasticsearch:
 
 ```bash
-docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" -e http.cors.enabled=true -e "http.cors.allow-origin='*'" -e http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization -e http.cors.allow-credentials=true -e network.publish_host=localhost -e xpack.security.enabled=false docker.elastic.co/elasticsearch/elasticsearch:8.6.2
 ```
 
 We are disabling security for this example, but you can read more about [securing Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/configuring-security.html) in the official documentation.
@@ -117,24 +117,6 @@ const client = Client({
 ```
 
 You can also do this within Kibana by going to `Stack Management > API Keys` and creating a new API key.
-
-#### Add CORS headers to your Elasticsearch deployment
-
-<Callout type="info">
-  This is only required if you are using Searchkit in the browser and without the node proxy.
-</Callout>
-
-If you are using Searchkit in the browser and without the node proxy, you will need to add CORS headers to your Elasticsearch instance.
-
-To do this, you need to add the following to your `elasticsearch.yml` file:
-
-```yaml
-http.cors.allow-origin: "*"
-http.cors.enabled: true
-http.cors.allow-credentials: true
-http.cors.allow-methods: OPTIONS, HEAD, GET, POST, PUT, DELETE
-http.cors.allow-headers: X-Requested-With, X-Auth-Token, Content-Type, Content-Length, Authorization, Access-Control-Allow-Headers, Accept, x-elastic-client-meta
-```
 
 If Searchkit cannot connect to Elasticsearch, it will throw an error. You should be able to see the error in the terminal running the node API.
 
