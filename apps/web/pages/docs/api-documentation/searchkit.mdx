@@ -49,8 +49,7 @@ const searchkitClient = new Searchkit({
   connection: {
     host: "https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243",
     apiKey: "a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw==", // optional apiKey
-    headers: { // optional headers sent to Elasticsearch. Useful for basic auth
-      "Authorization", 'Basic ' + Buffer.from(username + ":" + password).toString('base64'),
+    headers: { // optional headers sent to Elasticsearch or elasticsearch proxy
       "my-custom-header": "my-custom-value"
     },
     auth: {
