@@ -48,8 +48,8 @@ Add the html and javascript to your page:
 <div class="ais-InstantSearch">
 
   <div class="left-panel">
-    <h2>Type</h2>
-    <div id="type-list"></div>
+    <h2>Categories</h2>
+    <div id="categories-list"></div>
   </div>
   <div class="right-panel">
     <div id="searchbox" class="ais-SearchBox"></div>
@@ -83,7 +83,7 @@ Add the html and javascript to your page:
       })
 
       const search = instantsearch({
-        indexName: "imdb_movies",
+        indexName: "products",
         searchClient: SearchkitInstantsearchClient(sk)
       });
 
@@ -92,7 +92,7 @@ Add the html and javascript to your page:
           container: "#searchbox"
         }),
         instantsearch.widgets.refinementList({
-          container: "#type-list",
+          container: "#categories-list",
           attribute: "categories"
         }),
         instantsearch.widgets.hits({
