@@ -29,6 +29,11 @@ export type FilterAttribute = {
   nestedPath?: string
 }
 
+export interface BasicAuth {
+  username: string
+  password: string
+}
+
 export interface ConfigConnection {
   /**
    * @description The Elasticsearch host
@@ -51,10 +56,7 @@ export interface ConfigConnection {
    * @example username: elastic
    * @example password: changeme
    */
-  auth?: {
-    username: string
-    password: string
-  }
+  auth?: BasicAuth
 }
 
 export interface SearchAttributeConfig {

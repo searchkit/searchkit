@@ -1,6 +1,14 @@
-import { AppSettings, ConfigConnection, SearchRequest } from './types'
+import { AppSettings, BasicAuth, ConfigConnection, SearchRequest } from './types'
 import { ElasticsearchResponseBody, Transporter } from './types'
 import { createElasticsearchQueryFromRequest } from './utils'
+
+const authString = (auth: BasicAuth) => {
+  if (typeof btoa === 'undefined') {
+    return Buffer.from(auth.username + ':' + auth.password).toString('base64')
+  } else {
+    return btoa(auth.username + ':' + auth.password)
+  }
+}
 
 export class ESTransporter implements Transporter {
   constructor(public config: ConfigConnection, private settings: AppSettings) {}
@@ -17,11 +25,7 @@ export class ESTransporter implements Transporter {
         ...(this.config.headers || {}),
         ...(this.config.auth
           ? {
-              Authorization:
-                'Basic ' +
-                Buffer.from(this.config.auth.username + ':' + this.config.auth.password).toString(
-                  'base64'
-                )
+              Authorization: 'Basic ' + authString(this.config.auth)
             }
           : {})
       },
