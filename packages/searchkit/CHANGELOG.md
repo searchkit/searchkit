@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.4.1
+
+### Patch Changes
+
+- 36af10f5: Fix issue with using auth on the browser
+
 ## 4.4.0
 
 ### Minor Changes
