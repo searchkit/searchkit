@@ -5,6 +5,9 @@ everything you can do and the processes to follow for each contribution method.
 Note that no matter how you contribute, your participation is governed by our
 [Code of Conduct](CODE_OF_CONDUCT.md).
 
+If you want to be rewarded for your contributions, sign up for the [Elastic Contributor Program](https://www.elastic.co/community/contributor). Each time you
+make a valid contribution, you’ll earn points that increase your chances of winning prizes and being recognized as a top contributor.
+
 ### Make changes to the Searchkit code or docs
 
 Fork the project, make a change, and submit a pull request. Please make sure the tests pass before
