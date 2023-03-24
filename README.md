@@ -36,15 +36,17 @@ Searchkit is great for anyone who want to build a search experience quickly.
 * [Searchkit with Express.js](https://www.searchkit.co/docs/proxy-elasticsearch/with-express-js)
 
 ## Codesandbox Examples
-* [Searchkit with JS Widgets](https://codesandbox.io/s/searchkit-quick-start-js-widgets-4xopy5?file=/index.html)
-* [Searchkit with Vue](https://codesandbox.io/s/vue-example-3x7obs)
+* [Searchkit with JS Widgets](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-instantsearchjs)
+* [Searchkit with Vue](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-vue)
+* [Searchkit with Next.js](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-nextjs-react)
+* [Proxy with Express.js](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/proxy-elasticsearch/with-express-typescript-esm)
 
 ## Video Tutorials
 * [Searchkit Intro Video Tutorial with Instantsearch.js](https://www.youtube.com/watch?v=R6iYpEuCdVs)
 * [Searchkit Node API Video Tutorial](https://www.youtube.com/watch?v=8ztvn1-VZ_U)
 
 ## Tutorials
-* [Searchkit with Next.js](https://www.searchkit.co/tutorials)
+* [Searchkit with Next.js](https://www.searchkit.co/tutorials/with-nextjs)
 * [Searchkit with Availability Search](https://www.searchkit.co/tutorials/build-availability-search-ui)
 
 ## Demos
