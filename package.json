@@ -28,7 +28,7 @@
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.0.1",
     "eslint-config-custom": "*",
-    "husky": "^4.3.0",
+    "husky": "^8.0.3",
     "prettier": "^2.1.2",
     "turbo": "latest",
     "typescript": "^4.9.5"
