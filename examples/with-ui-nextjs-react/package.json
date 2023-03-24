@@ -11,6 +11,7 @@
   "dependencies": {
     "@searchkit/api": "*",
     "@searchkit/instantsearch-client": "*",
+    "react-instantsearch-dom": "^6.39.1",
     "@types/node": "18.15.7",
     "@types/react": "18.0.29",
     "@types/react-dom": "18.0.11",
