@@ -13,8 +13,8 @@
   },
   "license": "Apache-2.0",
   "scripts": {
-    "test": "turbo run test",
-    "build": "turbo run build",
+    "test": "turbo run test --filter='./packages/*'",
+    "build": "turbo run build --filter='./packages/*'",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
