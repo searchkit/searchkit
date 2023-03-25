@@ -1,0 +1,4 @@
+name = "my-searchkit-proxy"
+main = "src/index.ts"
+compatibility_date = "2022-10-30"
+node_compat = false

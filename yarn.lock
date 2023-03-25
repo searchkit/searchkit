@@ -674,6 +674,11 @@
     human-id "^1.0.2"
     prettier "^2.7.1"
 
+"@cloudflare/workers-types@^4.20230321.0":
+  version "4.20230321.0"
+  resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-4.20230321.0.tgz#082c278ab614ad109f33c2f781e72ad3cd308877"
+  integrity sha512-zyRFz9AUS0tbg3/kJ+3zxvp9fl/O9yOJlChih/o86hhOqRMcZVbWefYAvFPidRvYUHM5YTG1wjU1bF9FFckRVg==
+
 "@corex/deepmerge@^4.0.29":
   version "4.0.37"
   resolved "https://registry.npmjs.org/@corex/deepmerge/-/deepmerge-4.0.37.tgz"
@@ -7519,6 +7524,16 @@ react-instantsearch-core@6.39.0:
     prop-types "^15.6.2"
     react-fast-compare "^3.0.0"
 
+react-instantsearch-core@6.39.1:
+  version "6.39.1"
+  resolved "https://registry.yarnpkg.com/react-instantsearch-core/-/react-instantsearch-core-6.39.1.tgz#3c2948d3cfea3c58b2e9902b6fcc245aaa0bae7b"
+  integrity sha512-rvzOoNGBT2O28mmcpXfcN4pVF+p07jlDMbEKB1TRdW3jE9dm8U6uCS/X6DWqigYLr8svVRcG/Ez+wzYK+yuPZw==
+  dependencies:
+    "@babel/runtime" "^7.1.2"
+    algoliasearch-helper "^3.11.3"
+    prop-types "^15.6.2"
+    react-fast-compare "^3.0.0"
+
 react-instantsearch-dom-maps@^6.39.0:
   version "6.39.0"
   resolved "https://registry.npmjs.org/react-instantsearch-dom-maps/-/react-instantsearch-dom-maps-6.39.0.tgz"
@@ -7539,6 +7554,18 @@ react-instantsearch-dom@^6.36.0:
     prop-types "^15.6.2"
     react-fast-compare "^3.0.0"
     react-instantsearch-core "6.39.0"
+
+react-instantsearch-dom@^6.39.1:
+  version "6.39.1"
+  resolved "https://registry.yarnpkg.com/react-instantsearch-dom/-/react-instantsearch-dom-6.39.1.tgz#103af882415d427325330102379a02e66e5d7bc8"
+  integrity sha512-lfTHQZ3ILwlQeDsd+GqvVCVLyOzK8FYMtICJvc0PXANhcXXMM+7WvqJGlDclcnujPPSDuQl6MmKTHcTNVapQoA==
+  dependencies:
+    "@babel/runtime" "^7.1.2"
+    algoliasearch-helper "^3.11.3"
+    classnames "^2.2.5"
+    prop-types "^15.6.2"
+    react-fast-compare "^3.0.0"
+    react-instantsearch-core "6.39.1"
 
 react-is@^16.13.1:
   version "16.13.1"
