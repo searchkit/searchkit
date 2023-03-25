@@ -27,6 +27,11 @@ Searchkit is great for anyone who want to build a search experience quickly.
 * [Searchkit with Vue](https://www.searchkit.co/docs/getting-started/with-vue)
 * [Searchkit with Angular](https://www.searchkit.co/docs/getting-started/with-angular)
 
+## Code Examples (on Github)
+* [Searchkit with Next.JS](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-nextjs-react)
+* [Searchkit with Javascript](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-instantsearchjs)
+* [Searchkit with Vue](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-vue)
+
 ## Components Docs
 * [Searchkit Instantsearch Components](https://www.searchkit.co/docs/components/refinements/refinement-list)
 

@@ -16,6 +16,35 @@ In this walkthrough, we will:
 - Setup an api route to fetch results from Elasticsearch
 - Use React Instantsearch to display the results 🎉
 
+## Download an Example Project
+
+You can check out a Next.js project with Searchkit here:
+
+```bash
+curl https://codeload.github.com/searchkit/searchkit/tar.gz/main | \
+tar -xz --strip=2 searchkit-main/examples/with-ui-nextjs-react
+```
+
+or view the example codebase on github [here](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-nextjs-react)
+
+## Code Sandbox Example
+
+You can also check out the code sandbox example here:
+
+<iframe src="https://codesandbox.io/embed/github/searchkit/searchkit/tree/main/examples/with-ui-nextjs-react?fontsize=14&hidenavigation=1&theme=dark&view=preview"
+style={{
+    width: "100%",
+    height: "500px",
+    marginTop: "20px",
+    border: 0,
+    overflow: "hidden",
+    background: "rgb(21, 21, 21)",
+  }}
+     title="with-ui-nextjs-react"
+     allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
+     sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+   ></iframe>
+
 ## Create a Next.js app
 
 First, we need to create a Next.js app. We can do this by running the following command:
@@ -306,19 +335,3 @@ import {
 ## Summary
 
 We have quickly built a really nice search experience from scratch using Elasticsearch and Algolia Instantsearch. We have also learned how to customize the search experience by adjusting the search fields and overriding the default Elasticsearch query.
-
-## Code Sandbox Example
-
-<iframe
-  src="https://codesandbox.io/embed/ises-template-k4tz09?codemirror=1&fontsize=14&theme=dark&autoresize=1&hidenavigation=1"
-  style={{
-    width: "100%",
-    height: "100%",
-    border: 0,
-    overflow: "hidden",
-    background: "rgb(21, 21, 21)",
-  }}
-  title="ISES - Basic Usage"
-  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-  sandbox="allow-autoplay allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-/>

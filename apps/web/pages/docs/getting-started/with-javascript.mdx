@@ -11,16 +11,36 @@ import Setup from './setup.mdx'
 
 This guide will show you how to get started with Searchkit and instantsearch.js.
 
-<Setup />
+## Download an Example Project
 
-### Download an example Project
-
-You can check out a instantsearch.js project with Searchkit here:
+You can check out a vite + Instantsearch.js project with Searchkit here:
 
 ```bash
 curl https://codeload.github.com/searchkit/searchkit/tar.gz/main | \
 tar -xz --strip=2 searchkit-main/examples/with-ui-instantsearchjs
 ```
+
+or view the example codebase on github [here](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-instantsearchjs)
+
+## Code Sandbox Example
+
+You can also check out the code sandbox example here:
+
+<iframe src="https://codesandbox.io/embed/github/searchkit/searchkit/tree/main/examples/with-ui-instantsearchjs?fontsize=14&hidenavigation=1&theme=dark&view=preview"
+style={{
+    width: "100%",
+    height: "500px",
+    marginTop: "20px",
+    border: 0,
+    overflow: "hidden",
+    background: "rgb(21, 21, 21)",
+  }}
+     title="with-ui-instantsearchjs"
+     allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
+     sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+   ></iframe>
+
+<Setup />
 
 ### Add CDN scripts to your page
 Installing both the API and instantsearch-client is easy. You can install them with via CDN or npm or yarn.
@@ -148,18 +168,3 @@ Follow the [query rules guide](/docs//query-rules) to add query rules to your se
 ## Deploying to Production
 
 TODO - Contributions welcome
-
-## Code Sandbox example
-
-<iframe src="https://codesandbox.io/embed/searchkit-quick-start-js-widgets-4xopy5?fontsize=14&hidenavigation=1&theme=dark&view=preview"
-style={{
-    width: "100%",
-    height: "600px",
-    border: 0,
-    overflow: "hidden",
-    background: "rgb(21, 21, 21)",
-  }}     title="Searchkit Quick Start JS Widgets"
-     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-   ></iframe>
-
