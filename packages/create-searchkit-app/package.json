@@ -1,0 +1,36 @@
+{
+  "name": "create-searchkit-app",
+  "version": "1.0.0",
+  "main": "./src/index.js",
+  "description": "Create Searchkit App CLI",
+  "bin": {
+    "create-searchkit-app": "./src/cli.js"
+  },
+  "type": "module",
+  "keywords": [
+    "elasticsearch",
+    "search",
+    "ui",
+    "react",
+    "vue",
+    "angular",
+    "instantsearch",
+    "autocomplete"
+  ],
+  "repository": "https://github.com/searchkit/searchkit",
+  "bugs": "https://github.com/searchkit/searchkit/issues",
+  "homepage": "https://www.searchkit.co",
+  "license": "MIT",
+  "sideEffects": false,
+  "scripts": {},
+  "devDependencies": {},
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "commander": "^10.0.0",
+    "inquirer": "^9.1.5",
+    "metalsmith": "^2.5.1"
+  }
+}
