@@ -19,7 +19,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "changeset": "changeset",
-    "publish-packages": "turbo run build lint test && changeset version && changeset publish"
+    "publish-packages": "yarn build && yarn lint && yarn test && changeset version && changeset publish"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",

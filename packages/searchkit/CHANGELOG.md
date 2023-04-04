@@ -1,5 +1,17 @@
 # searchkit
 
+## 4.4.3
+
+### Patch Changes
+
+- publish in case
+
+## 4.4.2
+
+### Patch Changes
+
+- 3943ea60: Better error messaging for auth issues
+
 ## 4.4.1
 
 ### Patch Changes
