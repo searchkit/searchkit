@@ -93,6 +93,15 @@ Add the html and javascript to your page:
       const sk = new Searchkit({
         connection: {
           host: "http://localhost:9200",
+          // if you are authenticating with username/password
+          // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword
+          //auth: {
+          //  username: "elastic",
+          //  password: "changeme"
+          //},
+          // if you are authenticating with api key
+          // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-api-key
+          // apiKey: "######"
         },
         search_settings: {
           highlight_attributes: ["name"],

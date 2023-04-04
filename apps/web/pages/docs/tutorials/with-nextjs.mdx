@@ -98,7 +98,15 @@ import Client from "@searchkit/api";
 const apiConfig = {
   connection: {
     host: "<replace-with-your-elasticsearch-host>",
-    apiKey: "<replace-with-your-elasticsearch-api-key>",
+    // if you are authenticating with api key
+    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-api-key
+    // apiKey: '###'
+    // if you are authenticating with username/password
+    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword
+    // auth: {
+    //   username: "elastic",
+    //   password: "changeme"
+    // },
   },
   search_settings: {
     highlight_attributes: ["title", "actors"],

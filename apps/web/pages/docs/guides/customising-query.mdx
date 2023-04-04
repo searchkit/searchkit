@@ -82,30 +82,30 @@ An example of extending the query to do a hybrid search with KNN search and text
   const results = await client.handleRequest(req.body, {
     hooks: {
       beforeSearch: async (searchRequests) => {
-        const [uiRequest, ...restRequests] = searchRequests
-
-        // get an image embedding from the query text
-        const imageEmbedding = await getImageEmbeddingFromQueryText(uiRequest.params.query)
-
-        // extends the query to do a hybrid search with KNN search and text search
-        // https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search.html
-        return [
-          {
-            ...uiRequest,
-            body: {
-              ...uiRequest.body,
-              "knn": {
-                "field": "image-vector",
-                "query_vector": imageEmbedding,
-                "k": 10,
-                "num_candidates": 100
-              },
-            },
-          },
-          restRequests,
-        ];
+        const [uiRequest] = searchRequests
+        const query = uiRequest.request.params.query
         
-      },
+        if (!query) {
+          return searchRequests
+        }
+
+        const textVector = await vectorizeText(query);
+
+        return searchRequests.map((sr) => {
+            return {
+              ...sr,
+              body: {
+                ...sr.body,
+                knn: {
+                    "field": "text_embedding",
+                    "query_vector": textVector.vector,
+                    "k": 10,
+                    "num_candidates": 100
+                }
+              }
+          }
+        })
+      }
     }
   });
 ```

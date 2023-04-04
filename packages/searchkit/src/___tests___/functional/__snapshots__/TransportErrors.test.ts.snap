@@ -9,7 +9,7 @@ exports[`Transport Errors 400 error 1`] = `
           "
 `;
 
-exports[`Transport Errors 401 error 1`] = `"Cannot connect to Elasticsearch. Check your connection host and API Key. You can also provide a custom Elasticsearch transporter to the API Client. See docs for more information."`;
+exports[`Transport Errors 401 error 1`] = `"Cannot connect to Elasticsearch. Check your connection host and auth details (username/password or API Key required). You can also provide a custom Elasticsearch transporter to the API Client. See https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword for more details."`;
 
 exports[`Transport Errors 403 error 1`] = `"Auth Error: You do not have permission to access this index. Check you are calling the right index (specified in frontend) and your API Key permissions has access to the index."`;
 

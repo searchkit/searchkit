@@ -213,7 +213,16 @@ import Client from "@searchkit/api";
  
 const client = Client({
   connection: {
-    host: "http://localhost:9200"
+    host: "http://localhost:9200",
+    // if you are authenticating with api key
+    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-api-key
+    // apiKey: '###'
+    // if you are authenticating with username/password
+    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword
+    // auth: {
+    //   username: "elastic",
+    //   password: "changeme"
+    // },
   },
   search_settings: {
     search_attributes: ["name", "description"]
@@ -249,6 +258,15 @@ import Client from "@searchkit/api";
 const client = Client({
   connection: {
     host: "http://localhost:9200"
+    // if you are authenticating with api key
+    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-api-key
+    // apiKey: '###'
+    // if you are authenticating with username/password
+    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword
+    // auth: {
+    //   username: "elastic",
+    //   password: "changeme"
+    // },
   },
   search_settings: {
     search_attributes: ["name", "description", "categories"]
