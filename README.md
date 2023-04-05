@@ -154,7 +154,7 @@ const sk = new Searchkit({
     host: 'http://localhost:9200',
     // with an apiKey
     // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-api-key
-    apiKey: '##########'
+    // apiKey: '##########'
     // with a username/password
     // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword
     //auth: {
