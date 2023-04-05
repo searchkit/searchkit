@@ -151,7 +151,16 @@ import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, NumericMenu
 
 const sk = new Searchkit({
   connection: {
-    host: 'http://localhost:9200'
+    host: 'http://localhost:9200',
+    // with an apiKey
+    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-api-key
+    apiKey: '##########'
+    // with a username/password
+    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword
+    //auth: {
+    //  username: "elastic",
+    //  password: "changeme"
+    //}
   },
   search_settings: {
     search_attributes: [{ field: 'title', weight: 3 }, 'actors', 'plot'],
