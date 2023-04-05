@@ -317,6 +317,7 @@ Below is an example of a query rule that boosts results for movies with Dan Aykr
 read more at [Query Rules](https://www.searchkit.co/docs/query-rules) docs.
 
 ### NPM Packages
+* Searchkit [Documentation(https://www.searchkit.co/docs/api-documentation/searchkit)
 * @searchkit/api [Documentation](https://www.searchkit.co/docs/api-documentation/api)
 * @searchkit/instantsearch-client [Documentation](https://www.searchkit.co/docs/api-documentation/instantsearch-client)
 
