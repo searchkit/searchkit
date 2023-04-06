@@ -8,11 +8,6 @@ const withNextra = require('nextra')({
   },
 })
 
-
-// module.exports = withNextra(withTM({
-//   // reactStrictMode: true,
-// }));
-
 module.exports = withNextra({
   async redirects() {
     return [
