@@ -10,7 +10,7 @@ function Github() {
       rel="noreferrer"
     >
       {/* Nextra icons have a <title> attribute providing alt text */}
-      <div className="pr-2 text-md font-semibold">4537 Stars</div><GitHubIcon />
+      <div className="pr-2 text-md font-semibold">4563 Stars</div><GitHubIcon />
     </a>
   );
 }
