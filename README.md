@@ -151,7 +151,16 @@ import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, NumericMenu
 
 const sk = new Searchkit({
   connection: {
-    host: 'http://localhost:9200'
+    host: 'http://localhost:9200',
+    // with an apiKey
+    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-api-key
+    // apiKey: '##########'
+    // with a username/password
+    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword
+    //auth: {
+    //  username: "elastic",
+    //  password: "changeme"
+    //}
   },
   search_settings: {
     search_attributes: [{ field: 'title', weight: 3 }, 'actors', 'plot'],
@@ -308,6 +317,7 @@ Below is an example of a query rule that boosts results for movies with Dan Aykr
 read more at [Query Rules](https://www.searchkit.co/docs/query-rules) docs.
 
 ### NPM Packages
+* Searchkit [Documentation](https://www.searchkit.co/docs/api-documentation/searchkit)
 * @searchkit/api [Documentation](https://www.searchkit.co/docs/api-documentation/api)
 * @searchkit/instantsearch-client [Documentation](https://www.searchkit.co/docs/api-documentation/instantsearch-client)
 
