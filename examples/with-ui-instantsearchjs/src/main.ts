@@ -3,6 +3,7 @@ import Searchkit, { SearchkitConfig } from 'searchkit'
 import SearchkitInstantsearchClient from '@searchkit/instantsearch-client'
 import instantsearch from 'instantsearch.js'
 import { searchBox, refinementList, hits, pagination } from 'instantsearch.js/es/widgets'
+import connectSearchBox from 'instantsearch.js/es/connectors/search-box/connectSearchBox'
 
 const config: SearchkitConfig = {
   connection: {
@@ -45,10 +46,10 @@ const search = instantsearch({
   searchClient: searchClient as any
 })
 
+const virtualSearchBox = connectSearchBox(() => {})
+
 search.addWidgets([
-  searchBox({
-    container: '#searchbox'
-  }),
+  virtualSearchBox({}),
   refinementList({
     container: '#type-list',
     attribute: 'type'
