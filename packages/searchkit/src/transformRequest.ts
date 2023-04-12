@@ -91,22 +91,29 @@ export const getAggs = (
   const facetAttributes = config.facet_attributes || []
 
   if (facetName) {
-    return getTermAggregation(getFacet(facetAttributes, facetName), maxFacetSize, facetQuery)
+    const facet = getFacet(facetAttributes, facetName)
+    if (!facet) return null
+    return getTermAggregation(facet, maxFacetSize, facetQuery)
   } else if (Array.isArray(facets)) {
     let facetAttibutes = config.facet_attributes || []
 
     if (queryRuleActions.facetAttributesOrder) {
-      facetAttibutes = queryRuleActions.facetAttributesOrder.map((attribute) => {
-        return getFacet(config.facet_attributes || [], attribute)
-      })
+      facetAttibutes = queryRuleActions.facetAttributesOrder
+        .map((attribute) => {
+          return getFacet(config.facet_attributes || [], attribute)
+        })
+        .filter((x): x is FacetAttribute => x !== null)
     }
 
     const facetAttributes: FacetAttribute[] =
       facets[0] === '*'
         ? facetAttibutes
-        : facets.map((facetAttribute) => {
-            return getFacet(config.facet_attributes || [], facetAttribute)
-          })
+        : facets
+            .map((facetAttribute) => {
+              return getFacet(config.facet_attributes || [], facetAttribute)
+            })
+            .filter((x): x is FacetAttribute => x !== null)
+
     return (
       facetAttributes.reduce((sum, facet) => {
         return deepmerge(sum, getTermAggregation(facet, maxFacetSize, ''))
@@ -114,6 +121,7 @@ export const getAggs = (
     )
   } else if (typeof facets === 'string') {
     const field = getFacet(config.facet_attributes || [], facets)
+    if (!field) return null
     return getTermAggregation(field, maxFacetSize, '')
   }
 }

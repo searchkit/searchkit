@@ -214,21 +214,24 @@ export const transformFacetFilters = (
       ]
     } else if (typeof filter === 'string') {
       const [facet, value] = filter.split(':')
-      const facetAttribute = getFacetAttribute(facet)
-      const facetConfig = getFacet(config.facet_attributes || [], facetAttribute)
-      const field = typeof facetConfig === 'string' ? facetConfig : facetConfig.field
 
-      if (typeof facetConfig !== 'string' && isNestedFacet(facetConfig) && facetConfig.nestedPath) {
+      const facetFilterConfig = facetFilterMap[facet]
+      if (!facetFilterConfig)
+        throw new Error(
+          `Facet "${facet}" not found in configuration. Add configuration to either facet_attributes or filter_attributes.`
+        )
+
+      if (isNestedFacet(facetFilterConfig) && facetFilterConfig.nestedPath) {
         // detect if there is a nested filter in sum
         // if one doesn't exist, add one
         // if one does exist, add to it
         const nestedFilter = sum.find((filter: any) => {
-          return filter.nested && filter.nested.path === facetConfig.nestedPath + '.'
+          return filter.nested && filter.nested.path === facetFilterConfig.nestedPath + '.'
         })
 
         if (nestedFilter) {
           nestedFilter.nested.query.bool.should.push(
-            termFilter(`${facetConfig.nestedPath}.${facetConfig.field}`, value)
+            termFilter(`${facetFilterConfig.nestedPath}.${facetFilterConfig.field}`, value)
           )
           return sum
         } else {
@@ -237,10 +240,15 @@ export const transformFacetFilters = (
             {
               nested: {
                 inner_hits: {},
-                path: facetConfig.nestedPath,
+                path: facetFilterConfig.nestedPath,
                 query: {
                   bool: {
-                    should: [termFilter(`${facetConfig.nestedPath}.${facetConfig.field}`, value)]
+                    should: [
+                      termFilter(
+                        `${facetFilterConfig.nestedPath}.${facetFilterConfig.field}`,
+                        value
+                      )
+                    ]
                   }
                 }
               }
@@ -248,7 +256,7 @@ export const transformFacetFilters = (
           ]
         }
       }
-      return [...sum, termFilter(field, value)]
+      return [...sum, termFilter(facetFilterConfig.field, value)]
     }
   }, [])
 }

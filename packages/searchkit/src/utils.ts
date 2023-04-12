@@ -21,14 +21,14 @@ export const createRegexQuery = (queryString: string) => {
 export const getFacet = (
   facet_attributes: FacetAttribute[],
   attributeName: string
-): FacetAttribute => {
+): FacetAttribute | null => {
   const f = facet_attributes.find((a) => {
     if (typeof a === 'string') {
       return a === attributeName
     }
     return a.attribute === attributeName
   })
-  return f || attributeName
+  return f || null
 }
 
 export const isNestedFacet = (facet: FacetAttribute): boolean => {
