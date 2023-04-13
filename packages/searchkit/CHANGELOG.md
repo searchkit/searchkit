@@ -1,5 +1,12 @@
 # searchkit
 
+## 4.5.0
+
+### Minor Changes
+
+- 6ef6705e: Support for filters to be used with analyzed fields
+- 6ef6705e: Added support for custom facets and filter queries
+
 ## 4.4.3
 
 ### Patch Changes
