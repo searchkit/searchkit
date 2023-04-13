@@ -31,7 +31,7 @@ const apiClient = API(
           attribute: 'writers',
           type: 'string',
           field: 'writers',
-          filter: MatchFilter
+          filterQuery: MatchFilter
         }
       ]
     }
