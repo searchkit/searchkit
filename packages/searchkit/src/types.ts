@@ -3,7 +3,9 @@ import type {
   SearchRequest as ElasticsearchSearchRequest,
   QueryDslQueryContainer as ElasticsearchQueryDslQuery,
   SearchResponseBody as ElasticsearchBaseResponseBody,
-  SearchHit as ElasticsearchBaseHit
+  SearchHit as ElasticsearchBaseHit,
+  AggregationsAggregation,
+  AggregationsAggregationContainer
 } from '@elastic/elasticsearch/lib/api/types'
 
 type ElasticsearchHitDocument = Record<string, unknown>
@@ -12,6 +14,7 @@ type ElasticsearchHit = ElasticsearchBaseHit<ElasticsearchHitDocument>
 type ElasticsearchResponseBody = ElasticsearchBaseResponseBody<ElasticsearchHitDocument>
 
 type ElasticsearchQuery = ElasticsearchQueryDslQuery
+type ElasticsearchAggregation = AggregationsAggregationContainer
 
 export type MultipleQueriesQuery = AlgoliaMultipleQueriesQuery
 
@@ -20,6 +23,8 @@ export type FacetFieldConfig = {
   field: string
   type: 'numeric' | 'string' | 'date'
   nestedPath?: string
+  facetQuery?: (field: string, size: number, search: string) => ElasticsearchAggregation
+  filterQuery?: (field: string, value: string) => ElasticsearchQuery
 }
 
 export type FilterAttribute = {
@@ -27,6 +32,7 @@ export type FilterAttribute = {
   field: string
   type: 'numeric' | 'string' | 'date'
   nestedPath?: string
+  filterQuery?: (field: string, value: string) => ElasticsearchQuery
 }
 
 export interface BasicAuth {

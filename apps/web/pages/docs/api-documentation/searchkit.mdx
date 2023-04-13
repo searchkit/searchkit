@@ -62,9 +62,9 @@ const searchkitClient = new Searchkit({
     search_attributes: ["title", "actors"],
     result_attributes: ["title", "actors", "poster", "year"],
     facet_attributes: [
-      "type",
-      { attribute: "actors", field: "actors.keyword" },
-      "rated",
+      { attribute: "type", field: "type", type: "string" },
+      { attribute: "actors", field: "actors.keyword", type: "string" },
+      { attribute: "rated", field: "rated", type: "string" },
       { attribute: "imdbrating", type: "numeric" },
       { attribute: "metascore", type: "numeric" },
     ],
@@ -108,9 +108,9 @@ const client = Client({
     search_attributes: ["title", "actors"],
     result_attributes: ["title", "actors", "poster", "year"],
     facet_attributes: [
-      "type",
-      { attribute: "actors", field: "actors.keyword" },
-      "rated",
+      { attribute: "type", field: "type", type: "string" },
+      { attribute: "actors", field: "actors.keyword", type: "string" },
+      { attribute: "rated", field: "rated", type: "string" },
       { attribute: "imdbrating", type: "numeric" },
       { attribute: "metascore", type: "numeric" },
     ],
@@ -169,14 +169,14 @@ search_settings: {
   search_attributes: ["title^3", "actors"],
   result_attributes: ["title", "actors", "poster", "year"],
   facet_attributes: [
-    "type",
-    { attribute: "actors", field: "actors.keyword" },
-    "rated",
+    { attribute: "type", field: "type", type: "string" },
+    { attribute: "actors", field: "actors.keyword", type: "string" },
+    { attribute: "rated", field: "rated", type: "string" },
     { attribute: "imdbrating", type: "numeric" },
     { attribute: "metascore", type: "numeric" },
   ],
   filter_attributes: [
-    { attribute: "year", type: "numeric" }
+    { attribute: "year", field: 'year', type: "numeric" }
   ],
   sorting: {
     default: {
@@ -248,7 +248,7 @@ in the above example, you would specify the `actors` facet as follows:
 
 ```tsx
 facet_attributes: [
-  { attribute: "actors", field: "actors.keyword" },
+  { attribute: "actors", field: "actors.keyword", type: 'string' },
 ],
 ```
 
@@ -262,14 +262,47 @@ Below is an example of a `RefinementList` Instantsearch React component that use
 
 See [facets guide](/docs/guides/facets) for more information.
 
+##### Custom Aggregations & Filter Queries
+
+Searchkit uses the terms aggregation to generate facets and applies filters with `term` clause. You can use the `facetQuery` & `filterQuery` option to specify a custom aggregation query.
+
+```ts
+facet_attributes: [
+  {
+    field: 'actors.keyword',
+    attribute: 'actors',
+    type: 'string',
+    facetQuery: (
+      field, // 'actors.keyword' in this case
+      size,  // size specified by the frontend
+      query // query specified by the frontend, used for search within facet
+    ) => ({
+      significant_terms: { // example of using significant terms aggregation instead of terms aggregation
+        field,
+        size: size
+      }
+    }),
+    filterQuery: (
+      field, // 'actors.keyword' in this case
+      value // value specified by the frontend
+    ) => ({
+      match: { // example of using match clause instead of terms filter
+        [field]: value
+      }
+    }
+    )
+  }
+],
+```
+
 ###### numeric and date types
 
 For range based facets, you need to specify the `type` as `numeric` or `date`. This is so the client can correctly generate facet stats for the field to be used in the UI.
 
 ```tsx
 facet_attributes: [
-  { attribute: "imdbrating", type: "numeric" },
-  { attribute: "metascore", type: "numeric" },
+  { attribute: "imdbrating", field: "imdbrating", type: "numeric" },
+  { attribute: "metascore", field: "metascore", type: "numeric" },
 ],
 ```
 
@@ -284,6 +317,39 @@ Below is an example of a `NumericMenu` Instantsearch React component that uses t
     { label: ">= 9", start: 9 },
   ]}
 />
+```
+
+##### `filter_attributes`
+
+Similar to `facet_attributes`, `filter_attributes` are used to apply for filters. The difference is that `filter_attributes` are not used to generate facets.
+
+```tsx
+filter_attributes: [
+  { attribute: "writers", field: 'writers', type: "string" }
+],
+```
+
+##### Custom Filter Queries
+
+Searchkit uses the `term` clause to apply filters. You can use the `filterQuery` option to specify a custom filter query.
+
+```ts
+filter_attributes: [
+  {
+    field: 'actors.keyword',
+    attribute: 'actors',
+    type: 'string',
+    filterQuery: (
+      field, // 'actors.keyword' in this case
+      value // value specified by the frontend
+    ) => ({
+      match: { // example of using match clause instead of terms filter
+        [field]: value
+      }
+    }
+    )
+  }
+],
 ```
 
 ##### `sorting` 

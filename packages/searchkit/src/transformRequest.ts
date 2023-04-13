@@ -30,20 +30,26 @@ export const createRegexQuery = (queryString: string) => {
   return query
 }
 
-const getTermAggregation = (facet: FacetAttribute, size: number, search: string) => {
+const TermAggregation = (field: string, size: number, search: string) => {
   const searchInclude = search && search.length > 0 ? { include: createRegexQuery(search) } : {}
+  return {
+    terms: {
+      field,
+      size,
+      ...searchInclude
+    }
+  }
+}
+
+const getTermAggregation = (facet: FacetAttribute, size: number, search: string) => {
   let aggEntries = {}
+  const AggregationFn =
+    typeof facet !== 'string' && facet.facetQuery ? facet.facetQuery : TermAggregation
 
   const getInnerAggs = (facetName: string, field: string): any => {
     if (typeof facet === 'string' || facet.type === 'string') {
       aggEntries = {
-        [facetName]: {
-          terms: {
-            field: field,
-            size,
-            ...searchInclude
-          }
-        }
+        [facetName]: AggregationFn(field, size, search)
       }
     } else if (facet.type === 'numeric') {
       aggEntries = {
@@ -52,12 +58,7 @@ const getTermAggregation = (facet: FacetAttribute, size: number, search: string)
             field: field
           }
         },
-        [facetName + '$_entries']: {
-          terms: {
-            field: field,
-            size: size
-          }
-        }
+        [facetName + '$_entries']: AggregationFn(field, size, search)
       }
     }
     return aggEntries
@@ -91,22 +92,29 @@ export const getAggs = (
   const facetAttributes = config.facet_attributes || []
 
   if (facetName) {
-    return getTermAggregation(getFacet(facetAttributes, facetName), maxFacetSize, facetQuery)
+    const facet = getFacet(facetAttributes, facetName)
+    if (!facet) return null
+    return getTermAggregation(facet, maxFacetSize, facetQuery)
   } else if (Array.isArray(facets)) {
     let facetAttibutes = config.facet_attributes || []
 
     if (queryRuleActions.facetAttributesOrder) {
-      facetAttibutes = queryRuleActions.facetAttributesOrder.map((attribute) => {
-        return getFacet(config.facet_attributes || [], attribute)
-      })
+      facetAttibutes = queryRuleActions.facetAttributesOrder
+        .map((attribute) => {
+          return getFacet(config.facet_attributes || [], attribute)
+        })
+        .filter((x): x is FacetAttribute => x !== null)
     }
 
     const facetAttributes: FacetAttribute[] =
       facets[0] === '*'
         ? facetAttibutes
-        : facets.map((facetAttribute) => {
-            return getFacet(config.facet_attributes || [], facetAttribute)
-          })
+        : facets
+            .map((facetAttribute) => {
+              return getFacet(config.facet_attributes || [], facetAttribute)
+            })
+            .filter((x): x is FacetAttribute => x !== null)
+
     return (
       facetAttributes.reduce((sum, facet) => {
         return deepmerge(sum, getTermAggregation(facet, maxFacetSize, ''))
@@ -114,6 +122,7 @@ export const getAggs = (
     )
   } else if (typeof facets === 'string') {
     const field = getFacet(config.facet_attributes || [], facets)
+    if (!field) return null
     return getTermAggregation(field, maxFacetSize, '')
   }
 }

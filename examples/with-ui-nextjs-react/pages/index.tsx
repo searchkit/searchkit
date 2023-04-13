@@ -9,12 +9,57 @@ import {
   Stats,
   NumericMenu,
   RangeInput,
-  CurrentRefinements
+  CurrentRefinements,
+  createConnector,
 } from "react-instantsearch-dom";
 import Client from "@searchkit/instantsearch-client";
+import { useState } from "react";
 
 const searchClient = Client({
   url: "/api/search"
+});
+
+const writersInputConnector = createConnector({
+  displayName: "writers",
+  getProvidedProps: (props, searchState) => {
+    return {
+      writers: searchState.writers || "",
+    };
+  },
+  refine: (props, searchState, nextValue) => {
+    return {
+      ...searchState,
+      writers: nextValue,
+    };
+  },
+  getSearchParameters(searchParameters, props, searchState) {
+    const { writers = "" } = searchState;
+
+    if (!writers) return searchParameters;
+
+    return searchParameters
+      .addFacet("writers")
+      .addFacetRefinement("writers", writers);
+  },
+});
+
+const WritersSearchInput = writersInputConnector(({ refine }) => {
+  const [query, setQuery] = useState("");
+  return (
+    <form onSubmit={(e) => {
+      e.preventDefault(); refine(query)
+    }}>
+      <input
+        type="text"
+        className="ais-SearchBox-input"
+        placeholder="search writers"
+        value={query}
+        onChange={(e) => {
+          setQuery(e.target.value);
+        }}
+      />
+    </form>
+  );
 });
 
 const hitView = (props: any) => {
@@ -58,6 +103,9 @@ export default function Web() {
           </Panel>
           <Panel header="metascore">
             <RangeInput attribute="metascore" header="Range Input" />
+          </Panel>
+          <Panel header="writers">
+            <WritersSearchInput />
           </Panel>
         </div>
         <div className="right-panel">

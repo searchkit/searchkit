@@ -1,3 +1,4 @@
+import { MatchFilter, TermFilter } from './filterUtils'
 import type {
   AlgoliaMultipleQueriesQuery,
   FacetAttribute,
@@ -122,10 +123,6 @@ export const transformNumericFilters = (
   }, [])
 }
 
-const termFilter = (field: string, value: string) => {
-  return { term: { [field]: value } }
-}
-
 const getFacetFilterMap = (facets: FacetAttribute[], filters: FilterAttribute[]) => {
   return [...filters, ...facets].reduce<Record<string, FacetFieldConfig | FilterAttribute>>(
     (sum, filter) => {
@@ -171,6 +168,7 @@ export const transformFacetFilters = (
                   `Facet "${facet}" not found in configuration. Add configuration to either facet_attributes or filter_attributes.`
                 )
               const field = facetFilterConfig.field
+              const filterClauseFn = facetFilterConfig.filterQuery || TermFilter
 
               if (isNestedFacet(facetFilterConfig)) {
                 // detect if there is a nested filter in sum
@@ -182,7 +180,10 @@ export const transformFacetFilters = (
 
                 if (nestedFilter) {
                   nestedFilter.nested.query.bool.should.push(
-                    termFilter(`${facetFilterConfig.nestedPath}.${facetFilterConfig.field}`, value)
+                    filterClauseFn(
+                      `${facetFilterConfig.nestedPath}.${facetFilterConfig.field}`,
+                      value
+                    )
                   )
                   return sum
                 } else {
@@ -195,7 +196,7 @@ export const transformFacetFilters = (
                         query: {
                           bool: {
                             should: [
-                              termFilter(
+                              filterClauseFn(
                                 `${facetFilterConfig.nestedPath}.${facetFilterConfig.field}`,
                                 value
                               )
@@ -207,28 +208,33 @@ export const transformFacetFilters = (
                   ]
                 }
               }
-              return [...sum, termFilter(field, value)]
+              return [...sum, filterClauseFn(field, value)]
             }, [])
           }
         }
       ]
     } else if (typeof filter === 'string') {
       const [facet, value] = filter.split(':')
-      const facetAttribute = getFacetAttribute(facet)
-      const facetConfig = getFacet(config.facet_attributes || [], facetAttribute)
-      const field = typeof facetConfig === 'string' ? facetConfig : facetConfig.field
 
-      if (typeof facetConfig !== 'string' && isNestedFacet(facetConfig) && facetConfig.nestedPath) {
+      const facetFilterConfig = facetFilterMap[facet]
+      if (!facetFilterConfig)
+        throw new Error(
+          `Facet "${facet}" not found in configuration. Add configuration to either facet_attributes or filter_attributes.`
+        )
+
+      const filterClauseFn = facetFilterConfig.filterQuery || TermFilter
+
+      if (isNestedFacet(facetFilterConfig) && facetFilterConfig.nestedPath) {
         // detect if there is a nested filter in sum
         // if one doesn't exist, add one
         // if one does exist, add to it
         const nestedFilter = sum.find((filter: any) => {
-          return filter.nested && filter.nested.path === facetConfig.nestedPath + '.'
+          return filter.nested && filter.nested.path === facetFilterConfig.nestedPath + '.'
         })
 
         if (nestedFilter) {
           nestedFilter.nested.query.bool.should.push(
-            termFilter(`${facetConfig.nestedPath}.${facetConfig.field}`, value)
+            filterClauseFn(`${facetFilterConfig.nestedPath}.${facetFilterConfig.field}`, value)
           )
           return sum
         } else {
@@ -237,10 +243,15 @@ export const transformFacetFilters = (
             {
               nested: {
                 inner_hits: {},
-                path: facetConfig.nestedPath,
+                path: facetFilterConfig.nestedPath,
                 query: {
                   bool: {
-                    should: [termFilter(`${facetConfig.nestedPath}.${facetConfig.field}`, value)]
+                    should: [
+                      filterClauseFn(
+                        `${facetFilterConfig.nestedPath}.${facetFilterConfig.field}`,
+                        value
+                      )
+                    ]
                   }
                 }
               }
@@ -248,7 +259,7 @@ export const transformFacetFilters = (
           ]
         }
       }
-      return [...sum, termFilter(field, value)]
+      return [...sum, filterClauseFn(facetFilterConfig.field, value)]
     }
   }, [])
 }
