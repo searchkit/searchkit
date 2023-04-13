@@ -8,6 +8,7 @@ import { createElasticsearchQueryFromRequest } from './utils'
 import { getIndexName } from './sorting'
 export * from './types'
 export * from './Transporter'
+export * from './filterUtils'
 
 export default class Searchkit {
   private transporter: Transporter

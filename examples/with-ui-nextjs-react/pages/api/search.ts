@@ -1,4 +1,4 @@
-import API from '@searchkit/api'
+import API, { MatchFilter } from '@searchkit/api'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 const apiClient = API(
@@ -26,7 +26,14 @@ const apiClient = API(
         { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' },
         { attribute: 'metascore', type: 'numeric', field: 'metascore' }
       ],
-      filter_attributes: [{ attribute: 'writers', type: 'string', field: 'writers' }]
+      filter_attributes: [
+        {
+          attribute: 'writers',
+          type: 'string',
+          field: 'writers',
+          filter: MatchFilter
+        }
+      ]
     }
   },
   { debug: true }

@@ -30,20 +30,26 @@ export const createRegexQuery = (queryString: string) => {
   return query
 }
 
-const getTermAggregation = (facet: FacetAttribute, size: number, search: string) => {
+const TermAggregation = (field: string, size: number, search: string) => {
   const searchInclude = search && search.length > 0 ? { include: createRegexQuery(search) } : {}
+  return {
+    terms: {
+      field,
+      size,
+      ...searchInclude
+    }
+  }
+}
+
+const getTermAggregation = (facet: FacetAttribute, size: number, search: string) => {
   let aggEntries = {}
+  const AggregationFn =
+    typeof facet !== 'string' && facet.facetQuery ? facet.facetQuery : TermAggregation
 
   const getInnerAggs = (facetName: string, field: string): any => {
     if (typeof facet === 'string' || facet.type === 'string') {
       aggEntries = {
-        [facetName]: {
-          terms: {
-            field: field,
-            size,
-            ...searchInclude
-          }
-        }
+        [facetName]: AggregationFn(field, size, search)
       }
     } else if (facet.type === 'numeric') {
       aggEntries = {
@@ -52,12 +58,7 @@ const getTermAggregation = (facet: FacetAttribute, size: number, search: string)
             field: field
           }
         },
-        [facetName + '$_entries']: {
-          terms: {
-            field: field,
-            size: size
-          }
-        }
+        [facetName + '$_entries']: AggregationFn(field, size, search)
       }
     }
     return aggEntries
