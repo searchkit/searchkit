@@ -121,6 +121,10 @@ export interface SearchSettingsConfig {
    * @description The attribute that will be used for geo search. This is required if you want to use geo search. Must be am Elasticsearch geo_point type field.
    */
   geo_attribute?: string
+  /**
+   * @description size of the highlighted snippet in characters. Defaults to 100.
+   */
+  fragment_size?: number
 }
 
 interface QueryStringRuleCondition {

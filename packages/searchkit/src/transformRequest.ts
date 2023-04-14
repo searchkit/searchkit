@@ -282,7 +282,7 @@ export const getHighlightFields = (
         ...sum,
         [field]: {
           number_of_fragments: 5,
-          fragment_size: 100
+          fragment_size: config.fragment_size || 100
         }
       }),
       {}
