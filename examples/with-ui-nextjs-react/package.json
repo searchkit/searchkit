@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@searchkit/api": "*",
-    "@searchkit/instantsearch-client": "*",
+    "@searchkit/api": "4.5.0",
+    "@searchkit/instantsearch-client": "4.5.0",
     "react-instantsearch-dom": "^6.39.1",
     "@types/node": "18.15.7",
     "@types/react": "18.0.29",
@@ -18,7 +18,7 @@
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "searchkit": "*",
+    "searchkit": "4.5.0",
     "typescript": "5.0.2"
   }
 }

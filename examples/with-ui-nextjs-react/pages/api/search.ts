@@ -20,9 +20,22 @@ const apiClient = API(
       search_attributes: ['title', 'actors'],
       result_attributes: ['title', 'actors', 'poster'],
       facet_attributes: [
-        'type',
-        { attribute: 'actors', field: 'actors.keyword', type: 'string' },
-        'rated',
+        { attribute: 'type', type: 'string', field: 'type' },
+        { attribute: 'rated', type: 'string', field: 'rated' },
+        {
+          attribute: 'actors',
+          field: 'actors.keyword',
+          type: 'string',
+          facetQuery: (field, size) => {
+            console.log(field)
+            return {
+              significant_terms: {
+                field,
+                size: size
+              }
+            }
+          }
+        },
         { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' },
         { attribute: 'metascore', type: 'numeric', field: 'metascore' }
       ],
