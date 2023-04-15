@@ -1,4 +1,4 @@
-import type { ElasticsearchHit } from './types'
+import type { ElasticsearchHit, SearchSettingsConfig } from './types'
 
 export function highlightTerm(value: string, query: string): string {
   const regex = new RegExp(query, 'gi')
@@ -9,7 +9,7 @@ export function getHighlightFields(
   hit: ElasticsearchHit,
   preTag: string = '<ais-highlight-0000000000>',
   postTag: string = '<ais-highlight-0000000000/>',
-  highlightFields: string[] = []
+  highlightFields: SearchSettingsConfig['snippet_attributes'] = []
 ) {
   const { _source = {}, highlight = {} } = hit
 

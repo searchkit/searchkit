@@ -67,7 +67,7 @@ const searchkitClient = new Searchkit({
       { attribute: "rated", field: "rated", type: "string" },
       { attribute: "imdbrating", type: "numeric" },
       { attribute: "metascore", type: "numeric" },
-    ],
+    ]
   },
 })
 
@@ -165,7 +165,6 @@ const client = Client({
 
 ```tsx
 search_settings: {
-  highlight_attributes: ["title", "actors"],
   search_attributes: ["title^3", "actors"],
   result_attributes: ["title", "actors", "poster", "year"],
   facet_attributes: [
@@ -177,6 +176,11 @@ search_settings: {
   ],
   filter_attributes: [
     { attribute: "year", field: 'year', type: "numeric" }
+  ],
+  highlight_attributes: ["title", "actors"],
+  snippet_attributes: [
+    "description",
+    "plot:200"
   ],
   sorting: {
     default: {
@@ -194,11 +198,12 @@ search_settings: {
 
 Attributes that are used to configure the search experience.
 
-- `highlight_attributes` - Attributes that are used to highlight the search results.
 - `search_attributes` - Attributes that are used to search the results.
 - `result_attributes` - Attributes that are returned in the search result response.
 - `facet_attributes` - Attributes that are used to create facets. Facets can be of type `string` or `numeric` or `date`.
 - `filter_attributes` - Attributes that are used to create filters. Filters can be of type `string` or `numeric` or `date`.
+- `highlight_attributes` - Attributes that are used to highlight the search results.
+- `snippet_attributes` - Attributes that are used for highlighting search results for long fields.
 - `sorting` - Attributes that are used to create sorting options. Sorting can be a single sorting field or multiple.
 - `query_rules` - Rules that affect search relevance. See [Query Rules](/docs//query-rules) for more information.
 - `geo_attribute` - Attribute that is used for geo based searches.
@@ -375,6 +380,27 @@ The `default` sorting option is used when no sorting option is selected. The `_y
 The sorting option can be a single sorting field or multiple sorting fields.
 
 See the [sorting guide](/docs/guides/sorting) for more information.
+
+##### `highlight_attributes`
+
+The `highlight_fields` is used to configure the fields that are highlighted in the search results. The `highlight_fields` must point to a `text` field type in Elasticsearch.
+
+```ts
+highlight_attributes: ["title"]
+```
+
+Use with the `Highlight` component to display the highlighted fields.
+
+##### `snippet_attributes`
+
+The `snippet_attributes` is used to configure the attributes that are highlighted in the search results. The `snippet_attributes` must point to a `text` field type in Elasticsearch.
+
+```ts
+`snippet_attributes: [
+  'long_bio',
+  'description:200'
+]
+```
 
 ##### `geo_attribute`
 

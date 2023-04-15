@@ -39,6 +39,18 @@ Within `highlight_attributes` in `search_settings`:
 }
 ```
 
+### Changing length of snippet
+
+The default length of the snippet is 100 characters. You can change this like so:
+
+```ts
+{
+  search_settings: {
+    snippet_attributes: ['description:200'] // snippet length will be 200 characters
+  }
+}
+```
+
 ## Usage
 
 Below is an example of a `hitView` that displays the `product` attribute with the search query highlighted.
