@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.6.0
+
+### Minor Changes
+
+- 66980d07: Custom snippet length support
+
 ## 4.5.0
 
 ### Minor Changes
