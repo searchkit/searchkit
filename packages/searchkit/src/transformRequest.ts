@@ -257,6 +257,19 @@ export const getHitFields = (
   }
 }
 
+const getSnippetFieldLength = (attribute: string) => {
+  const match = attribute.match(/(.+)\:(\d+)/)
+  if (!match)
+    return {
+      attribute,
+      length: 100
+    }
+  return {
+    attribute: match[1],
+    length: parseInt(match[2])
+  }
+}
+
 export const getHighlightFields = (
   request: AlgoliaMultipleQueriesQuery,
   config: SearchSettingsConfig
@@ -278,11 +291,11 @@ export const getHighlightFields = (
 
   const snippetFields =
     config.snippet_attributes?.reduce(
-      (sum, field) => ({
+      (sum, attribute) => ({
         ...sum,
-        [field]: {
+        [getSnippetFieldLength(attribute).attribute]: {
           number_of_fragments: 5,
-          fragment_size: config.fragment_size || 100
+          fragment_size: getSnippetFieldLength(attribute).length
         }
       }),
       {}
