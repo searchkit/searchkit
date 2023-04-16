@@ -28,61 +28,18 @@ docker network create elastic
 docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" -e http.cors.enabled=true -e "http.cors.allow-origin='*'" -e http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization -e http.cors.allow-credentials=true -e network.publish_host=localhost -e xpack.security.enabled=false docker.elastic.co/elasticsearch/elasticsearch:8.6.2
 ```
 
-### Create an Index & index some data
+### Index Example E-Commerce Dataset
 
-Our data model will have the following structure:
+We are going to use the ecommerce dataset from bestbuy.
 
-- A `products` has many `product` documents
-- Each `product` document has a `name`, `price`, `description` and `categories` attributes
-
-Lets create an index called `products` and add some data.
+Download the sample dataset from [`sample-data/electronics-ecommerce/bulk.json`](/searchkit/searchkit/tree/main/sample-data/electronics-ecommerce/bulk.json) and index the documents via the bulk API.
 
 ```bash
-curl --location --request PUT 'http://localhost:9200/products' \
---header 'Content-Type: application/json' \
---data-raw '{
-  "mappings": {
-    "properties": {
-      "name": {
-        "type": "text"
-      },
-      "description": {
-        "type": "text"
-      },
-      "price": {
-        "type": "integer"
-      },
-      "categories": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword"
-          }
-        }
-      }
-    }
-  }
-}'
+curl -H 'Content-Type: application/x-ndjson' -XPOST 'localhost:9200/_bulk?pretty' --data-binary "@bulk.json"
 ```
 
-Now lets add some data to our index.
+This will add 10000 products to the `products` index.
 
-```bash
-curl --location --request POST 'http://localhost:9200/products/_doc' \
---header 'Content-Type: application/json' \
---data-raw '{
-  "name": "Apple iPhone 12 Pro Max",
-  "description": "The iPhone 12 Pro Max is the most powerful iPhone ever. It has a 6.7-inch Super Retina XDR display, a Ceramic Shield front cover, and a triple-camera system with a LiDAR scanner. It also has a 5G connection, a 6-core CPU, and a 4-core GPU. The iPhone 12 Pro Max is available in 128GB, 256GB, and 512GB storage options.",
-  "categories": ["phones", "apple"],
-  "price": 800
-}'
-
-curl --location --request POST 'http://localhost:9200/products/_doc' \
---header 'Content-Type: application/json' \
---data-raw '{
-  "name": "Apple iPhone 12 Pro",
-  "description": "The iPhone 12 Pro is the most powerful iPhone ever. It has a 6.1-inch Super Retina XDR display, a Ceramic Shield front cover, and a triple-camera system with a LiDAR scanner. It also has a 5G connection, a 6-core CPU, and a 4-core GPU. The iPhone 12 Pro is available in 128GB, 256GB, and 512GB storage options.",
-  "categories": ["phones", "apple"],
-  "price": 700
-}'
-```
+<Callout type="info">
+  The bulk API requires a newline delimited JSON file. The last line of the file must be a newline character.
+</Callout>

@@ -4705,6 +4705,11 @@ inline-style-parser@0.1.1:
   resolved "https://registry.npmjs.org/inline-style-parser/-/inline-style-parser-0.1.1.tgz"
   integrity sha512-7NXolsK4CAS5+xvdj5OMMbI962hU/wvwoxk+LWR9Ek9bVtyuuYScDN6eS0rUm6TxApFpw7CX1o4uJzcd4AyD3Q==
 
+instantsearch.css@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/instantsearch.css/-/instantsearch.css-8.0.0.tgz#66a56b52400c7a14f678859e35a12eb32696a417"
+  integrity sha512-yU63cF9KdkyFFh7ynYQy39nh1MD1eVDHIaa/gdm8a/O9dTG/5P6hBF1ONoIbKTtjlxxsHS2S8MarCZZ0l31ajg==
+
 instantsearch.js@^4.43.0, instantsearch.js@^4.46.0:
   version "4.53.0"
   resolved "https://registry.npmjs.org/instantsearch.js/-/instantsearch.js-4.53.0.tgz"

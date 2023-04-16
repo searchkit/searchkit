@@ -16,35 +16,141 @@ const apiClient = API(
       //},
     },
     search_settings: {
-      highlight_attributes: ['title', 'actors'],
-      search_attributes: ['title', 'actors'],
-      result_attributes: ['title', 'actors', 'poster'],
+      highlight_attributes: ['name'],
+      snippet_attributes: ['description'],
+      search_attributes: [
+        { field: 'name', weight: 3 },
+        { field: 'categories', weight: 2 },
+        { field: 'brand', weight: 2 },
+        'description'
+      ],
+      result_attributes: ['name', 'description'],
       facet_attributes: [
-        { attribute: 'type', type: 'string', field: 'type' },
-        { attribute: 'rated', type: 'string', field: 'rated' },
+        { attribute: 'brand', field: 'brand.keyword', type: 'string' },
         {
-          attribute: 'actors',
-          field: 'actors.keyword',
-          type: 'string',
-          facetQuery: (field, size) => {
-            console.log(field)
-            return {
-              significant_terms: {
-                field,
-                size: size
-              }
-            }
-          }
+          attribute: 'categories.lvl0',
+          field: 'hierarchicalCategories.lvl0.keyword',
+          type: 'string'
         },
-        { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' },
-        { attribute: 'metascore', type: 'numeric', field: 'metascore' }
+        {
+          attribute: 'categories.lvl1',
+          field: 'hierarchicalCategories.lvl1.keyword',
+          type: 'string'
+        },
+        {
+          attribute: 'categories.lvl2',
+          field: 'hierarchicalCategories.lvl2.keyword',
+          type: 'string'
+        },
+        {
+          attribute: 'price',
+          field: 'price',
+          type: 'numeric'
+        }
       ],
       filter_attributes: [
         {
-          attribute: 'writers',
-          type: 'string',
-          field: 'writers',
-          filterQuery: MatchFilter
+          attribute: 'categories',
+          field: 'categories.keyword',
+          type: 'string'
+        }
+      ],
+      query_rules: [
+        {
+          id: 'default-state',
+          conditions: [[]],
+          actions: [
+            {
+              action: 'RenderFacetsOrder',
+              facetAttributesOrder: [
+                'categories.lvl0',
+                'categories.lvl1',
+                'categories.lvl2',
+                'price'
+              ]
+            }
+          ]
+        },
+        {
+          id: 'cheap-tvs',
+          conditions: [
+            [
+              {
+                context: 'query',
+                value: 'cheap tvs',
+                match_type: 'exact'
+              }
+            ]
+          ],
+          actions: [
+            {
+              action: 'QueryRewrite',
+              query: ''
+            },
+            {
+              action: 'QueryFilter',
+              query: 'price:[0 TO 500] AND categories:TVs'
+            },
+            {
+              action: 'QueryBoost',
+              query: 'brand:LG',
+              weight: 10
+            }
+          ]
+        },
+        {
+          id: 'tv-categories-facet',
+          conditions: [
+            [
+              {
+                context: 'filterPresent',
+                values: [
+                  {
+                    attribute: 'categories.lvl1',
+                    value: 'TV & Home Theater > TVs'
+                  }
+                ]
+              }
+            ]
+          ],
+          actions: [
+            {
+              action: 'RenderFacetsOrder',
+              facetAttributesOrder: [
+                'categories.lvl0',
+                'categories.lvl1',
+                'categories.lvl2',
+                'brand',
+                'price'
+              ]
+            }
+          ]
+        },
+        {
+          id: 'tv-categories-banner',
+          conditions: [
+            [
+              {
+                context: 'filterPresent',
+                values: [
+                  {
+                    attribute: 'categories.lvl1',
+                    value: 'TV & Home Theater > TVs'
+                  }
+                ]
+              }
+            ]
+          ],
+          actions: [
+            {
+              action: 'RenderUserData',
+              userData: JSON.stringify({
+                title: 'We have TVs!',
+                body: 'Check out our TVs',
+                url: 'https://www.samsung.com'
+              })
+            }
+          ]
         }
       ]
     }

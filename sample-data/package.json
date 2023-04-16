@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "products": "ts-node ./mrp-products/index.ts",
-    "camping-sites": "ts-node ./camping-sites/index.ts"
+    "camping-sites": "ts-node ./camping-sites/index.ts",
+    "electronics": "ts-node ./electronics-ecommerce/index.ts"
   },
   "devDependencies": {
     "@types/node": "^16.11.6",

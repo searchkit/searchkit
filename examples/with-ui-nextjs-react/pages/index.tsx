@@ -8,112 +8,92 @@ import {
   Pagination,
   Stats,
   NumericMenu,
-  RangeInput,
+  Snippet,
   CurrentRefinements,
-  createConnector,
+  HierarchicalMenu,
+  Configure,
+  DynamicWidgets,
+  QueryRuleCustomData,
 } from "react-instantsearch-dom";
 import Client from "@searchkit/instantsearch-client";
-import { useState } from "react";
 
 const searchClient = Client({
   url: "/api/search"
 });
 
-const writersInputConnector = createConnector({
-  displayName: "writers",
-  getProvidedProps: (props, searchState) => {
-    return {
-      writers: searchState.writers || "",
-    };
-  },
-  refine: (props, searchState, nextValue) => {
-    return {
-      ...searchState,
-      writers: nextValue,
-    };
-  },
-  getSearchParameters(searchParameters, props, searchState) {
-    const { writers = "" } = searchState;
-
-    if (!writers) return searchParameters;
-
-    return searchParameters
-      .addFacet("writers")
-      .addFacetRefinement("writers", writers);
-  },
-});
-
-const WritersSearchInput = writersInputConnector(({ refine }) => {
-  const [query, setQuery] = useState("");
-  return (
-    <form onSubmit={(e) => {
-      e.preventDefault(); refine(query)
-    }}>
-      <input
-        type="text"
-        className="ais-SearchBox-input"
-        placeholder="search writers"
-        value={query}
-        onChange={(e) => {
-          setQuery(e.target.value);
-        }}
-      />
-    </form>
-  );
-});
-
-const hitView = (props: any) => {
+const HitView = (props: any) => {
   return (
     <div>
-      <img
-        src={props.hit.poster}
-        style={{ margin: "auto", maxHeight: "70rem" }}
-      />
-      <h2>
-        <Highlight hit={props.hit} attribute="title" />
-      </h2>
-      <br />
-
-      <Highlight hit={props.hit} attribute="actors" />
+      <div className="hit__details">
+        <h2>
+          <Highlight attribute="name" hit={props.hit} />
+        </h2>
+        <Snippet attribute="description" hit={props.hit} />
+      </div>
     </div>
   );
 };
 
 export default function Web() {
   return (
-    <div className="ais-InstantSearch">
-      <InstantSearch indexName="imdb_movies" searchClient={searchClient}>
-        <SearchBox />
-        <div className="left-panel">
-          <Panel header="Type">
-            <RefinementList attribute="type" searchable={true} />
-          </Panel>
-          <Panel header="actors">
-            <RefinementList attribute="actors" searchable={true} limit={10} />
-          </Panel>
-          <Panel header="imdbrating">
-            <NumericMenu
-              attribute="imdbrating"
-              items={[
-                { label: "5 - 7", start: 5, end: 7 },
-                { label: "7 - 9", start: 7, end: 9 },
-                { label: ">= 9", start: 9 }
-              ]}
-            />
-          </Panel>
-          <Panel header="metascore">
-            <RangeInput attribute="metascore" header="Range Input" />
-          </Panel>
-          <Panel header="writers">
-            <WritersSearchInput />
-          </Panel>
-        </div>
-        <div className="right-panel">
-          <Stats />
-          <CurrentRefinements />
+    <div className="">
+      <InstantSearch indexName="products" searchClient={searchClient}>
+        <Configure hitsPerPage={15} />
+        <div className="container">
+          <div className="search-panel">
+            <div className="search-panel__filters">
+              <DynamicWidgets facets={["*"]}>
+                <Panel header="brand">
+                  <RefinementList attribute="brand" searchable />
+                </Panel>
+                <Panel header="categories">
+                  <HierarchicalMenu
+                    attributes={[
+                      "categories.lvl0",
+                      "categories.lvl1",
+                      "categories.lvl2",
+                    ]}
+                  />
+                </Panel>
+                <Panel header="price">
+                <NumericMenu attribute="price" items={[
+                  { label: 'All' },
+                  { label: 'Less than $10', end: 10 },
+                  { label: '$10 to $100', start: 10, end: 100 },
+                  { label: '$100 to $500', start: 100, end: 500 },
+                  { label: 'More than $500', start: 500 },
+                ]} />
+                </Panel>
+              </DynamicWidgets>
+            </div>
+            <div className="search-panel__results">
+              <div className="searchbox">
+                <SearchBox />
+              </div>
+              <QueryRuleCustomData>
+                {({ items }: { items: any[] }) =>
+                  items.map(({ title, body, url }) => {
+                    if (!title) {
+                      return null;
+                    }
 
-          <Hits hitComponent={hitView} />
-          <Pagination />
+                    return (
+                      <section key={title}>
+                        <h2>{title}</h2>
+                        <p>{body}</p>
+                        <a href={url}>Learn more</a>
+                      </section>
+                    );
+                  })
+                }
+              </QueryRuleCustomData>
+              <Stats />
+              <CurrentRefinements />
+
+              <Hits hitComponent={HitView} />
+              <Pagination />
+            </div>
+        </div>
         </div>
       </InstantSearch>
     </div>

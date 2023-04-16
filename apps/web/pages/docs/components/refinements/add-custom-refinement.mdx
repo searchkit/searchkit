@@ -2,4 +2,81 @@
 title: "Add Custom Refinement"
 ---
 
-TODO - contributions welcome!
+
+## Example: Adding a custom Filter Input Search Box
+
+Add a new filter attribute to `search_settings`.
+
+When a `writers` filter is applied, will add a match filter clause to the query.
+
+```tsx
+{
+  search_settings: {
+    filter_attributes: [
+      {
+        attribute: 'writers',
+        type: 'string',
+        field: 'writers',
+        filterQuery: (field, value) => {
+          return {
+            match: {
+              [field]: value,
+            },
+          };
+        },
+      }
+    ]
+  }
+}
+```
+
+Add a new custom comppnent with `createConnector` to handle the input state and refinement of the writers filter.
+
+```tsx
+import React, { useState } from "react";
+import { createConnector } from "react-instantsearch-dom";
+
+const writersInputConnector = createConnector({
+  displayName: "writers",
+  getProvidedProps: (props, searchState) => {
+    return {
+      writers: searchState.writers || "",
+    };
+  },
+  refine: (props, searchState, nextValue) => {
+    return {
+      ...searchState,
+      writers: nextValue,
+    };
+  },
+  getSearchParameters(searchParameters, props, searchState) {
+    const { writers = "" } = searchState;
+
+    if (!writers) return searchParameters;
+
+    return searchParameters
+      .addFacet("writers")
+      .addFacetRefinement("writers", writers);
+  },
+});
+
+const WritersSearchInput = writersInputConnector(({ refine }) => {
+  const [query, setQuery] = useState("");
+  return (
+    <form onSubmit={(e) => {
+      e.preventDefault(); refine(query)
+    }}>
+      <input
+        type="text"
+        className="ais-SearchBox-input"
+        placeholder="search writers"
+        value={query}
+        onChange={(e) => {
+          setQuery(e.target.value);
+        }}
+      />
+    </form>
+  );
+});
+
+```
