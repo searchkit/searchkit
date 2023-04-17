@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.6.1
+
+### Patch Changes
+
+- f781023a: fix custom snippet length
+
 ## 4.6.0
 
 ### Minor Changes

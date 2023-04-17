@@ -1,5 +1,13 @@
 # @searchkit/api
 
+## 4.6.1
+
+### Patch Changes
+
+- f781023a: fix custom snippet length
+- Updated dependencies [f781023a]
+  - searchkit@4.6.1
+
 ## 4.6.0
 
 ### Minor Changes
