@@ -32,7 +32,7 @@ docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "disc
 
 We are going to use the ecommerce dataset from bestbuy.
 
-Download the sample dataset from [`sample-data/electronics-ecommerce/bulk.json`](/searchkit/searchkit/tree/main/sample-data/electronics-ecommerce/bulk.json) and index the documents via the bulk API.
+Download the sample dataset from [`sample-data/electronics-ecommerce/bulk.json`](https://github.com/searchkit/searchkit/tree/main/sample-data/electronics-ecommerce/bulk.json) and index the documents via the bulk API.
 
 ```bash
 curl -H 'Content-Type: application/x-ndjson' -XPOST 'localhost:9200/_bulk?pretty' --data-binary "@bulk.json"
