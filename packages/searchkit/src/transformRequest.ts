@@ -257,13 +257,16 @@ export const getHitFields = (
   }
 }
 
-const getSnippetFieldLength = (attribute: string) => {
+export const getSnippetFieldLength = (attribute: string) => {
+  const defaultMatch = {
+    attribute,
+    length: 100
+  }
+  if (!attribute.includes(':')) {
+    return defaultMatch
+  }
   const match = attribute.match(/(.+)\:(\d+)/)
-  if (!match)
-    return {
-      attribute,
-      length: 100
-    }
+  if (!match) return defaultMatch
   return {
     attribute: match[1],
     length: parseInt(match[2])

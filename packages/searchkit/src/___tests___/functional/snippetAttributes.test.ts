@@ -51,7 +51,30 @@ describe('Integration tests for Snippet Attributes', () => {
         }
       }) as AlgoliaMultipleQueriesQuery[]
     )
-
-    expect(response).toBeTruthy()
+    // @ts-ignore
+    expect(response.results[0].hits[0]._snippetResult.actors).toMatchInlineSnapshot(`
+      [
+        {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "Tim Robbins",
+        },
+        {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "Morgan Freeman",
+        },
+        {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "Bob Gunton",
+        },
+        {
+          "matchLevel": "none",
+          "matchedWords": [],
+          "value": "William Sadler",
+        },
+      ]
+    `)
   })
 })
