@@ -1,3 +1,4 @@
+import { getSnippetFieldLength } from './transformRequest'
 import type { ElasticsearchHit, SearchSettingsConfig } from './types'
 
 export function highlightTerm(value: string, query: string): string {
@@ -9,7 +10,7 @@ export function getHighlightFields(
   hit: ElasticsearchHit,
   preTag: string = '<ais-highlight-0000000000>',
   postTag: string = '<ais-highlight-0000000000/>',
-  highlightFields: SearchSettingsConfig['snippet_attributes'] = []
+  fields: SearchSettingsConfig['snippet_attributes'] = []
 ) {
   const { _source = {}, highlight = {} } = hit
 
@@ -17,6 +18,8 @@ export function getHighlightFields(
     ..._source,
     ...highlight
   }
+
+  const highlightFields = fields.map((field) => getSnippetFieldLength(field).attribute)
 
   const hitHighlights = Object.keys(combinedKeys).reduce<Record<string, any>>((sum, fieldKey) => {
     const fieldValue: any = _source[fieldKey]

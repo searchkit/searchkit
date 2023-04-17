@@ -17,7 +17,7 @@ const apiClient = API(
     },
     search_settings: {
       highlight_attributes: ['name'],
-      snippet_attributes: ['description'],
+      snippet_attributes: ['description:200'],
       search_attributes: [
         { field: 'name', weight: 3 },
         { field: 'categories', weight: 2 },

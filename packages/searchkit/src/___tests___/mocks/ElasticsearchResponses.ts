@@ -26,7 +26,8 @@ export const HitsResponseWithFacetFilter = {
               title: 'The Shawshank Redemption'
             },
             highlight: {
-              title: ['The <em>Shawshank</em> Redemption']
+              title: ['The <em>Shawshank</em> Redemption'],
+              desription: ['The <em>Shawshank</em> Redemption']
             }
           }
         ]
@@ -102,7 +103,8 @@ export const HitsResponseWithFacetFilter = {
               title: 'The Shawshank Redemption'
             },
             highlight: {
-              title: ['The <em>Shawshank</em> Redemption']
+              title: ['The <em>Shawshank</em> Redemption'],
+              description: ['The <em>Shawshank</em> Redemption']
             }
           }
         ]
