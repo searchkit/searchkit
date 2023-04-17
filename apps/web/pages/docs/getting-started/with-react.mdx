@@ -773,7 +773,12 @@ This could be used to display a banner with more TV info when the customer selec
         ],
         actions: [
           {
-
+            action: 'RenderUserData',
+            userData: JSON.stringify({
+              title: 'We have TVs!',
+              body: 'Check out our TVs',
+              url: 'https://www.samsung.com'
+            })
           }
         ]
       }
