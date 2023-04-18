@@ -114,11 +114,14 @@ describe('filter functions', () => {
     `)
   })
 
-  it('ignores malformed numeric filters', () => {
+  it('throws on malformed numeric filters', () => {
     const numericFilter = `price xxx 100`
 
-    expect(transformNumericFilters(getNumericFilterRequest(numericFilter), config))
-      .toMatchInlineSnapshot(`[]`)
+    expect(() =>
+      transformNumericFilters(getNumericFilterRequest(numericFilter), config)
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Numeric filter "price xxx 100" could not be parsed. It should either be in the format "attributeName operator operand" or "attributeName: lowerBound TO upperBound""`
+    )
   })
 
   it('filters without fields', () => {

@@ -28,7 +28,6 @@ export const transformNumericFilters = (
 
     if (groups) {
       [match, field, operator, value] = groups
-      value
     }
     else {
       // Alternative syntax: 'attribute:lower_value TO higher_value'
@@ -36,9 +35,10 @@ export const transformNumericFilters = (
         /([\w\.\_\-]+):\s*(-?\d+)\s*([Tt][Oo])\s*(-?\d+)/
       )
 
-      // Malformed numeric filter
       if (!groups) {
-        return sum
+        throw new Error(
+          `Numeric filter "${filter}" could not be parsed. It should either be in the format "attributeName operator operand" or "attributeName: lowerBound TO upperBound"`
+        );
       }
 
       [match, field, value, operator, maxValue] = groups
