@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.6.2
+
+### Patch Changes
+
+- 2af53203: Fix support for negative numbers
+
 ## 4.6.1
 
 ### Patch Changes

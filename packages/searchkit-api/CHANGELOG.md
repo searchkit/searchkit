@@ -1,5 +1,13 @@
 # @searchkit/api
 
+## 4.6.2
+
+### Patch Changes
+
+- 2af53203: Fix support for negative numbers
+- Updated dependencies [2af53203]
+  - searchkit@4.6.2
+
 ## 4.6.1
 
 ### Patch Changes
