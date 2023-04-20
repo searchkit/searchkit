@@ -4,8 +4,8 @@ import type {
   QueryDslQueryContainer as ElasticsearchQueryDslQuery,
   SearchResponseBody as ElasticsearchBaseResponseBody,
   SearchHit as ElasticsearchBaseHit,
-  AggregationsAggregation,
-  AggregationsAggregationContainer
+  AggregationsAggregationContainer,
+  KnnQuery as ElasticKnnSearchQuery
 } from '@elastic/elasticsearch/lib/api/types'
 
 type ElasticsearchHitDocument = Record<string, unknown>
@@ -15,6 +15,7 @@ type ElasticsearchResponseBody = ElasticsearchBaseResponseBody<ElasticsearchHitD
 
 type ElasticsearchQuery = ElasticsearchQueryDslQuery
 type ElasticsearchAggregation = AggregationsAggregationContainer
+type KnnSearchQuery = ElasticKnnSearchQuery
 
 export type MultipleQueriesQuery = AlgoliaMultipleQueriesQuery
 
@@ -210,17 +211,36 @@ export interface RequestOptions {
    * @param search_attributes The search attributes configured in the search settings
    * @param config The search settings
    * @returns An Elasticsearch query object or an array of Elasticsearch query objects
+   * @returns false if you want to skip the search query (useful for just KNN search)
    */
+
   getQuery?: (
     query: string,
     search_attributes: SearchAttribute[],
     config: SearchSettingsConfig
-  ) => ElasticsearchQuery | ElasticsearchQuery[]
+  ) => ElasticsearchQuery | ElasticsearchQuery[] | false
   /**
    * @description Allows you to add base filters to be applied to the search. This is useful for user / document level permissions
    * @returns An array of Elasticsearch query objects that will be wrapped in a bool filter query
    **/
   getBaseFilters?: () => ElasticsearchQuery[]
+
+  /**
+   * @description Allows you to specify the KNN query to be used for KNN search. Hits will be combined with the organic query. If you do not want to use the organic query, return false from getQuery.
+   * @param query The original query search terms
+   * @param search_attributes The search attributes configured in the search settings
+   * @param config The search settings
+   * @returns An Elasticsearch KNN Search Query
+   */
+  getKnnQuery?: (
+    query: string,
+    search_attributes: SearchAttribute[],
+    config: SearchSettingsConfig
+  ) => ElasticKnnSearchQuery
+
+  /**
+   * @description Hooks are escape hatches that allow you to modify the search requests to Elasticsearch and the responses back from Elasticsearch.
+   **/
   hooks?: {
     /**
      * @description Allows you to modify the search requests before they are sent to Elasticsearch
@@ -255,5 +275,6 @@ export type {
   ElasticsearchSearchRequest,
   ElasticsearchResponseBody,
   ElasticsearchHit,
-  ElasticsearchQuery
+  ElasticsearchQuery,
+  KnnSearchQuery
 }

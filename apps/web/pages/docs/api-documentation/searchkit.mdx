@@ -445,6 +445,42 @@ To see the full Elasticsearch query that is executed to Elasticsearch, you can r
   });
 ```
 
+##### Example: Exclude BM25 Query
+If you're using KNN exclusively, you might want to exclude the BM25 query from the Elasticsearch query. You can do this by overriding the `getQuery` function and returning false.
+
+```tsx
+  const results = await client.handleRequest(req.body, {
+    getQuery: () => {
+      return false
+    }
+  });
+```
+
+#### `getKnnQuery` optional function
+If you want to specify a KNN query, you can use the `getKnnQuery` function. The function must return an Elasticsearch KNN query. You can read more about the KNN query DSL [here](https://www.elastic.co/guide/en/elasticsearch/reference/8.7/knn-search.html#semantic-search).
+
+```tsx
+  const results = await client.handleRequest(req.body, {
+    getKnnQuery(query, search_attributes, config) {
+      return {
+        field: 'dense-vector-field',
+        k: 10,
+        num_candidates: 100,
+        query_vector_builder: {
+          text_embedding: {
+            model_id: 'cookie_model',
+            model_text: query
+          }
+        }
+      }
+    },
+    // Optional: You may want to exclude the BM25 query
+    getQuery: () => {
+      return false
+    }
+  });
+```
+
 ##### Function Parameters
 
 - **query**: The query string from the search request.
