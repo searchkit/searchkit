@@ -1,5 +1,16 @@
 # @searchkit/api
 
+## 4.7.0
+
+### Minor Changes
+
+- a9e75df8: Added 1st class support for KNN search
+
+### Patch Changes
+
+- Updated dependencies [a9e75df8]
+  - searchkit@4.7.0
+
 ## 4.6.2
 
 ### Patch Changes

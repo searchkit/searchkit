@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.7.0
+
+### Minor Changes
+
+- a9e75df8: Added 1st class support for KNN search
+
 ## 4.6.2
 
 ### Patch Changes
