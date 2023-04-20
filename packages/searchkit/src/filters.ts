@@ -20,18 +20,35 @@ export const transformNumericFilters = (
     return []
   }
 
-  return numericFilters.reduce((sum, filter) => {
-    const [match, field, operator, value] = filter.match(
-      /([\w\.\_\-]+)(\=|\!\=|\>|\>\=|\<|\<\=)(\d+)/
+  return numericFilters.reduce((sum, filter: string) => {
+    let match, field, operator, value, maxValue = ''
+    let groups = filter.match(
+      /([\w\.\_\-]+)\s*(\=|\!\=|\>|\>\=|\<|\<\=)\s*(-?\d+)/
     )
+
+    if (groups) {
+      [match, field, operator, value] = groups
+    }
+    else {
+      // Alternative syntax: 'attribute:lower_value TO higher_value'
+      groups = filter.match(
+        /([\w\.\_\-]+):\s*(-?\d+)\s*([Tt][Oo])\s*(-?\d+)/
+      )
+
+      if (!groups) {
+        throw new Error(
+          `Numeric filter "${filter}" could not be parsed. It should either be in the format "attributeName operator operand" or "attributeName: lowerBound TO upperBound"`
+        );
+      }
+
+      [match, field, value, operator, maxValue] = groups
+    }
 
     const facetFilterMap = getFacetFilterMap(
       config.facet_attributes || [],
       config.filter_attributes || []
     )
     const facetFilterConfig = facetFilterMap[field]
-
-    if (!match) return sum
 
     const getFilter = (field: string, operator: string, value: string) => {
       if (operator === '=') {
@@ -79,6 +96,15 @@ export const transformNumericFilters = (
           range: {
             [field]: {
               lte: value
+            }
+          }
+        }
+      } else if (operator.toUpperCase() === 'TO') {
+        return {
+          range: {
+            [field]: {
+              gte: value,
+              lte: maxValue,
             }
           }
         }

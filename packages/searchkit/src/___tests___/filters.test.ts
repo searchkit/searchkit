@@ -1,4 +1,4 @@
-import { transformBaseFilters } from '../filters'
+import { transformBaseFilters, transformNumericFilters } from '../filters'
 import { SearchSettingsConfig } from '../types'
 import { DisjunctiveExampleRequest } from './mocks/AlgoliaRequests'
 
@@ -6,7 +6,8 @@ describe('filter functions', () => {
   const config: SearchSettingsConfig = {
     facet_attributes: [
       { attribute: 'author', field: 'author.keyword', type: 'string' },
-      { attribute: 'price', field: 'price', type: 'numeric' }
+      { attribute: 'price', field: 'price', type: 'numeric' },
+      { attribute: 'discount', field: 'discount', type: 'numeric' },
     ],
     filter_attributes: [
       { attribute: 'publisher', field: 'publisher.keyword', type: 'string' },
@@ -26,6 +27,14 @@ describe('filter functions', () => {
     }
   })
 
+  const getNumericFilterRequest = (numericFilter: string) => ({
+    ...DisjunctiveExampleRequest[0],
+    params: {
+      ...(DisjunctiveExampleRequest[0] as any).params,
+      numericFilters: [numericFilter]
+    }
+  })
+
   it('should transform an instantsearch filter to an elasticsearch filter', () => {
     const isFilter = `(author:"Stephen King" OR genre:"Horror") AND publisher:"Penguin"`
 
@@ -38,6 +47,81 @@ describe('filter functions', () => {
         },
       ]
     `)
+  })
+
+  it('should transform an instantsearch numeric filter to an elasticsearch filter', () => {
+    const numericFilter = `discount<10`
+
+    expect(transformNumericFilters(getNumericFilterRequest(numericFilter), config)).toMatchInlineSnapshot(`
+      [
+        {
+          "range": {
+            "discount": {
+              "lt": "10",
+            },
+          },
+        },
+      ]
+    `)
+  })
+
+  it('transforms negative numeric values', () => {
+    const numericFilter = `discount<-10`
+
+    expect(transformNumericFilters(getNumericFilterRequest(numericFilter), config)).toMatchInlineSnapshot(`
+      [
+        {
+          "range": {
+            "discount": {
+              "lt": "-10",
+            },
+          },
+        },
+      ]
+    `)
+  })
+
+  it('supports low to high numeric filters', () => {
+    const numericFilter = `price:100 TO 1000`
+
+    expect(transformNumericFilters(getNumericFilterRequest(numericFilter), config)).toMatchInlineSnapshot(`
+      [
+        {
+          "range": {
+            "price": {
+              "gte": "100",
+              "lte": "1000",
+            },
+          },
+        },
+      ]
+    `)
+  })
+
+  it('transforms numeric values with whitespace', () => {
+    const numericFilter = `price >= 100`
+
+    expect(transformNumericFilters(getNumericFilterRequest(numericFilter), config)).toMatchInlineSnapshot(`
+      [
+        {
+          "range": {
+            "price": {
+              "gte": "100",
+            },
+          },
+        },
+      ]
+    `)
+  })
+
+  it('throws on malformed numeric filters', () => {
+    const numericFilter = `price xxx 100`
+
+    expect(() =>
+      transformNumericFilters(getNumericFilterRequest(numericFilter), config)
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Numeric filter "price xxx 100" could not be parsed. It should either be in the format "attributeName operator operand" or "attributeName: lowerBound TO upperBound""`
+    )
   })
 
   it('filters without fields', () => {
