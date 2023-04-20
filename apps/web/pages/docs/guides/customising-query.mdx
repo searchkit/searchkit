@@ -80,31 +80,18 @@ An example of extending the query to do a hybrid search with KNN search and text
 
 ```ts
   const results = await client.handleRequest(req.body, {
-    hooks: {
-      beforeSearch: async (searchRequests) => {
-        const [uiRequest] = searchRequests
-        const query = uiRequest.request.params.query
-        
-        if (!query) {
-          return searchRequests
-        }
-
-        const textVector = await vectorizeText(query);
-
-        return searchRequests.map((sr) => {
-            return {
-              ...sr,
-              body: {
-                ...sr.body,
-                knn: {
-                    "field": "text_embedding",
-                    "query_vector": textVector.vector,
-                    "k": 10,
-                    "num_candidates": 100
-                }
-              }
+    getKnnQuery(query, search_attributes, config) {
+      return {
+        field: 'dense-vector-field',
+        k: 10,
+        num_candidates: 100,
+        // supported in latest version of Elasticsearch
+        query_vector_builder: { 
+          text_embedding: {
+            model_id: 'cookie_model',
+            model_text: query
           }
-        })
+        }
       }
     }
   });

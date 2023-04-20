@@ -257,37 +257,24 @@ const searchClient = Client(sk, {
 
 You might want to transform the query terms into a vector embedding before searching. This is useful if you want to do semantic search.
 
-Searchkit provides a way to customise the whole search DSL. This is useful if you want to do a vector search via KNN. See [Search Hooks](/docs/guides/customising-query#example-of-doing-a-knn-search) for an example.
+Searchkit provides a way to customise the whole search DSL. This is useful if you want to do a vector search via KNN.
 
 ```tsx
 import Client from '@searchkit/instantsearch-client';
 
 const searchClient = Client(sk, {
-  hooks: {
-    beforeSearch: async (searchRequests) => {
-      const [uiRequest] = searchRequests
-      const query = uiRequest.request.params.query
-      
-      if (!query) {
-        return searchRequests
-      }
-
-      const textVector = await vectorizeText(query);
-
-      return searchRequests.map((sr) => {
-          return {
-            ...sr,
-            body: {
-              ...sr.body,
-              knn: {
-                  "field": "text_embedding",
-                  "query_vector": textVector.vector,
-                  "k": 10,
-                  "num_candidates": 100
-              }
-            }
+  getKnnQuery(query, search_attributes, config) {
+    return {
+      field: 'dense-vector-field',
+      k: 10,
+      num_candidates: 100,
+      // supported in latest version of Elasticsearch
+      query_vector_builder: { 
+        text_embedding: {
+          model_id: 'cookie_model',
+          model_text: query
         }
-      })
+      }
     }
   }
 });
