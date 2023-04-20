@@ -167,4 +167,50 @@ describe('GetQuery Extension', () => {
 
     expect(response).toMatchSnapshot()
   })
+
+  it('do not apply organic query when set to false', async () => {
+    nock('http://localhost:9200')
+      .post('/_msearch', (requestBody: any) => {
+        expect(requestBody).toMatchSnapshot('ES Request')
+        const x = JSON.parse(requestBody.split('\n')[1]).query
+        expect(x).toMatchInlineSnapshot(`
+          {
+            "bool": {
+              "filter": [
+                {
+                  "bool": {
+                    "should": [
+                      {
+                        "term": {
+                          "type": "movie",
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+              "must": {
+                "match_all": {},
+              },
+            },
+          }
+        `)
+        return true
+      })
+      .reply(200, HitsResponseWithFacetFilter)
+
+    const response = await client.handleInstantSearchRequests(
+      DisjunctiveExampleRequest.map((request) => ({
+        ...request,
+        params: { ...request.params, query: 'test' }
+      })) as AlgoliaMultipleQueriesQuery[],
+      {
+        getQuery(query, search_attributes) {
+          return false
+        }
+      }
+    )
+
+    expect(response).toMatchSnapshot()
+  })
 })

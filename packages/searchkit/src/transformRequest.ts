@@ -207,7 +207,7 @@ const getQuery = (
     ...queryRuleActions.baseFilters
   ]
 
-  const organicQuery =
+  let organicQuery =
     typeof query === 'string' && query !== ''
       ? requestOptions?.getQuery
         ? requestOptions.getQuery(query, searchAttributes, config)
@@ -215,6 +215,12 @@ const getQuery = (
       : {
           match_all: {}
         }
+
+  if (organicQuery === false) {
+    organicQuery = {
+      match_all: {}
+    }
+  }
 
   return {
     bool: {
@@ -316,6 +322,20 @@ export const getHighlightFields = (
   }
 }
 
+export const getKnn = (
+  request: AlgoliaMultipleQueriesQuery,
+  config: SearchSettingsConfig,
+  queryRuleActions: QueryRuleActions,
+  requestOptions: RequestOptions | undefined
+) => {
+  const query = queryRuleActions.query
+  if (!query || typeof requestOptions?.getKnnQuery !== 'function') return {}
+
+  return {
+    knn: requestOptions?.getKnnQuery(query, config.search_attributes, config)
+  }
+}
+
 export function transformRequest(
   request: AlgoliaMultipleQueriesQuery,
   config: SearchSettingsConfig,
@@ -325,6 +345,7 @@ export function transformRequest(
   const body: ElasticsearchSearchRequest = {
     aggs: getAggs(request, config, queryRuleActions),
     query: getQuery(request, config, queryRuleActions, requestOptions),
+    ...getKnn(request, config, queryRuleActions, requestOptions),
     ...getResultsSize(request, config),
     ...getHitFields(request, config),
     ...getHighlightFields(request, config),

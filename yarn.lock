@@ -707,6 +707,14 @@
     "@elastic/transport" "^8.3.1"
     tslib "^2.4.0"
 
+"@elastic/elasticsearch@^8.7.0":
+  version "8.7.0"
+  resolved "https://registry.yarnpkg.com/@elastic/elasticsearch/-/elasticsearch-8.7.0.tgz#eb0396f6899e0000109af55cffee514811e571ee"
+  integrity sha512-0u12N7gvSpv99XiiYE7OlOtVy4oFx7KNYd+/SSt0GqIcpj4X8bcILjpkQqK3HZcvkvwc8bFL9J11EMmUlg6FYw==
+  dependencies:
+    "@elastic/transport" "^8.3.1"
+    tslib "^2.4.0"
+
 "@elastic/transport@^8.2.0", "@elastic/transport@^8.3.1":
   version "8.3.1"
   resolved "https://registry.npmjs.org/@elastic/transport/-/transport-8.3.1.tgz"
