@@ -6,6 +6,21 @@ export function highlightTerm(value: string, query: string): string {
   return value.replace(regex, (match) => `<em>${match}</em>`)
 }
 
+export function isAllowableHighlightField(
+  fieldKey: string,
+  highlightFields: string[]
+) {
+  return highlightFields.findIndex((highlightField) => {
+    if (highlightField.indexOf('*') < 0) {
+      return highlightField === fieldKey;
+    }
+
+    const safeHighlightField = highlightField.replace(/[.+?^$|\{\}\(\)\[\]\\]/g, '\\$&');
+    const regex = new RegExp(`^${safeHighlightField.replace(/\*/g, '.*')}$`);
+    return regex.test(fieldKey);
+  }) >= 0;
+}
+
 export function getHighlightFields(
   hit: ElasticsearchHit,
   preTag: string = '<ais-highlight-0000000000>',
@@ -25,7 +40,7 @@ export function getHighlightFields(
     const fieldValue: any = _source[fieldKey]
     const highlightedMatch = highlight[fieldKey] || null
 
-    if (!highlightFields.includes(fieldKey) && highlightFields[0] !== '*') {
+    if (!isAllowableHighlightField(fieldKey, highlightFields)) {
       return sum
     }
     // no matches, specified as a highlight and value is an array
