@@ -1,9 +1,31 @@
-import { getHighlightFields, highlightTerm } from '../highlightUtils'
+import { getHighlightFields, highlightTerm, isAllowableHighlightField } from '../highlightUtils'
 import { ElasticsearchHit } from '../types'
 
 describe('highlight utils', () => {
   it('should highlight one match', () => {
     expect(highlightTerm('some random string', 'some')).toBe('<em>some</em> random string')
+  })
+
+  describe('isAllowableHighlightField', () => {
+    it('should match on exact string', () => {
+      expect(isAllowableHighlightField('title', ['title'])).toBeTruthy()
+    })
+
+    it('should match on wildcard', () => {
+      expect(isAllowableHighlightField('actor.name.keyword', ['actor.*'])).toBeTruthy()
+    })
+
+    it('should not match on unknown fields', () => {
+      expect(isAllowableHighlightField('title', ['actor'])).toBeFalsy()
+    })
+
+    it('should match against everything', () => {
+      expect(isAllowableHighlightField('actor.name.keyword', ['*'])).toBeTruthy()
+    })
+
+    it('should not match on empty highlightFields', () => {
+      expect(isAllowableHighlightField('title', [])).toBeFalsy()
+    })
   })
 
   describe('getHighlightFields', () => {
@@ -28,6 +50,34 @@ describe('highlight utils', () => {
               "Lion",
             ],
             "value": "The <ais-highlight-0000000000>Lion<ais-highlight-0000000000/> King",
+          },
+        }
+      `)
+    })
+
+    it('should match on wildcards', () => {
+      const hit: ElasticsearchHit = {
+        _id: 'test',
+        _index: 'index',
+        _source: {
+          actor: {
+            name: 'Keanu Reeves'
+          }
+        },
+        highlight: {
+          ['actor.name.keyword']: ['<em>Keanu</em> Reeves']
+        }
+      }
+
+      expect(getHighlightFields(hit, undefined, undefined, ['actor.*'])).toMatchInlineSnapshot(`
+        {
+          "actor.name.keyword": {
+            "fullyHighlighted": false,
+            "matchLevel": "full",
+            "matchedWords": [
+              "Keanu",
+            ],
+            "value": "<ais-highlight-0000000000>Keanu<ais-highlight-0000000000/> Reeves",
           },
         }
       `)
