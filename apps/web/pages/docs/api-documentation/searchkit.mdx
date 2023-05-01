@@ -529,42 +529,29 @@ Examples include:
 - Semantic search
 - A/B testing
 
-Below is an example of a `beforeSearch` hook that adds a `rescore` query to the Elasticsearch query.
-
-To see the full Elasticsearch query that is executed to Elasticsearch, you can run the client in debug mode (see below).
+Below is an example of a `beforeSearch` hook that adds a `track_total_hits` to the Elasticsearch query.
 
 ```ts
-  const results = await client.handleRequest(req.body, {
+  client = SearchkitInstantsearchClient(sk, {
     hooks: {
-      beforeSearch: (searchRequests) => {
-        const uiRequest = searchRequests[0]
+        beforeSearch: async (searchRequests) => {
 
-        return [
-          {
-            ...uiRequest,
-            rescore: {
-              window_size: 100,
-              query: {
-                rescore_query: {
-                  match: {
-                    plot: {
-                      query: uiRequest.query,
-                      operator: "and",
-                    },
-                  },
-                },
-                query_weight: 1,
-                rescore_query_weight: 10,
+            return searchRequests.map((sr) => {
+                return {
+                  ...sr,
+                  body: {
+                    ...sr.body,
+                    track_total_hits: true
+                 }
               }
-            }
-          },
-          searchRequests.slice(1, searchRequests.length)
-        ]
-        
-      },
+           })
+
+        }
     }
-  });
+})
 ```
+
+To see the full Elasticsearch query that is executed to Elasticsearch, you can run the client in debug mode (see below).
 
 ##### Function Parameters
 
