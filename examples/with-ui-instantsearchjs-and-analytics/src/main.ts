@@ -8,8 +8,10 @@ import {
   hits,
   pagination,
   rangeInput,
-  rangeSlider
+  rangeSlider,
+  sortBy
 } from 'instantsearch.js/es/widgets'
+import { AnalyticsMiddleware } from '@searchkit/elastic-behavioral-analytics-plugin'
 
 const config: SearchkitConfig = {
   connection: {
@@ -59,7 +61,8 @@ const search = instantsearch({
 
 search.addWidgets([
   searchBox({
-    container: '#searchbox'
+    container: '#searchbox',
+    searchAsYouType: false
   }),
   refinementList({
     container: '#type-list',
@@ -84,7 +87,9 @@ search.addWidgets([
       item(hit, { html, components }) {
         return html`
           <div>
-            <h2>${components.Highlight({ attribute: 'title', hit })}</h2>
+            <a href="https://www.google.com"
+              ><h2>${components.Highlight({ attribute: 'title', hit })}</h2></a
+            >
             <p>${components.Snippet({ attribute: 'plot', hit })}</p>
           </div>
         `
@@ -93,7 +98,30 @@ search.addWidgets([
   }),
   pagination({
     container: '#pagination'
+  }),
+  sortBy({
+    container: '#sort-by',
+    items: [
+      { value: 'imdb_movies', label: 'Relevance' },
+      { value: 'imdb_movies_rated_desc', label: 'Highly Rated Movies' }
+    ]
   })
 ])
+
+search.use(
+  AnalyticsMiddleware({
+    tracker: {
+      endpoint: 'http://localhost:9200',
+      collectionName: 'website',
+      apiKey: 'apikey'
+    },
+    attributes: {
+      searchClick: {
+        titleField: 'title',
+        urlField: 'poster'
+      }
+    }
+  })
+)
 
 search.start()
