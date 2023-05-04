@@ -33,7 +33,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@elastic/behavioral-analytics-javascript-tracker": "^2.1.2",
+    "@elastic/behavioral-analytics-javascript-tracker": "^2.1.3",
     "lodash.debounce": "^4.0.8"
   },
   "devDependencies": {
