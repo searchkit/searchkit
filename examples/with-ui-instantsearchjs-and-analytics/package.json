@@ -1,0 +1,19 @@
+{
+  "name": "searchkit-with-instantsearchjs-and-analytics",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@searchkit/instantsearch-client": "4.7.0",
+    "instantsearch.js": "^4.55.0",
+    "searchkit": "4.7.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.3",
+    "vite": "^4.2.1"
+  }
+}

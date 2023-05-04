@@ -1,0 +1,43 @@
+{
+  "name": "@searchkit/elastic-behavioral-analytics-plugin",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "description": "",
+  "keywords": [],
+  "repository": "https://github.com/searchkit/searchkit",
+  "bugs": "https://github.com/searchkit/searchkit/issues",
+  "homepage": "https://www.searchkit.co",
+  "license": "MIT",
+  "files": [
+    "dist/"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package": "./package.json",
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "lint": "eslint src/*.ts*",
+    "build": "tsup",
+    "dev": "npm run build --watch",
+    "test": "jest"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@elastic/behavioral-analytics-javascript-tracker": "^2.1.3",
+    "lodash.debounce": "^4.0.8"
+  },
+  "devDependencies": {
+    "instantsearch.js": "^4.55.0",
+    "@types/lodash.debounce": "^4.0.7"
+  }
+}
