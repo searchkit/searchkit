@@ -691,10 +691,17 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@elastic/behavioral-analytics-javascript-tracker@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@elastic/behavioral-analytics-javascript-tracker/-/behavioral-analytics-javascript-tracker-2.0.0.tgz#7d5ecbda104243d287b36077da98daab141e045b"
-  integrity sha512-JRdsbeGAQo52BffzZi/8XrWysKmiuxmfTV3XB/baSD5wHTa3sKbfJaiiEaUA7+FvKcu70n8pS5fikyfKj/8RFA==
+"@elastic/behavioral-analytics-javascript-tracker@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@elastic/behavioral-analytics-javascript-tracker/-/behavioral-analytics-javascript-tracker-2.1.2.tgz#3ff55e8a923d359ff874dcd1dbc763e97c92e92f"
+  integrity sha512-eyxi2XeDnajRel4l3lvmv1Jfzu4xlDQxCWY7BqYkaked8IR2sgIDExArpxOLwHzptXZz2qvrKZbpByv5BYWRfQ==
+  dependencies:
+    "@elastic/behavioral-analytics-tracker-core" "2.0.4"
+
+"@elastic/behavioral-analytics-tracker-core@2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@elastic/behavioral-analytics-tracker-core/-/behavioral-analytics-tracker-core-2.0.4.tgz#722325e0dc3233948aa7a6d82df359c520e7ec43"
+  integrity sha512-wxrlHvcCz4KqNH1ACXbGc4zbecLzRngfnET/XEsZ5JT7AbuxEhrKRrFF0FEFSx/VJkd+Pub1e1S5RKFMag4sqw==
 
 "@elastic/elasticsearch@8.4.0":
   version "8.4.0"
@@ -3031,11 +3038,6 @@ de-indent@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/de-indent/-/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
   integrity sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==
-
-debounce@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/debounce/-/debounce-1.2.1.tgz#38881d8f4166a5c5848020c11827b834bcb3e0a5"
-  integrity sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==
 
 debug@2.6.9:
   version "2.6.9"
