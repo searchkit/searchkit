@@ -12,6 +12,7 @@ jest.mock('@elastic/behavioral-analytics-javascript-tracker', () => ({
 jest.useFakeTimers()
 
 import { createTracker } from '@elastic/behavioral-analytics-javascript-tracker'
+import { InsightsEvent } from 'instantsearch.js/es/middlewares'
 
 describe('AnalyticsMiddleware', () => {
   let mockInstantsearchInstance: InstantSearch
@@ -66,7 +67,7 @@ describe('AnalyticsMiddleware', () => {
         index: 'index',
         objectIDs: ['1'],
         positions: [1]
-      },
+      } as unknown as InsightsEvent['payload'],
       hits: [
         {
           title: 'title',
