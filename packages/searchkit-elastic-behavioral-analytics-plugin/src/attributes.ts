@@ -72,7 +72,7 @@ export function getSearchAttribute(
     query: state.query || '',
     filters: filters,
     page: {
-      current: state.page || 1,
+      current: state.page ? state.page + 1 : 1,
       size: state.hitsPerPage || 20
     },
     results: {

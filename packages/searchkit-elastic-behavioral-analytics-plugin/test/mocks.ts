@@ -29,6 +29,6 @@ export const state: SearchParameters = {
     }
   },
   query: 'iphone',
-  page: 1,
+  page: 0,
   hitsPerPage: 20
 } as unknown as SearchParameters
