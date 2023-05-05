@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@searchkit/instantsearch-client": "4.7.0",
+    "@searchkit/elastic-behavioral-analytics-plugin": "2.0.0",
     "instantsearch.js": "^4.55.0",
     "searchkit": "4.7.0"
   },
