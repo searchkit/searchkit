@@ -14,6 +14,11 @@ function isSearchkit(config: Config): config is Searchkit {
 
 class InstantSearchElasticsearchAdapter {
   private cache: Record<string, any> = {}
+  public transporter = {
+    headers: {},
+    queryParameters: {}
+  }
+
   constructor(private config: Config, private requestOptions?: RequestOptions) {
     if (!isSearchkit(this.config) && !this.config.url) {
       throw new Error('Searchkit Instantsearch Client: url is required')
