@@ -1,5 +1,13 @@
 # @searchkit/api
 
+## 4.7.1
+
+### Patch Changes
+
+- support for more complex Highlight attribute names
+- Updated dependencies
+  - searchkit@4.7.1
+
 ## 4.7.0
 
 ### Minor Changes
