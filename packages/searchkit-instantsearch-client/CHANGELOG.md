@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.7.1
+
+### Patch Changes
+
+- c494ce2b: Fix client support
+
 ## 4.7.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "with-ui-nextjs-react",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@searchkit/api": "4.7.0",
-    "@searchkit/instantsearch-client": "4.7.0",
+    "@searchkit/instantsearch-client": "4.7.1",
     "react-instantsearch-dom": "^6.39.1",
     "instantsearch.css": "^8.0.0",
     "@types/node": "18.15.7",
