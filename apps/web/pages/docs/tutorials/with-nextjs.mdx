@@ -78,12 +78,12 @@ Next we need to install the dependencies for this project:
 <Tabs items={['npm', 'yarn']} storageKey="selected-pkg-manager">
   <Tab>
     ```bash
-      npm install @searchkit/instantsearch-client @searchkit/api react-instantsearch-dom
+      npm install @searchkit/instantsearch-client @searchkit/api react-instantsearch-hooks-web
     ```
   </Tab>
   <Tab>
     ```bash
-      yarn add @searchkit/instantsearch-client @searchkit/api react-instantsearch-dom
+      yarn add @searchkit/instantsearch-client @searchkit/api react-instantsearch-hooks-web
     ```
   </Tab>
 </Tabs>
@@ -132,12 +132,12 @@ For more information on API configuration, see the [API Configuration](/referenc
 
 ## Setup the Frontend
 
-Now that we have the API setup, we can start building the frontend. We will use [react-instantsearch-dom](https://www.algolia.com/doc/api-reference/widgets/react/) to build the search experience.
+Now that we have the API setup, we can start building the frontend. We will use [react-instantsearch-hooks-web](https://www.algolia.com/doc/api-reference/widgets/react-hooks/) to build the search experience.
 
 First, we need to create a new file in the `pages` directory called `search.js` and add the following code:
 
 ```js
-import { InstantSearch, SearchBox, Hits } from "react-instantsearch-dom";
+import { InstantSearch, SearchBox, Hits } from "react-instantsearch-hooks-web";
 import createClient from "@searchkit/instantsearch-client";
 
 const searchClient = createClient({
@@ -217,10 +217,10 @@ const results = await apiClient.handleRequest(body, {
 
 We can add a custom hit component to display the results. We can create a new file called `Hit.js` in the `components` directory and add the following code:
 
-Below we are using the `Highlight` component from `react-instantsearch-dom` to highlight the search term in the title and actors fields.
+Below we are using the `Highlight` component from `react-instantsearch-hooks-web` to highlight the search term in the title and actors fields.
 
 ```js filename="index.js"
-import { Highlight } from "react-instantsearch-dom";
+import { Highlight } from "react-instantsearch-hooks-web";
 
 const hitView = (props) => {
   return (
@@ -285,7 +285,7 @@ import {
   SearchBox,
   Hits,
   RefinementList,
-} from "react-instantsearch-dom";
+} from "react-instantsearch-hooks-web";
 
 export default function Search() {
   return (
@@ -320,24 +320,93 @@ facet_attributes: [
 ],
 ```
 
-Then we can add the `NumericMenu` component to the `pages/search.js` file.
+Then we can add the `RangeInput` component to the `pages/search.js` file.
 
 ```js
 import {
   InstantSearch,
   SearchBox,
   Hits,
-  NumericMenu,
-} from "react-instantsearch-dom";
+  RangeInput,
+} from "react-instantsearch-hooks-web";
 
-<NumericMenu
+<RangeInput
   attribute="imdbrating"
-  items={[
-    { label: "5 - 7", start: 5, end: 7 },
-    { label: "7 - 9", start: 7, end: 9 },
-    { label: ">= 9", start: 9 },
-  ]}
 />;
+```
+
+### Server Side Rendering
+
+Below we adding additional imports:
+1. Importing the `getServerState` function from `react-instantsearch-hooks-server`
+2. Importing the `renderToString` function from `react-dom/server`
+3. Importing the `InstantSearchServerState` and `InstantSearchSSRProvider` components from `react-instantsearch-hooks-web`
+4. Importing the `createInstantSearchRouterNext` function from `react-instantsearch-hooks-router-nextjs`
+5. Importing the `singletonRouter` from `next/router`
+
+Then we are wrapping the `InstantSearch` component with the `InstantSearchSSRProvider` component and passing the `serverState` prop to it.
+
+This allows us to render the search experience on the server and send the initial state to the client. This will make the search experience load faster and also improve the SEO.
+
+```ts
+import { 
+  InstantSearch, SearchBox, Hits, RefinementList, RangeInput, 
+  InstantSearchServerState, InstantSearchSSRProvider, 
+} from 'react-instantsearch-hooks-web';
+import { getServerState } from 'react-instantsearch-hooks-server';
+import { renderToString } from 'react-dom/server';
+
+import Client from '@searchkit/instantsearch-client'
+import { GetServerSideProps } from 'next';
+import { createInstantSearchRouterNext } from 'react-instantsearch-hooks-router-nextjs';
+import singletonRouter from 'next/router';
+
+type WebProps = {
+  serverState?: InstantSearchServerState;
+  url?: string;
+  serverUrl?: string;
+};
+
+export default function Web({ serverState, url, serverUrl }: WebProps) {
+
+    const searchClient = Client({
+      url: serverUrl + '/api/product-search',
+    });
+
+    return (
+      <InstantSearchSSRProvider {...serverState}>
+
+        <div className="ais-InstantSearch">
+
+          <InstantSearch searchClient={searchClient} indexName="movies">
+            <SearchBox />
+            <RefinementList attribute="type" searchable />
+            <RangeInput attribute="imdbrating" />
+            <Hits hitComponent={Hit} />
+          </InstantSearch>
+
+        </div>
+      </InstantSearchSSRProvider>
+    );
+}
+
+export const getServerSideProps: GetServerSideProps<WebProps> =
+  async function getServerSideProps({ req }) {
+    const protocol = req.headers.referer?.split('://')[0] || 'http';
+    const serverUrl = `${protocol}://${req.headers.host}`;
+    const url = `${protocol}://${req.headers.host}${req.url}`;
+    const serverState = await getServerState(<Web url={url} serverUrl={serverUrl} />, {
+      renderToString,
+    });
+
+    return {
+      props: {
+        serverState,
+        url,
+        serverUrl
+      },
+    };
+  };
 ```
 
 ## Summary

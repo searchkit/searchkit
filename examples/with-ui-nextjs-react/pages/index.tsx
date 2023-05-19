@@ -4,17 +4,16 @@ import {
   Hits,
   Highlight,
   RefinementList,
-  Panel,
   Pagination,
   Stats,
-  NumericMenu,
   Snippet,
   CurrentRefinements,
   HierarchicalMenu,
   Configure,
   DynamicWidgets,
-  QueryRuleCustomData,
-} from "react-instantsearch-dom";
+  RangeInput,
+  useQueryRules
+} from "react-instantsearch-hooks-web";
 import Client from "@searchkit/instantsearch-client";
 
 const searchClient = Client({
@@ -33,6 +32,33 @@ const HitView = (props: any) => {
     </div>
   );
 };
+
+const Panel = ({ header, children }: any) => (
+  <div className="panel">
+    <h5>{header}</h5>
+    {children}
+  </div>
+);
+
+const QueryRulesBanner = () => {
+  const {items} = useQueryRules({})
+  if (items.length === 0) {
+    return null
+  }
+
+  return (
+    <div className="query-rules">
+      {items.map((item) => (
+        <div key={item.objectID} className="query-rules__item">
+          <a href={item.url}>
+            <b className="query-rules__item-title">{item.title}</b>
+            <span className="query-rules__item-description">{item.body}</span>
+          </a>
+        </div>
+      ))}
+    </div>
+  )
+}
 
 export default function Web() {
   return (
@@ -56,13 +82,7 @@ export default function Web() {
                   />
                 </Panel>
                 <Panel header="price">
-                <NumericMenu attribute="price" items={[
-                  { label: 'All' },
-                  { label: 'Less than $10', end: 10 },
-                  { label: '$10 to $100', start: 10, end: 100 },
-                  { label: '$100 to $500', start: 100, end: 500 },
-                  { label: 'More than $500', start: 500 },
-                ]} />
+                <RangeInput attribute="price"/>
                 </Panel>
               </DynamicWidgets>
             </div>
@@ -70,25 +90,10 @@ export default function Web() {
               <div className="searchbox">
                 <SearchBox />
               </div>
-              <QueryRuleCustomData>
-                {({ items }: { items: any[] }) =>
-                  items.map(({ title, body, url }) => {
-                    if (!title) {
-                      return null;
-                    }
-
-                    return (
-                      <section key={title}>
-                        <h2>{title}</h2>
-                        <p>{body}</p>
-                        <a href={url}>Learn more</a>
-                      </section>
-                    );
-                  })
-                }
-              </QueryRuleCustomData>
+              
               <Stats />
               <CurrentRefinements />
+              <QueryRulesBanner />
 
               <Hits hitComponent={HitView} />
               <Pagination />

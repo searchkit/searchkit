@@ -27,6 +27,11 @@ Searchkit is great for anyone who want to build a search experience quickly.
 * [Searchkit with Vue](https://www.searchkit.co/docs/getting-started/with-vue)
 * [Searchkit with Angular](https://www.searchkit.co/docs/getting-started/with-angular)
 
+## Code Examples (on Github)
+* [Searchkit with Next.JS](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-nextjs-react)
+* [Searchkit with Javascript](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-instantsearchjs)
+* [Searchkit with Vue](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-vue)
+
 ## Components Docs
 * [Searchkit Instantsearch Components](https://www.searchkit.co/docs/components/refinements/refinement-list)
 
@@ -36,15 +41,17 @@ Searchkit is great for anyone who want to build a search experience quickly.
 * [Searchkit with Express.js](https://www.searchkit.co/docs/proxy-elasticsearch/with-express-js)
 
 ## Codesandbox Examples
-* [Searchkit with JS Widgets](https://codesandbox.io/s/searchkit-quick-start-js-widgets-4xopy5?file=/index.html)
-* [Searchkit with Vue](https://codesandbox.io/s/vue-example-3x7obs)
+* [Searchkit with JS Widgets](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-instantsearchjs)
+* [Searchkit with Vue](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-vue)
+* [Searchkit with Next.js](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-nextjs-react)
+* [Proxy with Express.js](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/proxy-elasticsearch/with-express-typescript-esm)
 
 ## Video Tutorials
 * [Searchkit Intro Video Tutorial with Instantsearch.js](https://www.youtube.com/watch?v=R6iYpEuCdVs)
 * [Searchkit Node API Video Tutorial](https://www.youtube.com/watch?v=8ztvn1-VZ_U)
 
 ## Tutorials
-* [Searchkit with Next.js](https://www.searchkit.co/tutorials)
+* [Searchkit with Next.js](https://www.searchkit.co/tutorials/with-nextjs)
 * [Searchkit with Availability Search](https://www.searchkit.co/tutorials/build-availability-search-ui)
 
 ## Demos
@@ -133,18 +140,27 @@ curl --location --request POST 'http://localhost:9200/products/_doc' \
 
 ## Setup Searchkit
 
-Searchkit compatible with all Instantsearch frameworks. Below is an example using react-instantsearch-dom.
+Searchkit compatible with all Instantsearch frameworks. Below is an example using react-instantsearch-hooks-web.
 
 ```tsx
 import Searchkit from "searchkit"
 import Client from '@searchkit/instantsearch-client'
 
 // import your InstantSearch components
-import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, NumericMenu } from 'react-instantsearch-dom';
+import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, RangeInput } from 'react-instantsearch-hooks-web';
 
 const sk = new Searchkit({
   connection: {
-    host: 'http://localhost:9200'
+    host: 'http://localhost:9200',
+    // with an apiKey
+    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-api-key
+    // apiKey: '##########'
+    // with a username/password
+    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword
+    //auth: {
+    //  username: "elastic",
+    //  password: "changeme"
+    //}
   },
   search_settings: {
     search_attributes: [{ field: 'title', weight: 3 }, 'actors', 'plot'],
@@ -167,14 +183,7 @@ const App = () => (
     <SearchBox />
     <div className="left-panel">
       <RefinementList attribute="actors" searchable={true} limit={10} />
-      <NumericMenu
-        attribute="imdbrating"
-        items={[
-          { label: '5 - 7', start: 5, end: 7 },
-          { label: '7 - 9', start: 7, end: 9 },
-          { label: '>= 9', start: 9 },
-        ]}
-      />
+      <RangeInput attribute="imdbrating" />
     </div>
     <div className="right-panel">
       <Hits />
@@ -196,7 +205,7 @@ import Searchkit from "searchkit"
 import Client from '@searchkit/instantsearch-client'
 
 // import your InstantSearch components
-import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, NumericMenu } from 'react-instantsearch-dom';
+import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, RangeInput } from 'react-instantsearch-hooks-web';
 
 const searchClient = Client({
     url: "/api/search",
@@ -210,14 +219,7 @@ const App = () => (
     <SearchBox />
     <div className="left-panel">
       <RefinementList attribute="actors" searchable={true} limit={10} />
-      <NumericMenu
-        attribute="imdbrating"
-        items={[
-          { label: '5 - 7', start: 5, end: 7 },
-          { label: '7 - 9', start: 7, end: 9 },
-          { label: '>= 9', start: 9 },
-        ]}
-      />
+      <RangeInput attribute="imdbrating" />
     </div>
     <div className="right-panel">
       <Hits />
@@ -259,6 +261,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 ```
 
+### Proxy Elasticsearch Quick Starts
+* [Searchkit with Next.js Functions](https://www.searchkit.co/docs/proxy-elasticsearch/with-next-js)
+* [Searchkit with Cloudflare Workers](https://www.searchkit.co/docs/proxy-elasticsearch/with-cloudflare-workers)
+* [Searchkit with Express.js](https://www.searchkit.co/docs/proxy-elasticsearch/with-express-js)
+
 ## Query Rules
 
 Query rules allows you to customize the behavior of the search experience. You can use query rules to boost or filter results, or to change the ranking of results, based on a set of conditions.
@@ -293,7 +300,10 @@ Below is an example of a query rule that boosts results for movies with Dan Aykr
 
 ```
 
+read more at [Query Rules](https://www.searchkit.co/docs/query-rules) docs.
+
 ### NPM Packages
+* Searchkit [Documentation](https://www.searchkit.co/docs/api-documentation/searchkit)
 * @searchkit/api [Documentation](https://www.searchkit.co/docs/api-documentation/api)
 * @searchkit/instantsearch-client [Documentation](https://www.searchkit.co/docs/api-documentation/instantsearch-client)
 
@@ -301,7 +311,7 @@ Below is an example of a query rule that boosts results for movies with Dan Aykr
 
 **Q: Do I need to expose Elasticsearch to the public internet?**
 
-No you don't. You can use Searchkit API to proxy requests to Elasticsearch. The XHR requests will provide the search state to the Searchkit Node API, which will then transform the request into elasticsearch queries and perform them to Elasticsearch.
+Searchkit proxies requests to Elasticsearch.
 
 Searchkit offers both options, either perform the search directly from the browser, or use the Searchkit API to proxy requests to Elasticsearch. Directly from the browser offers great developer experience & prototyping. Once you are ready to deploy, you can use the Searchkit API to proxy requests to Elasticsearch.
 

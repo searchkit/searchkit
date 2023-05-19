@@ -18,6 +18,7 @@
             },
             "console": "integratedTerminal",
             "sourceMaps": true
+
         },
         {
             "name": "@searchkit/api Tests ",

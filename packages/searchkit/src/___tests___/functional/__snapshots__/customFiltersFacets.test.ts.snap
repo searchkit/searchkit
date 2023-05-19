@@ -186,6 +186,6 @@ exports[`Custom Facets and Filters use the custom filter when specified: ES Requ
 "{"index":"imdb_movies"}
 {"aggs":{"actors":{"significant_terms":{"field":"actors.keyword","size":10}}},"query":{"bool":{"filter":[{"match":{"actors.keyword":"Tom Hanks"}},{"match":{"writers":"Quentin Tarantino"}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0},"actors":{"number_of_fragments":0}}}}
 {"index":"imdb_movies"}
-{"aggs":null,"query":{"bool":{"filter":[{"match":{"actors.keyword":"Tom Hanks"}},{"match":{"writers":"Quentin Tarantino"}}],"must":{"match_all":{}}}},"size":1,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0},"actors":{"number_of_fragments":0}}}}
+{"aggs":{},"query":{"bool":{"filter":[{"match":{"actors.keyword":"Tom Hanks"}},{"match":{"writers":"Quentin Tarantino"}}],"must":{"match_all":{}}}},"size":1,"from":0,"_source":{"includes":["title","actors","query"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{"title":{"number_of_fragments":0},"actors":{"number_of_fragments":0}}}}
 "
 `;

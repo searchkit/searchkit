@@ -55,12 +55,12 @@ For more details on installation and usage, see [Installation](/docs/installatio
 <Tabs items={['npm', 'yarn']} storageKey="selected-pkg-manager">
   <Tab>
   ```bash
-  npm install searchkit @searchkit/api @searchkit/instantsearch-client react-instantsearch-dom
+  npm install searchkit @searchkit/instantsearch-client react-instantsearch-hooks-web
   ```
   </Tab>
   <Tab>
-      ```bash
-  yarn add searchkit @searchkit/api @searchkit/instantsearch-client react-instantsearch-dom
+ ```bash
+  yarn add searchkit @searchkit/instantsearch-client react-instantsearch-hooks-web
   ```
   </Tab>
 </Tabs>
@@ -74,7 +74,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Client from "@searchkit/instantsearch-client";
 import Searchkit from "searchkit";
-import { InstantSearch, SearchBox, Hits, RefinementList } from "react-instantsearch-dom";
+import { InstantSearch, SearchBox, Hits, RefinementList } from "react-instantsearch-hooks-web";
 
 // Create a Searchkit client
 // This is the configuration for Searchkit, specifying the fields to attributes used for search, facets, etc.
@@ -92,8 +92,8 @@ const sk = new Searchkit({
     // apiKey: "######"
   },
   search_settings: {
-      search_attributes: ['name'],
-      result_attributes: ['name', 'description']
+    search_attributes: ['name'],
+    result_attributes: ['name', 'description']
   },
 })
 
@@ -146,8 +146,8 @@ In order to return the name and description, we must specify the field attribute
 
 ```tsx
   search_settings: {
-      search_attributes: ['name'],
-      result_attributes: ['name', 'description']
+    search_attributes: ['name'],
+    result_attributes: ['name', 'description']
   }
 ```
 
@@ -189,7 +189,7 @@ First specify the `highlight_attributes` and `snippet_attributes` in the `search
 Then you can use the `Highlight` and `Snippet` components to highlight and display snippets in the results.
 
 ```tsx
-import { Snippet, Highlight } from 'react-instantsearch-dom';
+import { Snippet, Highlight } from 'react-instantsearch-hooks-web';
 
 // define a custom hit React Component
 // returning both name and description for each hit
@@ -268,7 +268,7 @@ const searchClient = Client(sk, {
       field: 'dense-vector-field',
       k: 10,
       num_candidates: 100,
-      // supported in latest version of Elasticsearch
+      // supported in Elasticsearch 8.7+
       query_vector_builder: { 
         text_embedding: {
           model_id: 'cookie_model',
@@ -345,7 +345,7 @@ Then you can add the `RefinementList` component to the `App` function.
 
 ```tsx
 
-import { InstantSearch, SearchBox, Hits, RefinementList } from 'react-instantsearch-dom';
+import { InstantSearch, SearchBox, Hits, RefinementList } from 'react-instantsearch-hooks-web';
 
 const App = () => (
   <InstantSearch indexName="products" searchClient={searchClient}>
@@ -408,7 +408,7 @@ Then you can add the `HierarchicalMenu` component to the `App` function.
 
 ```tsx
 
-import { InstantSearch, SearchBox, Hits, RefinementList, HierarchicalMenu } from 'react-instantsearch-dom';
+import { InstantSearch, SearchBox, Hits, RefinementList, HierarchicalMenu } from 'react-instantsearch-hooks-web';
 
 const App = () => (
   <InstantSearch indexName="products" searchClient={searchClient}>
@@ -480,11 +480,11 @@ First you must add the `price` field to the `search_settings` in Searchkit.
   }
 ```
 
-Then you can add the `NumericMenu` component to the `App` function.
+Then you can add the `RangeInput` component to the `App` function.
 
 ```tsx
 
-import { InstantSearch, SearchBox, Hits, RefinementList, HierarchicalMenu, NumericMenu } from 'react-instantsearch-dom';
+import { InstantSearch, SearchBox, Hits, RefinementList, HierarchicalMenu, RangeInput } from 'react-instantsearch-hooks-web';
 
 const App = () => (
   <InstantSearch indexName="products" searchClient={searchClient}>
@@ -497,21 +497,13 @@ const App = () => (
         'hierarchicalCategories.lvl2',
       ]}
     />
-    <NumericMenu attribute="price" items={[
-      { label: 'All' },
-      { label: 'Less than $10', end: 10 },
-      { label: '$10 to $100', start: 10, end: 100 },
-      { label: '$100 to $500', start: 100, end: 500 },
-      { label: 'More than $500', start: 500 },
-    ]} />
+    <RangeInput attribute="price" />
     <Hits />
   </InstantSearch>
 );
 ```
 
-Then you should see the price refinement options.
-
-![overview](../../../public/docs/getting-started/screen8.png)
+Then you should see a range input to adjust from and to pricing.
 
 ## Filter Attributes
 
@@ -533,7 +525,7 @@ Pagination is useful if you want to show more pages for your results.
 
 ```tsx
 
-import { InstantSearch, SearchBox, Hits, RefinementList, HierarchicalMenu, NumericMenu, Pagination } from 'react-instantsearch-dom';
+import { InstantSearch, SearchBox, Hits, RefinementList, HierarchicalMenu, NumericMenu, Pagination } from 'react-instantsearch-hooks-web';
 
 const App = () => (
   <InstantSearch indexName="products" searchClient={searchClient}>
@@ -565,10 +557,11 @@ You can adjust the number of results per page by adding the `Configure` componen
 
 ```tsx
 
-import { InstantSearch, SearchBox, Hits, RefinementList, HierarchicalMenu, NumericMenu, Pagination, Configure } from 'react-instantsearch-dom';
+import { InstantSearch, SearchBox, Hits, RefinementList, HierarchicalMenu, NumericMenu, Pagination, Configure } from 'react-instantsearch-hooks-web';
 
 const App = () => (
   <InstantSearch indexName="products" searchClient={searchClient}>
+    <Configure hitsPerPage={15} />
     <SearchBox />
     <RefinementList attribute="brand" />
     <HierarchicalMenu
@@ -709,7 +702,7 @@ When a customer selects TV category, we will display the brand facet.
 on the frontend, you need to use the `DynamicWidgets` component to control which facets are displayed, based on the query rules.
 
 ```tsx
-import { DynamicWidgets } from 'instantsearch-react-dom'
+import { DynamicWidgets } from 'instantsearch-react-hooks-web'
 
 // in the app component
 
@@ -773,29 +766,37 @@ This could be used to display a banner with more TV info when the customer selec
   }
 ```
 
-on the frontend, you use the `CustomQueryRule` component to display the banner.
+on the frontend, you use the `useQueryRules` hook to display the banner.
 
 ```tsx
-import { QueryRuleCustomData } from 'instantsearch-react-dom'
+import { useQueryRules } from 'instantsearch-react-hooks-web'
 
-<QueryRuleCustomData>
-  {({ items }: { items: any[] }) =>
-    items.map(({ title, body, url }) => {
-      if (!title) {
-        return null;
-      }
-
-      return (
-        <section key={title}>
-          <h2>{title}</h2>
-          <p>{body}</p>
-          <a href={url}>Learn more</a>
-        </section>
-      );
-    })
+const QueryRulesBanner = () => {
+  const {items} = useQueryRules({})
+  if (items.length === 0) {
+    return null
   }
-</QueryRuleCustomData>
 
+  return (
+    <div className="query-rules">
+      {items.map((item) => (
+        <div key={item.objectID} className="query-rules__item">
+          <a href={item.url}>
+            <b className="query-rules__item-title">{item.title}</b>
+            <span className="query-rules__item-description">{item.body}</span>
+          </a>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+const App = () => (
+  <InstantSearch indexName="products" searchClient={searchClient}>
+    {/* ... other components */}
+    <QueryRulesBanner />
+  </InstantSearch>
+);
 ```
 
 ![overview](../../../public/docs/getting-started/screen11.png)

@@ -182,7 +182,7 @@ Install Searchkit & Instantsearch:
 
 ```bash
 cd searchkit-tutorial
-npm install searchkit @searchkit/api @searchkit/instantsearch-client react-instantsearch-dom
+npm install searchkit @searchkit/api @searchkit/instantsearch-client react-instantsearch-hooks-web
 ```
 
 update file called `pages/index.js` and add the following code:
@@ -190,7 +190,7 @@ update file called `pages/index.js` and add the following code:
 ```jsx
 import React from "react";
 import Client from "@searchkit/instantsearch-client";
-import { InstantSearch, SearchBox, Hits, RefinementList } from "react-instantsearch-dom";
+import { InstantSearch, SearchBox, Hits, RefinementList } from "react-instantsearch-hooks-web";
  
 const searchClient = Client({
   url: "/api/search"
@@ -293,7 +293,7 @@ Update the `pages/index.js` file and add the following code:
 ```jsx
 import React from "react";
 import Client from "@searchkit/instantsearch-client";
-import { InstantSearch, SearchBox, Hits, RefinementList } from "react-instantsearch-dom";
+import { InstantSearch, SearchBox, Hits, RefinementList } from "react-instantsearch-hooks-web";
  
 const searchClient = Client({
   url: "/api/search"
@@ -351,7 +351,7 @@ Update the `pages/index.js` file and add the following code:
 ```jsx
 import React from "react";
 import Client from "@searchkit/instantsearch-client";
-import { InstantSearch, SearchBox, Hits, RefinementList, RangeInput, createConnector } from "react-instantsearch-dom";
+import { InstantSearch, SearchBox, Hits, RefinementList, RangeInput, createConnector } from "react-instantsearch-hooks-web";
  
 const searchClient = Client({
   url: "/api/search"
@@ -458,7 +458,7 @@ Update the `pages/index.js` file and add the following code:
 ```jsx
 import React from "react";
 import Client from "@searchkit/instantsearch-client";
-import { InstantSearch, SearchBox, Hits, RefinementList, RangeInput, createConnector } from "react-instantsearch-dom";
+import { InstantSearch, SearchBox, Hits, RefinementList, RangeInput, createConnector } from "react-instantsearch-hooks-web";
  
 const searchClient = Client({
   url: "/api/search"

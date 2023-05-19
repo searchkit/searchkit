@@ -36,7 +36,7 @@ export default class Searchkit {
   }
 
   async handleInstantSearchRequests(
-    instantsearchRequests: AlgoliaMultipleQueriesQuery[],
+    instantsearchRequests: readonly AlgoliaMultipleQueriesQuery[],
     requestOptions?: RequestOptions
   ) {
     const queryRules = this.config.search_settings.query_rules || []

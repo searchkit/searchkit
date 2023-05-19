@@ -44,7 +44,7 @@ class InstantSearchElasticsearchAdapter {
     return headers
   }
 
-  public async search(instantsearchRequests: Array<MultipleQueriesQuery>): Promise<unknown> {
+  public async search(instantsearchRequests: readonly MultipleQueriesQuery[]): Promise<any> {
     try {
       const key = JSON.stringify(instantsearchRequests)
       if (this.cache[key]) {
@@ -79,7 +79,7 @@ class InstantSearchElasticsearchAdapter {
   }
 
   public async searchForFacetValues(
-    instantsearchRequests: Array<MultipleQueriesQuery>
+    instantsearchRequests: readonly MultipleQueriesQuery[]
   ): Promise<any> {
     const isr = instantsearchRequests.map<MultipleQueriesQuery>((request) => {
       return {

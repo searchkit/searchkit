@@ -122,7 +122,7 @@ export const getAggs = (
     )
   } else if (typeof facets === 'string') {
     const field = getFacet(config.facet_attributes || [], facets)
-    if (!field) return null
+    if (!field) return {}
     return getTermAggregation(field, maxFacetSize, '')
   }
 }

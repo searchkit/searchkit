@@ -140,14 +140,14 @@ curl --location --request POST 'http://localhost:9200/products/_doc' \
 
 ## Setup Searchkit
 
-Searchkit compatible with all Instantsearch frameworks. Below is an example using react-instantsearch-dom.
+Searchkit compatible with all Instantsearch frameworks. Below is an example using react-instantsearch-hooks-web.
 
 ```tsx
 import Searchkit from "searchkit"
 import Client from '@searchkit/instantsearch-client'
 
 // import your InstantSearch components
-import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, NumericMenu } from 'react-instantsearch-dom';
+import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, RangeInput } from 'react-instantsearch-hooks-web';
 
 const sk = new Searchkit({
   connection: {
@@ -183,14 +183,7 @@ const App = () => (
     <SearchBox />
     <div className="left-panel">
       <RefinementList attribute="actors" searchable={true} limit={10} />
-      <NumericMenu
-        attribute="imdbrating"
-        items={[
-          { label: '5 - 7', start: 5, end: 7 },
-          { label: '7 - 9', start: 7, end: 9 },
-          { label: '>= 9', start: 9 },
-        ]}
-      />
+      <RangeInput attribute="imdbrating" />
     </div>
     <div className="right-panel">
       <Hits />
@@ -212,7 +205,7 @@ import Searchkit from "searchkit"
 import Client from '@searchkit/instantsearch-client'
 
 // import your InstantSearch components
-import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, NumericMenu } from 'react-instantsearch-dom';
+import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, RangeInput } from 'react-instantsearch-hooks-web';
 
 const searchClient = Client({
     url: "/api/search",
@@ -226,14 +219,7 @@ const App = () => (
     <SearchBox />
     <div className="left-panel">
       <RefinementList attribute="actors" searchable={true} limit={10} />
-      <NumericMenu
-        attribute="imdbrating"
-        items={[
-          { label: '5 - 7', start: 5, end: 7 },
-          { label: '7 - 9', start: 7, end: 9 },
-          { label: '>= 9', start: 9 },
-        ]}
-      />
+      <RangeInput attribute="imdbrating" />
     </div>
     <div className="right-panel">
       <Hits />
