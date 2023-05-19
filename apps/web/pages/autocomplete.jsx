@@ -6,9 +6,7 @@ import {
 import React, { createElement, Fragment, useEffect, useRef, useState } from 'react';
 import { render } from 'react-dom';
 import client from "@searchkit/instantsearch-client";
-import { InstantSearch, usePagination, useSearchBox } from 'react-instantsearch-hooks';
-import { Hits } from 'react-instantsearch-hooks-web';
-
+import { InstantSearch, usePagination, useSearchBox, Hits } from 'react-instantsearch-hooks-web';
 
 function Autocomplete(props) {
   const containerRef = useRef(null);
@@ -180,7 +178,9 @@ export default function AutocompletePage() {
         <Autocomplete
           openOnFocus
         />
-        <Hits />
+        <div>
+          <Hits hitComponent={(({ hit }) => ( <div>{hit.title}</div> ))} />
+        </div>
       </InstantSearch>
     </div>
   );

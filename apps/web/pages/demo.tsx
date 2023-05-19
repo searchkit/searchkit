@@ -1,12 +1,13 @@
-import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, ToggleRefinement, Panel, Pagination, Stats, connectSearchBox, NumericMenu, RangeInput, CurrentRefinements, QueryRuleCustomData, Snippet, SortBy } from 'react-instantsearch-dom';
+import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, Pagination, Stats, RangeInput, CurrentRefinements, Snippet, SortBy, InstantSearchServerState, InstantSearchSSRProvider } from 'react-instantsearch-hooks-web';
+import { getServerState } from 'react-instantsearch-hooks-server';
+import { renderToString } from 'react-dom/server';
+
 import Client from '@searchkit/instantsearch-client'
-import Script from 'next/script'
 import Searchkit from "searchkit"
 import { config } from "./api/config"
-
-const searchkitClient = new Searchkit(config)
-
-const searchClient = Client(searchkitClient);
+import { GetServerSideProps } from 'next';
+import { createInstantSearchRouterNext } from 'react-instantsearch-hooks-router-nextjs';
+import singletonRouter from 'next/router';
 
 const hitView = (props: any) => {
   return (
@@ -21,64 +22,58 @@ const hitView = (props: any) => {
   )
 }
 
-export default function Web() {
+const Panel = ({ header, children }: { header: string, children: any }) => (
+  <div className="mb-4">
+    <h3 className="mb-2">{header}</h3>
+    {children}
+  </div>
+);
+
+type WebProps = {
+  serverState?: InstantSearchServerState;
+  url?: string;
+};
+
+const searchkitClient = new Searchkit(config)
+const searchClient = Client(searchkitClient);
+
+export default function Web({ serverState, url }: WebProps) {
+
+
     return (
+      <InstantSearchSSRProvider {...serverState}>
+
       <div className="ais-InstantSearch bg-gray-100 h-screen p-4">
-        <Script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c98b302ea3bb4a33a012a7ef0ab3e240"}' />
   
       <InstantSearch
         indexName="imdb_movies"
         searchClient={searchClient}
+        routing={{
+          router: createInstantSearchRouterNext({
+            singletonRouter,
+            serverUrl: url,
+          }),
+        }}
       >
-        <SearchBox />
+        <SearchBox placeholder='search movies' />
         <div className="left-panel">
-          {/* @ts-ignore */}
-          <DynamicWidgets maxValuesPerFacet={10} fallbackWidget={RefinementList}>
-            <Panel header="Type">
-              <RefinementList attribute="type" searchable={true}/>
-            </Panel>
+          <DynamicWidgets fallbackComponent={FallbackComponent} facets={[]}>
             <Panel header="actors">
-              <RefinementList attribute="actors" searchable={true} limit={10} />
-            </Panel>
-            <Panel header="imdbrating">
-              <NumericMenu
-                attribute="imdbrating"
-                items={[
-                  { label: '5 - 7', start: 5, end: 7 },
-                  { label: '7 - 9', start: 7, end: 9 },
-                  { label: '>= 9', start: 9 },
-                ]}
-              />
+              <RefinementList attribute="actors" searchable={true} limit={10} searchablePlaceholder='search actors' />
             </Panel>
             <Panel header="metascore">
-              <RangeInput attribute="metascore" header="Range Input" />
+              <RangeInput attribute="metascore" />
             </Panel>
           </DynamicWidgets>
         </div>
         <div className="right-panel">
-        <QueryRuleCustomData>
-        {({ items }: { items: any[] }) =>
-          items.map(({ title }) => {
-            if (!title) {
-              return null;
-            }
-
-            return (
-              <section key={title}>
-                <h2>{title}</h2>
-                <p>You have typed in movie, show something wild about movies!</p>
-              </section>
-            );
-          })
-        }
-      </QueryRuleCustomData>
         <div className="flex">
           <div className="flex-auto w-full py-2 px-4">
             <Stats />
             <CurrentRefinements />
           </div>
           <div className="flex-none">
-            <SortBy defaultRefinement='imdb_movies' items={[
+            <SortBy items={[
               { value: 'imdb_movies', label: 'Relevance' },
               { value: 'imdb_movies_rated_desc', label: 'Highly Rated Movies' },
             ]}
@@ -91,5 +86,30 @@ export default function Web() {
         </div>
       </InstantSearch>
       </div>
+      </InstantSearchSSRProvider>
     );
 }
+
+function FallbackComponent({ attribute }: { attribute: string }) {
+  return (
+    <Panel header={attribute}>
+      <RefinementList attribute={attribute} />
+    </Panel>
+  );
+}
+
+export const getServerSideProps: GetServerSideProps<WebProps> =
+  async function getServerSideProps({ req }) {
+    const protocol = req.headers.referer?.split('://')[0] || 'https';
+    const url = `${protocol}://${req.headers.host}${req.url}`;
+    const serverState = await getServerState(<Web url={url} />, {
+      renderToString,
+    });
+
+    return {
+      props: {
+        serverState,
+        url,
+      },
+    };
+  };
