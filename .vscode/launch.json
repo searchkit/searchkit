@@ -18,6 +18,7 @@
             },
             "console": "integratedTerminal",
             "sourceMaps": true
+
         },
         {
             "name": "@searchkit/api Tests ",
@@ -71,8 +72,7 @@
           "program": "${workspaceRoot}/node_modules/next/dist/bin/next",
           "cwd": "${workspaceRoot}/apps/web",
           "console": "integratedTerminal",
-          "sourceMaps": true,
-          "runtimeExecutable": "/Users/joe/.nvm/versions/node/v16.18.1/bin/node"
+          "sourceMaps": true
         },
     ]
 }
