@@ -1,6 +1,6 @@
 {
   "name": "with-ui-nextjs-react",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@searchkit/api": "4.7.1",
-    "@searchkit/instantsearch-client": "4.7.2",
+    "@searchkit/api": "4.7.2",
+    "@searchkit/instantsearch-client": "4.7.3",
     "@types/node": "18.15.7",
     "@types/react": "18.0.29",
     "@types/react-dom": "18.0.11",
@@ -19,7 +19,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-instantsearch-hooks-web": "^6.44.0",
-    "searchkit": "4.7.1",
+    "searchkit": "4.7.2",
     "typescript": "5.0.2"
   }
 }

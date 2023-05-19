@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.7.2
+
+### Patch Changes
+
+- 3c122925: fix issue with singular facet
+
 ## 4.7.1
 
 ### Patch Changes

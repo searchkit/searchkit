@@ -1,5 +1,13 @@
 # @searchkit/api
 
+## 4.7.3
+
+### Patch Changes
+
+- 3c122925: fix issue with singular facet
+- Updated dependencies [3c122925]
+  - searchkit@4.7.2
+
 ## 4.7.2
 
 ### Patch Changes
