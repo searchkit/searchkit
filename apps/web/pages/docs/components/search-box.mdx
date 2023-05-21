@@ -29,7 +29,7 @@ The search attributes can be configured as follows:
 
 The following configuration will search the `description`, `actors` and an object field `released.year` fields with the default weight of 1. The `title` field will be weighted 3 times more than the `actors` field.
 
-### Overriding the default organic query handler
+### Example: Adjusting the organic query
 
 Out the box, Searchkit provides a Elasticsearch query that is designed to work well for most search use cases. However, you may want to customise the query to improve the relevance of the search results.
 
@@ -52,9 +52,32 @@ const results = await apiClient.handleRequest(req.body, {
 });
 ```
 
+### Example: Vector Search 
+
+The KNN Search is a special type of search that is designed to find similar items based on a vector field. 
+
+```ts
+  const results = await client.handleRequest(req.body, {
+    getKnnQuery(query, search_attributes, config) {
+      return {
+        field: 'dense-vector-field',
+        k: 10,
+        num_candidates: 100,
+        // supported in latest version of Elasticsearch
+        query_vector_builder: { 
+          text_embedding: {
+            model_id: 'msmarco-distilbert-base-tas-b',
+            model_text: query
+          }
+        }
+      }
+    }
+  });
+```
+
 ## Usage
 
-### Basic
+### Basic (React Example)
 
 ```jsx
 import { InstantSearch, SearchBox } from 'react-instantsearch-hooks-web';
