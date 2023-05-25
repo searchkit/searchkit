@@ -48,6 +48,9 @@ export function AnalyticsMiddleware(options: AnalyticsPluginOptions) {
       onStateChange() {
         dispatchTrackSearch()
       },
+      started() {
+        dispatchTrackSearch()
+      },
       subscribe() {
         instantSearchInstance.sendEventToInsights = (event: InsightsEvent) => {
           if (!instantSearchInstance.helper || !instantSearchInstance.helper.lastResults) return
