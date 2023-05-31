@@ -4,10 +4,10 @@ import { NextApiRequest, NextApiResponse } from 'next'
 const apiClient = API(
   {
     connection: {
-      host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
+      host: 'https://my-deployment-aed468.es.eastus2.azure.elastic-cloud.com',
       // if you are authenticating with api key
       // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-api-key
-      apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
+      apiKey: 'ZmJXM2M0Z0JHeFRLNXZ2ZDRRMDY6RHM2TWdVN1VUNXVkWWVKVWh4Y3Zydw=='
       // if you are authenticating with username/password
       // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword
       //auth: {
