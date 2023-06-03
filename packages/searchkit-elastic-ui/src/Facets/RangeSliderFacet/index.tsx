@@ -33,8 +33,8 @@ export const getLevels = (entries: Array<{ label: string; count: number }>): any
 export const RangeSliderFacet = ({ facet }) => {
   const api = useSearchkit()
   const levels = getLevels(facet.entries)
-  const minBoundary = levels[0].min
-  const maxBoundary = levels[levels.length - 1].max
+  const minBoundary = levels[0] ? levels[0].min : 0
+  const maxBoundary = levels[levels.length - 1] ? levels[levels.length - 1].max : 0
   const [dualValue, setDualValue] = useState<[ReactText, ReactText]>([minBoundary, maxBoundary])
   const selectedOptions = api.getFiltersByIdentifier(facet.identifier)
   const selectedOption = selectedOptions && selectedOptions[0]
