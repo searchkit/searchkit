@@ -1,5 +1,16 @@
 # @searchkit/api
 
+## 4.8.0
+
+### Minor Changes
+
+- 8a2b6ef5: include filters into the KNN search. If query is not present do not use KNN, specify a match_all query to bring back all results. If a filter is selected and no query, rely on query attribute still
+
+### Patch Changes
+
+- Updated dependencies [8a2b6ef5]
+  - searchkit@4.8.0
+
 ## 4.7.2
 
 ### Patch Changes
