@@ -8,7 +8,13 @@ import {
 } from './filters'
 import { QueryRuleActions } from './queryRules'
 import { getSorting } from './sorting'
-import { FacetAttribute, RequestOptions, SearchAttribute, SearchSettingsConfig } from './types'
+import {
+  FacetAttribute,
+  KnnSearchQuery,
+  RequestOptions,
+  SearchAttribute,
+  SearchSettingsConfig
+} from './types'
 import { AlgoliaMultipleQueriesQuery, ElasticsearchSearchRequest } from './types'
 import { getFacet, isNestedFacet } from './utils'
 
@@ -193,7 +199,7 @@ const getQuery = (
   config: SearchSettingsConfig,
   queryRuleActions: QueryRuleActions,
   requestOptions?: RequestOptions
-): QueryDslQueryContainer => {
+): { query?: QueryDslQueryContainer; knn?: KnnSearchQuery } => {
   const query = queryRuleActions.query
 
   const searchAttributes = config.search_attributes
@@ -216,19 +222,42 @@ const getQuery = (
           match_all: {}
         }
 
-  if (organicQuery === false) {
+  const hasKnn = typeof requestOptions?.getKnnQuery === 'function'
+  const hasNoQuery = requestOptions?.getQuery?.(query, searchAttributes, config) === false
+
+  if (hasNoQuery || (hasKnn && query === '')) {
     organicQuery = {
       match_all: {}
     }
   }
 
-  return {
+  const queryDsl = {
     bool: {
       filter: filters,
       must: queryRuleActions.touched
         ? queryRulesWrapper(organicQuery, queryRuleActions)
         : organicQuery
     }
+  }
+
+  let knnQueryDsl: KnnSearchQuery | null = null
+
+  if (hasKnn && query !== '') {
+    knnQueryDsl = {
+      filter: filters,
+      ...(requestOptions?.getKnnQuery?.(query, searchAttributes, config) || {})
+    } as KnnSearchQuery
+  }
+
+  if (query !== '' && hasNoQuery && hasKnn && knnQueryDsl) {
+    return {
+      knn: knnQueryDsl
+    }
+  }
+
+  return {
+    query: queryDsl,
+    knn: knnQueryDsl ? knnQueryDsl : undefined
   }
 }
 
@@ -322,20 +351,6 @@ export const getHighlightFields = (
   }
 }
 
-export const getKnn = (
-  request: AlgoliaMultipleQueriesQuery,
-  config: SearchSettingsConfig,
-  queryRuleActions: QueryRuleActions,
-  requestOptions: RequestOptions | undefined
-) => {
-  const query = queryRuleActions.query
-  if (!query || typeof requestOptions?.getKnnQuery !== 'function') return {}
-
-  return {
-    knn: requestOptions?.getKnnQuery(query, config.search_attributes, config)
-  }
-}
-
 export function transformRequest(
   request: AlgoliaMultipleQueriesQuery,
   config: SearchSettingsConfig,
@@ -344,8 +359,7 @@ export function transformRequest(
 ): ElasticsearchSearchRequest {
   const body: ElasticsearchSearchRequest = {
     aggs: getAggs(request, config, queryRuleActions),
-    query: getQuery(request, config, queryRuleActions, requestOptions),
-    ...getKnn(request, config, queryRuleActions, requestOptions),
+    ...getQuery(request, config, queryRuleActions, requestOptions),
     ...getResultsSize(request, config),
     ...getHitFields(request, config),
     ...getHighlightFields(request, config),
