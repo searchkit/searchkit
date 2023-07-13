@@ -24,10 +24,12 @@ exports[`Nested Filters Numeric nested filter with 2 numeric filters 1`] = `
       "hits": [
         {
           "_highlightResult": {},
+          "_index": "my-index-000001",
           "objectID": "1",
         },
         {
           "_highlightResult": {},
+          "_index": "my-index-000001",
           "objectID": "2",
         },
       ],

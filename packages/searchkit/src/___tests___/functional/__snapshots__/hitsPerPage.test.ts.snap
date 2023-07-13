@@ -62,6 +62,7 @@ exports[`Hits Per Page should return the default 20 for UI request 1`] = `
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -153,6 +154,7 @@ exports[`Hits Per Page should return the default 20 for UI request 1`] = `
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",

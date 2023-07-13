@@ -21,6 +21,7 @@ const getHits = (
 
   return hits.hits.map((hit) => ({
     objectID: hit._id,
+    _index: hit?._index,
     ...(hit._source || {}),
     ...(hit.inner_hits ? { inner_hits: hit.inner_hits } : {}),
     ...(highlight_attributes.length > 0

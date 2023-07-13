@@ -64,6 +64,7 @@ exports[`Integration tests for query rules call with one filter and query applie
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -158,6 +159,7 @@ exports[`Integration tests for query rules call with one filter and query applie
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
