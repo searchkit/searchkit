@@ -62,6 +62,7 @@ exports[`Add additional base filters to search call with one filter and query ap
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -153,6 +154,7 @@ exports[`Add additional base filters to search call with one filter and query ap
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -268,6 +270,7 @@ exports[`Add additional base filters to search filters not being facets 2`] = `
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -359,6 +362,7 @@ exports[`Add additional base filters to search filters not being facets 2`] = `
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",

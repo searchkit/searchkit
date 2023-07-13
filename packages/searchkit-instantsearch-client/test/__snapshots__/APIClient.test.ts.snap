@@ -70,6 +70,9 @@ exports[`API connector works as expected 1`] = `
               "title": "The Shawshank Redemption",
             },
             "highlight": {
+              "desription": [
+                "The <em>Shawshank</em> Redemption",
+              ],
               "title": [
                 "The <em>Shawshank</em> Redemption",
               ],
@@ -121,6 +124,9 @@ exports[`API connector works as expected 1`] = `
               "title": "The Shawshank Redemption",
             },
             "highlight": {
+              "description": [
+                "The <em>Shawshank</em> Redemption",
+              ],
               "title": [
                 "The <em>Shawshank</em> Redemption",
               ],

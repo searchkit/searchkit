@@ -62,6 +62,7 @@ exports[`Custom Facets and Filters use the custom filter when specified 2`] = `
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -145,6 +146,7 @@ exports[`Custom Facets and Filters use the custom filter when specified 2`] = `
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",

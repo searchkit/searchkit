@@ -62,6 +62,7 @@ exports[`GetQuery Extension GetQuery Extension with no matching query rules acti
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -153,6 +154,7 @@ exports[`GetQuery Extension GetQuery Extension with no matching query rules acti
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -270,6 +272,7 @@ exports[`GetQuery Extension GetQuery Extension with query rules 2`] = `
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -363,6 +366,7 @@ exports[`GetQuery Extension GetQuery Extension with query rules 2`] = `
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -478,6 +482,7 @@ exports[`GetQuery Extension do not apply organic query when set to false 2`] = `
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -569,6 +574,7 @@ exports[`GetQuery Extension do not apply organic query when set to false 2`] = `
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
