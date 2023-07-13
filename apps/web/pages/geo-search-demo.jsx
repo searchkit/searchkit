@@ -25,7 +25,7 @@ const searchkitClient = new Searchkit({
 
 const searchClient = Client(searchkitClient);
 
-const apiKey = 'AIzaSyCnxbEhpVqsd7m-dDGb3mJrFEnZFSKdKOU';
+const apiKey = 'AIzaSyAPSJE7wwwvLb4BkLPx3d5xPMof1wo4xrM';
 const endpoint = 'https://maps.googleapis.com/maps/api/js?v=weekly';
 
 const hitView = (props) => {
