@@ -1,6 +1,6 @@
 {
   "name": "searchkit",
-  "version": "4.8.0",
+  "version": "4.9.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "description": "Search UI for Elasticsearch.",

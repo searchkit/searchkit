@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.9.0
+
+### Minor Changes
+
+- e7e61f13: Added \_index attribute to hit
+
 ## 4.8.0
 
 ### Minor Changes
