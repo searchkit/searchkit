@@ -1,4 +1,4 @@
-import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, Pagination, Stats, RangeInput, CurrentRefinements, Snippet, SortBy, InstantSearchServerState, InstantSearchSSRProvider } from 'react-instantsearch-hooks-web';
+import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, Pagination, Stats, RangeInput, CurrentRefinements, Snippet, SortBy, InstantSearchServerState, InstantSearchSSRProvider, useHits, HitsProps } from 'react-instantsearch-hooks-web';
 import { getServerState } from 'react-instantsearch-hooks-server';
 import { renderToString } from 'react-dom/server';
 
@@ -11,13 +11,13 @@ import singletonRouter from 'next/router';
 
 const hitView = (props: any) => {
   return (
-    <div>
-      <img src={props.hit.poster} className="hit-image" />
-      <h2><Highlight hit={props.hit} attribute="title" /></h2>
-      <br />
-      
-      <Snippet hit={props.hit} attribute="plot" />
-
+    <div className="bg-white rounded-lg overflow-hidden shadow">
+      <img src={props.hit.poster} alt="movie cover" className="w-full h-64 object-cover"/>
+    <div className="p-4">
+        <h3 className="text-lg font-semibold"><Highlight hit={props.hit} attribute="title" /></h3>
+        <p className="text-gray-600">      <Snippet hit={props.hit} attribute="plot" />
+</p>
+    </div>
     </div>
   )
 }
@@ -28,6 +28,25 @@ const Panel = ({ header, children }: { header: string, children: any }) => (
     {children}
   </div>
 );
+
+const CustomHits = (props: HitsProps<any>) => {
+    const { hits, results, sendEvent } = useHits(props);
+  
+    return (
+      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+
+      {hits.map((hit: any) => (
+        <div className="bg-white rounded-lg overflow-hidden shadow">
+          <img src={hit.poster} alt="movie cover" className="w-full h-64 object-cover"/>
+          <div className="p-4">
+            <h3 className="text-lg font-semibold"><Highlight hit={hit} attribute="title" /></h3>
+            <p className="text-gray-600">      <Snippet hit={hit} attribute="plot" /> </p> 
+            </div>
+            </div>
+            ))};
+            </div>
+    );
+  }
 
 type WebProps = {
   serverState?: InstantSearchServerState;
@@ -68,20 +87,25 @@ export default function Web({ serverState, url }: WebProps) {
         </div>
         <div className="right-panel">
         <div className="flex">
-          <div className="flex-auto w-full py-2 px-4">
-            <Stats />
-            <CurrentRefinements />
-          </div>
-          <div className="flex-none">
-            <SortBy items={[
-              { value: 'imdb_movies', label: 'Relevance' },
-              { value: 'imdb_movies_rated_desc', label: 'Highly Rated Movies' },
-            ]}
-            />
-          </div>
-          </div>
+          <div className="flex-auto w-full py-2 items-center h-full ">
+            <Stats classNames={{
+              root: 'text-md text-gray-600',
 
-          <Hits hitComponent={hitView}/>
+            }} />
+            <CurrentRefinements classNames={{
+              
+            }} />
+            <div className="flex-none">
+              <SortBy items={[
+                { value: 'imdb_movies', label: 'Relevance' },
+                { value: 'imdb_movies_rated_desc', label: 'Highly Rated Movies' },
+              ]}
+              />
+          </div>
+          </div>
+          </div>
+            <CustomHits/>
+
           <Pagination />
         </div>
       </InstantSearch>
