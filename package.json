@@ -29,7 +29,7 @@
     "@typescript-eslint/parser": "^4.0.1",
     "eslint-config-custom": "*",
     "husky": "^4.3.0",
-    "prettier": "^2.1.2",
+    "prettier": "^3.0.1",
     "turbo": "latest",
     "typescript": "^4.9.5"
   },
