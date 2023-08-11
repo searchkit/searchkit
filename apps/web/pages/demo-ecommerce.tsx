@@ -32,11 +32,11 @@ type WebProps = {
   serverUrl?: string;
 };
 
-export default function Web({ serverState, url, serverUrl }: WebProps) {
+const searchClient = Client({
+  url: serverUrl + '/api/product-search',
+});
 
-    const searchClient = Client({
-      url: serverUrl + '/api/product-search',
-    });
+export default function Web({ serverState, url, serverUrl }: WebProps) {
 
     return (
       <InstantSearchSSRProvider {...serverState}>
