@@ -5,6 +5,8 @@ keywords: ["nextjs", "searchkit", "tutorial", "walkthrough", "elasticsearch", "r
 ---
 
 import { Tabs, Tab } from '../../../components/Tabs'
+import { Callout } from 'nextra/components'
+
 
 ## Get Started
 
@@ -47,6 +49,10 @@ style={{
    ></iframe>
 
 ## Create a Next.js app
+
+<Callout type="info" emoji="ℹ️">
+  This tutorial will use Next.js new App Router. If you're using pages, keep this in mind when following along.
+</Callout>
 
 First, we need to create a Next.js app. We can do this by running the following command:
 
@@ -91,10 +97,11 @@ Next we need to install the dependencies for this project:
 
 ## Setup the Node API
 
-create a new file in the `pages/api` directory called `search.js` and add the following code:
+create a new file in the `app/api/search` directory called `route.ts` and add the following code:
 
-```js
-import Client from "@searchkit/api";
+```ts filename="app/api/search/route.ts"
+import Client from "@searchkit/api";]
+import { NextRequest, NextResponse } from 'next/server'
 
 const apiConfig = {
   connection: {
@@ -119,15 +126,17 @@ const apiConfig = {
 
 const apiClient = Client(apiConfig);
 
-export default async function handler(req, res) {
-  const results = await apiClient.handleRequest(req.body);
-  res.send(results);
+export async function POST(req: NextRequest, res: NextResponse) {
+  const data = await req.json()
+
+  const results = await apiClient.handleRequest(data)
+  return NextResponse.json(results)
 }
 ```
 
 Replace the _host_ and _apiKey_ with your Elasticsearch host and API key. The apiKey is optional, but recommended for production environments. You can find more information about the API key [here](https://www.elastic.co/guide/en/kibana/master/api-keys.html).
 
-This will setup a new [nextjs api route](https://nextjs.org/docs/api-routes/introduction) under the `/api/search` path. This route will handle the search requests and use instantsearch Elasticsearch Adapter to handle the requests. The response is then returned back to the client.
+This will setup a new [nextjs route handler](https://nextjs.org/docs/app/building-your-application/routing/route-handlers) under the `/api/search` path. This route will handle the search requests and use instantsearch Elasticsearch Adapter to handle the requests. The response is then returned back to the client.
 
 For more information on API configuration, see the [API Configuration](/reference/api) docs.
 
@@ -135,9 +144,9 @@ For more information on API configuration, see the [API Configuration](/referenc
 
 Now that we have the API setup, we can start building the frontend. We will use [react-instantsearch-hooks-web](https://www.algolia.com/doc/api-reference/widgets/react-hooks/) to build the search experience.
 
-First, we need to create a new file in the `pages` directory called `search.js` and add the following code:
+First, we need to create a new file in the `app` directory called `page.tsx` and add the following code:
 
-```js
+```js filename="app/page.tsx"
 import { InstantSearch, SearchBox, Hits } from "react-instantsearch-hooks-web";
 import createClient from "@searchkit/instantsearch-client";
 
@@ -185,7 +194,7 @@ Now that we have the search experience setup, we can add the search functionalit
 
 ### Adjusting the search fields
 
-we can adjust the search fields by updating the `search_attributes` in the `apiConfig` object in the `pages/api/search.js` file.
+we can adjust the search fields by updating the `search_attributes` in the `apiConfig` object in the `app/api/search/route.ts` file.
 
 ```js
   search_attributes: ["title^3", "actors", "plot"],
@@ -195,7 +204,7 @@ Above we have boosted title by 3 times. This means that the title will have a hi
 
 ### Overriding the default Elasticsearch query
 
-We can optionally override the default search query by implementing the `getQuery` function in the `handleRequest` method called in `pages/api/search.js` file.
+We can optionally override the default search query by implementing the `getQuery` function in the `handleRequest` method called in `app/api/search/route.ts` file.
 
 this function will receive the query and the function will return the Elasticsearch query that will be used to search the index.
 
@@ -220,7 +229,7 @@ We can add a custom hit component to display the results. We can create a new fi
 
 Below we are using the `Highlight` component from `react-instantsearch-hooks-web` to highlight the search term in the title and actors fields.
 
-```js filename="index.js"
+```js filename="components/Hit.tsx"
 import { Highlight } from "react-instantsearch-hooks-web";
 
 const hitView = (props) => {
@@ -239,11 +248,11 @@ const hitView = (props) => {
 
 We need to pass the `attribute` prop to the `highlight_attributes` config to tell which fields to bring highlight options for.
 
-```js filename="pages/api/search.js"
+```js filename="app/page.tsx"
   highlight_attributes: ["title", "actors"],
 ```
 
-then we can import the `Hit` component in the `pages/search.js` file and pass it to the `Hits` component.
+then we can import the `Hit` component in the `app/page.tsx` file and pass it to the `Hits` component.
 
 ```js
 import Hit from "../components/Hit";
@@ -258,15 +267,13 @@ export default function Search() {
 }
 ```
 
-IMAGE3
-
 ## Facets
 
 ### Adding a Refinement List Facet
 
-Start by updating the `apiConfig` object in the `pages/api/search.js` file to add the `type` facet.
+Start by updating the `apiConfig` object in the `app/api/search/route.ts` file to add the `type` facet.
 
-```js filename="pages/api/search.js"
+```js filename="app/api/search/route.ts"
   facet_attributes: ["type"],
 ```
 
@@ -299,8 +306,6 @@ export default function Search() {
 }
 ```
 
-IMAGE4
-
 #### Make it searchable
 
 By default, the `RefinementList` component will show all the values for the facet. We can make it searchable by adding the `searchable` prop.
@@ -311,7 +316,7 @@ By default, the `RefinementList` component will show all the values for the face
 
 ### Adding a Numeric Range based Facet
 
-Start by updating the `apiConfig` object in the `pages/api/search.js` file to add the `imdbrating` facet.
+Start by updating the `apiConfig` object in the `app/page.tsx` file to add the `imdbrating` facet.
 This requires the `imdbrating` field to be a numeric type field like a `float` in the Elasticsearch index.
 
 ```js
@@ -321,7 +326,7 @@ facet_attributes: [
 ],
 ```
 
-Then we can add the `RangeInput` component to the `pages/search.js` file.
+Then we can add the `RangeInput` component to the `app/page.tsx` file.
 
 ```js
 import {
