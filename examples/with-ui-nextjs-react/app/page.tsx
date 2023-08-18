@@ -1,3 +1,4 @@
+"use client"
 import {
   InstantSearch,
   SearchBox,
@@ -63,7 +64,7 @@ const QueryRulesBanner = () => {
 export default function Web() {
   return (
     <div className="">
-      <InstantSearch indexName="products" searchClient={searchClient}>
+      <InstantSearch indexName="products" searchClient={searchClient} routing>
         <Configure hitsPerPage={15} />
         <div className="container">
           <div className="search-panel">

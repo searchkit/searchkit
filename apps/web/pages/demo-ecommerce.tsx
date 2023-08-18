@@ -6,6 +6,7 @@ import Client from '@searchkit/instantsearch-client'
 import { GetServerSideProps } from 'next';
 import { createInstantSearchRouterNext } from 'react-instantsearch-hooks-router-nextjs';
 import singletonRouter from 'next/router';
+import Head from 'next/head'
 
 const hitView = (props: any) => {
   return (
@@ -32,16 +33,19 @@ type WebProps = {
   serverUrl?: string;
 };
 
-const searchClient = Client({
-  url: serverUrl + '/api/product-search',
-});
-
 export default function Web({ serverState, url, serverUrl }: WebProps) {
+
+    const searchClient = Client({
+      url: serverUrl + '/api/product-search',
+    });
 
     return (
       <InstantSearchSSRProvider {...serverState}>
 
         <div className="ais-InstantSearch bg-gray-100 h-screen p-4">
+          <Head>
+            <title>Searchkit Ecommerce Demo</title>
+          </Head>
 
         <InstantSearch
         indexName="search-ecommerce"

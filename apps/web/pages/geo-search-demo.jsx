@@ -1,7 +1,7 @@
 import { InstantSearch, Hits, RefinementList } from 'react-instantsearch-dom';
 import Client from '@searchkit/instantsearch-client'
-import Script from 'next/script'
 import Searchkit from "searchkit"
+import Head from "next/head"
 
 import {
   GoogleMapsLoader,
@@ -40,8 +40,9 @@ const hitView = (props) => {
 export default function Web() {
     return (
       <div className="ais-InstantSearch bg-gray-100 h-screen p-4">
-        <Script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c98b302ea3bb4a33a012a7ef0ab3e240"}' />
-  
+        <Head>
+            <title>Geo Search demo</title>
+        </Head>
       <InstantSearch
         indexName="us_parks"
         searchClient={searchClient}
