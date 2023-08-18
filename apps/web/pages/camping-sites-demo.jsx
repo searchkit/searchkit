@@ -1,6 +1,6 @@
 import { InstantSearch, SearchBox, Hits, Highlight, createConnector, DynamicWidgets, RefinementList, ToggleRefinement, Panel, Pagination, Stats, connectSearchBox, NumericMenu, RangeInput, CurrentRefinements, QueryRuleCustomData, Snippet, SortBy, Configure, HierarchicalMenu } from 'react-instantsearch-dom';
 import Client from '@searchkit/instantsearch-client'
-import Script from 'next/script'
+import Head from 'next/head'
 import Searchkit from "searchkit"
 
 import {
@@ -98,7 +98,9 @@ const endpoint = 'https://maps.googleapis.com/maps/api/js?v=weekly';
 export default function Web() {
     return (
       <div className="ais-InstantSearch bg-gray-100 h-screen p-4">
-        <Script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c98b302ea3bb4a33a012a7ef0ab3e240"}' />
+        <Head>
+            <title>Camping sites Demo</title>
+        </Head>
   
       <InstantSearch
         indexName="search-camping-sites"

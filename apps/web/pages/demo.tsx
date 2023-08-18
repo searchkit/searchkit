@@ -1,6 +1,7 @@
 import { InstantSearch, SearchBox, Hits, Highlight, DynamicWidgets, RefinementList, Pagination, Stats, RangeInput, CurrentRefinements, Snippet, SortBy, InstantSearchServerState, InstantSearchSSRProvider, useHits, HitsProps } from 'react-instantsearch-hooks-web';
 import { getServerState } from 'react-instantsearch-hooks-server';
 import { renderToString } from 'react-dom/server';
+import Head from "next/head"
 
 import Client from '@searchkit/instantsearch-client'
 import Searchkit from "searchkit"
@@ -8,19 +9,6 @@ import { config } from "./api/config"
 import { GetServerSideProps } from 'next';
 import { createInstantSearchRouterNext } from 'react-instantsearch-hooks-router-nextjs';
 import singletonRouter from 'next/router';
-
-const hitView = (props: any) => {
-  return (
-    <div className="bg-white rounded-lg overflow-hidden shadow">
-      <img src={props.hit.poster} alt="movie cover" className="w-full h-64 object-cover"/>
-    <div className="p-4">
-        <h3 className="text-lg font-semibold"><Highlight hit={props.hit} attribute="title" /></h3>
-        <p className="text-gray-600">      <Snippet hit={props.hit} attribute="plot" />
-</p>
-    </div>
-    </div>
-  )
-}
 
 const Panel = ({ header, children }: { header: string, children: any }) => (
   <div className="mb-4">
@@ -63,7 +51,9 @@ export default function Web({ serverState, url }: WebProps) {
       <InstantSearchSSRProvider {...serverState}>
 
       <div className="ais-InstantSearch bg-gray-100 h-screen p-4">
-  
+        <Head>
+          <title>Searchkit Demo</title>
+        </Head>
       <InstantSearch
         indexName="imdb_movies"
         searchClient={searchClient}

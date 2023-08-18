@@ -7,6 +7,7 @@ import React, { createElement, Fragment, useEffect, useRef, useState } from 'rea
 import { render } from 'react-dom';
 import client from "@searchkit/instantsearch-client";
 import { InstantSearch, usePagination, useSearchBox, Hits } from 'react-instantsearch-hooks-web';
+import Head from 'next/head'
 
 function Autocomplete(props) {
   const containerRef = useRef(null);
@@ -170,6 +171,9 @@ function createCategoriesPlugin({
 export default function AutocompletePage() {
   return (
     <div className="bg-gray-100 h-screen p-4">
+        <Head>
+            <title>Autocomplete demo</title>
+        </Head>
       <InstantSearch
         searchClient={searchClient}
         indexName="imdb_movies"
