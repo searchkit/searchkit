@@ -39,6 +39,11 @@ export default class Searchkit {
     instantsearchRequests: readonly AlgoliaMultipleQueriesQuery[],
     requestOptions?: RequestOptions
   ) {
+    if (!instantsearchRequests || Array.isArray(instantsearchRequests) === false) {
+      console.log({ instantsearchRequests })
+      throw new Error('No instantsearch requests provided. Check that the data you are providing from API request is correct. Likely you are not passing the request body correctly, its still a JSON string or the API is not a POST request.')
+    }
+
     const queryRules = this.config.search_settings.query_rules || []
 
     const requestQueryRuleActions: QueryRuleActions[] = instantsearchRequests.map((request) => {
@@ -66,21 +71,27 @@ export default class Searchkit {
       esResponses = await requestOptions.hooks.afterSearch(esRequests, esResponses)
     }
 
-    const instantsearchResponses = esResponses.map((response, i) => {
-      // @ts-ignore
-      if (instantsearchRequests[i].params?.facetName) {
-        return transformFacetValuesResponse(response, instantsearchRequests[i])
-      }
-      return transformResponse(
-        response,
-        instantsearchRequests[i],
-        this.config.search_settings,
-        requestQueryRuleActions[i]
-      )
-    })
+    try {
+      const instantsearchResponses = esResponses.map((response, i) => {
+        // @ts-ignore
+        if (instantsearchRequests[i].params?.facetName) {
+          return transformFacetValuesResponse(response, instantsearchRequests[i])
+        }
+        return transformResponse(
+          response,
+          instantsearchRequests[i],
+          this.config.search_settings,
+          requestQueryRuleActions[i]
+        )
+      })
 
-    return {
-      results: instantsearchResponses
+      return {
+        results: instantsearchResponses
+      }
+    } catch (err) {
+      console.error(err)
+      throw new Error('Error transforming response. Check the afterSearch hook function is correct. Likely you are not returning the correct response object.')
     }
+
   }
 }
