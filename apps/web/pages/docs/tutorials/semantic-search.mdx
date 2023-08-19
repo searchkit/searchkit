@@ -1,0 +1,187 @@
+---
+title: Semantic Search
+description: Learn how to build a semantic search experience with Searchkit and Next.js
+keywords: ["nextjs", "searchkit", "tutorial", "walkthrough", "elasticsearch", "react", "javascript", "typescript", "search", "search ui", "search experience", "site search", "semantic search"]
+---
+
+# Semantic search
+
+## What is semantic search?
+
+Semantic search is a technique that uses NLP to understand the intent and contextual meaning of a search query. This allows for results to be returned that are relevant to the user's intent, even if the query doesn't contain the exact keywords.
+
+## How does it work?
+
+We use text embedding models like sentence-transformers, to transform your text into vectors that capture semantic information. These vectors represent the contextual meaning of sentences. When users make a search query, we encode their query into a vector and search for similar documents.
+
+## Indexing documents
+
+We will rely on Elasticsearch to both transform certain documents fields into vectors and the user's query into a vector. 
+
+We will be indexing 4000 movies, vectorizing the `plot` field.
+
+### Load an embedding Model into Elasticsearch
+
+In this example, we will use [MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) from the [sentence-transformers](https://www.sbert.net/docs/pretrained_models.html) library. 
+
+Follow this [notebook](https://colab.research.google.com/github/searchkit/searchkit/blob/main/notebooks/semantic-search.ipynb) to do the steps below. 
+
+By the end of the notebook, you will have:
+
+1. an embedding model running in Elasticsearch
+2. an index that has a inference pipeline that uses the embedding model to transform the `plot` field into a vector 
+3. 4000 movies that been ingested into the index, with the `plot` field transformed into a vector
+
+### Create a Searchkit app
+
+We will clone the Next.js example app and use this as a starting point.
+
+```bash
+curl https://codeload.github.com/searchkit/searchkit/tar.gz/main | \
+tar -xz --strip=2 searchkit-main/examples/with-semantic-search-nextjs
+```
+
+### Install dependencies
+In the root of the project, install the dependencies:
+
+```bash
+yarn
+```
+
+### Configure Searchkit
+
+We will configure Searchkit to connect to Elasticsearch. This depends on how Elasticsearch is hosted. In this example, we are using Elastic Cloud.
+
+```ts filename="app/api/search/route.ts"
+
+const apiClient = API(
+  {
+    connection: {
+      host: '<elasticsearch-host>',
+      apiKey: '<api-key>'
+    },
+    search_settings: { ... }
+  }
+)
+
+```
+
+### Update Display Fields
+
+In this example, we are displaying the `title` and `plot` fields. 
+
+```ts filename="app/api/search/route.ts"
+
+const apiClient = API(
+  {
+    connection: { ... },
+    search_settings: {
+      search_attributes: [],
+      result_attributes: ['title', 'Plot'],
+    }
+  }
+)
+
+```
+
+and also in the `Hits` component:
+
+```tsx filename="app/page.tsx"
+const HitView = (props: any) => {
+  return (
+    <div>
+      <div className="hit__details">
+        <h2>
+          {props.hit.title}
+        </h2>
+        {props.hit.Plot}
+      </div>
+    </div>
+  );
+};
+```
+
+
+### Configure Searchkit Query
+
+We now need to update Searchkit's query to use perform a vector search instead of a regular search. 
+
+```ts filename="app/api/search/route.ts"
+export async function POST(req: NextRequest, res: NextResponse) {
+  const data = await req.json()
+
+  const results = await apiClient.handleRequest(data, {
+    // false to disable keyword search
+    getQuery: () => false,
+    getKnnQuery: (query) => {
+      return {
+        field: 'plot_embedding.predicted_value',
+        k: 10,
+        num_candidates: 50,
+        query_vector_builder: {
+          text_embedding: {
+            model_id: 'sentence-transformers__all-minilm-l6-v2',
+            model_text: query
+          }
+        }
+      }
+    }
+  })
+  return NextResponse.json(results)
+}
+```
+
+### Run the app
+
+```bash
+yarn dev
+```
+
+## Hybrid Search
+
+In this example, we are using a vector search to return the most relevant results. However, we can also combine this with a regular keyword search to return the most relevant results that match the query. 
+
+We start by defining `search_attributes` in the `search_settings` config.
+
+```ts filename="app/api/search/route.ts"
+
+const apiClient = API(
+  {
+    connection: { ... },
+    search_settings: {
+      search_attributes: ['title', 'Plot'],
+      result_attributes: ['title', 'Plot'],
+    }
+  }
+)
+
+```
+
+then we remove the `getQuery` function from the `handleRequest` call.
+
+In the below example, when a customer searches, both the default getQuery and getKnnQuery will be called. The results from both queries will be combined and returned to the customer.
+
+We will also send the `rrf` parameter to Elasticsearch to balance the different scores from the two queries.
+
+```ts filename="app/api/search/route.ts"
+export async function POST(req: NextRequest, res: NextResponse) {
+  const data = await req.json()
+
+  const results = await apiClient.handleRequest(data, {
+    getKnnQuery: (query) => {
+      return {
+        field: 'plot_embedding.predicted_value',
+        k: 10,
+        num_candidates: 50,
+        query_vector_builder: {
+          text_embedding: {
+            model_id: 'sentence-transformers__all-minilm-l6-v2',
+            model_text: query
+          }
+        }
+      }
+    }
+  })
+  return NextResponse.json(results)
+}
+```

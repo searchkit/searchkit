@@ -218,7 +218,7 @@ exports[`Geo Filters aroundLatLng 2`] = `
 
 exports[`Geo Filters aroundLatLng: ES Request 1`] = `
 "{"index":"us_parks"}
-{"query":{"bool":{"filter":[{"geo_distance":{"distance":"1000m","location":{"lat":"40.7128","lon":"-74.0060"}}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["location"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{}}}
+{"query":{"bool":{"filter":[{"geo_distance":{"distance":"1000m","location":{"lat":"40.7128","lon":"-74.0060"}}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["location"]}}
 "
 `;
 
@@ -440,6 +440,6 @@ exports[`Geo Filters insideBoundingBox 2`] = `
 
 exports[`Geo Filters insideBoundingBox: ES Request 1`] = `
 "{"index":"us_parks"}
-{"query":{"bool":{"filter":[{"geo_bounding_box":{"location":{"top_right":{"lat":38.30977110856795,"lon":-116.00649794923939},"bottom_left":{"lat":37.224209312978665,"lon":-120.86245498048939}}}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["location"]},"highlight":{"pre_tags":["<em>"],"post_tags":["</em>"],"fields":{}}}
+{"query":{"bool":{"filter":[{"geo_bounding_box":{"location":{"top_right":{"lat":38.30977110856795,"lon":-116.00649794923939},"bottom_left":{"lat":37.224209312978665,"lon":-120.86245498048939}}}}],"must":{"match_all":{}}}},"size":20,"from":0,"_source":{"includes":["location"]}}
 "
 `;

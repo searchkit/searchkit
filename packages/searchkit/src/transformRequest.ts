@@ -1,4 +1,4 @@
-import { QueryDslQueryContainer } from '@elastic/elasticsearch/lib/api/types'
+import { QueryDslQueryContainer, RankContainer, RrfRank } from '@elastic/elasticsearch/lib/api/types'
 import deepmerge from 'deepmerge'
 import {
   transformBaseFilters,
@@ -199,7 +199,7 @@ const getQuery = (
   config: SearchSettingsConfig,
   queryRuleActions: QueryRuleActions,
   requestOptions?: RequestOptions
-): { query?: QueryDslQueryContainer; knn?: KnnSearchQuery } => {
+): { query?: QueryDslQueryContainer; knn?: KnnSearchQuery, rank?: RankContainer } => {
   const query = queryRuleActions.query
 
   const searchAttributes = config.search_attributes
@@ -254,16 +254,24 @@ const getQuery = (
       knn: knnQueryDsl
     }
   }
+  
+  const size = getHitsPerPage(request)
 
   return {
     query: queryDsl,
-    knn: knnQueryDsl ? knnQueryDsl : undefined
+    knn: knnQueryDsl ? knnQueryDsl : undefined,
+    rank: hasKnn && !hasNoQuery && size > 0 ? { rrf: { window_size: size } } : undefined
   }
+}
+
+const getHitsPerPage = (request: AlgoliaMultipleQueriesQuery) => {
+  const { params = {} } = request
+  return params.hitsPerPage == null ? 20 : params.hitsPerPage
 }
 
 const getResultsSize = (request: AlgoliaMultipleQueriesQuery, config: SearchSettingsConfig) => {
   const { params = {} } = request
-  const hitsPerPage = params.hitsPerPage == null ? 20 : params.hitsPerPage
+  const hitsPerPage = getHitsPerPage(request)
 
   return {
     size: hitsPerPage,
@@ -338,6 +346,10 @@ export const getHighlightFields = (
       }),
       {}
     ) || {}
+
+  if (Object.keys(highlightFields).length === 0 && Object.keys(snippetFields).length === 0) {
+    return {}
+  }
 
   return {
     highlight: {
