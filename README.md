@@ -22,16 +22,28 @@ Searchkit is great for anyone who want to build a search experience quickly.
   - Ability to use Elasticsearch Query DSL for advanced queries
 
 ## Demos
-* [Searchkit with Next.js](https://www.searchkit.co/demo)
-* [Searchkit Geo Search](https://www.searchkit.co/geo-search-demo)
-* [Searchkit with Nested Fields Search](https://www.searchkit.co/camping-sites-demo)
-* [Searchkit Autocomplete](https://www.searchkit.co/autocomplete)
+* [Movies Search](https://www.searchkit.co/demo)
+* [Semantic Search](https://codesandbox.io/p/sandbox/github/searchkit/searchkit/tree/main/examples/with-semantic-search-nextjs)
+* [Geo Search](https://www.searchkit.co/geo-search-demo)
+* [Camp Availability Search](https://www.searchkit.co/camping-sites-demo)
+* [Autocomplete](https://www.searchkit.co/autocomplete)
 
 ## Quick Start Guides
 * [Searchkit with Javascript](https://www.searchkit.co/docs/getting-started/with-javascript)
 * [Searchkit with React Hooks](https://www.searchkit.co/docs/getting-started/with-react)
 * [Searchkit with Vue](https://www.searchkit.co/docs/getting-started/with-vue)
 * [Searchkit with Angular](https://www.searchkit.co/docs/getting-started/with-angular)
+
+## Tutorials
+* [Searchkit with Next.js](https://www.searchkit.co/tutorials/with-nextjs)
+* [Semantic Search](https://www.searchkit.co/tutorials/semantic-search)
+* [Searchkit with Availability Search](https://www.searchkit.co/tutorials/build-availability-search-ui)
+
+## Codesandbox Examples
+* [Searchkit with JS Widgets](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-instantsearchjs)
+* [Searchkit with Vue](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-vue)
+* [Searchkit with Next.js](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-nextjs-react)
+* [Proxy with Express.js](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/proxy-elasticsearch/with-express-typescript-esm)
 
 ## Code Examples (on Github)
 * [Searchkit with Next.JS](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-nextjs-react)
@@ -43,19 +55,9 @@ Searchkit is great for anyone who want to build a search experience quickly.
 * [Searchkit with Cloudflare Workers](https://www.searchkit.co/docs/proxy-elasticsearch/with-cloudflare-workers)
 * [Searchkit with Express.js](https://www.searchkit.co/docs/proxy-elasticsearch/with-express-js)
 
-## Codesandbox Examples
-* [Searchkit with JS Widgets](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-instantsearchjs)
-* [Searchkit with Vue](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-vue)
-* [Searchkit with Next.js](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-nextjs-react)
-* [Proxy with Express.js](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/proxy-elasticsearch/with-express-typescript-esm)
-
 ## Video Tutorials
 * [Searchkit Intro Video Tutorial with Instantsearch.js](https://www.youtube.com/watch?v=R6iYpEuCdVs)
 * [Searchkit Node API Video Tutorial](https://www.youtube.com/watch?v=8ztvn1-VZ_U)
-
-## Tutorials
-* [Searchkit with Next.js](https://www.searchkit.co/tutorials/with-nextjs)
-* [Searchkit with Availability Search](https://www.searchkit.co/tutorials/build-availability-search-ui)
 
 Or checkout our [documentation](https://searchkit.co/docs) for more examples.
 
@@ -190,6 +192,8 @@ const App = () => (
 }
 ```
 
+follow along with the [Getting Started](https://www.searchkit.co/docs/getting-started/with-react) guide.
+
 ## Hide Elasticsearch from the browser
 
 Searchkit Node API allows you to proxy requests to Elasticsearch from the browser. This is useful if you want to hide Elasticsearch from the browser, or if you want to add user permission filters to the query.
@@ -217,7 +221,7 @@ const results = await apiClient.handleRequest(req.body, {
 });
 ```
 
-### KNN Query Search
+### Semantic Query Search
 
 Searchkit supports KNN query search. Below is an example of a KNN query search.
 
@@ -239,6 +243,8 @@ Searchkit supports KNN query search. Below is an example of a KNN query search.
     }
   });
   ```
+
+Follow along with the [Semantic Search](https://www.searchkit.co/tutorials/semantic-search) tutorial.
 
 ### Advanced Customisation
 
