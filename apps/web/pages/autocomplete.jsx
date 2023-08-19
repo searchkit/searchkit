@@ -4,6 +4,7 @@ import {
   getAlgoliaFacets
 } from "@algolia/autocomplete-js";
 import React, { createElement, Fragment, useEffect, useRef, useState } from 'react';
+// eslint-disable-next-line react/no-deprecated
 import { render } from 'react-dom';
 import client from "@searchkit/instantsearch-client";
 import { InstantSearch, usePagination, useSearchBox, Hits } from 'react-instantsearch-hooks-web';
