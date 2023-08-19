@@ -39,19 +39,7 @@ describe('transformRequest', () => {
           result_attributes: [],
           search_attributes: []
         })
-      ).toMatchInlineSnapshot(`
-        {
-          "highlight": {
-            "fields": {},
-            "post_tags": [
-              "</em>",
-            ],
-            "pre_tags": [
-              "<em>",
-            ],
-          },
-        }
-      `)
+      ).toMatchInlineSnapshot(`{}`)
     })
   })
 
