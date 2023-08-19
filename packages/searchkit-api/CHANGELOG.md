@@ -1,5 +1,16 @@
 # @searchkit/api
 
+## 4.10.0
+
+### Minor Changes
+
+- 5f05c01a: Do not send highlight options when not detected + use RRF when hybrid search detected
+
+### Patch Changes
+
+- Updated dependencies [5f05c01a]
+  - searchkit@4.10.0
+
 ## 4.9.0
 
 ### Minor Changes

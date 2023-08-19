@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.10.0
+
+### Minor Changes
+
+- 5f05c01a: Do not send highlight options when not detected + use RRF when hybrid search detected
+
 ## 4.9.0
 
 ### Minor Changes
