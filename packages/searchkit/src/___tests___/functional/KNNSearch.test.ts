@@ -26,6 +26,14 @@ describe('KNNSearch', () => {
       .post('/_msearch', (requestBody: any) => {
         expect(requestBody).toMatchSnapshot('ES Request')
         const x = JSON.parse(requestBody.split('\n')[1]).knn
+        const rank = JSON.parse(requestBody.split('\n')[1]).rank
+        expect(rank).toMatchInlineSnapshot(`
+          {
+            "rrf": {
+              "window_size": 20,
+            },
+          }
+        `)
         expect(x).toMatchInlineSnapshot(`
           {
             "field": "dense-vector-field",
@@ -188,6 +196,14 @@ describe('KNNSearch', () => {
         expect(requestBody).toMatchSnapshot('ES Request')
         const x = JSON.parse(requestBody.split('\n')[1]).knn
         const query = JSON.parse(requestBody.split('\n')[1]).query
+        const rank = JSON.parse(requestBody.split('\n')[1]).rank
+        expect(rank).toMatchInlineSnapshot(`
+          {
+            "rrf": {
+              "window_size": 20,
+            },
+          }
+        `)
         expect(x).toMatchInlineSnapshot(`
           {
             "field": "dense-vector-field",

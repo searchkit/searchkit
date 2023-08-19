@@ -260,7 +260,8 @@ const getQuery = (
   return {
     query: queryDsl,
     knn: knnQueryDsl ? knnQueryDsl : undefined,
-    rank: hasKnn && !hasNoQuery && size > 0 ? { rrf: { window_size: size } } : undefined
+    // in hybrid mode (knn + keyword query), is displaying results and query is not empty
+    rank: hasKnn && !hasNoQuery && size > 0 && query !== '' ? { rrf: { window_size: size } } : undefined
   }
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "with-semantic-search-nextjs",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@searchkit/api": "4.10.0",
-    "@searchkit/instantsearch-client": "4.10.0",
+    "@searchkit/api": "4.10.1",
+    "@searchkit/instantsearch-client": "4.10.1",
     "@types/node": "20.3.1",
     "@types/react": "18.2.13",
     "@types/react-dom": "18.2.6",
@@ -19,7 +19,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-instantsearch-hooks-web": "^6.45.0",
-    "searchkit": "4.10.0",
+    "searchkit": "4.10.1",
     "typescript": "5.0.2"
   }
 }

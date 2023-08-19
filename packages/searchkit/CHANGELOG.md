@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.10.1
+
+### Patch Changes
+
+- fix issue where rank is provided when no query
+
 ## 4.10.0
 
 ### Minor Changes
