@@ -44,9 +44,9 @@ export interface BasicAuth {
 export interface ConfigConnection {
   /**
    * @description The Elasticsearch host
-   * @example https://my-elasticsearch-host.com
+   * @example http://localhost:9200
    */
-  host: string
+  host?: string
   /**
    * @description The Elasticsearch API key. This is optional and only required if you have API key authentication enabled.
    * @example 1234567890
@@ -57,7 +57,10 @@ export interface ConfigConnection {
    * @example { 'X-My-Header': 'My-Value' }
    */
   headers?: Record<string, string>
-
+  /**
+   * @description The Elasticsearch cloud id. This is optional and can be used to connect to Elasticsearch cloud. An alternative to host.
+   */
+  cloud_id?: string
   /**
    * @description The Elasticsearch account. This is optional and only required if you have basic authentication enabled.
    * @example username: elastic
