@@ -48,6 +48,8 @@ import Searchkit, { SearchkitConfig } from "searchkit"
 const searchkitClient = new Searchkit({
   connection: {
     host: "https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243",
+    // cloud_id: "my-cloud-id" if using Elastic Cloud
+
     apiKey: "a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw==", // optional apiKey
     headers: { // optional headers sent to Elasticsearch or elasticsearch proxy
       "my-custom-header": "my-custom-value"
@@ -93,6 +95,7 @@ import Client from "@searchkit/api";
 const client = Client({
   connection: {
     host: "https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243",
+    // cloud_id: "my-cloud-id" // if using Elastic Cloud
     apiKey: "a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw==", // optional apiKey
     headers: { // optional headers sent to Elasticsearch. Useful for basic auth
       "Authorization", 'Basic ' + Buffer.from(username + ":" + password).toString('base64'),
@@ -126,6 +129,7 @@ const client = Client({
 #### `connection` configuration
 
 - `host` - Elasticsearch url host
+- `cloud_id` - Elasticsearch cloud id. This is optional but recommended way to connect to Elasticsearch on Cloud. You can find your cloud id in the [Elastic Cloud console](https://cloud.elastic.co/deployments).
 - `apiKey` - Elasticsearch API key. This is optional but strongly recommended for production environments. You can create an API key via [Kibana](https://www.elastic.co/guide/en/kibana/master/api-keys.html).
 - `headers` - Additional headers to pass to Elasticsearch. This is optional.
 - `auth` - Basic auth credentials. This is optional.

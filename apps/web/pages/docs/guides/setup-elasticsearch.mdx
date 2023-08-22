@@ -59,8 +59,8 @@ Once you have setup a deployment, do the following:
 
 1. Go to the [Elastic Cloud console](https://cloud.elastic.co/).
 2. Click on the deployment you want to connect to.
-3. Locate the Elasticsearch URL and copy it.
-4. Paste the URL into the `connection.host` field in the configuration object, within the Node app.
+3. Locate either the Cloud Id or the Elasticsearch URL and copy it.
+4. Paste the URL into the `connection.cloud_id` or `connection.host` field in the configuration object, within the Node app.
 
 ### Connecting with username:password
 
@@ -69,7 +69,9 @@ When you create a deployment, you will be provided a user & password. You can se
 ```ts
 const client = Client({
   connection: {
-    host: "ELASTICSEARCH_URL",
+    cloud_id: "ELASTICSEARCH_CLOUD_ID",
+    // or optionally the elasticsearch host
+    // host: "ELASTICSEARCH_URL",
     auth: {
       username: "elastic",
       password: "changeme"

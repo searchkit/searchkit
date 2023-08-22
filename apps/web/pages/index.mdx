@@ -34,6 +34,7 @@ import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, RangeInput 
 const sk = new Searchkit({
   connection: {
     host: 'http://localhost:9200',
+    // cloud_id: "elastic-cloud-id",
     auth: {
       username: "elastic",
       password: "changeme"

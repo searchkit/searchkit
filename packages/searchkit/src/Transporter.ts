@@ -10,6 +10,19 @@ const authString = (auth: BasicAuth) => {
   }
 }
 
+function getHostFromCloud(cloudId: string) {
+  // the cloud id is `cluster-name:base64encodedurl`
+  // the url is a string divided by two '$', the first is the cloud url
+  // the second the elasticsearch instance, the third the kibana instance
+  let cloudUrls
+  if (typeof atob === 'undefined') {
+    cloudUrls = Buffer.from(cloudId.split(':')[1], 'base64').toString()
+  } else {
+    cloudUrls = atob(cloudId.split(':')[1]).split('$')
+  }
+  return `https://${cloudUrls[1]}.${cloudUrls[0]}`
+}
+
 export class ESTransporter implements Transporter {
   constructor(public config: ConfigConnection, private settings: AppSettings) {}
 
@@ -18,7 +31,15 @@ export class ESTransporter implements Transporter {
   }
 
   async performNetworkRequest(requests: SearchRequest[]) {
-    return fetch(`${this.config.host}/_msearch`, {
+    if (this.config.host === undefined && this.config.cloud_id === undefined) {
+      throw new Error(
+        'No Elasticsearch host or cloud_id specified. Please provide a host or cloud id in your Searchkit configuration.'
+      )
+    }
+
+    const host = this.config.cloud_id ? getHostFromCloud(this.config.cloud_id) : this.config.host
+
+    return fetch(`${host}/_msearch`, {
       headers: {
         ...(this.config.apiKey ? { authorization: `ApiKey ${this.config.apiKey}` } : {}),
         'content-type': 'application/json',
