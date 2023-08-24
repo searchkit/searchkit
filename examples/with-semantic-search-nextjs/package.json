@@ -1,6 +1,6 @@
 {
   "name": "with-semantic-search-nextjs",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -19,7 +19,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-instantsearch-hooks-web": "^6.45.0",
-    "searchkit": "4.10.1",
+    "searchkit": "4.10.2",
     "typescript": "5.0.2"
   }
 }

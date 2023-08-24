@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.10.2
+
+### Patch Changes
+
+- 12fffdd8: Cloud id support
+
 ## 4.10.1
 
 ### Patch Changes
