@@ -10,13 +10,11 @@ Works with Javascript, React, Vue, Angular, and more.
 
 ![Alt Text](apps/web/public/overview.gif)
 
-# What is Searchkit?
-
 Searchkit provides a Search UI for Elasticsearch or Opensearch. With Searchkit, you can use Instantsearch components like Searchbox, refinement filters and results (and many more!) to build a search experience.
 
 Searchkit is great for anyone who want to build a search experience quickly.
 
-**Searchkit to simplify using Elasticsearch for Search:**
+**Searchkit simplifies Search UI with Elasticsearch:**
   - UI Search Components for React, Vue, Angular, and more
   - Searchkit Node API proxies Elasticsearch requests from the browser.
   - Ability to use Elasticsearch Query DSL for advanced queries
