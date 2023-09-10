@@ -23,6 +23,7 @@ const getHits = (
     objectID: hit._id,
     _index: hit?._index,
     ...(hit._source || {}),
+    ...(hit.fields || {}), // for runtime_mapping fields
     ...(hit.inner_hits ? { inner_hits: hit.inner_hits } : {}),
     ...(highlight_attributes.length > 0
       ? {

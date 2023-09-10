@@ -170,7 +170,7 @@ const client = Client({
 ```tsx
 search_settings: {
   search_attributes: ["title^3", "actors"],
-  result_attributes: ["title", "actors", "poster", "year"],
+  result_attributes: ["title", "actors", "poster", "year", "rating"],
   facet_attributes: [
     { attribute: "type", field: "type", type: "string" },
     { attribute: "actors", field: "actors.keyword", type: "string" },
@@ -196,7 +196,15 @@ search_settings: {
       order: 'desc'
     }]
   },
-  geo_attribute: "location"
+  geo_attribute: "location",
+  runtime_mappings: {
+    rating: {
+      type: 'keyword',
+      script: {
+        source: "emit(doc['rated'].size()>0 ? doc['rated'].value : '')"
+      }
+    }
+  },
 },
 ```
 
@@ -211,6 +219,7 @@ Attributes that are used to configure the search experience.
 - `sorting` - Attributes that are used to create sorting options. Sorting can be a single sorting field or multiple.
 - `query_rules` - Rules that affect search relevance. See [Query Rules](/docs//query-rules) for more information.
 - `geo_attribute` - Attribute that is used for geo based searches.
+- `runtime_mappings` - Runtime mappings that are used to transform fields in the search results. See [Runtime Mappings](/docs/guides/runtime-mappings) for more information. Once used, you are able to use the transformed field in the `search_attributes`, `result_attributes`, `facet_attributes` and `filter_attributes` configuration.
 
 ##### search_attributes
 

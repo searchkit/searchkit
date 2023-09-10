@@ -1,4 +1,8 @@
-import { QueryDslQueryContainer, RankContainer, RrfRank } from '@elastic/elasticsearch/lib/api/types'
+import {
+  QueryDslQueryContainer,
+  RankContainer,
+  RrfRank
+} from '@elastic/elasticsearch/lib/api/types'
 import deepmerge from 'deepmerge'
 import {
   transformBaseFilters,
@@ -199,7 +203,7 @@ const getQuery = (
   config: SearchSettingsConfig,
   queryRuleActions: QueryRuleActions,
   requestOptions?: RequestOptions
-): { query?: QueryDslQueryContainer; knn?: KnnSearchQuery, rank?: RankContainer } => {
+): { query?: QueryDslQueryContainer; knn?: KnnSearchQuery; rank?: RankContainer } => {
   const query = queryRuleActions.query
 
   const searchAttributes = config.search_attributes
@@ -254,14 +258,15 @@ const getQuery = (
       knn: knnQueryDsl
     }
   }
-  
+
   const size = getHitsPerPage(request)
 
   return {
     query: queryDsl,
     knn: knnQueryDsl ? knnQueryDsl : undefined,
     // in hybrid mode (knn + keyword query), is displaying results and query is not empty
-    rank: hasKnn && !hasNoQuery && size > 0 && query !== '' ? { rrf: { window_size: size } } : undefined
+    rank:
+      hasKnn && !hasNoQuery && size > 0 && query !== '' ? { rrf: { window_size: size } } : undefined
   }
 }
 
@@ -294,10 +299,19 @@ export const getHitFields = (
     ...(config.geo_attribute ? [config.geo_attribute] : [])
   ])
 
+  const runtimeFields = Object.keys(config.runtime_mappings || {})
+  const fields = runtimeFields.reduce<string[]>((sum, field) => {
+    if (config.result_attributes?.includes(field)) {
+      return [field, ...sum]
+    }
+    return sum
+  }, [])
+
   return {
     _source: {
       includes: Array.from(sourceFields)
-    }
+    },
+    ...(fields.length > 0 ? { fields } : {})
   }
 }
 
@@ -364,6 +378,16 @@ export const getHighlightFields = (
   }
 }
 
+const getRuntimeMappings = (request: AlgoliaMultipleQueriesQuery, config: SearchSettingsConfig) => {
+  if (!config.runtime_mappings) {
+    return {}
+  }
+
+  return {
+    runtime_mappings: config.runtime_mappings
+  }
+}
+
 export function transformRequest(
   request: AlgoliaMultipleQueriesQuery,
   config: SearchSettingsConfig,
@@ -376,7 +400,8 @@ export function transformRequest(
     ...getResultsSize(request, config),
     ...getHitFields(request, config),
     ...getHighlightFields(request, config),
-    ...getSorting(request, config)
+    ...getSorting(request, config),
+    ...getRuntimeMappings(request, config)
   }
 
   return body

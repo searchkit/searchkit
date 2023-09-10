@@ -41,7 +41,9 @@ export default class Searchkit {
   ) {
     if (!instantsearchRequests || Array.isArray(instantsearchRequests) === false) {
       console.log({ instantsearchRequests })
-      throw new Error('No instantsearch requests provided. Check that the data you are providing from API request is correct. Likely you are not passing the request body correctly, its still a JSON string or the API is not a POST request.')
+      throw new Error(
+        'No instantsearch requests provided. Check that the data you are providing from API request is correct. Likely you are not passing the request body correctly, its still a JSON string or the API is not a POST request.'
+      )
     }
 
     const queryRules = this.config.search_settings.query_rules || []
@@ -90,8 +92,9 @@ export default class Searchkit {
       }
     } catch (err) {
       console.error(err)
-      throw new Error('Error transforming response. Check the afterSearch hook function is correct. Likely you are not returning the correct response object.')
+      throw new Error(
+        'Error transforming response. Check the afterSearch hook function is correct. Likely you are not returning the correct response object.'
+      )
     }
-
   }
 }
