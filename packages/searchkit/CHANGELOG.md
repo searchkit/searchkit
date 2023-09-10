@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.11.0
+
+### Minor Changes
+
+- a6218b4b: Runtime fields support
+
 ## 4.10.2
 
 ### Patch Changes

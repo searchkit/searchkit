@@ -1,5 +1,16 @@
 # @searchkit/api
 
+## 4.11.0
+
+### Minor Changes
+
+- a6218b4b: Runtime fields support
+
+### Patch Changes
+
+- Updated dependencies [a6218b4b]
+  - searchkit@4.11.0
+
 ## 4.10.1
 
 ### Patch Changes
