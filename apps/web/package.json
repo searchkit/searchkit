@@ -29,7 +29,7 @@
     "react-instantsearch-hooks": "^6.43.0",
     "react-instantsearch-hooks-router-nextjs": "^6.44.0",
     "react-instantsearch-hooks-server": "^6.44.0",
-    "react-instantsearch-hooks-web": "^6.44.0",
+    "react-instantsearch-hooks-web": "^6.47.3",
     "swr": "^1.3.0"
   },
   "devDependencies": {
