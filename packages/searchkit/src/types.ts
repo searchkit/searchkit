@@ -5,7 +5,8 @@ import type {
   SearchResponseBody as ElasticsearchBaseResponseBody,
   SearchHit as ElasticsearchBaseHit,
   AggregationsAggregationContainer,
-  KnnQuery as ElasticKnnSearchQuery
+  KnnQuery as ElasticKnnSearchQuery,
+  MappingRuntimeFieldType
 } from '@elastic/elasticsearch/lib/api/types'
 
 type ElasticsearchHitDocument = Record<string, unknown>
@@ -125,12 +126,23 @@ export interface SearchSettingsConfig {
    * @description The attribute that will be used for geo search. This is required if you want to use geo search. Must be am Elasticsearch geo_point type field.
    */
   geo_attribute?: string
+  /**
+   * @description Runtime mappings that will be applied to the search. This allows you to dynamically add fields to the search results that aren't in the index.
+   */
+  runtime_mappings?: Record<string, RuntimeMapping>
 }
 
 interface QueryStringRuleCondition {
   context: 'query'
   match_type: 'prefix' | 'contains' | 'exact'
   value: string
+}
+
+interface RuntimeMapping {
+  type: MappingRuntimeFieldType
+  script: {
+    source: string
+  }
 }
 
 interface ContextRuleCondition {
