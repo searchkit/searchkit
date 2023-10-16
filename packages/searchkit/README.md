@@ -140,14 +140,14 @@ curl --location --request POST 'http://localhost:9200/products/_doc' \
 
 ## Setup Searchkit
 
-Searchkit compatible with all Instantsearch frameworks. Below is an example using react-instantsearch-hooks-web.
+Searchkit compatible with all Instantsearch frameworks. Below is an example using react-instantsearch.
 
 ```tsx
 import Searchkit from "searchkit"
 import Client from '@searchkit/instantsearch-client'
 
 // import your InstantSearch components
-import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, RangeInput } from 'react-instantsearch-hooks-web';
+import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, RangeInput } from 'react-instantsearch';
 
 const sk = new Searchkit({
   connection: {
@@ -205,7 +205,7 @@ import Searchkit from "searchkit"
 import Client from '@searchkit/instantsearch-client'
 
 // import your InstantSearch components
-import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, RangeInput } from 'react-instantsearch-hooks-web';
+import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, RangeInput } from 'react-instantsearch';
 
 const searchClient = Client({
     url: "/api/search",

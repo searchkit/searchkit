@@ -85,12 +85,12 @@ Next we need to install the dependencies for this project:
 <Tabs items={['npm', 'yarn']} storageKey="selected-pkg-manager">
   <Tab>
     ```bash
-      npm install @searchkit/instantsearch-client @searchkit/api react-instantsearch-hooks-web
+      npm install @searchkit/instantsearch-client @searchkit/api react-instantsearch
     ```
   </Tab>
   <Tab>
     ```bash
-      yarn add @searchkit/instantsearch-client @searchkit/api react-instantsearch-hooks-web
+      yarn add @searchkit/instantsearch-client @searchkit/api react-instantsearch
     ```
   </Tab>
 </Tabs>
@@ -100,7 +100,7 @@ Next we need to install the dependencies for this project:
 create a new file in the `app/api/search` directory called `route.ts` and add the following code:
 
 ```ts filename="app/api/search/route.ts"
-import Client from "@searchkit/api";]
+import Client from "@searchkit/api";
 import { NextRequest, NextResponse } from 'next/server'
 
 const apiConfig = {
@@ -142,12 +142,12 @@ For more information on API configuration, see the [API Configuration](/referenc
 
 ## Setup the Frontend
 
-Now that we have the API setup, we can start building the frontend. We will use [react-instantsearch-hooks-web](https://www.algolia.com/doc/api-reference/widgets/react-hooks/) to build the search experience.
+Now that we have the API setup, we can start building the frontend. We will use [react-instantsearch](https://www.algolia.com/doc/api-reference/widgets/react/) to build the search experience.
 
 First, we need to create a new file in the `app` directory called `page.tsx` and add the following code:
 
 ```js filename="app/page.tsx"
-import { InstantSearch, SearchBox, Hits } from "react-instantsearch-hooks-web";
+import { InstantSearch, SearchBox, Hits } from "react-instantsearch";
 import createClient from "@searchkit/instantsearch-client";
 
 const searchClient = createClient({
@@ -227,10 +227,10 @@ const results = await apiClient.handleRequest(body, {
 
 We can add a custom hit component to display the results. We can create a new file called `Hit.js` in the `components` directory and add the following code:
 
-Below we are using the `Highlight` component from `react-instantsearch-hooks-web` to highlight the search term in the title and actors fields.
+Below we are using the `Highlight` component from `react-instantsearch` to highlight the search term in the title and actors fields.
 
 ```js filename="components/Hit.tsx"
-import { Highlight } from "react-instantsearch-hooks-web";
+import { Highlight } from "react-instantsearch";
 
 const hitView = (props) => {
   return (
@@ -293,7 +293,7 @@ import {
   SearchBox,
   Hits,
   RefinementList,
-} from "react-instantsearch-hooks-web";
+} from "react-instantsearch";
 
 export default function Search() {
   return (
@@ -334,7 +334,7 @@ import {
   SearchBox,
   Hits,
   RangeInput,
-} from "react-instantsearch-hooks-web";
+} from "react-instantsearch";
 
 <RangeInput
   attribute="imdbrating"
@@ -344,10 +344,10 @@ import {
 ### Server Side Rendering
 
 Below we adding additional imports:
-1. Importing the `getServerState` function from `react-instantsearch-hooks-server`
+1. Importing the `getServerState` function from `react-instantsearch`
 2. Importing the `renderToString` function from `react-dom/server`
-3. Importing the `InstantSearchServerState` and `InstantSearchSSRProvider` components from `react-instantsearch-hooks-web`
-4. Importing the `createInstantSearchRouterNext` function from `react-instantsearch-hooks-router-nextjs`
+3. Importing the `InstantSearchServerState` and `InstantSearchSSRProvider` components from `react-instantsearch`
+4. Importing the `createInstantSearchRouterNext` function from `react-instantsearch-router-nextjs`
 5. Importing the `singletonRouter` from `next/router`
 
 Then we are wrapping the `InstantSearch` component with the `InstantSearchSSRProvider` component and passing the `serverState` prop to it.
@@ -357,14 +357,13 @@ This allows us to render the search experience on the server and send the initia
 ```ts
 import { 
   InstantSearch, SearchBox, Hits, RefinementList, RangeInput, 
-  InstantSearchServerState, InstantSearchSSRProvider, 
-} from 'react-instantsearch-hooks-web';
-import { getServerState } from 'react-instantsearch-hooks-server';
+  InstantSearchServerState, InstantSearchSSRProvider, getServerState
+} from 'react-instantsearch';
 import { renderToString } from 'react-dom/server';
 
 import Client from '@searchkit/instantsearch-client'
 import { GetServerSideProps } from 'next';
-import { createInstantSearchRouterNext } from 'react-instantsearch-hooks-router-nextjs';
+import { createInstantSearchRouterNext } from 'react-instantsearch-router-nextjs';
 import singletonRouter from 'next/router';
 
 type WebProps = {
