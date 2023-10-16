@@ -14,9 +14,9 @@ import {
   InstantSearchServerState,
   InstantSearchSSRProvider,
   HierarchicalMenu,
-  ToggleRefinement
+  ToggleRefinement,
+  getServerState
 } from 'react-instantsearch'
-import { getServerState } from 'react-instantsearch'
 import { renderToString } from 'react-dom/server'
 
 import Client from '@searchkit/instantsearch-client'
