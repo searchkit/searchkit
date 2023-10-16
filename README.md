@@ -28,7 +28,7 @@ Searchkit is great for anyone who want to build a search experience quickly.
 
 ## Quick Start Guides
 * [Searchkit with Javascript](https://www.searchkit.co/docs/getting-started/with-javascript)
-* [Searchkit with React Hooks](https://www.searchkit.co/docs/getting-started/with-react)
+* [Searchkit with React](https://www.searchkit.co/docs/getting-started/with-react)
 * [Searchkit with Vue](https://www.searchkit.co/docs/getting-started/with-vue)
 * [Searchkit with Angular](https://www.searchkit.co/docs/getting-started/with-angular)
 
@@ -137,14 +137,14 @@ curl --location --request POST 'http://localhost:9200/products/_doc' \
 
 ## Setup Searchkit
 
-Searchkit compatible with all Instantsearch frameworks. Below is an example using react-instantsearch-hooks-web.
+Searchkit compatible with all Instantsearch frameworks. Below is an example using react-instantsearch.
 
 ```tsx
 import Searchkit from "searchkit"
 import Client from '@searchkit/instantsearch-client'
 
 // import your InstantSearch components
-import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, RangeInput } from 'react-instantsearch-hooks-web';
+import { InstantSearch, SearchBox, Hits, RefinementList, Pagination, RangeInput } from 'react-instantsearch';
 
 const sk = new Searchkit({
   connection: {

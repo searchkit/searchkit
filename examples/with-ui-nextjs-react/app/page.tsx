@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import {
   InstantSearch,
   SearchBox,
@@ -14,12 +14,12 @@ import {
   DynamicWidgets,
   RangeInput,
   useQueryRules
-} from "react-instantsearch-hooks-web";
-import Client from "@searchkit/instantsearch-client";
+} from 'react-instantsearch'
+import Client from '@searchkit/instantsearch-client'
 
 const searchClient = Client({
-  url: "/api/search"
-});
+  url: '/api/search'
+})
 
 const HitView = (props: any) => {
   return (
@@ -31,18 +31,18 @@ const HitView = (props: any) => {
         <Snippet attribute="description" hit={props.hit} />
       </div>
     </div>
-  );
-};
+  )
+}
 
 const Panel = ({ header, children }: any) => (
   <div className="panel">
     <h5>{header}</h5>
     {children}
   </div>
-);
+)
 
 const QueryRulesBanner = () => {
-  const {items} = useQueryRules({})
+  const { items } = useQueryRules({})
   if (items.length === 0) {
     return null
   }
@@ -69,21 +69,17 @@ export default function Web() {
         <div className="container">
           <div className="search-panel">
             <div className="search-panel__filters">
-              <DynamicWidgets facets={["*"]}>
+              <DynamicWidgets facets={['*']}>
                 <Panel header="brand">
                   <RefinementList attribute="brand" searchable />
                 </Panel>
                 <Panel header="categories">
                   <HierarchicalMenu
-                    attributes={[
-                      "categories.lvl0",
-                      "categories.lvl1",
-                      "categories.lvl2",
-                    ]}
+                    attributes={['categories.lvl0', 'categories.lvl1', 'categories.lvl2']}
                   />
                 </Panel>
                 <Panel header="price">
-                <RangeInput attribute="price"/>
+                  <RangeInput attribute="price" />
                 </Panel>
               </DynamicWidgets>
             </div>
@@ -91,7 +87,7 @@ export default function Web() {
               <div className="searchbox">
                 <SearchBox />
               </div>
-              
+
               <Stats />
               <CurrentRefinements />
               <QueryRulesBanner />
@@ -99,9 +95,9 @@ export default function Web() {
               <Hits hitComponent={HitView} />
               <Pagination />
             </div>
-        </div>
+          </div>
         </div>
       </InstantSearch>
     </div>
-  );
+  )
 }

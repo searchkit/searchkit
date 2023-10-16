@@ -46,11 +46,11 @@ search.use(
 
 ### Example with Instantsearch React Hooks
 
-Similar to [Algolia insights](https://www.algolia.com/doc/api-reference/widgets/insights/react-hooks/#examples) is used.
+Similar to [Algolia insights](https://www.algolia.com/doc/api-reference/widgets/insights/react/#examples) is used.
 
 ```js
 import { AnalyticsMiddleware } from '@searchkit/elastic-behavioral-analytics-plugin'
-import { useInstantSearch } from 'react-instantsearch-hooks-web';
+import { useInstantSearch } from 'react-instantsearch';
 import { useLayoutEffect } from 'react';
 import Client from '@searchkit/instantsearch-client'; 
 

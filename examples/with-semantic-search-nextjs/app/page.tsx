@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import {
   InstantSearch,
   SearchBox,
@@ -10,32 +10,30 @@ import {
   Configure,
   DynamicWidgets,
   useQueryRules
-} from "react-instantsearch-hooks-web";
-import Client from "@searchkit/instantsearch-client";
+} from 'react-instantsearch'
+import Client from '@searchkit/instantsearch-client'
 
 const searchClient = Client({
-  url: "/api/search"
-});
+  url: '/api/search'
+})
 
 const HitView = (props: any) => {
   return (
     <div>
       <div className="hit__details">
-        <h2>
-          {props.hit.title}
-        </h2>
+        <h2>{props.hit.title}</h2>
         {props.hit.Plot}
       </div>
     </div>
-  );
-};
+  )
+}
 
 const Panel = ({ header, children }: any) => (
   <div className="panel">
     <h5>{header}</h5>
     {children}
   </div>
-);
+)
 
 export default function Web() {
   return (
@@ -45,7 +43,7 @@ export default function Web() {
         <div className="container">
           <div className="search-panel">
             <div className="search-panel__filters">
-              <DynamicWidgets facets={["*"]}>
+              <DynamicWidgets facets={['*']}>
                 <Panel header="genre">
                   <RefinementList attribute="genre" searchable />
                 </Panel>
@@ -55,16 +53,16 @@ export default function Web() {
               <div className="searchbox">
                 <SearchBox />
               </div>
-              
+
               <Stats />
               <CurrentRefinements />
 
               <Hits hitComponent={HitView} />
               <Pagination />
             </div>
-        </div>
+          </div>
         </div>
       </InstantSearch>
     </div>
-  );
+  )
 }
