@@ -8,7 +8,7 @@ export { Tab };
 export const Tabs: FC<{
   storageKey?: string;
   items: string[];
-  children: ReactElement;
+  children: React.ReactNode;
 }> = function ({ storageKey = "tab-index", items, children = null, ...props }) {
   // Use SWR so all tabs with the same key can sync their states.
   const { data, mutate } = useSWR(storageKey, (key) => {
