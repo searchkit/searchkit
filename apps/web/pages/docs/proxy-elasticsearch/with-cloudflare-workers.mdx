@@ -3,12 +3,6 @@ title: With cloudflare workers
 description: Use cloudflare workers to proxy search requests to Elasticsearch
 ---
 
-import { Callout } from 'nextra-theme-docs'
-
-<Callout>
-This guide expects that you have setup Searchkit on the frontend. If you haven't, please follow the getting started guide first.
-</Callout>
-
 # Proxy With Cloudflare Workers
 
 For production use, we dont recommend calling Elasticsearch directly from the browser. Thankfully, Searchkit provides a way to proxy the search request through to a node API. This is really easy to setup.
