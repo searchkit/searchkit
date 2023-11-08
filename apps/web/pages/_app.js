@@ -5,7 +5,6 @@ import "@algolia/autocomplete-theme-classic";
 import Script from "next/script";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import Head from 'next/head'
 
 const App = ({ Component, pageProps }) => {
   const getLayout = Component.getLayout || ((page) => page);
@@ -24,9 +23,6 @@ const App = ({ Component, pageProps }) => {
   }, [router.events]);
 
   return <>
-    <Head>
-        <meta name="google-site-verification" content="TAi3rBa43vEtzId90nmjQlH-oow1uE4zX1wOTnBzKT8" />
-    </Head>
     {getLayout(<Component {...pageProps} />)}
     <a href="https://discord.gg/CRuWmSQZQx" className="fixed bottom-0 right-0 px-4 py-2 text-lg bg-white text-black hover:to-blue-400 transition hover:text-blue-500 rounded-none cursor-pointer">Need help? Join discord</a>
     <Script
