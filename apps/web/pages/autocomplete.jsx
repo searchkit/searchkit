@@ -48,6 +48,14 @@ const autocompleteClient = client({
   url: 'https://ises-cfw.searchkit.workers.dev'
 })
 
+// needed for the autocomplete client to work
+autocompleteClient.transporter = {
+  headers: {
+    'x-algolia-application-id': 'NULL',
+    'x-algolia-api-key': 'NULL'
+  }
+}
+
 const searchClient = client({
   url: 'https://ises-cfw.searchkit.workers.dev'
 })
