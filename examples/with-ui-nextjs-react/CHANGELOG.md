@@ -1,5 +1,12 @@
 # with-ui-nextjs-react
 
+## 0.1.14
+
+### Patch Changes
+
+- Updated dependencies [9a226d27]
+  - @searchkit/instantsearch-client@4.12.0
+
 ## 0.1.13
 
 ### Patch Changes

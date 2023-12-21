@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.12.0
+
+### Minor Changes
+
+- 9a226d27: update instantsearch client removing the transporter
+
 ## 4.11.0
 
 ### Minor Changes
