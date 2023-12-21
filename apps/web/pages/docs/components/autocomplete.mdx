@@ -20,10 +20,17 @@ import {
   getAlgoliaResults
 } from "@algolia/autocomplete-js";
 
-const searchClient = client({
+const autocompleteClient = client({
   url: "https://ises-cfw.searchkit.workers.dev"
 });
 
+// needed for the autocomplete client to work
+autocompleteClient.transporter = {
+  headers: {
+    'x-algolia-application-id': 'NULL',
+    'x-algolia-api-key': 'NULL'
+  }
+}
 
 getSources={({ query, state }) => {
     if (!query) {
@@ -36,7 +43,7 @@ getSources={({ query, state }) => {
         getItems() {
           // using searchkit to get results for the query
           return getAlgoliaResults({
-            searchClient,
+            autocompleteClient,
             queries: [
               {
                 indexName: "imdb_movies",
@@ -86,12 +93,20 @@ import {
   getAlgoliaFacets
 } from "@algolia/autocomplete-js";
 
-const searchClient = client({
+const autocompleteClient = client({
   url: "https://ises-cfw.searchkit.workers.dev"
 });
 
+// needed for the autocomplete client to work
+autocompleteClient.transporter = {
+  headers: {
+    'x-algolia-application-id': 'NULL',
+    'x-algolia-api-key': 'NULL'
+  }
+}
+
 function createCategoriesPlugin({
-  searchClient
+  autocompleteClient
 }) {
   return {
     getSources({ query }) {

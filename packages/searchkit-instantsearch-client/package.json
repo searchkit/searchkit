@@ -32,7 +32,7 @@
   "scripts": {
     "lint": "eslint src/*.ts*",
     "build": "tsup",
-    "dev": "npm run build --watch"
+    "dev": "npm run build -- --watch"
   },
   "devDependencies": {
     "@elastic/elasticsearch": "8.4.0",
