@@ -1,7 +1,5 @@
 import type { MultipleQueriesQuery, RequestOptions } from 'searchkit'
 import type Searchkit from 'searchkit'
-import { createNullCache } from '@algolia/cache-common'
-import type { Cache } from '@algolia/cache-common'
 
 interface InstantSearchElasticsearchAdapterConfig {
   url: string
@@ -15,14 +13,10 @@ function isSearchkit(config: Config): config is Searchkit {
 }
 
 class InstantSearchElasticsearchAdapter {
-  private cache: Cache
-  public appId: string
-  public apiKey: string
+  private cache: Record<string, any>
 
   constructor(private config: Config, private requestOptions?: RequestOptions) {
-    this.cache = createNullCache()
-    this.appId = 'searchkit'
-    this.apiKey = 'searchkit'
+    this.cache = []
     if (!isSearchkit(this.config) && !this.config.url) {
       throw new Error('Searchkit Instantsearch Client: url is required')
     }
@@ -34,7 +28,7 @@ class InstantSearchElasticsearchAdapter {
   }
 
   public clearCache(): Promise<void> {
-    this.cache.clear()
+    this.cache = []
     return Promise.resolve(undefined)
   }
 
@@ -50,7 +44,7 @@ class InstantSearchElasticsearchAdapter {
   public async search(instantsearchRequests: readonly MultipleQueriesQuery[]): Promise<any> {
     try {
       const key = JSON.stringify(instantsearchRequests)
-      const cacheValue = await this.cache.get(key, async () => null)
+      const cacheValue = this.cache[key]
       if (cacheValue) {
         return cacheValue
       }
@@ -60,7 +54,7 @@ class InstantSearchElasticsearchAdapter {
           instantsearchRequests,
           this.requestOptions
         )
-        this.cache.set(key, results)
+        this.cache[key] = results
         return results
       }
 
@@ -74,7 +68,7 @@ class InstantSearchElasticsearchAdapter {
       })
 
       const results = await response.json()
-      this.cache.set(key, results)
+      this.cache[key] = results
       return results
     } catch (e) {
       console.error(e)
