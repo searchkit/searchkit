@@ -55,6 +55,39 @@ describe('highlight utils', () => {
       `)
     })
 
+    it('should match on a object field', () => {
+      const hit: ElasticsearchHit = {
+        _index: 'test_index',
+        _id: '4b4876e1-5749-4d5f-95b6-2251681c96e1',
+        _score: 1.0,
+        _source: {
+          metadata: {
+            publisher: 'Albert Einstein',
+            publicationYear: '2023'
+          }
+        },
+        highlight: {
+          'metadata.publisher': ['<em>Albert</em> Einstein']
+        }
+      }
+
+      expect(getHighlightFields(hit, undefined, undefined, ['metadata.publisher']))
+        .toMatchInlineSnapshot(`
+        {
+          "metadata": {
+            "publisher": {
+              "fullyHighlighted": false,
+              "matchLevel": "full",
+              "matchedWords": [
+                "Albert",
+              ],
+              "value": "<ais-highlight-0000000000>Albert<ais-highlight-0000000000/> Einstein",
+            },
+          },
+        }
+      `)
+    })
+
     it('should match on wildcards', () => {
       const hit: ElasticsearchHit = {
         _id: 'test',
@@ -71,13 +104,17 @@ describe('highlight utils', () => {
 
       expect(getHighlightFields(hit, undefined, undefined, ['actor.*'])).toMatchInlineSnapshot(`
         {
-          "actor.name.keyword": {
-            "fullyHighlighted": false,
-            "matchLevel": "full",
-            "matchedWords": [
-              "Keanu",
-            ],
-            "value": "<ais-highlight-0000000000>Keanu<ais-highlight-0000000000/> Reeves",
+          "actor": {
+            "name": {
+              "keyword": {
+                "fullyHighlighted": false,
+                "matchLevel": "full",
+                "matchedWords": [
+                  "Keanu",
+                ],
+                "value": "<ais-highlight-0000000000>Keanu<ais-highlight-0000000000/> Reeves",
+              },
+            },
           },
         }
       `)

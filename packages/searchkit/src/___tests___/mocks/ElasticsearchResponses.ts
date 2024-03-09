@@ -126,6 +126,47 @@ export const HitsResponseWithFacetFilter = {
   ]
 }
 
+export const HitsResponseWithObjectHighlight = {
+  took: 2,
+  responses: [
+    {
+      took: 2,
+      timed_out: false,
+      _shards: {
+        total: 1,
+        successful: 1,
+        skipped: 0,
+        failed: 0
+      },
+      hits: {
+        total: {
+          value: 1,
+          relation: 'eq'
+        },
+        max_score: 7.637228,
+        hits: [
+          {
+            _index: 'imdb_movies',
+            _id: 'tt0111161',
+            _score: 7.637228,
+            _source: {
+              actors: ['Tim Robbins', 'Morgan Freeman', 'Bob Gunton', 'William Sadler'],
+              meta: {
+                title: 'The Shawshank Redemption'
+              }
+            },
+            highlight: {
+              'meta.title': ['The <em>Shawshank</em> Redemption']
+            }
+          }
+        ]
+      },
+      aggregations: {},
+      status: 200
+    }
+  ]
+}
+
 export const HitsResponseWithNoFacets = {
   took: 2,
   responses: [

@@ -43,6 +43,6 @@
     "searchkit": "^4.11.0"
   },
   "devDependencies": {
-    "nock": "^13.1.3"
+    "nock": "^14.0.0-beta.4"
   }
 }

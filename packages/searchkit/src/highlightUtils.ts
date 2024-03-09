@@ -6,19 +6,41 @@ export function highlightTerm(value: string, query: string): string {
   return value.replace(regex, (match) => `<em>${match}</em>`)
 }
 
-export function isAllowableHighlightField(
-  fieldKey: string,
-  highlightFields: string[]
-) {
-  return highlightFields.findIndex((highlightField) => {
-    if (highlightField.indexOf('*') < 0) {
-      return highlightField === fieldKey;
+export function isAllowableHighlightField(fieldKey: string, highlightFields: string[]) {
+  return (
+    highlightFields.findIndex((highlightField) => {
+      if (highlightField.indexOf('*') < 0) {
+        return highlightField === fieldKey
+      }
+
+      const safeHighlightField = highlightField.replace(/[.+?^$|\{\}\(\)\[\]\\]/g, '\\$&')
+      const regex = new RegExp(`^${safeHighlightField.replace(/\*/g, '.*')}$`)
+      return regex.test(fieldKey)
+    }) >= 0
+  )
+}
+
+function transformObject(input: Record<string, string>): Record<string, any> {
+  const result: Record<string, any> = {}
+
+  for (const key in input) {
+    const keys = key.split('.')
+    let currentObj = result
+
+    for (let i = 0; i < keys.length - 1; i++) {
+      const currentKey = keys[i]
+
+      if (!currentObj[currentKey]) {
+        currentObj[currentKey] = {}
+      }
+
+      currentObj = currentObj[currentKey]
     }
 
-    const safeHighlightField = highlightField.replace(/[.+?^$|\{\}\(\)\[\]\\]/g, '\\$&');
-    const regex = new RegExp(`^${safeHighlightField.replace(/\*/g, '.*')}$`);
-    return regex.test(fieldKey);
-  }) >= 0;
+    currentObj[keys[keys.length - 1]] = input[key]
+  }
+
+  return result
 }
 
 export function getHighlightFields(
@@ -107,5 +129,5 @@ export function getHighlightFields(
     }
   }, {})
 
-  return hitHighlights
+  return transformObject(hitHighlights)
 }
