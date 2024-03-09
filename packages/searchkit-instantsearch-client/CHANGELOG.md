@@ -1,5 +1,13 @@
 # @searchkit/api
 
+## 4.12.1
+
+### Patch Changes
+
+- 77133782: fix bug with object field highlighting
+- Updated dependencies [77133782]
+  - searchkit@4.11.1
+
 ## 4.12.0
 
 ### Minor Changes

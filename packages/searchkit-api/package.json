@@ -1,6 +1,6 @@
 {
   "name": "@searchkit/api",
-  "version": "4.11.0",
+  "version": "4.11.1",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "description": "Node API for Searchkit. Transforms the instantsearch Search State into a query for Elasticsearch on Node.",
@@ -40,7 +40,7 @@
     "access": "public"
   },
   "dependencies": {
-    "searchkit": "^4.11.0"
+    "searchkit": "^4.11.1"
   },
   "devDependencies": {
     "nock": "^14.0.0-beta.4"

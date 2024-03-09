@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.11.1
+
+### Patch Changes
+
+- 77133782: fix bug with object field highlighting
+
 ## 4.11.0
 
 ### Minor Changes

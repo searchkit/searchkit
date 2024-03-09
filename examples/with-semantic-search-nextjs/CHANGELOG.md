@@ -1,5 +1,14 @@
 # with-semantic-search-nextjs
 
+## 0.1.15
+
+### Patch Changes
+
+- Updated dependencies [77133782]
+  - searchkit@4.11.1
+  - @searchkit/api@4.11.1
+  - @searchkit/instantsearch-client@4.12.1
+
 ## 0.1.14
 
 ### Patch Changes
