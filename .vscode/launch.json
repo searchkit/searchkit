@@ -14,11 +14,13 @@
             ],
             "cwd": "${workspaceRoot}/packages/searchkit",
             "env": {
-                "NODE_ENV": "test"
+                "NODE_ENV": "test",
+                "DEBUG": "nock.*"
             },
+            "runtimeVersion": "18",
             "console": "integratedTerminal",
             "sourceMaps": true
-
+            
         },
         {
             "name": "@searchkit/api Tests ",

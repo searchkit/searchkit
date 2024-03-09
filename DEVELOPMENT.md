@@ -1,7 +1,7 @@
 ## Setting up a development environment
 
 Requirements:
-- [Node.js](https://nodejs.org/en/) (v16.18.1 or higher)
+- [Node.js](https://nodejs.org/en/) (18 or higher)
 - [Yarn](https://yarnpkg.com/) (v1.22.15 or higher)
 
 1. Clone the repository and install dependencies:

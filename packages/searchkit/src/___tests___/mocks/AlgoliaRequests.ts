@@ -14,6 +14,22 @@ export const SimpleRequest = [
   }
 ]
 
+export const SimpleNoFilterRequest = [
+  {
+    indexName: 'imdb_movies',
+    params: {
+      facetFilters: [],
+      facets: [],
+      highlightPostTag: '</em>',
+      highlightPreTag: '<em>',
+      maxValuesPerFacet: 10,
+      page: 0,
+      query: 'shawshank',
+      tagFilters: ''
+    }
+  }
+]
+
 export const nonDynamicFacetRequest = [
   {
     indexName: 'imdb_movies',

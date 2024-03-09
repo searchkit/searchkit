@@ -43,7 +43,7 @@ const CustomHits = (props: HitsProps<any>) => {
         <div className="bg-white rounded-lg overflow-hidden shadow">
           <img src={hit.poster} alt="movie cover" className="w-full h-64 object-cover" />
           <div className="p-4">
-            <h3 className="text-lg font-semibold">
+            <h3 className="text-lg font-semibold text-black">
               <Highlight hit={hit} attribute="title" />
             </h3>
             <p className="text-gray-600">
