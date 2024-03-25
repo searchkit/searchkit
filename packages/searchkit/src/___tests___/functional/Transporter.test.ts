@@ -155,4 +155,37 @@ describe('Transporter', () => {
       `"https://d1bd36862ce54c7b903e2aacd4cd7f0a.us-east4.gcp.elastic-cloud.com:443/_msearch"`
     )
   })
+
+  it('should allow send cookies', async () => {
+    ;(global.fetch as jest.Mock).mockClear()
+    // @ts-ignore
+    jest.spyOn(global, 'fetch').mockImplementation(() => {
+      return Promise.resolve({
+        json: () => Promise.resolve(HitsWithNoQueryOrFiltersResponse)
+      })
+    })
+
+    const client = new Client({
+      connection: {
+        host: 'http://localhost:9200',
+        withCredentials: true
+      },
+      search_settings: {
+        search_attributes: ['title', 'actors', 'query'],
+        result_attributes: ['title', 'actors', 'query'],
+        facet_attributes: [
+          'type',
+          { field: 'actors.keyword', attribute: 'actors', type: 'string' },
+          'rated',
+          { attribute: 'imdbrating', type: 'numeric', field: 'imdbrating' }
+        ]
+      }
+    })
+
+    await client.handleInstantSearchRequests(
+      nonDynamicFacetRequest as AlgoliaMultipleQueriesQuery[]
+    )
+
+    expect((global.fetch as jest.Mock).mock.calls[0][1].credentials).toMatchInlineSnapshot(`"include"`)
+  })
 })
