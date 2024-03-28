@@ -23,7 +23,7 @@ export const transformNumericFilters = (
   return numericFilters.reduce((sum, filter: string) => {
     let match, field, operator, value, maxValue = ''
     let groups = filter.match(
-      /([\w\.\_\-]+)\s*(\=|\!\=|\>|\>\=|\<|\<\=)\s*(-?\d+)/
+      /([\w\.\_\-]+)\s*(\=|\!\=|\>|\>\=|\<|\<\=)\s*(-?(?:\d+(?:\.\d*)?|\.\d+))/
     )
 
     if (groups) {
@@ -32,7 +32,7 @@ export const transformNumericFilters = (
     else {
       // Alternative syntax: 'attribute:lower_value TO higher_value'
       groups = filter.match(
-        /([\w\.\_\-]+):\s*(-?\d+)\s*([Tt][Oo])\s*(-?\d+)/
+        /([\w\.\_\-]+):\s*(-?(?:\d+(?:\.\d*)?|\.\d+))\s*([Tt][Oo])\s*(-?(?:\d+(?:\.\d*)?|\.\d+))/
       )
 
       if (!groups) {
