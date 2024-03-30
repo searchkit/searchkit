@@ -1,5 +1,12 @@
 # searchkit
 
+## 4.11.2
+
+### Patch Changes
+
+- 11e682fc: Support for decimal numeric filters
+- acd9100b: add withCredentials to network connection options
+
 ## 4.11.1
 
 ### Patch Changes

@@ -11,7 +11,7 @@
     "@searchkit/instantsearch-client": "4.12.1",
     "@searchkit/elastic-behavioral-analytics-plugin": "2.1.0",
     "instantsearch.js": "^4.55.0",
-    "searchkit": "4.11.1"
+    "searchkit": "4.11.2"
   },
   "devDependencies": {
     "typescript": "^4.9.3",
