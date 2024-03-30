@@ -67,7 +67,12 @@ export interface ConfigConnection {
    * @example username: elastic
    * @example password: changeme
    */
-  auth?: BasicAuth
+  auth?: BasicAuth,
+
+  withCredentials?: boolean
+  /**
+   * @description Set to true to send credentials with the request. This is useful for CORS requests.
+   */
 }
 
 export interface SearchAttributeConfig {

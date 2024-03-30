@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Transport Errors 400 error 1`] = `
-"Elasticsearch Bad Request. 
-          
-          1. Check your query and make sure it is valid. 
+"Elasticsearch Bad Request.
+
+          1. Check your query and make sure it is valid.
           2. Check the field mapping. See documentation to make sure you are using text types for searching and keyword fields for faceting
           3. Turn on debug mode to see the Elasticsearch query and the error response.
           "

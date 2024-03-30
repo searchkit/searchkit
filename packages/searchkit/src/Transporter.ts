@@ -51,7 +51,8 @@ export class ESTransporter implements Transporter {
           : {})
       },
       body: this.createElasticsearchQueryFromRequest(requests),
-      method: 'POST'
+      method: 'POST',
+      ...(this.config.withCredentials ? { credentials: 'include' } : {})
     })
   }
 
@@ -88,9 +89,9 @@ export class ESTransporter implements Transporter {
       } else if (responses.status === 400 || responses.responses?.[0]?.status === 400) {
         console.error(JSON.stringify(responses))
         throw new Error(
-          `Elasticsearch Bad Request. 
-          
-          1. Check your query and make sure it is valid. 
+          `Elasticsearch Bad Request.
+
+          1. Check your query and make sure it is valid.
           2. Check the field mapping. See documentation to make sure you are using text types for searching and keyword fields for faceting
           3. Turn on debug mode to see the Elasticsearch query and the error response.
           `
