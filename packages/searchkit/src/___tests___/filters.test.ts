@@ -114,6 +114,49 @@ describe('filter functions', () => {
     `)
   })
 
+  it('transforms floating numeric filters', () => {
+    const numericFilter = `price >= -100.51`
+
+    expect(transformNumericFilters(getNumericFilterRequest(numericFilter), config))
+      .toMatchInlineSnapshot(`
+    [
+      {
+        "range": {
+          "price": {
+            "gte": "-100.51",
+          },
+        },
+      },
+    ]
+  `)
+  })
+
+  it('transforms floating optional integer and optional fraction', () => {
+    const numericFilter = `price:-.51 TO 1.`
+    expect(transformNumericFilters(getNumericFilterRequest(numericFilter), config))
+      .toMatchInlineSnapshot(`
+    [
+      {
+        "range": {
+          "price": {
+            "gte": "-.51",
+            "lte": "1.",
+          },
+        },
+      },
+    ]
+  `)
+  })
+
+  it('transforms on malformed numeric fraction', () => {
+    const numericFilter = `price >= .`
+    expect(() =>
+      transformNumericFilters(getNumericFilterRequest(numericFilter), config)
+    ).toThrowErrorMatchingInlineSnapshot(
+      `"Numeric filter "price >= ." could not be parsed. It should either be in the format "attributeName operator operand" or "attributeName: lowerBound TO upperBound""`
+    )
+  })
+
   it('throws on malformed numeric filters', () => {
     const numericFilter = `price xxx 100`
 
