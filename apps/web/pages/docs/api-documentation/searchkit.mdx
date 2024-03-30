@@ -132,14 +132,15 @@ const client = Client({
 - `cloud_id` - Elasticsearch cloud id. This is optional but recommended way to connect to Elasticsearch on Cloud. You can find your cloud id in the [Elastic Cloud console](https://cloud.elastic.co/deployments).
 - `apiKey` - Elasticsearch API key. This is optional but strongly recommended for production environments. You can create an API key via [Kibana](https://www.elastic.co/guide/en/kibana/master/api-keys.html).
 - `headers` - Additional headers to pass to Elasticsearch. This is optional.
+- `withCredentials` - Whether to send credentials with the request. This is optional. Useful for CORS requests. Default is `false`.
 - `auth` - Basic auth credentials. This is optional.
 
 See [connecting to Elasticsearch](/docs/guides/setup-elasticsearch) for more information on setting up Elasticsearch.
 
-Connection also supports implementing your own connector to Elasticsearch. You can do this by passing in a transporter instance through `connection`.
+##### Custom Transporter
+Connection also supports implementing your own network transporter to Elasticsearch. You can do this by passing in a transporter instance through `connection`.
 
 You can use this for more complex authentication connections with Elasticsearch or Opensearch.
-
 
 ```ts
 
