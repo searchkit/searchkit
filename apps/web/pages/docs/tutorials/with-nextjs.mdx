@@ -1,7 +1,7 @@
 ---
 title: Nextjs with Searchkit
 description: Nextjs with Searchkit tutorial and walkthrough
-keywords: ["nextjs", "searchkit", "tutorial", "walkthrough", "elasticsearch", "react", "javascript", "typescript", "search", "search ui", "search experience", "site search", "app search"]
+keywords: ["nextjs", "searchkit", "tutorial", "walkthrough", "elasticsearch", "opensearch", "react", "javascript", "typescript", "search", "search ui", "search experience", "site search", "app search"]
 ---
 
 import { Tabs, Tab } from '../../../components/Tabs'
@@ -10,14 +10,14 @@ import { Callout } from 'nextra/components'
 
 ## Get Started
 
-In this walkthrough we are going to get started to build a search experience with Next.js.
+In this walkthrough we are going to get started building a search experience with Next.js.
 
-You dont need to use Next.js to use Searchkit, but it is the easiest way to get started.
+You don't need to use Next.js to use Searchkit, but it is the easiest way to get started.
 
 In this walkthrough, we will:
 
 - Setup an api route to fetch results from Elasticsearch
-- Use React Instantsearch to display the results 🎉
+- Use React InstantSearch to display the results 🎉
 
 ## Download an Example Project
 
@@ -51,7 +51,7 @@ style={{
 ## Create a Next.js app
 
 <Callout type="info" emoji="ℹ️">
-  This tutorial will use Next.js new App Router. If you're using pages, keep this in mind when following along.
+  This tutorial will use the new Next.js App Router. If you're using pages, keep this in mind when following along.
 </Callout>
 
 First, we need to create a Next.js app. We can do this by running the following command:
@@ -97,7 +97,7 @@ Next we need to install the dependencies for this project:
 
 ## Setup the Node API
 
-create a new file in the `app/api/search` directory called `route.ts` and add the following code:
+Create a new file in the `app/api/search` directory called `route.ts` and add the following code:
 
 ```ts filename="app/api/search/route.ts"
 import Client from "@searchkit/api";
@@ -106,10 +106,10 @@ import { NextRequest, NextResponse } from 'next/server'
 const apiConfig = {
   connection: {
     host: "<replace-with-your-elasticsearch-host>",
-    // if you are authenticating with api key
+    // if you are authenticating with an api key
     // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-api-key
     // apiKey: '###'
-    // if you are authenticating with username/password
+    // if you are authenticating with a username/password combo
     // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword
     // auth: {
     //   username: "elastic",
@@ -136,7 +136,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
 Replace the _host_ and _apiKey_ with your Elasticsearch host and API key. The apiKey is optional, but recommended for production environments. You can find more information about the API key [here](https://www.elastic.co/guide/en/kibana/master/api-keys.html).
 
-This will setup a new [nextjs route handler](https://nextjs.org/docs/app/building-your-application/routing/route-handlers) under the `/api/search` path. This route will handle the search requests and use instantsearch Elasticsearch Adapter to handle the requests. The response is then returned back to the client.
+This will setup a new [Next.js route handler](https://nextjs.org/docs/app/building-your-application/routing/route-handlers) under the `/api/search` path. This route will handle the search requests and use the InstantSearch Elasticsearch Adapter to handle the requests. The response is then returned back to the client.
 
 For more information on API configuration, see the [API Configuration](/reference/api) docs.
 
@@ -144,7 +144,7 @@ For more information on API configuration, see the [API Configuration](/referenc
 
 Now that we have the API setup, we can start building the frontend. We will use [react-instantsearch](https://www.algolia.com/doc/api-reference/widgets/react/) to build the search experience.
 
-First, we need to create a new file in the `app` directory called `page.tsx` and add the following code:
+First, we need to create a new file (if it doesn't already exist) in the `app` directory called `page.tsx` and add the following code:
 
 ```js filename="app/page.tsx"
 import { InstantSearch, SearchBox, Hits } from "react-instantsearch";
@@ -190,7 +190,7 @@ IMAGE1
 
 ## Searchable Attributes
 
-Now that we have the search experience setup, we can add the search functionality.
+Now that we have the search experience setup, we can add additional search functionality.
 
 ### Adjusting the search fields
 
@@ -202,11 +202,11 @@ we can adjust the search fields by updating the `search_attributes` in the `apiC
 
 Above we have boosted title by 3 times. This means that the title will have a higher weight than the other fields. This will make sure that the title has a higher importance in the search results.
 
-### Overriding the default Elasticsearch query
+### Overriding the Default Query
 
-We can optionally override the default search query by implementing the `getQuery` function in the `handleRequest` method called in `app/api/search/route.ts` file.
+We can optionally override the default search query by implementing the `getQuery` function in the `handleRequest` method called in the `app/api/search/route.ts` file.
 
-this function will receive the query and the function will return the Elasticsearch query that will be used to search the index.
+This function will receive the query and the function will return the Elasticsearch query that will be used to search the index.
 
 ```js
 const results = await apiClient.handleRequest(body, {
@@ -223,9 +223,9 @@ const results = await apiClient.handleRequest(body, {
 });
 ```
 
-## Customise Results Hit
+## Customizing the Results Hit
 
-We can add a custom hit component to display the results. We can create a new file called `Hit.js` in the `components` directory and add the following code:
+We can add a custom hit component to display the results. We can create a new file called `Hit.ts` in the `components` directory and add the following code:
 
 Below we are using the `Highlight` component from `react-instantsearch` to highlight the search term in the title and actors fields.
 
@@ -248,11 +248,11 @@ const hitView = (props) => {
 
 We need to pass the `attribute` prop to the `highlight_attributes` config to tell which fields to bring highlight options for.
 
-```js filename="app/page.tsx"
+```js filename="app/api/search/routes.ts"
   highlight_attributes: ["title", "actors"],
 ```
 
-then we can import the `Hit` component in the `app/page.tsx` file and pass it to the `Hits` component.
+Then we can import the `Hit` component in the `app/page.tsx` file and pass it to the parent `Hits` component.
 
 ```js
 import Hit from "../components/Hit";
@@ -274,7 +274,7 @@ export default function Search() {
 Start by updating the `apiConfig` object in the `app/api/search/route.ts` file to add the `type` facet.
 
 ```js filename="app/api/search/route.ts"
-  facet_attributes: ["type"],
+  facet_attributes: [{ attribute: "type", "type": "string" }],
 ```
 
 This assumes there is a `type` field in the index that is a `keyword` type field.
@@ -282,7 +282,7 @@ This assumes there is a `type` field in the index that is a `keyword` type field
 If the field is a `text` type field, you can define and use the `type.keyword` subfield instead.
 
 ```js
-  facet_attributes: [{ attribute: "type", field: "type.keyword" }],
+  facet_attributes: [{ attribute: "type", field: "type.keyword", type: "string" }],
 ```
 
 Then we can add the `RefinementList` component to the `pages/search.js` file.
@@ -322,7 +322,7 @@ This requires the `imdbrating` field to be a numeric type field like a `float` i
 ```js
 facet_attributes: [
   { attribute: "imdbrating", type: "numeric" },
-  { attribute: "type", field: "type.keyword" }
+  { attribute: "type", field: "type.keyword", type: "string" }
 ],
 ```
 
@@ -343,16 +343,16 @@ import {
 
 ### Server Side Rendering
 
-Below we adding additional imports:
-1. Importing the `getServerState` function from `react-instantsearch`
-2. Importing the `renderToString` function from `react-dom/server`
-3. Importing the `InstantSearchServerState` and `InstantSearchSSRProvider` components from `react-instantsearch`
-4. Importing the `createInstantSearchRouterNext` function from `react-instantsearch-router-nextjs`
-5. Importing the `singletonRouter` from `next/router`
+Below we add the following additional imports:
+1. The `getServerState` function from `react-instantsearch`
+2. The `renderToString` function from `react-dom/server`
+3. The `InstantSearchServerState` and `InstantSearchSSRProvider` components from `react-instantsearch`
+4. The `createInstantSearchRouterNext` function from `react-instantsearch-router-nextjs`
+5. The `singletonRouter` from `next/router`
 
-Then we are wrapping the `InstantSearch` component with the `InstantSearchSSRProvider` component and passing the `serverState` prop to it.
+Then we wrap the `InstantSearch` component with the `InstantSearchSSRProvider` component and pass the `serverState` prop to it.
 
-This allows us to render the search experience on the server and send the initial state to the client. This will make the search experience load faster and also improve the SEO.
+This allows us to render the search experience on the server and send the initial state to the client. This will make the search experience load faster and also improve SEO.
 
 ```ts
 import { 
@@ -416,4 +416,4 @@ export const getServerSideProps: GetServerSideProps<WebProps> =
 
 ## Summary
 
-We have quickly built a really nice search experience from scratch using Elasticsearch and Algolia Instantsearch. We have also learned how to customize the search experience by adjusting the search fields and overriding the default Elasticsearch query.
+We have quickly built a really nice search experience from scratch using Elasticsearch and Algolia InstantSearch. We have also learned how to customize the search experience by adjusting the search fields and overriding the default Elasticsearch query.
