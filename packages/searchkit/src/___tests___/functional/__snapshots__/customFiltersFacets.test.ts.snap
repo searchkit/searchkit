@@ -64,6 +64,7 @@ exports[`Custom Facets and Filters use the custom filter when specified 2`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 7.637228,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -149,6 +150,7 @@ exports[`Custom Facets and Filters use the custom filter when specified 2`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 7.637228,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",

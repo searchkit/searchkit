@@ -28,7 +28,8 @@ const getHits = (
 
   return hits.hits.map((hit) => ({
     objectID: hit._id,
-    _index: hit?._index,
+    _index: hit._index,
+    _score: hit._score,
     ...(hit._source || {}),
     ...(hit.fields || {}), // for runtime_mapping fields
     ...(hit.inner_hits ? { inner_hits: hit.inner_hits } : {}),

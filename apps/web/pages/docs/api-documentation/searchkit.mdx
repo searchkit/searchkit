@@ -629,3 +629,28 @@ const client = Client({
 ```
 
 When the client is run in debug mode, the Elasticsearch query is logged to the console.
+
+## Meta fields
+
+*Score*: Accessible in the search results hit as `_score`. This is the relevance score of the document.
+*Index*: Accessible in the search results hit as `_index`. This is the Elasticsearch index name.
+
+## FAQ 
+
+### How do I search across multiple indices?
+
+You can search across multiple indices by specifying the index names in the `indexName` parameter as comma-separated values.
+
+You can also create an elasticsearch alias that points to multiple indices and use the alias name in the `indexName` parameter.
+
+```tsx
+export const App = () => {
+  return (
+    <InstantSearch searchClient={searchClient} indexName="movies,episodes,series">
+      <SearchBox />
+      <Hits />
+    </InstantSearch>
+  )
+}
+```
+

@@ -25,11 +25,13 @@ exports[`Nested Facets, filters and results One nested facet support 3`] = `
         {
           "_highlightResult": {},
           "_index": "my-index-000001",
+          "_score": 0,
           "objectID": "1",
         },
         {
           "_highlightResult": {},
           "_index": "my-index-000001",
+          "_score": 0,
           "objectID": "2",
         },
       ],
@@ -80,6 +82,7 @@ exports[`Nested Facets, filters and results One nested facet support 3`] = `
         {
           "_highlightResult": {},
           "_index": "my-index-000001",
+          "_score": 1,
           "objectID": "1",
         },
       ],
@@ -143,11 +146,13 @@ exports[`Nested Facets, filters and results one facet and two OR filters 3`] = `
         {
           "_highlightResult": {},
           "_index": "my-index-000001",
+          "_score": 0,
           "objectID": "1",
         },
         {
           "_highlightResult": {},
           "_index": "my-index-000001",
+          "_score": 0,
           "objectID": "2",
         },
       ],
@@ -198,6 +203,7 @@ exports[`Nested Facets, filters and results one facet and two OR filters 3`] = `
         {
           "_highlightResult": {},
           "_index": "my-index-000001",
+          "_score": 1,
           "objectID": "1",
         },
       ],
@@ -267,6 +273,7 @@ exports[`Nested Facets, filters and results one numeric facet 3`] = `
         {
           "_highlightResult": {},
           "_index": "my-index-000001",
+          "_score": 0,
           "objectID": "4",
         },
       ],
@@ -338,6 +345,7 @@ exports[`Nested Facets, filters and results two nested facets 3`] = `
         {
           "_highlightResult": {},
           "_index": "my-index-000001",
+          "_score": 0,
           "objectID": "4",
         },
       ],

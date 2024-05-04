@@ -63,6 +63,7 @@ exports[`Integration tests for relevance call with one filter and query applied 
             },
           },
           "_index": "imdb_movies",
+          "_score": 7.637228,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -155,6 +156,7 @@ exports[`Integration tests for relevance call with one filter and query applied 
             },
           },
           "_index": "imdb_movies",
+          "_score": 7.637228,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",

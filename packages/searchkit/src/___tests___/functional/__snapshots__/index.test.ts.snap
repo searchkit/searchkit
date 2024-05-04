@@ -63,6 +63,7 @@ exports[`Integration tests call with one filter and query applied 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 7.637228,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -155,6 +156,7 @@ exports[`Integration tests call with one filter and query applied 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 7.637228,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -293,6 +295,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -333,6 +336,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Marlon Brando",
             "Al Pacino",
@@ -373,6 +377,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Christian Bale",
             "Heath Ledger",
@@ -413,6 +418,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Peter Dinklage",
             "Lena Headey",
@@ -453,6 +459,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Tim Roth",
             "Amanda Plummer",
@@ -493,6 +500,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Edward Norton",
             "Brad Pitt",
@@ -533,6 +541,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Noel Appleby",
             "Alexandra Astin",
@@ -573,6 +582,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Leonardo DiCaprio",
             "Joseph Gordon-Levitt",
@@ -613,6 +623,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Alan Howard",
             "Elijah Wood",
@@ -653,6 +664,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Keanu Reeves",
             "Laurence Fishburne",
@@ -693,6 +705,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Al Pacino",
             "Robert Duvall",
@@ -733,6 +746,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Liam Neeson",
             "Ben Kingsley",
@@ -773,6 +787,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Tom Hanks",
             "Rebecca Williams",
@@ -813,6 +828,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Bryan Cranston",
             "Anna Gunn",
@@ -853,6 +869,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Bruce Allpress",
             "Sean Astin",
@@ -893,6 +910,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Mark Hamill",
             "Harrison Ford",
@@ -933,6 +951,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Morgan Freeman",
             "Andrew Kevin Walker",
@@ -973,6 +992,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Mark Hamill",
             "Harrison Ford",
@@ -1013,6 +1033,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Christian Bale",
             "Gary Oldman",
@@ -1053,6 +1074,7 @@ exports[`Integration tests facets non dynamic facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Robert De Niro",
             "Ray Liotta",
@@ -1187,6 +1209,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -1227,6 +1250,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Marlon Brando",
             "Al Pacino",
@@ -1267,6 +1291,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Christian Bale",
             "Heath Ledger",
@@ -1307,6 +1332,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Peter Dinklage",
             "Lena Headey",
@@ -1347,6 +1373,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Tim Roth",
             "Amanda Plummer",
@@ -1387,6 +1414,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Edward Norton",
             "Brad Pitt",
@@ -1427,6 +1455,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Noel Appleby",
             "Alexandra Astin",
@@ -1467,6 +1496,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Leonardo DiCaprio",
             "Joseph Gordon-Levitt",
@@ -1507,6 +1537,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Alan Howard",
             "Elijah Wood",
@@ -1547,6 +1578,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Keanu Reeves",
             "Laurence Fishburne",
@@ -1587,6 +1619,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Al Pacino",
             "Robert Duvall",
@@ -1627,6 +1660,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Liam Neeson",
             "Ben Kingsley",
@@ -1667,6 +1701,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Tom Hanks",
             "Rebecca Williams",
@@ -1707,6 +1742,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Bryan Cranston",
             "Anna Gunn",
@@ -1747,6 +1783,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Bruce Allpress",
             "Sean Astin",
@@ -1787,6 +1824,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Mark Hamill",
             "Harrison Ford",
@@ -1827,6 +1865,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Morgan Freeman",
             "Andrew Kevin Walker",
@@ -1867,6 +1906,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Mark Hamill",
             "Harrison Ford",
@@ -1907,6 +1947,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Christian Bale",
             "Gary Oldman",
@@ -1947,6 +1988,7 @@ exports[`Integration tests facets non dynamic facets with one filter 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Robert De Niro",
             "Ray Liotta",
@@ -2069,6 +2111,7 @@ exports[`Integration tests facets numeric facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 7.637228,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -2157,6 +2200,7 @@ exports[`Integration tests facets numeric facets 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 7.637228,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -2332,6 +2376,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -2372,6 +2417,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Marlon Brando",
             "Al Pacino",
@@ -2412,6 +2458,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Christian Bale",
             "Heath Ledger",
@@ -2452,6 +2499,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Peter Dinklage",
             "Lena Headey",
@@ -2492,6 +2540,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Tim Roth",
             "Amanda Plummer",
@@ -2532,6 +2581,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Edward Norton",
             "Brad Pitt",
@@ -2572,6 +2622,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Noel Appleby",
             "Alexandra Astin",
@@ -2612,6 +2663,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Leonardo DiCaprio",
             "Joseph Gordon-Levitt",
@@ -2652,6 +2704,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Alan Howard",
             "Elijah Wood",
@@ -2692,6 +2745,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Keanu Reeves",
             "Laurence Fishburne",
@@ -2732,6 +2786,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Al Pacino",
             "Robert Duvall",
@@ -2772,6 +2827,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Liam Neeson",
             "Ben Kingsley",
@@ -2812,6 +2868,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Tom Hanks",
             "Rebecca Williams",
@@ -2852,6 +2909,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Bryan Cranston",
             "Anna Gunn",
@@ -2892,6 +2950,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Bruce Allpress",
             "Sean Astin",
@@ -2932,6 +2991,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Mark Hamill",
             "Harrison Ford",
@@ -2972,6 +3032,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Morgan Freeman",
             "Andrew Kevin Walker",
@@ -3012,6 +3073,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Mark Hamill",
             "Harrison Ford",
@@ -3052,6 +3114,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Christian Bale",
             "Gary Oldman",
@@ -3092,6 +3155,7 @@ exports[`Integration tests facets numeric filters 1`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 1,
           "actors": [
             "Robert De Niro",
             "Ray Liotta",
