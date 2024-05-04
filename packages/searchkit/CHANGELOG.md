@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.12.0
+
+### Minor Changes
+
+- 130e35b1: Add score and add facetResponse function to handle custom facets
+
 ## 4.11.2
 
 ### Patch Changes

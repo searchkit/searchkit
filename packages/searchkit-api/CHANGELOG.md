@@ -1,5 +1,16 @@
 # @searchkit/api
 
+## 4.12.0
+
+### Minor Changes
+
+- 130e35b1: Add score and add facetResponse function to handle custom facets
+
+### Patch Changes
+
+- Updated dependencies [130e35b1]
+  - searchkit@4.12.0
+
 ## 4.11.1
 
 ### Patch Changes
