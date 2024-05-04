@@ -1,7 +1,17 @@
-import Client, { AlgoliaMultipleQueriesQuery, MatchFilter } from '../..'
+import Client, { AlgoliaMultipleQueriesQuery, FacetStringResponse, MatchFilter } from '../..'
 import nock from 'nock'
 import { DisjunctiveExampleRequest } from '../mocks/AlgoliaRequests'
-import { HitsResponseWithFacetFilter } from '../mocks/ElasticsearchResponses'
+import {
+  HitsResponseWithCustomFacetFilter,
+  HitsResponseWithFacetFilter
+} from '../mocks/ElasticsearchResponses'
+import { title } from 'process'
+import {
+  AggregationsBuckets,
+  AggregationsFilterAggregate,
+  AggregationsFiltersAggregate,
+  AggregationsFiltersBucket
+} from '@elastic/elasticsearch/lib/api/types'
 
 describe('Custom Facets and Filters', () => {
   const client = new Client({
@@ -15,16 +25,38 @@ describe('Custom Facets and Filters', () => {
       result_attributes: ['title', 'actors', 'query'],
       facet_attributes: [
         {
-          field: 'actors.keyword',
-          attribute: 'actors',
+          field: 'type.keyword',
+          attribute: 'type',
           type: 'string',
-          facetQuery: (field, size) => ({
-            significant_terms: {
-              field,
-              size: size
+          facetQuery: () => ({
+            filters: {
+              filters: {
+                movie: {
+                  term: {
+                    type: 'movie'
+                  }
+                },
+                episode: {
+                  term: {
+                    type: 'episode'
+                  }
+                }
+              }
             }
           }),
-          filterQuery: MatchFilter
+          facetResponse: (aggregation: AggregationsFiltersAggregate) => {
+            const buckets = aggregation.buckets as AggregationsFiltersBucket[]
+            return Object.keys(buckets).reduce(
+              (sum, bucket) => ({
+                ...sum,
+                [bucket]: 100
+              }),
+              {}
+            )
+          },
+          filterQuery: (field: string, value: string) => {
+            return { match: { ['type.keyword']: value } }
+          }
         }
       ],
       filter_attributes: [
@@ -50,7 +82,7 @@ describe('Custom Facets and Filters', () => {
               "filter": [
                 {
                   "match": {
-                    "actors.keyword": "Tom Hanks",
+                    "type.keyword": "episodee",
                   },
                 },
                 {
@@ -67,7 +99,7 @@ describe('Custom Facets and Filters', () => {
         `)
         return true
       })
-      .reply(200, HitsResponseWithFacetFilter)
+      .reply(200, HitsResponseWithCustomFacetFilter)
 
     const response = await client.handleInstantSearchRequests(
       DisjunctiveExampleRequest.map((request) => ({
@@ -75,7 +107,7 @@ describe('Custom Facets and Filters', () => {
         params: {
           ...request.params,
           query: '',
-          facetFilters: ['actors:Tom Hanks', 'writers:Quentin Tarantino']
+          facetFilters: ['type:episodee', 'writers:Quentin Tarantino']
         }
       })) as AlgoliaMultipleQueriesQuery[]
     )

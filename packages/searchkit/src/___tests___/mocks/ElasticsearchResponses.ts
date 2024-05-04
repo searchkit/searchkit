@@ -126,6 +126,134 @@ export const HitsResponseWithFacetFilter = {
   ]
 }
 
+export const HitsResponseWithCustomFacetFilter = {
+  took: 2,
+  responses: [
+    {
+      took: 2,
+      timed_out: false,
+      _shards: {
+        total: 1,
+        successful: 1,
+        skipped: 0,
+        failed: 0
+      },
+      hits: {
+        total: {
+          value: 1,
+          relation: 'eq'
+        },
+        max_score: 7.637228,
+        hits: [
+          {
+            _index: 'imdb_movies',
+            _id: 'tt0111161',
+            _score: 7.637228,
+            _source: {
+              actors: ['Tim Robbins', 'Morgan Freeman', 'Bob Gunton', 'William Sadler'],
+              title: 'The Shawshank Redemption'
+            },
+            highlight: {
+              title: ['The <em>Shawshank</em> Redemption'],
+              desription: ['The <em>Shawshank</em> Redemption']
+            }
+          }
+        ]
+      },
+      aggregations: {
+        rated: {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [
+            {
+              key: 'R',
+              doc_count: 1
+            }
+          ]
+        },
+        actors: {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [
+            {
+              key: 'Bob Gunton',
+              doc_count: 1
+            },
+            {
+              key: 'Morgan Freeman',
+              doc_count: 1
+            },
+            {
+              key: 'Tim Robbins',
+              doc_count: 1
+            },
+            {
+              key: 'William Sadler',
+              doc_count: 1
+            }
+          ]
+        },
+        type: {
+          buckets: {
+            episode: {
+              doc_count: 521
+            },
+            movie: {
+              doc_count: 3120
+            }
+          }
+        }
+      },
+      status: 200
+    },
+    {
+      took: 2,
+      timed_out: false,
+      _shards: {
+        total: 1,
+        successful: 1,
+        skipped: 0,
+        failed: 0
+      },
+      hits: {
+        total: {
+          value: 1,
+          relation: 'eq'
+        },
+        max_score: 7.637228,
+        hits: [
+          {
+            _index: 'imdb_movies',
+            _id: 'tt0111161',
+            _score: 7.637228,
+            _source: {
+              actors: ['Tim Robbins', 'Morgan Freeman', 'Bob Gunton', 'William Sadler'],
+              title: 'The Shawshank Redemption'
+            },
+            highlight: {
+              title: ['The <em>Shawshank</em> Redemption'],
+              description: ['The <em>Shawshank</em> Redemption']
+            }
+          }
+        ]
+      },
+      aggregations: {
+        type: {
+          buckets: {
+            episode: {
+              doc_count: 521
+            },
+            movie: {
+              doc_count: 3120
+            }
+          }
+        }
+      },
+      status: 200
+    }
+  ]
+}
+
 export const HitsResponseWithObjectHighlight = {
   took: 2,
   responses: [

@@ -291,25 +291,39 @@ facet_attributes: [
     field: 'actors.keyword',
     attribute: 'actors',
     type: 'string',
-    facetQuery: (
-      field, // 'actors.keyword' in this case
-      size,  // size specified by the frontend
-      query // query specified by the frontend, used for search within facet
-    ) => ({
-      significant_terms: { // example of using significant terms aggregation instead of terms aggregation
-        field,
-        size: size
+    // Custom aggregation query
+    facetQuery: () => ({
+      filters: {
+        filters: {
+          movie: {
+            term: {
+              type: 'movie'
+            }
+          },
+          episode: {
+            term: {
+              type: 'episode'
+            }
+          }
+        }
       }
     }),
-    filterQuery: (
-      field, // 'actors.keyword' in this case
-      value // value specified by the frontend
-    ) => ({
-      match: { // example of using match clause instead of terms filter
-        [field]: value
-      }
+    // handle the aggregation response and return an object with the facet names and values.
+    // here we are hardcoding the values to 100 for each filter bucket
+    facetResponse: (aggregation: AggregationsFiltersAggregate) => {
+      const buckets = aggregation.buckets as AggregationsFiltersBucket[]
+      return Object.keys(buckets).reduce(
+        (sum, bucket) => ({
+          ...sum,
+          [bucket]: 100
+        }),
+        {}
+      )
+    },
+    // When a user selects a facet, this function is called to generate the filter query
+    filterQuery: (field: string, value: string) => {
+      return { match: { ['type.keyword']: value } }
     }
-    )
   }
 ],
 ```

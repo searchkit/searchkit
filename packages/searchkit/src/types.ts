@@ -25,15 +25,40 @@ export type FacetFieldConfig = {
   field: string
   type: 'numeric' | 'string' | 'date'
   nestedPath?: string
-  facetQuery?: (field: string, size: number, search: string) => ElasticsearchAggregation
-  filterQuery?: (field: string, value: string) => ElasticsearchQuery
+}
+
+export type FacetStringResponse = Record<string, number>
+
+export type CustomFacetConfig = {
+  field: string
+  attribute: string
+  type: 'numeric' | 'string' | 'date'
+  nestedPath?: string
+  /**
+   * @description Allows you to customise the facet query that is sent to Elasticsearch. This is useful for custom facets that don't fit the standard terms aggregation.
+   */
+  facetQuery: (field: string, size: number, search: string) => ElasticsearchAggregation
+  /**
+   * @description Allows you to customise the filter query that is sent to Elasticsearch. This is useful for custom filters that don't fit the standard term query.
+   */
+  filterQuery: (field: string, value: string) => ElasticsearchQuery
+  /**
+   * @description Allows you to handle the facet response into a key value record of facet values and counts.
+   */
+  facetResponse: (aggregation: any) => FacetStringResponse
 }
 
 export type FilterAttribute = {
   attribute: string
   field: string
   type: 'numeric' | 'string' | 'date'
+  /**
+   * @description Supports documents with nested fields. This is the path to the nested field.
+   */
   nestedPath?: string
+  /**
+   * @description Allows you to customise the filter query that is sent to Elasticsearch. This is useful for custom filters that don't fit the standard term query.
+   */
   filterQuery?: (field: string, value: string) => ElasticsearchQuery
 }
 
@@ -67,7 +92,7 @@ export interface ConfigConnection {
    * @example username: elastic
    * @example password: changeme
    */
-  auth?: BasicAuth,
+  auth?: BasicAuth
 
   withCredentials?: boolean
   /**
@@ -80,7 +105,7 @@ export interface SearchAttributeConfig {
   weight?: number
 }
 
-export type FacetAttribute = string | FacetFieldConfig
+export type FacetAttribute = string | FacetFieldConfig | CustomFacetConfig
 
 export type SearchAttribute = string | SearchAttributeConfig
 

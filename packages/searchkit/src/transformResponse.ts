@@ -1,9 +1,16 @@
-import { SearchSettingsConfig } from './types'
+import { FacetStringResponse, SearchSettingsConfig } from './types'
 import { getHighlightFields, highlightTerm } from './highlightUtils'
 import { AlgoliaMultipleQueriesQuery, ElasticsearchResponseBody } from './types'
-import { getFacetFieldType } from './utils'
+import { getFacetFieldConfig, getFacetFieldType } from './utils'
 import { QueryRuleActions } from './queryRules'
-import type { AggregationsStatsAggregate, GeoLocation } from '@elastic/elasticsearch/lib/api/types'
+import type {
+  AggregationsStatsAggregate,
+  AggregationsStringTermsAggregate,
+  AggregationsStringTermsBucket,
+  AggregationsTermsAggregateBase,
+  AggregationsTermsAggregation,
+  GeoLocation
+} from '@elastic/elasticsearch/lib/api/types'
 
 type FacetsList = Record<string, Record<string, number>>
 type FacetsStats = Record<
@@ -68,6 +75,16 @@ function convertLatLng(value: GeoLocation) {
   return null
 }
 
+const TermFacetResponse = (aggregation: AggregationsStringTermsAggregate) => {
+  return (aggregation.buckets as AggregationsStringTermsBucket[]).reduce<FacetStringResponse>(
+    (sum, bucket) => ({
+      ...sum,
+      [bucket.key]: bucket.doc_count
+    }),
+    {}
+  )
+}
+
 const getFacets = (response: ElasticsearchResponseBody, config: SearchSettingsConfig) => {
   if (!response?.aggregations) {
     return {}
@@ -101,6 +118,10 @@ const getFacets = (response: ElasticsearchResponseBody, config: SearchSettingsCo
     (sum, f) => {
       const facet = f.split('$')[0]
       const fieldType = getFacetFieldType(config.facet_attributes || [], facet)
+      const facetConfig = getFacetFieldConfig(config.facet_attributes || [], facet)
+      const facetResponse =
+        (facetConfig && 'facetResponse' in facetConfig && facetConfig?.facetResponse) ||
+        TermFacetResponse
 
       if (fieldType === 'numeric') {
         const facetValues = aggregations[facet + '$_stats'] as AggregationsStatsAggregate
@@ -112,13 +133,7 @@ const getFacets = (response: ElasticsearchResponseBody, config: SearchSettingsCo
           ...sum,
           facets: {
             ...sum.facets,
-            [facet]: buckets.reduce<Record<string, number>>(
-              (sum, bucket) => ({
-                ...sum,
-                [bucket.key]: bucket.doc_count
-              }),
-              {}
-            )
+            [facet]: facetResponse({ buckets })
           },
           facets_stats: {
             ...sum.facets_stats,
@@ -138,13 +153,7 @@ const getFacets = (response: ElasticsearchResponseBody, config: SearchSettingsCo
         ...sum,
         facets: {
           ...sum.facets,
-          [facet]: buckets.reduce<Record<string, number>>(
-            (sum, bucket) => ({
-              ...sum,
-              [bucket.key]: bucket.doc_count
-            }),
-            {}
-          )
+          [facet]: facetResponse({ buckets })
         }
       }
     },
