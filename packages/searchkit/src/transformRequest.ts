@@ -54,7 +54,7 @@ const TermAggregation = (field: string, size: number, search: string) => {
 const getTermAggregation = (facet: FacetAttribute, size: number, search: string) => {
   let aggEntries = {}
   const AggregationFn =
-    typeof facet !== 'string' && facet.facetQuery ? facet.facetQuery : TermAggregation
+    typeof facet !== 'string' && 'facetQuery' in facet ? facet.facetQuery : TermAggregation
 
   const getInnerAggs = (facetName: string, field: string): any => {
     if (typeof facet === 'string' || facet.type === 'string') {

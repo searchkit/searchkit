@@ -16,6 +16,7 @@ exports[`Integration tests for runtime mapping fields call with one filter and q
       "hits": [
         {
           "_index": "imdb_movies",
+          "_score": 7.637228,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",

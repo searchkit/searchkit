@@ -63,6 +63,7 @@ exports[`GetQuery Extension GetQuery Extension with no matching query rules acti
             },
           },
           "_index": "imdb_movies",
+          "_score": 7.637228,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -155,6 +156,7 @@ exports[`GetQuery Extension GetQuery Extension with no matching query rules acti
             },
           },
           "_index": "imdb_movies",
+          "_score": 7.637228,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -273,6 +275,7 @@ exports[`GetQuery Extension GetQuery Extension with query rules 2`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 7.637228,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -367,6 +370,7 @@ exports[`GetQuery Extension GetQuery Extension with query rules 2`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 7.637228,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -483,6 +487,7 @@ exports[`GetQuery Extension do not apply organic query when set to false 2`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 7.637228,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -575,6 +580,7 @@ exports[`GetQuery Extension do not apply organic query when set to false 2`] = `
             },
           },
           "_index": "imdb_movies",
+          "_score": 7.637228,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",

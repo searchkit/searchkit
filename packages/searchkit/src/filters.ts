@@ -21,15 +21,18 @@ export const transformNumericFilters = (
   }
 
   return numericFilters.reduce((sum, filter: string) => {
-    let match, field, operator, value, maxValue = ''
+    let match,
+      field,
+      operator,
+      value,
+      maxValue = ''
     let groups = filter.match(
       /([\w\.\_\-]+)\s*(\=|\!\=|\>|\>\=|\<|\<\=)\s*(-?(?:\d+(?:\.\d*)?|\.\d+))/
     )
 
     if (groups) {
-      [match, field, operator, value] = groups
-    }
-    else {
+      ;[match, field, operator, value] = groups
+    } else {
       // Alternative syntax: 'attribute:lower_value TO higher_value'
       groups = filter.match(
         /([\w\.\_\-]+):\s*(-?(?:\d+(?:\.\d*)?|\.\d+))\s*([Tt][Oo])\s*(-?(?:\d+(?:\.\d*)?|\.\d+))/
@@ -38,10 +41,10 @@ export const transformNumericFilters = (
       if (!groups) {
         throw new Error(
           `Numeric filter "${filter}" could not be parsed. It should either be in the format "attributeName operator operand" or "attributeName: lowerBound TO upperBound"`
-        );
+        )
       }
 
-      [match, field, value, operator, maxValue] = groups
+      ;[match, field, value, operator, maxValue] = groups
     }
 
     const facetFilterMap = getFacetFilterMap(
@@ -104,7 +107,7 @@ export const transformNumericFilters = (
           range: {
             [field]: {
               gte: value,
-              lte: maxValue,
+              lte: maxValue
             }
           }
         }
@@ -194,7 +197,10 @@ export const transformFacetFilters = (
                   `Facet "${facet}" not found in configuration. Add configuration to either facet_attributes or filter_attributes.`
                 )
               const field = facetFilterConfig.field
-              const filterClauseFn = facetFilterConfig.filterQuery || TermFilter
+              const filterClauseFn =
+                'filterQuery' in facetFilterConfig && facetFilterConfig.filterQuery
+                  ? facetFilterConfig.filterQuery
+                  : TermFilter
 
               if (isNestedFacet(facetFilterConfig)) {
                 // detect if there is a nested filter in sum
@@ -248,7 +254,10 @@ export const transformFacetFilters = (
           `Facet "${facet}" not found in configuration. Add configuration to either facet_attributes or filter_attributes.`
         )
 
-      const filterClauseFn = facetFilterConfig.filterQuery || TermFilter
+      const filterClauseFn =
+        'filterQuery' in facetFilterConfig && facetFilterConfig.filterQuery
+          ? facetFilterConfig.filterQuery
+          : TermFilter
 
       if (isNestedFacet(facetFilterConfig) && facetFilterConfig.nestedPath) {
         // detect if there is a nested filter in sum
