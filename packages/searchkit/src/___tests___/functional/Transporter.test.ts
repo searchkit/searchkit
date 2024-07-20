@@ -75,7 +75,7 @@ describe('Transporter', () => {
       {
         "X-Custom-Header": "custom header value",
         "authorization": "ApiKey apiKey",
-        "content-type": "application/json",
+        "content-type": "application/x-ndjson",
       }
     `)
   })
@@ -116,7 +116,7 @@ describe('Transporter', () => {
     expect((global.fetch as jest.Mock).mock.calls[0][1].headers).toMatchInlineSnapshot(`
       {
         "Authorization": "Basic ZWxhc3RpYzpjaGFuZ2VtZQ==",
-        "content-type": "application/json",
+        "content-type": "application/x-ndjson",
       }
     `)
   })
@@ -186,6 +186,8 @@ describe('Transporter', () => {
       nonDynamicFacetRequest as AlgoliaMultipleQueriesQuery[]
     )
 
-    expect((global.fetch as jest.Mock).mock.calls[0][1].credentials).toMatchInlineSnapshot(`"include"`)
+    expect((global.fetch as jest.Mock).mock.calls[0][1].credentials).toMatchInlineSnapshot(
+      `"include"`
+    )
   })
 })

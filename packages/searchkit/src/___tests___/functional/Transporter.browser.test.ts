@@ -49,7 +49,7 @@ describe('Transporter - browser', () => {
     expect((global.fetch as jest.Mock).mock.calls[0][1].headers).toMatchInlineSnapshot(`
       {
         "Authorization": "Basic ZWxhc3RpYzpjaGFuZ2VtZQ==",
-        "content-type": "application/json",
+        "content-type": "application/x-ndjson",
       }
     `)
   })
