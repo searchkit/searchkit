@@ -42,7 +42,7 @@ export class ESTransporter implements Transporter {
     return fetch(`${host}/_msearch`, {
       headers: {
         ...(this.config.apiKey ? { authorization: `ApiKey ${this.config.apiKey}` } : {}),
-        'content-type': 'application/json',
+        'content-type': 'application/x-ndjson',
         ...(this.config.headers || {}),
         ...(this.config.auth
           ? {
