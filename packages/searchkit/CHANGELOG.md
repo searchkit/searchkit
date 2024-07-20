@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.13.0
+
+### Minor Changes
+
+- update the content type to ndjson
+
 ## 4.12.0
 
 ### Minor Changes

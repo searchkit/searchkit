@@ -1,5 +1,16 @@
 # @searchkit/api
 
+## 4.14.0
+
+### Minor Changes
+
+- update the content type to ndjson
+
+### Patch Changes
+
+- Updated dependencies
+  - searchkit@4.13.0
+
 ## 4.13.0
 
 ### Minor Changes
