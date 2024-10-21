@@ -43,6 +43,30 @@ function transformObject(input: Record<string, string>): Record<string, any> {
   return result
 }
 
+/**
+ * Retrieves a nested field value from an object using a dot-notation path.
+ * If any part of the path points to an array, it maps over the array to extract the values.
+ * This function ensures that a property exists, even if its value is `undefined`.
+ *
+ * @param {object} obj - The object to retrieve the nested value from.
+ * @param {string} path - The dot-notation path to the desired value (e.g., 'messages.text').
+ * @returns {any} - The value at the specified path, or undefined if the path or property does not exist.
+ *                  If the path involves an array, an array of values will be returned.
+ */
+export function getFieldValue(obj: any, path: string): any {
+  return path.split('.').reduce((acc, key) => {
+    if (Array.isArray(acc)) {
+      // Map over the array and extract the value
+      return acc.map(item => item[key])
+    }
+
+    // Check if the property exists before accessing it
+    return acc && Object.prototype.hasOwnProperty.call(acc, key)
+      ? acc[key]
+      : undefined
+  }, obj)
+}
+
 export function getHighlightFields(
   hit: ElasticsearchHit,
   preTag: string = '<ais-highlight-0000000000>',
@@ -59,7 +83,7 @@ export function getHighlightFields(
   const highlightFields = fields.map((field) => getSnippetFieldLength(field).attribute)
 
   const hitHighlights = Object.keys(combinedKeys).reduce<Record<string, any>>((sum, fieldKey) => {
-    const fieldValue: any = _source[fieldKey]
+    const fieldValue: any = getFieldValue(_source, fieldKey)
     const highlightedMatch = highlight[fieldKey] || null
 
     if (!isAllowableHighlightField(fieldKey, highlightFields)) {
