@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.13.1
+
+### Patch Changes
+
+- support highlighting for nested fields
+
 ## 4.13.0
 
 ### Minor Changes
