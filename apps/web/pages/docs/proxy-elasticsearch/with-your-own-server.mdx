@@ -13,3 +13,9 @@ Continue to generate Elasticsearch queries from the browser with Searchkit but p
 ## Change the request to my own API
 
 Implement your own API route on your application server by creating a POST `/_msearch` API and specify your application server in the `host` property or building a [custom transporter](/docs/guides/setup-elasticsearch#custom-transport). Searchkit will make requests to the proxy which will then relay the request to Elasticsearch with read only security credentials and extra filtering restrictions (if needed).  
+
+## Customise the network request
+
+You can customise the network request by creating a custom transporter. This is useful if you want to add additional headers or modify the request before it is sent to Elasticsearch. 
+
+see [Custom Transporter](/docs/api-documentation/searchkit#custom-transporter)
