@@ -113,7 +113,7 @@ class InstantSearchElasticsearchAdapter {
   }
 }
 
-const createClient = (config: Config, requestOptions?: RequestOptions) =>
+const createClient = (config: Config, requestOptions?: RequestOptions) : any =>
   new InstantSearchElasticsearchAdapter(config, requestOptions)
 
 export default createClient
