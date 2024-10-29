@@ -1,5 +1,11 @@
 # @searchkit/api
 
+## 4.14.1
+
+### Patch Changes
+
+- f80606c9: update the type for createClient to any to avoid issues with type mismatches with changes in algolia
+
 ## 4.14.0
 
 ### Minor Changes
