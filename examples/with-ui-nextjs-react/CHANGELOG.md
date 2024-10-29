@@ -1,5 +1,12 @@
 # with-ui-nextjs-react
 
+## 0.1.20
+
+### Patch Changes
+
+- Updated dependencies [a7dc41b7]
+  - searchkit@4.13.2
+
 ## 0.1.19
 
 ### Patch Changes

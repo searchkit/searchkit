@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.13.2
+
+### Patch Changes
+
+- a7dc41b7: switch back to content-type application/json
+
 ## 4.13.1
 
 ### Patch Changes
