@@ -19,6 +19,11 @@ Searchkit is great for anyone who want to build a search experience quickly.
   - Searchkit Node API proxies Elasticsearch requests from the browser.
   - Ability to use Elasticsearch Query DSL for advanced queries
 
+## Searchkit AI Bot
+
+[Searchkit](https://codeparrot.ai/oracle?owner=searchkit&repo=searchkit) Bot will help you understand this repository better. You can ask for code examples, installation guide, debugging help and much more.
+
+
 ## Demos
 * [Movies Search](https://www.searchkit.co/demo)
 * [Semantic Search](https://codesandbox.io/p/sandbox/github/searchkit/searchkit/tree/main/examples/with-semantic-search-nextjs)
