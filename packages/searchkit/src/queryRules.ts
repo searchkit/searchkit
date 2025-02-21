@@ -30,13 +30,13 @@ const getFacetFilters = (
     return []
   }
   if (typeof facetFilters === 'string') {
-    const [attribute, value] = facetFilters.split(':')
+    const [attribute, value] = facetFilters.split(/:(.*)/)
     return [{ attribute, value }]
   } else {
     // @ts-ignore
     return facetFilters.reduce<QueryContextFilter[]>((sum: any, filter: any) => {
       if (typeof filter === 'string') {
-        const [attribute, value] = filter.split(':')
+        const [attribute, value] = filter.split(/:(.*)/)
         return [...sum, { attribute, value }]
       }
       return [...sum, ...getFacetFilters(filter)]
