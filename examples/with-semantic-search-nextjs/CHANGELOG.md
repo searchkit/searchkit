@@ -1,5 +1,12 @@
 # with-semantic-search-nextjs
 
+## 0.1.22
+
+### Patch Changes
+
+- Updated dependencies
+  - searchkit@4.13.3
+
 ## 0.1.21
 
 ### Patch Changes

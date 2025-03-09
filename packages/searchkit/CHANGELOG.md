@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.13.3
+
+### Patch Changes
+
+- Support colons in facet values
+
 ## 4.13.2
 
 ### Patch Changes
