@@ -17,7 +17,7 @@
                 "NODE_ENV": "test",
                 "DEBUG": "nock.*"
             },
-            "runtimeVersion": "18",
+            "runtimeVersion": "20",
             "console": "integratedTerminal",
             "sourceMaps": true
             
