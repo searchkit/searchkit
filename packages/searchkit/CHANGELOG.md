@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.14.0
+
+### Minor Changes
+
+- Updated filter splitter and error handling
+
 ## 4.13.3
 
 ### Patch Changes
