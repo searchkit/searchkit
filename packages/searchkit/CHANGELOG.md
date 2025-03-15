@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.14.1
+
+### Patch Changes
+
+- fixed issue with build
+
 ## 4.14.0
 
 ### Minor Changes
