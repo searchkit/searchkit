@@ -190,7 +190,7 @@ export const transformFacetFilters = (
         {
           bool: {
             should: filter.reduce((sum, filter) => {
-              const [facet, value] = filter.split(':')
+              const [facet, value] = filter.split(/:(.*)/)
               const facetFilterConfig = facetFilterMap[facet]
               if (!facetFilterConfig)
                 throw new Error(
@@ -246,7 +246,7 @@ export const transformFacetFilters = (
         }
       ]
     } else if (typeof filter === 'string') {
-      const [facet, value] = filter.split(':')
+      const [facet, value] = filter.split(/:(.*)/)
 
       const facetFilterConfig = facetFilterMap[facet]
       if (!facetFilterConfig)
