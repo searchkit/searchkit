@@ -77,31 +77,35 @@ describe('Transport Errors', () => {
     expect(consoleError).toBeCalled()
   })
 
-  const client = new Client({
-    connection: {
-      host: 'http://localhost:9200',
-      apiKey: 'apikey'
-    },
-    search_settings: {
-      highlight_attributes: ['title', 'actors'],
-      search_attributes: ['title', 'actors', 'query'],
-      result_attributes: ['title', 'actors', 'query'],
-      facet_attributes: ['type'],
-      query_rules: []
-    }
-  })
+  describe('Client Transport Errors', () => {
 
-  it('401 error', async () => {
-    nock('http://localhost:9200')
-      .post('/_msearch', (requestBody: any) => {
-        return true
-      })
-      .reply(200, APIKeyNotAuthorized)
+    const client = new Client({
+      connection: {
+        host: 'http://localhost:9200',
+        apiKey: 'apikey'
+      },
+      search_settings: {
+        highlight_attributes: ['title', 'actors'],
+        search_attributes: ['title', 'actors', 'query'],
+        result_attributes: ['title', 'actors', 'query'],
+        facet_attributes: ['type'],
+        query_rules: []
+      }
+    })
 
-    const x = await client.handleInstantSearchRequests(
-      DisjunctiveExampleRequest as AlgoliaMultipleQueriesQuery[]
-    )
-    expect(x).toEqual({ results: [] })
-    expect(consoleError).toBeCalled()
+    it('401 error', async () => {
+      nock('http://localhost:9200')
+        .post('/_msearch', (requestBody: any) => {
+          return true
+        })
+        .reply(200, APIKeyNotAuthorized)
+
+      await expect(() => {  
+        return client.handleInstantSearchRequests(
+          DisjunctiveExampleRequest as AlgoliaMultipleQueriesQuery[]
+        )
+      }).rejects.toThrowErrorMatchingSnapshot()
+      expect(consoleError).toBeCalled()
+    })
   })
 })
