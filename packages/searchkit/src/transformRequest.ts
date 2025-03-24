@@ -154,7 +154,7 @@ function queryRulesWrapper(organicQuery: any, queryRuleActions: QueryRuleActions
   return organicQuery
 }
 
-export function RelevanceQueryMatch(query: string, search_attributes: SearchAttribute[]) {
+export function RelevanceQueryMatch(query: string, search_attributes: SearchAttribute[], fuzziness: string = 'AUTO:4,8') {
   const getFieldsMap = (boostMultiplier: number) => {
     return search_attributes.map((attribute) => {
       return typeof attribute === 'string'
@@ -173,7 +173,7 @@ export function RelevanceQueryMatch(query: string, search_attributes: SearchAttr
                 multi_match: {
                   query: query,
                   fields: getFieldsMap(1),
-                  fuzziness: 'AUTO:4,8'
+                  fuzziness: fuzziness
                 }
               },
               {
@@ -207,6 +207,7 @@ const getQuery = (
   const query = queryRuleActions.query
 
   const searchAttributes = config.search_attributes
+  const fuzziness = config.fuzziness ?? 'AUTO:4,8'
 
   const filters = [
     ...transformFacetFilters(request, config),
@@ -221,7 +222,7 @@ const getQuery = (
     typeof query === 'string' && query !== ''
       ? requestOptions?.getQuery
         ? requestOptions.getQuery(query, searchAttributes, config)
-        : RelevanceQueryMatch(query, searchAttributes)
+        : RelevanceQueryMatch(query, searchAttributes, fuzziness)
       : {
           match_all: {}
         }

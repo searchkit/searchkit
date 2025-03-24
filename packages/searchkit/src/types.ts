@@ -153,6 +153,10 @@ export interface SearchSettingsConfig {
    */
   sorting?: Record<string, SortingOption | SortingOption[]>
   /**
+   * @description The fuzziness of the text search query. Defaults to AUTO:4,8
+   */
+  fuzziness?: string
+  /**
    * @description The attribute that will be used for geo search. This is required if you want to use geo search. Must be am Elasticsearch geo_point type field.
    */
   geo_attribute?: string
