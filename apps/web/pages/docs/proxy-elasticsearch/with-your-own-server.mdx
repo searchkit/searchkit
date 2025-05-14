@@ -14,6 +14,92 @@ Continue to generate Elasticsearch queries from the browser with Searchkit but p
 
 Implement your own API route on your application server by creating a POST `/_msearch` API and specify your application server in the `host` property or building a [custom transporter](/docs/guides/setup-elasticsearch#custom-transport). Searchkit will make requests to the proxy which will then relay the request to Elasticsearch with read only security credentials and extra filtering restrictions (if needed).  
 
+### Frontend Example
+```ts
+import Searchkit, { ESTransporter } from "searchkit";
+import type { AppSettings, ConfigConnection } from "searchkit";
+import Client from "@searchkit/instantsearch-client";
+import { Hits, InstantSearch, RefinementList, SearchBox, Stats } from "react-instantsearch";
+
+// Create Transporter Config
+const transporterConfig: ConfigConnection = {
+    host: "https://some-custom-endpoint/api/search",
+    headers: {
+        "Content-Type": "application/json",
+        "x-csrf-token": 'secure_token',
+    },
+};
+
+// Create Transporter App Settings
+const transporterSettings: AppSettings = {
+    debug: true,
+};
+
+// Create the Custom Transporter
+const customTransporter = new ESTransporter(transporterConfig, transporterSettings);
+
+// Setup Search Settings
+const search_settings = {
+    search_attributes: [
+        "name",
+        "brand_name",
+    ],
+    result_attributes: ["name", "brand_name"],
+    facet_attributes: [
+        // Assumes your Elastic Mapping to `brand_name` is a keyword
+        // If it is a `text` mapping, use `field: "brand_name.keyword"
+        { attribute: "brand_name", field: "brand_name", type: "string" },
+    ],
+};
+
+// Create the SearchKit with the transporter and settings
+const sk = new Searchkit(
+    {
+        connection: customTransporter,
+        search_settings,
+    },
+    {
+        debug: true,
+    }
+);
+
+// Pass the kit to the client.
+const searchClient = Client(sk);
+
+// Use the Client in Components
+const SearchKitDemo = () => {
+    return (
+        <InstantSearch searchClient={searchClient} indexName="my-elastic-index" routing={true}>
+            <SearchBox />
+            <Stats />
+
+            <h3>Brands</h3>
+            <RefinementList attribute="brand_name" />
+            <Hits />
+        </InstantSearch>
+    );
+};
+
+```
+
+### Backend Example
+On the backend, this example uses [Elastic's PHP SDK](https://www.elastic.co/docs/reference/elasticsearch/clients/php).
+Searchkit's requests POST to the host in `transporterConfig.host + /_msearch`
+
+```php
+// Route handler for `https://some-custom-endpoint/api/search/_msearch`
+public function handleElasticMSearch()
+{
+  // Security Check, CSRF, etc.
+
+  $rawBody = file_get_contents('php://input');
+  $params = [ 'body' => $rawBody ];
+
+  $response = $esClient->msearch($params);
+  return $response->toArray();
+}
+```
+
 ## Customise the network request
 
 You can customise the network request by creating a custom transporter. This is useful if you want to add additional headers or modify the request before it is sent to Elasticsearch. 
