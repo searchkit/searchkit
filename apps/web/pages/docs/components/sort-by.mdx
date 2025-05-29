@@ -14,6 +14,26 @@ The key is the sort option value and the value is the sort option label.
 
 The default sort option is the first one in the list.
 
+### Nested Field Sorting
+
+For documents with nested fields, you can sort on nested field values by specifying the `nestedPath` property. This is useful when you have nested objects like marketplace suppliers with different prices.
+
+### Array Field Sorting with Mode
+
+When sorting by fields that contain arrays, you can use the `mode` parameter to control which value from the array is used for sorting:
+
+- `min`: Use the minimum value from the array
+- `max`: Use the maximum value from the array  
+- `sum`: Use the sum of all values in the array
+- `avg`: Use the average of all values in the array
+- `median`: Use the median value from the array
+
+This is particularly useful for marketplace scenarios where a product might have multiple suppliers with different prices.
+
+### Multiple Sort Criteria
+
+You can also define multiple sort criteria by providing an array of sort options. This allows you to sort by multiple fields in order of priority.
+
 ```js
 search_settings: {
   // ...
@@ -29,10 +49,69 @@ search_settings: {
     _price_asc: {
       field: 'price',
       order: 'asc'
-    }
+    },
+    // For nested fields, specify the nestedPath
+    // The field 'price' will be automatically combined with nestedPath to become 'marketplace.price'
+    _marketplace_price_desc: {
+      field: 'price',
+      order: 'desc',
+      nestedPath: 'marketplace'
+    },
+    // Sort by minimum price from marketplace suppliers
+    _price_min: {
+      field: 'price',
+      order: 'asc',
+      mode: 'min'
+    },
+    // Sort by maximum price from nested marketplace suppliers
+    _marketplace_price_max: {
+      field: 'price',
+      order: 'desc',
+      nestedPath: 'marketplace',
+      mode: 'max'
+    },
+    // Multiple sort criteria with mixed nested and non-nested fields
+    _multi_sort: [
+      {
+        field: '_score',
+        order: 'desc'
+      },
+      {
+        field: 'price',
+        order: 'asc',
+        nestedPath: 'marketplace'
+      }
+    ]
   }
 }
 ```
+
+### Marketplace Example
+
+Consider a product document with multiple suppliers in a marketplace:
+
+```json
+{
+  "name": "AirPods",
+  "marketplace": [
+    {
+      "supplier": "Apple",
+      "price": 100,
+      "market": "Worldwide"
+    },
+    {
+      "supplier": "Dixons", 
+      "price": 95,
+      "market": "GB"
+    }
+  ]
+}
+```
+
+With the above configuration:
+- `_marketplace_price_desc` would sort by marketplace prices in descending order
+- `_price_min` would sort by the minimum price (95 in this case) 
+- `_marketplace_price_max` would sort by the maximum price from marketplace suppliers (100 in this case)
 
 ## Usage
 
@@ -49,6 +128,8 @@ export function App() {
           { label: 'Featured', value: 'products' },
           { label: 'Price (asc)', value: 'products_price_asc' },
           { label: 'Price (desc)', value: 'products_price_desc' },
+          { label: 'Lowest Price', value: 'products_price_min' },
+          { label: 'Highest Marketplace Price', value: 'products_marketplace_price_max' },
         ]}
       />
     </InstantSearch>
