@@ -110,8 +110,21 @@ export type FacetAttribute = string | FacetFieldConfig | CustomFacetConfig
 export type SearchAttribute = string | SearchAttributeConfig
 
 export type SortingOption = {
+  /** The field to sort by */
   field: string
+  /** Sort order: ascending or descending */
   order: 'asc' | 'desc'
+  /** Path to nested field (e.g., 'marketplace' for marketplace.price) */
+  nestedPath?: string
+  /** 
+   * Mode for handling array values in sorting. Useful when sorting by fields that contain arrays.
+   * - 'min': Use the minimum value from the array
+   * - 'max': Use the maximum value from the array  
+   * - 'sum': Use the sum of all values in the array
+   * - 'avg': Use the average of all values in the array
+   * - 'median': Use the median value from the array
+   */
+  mode?: 'min' | 'max' | 'sum' | 'avg' | 'median'
 }
 
 export interface SearchSettingsConfig {
@@ -150,6 +163,9 @@ export interface SearchSettingsConfig {
    * @description Sorting options for the search. This is optional and will default to sorting by _score if not provided.
    * @example { 'price': { field: 'price', order: 'asc' } }
    * @example { 'price': [{ field: 'price', order: 'asc' }, { field: 'name', order: 'asc' }] }
+   * @example { '_price_desc': { field: 'price', order: 'desc', nestedPath: 'marketplace' } }
+   * @example { '_price_min': { field: 'price', order: 'asc', mode: 'min' } }
+   * @example { '_price_max_nested': { field: 'price', order: 'desc', nestedPath: 'marketplace', mode: 'max' } }
    */
   sorting?: Record<string, SortingOption | SortingOption[]>
   /**
