@@ -1,5 +1,17 @@
 # @searchkit/api
 
+## 4.14.0
+
+### Minor Changes
+
+- Nested sorting support
+- 8fa4dd12: allow fuziness to be applied
+
+### Patch Changes
+
+- Updated dependencies
+  - searchkit@4.15.0
+
 ## 4.13.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.15.0
+
+### Minor Changes
+
+- Nested sorting support
+
 ## 4.14.1
 
 ### Patch Changes
