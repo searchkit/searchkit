@@ -13,20 +13,48 @@ export function getSorting(request: AlgoliaMultipleQueriesQuery, config: SearchS
 
     const sortOption = selectedSorting ? config.sorting[selectedSorting] : config.sorting.default
 
-    if (Array.isArray(sortOption)) {
-      return {
-        sort: sortOption.map((sorting) => {
-          return {
-            [sorting.field]: sorting.order
+    const buildSortField = (sorting: any) => {
+      const fieldPath = sorting.nestedPath
+        ? `${sorting.nestedPath}.${sorting.field}`
+        : sorting.field
+
+      if (sorting.nestedPath) {
+        const sortConfig: any = {
+          order: sorting.order,
+          nested: {
+            path: sorting.nestedPath
           }
-        })
-      }
-    } else {
-      return {
-        sort: {
-          [sortOption.field]: sortOption.order
+        }
+        
+        // Add mode if specified
+        if (sorting.mode) {
+          sortConfig.mode = sorting.mode
+        }
+        
+        return {
+          [fieldPath]: sortConfig
         }
       }
+
+      const sortConfig: any = sorting.order
+      
+      // For non-nested fields, if mode is specified, create an object instead of just the order string
+      if (sorting.mode) {
+        return {
+          [fieldPath]: {
+            order: sorting.order,
+            mode: sorting.mode
+          }
+        }
+      }
+
+      return {
+        [fieldPath]: sortConfig
+      }
+    }
+
+    return {
+      sort: Array.isArray(sortOption) ? sortOption.map(buildSortField) : buildSortField(sortOption)
     }
   }
   return {}
