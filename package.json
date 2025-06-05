@@ -32,7 +32,7 @@
     "husky": "^4.3.0",
     "prettier": "^2.8.8",
     "turbo": "latest",
-    "typescript": "^4.9.5"
+    "typescript": "~5.4.5"
   },
   "dependencies": {
     "@changesets/cli": "^2.25.0"
