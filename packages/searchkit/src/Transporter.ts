@@ -24,7 +24,11 @@ function getHostFromCloud(cloudId: string) {
 }
 
 export class ESTransporter implements Transporter {
-  constructor(public config: ConfigConnection, private settings: AppSettings) {}
+  private timeout: number
+
+  constructor(public config: ConfigConnection, private settings: AppSettings) {
+    this.timeout = settings.timeout ?? 30000
+  }
 
   createElasticsearchQueryFromRequest(requests: SearchRequest[]) {
     return createElasticsearchQueryFromRequest(requests)
@@ -39,21 +43,40 @@ export class ESTransporter implements Transporter {
 
     const host = this.config.cloud_id ? getHostFromCloud(this.config.cloud_id) : this.config.host
 
-    return fetch(`${host}/_msearch`, {
-      headers: {
-        ...(this.config.apiKey ? { authorization: `ApiKey ${this.config.apiKey}` } : {}),
-        'content-type': 'application/json',
-        ...(this.config.headers || {}),
-        ...(this.config.auth
-          ? {
-              Authorization: 'Basic ' + authString(this.config.auth)
-            }
-          : {})
-      },
-      body: this.createElasticsearchQueryFromRequest(requests),
-      method: 'POST',
-      ...(this.config.withCredentials ? { credentials: 'include' } : {})
-    })
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), this.timeout)
+
+    try {
+      const response = await fetch(`${host}/_msearch`, {
+        headers: {
+          ...(this.config.apiKey ? { authorization: `ApiKey ${this.config.apiKey}` } : {}),
+          'content-type': 'application/json',
+          ...(this.config.headers || {}),
+          ...(this.config.auth
+            ? {
+                Authorization: 'Basic ' + authString(this.config.auth)
+              }
+            : {})
+        },
+        body: this.createElasticsearchQueryFromRequest(requests),
+        method: 'POST',
+        signal: controller.signal,
+        ...(this.config.withCredentials ? { credentials: 'include' } : {})
+      })
+
+      if (response.ok === false) {
+        throw new Error(`Elasticsearch request failed with status ${response.status}: ${response.statusText}`)
+      }
+
+      return response
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') {
+        throw new Error(`Elasticsearch request timed out after ${this.timeout}ms`)
+      }
+      throw error
+    } finally {
+      clearTimeout(timeoutId)
+    }
   }
 
   async msearch(requests: SearchRequest[]): Promise<ElasticsearchResponseBody[]> {
