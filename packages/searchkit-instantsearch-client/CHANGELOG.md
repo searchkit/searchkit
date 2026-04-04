@@ -1,5 +1,16 @@
 # @searchkit/api
 
+## 4.15.0
+
+### Minor Changes
+
+- 9b14e004: fixed infinite loader error
+
+### Patch Changes
+
+- Updated dependencies [9b14e004]
+  - searchkit@4.16.0
+
 ## 4.14.1
 
 ### Patch Changes

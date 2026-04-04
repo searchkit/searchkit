@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.16.0
+
+### Minor Changes
+
+- 9b14e004: fixed infinite loader error
+
 ## 4.15.0
 
 ### Minor Changes
