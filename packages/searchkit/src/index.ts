@@ -6,6 +6,8 @@ import { ESTransporter } from './Transporter'
 import { getQueryRulesActionsFromRequest, QueryRuleActions } from './queryRules'
 import { createElasticsearchQueryFromRequest } from './utils'
 import { getIndexName } from './sorting'
+
+export { RelevanceQueryMatch } from './transformRequest'
 export * from './types'
 export * from './Transporter'
 export * from './filterUtils'
