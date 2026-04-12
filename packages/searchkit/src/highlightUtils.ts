@@ -70,7 +70,7 @@ export function getFieldValue(obj: any, path: string): any {
 export function getHighlightFields(
   hit: ElasticsearchHit,
   preTag: string = '<ais-highlight-0000000000>',
-  postTag: string = '<ais-highlight-0000000000/>',
+  postTag: string = '</ais-highlight-0000000000>',
   fields: SearchSettingsConfig['snippet_attributes'] = []
 ) {
   const { _source = {}, highlight = {} } = hit
