@@ -221,14 +221,14 @@ const getQuery = (
   let organicQuery =
     typeof query === 'string' && query !== ''
       ? requestOptions?.getQuery
-        ? requestOptions.getQuery(query, searchAttributes, config)
+        ? requestOptions.getQuery(query, searchAttributes, {...config, request: request})
         : RelevanceQueryMatch(query, searchAttributes, fuzziness)
       : {
           match_all: {}
         }
 
   const hasKnn = typeof requestOptions?.getKnnQuery === 'function'
-  const hasNoQuery = requestOptions?.getQuery?.(query, searchAttributes, config) === false
+  const hasNoQuery = requestOptions?.getQuery?.(query, searchAttributes, {...config, request: request}) === false
 
   if (hasNoQuery || (hasKnn && query === '')) {
     organicQuery = {
@@ -250,7 +250,7 @@ const getQuery = (
   if (hasKnn && query !== '') {
     knnQueryDsl = {
       filter: filters,
-      ...(requestOptions?.getKnnQuery?.(query, searchAttributes, config) || {})
+      ...(requestOptions?.getKnnQuery?.(query, searchAttributes, {...config, request: request}) || {})
     } as KnnSearchQuery
   }
 
