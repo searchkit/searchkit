@@ -219,13 +219,13 @@ const getQuery = (
   ]
 
   let organicQuery =
-    typeof query === 'string' && query !== ''
-      ? requestOptions?.getQuery
-        ? requestOptions.getQuery(query, searchAttributes, config)
-        : RelevanceQueryMatch(query, searchAttributes, fuzziness)
-      : {
-          match_all: {}
-        }
+    requestOptions?.getQuery
+      ? requestOptions.getQuery(query, searchAttributes, config)
+      : typeof query === 'string' && query !== ''
+        ? RelevanceQueryMatch(query, searchAttributes, fuzziness)
+        : {
+            match_all: {}
+          }
 
   const hasKnn = typeof requestOptions?.getKnnQuery === 'function'
   const hasNoQuery = requestOptions?.getQuery?.(query, searchAttributes, config) === false
