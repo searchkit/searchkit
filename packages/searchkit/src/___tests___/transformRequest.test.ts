@@ -109,6 +109,50 @@ describe('transformRequest', () => {
         }
       `)
     })
+
+    it('should order facet values alphabetically when order is alpha', () => {
+      expect(
+        getAggs(
+          SimpleRequest[0],
+          {
+            search_attributes: [],
+            result_attributes: [],
+            facet_attributes: [
+              { attribute: 'type', type: 'string', field: 'type' },
+              { attribute: 'actors', type: 'string', field: 'actors', order: 'alpha' }
+            ]
+          },
+          {
+            query: '',
+            boostFunctions: [],
+            facetAttributesOrder: undefined,
+            pinnedDocs: [],
+            userData: [],
+            touched: false,
+            ruleIds: [],
+            baseFilters: []
+          }
+        )
+      ).toMatchInlineSnapshot(`
+        {
+          "actors": {
+            "terms": {
+              "field": "actors",
+              "order": {
+                "_key": "asc",
+              },
+              "size": 10,
+            },
+          },
+          "type": {
+            "terms": {
+              "field": "type",
+              "size": 10,
+            },
+          },
+        }
+      `)
+    })
   })
 
   it('should work for all facets', () => {
