@@ -1,4 +1,4 @@
-{
+export default {
   "*": {
     "type": "page"
   },
@@ -19,9 +19,6 @@
   "demos": {
     "title": "Demos",
     "type": "page"
-  },
-  "hidden": {
-    "display": "hidden"
   },
   "about": {
     "title": "About",

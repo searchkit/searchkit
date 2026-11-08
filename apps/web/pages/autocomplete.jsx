@@ -1,10 +1,20 @@
 import { autocomplete, getAlgoliaResults, getAlgoliaFacets } from '@algolia/autocomplete-js'
 import React, { createElement, Fragment, useEffect, useRef, useState } from 'react'
-// eslint-disable-next-line react/no-deprecated
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import client from '@searchkit/instantsearch-client'
 import { InstantSearch, usePagination, useSearchBox, Hits } from 'react-instantsearch'
 import Head from 'next/head'
+
+// React 19 removed ReactDOM.render; keep one root per container for autocomplete's renderer
+const roots = new WeakMap()
+function render(element, container) {
+  let root = roots.get(container)
+  if (!root) {
+    root = createRoot(container)
+    roots.set(container, root)
+  }
+  root.render(element)
+}
 
 function Autocomplete(props) {
   const containerRef = useRef(null)

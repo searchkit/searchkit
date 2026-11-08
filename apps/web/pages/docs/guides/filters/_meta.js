@@ -1,4 +1,4 @@
-{
+export default {
   "filter-by-string": "Filter By String value",
   "filter-by-array": "Filter By Array value",
   "filter-by-numeric-value": "Filter By Numeric value",

@@ -1,4 +1,4 @@
-{
+export default {
   "with-javascript": {
     "title": "With JS Widgets"
   },

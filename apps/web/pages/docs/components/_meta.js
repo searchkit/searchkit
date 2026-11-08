@@ -1,4 +1,4 @@
-{
+export default {
   "search-box": "Search Box",
   "autocomplete": "Autocomplete",
   "results": "Results",

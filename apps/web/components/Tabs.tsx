@@ -1,9 +1,9 @@
 import type { FC, ReactElement } from "react";
 
-import { Tabs as NextraTabs, Tab } from "nextra-theme-docs";
+import { Tabs as NextraTabs } from "nextra/components";
 import useSWR from "swr";
 
-export { Tab };
+export const Tab = NextraTabs.Tab;
 
 export const Tabs: FC<{
   storageKey?: string;
