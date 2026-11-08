@@ -1,6 +1,9 @@
 import { defineConfig, devices } from '@playwright/test'
 
 const PORT = Number(process.env.E2E_PORT || 3000)
+// When set, serve this prepared copy of the example (built from packages installed from npm, see
+// scripts/prepare-published-example.mjs) instead of the workspace example.
+const APP_DIR = process.env.E2E_APP_DIR
 const ES_HOST = process.env.ES_HOST || 'http://localhost:9200'
 
 export default defineConfig({
@@ -18,8 +21,10 @@ export default defineConfig({
   // Builds and serves examples/with-ui-nextjs-react (which uses the workspace searchkit packages)
   // against the local Elasticsearch. Run `yarn build` at the repo root first so packages have a dist/.
   webServer: {
-    command: `yarn workspace with-ui-nextjs-react build && yarn workspace with-ui-nextjs-react start -p ${PORT}`,
-    cwd: '..',
+    command: APP_DIR
+      ? `npm run build && npm start -- -p ${PORT}`
+      : `yarn workspace with-ui-nextjs-react build && yarn workspace with-ui-nextjs-react start -p ${PORT}`,
+    cwd: APP_DIR || '..',
     url: `http://localhost:${PORT}`,
     reuseExistingServer: !process.env.CI,
     timeout: 300_000,
