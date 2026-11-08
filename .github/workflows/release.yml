@@ -30,6 +30,9 @@ jobs:
           cache: "yarn"
           registry-url: https://registry.npmjs.org
 
+      - name: Upgrade npm (trusted publishing needs >= 11.5.1)
+        run: npm install -g npm@latest
+
       - name: Install dependencies
         run: yarn
 
@@ -49,5 +52,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: "true"
-          # Only needed if not using npm trusted publishing; leave the secret unset for OIDC.
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
