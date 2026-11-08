@@ -1,13 +1,9 @@
-import { InstantSearch, SearchBox, Hits, Highlight, createConnector, DynamicWidgets, RefinementList, ToggleRefinement, Panel, Pagination, Stats, connectSearchBox, NumericMenu, RangeInput, CurrentRefinements, QueryRuleCustomData, Snippet, SortBy, Configure, HierarchicalMenu } from 'react-instantsearch-dom';
+import { useState } from 'react'
+import { InstantSearch, SearchBox, Hits, Highlight, RefinementList, Pagination, Stats, RangeInput, CurrentRefinements, Configure, HierarchicalMenu } from 'react-instantsearch';
 import Client from '@searchkit/instantsearch-client'
 import Head from 'next/head'
 import Searchkit from "searchkit"
-
-import {
-  GoogleMapsLoader,
-  GeoSearch,
-  Marker,
-} from 'react-instantsearch-dom-maps';
+import GeoMap from '../components/GeoMap'
 
 const searchkitClient = new Searchkit({
   connection: {
@@ -33,43 +29,31 @@ const searchkitClient = new Searchkit({
 })
 
 const defaultAvailabilityDates = ['2023-06-30', '2024-03-01']
-const demo = createConnector({
-  displayName: 'AvailabilityDates',
-  getProvidedProps: (props, searchState) => {
-    return {
-      availabilityDates: searchState.availabilityDates || defaultAvailabilityDates
-    }
-  },
-  refine: (props, searchState, nextValue) => {
-    return {
-      ...searchState,
-      availabilityDates: nextValue
-    }
-  },
-  getSearchParameters(searchParameters, props, searchState) {
-    const { availabilityDates = defaultAvailabilityDates } = searchState;    
-    return searchParameters.addNumericRefinement('availabilities.start', '<=', (new Date(availabilityDates[0])).getTime()).addNumericRefinement('availabilities.end', '>=', (new Date(availabilityDates[1])).getTime());
-  },
-})
-
-const AvailabilityDates = demo(({ availabilityDates, refine }) => {
+const AvailabilityDates = () => {
+  const [availabilityDates, setAvailabilityDates] = useState(defaultAvailabilityDates)
+  const [startDate, endDate] = availabilityDates
+  const numericFilters = [
+    `availabilities.start<=${new Date(startDate).getTime()}`,
+    `availabilities.end>=${new Date(endDate).getTime()}`,
+  ]
 
   return (
     <div>
+      <Configure numericFilters={numericFilters} />
       <input type="date"
-       value={availabilityDates[0]} onChange={(e) => {
-          refine([e.target.value, availabilityDates[1]])
+       value={startDate} onChange={(e) => {
+          setAvailabilityDates([e.target.value, endDate])
         }}
        ></input>
        <input type="date"
-       value={availabilityDates[1]}
+       value={endDate}
        onChange={(e) => {
-          refine([availabilityDates[0], e.target.value])
+          setAvailabilityDates([startDate, e.target.value])
         }}
        ></input>
     </div>
   )
-})
+}
 
 const searchClient = Client(searchkitClient);
 
@@ -126,21 +110,7 @@ export default function Web() {
           </div>
           </div>
 
-          <div style={{ height: 500 }}>
-          <GoogleMapsLoader apiKey={apiKey} endpoint={endpoint}>
-          {(google) => (
-            <GeoSearch google={google}>
-              {({ hits }) => (
-                <>
-                  {hits.map((hit) => (
-                    <Marker key={hit.objectID} hit={hit} />
-                  ))}
-                </>
-              )}
-            </GeoSearch>
-          )}
-        </GoogleMapsLoader>
-        </div>
+          <GeoMap apiKey={apiKey} endpoint={endpoint} height={500} />
 
           <Hits hitComponent={hitView}/>
           <Pagination />

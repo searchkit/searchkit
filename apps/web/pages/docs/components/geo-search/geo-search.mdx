@@ -54,16 +54,110 @@ const searchkitClient = new Searchkit({
 
 To create a map based search experience, you will use Instantsearch map components. 
 
-Below is an example of using the `react-instantsearch-dom-maps` package to create a map based search experience. 
+Below is an example of a map based search experience built with `react-instantsearch` (v7) and the `useGeoSearch` hook. The map is a small `GeoMap` component that loads the Google Maps JavaScript API, draws a marker for each geo hit and refines the results to the visible map bounds.
+
+Save this as `components/GeoMap.jsx`:
 
 ```js
-import React from 'react';
-import {
-  GoogleMapsLoader,
-  GeoSearch,
-  Marker,
-} from 'react-instantsearch-dom-maps';
-import { InstantSearch, Hits } from 'react-instantsearch-dom';
+import { useEffect, useRef, useState } from 'react'
+import { useGeoSearch } from 'react-instantsearch'
+
+// Loads the Google Maps JavaScript API once per page.
+let googleMapsPromise = null
+function loadGoogleMaps(apiKey, endpoint) {
+  if (window.google?.maps) return Promise.resolve(window.google)
+  if (!googleMapsPromise) {
+    googleMapsPromise = new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = `${endpoint}&key=${apiKey}`
+      script.async = true
+      script.onload = () => resolve(window.google)
+      script.onerror = () => {
+        googleMapsPromise = null
+        reject(new Error('Failed to load Google Maps'))
+      }
+      document.head.appendChild(script)
+    })
+  }
+  return googleMapsPromise
+}
+
+export default function GeoMap({ apiKey, endpoint, height = 500 }) {
+  const containerRef = useRef(null)
+  const mapRef = useRef(null)
+  const markersRef = useRef([])
+  const hasFittedRef = useRef(false)
+  const [google, setGoogle] = useState(null)
+  const { items, refine } = useGeoSearch({})
+
+  const refineRef = useRef(refine)
+  refineRef.current = refine
+
+  useEffect(() => {
+    let cancelled = false
+    loadGoogleMaps(apiKey, endpoint)
+      .then((g) => {
+        if (!cancelled) setGoogle(g)
+      })
+      .catch((error) => console.error(error))
+    return () => {
+      cancelled = true
+    }
+  }, [apiKey, endpoint])
+
+  useEffect(() => {
+    if (!google || mapRef.current || !containerRef.current) return
+    const map = new google.maps.Map(containerRef.current, {
+      center: { lat: 0, lng: 0 },
+      zoom: 3,
+    })
+    map.addListener('idle', () => {
+      const bounds = map.getBounds()
+      if (!bounds) return
+      const ne = bounds.getNorthEast()
+      const sw = bounds.getSouthWest()
+      refineRef.current({
+        northEast: { lat: ne.lat(), lng: ne.lng() },
+        southWest: { lat: sw.lat(), lng: sw.lng() },
+      })
+    })
+    mapRef.current = map
+  }, [google])
+
+  useEffect(() => {
+    if (!google || !mapRef.current) return
+    markersRef.current.forEach((marker) => marker.setMap(null))
+    const geoHits = items.filter((hit) => hit._geoloc)
+    markersRef.current = geoHits.map(
+      (hit) =>
+        new google.maps.Marker({
+          position: { lat: hit._geoloc.lat, lng: hit._geoloc.lon },
+          map: mapRef.current,
+          title: hit.title || hit.name,
+        })
+    )
+    // Fit the map to the first set of results only, so later map moves are not overridden.
+    if (!hasFittedRef.current && geoHits.length > 0) {
+      const bounds = new google.maps.LatLngBounds()
+      geoHits.forEach((hit) =>
+        bounds.extend({ lat: hit._geoloc.lat, lng: hit._geoloc.lon })
+      )
+      mapRef.current.fitBounds(bounds)
+      hasFittedRef.current = true
+    }
+  }, [google, items])
+
+  return <div ref={containerRef} style={{ height }} />
+}
+```
+
+Then use it inside your search page:
+
+```js
+import { InstantSearch, Hits } from 'react-instantsearch';
+import Client from '@searchkit/instantsearch-client'
+import Searchkit from "searchkit"
+import GeoMap from './components/GeoMap'
 import Client from '@searchkit/instantsearch-client'
 import Searchkit from "searchkit"
 
@@ -89,25 +183,10 @@ export default function Web() {
         indexName="my-geo-data"
         searchClient={searchClient}
       >
-        <div style={{ height: 500 }}>
-        <GoogleMapsLoader apiKey={apiKey} endpoint={endpoint}>
-          {(google) => (
-            <GeoSearch google={google}>
-              {({ hits }) => (
-                <>
-                  {hits.map((hit) => (
-                    <Marker key={hit.objectID} hit={hit} />
-                  ))}
-                </>
-              )}
-            </GeoSearch>
-          )}
-        </GoogleMapsLoader>
+        <GeoMap apiKey={apiKey} endpoint={endpoint} height={500} />
 
         <div className="right-panel">
           <Hits />
-        </div>
-
         </div>
       </InstantSearch>
     );

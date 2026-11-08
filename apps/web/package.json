@@ -24,8 +24,6 @@
     "qs": "^6.17.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "react-instantsearch-dom": "^6.40.4",
-    "react-instantsearch-dom-maps": "^6.40.4",
     "react-instantsearch": "^7.54.0",
     "react-instantsearch-router-nextjs": "^7.54.0",
     "swr": "^2.5.1"
@@ -35,21 +33,10 @@
     "@types/node": "^22.0.0",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "@types/react-instantsearch-dom": "^6.11.0",
     "eslint": "7.32.0",
     "eslint-config-custom": "*",
     "tailwindcss": "^3.4.19",
     "tsconfig": "*",
     "typescript": "^5.9.3"
-  },
-  "overrides": {
-    "react-instantsearch-dom": {
-      "react": "$react",
-      "react-dom": "$react-dom"
-    },
-    "react-instantsearch-dom-maps": {
-      "react": "$react",
-      "react-dom": "$react-dom"
-    }
   }
 }
