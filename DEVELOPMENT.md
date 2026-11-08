@@ -76,3 +76,20 @@ yarn e2e:down       # stops and removes Elasticsearch
   your branch (e.g. after a version bump that isn't mirrored in the example's `package.json`).
 - To add a test, create `e2e/tests/<name>.spec.ts` and reuse `e2e/tests/helpers.ts`. Prefer assertions about
   behaviour (results narrow, banner shows) over exact counts so tests don't break when the sample data changes.
+
+## Releasing
+
+Releases are automated with [Changesets](https://github.com/changesets/changesets) and GitHub Actions; nothing is
+published from a local machine.
+
+1. **In your PR**, if you changed a published package (`packages/*`), run `yarn changeset`. Pick the packages, the bump
+   (`patch` / `minor` / `major` – use `major` for breaking changes) and write a summary. Commit the generated
+   `.changeset/*.md` file. PRs that don't need a release (docs, CI) can use the `no-release` label.
+2. **When the PR merges to `main`**, the `Release` workflow opens or updates a **"chore: version packages"** PR that
+   bumps versions and updates the CHANGELOGs.
+3. **Merge that PR** to publish to npm, tag the release and create GitHub Releases.
+
+One-time setup: for each published package (`searchkit`, `@searchkit/api`, `@searchkit/instantsearch-client`,
+`@searchkit/elastic-behavioral-analytics-plugin`) configure npm **trusted publishing** pointing at
+`searchkit/searchkit` and workflow `release.yml` – or add an `NPM_TOKEN` automation token as a repo secret. Also enable
+"Allow GitHub Actions to create and approve pull requests" in the repo's Actions settings.
