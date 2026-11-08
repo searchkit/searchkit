@@ -48,3 +48,31 @@ yarn test
 ```
 
 ```bash
+## End-to-end tests
+
+The `e2e` workspace holds [Playwright](https://playwright.dev) tests that drive `examples/with-ui-nextjs-react`
+in a real browser against a **real Elasticsearch** seeded with `sample-data/electronics-ecommerce`. Unlike the
+functional tests above, nothing is mocked, so they validate that `searchkit`, `@searchkit/api` and
+`@searchkit/instantsearch-client` work together. They run on every pull request in GitHub Actions
+(`functional-tests` job in `.github/workflows/test.yml`).
+
+Requirements: Docker, plus a one-off `npx playwright install chromium` from `e2e/`.
+
+```bash
+yarn build          # the example uses the built workspace packages
+yarn e2e:up         # starts Elasticsearch (docker-compose.e2e.yml) and seeds the `products` index
+yarn test:e2e       # builds + starts the example on :3000 and runs the Playwright tests
+yarn e2e:down       # stops and removes Elasticsearch
+```
+
+- **Port 9200 already in use?** Use another port for both the container and the tests:
+  `export E2E_ES_PORT=9290 ES_HOST=http://localhost:9290`, then run the commands above.
+- `e2e/seed.mjs` **deletes and recreates the `products` index** on `ES_HOST`; only point it at a throwaway cluster.
+- Re-run a single spec with `yarn test:e2e tests/facets.spec.ts`; use `--ui` to debug. After a failure, open the
+  report with `npx playwright show-report` (in `e2e/`). CI uploads the report and traces as an artifact on failure.
+- The example reads `ES_HOST`, `ES_API_KEY` or `ES_USERNAME`/`ES_PASSWORD` from the environment and falls back to the
+  public demo cluster when they are unset (see `examples/with-ui-nextjs-react/.env.example`).
+- `e2e/check-workspace-links.mjs` fails the run if the example would use published packages instead of the ones in
+  your branch (e.g. after a version bump that isn't mirrored in the example's `package.json`).
+- To add a test, create `e2e/tests/<name>.spec.ts` and reuse `e2e/tests/helpers.ts`. Prefer assertions about
+  behaviour (results narrow, banner shows) over exact counts so tests don't break when the sample data changes.
