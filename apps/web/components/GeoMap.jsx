@@ -27,12 +27,13 @@ export default function GeoMap({ apiKey, endpoint, height = 500 }) {
   const containerRef = useRef(null)
   const mapRef = useRef(null)
   const markersRef = useRef([])
-  const hasFittedRef = useRef(false)
   const [google, setGoogle] = useState(null)
-  const { items, refine } = useGeoSearch({})
+  const { items, refine, isRefinedWithMap } = useGeoSearch({})
 
   const refineRef = useRef(refine)
   refineRef.current = refine
+  const isRefinedWithMapRef = useRef(isRefinedWithMap)
+  isRefinedWithMapRef.current = isRefinedWithMap
 
   useEffect(() => {
     let cancelled = false
@@ -77,14 +78,14 @@ export default function GeoMap({ apiKey, endpoint, height = 500 }) {
           title: hit.title || hit.name,
         })
     )
-    // Fit the map to the first set of results only, so later map moves are not overridden.
-    if (!hasFittedRef.current && geoHits.length > 0) {
+    // Fit the map to the results when they change for a non-map reason (a search or filter).
+    // When the user moved the map, the results are refined to the map's bounds, so keep the view.
+    if (!isRefinedWithMapRef.current() && geoHits.length > 0) {
       const bounds = new google.maps.LatLngBounds()
       geoHits.forEach((hit) =>
         bounds.extend({ lat: hit._geoloc.lat, lng: hit._geoloc.lng })
       )
       mapRef.current.fitBounds(bounds)
-      hasFittedRef.current = true
     }
   }, [google, items])
 
