@@ -1,4 +1,4 @@
-{
+export default {
   "setup-elasticsearch": "Setup Elasticsearch",
   "enable-cors": "Enable CORS",
   "indexing-data": "Indexing Data",

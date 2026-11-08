@@ -1,4 +1,4 @@
-{
+export default {
   "refinement-list": "Refinement List",
   "hierarchical-menu": "Hierarchical Menu",
   "numeric-menu": "Numeric Menu",
@@ -10,5 +10,5 @@
   "toggle-refinement": "Toggle Refinement",
   "current-refinements": "Current Refinements",
   "clear-refinements": "Clear Refinements",
-  "DynamicWidgets": "Dynamic Widgets"
+  "dynamic-widgets": "Dynamic Widgets"
 }

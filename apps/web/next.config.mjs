@@ -1,14 +1,19 @@
-// const withTM = require("next-transpile-modules")(["@searchkit/api", "@searchkit/api"]);
-const withNextra = require('nextra')({
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import nextra from 'nextra'
+
+const monorepoRoot = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..')
+
+const withNextra = nextra({
   theme: 'nextra-theme-docs',
   themeConfig: './theme.config.js',
-  unstable_staticImage: true,
-  flexsearch: {
+  search: {
     codeblocks: false
   },
 })
 
-module.exports = withNextra({
+export default withNextra({
+  outputFileTracingRoot: monorepoRoot,
   async redirects() {
     return [
       {

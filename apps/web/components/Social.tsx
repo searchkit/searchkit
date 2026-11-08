@@ -1,31 +1,27 @@
 import { DiscordIcon, GitHubIcon } from "nextra/icons";
 
+// Nextra already wraps these icons in the link from theme.config.js (project/chat),
+// so they must not render their own <a>: nested anchors break hydration.
 function Github() {
   return (
-    <a
-      href="https://github.com/searchkit/searchkit"
+    <span
       className="hidden text-current sm:flex hover:opacity-75"
       title="Searchkit GitHub repo"
-      target="_blank"
-      rel="noreferrer"
     >
       {/* Nextra icons have a <title> attribute providing alt text */}
-      <div className="pr-2 text-md font-semibold">4563 Stars</div><GitHubIcon />
-    </a>
+      <span className="pr-2 text-md font-semibold">4563 Stars</span><GitHubIcon />
+    </span>
   );
 }
 
 function Discord() {
   return (
-    <a
-      href="https://discord.gg/CRuWmSQZQx"
+    <span
       className="hidden text-current sm:flex hover:opacity-75"
       title="Turbo Discord server"
-      target="_blank"
-      rel="noreferrer"
     >
       <DiscordIcon />
-    </a>
+    </span>
   );
 }
 

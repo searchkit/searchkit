@@ -1,4 +1,4 @@
-{
+export default {
   "overview": "Overview",
   "getting-started": {
     "title": "Quick Start"

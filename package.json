@@ -48,8 +48,6 @@
       "pre-push": "yarn test"
     }
   },
-  "resolutions": {
-    "next-mdx-remote": "^6.0.0"
-  },
+  "resolutions": {},
   "version": "0.0.0"
 }
