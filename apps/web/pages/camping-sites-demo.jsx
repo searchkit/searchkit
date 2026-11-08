@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { InstantSearch, SearchBox, Hits, Highlight, RefinementList, Pagination, Stats, RangeInput, CurrentRefinements, Configure, HierarchicalMenu } from 'react-instantsearch';
+import { useEffect, useState } from 'react'
+import { InstantSearch, SearchBox, Hits, Highlight, RefinementList, Pagination, Stats, RangeInput, CurrentRefinements, HierarchicalMenu, useRange } from 'react-instantsearch';
 import Client from '@searchkit/instantsearch-client'
 import Head from 'next/head'
 import Searchkit from "searchkit"
@@ -32,14 +32,18 @@ const defaultAvailabilityDates = ['2023-06-30', '2024-03-01']
 const AvailabilityDates = () => {
   const [availabilityDates, setAvailabilityDates] = useState(defaultAvailabilityDates)
   const [startDate, endDate] = availabilityDates
-  const numericFilters = [
-    `availabilities.start<=${new Date(startDate).getTime()}`,
-    `availabilities.end>=${new Date(endDate).getTime()}`,
-  ]
+  // Managed numeric refinements (like the price RangeInput). Configure's numericFilters
+  // cannot be mixed with them, so the dates are applied through useRange instead.
+  const startRange = useRange({ attribute: 'availabilities.start' })
+  const endRange = useRange({ attribute: 'availabilities.end' })
+
+  useEffect(() => {
+    startRange.refine({ max: new Date(startDate).getTime() })
+    endRange.refine({ min: new Date(endDate).getTime() })
+  }, [startDate, endDate])
 
   return (
     <div>
-      <Configure numericFilters={numericFilters} />
       <input type="date"
        value={startDate} onChange={(e) => {
           setAvailabilityDates([e.target.value, endDate])
