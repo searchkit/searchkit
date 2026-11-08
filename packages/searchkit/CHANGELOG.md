@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.16.1
+
+### Patch Changes
+
+- fb58bb4b: Fix `numericFilters` throwing "Cannot read properties of undefined (reading 'path')" when a nested numeric filter follows a non-nested one (#1426)
+
 ## 4.16.0
 
 ### Minor Changes
