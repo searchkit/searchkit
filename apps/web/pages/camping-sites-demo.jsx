@@ -38,8 +38,9 @@ const AvailabilityDates = () => {
   const endRange = useRange({ attribute: 'availabilities.end' })
 
   useEffect(() => {
-    startRange.refine({ max: new Date(startDate).getTime() })
-    endRange.refine({ min: new Date(endDate).getTime() })
+    // refine takes a [min, max] tuple in react-instantsearch v7
+    startRange.refine([undefined, new Date(startDate).getTime()])
+    endRange.refine([new Date(endDate).getTime(), undefined])
   }, [startDate, endDate])
 
   return (
