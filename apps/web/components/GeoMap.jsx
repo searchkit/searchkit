@@ -72,7 +72,7 @@ export default function GeoMap({ apiKey, endpoint, height = 500 }) {
     markersRef.current = geoHits.map(
       (hit) =>
         new google.maps.Marker({
-          position: { lat: hit._geoloc.lat, lng: hit._geoloc.lon },
+          position: { lat: hit._geoloc.lat, lng: hit._geoloc.lng },
           map: mapRef.current,
           title: hit.title || hit.name,
         })
@@ -81,7 +81,7 @@ export default function GeoMap({ apiKey, endpoint, height = 500 }) {
     if (!hasFittedRef.current && geoHits.length > 0) {
       const bounds = new google.maps.LatLngBounds()
       geoHits.forEach((hit) =>
-        bounds.extend({ lat: hit._geoloc.lat, lng: hit._geoloc.lon })
+        bounds.extend({ lat: hit._geoloc.lat, lng: hit._geoloc.lng })
       )
       mapRef.current.fitBounds(bounds)
       hasFittedRef.current = true
