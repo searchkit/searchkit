@@ -93,3 +93,13 @@ One-time setup: for each published package (`searchkit`, `@searchkit/api`, `@sea
 `@searchkit/elastic-behavioral-analytics-plugin`) configure npm **trusted publishing** pointing at
 `searchkit/searchkit` and workflow `release.yml` – or add an `NPM_TOKEN` automation token as a repo secret. Also enable
 "Allow GitHub Actions to create and approve pull requests" in the repo's Actions settings.
+
+After a publish, the `Release` workflow also:
+
+- **Comments "Fixed in `pkg@version`"** on every issue closed by a PR in the release (found via the PR's closing
+  references; `scripts/notify-released-issues.mjs`). Write `Fixes #123` in the PR description for this to work.
+  Changelog entries link to their PR via `@changesets/changelog-github`.
+- **Verifies the release** (`verify-published` job): waits for the new versions to appear on npm, installs them into a
+  copy of the Next.js example (`scripts/prepare-published-example.mjs`) and runs the Playwright functional tests against
+  a real Elasticsearch. Locally: `node scripts/prepare-published-example.mjs /tmp/app` then
+  `E2E_APP_DIR=/tmp/app yarn test:e2e`.
