@@ -41,5 +41,15 @@
     "tailwindcss": "^3.4.19",
     "tsconfig": "*",
     "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "react-instantsearch-dom": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    },
+    "react-instantsearch-dom-maps": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
   }
 }
