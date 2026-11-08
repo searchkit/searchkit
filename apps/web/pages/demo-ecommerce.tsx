@@ -123,9 +123,14 @@ export const getServerSideProps: GetServerSideProps<WebProps> = async function g
   const protocol = req.headers.referer?.split('://')[0] || 'http'
   const serverUrl = `${protocol}://${req.headers.host}`
   const url = `${protocol}://${req.headers.host}${req.url}`
-  const serverState = await getServerState(<Web url={url} serverUrl={serverUrl} />, {
-    renderToString
-  })
+  // JSON round-trip drops `undefined` values (e.g. clickAnalytics), which Next.js cannot serialize.
+  const serverState = JSON.parse(
+    JSON.stringify(
+      await getServerState(<Web url={url} serverUrl={serverUrl} />, {
+        renderToString
+      })
+    )
+  )
 
   return {
     props: {
