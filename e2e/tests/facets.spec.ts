@@ -75,6 +75,24 @@ test.describe('brand refinement list', () => {
     await expect(brandList.locator('.ais-RefinementList-item')).toHaveCount(1)
     await expect(brandList.locator('.ais-RefinementList-item')).toContainText(/samsung/i)
   })
+
+  // https://github.com/searchkit/searchkit/issues/1378
+  for (const facetQuery of ['Samsung', 'SAMSUNG', 'sAmSuNg']) {
+    test(`facet search is case insensitive ("${facetQuery}")`, async ({ page }) => {
+      await openApp(page)
+      await menu(page)
+        .getByRole('link', { name: /^TV & Home Theater/ })
+        .first()
+        .click()
+      await menu(page).getByRole('link', { name: /^TVs/ }).first().click()
+
+      const brandList = page.locator('.ais-RefinementList')
+      await expect(brandList).toBeVisible()
+      await brandList.locator('.ais-SearchBox-input').fill(facetQuery)
+      await expect(brandList.locator('.ais-RefinementList-item')).toHaveCount(1)
+      await expect(brandList.locator('.ais-RefinementList-item')).toContainText(/samsung/i)
+    })
+  }
 })
 
 test.describe('price range facet', () => {

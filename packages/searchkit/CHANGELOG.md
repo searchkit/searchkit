@@ -1,5 +1,11 @@
 # searchkit
 
+## 4.16.2
+
+### Patch Changes
+
+- [#1419](https://github.com/searchkit/searchkit/pull/1419) [`5bd71f6`](https://github.com/searchkit/searchkit/commit/5bd71f6508038e64dc913f8183ecc0c1406322e6) Thanks [@ChrisJr404](https://github.com/ChrisJr404)! - Facet search is now case insensitive for uppercase input (e.g. `Hey`, `MARIO`). Previously only lowercase letters were expanded into case groups in the generated regex.
+
 ## 4.16.1
 
 ### Patch Changes

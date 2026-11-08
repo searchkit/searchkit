@@ -13,6 +13,12 @@ describe('utils', () => {
     it('should create empty regex', () => {
       expect(createRegexQuery('a')).toBe('[aA].*')
     })
+
+    it('should be case insensitive for uppercase input', () => {
+      expect(createRegexQuery('Hey')).toBe('([a-zA-Z]+ )+?[hH][eE][yY].*')
+      expect(createRegexQuery('HeY')).toBe('([a-zA-Z]+ )+?[hH][eE][yY].*')
+      expect(createRegexQuery('HEY')).toBe('([a-zA-Z]+ )+?[hH][eE][yY].*')
+    })
   })
 
   describe('getFacetField', () => {

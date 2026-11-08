@@ -5,8 +5,8 @@ export const createRegexQuery = (queryString: string) => {
   query = query
     .split('')
     .map((char) => {
-      if (/[a-z]/.test(char)) {
-        return `[${char}${char.toUpperCase()}]`
+      if (/[a-z]/i.test(char)) {
+        return `[${char.toLowerCase()}${char.toUpperCase()}]`
       }
       return char
     })
