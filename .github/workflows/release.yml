@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -30,8 +31,10 @@ jobs:
           cache: "yarn"
           registry-url: https://registry.npmjs.org
 
-      - name: Upgrade npm (trusted publishing needs >= 11.5.1)
-        run: npm install -g npm@latest
+      # Trusted publishing needs npm >= 11.5.1. Pinned to 11: npm 12's `npm info --json` returns an
+      # array, which @changesets/cli 2.26 misreads as "not published" (it then retries every package).
+      - name: Upgrade npm
+        run: npm install -g npm@11
 
       - name: Install dependencies
         run: yarn
