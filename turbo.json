@@ -1,5 +1,6 @@
 {
   "$schema": "https://turborepo.org/schema.json",
+  "globalEnv": ["ES_HOST", "ES_API_KEY", "ES_USERNAME", "ES_PASSWORD"],
   "pipeline": {
     "test": {
       "outputs": []

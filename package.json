@@ -5,7 +5,8 @@
     "apps/*",
     "packages/*",
     "sample-data",
-    "examples/*"
+    "examples/*",
+    "e2e"
   ],
   "repository": {
     "type": "git",
@@ -16,6 +17,9 @@
     "test": "turbo run test --filter='./packages/*'",
     "build": "turbo run build --filter='./packages/*'",
     "dev": "turbo run dev --parallel",
+    "e2e:up": "docker compose -f docker-compose.e2e.yml up -d --wait && node e2e/seed.mjs",
+    "e2e:down": "docker compose -f docker-compose.e2e.yml down -v",
+    "test:e2e": "yarn workspace @searchkit/e2e test",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "changeset": "changeset",
