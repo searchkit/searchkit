@@ -27,6 +27,9 @@ export default function GeoMap({ apiKey, endpoint, height = 500 }) {
   const containerRef = useRef(null)
   const mapRef = useRef(null)
   const markersRef = useRef([])
+  // The map fires `idle` after our own moves (creating the map, fitting bounds). Those must not
+  // refine the results, or every later search would look like a map move.
+  const ignoreIdleRef = useRef(true)
   const [google, setGoogle] = useState(null)
   const { items, refine, isRefinedWithMap } = useGeoSearch({})
 
@@ -54,6 +57,10 @@ export default function GeoMap({ apiKey, endpoint, height = 500 }) {
       zoom: 3,
     })
     map.addListener('idle', () => {
+      if (ignoreIdleRef.current) {
+        ignoreIdleRef.current = false
+        return
+      }
       const bounds = map.getBounds()
       if (!bounds) return
       const ne = bounds.getNorthEast()
@@ -85,6 +92,7 @@ export default function GeoMap({ apiKey, endpoint, height = 500 }) {
       geoHits.forEach((hit) =>
         bounds.extend({ lat: hit._geoloc.lat, lng: hit._geoloc.lng })
       )
+      ignoreIdleRef.current = true
       mapRef.current.fitBounds(bounds)
     }
   }, [google, items])
