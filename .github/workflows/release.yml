@@ -31,8 +31,10 @@ jobs:
           cache: "yarn"
           registry-url: https://registry.npmjs.org
 
-      - name: Upgrade npm (trusted publishing needs >= 11.5.1)
-        run: npm install -g npm@latest
+      # Trusted publishing needs npm >= 11.5.1. Pinned to 11: npm 12's `npm info --json` returns an
+      # array, which @changesets/cli 2.26 misreads as "not published" (it then retries every package).
+      - name: Upgrade npm
+        run: npm install -g npm@11
 
       - name: Install dependencies
         run: yarn
@@ -42,15 +44,6 @@ jobs:
           yarn lint
           yarn build
           yarn test
-
-      - name: DEBUG npm info
-        run: |
-          npm -v
-          cat "$NPM_CONFIG_USERCONFIG" | sed 's/_authToken=.*/_authToken=<redacted>/' || true
-          yarn -s run env | grep -i npm_config_registry || true
-          npm info @searchkit/api --registry https://registry.npmjs.org --json | head -c 300; echo "exit=$?"
-          echo "--- via yarn run"
-          yarn -s node -e "const r=require('child_process').spawnSync('npm',['info','@searchkit/api','--registry','https://registry.npmjs.org','--json']);console.log('status',r.status,'stdoutLen',r.stdout.length);console.log(String(r.stdout).slice(0,200));console.log('stderr',String(r.stderr).slice(0,500))"
 
       - name: Create release PR or publish to npm
         uses: changesets/action@v1
