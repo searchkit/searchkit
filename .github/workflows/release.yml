@@ -1,0 +1,54 @@
+name: Release
+
+# On every push to main, Changesets either opens/updates a "Version Packages" PR
+# (when unreleased changesets exist) or, when that PR is merged, publishes to npm.
+on:
+  push:
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write # npm trusted publishing (OIDC) + provenance
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "yarn"
+          registry-url: https://registry.npmjs.org
+
+      - name: Upgrade npm (trusted publishing needs >= 11.5.1)
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Lint, build and test
+        run: |
+          yarn lint
+          yarn build
+          yarn test
+
+      - name: Create release PR or publish to npm
+        uses: changesets/action@v1
+        with:
+          version: yarn changeset version
+          publish: yarn release
+          commit: "chore: version packages"
+          title: "chore: version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"

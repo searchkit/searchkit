@@ -1,0 +1,32 @@
+name: Changeset check
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+jobs:
+  changeset:
+    # Skip for the automated release PR and PRs labelled `no-release`
+    if: >-
+      github.head_ref != 'changeset-release/main' &&
+      !contains(github.event.pull_request.labels.*.name, 'no-release')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Require a changeset when published packages change
+        run: yarn changeset status --since=origin/main
