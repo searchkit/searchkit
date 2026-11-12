@@ -19,6 +19,15 @@ describe('utils', () => {
       expect(createRegexQuery('HeY')).toBe('([a-zA-Z]+ )+?[hH][eE][yY].*')
       expect(createRegexQuery('HEY')).toBe('([a-zA-Z]+ )+?[hH][eE][yY].*')
     })
+
+    // https://github.com/searchkit/searchkit/issues/1423
+    it('should escape Lucene regex operators', () => {
+      expect(createRegexQuery('R&B')).toBe('([a-zA-Z]+ )+?[rR]\\&[bB].*')
+      expect(createRegexQuery('C#')).toBe('[cC]\\#.*')
+      expect(createRegexQuery('@~')).toBe('\\@\\~.*')
+      expect(createRegexQuery('<a>')).toBe('([a-zA-Z]+ )+?\\<[aA]\\>.*')
+      expect(createRegexQuery('"x"')).toBe('([a-zA-Z]+ )+?\\"[xX]\\".*')
+    })
   })
 
   describe('getFacetField', () => {

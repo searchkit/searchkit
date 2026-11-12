@@ -54,7 +54,10 @@ describe('facetQuery case insensitivity', () => {
     ['mario', '([a-zA-Z]+ )+?[mM][aA][rR][iI][oO].*'],
     ['Mario', '([a-zA-Z]+ )+?[mM][aA][rR][iI][oO].*'],
     ['MARIO', '([a-zA-Z]+ )+?[mM][aA][rR][iI][oO].*'],
-    ['mA', '[mM][aA].*']
+    ['mA', '[mM][aA].*'],
+    // https://github.com/searchkit/searchkit/issues/1423
+    ['AT&T', '([a-zA-Z]+ )+?[aA][tT]\\&[tT].*'],
+    ['C#', '[cC]\\#.*']
   ])('facetQuery %p produces a case insensitive include regex', async (facetQuery, expected) => {
     let include: string | undefined
     nock('http://localhost:9200')
@@ -72,6 +75,42 @@ describe('facetQuery case insensitivity', () => {
     expect(include).toBe(expected)
     expect((response.results[0] as any).facetHits).toEqual([
       expect.objectContaining({ value: 'Mario Kart', count: 3 })
+    ])
+  })
+
+  // https://github.com/searchkit/searchkit/issues/1424
+  it('highlights facet values when the facetQuery has regex characters', async () => {
+    let include: string | undefined
+    nock('http://localhost:9200')
+      .post('/_msearch', (requestBody: any) => {
+        const body = JSON.parse(requestBody.split('\n')[1])
+        include = body.aggs.brand.terms.include
+        return true
+      })
+      .reply(200, {
+        ...esResponse,
+        responses: [
+          {
+            ...esResponse.responses[0],
+            aggregations: {
+              brand: {
+                ...esResponse.responses[0].aggregations.brand,
+                buckets: [{ key: 'C++', doc_count: 2 }]
+              }
+            }
+          }
+        ]
+      })
+
+    const response = await client.handleInstantSearchRequests(facetSearchRequest('c++'))
+
+    expect(include).toBe('([a-zA-Z]+ )+?[cC]\\+\\+.*')
+    expect((response.results[0] as any).facetHits).toEqual([
+      {
+        value: 'C++',
+        highlighted: '<ais-highlight-0000000000>C++</ais-highlight-0000000000>',
+        count: 2
+      }
     ])
   })
 })

@@ -6,6 +6,15 @@ describe('highlight utils', () => {
     expect(highlightTerm('some random string', 'some')).toBe('<em>some</em> random string')
   })
 
+  // https://github.com/searchkit/searchkit/issues/1424
+  it('should treat regex characters in the query as plain text', () => {
+    expect(highlightTerm('C++', 'c++')).toBe('<em>C++</em>')
+    expect(highlightTerm('Rock (Classic)', 'rock (')).toBe('<em>Rock (</em>Classic)')
+    expect(highlightTerm('What?', '?')).toBe('What<em>?</em>')
+    expect(highlightTerm('[a] b.c', '[a]')).toBe('<em>[a]</em> b.c')
+    expect(highlightTerm('abc', '.')).toBe('abc')
+  })
+
   describe('isAllowableHighlightField', () => {
     it('should match on exact string', () => {
       expect(isAllowableHighlightField('title', ['title'])).toBeTruthy()
