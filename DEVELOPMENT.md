@@ -1,6 +1,7 @@
 ## Setting up a development environment
 
 Requirements:
+
 - [Node.js](https://nodejs.org/en/) (18 or higher)
 - [Yarn](https://yarnpkg.com/) (v1.22.15 or higher)
 
@@ -33,7 +34,7 @@ yarn test
 
 ## Functional Tests
 
-These tests run against mocks of the Elasticsearch API. 
+These tests run against mocks of the Elasticsearch API.
 
 Tests are located in the `packages/searchkit/src/___tests___/functional` directory.
 Mocks are located in the `packages/searchkit/src/___tests___/mocks` directory.
@@ -47,7 +48,7 @@ cd packages/searchkit
 yarn test
 ```
 
-```bash
+````bash
 ## End-to-end tests
 
 The `e2e` workspace holds [Playwright](https://playwright.dev) tests that drive `examples/with-ui-nextjs-react`
@@ -63,7 +64,7 @@ yarn build          # the example uses the built workspace packages
 yarn e2e:up         # starts Elasticsearch (docker-compose.e2e.yml) and seeds the `products` index
 yarn test:e2e       # builds + starts the example on :3000 and runs the Playwright tests
 yarn e2e:down       # stops and removes Elasticsearch
-```
+````
 
 - **Port 9200 already in use?** Use another port for both the container and the tests:
   `export E2E_ES_PORT=9290 ES_HOST=http://localhost:9290`, then run the commands above.

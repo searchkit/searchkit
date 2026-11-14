@@ -9,6 +9,31 @@ on:
       - main
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Check formatting
+        run: yarn format:check
+
+      - name: Lint
+        run: yarn lint
+
+      # typecheck depends on ^build, so turbo builds workspace packages first.
+      - name: Typecheck
+        run: yarn typecheck
+
   unit-tests:
     runs-on: ubuntu-latest
     steps:

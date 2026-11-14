@@ -1,4 +1,5 @@
 # Elasticsearch Search UI Components
+
 Searchkit is an open source library which helps you build a great search experience with **Elasticsearch**.
 Works with Javascript, React, Vue, Angular, and more.
 
@@ -8,7 +9,7 @@ Works with Javascript, React, Vue, Angular, and more.
 
 # What is Searchkit?
 
-Elasticsearch is a search engine that enables fast and accurate searching of large volumes of data, but it can take a lot of time and code to build a great search experience. 
+Elasticsearch is a search engine that enables fast and accurate searching of large volumes of data, but it can take a lot of time and code to build a great search experience.
 
 Searchkit simplifies this process by providing a layer of abstraction on top of Elasticsearch. With Searchkit, you can use Instantsearch components like Searchbox, refinement filters and results (and many more!) to build a search experience, and it handles all the communication with Elasticsearch for you.
 
@@ -17,48 +18,57 @@ Searchkit simplifies this process by providing a layer of abstraction on top of 
 Searchkit is great for anyone who want to build a search experience quickly.
 
 **Searchkit to simplify using Elasticsearch for Search:**
-  - UI Search Components for React, Vue, Angular, and more
-  - Searchkit Node API proxies Elasticsearch requests from the browser.
-  - Ability to use Elasticsearch Query DSL for advanced queries
+
+- UI Search Components for React, Vue, Angular, and more
+- Searchkit Node API proxies Elasticsearch requests from the browser.
+- Ability to use Elasticsearch Query DSL for advanced queries
 
 ## Quick Start Guides
-* [Searchkit with Javascript](https://www.searchkit.co/docs/getting-started/with-javascript)
-* [Searchkit with React](https://www.searchkit.co/docs/getting-started/with-react)
-* [Searchkit with Vue](https://www.searchkit.co/docs/getting-started/with-vue)
-* [Searchkit with Angular](https://www.searchkit.co/docs/getting-started/with-angular)
+
+- [Searchkit with Javascript](https://www.searchkit.co/docs/getting-started/with-javascript)
+- [Searchkit with React](https://www.searchkit.co/docs/getting-started/with-react)
+- [Searchkit with Vue](https://www.searchkit.co/docs/getting-started/with-vue)
+- [Searchkit with Angular](https://www.searchkit.co/docs/getting-started/with-angular)
 
 ## Code Examples (on Github)
-* [Searchkit with Next.JS](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-nextjs-react)
-* [Searchkit with Javascript](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-instantsearchjs)
-* [Searchkit with Vue](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-vue)
+
+- [Searchkit with Next.JS](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-nextjs-react)
+- [Searchkit with Javascript](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-instantsearchjs)
+- [Searchkit with Vue](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-vue)
 
 ## Components Docs
-* [Searchkit Instantsearch Components](https://www.searchkit.co/docs/components/refinements/refinement-list)
+
+- [Searchkit Instantsearch Components](https://www.searchkit.co/docs/components/refinements/refinement-list)
 
 ## Proxy Elasticsearch Quick Starts
-* [Searchkit with Next.js Functions](https://www.searchkit.co/docs/proxy-elasticsearch/with-next-js)
-* [Searchkit with Cloudflare Workers](https://www.searchkit.co/docs/proxy-elasticsearch/with-cloudflare-workers)
-* [Searchkit with Express.js](https://www.searchkit.co/docs/proxy-elasticsearch/with-express-js)
+
+- [Searchkit with Next.js Functions](https://www.searchkit.co/docs/proxy-elasticsearch/with-next-js)
+- [Searchkit with Cloudflare Workers](https://www.searchkit.co/docs/proxy-elasticsearch/with-cloudflare-workers)
+- [Searchkit with Express.js](https://www.searchkit.co/docs/proxy-elasticsearch/with-express-js)
 
 ## Codesandbox Examples
-* [Searchkit with JS Widgets](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-instantsearchjs)
-* [Searchkit with Vue](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-vue)
-* [Searchkit with Next.js](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-nextjs-react)
-* [Proxy with Express.js](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/proxy-elasticsearch/with-express-typescript-esm)
+
+- [Searchkit with JS Widgets](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-instantsearchjs)
+- [Searchkit with Vue](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-vue)
+- [Searchkit with Next.js](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-nextjs-react)
+- [Proxy with Express.js](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/proxy-elasticsearch/with-express-typescript-esm)
 
 ## Video Tutorials
-* [Searchkit Intro Video Tutorial with Instantsearch.js](https://www.youtube.com/watch?v=R6iYpEuCdVs)
-* [Searchkit Node API Video Tutorial](https://www.youtube.com/watch?v=8ztvn1-VZ_U)
+
+- [Searchkit Intro Video Tutorial with Instantsearch.js](https://www.youtube.com/watch?v=R6iYpEuCdVs)
+- [Searchkit Node API Video Tutorial](https://www.youtube.com/watch?v=8ztvn1-VZ_U)
 
 ## Tutorials
-* [Searchkit with Next.js](https://www.searchkit.co/tutorials/with-nextjs)
-* [Searchkit with Availability Search](https://www.searchkit.co/tutorials/build-availability-search-ui)
+
+- [Searchkit with Next.js](https://www.searchkit.co/tutorials/with-nextjs)
+- [Searchkit with Availability Search](https://www.searchkit.co/tutorials/build-availability-search-ui)
 
 ## Demos
-* [Searchkit with Next.js](https://www.searchkit.co/demo)
-* [Searchkit Geo Search](https://www.searchkit.co/geo-search-demo)
-* [Searchkit with Nested Fields Search](https://www.searchkit.co/camping-sites-demo)
-* [Searchkit Autocomplete](https://www.searchkit.co/autocomplete)
+
+- [Searchkit with Next.js](https://www.searchkit.co/demo)
+- [Searchkit Geo Search](https://www.searchkit.co/geo-search-demo)
+- [Searchkit with Nested Fields Search](https://www.searchkit.co/camping-sites-demo)
+- [Searchkit Autocomplete](https://www.searchkit.co/autocomplete)
 
 Or checkout our [documentation](https://searchkit.co/docs) for more examples.
 
@@ -80,7 +90,7 @@ or via CDN
 
 ## Setup Elasticsearch
 
-Searchkit requires Elasticsearch 7.0 or higher or Opensearch 2.4 or higher. 
+Searchkit requires Elasticsearch 7.0 or higher or Opensearch 2.4 or higher.
 
 Below we are using Docker to run Elasticsearch.
 
@@ -127,7 +137,7 @@ curl --location --request POST 'http://localhost:9200/products/_doc' \
   "categories": ["phones", "apple"],
   "price": 800
 }'
- 
+
 curl --location --request POST 'http://localhost:9200/products/_doc' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -198,6 +208,7 @@ const App = () => (
 In above example, we are calling Elasticsearch directly from the browser. This is not recommended for production use. Instead, you should use the Searchkit API to proxy requests to Elasticsearch. With Searchkit, you can do this in a few lines of code.
 
 ### Frontend Changes
+
 Update the client to specify the API url
 
 ```tsx
@@ -262,9 +273,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 ```
 
 ### Proxy Elasticsearch Quick Starts
-* [Searchkit with Next.js Functions](https://www.searchkit.co/docs/proxy-elasticsearch/with-next-js)
-* [Searchkit with Cloudflare Workers](https://www.searchkit.co/docs/proxy-elasticsearch/with-cloudflare-workers)
-* [Searchkit with Express.js](https://www.searchkit.co/docs/proxy-elasticsearch/with-express-js)
+
+- [Searchkit with Next.js Functions](https://www.searchkit.co/docs/proxy-elasticsearch/with-next-js)
+- [Searchkit with Cloudflare Workers](https://www.searchkit.co/docs/proxy-elasticsearch/with-cloudflare-workers)
+- [Searchkit with Express.js](https://www.searchkit.co/docs/proxy-elasticsearch/with-express-js)
 
 ## Query Rules
 
@@ -303,9 +315,10 @@ Below is an example of a query rule that boosts results for movies with Dan Aykr
 read more at [Query Rules](https://www.searchkit.co/docs/query-rules) docs.
 
 ### NPM Packages
-* Searchkit [Documentation](https://www.searchkit.co/docs/api-documentation/searchkit)
-* @searchkit/api [Documentation](https://www.searchkit.co/docs/api-documentation/api)
-* @searchkit/instantsearch-client [Documentation](https://www.searchkit.co/docs/api-documentation/instantsearch-client)
+
+- Searchkit [Documentation](https://www.searchkit.co/docs/api-documentation/searchkit)
+- @searchkit/api [Documentation](https://www.searchkit.co/docs/api-documentation/api)
+- @searchkit/instantsearch-client [Documentation](https://www.searchkit.co/docs/api-documentation/instantsearch-client)
 
 ## FAQ
 
@@ -329,4 +342,4 @@ Potentially. Searchkit API mimics the Algolia API, so it should be possible to u
 
 **Q: Why would I use Searchkit instead of Algolia?**
 
-Elasticsearch has alot of advantages over Algolia. You might want to use Elasticsearch as a cheaper alternative to Algolia, especially if you have a large dataset. You might want to run Elasticsearch on your own infrastructure, or have greater control over the query relevance. 
+Elasticsearch has alot of advantages over Algolia. You might want to use Elasticsearch as a cheaper alternative to Algolia, especially if you have a large dataset. You might want to run Elasticsearch on your own infrastructure, or have greater control over the query relevance.

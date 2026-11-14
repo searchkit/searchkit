@@ -65,7 +65,9 @@ export class ESTransporter implements Transporter {
       })
 
       if (response.ok === false) {
-        throw new Error(`Elasticsearch request failed with status ${response.status}: ${response.statusText}`)
+        throw new Error(
+          `Elasticsearch request failed with status ${response.status}: ${response.statusText}`
+        )
       }
 
       return response
@@ -105,7 +107,9 @@ export class ESTransporter implements Transporter {
         )
         throw new Error(JSON.stringify(responses))
       } else if (responses.status === 404 || responses.responses?.[0]?.status === 404) {
-        console.error('Elasticsearch index not found. Check your index name and make sure it exists.')
+        console.error(
+          'Elasticsearch index not found. Check your index name and make sure it exists.'
+        )
         throw new Error(JSON.stringify(responses))
       } else if (responses.status === 400 || responses.responses?.[0]?.status === 400) {
         console.error(

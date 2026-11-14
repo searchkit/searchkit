@@ -1,10 +1,9 @@
 # Elasticsearch Search UI Components
+
 Searchkit is an open source library which helps you build a great search experience with **Elasticsearch**.
 Works with Javascript, React, Vue, Angular, and more.
 
-
-[![npm version](https://badge.fury.io/js/searchkit.svg)](https://badge.fury.io/js/searchkit)  ![Discord Shield](https://discordapp.com/api/guilds/778278262304276521/widget.png?style=shield) [![](https://data.jsdelivr.com/v1/package/npm/searchkit/badge)](https://www.jsdelivr.com/package/npm/searchkit)
-
+[![npm version](https://badge.fury.io/js/searchkit.svg)](https://badge.fury.io/js/searchkit) ![Discord Shield](https://discordapp.com/api/guilds/778278262304276521/widget.png?style=shield) [![](https://data.jsdelivr.com/v1/package/npm/searchkit/badge)](https://www.jsdelivr.com/package/npm/searchkit)
 
 [Website](https://www.searchkit.co/) | [Demos](https://www.searchkit.co/demos) | [Documentation](https://www.searchkit.co/docs/getting-started) | [Discord](https://discord.gg/CRuWmSQZQx)
 
@@ -15,52 +14,59 @@ Searchkit provides a Search UI for Elasticsearch or Opensearch. With Searchkit, 
 Searchkit is great for anyone who want to build a search experience quickly.
 
 **Searchkit simplifies Search UI with Elasticsearch:**
-  - UI Search Components for React, Vue, Angular, and more
-  - Searchkit Node API proxies Elasticsearch requests from the browser.
-  - Ability to use Elasticsearch Query DSL for advanced queries
+
+- UI Search Components for React, Vue, Angular, and more
+- Searchkit Node API proxies Elasticsearch requests from the browser.
+- Ability to use Elasticsearch Query DSL for advanced queries
 
 ## Searchkit AI Bot
 
 [Searchkit](https://codeparrot.ai/oracle?owner=searchkit&repo=searchkit) Bot will help you understand this repository better. You can ask for code examples, installation guide, debugging help and much more.
 
-
 ## Demos
-* [Movies Search](https://www.searchkit.co/demo)
-* [Semantic Search](https://codesandbox.io/p/sandbox/github/searchkit/searchkit/tree/main/examples/with-semantic-search-nextjs)
-* [Geo Search](https://www.searchkit.co/geo-search-demo)
-* [Camp Availability Search](https://www.searchkit.co/camping-sites-demo)
-* [Autocomplete](https://www.searchkit.co/autocomplete)
+
+- [Movies Search](https://www.searchkit.co/demo)
+- [Semantic Search](https://codesandbox.io/p/sandbox/github/searchkit/searchkit/tree/main/examples/with-semantic-search-nextjs)
+- [Geo Search](https://www.searchkit.co/geo-search-demo)
+- [Camp Availability Search](https://www.searchkit.co/camping-sites-demo)
+- [Autocomplete](https://www.searchkit.co/autocomplete)
 
 ## Quick Start Guides
-* [Searchkit with Javascript](https://www.searchkit.co/docs/getting-started/with-javascript)
-* [Searchkit with React](https://www.searchkit.co/docs/getting-started/with-react)
-* [Searchkit with Vue](https://www.searchkit.co/docs/getting-started/with-vue)
-* [Searchkit with Angular](https://www.searchkit.co/docs/getting-started/with-angular)
+
+- [Searchkit with Javascript](https://www.searchkit.co/docs/getting-started/with-javascript)
+- [Searchkit with React](https://www.searchkit.co/docs/getting-started/with-react)
+- [Searchkit with Vue](https://www.searchkit.co/docs/getting-started/with-vue)
+- [Searchkit with Angular](https://www.searchkit.co/docs/getting-started/with-angular)
 
 ## Tutorials
-* [Searchkit with Next.js](https://www.searchkit.co/tutorials/with-nextjs)
-* [Semantic Search](https://www.searchkit.co/tutorials/semantic-search)
-* [Searchkit with Availability Search](https://www.searchkit.co/tutorials/build-availability-search-ui)
+
+- [Searchkit with Next.js](https://www.searchkit.co/tutorials/with-nextjs)
+- [Semantic Search](https://www.searchkit.co/tutorials/semantic-search)
+- [Searchkit with Availability Search](https://www.searchkit.co/tutorials/build-availability-search-ui)
 
 ## Codesandbox Examples
-* [Searchkit with JS Widgets](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-instantsearchjs)
-* [Searchkit with Vue](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-vue)
-* [Searchkit with Next.js](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-nextjs-react)
-* [Proxy with Express.js](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/proxy-elasticsearch/with-express-typescript-esm)
+
+- [Searchkit with JS Widgets](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-instantsearchjs)
+- [Searchkit with Vue](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-vue)
+- [Searchkit with Next.js](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-nextjs-react)
+- [Proxy with Express.js](https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/proxy-elasticsearch/with-express-typescript-esm)
 
 ## Code Examples (on Github)
-* [Searchkit with Next.JS](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-nextjs-react)
-* [Searchkit with Javascript](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-instantsearchjs)
-* [Searchkit with Vue](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-vue)
+
+- [Searchkit with Next.JS](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-nextjs-react)
+- [Searchkit with Javascript](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-instantsearchjs)
+- [Searchkit with Vue](https://github.com/searchkit/searchkit/tree/main/examples/with-ui-vue)
 
 ## Proxy Elasticsearch Quick Starts
-* [Searchkit with Next.js Functions](https://www.searchkit.co/docs/proxy-elasticsearch/with-next-js)
-* [Searchkit with Cloudflare Workers](https://www.searchkit.co/docs/proxy-elasticsearch/with-cloudflare-workers)
-* [Searchkit with Express.js](https://www.searchkit.co/docs/proxy-elasticsearch/with-express-js)
+
+- [Searchkit with Next.js Functions](https://www.searchkit.co/docs/proxy-elasticsearch/with-next-js)
+- [Searchkit with Cloudflare Workers](https://www.searchkit.co/docs/proxy-elasticsearch/with-cloudflare-workers)
+- [Searchkit with Express.js](https://www.searchkit.co/docs/proxy-elasticsearch/with-express-js)
 
 ## Video Tutorials
-* [Searchkit Intro Video Tutorial with Instantsearch.js](https://www.youtube.com/watch?v=R6iYpEuCdVs)
-* [Searchkit Node API Video Tutorial](https://www.youtube.com/watch?v=8ztvn1-VZ_U)
+
+- [Searchkit Intro Video Tutorial with Instantsearch.js](https://www.youtube.com/watch?v=R6iYpEuCdVs)
+- [Searchkit Node API Video Tutorial](https://www.youtube.com/watch?v=8ztvn1-VZ_U)
 
 Or checkout our [documentation](https://searchkit.co/docs) for more examples.
 
@@ -82,7 +88,7 @@ or via CDN
 
 ## Setup Elasticsearch
 
-Searchkit requires Elasticsearch 7.0 or higher or Opensearch 2.4 or higher. 
+Searchkit requires Elasticsearch 7.0 or higher or Opensearch 2.4 or higher.
 
 Below we are using Docker to run Elasticsearch.
 
@@ -129,7 +135,7 @@ curl --location --request POST 'http://localhost:9200/products/_doc' \
   "categories": ["phones", "apple"],
   "price": 800
 }'
- 
+
 curl --location --request POST 'http://localhost:9200/products/_doc' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -201,9 +207,9 @@ follow along with the [Getting Started](https://www.searchkit.co/docs/getting-st
 
 Searchkit Node API allows you to proxy requests to Elasticsearch from the browser. This is useful if you want to hide Elasticsearch from the browser, or if you want to add user permission filters to the query.
 
-* [Searchkit with Next.js Functions](https://www.searchkit.co/docs/proxy-elasticsearch/with-next-js)
-* [Searchkit with Cloudflare Workers](https://www.searchkit.co/docs/proxy-elasticsearch/with-cloudflare-workers)
-* [Searchkit with Express.js](https://www.searchkit.co/docs/proxy-elasticsearch/with-express-js)
+- [Searchkit with Next.js Functions](https://www.searchkit.co/docs/proxy-elasticsearch/with-next-js)
+- [Searchkit with Cloudflare Workers](https://www.searchkit.co/docs/proxy-elasticsearch/with-cloudflare-workers)
+- [Searchkit with Express.js](https://www.searchkit.co/docs/proxy-elasticsearch/with-express-js)
 
 ## Query Customisation
 
@@ -216,12 +222,12 @@ const results = await apiClient.handleRequest(req.body, {
       {
         combined_fields: {
           query,
-          fields: search_attributes,
-        },
-      },
-    ];
-  },
-});
+          fields: search_attributes
+        }
+      }
+    ]
+  }
+})
 ```
 
 ### Semantic Query Search
@@ -229,23 +235,23 @@ const results = await apiClient.handleRequest(req.body, {
 Searchkit supports KNN query search. Below is an example of a KNN query search.
 
 ```ts
-  const results = await client.handleRequest(req.body, {
-    getKnnQuery(query, search_attributes, config) {
-      return {
-        field: 'dense-vector-field',
-        k: 10,
-        num_candidates: 100,
-        // supported in latest version of Elasticsearch
-        query_vector_builder: { 
-          text_embedding: {
-            model_id: 'cookie_model',
-            model_text: query
-          }
+const results = await client.handleRequest(req.body, {
+  getKnnQuery(query, search_attributes, config) {
+    return {
+      field: 'dense-vector-field',
+      k: 10,
+      num_candidates: 100,
+      // supported in latest version of Elasticsearch
+      query_vector_builder: {
+        text_embedding: {
+          model_id: 'cookie_model',
+          model_text: query
         }
       }
     }
-  });
-  ```
+  }
+})
+```
 
 Follow along with the [Semantic Search](https://www.searchkit.co/tutorials/semantic-search) tutorial.
 
@@ -256,40 +262,39 @@ You can also override the entire query with request hooks. Below is an example o
 You can apply this at `beforeSearch` and `afterSearch`.
 
 ```ts
-  const results = await client.handleRequest(req.body, {
-    hooks: {
-      beforeSearch: (searchRequests) => {
-        const uiRequest = searchRequests[0]
- 
-        return [
-          {
-            ...uiRequest,
-            body: {
-              ...uiRequest.body,
-              rescore: {
-                window_size: 100,
-                query: {
-                  rescore_query: {
-                    match: {
-                      plot: {
-                        query: uiRequest.body.query,
-                        operator: "and",
-                      },
-                    },
-                  },
-                  query_weight: 1,
-                  rescore_query_weight: 10,
-                }
+const results = await client.handleRequest(req.body, {
+  hooks: {
+    beforeSearch: (searchRequests) => {
+      const uiRequest = searchRequests[0]
+
+      return [
+        {
+          ...uiRequest,
+          body: {
+            ...uiRequest.body,
+            rescore: {
+              window_size: 100,
+              query: {
+                rescore_query: {
+                  match: {
+                    plot: {
+                      query: uiRequest.body.query,
+                      operator: 'and'
+                    }
+                  }
+                },
+                query_weight: 1,
+                rescore_query_weight: 10
               }
             }
-          },
-          searchRequests.slice(1, searchRequests.length)
-        ]
-        
-      },
+          }
+        },
+        searchRequests.slice(1, searchRequests.length)
+      ]
     }
-  });
-  ```
+  }
+})
+```
 
 read more in the api docs [here](https://www.searchkit.co/docs/api-documentation/searchkit#requestoptions-hooks).
 
@@ -330,9 +335,10 @@ Below is an example of a query rule that boosts results for movies with Dan Aykr
 read more at [Query Rules](https://www.searchkit.co/docs/query-rules) docs.
 
 ### NPM Packages
-* Searchkit [Documentation](https://www.searchkit.co/docs/api-documentation/searchkit)
-* @searchkit/api [Documentation](https://www.searchkit.co/docs/api-documentation/api)
-* @searchkit/instantsearch-client [Documentation](https://www.searchkit.co/docs/api-documentation/instantsearch-client)
+
+- Searchkit [Documentation](https://www.searchkit.co/docs/api-documentation/searchkit)
+- @searchkit/api [Documentation](https://www.searchkit.co/docs/api-documentation/api)
+- @searchkit/instantsearch-client [Documentation](https://www.searchkit.co/docs/api-documentation/instantsearch-client)
 
 ## FAQ
 
@@ -356,4 +362,4 @@ Potentially. Searchkit API mimics the Algolia API, so it should be possible to u
 
 **Q: Why would I use Searchkit instead of Algolia?**
 
-Elasticsearch has alot of advantages over Algolia. You might want to use Elasticsearch as a cheaper alternative to Algolia, especially if you have a large dataset. You might want to run Elasticsearch on your own infrastructure, or have greater control over the query relevance. 
+Elasticsearch has alot of advantages over Algolia. You might want to use Elasticsearch as a cheaper alternative to Algolia, especially if you have a large dataset. You might want to run Elasticsearch on your own infrastructure, or have greater control over the query relevance.

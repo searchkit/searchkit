@@ -3,3 +3,5 @@ packages/**/lib
 packages/**/**/build
 docs/**
 examples/**
+
+.claude/**

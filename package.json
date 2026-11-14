@@ -21,7 +21,9 @@
     "e2e:down": "docker compose -f docker-compose.e2e.yml down -v",
     "test:e2e": "yarn workspace @searchkit/e2e test",
     "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "changeset": "changeset",
     "release": "yarn build && changeset publish"
   },

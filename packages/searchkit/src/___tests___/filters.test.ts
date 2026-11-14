@@ -7,7 +7,7 @@ describe('filter functions', () => {
     facet_attributes: [
       { attribute: 'author', field: 'author.keyword', type: 'string' },
       { attribute: 'price', field: 'price', type: 'numeric' },
-      { attribute: 'discount', field: 'discount', type: 'numeric' },
+      { attribute: 'discount', field: 'discount', type: 'numeric' }
     ],
     filter_attributes: [
       { attribute: 'publisher', field: 'publisher.keyword', type: 'string' },
@@ -52,7 +52,8 @@ describe('filter functions', () => {
   it('should transform an instantsearch numeric filter to an elasticsearch filter', () => {
     const numericFilter = `discount<10`
 
-    expect(transformNumericFilters(getNumericFilterRequest(numericFilter), config)).toMatchInlineSnapshot(`
+    expect(transformNumericFilters(getNumericFilterRequest(numericFilter), config))
+      .toMatchInlineSnapshot(`
       [
         {
           "range": {
@@ -68,7 +69,8 @@ describe('filter functions', () => {
   it('transforms negative numeric values', () => {
     const numericFilter = `discount<-10`
 
-    expect(transformNumericFilters(getNumericFilterRequest(numericFilter), config)).toMatchInlineSnapshot(`
+    expect(transformNumericFilters(getNumericFilterRequest(numericFilter), config))
+      .toMatchInlineSnapshot(`
       [
         {
           "range": {
@@ -84,7 +86,8 @@ describe('filter functions', () => {
   it('supports low to high numeric filters', () => {
     const numericFilter = `price:100 TO 1000`
 
-    expect(transformNumericFilters(getNumericFilterRequest(numericFilter), config)).toMatchInlineSnapshot(`
+    expect(transformNumericFilters(getNumericFilterRequest(numericFilter), config))
+      .toMatchInlineSnapshot(`
       [
         {
           "range": {
@@ -101,7 +104,8 @@ describe('filter functions', () => {
   it('transforms numeric values with whitespace', () => {
     const numericFilter = `price >= 100`
 
-    expect(transformNumericFilters(getNumericFilterRequest(numericFilter), config)).toMatchInlineSnapshot(`
+    expect(transformNumericFilters(getNumericFilterRequest(numericFilter), config))
+      .toMatchInlineSnapshot(`
       [
         {
           "range": {

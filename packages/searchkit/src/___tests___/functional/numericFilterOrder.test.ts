@@ -38,13 +38,13 @@ describe('Numeric filters with mixed nested and non-nested attributes', () => {
     return body
   }
 
-  it.each([
-    [['size>=40', 'price<=20']],
-    [['price<=20', 'size>=40']]
-  ])('does not throw for %j and applies both filters', async (numericFilters) => {
-    const body = await run(numericFilters)
-    expect(body).toContain('"nested"')
-    expect(body).toContain('variants.size')
-    expect(body).toContain('"price"')
-  })
+  it.each([[['size>=40', 'price<=20']], [['price<=20', 'size>=40']]])(
+    'does not throw for %j and applies both filters',
+    async (numericFilters) => {
+      const body = await run(numericFilters)
+      expect(body).toContain('"nested"')
+      expect(body).toContain('variants.size')
+      expect(body).toContain('"price"')
+    }
+  )
 })

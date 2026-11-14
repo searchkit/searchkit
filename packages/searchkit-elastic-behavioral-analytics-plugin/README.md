@@ -1,10 +1,9 @@
-
 ## Setup
 
 **Requirements**
 Behavioral Analytics plugin requires Elasticsearch 8.8.0 or higher.
 
-Follow the getting started guide to setup Behavioral Analytics.  
+Follow the getting started guide to setup Behavioral Analytics.
 
 Add the plugin to your project:
 
@@ -15,7 +14,6 @@ yarn add @searchkit/elastic-behavioral-analytics-plugin
 ### Example with Instantsearch.js
 
 ```js
-
 import { AnalyticsMiddleware } from '@searchkit/elastic-behavioral-analytics-plugin'
 
 const search = instantsearch({
@@ -50,12 +48,12 @@ Similar to [Algolia insights](https://www.algolia.com/doc/api-reference/widgets/
 
 ```js
 import { AnalyticsMiddleware } from '@searchkit/elastic-behavioral-analytics-plugin'
-import { useInstantSearch } from 'react-instantsearch';
-import { useLayoutEffect } from 'react';
-import Client from '@searchkit/instantsearch-client'; 
+import { useInstantSearch } from 'react-instantsearch'
+import { useLayoutEffect } from 'react'
+import Client from '@searchkit/instantsearch-client'
 
 function InsightsMiddleware() {
-  const { use } = useInstantSearch();
+  const { use } = useInstantSearch()
 
   useLayoutEffect(() => {
     const middleware = AnalyticsMiddleware({
@@ -72,15 +70,15 @@ function InsightsMiddleware() {
       }
     })
 
-    return use(middleware);
-  }, [use]);
+    return use(middleware)
+  }, [use])
 
-  return null;
+  return null
 }
 
 const searchClient = Client({
   url: '/api/product-search'
-});
+})
 
 function App() {
   return (
@@ -88,6 +86,6 @@ function App() {
       {/* ... */}
       <InsightsMiddleware />
     </InstantSearch>
-  );
+  )
 }
 ```

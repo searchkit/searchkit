@@ -1,4 +1,9 @@
-import { getFieldValue, getHighlightFields, highlightTerm, isAllowableHighlightField } from '../highlightUtils'
+import {
+  getFieldValue,
+  getHighlightFields,
+  highlightTerm,
+  isAllowableHighlightField
+} from '../highlightUtils'
 import { ElasticsearchHit } from '../types'
 
 describe('highlight utils', () => {
@@ -211,14 +216,11 @@ describe('highlight utils', () => {
 
     it('should retrieve an array of values from a nested array field', () => {
       const obj = {
-        messages: [
-          { text: 'Hello, world!' },
-          { text: 'Search engines are cool.' },
-        ],
+        messages: [{ text: 'Hello, world!' }, { text: 'Search engines are cool.' }]
       }
       expect(getFieldValue(obj, 'messages.text')).toEqual([
         'Hello, world!',
-        'Search engines are cool.',
+        'Search engines are cool.'
       ])
     })
 
@@ -234,15 +236,9 @@ describe('highlight utils', () => {
 
     it('should handle arrays with objects missing the requested field', () => {
       const obj = {
-        messages: [
-          { text: 'Hello, world!' },
-          { otherField: 'No text here' },
-        ],
+        messages: [{ text: 'Hello, world!' }, { otherField: 'No text here' }]
       }
-      expect(getFieldValue(obj, 'messages.text')).toEqual([
-        'Hello, world!',
-        undefined,
-      ])
+      expect(getFieldValue(obj, 'messages.text')).toEqual(['Hello, world!', undefined])
     })
 
     it('should return undefined if the initial object is null or undefined', () => {
@@ -252,14 +248,11 @@ describe('highlight utils', () => {
 
     it('should handle nested arrays properly', () => {
       const obj = {
-        messages: [
-          { text: ['Hello', 'World'] },
-          { text: ['Search', 'Engine'] },
-        ],
+        messages: [{ text: ['Hello', 'World'] }, { text: ['Search', 'Engine'] }]
       }
       expect(getFieldValue(obj, 'messages.text')).toEqual([
         ['Hello', 'World'],
-        ['Search', 'Engine'],
+        ['Search', 'Engine']
       ])
     })
   })

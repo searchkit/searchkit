@@ -30,7 +30,8 @@
   "sideEffects": false,
   "license": "MIT",
   "scripts": {
-    "lint": "eslint src/*.ts*",
+    "lint": "eslint src --ext .ts,.tsx --max-warnings 0",
+    "typecheck": "tsc --noEmit",
     "build": "tsup",
     "dev": "npm run build -- --watch"
   },

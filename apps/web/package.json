@@ -7,7 +7,7 @@
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.19.12",

@@ -154,7 +154,11 @@ function queryRulesWrapper(organicQuery: any, queryRuleActions: QueryRuleActions
   return organicQuery
 }
 
-export function RelevanceQueryMatch(query: string, search_attributes: SearchAttribute[], fuzziness: string = 'AUTO:4,8') {
+export function RelevanceQueryMatch(
+  query: string,
+  search_attributes: SearchAttribute[],
+  fuzziness: string = 'AUTO:4,8'
+) {
   const getFieldsMap = (boostMultiplier: number) => {
     return search_attributes.map((attribute) => {
       return typeof attribute === 'string'
