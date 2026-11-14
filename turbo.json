@@ -13,7 +13,11 @@
       "outputs": []
     },
     "typecheck": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["build"],
+      "outputs": []
+    },
+    "searchkit#typecheck": {
+      "dependsOn": ["build", "@searchkit/api#build"],
       "outputs": []
     },
     "dev": {
