@@ -19,6 +19,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Yarn 4 comes from corepack (`packageManager` in package.json); enable it before setup-node
+      # so its yarn cache step runs the right yarn.
+      - name: Enable corepack
+        run: corepack enable
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
@@ -26,7 +31,7 @@ jobs:
           cache: "yarn"
 
       - name: Install dependencies
-        run: yarn
+        run: yarn install --immutable
 
       - name: Require a changeset when published packages change
         run: yarn changeset status --since=origin/main

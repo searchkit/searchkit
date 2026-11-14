@@ -9,9 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@searchkit/instantsearch-client": "*",
+    "searchkit": "*",
     "vue": "^3.2.47",
-    "searchkit": "latest",
-    "@searchkit/instantsearch-client": "latest",
     "vue-instantsearch": "4.4.2"
   },
   "devDependencies": {

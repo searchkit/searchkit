@@ -40,3 +40,11 @@ packages/**/lib
 # playwright (e2e)
 e2e/playwright-report/
 e2e/test-results/
+
+# yarn 4 (berry): the yarn binary comes from corepack via `packageManager`, nothing else under .yarn is committed
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*

@@ -37,7 +37,12 @@
     "lodash.debounce": "^4.0.8"
   },
   "devDependencies": {
+    "@types/lodash.debounce": "^4.0.7",
+    "eslint": "^7.32.0",
     "instantsearch.js": "^4.55.0",
-    "@types/lodash.debounce": "^4.0.7"
+    "jest": "29.1.2",
+    "ts-jest": "29.0.3",
+    "tsup": "^6.3.0",
+    "typescript": "^4.9.5"
   }
 }

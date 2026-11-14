@@ -20,27 +20,29 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       published: ${{ steps.changesets.outputs.published }}
-      publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}
+      published-packages: ${{ steps.changesets.outputs.published-packages }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      # Yarn 4 comes from corepack (`packageManager` in package.json); enable it before setup-node
+      # so its yarn cache step runs the right yarn.
+      - name: Enable corepack
+        run: corepack enable
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: "yarn"
-          registry-url: https://registry.npmjs.org
 
-      # Trusted publishing needs npm >= 11.5.1. Pinned to 11: npm 12's `npm info --json` returns an
-      # array, which @changesets/cli 2.26 misreads as "not published" (it then retries every package).
-      - name: Upgrade npm
-        run: npm install -g npm@11
+      # No npm upgrade needed: @changesets/cli 3 publishes Yarn Berry projects with `yarn npm info` /
+      # `yarn npm publish`, and Yarn 4 does the npm trusted-publishing (OIDC) token exchange itself.
 
       - name: Install dependencies
-        run: yarn
+        run: yarn install --immutable
 
       - name: Lint, build and test
         run: |
@@ -50,19 +52,24 @@ jobs:
 
       - name: Create release PR or publish to npm
         id: changesets
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
-          version: yarn changeset version
-          publish: yarn release
-          commit: "chore: version packages"
-          title: "chore: version packages"
+          # v2 no longer reads GITHUB_TOKEN from env; it passes this token on to the version/publish scripts
+          # (as GITHUB_TOKEN, used by @changesets/changelog-github) along with CHANGESETS_OUTPUT.
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # Also refreshes yarn.lock: Yarn 4 records the examples' exact workspace versions in it, so a
+          # version bump without this would break `yarn install --immutable` on main.
+          version-script: yarn version-packages
+          publish-script: yarn release
+          commit-message: "chore: version packages"
+          pr-title: "chore: version packages"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_CONFIG_PROVENANCE: "true"
+          # `yarn npm publish` ignores NPM_CONFIG_PROVENANCE; this is Yarn's npmPublishProvenance setting.
+          YARN_NPM_PUBLISH_PROVENANCE: "true"
 
       - name: Comment on fixed issues with the released version
         if: steps.changesets.outputs.published == 'true'
-        run: node scripts/notify-released-issues.mjs '${{ steps.changesets.outputs.publishedPackages }}'
+        run: node scripts/notify-released-issues.mjs '${{ steps.changesets.outputs.published-packages }}'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -93,6 +100,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Yarn 4 comes from corepack (`packageManager` in package.json); enable it before setup-node
+      # so its yarn cache step runs the right yarn.
+      - name: Enable corepack
+        run: corepack enable
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
@@ -100,7 +112,7 @@ jobs:
           cache: "yarn"
 
       - name: Install dependencies (for the Playwright runner)
-        run: yarn
+        run: yarn install --immutable
 
       - name: Install the example from npm
         run: node scripts/prepare-published-example.mjs "$RUNNER_TEMP/published-example"

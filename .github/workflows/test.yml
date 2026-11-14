@@ -17,6 +17,11 @@ jobs:
         with:
           fetch-depth: 2
 
+      # Yarn 4 comes from corepack (`packageManager` in package.json); enable it before setup-node
+      # so its yarn cache step runs the right yarn.
+      - name: Enable corepack
+        run: corepack enable
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v3
         with:
@@ -24,7 +29,7 @@ jobs:
           cache: "yarn"
 
       - name: Install dependencies
-        run: yarn
+        run: yarn install --immutable
 
       - name: Build
         run: yarn build
@@ -57,6 +62,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      # Yarn 4 comes from corepack (`packageManager` in package.json); enable it before setup-node
+      # so its yarn cache step runs the right yarn.
+      - name: Enable corepack
+        run: corepack enable
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v3
         with:
@@ -64,7 +74,7 @@ jobs:
           cache: "yarn"
 
       - name: Install dependencies
-        run: yarn
+        run: yarn install --immutable
 
       - name: Build packages
         run: yarn build

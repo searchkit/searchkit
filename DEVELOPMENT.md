@@ -1,13 +1,17 @@
 ## Setting up a development environment
 
 Requirements:
-- [Node.js](https://nodejs.org/en/) (18 or higher)
-- [Yarn](https://yarnpkg.com/) (v1.22.15 or higher)
+- [Node.js](https://nodejs.org/en/) 22.11 or higher (see `.nvmrc`; `nvm use` picks it up). Changesets 3 does not
+  run on older versions.
+- [Yarn](https://yarnpkg.com/) 4, provided by [Corepack](https://nodejs.org/api/corepack.html). Don't install Yarn
+  globally; run `corepack enable` once and the `yarn` command uses the version pinned in `packageManager` in the root
+  `package.json`.
 
 1. Clone the repository and install dependencies:
 
 ```bash
-yarn
+corepack enable
+yarn install
 ```
 
 2. Build the project:
