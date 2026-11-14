@@ -4,17 +4,45 @@ on:
     branches:
       - main
       - docs-build
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-docs-${{ github.ref }}
+  cancel-in-progress: false
+
+# Build in CI from the full monorepo checkout, then upload the prebuilt output.
+# Uploading only apps/web (the old `vercel --prod` from that folder) breaks with pnpm:
+# Vercel would get no pnpm-lock.yaml and none of the workspace packages apps/web links to.
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_NEXT_PROJECT_ID }}
+      VERCEL: npx --yes vercel@65.16.0
+    defaults:
+      run:
+        working-directory: apps/web
     steps:
-      - uses: actions/checkout@v2
-      - uses: amondnet/vercel-action@v19
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # pnpm version comes from `packageManager` in package.json. Installed before setup-node so its pnpm cache works.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          github-token: ${{ secrets.GITHUB_TOKEN }} #Optional
-          vercel-args: "--prod --force" #Optional
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID}} #Required
-          vercel-project-id: ${{ secrets.VERCEL_NEXT_PROJECT_ID}} #Required
-          working-directory: ./apps/web
-          vercel-project-name: searchkit-next
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Pull Vercel project settings
+        run: $VERCEL pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      # Runs the install and build commands from apps/web/vercel.json against the whole workspace.
+      - name: Build
+        run: $VERCEL build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy
+        run: $VERCEL deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
