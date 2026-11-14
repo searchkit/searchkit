@@ -1,8 +1,15 @@
 import type { MultipleQueriesQuery, RequestOptions } from 'searchkit'
 import type Searchkit from 'searchkit'
-// Type-only and internal: used to check at build time that this client satisfies
-// InstantSearch's SearchClient contract. Not part of the published declarations.
 import type { SearchClient } from 'instantsearch.js'
+
+/**
+ * The client returned by `createClient`: InstantSearch's own `SearchClient` type, so it is
+ * checked against whatever InstantSearch expects, plus `clearCache`, which InstantSearch
+ * calls on `refresh()`.
+ */
+export type SearchkitInstantSearchClient = SearchClient & {
+  clearCache: () => Promise<void>
+}
 
 interface InstantSearchElasticsearchAdapterConfig {
   url: string
@@ -168,12 +175,11 @@ class InstantSearchElasticsearchAdapter {
   }
 }
 
-const createClient = (config: Config, requestOptions?: RequestOptions): any => {
-  const client = new InstantSearchElasticsearchAdapter(config, requestOptions)
-  // Build-time contract check: if instantsearch.js changes the requests it sends
-  // (e.g. a new algoliasearch major), this assignment stops compiling and the build fails.
-  const searchClient: SearchClient = client
-  return searchClient
-}
+// The return type is InstantSearch's SearchClient, so if instantsearch.js changes the
+// requests it sends (e.g. a new algoliasearch major), this stops compiling and the build fails.
+const createClient = (
+  config: Config,
+  requestOptions?: RequestOptions
+): SearchkitInstantSearchClient => new InstantSearchElasticsearchAdapter(config, requestOptions)
 
 export default createClient

@@ -53,5 +53,13 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "peerDependencies": {
+    "instantsearch.js": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "instantsearch.js": {
+      "optional": true
+    }
   }
 }
