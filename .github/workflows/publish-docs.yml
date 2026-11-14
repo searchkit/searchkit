@@ -44,5 +44,11 @@ jobs:
       - name: Build
         run: $VERCEL build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
+      # The build output's function file maps are relative to the repo root (pnpm keeps
+      # dependencies in the root node_modules), so deploy from the root, not apps/web.
+      - name: Move build output to the repo root
+        run: mv .vercel ../../.vercel
+
       - name: Deploy
+        working-directory: .
         run: $VERCEL deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
