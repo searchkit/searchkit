@@ -36,7 +36,7 @@
   "unpkg": "dist/umd/index.global.js",
   "scripts": {
     "lint": "eslint src/*.ts*",
-    "build": "tsup",
+    "build": "tsup && node scripts/check-dts.mjs",
     "dev": "npm run build --watch",
     "test": "jest"
   },
