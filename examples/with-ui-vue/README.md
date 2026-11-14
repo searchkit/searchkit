@@ -8,6 +8,7 @@ tar -xz --strip=2 searchkit-main/examples/with-ui-vue
 ```
 
 ## Play on Codesandbox
+
 https://codesandbox.io/s/github/searchkit/searchkit/tree/main/examples/with-ui-vue
 
 ## Install & Run

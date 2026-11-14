@@ -7,7 +7,7 @@
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.19.12",
@@ -34,7 +34,7 @@
     "@types/node": "^22.0.0",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "eslint": "7.32.0",
+    "eslint": "^9.39.0",
     "eslint-config-custom": "workspace:*",
     "tailwindcss": "^3.4.19",
     "tsconfig": "workspace:*",

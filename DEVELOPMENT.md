@@ -1,6 +1,7 @@
 ## Setting up a development environment
 
 Requirements:
+
 - [Node.js](https://nodejs.org/en/) `^22.11 || ^24 || >=26`, matching `engines` in the root `package.json` (`.nvmrc`
   pins 22, so `nvm use` picks it up). Changesets 3 does not run on other versions.
 - [pnpm](https://pnpm.io/) 12. The exact version is pinned in `packageManager` in the root `package.json`. Install it
@@ -41,7 +42,7 @@ pnpm test
 
 ## Functional Tests
 
-These tests run against mocks of the Elasticsearch API. 
+These tests run against mocks of the Elasticsearch API.
 
 Tests are located in the `packages/searchkit/src/___tests___/functional` directory.
 Mocks are located in the `packages/searchkit/src/___tests___/mocks` directory.
@@ -55,7 +56,7 @@ cd packages/searchkit
 pnpm test
 ```
 
-```bash
+````bash
 ## End-to-end tests
 
 The `e2e` workspace holds [Playwright](https://playwright.dev) tests that drive `examples/with-ui-nextjs-react`
@@ -71,7 +72,7 @@ pnpm build          # the example uses the built workspace packages
 pnpm e2e:up         # starts Elasticsearch (docker-compose.e2e.yml) and seeds the `products` index
 pnpm test:e2e       # builds + starts the example on :3000 and runs the Playwright tests
 pnpm e2e:down       # stops and removes Elasticsearch
-```
+````
 
 - **Port 9200 already in use?** Use another port for both the container and the tests:
   `export E2E_ES_PORT=9290 ES_HOST=http://localhost:9290`, then run the commands above.

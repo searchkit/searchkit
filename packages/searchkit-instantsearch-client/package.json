@@ -30,7 +30,8 @@
   "sideEffects": false,
   "license": "MIT",
   "scripts": {
-    "lint": "eslint src/*.ts*",
+    "lint": "eslint src --max-warnings 0",
+    "typecheck": "tsc --noEmit",
     "build": "tsup",
     "dev": "npm run build -- --watch",
     "test": "jest"
@@ -38,7 +39,7 @@
   "devDependencies": {
     "@elastic/elasticsearch": "8.4.0",
     "@types/jest": "^29.1.1",
-    "eslint": "^7.32.0",
+    "eslint": "^9.39.0",
     "eslint-config-custom": "workspace:*",
     "fetch-mock-jest": "^1.5.1",
     "instantsearch.js": "^4.122.0",
