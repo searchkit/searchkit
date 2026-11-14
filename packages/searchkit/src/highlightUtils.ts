@@ -2,7 +2,7 @@ import { getSnippetFieldLength } from './transformRequest'
 import type { ElasticsearchHit, SearchSettingsConfig } from './types'
 
 export function highlightTerm(value: string, query: string): string {
-  const regex = new RegExp(query, 'gi')
+  const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi')
   return value.replace(regex, (match) => `<em>${match}</em>`)
 }
 

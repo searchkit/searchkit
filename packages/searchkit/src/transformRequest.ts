@@ -20,25 +20,7 @@ import {
   SearchSettingsConfig
 } from './types'
 import { AlgoliaMultipleQueriesQuery, ElasticsearchSearchRequest } from './types'
-import { getFacet, isNestedFacet } from './utils'
-
-export const createRegexQuery = (queryString: string) => {
-  let query = queryString.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
-  query = query
-    .split('')
-    .map((char) => {
-      if (/[a-z]/i.test(char)) {
-        return `[${char.toLowerCase()}${char.toUpperCase()}]`
-      }
-      return char
-    })
-    .join('')
-  query = `${query}.*`
-  if (queryString.length > 2) {
-    query = `([a-zA-Z]+ )+?${query}`
-  }
-  return query
-}
+import { createRegexQuery, getFacet, isNestedFacet } from './utils'
 
 const TermAggregation = (field: string, size: number, search: string) => {
   const searchInclude = search && search.length > 0 ? { include: createRegexQuery(search) } : {}
