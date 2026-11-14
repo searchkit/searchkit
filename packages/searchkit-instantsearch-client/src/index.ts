@@ -6,8 +6,14 @@ import type { SearchClient } from 'instantsearch.js'
  * The client returned by `createClient`: InstantSearch's own `SearchClient` type, so it is
  * checked against whatever InstantSearch expects, plus `clearCache`, which InstantSearch
  * calls on `refresh()`.
+ *
+ * `search` and `searchForFacetValues` also carry the client's actual signatures, which accept
+ * readonly request arrays. Different instantsearch.js versions declare the requests as mutable
+ * or readonly arrays; these signatures keep the client assignable to either.
  */
 export type SearchkitInstantSearchClient = SearchClient & {
+  search: (requests: readonly MultipleQueriesQuery[]) => Promise<any>
+  searchForFacetValues: (requests: readonly MultipleQueriesQuery[]) => Promise<any>
   clearCache: () => Promise<void>
 }
 
