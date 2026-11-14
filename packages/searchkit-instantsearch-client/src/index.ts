@@ -48,7 +48,7 @@ class InstantSearchElasticsearchAdapter {
   private cache: Record<string, any>
 
   constructor(private config: Config, private requestOptions?: RequestOptions) {
-    this.cache = []
+    this.cache = {}
     if (!isSearchkit(this.config) && !this.config.url) {
       throw new Error('Searchkit Instantsearch Client: url is required')
     }
@@ -60,7 +60,7 @@ class InstantSearchElasticsearchAdapter {
   }
 
   public clearCache(): Promise<void> {
-    this.cache = []
+    this.cache = {}
     return Promise.resolve(undefined)
   }
 

@@ -70,6 +70,8 @@ exports[`Browser Only Searchkit works as expected 1`] = `
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
+          "_score": 7.637228,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",
@@ -161,6 +163,8 @@ exports[`Browser Only Searchkit works as expected 1`] = `
               "value": "The <em>Shawshank</em> Redemption",
             },
           },
+          "_index": "imdb_movies",
+          "_score": 7.637228,
           "actors": [
             "Tim Robbins",
             "Morgan Freeman",

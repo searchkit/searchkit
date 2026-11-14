@@ -676,6 +676,9 @@ importers:
       jest:
         specifier: 29.1.2
         version: 29.1.2(@types/node@18.18.9)(supports-color@8.1.1)(ts-node@10.9.1(@types/node@18.18.9)(typescript@4.9.5))
+      nock:
+        specifier: ^14.0.0-beta.4
+        version: 14.0.0-beta.5
       node-fetch:
         specifier: ^2.6.6
         version: 2.7.0
