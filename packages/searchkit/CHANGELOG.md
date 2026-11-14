@@ -1,5 +1,13 @@
 # searchkit
 
+## 4.18.0
+
+### Minor Changes
+
+- [#1448](https://github.com/searchkit/searchkit/pull/1448) [`35f0080`](https://github.com/searchkit/searchkit/commit/35f0080338ddc53b561c2dd42d37e3ea63ec8cdc) Thanks [@joemcelroy](https://github.com/joemcelroy)! - Searchkit's public types no longer import from `@algolia/client-search`, so TypeScript users no longer need it installed. `MultipleQueriesQuery` (and the deprecated `AlgoliaMultipleQueriesQuery` alias) are now defined by Searchkit and accept Algolia v4 requests, and a new `SearchParams` type is exported for the request params.
+
+  `SearchParams` declares the parameters Searchkit reads; other Algolia parameters are still accepted but typed as `unknown`, so code that reads them from a request may need a cast.
+
 ## 4.17.0
 
 ### Minor Changes
