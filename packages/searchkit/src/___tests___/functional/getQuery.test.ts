@@ -213,4 +213,39 @@ describe('GetQuery Extension', () => {
 
     expect(response).toMatchSnapshot()
   })
+
+  it('passes the instantsearch request to getQuery and getKnnQuery via config', async () => {
+    nock('http://localhost:9200')
+      .post('/_msearch', (requestBody: any) => {
+        const x = JSON.parse(requestBody.split('\n')[1])
+        expect(x.query.bool.must).toEqual({ match: { title: 'imdb_movies' } })
+        expect(x.knn.k).toBe(10)
+        return true
+      })
+      .reply(200, HitsResponseWithFacetFilter)
+
+    const getQuery = jest.fn((query: string, search_attributes: any, config: any) => {
+      expect(config.search_attributes).toEqual(['title', 'actors', 'query'])
+      return { match: { title: config.request.indexName } }
+    })
+    const getKnnQuery = jest.fn((query: string, search_attributes: any, config: any) => ({
+      field: 'embedding',
+      k: config.request.indexName === 'imdb_movies' ? 10 : 1,
+      num_candidates: 100,
+      query_vector: [1, 2, 3]
+    }))
+
+    await client.handleInstantSearchRequests(
+      DisjunctiveExampleRequest.map((request) => ({
+        ...request,
+        params: { ...request.params, query: 'test' }
+      })) as AlgoliaMultipleQueriesQuery[],
+      { getQuery, getKnnQuery }
+    )
+
+    expect(getQuery).toHaveBeenCalled()
+    expect(getKnnQuery).toHaveBeenCalled()
+    expect(getQuery.mock.calls[0][2].request.indexName).toBe('imdb_movies')
+    expect(getKnnQuery.mock.calls[0][2].request.indexName).toBe('imdb_movies')
+  })
 })

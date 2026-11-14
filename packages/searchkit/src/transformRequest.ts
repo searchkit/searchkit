@@ -19,7 +19,7 @@ import {
   SearchAttribute,
   SearchSettingsConfig
 } from './types'
-import { AlgoliaMultipleQueriesQuery, ElasticsearchSearchRequest } from './types'
+import { AlgoliaMultipleQueriesQuery, ElasticsearchSearchRequest, QueryConfig } from './types'
 import { getFacet, isNestedFacet } from './utils'
 
 export const createRegexQuery = (queryString: string) => {
@@ -207,6 +207,7 @@ const getQuery = (
   const query = queryRuleActions.query
 
   const searchAttributes = config.search_attributes
+  const queryConfig: QueryConfig = { ...config, request }
   const fuzziness = config.fuzziness ?? 'AUTO:4,8'
 
   const filters = [
@@ -221,14 +222,15 @@ const getQuery = (
   let organicQuery =
     typeof query === 'string' && query !== ''
       ? requestOptions?.getQuery
-        ? requestOptions.getQuery(query, searchAttributes, {...config, request: request})
+        ? requestOptions.getQuery(query, searchAttributes, queryConfig)
         : RelevanceQueryMatch(query, searchAttributes, fuzziness)
       : {
           match_all: {}
         }
 
   const hasKnn = typeof requestOptions?.getKnnQuery === 'function'
-  const hasNoQuery = requestOptions?.getQuery?.(query, searchAttributes, {...config, request: request}) === false
+  const hasNoQuery =
+    requestOptions?.getQuery?.(query, searchAttributes, queryConfig) === false
 
   if (hasNoQuery || (hasKnn && query === '')) {
     organicQuery = {
@@ -250,7 +252,7 @@ const getQuery = (
   if (hasKnn && query !== '') {
     knnQueryDsl = {
       filter: filters,
-      ...(requestOptions?.getKnnQuery?.(query, searchAttributes, {...config, request: request}) || {})
+      ...(requestOptions?.getKnnQuery?.(query, searchAttributes, queryConfig) || {})
     } as KnnSearchQuery
   }
 

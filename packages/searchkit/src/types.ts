@@ -269,12 +269,19 @@ export type SearchRequest = {
   indexName: string
 }
 
+/**
+ * @description The search settings passed to `getQuery` and `getKnnQuery`, along with the InstantSearch request being transformed (e.g. `config.request.indexName`)
+ */
+export type QueryConfig = SearchSettingsConfig & {
+  request: AlgoliaMultipleQueriesQuery
+}
+
 export interface RequestOptions {
   /**
    * @description Allows you to override the organic query
    * @param query The original query search terms
    * @param search_attributes The search attributes configured in the search settings
-   * @param config The search settings
+   * @param config The search settings, plus the InstantSearch `request` being transformed
    * @returns An Elasticsearch query object or an array of Elasticsearch query objects
    * @returns false if you want to skip the search query (useful for just KNN search)
    */
@@ -282,7 +289,7 @@ export interface RequestOptions {
   getQuery?: (
     query: string,
     search_attributes: SearchAttribute[],
-    config: SearchSettingsConfig
+    config: QueryConfig
   ) => ElasticsearchQuery | ElasticsearchQuery[] | false
   /**
    * @description Allows you to add base filters to be applied to the search. This is useful for user / document level permissions
@@ -294,13 +301,13 @@ export interface RequestOptions {
    * @description Allows you to specify the KNN query to be used for KNN search. Hits will be combined with the organic query. If you do not want to use the organic query, return false from getQuery.
    * @param query The original query search terms
    * @param search_attributes The search attributes configured in the search settings
-   * @param config The search settings
+   * @param config The search settings, plus the InstantSearch `request` being transformed
    * @returns An Elasticsearch KNN Search Query
    */
   getKnnQuery?: (
     query: string,
     search_attributes: SearchAttribute[],
-    config: SearchSettingsConfig
+    config: QueryConfig
   ) => ElasticKnnSearchQuery
 
   /**
