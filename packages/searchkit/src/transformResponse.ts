@@ -263,7 +263,7 @@ export const transformFacetValuesResponse = (
   const facetName = instantsearchRequest?.params?.facetName
 
   const preTag = instantsearchRequest.params?.highlightPreTag || '<ais-highlight-0000000000>'
-  const postTag = instantsearchRequest.params?.highlightPostTag || '<ais-highlight-0000000000/>'
+  const postTag = instantsearchRequest.params?.highlightPostTag || '</ais-highlight-0000000000>'
 
   let agg = aggregations[Object.keys(aggregations)[0]] as any
 

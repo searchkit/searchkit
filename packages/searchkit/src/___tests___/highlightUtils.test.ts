@@ -58,7 +58,7 @@ describe('highlight utils', () => {
             "matchedWords": [
               "Lion",
             ],
-            "value": "The <ais-highlight-0000000000>Lion<ais-highlight-0000000000/> King",
+            "value": "The <ais-highlight-0000000000>Lion</ais-highlight-0000000000> King",
           },
         }
       `)
@@ -90,7 +90,7 @@ describe('highlight utils', () => {
               "matchedWords": [
                 "Albert",
               ],
-              "value": "<ais-highlight-0000000000>Albert<ais-highlight-0000000000/> Einstein",
+              "value": "<ais-highlight-0000000000>Albert</ais-highlight-0000000000> Einstein",
             },
           },
         }
@@ -121,7 +121,7 @@ describe('highlight utils', () => {
                 "matchedWords": [
                   "Keanu",
                 ],
-                "value": "<ais-highlight-0000000000>Keanu<ais-highlight-0000000000/> Reeves",
+                "value": "<ais-highlight-0000000000>Keanu</ais-highlight-0000000000> Reeves",
               },
             },
           },
@@ -151,7 +151,7 @@ describe('highlight utils', () => {
             "matchedWords": [
               "Robert",
             ],
-            "value": "The <ais-highlight-0000000000>Robert<ais-highlight-0000000000/> De Niro",
+            "value": "The <ais-highlight-0000000000>Robert</ais-highlight-0000000000> De Niro",
           },
         ],
       }
