@@ -21,51 +21,56 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       published: ${{ steps.changesets.outputs.published }}
-      publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}
+      published-packages: ${{ steps.changesets.outputs.published-packages }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      # pnpm version comes from `packageManager` in package.json. Installed before setup-node so its pnpm cache works.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "yarn"
-          registry-url: https://registry.npmjs.org
-
-      # Trusted publishing needs npm >= 11.5.1. Pinned to 11: npm 12's `npm info --json` returns an
-      # array, which @changesets/cli 2.26 misreads as "not published" (it then retries every package).
-      - name: Upgrade npm
-        run: npm install -g npm@11
+          cache: "pnpm"
+          # No `registry-url` here: it writes an .npmrc with a NODE_AUTH_TOKEN placeholder token, and publishing
+          # authenticates with npm trusted publishing (OIDC) instead (see "Create release PR or publish to npm").
 
       - name: Install dependencies
-        run: yarn
+        run: pnpm install --frozen-lockfile
 
       - name: Lint, build and test
         run: |
-          yarn lint
-          yarn build
-          yarn test
+          pnpm lint
+          pnpm build
+          pnpm test
 
       - name: Create release PR or publish to npm
         id: changesets
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
-          version: yarn changeset version
-          publish: yarn release
-          commit: "chore: version packages"
-          title: "chore: version packages"
+          # v2 no longer reads GITHUB_TOKEN from env; it passes this token on to the version/publish scripts
+          # (as GITHUB_TOKEN, used by @changesets/changelog-github).
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          version-script: pnpm changeset version
+          publish-script: pnpm release
+          commit-message: "chore: version packages"
+          pr-title: "chore: version packages"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_CONFIG_PROVENANCE: "true"
+          # `changeset publish` publishes each package with `pnpm publish`. pnpm (>= 12) does the npm trusted
+          # publishing OIDC token exchange itself (needs `id-token: write`), so no npm token or npm CLI upgrade is
+          # needed. pnpm reads PNPM_CONFIG_* (not NPM_CONFIG_*) environment variables.
+          PNPM_CONFIG_PROVENANCE: "true"
 
       - name: Comment on fixed issues with the released version
         if: steps.changesets.outputs.published == 'true'
         # Best effort: a failed comment must not fail the release job, or verify-published is skipped.
         continue-on-error: true
-        run: node scripts/notify-released-issues.mjs '${{ steps.changesets.outputs.publishedPackages }}'
+        run: node scripts/notify-released-issues.mjs '${{ steps.changesets.outputs.published-packages }}'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -96,14 +101,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # pnpm version comes from `packageManager` in package.json. Installed before setup-node so its pnpm cache works.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "yarn"
+          cache: "pnpm"
 
       - name: Install dependencies (for the Playwright runner)
-        run: yarn
+        run: pnpm install --frozen-lockfile
 
       - name: Install the example from npm
         run: node scripts/prepare-published-example.mjs "$RUNNER_TEMP/published-example"
@@ -116,7 +125,7 @@ jobs:
         working-directory: e2e
 
       - name: Run functional tests against the published packages
-        run: yarn test:e2e
+        run: pnpm test:e2e
         env:
           E2E_APP_DIR: ${{ runner.temp }}/published-example
 

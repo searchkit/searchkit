@@ -1,5 +1,21 @@
 import type { MultipleQueriesQuery, RequestOptions } from 'searchkit'
 import type Searchkit from 'searchkit'
+import type { SearchClient } from 'instantsearch.js'
+
+/**
+ * The client returned by `createClient`: InstantSearch's own `SearchClient` type, so it is
+ * checked against whatever InstantSearch expects, plus `clearCache`, which InstantSearch
+ * calls on `refresh()`.
+ *
+ * `search` and `searchForFacetValues` also carry the client's actual signatures, which accept
+ * readonly request arrays. Different instantsearch.js versions declare the requests as mutable
+ * or readonly arrays; these signatures keep the client assignable to either.
+ */
+export type SearchkitInstantSearchClient = SearchClient & {
+  search: (requests: readonly MultipleQueriesQuery[]) => Promise<any>
+  searchForFacetValues: (requests: readonly MultipleQueriesQuery[]) => Promise<any>
+  clearCache: () => Promise<void>
+}
 
 interface InstantSearchElasticsearchAdapterConfig {
   url: string
@@ -32,7 +48,7 @@ class InstantSearchElasticsearchAdapter {
   private cache: Record<string, any>
 
   constructor(private config: Config, private requestOptions?: RequestOptions) {
-    this.cache = []
+    this.cache = {}
     if (!isSearchkit(this.config) && !this.config.url) {
       throw new Error('Searchkit Instantsearch Client: url is required')
     }
@@ -44,7 +60,7 @@ class InstantSearchElasticsearchAdapter {
   }
 
   public clearCache(): Promise<void> {
-    this.cache = []
+    this.cache = {}
     return Promise.resolve(undefined)
   }
 
@@ -165,7 +181,11 @@ class InstantSearchElasticsearchAdapter {
   }
 }
 
-const createClient = (config: Config, requestOptions?: RequestOptions) : any =>
-  new InstantSearchElasticsearchAdapter(config, requestOptions)
+// The return type is InstantSearch's SearchClient, so if instantsearch.js changes the
+// requests it sends (e.g. a new algoliasearch major), this stops compiling and the build fails.
+const createClient = (
+  config: Config,
+  requestOptions?: RequestOptions
+): SearchkitInstantSearchClient => new InstantSearchElasticsearchAdapter(config, requestOptions)
 
 export default createClient

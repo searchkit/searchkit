@@ -19,11 +19,11 @@ export default defineConfig({
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   // Builds and serves examples/with-ui-nextjs-react (which uses the workspace searchkit packages)
-  // against the local Elasticsearch. Run `yarn build` at the repo root first so packages have a dist/.
+  // against the local Elasticsearch. Run `pnpm build` at the repo root first so packages have a dist/.
   webServer: {
     command: APP_DIR
       ? `npm run build && npm start -- -p ${PORT}`
-      : `yarn workspace with-ui-nextjs-react build && yarn workspace with-ui-nextjs-react start -p ${PORT}`,
+      : `pnpm --filter with-ui-nextjs-react build && pnpm --filter with-ui-nextjs-react start -p ${PORT}`,
     cwd: APP_DIR || '..',
     url: `http://localhost:${PORT}`,
     reuseExistingServer: !process.env.CI,

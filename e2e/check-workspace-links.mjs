@@ -1,5 +1,5 @@
 // Fails if the example app would run published searchkit packages instead of the ones in this repo.
-// This can happen when a package version is bumped without updating the example's dependency range.
+// This can happen when the example's dependency range doesn't match the workspace package's version.
 import { createRequire } from 'node:module'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -21,7 +21,9 @@ for (const name of packages) {
 if (failed) {
   console.error(
     '\nThe example resolves a published package instead of the workspace one. ' +
-      "Align the version in examples/with-ui-nextjs-react/package.json with the package's version."
+      'Use a range the workspace version satisfies (the examples use "*") in ' +
+      'examples/with-ui-nextjs-react/package.json; pnpm links it to the workspace package ' +
+      '(linkWorkspacePackages in pnpm-workspace.yaml).'
   )
   process.exit(1)
 }

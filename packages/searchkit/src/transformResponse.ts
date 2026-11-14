@@ -259,7 +259,6 @@ export const transformFacetValuesResponse = (
   instantsearchRequest: AlgoliaMultipleQueriesQuery
 ) => {
   const aggregations = response.aggregations || {}
-  // @ts-ignore
   const facetName = instantsearchRequest?.params?.facetName
 
   const preTag = instantsearchRequest.params?.highlightPreTag || '<ais-highlight-0000000000>'
@@ -267,7 +266,7 @@ export const transformFacetValuesResponse = (
 
   let agg = aggregations[Object.keys(aggregations)[0]] as any
 
-  if (agg && agg[facetName]) {
+  if (agg && facetName && agg[facetName]) {
     agg = agg[facetName]
   }
 

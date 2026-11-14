@@ -1,0 +1,19 @@
+packages:
+  - apps/*
+  - packages/*
+  - sample-data
+  - examples/*
+  - e2e
+
+# Examples depend on the searchkit packages with plain semver ranges ("*") instead of `workspace:*`, so that an
+# example downloaded on its own (see the docs) still installs from npm. This setting makes pnpm link those ranges to
+# the workspace packages when they match, so in this repo the examples always use the local packages
+# (e2e/check-workspace-links.mjs verifies this).
+linkWorkspacePackages: true
+
+# Dependency build scripts pnpm may run. Anything not listed fails the install (in CI) instead of prompting.
+allowBuilds:
+  # installs/validates the platform-specific esbuild binary (used by tsup and vite)
+  esbuild: true
+  # only prints a funding message
+  core-js: false

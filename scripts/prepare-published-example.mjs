@@ -47,7 +47,7 @@ cpSync(join(root, 'examples/with-ui-nextjs-react'), dest, {
 })
 const pkgPath = join(dest, 'package.json')
 const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'))
-// Pin every other dependency to the version the workspace resolved (yarn.lock), so the run only varies
+// Pin every other dependency to the version the workspace resolved (pnpm-lock.yaml), so the run only varies
 // the searchkit packages and isn't affected by newer releases of e.g. react-instantsearch.
 const installedVersion = (dep) => {
   for (const base of ['examples/with-ui-nextjs-react', '.']) {

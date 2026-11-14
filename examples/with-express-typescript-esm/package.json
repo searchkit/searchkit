@@ -14,7 +14,7 @@
   "scripts": {
     "dev": "tsx ./src/index.ts",
     "build": "rm -rf ./dist && tsc --project .",
-    "start": "yarn build && node ./dist/index.js"
+    "start": "npm run build && node ./dist/index.js"
   },
   "dependencies": {
     "@searchkit/api": "*",

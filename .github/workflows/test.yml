@@ -17,20 +17,24 @@ jobs:
         with:
           fetch-depth: 2
 
+      # pnpm version comes from `packageManager` in package.json. Installed before setup-node so its pnpm cache works.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "yarn"
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: yarn
+        run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: yarn build
+        run: pnpm build
 
       - name: Test
-        run: yarn test
+        run: pnpm test
 
   # Drives the Next.js example in a real browser (Playwright) against a real Elasticsearch
   # running as a service container. See DEVELOPMENT.md ("End-to-end tests").
@@ -57,17 +61,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      # pnpm version comes from `packageManager` in package.json. Installed before setup-node so its pnpm cache works.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "yarn"
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: yarn
+        run: pnpm install --frozen-lockfile
 
       - name: Build packages
-        run: yarn build
+        run: pnpm build
 
       - name: Check the example uses the packages from this PR
         run: node e2e/check-workspace-links.mjs
@@ -98,7 +106,7 @@ jobs:
         working-directory: e2e
 
       - name: Run functional tests
-        run: yarn test:e2e
+        run: pnpm test:e2e
 
       - name: Upload Playwright report
         if: failure()
