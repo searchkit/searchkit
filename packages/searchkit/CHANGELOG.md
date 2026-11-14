@@ -1,5 +1,17 @@
 # searchkit
 
+## 4.17.0
+
+### Minor Changes
+
+- [#1411](https://github.com/searchkit/searchkit/pull/1411) [`08d73b0`](https://github.com/searchkit/searchkit/commit/08d73b01de41b8e35825acbe7b5e43f4c2f57276) Thanks [@indykoning](https://github.com/indykoning)! - `getQuery` and `getKnnQuery` now receive the InstantSearch request on `config.request` (typed as `QueryConfig`), so custom queries can vary per index, e.g. `config.request.indexName`
+
+### Patch Changes
+
+- [#1408](https://github.com/searchkit/searchkit/pull/1408) [`931ec71`](https://github.com/searchkit/searchkit/commit/931ec719246a2b9a77d706d5deb4dcf5a0a72614) Thanks [@Jade-GG](https://github.com/Jade-GG)! - Export `RelevanceQueryMatch` so the default relevance query can be reused inside a custom `getQuery`
+
+- [#1409](https://github.com/searchkit/searchkit/pull/1409) [`36da972`](https://github.com/searchkit/searchkit/commit/36da9725d97aa36216cf3537f836bed56af2a55c) Thanks [@Jade-GG](https://github.com/Jade-GG)! - Fix the default highlight post tag to be a proper closing tag (`</ais-highlight-0000000000>`) instead of a self-closing tag
+
 ## 4.16.3
 
 ### Patch Changes
