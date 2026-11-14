@@ -1,4 +1,4 @@
-import { transformQueryString } from './filters'
+import { parseFacetFilter, transformQueryString } from './filters'
 import { AlgoliaMultipleQueriesQuery, QueryRule, SearchSettingsConfig } from './types'
 
 export interface QueryContextFilter {
@@ -30,13 +30,13 @@ const getFacetFilters = (
     return []
   }
   if (typeof facetFilters === 'string') {
-    const [attribute, value] = facetFilters.split(/:(.*)/)
+    const [attribute, value] = parseFacetFilter(facetFilters)
     return [{ attribute, value }]
   } else {
     // @ts-ignore
     return facetFilters.reduce<QueryContextFilter[]>((sum: any, filter: any) => {
       if (typeof filter === 'string') {
-        const [attribute, value] = filter.split(/:(.*)/)
+        const [attribute, value] = parseFacetFilter(filter)
         return [...sum, { attribute, value }]
       }
       return [...sum, ...getFacetFilters(filter)]

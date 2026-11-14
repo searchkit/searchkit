@@ -152,6 +152,14 @@ export const transformNumericFilters = (
   }, [])
 }
 
+// InstantSearch escapes a leading "-" as "\-" so it is not read as a facet
+// exclusion (see algoliasearch-helper escapeFacetValue). Undo that here so the
+// Elasticsearch filter uses the real value.
+export const parseFacetFilter = (filter: string): [string, string] => {
+  const [facet, value] = filter.split(/:(.*)/)
+  return [facet, typeof value === 'string' ? value.replace(/^\\-/, '-') : value]
+}
+
 const getFacetFilterMap = (facets: FacetAttribute[], filters: FilterAttribute[]) => {
   return [...filters, ...facets].reduce<Record<string, FacetFieldConfig | FilterAttribute>>(
     (sum, filter) => {
@@ -190,7 +198,7 @@ export const transformFacetFilters = (
         {
           bool: {
             should: filter.reduce((sum, filter) => {
-              const [facet, value] = filter.split(/:(.*)/)
+              const [facet, value] = parseFacetFilter(filter)
               const facetFilterConfig = facetFilterMap[facet]
               if (!facetFilterConfig)
                 throw new Error(
@@ -246,7 +254,7 @@ export const transformFacetFilters = (
         }
       ]
     } else if (typeof filter === 'string') {
-      const [facet, value] = filter.split(/:(.*)/)
+      const [facet, value] = parseFacetFilter(filter)
 
       const facetFilterConfig = facetFilterMap[facet]
       if (!facetFilterConfig)
