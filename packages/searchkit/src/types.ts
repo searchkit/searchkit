@@ -1,4 +1,3 @@
-import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
 import type {
   SearchRequest as ElasticsearchSearchRequest,
   QueryDslQueryContainer as ElasticsearchQueryDslQuery,
@@ -18,7 +17,50 @@ type ElasticsearchQuery = ElasticsearchQueryDslQuery
 type ElasticsearchAggregation = AggregationsAggregationContainer
 type KnnSearchQuery = ElasticKnnSearchQuery
 
-export type MultipleQueriesQuery = AlgoliaMultipleQueriesQuery
+type Filters = string | readonly string[] | ReadonlyArray<readonly string[] | string>
+
+/**
+ * @description The search parameters InstantSearch sends with each request.
+ * Searchkit owns this type so its public types don't depend on `@algolia/client-search`.
+ * It is structurally compatible with Algolia's v4 `SearchOptions`, and unknown keys are allowed.
+ */
+export interface SearchParams {
+  readonly query?: string
+  readonly page?: number
+  readonly hitsPerPage?: number
+  readonly facets?: readonly string[] | string
+  readonly maxValuesPerFacet?: number
+  readonly facetName?: string
+  readonly facetQuery?: string
+  readonly facetFilters?: Filters
+  readonly numericFilters?: Filters
+  readonly filters?: string
+  readonly aroundLatLng?: string
+  readonly aroundRadius?: number | 'all'
+  readonly insideBoundingBox?: ReadonlyArray<readonly number[]> | string
+  readonly attributesToRetrieve?: readonly string[]
+  readonly attributesToHighlight?: readonly string[]
+  readonly highlightPreTag?: string
+  readonly highlightPostTag?: string
+  readonly ruleContexts?: readonly string[]
+  readonly [key: string]: unknown
+}
+
+/**
+ * @description A single InstantSearch request, as passed to `handleInstantSearchRequests`.
+ * Structurally compatible with Algolia's v4 `MultipleQueriesQuery`.
+ */
+export interface MultipleQueriesQuery {
+  readonly indexName: string
+  readonly type?: 'default' | 'facet'
+  readonly facet?: string
+  readonly params?: SearchParams
+}
+
+/**
+ * @deprecated Use `MultipleQueriesQuery`. Kept as an alias for backwards compatibility.
+ */
+type AlgoliaMultipleQueriesQuery = MultipleQueriesQuery
 
 export type FacetFieldConfig = {
   attribute: string

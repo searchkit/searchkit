@@ -78,8 +78,7 @@ export const getAggs = (
   queryRuleActions: QueryRuleActions
 ) => {
   const { params = {}, type } = request
-  // @ts-ignore
-  const { facets, maxValuesPerFacet, facetName, facetQuery } = params
+  const { facets, maxValuesPerFacet, facetName, facetQuery = '' } = params
   const maxFacetSize = maxValuesPerFacet || 10
   const facetAttributes = config.facet_attributes || []
 
