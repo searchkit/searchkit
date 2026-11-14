@@ -474,28 +474,6 @@ importers:
         specifier: ^4.5.2
         version: 4.5.2(@types/node@18.18.9)
 
-  examples/with-ui-instantsearchjs-and-analytics:
-    dependencies:
-      '@searchkit/elastic-behavioral-analytics-plugin':
-        specifier: '*'
-        version: link:../../packages/searchkit-elastic-behavioral-analytics-plugin
-      '@searchkit/instantsearch-client':
-        specifier: '*'
-        version: link:../../packages/searchkit-instantsearch-client
-      instantsearch.js:
-        specifier: ^4.55.0
-        version: 4.60.0(algoliasearch@4.27.0)
-      searchkit:
-        specifier: '*'
-        version: link:../../packages/searchkit
-    devDependencies:
-      typescript:
-        specifier: ^4.9.3
-        version: 4.9.5
-      vite:
-        specifier: ^4.5.2
-        version: 4.5.2(@types/node@18.18.9)
-
   examples/with-ui-nextjs-react:
     dependencies:
       '@searchkit/api':
@@ -658,49 +636,6 @@ importers:
       nock:
         specifier: ^14.0.0-beta.4
         version: 14.0.0-beta.5
-      ts-jest:
-        specifier: 29.0.3
-        version: 29.0.3(@babel/core@7.29.13(supports-color@8.1.1))(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.29.13(supports-color@8.1.1))(supports-color@8.1.1))(esbuild@0.27.4)(jest@29.1.2(@types/node@18.18.9)(supports-color@8.1.1)(ts-node@10.9.1(@types/node@18.18.9)(typescript@4.9.5)))(typescript@4.9.5)
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
-      tsup:
-        specifier: ^6.3.0
-        version: 6.7.0(postcss@8.5.32)(supports-color@8.1.1)(ts-node@10.9.1(@types/node@18.18.9)(typescript@4.9.5))(typescript@4.9.5)
-      typescript:
-        specifier: ^4.9.5
-        version: 4.9.5
-
-  packages/searchkit-elastic-behavioral-analytics-plugin:
-    dependencies:
-      '@elastic/behavioral-analytics-javascript-tracker':
-        specifier: ^2.1.3
-        version: 2.1.4
-      lodash.debounce:
-        specifier: ^4.0.8
-        version: 4.0.8
-    devDependencies:
-      '@types/jest':
-        specifier: ^29.1.1
-        version: 29.5.8
-      '@types/lodash.debounce':
-        specifier: ^4.0.7
-        version: 4.0.9
-      algoliasearch-helper:
-        specifier: 3.30.1
-        version: 3.30.1(algoliasearch@4.27.0)
-      eslint:
-        specifier: ^7.32.0
-        version: 7.32.0(supports-color@8.1.1)
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
-      instantsearch.js:
-        specifier: ^4.55.0
-        version: 4.122.0(algoliasearch@4.27.0)
-      jest:
-        specifier: 29.1.2
-        version: 29.1.2(@types/node@18.18.9)(supports-color@8.1.1)(ts-node@10.9.1(@types/node@18.18.9)(typescript@4.9.5))
       ts-jest:
         specifier: 29.0.3
         version: 29.0.3(@babel/core@7.29.13(supports-color@8.1.1))(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.29.13(supports-color@8.1.1))(supports-color@8.1.1))(esbuild@0.27.4)(jest@29.1.2(@types/node@18.18.9)(supports-color@8.1.1)(ts-node@10.9.1(@types/node@18.18.9)(typescript@4.9.5)))(typescript@4.9.5)
@@ -1123,12 +1058,6 @@ packages:
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
-
-  '@elastic/behavioral-analytics-javascript-tracker@2.1.4':
-    resolution: {integrity: sha512-HlPzusOXF16HJj0SmwT7U8CG52boBT5KJgcqREQ7cH4DfFDp6o7pOjd1n7fe6jgdEm5bnvZVHTipCg1++uaXDg==}
-
-  '@elastic/behavioral-analytics-tracker-core@2.0.6':
-    resolution: {integrity: sha512-sw3KEpSiRkLItR5SHTCZF5ABmpL1KnIhVEgSIUcHP+otZnYfQgR0LM0GsGL2xApF4pZdvgJ83ZkPnHQxjz0r2g==}
 
   '@elastic/elasticsearch@8.10.0':
     resolution: {integrity: sha512-RIEyqz0D18bz/dK+wJltaak+7wKaxDELxuiwOJhuMrvbrBsYDFnEoTdP/TZ0YszHBgnRPGqBDBgH/FHNgHObiQ==}
@@ -2437,12 +2366,6 @@ packages:
 
   '@types/katex@0.16.6':
     resolution: {integrity: sha512-rZYO1HInM99rAFYNwGqbYPxHZHxu2IwZYKj4bJ4oh6edVrm1UId8mmbHIZLBtG253qU6y3piag0XYe/joNnwzQ==}
-
-  '@types/lodash.debounce@4.0.9':
-    resolution: {integrity: sha512-Ma5JcgTREwpLRwMM+XwBR7DaWe96nC38uCBDFKZWbNKD+osjVzdpnUSwBcqCptrp16sSOLBAUb50Car5I0TCsQ==}
-
-  '@types/lodash@4.14.201':
-    resolution: {integrity: sha512-y9euML0cim1JrykNxADLfaG0FgD1g/yTHwUs/Jg9ZIU7WKj2/4IW9Lbb1WZbvck78W/lfGXFfe+u2EGfIJXdLQ==}
 
   '@types/mdast@4.0.3':
     resolution: {integrity: sha512-LsjtqsyF+d2/yFOYaN22dHZI1Cpwkrj+g06G8+qtUKlhovPW89YhqSnfKtMbkgmEtYpH2gydRNULd6y8mciAFg==}
@@ -4760,9 +4683,6 @@ packages:
 
   lodash-es@4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
-
-  lodash.debounce@4.0.8:
-    resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
 
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
@@ -7122,12 +7042,6 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  '@elastic/behavioral-analytics-javascript-tracker@2.1.4':
-    dependencies:
-      '@elastic/behavioral-analytics-tracker-core': 2.0.6
-
-  '@elastic/behavioral-analytics-tracker-core@2.0.6': {}
-
   '@elastic/elasticsearch@8.10.0(supports-color@8.1.1)':
     dependencies:
       '@elastic/transport': 8.3.4(supports-color@8.1.1)
@@ -8347,12 +8261,6 @@ snapshots:
   '@types/json5@0.0.29': {}
 
   '@types/katex@0.16.6': {}
-
-  '@types/lodash.debounce@4.0.9':
-    dependencies:
-      '@types/lodash': 4.14.201
-
-  '@types/lodash@4.14.201': {}
 
   '@types/mdast@4.0.3':
     dependencies:
@@ -11421,8 +11329,6 @@ snapshots:
       p-locate: 4.1.0
 
   lodash-es@4.17.21: {}
-
-  lodash.debounce@4.0.8: {}
 
   lodash.isequal@4.5.0: {}
 
