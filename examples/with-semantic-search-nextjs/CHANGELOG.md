@@ -1,5 +1,12 @@
 # with-semantic-search-nextjs
 
+## 0.1.30
+
+### Patch Changes
+
+- Updated dependencies [[`931ec71`](https://github.com/searchkit/searchkit/commit/931ec719246a2b9a77d706d5deb4dcf5a0a72614), [`36da972`](https://github.com/searchkit/searchkit/commit/36da9725d97aa36216cf3537f836bed56af2a55c), [`08d73b0`](https://github.com/searchkit/searchkit/commit/08d73b01de41b8e35825acbe7b5e43f4c2f57276)]:
+  - searchkit@4.17.0
+
 ## 0.1.29
 
 ### Patch Changes

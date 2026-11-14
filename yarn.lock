@@ -13661,7 +13661,7 @@ __metadata:
     "@searchkit/elastic-behavioral-analytics-plugin": "npm:2.1.0"
     "@searchkit/instantsearch-client": "npm:4.15.0"
     instantsearch.js: "npm:^4.55.0"
-    searchkit: "npm:4.16.3"
+    searchkit: "npm:4.17.0"
     typescript: "npm:^4.9.3"
     vite: "npm:^4.5.2"
   languageName: unknown
@@ -13694,7 +13694,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"searchkit@npm:*, searchkit@npm:4.16.3, searchkit@npm:^4.15.0, searchkit@npm:^4.16.0, searchkit@workspace:packages/searchkit":
+"searchkit@npm:*, searchkit@npm:4.17.0, searchkit@npm:^4.15.0, searchkit@npm:^4.16.0, searchkit@workspace:packages/searchkit":
   version: 0.0.0-use.local
   resolution: "searchkit@workspace:packages/searchkit"
   dependencies:
@@ -15853,7 +15853,7 @@ __metadata:
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     react-instantsearch: "npm:^7.2.0"
-    searchkit: "npm:4.16.3"
+    searchkit: "npm:4.17.0"
     typescript: "npm:5.0.2"
   languageName: unknown
   linkType: soft
@@ -15872,7 +15872,7 @@ __metadata:
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     react-instantsearch: "npm:^7.2.0"
-    searchkit: "npm:4.16.3"
+    searchkit: "npm:4.17.0"
     typescript: "npm:5.0.2"
   languageName: unknown
   linkType: soft

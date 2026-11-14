@@ -13,6 +13,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 permissions:
   contents: write
   pull-requests: write
+  issues: write # notify-released-issues.mjs comments on the issues a release fixes
   id-token: write # npm trusted publishing (OIDC) + provenance
 
 jobs:
@@ -69,6 +70,8 @@ jobs:
 
       - name: Comment on fixed issues with the released version
         if: steps.changesets.outputs.published == 'true'
+        # Best effort: a failed comment must not fail the release job, or verify-published is skipped.
+        continue-on-error: true
         run: node scripts/notify-released-issues.mjs '${{ steps.changesets.outputs.published-packages }}'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
