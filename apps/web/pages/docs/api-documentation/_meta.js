@@ -1,4 +1,4 @@
-{
+export default {
   "searchkit": "Searchkit API",
   "api": "Node API",
   "instantsearch-client": "Instantsearch Client API"

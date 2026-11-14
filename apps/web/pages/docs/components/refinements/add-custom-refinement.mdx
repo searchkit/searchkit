@@ -30,53 +30,33 @@ When a `writers` filter is applied, will add a match filter clause to the query.
 }
 ```
 
-Add a new custom comppnent with `createConnector` to handle the input state and refinement of the writers filter.
+Add a custom component that holds the writers input state and passes the filter to the search with `Configure`. `react-instantsearch` (v7) no longer has `createConnector`, so the custom input is a plain component.
 
 ```tsx
 import React, { useState } from "react";
-import { createConnector } from "react-instantsearch-dom";
+import { Configure } from "react-instantsearch";
 
-const writersInputConnector = createConnector({
-  displayName: "writers",
-  getProvidedProps: (props, searchState) => {
-    return {
-      writers: searchState.writers || "",
-    };
-  },
-  refine: (props, searchState, nextValue) => {
-    return {
-      ...searchState,
-      writers: nextValue,
-    };
-  },
-  getSearchParameters(searchParameters, props, searchState) {
-    const { writers = "" } = searchState;
-
-    if (!writers) return searchParameters;
-
-    return searchParameters
-      .addFacet("writers")
-      .addFacetRefinement("writers", writers);
-  },
-});
-
-const WritersSearchInput = writersInputConnector(({ refine }) => {
+const WritersSearchInput = () => {
   const [query, setQuery] = useState("");
+  const [writers, setWriters] = useState("");
   return (
-    <form onSubmit={(e) => {
-      e.preventDefault(); refine(query)
-    }}>
-      <input
-        type="text"
-        className="ais-SearchBox-input"
-        placeholder="search writers"
-        value={query}
-        onChange={(e) => {
-          setQuery(e.target.value);
-        }}
-      />
-    </form>
+    <>
+      <Configure facetFilters={writers ? [`writers:${writers}`] : []} />
+      <form onSubmit={(e) => {
+        e.preventDefault(); setWriters(query)
+      }}>
+        <input
+          type="text"
+          className="ais-SearchBox-input"
+          placeholder="search writers"
+          value={query}
+          onChange={(e) => {
+            setQuery(e.target.value);
+          }}
+        />
+      </form>
+    </>
   );
-});
+};
 
 ```

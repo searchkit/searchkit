@@ -1,0 +1,128 @@
+name: Release
+
+# On every push to main, Changesets either opens/updates a "Version Packages" PR
+# (when unreleased changesets exist) or, when that PR is merged, publishes to npm.
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write # npm trusted publishing (OIDC) + provenance
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    outputs:
+      published: ${{ steps.changesets.outputs.published }}
+      publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "yarn"
+          registry-url: https://registry.npmjs.org
+
+      # Trusted publishing needs npm >= 11.5.1. Pinned to 11: npm 12's `npm info --json` returns an
+      # array, which @changesets/cli 2.26 misreads as "not published" (it then retries every package).
+      - name: Upgrade npm
+        run: npm install -g npm@11
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Lint, build and test
+        run: |
+          yarn lint
+          yarn build
+          yarn test
+
+      - name: Create release PR or publish to npm
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: yarn changeset version
+          publish: yarn release
+          commit: "chore: version packages"
+          title: "chore: version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"
+
+      - name: Comment on fixed issues with the released version
+        if: steps.changesets.outputs.published == 'true'
+        run: node scripts/notify-released-issues.mjs '${{ steps.changesets.outputs.publishedPackages }}'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # After a publish: install the released packages from the npm registry (not the workspace) into a copy of the
+  # Next.js example and run the Playwright functional tests against a real Elasticsearch.
+  verify-published:
+    needs: release
+    if: needs.release.outputs.published == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      ES_HOST: http://localhost:9200
+    services:
+      elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.15.3
+        env:
+          discovery.type: single-node
+          xpack.security.enabled: "false"
+          ES_JAVA_OPTS: -Xms512m -Xmx512m
+        ports:
+          - 9200:9200
+        options: >-
+          --health-cmd "curl -sf http://localhost:9200/_cluster/health"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "yarn"
+
+      - name: Install dependencies (for the Playwright runner)
+        run: yarn
+
+      - name: Install the example from npm
+        run: node scripts/prepare-published-example.mjs "$RUNNER_TEMP/published-example"
+
+      - name: Seed Elasticsearch
+        run: node e2e/seed.mjs
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+        working-directory: e2e
+
+      - name: Run functional tests against the published packages
+        run: yarn test:e2e
+        env:
+          E2E_APP_DIR: ${{ runner.temp }}/published-example
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-published
+          path: |
+            e2e/playwright-report/
+            e2e/test-results/
+          retention-days: 7

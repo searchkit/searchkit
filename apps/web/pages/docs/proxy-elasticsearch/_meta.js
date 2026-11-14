@@ -1,4 +1,4 @@
-{
+export default {
   "why": "Why Proxy Elasticsearch?",
   "with-next-js": "With Next.js",
   "with-express-js": "With Express.js",

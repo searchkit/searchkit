@@ -1,12 +1,14 @@
 import { CustomFacetConfig, FacetAttribute, FacetFieldConfig, SearchRequest } from './types'
 
+// The terms aggregation `include` uses Lucene regex syntax, where & # @ ~ < > and " are
+// operators too. Lucene reads a backslash before any character as that literal character.
 export const createRegexQuery = (queryString: string) => {
-  let query = queryString.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
+  let query = queryString.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|&#@~<>"]/g, '\\$&')
   query = query
     .split('')
     .map((char) => {
-      if (/[a-z]/.test(char)) {
-        return `[${char}${char.toUpperCase()}]`
+      if (/[a-z]/i.test(char)) {
+        return `[${char.toLowerCase()}${char.toUpperCase()}]`
       }
       return char
     })

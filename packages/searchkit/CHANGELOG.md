@@ -1,5 +1,29 @@
 # searchkit
 
+## 4.16.3
+
+### Patch Changes
+
+- [#1438](https://github.com/searchkit/searchkit/pull/1438) [`416fe1a`](https://github.com/searchkit/searchkit/commit/416fe1a157a460b3f63259a63de6bcad133f84dc) Thanks [@bardrop](https://github.com/bardrop)! - Escape facet search queries properly. Lucene regex operators (`& # @ ~ < > "`) are now escaped in the terms aggregation `include`, so queries like `R&B`, `C#` or `<tag>` find their values instead of matching nothing or failing with HTTP 400. Facet hit highlighting also treats the query as plain text, so `C++` or `Rock (` no longer throw (#1423, #1424)
+
+## 4.16.2
+
+### Patch Changes
+
+- [#1419](https://github.com/searchkit/searchkit/pull/1419) [`5bd71f6`](https://github.com/searchkit/searchkit/commit/5bd71f6508038e64dc913f8183ecc0c1406322e6) Thanks [@ChrisJr404](https://github.com/ChrisJr404)! - Facet search is now case insensitive for uppercase input (e.g. `Hey`, `MARIO`). Previously only lowercase letters were expanded into case groups in the generated regex.
+
+## 4.16.1
+
+### Patch Changes
+
+- fb58bb4b: Fix `numericFilters` throwing "Cannot read properties of undefined (reading 'path')" when a nested numeric filter follows a non-nested one (#1426)
+
+## 4.16.0
+
+### Minor Changes
+
+- 9b14e004: fixed infinite loader error
+
 ## 4.15.0
 
 ### Minor Changes

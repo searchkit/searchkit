@@ -1,20 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server'
 import API, { MatchFilter } from '@searchkit/api'
 
+// The connection can be overridden with environment variables (used by the e2e tests
+// to point at a local Elasticsearch). Without them the public demo cluster is used.
+const DEMO_HOST = 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243'
+const DEMO_API_KEY = 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
+
+const host = process.env.ES_HOST || DEMO_HOST
+const connection: { host: string; apiKey?: string; auth?: { username: string; password: string } } =
+  { host }
+
+if (process.env.ES_API_KEY) {
+  connection.apiKey = process.env.ES_API_KEY
+} else if (process.env.ES_USERNAME && process.env.ES_PASSWORD) {
+  connection.auth = { username: process.env.ES_USERNAME, password: process.env.ES_PASSWORD }
+} else if (!process.env.ES_HOST) {
+  // only the demo cluster needs the bundled api key; a custom ES_HOST may have no auth
+  connection.apiKey = DEMO_API_KEY
+}
+
 const apiClient = API(
   {
-    connection: {
-      host: 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
-      // if you are authenticating with api key
-      // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-api-key
-      apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
-      // if you are authenticating with username/password
-      // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword
-      //auth: {
-      //  username: "elastic",
-      //  password: "changeme"
-      //},
-    },
+    // if you are authenticating with api key
+    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-api-key
+    // if you are authenticating with username/password
+    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword
+    connection,
     search_settings: {
       highlight_attributes: ['name'],
       snippet_attributes: ['description:200'],

@@ -118,7 +118,7 @@ export const transformNumericFilters = (
 
     if (facetFilterConfig.nestedPath) {
       const nestedPathPresent = sum.find((filter: any) => {
-        return filter.nested.path === facetFilterConfig.nestedPath
+        return filter.nested && filter.nested.path === facetFilterConfig.nestedPath
       })
 
       if (nestedPathPresent) {

@@ -1,0 +1,14 @@
+{
+  "name": "@searchkit/e2e",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "test": "playwright test",
+    "seed": "node seed.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.48.2",
+    "@types/node": "^18.0.0",
+    "typescript": "^4.9.5"
+  }
+}

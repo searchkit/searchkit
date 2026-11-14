@@ -340,6 +340,7 @@ export interface Transporter {
 
 export interface AppSettings {
   debug: boolean
+  timeout?: number
 }
 
 export type {

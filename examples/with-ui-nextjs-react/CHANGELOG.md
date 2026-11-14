@@ -1,5 +1,34 @@
 # with-ui-nextjs-react
 
+## 0.1.29
+
+### Patch Changes
+
+- Updated dependencies [[`416fe1a`](https://github.com/searchkit/searchkit/commit/416fe1a157a460b3f63259a63de6bcad133f84dc)]:
+  - searchkit@4.16.3
+
+## 0.1.28
+
+### Patch Changes
+
+- Updated dependencies [[`5bd71f6`](https://github.com/searchkit/searchkit/commit/5bd71f6508038e64dc913f8183ecc0c1406322e6)]:
+  - searchkit@4.16.2
+
+## 0.1.27
+
+### Patch Changes
+
+- Updated dependencies [fb58bb4b]
+  - searchkit@4.16.1
+
+## 0.1.26
+
+### Patch Changes
+
+- Updated dependencies [9b14e004]
+  - @searchkit/instantsearch-client@4.15.0
+  - searchkit@4.16.0
+
 ## 0.1.25
 
 ### Patch Changes

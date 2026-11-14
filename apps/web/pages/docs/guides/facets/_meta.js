@@ -1,4 +1,4 @@
-{
+export default {
   "string-based-facets": "String Facets",
   "numeric-based-facets": "Numeric Facets"
 }
