@@ -8,10 +8,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@searchkit/instantsearch-client": "4.15.0",
-    "@searchkit/elastic-behavioral-analytics-plugin": "2.1.0",
+    "@searchkit/instantsearch-client": "*",
+    "@searchkit/elastic-behavioral-analytics-plugin": "*",
     "instantsearch.js": "^4.55.0",
-    "searchkit": "4.17.0"
+    "searchkit": "*"
   },
   "devDependencies": {
     "typescript": "^4.9.3",

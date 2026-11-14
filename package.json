@@ -1,13 +1,6 @@
 {
   "name": "searchkit-monorepo",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*",
-    "sample-data",
-    "examples/*",
-    "e2e"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/searchkit/searchkit.git"
@@ -19,38 +12,33 @@
     "dev": "turbo run dev --parallel",
     "e2e:up": "docker compose -f docker-compose.e2e.yml up -d --wait && node e2e/seed.mjs",
     "e2e:down": "docker compose -f docker-compose.e2e.yml down -v",
-    "test:e2e": "yarn workspace @searchkit/e2e test",
+    "test:e2e": "pnpm --filter @searchkit/e2e test",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "changeset": "changeset",
-    "release": "yarn build && changeset publish"
+    "release": "pnpm build && changeset publish",
+    "prepare": "husky"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "0.7.0",
+    "@changesets/changelog-github": "^1.0.1",
     "@types/jest": "^26.0.15",
     "@types/node": "^18.0.0",
     "@types/react": "^18.2.28",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.0.1",
-    "eslint-config-custom": "*",
+    "eslint-config-custom": "workspace:*",
     "eslint-plugin-prettier": "5.0.0",
-    "husky": "^4.3.0",
+    "husky": "9.1.7",
     "prettier": "^2.8.8",
     "turbo": "2.11.11",
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@changesets/cli": "^2.31.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn run lint",
-      "pre-push": "yarn test"
-    }
-  },
-  "resolutions": {
-    "human-id": "4.1.3"
+    "@changesets/cli": "^3.0.3"
   },
   "version": "0.0.0",
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "pnpm@12.18.0",
+  "engines": {
+    "node": "^22.11 || ^24 || >=26"
+  }
 }

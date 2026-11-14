@@ -40,9 +40,18 @@
     "access": "public"
   },
   "dependencies": {
-    "searchkit": "^4.15.0"
+    "searchkit": "workspace:^"
   },
   "devDependencies": {
-    "nock": "^14.0.0-beta.4"
+    "@types/jest": "^29.1.1",
+    "cross-fetch": "^3.1.5",
+    "eslint": "^7.32.0",
+    "eslint-config-custom": "workspace:*",
+    "jest": "29.1.2",
+    "nock": "^14.0.0-beta.4",
+    "ts-jest": "29.0.3",
+    "tsconfig": "workspace:*",
+    "tsup": "^6.3.0",
+    "typescript": "^4.9.5"
   }
 }

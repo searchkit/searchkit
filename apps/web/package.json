@@ -12,8 +12,8 @@
   "dependencies": {
     "@algolia/autocomplete-js": "^1.19.12",
     "@algolia/autocomplete-theme-classic": "^1.19.12",
-    "@searchkit/api": "4.14.0",
-    "@searchkit/instantsearch-client": "4.15.0",
+    "@searchkit/api": "workspace:*",
+    "@searchkit/instantsearch-client": "workspace:*",
     "algoliasearch": "^4.27.0",
     "autoprefixer": "^10.6.2",
     "instantsearch.css": "^8.25.1",
@@ -26,6 +26,7 @@
     "react-dom": "^19.3.1",
     "react-instantsearch": "^7.54.0",
     "react-instantsearch-router-nextjs": "^7.54.0",
+    "searchkit": "workspace:*",
     "swr": "^2.5.1"
   },
   "devDependencies": {
@@ -34,9 +35,9 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "eslint": "7.32.0",
-    "eslint-config-custom": "*",
+    "eslint-config-custom": "workspace:*",
     "tailwindcss": "^3.4.19",
-    "tsconfig": "*",
+    "tsconfig": "workspace:*",
     "typescript": "^5.9.3"
   }
 }
