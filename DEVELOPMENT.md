@@ -1,8 +1,8 @@
 ## Setting up a development environment
 
 Requirements:
-- [Node.js](https://nodejs.org/en/) 22.11 or higher (`.nvmrc` pins 22, so `nvm use` picks it up). Changesets 3 does
-  not run on older versions.
+- [Node.js](https://nodejs.org/en/) `^22.11 || ^24 || >=26`, matching `engines` in the root `package.json` (`.nvmrc`
+  pins 22, so `nvm use` picks it up). Changesets 3 does not run on other versions.
 - [pnpm](https://pnpm.io/) 12. The exact version is pinned in `packageManager` in the root `package.json`. Install it
   with `npm install -g pnpm@12` or the [standalone installer](https://pnpm.io/installation); if your pnpm is a
   different version (10 or newer) it switches to the pinned one automatically. Corepack is not needed: if you ran

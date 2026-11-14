@@ -61,5 +61,8 @@
   },
   "dependencies": {
     "deepmerge": "^4.2.2"
+  },
+  "peerDependencies": {
+    "@algolia/client-search": "^4.27.0"
   }
 }
