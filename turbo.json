@@ -13,6 +13,14 @@
     "lint": {
       "outputs": []
     },
+    "typecheck": {
+      "dependsOn": ["build"],
+      "outputs": []
+    },
+    "searchkit#typecheck": {
+      "dependsOn": ["build", "@searchkit/api#build"],
+      "outputs": []
+    },
     "dev": {
       "cache": false,
       "persistent": true
