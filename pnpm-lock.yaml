@@ -735,6 +735,9 @@ importers:
       fetch-mock-jest:
         specifier: ^1.5.1
         version: 1.5.1(node-fetch@2.7.0)(supports-color@8.1.1)
+      instantsearch.js:
+        specifier: ^4.122.0
+        version: 4.122.0(algoliasearch@4.27.0)
       jest:
         specifier: 29.1.2
         version: 29.1.2(@types/node@18.18.9)(supports-color@8.1.1)(ts-node@10.9.1(@types/node@18.18.9)(typescript@4.9.5))
