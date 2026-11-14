@@ -1,0 +1,43 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# CodeRabbit AI code review configuration.
+# Docs: https://docs.coderabbit.ai/getting-started/configure-coderabbit
+language: en-US
+early_access: false
+
+reviews:
+  profile: chill
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: true
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - main
+    ignore_title_keywords:
+      - "Version Packages"
+  path_filters:
+    - "!**/yarn.lock"
+    - "!**/CHANGELOG.md"
+    - "!**/*.snap"
+    - "!sample-data/**"
+    - "!**/dist/**"
+  path_instructions:
+    - path: "packages/**/src/**/*.ts"
+      instructions: >-
+        Published library code. Flag breaking changes to public APIs and
+        request/response transforms sent to Elasticsearch/OpenSearch, and
+        check that a changeset is included for user-facing changes.
+    - path: "**/___tests___/**"
+      instructions: >-
+        Tests. Focus on whether assertions actually cover the behaviour being
+        changed, not on style.
+    - path: "apps/web/**"
+      instructions: >-
+        Docs site (Next.js + Nextra). Focus on broken links, incorrect code
+        samples and build/deploy correctness.
+
+chat:
+  auto_reply: true
