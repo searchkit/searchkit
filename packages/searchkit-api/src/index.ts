@@ -10,7 +10,10 @@ class Client {
     this.searchkit = new Searchkit(config, settings)
   }
 
-  async handleRequest(body: any, requestOptions?: RequestOptions) {
+  handleRequest(
+    body: any,
+    requestOptions?: RequestOptions
+  ): ReturnType<Searchkit['handleInstantSearchRequests']> {
     return this.searchkit.handleInstantSearchRequests(body, requestOptions)
   }
 }
