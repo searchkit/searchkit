@@ -38,6 +38,12 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
+      # searchkit inlines the @elastic/elasticsearch types it uses (a devDependency) into its
+      # published declarations. Fail if dist/*.d.ts imports a devDependency again. Runs after
+      # Typecheck, which builds the packages.
+      - name: Check published type declarations are self-contained
+        run: pnpm --filter searchkit run check:dts
+
   unit-tests:
     runs-on: ubuntu-latest
     steps:

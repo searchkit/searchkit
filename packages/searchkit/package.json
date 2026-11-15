@@ -37,7 +37,8 @@
   "scripts": {
     "lint": "eslint src --max-warnings 0",
     "typecheck": "tsc --noEmit",
-    "build": "tsup && node scripts/check-dts.mjs",
+    "build": "tsup",
+    "check:dts": "node scripts/check-dts.mjs",
     "dev": "npm run build --watch",
     "test": "jest"
   },

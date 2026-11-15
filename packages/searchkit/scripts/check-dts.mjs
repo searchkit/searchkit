@@ -1,4 +1,5 @@
-// Build-time guard: the published type declarations must be self-contained.
+// CI guard (`pnpm --filter searchkit run check:dts`, after a build): the published type
+// declarations must be self-contained.
 // searchkit uses @elastic/elasticsearch only for types (it is a devDependency), so tsup inlines
 // those types (see tsup.config.js). If an import of it ever reaches dist, TypeScript users
 // without the client, or with a client whose `exports` hide the path, get "Cannot find module".
