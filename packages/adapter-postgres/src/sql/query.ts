@@ -12,6 +12,12 @@ import type {
   SearchSettingsConfig,
   SortingOption
 } from '@searchkit/core'
+import {
+  buildFacets,
+  DEFAULT_MAX_VALUES_PER_FACET,
+  getFacetValuesFacet,
+  getRequestedFacets
+} from './facets'
 import { compileFilter } from './filters'
 import { Params, quoteColumn, quoteTable } from './identifiers'
 
@@ -130,7 +136,8 @@ const getFilter = (
 
 /**
  * Builds the parameterised statement for one InstantSearch search request: one row with the page of
- * `hits` (a JSON array) and the `total` number of matching rows.
+ * `hits` (a JSON array), the `total` number of matching rows and, when facets are requested, the
+ * `facets` (see `buildFacets`). A search for facet values request (`facetName`) returns only `facets`.
  *
  * ```sql
  * WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
@@ -164,10 +171,17 @@ export const buildSearchStatement = (
   const hitAttributes = getHitAttributes(settings)
   const { orderBy, sortColumns } = getOrderBy(getSortingOption(request, settings), idColumn)
 
+  // a search for facet values request only needs the values of its facet, not hits
+  const { facetName, facetQuery, maxValuesPerFacet } = request.params || {}
+  const isFacetValuesSearch = !!facetName
+  const facets = isFacetValuesSearch
+    ? [getFacetValuesFacet(facetName, settings)]
+    : getRequestedFacets(request, settings, rules)
+
   const hitColumns = Array.from(new Set([idColumn, ...hitAttributes])).map(quoteColumn)
-  const baseColumns = Array.from(new Set([idColumn, ...hitAttributes, ...sortColumns])).map(
-    quoteColumn
-  )
+  const baseColumns = Array.from(
+    new Set([idColumn, ...hitAttributes, ...sortColumns, ...facets.map((f) => f.field)])
+  ).map(quoteColumn)
 
   const ctes: string[] = []
   const where: string[] = []
@@ -191,10 +205,6 @@ export const buildSearchStatement = (
     where.push(compileFilter(filter, settings, params, 't.'))
   }
 
-  const { size, from: offset } = getResultsSize(request)
-  const limitParam = params.add(Math.max(0, size))
-  const offsetParam = params.add(Math.max(0, offset))
-
   ctes.push(
     [
       'base AS (',
@@ -204,26 +214,42 @@ export const buildSearchStatement = (
       ')'
     ].join('\n')
   )
-  ctes.push(
-    [
-      'hits AS (',
-      `  SELECT ${hitColumns.join(
-        ', '
-      )}, ${SCORE_COLUMN}, row_number() OVER (ORDER BY ${orderBy}) AS ${ROW_NUMBER_COLUMN}`,
-      '  FROM base',
-      `  ORDER BY ${orderBy}`,
-      `  LIMIT ${limitParam} OFFSET ${offsetParam}`,
-      ')'
-    ].join('\n')
-  )
-  ctes.push('total AS (SELECT count(*) AS n FROM base)')
 
-  const text = [
-    `WITH ${ctes.join(',\n')}`,
-    'SELECT',
-    `  (SELECT coalesce(json_agg(h ORDER BY h.${ROW_NUMBER_COLUMN}), '[]'::json) FROM hits h) AS hits,`,
-    '  (SELECT n FROM total) AS total'
-  ].join('\n')
+  const select: string[] = []
+
+  if (!isFacetValuesSearch) {
+    const { size, from: offset } = getResultsSize(request)
+    const limitParam = params.add(Math.max(0, size))
+    const offsetParam = params.add(Math.max(0, offset))
+    ctes.push(
+      [
+        'hits AS (',
+        `  SELECT ${hitColumns.join(
+          ', '
+        )}, ${SCORE_COLUMN}, row_number() OVER (ORDER BY ${orderBy}) AS ${ROW_NUMBER_COLUMN}`,
+        '  FROM base',
+        `  ORDER BY ${orderBy}`,
+        `  LIMIT ${limitParam} OFFSET ${offsetParam}`,
+        ')'
+      ].join('\n')
+    )
+    ctes.push('total AS (SELECT count(*) AS n FROM base)')
+    select.push(
+      `(SELECT coalesce(json_agg(h ORDER BY h.${ROW_NUMBER_COLUMN}), '[]'::json) FROM hits h) AS hits`,
+      '(SELECT n FROM total) AS total'
+    )
+  }
+
+  const facetSql = buildFacets(facets, params, {
+    size: maxValuesPerFacet || DEFAULT_MAX_VALUES_PER_FACET,
+    facetQuery: isFacetValuesSearch ? facetQuery || '' : undefined
+  })
+  if (facetSql) {
+    ctes.push(...facetSql.ctes)
+    select.push(`${facetSql.select} AS facets`)
+  }
+
+  const text = [`WITH ${ctes.join(',\n')}`, 'SELECT', `  ${select.join(',\n  ')}`].join('\n')
 
   return { text, params: params.values }
 }

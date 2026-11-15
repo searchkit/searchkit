@@ -4,11 +4,11 @@ import type { MultipleQueriesQuery, SearchAdapter, SearchSettingsConfig } from '
 import { quoteColumn, quoteTable } from './sql/identifiers'
 import { buildSearchStatement, DEFAULT_ID_COLUMN } from './sql/query'
 import type { PostgresIndexConfig } from './sql/query'
-import { transformResponse } from './transformResponse'
+import { transformFacetValuesResponse, transformResponse } from './transformResponse'
 import type { PostgresSearchResponse } from './transformResponse'
 
 export type { PostgresIndexConfig } from './sql/query'
-export type { PostgresSearchResponse } from './transformResponse'
+export type { PostgresFacetResult, PostgresSearchResponse } from './transformResponse'
 
 /**
  * @description The subset of a `pg` `Pool` the adapter uses, so an existing pool can be shared with the app.
@@ -47,16 +47,12 @@ export interface PostgresSearchRequest {
   indexName: string
 }
 
-const notImplemented = (feature: string) =>
-  new Error(
-    `@searchkit/adapter-postgres: ${feature} is not implemented yet. The Postgres adapter is under development; this version supports full-text search, filters, sorting and pagination.`
-  )
-
 /**
  * Searchkit adapter for Postgres (Node only): full-text search with `tsvector` and `websearch_to_tsquery`,
- * exact `count(*)` totals and `LIMIT` / `OFFSET` pagination.
+ * exact `count(*)` totals, `LIMIT` / `OFFSET` pagination, facets with `GROUP BY` (exact counts) and
+ * search for facet values.
  *
- * Work in progress: facets, highlighting, query rule boosts / pinned results and semantic search are not
+ * Work in progress: highlighting, query rule boosts / pinned results and semantic search are not
  * implemented yet.
  */
 export const PostgresAdapter = (
@@ -109,9 +105,6 @@ export const PostgresAdapter = (
     name: 'postgres',
 
     buildRequest(request, settings, rules) {
-      if (request.params?.facetName) {
-        throw notImplemented('search for facet values')
-      }
       const { indexName, index } = getIndex(request, settings)
       const { text, params } = buildSearchStatement(request, settings, rules, index)
       return { text, params, request, indexName }
@@ -163,8 +156,8 @@ export const PostgresAdapter = (
       })
     },
 
-    transformFacetValuesResponse() {
-      throw notImplemented('search for facet values')
+    transformFacetValuesResponse(response, request) {
+      return transformFacetValuesResponse(response, request)
     }
   }
 }

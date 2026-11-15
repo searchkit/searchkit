@@ -95,7 +95,7 @@ pnpm e2e:down       # stops and removes Elasticsearch and Postgres
   Playwright projects `chromium` (Elasticsearch, the example on :3000) and `chromium-postgres` (a second instance of
   the example on :3001, `E2E_POSTGRES_PORT`, started with `SEARCH_ADAPTER=postgres` and `DATABASE_URL`). Run one
   side with `pnpm test:e2e --project=chromium` or `pnpm test:e2e --project=chromium-postgres`. The adapter does
-  not implement every feature yet (facets, highlighting, query rule boosts / pinned results, semantic search), so
+  not implement every feature yet (highlighting, query rule boosts / pinned results, semantic search), so
   the specs for those fail on `chromium-postgres` until it does. `escaped-facet-values.spec.ts` builds its own
   Elasticsearch index and does not use the example, so `chromium-postgres` does not run it (`testIgnore`).
 - To add a test, create `e2e/tests/<name>.spec.ts` and reuse `e2e/tests/helpers.ts`. Prefer assertions about

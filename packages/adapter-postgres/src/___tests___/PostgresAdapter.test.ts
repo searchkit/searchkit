@@ -100,9 +100,10 @@ describe('PostgresAdapter', () => {
       hitsPerPage: 2,
       query: 'tv',
       index: 'products',
-      exhaustiveNbHits: true,
-      facets: {}
+      exhaustiveNbHits: true
     })
+    // no facets were requested
+    expect(result.facets).toBeUndefined()
     expect(typeof result.processingTimeMS).toBe('number')
     expect(result.facets_stats).toBeUndefined()
     expect(result.hits).toEqual([
@@ -149,17 +150,41 @@ describe('PostgresAdapter', () => {
     }
   })
 
-  it('does not support search for facet values yet', () => {
+  it('runs a search for facet values request and returns the facet hits', async () => {
+    const query = jest.fn().mockResolvedValue({
+      rows: [
+        {
+          facets: [
+            { attribute: 'brand', entries: [{ value: 'Samsung', count: '12' }], stats: null }
+          ]
+        }
+      ]
+    })
+    const facetSettings: SearchSettingsConfig = {
+      ...settings,
+      facet_attributes: [{ attribute: 'brand', field: 'brand', type: 'string' }]
+    }
     const adapter = PostgresAdapter({
-      connection: { pool: { query: jest.fn() } },
+      connection: { pool: { query } },
       indices: { products: { table: 'products' } }
     })
     const facetRequest = {
       indexName: 'products',
-      params: { facetName: 'brand', facetQuery: 'sam' }
+      params: { query: '', facetName: 'brand', facetQuery: 'sam' }
     }
-    expect(() => adapter.buildRequest(facetRequest, settings, rules(facetRequest))).toThrow(
-      'search for facet values is not implemented yet'
-    )
+    const actions = getQueryRulesActionsFromRequest([], facetRequest, facetSettings)
+    const built = await adapter.buildRequest(facetRequest, facetSettings, actions)
+    expect(built.params).toEqual([10, 'sam%', '% sam%', 'brand'])
+    const [response] = await adapter.execute([built], { debug: false })
+    expect(adapter.transformFacetValuesResponse(response, facetRequest)).toMatchObject({
+      facetHits: [
+        {
+          value: 'Samsung',
+          highlighted: '<ais-highlight-0000000000>Sam</ais-highlight-0000000000>sung',
+          count: 12
+        }
+      ],
+      exhaustiveFacetsCount: true
+    })
   })
 })

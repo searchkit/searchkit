@@ -2,6 +2,7 @@ import { getPageDetails, getRenderingContent } from '@searchkit/core'
 import type {
   MultipleQueriesQuery,
   QueryRuleActions,
+  SearchForFacetValuesResponse,
   SearchHit,
   SearchResponse,
   SearchSettingsConfig
@@ -9,12 +10,29 @@ import type {
 import { getHitAttributes, getSnippetAttributes, SCORE_COLUMN } from './sql/query'
 
 /**
+ * @description The values of one facet in a `PostgresSearchResponse`: its top values with their
+ * counts, in order, and for a numeric facet its `stats` (null otherwise).
+ */
+export interface PostgresFacetResult {
+  attribute: string
+  entries: { value: string | number | boolean; count: number | string }[]
+  stats: {
+    min: number | null
+    max: number | null
+    avg: number | null
+    sum: number | null
+  } | null
+}
+
+/**
  * @description The row returned by the statement for one InstantSearch request: the page of `hits`,
- * the `total` number of matching rows, and `took`, the query time in milliseconds.
+ * the `total` number of matching rows, the requested `facets` (absent when none were requested) and
+ * `took`, the query time in milliseconds. A search for facet values request returns only `facets`.
  */
 export interface PostgresSearchResponse {
-  hits: Record<string, unknown>[] | null
-  total: number | string | null
+  hits?: Record<string, unknown>[] | null
+  total?: number | string | null
+  facets?: PostgresFacetResult[] | null
   took?: number
   [column: string]: unknown
 }
@@ -71,6 +89,74 @@ export const getHits = (
   })
 }
 
+const toNumber = (value: unknown): number | null => (value == null ? null : Number(value))
+
+/**
+ * `facets` and `facets_stats` in the shape of the Elasticsearch adapter: `facets` maps each
+ * requested facet to `{ value: count }` (values in count order) and `facets_stats` each numeric
+ * facet to `{ min, avg, max, sum }`. Both are absent when no facets were requested.
+ */
+export const getFacets = (
+  response: PostgresSearchResponse
+): Pick<SearchResponse, 'facets' | 'facets_stats'> => {
+  if (!response.facets) return {}
+  return response.facets.reduce<Required<Pick<SearchResponse, 'facets' | 'facets_stats'>>>(
+    (sum, facet) => {
+      sum.facets[facet.attribute] = facet.entries.reduce<Record<string, number>>(
+        (values, entry) => {
+          values[String(entry.value)] = Number(entry.count)
+          return values
+        },
+        {}
+      )
+      if (facet.stats) {
+        sum.facets_stats[facet.attribute] = {
+          min: toNumber(facet.stats.min),
+          avg: toNumber(facet.stats.avg),
+          max: toNumber(facet.stats.max),
+          sum: toNumber(facet.stats.sum)
+        }
+      }
+      return sum
+    },
+    { facets: {}, facets_stats: {} }
+  )
+}
+
+/** The facet search highlight of the Elasticsearch adapter: every case-insensitive match of the query */
+const highlightFacetValue = (value: string, query: string, preTag: string, postTag: string) => {
+  if (!query) return value
+  const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi')
+  return value.replace(regex, (match) => `${preTag}${match}${postTag}`)
+}
+
+/**
+ * The response to a search for facet values (`facetName` / `facetQuery`) request, in the shape of
+ * the Elasticsearch adapter.
+ */
+export const transformFacetValuesResponse = (
+  response: PostgresSearchResponse,
+  request: MultipleQueriesQuery
+): SearchForFacetValuesResponse => {
+  const { facetQuery = '', highlightPreTag, highlightPostTag } = request.params || {}
+  const preTag = highlightPreTag || '<ais-highlight-0000000000>'
+  const postTag = highlightPostTag || '</ais-highlight-0000000000>'
+  const [facet] = response.facets || []
+
+  return {
+    facetHits: (facet?.entries || []).map((entry) => {
+      const value = String(entry.value)
+      return {
+        value,
+        highlighted: highlightFacetValue(value, facetQuery, preTag, postTag),
+        count: Number(entry.count)
+      }
+    }),
+    exhaustiveFacetsCount: true,
+    processingTimeMS: response.took ?? 0
+  }
+}
+
 export const transformResponse = (
   response: PostgresSearchResponse,
   request: MultipleQueriesQuery,
@@ -94,7 +180,7 @@ export const transformResponse = (
     nbPages,
     query: rules.query,
     ...getRenderingContent(settings, rules),
-    facets: {},
+    ...getFacets(response),
     hits: getHits(response, settings, idColumn, index),
     index: request.indexName,
     params: new URLSearchParams(request.params as any).toString(),

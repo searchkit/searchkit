@@ -14,6 +14,7 @@ New `@searchkit/adapter-postgres` package (Node only): a Postgres adapter, `API(
 
 - `adapter` config option (`searchkit` and `@searchkit/api`): `API({ adapter: ElasticsearchAdapter({ host, apiKey }), search_settings })`. `connection: { host }` (or a custom transporter) still works and is wrapped in `ElasticsearchAdapter`; `adapter` wins when both are set.
 - New `search_settings.semantic_search` (`field`, `embed` or `model_id`, `k`, `num_candidates`, `mode: 'hybrid' | 'semantic_only' | 'text_only'`) for KNN / hybrid search.
+- New `array: true` option on facet and filter attributes (Postgres adapter only, ignored by Elasticsearch): marks an array column, so its facet is unnested and its filters use array operators.
 - New exports: `ElasticsearchAdapter`, the `SearchAdapter` interface, the engine-neutral filter AST types, `parseFilters` and `getFilterAst`.
 
 **Breaking:** the `getKnnQuery` request option is removed; passing it throws an error. Move the KNN query to `search_settings.semantic_search`:
