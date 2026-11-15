@@ -1,4 +1,6 @@
-// Seeds the local Elasticsearch with the electronics dataset used by examples/with-ui-nextjs-react.
+// Seeds the local Elasticsearch with the electronics dataset used by examples/with-ui-nextjs-react,
+// plus the e2e-only products in fixtures/extra-products.json (edge cases the dataset lacks, such as
+// a brand starting with "-").
 // Usage: node e2e/seed.mjs   (ES_HOST defaults to http://localhost:9200)
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
@@ -6,12 +8,10 @@ import { fileURLToPath } from 'node:url'
 
 const host = (process.env.ES_HOST || 'http://localhost:9200').replace(/\/$/, '')
 const index = 'products'
-const dataFile = join(
-  dirname(fileURLToPath(import.meta.url)),
-  '..',
-  'sample-data',
-  'electronics-ecommerce',
-  'bulk.json'
+const e2eDir = dirname(fileURLToPath(import.meta.url))
+const dataFile = join(e2eDir, '..', 'sample-data', 'electronics-ecommerce', 'bulk.json')
+const extraProducts = JSON.parse(
+  readFileSync(join(e2eDir, 'fixtures', 'extra-products.json'), 'utf8')
 )
 const CHUNK_DOCS = 1000
 
@@ -47,7 +47,13 @@ async function waitForEs(timeoutMs = 120000) {
 await waitForEs()
 
 // bulk.json is ndjson: alternating action / source lines
-const lines = readFileSync(dataFile, 'utf8').split('\n').filter(Boolean)
+const lines = [
+  ...readFileSync(dataFile, 'utf8').split('\n').filter(Boolean),
+  ...extraProducts.flatMap(({ _id, ...doc }) => [
+    JSON.stringify({ index: { _index: index, _id } }),
+    JSON.stringify(doc)
+  ])
+]
 const expected = lines.length / 2
 
 await es(`/${index}`, { method: 'DELETE', allow: [404] })

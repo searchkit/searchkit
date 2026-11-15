@@ -3,12 +3,6 @@ import algoliasearchHelper from 'algoliasearch-helper'
 import Searchkit from 'searchkit'
 import Client from '@searchkit/instantsearch-client'
 
-// Facet values starting with "-" against a real Elasticsearch (searchkit#1425).
-// InstantSearch refines with the helper's `escapedValue`, which escapes a leading "-" as "\-" so
-// Algolia doesn't read it as an exclusion. Searchkit must unescape it before querying Elasticsearch.
-// Runs through the library (searchkit -> instantsearch-client -> algoliasearch-helper) on its own
-// index, because the example's dataset has no such values.
-
 const host = (process.env.ES_HOST || 'http://localhost:9200').replace(/\/$/, '')
 const apiKey = process.env.ES_API_KEY
 const index = 'e2e-escaped-facet-values'
