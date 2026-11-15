@@ -1,6 +1,7 @@
 import { getQueryRulesActionsFromRequest } from '@searchkit/core'
 import type { MultipleQueriesQuery, SearchSettingsConfig } from '@searchkit/core'
 import { buildSearchStatement } from '../sql/query'
+import { transformResponse } from '../transformResponse'
 import type { PostgresIndexConfig } from '../sql/query'
 import { quoteColumn, quoteTable } from '../sql/identifiers'
 
@@ -158,6 +159,163 @@ describe('buildSearchStatement', () => {
     )
     expect(statement.text).not.toContain('english')
   })
+})
+
+describe('query rules', () => {
+  const rulesSettings: SearchSettingsConfig = {
+    ...settings,
+    highlight_attributes: [],
+    filter_attributes: [
+      { attribute: 'categories', field: 'categories', type: 'string', array: true }
+    ],
+    query_rules: [
+      {
+        id: 'cheap-tvs',
+        conditions: [[{ context: 'query', value: 'cheap tvs', match_type: 'exact' }]],
+        actions: [
+          { action: 'QueryRewrite', query: '' },
+          { action: 'QueryFilter', query: 'price:[0 TO 500] AND categories:TVs' },
+          { action: 'QueryBoost', query: 'brand:LG', weight: 10 },
+          { action: 'QueryBoost', query: 'brand:Sony OR price:<100', weight: 2.5 }
+        ]
+      },
+      {
+        id: 'pin',
+        conditions: [[{ context: 'query', value: 'tv', match_type: 'exact' }]],
+        actions: [{ action: 'PinnedResult', documentIds: ['b', 'a'] }]
+      }
+    ]
+  }
+
+  it('adds a CASE WHEN term per QueryBoost to the score', () => {
+    const statement = build(
+      { indexName: 'products', params: { query: 'cheap tvs' } },
+      rulesSettings
+    )
+    expect(statement.params).toEqual(['LG', 10, 'Sony', 100, 2.5, 0, 500, ['TVs'], 20, 0])
+    expect(statement.text).toContain(
+      `(0::real + CASE WHEN t."brand" = $1 THEN $2::real ELSE 0 END + CASE WHEN (t."brand" = $3 OR (t."price" < $4)) THEN $5::real ELSE 0 END)::real AS _score`
+    )
+    // QueryRewrite '' -> no text predicate; QueryFilter -> WHERE
+    expect(statement.text).not.toContain('@@')
+    expect(statement.text).toContain('t."categories" @> $8')
+    expect(statement.text).toMatchSnapshot()
+  })
+
+  it('puts PinnedResult ids first, in order, and matches them without the query', () => {
+    const statement = build({ indexName: 'products', params: { query: 'tv' } }, rulesSettings)
+    expect(statement.params).toEqual(['english', 'tv', ['b', 'a'], 20, 0])
+    expect(statement.text).toContain(
+      `(t."search_vector" @@ q.tsq OR t."id"::text = ANY($3::text[]))`
+    )
+    expect(statement.text).toContain(`array_position($3::text[], t."id"::text) AS _pin`)
+    expect(statement.text).toContain('ORDER BY _pin ASC NULLS LAST, _score DESC, "id" ASC')
+    expect(statement.text).toMatchSnapshot()
+  })
+
+  it('does not put pinned ids first when sorted by a field, as in Elasticsearch', () => {
+    const statement = build(
+      { indexName: 'products_price_asc', params: { query: 'tv' } },
+      rulesSettings
+    )
+    expect(statement.text).toContain('OR t."id"::text = ANY($3::text[])')
+    expect(statement.text).not.toContain('_pin')
+    expect(statement.text).toContain('ORDER BY "price" ASC NULLS LAST, "id" ASC')
+  })
+
+  it('compiles the rule filters through the filter parser and validates their attributes', () => {
+    expect(() =>
+      build(
+        { indexName: 'products', params: { query: 'cheap tvs' } },
+        {
+          ...rulesSettings,
+          query_rules: [
+            {
+              id: 'bad',
+              conditions: [[]],
+              actions: [{ action: 'QueryBoost', query: 'unknown:x', weight: 1 }]
+            }
+          ]
+        }
+      )
+    ).toThrow('Attribute "unknown" is not defined')
+  })
+})
+
+it('returns the rule response parts: appliedRules, userData, renderingContent and the rewritten query', () => {
+  const ruleSettings: SearchSettingsConfig = {
+    ...settings,
+    query_rules: [
+      {
+        id: 'banner',
+        conditions: [[{ context: 'query', value: 'tvs', match_type: 'exact' }]],
+        actions: [
+          { action: 'QueryRewrite', query: 'television' },
+          { action: 'RenderUserData', userData: JSON.stringify({ title: 'We have TVs!' }) },
+          { action: 'RenderFacetsOrder', facetAttributesOrder: ['price', 'brand'] }
+        ]
+      }
+    ]
+  }
+  const request = { indexName: 'products', params: { query: 'tvs', facets: ['*'] } }
+  const rules = getQueryRulesActionsFromRequest(
+    ruleSettings.query_rules || [],
+    request,
+    ruleSettings
+  )
+  const statement = buildSearchStatement(request, ruleSettings, rules, index)
+  expect(statement.params.slice(0, 2)).toEqual(['english', 'television'])
+
+  const response = transformResponse(
+    { hits: [], total: 0, facets: [] },
+    request,
+    ruleSettings,
+    rules,
+    {
+      idColumn: 'id',
+      index: 'products'
+    }
+  )
+  expect(response.appliedRules).toEqual(['banner'])
+  expect(response.query).toBe('television')
+  expect(response.userData).toEqual([{ title: 'We have TVs!' }])
+  expect(response.renderingContent?.facetOrdering?.facets?.order).toEqual(['price', 'brand'])
+})
+
+describe('sorting', () => {
+  const sortSettings: SearchSettingsConfig = {
+    ...settings,
+    highlight_attributes: [],
+    sorting: {
+      _price_desc: [
+        { field: 'price', order: 'desc' },
+        { field: '_score', order: 'desc' },
+        { field: 'name', order: 'asc' }
+      ],
+      _nested: { field: 'price', order: 'asc', nestedPath: 'marketplace' },
+      _mode: { field: 'price', order: 'asc', mode: 'min' }
+    }
+  }
+
+  it('orders by every field of a multi-field sorting option, _score included', () => {
+    const statement = build(
+      { indexName: 'products_price_desc', params: { query: 'tv' } },
+      sortSettings
+    )
+    expect(statement.text).toContain(
+      'ORDER BY "price" DESC NULLS LAST, _score DESC, "name" ASC NULLS LAST, "id" ASC'
+    )
+    expect(statement.text).toMatchSnapshot()
+  })
+
+  it.each(['products_nested', 'products_mode'])(
+    'throws for nestedPath / mode sorting options (%s)',
+    (indexName) => {
+      expect(() => build({ indexName, params: { query: '' } }, sortSettings)).toThrow(
+        'nestedPath and mode are not supported by the postgres adapter'
+      )
+    }
+  )
 })
 
 describe('identifiers', () => {

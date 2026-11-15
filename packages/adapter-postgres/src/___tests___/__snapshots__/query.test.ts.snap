@@ -127,3 +127,59 @@ SELECT
   (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM (SELECT hits.*, json_build_object($6::text, ts_headline($1::regconfig, coalesce(hits."name"::text, ''), q.tsq, $5)) AS _highlight FROM hits CROSS JOIN q) h) AS hits,
   (SELECT n FROM total) AS total"
 `;
+
+exports[`query rules adds a CASE WHEN term per QueryBoost to the score 1`] = `
+"WITH base AS (
+  SELECT t."id", t."name", t."description", (0::real + CASE WHEN t."brand" = $1 THEN $2::real ELSE 0 END + CASE WHEN (t."brand" = $3 OR (t."price" < $4)) THEN $5::real ELSE 0 END)::real AS _score
+  FROM "products" t
+  WHERE ((t."price" >= $6 AND t."price" <= $7) AND t."categories" @> $8)
+),
+hits AS (
+  SELECT "id", "name", "description", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $9 OFFSET $10
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`query rules puts PinnedResult ids first, in order, and matches them without the query 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+base AS (
+  SELECT t."id", t."name", t."description", ts_rank_cd(t."search_vector", q.tsq) AS _score, array_position($3::text[], t."id"::text) AS _pin
+  FROM "products" t CROSS JOIN q
+  WHERE (t."search_vector" @@ q.tsq OR t."id"::text = ANY($3::text[]))
+),
+hits AS (
+  SELECT "id", "name", "description", _score, row_number() OVER (ORDER BY _pin ASC NULLS LAST, _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _pin ASC NULLS LAST, _score DESC, "id" ASC
+  LIMIT $4 OFFSET $5
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`sorting orders by every field of a multi-field sorting option, _score included 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+base AS (
+  SELECT t."id", t."name", t."description", t."price", ts_rank_cd(t."search_vector", q.tsq) AS _score
+  FROM "products" t CROSS JOIN q
+  WHERE t."search_vector" @@ q.tsq
+),
+hits AS (
+  SELECT "id", "name", "description", _score, row_number() OVER (ORDER BY "price" DESC NULLS LAST, _score DESC, "name" ASC NULLS LAST, "id" ASC) AS _rn
+  FROM base
+  ORDER BY "price" DESC NULLS LAST, _score DESC, "name" ASC NULLS LAST, "id" ASC
+  LIMIT $3 OFFSET $4
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total"
+`;

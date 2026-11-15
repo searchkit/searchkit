@@ -42,6 +42,8 @@ export const DEFAULT_TEXT_SEARCH_CONFIG = 'english'
 /** Columns of the hits CTE that are not attributes of the hit */
 export const SCORE_COLUMN = '_score'
 export const ROW_NUMBER_COLUMN = '_rn'
+/** Position of a `PinnedResult` document in the pinned ids (null for other rows) */
+export const PIN_COLUMN = '_pin'
 
 const WEIGHT_LABELS = ['A', 'B', 'C', 'D'] as const
 
@@ -91,7 +93,11 @@ const getSearchAttributesVector = (settings: SearchSettingsConfig, configParam: 
 const getOrderBy = (sorting: SortingOption | SortingOption[] | undefined, idColumn: string) => {
   const id = quoteColumn(idColumn)
   if (!sorting) {
-    return { orderBy: `${SCORE_COLUMN} DESC, ${id} ASC`, sortColumns: [] as string[] }
+    return {
+      orderBy: `${SCORE_COLUMN} DESC, ${id} ASC`,
+      sortColumns: [] as string[],
+      byRelevance: true
+    }
   }
   const options = Array.isArray(sorting) ? sorting : [sorting]
   const sortColumns: string[] = []
@@ -118,7 +124,37 @@ const getOrderBy = (sorting: SortingOption | SortingOption[] | undefined, idColu
   if (!options.some((option) => option.field === idColumn)) {
     terms.push(`${id} ASC`)
   }
-  return { orderBy: terms.join(', '), sortColumns }
+  return {
+    orderBy: terms.join(', '),
+    sortColumns,
+    // sorted by score first: query rule pinned results go first, as with an Elasticsearch `pinned` query
+    byRelevance:
+      options[0].field === SCORE_COLUMN && String(options[0].order).toLowerCase() === 'desc'
+  }
+}
+
+/**
+ * The `_score` expression: the text rank (0 without a query) plus, for each `QueryBoost` rule, its
+ * weight when the row matches the rule's filter (`CASE WHEN <predicate> THEN weight ELSE 0 END`).
+ */
+const getScore = (
+  rank: string,
+  rules: QueryRuleActions,
+  settings: SearchSettingsConfig,
+  params: Params
+) => {
+  if (rules.boosts.length === 0) return `${rank} AS ${SCORE_COLUMN}`
+  const boosts = rules.boosts.map((boost) => {
+    const weight = Number(boost.weight)
+    if (!Number.isFinite(weight)) {
+      throw new Error(
+        `QueryBoost "${boost.query}": weight must be a number, got ${JSON.stringify(boost.weight)}`
+      )
+    }
+    const predicate = compileFilter(parseFilters(boost.query, settings), settings, params, 't.')
+    return `CASE WHEN ${predicate} THEN ${params.add(weight)}::real ELSE 0 END`
+  })
+  return `(${[rank, ...boosts].join(' + ')})::real AS ${SCORE_COLUMN}`
 }
 
 /** The request filters (`facetFilters`, `numericFilters`, `filters`, geo) and `QueryFilter` rules, AND-ed */
@@ -157,6 +193,9 @@ const getFilter = (
  * With a query and `highlight_attributes` / `snippet_attributes`, each hit also gets `_highlight` and
  * `_snippet` JSON objects built with `ts_headline` over the page of hits only (see `buildHeadlineColumns`).
  * With an empty query there is no text predicate, `_score` is 0 and the default order is by id.
+ * Query rules: `QueryRewrite` replaces the query, `QueryFilter` is AND-ed into `WHERE`, each `QueryBoost`
+ * adds `CASE WHEN <filter> THEN weight ELSE 0 END` to `_score`, and `PinnedResult` ids match regardless of
+ * the query and, when the hits are sorted by relevance, come first in their configured order (`_pin`).
  * Identifiers come from the configuration (validated and quoted); every value is a bound parameter.
  */
 export const buildSearchStatement = (
@@ -172,7 +211,11 @@ export const buildSearchStatement = (
   const hasQuery = query !== ''
 
   const hitAttributes = getHitAttributes(settings)
-  const { orderBy, sortColumns } = getOrderBy(getSortingOption(request, settings), idColumn)
+  const {
+    orderBy: sortOrderBy,
+    sortColumns,
+    byRelevance
+  } = getOrderBy(getSortingOption(request, settings), idColumn)
 
   // a search for facet values request only needs the values of its facet, not hits
   const { facetName, facetQuery, maxValuesPerFacet } = request.params || {}
@@ -190,21 +233,39 @@ export const buildSearchStatement = (
 
   const ctes: string[] = []
   const where: string[] = []
-  let score = `0::real AS ${SCORE_COLUMN}`
+  let rank = '0::real'
   let from = `${table} t`
   let configParam = ''
+  // `PinnedResult` ids match even when they do not match the query (filters still apply), like an
+  // Elasticsearch `pinned` query; when the hits are sorted by relevance they come first, in order
+  const { pinnedDocs } = rules
+  let pinnedParam = ''
+  const addPinnedParam = () => {
+    if (pinnedDocs.length > 0) pinnedParam = `${params.add(pinnedDocs)}::text[]`
+  }
+  const idText = `t.${quoteColumn(idColumn)}::text`
 
   if (hasQuery) {
     configParam = params.add(index.text_search_config || DEFAULT_TEXT_SEARCH_CONFIG)
     const queryParam = params.add(query)
+    addPinnedParam()
     const vector = index.search_vector_column
       ? `t.${quoteColumn(index.search_vector_column)}`
       : `(${getSearchAttributesVector(settings, configParam)})`
     ctes.push(`q AS (SELECT websearch_to_tsquery(${configParam}::regconfig, ${queryParam}) AS tsq)`)
     from = `${table} t CROSS JOIN q`
-    score = `ts_rank_cd(${vector}, q.tsq) AS ${SCORE_COLUMN}`
-    where.push(`${vector} @@ q.tsq`)
+    rank = `ts_rank_cd(${vector}, q.tsq)`
+    where.push(
+      pinnedParam ? `(${vector} @@ q.tsq OR ${idText} = ANY(${pinnedParam}))` : `${vector} @@ q.tsq`
+    )
+  } else {
+    addPinnedParam()
   }
+
+  const score = getScore(rank, rules, settings, params)
+  const pinFirst = !!pinnedParam && byRelevance && !isFacetValuesSearch
+  const pinColumn = pinFirst ? `, array_position(${pinnedParam}, ${idText}) AS ${PIN_COLUMN}` : ''
+  const orderBy = pinFirst ? `${PIN_COLUMN} ASC NULLS LAST, ${sortOrderBy}` : sortOrderBy
 
   const filter = getFilter(request, settings, rules)
   if (filter) {
@@ -214,7 +275,7 @@ export const buildSearchStatement = (
   ctes.push(
     [
       'base AS (',
-      `  SELECT ${baseColumns.map((c) => `t.${c}`).join(', ')}, ${score}`,
+      `  SELECT ${baseColumns.map((c) => `t.${c}`).join(', ')}, ${score}${pinColumn}`,
       `  FROM ${from}`,
       ...(where.length > 0 ? [`  WHERE ${where.join('\n    AND ')}`] : []),
       ')'
