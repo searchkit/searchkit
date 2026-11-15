@@ -320,6 +320,9 @@ Add `examples/with-postgres-nextjs` later for docs (a minimal copy); not require
 CREATE EXTENSION IF NOT EXISTS vector;
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
 DROP TABLE IF EXISTS products;
+-- array_to_string() is only STABLE; a generated column needs IMMUTABLE, so wrap it (safe for text[]).
+CREATE OR REPLACE FUNCTION searchkit_text_array_to_string(text[]) RETURNS text
+  LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$ SELECT array_to_string($1, ' ') $$;
 CREATE TABLE products (
   id text PRIMARY KEY,
   name text, description text, brand text, type text,
@@ -330,7 +333,7 @@ CREATE TABLE products (
   search_vector tsvector GENERATED ALWAYS AS (
     setweight(to_tsvector('english', coalesce(name,'')), 'A') ||
     setweight(to_tsvector('english', coalesce(brand,'')), 'B') ||
-    setweight(to_tsvector('english', array_to_string(categories, ' ')), 'B') ||
+    setweight(to_tsvector('english', coalesce(searchkit_text_array_to_string(categories), '')), 'B') ||
     setweight(to_tsvector('english', coalesce(description,'')), 'D')
   ) STORED
 );
@@ -341,8 +344,14 @@ CREATE INDEX ON products (hierarchical_categories_lvl1); CREATE INDEX ON product
 
 `id` is the ES `_id` from the bulk action line. `embedding` is a deterministic 8-dim vector derived from the
 document (e.g. hashed token counts, normalised) so the vector spec is reproducible without a model; the e2e
-`embed()` uses the same function. Insert with `COPY` or batched multi-row `INSERT`; assert `count(*) = 10000` at
-the end, like the ES seeder.
+`embed()` uses the same function. Insert with `COPY` or batched multi-row `INSERT`; assert the row count matches
+the ES seeder (10,000 sample products plus the 3 e2e fixture products, 10,003 in total).
+
+Done in phase 2: commits `6b396971`, `2ba1fe3b`, `fe0f3e40`. The Postgres Playwright project is gated behind
+`E2E_POSTGRES=1` until phase 3 makes it unconditional. `escaped-facet-values.spec.ts` builds its own ES index
+in-process, so it passes on the Postgres project without exercising Postgres; phase 3 may skip it on that
+project (a `test.skip` keyed on the project name is the one allowed spec change). The example's Postgres
+`categories` filter needs `array: true` once phase 4 adds the field to the core types.
 
 ### Docker and CI
 
