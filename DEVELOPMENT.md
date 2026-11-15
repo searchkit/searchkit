@@ -63,7 +63,8 @@ pnpm test
 ## End-to-end tests
 
 The `e2e` workspace holds [Playwright](https://playwright.dev) tests that drive `examples/with-ui-nextjs-react`
-in a real browser against a **real Elasticsearch** seeded with `sample-data/electronics-ecommerce`. Unlike the
+in a real browser against a **real Elasticsearch** seeded with `sample-data/electronics-ecommerce` (and, see below,
+the same specs against a **real Postgres**). Unlike the
 functional tests above, nothing is mocked, so they validate that `searchkit`, `@searchkit/api` and
 `@searchkit/instantsearch-client` work together. They run on every pull request in GitHub Actions
 (`functional-tests` job in `.github/workflows/test.yml`).
@@ -72,20 +73,29 @@ Requirements: Docker, plus a one-off `npx playwright install chromium` from `e2e
 
 ```bash
 pnpm build          # the example uses the built workspace packages
-pnpm e2e:up         # starts Elasticsearch (docker-compose.e2e.yml) and seeds the `products` index
+pnpm e2e:up         # starts Elasticsearch and Postgres (docker-compose.e2e.yml) and seeds both
 pnpm test:e2e       # builds + starts the example on :3000 and runs the Playwright tests
-pnpm e2e:down       # stops and removes Elasticsearch
+pnpm e2e:down       # stops and removes Elasticsearch and Postgres
 ````
 
 - **Port 9200 already in use?** Use another port for both the container and the tests:
   `export E2E_ES_PORT=9290 ES_HOST=http://localhost:9290`, then run the commands above.
-- `e2e/seed.mjs` **deletes and recreates the `products` index** on `ES_HOST`; only point it at a throwaway cluster.
+- **Port 5432 already in use?** Same for Postgres:
+  `export E2E_PG_PORT=5433 DATABASE_URL=postgres://postgres:searchkit@localhost:5433/postgres`.
+- `e2e/seed.mjs` **deletes and recreates the `products` index** on `ES_HOST`, and `e2e/seed-postgres.mjs` (also
+  `pnpm e2e:seed:pg`) **drops and recreates the `products` table** on `DATABASE_URL`; only point them at throwaway
+  databases. Both store the same deterministic 8-dim `embedding` per product (`e2e/embedding.mjs`).
 - Re-run a single spec with `pnpm test:e2e tests/facets.spec.ts`; use `--ui` to debug. After a failure, open the
   report with `npx playwright show-report` (in `e2e/`). CI uploads the report and traces as an artifact on failure.
 - The example reads `ES_HOST`, `ES_API_KEY` or `ES_USERNAME`/`ES_PASSWORD` from the environment and falls back to the
   public demo cluster when they are unset (see `examples/with-ui-nextjs-react/.env.example`).
 - `e2e/check-workspace-links.mjs` fails the run if the example would use published packages instead of the ones in
   your branch (e.g. after a version bump that isn't mirrored in the example's `package.json`).
+- **Postgres** (`@searchkit/adapter-postgres`, work in progress): the Playwright project `chromium-postgres` runs the
+  same specs against a second instance of the example on :3001 (`E2E_POSTGRES_PORT`), started with
+  `SEARCH_ADAPTER=postgres` and `DATABASE_URL`. It is opt-in for now, because the adapter does not run searches yet
+  and the project fails: `E2E_POSTGRES=1 pnpm test:e2e --project=chromium-postgres`. Without `E2E_POSTGRES` only the
+  Elasticsearch project (`chromium`) runs. Once the adapter is complete, both projects will run by default (and in CI).
 - To add a test, create `e2e/tests/<name>.spec.ts` and reuse `e2e/tests/helpers.ts`. Prefer assertions about
   behaviour (results narrow, banner shows) over exact counts so tests don't break when the sample data changes.
 
@@ -101,7 +111,7 @@ published from a local machine.
    bumps versions and updates the CHANGELOGs.
 3. **Merge that PR** to publish to npm, tag the release and create GitHub Releases.
 
-One-time setup: for each published package (`searchkit`, `@searchkit/core`, `@searchkit/adapter-elasticsearch`, `@searchkit/api`, `@searchkit/instantsearch-client`) configure npm **trusted publishing** pointing at
+One-time setup: for each published package (`searchkit`, `@searchkit/core`, `@searchkit/adapter-elasticsearch`, `@searchkit/adapter-postgres`, `@searchkit/api`, `@searchkit/instantsearch-client`) configure npm **trusted publishing** pointing at
 `searchkit/searchkit` and workflow `release.yml`. `changeset publish` runs `pnpm publish`, which does the OIDC token
 exchange and signs provenance itself, so no npm token is stored in the repo. Also enable
 "Allow GitHub Actions to create and approve pull requests" in the repo's Actions settings.

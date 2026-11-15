@@ -72,13 +72,16 @@ jobs:
       - name: Test
         run: pnpm test
 
-  # Drives the Next.js example in a real browser (Playwright) against a real Elasticsearch
-  # running as a service container. See DEVELOPMENT.md ("End-to-end tests").
+  # Drives the Next.js example in a real browser (Playwright) against a real Elasticsearch and a real
+  # Postgres (pgvector), running as service containers. See DEVELOPMENT.md ("End-to-end tests").
+  # Both are seeded; the Postgres Playwright project (E2E_POSTGRES=1) is not run yet, because the
+  # Postgres adapter does not run searches yet.
   functional-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
       ES_HOST: http://localhost:9200
+      DATABASE_URL: postgres://postgres:searchkit@localhost:5432/postgres
     services:
       elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:8.15.3
@@ -90,6 +93,17 @@ jobs:
           - 9200:9200
         options: >-
           --health-cmd "curl -sf http://localhost:9200/_cluster/health"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 30
+      postgres:
+        image: pgvector/pgvector:pg17
+        env:
+          POSTGRES_PASSWORD: searchkit
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
           --health-interval 5s
           --health-timeout 5s
           --health-retries 30
@@ -118,6 +132,9 @@ jobs:
 
       - name: Seed Elasticsearch
         run: node e2e/seed.mjs
+
+      - name: Seed Postgres
+        run: node e2e/seed-postgres.mjs
 
       - name: Get Playwright version
         id: playwright-version

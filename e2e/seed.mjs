@@ -1,10 +1,12 @@
 // Seeds the local Elasticsearch with the electronics dataset used by examples/with-ui-nextjs-react,
 // plus the e2e-only products in fixtures/extra-products.json (edge cases the dataset lacks, such as
-// a brand starting with "-").
+// a brand starting with "-"). Each document also gets an 8-dim `embedding` (dense_vector) from
+// e2e/embedding.mjs, the same vectors e2e/seed-postgres.mjs stores in Postgres.
 // Usage: node e2e/seed.mjs   (ES_HOST defaults to http://localhost:9200)
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { EMBEDDING_DIMS, embed, productText } from './embedding.mjs'
 
 const host = (process.env.ES_HOST || 'http://localhost:9200').replace(/\/$/, '')
 const index = 'products'
@@ -47,11 +49,15 @@ async function waitForEs(timeoutMs = 120000) {
 await waitForEs()
 
 // bulk.json is ndjson: alternating action / source lines
+const withEmbedding = (doc) => ({ ...doc, embedding: embed(productText(doc)) })
 const lines = [
-  ...readFileSync(dataFile, 'utf8').split('\n').filter(Boolean),
+  ...readFileSync(dataFile, 'utf8')
+    .split('\n')
+    .filter(Boolean)
+    .map((line, i) => (i % 2 === 0 ? line : JSON.stringify(withEmbedding(JSON.parse(line))))),
   ...extraProducts.flatMap(({ _id, ...doc }) => [
     JSON.stringify({ index: { _index: index, _id } }),
-    JSON.stringify(doc)
+    JSON.stringify(withEmbedding(doc))
   ])
 ]
 const expected = lines.length / 2
@@ -59,7 +65,15 @@ const expected = lines.length / 2
 await es(`/${index}`, { method: 'DELETE', allow: [404] })
 await es(`/${index}`, {
   method: 'PUT',
-  body: JSON.stringify({ settings: { number_of_replicas: 0 } })
+  body: JSON.stringify({
+    settings: { number_of_replicas: 0 },
+    // every other field is mapped dynamically, as before
+    mappings: {
+      properties: {
+        embedding: { type: 'dense_vector', dims: EMBEDDING_DIMS, index: true, similarity: 'cosine' }
+      }
+    }
+  })
 })
 
 for (let i = 0; i < lines.length; i += CHUNK_DOCS * 2) {

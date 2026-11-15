@@ -1,0 +1,53 @@
+{
+  "name": "@searchkit/adapter-postgres",
+  "version": "4.18.1",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "description": "Postgres adapter for Searchkit (Node only). Full-text search with tsvector, facets with GROUP BY and semantic search with pgvector.",
+  "keywords": ["postgres", "postgresql", "pgvector", "search", "instantsearch", "searchkit"],
+  "repository": "https://github.com/searchkit/searchkit",
+  "bugs": "https://github.com/searchkit/searchkit/issues",
+  "homepage": "https://www.searchkit.co",
+  "license": "MIT",
+  "files": ["dist/"],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=22.11"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package": "./package.json",
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "lint": "eslint src --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "build": "tsup",
+    "check:dts": "node ../../scripts/check-dts.mjs",
+    "dev": "npm run build --watch",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@searchkit/core": "workspace:^",
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.1.1",
+    "@types/pg": "^8.11.0",
+    "eslint": "^9.39.0",
+    "eslint-config-custom": "workspace:*",
+    "jest": "29.1.2",
+    "ts-jest": "29.0.3",
+    "tsconfig": "workspace:*",
+    "tsup": "^6.3.0",
+    "typescript": "^4.9.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

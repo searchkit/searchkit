@@ -6,6 +6,32 @@ const PORT = Number(process.env.E2E_PORT || 3000)
 const APP_DIR = process.env.E2E_APP_DIR
 const ES_HOST = process.env.ES_HOST || 'http://localhost:9200'
 
+// The same specs also run against Postgres (project `chromium-postgres`): the example started a second time,
+// on its own port, with SEARCH_ADAPTER=postgres. Opt-in with E2E_POSTGRES=1 while the Postgres adapter is
+// being built (it does not run searches yet, so that project fails); see DEVELOPMENT.md.
+const POSTGRES = !!process.env.E2E_POSTGRES
+const POSTGRES_PORT = Number(process.env.E2E_POSTGRES_PORT || 3001)
+const DATABASE_URL =
+  process.env.DATABASE_URL || 'postgres://postgres:searchkit@localhost:5432/postgres'
+
+const appCommand = (port: number, build: boolean) => {
+  if (APP_DIR) return build ? `npm run build && npm start -- -p ${port}` : `npm start -- -p ${port}`
+  const start = `pnpm --filter with-ui-nextjs-react start -p ${port}`
+  return build ? `pnpm --filter with-ui-nextjs-react build && ${start}` : start
+}
+
+const webServer = (port: number, build: boolean, env: Record<string, string>) => ({
+  command: appCommand(port, build),
+  cwd: APP_DIR || '..',
+  url: `http://localhost:${port}`,
+  reuseExistingServer: !process.env.CI,
+  timeout: 300_000,
+  // the example runs with debug logging that prints every search request/response; keep only errors
+  stdout: 'ignore' as const,
+  stderr: 'pipe' as const,
+  env: { ...env, PORT: String(port) }
+})
+
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
@@ -14,23 +40,30 @@ export default defineConfig({
   workers: process.env.CI ? 2 : undefined,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
-    baseURL: `http://localhost:${PORT}`,
     trace: 'retain-on-failure'
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
-  // Builds and serves examples/with-ui-nextjs-react (which uses the workspace searchkit packages)
-  // against the local Elasticsearch. Run `pnpm build` at the repo root first so packages have a dist/.
-  webServer: {
-    command: APP_DIR
-      ? `npm run build && npm start -- -p ${PORT}`
-      : `pnpm --filter with-ui-nextjs-react build && pnpm --filter with-ui-nextjs-react start -p ${PORT}`,
-    cwd: APP_DIR || '..',
-    url: `http://localhost:${PORT}`,
-    reuseExistingServer: !process.env.CI,
-    timeout: 300_000,
-    // the example runs with debug logging that prints every ES request/response; keep only errors
-    stdout: 'ignore',
-    stderr: 'pipe',
-    env: { ES_HOST, PORT: String(PORT) }
-  }
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'], baseURL: `http://localhost:${PORT}` }
+    },
+    ...(POSTGRES
+      ? [
+          {
+            name: 'chromium-postgres',
+            use: { ...devices['Desktop Chrome'], baseURL: `http://localhost:${POSTGRES_PORT}` }
+          }
+        ]
+      : [])
+  ],
+  // Builds examples/with-ui-nextjs-react (which uses the workspace searchkit packages) once and serves it
+  // against the local Elasticsearch, and with E2E_POSTGRES=1 a second time against the local Postgres. Web
+  // servers start in order, so the build in the first one is done before the second starts. Run
+  // `pnpm build` at the repo root first so packages have a dist/.
+  webServer: [
+    webServer(PORT, true, { ES_HOST, SEARCH_ADAPTER: 'elasticsearch' }),
+    ...(POSTGRES
+      ? [webServer(POSTGRES_PORT, false, { SEARCH_ADAPTER: 'postgres', DATABASE_URL })]
+      : [])
+  ]
 })

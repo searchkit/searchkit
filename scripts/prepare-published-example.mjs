@@ -11,6 +11,7 @@ if (!process.argv[2]) throw new Error('usage: prepare-published-example.mjs <des
 
 const packages = {
   searchkit: 'packages/searchkit',
+  '@searchkit/adapter-postgres': 'packages/adapter-postgres',
   '@searchkit/api': 'packages/searchkit-api',
   '@searchkit/instantsearch-client': 'packages/searchkit-instantsearch-client'
 }

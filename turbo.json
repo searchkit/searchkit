@@ -1,6 +1,14 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["ES_HOST", "ES_API_KEY", "ES_USERNAME", "ES_PASSWORD", "GITHUB_TOKEN"],
+  "globalEnv": [
+    "ES_HOST",
+    "ES_API_KEY",
+    "ES_USERNAME",
+    "ES_PASSWORD",
+    "DATABASE_URL",
+    "SEARCH_ADAPTER",
+    "GITHUB_TOKEN"
+  ],
   "globalPassThroughEnv": ["CI"],
   "tasks": {
     "test": {
