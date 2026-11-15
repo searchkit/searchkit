@@ -1,9 +1,5 @@
 # @searchkit/adapter-postgres
 
-> **Work in progress.** This package is under development. It runs full-text searches with filters, facets, sorting
-> and pagination, with highlighting and snippets (`ts_headline`) and query rules; semantic search is not
-> implemented yet.
-
 The Postgres adapter for [Searchkit](https://www.searchkit.co): full-text search with `tsvector`, facets with
 `GROUP BY` and semantic search with pgvector. It runs on the server only (Node 22.11+), for example in the API route
 that `@searchkit/instantsearch-client` talks to.
@@ -61,6 +57,41 @@ than two characters the start of any later word, case-insensitively (`ILIKE`, wi
 literally). Not supported: geo filters, nested fields (`nestedPath`) and custom facets (`CustomFacetConfig`), which
 are Elasticsearch only.
 
+## Semantic search (pgvector)
+
+`search_settings.semantic_search` searches a pgvector column. `embed` is required (it returns the query vector,
+bound as a parameter cast to `vector`); `model_id` is Elasticsearch only and throws.
+
+```ts
+semantic_search: {
+  field: 'embedding', // a vector(n) column, ideally with an HNSW index (vector_cosine_ops for cosine)
+  embed: async (query) => embedText(query),
+  k: 50, // default 50
+  distance: 'cosine', // 'cosine' (<=>), 'l2' (<->) or 'inner_product' (<#>)
+  mode: 'hybrid' // 'hybrid' (default), 'semantic_only' or 'text_only'
+}
+```
+
+`hybrid` fuses the rows that match the text query and the `k` nearest rows with reciprocal rank fusion
+(`sum(1 / (60 + rank))`), and computes hits, `nbHits` and facets over them; `semantic_only` returns the `k` nearest
+rows by distance; `text_only` ignores the vector (and does not call `embed`). Filters apply inside the vector search,
+and an empty query runs no vector search.
+
+## `getWhere`
+
+The `getWhere` request option adds a SQL predicate, AND-ed with the filters of every search (including the vector
+search), for example for permissions. The table is aliased `t`; values are placeholders `$1`, `$2`, ... bound from
+`params`:
+
+```ts
+apiClient.handleRequest(body, {
+  getWhere: () => ({ text: 't.tenant_id = $1', params: [tenantId] })
+})
+```
+
+The Elasticsearch-only request options `getQuery` and `getBaseFilters` throw with this adapter instead of being
+ignored.
+
 ## Security and hooks
 
 Every table and column name comes from this configuration or the search settings, is validated
@@ -68,3 +99,6 @@ Every table and column name comes from this configuration or the search settings
 request is a bound parameter. The `beforeSearch` / `afterSearch` hooks receive one request object per InstantSearch
 request, `{ text, params, request, indexName }` (`text` is the SQL statement, `params` its bound parameters), and
 the matching result rows (`{ hits, total, facets }`; a search for facet values request returns only `facets`).
+
+See the [Postgres adapter docs](https://www.searchkit.co/docs/adapters/postgres) for the table requirements, the
+differences from Elasticsearch and the limitations.

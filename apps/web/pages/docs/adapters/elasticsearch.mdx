@@ -1,0 +1,262 @@
+---
+title: Elasticsearch Adapter
+description: Connect Searchkit to Elasticsearch or Opensearch, set up a cluster and proxy it from the web
+---
+
+import { Callout } from "nextra/components";
+
+# Elasticsearch Adapter
+
+Searchkit turns InstantSearch requests into search engine requests through an **adapter**. The Elasticsearch adapter
+is the default: it sends one `_msearch` request to Elasticsearch (7.0 or higher) or Opensearch (2.0 or higher) and
+runs in the browser or on the server. For Postgres, see the [Postgres adapter](/docs/adapters/postgres).
+
+It ships as `@searchkit/adapter-elasticsearch`; `searchkit` and `@searchkit/api` depend on it and re-export it, so
+you do not need to install it separately.
+
+```ts
+import Client from "@searchkit/api";
+import { ElasticsearchAdapter } from "@searchkit/api"; // also exported by "searchkit"
+
+const client = Client({
+  adapter: ElasticsearchAdapter({
+    host: "http://localhost:9200",
+    apiKey: "API_KEY"
+  }),
+  search_settings: {
+    search_attributes: ["title", "actors"],
+    result_attributes: ["title", "actors"]
+  }
+});
+
+// equivalent: `connection` is wrapped in ElasticsearchAdapter
+const sameClient = Client({
+  connection: { host: "http://localhost:9200", apiKey: "API_KEY" },
+  search_settings: {
+    search_attributes: ["title", "actors"],
+    result_attributes: ["title", "actors"]
+  }
+});
+```
+
+`adapter` takes precedence when both `adapter` and `connection` are set. The connection options (`host`,
+`cloud_id`, `apiKey`, `auth`, `headers`, `withCredentials`) are described in the
+[Searchkit API reference](/docs/api-documentation/searchkit#connection-configuration).
+
+The Elasticsearch adapter supports everything in the search settings, plus the Elasticsearch-only escape hatches:
+the `getQuery` and `getBaseFilters` [request options](/docs/api-documentation/searchkit#request-options), custom
+facet and filter queries, nested fields (`nestedPath`), `runtime_mappings` and geo search.
+
+## Why proxy Elasticsearch?
+
+Elasticsearch is a powerful search engine, but it is not designed to be exposed to the web. It is designed to be used by other APIs, which are then exposed to the web.
+
+Its fine to build search experiences with Searchkit by talking to Elasticsearch directly, for fast prototyping and development. But when you are ready to deploy, you should proxy Elasticsearch from the web.
+
+At the proxy, you can add security credentials, rate limiting, APM, and other features that are important for production.
+
+### Do I need to proxy Elasticsearch?
+
+It depends. For internal use or a POC, talk to Elasticsearch directly. If for a high traffic website, you should proxy Elasticsearch from the web.
+
+If you choose not to proxy Elasticsearch from the web, connect with read-only credentials. See [connecting with an API key](#connecting-with-api-key) or [connecting with a user](#connecting-with-usernamepassword).
+
+### Proxy with Searchkit
+
+Searchkit provides built in support to proxy Elasticsearch from the web with a Node app. It works with any node based application that you can run on your own server: see [With Next.js](/docs/proxy-elasticsearch/with-next-js), [With Express.js](/docs/proxy-elasticsearch/with-express-js) and [With your own API server](/docs/proxy-elasticsearch/with-your-own-server).
+
+If you don't use Node currently, [getting started with using Cloudflare Workers](/docs/proxy-elasticsearch/with-cloudflare-workers) is a good option due to its low cost (Free plans get 100,000 req/day) and great developer experience.
+
+### I don't want to use Node
+
+If you don't want to use Node, you can proxy Elasticsearch with your own API server by creating a POST `/_msearch` API and specify your application server in the `host` property or building a [custom transporter](#custom-transport). Searchkit will continue to make Elasticsearch requests from the browser to the proxy which will then relay the request to Elasticsearch with read only security credentials and extra filtering restrictions (if needed).
+
+## Setup & Connect to Elasticsearch
+
+The easiest way to connect to Elasticsearch is to use Elastic cloud. You can sign up for a free trial account and get started right away.
+
+### Using Docker
+
+If you are using Docker, you can run Elasticsearch with the following command:
+
+Pull the Elasticsearch Docker image:
+
+```bash
+docker pull docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+```
+
+Create a docker network for Elastic:
+
+```bash
+docker network create elastic
+```
+
+Start Elasticsearch:
+
+```bash
+docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" -e http.cors.enabled=true -e "http.cors.allow-origin='*'" -e http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization -e http.cors.allow-credentials=true -e network.publish_host=localhost -e xpack.security.enabled=false docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+```
+
+We are disabling security for this example, but you can read more about [securing Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/configuring-security.html) in the official documentation.
+
+You will be able to access Elasticsearch at host `http://localhost:9200`.
+
+### With Opensearch via Docker
+
+Pull the Opensearch Docker image:
+
+```bash
+docker pull opensearchproject/opensearch:1.2.4
+```
+
+Start Opensearch:
+
+```sh
+docker run --name opensearch --rm -d -p 9200:9200 -e http.port=9200 -e discovery.type=single-node -e http.max_content_length=10MB -e http.cors.enabled=true -e "http.cors.allow-origin='*'" -e http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization -e http.cors.allow-credentials=true opensearchproject/opensearch:1.2.4
+```
+
+You will be able to access Opensearch at host `http://localhost:9200`.
+
+### Using Elastic Cloud
+
+To connect to Elastic Cloud, you need to create an account and get your credentials. You can do this by following the instructions on the [Elastic Cloud website](https://www.elastic.co/cloud).
+
+Once you have setup a deployment, do the following:
+
+1. Go to the [Elastic Cloud console](https://cloud.elastic.co/).
+2. Click on the deployment you want to connect to.
+3. Locate either the Cloud Id or the Elasticsearch URL and copy it.
+4. Paste the URL into the `connection.cloud_id` or `connection.host` field in the configuration object, within the Node app.
+
+### Connecting with username:password
+
+When you create a deployment, you will be provided a user & password. You can set the `connection.auth.username` and `connection.auth.password` fields in the configuration object.
+
+```ts
+const client = Client({
+  connection: {
+    cloud_id: "ELASTICSEARCH_CLOUD_ID",
+    // or optionally the elasticsearch host
+    // host: "ELASTICSEARCH_URL",
+    auth: {
+      username: "elastic",
+      password: "changeme"
+    }
+  }
+})
+```
+
+### Connecting with API key
+
+Create an API key with `read` privileges for the index.
+
+You will need to pass an `Authorization` header to be able to create an API key.
+
+```bash
+curl --location --request POST 'http://localhost:9200/_security/api_key' \
+--header 'Content-Type: application/json' \
+-u 'elastic:changeme' \
+--data-raw '{
+  "name": "Elastic Search API Key",
+  "role_descriptors": {
+    "role-a": {
+      "cluster": ["all"],
+      "index": [
+        {
+          "names": ["<index-name>"],
+          "privileges": ["read"]
+        }
+      ]
+    }
+
+  }
+}'
+```
+
+Copy the API key in `encoded` and paste it into the `connection.apiKey` field.
+
+```ts
+const client = Client({
+  connection: {
+    host: "ELASTICSEARCH_URL",
+    apiKey: "API_KEY"
+  }
+})
+```
+
+You can also do this within Kibana by going to `Stack Management > API Keys` and creating a new API key.
+
+If Searchkit cannot connect to Elasticsearch, it will throw an error. You should be able to see the error in the terminal running the node API.
+
+You can also switch on the `debug` [flag](/docs/api-documentation/api#debug-mode) in the configuration object, within the Node app, to see more detailed logs.
+
+### Connecting to Elasticsearch with custom headers
+
+If you are using Elasticsearch with a proxy, you may need to add custom headers to the request. You can do this by setting the `connection.headers` field in the configuration object, within the Node app.
+
+```ts
+const client = Client({
+  connection: {
+    host: "http://localhost:9200",
+    headers: {
+      "X-My-Header": "My-Value"
+    }
+  }
+})
+```
+
+### Custom Transport
+
+If all fails above, you can build your own custom transport. You can do so by implementing the `Transporter` interface.
+
+```ts
+import { ESTransporter } from 'searchkit'
+import type { SearchRequest } from "searchkit"
+
+class MyTransporter extends ESTransporter {
+  async performNetworkRequest(requests: SearchRequest[]) {
+    // you can use any http client here
+    return fetch(`https://localhost:9200/_msearch`, {
+      headers: {
+        // Add custom headers here
+      },
+      body: this.createElasticsearchQueryFromRequest(requests),
+      method: 'POST'
+    })
+  }
+}
+
+// then pass the custom transporter to the client
+const client = Client({
+  connection: new MyTransporter()
+});
+```
+
+## Semantic search
+
+[`semantic_search`](/docs/api-documentation/searchkit#semantic_search) runs a KNN search on a `dense_vector`
+field. Embed the query yourself with `embed` (`knn.query_vector`), or let Elasticsearch embed it with a deployed
+text embedding model with `model_id` (`knn.query_vector_builder`, Elasticsearch only). `num_candidates` defaults
+to `2 * k`; `distance` is ignored (the similarity is part of the `dense_vector` mapping).
+
+```ts
+semantic_search: {
+  field: 'embedding', // { type: 'dense_vector', dims: 384, index: true, similarity: 'cosine' }
+  model_id: 'my-text-embedding-model',
+  k: 50,
+  mode: 'hybrid' // the default
+}
+```
+
+- `hybrid` sends the text `query`, the `knn` search and `rank: { rrf: { window_size } }`.
+- `semantic_only` sends only the `knn` search.
+- `text_only` sends only the text query.
+
+Filters apply to the KNN search too (`knn.filter`), and an empty query sends no KNN search.
+
+<Callout type="warning">
+  Hybrid mode uses reciprocal rank fusion (`rank.rrf`), which Elasticsearch licenses above the free Basic tier: on a
+  Basic licence (verified with Elasticsearch 8.15) Elasticsearch answers `403 current license is non-compliant for
+  [Reciprocal Rank Fusion (RRF)]`. Use `mode: 'semantic_only'` on a Basic licence, or check the subscription
+  requirements of your version.
+</Callout>

@@ -1,5 +1,8 @@
 export default {
-  "setup-elasticsearch": "Setup Elasticsearch",
+  "setup-elasticsearch": {
+    "title": "Setup Elasticsearch",
+    "display": "hidden"
+  },
   "enable-cors": "Enable CORS",
   "indexing-data": "Indexing Data",
   "customising-query": "Search Relevance",

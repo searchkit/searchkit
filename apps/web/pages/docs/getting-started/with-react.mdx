@@ -84,13 +84,13 @@ const sk = new Searchkit({
     host: "http://localhost:9200",
     // cloud_id: "my-cloud-id" // if using Elastic Cloud
     // if you're authenticating with username/password
-    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword
+    // https://www.searchkit.co/docs/adapters/elasticsearch#connecting-with-usernamepassword
     //auth: {
     //  username: "elastic",
     //  password: "changeme"
     //},
     // if you're authenticating with api key
-    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-api-key
+    // https://www.searchkit.co/docs/adapters/elasticsearch#connecting-with-api-key
     // apiKey: "######"
   },
   search_settings: {
@@ -821,5 +821,7 @@ We covered the most common search features, but there are many more features tha
 
 ## Next Steps
 
-Now you have built your Search UI, before you go to production, you should proxy your Elasticsearch cluster to make it secure, rather than exposing it to the public. Searchkit makes this simple. You can read more about it in [Proxying Elasticsearch](/docs/proxy-elasticsearch/why).
+Now you have built your Search UI, before you go to production, you should proxy your Elasticsearch cluster to make it secure, rather than exposing it to the public. Searchkit makes this simple. You can read more about it in [Proxying Elasticsearch](/docs/adapters/elasticsearch#why-proxy-elasticsearch).
+
+To search a Postgres table instead of Elasticsearch, keep the same UI and use the [Postgres adapter](/docs/adapters/postgres) in your API route.
 

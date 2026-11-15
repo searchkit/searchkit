@@ -1,5 +1,8 @@
 export default {
-  "why": "Why Proxy Elasticsearch?",
+  "why": {
+    "title": "Why Proxy Elasticsearch?",
+    "display": "hidden"
+  },
   "with-next-js": "With Next.js",
   "with-express-js": "With Express.js",
   "with-cloudflare-workers": "With Cloudflare Workers",

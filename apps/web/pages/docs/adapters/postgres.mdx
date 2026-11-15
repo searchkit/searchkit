@@ -1,0 +1,295 @@
+---
+title: Postgres Adapter
+description: Search a Postgres table with Searchkit - full-text search with tsvector, exact facets with GROUP BY and semantic search with pgvector
+---
+
+import { Callout } from "nextra/components";
+
+# Postgres Adapter
+
+`@searchkit/adapter-postgres` runs InstantSearch requests against a Postgres table: full-text search with a
+`tsvector` and `websearch_to_tsquery`, exact facet counts with `GROUP BY`, sorting, query rules, highlighting with
+`ts_headline`, and semantic search with [pgvector](https://github.com/pgvector/pgvector). The InstantSearch UI is the
+same as with Elasticsearch: only the API route changes.
+
+<Callout type="info">
+  The Postgres adapter runs on the server only (Node 22.11 or higher, with the [`pg`](https://node-postgres.com)
+  driver). Use it in the API route that `@searchkit/instantsearch-client` talks to, for example a
+  [Next.js route](/docs/proxy-elasticsearch/with-next-js) or an [Express.js server](/docs/proxy-elasticsearch/with-express-js).
+  There is no browser build: never connect to Postgres from the browser.
+</Callout>
+
+## Installation
+
+```bash
+npm install @searchkit/api @searchkit/adapter-postgres
+```
+
+```ts filename="app/api/search/route.ts"
+import API from "@searchkit/api";
+import { PostgresAdapter } from "@searchkit/adapter-postgres";
+
+const apiClient = API({
+  adapter: PostgresAdapter({
+    connection: process.env.DATABASE_URL, // postgres://user:pass@host:5432/db?sslmode=require
+    indices: {
+      products: {
+        table: "products",
+        id_column: "id",
+        search_vector_column: "search_vector",
+        text_search_config: "english"
+      }
+    }
+  }),
+  search_settings: {
+    search_attributes: [{ field: "name", weight: 3 }, { field: "brand", weight: 2 }, "description"],
+    result_attributes: ["name", "description", "brand", "price", "image"],
+    highlight_attributes: ["name"],
+    snippet_attributes: ["description:200"],
+    facet_attributes: [
+      { attribute: "brand", field: "brand", type: "string" },
+      { attribute: "categories.lvl0", field: "hierarchical_categories_lvl0", type: "string" },
+      { attribute: "categories.lvl1", field: "hierarchical_categories_lvl1", type: "string" },
+      { attribute: "price", field: "price", type: "numeric" }
+    ],
+    filter_attributes: [{ attribute: "categories", field: "categories", type: "string", array: true }],
+    sorting: {
+      default: { field: "_score", order: "desc" },
+      _price_asc: { field: "price", order: "asc" }
+    }
+  }
+});
+
+export async function POST(req: Request) {
+  const results = await apiClient.handleRequest(await req.json());
+  return Response.json(results);
+}
+```
+
+## Connection
+
+`connection` is either a connection string, from which the adapter creates a `pg` `Pool` on the first search, or
+`{ pool }` with a pool your app already has, so the adapter shares it:
+
+```ts
+import pg from "pg";
+
+const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL, max: 10 });
+
+PostgresAdapter({ connection: { pool }, indices: { products: { table: "products" } } });
+```
+
+Searches only read. The requests of one InstantSearch call (InstantSearch sends one extra request per refined
+disjunctive facet) run in parallel on the pool, one statement each. Use a role with `SELECT` on the searched tables
+only.
+
+## `indices`
+
+`indices` maps an InstantSearch `indexName` to a table:
+
+- `table` - the table to search. May be schema-qualified: `shop.products`.
+- `id_column` - the primary key column, returned as each hit's `objectID`. Defaults to `id`.
+- `search_vector_column` - a precomputed `tsvector` column (recommended, with a GIN index, see below). Without it,
+  the `tsvector` is built from `search_attributes` at query time, which cannot use an index.
+- `text_search_config` - the text search configuration (`regconfig`) used by `websearch_to_tsquery`, `to_tsvector`
+  and `ts_headline`. Defaults to `english`.
+
+Sorting options use the same index name suffix as with Elasticsearch: with a `_price_asc` sorting option,
+`indexName: "products_price_asc"` searches the `products` table sorted by price.
+
+Every `field` in the search settings is a plain column name of the table (no expressions or JSONB paths). Table and
+column names are validated (`/^[a-z_][a-z0-9_]*$/i`, plus one `.` for a schema-qualified table) and double-quoted;
+every value from the request is a bound parameter.
+
+## Table requirements
+
+Store the text to search in a generated `tsvector` column with a GIN index, so the full-text search uses the index.
+`setweight` gives each part a weight (`A` ranks highest) for `ts_rank_cd`. Postgres requires the expression of a
+generated column to be `IMMUTABLE`, and `array_to_string` is only `STABLE`, so wrap it in an immutable function to
+include an array column (it is safe for `text[]`):
+
+```sql
+CREATE EXTENSION IF NOT EXISTS vector; -- only for semantic search
+
+CREATE OR REPLACE FUNCTION searchkit_text_array_to_string(text[]) RETURNS text
+  LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$ SELECT array_to_string($1, ' ') $$;
+
+CREATE TABLE products (
+  id text PRIMARY KEY,
+  name text,
+  description text,
+  brand text,
+  categories text[],
+  hierarchical_categories_lvl0 text,
+  hierarchical_categories_lvl1 text,
+  hierarchical_categories_lvl2 text,
+  price numeric,
+  image text,
+  embedding vector(384), -- only for semantic search
+  search_vector tsvector GENERATED ALWAYS AS (
+    setweight(to_tsvector('english', coalesce(name, '')), 'A') ||
+    setweight(to_tsvector('english', coalesce(brand, '')), 'B') ||
+    setweight(to_tsvector('english', coalesce(searchkit_text_array_to_string(categories), '')), 'B') ||
+    setweight(to_tsvector('english', coalesce(description, '')), 'D')
+  ) STORED
+);
+
+CREATE INDEX ON products USING gin (search_vector);
+-- columns you facet, filter or sort on
+CREATE INDEX ON products (brand);
+CREATE INDEX ON products (hierarchical_categories_lvl0);
+CREATE INDEX ON products (price);
+CREATE INDEX ON products USING gin (categories);
+```
+
+Use the same text search configuration in the column (`'english'` above) as in `text_search_config`.
+
+Without a `search_vector_column`, `search_attributes` are vectorised at query time, weighted `A`, `B`, `C`, `D` by
+descending `weight` (from the fourth distinct weight on, all get `D`). Use `{ field, weight }` objects; the
+Elasticsearch `"name^3"` string syntax is not a column name.
+
+## Search
+
+The query is parsed with `websearch_to_tsquery`, so it supports `"quoted phrases"`, `or` and `-excluded` words.
+Hits are ranked by `ts_rank_cd` and ties are broken by the id, so pagination is stable. An empty query matches every
+row (ordered by id unless a sorting option applies). Counts are exact: `nbHits` is a `count(*)` of the matching rows.
+
+`highlight_attributes` and `snippet_attributes` use `ts_headline`, over the page of hits only. Highlights cover the
+whole value; a snippet is one fragment of about `length / 6` words (`description:200` is about 33 words).
+
+## Facets and filters
+
+Facet counts are exact: each requested facet is a `GROUP BY` over the matching rows, values ordered by count, then
+value, up to `maxValuesPerFacet` (default 10). Numeric facets also return `facets_stats` (`min`, `max`, `avg`,
+`sum`). `date` facets are not aggregated, as with Elasticsearch.
+
+`facetFilters`, `numericFilters`, the [`filters`](/docs/guides/filters) string and `QueryFilter` query rules compile
+to a parameterised `WHERE`.
+
+### Array columns: `array: true`
+
+Mark an array column (for example `text[]`) with `array: true` on its facet or filter attribute. Its facet counts
+each row once per distinct value (`unnest`), and filters match a row when any of its values matches (`@>`, `&&`),
+like a multi-valued field in Elasticsearch. A GIN index on the column helps those filters.
+
+```ts
+filter_attributes: [{ attribute: "categories", field: "categories", type: "string", array: true }]
+```
+
+The adapter does not introspect the table: without `array: true` an array column is compared as a whole.
+
+### Hierarchical facets
+
+As with Elasticsearch, use one column per level (`hierarchical_categories_lvl0`, `..._lvl1`, ...), each holding
+the full path to that level (`"TV & Home Theater > TVs"`), and one facet attribute per level
+(`categories.lvl0`, `categories.lvl1`, ...) for the `HierarchicalMenu` widget.
+
+## Sorting and query rules
+
+[Sorting](/docs/api-documentation/searchkit#sorting) options become `ORDER BY` (missing values last, the id breaks
+ties). `_score` is the text rank. All [query rules](/docs/query-rules) work: `QueryRewrite` replaces the query,
+`QueryFilter` adds a filter, `QueryBoost` adds its weight to the score of matching rows, `PinnedResult` puts its
+documents first (when sorted by relevance), and `RenderFacetsOrder` / `RenderUserData` are part of the response.
+
+## Semantic search with pgvector
+
+[`semantic_search`](/docs/api-documentation/searchkit#semantic_search) adds a vector search on a pgvector column.
+Postgres has no built-in embedding model, so `embed` (a function that returns the query vector) is required;
+`model_id` is Elasticsearch only and throws an error.
+
+1. Enable pgvector and add a vector column with the dimensions of your embedding model, filled with the embedding of
+   each row (the [`pgvector/pgvector`](https://hub.docker.com/r/pgvector/pgvector) Docker image has the extension):
+
+```sql
+CREATE EXTENSION IF NOT EXISTS vector;
+ALTER TABLE products ADD COLUMN embedding vector(384);
+-- an approximate nearest neighbour index, with the operator class of your distance:
+-- vector_cosine_ops (cosine), vector_l2_ops (l2) or vector_ip_ops (inner_product)
+CREATE INDEX ON products USING hnsw (embedding vector_cosine_ops);
+```
+
+2. Configure `semantic_search`:
+
+```ts
+search_settings: {
+  // ...
+  semantic_search: {
+    field: "embedding", // the vector column
+    embed: async (query) => embedText(query), // your embedding model; returns number[]
+    k: 50, // nearest neighbours, default 50
+    distance: "cosine", // 'cosine' (<=>, default), 'l2' (<->) or 'inner_product' (<#>)
+    mode: "hybrid" // 'hybrid' (default), 'semantic_only' or 'text_only'
+  }
+}
+```
+
+The query vector is a bound parameter cast to `vector`. The modes:
+
+- `hybrid` - the rows that match the text query and the `k` nearest rows, ranked together with reciprocal rank
+  fusion (each row scores `sum(1 / (60 + rank))` over the two rankings). The hits, `nbHits` and facets cover the
+  fused rows.
+- `semantic_only` - the `k` nearest rows, ordered by distance (`_score` is the negated distance).
+- `text_only` - the full-text search only; `embed` is not called. Useful to switch semantic search off without
+  removing the configuration.
+
+With an empty query there is no vector search in any mode. Filters (and [`getWhere`](#getwhere)) apply inside the
+vector search, so the `k` nearest rows are the nearest rows that match the filters. With an HNSW index and selective
+filters, the index may return fewer than `k` rows; pgvector 0.8 and later can keep scanning
+(`SET hnsw.iterative_scan = relaxed_order`), see the [pgvector docs](https://github.com/pgvector/pgvector#filtering).
+
+## Request options
+
+### `getWhere`
+
+`getWhere` adds a SQL predicate to every search, AND-ed with the filters: the Postgres counterpart of
+`getBaseFilters`, for example for user or document level permissions. The searched table is aliased `t`. Write
+values as placeholders `$1`, `$2`, ... and pass them in `params`: they are renumbered and bound, never interpolated.
+
+```ts
+const results = await apiClient.handleRequest(body, {
+  getWhere: (query, config) => ({
+    text: "t.tenant_id = $1 AND t.visibility = ANY($2)",
+    params: [session.tenantId, ["public", "internal"]]
+  })
+});
+```
+
+The Elasticsearch-only request options `getQuery` and `getBaseFilters` throw an error with the Postgres adapter (and
+`getWhere` throws with the Elasticsearch adapter), rather than being silently ignored. There is no equivalent of
+`getQuery` (a replacement for the `ts_rank_cd` rank expression) yet.
+
+### Hooks
+
+The `beforeSearch` and `afterSearch` [hooks](/docs/api-documentation/searchkit#requestoptions-hooks) receive one
+request object per InstantSearch request, `{ text, params, request, indexName }`: the SQL statement, its bound
+parameters, the InstantSearch request and the index. `afterSearch` also receives the result row of each statement
+(`{ hits, total, facets }`). With `debug: true`, the adapter logs every statement and its parameters.
+
+## Differences from Elasticsearch
+
+- **Counts are exact.** `nbHits` and facet counts are exact counts (Elasticsearch stops counting `nbHits` at
+  10,000 by default).
+- **Stopwords.** A query made only of stopwords of the text search configuration (`the`, `and`, ...) matches no
+  rows (Postgres ignores it); with Elasticsearch's default analyzer it matches documents containing those words.
+- **No fuzziness or prefix matching.** The `fuzziness` setting is ignored: there is no typo tolerance and a partial
+  word does not match (`sams` does not find `samsung`).
+- **Facet value search** (`searchForFacetValues`) matches the start of the value, or for queries longer than two
+  characters the start of any later word, case-insensitively (`ILIKE`).
+- **`QueryBoost` adds** its weight to the score of matching rows, where Elasticsearch's `function_score`
+  multiplies.
+- **Hybrid semantic search** runs on any Postgres with pgvector; on Elasticsearch it needs a licence that includes
+  reciprocal rank fusion.
+
+## Limitations
+
+Not supported by the Postgres adapter in this version:
+
+- Geo search and geo filters (`geo_attribute`, `aroundLatLng`, `insideBoundingBox`) - they throw an error.
+- Nested fields (`nestedPath`), `runtime_mappings` and custom facet / filter queries (`CustomFacetConfig`), which are
+  Elasticsearch only.
+- Approximate counts.
+- JSONB paths or SQL expressions as fields: every `field` is a plain column.
+- `semantic_search.model_id` (server-side inference) and `num_candidates`; `semantic_only` and `text_only` are the
+  simple implementations described above.
+- A replacement for the rank expression (Elasticsearch's `getQuery`).
+- Running in the browser.

@@ -59,7 +59,6 @@ cd packages/searchkit
 pnpm test
 ```
 
-````bash
 ## End-to-end tests
 
 The `e2e` workspace holds [Playwright](https://playwright.dev) tests that drive `examples/with-ui-nextjs-react`
@@ -76,7 +75,7 @@ pnpm build          # the example uses the built workspace packages
 pnpm e2e:up         # starts Elasticsearch and Postgres (docker-compose.e2e.yml) and seeds both
 pnpm test:e2e       # builds + starts the example on :3000 (Elasticsearch) and :3001 (Postgres), runs the tests
 pnpm e2e:down       # stops and removes Elasticsearch and Postgres
-````
+```
 
 - **Port 9200 already in use?** Use another port for both the container and the tests:
   `export E2E_ES_PORT=9290 ES_HOST=http://localhost:9290`, then run the commands above.
@@ -91,13 +90,28 @@ pnpm e2e:down       # stops and removes Elasticsearch and Postgres
   public demo cluster when they are unset (see `examples/with-ui-nextjs-react/.env.example`).
 - `e2e/check-workspace-links.mjs` fails the run if the example would use published packages instead of the ones in
   your branch (e.g. after a version bump that isn't mirrored in the example's `package.json`).
-- **Postgres** (`@searchkit/adapter-postgres`, work in progress): `pnpm test:e2e` runs every spec twice, in the
-  Playwright projects `chromium` (Elasticsearch, the example on :3000) and `chromium-postgres` (a second instance of
-  the example on :3001, `E2E_POSTGRES_PORT`, started with `SEARCH_ADAPTER=postgres` and `DATABASE_URL`). Run one
-  side with `pnpm test:e2e --project=chromium` or `pnpm test:e2e --project=chromium-postgres`. The adapter does
-  not implement every feature yet (semantic search), so
-  the specs for those fail on `chromium-postgres` until it does. `escaped-facet-values.spec.ts` builds its own
-  Elasticsearch index and does not use the example, so `chromium-postgres` does not run it (`testIgnore`).
+- **Postgres** (`@searchkit/adapter-postgres`): `pnpm test:e2e` runs every spec twice, in the Playwright projects
+  `chromium` (Elasticsearch, the example on :3000, `E2E_PORT`) and `chromium-postgres` (a second instance of the
+  example on :3001, `E2E_POSTGRES_PORT`, started with `SEARCH_ADAPTER=postgres` and `DATABASE_URL`). The example is
+  built once and started twice. Run one side with `pnpm test:e2e --project=chromium` or
+  `pnpm test:e2e --project=chromium-postgres`. `escaped-facet-values.spec.ts` builds its own Elasticsearch index and
+  does not use the example, so `chromium-postgres` does not run it (`testIgnore`). Re-seed Postgres alone with
+  `pnpm e2e:seed:pg`. With both ports overridden:
+
+  ```bash
+  export E2E_ES_PORT=9290 ES_HOST=http://localhost:9290
+  export E2E_PG_PORT=5433 DATABASE_URL=postgres://postgres:searchkit@localhost:5433/postgres
+  pnpm build && pnpm e2e:up
+  pnpm test:e2e --project=chromium
+  pnpm test:e2e --project=chromium-postgres
+  pnpm e2e:down
+  ```
+
+- **Semantic search** (`semantic.spec.ts`) posts to the example's `/api/semantic/<mode>` route (`hybrid`,
+  `semantic_only`, `text_only`), which adds `semantic_search` on the `embedding` field. Queries are embedded with
+  `examples/with-ui-nextjs-react/app/api/embedding.ts`, a copy of `e2e/embedding.mjs` (keep them identical). The
+  hybrid tests are skipped on `chromium`: Elasticsearch hybrid search uses `rank.rrf`, which the Basic licence of the
+  e2e cluster rejects (403).
 - To add a test, create `e2e/tests/<name>.spec.ts` and reuse `e2e/tests/helpers.ts`. Prefer assertions about
   behaviour (results narrow, banner shows) over exact counts so tests don't break when the sample data changes.
 

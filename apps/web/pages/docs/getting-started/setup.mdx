@@ -9,19 +9,23 @@ export const Tab = Tabs.Tab
 
 For this quick start, we are going to run Elasticsearch locally and build a small e-commerce search experience using Searchkit and instantsearch.
 
+<Callout type="info">
+  Using Postgres instead? The UI is the same; the search runs in an API route with the <a href="/docs/adapters/postgres" className="text-blue-600 underline">Postgres adapter</a>, which describes the table it needs.
+</Callout>
+
 ### Running Elasticsearch
 
 <Callout type="info">
   This quick start will need CORS enabled as we will be calling Elasticsearch / Opensearch directly from the browser. See <a href="/docs/guides/enable-cors" className="text-blue-600 underline">Enable CORS</a> to do this.
 
-  Alternatively, you can proxy the Elasticsearch / Opensearch requests. See <a href="/docs/proxy-elasticsearch/why" className="text-blue-600 underline">Proxy Elasticsearch</a> for more details.
+  Alternatively, you can proxy the Elasticsearch / Opensearch requests. See <a href="/docs/adapters/elasticsearch#why-proxy-elasticsearch" className="text-blue-600 underline">Proxy Elasticsearch</a> for more details.
 </Callout> 
 
 Going to use Elasticsearch via Docker for this quick start. 
 
-For other options, see [Setup Elasticsearch](/docs/guides/setup-elasticsearch).
+For other options, see [Setup Elasticsearch](/docs/adapters/elasticsearch).
 
-Below we are running Elasticsearch with CORS enabled and security disabled. For production, you should enable security and use an API key. See [Setup Elasticsearch](/docs/guides/setup-elasticsearch) for more ways of connecting with authentication.
+Below we are running Elasticsearch with CORS enabled and security disabled. For production, you should enable security and use an API key. See [Setup Elasticsearch](/docs/adapters/elasticsearch) for more ways of connecting with authentication.
 
 ```bash
 docker pull docker.elastic.co/elasticsearch/elasticsearch:8.6.2
