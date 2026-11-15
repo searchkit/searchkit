@@ -449,6 +449,20 @@ Terms facets with counts, `facets_stats`, `facetFilters` incl. `-` negation, `nu
 levels, `searchForFacetValues` (case-insensitive), `filters` string, `array: true`. Gate:
 `tests/facets.spec.ts` and `tests/api.spec.ts` on the Postgres project.
 
+Done: commits `b4404755`, `e2c7de90`, `fab299b7`. Notes:
+
+- Facets come back as one `facets` JSON column (`[{ attribute, entries: [{ value, count }], stats }]`, attribute
+  names are bound parameters); a search for facet values request runs only `base` and its facet CTE.
+- `facetFilters` `-` negation is **not** implemented: Searchkit's core (and the Elasticsearch adapter, pinned by
+  `facetFilters.test.ts` "leaves values without an escaped leading '-' unchanged") treats an unescaped `attr:-x` as
+  the literal value `-x`, and the escaped `\-x` as `-x`. Postgres follows the same AST. Negation compiles where the
+  AST has it (`numericFilters` `!=`, `NOT` in `filters` / `QueryFilter`). Supporting Algolia-style exclusions
+  needs a core change that alters the Elasticsearch output, so it is left for a maintainer decision.
+- Facet search uses `ILIKE 'q%'` plus, for queries longer than two characters, `ILIKE '% q%'` (a later word),
+  approximating the Elasticsearch `include` regex (which only allows letters in the preceding words).
+- Remaining `chromium-postgres` failure: `query-rules.spec.ts` "cheap tvs" (the `QueryBoost` LG-first assertion,
+  phase 6).
+
 ### Phase 5: highlighting and snippets
 
 Gate: full `tests/search.spec.ts` on the Postgres project.
