@@ -467,6 +467,22 @@ Done: commits `b4404755`, `e2c7de90`, `fab299b7`. Notes:
 
 Gate: full `tests/search.spec.ts` on the Postgres project.
 
+Done: commits `9276d942`, `9c3d2c0f` (the phase 3 `test.fixme` is removed; `search.spec.ts` passes 6/6 on
+`chromium-postgres`). Notes:
+
+- `sql/highlight.ts` adds `_highlight` / `_snippet` JSON columns built over the page of hits only
+  (`FROM hits CROSS JOIN q` in the final `SELECT`), never on `base`, and only when there is a query. The
+  `ts_headline` options (including the request's `highlightPreTag` / `highlightPostTag`, double-quoted with `"`
+  doubled) and the attribute names are bound parameters.
+- Highlights use `HighlightAll=true` (ES `number_of_fragments: 0`). Snippets use `MaxFragments=1`,
+  `MaxWords=round(length / 6)` (at least 2), `MinWords=MaxWords / 2`: the ES adapter asks ES for 5 fragments of
+  `fragment_size` characters but returns only the first one (`highlightedMatch[0]`), so there is no fragment
+  delimiter in the ES output to mirror and one fragment is the faithful equivalent.
+- `_highlightResult` / `_snippetResult` follow `highlightUtils.ts`: a value with tags gets `matchLevel: 'full'`,
+  `fullyHighlighted: false` and `matchedWords` read between the tags; no match gives the plain value with
+  `matchLevel: 'none'` when the attribute is part of the hit, and is left out otherwise (a snippet-only attribute
+  without a match, as in ES). `array: true` attributes are highlighted per value.
+
 ### Phase 6: sorting and query rules
 
 Gate: `tests/query-rules.spec.ts` on the Postgres project; a sorting API test added to `api.spec.ts` that runs on
