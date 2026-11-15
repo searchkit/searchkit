@@ -45,7 +45,8 @@ pnpm test
 These tests run against mocks of the Elasticsearch API.
 
 Tests are located in the `packages/searchkit/src/___tests___/functional` directory.
-Mocks are located in the `packages/searchkit/src/___tests___/mocks` directory.
+Mocks are located in the `packages/searchkit/src/___tests___/mocks` directory. Unit tests of the Elasticsearch request
+and response code are in `packages/adapter-elasticsearch/src/___tests___`.
 
 We use `nock` to mock the HTTP request to Elasticsearch, returning a apprioriate response with a mock.
 
@@ -98,7 +99,7 @@ published from a local machine.
    bumps versions and updates the CHANGELOGs.
 3. **Merge that PR** to publish to npm, tag the release and create GitHub Releases.
 
-One-time setup: for each published package (`searchkit`, `@searchkit/api`, `@searchkit/instantsearch-client`) configure npm **trusted publishing** pointing at
+One-time setup: for each published package (`searchkit`, `@searchkit/adapter-elasticsearch`, `@searchkit/api`, `@searchkit/instantsearch-client`) configure npm **trusted publishing** pointing at
 `searchkit/searchkit` and workflow `release.yml`. `changeset publish` runs `pnpm publish`, which does the OIDC token
 exchange and signs provenance itself, so no npm token is stored in the repo. Also enable
 "Allow GitHub Actions to create and approve pull requests" in the repo's Actions settings.
