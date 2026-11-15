@@ -40,4 +40,24 @@ export class Params {
     this.values.push(value)
     return '$' + this.values.length
   }
+
+  /**
+   * Adds a SQL fragment with its own placeholders (`$1` is `values[0]`, ...), as returned by the
+   * `getWhere` request option: renumbers its placeholders after the parameters already added and adds
+   * its values.
+   */
+  addSql(text: string, values: unknown[] = []): string {
+    const offset = this.values.length
+    const sql = text.replace(/\$(\d+)/g, (placeholder, n: string) => {
+      const i = Number(n)
+      if (i < 1 || i > values.length) {
+        throw new Error(
+          `@searchkit/adapter-postgres: placeholder ${placeholder} in "${text}" has no value (${values.length} params)`
+        )
+      }
+      return '$' + (offset + i)
+    })
+    this.values.push(...values)
+    return sql
+  }
 }

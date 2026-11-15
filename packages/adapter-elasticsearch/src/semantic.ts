@@ -20,6 +20,18 @@ export const assertNoGetKnnQuery = (requestOptions?: RequestOptions) => {
 }
 
 /**
+ * `getWhere` is a SQL predicate for the postgres adapter. Fail instead of silently searching without it
+ * (it is typically a permissions filter).
+ */
+export const assertNoGetWhere = (requestOptions?: RequestOptions) => {
+  if (requestOptions?.getWhere !== undefined) {
+    throw new Error(
+      'Searchkit: the `getWhere` request option (a SQL predicate) is for the postgres adapter. With Elasticsearch use `getBaseFilters`, which returns Elasticsearch filter queries.'
+    )
+  }
+}
+
+/**
  * The `semantic_search` settings in effect: undefined when they are not set or in `text_only` mode.
  */
 export const getActiveSemanticSearch = (

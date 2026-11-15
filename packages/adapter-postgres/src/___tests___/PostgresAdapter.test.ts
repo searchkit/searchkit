@@ -69,6 +69,65 @@ describe('PostgresAdapter', () => {
     expect(built.text).toContain('websearch_to_tsquery($1::regconfig, $2)')
   })
 
+  it('ANDs the getWhere predicate into the filters, renumbering its placeholders', async () => {
+    const adapter = PostgresAdapter({
+      connection: { pool: { query: jest.fn() } },
+      indices: { products: { table: 'products', search_vector_column: 'search_vector' } }
+    })
+    const getWhere = jest.fn(() => ({
+      text: 't.tenant_id = $1 AND t.visibility = ANY($2)',
+      params: ['acme', ['public', 'internal']]
+    }))
+    const filtered = { indexName: 'products', params: { query: 'tv', numericFilters: ['price>1'] } }
+    const filterSettings: SearchSettingsConfig = {
+      ...settings,
+      facet_attributes: [{ attribute: 'price', field: 'price', type: 'numeric' }]
+    }
+    const built = await adapter.buildRequest(
+      filtered,
+      filterSettings,
+      getQueryRulesActionsFromRequest([], filtered, filterSettings),
+      { getWhere }
+    )
+    expect(getWhere).toHaveBeenCalledWith('tv', { ...filterSettings, request: filtered })
+    expect(built.text).toContain(
+      'WHERE t."search_vector" @@ q.tsq\n    AND ((t."price" > $3))\n    AND (t.tenant_id = $4 AND t.visibility = ANY($5))'
+    )
+    expect(built.params.slice(0, 5)).toEqual(['english', 'tv', 1, 'acme', ['public', 'internal']])
+
+    // also without a query or other filters
+    const empty = { indexName: 'products', params: { query: '' } }
+    const emptyBuilt = await adapter.buildRequest(empty, settings, rules(empty), {
+      getWhere: () => ({ text: 'NOT t.deleted' })
+    })
+    expect(emptyBuilt.text).toContain('WHERE (NOT t.deleted)')
+
+    await expect(async () =>
+      adapter.buildRequest(empty, settings, rules(empty), {
+        getWhere: () => ({ text: 't.a = $2', params: [1] })
+      })
+    ).rejects.toThrow('placeholder $2 in "t.a = $2" has no value (1 params)')
+    await expect(async () =>
+      adapter.buildRequest(empty, settings, rules(empty), { getWhere: () => ({} as any) })
+    ).rejects.toThrow('`getWhere` must return `{ text, params }`')
+  })
+
+  it('rejects the Elasticsearch-only request options instead of ignoring them', async () => {
+    const adapter = PostgresAdapter({
+      connection: { pool: { query: jest.fn() } },
+      indices: { products: { table: 'products' } }
+    })
+    await expect(async () =>
+      adapter.buildRequest(request, settings, rules(request), { getBaseFilters: () => [] })
+    ).rejects.toThrow('the `getBaseFilters` request option is Elasticsearch only. Use `getWhere`')
+    await expect(async () =>
+      adapter.buildRequest(request, settings, rules(request), { getQuery: () => false })
+    ).rejects.toThrow('the `getQuery` request option is Elasticsearch only')
+    await expect(async () =>
+      adapter.buildRequest(request, settings, rules(request), { getKnnQuery: () => ({}) } as any)
+    ).rejects.toThrow('the `getKnnQuery` request option was removed in v5')
+  })
+
   it('throws for an indexName that is not configured', async () => {
     const adapter = PostgresAdapter({
       connection: { pool: { query: jest.fn() } },

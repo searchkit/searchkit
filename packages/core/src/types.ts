@@ -387,6 +387,14 @@ export interface RequestOptions<TRequest = SearchRequest, TResponse = Elasticsea
   getBaseFilters?: () => ElasticsearchQuery[]
 
   /**
+   * @description Postgres adapter only: an extra SQL predicate AND-ed with the filters of every search, e.g. for user / document level permissions (the Postgres counterpart of `getBaseFilters`). The searched table is aliased `t`. Write values as placeholders `$1`, `$2`, ... in `text` and pass them in `params` (they are bound, never interpolated). It also applies inside the vector search of `semantic_search`.
+   * @param query The query search terms (after query rules)
+   * @param config The search settings, plus the InstantSearch `request` being transformed
+   * @example getWhere: () => ({ text: 't.tenant_id = $1', params: [tenantId] })
+   **/
+  getWhere?: (query: string, config: QueryConfig) => { text: string; params?: unknown[] }
+
+  /**
    * @description Hooks are escape hatches that allow you to modify the search requests to Elasticsearch and the responses back from Elasticsearch.
    **/
   hooks?: {

@@ -129,6 +129,12 @@ describe('semantic_search', () => {
     ).rejects.toThrow('the `getKnnQuery` request option was removed in v5')
   })
 
+  it('rejects getWhere, the SQL predicate of the postgres adapter', async () => {
+    await expect(
+      build('shawshank', undefined, { getWhere: () => ({ text: 't.a = $1', params: [1] }) })
+    ).rejects.toThrow('the `getWhere` request option (a SQL predicate) is for the postgres adapter')
+  })
+
   it('requires exactly one of embed or model_id', async () => {
     await expect(build('shawshank', { field: 'embedding' })).rejects.toThrow(
       'provide exactly one of `embed`'

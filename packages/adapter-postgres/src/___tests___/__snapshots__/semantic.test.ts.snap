@@ -1,0 +1,290 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`semantic_search applies the filters inside the vector search and the text search 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+nearest AS (
+  SELECT t."id" AS _id, t."embedding" <=> $6::vector AS _distance
+  FROM "products" t
+  WHERE t."embedding" IS NOT NULL
+    AND ((t."brand" = $3) AND (t."price" <= $4))
+    AND (t.tenant = $5)
+  ORDER BY t."embedding" <=> $6::vector
+  LIMIT $7
+),
+text_ranked AS (
+  SELECT t."id" AS _id, row_number() OVER (ORDER BY ts_rank_cd(t."search_vector", q.tsq) DESC, t."id" ASC) AS _r
+  FROM "products" t CROSS JOIN q
+  WHERE t."search_vector" @@ q.tsq
+    AND ((t."brand" = $3) AND (t."price" <= $4))
+    AND (t.tenant = $5)
+),
+ranked AS (
+  SELECT _id, sum(1.0 / (60 + _r)) AS _rank
+  FROM (
+    SELECT _id, _r FROM text_ranked
+    UNION ALL
+    SELECT _id, row_number() OVER (ORDER BY _distance ASC, _id ASC) AS _r FROM nearest
+  ) u
+  GROUP BY _id
+),
+base AS (
+  SELECT t."id", t."name", coalesce(r._rank, 0)::float8 AS _score
+  FROM "products" t JOIN ranked r ON t."id" = r._id
+),
+hits AS (
+  SELECT "id", "name", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $8 OFFSET $9
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`semantic_search fuses the text and vector rankings with RRF in hybrid mode (the default) 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+nearest AS (
+  SELECT t."id" AS _id, t."embedding" <=> $3::vector AS _distance
+  FROM "products" t
+  WHERE t."embedding" IS NOT NULL
+  ORDER BY t."embedding" <=> $3::vector
+  LIMIT $4
+),
+text_ranked AS (
+  SELECT t."id" AS _id, row_number() OVER (ORDER BY ts_rank_cd(t."search_vector", q.tsq) DESC, t."id" ASC) AS _r
+  FROM "products" t CROSS JOIN q
+  WHERE t."search_vector" @@ q.tsq
+),
+ranked AS (
+  SELECT _id, sum(1.0 / (60 + _r)) AS _rank
+  FROM (
+    SELECT _id, _r FROM text_ranked
+    UNION ALL
+    SELECT _id, row_number() OVER (ORDER BY _distance ASC, _id ASC) AS _r FROM nearest
+  ) u
+  GROUP BY _id
+),
+base AS (
+  SELECT t."id", t."name", t."brand", coalesce(r._rank, 0)::float8 AS _score
+  FROM "products" t JOIN ranked r ON t."id" = r._id
+),
+hits AS (
+  SELECT "id", "name", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $5 OFFSET $6
+),
+total AS (SELECT count(*) AS n FROM base),
+facet_0 AS (
+  SELECT _f.value, count(*) AS count
+  FROM (SELECT base."brand" AS value FROM base WHERE base."brand" IS NOT NULL) _f
+  GROUP BY _f.value
+  ORDER BY count(*) DESC, _f.value::text COLLATE "C" ASC
+  LIMIT $7
+)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total,
+  (SELECT json_agg(_facets.facet ORDER BY _facets.ord) FROM (VALUES
+    (0, json_build_object('attribute', $8::text, 'entries', (SELECT coalesce(json_agg(json_build_object('value', f.value, 'count', f.count) ORDER BY f.count DESC, f.value::text COLLATE "C" ASC), '[]'::json) FROM facet_0 f), 'stats', NULL::json))
+  ) AS _facets(ord, facet)) AS facets"
+`;
+
+exports[`semantic_search ignores the vector in text_only mode 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+base AS (
+  SELECT t."id", t."name", ts_rank_cd(t."search_vector", q.tsq) AS _score
+  FROM "products" t CROSS JOIN q
+  WHERE t."search_vector" @@ q.tsq
+),
+hits AS (
+  SELECT "id", "name", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $3 OFFSET $4
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`semantic_search keeps pinned results as candidates in both modes 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+nearest AS (
+  SELECT t."id" AS _id, t."embedding" <=> $4::vector AS _distance
+  FROM "products" t
+  WHERE t."embedding" IS NOT NULL
+  ORDER BY t."embedding" <=> $4::vector
+  LIMIT $5
+),
+ranked AS (
+  SELECT _id, max(_rank) AS _rank
+  FROM (
+    SELECT _id, -_distance AS _rank FROM nearest
+    UNION ALL
+    SELECT t."id" AS _id, NULL::float8 AS _rank FROM "products" t
+    WHERE t."id"::text = ANY($3::text[])
+  ) u
+  GROUP BY _id
+),
+base AS (
+  SELECT t."id", t."name", coalesce(r._rank, 0)::float8 AS _score, array_position($3::text[], t."id"::text) AS _pin
+  FROM "products" t JOIN ranked r ON t."id" = r._id
+),
+hits AS (
+  SELECT "id", "name", _score, row_number() OVER (ORDER BY _pin ASC NULLS LAST, _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _pin ASC NULLS LAST, _score DESC, "id" ASC
+  LIMIT $6 OFFSET $7
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`semantic_search ranks by distance only in semantic_only mode 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+nearest AS (
+  SELECT t."id" AS _id, t."embedding" <=> $3::vector AS _distance
+  FROM "products" t
+  WHERE t."embedding" IS NOT NULL
+  ORDER BY t."embedding" <=> $3::vector
+  LIMIT $4
+),
+ranked AS (SELECT _id, -_distance AS _rank FROM nearest),
+base AS (
+  SELECT t."id", t."name", coalesce(r._rank, 0)::float8 AS _score
+  FROM "products" t JOIN ranked r ON t."id" = r._id
+),
+hits AS (
+  SELECT "id", "name", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $5 OFFSET $6
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`semantic_search uses the pgvector operator of the cosine distance 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+nearest AS (
+  SELECT t."id" AS _id, t."embedding" <=> $3::vector AS _distance
+  FROM "products" t
+  WHERE t."embedding" IS NOT NULL
+  ORDER BY t."embedding" <=> $3::vector
+  LIMIT $4
+),
+text_ranked AS (
+  SELECT t."id" AS _id, row_number() OVER (ORDER BY ts_rank_cd(t."search_vector", q.tsq) DESC, t."id" ASC) AS _r
+  FROM "products" t CROSS JOIN q
+  WHERE t."search_vector" @@ q.tsq
+),
+ranked AS (
+  SELECT _id, sum(1.0 / (60 + _r)) AS _rank
+  FROM (
+    SELECT _id, _r FROM text_ranked
+    UNION ALL
+    SELECT _id, row_number() OVER (ORDER BY _distance ASC, _id ASC) AS _r FROM nearest
+  ) u
+  GROUP BY _id
+),
+base AS (
+  SELECT t."id", t."name", coalesce(r._rank, 0)::float8 AS _score
+  FROM "products" t JOIN ranked r ON t."id" = r._id
+),
+hits AS (
+  SELECT "id", "name", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $5 OFFSET $6
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`semantic_search uses the pgvector operator of the inner_product distance 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+nearest AS (
+  SELECT t."id" AS _id, t."embedding" <#> $3::vector AS _distance
+  FROM "products" t
+  WHERE t."embedding" IS NOT NULL
+  ORDER BY t."embedding" <#> $3::vector
+  LIMIT $4
+),
+text_ranked AS (
+  SELECT t."id" AS _id, row_number() OVER (ORDER BY ts_rank_cd(t."search_vector", q.tsq) DESC, t."id" ASC) AS _r
+  FROM "products" t CROSS JOIN q
+  WHERE t."search_vector" @@ q.tsq
+),
+ranked AS (
+  SELECT _id, sum(1.0 / (60 + _r)) AS _rank
+  FROM (
+    SELECT _id, _r FROM text_ranked
+    UNION ALL
+    SELECT _id, row_number() OVER (ORDER BY _distance ASC, _id ASC) AS _r FROM nearest
+  ) u
+  GROUP BY _id
+),
+base AS (
+  SELECT t."id", t."name", coalesce(r._rank, 0)::float8 AS _score
+  FROM "products" t JOIN ranked r ON t."id" = r._id
+),
+hits AS (
+  SELECT "id", "name", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $5 OFFSET $6
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`semantic_search uses the pgvector operator of the l2 distance 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+nearest AS (
+  SELECT t."id" AS _id, t."embedding" <-> $3::vector AS _distance
+  FROM "products" t
+  WHERE t."embedding" IS NOT NULL
+  ORDER BY t."embedding" <-> $3::vector
+  LIMIT $4
+),
+text_ranked AS (
+  SELECT t."id" AS _id, row_number() OVER (ORDER BY ts_rank_cd(t."search_vector", q.tsq) DESC, t."id" ASC) AS _r
+  FROM "products" t CROSS JOIN q
+  WHERE t."search_vector" @@ q.tsq
+),
+ranked AS (
+  SELECT _id, sum(1.0 / (60 + _r)) AS _rank
+  FROM (
+    SELECT _id, _r FROM text_ranked
+    UNION ALL
+    SELECT _id, row_number() OVER (ORDER BY _distance ASC, _id ASC) AS _r FROM nearest
+  ) u
+  GROUP BY _id
+),
+base AS (
+  SELECT t."id", t."name", coalesce(r._rank, 0)::float8 AS _score
+  FROM "products" t JOIN ranked r ON t."id" = r._id
+),
+hits AS (
+  SELECT "id", "name", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $5 OFFSET $6
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total"
+`;

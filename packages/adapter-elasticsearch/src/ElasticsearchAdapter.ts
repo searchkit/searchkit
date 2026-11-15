@@ -10,7 +10,7 @@ import type {
 import { transformRequest } from './transformRequest'
 import transformResponse, { transformFacetValuesResponse } from './transformResponse'
 import { ESTransporter } from './Transporter'
-import { assertNoGetKnnQuery, getQueryVector } from './semantic'
+import { assertNoGetKnnQuery, assertNoGetWhere, getQueryVector } from './semantic'
 import { createElasticsearchQueryFromRequest } from './utils'
 
 /**
@@ -35,6 +35,7 @@ export function ElasticsearchAdapter(
 
     async buildRequest(request, settings, rules, options) {
       assertNoGetKnnQuery(options)
+      assertNoGetWhere(options)
       const queryVector = await getQueryVector(rules.query, settings)
 
       return {

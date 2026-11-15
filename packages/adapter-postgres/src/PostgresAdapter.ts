@@ -1,9 +1,15 @@
 import pg from 'pg'
 import { getIndexName } from '@searchkit/core'
-import type { MultipleQueriesQuery, SearchAdapter, SearchSettingsConfig } from '@searchkit/core'
+import type {
+  MultipleQueriesQuery,
+  RequestOptions,
+  SearchAdapter,
+  SearchSettingsConfig
+} from '@searchkit/core'
 import { quoteColumn, quoteTable } from './sql/identifiers'
 import { buildSearchStatement, DEFAULT_ID_COLUMN } from './sql/query'
-import type { PostgresIndexConfig } from './sql/query'
+import type { PostgresIndexConfig, StatementOptions } from './sql/query'
+import { getSemanticSearch } from './sql/semantic'
 import { transformFacetValuesResponse, transformResponse } from './transformResponse'
 import type { PostgresSearchResponse } from './transformResponse'
 
@@ -48,12 +54,32 @@ export interface PostgresSearchRequest {
 }
 
 /**
+ * Request options of the Elasticsearch adapter that the postgres adapter cannot honour. They throw rather
+ * than being ignored: `getBaseFilters` is typically a permissions filter.
+ */
+const assertSupportedOptions = (options?: RequestOptions) => {
+  const given = options as Record<string, unknown> | undefined
+  if (given?.getKnnQuery !== undefined) {
+    throw new Error(
+      'Searchkit: the `getKnnQuery` request option was removed in v5. Configure `search_settings.semantic_search` instead, e.g. `{ field, embed, k }`, with `mode: "semantic_only"` for a vector search only.'
+    )
+  }
+  for (const name of ['getQuery', 'getBaseFilters']) {
+    if (given?.[name] !== undefined) {
+      throw new Error(
+        `@searchkit/adapter-postgres: the \`${name}\` request option is Elasticsearch only. Use \`getWhere\` (an extra SQL predicate, e.g. for permissions) with the postgres adapter.`
+      )
+    }
+  }
+}
+
+/**
  * Searchkit adapter for Postgres (Node only): full-text search with `tsvector` and `websearch_to_tsquery`,
  * exact `count(*)` totals, `LIMIT` / `OFFSET` pagination, facets with `GROUP BY` (exact counts),
  * search for facet values, highlighting / snippets with `ts_headline`, sorting and query rules
- * (`QueryBoost` adds to `_score`, `PinnedResult` ids come first when sorted by relevance).
- *
- * Work in progress: semantic search is not implemented yet.
+ * (`QueryBoost` adds to `_score`, `PinnedResult` ids come first when sorted by relevance), and
+ * semantic search with pgvector (`search_settings.semantic_search` with `embed`; hybrid mode fuses the text
+ * and vector rankings with reciprocal rank fusion). The `getWhere` request option adds a SQL predicate.
  */
 export const PostgresAdapter = (
   config: PostgresAdapterConfig
@@ -104,10 +130,29 @@ export const PostgresAdapter = (
   return {
     name: 'postgres',
 
-    buildRequest(request, settings, rules) {
+    buildRequest(request, settings, rules, options) {
+      assertSupportedOptions(options)
       const { indexName, index } = getIndex(request, settings)
-      const { text, params } = buildSearchStatement(request, settings, rules, index)
-      return { text, params, request, indexName }
+      const where = options?.getWhere?.(rules.query, { ...settings, request })
+      if (where !== undefined && (typeof where?.text !== 'string' || where.text.trim() === '')) {
+        throw new Error(
+          '@searchkit/adapter-postgres: `getWhere` must return `{ text, params }` with a SQL predicate in `text`'
+        )
+      }
+
+      const build = (statementOptions: StatementOptions): PostgresSearchRequest => {
+        const { text, params } = buildSearchStatement(request, settings, rules, index, {
+          ...statementOptions,
+          where
+        })
+        return { text, params, request, indexName }
+      }
+
+      // semantic search embeds the query (async); there is no vector search for an empty query
+      const query = (rules.query || '').trim()
+      const semantic = query === '' ? undefined : getSemanticSearch(settings)
+      if (!semantic) return build({})
+      return Promise.resolve(semantic.embed(query)).then((queryVector) => build({ queryVector }))
     },
 
     async execute(requests, settings) {

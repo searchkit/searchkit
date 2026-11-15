@@ -21,6 +21,7 @@ import {
 import { compileFilter } from './filters'
 import { buildHeadlineColumns } from './highlight'
 import { Params, quoteColumn, quoteTable } from './identifiers'
+import { buildSemanticCtes, getSemanticSearch } from './semantic'
 
 /**
  * @description How an InstantSearch `indexName` maps to a table.
@@ -34,6 +35,14 @@ export interface PostgresIndexConfig {
   search_vector_column?: string
   /** The text search configuration (regconfig) used by `websearch_to_tsquery` / `to_tsvector`. Defaults to 'english' */
   text_search_config?: string
+}
+
+/** Options of one statement, from the adapter (not the search settings) */
+export interface StatementOptions {
+  /** The embedded query, when `semantic_search` applies (not `text_only`, and a non-empty query) */
+  queryVector?: number[]
+  /** An extra predicate AND-ed into the filters (the `getWhere` request option), `$1` is `params[0]` */
+  where?: { text: string; params?: unknown[] }
 }
 
 export const DEFAULT_ID_COLUMN = 'id'
@@ -196,13 +205,21 @@ const getFilter = (
  * Query rules: `QueryRewrite` replaces the query, `QueryFilter` is AND-ed into `WHERE`, each `QueryBoost`
  * adds `CASE WHEN <filter> THEN weight ELSE 0 END` to `_score`, and `PinnedResult` ids match regardless of
  * the query and, when the hits are sorted by relevance, come first in their configured order (`_pin`).
+ * The `getWhere` predicate (`options.where`) is AND-ed with the filters.
+ *
+ * With `semantic_search` (not `text_only`) and a query, `base` holds the candidates ranked by
+ * `buildSemanticCtes` instead: in `hybrid` mode the rows that match the text query plus the `k` nearest
+ * rows, fused with reciprocal rank fusion (`_score` is the RRF score); in `semantic_only` mode the `k`
+ * nearest rows (`_score` is the negated distance). Filters apply inside both searches, and the hits,
+ * `total` and facets are computed over the candidates.
  * Identifiers come from the configuration (validated and quoted); every value is a bound parameter.
  */
 export const buildSearchStatement = (
   request: MultipleQueriesQuery,
   settings: SearchSettingsConfig,
   rules: QueryRuleActions,
-  index: PostgresIndexConfig
+  index: PostgresIndexConfig,
+  options: StatementOptions = {}
 ): { text: string; params: unknown[] } => {
   const params = new Params()
   const table = quoteTable(index.table)
@@ -231,8 +248,14 @@ export const buildSearchStatement = (
     new Set([...pageColumns, ...sortColumns, ...facets.map((f) => f.field)])
   ).map(quoteColumn)
 
+  const semantic = hasQuery ? getSemanticSearch(settings) : undefined
+  if (semantic && !options.queryVector) {
+    throw new Error('semantic_search: the query vector is missing (embed the query first)')
+  }
+
   const ctes: string[] = []
   const where: string[] = []
+  let textMatch: { predicate: string; rank: string } | undefined
   let rank = '0::real'
   let from = `${table} t`
   let configParam = ''
@@ -255,9 +278,19 @@ export const buildSearchStatement = (
     ctes.push(`q AS (SELECT websearch_to_tsquery(${configParam}::regconfig, ${queryParam}) AS tsq)`)
     from = `${table} t CROSS JOIN q`
     rank = `ts_rank_cd(${vector}, q.tsq)`
-    where.push(
-      pinnedParam ? `(${vector} @@ q.tsq OR ${idText} = ANY(${pinnedParam}))` : `${vector} @@ q.tsq`
-    )
+    textMatch = {
+      predicate: pinnedParam
+        ? `(${vector} @@ q.tsq OR ${idText} = ANY(${pinnedParam}))`
+        : `${vector} @@ q.tsq`,
+      rank
+    }
+    if (semantic) {
+      // the candidates and their rank come from the `ranked` CTE (see buildSemanticCtes)
+      from = `${table} t JOIN ranked r ON t.${quoteColumn(idColumn)} = r._id`
+      rank = 'coalesce(r._rank, 0)::float8'
+    } else {
+      where.push(textMatch.predicate)
+    }
   } else {
     addPinnedParam()
   }
@@ -267,9 +300,30 @@ export const buildSearchStatement = (
   const pinColumn = pinFirst ? `, array_position(${pinnedParam}, ${idText}) AS ${PIN_COLUMN}` : ''
   const orderBy = pinFirst ? `${PIN_COLUMN} ASC NULLS LAST, ${sortOrderBy}` : sortOrderBy
 
+  const filters: string[] = []
   const filter = getFilter(request, settings, rules)
   if (filter) {
-    where.push(compileFilter(filter, settings, params, 't.'))
+    filters.push(compileFilter(filter, settings, params, 't.'))
+  }
+  if (options.where) {
+    filters.push(`(${params.addSql(options.where.text, options.where.params)})`)
+  }
+
+  if (semantic && options.queryVector) {
+    // the filters apply inside the vector and text searches, so `base` needs no WHERE
+    ctes.push(
+      ...buildSemanticCtes(semantic, {
+        params,
+        queryVector: options.queryVector,
+        table,
+        id: quoteColumn(idColumn),
+        filters,
+        text: textMatch,
+        pinnedParam: pinnedParam || undefined
+      })
+    )
+  } else {
+    where.push(...filters)
   }
 
   ctes.push(
