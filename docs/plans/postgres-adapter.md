@@ -430,6 +430,19 @@ can be a stub that throws. Gate: `pnpm e2e:up` seeds 10,000 rows into Postgres; 
 Gate: `pnpm test:e2e --project=chromium-postgres tests/search.spec.ts` (except the highlight assertion, which may
 be skipped via a `test.fixme` until phase 5 only if it is restored in phase 5).
 
+Done: commits `51e9e6d7`, `05084420`. Notes:
+
+- `escaped-facet-values.spec.ts` is excluded from the Postgres project via project-level `testIgnore` (a
+  describe-level `test.skip` got no `testInfo` in Playwright 1.48 and its `afterAll` would delete the shared
+  ES index).
+- `release.yml`'s verify-published job runs only `--project=chromium` because it has no Postgres service.
+- Maintainer decision on the total count: the three exact `toBe(10000)` assertions (`search.spec.ts` "renders
+  the full seeded catalogue", `facets.spec.ts` "removing the refinement restores", `api.spec.ts` "applies facet
+  filters") only pass on Elasticsearch because ES caps `hits.total` at 10,000 when `track_total_hits` is not
+  sent; the data has 10,003 rows. Postgres keeps exact counts (decision 11). Those three assertions become
+  `toBeGreaterThanOrEqual(10000)` in phase 4. This is an allowed spec change; the `toBeLessThan(10000)`
+  assertions stay as they are.
+
 ### Phase 4: facets and filters
 
 Terms facets with counts, `facets_stats`, `facetFilters` incl. `-` negation, `numericFilters`, hierarchical
