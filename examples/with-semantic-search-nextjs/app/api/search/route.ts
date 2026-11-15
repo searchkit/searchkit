@@ -18,7 +18,19 @@ const apiClient = API(
     search_settings: {
       search_attributes: ['title', 'Plot'],
       result_attributes: ['title', 'Plot'],
-      facet_attributes: [{ attribute: 'genre', field: 'Genre.keyword', type: 'string' }]
+      facet_attributes: [{ attribute: 'genre', field: 'Genre.keyword', type: 'string' }],
+      // Hybrid search: combines the keyword query with a KNN search on the plot embeddings
+      // (reciprocal rank fusion). Elasticsearch embeds the query with the deployed model.
+      semantic_search: {
+        field: 'plot_embedding.predicted_value',
+        model_id: 'sentence-transformers__all-minilm-l6-v2',
+        k: 10,
+        num_candidates: 50,
+        // 'hybrid' (default): keyword + semantic search
+        // 'semantic_only': semantic search only
+        // 'text_only': keyword search only
+        mode: 'hybrid'
+      }
     }
   },
   { debug: true }
@@ -27,43 +39,7 @@ const apiClient = API(
 export async function POST(req: NextRequest, res: NextResponse) {
   const data = await req.json()
 
-  // Example 1: Semantic Search Only
-  // const results = await apiClient.handleRequest(data, {
-  //   getQuery: () => false,
-  //   getKnnQuery: (query) => {
-  //     return {
-  //       field: 'plot_embedding.predicted_value',
-  //       k: 10,
-  //       num_candidates: 50,
-  //       query_vector_builder: {
-  //         text_embedding: {
-  //           model_id: 'sentence-transformers__all-minilm-l6-v2',
-  //           model_text: query
-  //         }
-  //       }
-  //     }
-  //   }
-  // })
-
-  // Example 2: Keyword based search Only
-  // const results = await apiClient.handleRequest(data)
-
-  // Example 3: Hybrid search
-  const results = await apiClient.handleRequest(data, {
-    getKnnQuery: (query) => {
-      return {
-        field: 'plot_embedding.predicted_value',
-        k: 10,
-        num_candidates: 50,
-        query_vector_builder: {
-          text_embedding: {
-            model_id: 'sentence-transformers__all-minilm-l6-v2',
-            model_text: query
-          }
-        }
-      }
-    }
-  })
+  const results = await apiClient.handleRequest(data)
 
   return NextResponse.json(results)
 }
