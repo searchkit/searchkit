@@ -31,7 +31,8 @@
   },
   "types": "./dist/index.d.ts",
   "scripts": {
-    "lint": "eslint src/*.ts*",
+    "lint": "eslint src --max-warnings 0",
+    "typecheck": "tsc --noEmit",
     "build": "tsup",
     "dev": "npm run build --watch",
     "test": "jest"
@@ -45,7 +46,7 @@
   "devDependencies": {
     "@types/jest": "^29.1.1",
     "cross-fetch": "^3.1.5",
-    "eslint": "^7.32.0",
+    "eslint": "^9.39.0",
     "eslint-config-custom": "workspace:*",
     "jest": "29.1.2",
     "nock": "^14.0.0-beta.4",

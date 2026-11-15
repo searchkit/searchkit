@@ -16,7 +16,7 @@ export default async function handler(_req: NextApiRequest, res: NextApiResponse
 
   try {
     const headers: Record<string, string> = {
-      Accept: 'application/vnd.github+json',
+      'Accept': 'application/vnd.github+json',
       'User-Agent': 'searchkit-docs'
     }
     if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`

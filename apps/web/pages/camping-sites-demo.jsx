@@ -41,6 +41,9 @@ const AvailabilityDates = () => {
     // refine takes a [min, max] tuple in react-instantsearch v7
     startRange.refine([undefined, new Date(startDate).getTime()])
     endRange.refine([new Date(endDate).getTime(), undefined])
+    // Refine only when the dates change: useRange returns a new object every render, so listing
+    // startRange/endRange would refine (and re-search) on every render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate])
 
   return (

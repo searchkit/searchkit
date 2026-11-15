@@ -28,7 +28,9 @@ import Head from 'next/head'
 const hitView = (props: any) => {
   return (
     <div>
-      <img src={props.hit.imageURL} className="hit-image" />
+      {/* Remote product images from search hits; next/image would need every host allow-listed. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={props.hit.imageURL} alt={props.hit.name} className="hit-image" />
       <h3>
         <Highlight hit={props.hit} attribute="designerName" />
       </h3>

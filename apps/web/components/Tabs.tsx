@@ -1,32 +1,32 @@
-import type { FC, ReactElement } from "react";
+import type { FC, ReactElement } from 'react'
 
-import { Tabs as NextraTabs } from "nextra/components";
-import useSWR from "swr";
+import { Tabs as NextraTabs } from 'nextra/components'
+import useSWR from 'swr'
 
-export const Tab = NextraTabs.Tab;
+export const Tab = NextraTabs.Tab
 
 export const Tabs: FC<{
-  storageKey?: string;
-  items: string[];
-  children: React.ReactNode;
-}> = function ({ storageKey = "tab-index", items, children = null, ...props }) {
+  storageKey?: string
+  items: string[]
+  children: React.ReactNode
+}> = function ({ storageKey = 'tab-index', items, children = null, ...props }) {
   // Use SWR so all tabs with the same key can sync their states.
   const { data, mutate } = useSWR(storageKey, (key) => {
     try {
       // @ts-ignore
-      return JSON.parse(localStorage.getItem(key));
+      return JSON.parse(localStorage.getItem(key))
     } catch (e) {
-      return null;
+      return null
     }
-  });
+  })
 
-  const selectedIndex = items.indexOf(data);
+  const selectedIndex = items.indexOf(data)
 
   return (
     <NextraTabs
       onChange={(index) => {
-        localStorage.setItem(storageKey, JSON.stringify(items[index]));
-        mutate(items[index], false);
+        localStorage.setItem(storageKey, JSON.stringify(items[index]))
+        mutate(items[index], false)
       }}
       selectedIndex={selectedIndex === -1 ? undefined : selectedIndex}
       items={items}
@@ -34,5 +34,5 @@ export const Tabs: FC<{
     >
       {children}
     </NextraTabs>
-  );
-};
+  )
+}

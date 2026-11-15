@@ -135,7 +135,11 @@ function queryRulesWrapper(organicQuery: any, queryRuleActions: QueryRuleActions
   return organicQuery
 }
 
-export function RelevanceQueryMatch(query: string, search_attributes: SearchAttribute[], fuzziness: string = 'AUTO:4,8') {
+export function RelevanceQueryMatch(
+  query: string,
+  search_attributes: SearchAttribute[],
+  fuzziness: string = 'AUTO:4,8'
+) {
   const getFieldsMap = (boostMultiplier: number) => {
     return search_attributes.map((attribute) => {
       return typeof attribute === 'string'
@@ -210,8 +214,7 @@ const getQuery = (
         }
 
   const hasKnn = typeof requestOptions?.getKnnQuery === 'function'
-  const hasNoQuery =
-    requestOptions?.getQuery?.(query, searchAttributes, queryConfig) === false
+  const hasNoQuery = requestOptions?.getQuery?.(query, searchAttributes, queryConfig) === false
 
   if (hasNoQuery || (hasKnn && query === '')) {
     organicQuery = {

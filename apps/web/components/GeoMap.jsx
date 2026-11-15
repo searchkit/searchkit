@@ -33,10 +33,14 @@ export default function GeoMap({ apiKey, endpoint, height = 500 }) {
   const [google, setGoogle] = useState(null)
   const { items, refine, isRefinedWithMap } = useGeoSearch({})
 
+  // Latest-value refs read by the map's `idle` listener and the markers effect. Synced in an
+  // effect (declared before those effects, so it runs first) rather than written during render.
   const refineRef = useRef(refine)
-  refineRef.current = refine
   const isRefinedWithMapRef = useRef(isRefinedWithMap)
-  isRefinedWithMapRef.current = isRefinedWithMap
+  useEffect(() => {
+    refineRef.current = refine
+    isRefinedWithMapRef.current = isRefinedWithMap
+  })
 
   useEffect(() => {
     let cancelled = false
