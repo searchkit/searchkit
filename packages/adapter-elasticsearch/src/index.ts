@@ -1,0 +1,5 @@
+export { ElasticsearchAdapter } from './ElasticsearchAdapter'
+export type { ElasticsearchAdapterConnection } from './ElasticsearchAdapter'
+export { ESTransporter } from './Transporter'
+export { RelevanceQueryMatch } from './transformRequest'
+export { MatchFilter, TermFilter } from './filterUtils'

@@ -18,9 +18,7 @@
   "bugs": "https://github.com/searchkit/searchkit/issues",
   "homepage": "https://www.searchkit.co",
   "license": "MIT",
-  "files": [
-    "dist/"
-  ],
+  "files": ["dist/"],
   "sideEffects": false,
   "exports": {
     ".": {
@@ -62,6 +60,6 @@
     "access": "public"
   },
   "dependencies": {
-    "deepmerge": "^4.2.2"
+    "@searchkit/adapter-elasticsearch": "workspace:^"
   }
 }

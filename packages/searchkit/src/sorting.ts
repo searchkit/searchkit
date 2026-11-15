@@ -1,7 +1,14 @@
-import { SearchSettingsConfig } from './types'
+import { SearchSettingsConfig, SortingOption } from './types'
 import { AlgoliaMultipleQueriesQuery } from './types'
 
-export function getSorting(request: AlgoliaMultipleQueriesQuery, config: SearchSettingsConfig) {
+/**
+ * The sorting option selected by the request's `indexName` suffix (see `search_settings.sorting`),
+ * else the `default` option, else undefined (sort by relevance).
+ */
+export function getSortingOption(
+  request: AlgoliaMultipleQueriesQuery,
+  config: SearchSettingsConfig
+): SortingOption | SortingOption[] | undefined {
   if (config.sorting && Object.keys(config.sorting).length > 0) {
     const selectedSorting = Object.keys(config.sorting).find((key) => {
       if (request.indexName.endsWith(key)) {
@@ -9,57 +16,17 @@ export function getSorting(request: AlgoliaMultipleQueriesQuery, config: SearchS
       }
     })
 
-    if (!selectedSorting && !config.sorting.default) return {}
+    if (!selectedSorting && !config.sorting.default) return undefined
 
-    const sortOption = selectedSorting ? config.sorting[selectedSorting] : config.sorting.default
-
-    const buildSortField = (sorting: any) => {
-      const fieldPath = sorting.nestedPath
-        ? `${sorting.nestedPath}.${sorting.field}`
-        : sorting.field
-
-      if (sorting.nestedPath) {
-        const sortConfig: any = {
-          order: sorting.order,
-          nested: {
-            path: sorting.nestedPath
-          }
-        }
-
-        // Add mode if specified
-        if (sorting.mode) {
-          sortConfig.mode = sorting.mode
-        }
-
-        return {
-          [fieldPath]: sortConfig
-        }
-      }
-
-      const sortConfig: any = sorting.order
-
-      // For non-nested fields, if mode is specified, create an object instead of just the order string
-      if (sorting.mode) {
-        return {
-          [fieldPath]: {
-            order: sorting.order,
-            mode: sorting.mode
-          }
-        }
-      }
-
-      return {
-        [fieldPath]: sortConfig
-      }
-    }
-
-    return {
-      sort: Array.isArray(sortOption) ? sortOption.map(buildSortField) : buildSortField(sortOption)
-    }
+    return selectedSorting ? config.sorting[selectedSorting] : config.sorting.default
   }
-  return {}
+  return undefined
 }
 
+/**
+ * The index to search for an InstantSearch `indexName`: a sorting suffix configured in
+ * `search_settings.sorting` (e.g. `products_price_asc` with a `_price_asc` option) is removed.
+ */
 export function getIndexName(indexName: string, config: SearchSettingsConfig) {
   if (config.sorting && Object.keys(config.sorting).length > 0) {
     const selectedSorting = Object.keys(config.sorting).find((key) => {

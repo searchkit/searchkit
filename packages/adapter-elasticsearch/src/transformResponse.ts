@@ -1,8 +1,15 @@
-import { FacetStringResponse, SearchSettingsConfig } from './types'
 import { getHighlightFields, highlightTerm } from './highlightUtils'
-import { AlgoliaMultipleQueriesQuery, ElasticsearchResponseBody } from './types'
-import { getFacetFieldConfig, getFacetFieldType } from './utils'
-import { QueryRuleActions } from './queryRules'
+import type {
+  AlgoliaMultipleQueriesQuery,
+  ElasticsearchResponseBody,
+  FacetStringResponse,
+  FacetsStats,
+  QueryRuleActions,
+  SearchForFacetValuesResponse,
+  SearchResponse,
+  SearchSettingsConfig
+} from './core'
+import { getFacetFieldConfig, getFacetFieldType, getPageDetails, getRenderingContent } from './core'
 import type {
   AggregationsStatsAggregate,
   AggregationsStringTermsAggregate,
@@ -13,10 +20,6 @@ import type {
 } from '@elastic/elasticsearch/lib/api/types'
 
 type FacetsList = Record<string, Record<string, number>>
-type FacetsStats = Record<
-  string,
-  { min: number | null; max: number | null; avg: number | null; sum: number | null }
->
 
 const getHits = (
   response: ElasticsearchResponseBody,
@@ -165,58 +168,14 @@ const getFacets = (response: ElasticsearchResponseBody, config: SearchSettingsCo
   )
 }
 
-const getRenderingContent = (config: SearchSettingsConfig, queryRuleActions: QueryRuleActions) => {
-  const defaultOrder = config.facet_attributes?.map((facet) =>
-    typeof facet === 'string' ? facet : facet.attribute
-  )
-
-  return {
-    renderingContent: {
-      facetOrdering: {
-        facets: {
-          order: queryRuleActions.facetAttributesOrder || defaultOrder || []
-        },
-        values: config.facet_attributes?.reduce<Record<string, { sortRemainingBy: 'count' }>>(
-          (sum, facet) => {
-            const facetName = typeof facet === 'string' ? facet : facet.attribute
-
-            // If request has explicit facet orders and the facet is not
-            // in the query rule actions, we don't want to sort it
-            if (
-              queryRuleActions.facetAttributesOrder &&
-              !queryRuleActions.facetAttributesOrder.includes(facetName)
-            ) {
-              return sum
-            }
-
-            return {
-              ...sum,
-              [facetName]: {
-                sortRemainingBy: 'count'
-              }
-            }
-          },
-          {}
-        )
-      }
-    }
-  }
-}
-
-const getPageDetails = (
+const getResponsePageDetails = (
   response: ElasticsearchResponseBody,
   request: AlgoliaMultipleQueriesQuery,
   queryRuleActions: QueryRuleActions
 ) => {
-  const { params = {} } = request
-  const { hitsPerPage = 20, page = 0 } = params
-
   const { total } = response.hits
   const totalHits = typeof total === 'number' ? total : total?.value
-  const nbPages =
-    hitsPerPage <= 0
-      ? 0
-      : Math.ceil((typeof total === 'number' ? total : total?.value || 0) / hitsPerPage)
+  const { hitsPerPage, page, nbPages } = getPageDetails(request, totalHits)
 
   return {
     hitsPerPage,
@@ -233,7 +192,7 @@ export default function transformResponse(
   instantsearchRequest: AlgoliaMultipleQueriesQuery,
   config: SearchSettingsConfig,
   queryRuleActions: QueryRuleActions
-) {
+): SearchResponse {
   try {
     return {
       appliedRules: queryRuleActions.ruleIds,
@@ -241,7 +200,7 @@ export default function transformResponse(
       exhaustiveFacetsCount: true,
       exhaustiveTypo: true,
       exhaustive: { facetsCount: true, nbHits: true, typo: true },
-      ...getPageDetails(response, instantsearchRequest, queryRuleActions),
+      ...getResponsePageDetails(response, instantsearchRequest, queryRuleActions),
       ...getRenderingContent(config, queryRuleActions),
       ...getFacets(response, config),
       hits: getHits(response, config, instantsearchRequest),
@@ -257,7 +216,7 @@ export default function transformResponse(
 export const transformFacetValuesResponse = (
   response: ElasticsearchResponseBody,
   instantsearchRequest: AlgoliaMultipleQueriesQuery
-) => {
+): SearchForFacetValuesResponse => {
   const aggregations = response.aggregations || {}
   const facetName = instantsearchRequest?.params?.facetName
 

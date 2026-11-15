@@ -1,161 +1,17 @@
-import { MatchFilter, TermFilter } from './filterUtils'
 import type {
   AlgoliaMultipleQueriesQuery,
   FacetAttribute,
   SearchSettingsConfig,
-  ElasticsearchQuery,
   FilterAttribute,
   FacetFieldConfig
 } from './types'
-import { getFacet, getFacetAttribute, isNestedFacet } from './utils'
-
-export const transformNumericFilters = (
-  request: AlgoliaMultipleQueriesQuery,
-  config: SearchSettingsConfig
-): ElasticsearchQuery[] => {
-  const { params = {} } = request
-  const { numericFilters } = params
-
-  if (!Array.isArray(numericFilters)) {
-    return []
-  }
-
-  return numericFilters.reduce((sum, filter: string) => {
-    let match,
-      field,
-      operator,
-      value,
-      maxValue = ''
-    let groups = filter.match(
-      /([\w\.\_\-]+)\s*(\=|\!\=|\>|\>\=|\<|\<\=)\s*(-?(?:\d+(?:\.\d*)?|\.\d+))/
-    )
-
-    if (groups) {
-      ;[match, field, operator, value] = groups
-    } else {
-      // Alternative syntax: 'attribute:lower_value TO higher_value'
-      groups = filter.match(
-        /([\w\.\_\-]+):\s*(-?(?:\d+(?:\.\d*)?|\.\d+))\s*([Tt][Oo])\s*(-?(?:\d+(?:\.\d*)?|\.\d+))/
-      )
-
-      if (!groups) {
-        throw new Error(
-          `Numeric filter "${filter}" could not be parsed. It should either be in the format "attributeName operator operand" or "attributeName: lowerBound TO upperBound"`
-        )
-      }
-
-      ;[match, field, value, operator, maxValue] = groups
-    }
-
-    const facetFilterMap = getFacetFilterMap(
-      config.facet_attributes || [],
-      config.filter_attributes || []
-    )
-    const facetFilterConfig = facetFilterMap[field]
-
-    const getFilter = (field: string, operator: string, value: string) => {
-      if (operator === '=') {
-        return {
-          term: {
-            [field]: value
-          }
-        }
-      } else if (operator === '!=') {
-        return {
-          bool: {
-            must_not: {
-              term: {
-                [field]: value
-              }
-            }
-          }
-        }
-      } else if (operator === '>') {
-        return {
-          range: {
-            [field]: {
-              gt: value
-            }
-          }
-        }
-      } else if (operator === '>=') {
-        return {
-          range: {
-            [field]: {
-              gte: value
-            }
-          }
-        }
-      } else if (operator === '<') {
-        return {
-          range: {
-            [field]: {
-              lt: value
-            }
-          }
-        }
-      } else if (operator === '<=') {
-        return {
-          range: {
-            [field]: {
-              lte: value
-            }
-          }
-        }
-      } else if (operator.toUpperCase() === 'TO') {
-        return {
-          range: {
-            [field]: {
-              gte: value,
-              lte: maxValue
-            }
-          }
-        }
-      }
-    }
-
-    const esFilter = []
-
-    if (facetFilterConfig.nestedPath) {
-      const nestedPathPresent = sum.find((filter: any) => {
-        return filter.nested && filter.nested.path === facetFilterConfig.nestedPath
-      })
-
-      if (nestedPathPresent) {
-        nestedPathPresent.nested.query.bool.filter.push(
-          getFilter(facetFilterConfig.nestedPath + '.' + facetFilterConfig.field, operator, value)
-        )
-      } else {
-        esFilter.push({
-          nested: {
-            path: facetFilterConfig.nestedPath,
-            inner_hits: {},
-            query: {
-              bool: {
-                filter: [
-                  getFilter(
-                    facetFilterConfig.nestedPath + '.' + facetFilterConfig.field,
-                    operator,
-                    value
-                  )
-                ]
-              }
-            }
-          }
-        })
-      }
-    } else {
-      esFilter.push(getFilter(facetFilterConfig.field, operator, value))
-    }
-
-    return [...sum, ...esFilter]
-  }, [])
-}
+import type { FilterNode, FilterRangeNode } from './filterAst'
+import { parseFilters } from './filterParser'
 
 /**
  * InstantSearch (via algoliasearch-helper's `escapeFacetValue`) escapes a leading
  * `-` in a facet value as `\-` so it is not read as a facet exclusion. Reverse
- * that so the original value reaches the Elasticsearch filter clause and query rules.
+ * that so the original value reaches the engine's filter clause and query rules.
  */
 const unescapeFacetValue = (value: string) => value.replace(/^\\-/, '-')
 
@@ -165,7 +21,11 @@ export const parseFacetFilter = (filter: string): [string, string] => {
   return [facet, value && unescapeFacetValue(value)]
 }
 
-const getFacetFilterMap = (facets: FacetAttribute[], filters: FilterAttribute[]) => {
+/**
+ * Maps every filterable attribute (facet and filter attributes) to its configuration.
+ * Adapters use it to resolve the attribute of a filter AST node to its field.
+ */
+export const getFacetFilterMap = (facets: FacetAttribute[], filters: FilterAttribute[]) => {
   return [...filters, ...facets].reduce<Record<string, FacetFieldConfig | FilterAttribute>>(
     (sum, filter) => {
       let f: FacetFieldConfig | FilterAttribute =
@@ -180,138 +40,10 @@ const getFacetFilterMap = (facets: FacetAttribute[], filters: FilterAttribute[])
   )
 }
 
-export const transformFacetFilters = (
-  request: AlgoliaMultipleQueriesQuery,
-  config: SearchSettingsConfig
-): ElasticsearchQuery[] => {
-  const { params = {} } = request
-  const { facetFilters } = params
-
-  if (!Array.isArray(facetFilters)) {
-    return []
-  }
-
-  const facetFilterMap = getFacetFilterMap(
-    config.facet_attributes || [],
-    config.filter_attributes || []
-  )
-
-  return facetFilters.reduce((sum, filter) => {
-    if (Array.isArray(filter)) {
-      return [
-        ...sum,
-        {
-          bool: {
-            should: filter.reduce((sum, filter) => {
-              const [facet, value] = parseFacetFilter(filter)
-              const facetFilterConfig = facetFilterMap[facet]
-              if (!facetFilterConfig)
-                throw new Error(
-                  `Facet "${facet}" not found in configuration. Add configuration to either facet_attributes or filter_attributes.`
-                )
-              const field = facetFilterConfig.field
-              const filterClauseFn =
-                'filterQuery' in facetFilterConfig && facetFilterConfig.filterQuery
-                  ? facetFilterConfig.filterQuery
-                  : TermFilter
-
-              if (isNestedFacet(facetFilterConfig)) {
-                // detect if there is a nested filter in sum
-                // if one doesn't exist, add one
-                // if one does exist, add to it
-                const nestedFilter = sum.find((filter: any) => {
-                  return filter.nested && filter.nested.path === facetFilterConfig.nestedPath
-                })
-
-                if (nestedFilter) {
-                  nestedFilter.nested.query.bool.should.push(
-                    filterClauseFn(
-                      `${facetFilterConfig.nestedPath}.${facetFilterConfig.field}`,
-                      value
-                    )
-                  )
-                  return sum
-                } else {
-                  return [
-                    ...sum,
-                    {
-                      nested: {
-                        inner_hits: {},
-                        path: facetFilterConfig.nestedPath,
-                        query: {
-                          bool: {
-                            should: [
-                              filterClauseFn(
-                                `${facetFilterConfig.nestedPath}.${facetFilterConfig.field}`,
-                                value
-                              )
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-              return [...sum, filterClauseFn(field, value)]
-            }, [])
-          }
-        }
-      ]
-    } else if (typeof filter === 'string') {
-      const [facet, value] = parseFacetFilter(filter)
-
-      const facetFilterConfig = facetFilterMap[facet]
-      if (!facetFilterConfig)
-        throw new Error(
-          `Facet "${facet}" not found in configuration. Add configuration to either facet_attributes or filter_attributes.`
-        )
-
-      const filterClauseFn =
-        'filterQuery' in facetFilterConfig && facetFilterConfig.filterQuery
-          ? facetFilterConfig.filterQuery
-          : TermFilter
-
-      if (isNestedFacet(facetFilterConfig) && facetFilterConfig.nestedPath) {
-        // detect if there is a nested filter in sum
-        // if one doesn't exist, add one
-        // if one does exist, add to it
-        const nestedFilter = sum.find((filter: any) => {
-          return filter.nested && filter.nested.path === facetFilterConfig.nestedPath + '.'
-        })
-
-        if (nestedFilter) {
-          nestedFilter.nested.query.bool.should.push(
-            filterClauseFn(`${facetFilterConfig.nestedPath}.${facetFilterConfig.field}`, value)
-          )
-          return sum
-        } else {
-          return [
-            ...sum,
-            {
-              nested: {
-                inner_hits: {},
-                path: facetFilterConfig.nestedPath,
-                query: {
-                  bool: {
-                    should: [
-                      filterClauseFn(
-                        `${facetFilterConfig.nestedPath}.${facetFilterConfig.field}`,
-                        value
-                      )
-                    ]
-                  }
-                }
-              }
-            }
-          ]
-        }
-      }
-      return [...sum, filterClauseFn(facetFilterConfig.field, value)]
-    }
-  }, [])
-}
-
+/**
+ * Validates the attributes used in a `filters` / query rule string and maps them to their fields.
+ * Throws when an attribute is not configured, or is a nested field.
+ */
 export const transformQueryString = (
   facets: FacetAttribute[] = [],
   filters: FilterAttribute[] = [],
@@ -336,58 +68,140 @@ export const transformQueryString = (
   })
 }
 
-export const transformBaseFilters = (
-  request: AlgoliaMultipleQueriesQuery,
-  config: SearchSettingsConfig
-) => {
+/**
+ * `facetFilters` as filter AST nodes, one per top level entry (they are AND-ed).
+ * A string entry becomes an `eq` node; an array entry (a disjunctive facet) becomes an `or` node.
+ */
+export const getFacetFiltersAst = (request: AlgoliaMultipleQueriesQuery): FilterNode[] => {
   const { params = {} } = request
-  const { filters } = params
+  const { facetFilters } = params
 
-  if (!filters || filters === '') {
+  if (!Array.isArray(facetFilters)) {
     return []
   }
 
-  const queryString = transformQueryString(
-    config.facet_attributes,
-    config.filter_attributes,
-    filters
-  )
+  const toEq = (filter: string): FilterNode => {
+    const [attribute, value] = parseFacetFilter(filter)
+    return { op: 'eq', attribute, value }
+  }
 
-  return [
-    {
-      query_string: {
-        query: queryString
-      }
+  return facetFilters.reduce<FilterNode[]>((sum, filter) => {
+    if (Array.isArray(filter)) {
+      return [...sum, { op: 'or', nodes: filter.map(toEq) }]
+    } else if (typeof filter === 'string') {
+      return [...sum, toEq(filter)]
     }
-  ]
+    return sum
+  }, [])
 }
 
-export const transformGeoFilters = (
+const parseNumber = (value: string) => parseFloat(value)
+
+/** `numericFilters` as filter AST nodes, one per entry (they are AND-ed). */
+export const getNumericFiltersAst = (request: AlgoliaMultipleQueriesQuery): FilterNode[] => {
+  const { params = {} } = request
+  const { numericFilters } = params
+
+  if (!Array.isArray(numericFilters)) {
+    return []
+  }
+
+  return numericFilters.map((filter: string): FilterNode => {
+    let match,
+      attribute,
+      operator,
+      value,
+      maxValue = ''
+    let groups = filter.match(
+      /([\w\.\_\-]+)\s*(\=|\!\=|\>|\>\=|\<|\<\=)\s*(-?(?:\d+(?:\.\d*)?|\.\d+))/
+    )
+
+    if (groups) {
+      ;[match, attribute, operator, value] = groups
+    } else {
+      // Alternative syntax: 'attribute:lower_value TO higher_value'
+      groups = filter.match(
+        /([\w\.\_\-]+):\s*(-?(?:\d+(?:\.\d*)?|\.\d+))\s*([Tt][Oo])\s*(-?(?:\d+(?:\.\d*)?|\.\d+))/
+      )
+
+      if (!groups) {
+        throw new Error(
+          `Numeric filter "${filter}" could not be parsed. It should either be in the format "attributeName operator operand" or "attributeName: lowerBound TO upperBound"`
+        )
+      }
+
+      ;[match, attribute, value, operator, maxValue] = groups
+    }
+
+    if (operator === '=') {
+      return { op: 'eq', attribute, value: parseNumber(value), raw: value }
+    } else if (operator === '!=') {
+      return { op: 'not', node: { op: 'eq', attribute, value: parseNumber(value), raw: value } }
+    }
+
+    const range: FilterRangeNode = { op: 'range', attribute, raw: {} }
+    if (operator === '>') {
+      range.gt = parseNumber(value)
+      range.raw = { gt: value }
+    } else if (operator === '>=') {
+      range.gte = parseNumber(value)
+      range.raw = { gte: value }
+    } else if (operator === '<') {
+      range.lt = parseNumber(value)
+      range.raw = { lt: value }
+    } else if (operator === '<=') {
+      range.lte = parseNumber(value)
+      range.raw = { lte: value }
+    } else {
+      // TO
+      range.gte = parseNumber(value)
+      range.lte = parseNumber(maxValue)
+      range.raw = { gte: value, lte: maxValue }
+    }
+    return range
+  })
+}
+
+/**
+ * Geo params (`insideBoundingBox`, else `aroundLatLng` / `aroundRadius`) as filter AST nodes.
+ * Only applies when `geo_attribute` is configured; the node attribute is `geo_attribute`.
+ */
+export const getGeoFiltersAst = (
   request: AlgoliaMultipleQueriesQuery,
   config: SearchSettingsConfig
-) => {
+): FilterNode[] => {
   if (!config.geo_attribute) {
     return []
   }
+  const attribute = config.geo_attribute
   const { params = {} } = request
   const { aroundLatLng, aroundRadius, insideBoundingBox } = params
 
+  const toBox = (box: readonly (string | number)[]): FilterNode => {
+    const [top, left, bottom, right] = box.map((v) => parseFloat(String(v)))
+    return { op: 'geo_bbox', attribute, box: [top, left, bottom, right] }
+  }
+
   if (insideBoundingBox) {
-    return [insideBoundingBoxFilter(insideBoundingBox, config.geo_attribute)]
+    if (typeof insideBoundingBox === 'string') {
+      return [toBox(insideBoundingBox.split(','))]
+    } else if (Array.isArray(insideBoundingBox)) {
+      return [{ op: 'or', nodes: insideBoundingBox.map(toBox) }]
+    }
+    return []
   }
 
   if (aroundLatLng) {
-    const geoPoint = aroundLatLng.split(',')
+    const [lat, lng] = aroundLatLng.split(',')
 
     return [
       {
-        geo_distance: {
-          distance: aroundRadius || '1000m',
-          [config.geo_attribute]: {
-            lat: geoPoint[0],
-            lon: geoPoint[1]
-          }
-        }
+        op: 'geo_distance',
+        attribute,
+        lat: parseFloat(lat),
+        lng: parseFloat(lng),
+        radius: aroundRadius,
+        raw: { lat, lng }
       }
     ]
   }
@@ -395,50 +209,22 @@ export const transformGeoFilters = (
   return []
 }
 
-function insideBoundingBoxFilter(
-  insideBoundingBox: string | readonly (readonly number[])[],
-  field: string
-) {
-  const geoBoundingboxFilter = (top: number, left: number, bottom: number, right: number) => {
-    return {
-      geo_bounding_box: {
-        [field]: {
-          top_right: {
-            lat: top,
-            lon: left
-          },
-          bottom_left: {
-            lat: bottom,
-            lon: right
-          }
-        }
-      }
-    }
-  }
-
-  if (typeof insideBoundingBox === 'string') {
-    const [top, left, bottom, right] = insideBoundingBox.split(',')
-    return geoBoundingboxFilter(
-      parseFloat(top),
-      parseFloat(left),
-      parseFloat(bottom),
-      parseFloat(right)
-    )
-  } else if (Array.isArray(insideBoundingBox)) {
-    const geoBoundingboxes = insideBoundingBox.map((boundingBox) => {
-      const [top, left, bottom, right] = boundingBox
-      return geoBoundingboxFilter(
-        parseFloat(top),
-        parseFloat(left),
-        parseFloat(bottom),
-        parseFloat(right)
-      )
-    })
-
-    return {
-      bool: {
-        should: geoBoundingboxes
-      }
-    }
-  }
+/**
+ * All the filters of an InstantSearch request (`facetFilters`, `numericFilters`, `filters` and
+ * geo params) as one AST, or null when the request has no filters. The `filters` string is
+ * parsed with `parseFilters`, so this throws on syntax that parser does not support.
+ */
+export const getFilterAst = (
+  request: AlgoliaMultipleQueriesQuery,
+  config: SearchSettingsConfig
+): FilterNode | null => {
+  const filters = request.params?.filters
+  const nodes = [
+    ...getFacetFiltersAst(request),
+    ...getNumericFiltersAst(request),
+    ...(filters ? [parseFilters(filters, config)] : []),
+    ...getGeoFiltersAst(request, config)
+  ]
+  if (nodes.length === 0) return null
+  return { op: 'and', nodes }
 }

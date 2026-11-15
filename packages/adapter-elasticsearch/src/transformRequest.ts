@@ -5,22 +5,35 @@ import {
 } from '@elastic/elasticsearch/lib/api/types'
 import deepmerge from 'deepmerge'
 import {
+  queryStringFilter,
   transformBaseFilters,
   transformFacetFilters,
   transformGeoFilters,
   transformNumericFilters
 } from './filters'
-import { QueryRuleActions } from './queryRules'
 import { getSorting } from './sorting'
-import {
+import { getKnnQueryBuilder } from './semantic'
+import type {
+  AlgoliaMultipleQueriesQuery,
+  ElasticsearchSearchRequest,
   FacetAttribute,
   KnnSearchQuery,
+  QueryConfig,
+  QueryRuleActions,
   RequestOptions,
   SearchAttribute,
   SearchSettingsConfig
-} from './types'
-import { AlgoliaMultipleQueriesQuery, ElasticsearchSearchRequest, QueryConfig } from './types'
-import { createRegexQuery, getFacet, isNestedFacet } from './utils'
+} from './core'
+import {
+  getFacet,
+  getHitsPerPage,
+  getResultsSize,
+  getSnippetFieldLength,
+  isNestedFacet
+} from './core'
+import { createRegexQuery } from './utils'
+
+export { getSnippetFieldLength }
 
 const TermAggregation = (field: string, size: number, search: string) => {
   const searchInclude = search && search.length > 0 ? { include: createRegexQuery(search) } : {}
@@ -118,7 +131,11 @@ export const getAggs = (
   }
 }
 
-function queryRulesWrapper(organicQuery: any, queryRuleActions: QueryRuleActions) {
+function queryRulesWrapper(
+  organicQuery: any,
+  queryRuleActions: QueryRuleActions,
+  config: SearchSettingsConfig
+) {
   if (queryRuleActions.touched) {
     return {
       function_score: {
@@ -128,7 +145,10 @@ function queryRulesWrapper(organicQuery: any, queryRuleActions: QueryRuleActions
             organic: organicQuery
           }
         },
-        functions: queryRuleActions.boostFunctions
+        functions: queryRuleActions.boosts.map((boost) => ({
+          filter: queryStringFilter(config, boost.query),
+          weight: boost.weight
+        }))
       }
     }
   }
@@ -187,7 +207,8 @@ const getQuery = (
   request: AlgoliaMultipleQueriesQuery,
   config: SearchSettingsConfig,
   queryRuleActions: QueryRuleActions,
-  requestOptions?: RequestOptions
+  requestOptions?: RequestOptions,
+  queryVector?: number[]
 ): { query?: QueryDslQueryContainer; knn?: KnnSearchQuery; rank?: RankContainer } => {
   const query = queryRuleActions.query
 
@@ -201,7 +222,7 @@ const getQuery = (
     ...transformBaseFilters(request, config),
     ...transformGeoFilters(request, config),
     ...(requestOptions?.getBaseFilters?.() || []),
-    ...queryRuleActions.baseFilters
+    ...queryRuleActions.filters.map((filter) => queryStringFilter(config, filter))
   ]
 
   let organicQuery =
@@ -213,8 +234,12 @@ const getQuery = (
           match_all: {}
         }
 
-  const hasKnn = typeof requestOptions?.getKnnQuery === 'function'
-  const hasNoQuery = requestOptions?.getQuery?.(query, searchAttributes, queryConfig) === false
+  // the deprecated getKnnQuery request option wins over search_settings.semantic_search
+  const knnQueryBuilder = getKnnQueryBuilder(config, requestOptions, queryVector)
+  const hasKnn = typeof knnQueryBuilder.build === 'function'
+  const hasNoQuery =
+    requestOptions?.getQuery?.(query, searchAttributes, queryConfig) === false ||
+    knnQueryBuilder.semanticOnly
 
   if (hasNoQuery || (hasKnn && query === '')) {
     organicQuery = {
@@ -226,7 +251,7 @@ const getQuery = (
     bool: {
       filter: filters,
       must: queryRuleActions.touched
-        ? queryRulesWrapper(organicQuery, queryRuleActions)
+        ? queryRulesWrapper(organicQuery, queryRuleActions, config)
         : organicQuery
     }
   }
@@ -236,7 +261,7 @@ const getQuery = (
   if (hasKnn && query !== '') {
     knnQueryDsl = {
       filter: filters,
-      ...(requestOptions?.getKnnQuery?.(query, searchAttributes, queryConfig) || {})
+      ...(knnQueryBuilder.build?.(query, searchAttributes, queryConfig) || {})
     } as KnnSearchQuery
   }
 
@@ -254,21 +279,6 @@ const getQuery = (
     // in hybrid mode (knn + keyword query), is displaying results and query is not empty
     rank:
       hasKnn && !hasNoQuery && size > 0 && query !== '' ? { rrf: { window_size: size } } : undefined
-  }
-}
-
-const getHitsPerPage = (request: AlgoliaMultipleQueriesQuery) => {
-  const { params = {} } = request
-  return params.hitsPerPage == null ? 20 : params.hitsPerPage
-}
-
-const getResultsSize = (request: AlgoliaMultipleQueriesQuery, config: SearchSettingsConfig) => {
-  const { params = {} } = request
-  const hitsPerPage = getHitsPerPage(request)
-
-  return {
-    size: hitsPerPage,
-    from: (params.page || 0) * hitsPerPage
   }
 }
 
@@ -299,22 +309,6 @@ export const getHitFields = (
       includes: Array.from(sourceFields)
     },
     ...(fields.length > 0 ? { fields } : {})
-  }
-}
-
-export const getSnippetFieldLength = (attribute: string) => {
-  const defaultMatch = {
-    attribute,
-    length: 100
-  }
-  if (!attribute.includes(':')) {
-    return defaultMatch
-  }
-  const match = attribute.match(/(.+)\:(\d+)/)
-  if (!match) return defaultMatch
-  return {
-    attribute: match[1],
-    length: parseInt(match[2])
   }
 }
 
@@ -379,12 +373,13 @@ export function transformRequest(
   request: AlgoliaMultipleQueriesQuery,
   config: SearchSettingsConfig,
   queryRuleActions: QueryRuleActions,
-  requestOptions?: RequestOptions
+  requestOptions?: RequestOptions,
+  queryVector?: number[]
 ): ElasticsearchSearchRequest {
   const body: ElasticsearchSearchRequest = {
     aggs: getAggs(request, config, queryRuleActions),
-    ...getQuery(request, config, queryRuleActions, requestOptions),
-    ...getResultsSize(request, config),
+    ...getQuery(request, config, queryRuleActions, requestOptions, queryVector),
+    ...getResultsSize(request),
     ...getHitFields(request, config),
     ...getHighlightFields(request, config),
     ...getSorting(request, config),

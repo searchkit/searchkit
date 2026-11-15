@@ -1,5 +1,5 @@
 import { getAggs, getHighlightFields, getHitFields } from '../transformRequest'
-import { SimpleRequest } from './mocks/AlgoliaRequests'
+import { SimpleRequest } from '../../../searchkit/src/___tests___/mocks/AlgoliaRequests'
 
 describe('transformRequest', () => {
   describe('getHighlightFields', () => {
@@ -78,13 +78,13 @@ describe('transformRequest', () => {
           },
           {
             query: '',
-            boostFunctions: [],
+            boosts: [],
             facetAttributesOrder: undefined,
             pinnedDocs: [],
             userData: [],
             touched: false,
             ruleIds: [],
-            baseFilters: []
+            filters: []
           }
         )
       ).toMatchInlineSnapshot(`
@@ -131,13 +131,13 @@ describe('transformRequest', () => {
         },
         {
           query: '',
-          boostFunctions: [],
+          boosts: [],
           facetAttributesOrder: undefined,
           pinnedDocs: [],
           userData: [],
           touched: false,
           ruleIds: [],
-          baseFilters: []
+          filters: []
         }
       )
     ).toMatchInlineSnapshot(`
@@ -173,13 +173,13 @@ describe('transformRequest', () => {
         },
         {
           query: '',
-          boostFunctions: [],
+          boosts: [],
           facetAttributesOrder: ['type'],
           pinnedDocs: [],
           userData: [],
           touched: true,
           ruleIds: ['rule1'],
-          baseFilters: []
+          filters: []
         }
       )
     ).toMatchInlineSnapshot(`

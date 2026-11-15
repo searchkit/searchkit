@@ -7,6 +7,7 @@ import type {
   KnnQuery as ElasticKnnSearchQuery,
   MappingRuntimeFieldType
 } from '@elastic/elasticsearch/lib/api/types'
+import type { QueryRuleActions } from './queryRules'
 
 type ElasticsearchHitDocument = Record<string, unknown>
 type ElasticsearchHit = ElasticsearchBaseHit<ElasticsearchHitDocument>
@@ -222,6 +223,42 @@ export interface SearchSettingsConfig {
    * @description Runtime mappings that will be applied to the search. This allows you to dynamically add fields to the search results that aren't in the index.
    */
   runtime_mappings?: Record<string, RuntimeMapping>
+  /**
+   * @description Semantic (vector) search, combined with the text query. Replaces the deprecated `getKnnQuery` request option.
+   * @example { field: 'embedding', embed: async (query) => embedText(query), k: 50, mode: 'hybrid' }
+   */
+  semantic_search?: SemanticSearchConfig
+}
+
+export interface SemanticSearchConfig {
+  /**
+   * @description The vector field: a `dense_vector` field (Elasticsearch) or a vector column (Postgres)
+   */
+  field: string
+  /**
+   * @description Turns the query into a vector. Provide exactly one of `embed` or `model_id`.
+   */
+  embed?: (query: string) => Promise<number[]> | number[]
+  /**
+   * @description Elasticsearch only: the id of a deployed text embedding model, so Elasticsearch embeds the query itself (`knn.query_vector_builder.text_embedding`). Provide exactly one of `embed` or `model_id`.
+   */
+  model_id?: string
+  /**
+   * @description Number of nearest neighbours to return. Defaults to 50
+   */
+  k?: number
+  /**
+   * @description Elasticsearch only: number of candidates per shard. Defaults to 2 * k
+   */
+  num_candidates?: number
+  /**
+   * @description Postgres only: the distance function. Defaults to 'cosine'
+   */
+  distance?: 'cosine' | 'l2' | 'inner_product'
+  /**
+   * @description 'hybrid' combines the text query and the vector search (reciprocal rank fusion), 'semantic_only' uses the vector search only, 'text_only' ignores the vector search. Defaults to 'hybrid'. With an empty query there is no vector search in any mode.
+   */
+  mode?: 'hybrid' | 'semantic_only' | 'text_only'
 }
 
 interface QueryStringRuleCondition {
@@ -301,12 +338,22 @@ export interface QueryRule {
 }
 
 export interface SearchkitConfig {
-  connection: ConfigConnection | Transporter
+  /**
+   * @description The search engine adapter, e.g. `ElasticsearchAdapter({ host })`. Takes precedence over `connection`.
+   */
+  adapter?: SearchAdapter<any, any>
+  /**
+   * @description The Elasticsearch connection, or a custom Elasticsearch `Transporter` (an object with an `msearch` method). Shorthand for `adapter: ElasticsearchAdapter(connection)`; ignored when `adapter` is set.
+   */
+  connection?: ConfigConnection | Transporter
   search_settings: SearchSettingsConfig
 }
 
-export type SearchRequest = {
-  body: ElasticsearchSearchRequest
+/**
+ * @description A request to the search engine. For Elasticsearch, `body` is the `_msearch` request body.
+ */
+export type SearchRequest<TBody = ElasticsearchSearchRequest> = {
+  body: TBody
   request: AlgoliaMultipleQueriesQuery
   indexName: string
 }
@@ -318,7 +365,7 @@ export type QueryConfig = SearchSettingsConfig & {
   request: AlgoliaMultipleQueriesQuery
 }
 
-export interface RequestOptions {
+export interface RequestOptions<TRequest = SearchRequest, TResponse = ElasticsearchResponseBody> {
   /**
    * @description Allows you to override the organic query
    * @param query The original query search terms
@@ -340,6 +387,7 @@ export interface RequestOptions {
   getBaseFilters?: () => ElasticsearchQuery[]
 
   /**
+   * @deprecated Use `search_settings.semantic_search` instead. Still supported by the Elasticsearch adapter; if both are set, `getKnnQuery` is used.
    * @description Allows you to specify the KNN query to be used for KNN search. Hits will be combined with the organic query. If you do not want to use the organic query, return false from getQuery.
    * @param query The original query search terms
    * @param search_attributes The search attributes configured in the search settings
@@ -361,17 +409,14 @@ export interface RequestOptions {
      * @param requests An array of SearchRequest objects, each containing the body (elasticsearch query) and indexName of the request
      * @returns An array of modified SearchRequest objects, each containing the body (elasticsearch query) and indexName of the request
      */
-    beforeSearch?: (requests: SearchRequest[]) => Promise<SearchRequest[]>
+    beforeSearch?: (requests: TRequest[]) => Promise<TRequest[]>
     /**
      * @description Allows you to modify the search responses before its transformed into an InstantSearch response
      * @param requests An array of SearchRequest objects, each containing the body (elasticsearch query) and indexName of the request
      * @param responses An array of Elasticsearch Response objects
      * @returns An array of modified Elasticsearch response objects
      */
-    afterSearch?: (
-      requests: SearchRequest[],
-      responses: ElasticsearchResponseBody[]
-    ) => Promise<ElasticsearchResponseBody[]>
+    afterSearch?: (requests: TRequest[], responses: TResponse[]) => Promise<TResponse[]>
   }
 }
 
@@ -383,6 +428,86 @@ export interface Transporter {
 export interface AppSettings {
   debug: boolean
   timeout?: number
+}
+
+/**
+ * @description A hit in an InstantSearch response
+ */
+export type SearchHit = {
+  objectID: string
+  [key: string]: any
+}
+
+export type FacetsStats = Record<
+  string,
+  { min: number | null; max: number | null; avg: number | null; sum: number | null }
+>
+
+/**
+ * @description The InstantSearch (Algolia shaped) response to a search request
+ */
+export interface SearchResponse {
+  appliedRules?: string[]
+  exhaustiveNbHits: boolean
+  exhaustiveFacetsCount?: boolean
+  exhaustiveTypo?: boolean
+  exhaustive?: { facetsCount: boolean; nbHits: boolean; typo: boolean }
+  hitsPerPage: number
+  processingTimeMS?: number
+  nbHits?: number
+  page: number
+  nbPages: number
+  query: string
+  renderingContent?: {
+    facetOrdering: {
+      facets: { order: string[] }
+      values?: Record<string, { sortRemainingBy: 'count' }>
+    }
+  }
+  facets?: Record<string, Record<string, number>>
+  facets_stats?: FacetsStats
+  hits: SearchHit[]
+  index: string
+  params: string
+  userData?: unknown[]
+}
+
+/**
+ * @description The InstantSearch (Algolia shaped) response to a search for facet values request
+ */
+export interface SearchForFacetValuesResponse {
+  facetHits: { value: string; highlighted: string; count: number }[]
+  exhaustiveFacetsCount: boolean
+  processingTimeMS?: number
+}
+
+/**
+ * @description A search engine adapter. Searchkit evaluates query rules, then for each InstantSearch
+ * request calls `buildRequest`, runs the `beforeSearch` hook, `execute`, the `afterSearch` hook and
+ * `transformResponse` (or `transformFacetValuesResponse` for a search for facet values request).
+ */
+export interface SearchAdapter<TRequest = unknown, TResponse = unknown> {
+  /** 'elasticsearch' | 'postgres' | a custom name */
+  readonly name: string
+  /** Builds the engine request for one InstantSearch request. May be async, e.g. to embed the query for semantic search. */
+  buildRequest(
+    request: AlgoliaMultipleQueriesQuery,
+    settings: SearchSettingsConfig,
+    rules: QueryRuleActions,
+    options?: RequestOptions
+  ): TRequest | Promise<TRequest>
+  /** Runs the requests (in one round trip where the engine allows) and returns one response per request, in order */
+  execute(requests: TRequest[], settings: AppSettings): Promise<TResponse[]>
+  transformResponse(
+    response: TResponse,
+    request: AlgoliaMultipleQueriesQuery,
+    settings: SearchSettingsConfig,
+    rules: QueryRuleActions
+  ): SearchResponse
+  transformFacetValuesResponse(
+    response: TResponse,
+    request: AlgoliaMultipleQueriesQuery
+  ): SearchForFacetValuesResponse
 }
 
 export type {

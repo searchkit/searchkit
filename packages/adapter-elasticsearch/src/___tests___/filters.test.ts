@@ -1,6 +1,6 @@
 import { transformBaseFilters, transformNumericFilters } from '../filters'
-import { SearchSettingsConfig } from '../types'
-import { DisjunctiveExampleRequest } from './mocks/AlgoliaRequests'
+import { SearchSettingsConfig } from '../core'
+import { DisjunctiveExampleRequest } from '../../../searchkit/src/___tests___/mocks/AlgoliaRequests'
 
 describe('filter functions', () => {
   const config: SearchSettingsConfig = {

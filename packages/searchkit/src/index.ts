@@ -1,41 +1,56 @@
 import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from './types'
-import { transformRequest } from './transformRequest'
-import transformResponse, { transformFacetValuesResponse } from './transformResponse'
-import { SearchkitConfig, SearchRequest, RequestOptions, Transporter, AppSettings } from './types'
-import { ESTransporter } from './Transporter'
+import type {
+  SearchkitConfig,
+  RequestOptions,
+  AppSettings,
+  SearchAdapter,
+  SearchResponse,
+  SearchForFacetValuesResponse
+} from './types'
+import { ElasticsearchAdapter } from '@searchkit/adapter-elasticsearch'
 import { getQueryRulesActionsFromRequest, QueryRuleActions } from './queryRules'
-import { createElasticsearchQueryFromRequest } from './utils'
-import { getIndexName } from './sorting'
 
-export { RelevanceQueryMatch } from './transformRequest'
+export {
+  ElasticsearchAdapter,
+  ESTransporter,
+  RelevanceQueryMatch,
+  MatchFilter,
+  TermFilter
+} from '@searchkit/adapter-elasticsearch'
+export type { ElasticsearchAdapterConnection } from '@searchkit/adapter-elasticsearch'
 export * from './types'
-export * from './Transporter'
-export * from './filterUtils'
+export * from './filterAst'
+export { parseFilters, FilterParseError } from './filterParser'
+export { getFilterAst, getFacetFilterMap } from './filters'
+export type { QueryRuleActions, QueryRuleBoost } from './queryRules'
+
+/**
+ * Picks the adapter for a Searchkit config: `adapter` wins; otherwise `connection` (an
+ * Elasticsearch connection or a custom `Transporter`) is wrapped in `ElasticsearchAdapter`.
+ */
+const resolveAdapter = (config: SearchkitConfig): SearchAdapter<any, any> => {
+  if (config.adapter) {
+    return config.adapter
+  }
+  if (config.connection) {
+    return ElasticsearchAdapter(config.connection)
+  }
+  throw new Error(
+    'No adapter or connection provided. Pass `adapter` (e.g. `ElasticsearchAdapter({ host })`) or an Elasticsearch `connection` in the Searchkit configuration.'
+  )
+}
 
 export default class Searchkit {
-  private transporter: Transporter
+  private adapter: SearchAdapter<any, any>
 
   constructor(private config: SearchkitConfig, private settings: AppSettings = { debug: false }) {
-    this.transporter =
-      'msearch' in config.connection
-        ? config.connection
-        : new ESTransporter(config.connection, settings)
-  }
-
-  private async performSearch(requests: SearchRequest[]) {
-    if (this.settings.debug) {
-      console.log('Performing search with requests:')
-      console.log('POST /_msearch')
-      console.log(createElasticsearchQueryFromRequest(requests))
-    }
-    const responses = await this.transporter.msearch(requests)
-    return responses
+    this.adapter = resolveAdapter(config)
   }
 
   async handleInstantSearchRequests(
     instantsearchRequests: readonly AlgoliaMultipleQueriesQuery[],
     requestOptions?: RequestOptions
-  ) {
+  ): Promise<{ results: (SearchResponse | SearchForFacetValuesResponse)[] }> {
     if (!instantsearchRequests || Array.isArray(instantsearchRequests) === false) {
       console.log({ instantsearchRequests })
       throw new Error(
@@ -49,34 +64,36 @@ export default class Searchkit {
       return getQueryRulesActionsFromRequest(queryRules, request, this.config.search_settings)
     })
 
-    let esRequests: SearchRequest[] = instantsearchRequests.map((request, i) => ({
-      body: transformRequest(
-        request,
-        this.config.search_settings,
-        requestQueryRuleActions[i],
-        requestOptions
-      ),
-      request: request,
-      indexName: getIndexName(request.indexName, this.config.search_settings)
-    }))
+    let searchRequests = await Promise.all(
+      instantsearchRequests.map((request, i) =>
+        this.adapter.buildRequest(
+          request,
+          this.config.search_settings,
+          requestQueryRuleActions[i],
+          requestOptions
+        )
+      )
+    )
 
-    if (requestOptions?.hooks?.beforeSearch) {
-      esRequests = await requestOptions.hooks.beforeSearch(esRequests)
+    // hooks are typed for Elasticsearch (the default adapter); other adapters pass their own request / response objects
+    const hooks = requestOptions?.hooks as RequestOptions<any, any>['hooks']
+
+    if (hooks?.beforeSearch) {
+      searchRequests = await hooks.beforeSearch(searchRequests)
     }
 
-    let esResponses = await this.performSearch(esRequests)
+    let searchResponses = await this.adapter.execute(searchRequests, this.settings)
 
-    if (requestOptions?.hooks?.afterSearch) {
-      esResponses = await requestOptions.hooks.afterSearch(esRequests, esResponses)
+    if (hooks?.afterSearch) {
+      searchResponses = await hooks.afterSearch(searchRequests, searchResponses)
     }
 
     try {
-      const instantsearchResponses = esResponses.map((response, i) => {
-        // @ts-ignore
+      const instantsearchResponses = searchResponses.map((response, i) => {
         if (instantsearchRequests[i].params?.facetName) {
-          return transformFacetValuesResponse(response, instantsearchRequests[i])
+          return this.adapter.transformFacetValuesResponse(response, instantsearchRequests[i])
         }
-        return transformResponse(
+        return this.adapter.transformResponse(
           response,
           instantsearchRequests[i],
           this.config.search_settings,

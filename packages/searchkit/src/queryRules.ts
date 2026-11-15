@@ -12,14 +12,32 @@ export interface QueryContext {
   filters: readonly QueryContextFilter[]
 }
 
-export interface QueryRuleActions {
-  ruleIds: string[]
-  pinnedDocs: string[]
-  boostFunctions: any[]
+export interface QueryRuleBoost {
+  /** The `QueryBoost` query, in the `filters` string syntax (attributes, not fields) */
   query: string
+  weight: number
+}
+
+/**
+ * The engine-neutral result of evaluating the query rules against one InstantSearch request.
+ * Adapters apply it when building the engine request and the response.
+ */
+export interface QueryRuleActions {
+  /** ids of the rules whose conditions matched */
+  ruleIds: string[]
+  /** `PinnedResult` document ids, in order */
+  pinnedDocs: string[]
+  /** `QueryBoost` actions */
+  boosts: QueryRuleBoost[]
+  /** The query to search for: the request query, or the `QueryRewrite` query */
+  query: string
+  /** `RenderUserData` payloads */
   userData: unknown[]
+  /** `RenderFacetsOrder` attributes */
   facetAttributesOrder: string[] | undefined
-  baseFilters: any[]
+  /** `QueryFilter` queries, in the `filters` string syntax (attributes, not fields). They are AND-ed. */
+  filters: string[]
+  /** true when any rule matched */
   touched: boolean
 }
 
@@ -66,32 +84,17 @@ export const getQueryRulesActionsFromRequest = (
         } else if (action.action === 'QueryRewrite') {
           sum.query = action.query
         } else if (action.action === 'QueryBoost') {
-          sum.boostFunctions.push({
-            filter: {
-              query_string: {
-                query: transformQueryString(
-                  config.facet_attributes,
-                  config.filter_attributes,
-                  action.query
-                )
-              }
-            },
-            weight: action.weight
-          })
+          // validates the attributes (throws on unknown or nested attributes)
+          transformQueryString(config.facet_attributes, config.filter_attributes, action.query)
+          sum.boosts.push({ query: action.query, weight: action.weight })
         } else if (action.action === 'RenderUserData') {
           sum.userData.push(JSON.parse(action.userData))
         } else if (action.action === 'RenderFacetsOrder') {
           sum.facetAttributesOrder = action.facetAttributesOrder
         } else if (action.action === 'QueryFilter') {
-          sum.baseFilters.push({
-            query_string: {
-              query: transformQueryString(
-                config.facet_attributes,
-                config.filter_attributes,
-                action.query
-              )
-            }
-          })
+          // validates the attributes (throws on unknown or nested attributes)
+          transformQueryString(config.facet_attributes, config.filter_attributes, action.query)
+          sum.filters.push(action.query)
         }
       })
       return sum
@@ -99,12 +102,12 @@ export const getQueryRulesActionsFromRequest = (
     {
       ruleIds: satisfiedRules.map((rule) => rule.id),
       pinnedDocs: [],
-      boostFunctions: [],
+      boosts: [],
       query: queryContext.query,
       userData: [],
       facetAttributesOrder: undefined,
       touched: false,
-      baseFilters: []
+      filters: []
     }
   )
 

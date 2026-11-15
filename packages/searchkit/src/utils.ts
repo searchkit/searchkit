@@ -1,24 +1,4 @@
-import { CustomFacetConfig, FacetAttribute, FacetFieldConfig, SearchRequest } from './types'
-
-// The terms aggregation `include` uses Lucene regex syntax, where & # @ ~ < > and " are
-// operators too. Lucene reads a backslash before any character as that literal character.
-export const createRegexQuery = (queryString: string) => {
-  let query = queryString.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|&#@~<>"]/g, '\\$&')
-  query = query
-    .split('')
-    .map((char) => {
-      if (/[a-z]/i.test(char)) {
-        return `[${char.toLowerCase()}${char.toUpperCase()}]`
-      }
-      return char
-    })
-    .join('')
-  query = `${query}.*`
-  if (queryString.length > 2) {
-    query = `([a-zA-Z]+ )+?${query}`
-  }
-  return query
-}
+import { CustomFacetConfig, FacetAttribute, FacetFieldConfig } from './types'
 
 export const getFacet = (
   facet_attributes: FacetAttribute[],
@@ -101,17 +81,21 @@ export const getFacetFieldConfig = (
   }) as FacetFieldConfig | CustomFacetConfig | undefined
 }
 
-export const createElasticsearchQueryFromRequest = (requests: SearchRequest[]) => {
-  return requests
-    .reduce<string[]>(
-      (sum, request) => [
-        ...sum,
-        JSON.stringify({ index: request.indexName }),
-        '\n',
-        JSON.stringify(request.body),
-        '\n'
-      ],
-      []
-    )
-    .join('')
+/**
+ * Parses a `snippet_attributes` entry: `attribute` or `attribute:length` (default length 100).
+ */
+export const getSnippetFieldLength = (attribute: string) => {
+  const defaultMatch = {
+    attribute,
+    length: 100
+  }
+  if (!attribute.includes(':')) {
+    return defaultMatch
+  }
+  const match = attribute.match(/(.+)\:(\d+)/)
+  if (!match) return defaultMatch
+  return {
+    attribute: match[1],
+    length: parseInt(match[2])
+  }
 }

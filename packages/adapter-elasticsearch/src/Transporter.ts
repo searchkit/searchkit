@@ -1,5 +1,5 @@
-import { AppSettings, BasicAuth, ConfigConnection, SearchRequest } from './types'
-import { ElasticsearchResponseBody, Transporter } from './types'
+import type { AppSettings, BasicAuth, ConfigConnection, SearchRequest } from './core'
+import type { ElasticsearchResponseBody, Transporter } from './core'
 import { createElasticsearchQueryFromRequest } from './utils'
 
 const authString = (auth: BasicAuth) => {
