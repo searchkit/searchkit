@@ -1,6 +1,6 @@
 # Plan: Postgres adapter for Searchkit
 
-Status: approved design, phase 1 implemented. Decisions below were made by the maintainer on 2026-11-15 and are
+Status: approved design, phases 1 to 8 implemented (PR to `main` pending). Decisions below were made by the maintainer on 2026-11-15 and are
 not open for re-litigation by the implementing agent; questions that come up during implementation and are not
 covered here should be raised, not guessed.
 
@@ -511,6 +511,38 @@ Done: commits `502d658c`, `dae50795`. `chromium` 28 passed; `chromium-postgres` 
 
 Gate: `tests/semantic.spec.ts` on both projects.
 
+Done: commits `62862051`, `d0f53aac`. `chromium` 32 passed, 2 skipped; `chromium-postgres` 28 passed. Notes:
+
+- `sql/semantic.ts`: with a query and `semantic_search` (not `text_only`), `nearest` takes the `k` nearest rows
+  that match the filters (`ORDER BY <column> <op> $v::vector LIMIT $k`, the distance expression itself so an
+  HNSW / IVFFlat index can be used; `<=>` cosine, `<->` l2, `<#>` inner product). In `hybrid`, `text_ranked`
+  numbers the text matches (same filters, `PinnedResult` ids included) and `ranked` fuses both with
+  `sum(1.0 / (60 + rank))`; `base` is `t JOIN ranked`, so hits, `total` and facets cover the fused set and `_score`
+  is the RRF score. `semantic_only`: `_score` is the negated distance; pinned ids are added with a null rank. The
+  vector is bound as the pgvector text form (`[a,b,...]`), since `pg` would send a JS array as `{...}`.
+- `embed` is called only when there is a (trimmed, post-`QueryRewrite`) query and the mode is not `text_only`;
+  `buildRequest` stays synchronous otherwise. `model_id` (with or without `embed`) throws on Postgres; bad `k`,
+  `distance`, `mode`, or a non-numeric vector from `embed` throw clear errors.
+- `getWhere` was never implemented in earlier phases; it is now (`RequestOptions.getWhere`, Postgres only):
+  `{ text, params }` with its own `$1..$n`, renumbered by `Params.addSql`, AND-ed into `WHERE` and into both
+  semantic CTEs. Postgres throws on `getQuery` / `getBaseFilters` / `getKnnQuery`, and the Elasticsearch adapter
+  throws on `getWhere`, so a permissions filter is never silently dropped. `getRankExpression` is not implemented.
+- The example keeps `/api/search` unchanged (hybrid on every route would have changed the ranking under the
+  existing specs) and adds `/api/semantic/[mode]` (hybrid, semantic_only, text_only) with
+  `semantic_search: { field: 'embedding', embed, k: 50, mode }` and `brand` in `result_attributes`. `embed` is a
+  copy of `e2e/embedding.mjs` in `app/api/embedding.ts` (the published-example copy cannot import from `e2e/`).
+  The spec asserts: `text_only` equals `/api/search` (FTS order, nbHits); an empty query equals `/api/search` in
+  every mode; `semantic_only` returns at most `k` hits and respects `facetFilters`; `hybrid` returns
+  `text nbHits <= nbHits <= text nbHits + k`, a samsung hit on the first page, and respects filters.
+- **Elasticsearch licence:** the e2e cluster (8.15.3, default Basic licence) answers `403 current license is
+non-compliant for [Reciprocal Rank Fusion (RRF)]` to `knn` + `rank.rrf`, so the two hybrid tests skip on
+  `chromium` (`test.skip(project === 'chromium', 'rrf needs a licensed ES')`). Running them on ES would need
+  `xpack.license.self_generated.type=trial` on the e2e container (and CI service): a maintainer decision.
+- The `e2e/seed.mjs` mapping is `embedding: { type: dense_vector, dims: 8, index: true, similarity: cosine }`
+  (verified on the running cluster).
+- Gap found, not in this phase's scope: decision 9's `fuzziness` -> `pg_trgm` opt-in was never implemented; the
+  Postgres docs list `fuzziness` as ignored.
+
 ### Phase 8: docs and release
 
 - `apps/web/pages/docs/_meta.js`: add an `adapters` section with `elasticsearch.mdx` (moved content from
@@ -526,6 +558,23 @@ Gate: `tests/semantic.spec.ts` on both projects.
 
 Final gate: `pnpm build && pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e` (both projects) green locally
 and in CI.
+
+Done: commit `fa54e4be` (plus this note). No PR opened and nothing published (the maintainer opens the PR).
+Notes:
+
+- `adapters/elasticsearch.mdx` merges `guides/setup-elasticsearch.mdx` and `proxy-elasticsearch/why.mdx`; both
+  old pages remain as short stubs linking to the new anchors, hidden from the sidebar (`display: 'hidden'`), so
+  old URLs do not 404. The `proxy-elasticsearch/with-*` pages (Next.js, Express, Cloudflare Workers, own server)
+  stay where they are: they describe running the Searchkit API, which both adapters use. Internal docs links
+  point at the new page; links in examples, package READMEs and the `Transporter` error message still use the
+  old URL (served by the stub).
+- `adapters/postgres.mdx` documents the behaviour differences (exact counts, stopword-only queries match nothing,
+  no fuzziness / prefix matching, facet search matching, additive `QueryBoost`, ES hybrid licence) and the
+  out-of-scope list.
+- The changeset keeps all five packages major, with a feature list and a migration section.
+- `DEVELOPMENT.md` had a four-backtick fence that turned the whole "End-to-end tests" section into a code block;
+  fixed.
+- `pnpm --filter web build` passes; the regenerated `apps/web/public/sitemap-0.xml` is reverted, not committed.
 
 ## Out of scope for v1 (say so in docs)
 
