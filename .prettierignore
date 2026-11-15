@@ -4,3 +4,6 @@ packages/**/**/lib/**/**
 packages/**/**/release/**/**
 packages/**/**/umd/**/**
 packages/**/**/dist/**/**
+.claude/**
+**/.next/**
+**/node_modules/**

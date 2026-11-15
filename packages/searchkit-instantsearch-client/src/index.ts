@@ -160,7 +160,9 @@ class InstantSearchElasticsearchAdapter {
       })
 
       if (!response.ok) {
-        const error = new Error(`Search request failed with status ${response.status}: ${response.statusText}`)
+        const error = new Error(
+          `Search request failed with status ${response.status}: ${response.statusText}`
+        )
         const suppressLog = this.config && !isSearchkit(this.config) && this.config.onError?.(error)
         if (!suppressLog) {
           console.error('Searchkit InstantSearch Client error:', error.message)
@@ -172,7 +174,10 @@ class InstantSearchElasticsearchAdapter {
       return results.results
     } catch (error) {
       const err = error instanceof Error ? error : new Error(String(error))
-      const suppressLog = this.config && !isSearchkit(this.config) && (this.config as InstantSearchElasticsearchAdapterConfig).onError?.(err)
+      const suppressLog =
+        this.config &&
+        !isSearchkit(this.config) &&
+        (this.config as InstantSearchElasticsearchAdapterConfig).onError?.(err)
       if (!suppressLog) {
         console.error('Searchkit InstantSearch Client error:', err.message)
       }

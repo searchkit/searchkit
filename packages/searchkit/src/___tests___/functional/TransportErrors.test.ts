@@ -78,7 +78,6 @@ describe('Transport Errors', () => {
   })
 
   describe('Client Transport Errors', () => {
-
     const client = new Client({
       connection: {
         host: 'http://localhost:9200',
@@ -100,7 +99,7 @@ describe('Transport Errors', () => {
         })
         .reply(200, APIKeyNotAuthorized)
 
-      await expect(() => {  
+      await expect(() => {
         return client.handleInstantSearchRequests(
           DisjunctiveExampleRequest as AlgoliaMultipleQueriesQuery[]
         )

@@ -26,6 +26,8 @@ function Autocomplete(props) {
   useEffect(() => {
     setQuery(instantSearchUiState.query)
     setPage(0)
+    // Only push to InstantSearch when the autocomplete state changes, not when refine fns change.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [instantSearchUiState])
 
   useEffect(() => {
@@ -49,6 +51,8 @@ function Autocomplete(props) {
     return () => {
       search.destroy()
     }
+    // Create the autocomplete instance once on mount; recreating it on prop changes would reset it.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return <div ref={containerRef} />

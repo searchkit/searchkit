@@ -17,3 +17,7 @@ allowBuilds:
   esbuild: true
   # only prints a funding message
   core-js: false
+
+overrides:
+  # eslint-plugin-react-hooks 7 allows zod-validation-error ^3.5 but imports its `/v4` entry point, which only 4.x has.
+  'eslint-plugin-react-hooks>zod-validation-error': ^4.0.0

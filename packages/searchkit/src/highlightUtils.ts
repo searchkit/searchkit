@@ -57,13 +57,11 @@ export function getFieldValue(obj: any, path: string): any {
   return path.split('.').reduce((acc, key) => {
     if (Array.isArray(acc)) {
       // Map over the array and extract the value
-      return acc.map(item => item[key])
+      return acc.map((item) => item[key])
     }
 
     // Check if the property exists before accessing it
-    return acc && Object.prototype.hasOwnProperty.call(acc, key)
-      ? acc[key]
-      : undefined
+    return acc && Object.prototype.hasOwnProperty.call(acc, key) ? acc[key] : undefined
   }, obj)
 }
 
