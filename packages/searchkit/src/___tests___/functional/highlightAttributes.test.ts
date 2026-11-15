@@ -1,6 +1,6 @@
 import Client from '../../'
 import { SimpleNoFilterRequest } from '../mocks/AlgoliaRequests'
-import type { AlgoliaMultipleQueriesQuery } from '../../types'
+import type { AlgoliaMultipleQueriesQuery } from '../../'
 
 import nock from 'nock'
 import { HitsResponseWithObjectHighlight } from '../mocks/ElasticsearchResponses'

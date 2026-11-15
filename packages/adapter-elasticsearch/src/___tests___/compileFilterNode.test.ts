@@ -1,5 +1,5 @@
 import { compileFilterNode } from '../filters'
-import { parseFilters } from '../../../searchkit/src/filterParser'
+import { parseFilters } from '@searchkit/core'
 
 const field = (attribute: string) => `${attribute}.keyword`
 

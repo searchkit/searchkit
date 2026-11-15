@@ -5,7 +5,7 @@ import {
   nonDynamicFacetRequestOneFilter,
   NumericFiltersExampleRequest
 } from '../mocks/AlgoliaRequests'
-import type { AlgoliaMultipleQueriesQuery } from '../../types'
+import type { AlgoliaMultipleQueriesQuery } from '../../'
 
 import nock from 'nock'
 import {

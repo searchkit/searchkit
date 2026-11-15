@@ -1,6 +1,6 @@
 import { ElasticsearchAdapter } from '../ElasticsearchAdapter'
-import type { RequestOptions, SearchSettingsConfig, SemanticSearchConfig } from '../core'
-import { getQueryRulesActionsFromRequest } from '../../../searchkit/src/queryRules'
+import type { RequestOptions, SearchSettingsConfig, SemanticSearchConfig } from '@searchkit/core'
+import { getQueryRulesActionsFromRequest } from '@searchkit/core'
 
 const baseSettings: SearchSettingsConfig = {
   search_attributes: ['title'],

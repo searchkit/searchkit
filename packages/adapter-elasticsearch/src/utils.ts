@@ -1,4 +1,4 @@
-import type { SearchRequest } from './core'
+import type { SearchRequest } from '@searchkit/core'
 
 // The terms aggregation `include` uses Lucene regex syntax, where & # @ ~ < > and " are
 // operators too. Lucene reads a backslash before any character as that literal character.

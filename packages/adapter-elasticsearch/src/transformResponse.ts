@@ -8,8 +8,13 @@ import type {
   SearchForFacetValuesResponse,
   SearchResponse,
   SearchSettingsConfig
-} from './core'
-import { getFacetFieldConfig, getFacetFieldType, getPageDetails, getRenderingContent } from './core'
+} from '@searchkit/core'
+import {
+  getFacetFieldConfig,
+  getFacetFieldType,
+  getPageDetails,
+  getRenderingContent
+} from '@searchkit/core'
 import type {
   AggregationsStatsAggregate,
   AggregationsStringTermsAggregate,

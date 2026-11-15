@@ -1,6 +1,6 @@
 import Client from '../../'
 import { DisjunctiveExampleRequest } from '../mocks/AlgoliaRequests'
-import type { AlgoliaMultipleQueriesQuery } from '../../types'
+import type { AlgoliaMultipleQueriesQuery } from '../../'
 import { ESTransporter } from '../../'
 
 import nock from 'nock'

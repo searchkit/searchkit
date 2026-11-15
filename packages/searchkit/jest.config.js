@@ -4,8 +4,9 @@ module.exports = {
   testEnvironment: 'node',
   testTimeout: 70000,
   setupFilesAfterEnv: ['<rootDir>/src/___tests___/support.ts'],
-  // test the adapter's sources (not its build), so the functional tests cover both packages as they are
+  // test the core's and the adapter's sources (not their builds), so the functional tests cover the packages as they are
   moduleNameMapper: {
+    '^@searchkit/core$': '<rootDir>/../core/src/index.ts',
     '^@searchkit/adapter-elasticsearch$': '<rootDir>/../adapter-elasticsearch/src/index.ts'
   }
 };

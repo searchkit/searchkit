@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { AlgoliaMultipleQueriesQuery } from '../../types'
+import { AlgoliaMultipleQueriesQuery } from '../../'
 import { nonDynamicFacetRequest } from '../mocks/AlgoliaRequests'
 import Client from '../..'
 import { HitsWithNoQueryOrFiltersResponse } from '../mocks/ElasticsearchResponses'

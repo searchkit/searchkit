@@ -3,7 +3,7 @@ import type {
   RequestOptions,
   SearchSettingsConfig,
   SemanticSearchConfig
-} from './core'
+} from '@searchkit/core'
 
 const DEFAULT_K = 50
 

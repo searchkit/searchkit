@@ -1,4 +1,4 @@
-import { AlgoliaMultipleQueriesQuery, ElasticsearchResponseBody, Transporter } from '../../types'
+import { AlgoliaMultipleQueriesQuery, ElasticsearchResponseBody, Transporter } from '../../'
 import { nonDynamicFacetRequest } from '../mocks/AlgoliaRequests'
 import Client from '../../'
 import { HitsWithNoQueryOrFiltersResponse } from '../mocks/ElasticsearchResponses'

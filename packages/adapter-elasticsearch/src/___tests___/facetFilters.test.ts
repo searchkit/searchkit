@@ -1,6 +1,6 @@
 import { transformFacetFilters } from '../filters'
-import { getQueryRulesActionsFromRequest } from '../../../searchkit/src/queryRules'
-import type { QueryRule, SearchSettingsConfig } from '../core'
+import { getQueryRulesActionsFromRequest } from '@searchkit/core'
+import type { QueryRule, SearchSettingsConfig } from '@searchkit/core'
 
 const config: SearchSettingsConfig = {
   search_attributes: [],

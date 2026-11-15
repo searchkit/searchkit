@@ -1,14 +1,15 @@
-import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from './types'
 import type {
-  SearchkitConfig,
+  MultipleQueriesQuery as AlgoliaMultipleQueriesQuery,
   RequestOptions,
   AppSettings,
   SearchAdapter,
   SearchResponse,
-  SearchForFacetValuesResponse
-} from './types'
+  SearchForFacetValuesResponse,
+  QueryRuleActions
+} from '@searchkit/core'
+import { getQueryRulesActionsFromRequest } from '@searchkit/core'
 import { ElasticsearchAdapter } from '@searchkit/adapter-elasticsearch'
-import { getQueryRulesActionsFromRequest, QueryRuleActions } from './queryRules'
+import type { SearchkitConfig } from './types'
 
 export {
   ElasticsearchAdapter,
@@ -18,11 +19,57 @@ export {
   TermFilter
 } from '@searchkit/adapter-elasticsearch'
 export type { ElasticsearchAdapterConnection } from '@searchkit/adapter-elasticsearch'
-export * from './types'
-export * from './filterAst'
-export { parseFilters, FilterParseError } from './filterParser'
-export { getFilterAst, getFacetFilterMap } from './filters'
-export type { QueryRuleActions, QueryRuleBoost } from './queryRules'
+export type { SearchkitConfig } from './types'
+// The engine-neutral types and helpers live in @searchkit/core; searchkit re-exports its public API.
+export type {
+  AlgoliaMultipleQueriesQuery,
+  AppSettings,
+  BasicAuth,
+  ConfigConnection,
+  CustomFacetConfig,
+  ElasticsearchHit,
+  ElasticsearchQuery,
+  ElasticsearchResponseBody,
+  ElasticsearchSearchRequest,
+  FacetAttribute,
+  FacetFieldConfig,
+  FacetStringResponse,
+  FacetsStats,
+  FilterAttribute,
+  KnnSearchQuery,
+  MultipleQueriesQuery,
+  QueryConfig,
+  QueryRule,
+  QueryRuleAction,
+  QueryRuleCondition,
+  RequestOptions,
+  SearchAdapter,
+  SearchAttribute,
+  SearchAttributeConfig,
+  SearchForFacetValuesResponse,
+  SearchHit,
+  SearchParams,
+  SearchRequest,
+  SearchResponse,
+  SearchSettingsConfig,
+  SemanticSearchConfig,
+  SortingOption,
+  Transporter,
+  FilterAndNode,
+  FilterEqNode,
+  FilterExistsNode,
+  FilterGeoBoundingBoxNode,
+  FilterGeoDistanceNode,
+  FilterInNode,
+  FilterNode,
+  FilterNotNode,
+  FilterOrNode,
+  FilterRangeBounds,
+  FilterRangeNode,
+  QueryRuleActions,
+  QueryRuleBoost
+} from '@searchkit/core'
+export { parseFilters, FilterParseError, getFilterAst, getFacetFilterMap } from '@searchkit/core'
 
 /**
  * Picks the adapter for a Searchkit config: `adapter` wins; otherwise `connection` (an

@@ -1,4 +1,4 @@
-import { getIndexName } from './core'
+import { getIndexName } from '@searchkit/core'
 import type {
   AppSettings,
   ConfigConnection,
@@ -6,7 +6,7 @@ import type {
   SearchAdapter,
   SearchRequest,
   Transporter
-} from './core'
+} from '@searchkit/core'
 import { transformRequest } from './transformRequest'
 import transformResponse, { transformFacetValuesResponse } from './transformResponse'
 import { ESTransporter } from './Transporter'

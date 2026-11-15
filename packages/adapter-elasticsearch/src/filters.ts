@@ -6,7 +6,7 @@ import {
   getNumericFiltersAst,
   isNestedFacet,
   transformQueryString
-} from './core'
+} from '@searchkit/core'
 import type {
   AlgoliaMultipleQueriesQuery,
   ElasticsearchQuery,
@@ -14,7 +14,7 @@ import type {
   FilterAttribute,
   FilterNode,
   SearchSettingsConfig
-} from './core'
+} from '@searchkit/core'
 
 type FilterConfig = FacetFieldConfig | FilterAttribute
 type FilterConfigMap = Record<string, FilterConfig>

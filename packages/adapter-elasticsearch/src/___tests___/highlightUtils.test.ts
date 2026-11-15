@@ -4,7 +4,7 @@ import {
   highlightTerm,
   isAllowableHighlightField
 } from '../highlightUtils'
-import { ElasticsearchHit } from '../core'
+import { ElasticsearchHit } from '@searchkit/core'
 
 describe('highlight utils', () => {
   it('should highlight one match', () => {

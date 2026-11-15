@@ -23,14 +23,14 @@ import type {
   RequestOptions,
   SearchAttribute,
   SearchSettingsConfig
-} from './core'
+} from '@searchkit/core'
 import {
   getFacet,
   getHitsPerPage,
   getResultsSize,
   getSnippetFieldLength,
   isNestedFacet
-} from './core'
+} from '@searchkit/core'
 import { createRegexQuery } from './utils'
 
 export { getSnippetFieldLength }

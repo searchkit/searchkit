@@ -1,5 +1,5 @@
-import { getSnippetFieldLength } from './core'
-import type { ElasticsearchHit, SearchSettingsConfig } from './core'
+import { getSnippetFieldLength } from '@searchkit/core'
+import type { ElasticsearchHit, SearchSettingsConfig } from '@searchkit/core'
 
 export function highlightTerm(value: string, query: string): string {
   const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi')

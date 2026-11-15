@@ -1,5 +1,5 @@
-import { getSortingOption } from './core'
-import type { AlgoliaMultipleQueriesQuery, SearchSettingsConfig } from './core'
+import { getSortingOption } from '@searchkit/core'
+import type { AlgoliaMultipleQueriesQuery, SearchSettingsConfig } from '@searchkit/core'
 
 export function getSorting(request: AlgoliaMultipleQueriesQuery, config: SearchSettingsConfig) {
   const sortOption = getSortingOption(request, config)

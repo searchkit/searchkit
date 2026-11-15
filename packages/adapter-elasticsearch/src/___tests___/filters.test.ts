@@ -1,5 +1,5 @@
 import { transformBaseFilters, transformNumericFilters } from '../filters'
-import { SearchSettingsConfig } from '../core'
+import { SearchSettingsConfig } from '@searchkit/core'
 import { DisjunctiveExampleRequest } from '../../../searchkit/src/___tests___/mocks/AlgoliaRequests'
 
 describe('filter functions', () => {
