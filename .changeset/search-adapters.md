@@ -10,7 +10,7 @@ Make the search engine pluggable through adapters, and replace `getKnnQuery` wit
 
 The engine-neutral code (search settings and InstantSearch types, the `SearchAdapter` interface, the filter AST and `filters` parser, query rules, sorting and pagination helpers) moves to the new `@searchkit/core` package, which both `searchkit` and the adapters depend on. `searchkit` and `@searchkit/api` re-export the same names as before, so imports from them don't change; import from `@searchkit/core` to write your own adapter.
 
-New `@searchkit/adapter-postgres` package (Node only): a Postgres adapter, `API({ adapter: PostgresAdapter({ connection: process.env.DATABASE_URL, indices: { products: { table: 'products' } } }), search_settings })`, with full-text search (`tsvector`), facets and semantic search (pgvector).
+New `@searchkit/adapter-postgres` package (Node only): a Postgres adapter, `API({ adapter: PostgresAdapter({ connection: process.env.DATABASE_URL, indices: { products: { table: 'products' } } }), search_settings })`, with full-text search (`tsvector`, `websearch_to_tsquery`), facets and semantic search (pgvector). Its `beforeSearch` / `afterSearch` hooks receive `{ text, params, request, indexName }`: the parameterised SQL statement of each request and its bound parameters.
 
 - `adapter` config option (`searchkit` and `@searchkit/api`): `API({ adapter: ElasticsearchAdapter({ host, apiKey }), search_settings })`. `connection: { host }` (or a custom transporter) still works and is wrapped in `ElasticsearchAdapter`; `adapter` wins when both are set.
 - New `search_settings.semantic_search` (`field`, `embed` or `model_id`, `k`, `num_candidates`, `mode: 'hybrid' | 'semantic_only' | 'text_only'`) for KNN / hybrid search.

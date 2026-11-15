@@ -1,19 +1,14 @@
 import pg from 'pg'
-import type { SearchAdapter } from '@searchkit/core'
+import { getIndexName } from '@searchkit/core'
+import type { MultipleQueriesQuery, SearchAdapter, SearchSettingsConfig } from '@searchkit/core'
+import { quoteColumn, quoteTable } from './sql/identifiers'
+import { buildSearchStatement, DEFAULT_ID_COLUMN } from './sql/query'
+import type { PostgresIndexConfig } from './sql/query'
+import { transformResponse } from './transformResponse'
+import type { PostgresSearchResponse } from './transformResponse'
 
-/**
- * @description How an InstantSearch `indexName` maps to a table.
- */
-export interface PostgresIndexConfig {
-  /** The table to search. May be schema-qualified: 'shop.products' */
-  table: string
-  /** The primary key column, returned as `objectID`. Defaults to 'id' */
-  id_column?: string
-  /** A precomputed `tsvector` column (recommended, with a GIN index). Without it the text is vectorised at query time from `search_attributes` */
-  search_vector_column?: string
-  /** The text search configuration (regconfig) used by `websearch_to_tsquery` / `to_tsvector`. Defaults to 'english' */
-  text_search_config?: string
-}
+export type { PostgresIndexConfig } from './sql/query'
+export type { PostgresSearchResponse } from './transformResponse'
 
 /**
  * @description The subset of a `pg` `Pool` the adapter uses, so an existing pool can be shared with the app.
@@ -37,30 +32,32 @@ export interface PostgresAdapterConfig {
 }
 
 /**
- * @description The SQL statement built for one InstantSearch request. `params` are bound parameters.
+ * @description The SQL statement built for one InstantSearch request (what the `beforeSearch` / `afterSearch`
+ * hooks receive). `text` holds only SQL and quoted identifiers from the configuration; every value is in
+ * `params`, bound as `$1`, `$2`, ...
  */
 export interface PostgresSearchRequest {
-  indexName: string
+  /** The SQL statement */
   text: string
+  /** The bound parameters of `text` */
   params: unknown[]
+  /** The InstantSearch request the statement was built for */
+  request: MultipleQueriesQuery
+  /** The configured index (key of `indices`) the request resolved to, without a sorting suffix */
+  indexName: string
 }
 
-/**
- * @description The row returned by the statement for one InstantSearch request.
- */
-export type PostgresSearchResponse = Record<string, unknown>
-
-const notImplemented = (method: string) =>
+const notImplemented = (feature: string) =>
   new Error(
-    `@searchkit/adapter-postgres: ${method} is not implemented yet. The Postgres adapter is under development and cannot run searches in this version.`
+    `@searchkit/adapter-postgres: ${feature} is not implemented yet. The Postgres adapter is under development; this version supports full-text search, filters, sorting and pagination.`
   )
 
 /**
- * Searchkit adapter for Postgres (Node only): full-text search with `tsvector`, facets with `GROUP BY`
- * and semantic search with pgvector.
+ * Searchkit adapter for Postgres (Node only): full-text search with `tsvector` and `websearch_to_tsquery`,
+ * exact `count(*)` totals and `LIMIT` / `OFFSET` pagination.
  *
- * Work in progress: the adapter validates its configuration, but does not run searches yet
- * (`buildRequest` throws).
+ * Work in progress: facets, highlighting, query rule boosts / pinned results and semantic search are not
+ * implemented yet.
  */
 export const PostgresAdapter = (
   config: PostgresAdapterConfig
@@ -72,6 +69,12 @@ export const PostgresAdapter = (
   }
   if (!config.indices || Object.keys(config.indices).length === 0) {
     throw new Error('PostgresAdapter: `indices` must map at least one indexName to a table')
+  }
+  // fail on a bad identifier when the adapter is created, not on the first search
+  for (const index of Object.values(config.indices)) {
+    quoteTable(index.table)
+    quoteColumn(index.id_column || DEFAULT_ID_COLUMN)
+    if (index.search_vector_column) quoteColumn(index.search_vector_column)
   }
 
   // created on first use, so building the adapter (e.g. at module load) does not connect
@@ -87,20 +90,81 @@ export const PostgresAdapter = (
     return pool
   }
 
+  const getIndex = (request: MultipleQueriesQuery, settings: SearchSettingsConfig) => {
+    const indexName = getIndexName(request.indexName, settings)
+    const index = config.indices[indexName]
+    if (!index) {
+      throw new Error(
+        `@searchkit/adapter-postgres: no table configured for indexName "${indexName}". Add it to \`indices\` (configured: ${Object.keys(
+          config.indices
+        )
+          .map((name) => `"${name}"`)
+          .join(', ')}).`
+      )
+    }
+    return { indexName, index }
+  }
+
   return {
     name: 'postgres',
-    buildRequest() {
-      throw notImplemented('buildRequest')
+
+    buildRequest(request, settings, rules) {
+      if (request.params?.facetName) {
+        throw notImplemented('search for facet values')
+      }
+      const { indexName, index } = getIndex(request, settings)
+      const { text, params } = buildSearchStatement(request, settings, rules, index)
+      return { text, params, request, indexName }
     },
-    async execute() {
-      getPool()
-      throw notImplemented('execute')
+
+    async execute(requests, settings) {
+      const db = getPool()
+      if (settings.debug) {
+        console.log('Performing search with requests:')
+        for (const { indexName, text, params } of requests) {
+          console.log(`-- index: ${indexName}\n${text};\n-- params: ${JSON.stringify(params)}`)
+        }
+      }
+
+      const responses = await Promise.all(
+        requests.map(async ({ indexName, text, params }) => {
+          const start = Date.now()
+          try {
+            const result = await db.query(text, params)
+            return { ...result.rows[0], took: Date.now() - start } as PostgresSearchResponse
+          } catch (e) {
+            const message = e instanceof Error ? e.message : String(e)
+            const error = new Error(
+              `@searchkit/adapter-postgres: query for index "${indexName}" failed: ${message}${
+                settings.debug
+                  ? `\nSQL:\n${text}\nParams: ${JSON.stringify(params)}`
+                  : ' (enable debug mode to log the SQL)'
+              }`
+            )
+            // the pg error (code, position, ...)
+            ;(error as Error & { cause?: unknown }).cause = e
+            throw error
+          }
+        })
+      )
+
+      if (settings.debug) {
+        console.log('Postgres response:')
+        console.log(JSON.stringify(responses))
+      }
+      return responses
     },
-    transformResponse() {
-      throw notImplemented('transformResponse')
+
+    transformResponse(response, request, settings, rules) {
+      const { index } = getIndex(request, settings)
+      return transformResponse(response, request, settings, rules, {
+        idColumn: index.id_column || DEFAULT_ID_COLUMN,
+        index: index.table
+      })
     },
+
     transformFacetValuesResponse() {
-      throw notImplemented('transformFacetValuesResponse')
+      throw notImplemented('search for facet values')
     }
   }
 }
