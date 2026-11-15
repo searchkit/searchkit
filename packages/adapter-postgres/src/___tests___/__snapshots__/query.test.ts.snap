@@ -15,7 +15,7 @@ hits AS (
 ),
 total AS (SELECT count(*) AS n FROM base)
 SELECT
-  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM (SELECT hits.*, json_build_object($6::text, ts_headline($1::regconfig, coalesce(hits."name"::text, ''), q.tsq, $5)) AS _highlight FROM hits CROSS JOIN q) h) AS hits,
   (SELECT n FROM total) AS total"
 `;
 
@@ -35,7 +35,7 @@ hits AS (
 ),
 total AS (SELECT count(*) AS n FROM base)
 SELECT
-  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM (SELECT hits.*, json_build_object($11::text, ts_headline($1::regconfig, coalesce(hits."name"::text, ''), q.tsq, $10)) AS _highlight FROM hits CROSS JOIN q) h) AS hits,
   (SELECT n FROM total) AS total"
 `;
 
@@ -71,7 +71,7 @@ hits AS (
 ),
 total AS (SELECT count(*) AS n FROM base)
 SELECT
-  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM (SELECT hits.*, json_build_object($6::text, ts_headline($1::regconfig, coalesce(hits."name"::text, ''), q.tsq, $5)) AS _highlight FROM hits CROSS JOIN q) h) AS hits,
   (SELECT n FROM total) AS total"
 `;
 
@@ -124,6 +124,6 @@ hits AS (
 ),
 total AS (SELECT count(*) AS n FROM base)
 SELECT
-  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM (SELECT hits.*, json_build_object($6::text, ts_headline($1::regconfig, coalesce(hits."name"::text, ''), q.tsq, $5)) AS _highlight FROM hits CROSS JOIN q) h) AS hits,
   (SELECT n FROM total) AS total"
 `;

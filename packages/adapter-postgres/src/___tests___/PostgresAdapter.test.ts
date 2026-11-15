@@ -56,7 +56,16 @@ describe('PostgresAdapter', () => {
     const built = await adapter.buildRequest(request, settings, rules(request))
     expect(built.indexName).toBe('products')
     expect(built.request).toBe(request)
-    expect(built.params).toEqual(['english', 'tv', 2, 2])
+    expect(built.params).toEqual([
+      'english',
+      'tv',
+      2,
+      2,
+      'StartSel="<ais-highlight-0000000000>",StopSel="</ais-highlight-0000000000>",HighlightAll=true',
+      'name',
+      'StartSel="<ais-highlight-0000000000>",StopSel="</ais-highlight-0000000000>",MaxFragments=1,MaxWords=33,MinWords=16',
+      'description'
+    ])
     expect(built.text).toContain('websearch_to_tsquery($1::regconfig, $2)')
   })
 
@@ -143,7 +152,7 @@ describe('PostgresAdapter', () => {
     const log = jest.spyOn(console, 'log').mockImplementation(() => {})
     try {
       await expect(adapter.execute([built], { debug: true })).rejects.toThrow(
-        `\nSQL:\n${built.text}\nParams: ["english","tv",2,2]`
+        `\nSQL:\n${built.text}\nParams: ${JSON.stringify(built.params)}`
       )
     } finally {
       log.mockRestore()

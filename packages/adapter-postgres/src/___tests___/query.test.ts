@@ -29,6 +29,12 @@ const index: PostgresIndexConfig = {
   text_search_config: 'english'
 }
 
+// the `_highlight` params of `highlight_attributes: ['name']`: the ts_headline options and the attribute
+const HIGHLIGHT_PARAMS = [
+  'StartSel="<ais-highlight-0000000000>",StopSel="</ais-highlight-0000000000>",HighlightAll=true',
+  'name'
+]
+
 const build = (
   request: MultipleQueriesQuery,
   config: SearchSettingsConfig = settings,
@@ -44,7 +50,7 @@ const build = (
 describe('buildSearchStatement', () => {
   it('searches the search vector column for a query', () => {
     const statement = build({ indexName: 'products', params: { query: 'samsung tv' } })
-    expect(statement.params).toEqual(['english', 'samsung tv', 20, 0])
+    expect(statement.params).toEqual(['english', 'samsung tv', 20, 0, ...HIGHLIGHT_PARAMS])
     expect(statement.text).toMatchSnapshot()
   })
 
@@ -89,7 +95,7 @@ describe('buildSearchStatement', () => {
       `setweight(to_tsvector($1::regconfig, coalesce(t."name"::text, '')), 'A') || setweight(to_tsvector($1::regconfig, coalesce(t."brand"::text, '')), 'B') || setweight(to_tsvector($1::regconfig, coalesce(t."description"::text, '')), 'C')`
     )
     expect(statement.text).toContain('FROM "shop"."products" t CROSS JOIN q')
-    expect(statement.params).toEqual(['english', 'tv', 20, 0])
+    expect(statement.params).toEqual(['english', 'tv', 20, 0, ...HIGHLIGHT_PARAMS])
     expect(statement.text).toMatchSnapshot()
   })
 
@@ -102,7 +108,18 @@ describe('buildSearchStatement', () => {
         numericFilters: ['price>=100', 'price<=500']
       }
     })
-    expect(statement.params).toEqual(['english', 'tv', 'Samsung', 'LG', 'Sony', 100, 500, 20, 0])
+    expect(statement.params).toEqual([
+      'english',
+      'tv',
+      'Samsung',
+      'LG',
+      'Sony',
+      100,
+      500,
+      20,
+      0,
+      ...HIGHLIGHT_PARAMS
+    ])
     expect(statement.text).toMatchSnapshot()
   })
 
@@ -126,18 +143,18 @@ describe('buildSearchStatement', () => {
           hitsPerPage: 7,
           facetFilters: [`brand:${value}`],
           numericFilters: ['price>=123.45'],
-          filters: `brand:"${value}" OR price:[11 TO 99]`
+          filters: `brand:"${value}" OR price:[42 TO 99]`
         }
       },
       settings,
       { table: 'products' }
     )
     // ('7' is not checked: it is also in the placeholder $7)
-    for (const v of [value, 'DROP', '123.45', '11', '99', '14']) {
+    for (const v of [value, 'DROP', '123.45', '42', '99', '14']) {
       expect(statement.text).not.toContain(v)
     }
     expect(statement.params).toEqual(
-      expect.arrayContaining([value, 123.45, 11, 99, 7, 14, 'english'])
+      expect.arrayContaining([value, 123.45, 42, 99, 7, 14, 'english'])
     )
     expect(statement.text).not.toContain('english')
   })

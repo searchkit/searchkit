@@ -1,7 +1,8 @@
 # @searchkit/adapter-postgres
 
 > **Work in progress.** This package is under development. It runs full-text searches with filters, facets, sorting
-> and pagination; highlighting, query rule boosts / pinned results and semantic search are not implemented yet.
+> and pagination, with highlighting and snippets (`ts_headline`); query rule boosts / pinned results and semantic
+> search are not implemented yet.
 
 The Postgres adapter for [Searchkit](https://www.searchkit.co): full-text search with `tsvector`, facets with
 `GROUP BY` and semantic search with pgvector. It runs on the server only (Node 22.11+), for example in the API route

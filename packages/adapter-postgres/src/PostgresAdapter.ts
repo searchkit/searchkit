@@ -49,11 +49,10 @@ export interface PostgresSearchRequest {
 
 /**
  * Searchkit adapter for Postgres (Node only): full-text search with `tsvector` and `websearch_to_tsquery`,
- * exact `count(*)` totals, `LIMIT` / `OFFSET` pagination, facets with `GROUP BY` (exact counts) and
- * search for facet values.
+ * exact `count(*)` totals, `LIMIT` / `OFFSET` pagination, facets with `GROUP BY` (exact counts),
+ * search for facet values, and highlighting / snippets with `ts_headline`.
  *
- * Work in progress: highlighting, query rule boosts / pinned results and semantic search are not
- * implemented yet.
+ * Work in progress: query rule boosts / pinned results and semantic search are not implemented yet.
  */
 export const PostgresAdapter = (
   config: PostgresAdapterConfig

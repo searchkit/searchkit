@@ -19,6 +19,7 @@ import {
   getRequestedFacets
 } from './facets'
 import { compileFilter } from './filters'
+import { buildHeadlineColumns } from './highlight'
 import { Params, quoteColumn, quoteTable } from './identifiers'
 
 /**
@@ -153,6 +154,8 @@ const getFilter = (
  *        (SELECT n FROM total) AS total
  * ```
  *
+ * With a query and `highlight_attributes` / `snippet_attributes`, each hit also gets `_highlight` and
+ * `_snippet` JSON objects built with `ts_headline` over the page of hits only (see `buildHeadlineColumns`).
  * With an empty query there is no text predicate, `_score` is 0 and the default order is by id.
  * Identifiers come from the configuration (validated and quoted); every value is a bound parameter.
  */
@@ -178,18 +181,21 @@ export const buildSearchStatement = (
     ? [getFacetValuesFacet(facetName, settings)]
     : getRequestedFacets(request, settings, rules)
 
-  const hitColumns = Array.from(new Set([idColumn, ...hitAttributes])).map(quoteColumn)
+  // snippet attributes need not be result attributes; they are only read to build `_snippet`
+  const pageColumns = [idColumn, ...hitAttributes, ...getSnippetAttributes(settings)]
+  const hitColumns = Array.from(new Set(pageColumns)).map(quoteColumn)
   const baseColumns = Array.from(
-    new Set([idColumn, ...hitAttributes, ...sortColumns, ...facets.map((f) => f.field)])
+    new Set([...pageColumns, ...sortColumns, ...facets.map((f) => f.field)])
   ).map(quoteColumn)
 
   const ctes: string[] = []
   const where: string[] = []
   let score = `0::real AS ${SCORE_COLUMN}`
   let from = `${table} t`
+  let configParam = ''
 
   if (hasQuery) {
-    const configParam = params.add(index.text_search_config || DEFAULT_TEXT_SEARCH_CONFIG)
+    configParam = params.add(index.text_search_config || DEFAULT_TEXT_SEARCH_CONFIG)
     const queryParam = params.add(query)
     const vector = index.search_vector_column
       ? `t.${quoteColumn(index.search_vector_column)}`
@@ -234,8 +240,20 @@ export const buildSearchStatement = (
       ].join('\n')
     )
     ctes.push('total AS (SELECT count(*) AS n FROM base)')
+    // highlights and snippets are computed for the page of hits only
+    const headlineColumns = hasQuery
+      ? buildHeadlineColumns(request, settings, params, {
+          configParam,
+          tsquery: 'q.tsq',
+          qualifier: 'hits.'
+        })
+      : []
+    const page =
+      headlineColumns.length > 0
+        ? `(SELECT hits.*, ${headlineColumns.join(', ')} FROM hits CROSS JOIN q)`
+        : 'hits'
     select.push(
-      `(SELECT coalesce(json_agg(h ORDER BY h.${ROW_NUMBER_COLUMN}), '[]'::json) FROM hits h) AS hits`,
+      `(SELECT coalesce(json_agg(h ORDER BY h.${ROW_NUMBER_COLUMN}), '[]'::json) FROM ${page} h) AS hits`,
       '(SELECT n FROM total) AS total'
     )
   }
