@@ -68,6 +68,12 @@ export type FacetFieldConfig = {
   field: string
   type: 'numeric' | 'string' | 'date'
   nestedPath?: string
+  /**
+   * @description Postgres adapter only: the column is an array (e.g. `text[]`), a multi-valued attribute.
+   * Facets `unnest` it before counting and filters use array operators (`@>`, `&&`), so a row matches when
+   * any of its values does, like a multi-valued field in Elasticsearch. The Elasticsearch adapter ignores it.
+   */
+  array?: boolean
 }
 
 export type FacetStringResponse = Record<string, number>
@@ -103,6 +109,12 @@ export type FilterAttribute = {
    * @description Allows you to customise the filter query that is sent to Elasticsearch. This is useful for custom filters that don't fit the standard term query.
    */
   filterQuery?: (field: string, value: string) => ElasticsearchQuery
+  /**
+   * @description Postgres adapter only: the column is an array (e.g. `text[]`), a multi-valued attribute.
+   * Facets `unnest` it before counting and filters use array operators (`@>`, `&&`), so a row matches when
+   * any of its values does, like a multi-valued field in Elasticsearch. The Elasticsearch adapter ignores it.
+   */
+  array?: boolean
 }
 
 export interface BasicAuth {

@@ -186,10 +186,7 @@ const postgresSettings: SearchSettingsConfig = {
     { attribute: 'categories.lvl2', field: 'hierarchical_categories_lvl2', type: 'string' },
     { attribute: 'price', field: 'price', type: 'numeric' }
   ],
-  filter_attributes: [
-    // a text[] column; marked `array: true` once the Postgres adapter supports filters
-    { attribute: 'categories', field: 'categories', type: 'string' }
-  ]
+  filter_attributes: [{ attribute: 'categories', field: 'categories', type: 'string', array: true }]
 }
 
 const config: SearchkitConfig = usePostgres
