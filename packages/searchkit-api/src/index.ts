@@ -10,8 +10,6 @@ class Client {
     this.searchkit = new Searchkit(config, settings)
   }
 
-  // Explicit return type: searchkit's declarations inline the Elasticsearch types they use, so
-  // the inferred type would reference names this package's declarations cannot import.
   handleRequest(
     body: any,
     requestOptions?: RequestOptions
