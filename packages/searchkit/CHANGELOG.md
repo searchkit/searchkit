@@ -1,5 +1,13 @@
 # searchkit
 
+## 4.18.1
+
+### Patch Changes
+
+- [#1455](https://github.com/searchkit/searchkit/pull/1455) [`2a92c23`](https://github.com/searchkit/searchkit/commit/2a92c23a55b36fbf3ae3c51c07cbd62d3537fb0a) Thanks [@trackoor](https://github.com/trackoor), [@bardrop](https://github.com/bardrop)! - Fix refining a facet value that starts with `-` returning no hits ([#1425](https://github.com/searchkit/searchkit/issues/1425), reported by @trackoor, with a fix proposed by @bardrop in [#1437](https://github.com/searchkit/searchkit/pull/1437)). InstantSearch escapes a leading `-` as `\-` in `facetFilters`; Searchkit now unescapes it before building the Elasticsearch filter clause.
+
+- [#1452](https://github.com/searchkit/searchkit/pull/1452) [`c9810bc`](https://github.com/searchkit/searchkit/commit/c9810bc66428a47c1e0a6bc4238f297c0c901fe7) Thanks [@joemcelroy](https://github.com/joemcelroy)! - Fix TypeScript errors when `@elastic/elasticsearch` is not installed, or is a version whose package `exports` hide `lib/api/types` (e.g. the latest 8.x). Searchkit only uses the Elasticsearch client for types, so the types it uses are now included in its own declarations instead of being imported from `@elastic/elasticsearch`. Nothing extra needs to be installed, and Elasticsearch 8.x and 9.x clients both work alongside it.
+
 ## 4.18.0
 
 ### Minor Changes
