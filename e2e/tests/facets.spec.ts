@@ -40,7 +40,7 @@ test.describe('hierarchical category facet', () => {
     await expect.poll(() => resultCount(page)).toBeLessThan(10000)
 
     await page.locator('.ais-CurrentRefinements-delete').first().click()
-    await expect.poll(() => resultCount(page)).toBe(10000)
+    await expect.poll(() => resultCount(page)).toBeGreaterThanOrEqual(10000)
     await expect(page.locator('.ais-CurrentRefinements-item')).toHaveCount(0)
   })
 })

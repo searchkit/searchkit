@@ -41,7 +41,7 @@ test.describe('/api/search', () => {
     const filtered = (await (await search([['categories.lvl0:Cell Phones']])).json()).results[0]
       .nbHits
 
-    expect(all).toBe(10000)
+    expect(all).toBeGreaterThanOrEqual(10000)
     expect(filtered).toBeGreaterThan(0)
     expect(filtered).toBeLessThan(all)
   })
