@@ -1,7 +1,9 @@
 import { expect, test } from '@playwright/test'
-import { hits, openApp, resultCount } from './helpers'
+import { hits, openApp, resultCount, statsText } from './helpers'
 
 const menu = (page: import('@playwright/test').Page) => page.locator('.ais-HierarchicalMenu')
+const refinementLabel = (page: import('@playwright/test').Page, label: string) =>
+  page.locator('.ais-CurrentRefinements-categoryLabel').getByText(label, { exact: true })
 
 test.describe('hierarchical category facet', () => {
   test('lists top level categories with the default facet order', async ({ page }) => {
@@ -109,5 +111,41 @@ test.describe('price range facet', () => {
     await expect.poll(() => resultCount(page)).toBeLessThan(total)
     await expect(page.locator('.ais-CurrentRefinements')).toContainText(/price/i)
     await expect(page).toHaveURL(/price/)
+  })
+})
+
+test.describe('brand starting with "-"', () => {
+  const brand = '-40 Below'
+
+  test('selecting it shows its products and survives a reload', async ({ page }) => {
+    await openApp(page)
+    await menu(page)
+      .getByRole('link', { name: /^TV & Home Theater/ })
+      .first()
+      .click()
+    await menu(page).getByRole('link', { name: /^TVs/ }).first().click()
+
+    const brandList = page.locator('.ais-RefinementList')
+    await expect(brandList).toBeVisible()
+    await brandList.locator('.ais-SearchBox-input').fill(brand)
+    const item = brandList.locator('.ais-RefinementList-item')
+    await expect(item).toHaveCount(1)
+    await expect(item.locator('.ais-RefinementList-labelText')).toHaveText(brand)
+    await expect(item.locator('.ais-RefinementList-count')).toHaveText('3')
+
+    await item.locator('.ais-RefinementList-checkbox').check()
+    await expect.poll(() => resultCount(page)).toBe(3)
+    await expect(hits(page)).toHaveCount(3)
+    for (const text of await hits(page).allInnerTexts()) expect(text).toContain(brand)
+    await expect(refinementLabel(page, brand)).toHaveCount(1)
+
+    // the refinement round-trips through the URL (written debounced by the routing)
+    await expect
+      .poll(() => decodeURIComponent(page.url()).replace(/\+/g, ' '))
+      .toContain('[refinementList][brand][0]=')
+    await page.reload()
+    await expect(statsText(page)).toContainText('results found')
+    await expect.poll(() => resultCount(page)).toBe(3)
+    await expect(refinementLabel(page, brand)).toHaveCount(1)
   })
 })
