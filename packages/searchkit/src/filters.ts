@@ -155,13 +155,14 @@ export const transformNumericFilters = (
 /**
  * InstantSearch (via algoliasearch-helper's `escapeFacetValue`) escapes a leading
  * `-` in a facet value as `\-` so it is not read as a facet exclusion. Reverse
- * that so the original value reaches the Elasticsearch filter clause.
+ * that so the original value reaches the Elasticsearch filter clause and query rules.
  */
 const unescapeFacetValue = (value: string) => value.replace(/^\\-/, '-')
 
-const parseFacetFilter = (filter: string): [string, string] => {
-  const [facet, value = ''] = filter.split(/:(.*)/)
-  return [facet, unescapeFacetValue(value)]
+/** Splits an InstantSearch `facetFilters` entry (`attribute:value`) into its parts. */
+export const parseFacetFilter = (filter: string): [string, string] => {
+  const [facet, value] = filter.split(/:(.*)/)
+  return [facet, value && unescapeFacetValue(value)]
 }
 
 const getFacetFilterMap = (facets: FacetAttribute[], filters: FilterAttribute[]) => {

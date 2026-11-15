@@ -1,5 +1,6 @@
 import { transformFacetFilters } from '../filters'
-import type { SearchSettingsConfig } from '../types'
+import { getQueryRulesActionsFromRequest } from '../queryRules'
+import type { QueryRule, SearchSettingsConfig } from '../types'
 
 const config: SearchSettingsConfig = {
   search_attributes: [],
@@ -63,6 +64,28 @@ describe('transformFacetFilters', () => {
       expect(filterQuery).toHaveBeenCalledWith('band', '-5')
       expect(result).toEqual([{ match: { band: '-5' } }])
     })
+  })
+
+  it('matches query rule filter conditions against the unescaped value', () => {
+    const rules: QueryRule[] = [
+      {
+        id: 'negative-band',
+        conditions: [
+          [{ context: 'filterPresent', values: [{ attribute: 'band', value: '-10 to 0' }] }]
+        ],
+        actions: [{ action: 'RenderUserData', userData: '{"banner":"cold"}' }]
+      }
+    ]
+    const actionsFor = (facetFilters: any) =>
+      getQueryRulesActionsFromRequest(
+        rules,
+        { indexName: 'index', params: { facetFilters } },
+        config
+      ).ruleIds
+
+    expect(actionsFor([['band:\\-10 to 0']])).toEqual(['negative-band'])
+    expect(actionsFor(['band:\\-10 to 0'])).toEqual(['negative-band'])
+    expect(actionsFor('band:\\-10 to 0')).toEqual(['negative-band'])
   })
 
   it('leaves values without an escaped leading "-" unchanged', () => {
