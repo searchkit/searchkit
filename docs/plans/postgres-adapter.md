@@ -1,8 +1,22 @@
 # Plan: Postgres adapter for Searchkit
 
-Status: approved design, ready to implement. Decisions below were made by the maintainer on 2026-11-15 and are
+Status: approved design, phase 1 implemented. Decisions below were made by the maintainer on 2026-11-15 and are
 not open for re-litigation by the implementing agent; questions that come up during implementation and are not
 covered here should be raised, not guessed.
+
+Workflow: all phases land on the integration branch `postgres-adapter` (not `main`). Each phase is committed
+and pushed to that branch; one PR from `postgres-adapter` to `main` is opened at the end. Nothing is published
+to npm until that PR merges, and the implementing agent never publishes.
+
+Revisions after phase 1 (2026-11-15, maintainer decisions):
+
+- Decision 1 revised: a `@searchkit/core` package holds the engine-neutral code and both adapters depend on it.
+  `searchkit` depends on core and the ES adapter and re-exports both, so the public `searchkit` import is
+  unchanged. This removes the `searchkit` <-> adapter cycle that phase 1 worked around by bundling core sources
+  into the adapter via `src/core.ts`; that workaround is to be removed in phase 2.
+- Decision 3 revised: this is a major release (v5). `getKnnQuery` is **removed**, not deprecated. Passing it
+  throws an error that tells the user to use `semantic_search`. Keep that behaviour.
+- Docs pages that still describe `getKnnQuery` are fixed in phase 2, not phase 8.
 
 ## Goal
 
@@ -127,8 +141,7 @@ semantic_search?: {
 - `semantic_only`: ES = `knn` only (today's `getQuery: () => false` + `getKnnQuery`). PG = `ORDER BY embedding <=> $v`.
 - `text_only`: ignore the vector (useful to toggle via env without removing config).
 - Empty query: no vector search in any mode (today's behaviour).
-- `getKnnQuery` keeps working for the ES adapter but logs a one-time deprecation warning. If both are set,
-  `getKnnQuery` wins (so existing users are not surprised).
+- `getKnnQuery` is removed (v5). Passing it throws an error pointing at `semantic_search`.
 
 ## Architecture
 
@@ -360,7 +373,8 @@ similarity: cosine }`).
 
 ## Phases
 
-Each phase is a separate PR with its own changeset. Gates are the commands that must pass before moving on.
+Each phase is a set of commits pushed to the `postgres-adapter` branch, with a changeset where the public API
+changes. Gates are the commands that must pass before moving on.
 
 ### Phase 1: adapter seam, Elasticsearch only (no behaviour change)
 
@@ -369,13 +383,35 @@ Each phase is a separate PR with its own changeset. Gates are the commands that 
    `bool` output must be unchanged).
 3. `searchkit` depends on and re-exports it; `Searchkit` constructor resolves `adapter` / `connection`.
 4. `@searchkit/api` passes `adapter` through.
-5. Add `semantic_search` to the ES adapter; deprecate `getKnnQuery` (warning once, still works, wins if both set).
+5. Add `semantic_search` to the ES adapter; remove `getKnnQuery` (throws with a migration message).
 6. Update `examples/with-semantic-search-nextjs` to `semantic_search`.
 
 Gate: `pnpm build && pnpm lint && pnpm typecheck && pnpm test` and `pnpm e2e:up && pnpm test:e2e` all green,
 with no changes to the e2e specs or Jest snapshots of ES request bodies.
 
-### Phase 2: Postgres e2e infrastructure
+Done: commits `d527bd89`, `0d7167e2`, `a9ba0467`, `5f328814` on `postgres-adapter`.
+
+### Phase 2: `@searchkit/core`, docs catch-up, Postgres e2e infrastructure
+
+Part A, `@searchkit/core` (revised decision 1):
+
+1. Create `packages/core` (`@searchkit/core`, same tsup / jest / eslint / tsconfig setup, browser-safe, no `pg`,
+   no `@elastic/elasticsearch` runtime dependency; type-only imports from `@elastic/elasticsearch` are fine only
+   if they do not leak into the built `.d.ts`; otherwise define the needed types locally). Move the engine-neutral
+   code there: `SearchAdapter`, `SearchSettingsConfig` and request/response types, filter AST, `parseFilters`,
+   InstantSearch param -> AST builders, query rule evaluation, sorting lookup, pagination maths, facet helpers.
+2. `@searchkit/adapter-elasticsearch` depends on `@searchkit/core` and deletes `src/core.ts` and the bundling of
+   core sources.
+3. `searchkit` depends on `@searchkit/core` and `@searchkit/adapter-elasticsearch`, holds the `Searchkit` class,
+   and re-exports everything it exports today. `check:dts` must stay self-contained for every package.
+4. Changeset: `@searchkit/core` major (new, released alongside v5).
+
+Part B, docs catch-up: every page under `apps/web/pages/docs` that mentions `getKnnQuery` is rewritten to
+`semantic_search` (at least `api-documentation/searchkit.mdx`, `tutorials/semantic-search.mdx`,
+`guides/customising-query.mdx`, `components/search-box.mdx`, `getting-started/with-react.mdx`). The root
+README is already done.
+
+Part C, Postgres e2e infrastructure:
 
 Docker service, seeder, example parameterisation, second Playwright project, CI job changes. The Postgres adapter
 can be a stub that throws. Gate: `pnpm e2e:up` seeds 10,000 rows into Postgres; the ES project still passes.
@@ -410,12 +446,12 @@ Gate: `tests/semantic.spec.ts` on both projects.
   `proxy-elasticsearch` and `guides/setup-elasticsearch.mdx`, with redirects or stubs left behind) and
   `postgres.mdx` (connection, table requirements, `tsvector` generated column + GIN index, `array: true`,
   hierarchical columns, pgvector setup, limitations: no geo, no nested, no runtime mappings, exact counts).
-- `tutorials/semantic-search.mdx` and `guides/customising-query.mdx`: switch to `semantic_search`, note the
-  `getKnnQuery` deprecation.
 - `DEVELOPMENT.md`: Postgres e2e instructions and the `E2E_PG_PORT` override.
-- Changesets: minor for `searchkit`, `@searchkit/api`; new packages start at `0.1.0`... use the version
-  `searchkit` is on for `@searchkit/adapter-elasticsearch` (it is the same code) and `0.1.0` for
-  `@searchkit/adapter-postgres`.
+- Changesets: the existing `.changeset/search-adapters.md` is major for `searchkit`, `@searchkit/api` and
+  `@searchkit/adapter-elasticsearch`. Add `@searchkit/core` (major) and `@searchkit/adapter-postgres` (major,
+  so every package ships as 5.0.0 together) with a `getKnnQuery` -> `semantic_search` migration note.
+- No publishing. Open one PR from `postgres-adapter` to `main`; npm trusted publishing for the new packages is
+  the maintainer's job after merge.
 
 Final gate: `pnpm build && pnpm lint && pnpm typecheck && pnpm test && pnpm test:e2e` (both projects) green locally
 and in CI.
@@ -428,7 +464,8 @@ builds of the Postgres adapter.
 
 ## Conventions for the implementing agent
 
-- Work on a branch from `main`; one PR per phase; every PR includes a changeset (`pnpm changeset`).
+- Work on the `postgres-adapter` branch; never push to `main`, never publish. Add a changeset whenever the
+  public API changes (write the `.changeset/*.md` file by hand, following the existing one).
 - Keep the ES adapter's emitted request bodies identical; the Jest snapshots are the oracle.
 - Never build SQL by string-concatenating values. Identifiers come only from config and are validated + quoted.
 - Postgres code is Node-only; do not add it to the `searchkit` UMD bundle or import it from browser code.
