@@ -46,6 +46,19 @@ test.describe('/api/search', () => {
     expect(filtered).toBeLessThan(all)
   })
 
+  test('sorts by the sorting option of the indexName suffix', async ({ request }) => {
+    const response = await request.post('/api/search', {
+      data: [{ indexName: 'products_price_asc', params: { query: 'samsung', hitsPerPage: 20 } }]
+    })
+    expect(response.ok()).toBeTruthy()
+
+    const [result] = (await response.json()).results
+    expect(result.hits.length).toBeGreaterThan(1)
+    const prices = result.hits.map((hit: { price: number }) => Number(hit.price))
+    expect(prices.every((price: number) => Number.isFinite(price))).toBe(true)
+    expect(prices).toEqual([...prices].sort((a, b) => a - b))
+  })
+
   test('rejects a request with no instantsearch requests', async ({ request }) => {
     const response = await request.post('/api/search', { data: {} })
     expect(response.ok()).toBeFalsy()

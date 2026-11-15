@@ -46,7 +46,12 @@ const sharedSettings = {
     { field: 'brand', weight: 2 },
     'description'
   ],
-  result_attributes: ['name', 'description'],
+  // price is returned so the sorting can be checked (e2e/tests/api.spec.ts)
+  result_attributes: ['name', 'description', 'price'],
+  // indexName `products_price_asc` sorts by ascending price
+  sorting: {
+    _price_asc: { field: 'price', order: 'asc' }
+  },
   query_rules: [
     {
       id: 'default-state',
