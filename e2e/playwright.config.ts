@@ -2,7 +2,8 @@ import { defineConfig, devices } from '@playwright/test'
 
 const PORT = Number(process.env.E2E_PORT || 3000)
 // When set, serve this prepared copy of the example (built from packages installed from npm, see
-// scripts/prepare-published-example.mjs) instead of the workspace example.
+// scripts/prepare-published-example.mjs) instead of the workspace example. That run uses a copy of this directory
+// installed from npm too, so the tests' own searchkit imports are the published packages.
 const APP_DIR = process.env.E2E_APP_DIR
 const ES_HOST = process.env.ES_HOST || 'http://localhost:9200'
 
