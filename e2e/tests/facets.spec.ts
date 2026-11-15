@@ -114,9 +114,6 @@ test.describe('price range facet', () => {
   })
 })
 
-// https://github.com/searchkit/searchkit/issues/1425
-// InstantSearch escapes a leading "-" in a refined value as "\-". The "-40 Below" brand comes from
-// e2e/fixtures/extra-products.json (3 TVs).
 test.describe('brand starting with "-"', () => {
   const brand = '-40 Below'
 
