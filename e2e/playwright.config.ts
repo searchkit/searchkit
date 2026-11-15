@@ -7,9 +7,7 @@ const APP_DIR = process.env.E2E_APP_DIR
 const ES_HOST = process.env.ES_HOST || 'http://localhost:9200'
 
 // The same specs also run against Postgres (project `chromium-postgres`): the example started a second time,
-// on its own port, with SEARCH_ADAPTER=postgres. Opt-in with E2E_POSTGRES=1 while the Postgres adapter is
-// being built (it does not run searches yet, so that project fails); see DEVELOPMENT.md.
-const POSTGRES = !!process.env.E2E_POSTGRES
+// on its own port, with SEARCH_ADAPTER=postgres. Run one side with --project=chromium / chromium-postgres.
 const POSTGRES_PORT = Number(process.env.E2E_POSTGRES_PORT || 3001)
 const DATABASE_URL =
   process.env.DATABASE_URL || 'postgres://postgres:searchkit@localhost:5432/postgres'
@@ -47,23 +45,20 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'], baseURL: `http://localhost:${PORT}` }
     },
-    ...(POSTGRES
-      ? [
-          {
-            name: 'chromium-postgres',
-            use: { ...devices['Desktop Chrome'], baseURL: `http://localhost:${POSTGRES_PORT}` }
-          }
-        ]
-      : [])
+    {
+      name: 'chromium-postgres',
+      use: { ...devices['Desktop Chrome'], baseURL: `http://localhost:${POSTGRES_PORT}` },
+      // builds its own Elasticsearch index in-process and never uses the example app, so it does not test
+      // Postgres (and running it in both projects would race on that shared index)
+      testIgnore: /escaped-facet-values\.spec\.ts/
+    }
   ],
   // Builds examples/with-ui-nextjs-react (which uses the workspace searchkit packages) once and serves it
-  // against the local Elasticsearch, and with E2E_POSTGRES=1 a second time against the local Postgres. Web
-  // servers start in order, so the build in the first one is done before the second starts. Run
-  // `pnpm build` at the repo root first so packages have a dist/.
+  // against the local Elasticsearch, and a second time against the local Postgres. Web servers start in order,
+  // so the build in the first one is done before the second starts. Run `pnpm build` at the repo root first
+  // so packages have a dist/.
   webServer: [
     webServer(PORT, true, { ES_HOST, SEARCH_ADAPTER: 'elasticsearch' }),
-    ...(POSTGRES
-      ? [webServer(POSTGRES_PORT, false, { SEARCH_ADAPTER: 'postgres', DATABASE_URL })]
-      : [])
+    webServer(POSTGRES_PORT, false, { SEARCH_ADAPTER: 'postgres', DATABASE_URL })
   ]
 })

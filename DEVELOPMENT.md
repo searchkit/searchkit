@@ -74,7 +74,7 @@ Requirements: Docker, plus a one-off `npx playwright install chromium` from `e2e
 ```bash
 pnpm build          # the example uses the built workspace packages
 pnpm e2e:up         # starts Elasticsearch and Postgres (docker-compose.e2e.yml) and seeds both
-pnpm test:e2e       # builds + starts the example on :3000 and runs the Playwright tests
+pnpm test:e2e       # builds + starts the example on :3000 (Elasticsearch) and :3001 (Postgres), runs the tests
 pnpm e2e:down       # stops and removes Elasticsearch and Postgres
 ````
 
@@ -91,11 +91,13 @@ pnpm e2e:down       # stops and removes Elasticsearch and Postgres
   public demo cluster when they are unset (see `examples/with-ui-nextjs-react/.env.example`).
 - `e2e/check-workspace-links.mjs` fails the run if the example would use published packages instead of the ones in
   your branch (e.g. after a version bump that isn't mirrored in the example's `package.json`).
-- **Postgres** (`@searchkit/adapter-postgres`, work in progress): the Playwright project `chromium-postgres` runs the
-  same specs against a second instance of the example on :3001 (`E2E_POSTGRES_PORT`), started with
-  `SEARCH_ADAPTER=postgres` and `DATABASE_URL`. It is opt-in for now, because the adapter does not run searches yet
-  and the project fails: `E2E_POSTGRES=1 pnpm test:e2e --project=chromium-postgres`. Without `E2E_POSTGRES` only the
-  Elasticsearch project (`chromium`) runs. Once the adapter is complete, both projects will run by default (and in CI).
+- **Postgres** (`@searchkit/adapter-postgres`, work in progress): `pnpm test:e2e` runs every spec twice, in the
+  Playwright projects `chromium` (Elasticsearch, the example on :3000) and `chromium-postgres` (a second instance of
+  the example on :3001, `E2E_POSTGRES_PORT`, started with `SEARCH_ADAPTER=postgres` and `DATABASE_URL`). Run one
+  side with `pnpm test:e2e --project=chromium` or `pnpm test:e2e --project=chromium-postgres`. The adapter does
+  not implement every feature yet (facets, highlighting, query rule boosts / pinned results, semantic search), so
+  the specs for those fail on `chromium-postgres` until it does. `escaped-facet-values.spec.ts` builds its own
+  Elasticsearch index and does not use the example, so `chromium-postgres` does not run it (`testIgnore`).
 - To add a test, create `e2e/tests/<name>.spec.ts` and reuse `e2e/tests/helpers.ts`. Prefer assertions about
   behaviour (results narrow, banner shows) over exact counts so tests don't break when the sample data changes.
 

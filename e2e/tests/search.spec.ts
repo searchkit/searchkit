@@ -9,6 +9,11 @@ test.describe('search', () => {
   })
 
   test('narrows results and highlights matches for a query', async ({ page }) => {
+    // TODO(postgres adapter phase 5): remove when the Postgres adapter highlights matches
+    test.fixme(
+      test.info().project.name === 'chromium-postgres',
+      'Postgres adapter: highlighting is not implemented yet'
+    )
     await openApp(page)
     await search(page, 'samsung')
 

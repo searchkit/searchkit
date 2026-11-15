@@ -124,8 +124,9 @@ jobs:
         run: npx playwright install --with-deps chromium
         working-directory: e2e
 
+      # Elasticsearch only: this job has no Postgres service (the chromium-postgres project needs one)
       - name: Run functional tests against the published packages
-        run: pnpm test:e2e
+        run: pnpm test:e2e --project=chromium
         env:
           E2E_APP_DIR: ${{ runner.temp }}/published-example
 

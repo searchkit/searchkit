@@ -74,8 +74,8 @@ jobs:
 
   # Drives the Next.js example in a real browser (Playwright) against a real Elasticsearch and a real
   # Postgres (pgvector), running as service containers. See DEVELOPMENT.md ("End-to-end tests").
-  # Both are seeded; the Postgres Playwright project (E2E_POSTGRES=1) is not run yet, because the
-  # Postgres adapter does not run searches yet.
+  # Both are seeded, and the Playwright suite runs twice: project `chromium` (Elasticsearch) and project
+  # `chromium-postgres` (the same example started with SEARCH_ADAPTER=postgres).
   functional-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -158,8 +158,8 @@ jobs:
         run: npx playwright install-deps chromium
         working-directory: e2e
 
-      - name: Run functional tests
-        run: pnpm test:e2e
+      - name: Run functional tests (Elasticsearch and Postgres)
+        run: pnpm test:e2e --project=chromium --project=chromium-postgres
 
       - name: Upload Playwright report
         if: failure()
