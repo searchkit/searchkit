@@ -224,7 +224,7 @@ export interface SearchSettingsConfig {
    */
   runtime_mappings?: Record<string, RuntimeMapping>
   /**
-   * @description Semantic (vector) search, combined with the text query. Replaces the deprecated `getKnnQuery` request option.
+   * @description Semantic (vector) search, combined with the text query (replaces the `getKnnQuery` request option removed in v5).
    * @example { field: 'embedding', embed: async (query) => embedText(query), k: 50, mode: 'hybrid' }
    */
   semantic_search?: SemanticSearchConfig
@@ -359,7 +359,7 @@ export type SearchRequest<TBody = ElasticsearchSearchRequest> = {
 }
 
 /**
- * @description The search settings passed to `getQuery` and `getKnnQuery`, along with the InstantSearch request being transformed (e.g. `config.request.indexName`)
+ * @description The search settings passed to `getQuery`, along with the InstantSearch request being transformed (e.g. `config.request.indexName`)
  */
 export type QueryConfig = SearchSettingsConfig & {
   request: AlgoliaMultipleQueriesQuery
@@ -372,7 +372,7 @@ export interface RequestOptions<TRequest = SearchRequest, TResponse = Elasticsea
    * @param search_attributes The search attributes configured in the search settings
    * @param config The search settings, plus the InstantSearch `request` being transformed
    * @returns An Elasticsearch query object or an array of Elasticsearch query objects
-   * @returns false if you want to skip the search query (useful for just KNN search)
+   * @returns false if you want to skip the search query (for vector search only, prefer `semantic_search.mode: 'semantic_only'`)
    */
 
   getQuery?: (
@@ -385,20 +385,6 @@ export interface RequestOptions<TRequest = SearchRequest, TResponse = Elasticsea
    * @returns An array of Elasticsearch query objects that will be wrapped in a bool filter query
    **/
   getBaseFilters?: () => ElasticsearchQuery[]
-
-  /**
-   * @deprecated Use `search_settings.semantic_search` instead. Still supported by the Elasticsearch adapter; if both are set, `getKnnQuery` is used.
-   * @description Allows you to specify the KNN query to be used for KNN search. Hits will be combined with the organic query. If you do not want to use the organic query, return false from getQuery.
-   * @param query The original query search terms
-   * @param search_attributes The search attributes configured in the search settings
-   * @param config The search settings, plus the InstantSearch `request` being transformed
-   * @returns An Elasticsearch KNN Search Query
-   */
-  getKnnQuery?: (
-    query: string,
-    search_attributes: SearchAttribute[],
-    config: QueryConfig
-  ) => ElasticKnnSearchQuery
 
   /**
    * @description Hooks are escape hatches that allow you to modify the search requests to Elasticsearch and the responses back from Elasticsearch.

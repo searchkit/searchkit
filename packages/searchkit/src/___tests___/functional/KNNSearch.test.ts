@@ -18,7 +18,13 @@ describe('KNNSearch', () => {
           'type',
           { field: 'actors.keyword', attribute: 'actors', type: 'string' },
           'rated'
-        ]
+        ],
+        semantic_search: {
+          field: 'dense-vector-field',
+          model_id: 'cookie_model',
+          k: 10,
+          num_candidates: 100
+        }
       }
     })
 
@@ -65,22 +71,7 @@ describe('KNNSearch', () => {
       .reply(200, HitsResponseWithFacetFilter)
 
     const response = await client.handleInstantSearchRequests(
-      DisjunctiveExampleRequest as AlgoliaMultipleQueriesQuery[],
-      {
-        getKnnQuery(query, search_attributes, config) {
-          return {
-            field: 'dense-vector-field',
-            k: 10,
-            num_candidates: 100,
-            query_vector_builder: {
-              text_embedding: {
-                model_id: 'cookie_model',
-                model_text: query
-              }
-            }
-          }
-        }
-      }
+      DisjunctiveExampleRequest as AlgoliaMultipleQueriesQuery[]
     )
 
     expect(response).toBeTruthy()
@@ -100,7 +91,14 @@ describe('KNNSearch', () => {
           'type',
           { field: 'actors.keyword', attribute: 'actors', type: 'string' },
           'rated'
-        ]
+        ],
+        semantic_search: {
+          field: 'dense-vector-field',
+          model_id: 'cookie_model',
+          k: 10,
+          num_candidates: 100,
+          mode: 'semantic_only'
+        }
       }
     })
 
@@ -153,22 +151,7 @@ describe('KNNSearch', () => {
       }
     ] as AlgoliaMultipleQueriesQuery[]
 
-    const response = await client.handleInstantSearchRequests(request, {
-      getQuery: () => false,
-      getKnnQuery(query, search_attributes, config) {
-        return {
-          field: 'dense-vector-field',
-          k: 10,
-          num_candidates: 100,
-          query_vector_builder: {
-            text_embedding: {
-              model_id: 'cookie_model',
-              model_text: query
-            }
-          }
-        }
-      }
-    })
+    const response = await client.handleInstantSearchRequests(request)
 
     expect(response).toBeTruthy()
   })
@@ -187,7 +170,13 @@ describe('KNNSearch', () => {
           'type',
           { field: 'actors.keyword', attribute: 'actors', type: 'string' },
           'rated'
-        ]
+        ],
+        semantic_search: {
+          field: 'dense-vector-field',
+          model_id: 'cookie_model',
+          k: 10,
+          num_candidates: 100
+        }
       }
     })
 
@@ -300,21 +289,7 @@ describe('KNNSearch', () => {
 
     const request = DisjunctiveExampleRequest as AlgoliaMultipleQueriesQuery[]
 
-    const response = await client.handleInstantSearchRequests(request, {
-      getKnnQuery(query, search_attributes, config) {
-        return {
-          field: 'dense-vector-field',
-          k: 10,
-          num_candidates: 100,
-          query_vector_builder: {
-            text_embedding: {
-              model_id: 'cookie_model',
-              model_text: query
-            }
-          }
-        }
-      }
-    })
+    const response = await client.handleInstantSearchRequests(request)
 
     expect(response).toBeTruthy()
   })

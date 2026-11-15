@@ -234,8 +234,8 @@ const getQuery = (
           match_all: {}
         }
 
-  // the deprecated getKnnQuery request option wins over search_settings.semantic_search
-  const knnQueryBuilder = getKnnQueryBuilder(config, requestOptions, queryVector)
+  // search_settings.semantic_search: KNN search, combined with the text query unless semantic_only
+  const knnQueryBuilder = getKnnQueryBuilder(config, queryVector)
   const hasKnn = typeof knnQueryBuilder.build === 'function'
   const hasNoQuery =
     requestOptions?.getQuery?.(query, searchAttributes, queryConfig) === false ||
@@ -261,7 +261,7 @@ const getQuery = (
   if (hasKnn && query !== '') {
     knnQueryDsl = {
       filter: filters,
-      ...(knnQueryBuilder.build?.(query, searchAttributes, queryConfig) || {})
+      ...(knnQueryBuilder.build?.(query) || {})
     } as KnnSearchQuery
   }
 

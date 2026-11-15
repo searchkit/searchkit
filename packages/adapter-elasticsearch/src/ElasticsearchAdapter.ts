@@ -10,7 +10,7 @@ import type {
 import { transformRequest } from './transformRequest'
 import transformResponse, { transformFacetValuesResponse } from './transformResponse'
 import { ESTransporter } from './Transporter'
-import { getQueryVector, warnGetKnnQueryDeprecated } from './semantic'
+import { assertNoGetKnnQuery, getQueryVector } from './semantic'
 import { createElasticsearchQueryFromRequest } from './utils'
 
 /**
@@ -34,10 +34,8 @@ export function ElasticsearchAdapter(
     name: 'elasticsearch',
 
     async buildRequest(request, settings, rules, options) {
-      if (typeof options?.getKnnQuery === 'function') {
-        warnGetKnnQueryDeprecated()
-      }
-      const queryVector = await getQueryVector(rules.query, settings, options)
+      assertNoGetKnnQuery(options)
+      const queryVector = await getQueryVector(rules.query, settings)
 
       return {
         body: transformRequest(request, settings, rules, options, queryVector),

@@ -43,26 +43,22 @@ const knnQuery = (query: string) => ({
 const filter = [{ bool: { should: [{ term: { type: 'movie' } }] } }]
 
 describe('semantic_search', () => {
-  let warn: jest.SpyInstance
-  beforeEach(() => {
-    warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
-  })
-  afterEach(() => warn.mockRestore())
-
-  it('hybrid with model_id emits the same request as the equivalent getKnnQuery', async () => {
-    const viaSettings = await build('shawshank', {
+  it('hybrid with model_id: text query + knn with query_vector_builder + rrf', async () => {
+    const body = await build('shawshank', {
       field: 'embedding',
       model_id: 'my-model',
       k: 10,
       num_candidates: 100
     })
-    const viaGetKnnQuery = await build('shawshank', undefined, { getKnnQuery: knnQuery })
 
-    expect(viaSettings).toEqual(viaGetKnnQuery)
-    expect(JSON.stringify(viaSettings)).toEqual(JSON.stringify(viaGetKnnQuery))
-    expect(viaSettings.knn).toEqual({ filter, ...knnQuery('shawshank') })
-    expect(viaSettings.rank).toEqual({ rrf: { window_size: 10 } })
-    expect(viaSettings.query).toBeDefined()
+    expect(body.knn).toEqual({ filter, ...knnQuery('shawshank') })
+    expect(body.rank).toEqual({ rrf: { window_size: 10 } })
+    expect(body.query).toEqual(
+      expect.objectContaining({ bool: expect.objectContaining({ filter }) })
+    )
+    // same body as text search, plus knn and rank
+    const { knn, rank, ...rest } = body
+    expect(JSON.stringify(rest)).toEqual(JSON.stringify(await build('shawshank')))
   })
 
   it('hybrid with embed sends the query vector, with k / num_candidates defaults', async () => {
@@ -86,23 +82,18 @@ describe('semantic_search', () => {
     expect(body.knn).toMatchObject({ query_vector: [1, 2] })
   })
 
-  it('semantic_only emits knn only, like getQuery returning false with getKnnQuery', async () => {
-    const viaSettings = await build('shawshank', {
+  it('semantic_only emits knn only, no text query', async () => {
+    const body = await build('shawshank', {
       field: 'embedding',
       model_id: 'my-model',
       k: 10,
       num_candidates: 100,
       mode: 'semantic_only'
     })
-    const viaOptions = await build('shawshank', undefined, {
-      getQuery: () => false,
-      getKnnQuery: knnQuery
-    })
 
-    expect(viaSettings.query).toBeUndefined()
-    expect(viaSettings.rank).toBeUndefined()
-    expect(viaSettings.knn).toEqual({ filter, ...knnQuery('shawshank') })
-    expect(JSON.stringify(viaSettings)).toEqual(JSON.stringify(viaOptions))
+    expect(body.query).toBeUndefined()
+    expect(body.rank).toBeUndefined()
+    expect(body.knn).toEqual({ filter, ...knnQuery('shawshank') })
   })
 
   it('text_only ignores the vector search', async () => {
@@ -132,16 +123,10 @@ describe('semantic_search', () => {
     expect(body.rank).toBeUndefined()
   })
 
-  it('getKnnQuery wins when both are set', async () => {
-    const embed = jest.fn(async () => [1])
-    const body = await build(
-      'shawshank',
-      { field: 'other', embed, mode: 'semantic_only' },
-      { getKnnQuery: knnQuery }
-    )
-    expect(embed).not.toHaveBeenCalled()
-    expect(body.knn).toEqual({ filter, ...knnQuery('shawshank') })
-    expect(body.query).toBeDefined()
+  it('rejects the getKnnQuery option removed in v5 with a migration hint', async () => {
+    await expect(
+      build('shawshank', undefined, { getKnnQuery: knnQuery } as RequestOptions)
+    ).rejects.toThrow('the `getKnnQuery` request option was removed in v5')
   })
 
   it('requires exactly one of embed or model_id', async () => {
@@ -151,25 +136,5 @@ describe('semantic_search', () => {
     await expect(
       build('shawshank', { field: 'embedding', model_id: 'm', embed: () => [1] })
     ).rejects.toThrow('provide exactly one of `embed`')
-  })
-})
-
-describe('getKnnQuery deprecation', () => {
-  it('warns once', async () => {
-    jest.resetModules()
-    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
-    const { ElasticsearchAdapter: FreshAdapter } = await import('../ElasticsearchAdapter')
-    const adapter = FreshAdapter({ host: 'http://localhost:9200' })
-    const req = request('shawshank')
-    const rules = getQueryRulesActionsFromRequest([], req, baseSettings)
-
-    await adapter.buildRequest(req, baseSettings, rules, {})
-    expect(warn).not.toHaveBeenCalled()
-
-    await adapter.buildRequest(req, baseSettings, rules, { getKnnQuery: knnQuery })
-    await adapter.buildRequest(req, baseSettings, rules, { getKnnQuery: knnQuery })
-    expect(warn).toHaveBeenCalledTimes(1)
-    expect(warn.mock.calls[0][0]).toContain('`getKnnQuery` request option is deprecated')
-    warn.mockRestore()
   })
 })

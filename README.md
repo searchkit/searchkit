@@ -232,22 +232,21 @@ const results = await apiClient.handleRequest(req.body, {
 
 ### Semantic Query Search
 
-Searchkit supports KNN query search. Below is an example of a KNN query search.
+Searchkit supports semantic (KNN) search, combined with the text query (hybrid) or on its own. Configure it with
+`semantic_search` in the search settings.
 
 ```ts
-const results = await client.handleRequest(req.body, {
-  getKnnQuery(query, search_attributes, config) {
-    return {
+const client = Client({
+  connection: { host: 'http://localhost:9200' },
+  search_settings: {
+    // ...
+    semantic_search: {
       field: 'dense-vector-field',
+      // Elasticsearch embeds the query with this model; or pass `embed: async (query) => number[]`
+      model_id: 'cookie_model',
       k: 10,
       num_candidates: 100,
-      // supported in latest version of Elasticsearch
-      query_vector_builder: {
-        text_embedding: {
-          model_id: 'cookie_model',
-          model_text: query
-        }
-      }
+      mode: 'hybrid' // or 'semantic_only' / 'text_only'
     }
   }
 })
