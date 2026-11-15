@@ -277,8 +277,12 @@ const getQuery = (
     query: queryDsl,
     knn: knnQueryDsl ? knnQueryDsl : undefined,
     // in hybrid mode (knn + keyword query), is displaying results and query is not empty
+    // `rank_window_size` is the name Elasticsearch 8.15 accepts (`window_size` is rejected); the
+    // bundled @elastic/elasticsearch 8.9 types still only know the old name, hence the cast
     rank:
-      hasKnn && !hasNoQuery && size > 0 && query !== '' ? { rrf: { window_size: size } } : undefined
+      hasKnn && !hasNoQuery && size > 0 && query !== ''
+        ? ({ rrf: { rank_window_size: size } } as unknown as RankContainer)
+        : undefined
   }
 }
 
@@ -376,12 +380,16 @@ export function transformRequest(
   requestOptions?: RequestOptions,
   queryVector?: number[]
 ): ElasticsearchSearchRequest {
+  const query = getQuery(request, config, queryRuleActions, requestOptions, queryVector)
   const body: ElasticsearchSearchRequest = {
     aggs: getAggs(request, config, queryRuleActions),
-    ...getQuery(request, config, queryRuleActions, requestOptions, queryVector),
+    ...query,
     ...getResultsSize(request),
     ...getHitFields(request, config),
-    ...getHighlightFields(request, config),
+    // Elasticsearch rejects a highlighter together with `rank` ("[rank] cannot be used with
+    // [highlighter]"), so hybrid (RRF) requests carry no highlight; those hits get plain
+    // `_highlightResult` values with matchLevel 'none'
+    ...(query.rank ? {} : getHighlightFields(request, config)),
     ...getSorting(request, config),
     ...getRuntimeMappings(request, config)
   }

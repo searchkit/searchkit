@@ -24,10 +24,7 @@ const search = async (
 const ids = (result: Result) => result.hits.map((hit) => hit.objectID)
 
 // Elasticsearch hybrid search is `query` + `knn` + `rank.rrf`; reciprocal rank fusion needs a licence
-// above Basic (the e2e cluster runs the default Basic licence and answers 403 "current license is
-// non-compliant for [Reciprocal Rank Fusion (RRF)]").
-const skipHybridOnElasticsearch = () =>
-  test.skip(test.info().project.name === 'chromium', 'rrf needs a licensed ES')
+// above Basic, so the e2e cluster runs with a self-generated trial licence (docker-compose.e2e.yml).
 
 test.describe('semantic_search', () => {
   test('text_only ignores the vector: same hits as the plain text search', async ({ request }) => {
@@ -66,7 +63,6 @@ test.describe('semantic_search', () => {
   })
 
   test('hybrid returns relevant hits, the text matches included', async ({ request }) => {
-    skipHybridOnElasticsearch()
     const hybrid = await search(request, '/api/semantic/hybrid', { query: 'samsung' })
     const textOnly = await search(request, '/api/semantic/text_only', { query: 'samsung' })
     expect(hybrid.nbHits).toBeGreaterThan(0)
@@ -78,7 +74,6 @@ test.describe('semantic_search', () => {
   })
 
   test('hybrid applies the filters to both searches', async ({ request }) => {
-    skipHybridOnElasticsearch()
     const result = await search(request, '/api/semantic/hybrid', {
       query: 'samsung',
       facetFilters: [['brand:Apple']]

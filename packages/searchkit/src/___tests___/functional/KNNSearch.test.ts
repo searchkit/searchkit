@@ -36,7 +36,7 @@ describe('KNNSearch', () => {
         expect(rank).toMatchInlineSnapshot(`
           {
             "rrf": {
-              "window_size": 20,
+              "rank_window_size": 20,
             },
           }
         `)
@@ -189,7 +189,7 @@ describe('KNNSearch', () => {
         expect(rank).toMatchInlineSnapshot(`
           {
             "rrf": {
-              "window_size": 20,
+              "rank_window_size": 20,
             },
           }
         `)

@@ -6,6 +6,8 @@ services:
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
+      # trial licence so the hybrid (rank.rrf) semantic tests can run; e2e cluster only
+      - xpack.license.self_generated.type=trial
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
     ports:
       # override the host port with E2E_ES_PORT if 9200 is taken (then also set ES_HOST)

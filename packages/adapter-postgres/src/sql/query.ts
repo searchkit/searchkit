@@ -99,6 +99,32 @@ const getSearchAttributesVector = (settings: SearchSettingsConfig, configParam: 
     .join(' || ')
 }
 
+/** How much of the best pg_trgm similarity (0..1) is added to the full-text rank when `fuzziness` is set */
+const TRIGRAM_RANK_WEIGHT = '0.1'
+
+/**
+ * The pg_trgm predicate and similarity over the `search_attributes` columns, used when `fuzziness`
+ * is set. Any non-empty `fuzziness` value turns it on; the Elasticsearch syntax (`AUTO:4,8`) is
+ * accepted but only its presence matters here. Columns are cast to text so array columns work too.
+ */
+const getTrigramMatch = (settings: SearchSettingsConfig, queryParam: string) => {
+  const fields = (settings.search_attributes || []).map((attribute) =>
+    typeof attribute === 'string' ? attribute : attribute.field
+  )
+  if (fields.length === 0) {
+    throw new Error(
+      '@searchkit/adapter-postgres: `fuzziness` needs `search_attributes` (the columns compared with pg_trgm)'
+    )
+  }
+  const columns = fields.map((field) => `coalesce(t.${quoteColumn(field)}::text, '')`)
+  return {
+    predicate: `(${columns.map((column) => `${column} % ${queryParam}`).join(' OR ')})`,
+    similarity: `greatest(${columns
+      .map((column) => `similarity(${column}, ${queryParam})`)
+      .join(', ')})`
+  }
+}
+
 const getOrderBy = (sorting: SortingOption | SortingOption[] | undefined, idColumn: string) => {
   const id = quoteColumn(idColumn)
   if (!sorting) {
@@ -278,10 +304,17 @@ export const buildSearchStatement = (
     ctes.push(`q AS (SELECT websearch_to_tsquery(${configParam}::regconfig, ${queryParam}) AS tsq)`)
     from = `${table} t CROSS JOIN q`
     rank = `ts_rank_cd(${vector}, q.tsq)`
+    let matches = `${vector} @@ q.tsq`
+    if (settings.fuzziness) {
+      // opt-in typo tolerance with pg_trgm: a row also matches when a search attribute is similar to
+      // the query (`%`, the `pg_trgm.similarity_threshold`), and the best similarity is added to the
+      // rank at a fraction of its value so exact full-text matches still rank first
+      const trigram = getTrigramMatch(settings, queryParam)
+      matches = `(${matches} OR ${trigram.predicate})`
+      rank = `(${rank} + ${TRIGRAM_RANK_WEIGHT} * ${trigram.similarity})::real`
+    }
     textMatch = {
-      predicate: pinnedParam
-        ? `(${vector} @@ q.tsq OR ${idText} = ANY(${pinnedParam}))`
-        : `${vector} @@ q.tsq`,
+      predicate: pinnedParam ? `(${matches} OR ${idText} = ANY(${pinnedParam}))` : matches,
       rank
     }
     if (semantic) {

@@ -44,6 +44,8 @@ CREATE TABLE products (
   ) STORED
 );
 CREATE INDEX ON products USING gin (search_vector);
+-- trigram indexes for the opt-in \`fuzziness\` (pg_trgm) match on the search attributes
+CREATE INDEX ON products USING gin (name gin_trgm_ops); CREATE INDEX ON products USING gin (brand gin_trgm_ops);
 CREATE INDEX ON products (brand); CREATE INDEX ON products (hierarchical_categories_lvl0);
 CREATE INDEX ON products (hierarchical_categories_lvl1); CREATE INDEX ON products (price);
 `

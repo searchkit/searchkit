@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`buildSearchStatement adds a pg_trgm match over the search attributes when fuzziness is set 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+base AS (
+  SELECT t."id", t."name", t."description", (ts_rank_cd(t."search_vector", q.tsq) + 0.1 * greatest(similarity(coalesce(t."name"::text, ''), $2), similarity(coalesce(t."brand"::text, ''), $2), similarity(coalesce(t."description"::text, ''), $2)))::real AS _score
+  FROM "products" t CROSS JOIN q
+  WHERE (t."search_vector" @@ q.tsq OR (coalesce(t."name"::text, '') % $2 OR coalesce(t."brand"::text, '') % $2 OR coalesce(t."description"::text, '') % $2))
+),
+hits AS (
+  SELECT "id", "name", "description", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $3 OFFSET $4
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM (SELECT hits.*, json_build_object($6::text, ts_headline($1::regconfig, coalesce(hits."name"::text, ''), q.tsq, $5)) AS _highlight FROM hits CROSS JOIN q) h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
 exports[`buildSearchStatement builds the tsvector from search_attributes, weighted by descending weight, without a search vector column 1`] = `
 "WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
 base AS (

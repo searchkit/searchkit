@@ -28,6 +28,14 @@ const apiClient = API({
 })
 ```
 
+## Fuzziness (pg_trgm)
+
+Full-text search has no typo tolerance. Setting `search_settings.fuzziness` (any value; `AUTO:4,8` is accepted for
+parity with Elasticsearch, only its presence matters) adds a trigram match over the `search_attributes` columns: a
+row also matches when a column is similar to the query (`%`, see `pg_trgm.similarity_threshold`), and a tenth of the
+best `similarity()` is added to the rank. It needs `CREATE EXTENSION pg_trgm` and ideally a
+`gin (column gin_trgm_ops)` index per search attribute.
+
 ## Facets and filters
 
 Facet and filter attributes map to plain columns (`field` is a column name). Facet counts are exact: each requested

@@ -17,7 +17,12 @@ The engine-neutral code (search settings and InstantSearch types, the `SearchAda
 - **`search_settings.semantic_search`** for KNN / hybrid search on both engines: `field`, `embed` (a function returning the query vector) or `model_id` (Elasticsearch only), `k` (default 50), `num_candidates` (Elasticsearch only), `distance: 'cosine' | 'l2' | 'inner_product'` (Postgres only) and `mode: 'hybrid' | 'semantic_only' | 'text_only'`. Postgres computes hybrid reciprocal rank fusion in SQL; Elasticsearch uses `rank.rrf`, which needs a licence above Basic.
 - **`getWhere` request option** (Postgres only): an extra SQL predicate (`{ text, params }`) AND-ed with the filters of every search, e.g. for permissions. The Elasticsearch-only `getQuery` and `getBaseFilters` throw with the Postgres adapter, and `getWhere` throws with the Elasticsearch adapter, instead of being silently ignored.
 - **`array: true`** on facet and filter attributes (Postgres adapter only, ignored by Elasticsearch): marks an array column, so its facet is unnested and its filters use array operators.
+- **`fuzziness` on Postgres** (opt-in, `pg_trgm`): when set, a row also matches when a `search_attributes` column is similar to the query (`%`), and a tenth of the best `similarity()` is added to the rank.
 - New exports: `ElasticsearchAdapter`, the `SearchAdapter` interface, the engine-neutral filter AST types, `parseFilters` and `getFilterAst`.
+
+### Fixes
+
+- Hybrid semantic search on Elasticsearch sent `rank.rrf.window_size`, which Elasticsearch 8.15 rejects (`unknown field [window_size] did you mean [rank_window_size]?`). It now sends `rank_window_size`. Hybrid requests also no longer include a highlighter, which Elasticsearch rejects together with `rank`; their hits carry plain `_highlightResult` values (matchLevel `none`). Both were hidden before because reciprocal rank fusion needs a licence above Basic.
 
 ### Migration
 

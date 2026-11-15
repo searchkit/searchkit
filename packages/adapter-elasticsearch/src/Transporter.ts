@@ -98,7 +98,7 @@ export class ESTransporter implements Transporter {
         throw new Error(JSON.stringify(responses))
       } else if (responses.status === 401) {
         console.error(
-          'Cannot connect to Elasticsearch. Check your connection host and auth details (username/password or API Key required). You can also provide a custom Elasticsearch transporter to the API Client. See https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword for more details.'
+          'Cannot connect to Elasticsearch. Check your connection host and auth details (username/password or API Key required). You can also provide a custom Elasticsearch transporter to the API Client. See https://www.searchkit.co/docs/adapters/elasticsearch#connecting-with-usernamepassword for more details.'
         )
         throw new Error(JSON.stringify(responses))
       } else if (responses.responses?.[0]?.status === 403) {

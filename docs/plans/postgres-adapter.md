@@ -576,6 +576,24 @@ Notes:
   fixed.
 - `pnpm --filter web build` passes; the regenerated `apps/web/public/sitemap-0.xml` is reverted, not committed.
 
+### Wrap-up (after phase 8)
+
+- `fuzziness` on Postgres (decision 9) implemented as an opt-in `pg_trgm` match over the `search_attributes`
+  columns: `%` predicate OR-ed with the full-text match, a tenth of the best `similarity()` added to the rank.
+  The e2e seeder adds `gin_trgm_ops` indexes on `name` and `brand`; the example keeps fuzziness off.
+- The e2e Elasticsearch runs with `xpack.license.self_generated.type=trial` (compose and CI) so the hybrid
+  (`rank.rrf`) semantic tests run on both engines; the two `test.skip` guards are gone.
+- Enabling the licence exposed two Elasticsearch-side bugs in hybrid mode, both fixed in the ES adapter:
+  `rank.rrf.window_size` must be `rank_window_size` on ES 8.15, and a highlighter cannot be sent together with
+  `rank`, so hybrid requests carry no highlight (their hits get plain `_highlightResult` values). The two KNN
+  hybrid snapshots in `packages/searchkit` were updated for exactly those two changes.
+- Links to `/docs/guides/setup-elasticsearch` in READMEs, examples and the transporter error message now point
+  to `/docs/adapters/elasticsearch`; the `/docs/proxy-elasticsearch/with-*` pages still exist and keep their
+  links.
+- Final gate: build, lint, typecheck, format, dts checks green; unit tests core 42, adapter-elasticsearch 68,
+  adapter-postgres 96, searchkit 68, api 3, instantsearch-client 3; e2e 62 passed, 0 skipped (34 Elasticsearch,
+  28 Postgres).
+
 ## Out of scope for v1 (say so in docs)
 
 Geo filters, ES `nestedPath`, `runtime_mappings`, custom facet SQL (`CustomFacetConfig` is ES only), approximate

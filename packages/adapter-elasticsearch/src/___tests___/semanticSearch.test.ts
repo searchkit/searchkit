@@ -52,7 +52,7 @@ describe('semantic_search', () => {
     })
 
     expect(body.knn).toEqual({ filter, ...knnQuery('shawshank') })
-    expect(body.rank).toEqual({ rrf: { window_size: 10 } })
+    expect(body.rank).toEqual({ rrf: { rank_window_size: 10 } })
     expect(body.query).toEqual(
       expect.objectContaining({ bool: expect.objectContaining({ filter }) })
     )
@@ -73,7 +73,7 @@ describe('semantic_search', () => {
       num_candidates: 100,
       query_vector: [0.1, 0.2, 0.3]
     })
-    expect(body.rank).toEqual({ rrf: { window_size: 10 } })
+    expect(body.rank).toEqual({ rrf: { rank_window_size: 10 } })
     expect(body.query).toBeDefined()
   })
 

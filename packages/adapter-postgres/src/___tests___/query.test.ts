@@ -55,6 +55,23 @@ describe('buildSearchStatement', () => {
     expect(statement.text).toMatchSnapshot()
   })
 
+  it('adds a pg_trgm match over the search attributes when fuzziness is set', () => {
+    const statement = build(
+      { indexName: 'products', params: { query: 'samsnug' } },
+      { ...settings, fuzziness: 'AUTO:4,8' }
+    )
+    expect(statement.params).toEqual(['english', 'samsnug', 20, 0, ...HIGHLIGHT_PARAMS])
+    expect(statement.text).toContain(`coalesce(t."name"::text, '') % $2`)
+    expect(statement.text).toContain('similarity(')
+    expect(statement.text).toMatchSnapshot()
+  })
+
+  it('has no pg_trgm match without fuzziness', () => {
+    const statement = build({ indexName: 'products', params: { query: 'samsung' } })
+    expect(statement.text).not.toContain(' % ')
+    expect(statement.text).not.toContain('similarity(')
+  })
+
   it('has no text predicate, a zero score and a deterministic order for an empty query', () => {
     const statement = build({ indexName: 'products', params: { query: '' } })
     expect(statement.params).toEqual([20, 0])

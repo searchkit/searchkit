@@ -271,8 +271,13 @@ parameters, the InstantSearch request and the index. `afterSearch` also receives
   10,000 by default).
 - **Stopwords.** A query made only of stopwords of the text search configuration (`the`, `and`, ...) matches no
   rows (Postgres ignores it); with Elasticsearch's default analyzer it matches documents containing those words.
-- **No fuzziness or prefix matching.** The `fuzziness` setting is ignored: there is no typo tolerance and a partial
-  word does not match (`sams` does not find `samsung`).
+- **Fuzziness is opt-in and uses `pg_trgm`.** Full-text search alone has no typo tolerance and no prefix matching
+  (`sams` does not find `samsung`). Setting `fuzziness` (any value; the Elasticsearch syntax such as `AUTO:4,8` is
+  accepted but only its presence matters) adds a trigram match: a row also matches when one of the
+  `search_attributes` columns is similar to the query (`%`, governed by `pg_trgm.similarity_threshold`, 0.3 by
+  default), and a tenth of the best `similarity()` is added to the rank so exact full-text matches still come
+  first. It needs `CREATE EXTENSION pg_trgm` and, for speed, a `gin (column gin_trgm_ops)` index on each search
+  attribute.
 - **Facet value search** (`searchForFacetValues`) matches the start of the value, or for queries longer than two
   characters the start of any later word, case-insensitively (`ILIKE`).
 - **`QueryBoost` adds** its weight to the score of matching rows, where Elasticsearch's `function_score`
