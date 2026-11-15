@@ -488,6 +488,25 @@ Done: commits `9276d942`, `9c3d2c0f` (the phase 3 `test.fixme` is removed; `sear
 Gate: `tests/query-rules.spec.ts` on the Postgres project; a sorting API test added to `api.spec.ts` that runs on
 both projects (`indexName: 'products_price_asc'` returns ascending prices).
 
+Done: commits `502d658c`, `dae50795`. `chromium` 28 passed; `chromium-postgres` 22 passed (all specs, with
+`escaped-facet-values.spec.ts` ignored by the project config). Notes:
+
+- `QueryBoost`: `_score` becomes `(rank + CASE WHEN <predicate> THEN $w::real ELSE 0 END + ...)::real`, the
+  predicate compiled from `parseFilters(boost.query)` with the same compiler as `WHERE`. Additive, as the plan's
+  statement-shape notes say (ES `function_score` multiplies by default; with an empty query, as in "cheap tvs",
+  both put matching rows first).
+- `PinnedResult`: the pinned ids match even when they do not match the text query (filters still apply), like
+  an ES `pinned` query, so `nbHits` and facets include them. They come first, in configured order, through
+  `array_position($pinned::text[], id::text) AS _pin` and `ORDER BY _pin ASC NULLS LAST, ...` only when the hits
+  are sorted by relevance (no sorting option, or one whose first field is `_score desc`); with a field sort ES
+  ignores the pinned boost, and so does this adapter.
+- `QueryRewrite`, `QueryFilter`, `RenderFacetsOrder` and `RenderUserData` already worked through core; a unit
+  test now pins the response parts.
+- Sorting: suffix lookup, multi-field options, `_score` as a field and the `nestedPath` / `mode` error were
+  already in place (phase 3); tests added. The example's shared settings gain
+  `sorting: { _price_asc: { field: 'price', order: 'asc' } }` and `price` in `result_attributes` (needed for the
+  API test to read prices; the UI does not render it).
+
 ### Phase 7: pgvector / semantic search
 
 Gate: `tests/semantic.spec.ts` on both projects.
