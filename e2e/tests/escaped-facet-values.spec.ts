@@ -1,7 +1,21 @@
+import { createRequire } from 'node:module'
+import { join } from 'node:path'
+import { pathToFileURL } from 'node:url'
 import { expect, test } from '@playwright/test'
 import algoliasearchHelper from 'algoliasearch-helper'
-import Searchkit from 'searchkit'
-import Client from '@searchkit/instantsearch-client'
+import type SearchkitClass from 'searchkit'
+import type ClientFn from '@searchkit/instantsearch-client'
+
+// The release workflow's verify-published job sets E2E_APP_DIR to the example with searchkit installed from npm
+// (and doesn't build the workspace), so resolve the packages from there to test the published build.
+const resolveFrom = createRequire(join(process.env.E2E_APP_DIR || __dirname, 'index.js')).resolve
+const load = async (name: string) => {
+  // resolve() picks the CJS build where there is one; import() then exposes module.exports as `default`
+  const { default: mod } = await import(pathToFileURL(resolveFrom(name)).href)
+  return mod.default ?? mod
+}
+let Searchkit: typeof SearchkitClass
+let Client: typeof ClientFn
 
 const host = (process.env.ES_HOST || 'http://localhost:9200').replace(/\/$/, '')
 const apiKey = process.env.ES_API_KEY
@@ -67,6 +81,8 @@ test.describe('facet values starting with "-"', () => {
   test.describe.configure({ mode: 'serial' })
 
   test.beforeAll(async () => {
+    Searchkit = await load('searchkit')
+    Client = await load('@searchkit/instantsearch-client')
     await es(`/${index}`, { method: 'DELETE' }, [404])
     await es(`/${index}`, {
       method: 'PUT',
