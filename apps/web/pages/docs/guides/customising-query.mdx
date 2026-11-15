@@ -76,25 +76,30 @@ Could be also used for Open source connections [Learn to rank plugin](https://el
 
 ### Example of doing a KNN search
 
-An example of extending the query to do a hybrid search with KNN search and text search. Retrieves the search query provided in the UI and uses it to retrieve an image embedding from a custom image search API. Then extends the query to do a hybrid search with KNN search (with embedding) and text search. 
+KNN search is configured with `semantic_search` in the search settings rather than by customising the query. An example of a hybrid search with KNN search and text search: retrieves the search query provided in the UI and uses it to retrieve an image embedding from a custom image search API, then Searchkit combines the KNN search (with the embedding) and the text search, ranking the results with reciprocal rank fusion.
 
 ```ts
-  const results = await client.handleRequest(req.body, {
-    getKnnQuery(query, search_attributes, config) {
-      return {
-        field: 'dense-vector-field',
-        k: 10,
-        num_candidates: 100,
-        // supported in latest version of Elasticsearch
-        query_vector_builder: { 
-          text_embedding: {
-            model_id: 'cookie_model',
-            model_text: query
-          }
-        }
+const client = Client({
+  connection,
+  search_settings: {
+    // ...
+    semantic_search: {
+      field: 'dense-vector-field',
+      k: 10,
+      num_candidates: 100,
+      embed: async (query) => {
+        const response = await fetch('https://my-image-search-api/embed', {
+          method: 'POST',
+          body: JSON.stringify({ text: query })
+        })
+        const { embedding } = await response.json()
+        return embedding // number[]
       }
+      // or let Elasticsearch embed the query (supported in latest version of Elasticsearch):
+      // model_id: 'cookie_model'
     }
-  });
+  }
+});
 ```
 
-
+Set `mode: 'semantic_only'` to use the KNN search without the text query. See [`semantic_search`](/docs/api-documentation/searchkit#semantic_search) for all the options.

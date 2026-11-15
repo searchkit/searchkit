@@ -259,28 +259,24 @@ const searchClient = Client(sk, {
 
 You might want to transform the query terms into a vector embedding before searching. This is useful if you want to do semantic search.
 
-Searchkit provides a way to customise the whole search DSL. This is useful if you want to do a vector search via KNN.
+Searchkit supports vector search via KNN with the `semantic_search` setting in the `search_settings` of Searchkit. By default the KNN search is combined with the text query (hybrid search).
 
 ```tsx
-import Client from '@searchkit/instantsearch-client';
-
-const searchClient = Client(sk, {
-  getKnnQuery(query, search_attributes, config) {
-    return {
+  search_settings: {
+    search_attributes: ['name'],
+    result_attributes: ['name', 'description'],
+    semantic_search: {
       field: 'dense-vector-field',
-      k: 10,
-      num_candidates: 100,
       // supported in Elasticsearch 8.7+
-      query_vector_builder: { 
-        text_embedding: {
-          model_id: 'cookie_model',
-          model_text: query
-        }
-      }
+      // or embed the query yourself with `embed: async (query) => vector`
+      model_id: 'cookie_model',
+      k: 10,
+      num_candidates: 100
     }
   }
-});
 ```
+
+See [`semantic_search`](/docs/api-documentation/searchkit#semantic_search) for all the options and the [Semantic Search tutorial](/docs/tutorials/semantic-search).
 
 ### Advanced: Searching Nested Fields
 

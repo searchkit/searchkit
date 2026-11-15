@@ -3,6 +3,7 @@ title: Searchkit API
 description: Searchkit Node API for Elasticsearch
 ---
 import { Tabs, Tab } from '../../../components/Tabs'
+import { Callout } from 'nextra/components'
 
 ### Installation
 
@@ -222,6 +223,7 @@ Attributes that are used to configure the search experience.
 - `fuzziness` - The [fuzziness](https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#fuzziness) that should be used for text queries. Defaults to `AUTO:4,8`.
 - `geo_attribute` - Attribute that is used for geo based searches.
 - `runtime_mappings` - Runtime mappings that are used to transform fields in the search results. See [Runtime Mappings](/docs/guides/runtime-mappings) for more information. Once used, you are able to use the transformed field in the `search_attributes`, `result_attributes`, `facet_attributes` and `filter_attributes` configuration.
+- `semantic_search` - Semantic (KNN / vector) search, combined with the text query or on its own. See [`semantic_search`](#semantic_search) below.
 
 ##### search_attributes
 
@@ -441,6 +443,49 @@ geo_attribute: "location"
 
 See [Geo Search](/docs/guides/geo-search) for more information.
 
+##### `semantic_search`
+
+The `semantic_search` setting adds a semantic (KNN) search on a vector field to the search. By default it runs in hybrid mode: the KNN search is combined with the text query and the results are merged with reciprocal rank fusion (RRF). You can read more about KNN search in Elasticsearch [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search.html#semantic-search).
+
+```ts
+semantic_search: {
+  field: 'dense-vector-field',
+  // Elasticsearch embeds the query with a deployed text embedding model
+  model_id: 'cookie_model',
+  k: 10,
+  num_candidates: 100
+}
+```
+
+Or embed the query yourself, by providing an `embed` function that returns the query vector:
+
+```ts
+semantic_search: {
+  field: 'dense-vector-field',
+  embed: async (query) => {
+    const response = await fetch('https://my-embedding-api', { method: 'POST', body: query })
+    return (await response.json()).vector // number[]
+  },
+  k: 10
+}
+```
+
+- `field` - The `dense_vector` field to search.
+- `model_id` - The id of a text embedding model deployed in Elasticsearch. Elasticsearch turns the query into a vector (`query_vector_builder`). Provide either `model_id` or `embed`.
+- `embed` - A function that returns the vector for the query (`query_vector`). It can be async. Provide either `model_id` or `embed`.
+- `k` - The number of nearest neighbours to return. Defaults to `50`.
+- `num_candidates` - The number of candidates to consider per shard. Defaults to `2 * k`.
+- `mode` - How the semantic search is combined with the text query. Defaults to `hybrid`.
+  - `hybrid` - The text query and the KNN search, ranked together with reciprocal rank fusion.
+  - `semantic_only` - The KNN search only, without the text query.
+  - `text_only` - The text query only. Useful to switch semantic search off without removing the configuration.
+
+When the query is empty, no KNN search is made in any mode. Filters (facets, numeric filters and `filters`) are applied to the KNN search too.
+
+<Callout type="info">
+  `semantic_search` replaces the `getKnnQuery` request option, which was removed in Searchkit v5. Passing `getKnnQuery` throws an error.
+</Callout>
+
 ### Request Options
 
 `RequestOptions` is an object that contains the following properties:
@@ -475,7 +520,7 @@ To see the full Elasticsearch query that is executed to Elasticsearch, you can r
 ```
 
 ##### Example: Exclude BM25 Query
-If you're using KNN exclusively, you might want to exclude the BM25 query from the Elasticsearch query. You can do this by overriding the `getQuery` function and returning false.
+If you're using KNN exclusively, set `mode: 'semantic_only'` in the [`semantic_search`](#semantic_search) settings. Otherwise, you can exclude the BM25 query from the Elasticsearch query by overriding the `getQuery` function and returning false.
 
 ```tsx
   const results = await client.handleRequest(req.body, {
@@ -485,35 +530,44 @@ If you're using KNN exclusively, you might want to exclude the BM25 query from t
   });
 ```
 
-#### `getKnnQuery` optional function
-If you want to specify a KNN query, you can use the `getKnnQuery` function. The function must return an Elasticsearch KNN query. You can read more about the KNN query DSL [here](https://www.elastic.co/guide/en/elasticsearch/reference/8.7/knn-search.html#semantic-search).
+#### `getKnnQuery` (removed)
 
-```tsx
-  const results = await client.handleRequest(req.body, {
-    getKnnQuery(query, search_attributes, config) {
-      return {
-        field: 'dense-vector-field',
-        k: 10,
-        num_candidates: 100,
-        query_vector_builder: {
-          text_embedding: {
-            model_id: 'cookie_model',
-            model_text: query
-          }
+The `getKnnQuery` request option was removed in Searchkit v5 and passing it throws an error. Configure KNN search with [`semantic_search`](#semantic_search) in the search settings instead:
+
+```ts
+// before (v4)
+const results = await client.handleRequest(req.body, {
+  getKnnQuery(query, search_attributes, config) {
+    return {
+      field: 'dense-vector-field',
+      k: 10,
+      num_candidates: 100,
+      query_vector_builder: {
+        text_embedding: {
+          model_id: 'cookie_model',
+          model_text: query
         }
       }
-    },
-    // Optional: You may want to exclude the BM25 query
-    getQuery: () => {
-      return false
     }
-  });
+  },
+  getQuery: () => false
+})
+
+// after (v5)
+const client = Client({
+  connection,
+  search_settings: {
+    // ...
+    semantic_search: {
+      field: 'dense-vector-field',
+      model_id: 'cookie_model',
+      k: 10,
+      num_candidates: 100,
+      mode: 'semantic_only' // replaces getQuery: () => false. Omit for hybrid search
+    }
+  }
+})
 ```
-
-##### Function Parameters
-
-- **query**: The query string from the search request.
-- **search_attributes**: The search attributes from the search configuration.
 
 #### `getBaseFilters` optional function
 
