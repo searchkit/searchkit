@@ -214,6 +214,63 @@ describe('GetQuery Extension', () => {
     expect(response).toMatchSnapshot()
   })
 
+  it('uses getQuery for an empty query when useGetQueryForEmptyQuery is set', async () => {
+    nock('http://localhost:9200')
+      .post('/_msearch', (requestBody: any) => {
+        const x = JSON.parse(requestBody.split('\n')[1]).query
+        expect(x).toMatchInlineSnapshot(`
+          {
+            "bool": {
+              "filter": [
+                {
+                  "bool": {
+                    "should": [
+                      {
+                        "term": {
+                          "type": "movie",
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+              "must": {
+                "multi_match": {
+                  "fields": [
+                    "title",
+                    "actors",
+                    "query",
+                  ],
+                  "query": "",
+                },
+              },
+            },
+          }
+        `)
+        return true
+      })
+      .reply(200, HitsResponseWithFacetFilter)
+
+    await client.handleInstantSearchRequests(
+      DisjunctiveExampleRequest.map((request) => ({
+        ...request,
+        params: { ...request.params, query: '' }
+      })) as AlgoliaMultipleQueriesQuery[],
+      {
+        getQuery(query, search_attributes) {
+          expect(query).toBe('')
+          return {
+            multi_match: {
+              query,
+              fields: search_attributes as string[]
+            }
+          }
+        },
+        useGetQueryForEmptyQuery: true
+      }
+    )
+  })
+
   it('passes the instantsearch request to getQuery and getKnnQuery via config', async () => {
     nock('http://localhost:9200')
       .post('/_msearch', (requestBody: any) => {
