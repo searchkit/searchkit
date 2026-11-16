@@ -1,18 +1,29 @@
 {
-  "$schema": "https://turborepo.org/schema.json",
-  "pipeline": {
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": ["ES_HOST", "ES_API_KEY", "ES_USERNAME", "ES_PASSWORD", "GITHUB_TOKEN"],
+  "globalPassThroughEnv": ["CI"],
+  "tasks": {
     "test": {
       "outputs": []
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**"]
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "lint": {
       "outputs": []
     },
+    "typecheck": {
+      "dependsOn": ["build"],
+      "outputs": []
+    },
+    "searchkit#typecheck": {
+      "dependsOn": ["build", "@searchkit/api#build"],
+      "outputs": []
+    },
     "dev": {
-      "cache": false
+      "cache": false,
+      "persistent": true
     }
   }
 }

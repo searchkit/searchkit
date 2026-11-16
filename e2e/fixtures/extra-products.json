@@ -1,0 +1,56 @@
+[
+  {
+    "_id": "e2e-dash-brand-1",
+    "name": "-40 Below - 55\" Class OLED 4K UHD Smart TV",
+    "description": "55 inch OLED smart TV with 4K resolution and HDR.",
+    "brand": "-40 Below",
+    "categories": ["TV & Home Theater", "TVs", "All Flat-Panel TVs"],
+    "hierarchicalCategories": {
+      "lvl0": "TV & Home Theater",
+      "lvl1": "TV & Home Theater > TVs",
+      "lvl2": "TV & Home Theater > TVs > All Flat-Panel TVs"
+    },
+    "type": "55\" oled",
+    "price": 899.99,
+    "price_range": "500 - 2000",
+    "free_shipping": true,
+    "popularity": 10,
+    "rating": 4
+  },
+  {
+    "_id": "e2e-dash-brand-2",
+    "name": "-40 Below - 65\" Class OLED 4K UHD Smart TV",
+    "description": "65 inch OLED smart TV with 4K resolution and HDR.",
+    "brand": "-40 Below",
+    "categories": ["TV & Home Theater", "TVs", "All Flat-Panel TVs"],
+    "hierarchicalCategories": {
+      "lvl0": "TV & Home Theater",
+      "lvl1": "TV & Home Theater > TVs",
+      "lvl2": "TV & Home Theater > TVs > All Flat-Panel TVs"
+    },
+    "type": "65\" oled",
+    "price": 1299.99,
+    "price_range": "500 - 2000",
+    "free_shipping": true,
+    "popularity": 9,
+    "rating": 4
+  },
+  {
+    "_id": "e2e-dash-brand-3",
+    "name": "-40 Below - 75\" Class OLED 4K UHD Smart TV",
+    "description": "75 inch OLED smart TV with 4K resolution and HDR.",
+    "brand": "-40 Below",
+    "categories": ["TV & Home Theater", "TVs", "All Flat-Panel TVs"],
+    "hierarchicalCategories": {
+      "lvl0": "TV & Home Theater",
+      "lvl1": "TV & Home Theater > TVs",
+      "lvl2": "TV & Home Theater > TVs > All Flat-Panel TVs"
+    },
+    "type": "75\" oled",
+    "price": 1799.99,
+    "price_range": "500 - 2000",
+    "free_shipping": true,
+    "popularity": 8,
+    "rating": 4
+  }
+]

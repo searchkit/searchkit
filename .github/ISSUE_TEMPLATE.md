@@ -4,17 +4,16 @@ Briefly describe the issue you are experiencing (or the feature you want to see 
 
 ## Environment
 
-* Searchkit version (or git revision) that exhibits the issue:
-* Last Searchkit version that did not exhibit the issue (if applicable):
-* Node.js version:
-* Typescript version:
-* Next.js version:
-* ElasticSearch/OpenSearch version:
+- Searchkit version (or git revision) that exhibits the issue:
+- Last Searchkit version that did not exhibit the issue (if applicable):
+- Node.js version:
+- Typescript version:
+- Next.js version:
+- ElasticSearch/OpenSearch version:
 
 ## Details
 
 If necessary, describe the problem you have been experiencing in more detail.
-
 
 ## Code To Reproduce Issue
 

@@ -9,6 +9,41 @@ on:
       - main
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # pnpm version comes from `packageManager` in package.json. Installed before setup-node so its pnpm cache works.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check formatting
+        run: pnpm format:check
+
+      - name: Lint
+        run: pnpm lint
+
+      # typecheck depends on build in turbo.json, so the packages are built first.
+      - name: Typecheck
+        run: pnpm typecheck
+
+      # searchkit inlines the @elastic/elasticsearch types it uses (a devDependency) into its
+      # published declarations. Fail if dist/*.d.ts imports a devDependency again. Runs after
+      # Typecheck, which builds the packages.
+      - name: Check published type declarations are self-contained
+        run: pnpm --filter searchkit run check:dts
+
   unit-tests:
     runs-on: ubuntu-latest
     steps:
@@ -17,17 +52,103 @@ jobs:
         with:
           fetch-depth: 2
 
+      # pnpm version comes from `packageManager` in package.json. Installed before setup-node so its pnpm cache works.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
-          cache: "yarn"
+          node-version: 22
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: yarn
+        run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: yarn build
+        run: pnpm build
 
       - name: Test
-        run: yarn test
+        run: pnpm test
+
+  # Drives the Next.js example in a real browser (Playwright) against a real Elasticsearch
+  # running as a service container. See DEVELOPMENT.md ("End-to-end tests").
+  functional-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      ES_HOST: http://localhost:9200
+    services:
+      elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.15.3
+        env:
+          discovery.type: single-node
+          xpack.security.enabled: "false"
+          ES_JAVA_OPTS: -Xms512m -Xmx512m
+        ports:
+          - 9200:9200
+        options: >-
+          --health-cmd "curl -sf http://localhost:9200/_cluster/health"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # pnpm version comes from `packageManager` in package.json. Installed before setup-node so its pnpm cache works.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Check the example uses the packages from this PR
+        run: node e2e/check-workspace-links.mjs
+
+      - name: Seed Elasticsearch
+        run: node e2e/seed.mjs
+
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "version=$(node -p "require('@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
+        working-directory: e2e
+
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+        working-directory: e2e
+
+      - name: Install Playwright system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
+        working-directory: e2e
+
+      - name: Run functional tests
+        run: pnpm test:e2e
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            e2e/playwright-report/
+            e2e/test-results/
+          retention-days: 7

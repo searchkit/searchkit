@@ -1,14 +1,8 @@
-import { InstantSearch, Hits, RefinementList } from 'react-instantsearch-dom';
+import { InstantSearch, Hits, RefinementList } from 'react-instantsearch';
 import Client from '@searchkit/instantsearch-client'
 import Searchkit from "searchkit"
 import Head from "next/head"
-
-import {
-  GoogleMapsLoader,
-  GeoSearch,
-  Marker,
-} from 'react-instantsearch-dom-maps';
-
+import GeoMap from '../components/GeoMap'
 
 const searchkitClient = new Searchkit({
   connection: {
@@ -47,28 +41,13 @@ export default function Web() {
         indexName="us_parks"
         searchClient={searchClient}
       >
-        <div style={{ height: 500 }}>
-        <GoogleMapsLoader apiKey={apiKey} endpoint={endpoint}>
-          {(google) => (
-            <GeoSearch google={google}>
-              {({ hits }) => (
-                <>
-                  {hits.map((hit) => (
-                    <Marker key={hit.objectID} hit={hit} />
-                  ))}
-                </>
-              )}
-            </GeoSearch>
-          )}
-        </GoogleMapsLoader>
+        <GeoMap apiKey={apiKey} endpoint={endpoint} height={500} />
 
         <div className="left-panel p-4">
           <RefinementList attribute="states" />
         </div>
         <div className="right-panel">
           <Hits hitComponent={hitView}/>
-        </div>
-
         </div>
       </InstantSearch>
       </div>

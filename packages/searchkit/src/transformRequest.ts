@@ -19,26 +19,8 @@ import {
   SearchAttribute,
   SearchSettingsConfig
 } from './types'
-import { AlgoliaMultipleQueriesQuery, ElasticsearchSearchRequest } from './types'
-import { getFacet, isNestedFacet } from './utils'
-
-export const createRegexQuery = (queryString: string) => {
-  let query = queryString.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
-  query = query
-    .split('')
-    .map((char) => {
-      if (/[a-z]/.test(char)) {
-        return `[${char}${char.toUpperCase()}]`
-      }
-      return char
-    })
-    .join('')
-  query = `${query}.*`
-  if (queryString.length > 2) {
-    query = `([a-zA-Z]+ )+?${query}`
-  }
-  return query
-}
+import { AlgoliaMultipleQueriesQuery, ElasticsearchSearchRequest, QueryConfig } from './types'
+import { createRegexQuery, getFacet, isNestedFacet } from './utils'
 
 const TermAggregation = (field: string, size: number, search: string) => {
   const searchInclude = search && search.length > 0 ? { include: createRegexQuery(search) } : {}
@@ -96,8 +78,7 @@ export const getAggs = (
   queryRuleActions: QueryRuleActions
 ) => {
   const { params = {}, type } = request
-  // @ts-ignore
-  const { facets, maxValuesPerFacet, facetName, facetQuery } = params
+  const { facets, maxValuesPerFacet, facetName, facetQuery = '' } = params
   const maxFacetSize = maxValuesPerFacet || 10
   const facetAttributes = config.facet_attributes || []
 
@@ -154,7 +135,11 @@ function queryRulesWrapper(organicQuery: any, queryRuleActions: QueryRuleActions
   return organicQuery
 }
 
-export function RelevanceQueryMatch(query: string, search_attributes: SearchAttribute[], fuzziness: string = 'AUTO:4,8') {
+export function RelevanceQueryMatch(
+  query: string,
+  search_attributes: SearchAttribute[],
+  fuzziness: string = 'AUTO:4,8'
+) {
   const getFieldsMap = (boostMultiplier: number) => {
     return search_attributes.map((attribute) => {
       return typeof attribute === 'string'
@@ -207,6 +192,7 @@ const getQuery = (
   const query = queryRuleActions.query
 
   const searchAttributes = config.search_attributes
+  const queryConfig: QueryConfig = { ...config, request }
   const fuzziness = config.fuzziness ?? 'AUTO:4,8'
 
   const filters = [
@@ -219,16 +205,16 @@ const getQuery = (
   ]
 
   let organicQuery =
-    requestOptions?.getQuery
-      ? requestOptions.getQuery(query, searchAttributes, config)
-      : typeof query === 'string' && query !== ''
-        ? RelevanceQueryMatch(query, searchAttributes, fuzziness)
-        : {
-            match_all: {}
-          }
+    typeof query === 'string' && query !== ''
+      ? requestOptions?.getQuery
+        ? requestOptions.getQuery(query, searchAttributes, queryConfig)
+        : RelevanceQueryMatch(query, searchAttributes, fuzziness)
+      : {
+          match_all: {}
+        }
 
   const hasKnn = typeof requestOptions?.getKnnQuery === 'function'
-  const hasNoQuery = requestOptions?.getQuery?.(query, searchAttributes, config) === false
+  const hasNoQuery = requestOptions?.getQuery?.(query, searchAttributes, queryConfig) === false
 
   if (hasNoQuery || (hasKnn && query === '')) {
     organicQuery = {
@@ -250,7 +236,7 @@ const getQuery = (
   if (hasKnn && query !== '') {
     knnQueryDsl = {
       filter: filters,
-      ...(requestOptions?.getKnnQuery?.(query, searchAttributes, config) || {})
+      ...(requestOptions?.getKnnQuery?.(query, searchAttributes, queryConfig) || {})
     } as KnnSearchQuery
   }
 

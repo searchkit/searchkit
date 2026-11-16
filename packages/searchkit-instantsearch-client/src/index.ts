@@ -1,9 +1,41 @@
 import type { MultipleQueriesQuery, RequestOptions } from 'searchkit'
 import type Searchkit from 'searchkit'
+import type { SearchClient } from 'instantsearch.js'
+
+/**
+ * The client returned by `createClient`: InstantSearch's own `SearchClient` type, so it is
+ * checked against whatever InstantSearch expects, plus `clearCache`, which InstantSearch
+ * calls on `refresh()`.
+ *
+ * `search` and `searchForFacetValues` also carry the client's actual signatures, which accept
+ * readonly request arrays. Different instantsearch.js versions declare the requests as mutable
+ * or readonly arrays; these signatures keep the client assignable to either.
+ */
+export type SearchkitInstantSearchClient = SearchClient & {
+  search: (requests: readonly MultipleQueriesQuery[]) => Promise<any>
+  searchForFacetValues: (requests: readonly MultipleQueriesQuery[]) => Promise<any>
+  clearCache: () => Promise<void>
+}
 
 interface InstantSearchElasticsearchAdapterConfig {
   url: string
   headers?: Record<string, string> | (() => Record<string, string>)
+  onError?: (error: Error) => boolean | void
+}
+
+function createEmptyResult(request: MultipleQueriesQuery) {
+  return {
+    hits: [],
+    nbHits: 0,
+    nbPages: 0,
+    page: 0,
+    processingTimeMS: 0,
+    hitsPerPage: request.params?.hitsPerPage ?? 20,
+    exhaustiveNbHits: true,
+    query: request.params?.query ?? '',
+    params: '',
+    index: request.indexName
+  }
 }
 
 type Config = InstantSearchElasticsearchAdapterConfig | Searchkit
@@ -16,7 +48,7 @@ class InstantSearchElasticsearchAdapter {
   private cache: Record<string, any>
 
   constructor(private config: Config, private requestOptions?: RequestOptions) {
-    this.cache = []
+    this.cache = {}
     if (!isSearchkit(this.config) && !this.config.url) {
       throw new Error('Searchkit Instantsearch Client: url is required')
     }
@@ -28,7 +60,7 @@ class InstantSearchElasticsearchAdapter {
   }
 
   public clearCache(): Promise<void> {
-    this.cache = []
+    this.cache = {}
     return Promise.resolve(undefined)
   }
 
@@ -41,6 +73,16 @@ class InstantSearchElasticsearchAdapter {
     return headers
   }
 
+  private handleError(error: Error, requests: readonly MultipleQueriesQuery[]) {
+    const suppressLog = this.config && !isSearchkit(this.config) && this.config.onError?.(error)
+    if (!suppressLog) {
+      console.error('Searchkit InstantSearch Client error:', error.message)
+    }
+    return {
+      results: requests.map((request) => createEmptyResult(request))
+    }
+  }
+
   public async search(instantsearchRequests: readonly MultipleQueriesQuery[]): Promise<any> {
     const key = JSON.stringify(instantsearchRequests)
     const cacheValue = this.cache[key]
@@ -48,27 +90,45 @@ class InstantSearchElasticsearchAdapter {
       return cacheValue
     }
 
-    if (isSearchkit(this.config)) {
-      const results = await this.config.handleInstantSearchRequests(
-        instantsearchRequests,
-        this.requestOptions
-      )
+    try {
+      if (isSearchkit(this.config)) {
+        const results = await this.config.handleInstantSearchRequests(
+          instantsearchRequests,
+          this.requestOptions
+        )
+        this.cache[key] = results
+        return results
+      }
+
+      const response = await fetch(this.config.url, {
+        body: JSON.stringify(instantsearchRequests),
+        headers: {
+          'Content-Type': 'application/json',
+          ...this.getHeaders()
+        },
+        method: 'POST'
+      })
+
+      if (!response.ok) {
+        const errorResult = this.handleError(
+          new Error(`Search request failed with status ${response.status}: ${response.statusText}`),
+          instantsearchRequests
+        )
+        this.cache[key] = errorResult
+        return errorResult
+      }
+
+      const results = await response.json()
       this.cache[key] = results
       return results
+    } catch (error) {
+      const errorResult = this.handleError(
+        error instanceof Error ? error : new Error(String(error)),
+        instantsearchRequests
+      )
+      this.cache[key] = errorResult
+      return errorResult
     }
-
-    const response = await fetch(this.config.url, {
-      body: JSON.stringify(instantsearchRequests),
-      headers: {
-        'Content-Type': 'application/json',
-        ...this.getHeaders()
-      },
-      method: 'POST'
-    })
-
-    const results = await response.json()
-    this.cache[key] = results
-    return results
   }
 
   public async searchForFacetValues(
@@ -99,16 +159,38 @@ class InstantSearchElasticsearchAdapter {
         method: 'POST'
       })
 
+      if (!response.ok) {
+        const error = new Error(
+          `Search request failed with status ${response.status}: ${response.statusText}`
+        )
+        const suppressLog = this.config && !isSearchkit(this.config) && this.config.onError?.(error)
+        if (!suppressLog) {
+          console.error('Searchkit InstantSearch Client error:', error.message)
+        }
+        return []
+      }
+
       const results = await response.json()
       return results.results
-    } catch (e) {
-      console.error(e)
+    } catch (error) {
+      const err = error instanceof Error ? error : new Error(String(error))
+      const suppressLog =
+        this.config &&
+        !isSearchkit(this.config) &&
+        (this.config as InstantSearchElasticsearchAdapterConfig).onError?.(err)
+      if (!suppressLog) {
+        console.error('Searchkit InstantSearch Client error:', err.message)
+      }
       return []
     }
   }
 }
 
-const createClient = (config: Config, requestOptions?: RequestOptions) : any =>
-  new InstantSearchElasticsearchAdapter(config, requestOptions)
+// The return type is InstantSearch's SearchClient, so if instantsearch.js changes the
+// requests it sends (e.g. a new algoliasearch major), this stops compiling and the build fails.
+const createClient = (
+  config: Config,
+  requestOptions?: RequestOptions
+): SearchkitInstantSearchClient => new InstantSearchElasticsearchAdapter(config, requestOptions)
 
 export default createClient

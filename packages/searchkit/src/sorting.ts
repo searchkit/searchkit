@@ -25,19 +25,19 @@ export function getSorting(request: AlgoliaMultipleQueriesQuery, config: SearchS
             path: sorting.nestedPath
           }
         }
-        
+
         // Add mode if specified
         if (sorting.mode) {
           sortConfig.mode = sorting.mode
         }
-        
+
         return {
           [fieldPath]: sortConfig
         }
       }
 
       const sortConfig: any = sorting.order
-      
+
       // For non-nested fields, if mode is specified, create an object instead of just the order string
       if (sorting.mode) {
         return {

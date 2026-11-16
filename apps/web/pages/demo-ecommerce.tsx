@@ -28,7 +28,9 @@ import Head from 'next/head'
 const hitView = (props: any) => {
   return (
     <div>
-      <img src={props.hit.imageURL} className="hit-image" />
+      {/* Remote product images from search hits; next/image would need every host allow-listed. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={props.hit.imageURL} alt={props.hit.name} className="hit-image" />
       <h3>
         <Highlight hit={props.hit} attribute="designerName" />
       </h3>
@@ -123,9 +125,14 @@ export const getServerSideProps: GetServerSideProps<WebProps> = async function g
   const protocol = req.headers.referer?.split('://')[0] || 'http'
   const serverUrl = `${protocol}://${req.headers.host}`
   const url = `${protocol}://${req.headers.host}${req.url}`
-  const serverState = await getServerState(<Web url={url} serverUrl={serverUrl} />, {
-    renderToString
-  })
+  // JSON round-trip drops `undefined` values (e.g. clickAnalytics), which Next.js cannot serialize.
+  const serverState = JSON.parse(
+    JSON.stringify(
+      await getServerState(<Web url={url} serverUrl={serverUrl} />, {
+        renderToString
+      })
+    )
+  )
 
   return {
     props: {
