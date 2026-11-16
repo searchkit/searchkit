@@ -333,6 +333,12 @@ export interface RequestOptions {
     search_attributes: SearchAttribute[],
     config: QueryConfig
   ) => ElasticsearchQuery | ElasticsearchQuery[] | false
+
+  /**
+   * @description Always calls `getQuery` even when the search term is empty.
+   */
+  useGetQueryForEmptyQuery?: boolean
+
   /**
    * @description Allows you to add base filters to be applied to the search. This is useful for user / document level permissions
    * @returns An array of Elasticsearch query objects that will be wrapped in a bool filter query
