@@ -60,8 +60,8 @@ Searchkit is great for anyone who want to build a search experience quickly.
 
 ## Tutorials
 
-- [Searchkit with Next.js](https://www.searchkit.co/tutorials/with-nextjs)
-- [Searchkit with Availability Search](https://www.searchkit.co/tutorials/build-availability-search-ui)
+- [Searchkit with Next.js](https://www.searchkit.co/docs/tutorials/with-nextjs)
+- [Searchkit with Availability Search](https://www.searchkit.co/docs/tutorials/build-availability-search-ui)
 
 ## Demos
 
