@@ -15,7 +15,9 @@ export const createRegexQuery = (queryString: string) => {
     .join('')
   query = `${query}.*`
   if (queryString.length > 2) {
-    query = `([a-zA-Z]+ )+?${query}`
+    // Match the start of any word: the start of the value, or right after a space.
+    // Any text may come before that space, e.g. "Mendoza, " or "Müller, ".
+    query = `(.* )?${query}`
   }
   return query
 }
