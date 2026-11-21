@@ -14,6 +14,7 @@ import { QueryRuleActions } from './queryRules'
 import { getSorting } from './sorting'
 import {
   FacetAttribute,
+  FacetValueOrder,
   KnnSearchQuery,
   RequestOptions,
   SearchAttribute,
@@ -22,12 +23,14 @@ import {
 import { AlgoliaMultipleQueriesQuery, ElasticsearchSearchRequest, QueryConfig } from './types'
 import { createRegexQuery, getFacet, isNestedFacet } from './utils'
 
-const TermAggregation = (field: string, size: number, search: string) => {
+const TermAggregation = (field: string, size: number, search: string, order?: FacetValueOrder) => {
   const searchInclude = search && search.length > 0 ? { include: createRegexQuery(search) } : {}
+  const bucketOrder = order === 'alpha' ? { order: { _key: 'asc' as const } } : {}
   return {
     terms: {
       field,
       size,
+      ...bucketOrder,
       ...searchInclude
     }
   }
@@ -35,8 +38,12 @@ const TermAggregation = (field: string, size: number, search: string) => {
 
 const getTermAggregation = (facet: FacetAttribute, size: number, search: string) => {
   let aggEntries = {}
+  const order = typeof facet !== 'string' && 'order' in facet ? facet.order : undefined
   const AggregationFn =
-    typeof facet !== 'string' && 'facetQuery' in facet ? facet.facetQuery : TermAggregation
+    typeof facet !== 'string' && 'facetQuery' in facet
+      ? facet.facetQuery
+      : (field: string, aggSize: number, aggSearch: string) =>
+          TermAggregation(field, aggSize, aggSearch, order)
 
   const getInnerAggs = (facetName: string, field: string): any => {
     if (typeof facet === 'string' || facet.type === 'string') {

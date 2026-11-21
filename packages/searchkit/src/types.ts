@@ -62,11 +62,22 @@ export interface MultipleQueriesQuery {
  */
 type AlgoliaMultipleQueriesQuery = MultipleQueriesQuery
 
+export type FacetValueOrder = 'count' | 'alpha'
+
 export type FacetFieldConfig = {
   attribute: string
   field: string
   type: 'numeric' | 'string' | 'date'
   nestedPath?: string
+  /**
+   * @description Order of the facet's values. `count` (the default) returns the
+   * most common values first; `alpha` orders them by the term itself. Ordering
+   * has to happen in Elasticsearch, since the aggregation size decides which
+   * values are returned at all: sorting client side only reorders the values
+   * already selected by count.
+   * @default 'count'
+   */
+  order?: FacetValueOrder
 }
 
 export type FacetStringResponse = Record<string, number>

@@ -38,6 +38,8 @@ const apiClient = API(
       result_attributes: ['name', 'description'],
       facet_attributes: [
         { attribute: 'brand', field: 'brand.keyword', type: 'string' },
+        // the same field with its values ordered by term instead of by count (see /facet-order)
+        { attribute: 'brand_az', field: 'brand.keyword', type: 'string', order: 'alpha' },
         {
           attribute: 'categories.lvl0',
           field: 'hierarchicalCategories.lvl0.keyword',
