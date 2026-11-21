@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "vue": "^3.2.47",
-    "searchkit": "latest",
-    "@searchkit/instantsearch-client": "latest",
+    "searchkit": "*",
+    "@searchkit/instantsearch-client": "*",
     "vue-instantsearch": "4.4.2"
   },
   "devDependencies": {

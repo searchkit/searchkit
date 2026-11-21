@@ -36,3 +36,7 @@ yarn-error.log*
 packages/**/dist
 packages/**/lib
 .vercel
+
+# playwright (e2e)
+e2e/playwright-report/
+e2e/test-results/

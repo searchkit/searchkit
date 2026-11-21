@@ -1,5 +1,18 @@
 # @searchkit/api
 
+## 4.16.0
+
+### Minor Changes
+
+- [#1448](https://github.com/searchkit/searchkit/pull/1448) [`35f0080`](https://github.com/searchkit/searchkit/commit/35f0080338ddc53b561c2dd42d37e3ea63ec8cdc) Thanks [@joemcelroy](https://github.com/joemcelroy)! - `createClient` is now typed with InstantSearch's own `SearchClient` type (exported as `SearchkitInstantSearchClient`, which also includes `clearCache`) instead of `any`. TypeScript projects get the client checked against what InstantSearch expects, and `instantsearch.js` is declared as an optional peer dependency because the published types import it.
+
+  Code that relied on the client being `any` may now see type errors, for example when passing it to a library that expects a different client type. Cast to that library's type, or `as any`, to keep the previous behaviour.
+
+### Patch Changes
+
+- Updated dependencies [[`35f0080`](https://github.com/searchkit/searchkit/commit/35f0080338ddc53b561c2dd42d37e3ea63ec8cdc)]:
+  - searchkit@4.18.0
+
 ## 4.15.0
 
 ### Minor Changes

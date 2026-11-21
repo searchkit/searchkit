@@ -1,4 +1,3 @@
-import type { MultipleQueriesQuery as AlgoliaMultipleQueriesQuery } from '@algolia/client-search'
 import type {
   SearchRequest as ElasticsearchSearchRequest,
   QueryDslQueryContainer as ElasticsearchQueryDslQuery,
@@ -18,7 +17,50 @@ type ElasticsearchQuery = ElasticsearchQueryDslQuery
 type ElasticsearchAggregation = AggregationsAggregationContainer
 type KnnSearchQuery = ElasticKnnSearchQuery
 
-export type MultipleQueriesQuery = AlgoliaMultipleQueriesQuery
+type Filters = string | readonly string[] | ReadonlyArray<readonly string[] | string>
+
+/**
+ * @description The search parameters InstantSearch sends with each request.
+ * Searchkit owns this type so its public types don't depend on `@algolia/client-search`.
+ * It is structurally compatible with Algolia's v4 `SearchOptions`, and unknown keys are allowed.
+ */
+export interface SearchParams {
+  readonly query?: string
+  readonly page?: number
+  readonly hitsPerPage?: number
+  readonly facets?: readonly string[] | string
+  readonly maxValuesPerFacet?: number
+  readonly facetName?: string
+  readonly facetQuery?: string
+  readonly facetFilters?: Filters
+  readonly numericFilters?: Filters
+  readonly filters?: string
+  readonly aroundLatLng?: string
+  readonly aroundRadius?: number | 'all'
+  readonly insideBoundingBox?: ReadonlyArray<readonly number[]> | string
+  readonly attributesToRetrieve?: readonly string[]
+  readonly attributesToHighlight?: readonly string[]
+  readonly highlightPreTag?: string
+  readonly highlightPostTag?: string
+  readonly ruleContexts?: readonly string[]
+  readonly [key: string]: unknown
+}
+
+/**
+ * @description A single InstantSearch request, as passed to `handleInstantSearchRequests`.
+ * Structurally compatible with Algolia's v4 `MultipleQueriesQuery`.
+ */
+export interface MultipleQueriesQuery {
+  readonly indexName: string
+  readonly type?: 'default' | 'facet'
+  readonly facet?: string
+  readonly params?: SearchParams
+}
+
+/**
+ * @deprecated Use `MultipleQueriesQuery`. Kept as an alias for backwards compatibility.
+ */
+type AlgoliaMultipleQueriesQuery = MultipleQueriesQuery
 
 export type FacetValueOrder = 'count' | 'alpha'
 
@@ -280,12 +322,19 @@ export type SearchRequest = {
   indexName: string
 }
 
+/**
+ * @description The search settings passed to `getQuery` and `getKnnQuery`, along with the InstantSearch request being transformed (e.g. `config.request.indexName`)
+ */
+export type QueryConfig = SearchSettingsConfig & {
+  request: AlgoliaMultipleQueriesQuery
+}
+
 export interface RequestOptions {
   /**
    * @description Allows you to override the organic query
    * @param query The original query search terms
    * @param search_attributes The search attributes configured in the search settings
-   * @param config The search settings
+   * @param config The search settings, plus the InstantSearch `request` being transformed
    * @returns An Elasticsearch query object or an array of Elasticsearch query objects
    * @returns false if you want to skip the search query (useful for just KNN search)
    */
@@ -293,7 +342,7 @@ export interface RequestOptions {
   getQuery?: (
     query: string,
     search_attributes: SearchAttribute[],
-    config: SearchSettingsConfig
+    config: QueryConfig
   ) => ElasticsearchQuery | ElasticsearchQuery[] | false
   /**
    * @description Allows you to add base filters to be applied to the search. This is useful for user / document level permissions
@@ -305,13 +354,13 @@ export interface RequestOptions {
    * @description Allows you to specify the KNN query to be used for KNN search. Hits will be combined with the organic query. If you do not want to use the organic query, return false from getQuery.
    * @param query The original query search terms
    * @param search_attributes The search attributes configured in the search settings
-   * @param config The search settings
+   * @param config The search settings, plus the InstantSearch `request` being transformed
    * @returns An Elasticsearch KNN Search Query
    */
   getKnnQuery?: (
     query: string,
     search_attributes: SearchAttribute[],
-    config: SearchSettingsConfig
+    config: QueryConfig
   ) => ElasticKnnSearchQuery
 
   /**

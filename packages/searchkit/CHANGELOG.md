@@ -1,5 +1,51 @@
 # searchkit
 
+## 4.18.1
+
+### Patch Changes
+
+- [#1455](https://github.com/searchkit/searchkit/pull/1455) [`2a92c23`](https://github.com/searchkit/searchkit/commit/2a92c23a55b36fbf3ae3c51c07cbd62d3537fb0a) Thanks [@trackoor](https://github.com/trackoor), [@bardrop](https://github.com/bardrop)! - Fix refining a facet value that starts with `-` returning no hits ([#1425](https://github.com/searchkit/searchkit/issues/1425), reported by @trackoor, with a fix proposed by @bardrop in [#1437](https://github.com/searchkit/searchkit/pull/1437)). InstantSearch escapes a leading `-` as `\-` in `facetFilters`; Searchkit now unescapes it before building the Elasticsearch filter clause.
+
+- [#1452](https://github.com/searchkit/searchkit/pull/1452) [`c9810bc`](https://github.com/searchkit/searchkit/commit/c9810bc66428a47c1e0a6bc4238f297c0c901fe7) Thanks [@joemcelroy](https://github.com/joemcelroy)! - Fix TypeScript errors when `@elastic/elasticsearch` is not installed, or is a version whose package `exports` hide `lib/api/types` (e.g. the latest 8.x). Searchkit only uses the Elasticsearch client for types, so the types it uses are now included in its own declarations instead of being imported from `@elastic/elasticsearch`. Nothing extra needs to be installed, and Elasticsearch 8.x and 9.x clients both work alongside it.
+
+## 4.18.0
+
+### Minor Changes
+
+- [#1448](https://github.com/searchkit/searchkit/pull/1448) [`35f0080`](https://github.com/searchkit/searchkit/commit/35f0080338ddc53b561c2dd42d37e3ea63ec8cdc) Thanks [@joemcelroy](https://github.com/joemcelroy)! - Searchkit's public types no longer import from `@algolia/client-search`, so TypeScript users no longer need it installed. `MultipleQueriesQuery` (and the deprecated `AlgoliaMultipleQueriesQuery` alias) are now defined by Searchkit and accept Algolia v4 requests, and a new `SearchParams` type is exported for the request params.
+
+  `SearchParams` declares the parameters Searchkit reads; other Algolia parameters are still accepted but typed as `unknown`, so code that reads them from a request may need a cast.
+
+## 4.17.0
+
+### Minor Changes
+
+- [#1411](https://github.com/searchkit/searchkit/pull/1411) [`08d73b0`](https://github.com/searchkit/searchkit/commit/08d73b01de41b8e35825acbe7b5e43f4c2f57276) Thanks [@indykoning](https://github.com/indykoning)! - `getQuery` and `getKnnQuery` now receive the InstantSearch request on `config.request` (typed as `QueryConfig`), so custom queries can vary per index, e.g. `config.request.indexName`
+
+### Patch Changes
+
+- [#1408](https://github.com/searchkit/searchkit/pull/1408) [`931ec71`](https://github.com/searchkit/searchkit/commit/931ec719246a2b9a77d706d5deb4dcf5a0a72614) Thanks [@Jade-GG](https://github.com/Jade-GG)! - Export `RelevanceQueryMatch` so the default relevance query can be reused inside a custom `getQuery`
+
+- [#1409](https://github.com/searchkit/searchkit/pull/1409) [`36da972`](https://github.com/searchkit/searchkit/commit/36da9725d97aa36216cf3537f836bed56af2a55c) Thanks [@Jade-GG](https://github.com/Jade-GG)! - Fix the default highlight post tag to be a proper closing tag (`</ais-highlight-0000000000>`) instead of a self-closing tag
+
+## 4.16.3
+
+### Patch Changes
+
+- [#1438](https://github.com/searchkit/searchkit/pull/1438) [`416fe1a`](https://github.com/searchkit/searchkit/commit/416fe1a157a460b3f63259a63de6bcad133f84dc) Thanks [@bardrop](https://github.com/bardrop)! - Escape facet search queries properly. Lucene regex operators (`& # @ ~ < > "`) are now escaped in the terms aggregation `include`, so queries like `R&B`, `C#` or `<tag>` find their values instead of matching nothing or failing with HTTP 400. Facet hit highlighting also treats the query as plain text, so `C++` or `Rock (` no longer throw (#1423, #1424)
+
+## 4.16.2
+
+### Patch Changes
+
+- [#1419](https://github.com/searchkit/searchkit/pull/1419) [`5bd71f6`](https://github.com/searchkit/searchkit/commit/5bd71f6508038e64dc913f8183ecc0c1406322e6) Thanks [@ChrisJr404](https://github.com/ChrisJr404)! - Facet search is now case insensitive for uppercase input (e.g. `Hey`, `MARIO`). Previously only lowercase letters were expanded into case groups in the generated regex.
+
+## 4.16.1
+
+### Patch Changes
+
+- fb58bb4b: Fix `numericFilters` throwing "Cannot read properties of undefined (reading 'path')" when a nested numeric filter follows a non-nested one (#1426)
+
 ## 4.16.0
 
 ### Minor Changes

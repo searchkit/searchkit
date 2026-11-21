@@ -10,3 +10,12 @@ html[class~="dark"] .dark\:nx-text-neutral-500.dark\:nx-text-neutral-500 {
   color: rgba(150, 150, 150, var(--tw-text-opacity));
   font-size: 0.95rem;
 }
+
+/* Code blocks rendered without Nextra's .nextra-code wrapper (e.g. the homepage)
+   keep their shiki tokens but get no colour from the theme; apply the same vars. */
+pre[data-language] code span {
+  color: var(--shiki-light);
+}
+html[class~="dark"] pre[data-language] code span {
+  color: var(--shiki-dark);
+}

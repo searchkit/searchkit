@@ -1,0 +1,6 @@
+export default {
+  "hits": "Hits",
+  "infinite-hits": "Infinite Hits",
+  "highlight": "Highlight",
+  "snippet": "Snippet"
+}

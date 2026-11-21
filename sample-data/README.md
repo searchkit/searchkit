@@ -1,6 +1,6 @@
 ### Indexing sample data used for Demos
 
-The sample data used for the demos is available in the `sample-data` directory. 
+The sample data used for the demos is available in the `sample-data` directory.
 
 To index the sample data, follow the steps below:
 

@@ -1,0 +1,17 @@
+# Local Elasticsearch used by the end-to-end tests (see DEVELOPMENT.md).
+# CI uses an equivalent `services:` container in .github/workflows/test.yml.
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.3
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      # override the host port with E2E_ES_PORT if 9200 is taken (then also set ES_HOST)
+      - "${E2E_ES_PORT:-9200}:9200"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:9200/_cluster/health || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 30

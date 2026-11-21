@@ -1,9 +1,23 @@
-import { getFieldValue, getHighlightFields, highlightTerm, isAllowableHighlightField } from '../highlightUtils'
+import {
+  getFieldValue,
+  getHighlightFields,
+  highlightTerm,
+  isAllowableHighlightField
+} from '../highlightUtils'
 import { ElasticsearchHit } from '../types'
 
 describe('highlight utils', () => {
   it('should highlight one match', () => {
     expect(highlightTerm('some random string', 'some')).toBe('<em>some</em> random string')
+  })
+
+  // https://github.com/searchkit/searchkit/issues/1424
+  it('should treat regex characters in the query as plain text', () => {
+    expect(highlightTerm('C++', 'c++')).toBe('<em>C++</em>')
+    expect(highlightTerm('Rock (Classic)', 'rock (')).toBe('<em>Rock (</em>Classic)')
+    expect(highlightTerm('What?', '?')).toBe('What<em>?</em>')
+    expect(highlightTerm('[a] b.c', '[a]')).toBe('<em>[a]</em> b.c')
+    expect(highlightTerm('abc', '.')).toBe('abc')
   })
 
   describe('isAllowableHighlightField', () => {
@@ -49,7 +63,7 @@ describe('highlight utils', () => {
             "matchedWords": [
               "Lion",
             ],
-            "value": "The <ais-highlight-0000000000>Lion<ais-highlight-0000000000/> King",
+            "value": "The <ais-highlight-0000000000>Lion</ais-highlight-0000000000> King",
           },
         }
       `)
@@ -81,7 +95,7 @@ describe('highlight utils', () => {
               "matchedWords": [
                 "Albert",
               ],
-              "value": "<ais-highlight-0000000000>Albert<ais-highlight-0000000000/> Einstein",
+              "value": "<ais-highlight-0000000000>Albert</ais-highlight-0000000000> Einstein",
             },
           },
         }
@@ -112,7 +126,7 @@ describe('highlight utils', () => {
                 "matchedWords": [
                   "Keanu",
                 ],
-                "value": "<ais-highlight-0000000000>Keanu<ais-highlight-0000000000/> Reeves",
+                "value": "<ais-highlight-0000000000>Keanu</ais-highlight-0000000000> Reeves",
               },
             },
           },
@@ -142,7 +156,7 @@ describe('highlight utils', () => {
             "matchedWords": [
               "Robert",
             ],
-            "value": "The <ais-highlight-0000000000>Robert<ais-highlight-0000000000/> De Niro",
+            "value": "The <ais-highlight-0000000000>Robert</ais-highlight-0000000000> De Niro",
           },
         ],
       }
@@ -211,14 +225,11 @@ describe('highlight utils', () => {
 
     it('should retrieve an array of values from a nested array field', () => {
       const obj = {
-        messages: [
-          { text: 'Hello, world!' },
-          { text: 'Search engines are cool.' },
-        ],
+        messages: [{ text: 'Hello, world!' }, { text: 'Search engines are cool.' }]
       }
       expect(getFieldValue(obj, 'messages.text')).toEqual([
         'Hello, world!',
-        'Search engines are cool.',
+        'Search engines are cool.'
       ])
     })
 
@@ -234,15 +245,9 @@ describe('highlight utils', () => {
 
     it('should handle arrays with objects missing the requested field', () => {
       const obj = {
-        messages: [
-          { text: 'Hello, world!' },
-          { otherField: 'No text here' },
-        ],
+        messages: [{ text: 'Hello, world!' }, { otherField: 'No text here' }]
       }
-      expect(getFieldValue(obj, 'messages.text')).toEqual([
-        'Hello, world!',
-        undefined,
-      ])
+      expect(getFieldValue(obj, 'messages.text')).toEqual(['Hello, world!', undefined])
     })
 
     it('should return undefined if the initial object is null or undefined', () => {
@@ -252,14 +257,11 @@ describe('highlight utils', () => {
 
     it('should handle nested arrays properly', () => {
       const obj = {
-        messages: [
-          { text: ['Hello', 'World'] },
-          { text: ['Search', 'Engine'] },
-        ],
+        messages: [{ text: ['Hello', 'World'] }, { text: ['Search', 'Engine'] }]
       }
       expect(getFieldValue(obj, 'messages.text')).toEqual([
         ['Hello', 'World'],
-        ['Search', 'Engine'],
+        ['Search', 'Engine']
       ])
     })
   })

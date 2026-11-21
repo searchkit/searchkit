@@ -3,7 +3,7 @@ import { getFacetField, getFacetByAttribute, getFacetFieldType, createRegexQuery
 describe('utils', () => {
   describe('createRegexQuery', () => {
     it('should create regex', () => {
-      expect(createRegexQuery('test')).toBe('([a-zA-Z]+ )+?[tT][eE][sS][tT].*')
+      expect(createRegexQuery('test')).toBe('(.* )?[tT][eE][sS][tT].*')
     })
 
     it('should create empty regex', () => {
@@ -12,6 +12,21 @@ describe('utils', () => {
 
     it('should create empty regex', () => {
       expect(createRegexQuery('a')).toBe('[aA].*')
+    })
+
+    it('should be case insensitive for uppercase input', () => {
+      expect(createRegexQuery('Hey')).toBe('(.* )?[hH][eE][yY].*')
+      expect(createRegexQuery('HeY')).toBe('(.* )?[hH][eE][yY].*')
+      expect(createRegexQuery('HEY')).toBe('(.* )?[hH][eE][yY].*')
+    })
+
+    // https://github.com/searchkit/searchkit/issues/1423
+    it('should escape Lucene regex operators', () => {
+      expect(createRegexQuery('R&B')).toBe('(.* )?[rR]\\&[bB].*')
+      expect(createRegexQuery('C#')).toBe('[cC]\\#.*')
+      expect(createRegexQuery('@~')).toBe('\\@\\~.*')
+      expect(createRegexQuery('<a>')).toBe('(.* )?\\<[aA]\\>.*')
+      expect(createRegexQuery('"x"')).toBe('(.* )?\\"[xX]\\".*')
     })
   })
 

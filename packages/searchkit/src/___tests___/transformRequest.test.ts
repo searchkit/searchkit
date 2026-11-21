@@ -162,7 +162,6 @@ describe('transformRequest', () => {
           ...SimpleRequest[0],
           params: {
             ...SimpleRequest[0].params,
-            // @ts-ignore
             facets: 'imdbRating'
           }
         },
@@ -179,7 +178,10 @@ describe('transformRequest', () => {
           boostFunctions: [],
           facetAttributesOrder: undefined,
           pinnedDocs: [],
-          userData: []
+          userData: [],
+          touched: false,
+          ruleIds: [],
+          baseFilters: []
         }
       )
     ).toMatchInlineSnapshot(`

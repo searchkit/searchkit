@@ -1,0 +1,4 @@
+export default {
+  "with-nextjs": "Build a Next.js App",
+  "build-availability-search-ui": "Availability Search UI"
+}

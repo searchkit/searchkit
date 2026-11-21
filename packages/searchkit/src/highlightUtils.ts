@@ -2,7 +2,7 @@ import { getSnippetFieldLength } from './transformRequest'
 import type { ElasticsearchHit, SearchSettingsConfig } from './types'
 
 export function highlightTerm(value: string, query: string): string {
-  const regex = new RegExp(query, 'gi')
+  const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi')
   return value.replace(regex, (match) => `<em>${match}</em>`)
 }
 
@@ -57,20 +57,18 @@ export function getFieldValue(obj: any, path: string): any {
   return path.split('.').reduce((acc, key) => {
     if (Array.isArray(acc)) {
       // Map over the array and extract the value
-      return acc.map(item => item[key])
+      return acc.map((item) => item[key])
     }
 
     // Check if the property exists before accessing it
-    return acc && Object.prototype.hasOwnProperty.call(acc, key)
-      ? acc[key]
-      : undefined
+    return acc && Object.prototype.hasOwnProperty.call(acc, key) ? acc[key] : undefined
   }, obj)
 }
 
 export function getHighlightFields(
   hit: ElasticsearchHit,
   preTag: string = '<ais-highlight-0000000000>',
-  postTag: string = '<ais-highlight-0000000000/>',
+  postTag: string = '</ais-highlight-0000000000>',
   fields: SearchSettingsConfig['snippet_attributes'] = []
 ) {
   const { _source = {}, highlight = {} } = hit

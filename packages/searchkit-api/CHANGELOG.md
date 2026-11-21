@@ -1,5 +1,13 @@
 # @searchkit/api
 
+## 4.14.1
+
+### Patch Changes
+
+- [#1452](https://github.com/searchkit/searchkit/pull/1452) [`c9810bc`](https://github.com/searchkit/searchkit/commit/c9810bc66428a47c1e0a6bc4238f297c0c901fe7) Thanks [@joemcelroy](https://github.com/joemcelroy)! - Fix TypeScript errors when `@elastic/elasticsearch` is not installed, or is a version whose package `exports` hide `lib/api/types` (e.g. the latest 8.x). Searchkit only uses the Elasticsearch client for types, so the types it uses are now included in its own declarations instead of being imported from `@elastic/elasticsearch`. Nothing extra needs to be installed, and Elasticsearch 8.x and 9.x clients both work alongside it.
+- Updated dependencies [[`2a92c23`](https://github.com/searchkit/searchkit/commit/2a92c23a55b36fbf3ae3c51c07cbd62d3537fb0a), [`c9810bc`](https://github.com/searchkit/searchkit/commit/c9810bc66428a47c1e0a6bc4238f297c0c901fe7)]:
+  - searchkit@4.18.1
+
 ## 4.14.0
 
 ### Minor Changes
