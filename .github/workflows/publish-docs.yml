@@ -1,14 +1,9 @@
 name: deploy docs
+# Deploys only on a release: release.yml calls this after Changesets publishes to npm.
+# Run it by hand (Actions -> deploy docs -> Run workflow) to redeploy without a release.
 on:
-  push:
-    branches:
-      - main
-      - docs-build
+  workflow_call:
   workflow_dispatch:
-
-concurrency:
-  group: deploy-docs-${{ github.ref }}
-  cancel-in-progress: false
 
 # Build in CI from the full monorepo checkout, then upload the prebuilt output.
 # Uploading only apps/web (the old `vercel --prod` from that folder) breaks with pnpm:
@@ -16,6 +11,11 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    concurrency:
+      group: deploy-docs
+      cancel-in-progress: false
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_NEXT_PROJECT_ID }}
