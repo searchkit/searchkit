@@ -1,5 +1,18 @@
 # searchkit
 
+## 4.19.0
+
+### Minor Changes
+
+- [#1418](https://github.com/searchkit/searchkit/pull/1418) [`a1f029a`](https://github.com/searchkit/searchkit/commit/a1f029abf02742d38efedd9924d1c22171dc32b1) Thanks [@lukew-cogapp](https://github.com/lukew-cogapp)! - Add an `order` option to string facet attributes, so a facet's values can be
+  ordered by term (`order: 'alpha'`) instead of by count.
+
+### Patch Changes
+
+- [#1461](https://github.com/searchkit/searchkit/pull/1461) [`4045594`](https://github.com/searchkit/searchkit/commit/4045594693f5bfde4b6449b52e8ffa0817bd2329) Thanks [@bardrop](https://github.com/bardrop)! - Facet search now matches the start of any word, whatever comes before it. The terms aggregation `include` only allowed plain ASCII-letter words before the match, so `Pedro` did not find `Mendoza, Pedro`, and `Hans` did not find `Müller, Hans`. Words after a comma, an apostrophe, a digit, a non-ASCII letter or a double space are now found too ([#1417](https://github.com/searchkit/searchkit/issues/1417))
+
+- [#1463](https://github.com/searchkit/searchkit/pull/1463) [`05e533a`](https://github.com/searchkit/searchkit/commit/05e533a89d59126236603a35ce330c375be81d24) Thanks [@joemcelroy](https://github.com/joemcelroy)! - Remove the `deepmerge` dependency. Facet aggregations are now merged with a small internal helper that skips prototype-polluting keys, so searchkit no longer pulls in `deepmerge@4.3.1`, which security scanners flagged for GHSA-gcqx-w48m-w2h4 ([#1422](https://github.com/searchkit/searchkit/issues/1422))
+
 ## 4.18.1
 
 ### Patch Changes
