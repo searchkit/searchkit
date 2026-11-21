@@ -1,6 +1,7 @@
 import { getFacet } from '@searchkit/core'
 import type {
   FacetAttribute,
+  FacetValueOrder,
   MultipleQueriesQuery,
   QueryRuleActions,
   SearchSettingsConfig
@@ -17,11 +18,13 @@ export interface ResolvedFacet {
   field: string
   type: 'string' | 'numeric'
   array: boolean
+  /** `count` (default): most common values first; `alpha`: by value, ascending */
+  order: FacetValueOrder
 }
 
 const resolveFacet = (facet: FacetAttribute): ResolvedFacet | null => {
   if (typeof facet === 'string') {
-    return { attribute: facet, field: facet, type: 'string', array: false }
+    return { attribute: facet, field: facet, type: 'string', array: false, order: 'count' }
   }
   if ('facetQuery' in facet) {
     throw new Error(
@@ -39,7 +42,8 @@ const resolveFacet = (facet: FacetAttribute): ResolvedFacet | null => {
     attribute: facet.attribute,
     field: facet.field,
     type: facet.type,
-    array: 'array' in facet && !!facet.array
+    array: 'array' in facet && !!facet.array,
+    order: 'order' in facet && facet.order === 'alpha' ? 'alpha' : 'count'
   }
 }
 
@@ -144,9 +148,12 @@ export const buildFacets = (
   facets.forEach((facet, i) => {
     const column = quoteColumn(facet.field)
     const name = `facet_${i}`
-    // ordered like Elasticsearch terms buckets: by count, then by value (bytewise for strings)
-    const order = (alias: string, count: string) =>
-      `${count} DESC, ${alias}.value${facet.type === 'numeric' ? '' : '::text COLLATE "C"'} ASC`
+    // ordered like Elasticsearch terms buckets: by count, then by value (bytewise for strings, like
+    // a keyword field); `order: 'alpha'` orders by value only, like `order: { _key: 'asc' }`
+    const order = (alias: string, count: string) => {
+      const byValue = `${alias}.value${facet.type === 'numeric' ? '' : '::text COLLATE "C"'} ASC`
+      return facet.order === 'alpha' ? byValue : `${count} DESC, ${byValue}`
+    }
 
     // an array column counts a row once per distinct value
     const source = facet.array

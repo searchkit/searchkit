@@ -1,6 +1,6 @@
 {
   "name": "@searchkit/core",
-  "version": "4.18.1",
+  "version": "4.19.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "description": "Engine-neutral core of Searchkit: settings and InstantSearch types, the search adapter interface, the filter AST and parser, query rules, sorting and pagination helpers.",

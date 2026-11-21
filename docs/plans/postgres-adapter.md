@@ -594,6 +594,25 @@ Notes:
   adapter-postgres 96, searchkit 68, api 3, instantsearch-client 3; e2e 62 passed, 0 skipped (34 Elasticsearch,
   28 Postgres).
 
+### Merge of `main` (2026-11-21)
+
+`main` moved on with searchkit 4.19.0; its changes were ported into the new package layout:
+
+- `order: 'alpha'` on facet attributes (#1418): the `FacetValueOrder` type and `order` option live in core;
+  the Elasticsearch adapter sends `order: { _key: 'asc' }`; the Postgres adapter orders by value only
+  (`COLLATE "C"`, bytewise like a keyword field). The example's `brand_az` facet is in both engines'
+  settings, so `facet-order-ui.spec.ts` runs on both projects.
+- Facet search after any word (#1461): `createRegexQuery` (ES adapter) now uses `(.* )?`, which matches the
+  Postgres `ILIKE` patterns, so this is no longer listed as a difference in the Postgres docs.
+- `deepmerge` removed (#1463): the replacement `deepMerge` lives in the ES adapter's utils (its only user),
+  and the adapter no longer depends on `deepmerge`.
+- `facet-search-words.spec.ts` and `facet-value-order.spec.ts` build their own ES index in-process, so the
+  Postgres project ignores them like `escaped-facet-values.spec.ts`.
+- `release.yml` keeps main's published-e2e run, restricted to `--project=chromium`.
+- The new packages are versioned 4.19.0 alongside `searchkit`; all still release as 5.0.0.
+- Gate after the merge: unit tests core 42, adapter-elasticsearch 73, adapter-postgres 97, searchkit 68,
+  api 3, instantsearch-client 3; e2e 77 passed (45 Elasticsearch, 32 Postgres).
+
 ## Out of scope for v1 (say so in docs)
 
 Geo filters, ES `nestedPath`, `runtime_mappings`, custom facet SQL (`CustomFacetConfig` is ES only), approximate

@@ -48,6 +48,28 @@ describe('facets', () => {
     expect(statement.text).toMatchSnapshot()
   })
 
+  it("orders an order: 'alpha' facet by value only, like Elasticsearch's _key asc", () => {
+    const config: SearchSettingsConfig = {
+      ...settings,
+      facet_attributes: [
+        { attribute: 'brand_az', field: 'brand', type: 'string', order: 'alpha' },
+        { attribute: 'brand', field: 'brand', type: 'string' }
+      ]
+    }
+    const statement = build(
+      { indexName: 'products', params: { query: '', facets: ['brand_az', 'brand'] } },
+      config
+    )
+    // facet_0 is alpha-ordered, facet_1 keeps the count order
+    expect(statement.text).toMatch(
+      /facet_0 AS \([\s\S]*?ORDER BY _f\.value::text COLLATE "C" ASC\n/
+    )
+    expect(statement.text).toMatch(
+      /facet_1 AS \([\s\S]*?ORDER BY count\(\*\) DESC, _f\.value::text COLLATE "C" ASC\n/
+    )
+    expect(statement.text).toContain('ORDER BY f.value::text COLLATE "C" ASC)')
+  })
+
   it('adds min / max / avg / sum for a numeric facet', () => {
     const statement = build({ indexName: 'products', params: { query: 'tv', facets: ['price'] } })
     // maxValuesPerFacet defaults to 10, as in the Elasticsearch adapter

@@ -1,6 +1,6 @@
 {
   "name": "@searchkit/adapter-postgres",
-  "version": "4.18.1",
+  "version": "4.19.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "description": "Postgres adapter for Searchkit (Node only). Full-text search with tsvector, facets with GROUP BY and semantic search with pgvector.",

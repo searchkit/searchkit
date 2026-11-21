@@ -3,7 +3,6 @@ import {
   RankContainer,
   RrfRank
 } from '@elastic/elasticsearch/lib/api/types'
-import deepmerge from 'deepmerge'
 import {
   queryStringFilter,
   transformBaseFilters,
@@ -17,6 +16,7 @@ import type {
   AlgoliaMultipleQueriesQuery,
   ElasticsearchSearchRequest,
   FacetAttribute,
+  FacetValueOrder,
   KnnSearchQuery,
   QueryConfig,
   QueryRuleActions,
@@ -31,16 +31,18 @@ import {
   getSnippetFieldLength,
   isNestedFacet
 } from '@searchkit/core'
-import { createRegexQuery } from './utils'
+import { createRegexQuery, deepMerge } from './utils'
 
 export { getSnippetFieldLength }
 
-const TermAggregation = (field: string, size: number, search: string) => {
+const TermAggregation = (field: string, size: number, search: string, order?: FacetValueOrder) => {
   const searchInclude = search && search.length > 0 ? { include: createRegexQuery(search) } : {}
+  const bucketOrder = order === 'alpha' ? { order: { _key: 'asc' as const } } : {}
   return {
     terms: {
       field,
       size,
+      ...bucketOrder,
       ...searchInclude
     }
   }
@@ -48,8 +50,12 @@ const TermAggregation = (field: string, size: number, search: string) => {
 
 const getTermAggregation = (facet: FacetAttribute, size: number, search: string) => {
   let aggEntries = {}
+  const order = typeof facet !== 'string' && 'order' in facet ? facet.order : undefined
   const AggregationFn =
-    typeof facet !== 'string' && 'facetQuery' in facet ? facet.facetQuery : TermAggregation
+    typeof facet !== 'string' && 'facetQuery' in facet
+      ? facet.facetQuery
+      : (field: string, aggSize: number, aggSearch: string) =>
+          TermAggregation(field, aggSize, aggSearch, order)
 
   const getInnerAggs = (facetName: string, field: string): any => {
     if (typeof facet === 'string' || facet.type === 'string') {
@@ -121,7 +127,7 @@ export const getAggs = (
 
     return (
       facetAttributes.reduce((sum, facet) => {
-        return deepmerge(sum, getTermAggregation(facet, maxFacetSize, ''))
+        return deepMerge(sum, getTermAggregation(facet, maxFacetSize, ''))
       }, {}) || {}
     )
   } else if (typeof facets === 'string') {

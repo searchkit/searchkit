@@ -51,12 +51,12 @@ describe('facetQuery case insensitivity', () => {
   afterEach(() => nock.cleanAll())
 
   it.each([
-    ['mario', '([a-zA-Z]+ )+?[mM][aA][rR][iI][oO].*'],
-    ['Mario', '([a-zA-Z]+ )+?[mM][aA][rR][iI][oO].*'],
-    ['MARIO', '([a-zA-Z]+ )+?[mM][aA][rR][iI][oO].*'],
+    ['mario', '(.* )?[mM][aA][rR][iI][oO].*'],
+    ['Mario', '(.* )?[mM][aA][rR][iI][oO].*'],
+    ['MARIO', '(.* )?[mM][aA][rR][iI][oO].*'],
     ['mA', '[mM][aA].*'],
     // https://github.com/searchkit/searchkit/issues/1423
-    ['AT&T', '([a-zA-Z]+ )+?[aA][tT]\\&[tT].*'],
+    ['AT&T', '(.* )?[aA][tT]\\&[tT].*'],
     ['C#', '[cC]\\#.*']
   ])('facetQuery %p produces a case insensitive include regex', async (facetQuery, expected) => {
     let include: string | undefined
@@ -104,7 +104,7 @@ describe('facetQuery case insensitivity', () => {
 
     const response = await client.handleInstantSearchRequests(facetSearchRequest('c++'))
 
-    expect(include).toBe('([a-zA-Z]+ )+?[cC]\\+\\+.*')
+    expect(include).toBe('(.* )?[cC]\\+\\+.*')
     expect((response.results[0] as any).facetHits).toEqual([
       {
         value: 'C++',

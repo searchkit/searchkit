@@ -1,6 +1,6 @@
 {
   "name": "@searchkit/adapter-elasticsearch",
-  "version": "4.18.1",
+  "version": "4.19.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "description": "Elasticsearch adapter for Searchkit. Transforms InstantSearch requests into Elasticsearch queries and the responses back.",
@@ -44,7 +44,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@searchkit/core": "workspace:^",
-    "deepmerge": "^4.2.2"
+    "@searchkit/core": "workspace:^"
   }
 }

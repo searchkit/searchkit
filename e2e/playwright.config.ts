@@ -2,7 +2,8 @@ import { defineConfig, devices } from '@playwright/test'
 
 const PORT = Number(process.env.E2E_PORT || 3000)
 // When set, serve this prepared copy of the example (built from packages installed from npm, see
-// scripts/prepare-published-example.mjs) instead of the workspace example.
+// scripts/prepare-published-example.mjs) instead of the workspace example. That run uses a copy of this directory
+// installed from npm too, so the tests' own searchkit imports are the published packages.
 const APP_DIR = process.env.E2E_APP_DIR
 const ES_HOST = process.env.ES_HOST || 'http://localhost:9200'
 
@@ -48,9 +49,9 @@ export default defineConfig({
     {
       name: 'chromium-postgres',
       use: { ...devices['Desktop Chrome'], baseURL: `http://localhost:${POSTGRES_PORT}` },
-      // builds its own Elasticsearch index in-process and never uses the example app, so it does not test
-      // Postgres (and running it in both projects would race on that shared index)
-      testIgnore: /escaped-facet-values\.spec\.ts/
+      // these build their own Elasticsearch index in-process and never use the example app, so they do not
+      // test Postgres (and running them in both projects would race on those shared indices)
+      testIgnore: /(escaped-facet-values|facet-search-words|facet-value-order)\.spec\.ts/
     }
   ],
   // Builds examples/with-ui-nextjs-react (which uses the workspace searchkit packages) once and serves it

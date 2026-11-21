@@ -137,7 +137,8 @@ After a publish, the `Release` workflow also:
 - **Comments "Fixed in `pkg@version`"** on every issue closed by a PR in the release (found via the PR's closing
   references; `scripts/notify-released-issues.mjs`). Write `Fixes #123` in the PR description for this to work.
   Changelog entries link to their PR via `@changesets/changelog-github`.
-- **Verifies the release** (`verify-published` job): waits for the new versions to appear on npm, installs them into a
-  copy of the Next.js example (`scripts/prepare-published-example.mjs`) and runs the Playwright functional tests against
-  a real Elasticsearch. Locally: `node scripts/prepare-published-example.mjs /tmp/app` then
-  `E2E_APP_DIR=/tmp/app pnpm test:e2e`.
+- **Verifies the release** (`verify-published` job): waits for the new versions to appear on npm, installs them from npm
+  into standalone copies of the Next.js example and of `e2e/` (`scripts/prepare-published-example.mjs`), and runs the
+  Playwright functional tests from that copy against a real Elasticsearch, so neither the app nor the tests use the
+  workspace packages. Locally: `node scripts/prepare-published-example.mjs /tmp/published` then, in
+  `/tmp/published/e2e`, `E2E_APP_DIR=/tmp/published/app npx playwright test`.

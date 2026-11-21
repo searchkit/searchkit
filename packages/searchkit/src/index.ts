@@ -34,6 +34,7 @@ export type {
   FacetAttribute,
   FacetFieldConfig,
   FacetStringResponse,
+  FacetValueOrder,
   FacetsStats,
   FilterAttribute,
   KnnSearchQuery,

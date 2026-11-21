@@ -63,11 +63,22 @@ export interface MultipleQueriesQuery {
  */
 type AlgoliaMultipleQueriesQuery = MultipleQueriesQuery
 
+export type FacetValueOrder = 'count' | 'alpha'
+
 export type FacetFieldConfig = {
   attribute: string
   field: string
   type: 'numeric' | 'string' | 'date'
   nestedPath?: string
+  /**
+   * @description Order of the facet's values. `count` (the default) returns the
+   * most common values first; `alpha` orders them by the term itself. Ordering
+   * has to happen in the search engine, since the facet size decides which
+   * values are returned at all: sorting client side only reorders the values
+   * already selected by count.
+   * @default 'count'
+   */
+  order?: FacetValueOrder
   /**
    * @description Postgres adapter only: the column is an array (e.g. `text[]`), a multi-valued attribute.
    * Facets `unnest` it before counting and filters use array operators (`@>`, `&&`), so a row matches when

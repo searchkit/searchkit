@@ -278,8 +278,6 @@ parameters, the InstantSearch request and the index. `afterSearch` also receives
   default), and a tenth of the best `similarity()` is added to the rank so exact full-text matches still come
   first. It needs `CREATE EXTENSION pg_trgm` and, for speed, a `gin (column gin_trgm_ops)` index on each search
   attribute.
-- **Facet value search** (`searchForFacetValues`) matches the start of the value, or for queries longer than two
-  characters the start of any later word, case-insensitively (`ILIKE`).
 - **`QueryBoost` adds** its weight to the score of matching rows, where Elasticsearch's `function_score`
   multiplies.
 - **Hybrid semantic search** runs on any Postgres with pgvector; on Elasticsearch it needs a licence that includes

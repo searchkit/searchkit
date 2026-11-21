@@ -152,6 +152,8 @@ const elasticsearchSettings: SearchSettingsConfig = {
   ...sharedSettings,
   facet_attributes: [
     { attribute: 'brand', field: 'brand.keyword', type: 'string' },
+    // the same field with its values ordered by term instead of by count (see /facet-order)
+    { attribute: 'brand_az', field: 'brand.keyword', type: 'string', order: 'alpha' },
     {
       attribute: 'categories.lvl0',
       field: 'hierarchicalCategories.lvl0.keyword',
@@ -187,6 +189,8 @@ const postgresSettings: SearchSettingsConfig = {
   ...sharedSettings,
   facet_attributes: [
     { attribute: 'brand', field: 'brand', type: 'string' },
+    // the same column with its values ordered by term instead of by count (see /facet-order)
+    { attribute: 'brand_az', field: 'brand', type: 'string', order: 'alpha' },
     { attribute: 'categories.lvl0', field: 'hierarchical_categories_lvl0', type: 'string' },
     { attribute: 'categories.lvl1', field: 'hierarchical_categories_lvl1', type: 'string' },
     { attribute: 'categories.lvl2', field: 'hierarchical_categories_lvl2', type: 'string' },

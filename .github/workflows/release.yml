@@ -74,8 +74,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # After a publish: install the released packages from the npm registry (not the workspace) into a copy of the
-  # Next.js example and run the Playwright functional tests against a real Elasticsearch.
+  # After a publish: install the released packages from the npm registry (not the workspace) into standalone copies
+  # of the Next.js example and of the Playwright tests, and run the tests against a real Elasticsearch. Nothing here
+  # resolves to the workspace packages, so it checks what someone installing from npm gets.
   verify-published:
     needs: release
     if: needs.release.outputs.published == 'true'
@@ -111,24 +112,25 @@ jobs:
           node-version: 22
           cache: "pnpm"
 
-      - name: Install dependencies (for the Playwright runner)
+      # Only to read the versions the workspace resolved, which the copies pin their other dependencies to.
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install the example from npm
-        run: node scripts/prepare-published-example.mjs "$RUNNER_TEMP/published-example"
+      - name: Install the example and the tests from npm
+        run: node scripts/prepare-published-example.mjs "$RUNNER_TEMP/published"
 
       - name: Seed Elasticsearch
         run: node e2e/seed.mjs
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
-        working-directory: e2e
+        run: cd "$RUNNER_TEMP/published/e2e" && npx playwright install --with-deps chromium
 
       # Elasticsearch only: this job has no Postgres service (the chromium-postgres project needs one)
       - name: Run functional tests against the published packages
-        run: pnpm test:e2e --project=chromium
+        # Elasticsearch project only: this job has no Postgres service
+        run: cd "$RUNNER_TEMP/published/e2e" && npx playwright test --project=chromium
         env:
-          E2E_APP_DIR: ${{ runner.temp }}/published-example
+          E2E_APP_DIR: ${{ runner.temp }}/published/app
 
       - name: Upload Playwright report
         if: failure()
@@ -136,6 +138,6 @@ jobs:
         with:
           name: playwright-report-published
           path: |
-            e2e/playwright-report/
-            e2e/test-results/
+            ${{ runner.temp }}/published/e2e/playwright-report/
+            ${{ runner.temp }}/published/e2e/test-results/
           retention-days: 7

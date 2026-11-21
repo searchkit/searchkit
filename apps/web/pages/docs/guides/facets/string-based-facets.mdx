@@ -58,6 +58,35 @@ will result in the following mapping:
 
 ```
 
+### Ordering facet values
+
+By default a facet returns its most common values first. Pass `order: 'alpha'` to
+order them by the term instead.
+
+```ts
+{
+  facet_attributes: [
+    {
+      attribute: 'brand',
+      field: 'brand.keyword',
+      type: 'string',
+      order: 'alpha'
+    },
+  ]
+}
+```
+
+The ordering is applied to the Elasticsearch aggregation, which is what decides
+which values are returned: the aggregation size caps them. InstantSearch's
+`sortBy` prop sorts only the values already returned, so on a field with more
+values than the size it reorders the most common ones rather than listing the
+field alphabetically. Set both to order alphabetically and keep that order in the
+widget:
+
+```jsx
+<RefinementList attribute="brand" sortBy={['name:asc']} />
+```
+
 ### Frontend Usage
 
 Then you can use instantsearch components using the `brand` facet attribute.
