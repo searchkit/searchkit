@@ -1,7 +1,7 @@
 name: Release
 
 # On every push to main, Changesets either opens/updates a "Version Packages" PR
-# (when unreleased changesets exist) or, when that PR is merged, publishes to npm.
+# (when unreleased changesets exist) or, when that PR is merged, publishes to npm and deploys the docs.
 on:
   push:
     branches:
@@ -73,6 +73,13 @@ jobs:
         run: node scripts/notify-released-issues.mjs '${{ steps.changesets.outputs.published-packages }}'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Docs deploy only on a release, from the commit that was published.
+  deploy-docs:
+    needs: release
+    if: needs.release.outputs.published == 'true'
+    uses: ./.github/workflows/publish-docs.yml
+    secrets: inherit
 
   # After a publish: install the released packages from the npm registry (not the workspace) into standalone copies
   # of the Next.js example and of the Playwright tests, and run the tests against a real Elasticsearch. Nothing here
