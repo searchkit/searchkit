@@ -3,7 +3,6 @@ import {
   RankContainer,
   RrfRank
 } from '@elastic/elasticsearch/lib/api/types'
-import deepmerge from 'deepmerge'
 import {
   transformBaseFilters,
   transformFacetFilters,
@@ -21,7 +20,7 @@ import {
   SearchSettingsConfig
 } from './types'
 import { AlgoliaMultipleQueriesQuery, ElasticsearchSearchRequest, QueryConfig } from './types'
-import { createRegexQuery, getFacet, isNestedFacet } from './utils'
+import { createRegexQuery, deepMerge, getFacet, isNestedFacet } from './utils'
 
 const TermAggregation = (field: string, size: number, search: string, order?: FacetValueOrder) => {
   const searchInclude = search && search.length > 0 ? { include: createRegexQuery(search) } : {}
@@ -115,7 +114,7 @@ export const getAggs = (
 
     return (
       facetAttributes.reduce((sum, facet) => {
-        return deepmerge(sum, getTermAggregation(facet, maxFacetSize, ''))
+        return deepMerge(sum, getTermAggregation(facet, maxFacetSize, ''))
       }, {}) || {}
     )
   } else if (typeof facets === 'string') {

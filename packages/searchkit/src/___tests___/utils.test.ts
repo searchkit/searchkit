@@ -1,6 +1,54 @@
-import { getFacetField, getFacetByAttribute, getFacetFieldType, createRegexQuery } from '../utils'
+import {
+  getFacetField,
+  getFacetByAttribute,
+  getFacetFieldType,
+  createRegexQuery,
+  deepMerge
+} from '../utils'
 
 describe('utils', () => {
+  describe('deepMerge', () => {
+    it('merges nested aggregations that share a nested path', () => {
+      const a = {
+        'user.': { nested: { path: 'user' }, aggs: { first: { terms: { field: 'user.first' } } } }
+      }
+      const b = {
+        'user.': { nested: { path: 'user' }, aggs: { last: { terms: { field: 'user.last' } } } }
+      }
+      expect(deepMerge(a, b)).toEqual({
+        'user.': {
+          nested: { path: 'user' },
+          aggs: {
+            first: { terms: { field: 'user.first' } },
+            last: { terms: { field: 'user.last' } }
+          }
+        }
+      })
+    })
+
+    it('does not mutate its inputs', () => {
+      const a = { x: { y: 1 } }
+      const b = { x: { z: 2 } }
+      deepMerge(a, b)
+      expect(a).toEqual({ x: { y: 1 } })
+      expect(b).toEqual({ x: { z: 2 } })
+    })
+
+    it('concatenates arrays and overwrites scalars', () => {
+      expect(deepMerge({ a: [1], b: 1 }, { a: [2], b: 2 })).toEqual({ a: [1, 2], b: 2 })
+    })
+
+    it('ignores prototype-polluting keys', () => {
+      const malicious = JSON.parse(
+        '{"__proto__": {"polluted": true}, "constructor": {"prototype": {"polluted": true}}}'
+      )
+      const result: any = deepMerge({}, malicious)
+      expect(({} as any).polluted).toBeUndefined()
+      expect(result.polluted).toBeUndefined()
+      expect(Object.getPrototypeOf(result)).toBe(Object.prototype)
+    })
+  })
+
   describe('createRegexQuery', () => {
     it('should create regex', () => {
       expect(createRegexQuery('test')).toBe('(.* )?[tT][eE][sS][tT].*')

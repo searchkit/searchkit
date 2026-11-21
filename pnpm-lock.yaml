@@ -575,10 +575,6 @@ importers:
         version: 4.9.5
 
   packages/searchkit:
-    dependencies:
-      deepmerge:
-        specifier: ^4.2.2
-        version: 4.3.1
     devDependencies:
       '@algolia/client-search':
         specifier: ^4.27.0
