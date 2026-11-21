@@ -37,7 +37,7 @@ describe('nested facetQuery', () => {
                 "user.first": {
                   "terms": {
                     "field": "user.first.keyword",
-                    "include": "([a-zA-Z]+ )+?[hH][aA][rR].*",
+                    "include": "(.* )?[hH][aA][rR].*",
                     "size": 10,
                   },
                 },
