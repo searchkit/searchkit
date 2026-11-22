@@ -1,6 +1,6 @@
 ---
 title: With React
-description: Tutorial for getting started with Searchkit and React Instantsearch
+description: Tutorial for getting started with Searchkit and React InstantSearch
 keywords: searchkit, react, instantsearch, tutorial, quickstart, getting started, Elasticsearch, Opensearch
 ---
 
@@ -9,7 +9,7 @@ import Setup from "./setup.mdx"
 
 ## Quick Start with Searchkit and React instantsearch
 
-This guide will show you how to get started with Searchkit and React Instantsearch components.
+This guide will show you how to get started with Searchkit and React InstantSearch components.
 
 <Callout type="info">
   If you use Next.js, checkout the <a href="/docs/tutorials/with-nextjs">Next.js guide</a> for a simpler setup.
@@ -65,9 +65,9 @@ For more details on installation and usage, see [Installation](/docs/installatio
   </Tab>
 </Tabs>
 
-### Adding Searchkit & Instantsearch to your React App
+### Adding Searchkit & InstantSearch to your React App
 
-Below is a simple example of how to add Searchkit and Instantsearch to your React app.
+Below is a simple example of how to add Searchkit and InstantSearch to your React app.
 
 ```tsx
 import React from "react";
@@ -110,9 +110,9 @@ const App = () => (
 export default App;
 ```
 
-### Adding Instantsearch theme Stylesheet
+### Adding InstantSearch theme Stylesheet
 
-You can add the Instantsearch stylesheet via CDN file.
+You can add the InstantSearch stylesheet via CDN file.
 
 ```html
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/satellite-min.css">
@@ -172,7 +172,7 @@ const HitView = ({ hit }) => (
 
 ### Highlighting & Snippets
 
-Instantsearch and Searchkit provide a way to highlight the search terms in the results. You can also specify the number of characters to display in the snippet.
+InstantSearch and Searchkit provide a way to highlight the search terms in the results. You can also specify the number of characters to display in the snippet.
 
 For short text fields like name, you can use the `highlight` prop to highlight the search terms in the results. For longer text fields like description, you can use the `snippet` prop to display a snippet of the text.
 
@@ -313,7 +313,7 @@ const searchClient = Client(sk, {
 
 ## Refinements
 
-Refinements (also known as facets) allow your users to narrow down their search results. You can easily add refinements with the many refinement components provided by Instantsearch.
+Refinements (also known as facets) allow your users to narrow down their search results. You can easily add refinements with the many refinement components provided by InstantSearch.
 
 In this example we are going to add a `brand` refinement facet. We will also add a `categories` refinement facet to show how to use a hierarchical facet.
 
@@ -433,7 +433,7 @@ and then you should see the categories in a tree structure.
 
 ### Other Refinement Components
 
-There are many other refinement components available in Instantsearch. You can find the full list of refinement components [here](/docs/components/refinements/refinement-list).
+There are many other refinement components available in InstantSearch. You can find the full list of refinement components [here](/docs/components/refinements/refinement-list).
 
 ### Nested Fields support
 
@@ -604,7 +604,7 @@ To illustrate their use, we will add a query rule that will boost the results fo
 
 Add a query rule to Searchkit `search_settings`
 
-When the customer types in "cheap tvs", the query rule will be applied and the results will be filtered to televisions with a price range between 0 to 500, and the results for the brand LG will be boosted.
+When the customer types in "cheap tvs", the query rule will be applied and the results will be filtered to televisions with a price range between 0 and 500, and the results for the brand LG will be boosted.
 
 ```tsx
   search_settings: {
@@ -626,7 +626,7 @@ When the customer types in "cheap tvs", the query rule will be applied and the r
             action: 'QueryRewrite',
             query: ''
           },
-          { // filter the results to be televisions and price range between 0 to 500
+          { // filter the results to televisions with a price range between 0 and 500
             action: 'QueryFilter',
             query: 'price:[0 TO 500] AND categories:TVs'
           },
@@ -809,7 +809,7 @@ Now the banner will be displayed when the customer selects the TV category.
 Query rules are super amazing! Read more about them in [Query Rules](/docs/query-rules).
 
 #### More Conditions not covered in this guide
-* [Context](/docs/query-rules/conditions/context) - Activate certain actions with context based on the user (segments, location, a/b experiments, etc)
+* [Context](/docs/query-rules/conditions/context) - Activate certain actions with context based on the user (segments, location, A/B experiments, etc.)
 
 #### More Actions not covered in this guide
 * [Pin Results](/docs/query-rules/actions/pin-result) - Pin certain results to the top, regardless of the ranking. This is useful if you want to show a specific product in the search results.

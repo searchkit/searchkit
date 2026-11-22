@@ -8,7 +8,7 @@ Snippet is a widget that displays highlighted attributes from a hit. It is commo
 
 ## Differences between highlighting and snippets
 
-Highlighting and snippets are very similar. The main difference is that highlighting returns the whole field value, highlighting the matches while snippets return a part of the field value, highlighting the matches.
+Highlighting and snippets are very similar. The main difference is that highlighting returns the whole field value, highlighting the matches, while snippets return a part of the field value, highlighting the matches.
 
 Highlighting would be useful for short value fields like title.
 
@@ -22,6 +22,7 @@ Index the following document into Elasticsearch:
 {
   "brand": "Apple",
   "product": "Macbook Pro 14",
+  "description": "The Macbook Pro 14 has a Liquid Retina XDR display, a backlit Magic Keyboard with Touch ID and all-day battery life.",
   "in_stock": true,
   "shipping": 10
 }
@@ -53,7 +54,7 @@ The default length of the snippet is 100 characters. You can change this like so
 
 ## Usage
 
-Below is an example of a `hitView` that displays the `product` attribute with the search query highlighted.
+Below is an example of a `hitView` that displays a snippet of the `description` attribute with the search query highlighted.
 
 ```jsx
 
@@ -76,5 +77,5 @@ const hitView = ({ hit }) => {
 
 ## Troubleshooting
 
-1. Make sure you have the `highlight_attributes` in the `search_settings` configuration.
-2. Make sure the attributes are also specified in the `search_attributes` too, and match the same field.
+1. Make sure you have the `snippet_attributes` in the `search_settings` configuration.
+2. Make sure the attributes are also specified in `search_attributes` and match the same field.
