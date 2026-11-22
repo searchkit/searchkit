@@ -24,7 +24,7 @@ const apiClient = API(
   { debug: true }
 )
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   const data = await req.json()
 
   // Example 1: Semantic Search Only
