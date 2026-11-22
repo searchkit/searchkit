@@ -9,7 +9,8 @@ Works with Javascript, React, Vue, Angular, and more.
 
 ![Alt Text](apps/web/public/overview.gif)
 
-Searchkit provides a Search UI for Elasticsearch or Opensearch. With Searchkit, you can use Instantsearch components like Searchbox, refinement filters and results (and many more!) to build a search experience.
+Searchkit provides a Search UI for Elasticsearch or Opensearch, and for Postgres with the
+[Postgres adapter](#postgres). With Searchkit, you can use Instantsearch components like Searchbox, refinement filters and results (and many more!) to build a search experience.
 
 Searchkit is great for anyone who want to build a search experience quickly.
 
@@ -18,6 +19,7 @@ Searchkit is great for anyone who want to build a search experience quickly.
 - UI Search Components for React, Vue, Angular, and more
 - Searchkit Node API proxies Elasticsearch requests from the browser.
 - Ability to use Elasticsearch Query DSL for advanced queries
+- Postgres adapter: full-text search, exact facets and hybrid semantic search (pgvector) on a Postgres table
 
 ## Searchkit AI Bot
 
@@ -161,10 +163,10 @@ const sk = new Searchkit({
   connection: {
     host: 'http://localhost:9200',
     // with an apiKey
-    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-api-key
+    // https://www.searchkit.co/docs/adapters/elasticsearch#connecting-with-api-key
     // apiKey: '##########'
     // with a username/password
-    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword
+    // https://www.searchkit.co/docs/adapters/elasticsearch#connecting-with-usernamepassword
     //auth: {
     //  username: "elastic",
     //  password: "changeme"
@@ -232,28 +234,54 @@ const results = await apiClient.handleRequest(req.body, {
 
 ### Semantic Query Search
 
-Searchkit supports KNN query search. Below is an example of a KNN query search.
+Searchkit supports semantic (KNN) search, combined with the text query (hybrid) or on its own. Configure it with
+`semantic_search` in the search settings.
 
 ```ts
-const results = await client.handleRequest(req.body, {
-  getKnnQuery(query, search_attributes, config) {
-    return {
+const client = Client({
+  connection: { host: 'http://localhost:9200' },
+  search_settings: {
+    // ...
+    semantic_search: {
       field: 'dense-vector-field',
+      // Elasticsearch embeds the query with this model; or pass `embed: async (query) => number[]`
+      model_id: 'cookie_model',
       k: 10,
       num_candidates: 100,
-      // supported in latest version of Elasticsearch
-      query_vector_builder: {
-        text_embedding: {
-          model_id: 'cookie_model',
-          model_text: query
-        }
-      }
+      mode: 'hybrid' // or 'semantic_only' / 'text_only'
     }
   }
 })
 ```
 
 Follow along with the [Semantic Search](https://www.searchkit.co/docs/tutorials/semantic-search) tutorial.
+
+### Postgres
+
+The `@searchkit/adapter-postgres` package searches a Postgres table instead of Elasticsearch, with the same UI and
+search settings: full-text search with a `tsvector` column and `websearch_to_tsquery`, exact facet counts with
+`GROUP BY`, sorting, query rules, highlighting, and semantic / hybrid search with pgvector (`semantic_search` with
+`embed`). It runs on the server only (Node 22.11+), in your API route.
+
+```ts
+import API from '@searchkit/api'
+import { PostgresAdapter } from '@searchkit/adapter-postgres'
+
+const apiClient = API({
+  adapter: PostgresAdapter({
+    connection: process.env.DATABASE_URL, // or { pool } with an existing pg Pool
+    indices: { products: { table: 'products', search_vector_column: 'search_vector' } }
+  }),
+  search_settings: {
+    search_attributes: [{ field: 'name', weight: 3 }, 'description'],
+    result_attributes: ['name', 'description', 'price'],
+    facet_attributes: [{ attribute: 'brand', field: 'brand', type: 'string' }]
+  }
+})
+```
+
+See the [Postgres adapter docs](https://www.searchkit.co/docs/adapters/postgres) for the table it needs (a generated
+`tsvector` column with a GIN index), `array: true` columns, pgvector setup and the differences from Elasticsearch.
 
 ### Advanced Customisation
 

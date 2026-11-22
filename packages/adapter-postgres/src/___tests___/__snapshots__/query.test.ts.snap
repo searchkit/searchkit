@@ -1,0 +1,204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`buildSearchStatement adds a pg_trgm match over the search attributes when fuzziness is set 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+base AS (
+  SELECT t."id", t."name", t."description", (ts_rank_cd(t."search_vector", q.tsq) + 0.1 * greatest(similarity(coalesce(t."name"::text, ''), $2), similarity(coalesce(t."brand"::text, ''), $2), similarity(coalesce(t."description"::text, ''), $2)))::real AS _score
+  FROM "products" t CROSS JOIN q
+  WHERE (t."search_vector" @@ q.tsq OR (coalesce(t."name"::text, '') % $2 OR coalesce(t."brand"::text, '') % $2 OR coalesce(t."description"::text, '') % $2))
+),
+hits AS (
+  SELECT "id", "name", "description", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $3 OFFSET $4
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM (SELECT hits.*, json_build_object($6::text, ts_headline($1::regconfig, coalesce(hits."name"::text, ''), q.tsq, $5)) AS _highlight FROM hits CROSS JOIN q) h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`buildSearchStatement builds the tsvector from search_attributes, weighted by descending weight, without a search vector column 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+base AS (
+  SELECT t."id", t."name", t."description", ts_rank_cd((setweight(to_tsvector($1::regconfig, coalesce(t."name"::text, '')), 'A') || setweight(to_tsvector($1::regconfig, coalesce(t."brand"::text, '')), 'B') || setweight(to_tsvector($1::regconfig, coalesce(t."description"::text, '')), 'C')), q.tsq) AS _score
+  FROM "shop"."products" t CROSS JOIN q
+  WHERE (setweight(to_tsvector($1::regconfig, coalesce(t."name"::text, '')), 'A') || setweight(to_tsvector($1::regconfig, coalesce(t."brand"::text, '')), 'B') || setweight(to_tsvector($1::regconfig, coalesce(t."description"::text, '')), 'C')) @@ q.tsq
+),
+hits AS (
+  SELECT "id", "name", "description", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $3 OFFSET $4
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM (SELECT hits.*, json_build_object($6::text, ts_headline($1::regconfig, coalesce(hits."name"::text, ''), q.tsq, $5)) AS _highlight FROM hits CROSS JOIN q) h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`buildSearchStatement compiles filters into a parameterised WHERE 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+base AS (
+  SELECT t."id", t."name", t."description", ts_rank_cd(t."search_vector", q.tsq) AS _score
+  FROM "products" t CROSS JOIN q
+  WHERE t."search_vector" @@ q.tsq
+    AND ((t."brand" = $3 OR t."brand" = $4) AND t."brand" = $5 AND (t."price" >= $6) AND (t."price" <= $7))
+),
+hits AS (
+  SELECT "id", "name", "description", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $8 OFFSET $9
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM (SELECT hits.*, json_build_object($11::text, ts_headline($1::regconfig, coalesce(hits."name"::text, ''), q.tsq, $10)) AS _highlight FROM hits CROSS JOIN q) h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`buildSearchStatement has no text predicate, a zero score and a deterministic order for an empty query 1`] = `
+"WITH base AS (
+  SELECT t."id", t."name", t."description", 0::real AS _score
+  FROM "products" t
+),
+hits AS (
+  SELECT "id", "name", "description", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $1 OFFSET $2
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`buildSearchStatement orders by the sorting option of the indexName suffix 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+base AS (
+  SELECT t."id", t."name", t."description", t."price", ts_rank_cd(t."search_vector", q.tsq) AS _score
+  FROM "products" t CROSS JOIN q
+  WHERE t."search_vector" @@ q.tsq
+),
+hits AS (
+  SELECT "id", "name", "description", _score, row_number() OVER (ORDER BY "price" ASC NULLS LAST, "id" ASC) AS _rn
+  FROM base
+  ORDER BY "price" ASC NULLS LAST, "id" ASC
+  LIMIT $3 OFFSET $4
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM (SELECT hits.*, json_build_object($6::text, ts_headline($1::regconfig, coalesce(hits."name"::text, ''), q.tsq, $5)) AS _highlight FROM hits CROSS JOIN q) h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`buildSearchStatement orders by the sorting option of the indexName suffix 2`] = `
+"WITH base AS (
+  SELECT t."id", t."name", t."description", t."price", 0::real AS _score
+  FROM "products" t
+),
+hits AS (
+  SELECT "id", "name", "description", _score, row_number() OVER (ORDER BY "price" DESC NULLS LAST, "name" ASC NULLS LAST, "id" ASC) AS _rn
+  FROM base
+  ORDER BY "price" DESC NULLS LAST, "name" ASC NULLS LAST, "id" ASC
+  LIMIT $1 OFFSET $2
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`buildSearchStatement pages with LIMIT / OFFSET 1`] = `
+"WITH base AS (
+  SELECT t."id", t."name", t."description", 0::real AS _score
+  FROM "products" t
+),
+hits AS (
+  SELECT "id", "name", "description", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $1 OFFSET $2
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`buildSearchStatement searches the search vector column for a query 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+base AS (
+  SELECT t."id", t."name", t."description", ts_rank_cd(t."search_vector", q.tsq) AS _score
+  FROM "products" t CROSS JOIN q
+  WHERE t."search_vector" @@ q.tsq
+),
+hits AS (
+  SELECT "id", "name", "description", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $3 OFFSET $4
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM (SELECT hits.*, json_build_object($6::text, ts_headline($1::regconfig, coalesce(hits."name"::text, ''), q.tsq, $5)) AS _highlight FROM hits CROSS JOIN q) h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`query rules adds a CASE WHEN term per QueryBoost to the score 1`] = `
+"WITH base AS (
+  SELECT t."id", t."name", t."description", (0::real + CASE WHEN t."brand" = $1 THEN $2::real ELSE 0 END + CASE WHEN (t."brand" = $3 OR (t."price" < $4)) THEN $5::real ELSE 0 END)::real AS _score
+  FROM "products" t
+  WHERE ((t."price" >= $6 AND t."price" <= $7) AND t."categories" @> $8)
+),
+hits AS (
+  SELECT "id", "name", "description", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $9 OFFSET $10
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`query rules puts PinnedResult ids first, in order, and matches them without the query 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+base AS (
+  SELECT t."id", t."name", t."description", ts_rank_cd(t."search_vector", q.tsq) AS _score, array_position($3::text[], t."id"::text) AS _pin
+  FROM "products" t CROSS JOIN q
+  WHERE (t."search_vector" @@ q.tsq OR t."id"::text = ANY($3::text[]))
+),
+hits AS (
+  SELECT "id", "name", "description", _score, row_number() OVER (ORDER BY _pin ASC NULLS LAST, _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _pin ASC NULLS LAST, _score DESC, "id" ASC
+  LIMIT $4 OFFSET $5
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total"
+`;
+
+exports[`sorting orders by every field of a multi-field sorting option, _score included 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+base AS (
+  SELECT t."id", t."name", t."description", t."price", ts_rank_cd(t."search_vector", q.tsq) AS _score
+  FROM "products" t CROSS JOIN q
+  WHERE t."search_vector" @@ q.tsq
+),
+hits AS (
+  SELECT "id", "name", "description", _score, row_number() OVER (ORDER BY "price" DESC NULLS LAST, _score DESC, "name" ASC NULLS LAST, "id" ASC) AS _rn
+  FROM base
+  ORDER BY "price" DESC NULLS LAST, _score DESC, "name" ASC NULLS LAST, "id" ASC
+  LIMIT $3 OFFSET $4
+),
+total AS (SELECT count(*) AS n FROM base)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total"
+`;

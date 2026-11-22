@@ -54,26 +54,25 @@ const results = await apiClient.handleRequest(req.body, {
 
 ### Example: Vector Search 
 
-The KNN Search is a special type of search that is designed to find similar items based on a vector field. 
+The KNN Search is a special type of search that is designed to find similar items based on a vector field. Configure it with `semantic_search` in the search settings; by default it is combined with the text query (hybrid search).
 
 ```ts
-  const results = await client.handleRequest(req.body, {
-    getKnnQuery(query, search_attributes, config) {
-      return {
-        field: 'dense-vector-field',
-        k: 10,
-        num_candidates: 100,
-        // supported in latest version of Elasticsearch
-        query_vector_builder: { 
-          text_embedding: {
-            model_id: 'msmarco-distilbert-base-tas-b',
-            model_text: query
-          }
-        }
-      }
+const client = Client({
+  connection,
+  search_settings: {
+    // ...
+    semantic_search: {
+      field: 'dense-vector-field',
+      k: 10,
+      num_candidates: 100,
+      // supported in latest version of Elasticsearch
+      model_id: 'msmarco-distilbert-base-tas-b'
     }
-  });
+  }
+});
 ```
+
+See [`semantic_search`](/docs/api-documentation/searchkit#semantic_search) for all the options.
 
 ## Usage
 

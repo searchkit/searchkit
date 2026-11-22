@@ -8,7 +8,12 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const requireFromExample = createRequire(
   join(root, 'examples', 'with-ui-nextjs-react', 'package.json')
 )
-const packages = ['@searchkit/api', '@searchkit/instantsearch-client', 'searchkit']
+const packages = [
+  '@searchkit/adapter-postgres',
+  '@searchkit/api',
+  '@searchkit/instantsearch-client',
+  'searchkit'
+]
 
 let failed = false
 for (const name of packages) {

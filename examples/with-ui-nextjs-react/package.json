@@ -9,6 +9,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@searchkit/adapter-postgres": "*",
     "@searchkit/api": "*",
     "@searchkit/instantsearch-client": "*",
     "@types/node": "20.3.1",

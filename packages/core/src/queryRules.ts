@@ -1,0 +1,147 @@
+import { parseFacetFilter, transformQueryString } from './filters'
+import { AlgoliaMultipleQueriesQuery, QueryRule, SearchSettingsConfig } from './types'
+
+export interface QueryContextFilter {
+  attribute: string
+  value: string
+}
+
+export interface QueryContext {
+  query: string
+  context: readonly string[]
+  filters: readonly QueryContextFilter[]
+}
+
+export interface QueryRuleBoost {
+  /** The `QueryBoost` query, in the `filters` string syntax (attributes, not fields) */
+  query: string
+  weight: number
+}
+
+/**
+ * The engine-neutral result of evaluating the query rules against one InstantSearch request.
+ * Adapters apply it when building the engine request and the response.
+ */
+export interface QueryRuleActions {
+  /** ids of the rules whose conditions matched */
+  ruleIds: string[]
+  /** `PinnedResult` document ids, in order */
+  pinnedDocs: string[]
+  /** `QueryBoost` actions */
+  boosts: QueryRuleBoost[]
+  /** The query to search for: the request query, or the `QueryRewrite` query */
+  query: string
+  /** `RenderUserData` payloads */
+  userData: unknown[]
+  /** `RenderFacetsOrder` attributes */
+  facetAttributesOrder: string[] | undefined
+  /** `QueryFilter` queries, in the `filters` string syntax (attributes, not fields). They are AND-ed. */
+  filters: string[]
+  /** true when any rule matched */
+  touched: boolean
+}
+
+const getFacetFilters = (
+  facetFilters: string | readonly string[] | readonly (string | readonly string[])[] | undefined
+): QueryContextFilter[] => {
+  if (!facetFilters) {
+    return []
+  }
+  if (typeof facetFilters === 'string') {
+    const [attribute, value] = parseFacetFilter(facetFilters)
+    return [{ attribute, value }]
+  } else {
+    // @ts-ignore
+    return facetFilters.reduce<QueryContextFilter[]>((sum: any, filter: any) => {
+      if (typeof filter === 'string') {
+        const [attribute, value] = parseFacetFilter(filter)
+        return [...sum, { attribute, value }]
+      }
+      return [...sum, ...getFacetFilters(filter)]
+    }, [])
+  }
+}
+
+export const getQueryRulesActionsFromRequest = (
+  queryRules: QueryRule[],
+  request: AlgoliaMultipleQueriesQuery,
+  config: SearchSettingsConfig
+) => {
+  const queryContext: QueryContext = {
+    query: request.params?.query || '',
+    context: request.params?.ruleContexts || [],
+    filters: getFacetFilters(request.params?.facetFilters)
+  }
+
+  const satisfiedRules = getSatisfiedRules(queryContext, queryRules || [])
+
+  const actions = satisfiedRules.reduce<QueryRuleActions>(
+    (sum, rule) => {
+      rule.actions.map((action) => {
+        sum.touched = true
+        if (action.action === 'PinnedResult') {
+          sum.pinnedDocs.push(...action.documentIds)
+        } else if (action.action === 'QueryRewrite') {
+          sum.query = action.query
+        } else if (action.action === 'QueryBoost') {
+          // validates the attributes (throws on unknown or nested attributes)
+          transformQueryString(config.facet_attributes, config.filter_attributes, action.query)
+          sum.boosts.push({ query: action.query, weight: action.weight })
+        } else if (action.action === 'RenderUserData') {
+          sum.userData.push(JSON.parse(action.userData))
+        } else if (action.action === 'RenderFacetsOrder') {
+          sum.facetAttributesOrder = action.facetAttributesOrder
+        } else if (action.action === 'QueryFilter') {
+          // validates the attributes (throws on unknown or nested attributes)
+          transformQueryString(config.facet_attributes, config.filter_attributes, action.query)
+          sum.filters.push(action.query)
+        }
+      })
+      return sum
+    },
+    {
+      ruleIds: satisfiedRules.map((rule) => rule.id),
+      pinnedDocs: [],
+      boosts: [],
+      query: queryContext.query,
+      userData: [],
+      facetAttributesOrder: undefined,
+      touched: false,
+      filters: []
+    }
+  )
+
+  return actions
+}
+
+export const getSatisfiedRules = (queryContext: QueryContext, rules: QueryRule[]) =>
+  rules.filter(
+    (ruleOrs) =>
+      ruleOrs.conditions.find(
+        (rule) =>
+          rule.filter((condition) => {
+            if (condition.context === 'query' && condition.match_type === 'exact') {
+              return condition.value === queryContext.query
+            }
+            if (condition.context === 'query' && condition.match_type === 'contains') {
+              return queryContext.query.includes(condition.value)
+            }
+            if (condition.context === 'query' && condition.match_type === 'prefix') {
+              return queryContext.query.startsWith(condition.value)
+            }
+            if (condition.context === 'context') {
+              return condition.value.some((value) => queryContext.context.includes(value))
+            }
+            if (condition.context === 'filterPresent') {
+              return condition.values.every(
+                (value) =>
+                  queryContext.filters.find(
+                    (filter) => filter.attribute === value.attribute && filter.value === value.value
+                  ) !== undefined
+              )
+            }
+
+            return false
+          }).length === rule.length
+      ) !== undefined
+  )

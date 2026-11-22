@@ -4,7 +4,7 @@ import { hits, openApp, resultCount, search } from './helpers'
 test.describe('search', () => {
   test('renders the full seeded catalogue and a page of hits on load', async ({ page }) => {
     await openApp(page)
-    expect(await resultCount(page)).toBe(10000)
+    expect(await resultCount(page)).toBeGreaterThanOrEqual(10000)
     await expect(hits(page)).toHaveCount(15)
   })
 

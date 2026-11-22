@@ -1,0 +1,112 @@
+# @searchkit/adapter-postgres
+
+The Postgres adapter for [Searchkit](https://www.searchkit.co): full-text search with `tsvector`, facets with
+`GROUP BY` and semantic search with pgvector. It runs on the server only (Node 22.11+), for example in the API route
+that `@searchkit/instantsearch-client` talks to.
+
+```ts
+import API from '@searchkit/api'
+import { PostgresAdapter } from '@searchkit/adapter-postgres'
+
+const apiClient = API({
+  adapter: PostgresAdapter({
+    // a connection string, or { pool } with an existing pg Pool
+    connection: process.env.DATABASE_URL,
+    indices: {
+      products: {
+        table: 'products',
+        id_column: 'id',
+        search_vector_column: 'search_vector',
+        text_search_config: 'english'
+      }
+    }
+  }),
+  search_settings: {
+    search_attributes: ['name', 'description'],
+    result_attributes: ['name', 'description']
+  }
+})
+```
+
+## Fuzziness (pg_trgm)
+
+Full-text search has no typo tolerance. Setting `search_settings.fuzziness` (any value; `AUTO:4,8` is accepted for
+parity with Elasticsearch, only its presence matters) adds a trigram match over the `search_attributes` columns: a
+row also matches when a column is similar to the query (`%`, see `pg_trgm.similarity_threshold`), and a tenth of the
+best `similarity()` is added to the rank. It needs `CREATE EXTENSION pg_trgm` and ideally a
+`gin (column gin_trgm_ops)` index per search attribute.
+
+## Facets and filters
+
+Facet and filter attributes map to plain columns (`field` is a column name). Facet counts are exact: each requested
+facet is a `GROUP BY` over the matching rows, with values ordered by count, then value, up to `maxValuesPerFacet`
+(default 10). Numeric facets also return `facets_stats` (`min`, `max`, `avg`, `sum`). Hierarchical facets use one
+column per level, like the Elasticsearch adapter's `lvl0`, `lvl1`, ... fields. `date` facets are not aggregated,
+as with Elasticsearch.
+
+Mark an array column (e.g. `text[]`) with `array: true`. Its facet counts each row once per distinct value, and
+filters match a row when any of its values matches (`@>` / `&&`), like a multi-valued field in Elasticsearch:
+
+```ts
+search_settings: {
+  facet_attributes: [
+    { attribute: 'brand', field: 'brand', type: 'string' },
+    { attribute: 'categories.lvl0', field: 'hierarchical_categories_lvl0', type: 'string' },
+    { attribute: 'categories.lvl1', field: 'hierarchical_categories_lvl1', type: 'string' },
+    { attribute: 'price', field: 'price', type: 'numeric' }
+  ],
+  filter_attributes: [{ attribute: 'categories', field: 'categories', type: 'string', array: true }]
+}
+```
+
+`facetFilters`, `numericFilters`, the `filters` string and `QueryFilter` query rules all compile to a parameterised
+`WHERE`. Searching for facet values (`searchForFacetValues`) matches the start of the value, or for queries longer
+than two characters the start of any later word, case-insensitively (`ILIKE`, with `%`, `_` and `\` matched
+literally). Not supported: geo filters, nested fields (`nestedPath`) and custom facets (`CustomFacetConfig`), which
+are Elasticsearch only.
+
+## Semantic search (pgvector)
+
+`search_settings.semantic_search` searches a pgvector column. `embed` is required (it returns the query vector,
+bound as a parameter cast to `vector`); `model_id` is Elasticsearch only and throws.
+
+```ts
+semantic_search: {
+  field: 'embedding', // a vector(n) column, ideally with an HNSW index (vector_cosine_ops for cosine)
+  embed: async (query) => embedText(query),
+  k: 50, // default 50
+  distance: 'cosine', // 'cosine' (<=>), 'l2' (<->) or 'inner_product' (<#>)
+  mode: 'hybrid' // 'hybrid' (default), 'semantic_only' or 'text_only'
+}
+```
+
+`hybrid` fuses the rows that match the text query and the `k` nearest rows with reciprocal rank fusion
+(`sum(1 / (60 + rank))`), and computes hits, `nbHits` and facets over them; `semantic_only` returns the `k` nearest
+rows by distance; `text_only` ignores the vector (and does not call `embed`). Filters apply inside the vector search,
+and an empty query runs no vector search.
+
+## `getWhere`
+
+The `getWhere` request option adds a SQL predicate, AND-ed with the filters of every search (including the vector
+search), for example for permissions. The table is aliased `t`; values are placeholders `$1`, `$2`, ... bound from
+`params`:
+
+```ts
+apiClient.handleRequest(body, {
+  getWhere: () => ({ text: 't.tenant_id = $1', params: [tenantId] })
+})
+```
+
+The Elasticsearch-only request options `getQuery` and `getBaseFilters` throw with this adapter instead of being
+ignored.
+
+## Security and hooks
+
+Every table and column name comes from this configuration or the search settings, is validated
+(`/^[a-z_][a-z0-9_]*$/i`, plus one `.` for a schema-qualified table) and double-quoted; every value from the
+request is a bound parameter. The `beforeSearch` / `afterSearch` hooks receive one request object per InstantSearch
+request, `{ text, params, request, indexName }` (`text` is the SQL statement, `params` its bound parameters), and
+the matching result rows (`{ hits, total, facets }`; a search for facet values request returns only `facets`).
+
+See the [Postgres adapter docs](https://www.searchkit.co/docs/adapters/postgres) for the table requirements, the
+differences from Elasticsearch and the limitations.

@@ -132,8 +132,10 @@ jobs:
       - name: Install Playwright browsers
         run: cd "$RUNNER_TEMP/published/e2e" && npx playwright install --with-deps chromium
 
+      # Elasticsearch only: this job has no Postgres service (the chromium-postgres project needs one)
       - name: Run functional tests against the published packages
-        run: cd "$RUNNER_TEMP/published/e2e" && npx playwright test
+        # Elasticsearch project only: this job has no Postgres service
+        run: cd "$RUNNER_TEMP/published/e2e" && npx playwright test --project=chromium
         env:
           E2E_APP_DIR: ${{ runner.temp }}/published/app
 

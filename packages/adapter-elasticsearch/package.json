@@ -1,0 +1,49 @@
+{
+  "name": "@searchkit/adapter-elasticsearch",
+  "version": "4.19.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "description": "Elasticsearch adapter for Searchkit. Transforms InstantSearch requests into Elasticsearch queries and the responses back.",
+  "keywords": ["elasticsearch", "search", "instantsearch", "searchkit"],
+  "repository": "https://github.com/searchkit/searchkit",
+  "bugs": "https://github.com/searchkit/searchkit/issues",
+  "homepage": "https://www.searchkit.co",
+  "license": "MIT",
+  "files": ["dist/"],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package": "./package.json",
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "lint": "eslint src --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "build": "tsup",
+    "check:dts": "node ../../scripts/check-dts.mjs",
+    "dev": "npm run build --watch",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@elastic/elasticsearch": "^8.9.0",
+    "@types/jest": "^29.1.1",
+    "eslint": "^9.39.0",
+    "eslint-config-custom": "workspace:*",
+    "jest": "29.1.2",
+    "ts-jest": "29.0.3",
+    "tsconfig": "workspace:*",
+    "tsup": "^6.3.0",
+    "typescript": "^4.9.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@searchkit/core": "workspace:^"
+  }
+}

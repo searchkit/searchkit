@@ -10,10 +10,10 @@ const config = {
     // if you're using Elastic cloud
     // cloud_id: "<cloud-id-found-on-deployment-page>",
     // if you are authenticating with api key
-    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-api-key
+    // https://www.searchkit.co/docs/adapters/elasticsearch#connecting-with-api-key
     apiKey: 'a2Rha1VJTUJMcGU4ajA3Tm9fZ0Y6MjAzX2pLbURTXy1hNm9SUGZGRlhJdw=='
     // if you are authenticating with username/password
-    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword
+    // https://www.searchkit.co/docs/adapters/elasticsearch#connecting-with-usernamepassword
     //auth: {
     //  username: "elastic",
     //  password: "changeme"

@@ -6,6 +6,9 @@ export default {
   "components": {
     "title": "Components"
   },
+  "adapters": {
+    "title": "Adapters"
+  },
   "proxy-elasticsearch": {
     "title": "Proxy Elasticsearch"
   },

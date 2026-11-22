@@ -38,11 +38,12 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
-      # searchkit inlines the @elastic/elasticsearch types it uses (a devDependency) into its
-      # published declarations. Fail if dist/*.d.ts imports a devDependency again. Runs after
-      # Typecheck, which builds the packages.
+      # @searchkit/core, @searchkit/adapter-elasticsearch and searchkit inline the @elastic/elasticsearch types
+      # they use (a devDependency) into their published declarations. Fail if any package's dist/*.d.ts imports
+      # a module that isn't one of its dependencies (scripts/check-dts.mjs). Runs after Typecheck, which builds
+      # the packages.
       - name: Check published type declarations are self-contained
-        run: pnpm --filter searchkit run check:dts
+        run: pnpm --filter "./packages/*" run check:dts
 
   unit-tests:
     runs-on: ubuntu-latest
@@ -71,24 +72,39 @@ jobs:
       - name: Test
         run: pnpm test
 
-  # Drives the Next.js example in a real browser (Playwright) against a real Elasticsearch
-  # running as a service container. See DEVELOPMENT.md ("End-to-end tests").
+  # Drives the Next.js example in a real browser (Playwright) against a real Elasticsearch and a real
+  # Postgres (pgvector), running as service containers. See DEVELOPMENT.md ("End-to-end tests").
+  # Both are seeded, and the Playwright suite runs twice: project `chromium` (Elasticsearch) and project
+  # `chromium-postgres` (the same example started with SEARCH_ADAPTER=postgres).
   functional-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
       ES_HOST: http://localhost:9200
+      DATABASE_URL: postgres://postgres:searchkit@localhost:5432/postgres
     services:
       elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:8.15.3
         env:
           discovery.type: single-node
           xpack.security.enabled: "false"
+          xpack.license.self_generated.type: trial
           ES_JAVA_OPTS: -Xms512m -Xmx512m
         ports:
           - 9200:9200
         options: >-
           --health-cmd "curl -sf http://localhost:9200/_cluster/health"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 30
+      postgres:
+        image: pgvector/pgvector:pg17
+        env:
+          POSTGRES_PASSWORD: searchkit
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
           --health-interval 5s
           --health-timeout 5s
           --health-retries 30
@@ -118,6 +134,9 @@ jobs:
       - name: Seed Elasticsearch
         run: node e2e/seed.mjs
 
+      - name: Seed Postgres
+        run: node e2e/seed-postgres.mjs
+
       - name: Get Playwright version
         id: playwright-version
         run: echo "version=$(node -p "require('@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
@@ -140,8 +159,8 @@ jobs:
         run: npx playwright install-deps chromium
         working-directory: e2e
 
-      - name: Run functional tests
-        run: pnpm test:e2e
+      - name: Run functional tests (Elasticsearch and Postgres)
+        run: pnpm test:e2e --project=chromium --project=chromium-postgres
 
       - name: Upload Playwright report
         if: failure()

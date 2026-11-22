@@ -104,29 +104,32 @@ const HitView = (props: any) => {
 
 ### Configure Searchkit Query
 
-We now need to update Searchkit's query to use perform a vector search instead of a regular search. 
+We now need to update Searchkit's query to perform a vector search instead of a regular search. This is done with the `semantic_search` setting in the `search_settings` config. Elasticsearch turns the query into a vector with the deployed model (`model_id`), and `mode: 'semantic_only'` disables the keyword search.
 
 ```ts filename="app/api/search/route.ts"
+
+const apiClient = API(
+  {
+    connection: { ... },
+    search_settings: {
+      search_attributes: [],
+      result_attributes: ['title', 'Plot'],
+      semantic_search: {
+        field: 'plot_embedding.predicted_value',
+        model_id: 'sentence-transformers__all-minilm-l6-v2',
+        k: 10,
+        num_candidates: 50,
+        // vector search only, no keyword search
+        mode: 'semantic_only'
+      }
+    }
+  }
+)
+
 export async function POST(req: NextRequest, res: NextResponse) {
   const data = await req.json()
 
-  const results = await apiClient.handleRequest(data, {
-    // false to disable keyword search
-    getQuery: () => false,
-    getKnnQuery: (query) => {
-      return {
-        field: 'plot_embedding.predicted_value',
-        k: 10,
-        num_candidates: 50,
-        query_vector_builder: {
-          text_embedding: {
-            model_id: 'sentence-transformers__all-minilm-l6-v2',
-            model_text: query
-          }
-        }
-      }
-    }
-  })
+  const results = await apiClient.handleRequest(data)
   return NextResponse.json(results)
 }
 ```
@@ -157,31 +160,29 @@ const apiClient = API(
 
 ```
 
-then we remove the `getQuery` function from the `handleRequest` call.
+then we remove `mode: 'semantic_only'` from the `semantic_search` settings (`hybrid` is the default mode).
 
-In the below example, when a customer searches, both the default getQuery and getKnnQuery will be called. The results from both queries will be combined and returned to the customer.
+In the below example, when a customer searches, both the keyword search on the `search_attributes` and the vector search will be performed. The results from both queries will be combined and returned to the customer.
 
-We will also send the `rrf` parameter to Elasticsearch to balance the different scores from the two queries.
+Searchkit also sends the `rrf` (reciprocal rank fusion) parameter to Elasticsearch to balance the different scores from the two queries.
 
 ```ts filename="app/api/search/route.ts"
-export async function POST(req: NextRequest, res: NextResponse) {
-  const data = await req.json()
 
-  const results = await apiClient.handleRequest(data, {
-    getKnnQuery: (query) => {
-      return {
+const apiClient = API(
+  {
+    connection: { ... },
+    search_settings: {
+      search_attributes: ['title', 'Plot'],
+      result_attributes: ['title', 'Plot'],
+      semantic_search: {
         field: 'plot_embedding.predicted_value',
+        model_id: 'sentence-transformers__all-minilm-l6-v2',
         k: 10,
-        num_candidates: 50,
-        query_vector_builder: {
-          text_embedding: {
-            model_id: 'sentence-transformers__all-minilm-l6-v2',
-            model_text: query
-          }
-        }
+        num_candidates: 50
+        // mode: 'hybrid' is the default
       }
     }
-  })
-  return NextResponse.json(results)
-}
+  }
+)
+
 ```

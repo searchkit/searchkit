@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`facets adds min / max / avg / sum for a numeric facet 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+base AS (
+  SELECT t."id", t."name", t."price", ts_rank_cd(t."search_vector", q.tsq) AS _score
+  FROM "products" t CROSS JOIN q
+  WHERE t."search_vector" @@ q.tsq
+),
+hits AS (
+  SELECT "id", "name", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $3 OFFSET $4
+),
+total AS (SELECT count(*) AS n FROM base),
+facet_0 AS (
+  SELECT _f.value, count(*) AS count
+  FROM (SELECT base."price" AS value FROM base WHERE base."price" IS NOT NULL) _f
+  GROUP BY _f.value
+  ORDER BY count(*) DESC, _f.value ASC
+  LIMIT $5
+),
+facet_0_stats AS (
+  SELECT min(_s.value)::float8 AS min, max(_s.value)::float8 AS max, avg(_s.value)::float8 AS avg, coalesce(sum(_s.value), 0)::float8 AS sum
+  FROM (SELECT base."price" AS value FROM base) _s
+)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total,
+  (SELECT json_agg(_facets.facet ORDER BY _facets.ord) FROM (VALUES
+    (0, json_build_object('attribute', $6::text, 'entries', (SELECT coalesce(json_agg(json_build_object('value', f.value, 'count', f.count) ORDER BY f.count DESC, f.value ASC), '[]'::json) FROM facet_0 f), 'stats', (SELECT row_to_json(s) FROM facet_0_stats s)))
+  ) AS _facets(ord, facet)) AS facets"
+`;
+
+exports[`facets builds a GROUP BY CTE for a string facet 1`] = `
+"WITH base AS (
+  SELECT t."id", t."name", t."brand", 0::real AS _score
+  FROM "products" t
+),
+hits AS (
+  SELECT "id", "name", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $1 OFFSET $2
+),
+total AS (SELECT count(*) AS n FROM base),
+facet_0 AS (
+  SELECT _f.value, count(*) AS count
+  FROM (SELECT base."brand" AS value FROM base WHERE base."brand" IS NOT NULL) _f
+  GROUP BY _f.value
+  ORDER BY count(*) DESC, _f.value::text COLLATE "C" ASC
+  LIMIT $3
+)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total,
+  (SELECT json_agg(_facets.facet ORDER BY _facets.ord) FROM (VALUES
+    (0, json_build_object('attribute', $4::text, 'entries', (SELECT coalesce(json_agg(json_build_object('value', f.value, 'count', f.count) ORDER BY f.count DESC, f.value::text COLLATE "C" ASC), '[]'::json) FROM facet_0 f), 'stats', NULL::json))
+  ) AS _facets(ord, facet)) AS facets"
+`;
+
+exports[`facets unnests an array: true facet, counting each row once per distinct value 1`] = `
+"WITH base AS (
+  SELECT t."id", t."name", t."tags", 0::real AS _score
+  FROM "products" t
+),
+hits AS (
+  SELECT "id", "name", _score, row_number() OVER (ORDER BY _score DESC, "id" ASC) AS _rn
+  FROM base
+  ORDER BY _score DESC, "id" ASC
+  LIMIT $1 OFFSET $2
+),
+total AS (SELECT count(*) AS n FROM base),
+facet_0 AS (
+  SELECT _f.value, count(*) AS count
+  FROM base CROSS JOIN LATERAL (SELECT DISTINCT _u.value FROM unnest(base."tags") AS _u(value) WHERE _u.value IS NOT NULL) _f
+  GROUP BY _f.value
+  ORDER BY count(*) DESC, _f.value::text COLLATE "C" ASC
+  LIMIT $3
+)
+SELECT
+  (SELECT coalesce(json_agg(h ORDER BY h._rn), '[]'::json) FROM hits h) AS hits,
+  (SELECT n FROM total) AS total,
+  (SELECT json_agg(_facets.facet ORDER BY _facets.ord) FROM (VALUES
+    (0, json_build_object('attribute', $4::text, 'entries', (SELECT coalesce(json_agg(json_build_object('value', f.value, 'count', f.count) ORDER BY f.count DESC, f.value::text COLLATE "C" ASC), '[]'::json) FROM facet_0 f), 'stats', NULL::json))
+  ) AS _facets(ord, facet)) AS facets"
+`;
+
+exports[`search for facet values filters the grouped values with a case-insensitive ILIKE, and skips hits 1`] = `
+"WITH q AS (SELECT websearch_to_tsquery($1::regconfig, $2) AS tsq),
+base AS (
+  SELECT t."id", t."name", t."brand", ts_rank_cd(t."search_vector", q.tsq) AS _score
+  FROM "products" t CROSS JOIN q
+  WHERE t."search_vector" @@ q.tsq
+    AND (t."categories" @> $3)
+),
+facet_0 AS (
+  SELECT _f.value, count(*) AS count
+  FROM (SELECT base."brand" AS value FROM base WHERE base."brand" IS NOT NULL) _f
+  WHERE _f.value::text ILIKE $5 OR _f.value::text ILIKE $6
+  GROUP BY _f.value
+  ORDER BY count(*) DESC, _f.value::text COLLATE "C" ASC
+  LIMIT $4
+)
+SELECT
+  (SELECT json_agg(_facets.facet ORDER BY _facets.ord) FROM (VALUES
+    (0, json_build_object('attribute', $7::text, 'entries', (SELECT coalesce(json_agg(json_build_object('value', f.value, 'count', f.count) ORDER BY f.count DESC, f.value::text COLLATE "C" ASC), '[]'::json) FROM facet_0 f), 'stats', NULL::json))
+  ) AS _facets(ord, facet)) AS facets"
+`;

@@ -18,9 +18,7 @@
   "bugs": "https://github.com/searchkit/searchkit/issues",
   "homepage": "https://www.searchkit.co",
   "license": "MIT",
-  "files": [
-    "dist/"
-  ],
+  "files": ["dist/"],
   "sideEffects": false,
   "exports": {
     ".": {
@@ -38,7 +36,7 @@
     "lint": "eslint src --max-warnings 0",
     "typecheck": "tsc --noEmit",
     "build": "tsup",
-    "check:dts": "node scripts/check-dts.mjs",
+    "check:dts": "node ../../scripts/check-dts.mjs",
     "dev": "npm run build --watch",
     "test": "jest"
   },
@@ -60,5 +58,9 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@searchkit/adapter-elasticsearch": "workspace:^",
+    "@searchkit/core": "workspace:^"
   }
 }

@@ -163,10 +163,10 @@ const sk = new Searchkit({
   connection: {
     host: 'http://localhost:9200',
     // with an apiKey
-    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-api-key
+    // https://www.searchkit.co/docs/adapters/elasticsearch#connecting-with-api-key
     // apiKey: '##########'
     // with a username/password
-    // https://www.searchkit.co/docs/guides/setup-elasticsearch#connecting-with-usernamepassword
+    // https://www.searchkit.co/docs/adapters/elasticsearch#connecting-with-usernamepassword
     //auth: {
     //  username: "elastic",
     //  password: "changeme"
