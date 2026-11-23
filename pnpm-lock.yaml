@@ -586,8 +586,8 @@ importers:
         specifier: ^29.1.1
         version: 29.5.8
       cross-fetch:
-        specifier: ^3.1.5
-        version: 3.1.8
+        specifier: ^4.1.0
+        version: 4.1.0
       eslint:
         specifier: ^9.39.0
         version: 9.39.5(jiti@1.21.7)(supports-color@8.1.1)
@@ -629,8 +629,8 @@ importers:
         specifier: ^29.1.1
         version: 29.5.8
       cross-fetch:
-        specifier: ^3.1.5
-        version: 3.1.8
+        specifier: ^4.1.0
+        version: 4.1.0
       eslint:
         specifier: ^9.39.0
         version: 9.39.5(jiti@1.21.7)(supports-color@8.1.1)
@@ -3338,8 +3338,8 @@ packages:
   create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
 
-  cross-fetch@3.1.8:
-    resolution: {integrity: sha512-cvA+JwZoU0Xq+h6WkMvAUqPEYy92Obet6UdKLfW60qn99ftItKjB5T+BkyWOFWe2pUyfQ+IJHmpOTznqk1M6Kg==}
+  cross-fetch@4.1.0:
+    resolution: {integrity: sha512-uKm5PU+MHTootlWEY+mZ4vvXoCn4fLQxT9dSc1sXVMSFkINTJVN8cAQROpwcKm8bJ/c7rgZVIBWzH5T78sNZZw==}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -9660,7 +9660,7 @@ snapshots:
 
   create-require@1.1.1: {}
 
-  cross-fetch@3.1.8:
+  cross-fetch@4.1.0:
     dependencies:
       node-fetch: 2.7.0
     transitivePeerDependencies:
