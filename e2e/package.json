@@ -7,7 +7,7 @@
     "seed": "node seed.mjs"
   },
   "devDependencies": {
-    "@playwright/test": "1.48.2",
+    "@playwright/test": "1.65.1",
     "@searchkit/instantsearch-client": "workspace:*",
     "@types/node": "^18.0.0",
     "algoliasearch-helper": "3.30.1",

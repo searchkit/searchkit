@@ -229,16 +229,16 @@ importers:
         version: 8.25.1
       next:
         specifier: ^15.5.29
-        version: 15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        version: 15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@playwright/test@1.65.1)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       next-sitemap:
         specifier: ^4.2.3
-        version: 4.2.3(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))
+        version: 4.2.3(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@playwright/test@1.65.1)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))
       nextra:
         specifier: ^3.3.1
-        version: 3.3.1(@types/react@19.3.0)(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@8.1.1)(typescript@5.9.3)
+        version: 3.3.1(@types/react@19.3.0)(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@playwright/test@1.65.1)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@8.1.1)(typescript@5.9.3)
       nextra-theme-docs:
         specifier: ^3.3.1
-        version: 3.3.1(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(nextra@3.3.1(@types/react@19.3.0)(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@8.1.1)(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        version: 3.3.1(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@playwright/test@1.65.1)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(nextra@3.3.1(@types/react@19.3.0)(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@playwright/test@1.65.1)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@8.1.1)(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       qs:
         specifier: ^6.17.1
         version: 6.17.1
@@ -253,7 +253,7 @@ importers:
         version: 7.54.0(algoliasearch@4.27.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react-instantsearch-router-nextjs:
         specifier: ^7.54.0
-        version: 7.54.0(algoliasearch@4.27.0)(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)
+        version: 7.54.0(algoliasearch@4.27.0)(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@playwright/test@1.65.1)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)
       searchkit:
         specifier: workspace:*
         version: link:../../packages/searchkit
@@ -292,8 +292,8 @@ importers:
   e2e:
     devDependencies:
       '@playwright/test':
-        specifier: 1.48.2
-        version: 1.48.2
+        specifier: 1.65.1
+        version: 1.65.1
       '@searchkit/instantsearch-client':
         specifier: workspace:*
         version: link:../packages/searchkit-instantsearch-client
@@ -444,7 +444,7 @@ importers:
         version: 8.1.0
       next:
         specifier: 15.5.29
-        version: 15.5.29(@types/node@20.3.1)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        version: 15.5.29(@playwright/test@1.65.1)(@types/node@20.3.1)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react:
         specifier: 19.3.1
         version: 19.3.1
@@ -506,7 +506,7 @@ importers:
         version: 8.1.0
       next:
         specifier: 15.5.29
-        version: 15.5.29(@types/node@20.3.1)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        version: 15.5.29(@playwright/test@1.65.1)(@types/node@20.3.1)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react:
         specifier: 19.3.1
         version: 19.3.1
@@ -2077,9 +2077,9 @@ packages:
     resolution: {integrity: sha512-POgTXhjrTfbTV63DiFXav4lBHiICLKKwDeaKn9Nphwj7WH6m0hMMCaJkMyRWjgtPFyRKRVoMXXjczsTQRDEhYw==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
 
-  '@playwright/test@1.48.2':
-    resolution: {integrity: sha512-54w1xCWfXuax7dz4W2M9uw0gDyh+ti/0K/MxcCUxChFh37kkdxPdfZDw5QBbuPUJHr1CiHJ1hXgSs+GgeQc5Zw==}
-    engines: {node: '>=18'}
+  '@playwright/test@1.65.1':
+    resolution: {integrity: sha512-y+NCIRm2LvY4slUVWvGh1nujJ8RF/hEisIsq2mtUPgdQC4L701bq5hZGMhrpeXjACvwvO9tj5dJqhvM6TP9lbw==}
+    engines: {node: '>=20'}
     hasBin: true
 
   '@pnpm/deps.graph-sequencer@1100.0.1':
@@ -4178,11 +4178,6 @@ packages:
   fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
 
-  fsevents@2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
-    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
-    os: [darwin]
-
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -5690,14 +5685,14 @@ packages:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
 
-  playwright-core@1.48.2:
-    resolution: {integrity: sha512-sjjw+qrLFlriJo64du+EK0kJgZzoQPsabGF4lBvsid+3CNIZIYLgnMj9V6JY5VhM2Peh20DJWIVpVljLLnlawA==}
-    engines: {node: '>=18'}
+  playwright-core@1.65.1:
+    resolution: {integrity: sha512-hqPpz7blSMPxWVdoeE1yiBSzXsKiVOd2k+kjCvmUywD2GPO2Dd9HfcWnq9NN0GHbNZDFgZ9JfBFr+X5/BLo0qw==}
+    engines: {node: '>=20'}
     hasBin: true
 
-  playwright@1.48.2:
-    resolution: {integrity: sha512-NjYvYgp4BPmiwfe31j4gHLa3J7bD2WiBz8Lk2RoSsmX38SVIARZ18VYjxLjAcDsAhA+F4iSEXTSGgjua0rrlgQ==}
-    engines: {node: '>=18'}
+  playwright@1.65.1:
+    resolution: {integrity: sha512-vJ1FuoOrNwOKHUIVEvSt3jT1L+wjjDpwhwIstKtfvTh8XIG4FG4bIFuvNdMxi81LGfAhUgUZleVFaOLY4RIUUw==}
+    engines: {node: '>=20'}
     hasBin: true
 
   points-on-curve@0.2.0:
@@ -8332,9 +8327,9 @@ snapshots:
       picocolors: 1.1.1
       tslib: 2.9.1
 
-  '@playwright/test@1.48.2':
+  '@playwright/test@1.65.1':
     dependencies:
-      playwright: 1.48.2
+      playwright: 1.65.1
 
   '@pnpm/deps.graph-sequencer@1100.0.1': {}
 
@@ -10840,9 +10835,6 @@ snapshots:
 
   fs.realpath@1.0.0: {}
 
-  fsevents@2.3.2:
-    optional: true
-
   fsevents@2.3.3:
     optional: true
 
@@ -12762,20 +12754,20 @@ snapshots:
     dependencies:
       content-type: 2.1.0
 
-  next-sitemap@4.2.3(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)):
+  next-sitemap@4.2.3(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@playwright/test@1.65.1)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)):
     dependencies:
       '@corex/deepmerge': 4.0.43
       '@next/env': 13.5.11
       fast-glob: 3.3.3
       minimist: 1.2.8
-      next: 15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      next: 15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@playwright/test@1.65.1)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
 
   next-themes@0.4.6(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
     dependencies:
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
 
-  next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
+  next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@playwright/test@1.65.1)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
     dependencies:
       '@next/env': 15.5.29
       '@swc/helpers': 0.5.15
@@ -12793,13 +12785,14 @@ snapshots:
       '@next/swc-linux-x64-musl': 15.5.29
       '@next/swc-win32-arm64-msvc': 15.5.29
       '@next/swc-win32-x64-msvc': 15.5.29
+      '@playwright/test': 1.65.1
       sharp: 0.35.5(@types/node@22.20.5)
     transitivePeerDependencies:
       - '@babel/core'
       - '@types/node'
       - babel-plugin-macros
 
-  next@15.5.29(@types/node@20.3.1)(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
+  next@15.5.29(@playwright/test@1.65.1)(@types/node@20.3.1)(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
     dependencies:
       '@next/env': 15.5.29
       '@swc/helpers': 0.5.15
@@ -12817,27 +12810,28 @@ snapshots:
       '@next/swc-linux-x64-musl': 15.5.29
       '@next/swc-win32-arm64-msvc': 15.5.29
       '@next/swc-win32-x64-msvc': 15.5.29
+      '@playwright/test': 1.65.1
       sharp: 0.35.5(@types/node@20.3.1)
     transitivePeerDependencies:
       - '@babel/core'
       - '@types/node'
       - babel-plugin-macros
 
-  nextra-theme-docs@3.3.1(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(nextra@3.3.1(@types/react@19.3.0)(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@8.1.1)(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
+  nextra-theme-docs@3.3.1(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@playwright/test@1.65.1)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(nextra@3.3.1(@types/react@19.3.0)(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@playwright/test@1.65.1)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@8.1.1)(typescript@5.9.3))(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
     dependencies:
       '@headlessui/react': 2.2.10(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       clsx: 2.0.0
       escape-string-regexp: 5.0.0
       flexsearch: 0.7.43
-      next: 15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      next: 15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@playwright/test@1.65.1)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       next-themes: 0.4.6(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      nextra: 3.3.1(@types/react@19.3.0)(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@8.1.1)(typescript@5.9.3)
+      nextra: 3.3.1(@types/react@19.3.0)(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@playwright/test@1.65.1)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@8.1.1)(typescript@5.9.3)
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
       scroll-into-view-if-needed: 3.1.0
       zod: 3.25.76
 
-  nextra@3.3.1(@types/react@19.3.0)(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@8.1.1)(typescript@5.9.3):
+  nextra@3.3.1(@types/react@19.3.0)(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@playwright/test@1.65.1)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(supports-color@8.1.1)(typescript@5.9.3):
     dependencies:
       '@formatjs/intl-localematcher': 0.5.10
       '@headlessui/react': 2.2.10(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -12860,7 +12854,7 @@ snapshots:
       mdast-util-gfm: 3.1.0(supports-color@8.1.1)
       mdast-util-to-hast: 13.2.1
       negotiator: 1.1.0
-      next: 15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      next: 15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@playwright/test@1.65.1)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       p-limit: 6.2.0
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
@@ -13126,13 +13120,11 @@ snapshots:
     dependencies:
       find-up: 4.1.0
 
-  playwright-core@1.48.2: {}
+  playwright-core@1.65.1: {}
 
-  playwright@1.48.2:
+  playwright@1.65.1:
     dependencies:
-      playwright-core: 1.48.2
-    optionalDependencies:
-      fsevents: 2.3.2
+      playwright-core: 1.65.1
 
   points-on-curve@0.2.0: {}
 
@@ -13309,11 +13301,11 @@ snapshots:
       react: 19.3.1
       use-sync-external-store: 1.7.0(react@19.3.1)
 
-  react-instantsearch-router-nextjs@7.54.0(algoliasearch@4.27.0)(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1):
+  react-instantsearch-router-nextjs@7.54.0(algoliasearch@4.27.0)(next@15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@playwright/test@1.65.1)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1):
     dependencies:
       '@swc/helpers': 0.5.18
       instantsearch.js: 4.122.0(algoliasearch@4.27.0)
-      next: 15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      next: 15.5.29(@babel/core@7.29.13(supports-color@8.1.1))(@playwright/test@1.65.1)(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react-instantsearch-core: 7.54.0(algoliasearch@4.27.0)(react@19.3.1)
     transitivePeerDependencies:
       - algoliasearch
