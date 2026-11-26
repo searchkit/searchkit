@@ -1,4 +1,5 @@
 import { transformRequest } from '../transformRequest'
+import { ensureUniqueInnerHitsNames } from '../filters'
 import type { SearchSettingsConfig } from '../types'
 
 const config: SearchSettingsConfig = {
@@ -83,5 +84,18 @@ describe('inner_hits names for nested filters', () => {
     })
 
     expect(filters[0].bool.should[0].nested.inner_hits).toEqual({})
+  })
+})
+
+describe('ensureUniqueInnerHitsNames', () => {
+  it('does not reuse a name that another nested path already has', () => {
+    const nested = (path: string) => ({ nested: { path, query: {}, inner_hits: {} } })
+    const filters = ensureUniqueInnerHitsNames([
+      nested('items'),
+      nested('items'),
+      nested('items_2')
+    ])
+
+    expect(innerHitsNames(filters)).toEqual(['items', 'items_3', 'items_2'])
   })
 })
