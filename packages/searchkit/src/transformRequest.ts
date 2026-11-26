@@ -211,7 +211,8 @@ const getQuery = (
   ]
 
   let organicQuery =
-    typeof query === 'string' && query !== ''
+    (requestOptions?.getQuery && requestOptions?.useGetQueryForEmptyQuery) ||
+    (typeof query === 'string' && query !== '')
       ? requestOptions?.getQuery
         ? requestOptions.getQuery(query, searchAttributes, queryConfig)
         : RelevanceQueryMatch(query, searchAttributes, fuzziness)
