@@ -312,6 +312,41 @@ export const transformFacetFilters = (
   }, [])
 }
 
+/**
+ * Elasticsearch names an inner_hits after its nested path when no name is set, and
+ * rejects a query where two inner_hits share a name. Two nested filters on the same
+ * path (two facets of one nested object, or a facet and a numeric filter) would
+ * both be called `path`. Keep the first name and call the others `path_2`, `path_3`...
+ */
+export const ensureUniqueInnerHitsNames = (filters: ElasticsearchQuery[]) => {
+  const innerHits: any[] = []
+
+  const collect = (filter: any) => {
+    if (filter?.nested?.inner_hits) innerHits.push(filter.nested)
+    if (Array.isArray(filter?.bool?.should)) filter.bool.should.forEach(collect)
+  }
+  filters.forEach(collect)
+
+  const nameOf = (nested: any) => nested.inner_hits.name ?? nested.path
+  // a path can itself look like `path_2`, so never give out a name that is already used
+  const used = new Set<string>(innerHits.map(nameOf))
+  const seen = new Set<string>()
+
+  innerHits.forEach((nested) => {
+    const name = nameOf(nested)
+    if (!seen.has(name)) {
+      seen.add(name)
+      return
+    }
+    let n = 2
+    while (used.has(`${name}_${n}`)) n++
+    used.add(`${name}_${n}`)
+    nested.inner_hits = { ...nested.inner_hits, name: `${name}_${n}` }
+  })
+
+  return filters
+}
+
 export const transformQueryString = (
   facets: FacetAttribute[] = [],
   filters: FilterAttribute[] = [],

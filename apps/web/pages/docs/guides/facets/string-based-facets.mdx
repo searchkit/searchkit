@@ -231,3 +231,5 @@ To define a facet attribute for a nested field, you need to specify the path to 
 ```
 
 Then you can use instantsearch components using the `marketplace.supplier` facet attribute.
+
+When a nested facet is refined, the matching nested documents are returned in the hit's `inner_hits`, under the nested path (`hit.inner_hits.marketplace`). If more than one filter on the same nested path is active (for example two facets on `marketplace`), the first uses the path as its name and the others are named `marketplace_2`, `marketplace_3`, and so on, because Elasticsearch needs every `inner_hits` name to be unique.

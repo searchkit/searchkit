@@ -4,6 +4,7 @@ import {
   RrfRank
 } from '@elastic/elasticsearch/lib/api/types'
 import {
+  ensureUniqueInnerHitsNames,
   transformBaseFilters,
   transformFacetFilters,
   transformGeoFilters,
@@ -202,8 +203,10 @@ const getQuery = (
   const fuzziness = config.fuzziness ?? 'AUTO:4,8'
 
   const filters = [
-    ...transformFacetFilters(request, config),
-    ...transformNumericFilters(request, config),
+    ...ensureUniqueInnerHitsNames([
+      ...transformFacetFilters(request, config),
+      ...transformNumericFilters(request, config)
+    ]),
     ...transformBaseFilters(request, config),
     ...transformGeoFilters(request, config),
     ...(requestOptions?.getBaseFilters?.() || []),
